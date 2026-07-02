@@ -33,5 +33,15 @@ this spec's liveness check tractable at all; removing it trades a fast, possibly
 unreliable answer for a slow, inconclusive one.
 
 Left as genuinely open (not counted as closed) rather than force a pass without
-evidence. Next step if picked up again: the no-VIEW run needs minutes, not seconds —
-worth a dedicated longer run outside the tight per-spec budget this pass used.
+evidence.
+
+**Follow-up (later iteration):** gave the no-`VIEW` run a real budget, ~7.5 minutes
+(killed after confirming no near-term end, not from a fixed timeout). Reached 236,000+
+distinct states, still growing steadily (not shrinking toward a fixpoint) when killed.
+This now looks less like "VIEW-abstraction artifact, would resolve quickly without
+VIEW" and more like a genuinely large state space in its own right — consistent with
+the disposition of the other confirmed-large-timeout specs (30/48/49/146/1/16/17/28/
+40/57/73/79/89) rather than a special case. Still inconclusive on whether `InSync` is
+a real bug or a `VIEW`-artifact (per tlaplus/tlaplus#1045) — that question would need
+either a genuinely long run (hours) or manual trace analysis, neither attempted.
+Left open.
