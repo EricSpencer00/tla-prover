@@ -1,5 +1,4 @@
 {
-  "108": "terminating spec with no zero-arity checkable predicate; vacuous-only",
   "109": "sany=fail_missing_module: EXTENDS TLCExt, confirmed a genuine upstream dependency (present in tla-examples too) but TLCExt.tla does not exist in tla2tools.jar StandardModules, CommunityModules-deps.jar, or the current CommunityModules GitHub repo -- unavailable in the toolchain as vendored, not a corpus typo (see corpus/configs/SANY_FIXES.md).",
   "120": "orphan: description without .tla (spec 120)",
   "129": "sany=fail: EXTENDS both SequenceTheorems (tlapm stdlib) and SequencesExtTheorems (CommunityModules) simultaneously; both define FrontInductiveDef/FrontInductiveDefType with conflicting declarations -- genuine cross-library edition conflict between two independently-authored theorem libraries the spec requires together (see corpus/configs/SANY_FIXES.md).",

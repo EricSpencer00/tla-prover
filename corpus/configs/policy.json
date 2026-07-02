@@ -13,10 +13,14 @@
     ]
   },
   "108": {
-    "reason": "Prob: MarkovNext disabled in absorbing (Accepting) states; terminating Markov chain by design",
+    "reason": "Prob: absorbing Markov chain, MarkovNext requires state notin Accepting so no zero-arity predicate exists to check as INVARIANT without a wrapper; hand-authored TypeOK. -deadlock: terminates by design once state reaches Accepting or Norm(p)=0.",
     "tlc_flags": [
       "-deadlock"
-    ]
+    ],
+    "wrapper": {
+      "file": "corpus/configs/wrappers/MC_Prob.tla",
+      "module": "MC_Prob"
+    }
   },
   "11": {
     "reason": "Bakery: original cfg substitutes Nat <- NatOverride, defined only in spec 13 (MCBakery, EXTENDS Bakery). Wired via corpus_spec wrapper instead of duplicating spec 13 content.",
