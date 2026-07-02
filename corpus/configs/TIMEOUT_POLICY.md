@@ -46,9 +46,10 @@ longer budget (hours) or Apalache (symbolic, ROADMAP.md Stage 4) would be needed
 attempted here. **107** (KnuthYao) needs TLC simulation mode + an R runtime this
 environment lacks (`SIBLING_WRAPPERS.md`) — timeout budget is not the blocker there.
 
-## Not attempted: systematic 300s+/600s+ re-test of the remaining 9
+## Update: retested the remaining 9 at 300s (`results/runs/longer-budget-test2/`)
 
-Time-boxed this pass to the 150s round above. A next pass could re-run 1, 16, 17, 28,
-40, 57, 73, 79, 89 at a substantially longer budget (5-10 minutes each) to see how
-many more converge purely from patience — cheap to try, no risk of weakening what's
-verified, just costs wall-clock time.
+None converged — 1, 16, 17, 28, 40, 57, 73, 79, 89 all still time out at 300s (up
+from 150s). Consistent with the "genuinely large" disposition above rather than a
+budget shortfall; a further round at 600s+ might still be worth trying but the trend
+(no convergence at 90s, 150s, or 300s) doesn't suggest these are close. Left as
+documented timeouts, same as 30/48/49/146/107.
