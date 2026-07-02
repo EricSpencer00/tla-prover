@@ -133,11 +133,32 @@
       "-deadlock"
     ]
   },
+  "205": {
+    "reason": "YoYoNoPruning: Nodes/Edges must form a strongly-connected undirected graph per the modules own ASSUME; no cfg way to express a graph literal; hand-authored wrapper supplies a triangle (3 nodes, fully connected).",
+    "wrapper": {
+      "file": "corpus/configs/wrappers/MC_YoYoNoPruning.tla",
+      "module": "MC_YoYoNoPruning"
+    }
+  },
+  "206": {
+    "reason": "YoYoPruning: same fix as spec 205, same triangle graph.",
+    "wrapper": {
+      "file": "corpus/configs/wrappers/MC_YoYoPruning.tla",
+      "module": "MC_YoYoPruning"
+    }
+  },
   "30": {
     "reason": "cbc_max: every process ends in pc = DONE or CRASH (Termination property in spec); terminating algorithm. NOTE: with -deadlock TLC reaches a reachable state where MAX's CHOOSE fails (corpus finding, see DRAFT_ITERATION.md)",
     "tlc_flags": [
       "-deadlock"
     ]
+  },
+  "33": {
+    "reason": "ChangRoberts: Id must be a length-N sequence of distinct naturals per the modules own ASSUME; no cfg tuple syntax; hand-authored wrapper supplies it as a zero-arity operator override (N=3, Id=<<3,1,2>>).",
+    "wrapper": {
+      "file": "corpus/configs/wrappers/MC_ChangRoberts.tla",
+      "module": "MC_ChangRoberts"
+    }
   },
   "35": {
     "reason": "CheckpointCoordination: original cfg substitutes Nat <- MCNat, LogIndex <- MCLogIndex, defined only in spec 36 (MCCheckpointCoordination, EXTENDS CheckpointCoordination).",
