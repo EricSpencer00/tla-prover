@@ -31,7 +31,8 @@
     }
   },
   "12": {
-    "reason": "Boulanger: original cfg needs identifiers defined only in spec 14 (MCBoulanger, EXTENDS Boulanger).",
+    "reason": "Boulanger: original cfg needs identifiers defined only in spec 14 (MCBoulanger, EXTENDS Boulanger). Needs a 150s TLC budget to converge (confirmed at 90-106s actual runtime); 90s default times out, not a bounds/harness issue.",
+    "timeout": 150,
     "wrapper": {
       "corpus_spec": "14"
     }
@@ -61,6 +62,10 @@
     "wrapper": {
       "corpus_spec": "133"
     }
+  },
+  "14": {
+    "reason": "Needs a 150s TLC budget to converge (confirmed at 90-106s actual runtime); 90s default times out, not a bounds/harness issue.",
+    "timeout": 150
   },
   "141": {
     "reason": "Reachable: original cfg substitutes Succ <- ConnectedToSomeButNotAll, defined only in spec 135 (MCReachable, EXTENDS Reachable).",
@@ -182,10 +187,15 @@
     }
   },
   "35": {
-    "reason": "CheckpointCoordination: original cfg substitutes Nat <- MCNat, LogIndex <- MCLogIndex, defined only in spec 36 (MCCheckpointCoordination, EXTENDS CheckpointCoordination).",
+    "reason": "CheckpointCoordination: original cfg substitutes Nat <- MCNat, LogIndex <- MCLogIndex, defined only in spec 36 (MCCheckpointCoordination, EXTENDS CheckpointCoordination). Needs a 150s TLC budget to converge (confirmed at 90-106s actual runtime); 90s default times out, not a bounds/harness issue.",
+    "timeout": 150,
     "wrapper": {
       "corpus_spec": "36"
     }
+  },
+  "36": {
+    "reason": "Needs a 150s TLC budget to converge (confirmed at 90-106s actual runtime); 90s default times out, not a bounds/harness issue.",
+    "timeout": 150
   },
   "43": {
     "reason": "DieHarder: original cfg substitutes Jug <- MCJug, Capacity <- MCCapacity, defined only in spec 44 (MCDieHarder, EXTENDS DieHarder=spec 43 itself).",

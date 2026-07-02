@@ -371,7 +371,11 @@ def eval_spec(num: str, corpus: Path, num2mod, mod2path, cfg_dirs, workroot: Pat
                         (workdir / f"{d}.tla").write_text(dtext)
                     tlc_mod = w["module"]
                 (workdir / f"{tlc_mod}.cfg").write_text(cfg_text)
-            st, vac, out, dt = check_tlc(tlc_mod, cfg_text, workdir, timeout,
+            # per-spec timeout override (corpus/configs/TIMEOUT_POLICY.md): only
+            # raised for specs individually confirmed to converge given more time,
+            # never used to paper over a genuinely large/non-converging state space.
+            spec_timeout = max(timeout, pol.get("timeout", 0))
+            st, vac, out, dt = check_tlc(tlc_mod, cfg_text, workdir, spec_timeout,
                                          extra_flags=pol.get("tlc_flags", ()),
                                          jvm_flags=pol.get("jvm_flags", ()))
             expected_prop = EXPECTED_VIOLATIONS.get(num)

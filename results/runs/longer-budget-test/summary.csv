@@ -1,0 +1,14 @@
+spec,method,sany,tlc,tlc_vacuity,cfg_origin,tlaps,tlaps_obligations,apalache,budget_used,log_path
+1,oracle,pass,timeout,,original,,,,"{""sany_s"": 0.2, ""tlc_s"": 150.1}",/Users/eric/GitHub/prove-TLA/results/runs/longer-budget-test/logs/1.log
+12,oracle,pass,pass,clean,original,,,,"{""sany_s"": 0.3, ""tlc_s"": 106.1}",/Users/eric/GitHub/prove-TLA/results/runs/longer-budget-test/logs/12.log
+14,oracle,pass,pass,clean,original,,,,"{""sany_s"": 0.3, ""tlc_s"": 105.6}",/Users/eric/GitHub/prove-TLA/results/runs/longer-budget-test/logs/14.log
+16,oracle,pass,timeout,,original,,,,"{""sany_s"": 0.2, ""tlc_s"": 150.2}",/Users/eric/GitHub/prove-TLA/results/runs/longer-budget-test/logs/16.log
+17,oracle,pass,timeout,,original,,,,"{""sany_s"": 0.2, ""tlc_s"": 150.1}",/Users/eric/GitHub/prove-TLA/results/runs/longer-budget-test/logs/17.log
+28,oracle,pass,timeout,,original,,,,"{""sany_s"": 0.3, ""tlc_s"": 150.1}",/Users/eric/GitHub/prove-TLA/results/runs/longer-budget-test/logs/28.log
+35,oracle,pass,pass,clean,original,,,,"{""sany_s"": 0.2, ""tlc_s"": 93.7}",/Users/eric/GitHub/prove-TLA/results/runs/longer-budget-test/logs/35.log
+36,oracle,pass,pass,clean,original,,,,"{""sany_s"": 0.2, ""tlc_s"": 94.7}",/Users/eric/GitHub/prove-TLA/results/runs/longer-budget-test/logs/36.log
+40,oracle,pass,timeout,,original,,,,"{""sany_s"": 0.2, ""tlc_s"": 150.1}",/Users/eric/GitHub/prove-TLA/results/runs/longer-budget-test/logs/40.log
+57,oracle,pass,timeout,,original,,,,"{""sany_s"": 0.2, ""tlc_s"": 150.1}",/Users/eric/GitHub/prove-TLA/results/runs/longer-budget-test/logs/57.log
+73,oracle,pass,timeout,,original,,,,"{""sany_s"": 0.3, ""tlc_s"": 150.1}",/Users/eric/GitHub/prove-TLA/results/runs/longer-budget-test/logs/73.log
+79,oracle,pass,timeout,,original,,,,"{""sany_s"": 0.4, ""tlc_s"": 150.1}",/Users/eric/GitHub/prove-TLA/results/runs/longer-budget-test/logs/79.log
+89,oracle,pass,timeout,,draft,,,,"{""sany_s"": 0.2, ""tlc_s"": 150.1}",/Users/eric/GitHub/prove-TLA/results/runs/longer-budget-test/logs/89.log
