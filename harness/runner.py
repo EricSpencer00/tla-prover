@@ -33,6 +33,29 @@ STANDARD_MODULES = {
     "TLC", "TLCExt", "Randomization", "RealTime", "Toolbox", "Json",
 }
 
+
+def _library_module_names():
+    """Module names already resolvable via -DTLA-Library (tlapm stdlib,
+    community-modules, extra-modules). A handful of corpus specs ARE
+    standalone copies of these same library modules under a benchmark
+    number (e.g. spec 110 = an older, incomplete Functions.tla) -- without
+    this exclusion, local_deps() would copy the corpus's stale edition into
+    the workdir, where it shadows the correct library copy on the classpath
+    (workdir files win over -DTLA-Library search) and breaks any OTHER spec
+    that EXTENDS the real thing (e.g. spec 106 Util needs Functions'
+    FoldFunction, which corpus spec 110's Functions.tla lacks)."""
+    names = set()
+    for d in (REPO / "tools" / "tlapm" / "lib" / "tlapm" / "stdlib",
+              REPO / "tools" / "community-modules",
+              REPO / "tools" / "extra-modules"):
+        if not d.exists():
+            continue
+        for f in d.glob("*.tla"):
+            mod = module_name(f.read_text(errors="replace"))
+            if mod:
+                names.add(mod)
+    return names
+
 _policy_file = REPO / "corpus" / "configs" / "policy.json"
 POLICY = json.loads(_policy_file.read_text()) if _policy_file.exists() else {}
 _populations_file = REPO / "corpus" / "configs" / "populations.json"
@@ -48,6 +71,9 @@ INSTANCE_RE = re.compile(r"\bINSTANCE\s+(\w+)", re.M)
 def module_name(tla_text: str):
     m = MODULE_RE.search(tla_text)
     return m.group(1) if m else None
+
+
+LIBRARY_MODULES = _library_module_names()
 
 
 def build_module_index(corpus: Path):
@@ -68,10 +94,12 @@ def local_deps(tla_text: str, mod2path: dict):
     for m in EXTENDS_RE.finditer(tla_text):
         for name in re.split(r"[,\s]+", m.group(1).strip()):
             name = name.strip().rstrip(",")
-            if name and name not in STANDARD_MODULES and name in mod2path:
+            if name and name not in STANDARD_MODULES and name not in LIBRARY_MODULES \
+                    and name in mod2path:
                 deps.add(name)
     for m in INSTANCE_RE.finditer(tla_text):
-        if m.group(1) not in STANDARD_MODULES and m.group(1) in mod2path:
+        if m.group(1) not in STANDARD_MODULES and m.group(1) not in LIBRARY_MODULES \
+                and m.group(1) in mod2path:
             deps.add(m.group(1))
     return deps
 

@@ -1,0 +1,12 @@
+spec,method,sany,tlc,tlc_vacuity,cfg_origin,tlaps,tlaps_obligations,apalache,budget_used,log_path
+71,oracle,fail,,,,,,,"{""sany_s"": 0.3}",/Users/eric/GitHub/prove-TLA/results/runs/sany-recheck2/logs/71.log
+72,oracle,pass,,,,,,,"{""sany_s"": 0.8}",/Users/eric/GitHub/prove-TLA/results/runs/sany-recheck2/logs/72.log
+77,oracle,fail_missing_module,,,,,,,"{""sany_s"": 0.4}",/Users/eric/GitHub/prove-TLA/results/runs/sany-recheck2/logs/77.log
+80,oracle,pass,,,,,,,"{""sany_s"": 0.7}",/Users/eric/GitHub/prove-TLA/results/runs/sany-recheck2/logs/80.log
+83,oracle,fail,,,,,,,"{""sany_s"": 0.8}",/Users/eric/GitHub/prove-TLA/results/runs/sany-recheck2/logs/83.log
+87,oracle,pass,,,,,,,"{""sany_s"": 0.6}",/Users/eric/GitHub/prove-TLA/results/runs/sany-recheck2/logs/87.log
+89,oracle,pass,,,,,,,"{""sany_s"": 0.5}",/Users/eric/GitHub/prove-TLA/results/runs/sany-recheck2/logs/89.log
+101,oracle,pass,,,,,,,"{""sany_s"": 0.4}",/Users/eric/GitHub/prove-TLA/results/runs/sany-recheck2/logs/101.log
+106,oracle,pass,,,,,,,"{""sany_s"": 0.3}",/Users/eric/GitHub/prove-TLA/results/runs/sany-recheck2/logs/106.log
+129,oracle,fail,,,,,,,"{""sany_s"": 0.3}",/Users/eric/GitHub/prove-TLA/results/runs/sany-recheck2/logs/129.log
+140,oracle,pass,,,,,,,"{""sany_s"": 0.2}",/Users/eric/GitHub/prove-TLA/results/runs/sany-recheck2/logs/140.log

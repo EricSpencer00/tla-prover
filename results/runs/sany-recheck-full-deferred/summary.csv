@@ -1,0 +1,19 @@
+spec,method,sany,tlc,tlc_vacuity,cfg_origin,tlaps,tlaps_obligations,apalache,budget_used,log_path
+18,oracle,fail_missing_module,,,,,,,"{""sany_s"": 0.3}",/Users/eric/GitHub/prove-TLA/results/runs/sany-recheck-full-deferred/logs/18.log
+24,oracle,fail,,,,,,,"{""sany_s"": 0.9}",/Users/eric/GitHub/prove-TLA/results/runs/sany-recheck-full-deferred/logs/24.log
+26,oracle,fail,,,,,,,"{""sany_s"": 0.6}",/Users/eric/GitHub/prove-TLA/results/runs/sany-recheck-full-deferred/logs/26.log
+27,oracle,fail,,,,,,,"{""sany_s"": 0.7}",/Users/eric/GitHub/prove-TLA/results/runs/sany-recheck-full-deferred/logs/27.log
+66,oracle,fail_missing_module,,,,,,,"{""sany_s"": 0.3}",/Users/eric/GitHub/prove-TLA/results/runs/sany-recheck-full-deferred/logs/66.log
+73,oracle,pass,,,,,,,"{""sany_s"": 0.7}",/Users/eric/GitHub/prove-TLA/results/runs/sany-recheck-full-deferred/logs/73.log
+74,oracle,pass,,,,,,,"{""sany_s"": 0.8}",/Users/eric/GitHub/prove-TLA/results/runs/sany-recheck-full-deferred/logs/74.log
+75,oracle,fail_missing_module,,,,,,,"{""sany_s"": 0.4}",/Users/eric/GitHub/prove-TLA/results/runs/sany-recheck-full-deferred/logs/75.log
+76,oracle,fail_missing_module,,,,,,,"{""sany_s"": 0.4}",/Users/eric/GitHub/prove-TLA/results/runs/sany-recheck-full-deferred/logs/76.log
+78,oracle,pass,,,,,,,"{""sany_s"": 0.8}",/Users/eric/GitHub/prove-TLA/results/runs/sany-recheck-full-deferred/logs/78.log
+79,oracle,pass,,,,,,,"{""sany_s"": 0.7}",/Users/eric/GitHub/prove-TLA/results/runs/sany-recheck-full-deferred/logs/79.log
+82,oracle,pass,,,,,,,"{""sany_s"": 0.7}",/Users/eric/GitHub/prove-TLA/results/runs/sany-recheck-full-deferred/logs/82.log
+84,oracle,pass,,,,,,,"{""sany_s"": 0.7}",/Users/eric/GitHub/prove-TLA/results/runs/sany-recheck-full-deferred/logs/84.log
+100,oracle,pass,,,,,,,"{""sany_s"": 0.5}",/Users/eric/GitHub/prove-TLA/results/runs/sany-recheck-full-deferred/logs/100.log
+103,oracle,pass,,,,,,,"{""sany_s"": 0.5}",/Users/eric/GitHub/prove-TLA/results/runs/sany-recheck-full-deferred/logs/103.log
+109,oracle,fail_missing_module,,,,,,,"{""sany_s"": 0.3}",/Users/eric/GitHub/prove-TLA/results/runs/sany-recheck-full-deferred/logs/109.log
+169,oracle,fail,,,,,,,"{""sany_s"": 0.3}",/Users/eric/GitHub/prove-TLA/results/runs/sany-recheck-full-deferred/logs/169.log
+199,oracle,fail,,,,,,,"{""sany_s"": 0.2}",/Users/eric/GitHub/prove-TLA/results/runs/sany-recheck-full-deferred/logs/199.log
