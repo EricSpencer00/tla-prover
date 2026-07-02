@@ -1,0 +1,17 @@
+spec,method,sany,tlc,tlc_vacuity,cfg_origin,tlaps,tlaps_obligations,apalache,budget_used,log_path
+39,oracle,pass,,,,,,,"{""sany_s"": 0.5}",/Users/eric/GitHub/prove-TLA/results/runs/deferred-library-recheck/logs/39.log
+41,oracle,pass,,,,,,,"{""sany_s"": 0.5}",/Users/eric/GitHub/prove-TLA/results/runs/deferred-library-recheck/logs/41.log
+53,oracle,pass,,,,,,,"{""sany_s"": 0.5}",/Users/eric/GitHub/prove-TLA/results/runs/deferred-library-recheck/logs/53.log
+56,oracle,pass,,,,,,,"{""sany_s"": 0.5}",/Users/eric/GitHub/prove-TLA/results/runs/deferred-library-recheck/logs/56.log
+69,oracle,pass,,,,,,,"{""sany_s"": 0.5}",/Users/eric/GitHub/prove-TLA/results/runs/deferred-library-recheck/logs/69.log
+86,oracle,pass,,,,,,,"{""sany_s"": 0.5}",/Users/eric/GitHub/prove-TLA/results/runs/deferred-library-recheck/logs/86.log
+105,oracle,pass,,,,,,,"{""sany_s"": 0.5}",/Users/eric/GitHub/prove-TLA/results/runs/deferred-library-recheck/logs/105.log
+110,oracle,pass,,,,,,,"{""sany_s"": 0.5}",/Users/eric/GitHub/prove-TLA/results/runs/deferred-library-recheck/logs/110.log
+114,oracle,pass,,,,,,,"{""sany_s"": 0.5}",/Users/eric/GitHub/prove-TLA/results/runs/deferred-library-recheck/logs/114.log
+115,oracle,pass,,,,,,,"{""sany_s"": 0.6}",/Users/eric/GitHub/prove-TLA/results/runs/deferred-library-recheck/logs/115.log
+116,oracle,pass,,,,,,,"{""sany_s"": 0.5}",/Users/eric/GitHub/prove-TLA/results/runs/deferred-library-recheck/logs/116.log
+117,oracle,pass,,,,,,,"{""sany_s"": 0.5}",/Users/eric/GitHub/prove-TLA/results/runs/deferred-library-recheck/logs/117.log
+123,oracle,pass,,,,,,,"{""sany_s"": 0.4}",/Users/eric/GitHub/prove-TLA/results/runs/deferred-library-recheck/logs/123.log
+183,oracle,pass,,,,,,,"{""sany_s"": 0.5}",/Users/eric/GitHub/prove-TLA/results/runs/deferred-library-recheck/logs/183.log
+190,oracle,pass,,,,,,,"{""sany_s"": 0.4}",/Users/eric/GitHub/prove-TLA/results/runs/deferred-library-recheck/logs/190.log
+200,oracle,pass,,,,,,,"{""sany_s"": 0.4}",/Users/eric/GitHub/prove-TLA/results/runs/deferred-library-recheck/logs/200.log

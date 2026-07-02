@@ -1,0 +1,3 @@
+{"spec": "26", "method": "oracle", "sany": "fail", "tlc": null, "tlc_vacuity": null, "tlaps": null, "apalache": null, "budget_used": {"sany_s": 0.4}, "log_path": "/Users/eric/GitHub/prove-TLA/results/runs/spec24-26-27-recheck/logs/26.log"}
+{"spec": "27", "method": "oracle", "sany": "fail", "tlc": null, "tlc_vacuity": null, "tlaps": null, "apalache": null, "budget_used": {"sany_s": 0.4}, "log_path": "/Users/eric/GitHub/prove-TLA/results/runs/spec24-26-27-recheck/logs/27.log"}
+{"spec": "24", "method": "oracle", "sany": "fail", "tlc": null, "tlc_vacuity": null, "tlaps": null, "apalache": null, "budget_used": {"sany_s": 0.4}, "log_path": "/Users/eric/GitHub/prove-TLA/results/runs/spec24-26-27-recheck/logs/24.log"}
