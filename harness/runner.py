@@ -114,10 +114,23 @@ def run_cmd(cmd, cwd, timeout):
         return -1, out, time.time() - t0, True
 
 
+def _jtmpdir(workdir: Path):
+    """Isolated -Djava.io.tmpdir per spec. SANY/TLC extract tla2tools.jar's bundled
+    StandardModules (Integers.tla, TLC.tla, ...) to java.io.tmpdir on every run; the
+    JVM default is the shared OS temp dir, so parallel workers (run_sweep's
+    ThreadPoolExecutor) can race on the same extracted file -- one worker reads a
+    StandardModule mid-write by another and SANY reports a spurious parse failure
+    (observed: spec 62 flaked to sany=fail under -jobs 8, passed cleanly alone).
+    workdir is already unique per spec, so a subdir under it isolates each run."""
+    d = workdir / "jtmp"
+    d.mkdir(exist_ok=True)
+    return d
+
+
 def check_sany(tla_file: Path, workdir: Path, timeout: int):
     rc, out, dt, timed_out = run_cmd(
-        ["java", f"-DTLA-Library={TLA_LIBRARY}", "-cp", CLASSPATH,
-         "tla2sany.SANY", tla_file.name], workdir, timeout)
+        ["java", f"-Djava.io.tmpdir={_jtmpdir(workdir)}", f"-DTLA-Library={TLA_LIBRARY}",
+         "-cp", CLASSPATH, "tla2sany.SANY", tla_file.name], workdir, timeout)
     if timed_out:
         return "timeout", out, dt
     ok = rc == 0 and "Fatal errors" not in out and "*** Errors:" not in out \
@@ -188,7 +201,8 @@ def vacuity_flags(cfg_text: str, out: str, mod_text: str = ""):
 
 def check_tlc(mod: str, cfg_text: str, workdir: Path, timeout: int, extra_flags=()):
     rc, out, dt, timed_out = run_cmd(
-        ["java", "-XX:+UseParallelGC", f"-DTLA-Library={TLA_LIBRARY}", "-cp", CLASSPATH, "tlc2.TLC",
+        ["java", "-XX:+UseParallelGC", f"-Djava.io.tmpdir={_jtmpdir(workdir)}",
+         f"-DTLA-Library={TLA_LIBRARY}", "-cp", CLASSPATH, "tlc2.TLC",
          "-workers", "2", "-cleanup", "-metadir", str(workdir / "states"),
          *extra_flags, "-config", f"{mod}.cfg", f"{mod}.tla"], workdir, timeout)
     status = classify_tlc(rc, out, timed_out)
