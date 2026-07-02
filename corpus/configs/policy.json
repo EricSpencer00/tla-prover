@@ -29,6 +29,20 @@
       "corpus_spec": "14"
     }
   },
+  "125": {
+    "reason": "BinarySearch: cfg substitutes Seq <- LimitedSeq (bounded sequences up to MaxSeqLen), no such operator anywhere in the corpus; hand-authored using the same bounded-sequence technique as spec 119s MCFindHighest.",
+    "wrapper": {
+      "file": "corpus/configs/wrappers/MC_BinarySearch.tla",
+      "module": "MC_BinarySearch"
+    }
+  },
+  "128": {
+    "reason": "Quicksort: same LimitedSeq fix as spec 125.",
+    "wrapper": {
+      "file": "corpus/configs/wrappers/MC_Quicksort.tla",
+      "module": "MC_Quicksort"
+    }
+  },
   "130": {
     "reason": "Majority: original cfg needs A/B/C/bound style concrete constants, defined only in spec 132 (MCMajority, unqualified INSTANCE Majority).",
     "wrapper": {
