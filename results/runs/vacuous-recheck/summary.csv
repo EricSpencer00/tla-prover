@@ -1,0 +1,5 @@
+spec,method,sany,tlc,tlc_vacuity,cfg_origin,tlaps,tlaps_obligations,apalache,budget_used,log_path
+87,oracle,pass,pass,clean,draft,,,,"{""sany_s"": 0.3, ""tlc_s"": 0.9}",/Users/eric/GitHub/prove-TLA/results/runs/vacuous-recheck/logs/87.log
+106,oracle,pass,pass,clean,draft,,,,"{""sany_s"": 0.2, ""tlc_s"": 0.8}",/Users/eric/GitHub/prove-TLA/results/runs/vacuous-recheck/logs/106.log
+181,oracle,pass,pass,clean,original,,,,"{""sany_s"": 0.2, ""tlc_s"": 0.9}",/Users/eric/GitHub/prove-TLA/results/runs/vacuous-recheck/logs/181.log
+197,oracle,pass,pass,clean,original,,,,"{""sany_s"": 0.3, ""tlc_s"": 1.2}",/Users/eric/GitHub/prove-TLA/results/runs/vacuous-recheck/logs/197.log
