@@ -90,3 +90,15 @@ to be instantiated") with no concrete instantiation anywhere in the corpus. Thes
 likely need either a hand-authored wrapper (same treatment as spec 192/HanoiSeq) or
 are genuinely not closeable without inventing test values from scratch — not
 attempted this pass.
+
+## EWD998 "opts" family (80, 81, 84, 85) — genuinely blocked, second TLC-version gap found
+
+These specs `ASSUME TLCGet("config").mode = "generate"` (only true when TLC runs in
+`-simulate` mode). Tried `-simulate num=N` directly (not yet wired into the harness --
+manual test first): SANY/dependency issues resolved the same way as elsewhere (needed
+spec 79/EWD998 and spec 70/AsyncTerminationDetection as corpus-local deps), but TLC
+then fails with `TLCGet(config) was undefined` -- our pinned `tla2tools.jar` build's
+`-simulate` mode doesn't populate `TLCGet("config")` the way these specs expect (they
+were evidently written against a newer/different TLC build). Same class of dead end as
+88/94's `-Dtlc2.tool.impl.Tool.cdot` gap: a real TLC-version capability mismatch, not a
+cfg or corpus fix. Not pursued further -- would need a different TLC build.
