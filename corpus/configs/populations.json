@@ -6,7 +6,7 @@
   "library": [
     "29", "56", "69", "86", "105", "110", "114", "115", "116", "117",
     "123", "183", "190", "200",
-    "134", "138", "140", "124"
+    "134", "138", "140", "124", "101"
   ],
   "expected_violation": {
     "_comment": "PLAN.md Amendment 3 (PENDING Eric). Puzzle-solving specs where the counterexample IS the solution, and pedagogical negative-control specs designed to demonstrate TLC catching a bug. Value is the exact invariant/property name that must be the one violated.",

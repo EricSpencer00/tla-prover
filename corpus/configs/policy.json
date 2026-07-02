@@ -1,4 +1,11 @@
 {
+  "103": {
+    "reason": "KVsnap: cfg references SYMMETRY TxIdSymmetric, no such operator defined anywhere in the corpus; hand-authored using TLCs standard Permutations(TxId) symmetry-reduction idiom.",
+    "wrapper": {
+      "file": "corpus/configs/wrappers/MC_KVsnap.tla",
+      "module": "MC_KVsnap"
+    }
+  },
   "107": {
     "reason": "KnuthYao: Next requires state \\notin Done; die roll terminates in an absorbing state by design",
     "tlc_flags": [
