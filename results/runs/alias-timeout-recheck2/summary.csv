@@ -1,0 +1,5 @@
+spec,method,sany,tlc,tlc_vacuity,cfg_origin,tlaps,tlaps_obligations,apalache,budget_used,log_path
+58,oracle,pass,error,,original,,,,"{""sany_s"": 0.4, ""tlc_s"": 0.9}",/Users/eric/GitHub/prove-TLA/results/runs/alias-timeout-recheck2/logs/58.log
+60,oracle,pass,timeout,,override,,,,"{""sany_s"": 0.4, ""tlc_s"": 300.1}",/Users/eric/GitHub/prove-TLA/results/runs/alias-timeout-recheck2/logs/60.log
+64,oracle,pass,timeout,,override,,,,"{""sany_s"": 0.4, ""tlc_s"": 300.1}",/Users/eric/GitHub/prove-TLA/results/runs/alias-timeout-recheck2/logs/64.log
+100,oracle,pass,timeout,,override,,,,"{""sany_s"": 0.4, ""tlc_s"": 300.1}",/Users/eric/GitHub/prove-TLA/results/runs/alias-timeout-recheck2/logs/100.log

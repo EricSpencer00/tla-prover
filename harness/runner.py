@@ -462,6 +462,6 @@ def run_sweep(corpus: Path, run_id: str, stages, specs=None, timeout=120, jobs=6
         tally[key] = tally.get(key, 0) + 1
     print(f"\n=== {run_id}: {len(rows)} specs ===")
     for (s, t, v), c in sorted(tally.items(), key=lambda kv: -kv[1]):
-        print(f"  sany={s:<22} tlc={t!s:<16} vac={v!s:<10} n={c}")
+        print(f"  sany={s!s:<22} tlc={t!s:<16} vac={v!s:<10} n={c}")
     shutil.rmtree(workroot, ignore_errors=True)
     return rows

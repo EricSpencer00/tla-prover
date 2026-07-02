@@ -1,0 +1,4 @@
+{"spec": "100", "method": "oracle", "sany": null, "tlc": null, "tlc_vacuity": null, "tlaps": null, "apalache": null, "budget_used": {}, "log_path": "/Users/eric/GitHub/prove-TLA/results/runs/alias-timeout-recheck/logs/100.log"}
+{"spec": "58", "method": "oracle", "sany": null, "tlc": null, "tlc_vacuity": null, "tlaps": null, "apalache": null, "budget_used": {}, "log_path": "/Users/eric/GitHub/prove-TLA/results/runs/alias-timeout-recheck/logs/58.log"}
+{"spec": "60", "method": "oracle", "sany": null, "tlc": null, "tlc_vacuity": null, "tlaps": null, "apalache": null, "budget_used": {}, "log_path": "/Users/eric/GitHub/prove-TLA/results/runs/alias-timeout-recheck/logs/60.log"}
+{"spec": "64", "method": "oracle", "sany": null, "tlc": null, "tlc_vacuity": null, "tlaps": null, "apalache": null, "budget_used": {}, "log_path": "/Users/eric/GitHub/prove-TLA/results/runs/alias-timeout-recheck/logs/64.log"}
