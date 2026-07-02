@@ -1,0 +1,6 @@
+spec,method,sany,tlc,tlc_vacuity,cfg_origin,tlaps,tlaps_obligations,apalache,budget_used,log_path
+4,oracle,pass,pass_expected_violation,clean,original,,,,"{""sany_s"": 0.3, ""tlc_s"": 1.3}",/Users/eric/GitHub/prove-TLA/results/runs/expected-violation-verify/logs/4.log
+42,oracle,pass,pass_expected_violation,clean,original,,,,"{""sany_s"": 0.3, ""tlc_s"": 0.9}",/Users/eric/GitHub/prove-TLA/results/runs/expected-violation-verify/logs/42.log
+44,oracle,pass,pass_expected_violation,clean,original,,,,"{""sany_s"": 0.3, ""tlc_s"": 0.9}",/Users/eric/GitHub/prove-TLA/results/runs/expected-violation-verify/logs/44.log
+143,oracle,pass,pass_expected_violation,clean,original,,,,"{""sany_s"": 0.3, ""tlc_s"": 1.0}",/Users/eric/GitHub/prove-TLA/results/runs/expected-violation-verify/logs/143.log
+173,oracle,pass,pass_expected_violation,clean,original,,,,"{""sany_s"": 0.3, ""tlc_s"": 1.6}",/Users/eric/GitHub/prove-TLA/results/runs/expected-violation-verify/logs/173.log

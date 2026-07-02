@@ -18,11 +18,12 @@ G1). This task covers the remaining state_machine-population blockers.
   upstream wrapper exists — confirmed by direct search). `A`, `B`, `C` are
   sequence-valued `CONSTANT`s with no `.cfg` tuple syntax; supplied as zero-arity
   operator overrides (`AConst == <<1,2,3>>` etc.) per the module's own worked example
-  in its header comment. `NotSolved` deliberately excluded from the invariant list —
-  the module's own idiom is to check it and expect TLC to report a *violation* (the
-  "violation" trace is the puzzle's solution), which our harness would otherwise
-  misclassify as a failure. Verified: `results/runs/wrapper-192-verify/` —
-  `sany=pass, tlc=pass, vacuity=clean`.
+  in its header comment. `NotSolved` is checked via PLAN.md Amendment 3's
+  `expected_violation` mechanism (see `corpus/configs/populations.json`) — the harness
+  verifies TLC actually finds *that specific* violation (the puzzle solution), rather
+  than the earlier approach of just excluding it from the checked invariants.
+  Verified: `results/runs/spec192-recheck/` —
+  `sany=pass, tlc=pass_expected_violation, vacuity=clean, expected_violation=NotSolved`.
 
 ## Wired but not converged (1)
 

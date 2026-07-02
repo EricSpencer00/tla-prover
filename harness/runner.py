@@ -62,6 +62,10 @@ _populations_file = REPO / "corpus" / "configs" / "populations.json"
 _populations = json.loads(_populations_file.read_text()) if _populations_file.exists() else {}
 PROOF_MODULES = set(_populations.get("proof_module", []))
 LIBRARIES = set(_populations.get("library", []))
+# Amendment 3 (PENDING Eric): spec_num -> name of the invariant/property this spec
+# is DESIGNED to violate (puzzle-solving specs where the violation trace is the
+# solution; pedagogical negative-control specs demonstrating TLC catching a bug).
+EXPECTED_VIOLATIONS = _populations.get("expected_violation", {})
 
 MODULE_RE = re.compile(r"^\s*-{4,}\s*MODULE\s+(\w+)\s*-{4,}", re.M)
 EXTENDS_RE = re.compile(r"^\s*EXTENDS\s+(.+)$", re.M)
@@ -325,13 +329,27 @@ def eval_spec(num: str, corpus: Path, num2mod, mod2path, cfg_dirs, workroot: Pat
                 (workdir / f"{tlc_mod}.cfg").write_text(cfg_text)
             st, vac, out, dt = check_tlc(tlc_mod, cfg_text, workdir, timeout,
                                          extra_flags=pol.get("tlc_flags", ()))
+            expected_prop = EXPECTED_VIOLATIONS.get(num)
+            if expected_prop and st in ("fail_invariant", "fail_liveness") and \
+                    re.search(rf"(?:Invariant|Property)\s+{re.escape(expected_prop)}\s+is violated", out):
+                st = "pass_expected_violation"
+                vac = []
+                row["expected_violation"] = expected_prop
             if pol:
                 row["policy"] = pol.get("reason", "custom flags")
             row["tlc"] = st
-            row["tlc_vacuity"] = ("vacuous:" + ";".join(vac)) if vac else ("clean" if st == "pass" else None)
+            row["tlc_vacuity"] = ("vacuous:" + ";".join(vac)) if vac else \
+                ("clean" if st in ("pass", "pass_expected_violation") else None)
             row["cfg_origin"] = cfg_origin
             row["budget_used"]["tlc_s"] = round(dt, 1)
-            log_parts.append(f"===== TLC ({st}, cfg={cfg_origin}) =====\n{out[-8000:]}")
+            # Keep head+tail, not just tail: long counterexample traces (e.g. a
+            # 117-state puzzle solution) can push the actual "Error: ... is
+            # violated" line out of a tail-only truncation (found while
+            # root-causing specs 4/173 -- the classification was still correct,
+            # since check_tlc searches the full untruncated text, but the saved
+            # evidence log was missing the line a human would look for first).
+            body = out if len(out) <= 16000 else (out[:4000] + "\n...[truncated]...\n" + out[-12000:])
+            log_parts.append(f"===== TLC ({st}, cfg={cfg_origin}) =====\n{body}")
 
     if "tlaps" in stages and row["sany"] == "pass" and num in PROOF_MODULES:
         st, proved, total, out, dt = check_tlapm(workdir / f"{mod}.tla", workdir, timeout=timeout * 3)
