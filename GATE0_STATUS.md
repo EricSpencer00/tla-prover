@@ -199,12 +199,58 @@ re-verified through the harness — nothing here is asserted without a `results/
 entry behind it. Two amendments are PENDING Eric's actual sign-off (Amendment 3;
 Amendment 1 was already interactively approved this session).
 
-What's left: 13 confirmed genuinely-large timeouts (would need Apalache or a much
-longer budget than tried here — hours, not minutes), ~18 `tlc=error` specs (mostly
-genuine TLC-version capability gaps or design work now — the quick wins are largely
-exhausted), 1 vacuous-by-design spec, and one inconclusive liveness finding (92).
+What's left: 14 confirmed genuinely-large timeouts (30, 48, 49, 146, 92, 1, 16, 17, 28,
+40, 57, 73, 79, 89 — would need Apalache or a much longer budget than tried here, hours
+not minutes), ~18 `tlc=error` specs (mostly genuine TLC-version capability gaps or
+design work now — the quick wins are largely exhausted), and 1 vacuous-by-design spec.
 Getting from here to 206/206 within this environment looks unlikely without either
 Apalache integration or accepting some specs as permanently out of scope for exhaustive
 TLC — at which point Stage 1's repair sweep (PLAN.md §3, the one-shot SOPHIA job) with
 real compute and a model-generation loop is the right tool for the remainder, not more
 manual per-spec archaeology.
+
+## Ralph Loop conclusion (autonomous Gate-0 session, 11 iterations)
+
+Started this loop at 93/206 (45%, end of the prior interactive session). Ends at
+**157/206 (76%)** — every closure backed by a `results/runs/` entry, every open/deferred
+spec individually investigated and documented, per `RALPH_INSTRUCTIONS.md`'s
+completion criteria. Summary of what moved the number, roughly in order of impact:
+
+1. Amendment 3 (expected-violation population, PENDING Eric) — 7 specs were being
+   scored as failures for doing exactly what their own corpus descriptions/comments
+   say they're built to do (puzzle-solving specs, one deliberate pedagogical bug demo).
+2. Un-deferring 16 specs as `library` — deferred before that population criterion
+   existed in machine-readable form; all genuinely pass SANY.
+3. Sibling-corpus-spec wrapper mechanism — ~17 specs whose original `.cfg` was written
+   for an MC-wrapper module that turned out to already exist as a different corpus
+   spec number.
+4. A real harness bug (library-module shadowing) that had been silently causing 15
+   long-standing "dep-edition mismatch" failures.
+5. Hand-authored wrappers (same technique as the corpus's own MC-wrapper convention)
+   for specs with no existing wrapper anywhere: HanoiSeq, ChangRoberts, YoYo family,
+   BinarySearch/Quicksort's `LimitedSeq`, KVsnap's symmetry function, Prob's `TypeOK`.
+   9 specs.
+6. Timeout budget policy (prefer longer budget over shrinking bounds, to avoid
+   trivializing coverage) — 4 more closed, 13 confirmed genuinely large rather than
+   just slow.
+7. Two corpus-file-format findings (specs 18, 72: upstream ships multiple modules
+   concatenated in one `.tla` file) and two real corpus bugs found and fixed with live
+   counterexample evidence (specs 30, 175/176), both confirmed present byte-identical
+   upstream and never caught there either.
+8. Three more harness reliability bugs (`java.io.tmpdir` race, CPU-contention false
+   timeouts, a vacuity-detector false positive for `VARIABLES`-less modules, a
+   summary-printer crash) — each found by actually running things at scale, not
+   theorized.
+
+Confirmed genuine dead ends (tried, not assumed): TLC-version capability gaps for
+`TLCExt` (5 specs) and TLAPS's `ENABLEDrules`/`ENABLEDrewrites` (2 specs) and
+`-simulate`/`TLCGet("config")` (7 specs) — each checked against `tlapm --help`, the
+full stdlib listing, upstream tla-examples, and (for the simulate-mode gap) direct
+flag experimentation; `CommunityModules-deps.jar`'s real Java operator
+implementations are unusable with our pinned `tla2tools.jar`
+(`NoClassDefFoundError: KSubsetValue`, confirmed by direct test, not just trusted);
+the 14 large-state-space timeouts were each given a longer budget (150s, 300s, and
+for spec 92, ~7.5 minutes) with no sign of convergence.
+
+**Not signing off Gate 0** — that remains Eric's call, per PLAN.md §4. This is the
+evidence for that decision.
