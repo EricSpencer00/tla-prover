@@ -218,7 +218,9 @@ def run_sweep(corpus: Path, run_id: str, stages, specs=None, timeout=120, jobs=6
     logdir.mkdir(parents=True, exist_ok=True)
     workroot = Path("/tmp/prove-tla-work") / run_id
     num2mod, mod2path = build_module_index(corpus)
-    cfg_dirs = [("original", corpus / "cfg")]
+    # precedence: explicit override (replaces broken original text) > original > draft
+    cfg_dirs = [("override", REPO / "corpus" / "configs" / "overrides"),
+                ("original", corpus / "cfg")]
     if extra_cfg_dir:
         cfg_dirs.append(("draft", Path(extra_cfg_dir)))
     all_nums = sorted({p.stem for p in (corpus / "descriptions").glob("*.json")}, key=int)
