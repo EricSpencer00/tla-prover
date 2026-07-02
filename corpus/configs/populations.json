@@ -1,21 +1,48 @@
 {
   "_comment": "Population classification per PLAN.md Amendment 1 (population-aware G1 criterion). Populated so far from corpus/configs/DRAFT_ITERATION.md's per-spec disposition tables (the 60-spec draft-cfg iteration). Remaining ~146 original-cfg specs default to state_machine/mc_wrapper (TLC is their criterion) unless listed here; a full pass over all 206 is tracked as a Task #7 prerequisite.",
-  "proof_module": [
-    "67", "112", "118", "119", "131", "137", "139", "142", "182"
-  ],
-  "library": [
-    "29", "56", "69", "86", "105", "110", "114", "115", "116", "117",
-    "123", "183", "190", "200",
-    "134", "138", "140", "124", "101"
-  ],
   "expected_violation": {
-    "_comment": "PLAN.md Amendment 3 (PENDING Eric). Puzzle-solving specs where the counterexample IS the solution, and pedagogical negative-control specs designed to demonstrate TLC catching a bug. Value is the exact invariant/property name that must be the one violated.",
+    "143": "Solution",
+    "173": "KlotskiGoal",
+    "192": "NotSolved",
     "4": "AC1",
     "42": "NotSolved",
     "43": "NotSolved",
     "44": "NotSolved",
-    "143": "Solution",
-    "173": "KlotskiGoal",
-    "192": "NotSolved"
-  }
+    "_comment": "PLAN.md Amendment 3 (PENDING Eric). Puzzle-solving specs where the counterexample IS the solution, and pedagogical negative-control specs designed to demonstrate TLC catching a bug. Value is the exact invariant/property name that must be the one violated."
+  },
+  "library": [
+    "29",
+    "39",
+    "41",
+    "53",
+    "56",
+    "69",
+    "86",
+    "101",
+    "105",
+    "110",
+    "114",
+    "115",
+    "116",
+    "117",
+    "123",
+    "124",
+    "134",
+    "138",
+    "140",
+    "183",
+    "190",
+    "200"
+  ],
+  "proof_module": [
+    "67",
+    "112",
+    "118",
+    "119",
+    "131",
+    "137",
+    "139",
+    "142",
+    "182"
+  ]
 }
