@@ -1,0 +1,2 @@
+spec,method,sany,tlc,tlc_vacuity,cfg_origin,tlaps,tlaps_obligations,apalache,budget_used,log_path
+189,oracle,pass,pass,clean,override,,,,"{""sany_s"": 0.2, ""tlc_s"": 0.9}",/Users/eric/GitHub/prove-TLA/results/runs/wrapper-189-verify/logs/189.log

@@ -1,11 +1,77 @@
 {
-  "2": {"tlc_flags": ["-deadlock"], "reason": "ACP_NB atomic commitment: run ends when every participant reaches commit/abort; termination by design"},
-  "5": {"tlc_flags": ["-deadlock"], "reason": "ACP_SB atomic commitment: run ends when every participant reaches commit/abort; termination by design"},
-  "30": {"tlc_flags": ["-deadlock"], "reason": "cbc_max: every process ends in pc = DONE or CRASH (Termination property in spec); terminating algorithm. NOTE: with -deadlock TLC reaches a reachable state where MAX's CHOOSE fails (corpus finding, see DRAFT_ITERATION.md)"},
-  "62": {"tlc_flags": ["-deadlock"], "reason": "EWD687aPlusCal: termination-detection algorithm quiesces once termination is declared; upstream MCEWD687a.cfg sets CHECK_DEADLOCK FALSE"},
-  "67": {"tlc_flags": ["-deadlock"], "reason": "EWD840_proof: termination-detection ring reaches quiescent state once termination is detected; deadlock expected"},
-  "107": {"tlc_flags": ["-deadlock"], "reason": "KnuthYao: Next requires state \\notin Done; die roll terminates in an absorbing state by design"},
-  "108": {"tlc_flags": ["-deadlock"], "reason": "Prob: MarkovNext disabled in absorbing (Accepting) states; terminating Markov chain by design"},
-  "151": {"tlc_flags": ["-deadlock"], "reason": "Queens: solver terminates when todo = {} (Termination property in spec); terminating algorithm"},
-  "179": {"tlc_flags": ["-deadlock"], "reason": "SpanTreeTest: spanning-tree computation converges to a fixpoint with no enabled actions; terminating algorithm"}
+  "107": {
+    "reason": "KnuthYao: Next requires state \\notin Done; die roll terminates in an absorbing state by design",
+    "tlc_flags": [
+      "-deadlock"
+    ]
+  },
+  "108": {
+    "reason": "Prob: MarkovNext disabled in absorbing (Accepting) states; terminating Markov chain by design",
+    "tlc_flags": [
+      "-deadlock"
+    ]
+  },
+  "151": {
+    "reason": "Queens: solver terminates when todo = {} (Termination property in spec); terminating algorithm",
+    "tlc_flags": [
+      "-deadlock"
+    ]
+  },
+  "179": {
+    "reason": "SpanTreeTest: spanning-tree computation converges to a fixpoint with no enabled actions; terminating algorithm",
+    "tlc_flags": [
+      "-deadlock"
+    ]
+  },
+  "189": {
+    "reason": "TLCMC: StateGraph is a record-valued constant, not expressible in cfg syntax; TestGraphs (vendored from tla-examples/specifications/TLC/) unqualified-INSTANCEs TLCMC with a concrete graph (G7/V7).",
+    "wrapper": {
+      "file": "corpus/configs/wrappers/TestGraphs.tla",
+      "module": "TestGraphs"
+    }
+  },
+  "192": {
+    "reason": "HanoiSeq: A/B/C are sequence-valued CONSTANTS, no cfg tuple syntax; hand-authored wrapper (no upstream MC wrapper found) supplies them as zero-arity operator overrides per the modules own worked example.",
+    "wrapper": {
+      "file": "corpus/configs/wrappers/MC_HanoiSeq.tla",
+      "module": "MC_HanoiSeq"
+    }
+  },
+  "2": {
+    "reason": "ACP_NB atomic commitment: run ends when every participant reaches commit/abort; termination by design",
+    "tlc_flags": [
+      "-deadlock"
+    ]
+  },
+  "30": {
+    "reason": "cbc_max: every process ends in pc = DONE or CRASH (Termination property in spec); terminating algorithm. NOTE: with -deadlock TLC reaches a reachable state where MAX's CHOOSE fails (corpus finding, see DRAFT_ITERATION.md)",
+    "tlc_flags": [
+      "-deadlock"
+    ]
+  },
+  "48": {
+    "reason": "HDiskSynod: Ballot(_)/IsMajority(_) are operator constants, no in-module substitution possible via cfg alone; MC_HDiskSynod (vendored from tla-examples/specifications/diskpaxos/) supplies BallotImpl/IsMajorityImpl and the HInit/HNext/HInv1-4,6 checkable predicates.",
+    "wrapper": {
+      "file": "corpus/configs/wrappers/MC_HDiskSynod.tla",
+      "module": "MC_HDiskSynod"
+    }
+  },
+  "5": {
+    "reason": "ACP_SB atomic commitment: run ends when every participant reaches commit/abort; termination by design",
+    "tlc_flags": [
+      "-deadlock"
+    ]
+  },
+  "62": {
+    "reason": "EWD687aPlusCal: termination-detection algorithm quiesces once termination is declared; upstream MCEWD687a.cfg sets CHECK_DEADLOCK FALSE",
+    "tlc_flags": [
+      "-deadlock"
+    ]
+  },
+  "67": {
+    "reason": "EWD840_proof: termination-detection ring reaches quiescent state once termination is detected; deadlock expected",
+    "tlc_flags": [
+      "-deadlock"
+    ]
+  }
 }
