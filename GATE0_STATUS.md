@@ -43,32 +43,32 @@ Population classification lives in `corpus/configs/populations.json`.
 
 | | count | of 206 |
 |---|---|---|
-| **Closed** (meets Amendment 1/3 criterion) | **131** | 64% |
-| Open (active, not yet closed) | 43 | 21% |
+| **Closed** (meets Amendment 1/3 criterion) | **135** | 66% |
+| Open (active, not yet closed) | 39 | 21% |
 | Deferred (Amendment 2, excluded from active work) | 32 | 16% |
 
-**131/206, with 32 stated separately per Amendment 2's reporting rule.** Not 206/206.
+**135/206, with 32 stated separately per Amendment 2's reporting rule.** Not 206/206.
 Gate 0's own text calls this correctly: Stage 0's job is proving the *instrument*
 (harness + oracle + controls + tool wiring), not reaching 100% in Stage 0 itself —
 that's explicitly Stage 1's (the repair sweep's) job, expected to land in the 60-85%
-band per ROADMAP.md, off a 23-45% single-shot baseline (AUDIT.md). 131/206 (64%) from
+band per ROADMAP.md, off a 23-45% single-shot baseline (AUDIT.md). 135/206 (66%) from
 an *oracle* run (no repair, no model generation — canonical text plus documented
 corpus-defect patches and wrapper wiring) is already inside that band ahead of the
 repair sweep.
 
-## The 43 open, by failure class
+## The 39 open, by failure class
 
 | class | n | notes |
 |---|---|---|
-| `tlc=error` | ~22 | proof_module specs where TLC is a secondary check under Amendment 1 (several already TLAPS-closed independently); EWD998-family "opts"/simulation-mode variants + 91/93 confirmed genuinely blocked by TLC-version gaps, not fixable at cfg/corpus level (58, 60→now timeout, 64→now timeout, 80, 81, 84, 85, 88, 91, 93, 94 — `SIBLING_WRAPPERS.md`); ALIAS-fixed but still large state space (60, 64, 100 — `ALIAS_CFG.md`); genuine unresolved cfg gaps (78, 90, 101, 103); no wrapper found (72, 125, 128, 198); spec 50 (Synod) needs a hand-built inner-module instantiation, design work not a quick fix (`MC_WRAPPERS.md`) |
+| `tlc=error` | ~18 | proof_module specs where TLC is a secondary check under Amendment 1 (several already TLAPS-closed independently); EWD998-family "opts"/simulation-mode variants + 91/93 confirmed genuinely blocked by TLC-version gaps, not fixable at cfg/corpus level (58, 80, 81, 84, 85, 88, 91, 93, 94 — `SIBLING_WRAPPERS.md`); spec 72 (EWD998_anim) partially unblocked — module extracted from a combined CONFIG+MODULE corpus file, now fails later at `Init` construction, `SPEC72_NOTES.md`; spec 78 needs a real trace-replay input file; spec 90's only path forward is spec 92, itself still open; spec 198 is a template needing invented operator semantics; spec 50 (Synod) needs a hand-built inner-module instantiation, design work not a quick fix (`MC_WRAPPERS.md`) |
 | `tlc=timeout` (90s, confirmed real at `--jobs 2`) | 19 | 1, 12, 14, 16, 17, 28, 30 (cbc_max — patched, Agreement violation open, `PATCHES.md`), 35, 36, 40, 47, 48, 49, 57, 73, 79, 89, 107 (KnuthYao, needs TLC simulation mode + R, `SIBLING_WRAPPERS.md`), 146 (large state space, `CANONICAL_MODEL_FIXES.md`) |
 | `tlc=pass` but vacuous | 1 | spec 145 (MultiPaxos-SMR) — genuinely has no invariant of its own by design (safety property lives in spec 146, itself a confirmed timeout) |
 | `tlc=fail_liveness` | 1 | spec 92 — root-caused to the specific property (`InSync`, not `AllExtending`) and why (cfg cites a known TLC `VIEW`-abstraction liveness-counterexample issue, tlaplus/tlaplus#1045); inconclusive whether real bug or artifact, `SPEC92_NOTES.md`, left open rather than guess |
 | `tlaps=partial` | 1 | spec 112 (LamportMutex_proofs) — 636-642/654 obligations depending on run budget, `TLAPS_REPORT.md` |
 
-Note: the `~22` and `19` above overlap in listed spec numbers where a spec moved from
-a hard error to a legitimate timeout this iteration (e.g. 60, 64) — the per-spec docs
-(`ALIAS_CFG.md`, `SIBLING_WRAPPERS.md`) have the precise current status for each.
+Per-spec docs (`ALIAS_CFG.md`, `SIBLING_WRAPPERS.md`, `SPEC72_NOTES.md`,
+`SPEC92_NOTES.md`) have the precise current status and reproduction command for each
+open spec.
 
 ## Vacuity detector bug fixed this iteration
 
@@ -138,7 +138,7 @@ experimental TLC feature that turned out not to be available in this build), in
    `--jobs 2`. `corpus/configs/TIMEOUT_CONTENTION.md`. Both matter more for Stage 1's
    higher-parallelism SOPHIA sweep than they do here.
 
-## What this pass fixed (cumulative, this session — 0/206 baseline → 131/206)
+## What this pass fixed (cumulative, this session — 0/206 baseline → 135/206)
 
 - Amendment 1 (population-aware criterion) and Amendment 2 (deferral) approved by
   Eric; Amendment 3 (expected-violation) proposed, applied provisionally.
@@ -170,12 +170,20 @@ experimental TLC feature that turned out not to be available in this build), in
 - 3 more hand-authored wrappers, same technique as `MC_HanoiSeq`: 33 (`ChangRoberts`,
   a distinct-ID sequence), 205/206 (`YoYo` leader election family, a strongly-connected
   triangle graph).
+- 2 more hand-authored bounded-sequence wrappers, same technique as spec 119's
+  `MCFindHighest`: 125 (`BinarySearch`), 128 (`Quicksort`), both needing a
+  `LimitedSeq` operator no corpus sibling provided.
+- Spec 101 (`ClientCentric`) reclassified `library` — pure consistency-model theory,
+  no `Init`/`Next`/`Spec` at all, meant to be `INSTANCE`d by consumers (spec 103 does
+  exactly that).
+- Spec 103 (`KVsnap`) closed via a hand-authored `Permutations(TxId)` symmetry
+  wrapper — the cfg's `SYMMETRY TxIdSymmetric` had no matching definition anywhere.
 - Spec 124 (`LevelSpec`) reclassified `library` — constant-only, no `VARIABLES`.
 
 ## Recommendation
 
-Do not sign off Gate 0 as passed — the 206/206 checkbox is materially unmet (131/206,
-64%). The other three checkboxes are genuinely met and the instrument itself (harness,
+Do not sign off Gate 0 as passed — the 206/206 checkbox is materially unmet (135/206,
+66%). The other three checkboxes are genuinely met and the instrument itself (harness,
 controls, tool wiring, ledger discipline) looks sound: every fix this pass was found
 via a real counterexample trace or a real corpus cross-reference, and re-verified
 through the harness — nothing here is asserted without a `results/runs/` entry behind
@@ -185,10 +193,10 @@ RALPH_INSTRUCTIONS.md, following the same propose-then-approve pattern Amendment
 itself used.
 
 What's left: 19 confirmed large-state-space timeouts (needs a bounds/budget decision,
-not more archaeology), ~28 unresolved `tlc=error` specs (several classes identified —
-EWD998-family simulation-mode variants, ALIAS/VIEW/symmetry cfg gaps, no sibling
-wrapper found — see the failure-class table above), 1 vacuous-by-design spec, and one
-inconclusive liveness finding (92). Closing the confirmed-fixable remainder would
-likely put the honest number well above 70%, still short of 206/206 — at which point
-Stage 1's repair sweep (PLAN.md §3, the one-shot SOPHIA job) is the right tool for
-whatever's left, rather than more manual per-spec archaeology.
+not more archaeology), ~18 unresolved `tlc=error` specs (mostly genuine TLC-version
+capability gaps or design work now — the quick sibling-wrapper/cfg-completion wins
+are largely exhausted, see the failure-class table above), 1 vacuous-by-design spec,
+and one inconclusive liveness finding (92). Closing the confirmed-fixable remainder
+would likely put the honest number close to 75-80%, still short of 206/206 — at which
+point Stage 1's repair sweep (PLAN.md §3, the one-shot SOPHIA job) is the right tool
+for whatever's left, rather than more manual per-spec archaeology.
