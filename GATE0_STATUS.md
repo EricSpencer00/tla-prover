@@ -7,7 +7,7 @@ this is evidence for that decision, not a self-certification.
 
 - [ ] **`oracle` scores 206/206 SANY ∧ non-vacuous TLC on the full corpus, from one
       command.** NOT MET. See "Corpus closure" below for the honest number and how
-      it's computed under Amendment 1's population-aware criterion.
+      it's computed under Amendment 1/3's population-aware criterion.
 - [x] **Every control spec in the vacuity battery fails as designed (0 false passes).**
       MET. `python3 -m harness.controls` — all 6 controls (`BadParse`, `BadInv`,
       `DeadEnd`, `Vacuous`, `TrueInv`, `UnreachableNext`) behave exactly as designed.
@@ -54,27 +54,26 @@ from `DEFERRED.json`, re-verified through the harness
 
 | | count | of 206 |
 |---|---|---|
-| **Closed** (meets Amendment 1 criterion) | **93** | 45% |
-| Open (active, not yet closed) | 81 | 39% |
+| **Closed** (meets Amendment 1/3 criterion) | **98** | 48% |
+| Open (active, not yet closed) | 76 | 37% |
 | Deferred (Amendment 2, excluded from active work) | 32 | 16% |
 
-**93/206, with 32 stated separately per Amendment 2's reporting rule.** Not 206/206.
+**98/206, with 32 stated separately per Amendment 2's reporting rule.** Not 206/206.
 Gate 0's own text calls this correctly: Stage 0's job is proving the *instrument*
 (harness + oracle + controls + tool wiring), not reaching 100% in Stage 0 itself —
 that's explicitly Stage 1's (the repair sweep's) job, expected to land in the 60-85%
-band per ROADMAP.md, off a 23-45% single-shot baseline (AUDIT.md). 93/206 (45%) from
+band per ROADMAP.md, off a 23-45% single-shot baseline (AUDIT.md). 98/206 (48%) from
 an *oracle* run (no repair, no model generation — canonical text plus documented
 corpus-defect patches) ahead of the repair sweep is a reasonable place to be.
 
-## The 81 open, by failure class
+## The 76 open, by failure class
 
 | class | n | notes |
 |---|---|---|
-| `tlc=error` | 50 | mostly proof_module specs where TLC is a secondary check under Amendment 1 (many already TLAPS-closed, e.g. 67/118/119/131/137/139/142/182 all show tlc=error here but are in the 93 closed via TLAPS), plus real cfg/harness gaps not yet drafted |
+| `tlc=error` | 50 | mostly proof_module specs where TLC is a secondary check under Amendment 1 (many already TLAPS-closed, e.g. 67/118/119/131/137/139/142/182 all show tlc=error here but are in the 98 closed via TLAPS), plus real cfg/harness gaps not yet drafted |
 | `tlc=timeout` (90s) | 18 | includes 1, 14, 16, 17, 28, 30 (cbc_max — patched but Agreement violation open, see PATCHES.md), 31, 36, 40, 48 (large state space, see MC_WRAPPERS.md), 49, 57, 73, 79, 89, 107 (KnuthYao, needs simulation mode), 135, 146 (large state space, see CANONICAL_MODEL_FIXES.md) |
 | `tlc=pass` but vacuous | 6 | cfg has no invariant/property, or trivial state space — candidates for drafting a real invariant |
-| `tlc=fail_invariant` | 5 | specs 4, 42, 44, 143, 173 — not yet root-caused this pass |
-| `tlc=fail_liveness` | 1 | spec 92 — not yet root-caused |
+| `tlc=fail_liveness` | 1 | spec 92 — root-caused which property fails (InSync, not AllExtending) and why (cfg cites a known TLC VIEW-abstraction liveness-counterexample issue, tlaplus/tlaplus#1045); inconclusive on whether it's a real bug or an artifact — see SPEC92_NOTES.md, left open rather than guess |
 | `tlaps=partial` | 1 | spec 112 (LamportMutex_proofs) — 642/654 in the dedicated Task 1 run (`results/runs/tlaps-proof-modules-v2/`), 636/654 in this sweep's busier/shared-budget context; tlapm's automated backends (zenon/SMT/Isabelle) can vary slightly run to run under time pressure — see TLAPS_REPORT.md, not yet a concern since both runs agree it's a real partial, not a pass |
 
 The 18 timeouts are the honest majority of the gap — most are real large state spaces
@@ -84,12 +83,30 @@ uniformly; several of these would very plausibly close given minutes instead), o
 Apalache (ROADMAP.md Stage 4) as a symbolic alternative to exhaustive TLC. None of
 that was attempted in this pass — noted as follow-on work, not silently skipped.
 
-`fail_invariant` (4, 42, 44, 143, 173) and `fail_liveness` (92) are not yet
-individually root-caused; each could be a genuine corpus defect (like specs 30 and
-175, both found and fixed this pass) or a cfg drafting error (like spec 145's removed
-`Termination` property) — both classes were common in this same corpus. Next pass
-should apply the same read-the-actual-counterexample-trace method used for 30/175
-here, not assume either way.
+**The 5 `fail_invariant` specs are resolved** (4, 42, 44, 143, 173 — see "Amendment 3"
+below): none were bugs. `fail_liveness` (92) was root-caused to the specific property
+but is left open, inconclusive — see SPEC92_NOTES.md.
+
+## Amendment 3 (PENDING Eric): expected-violation population
+
+Root-causing the `fail_invariant`/`fail_liveness` specs by reading their actual TLC
+counterexample traces (same method already used for specs 30/175) found none of the 5
+`fail_invariant` specs were bugs. Spec 4 (`ACP_NB_WRONG_TLC`)'s own corpus description
+says it is "designed to VIOLATE the consistency property AC1" and its `.cfg` literally
+comments `PROPERTIES AC1 \* invalid, TLC found that!` — a deliberate pedagogical
+negative control. Specs 42/44 (`DieHard`/`DieHarder`), 143
+(`MissionariesAndCannibals`), and 173 (`SlidingPuzzles`) each check an invariant
+(`NotSolved`/`Solution`/`KlotskiGoal`) *designed* to be violated — the counterexample
+IS the puzzle's solution, the same idiom already handled for spec 192 (`HanoiSeq`)
+earlier in the session.
+
+Logged as PLAN.md Amendment 3, applied provisionally (same pattern as Amendment 1's
+initial proposal): a new `expected_violation` population
+(`corpus/configs/populations.json`) maps each spec to the *specific* property name it
+must violate, and `harness/runner.py` only counts it a pass when TLC reports exactly
+that property violated with a valid trace — a different property failing, or none,
+still fails. Verified through the harness for all 6 specs (4, 42, 44, 143, 173, 192).
+**PENDING Eric's sign-off** — the 98 closed count above includes these 6 provisionally.
 
 ## A harness reliability bug found and fixed during this sweep
 
@@ -123,15 +140,21 @@ specs 118/182 -- un-deferred while writing this report, see "Corpus closure" abo
 - Two specs closed via vendored/hand-authored MC wrappers (189, 192); one wired but
   not converged (48, large state space).
 - The `java.io.tmpdir` race above.
+- Amendment 3 (PENDING Eric): expected-violation population, closes 6 more specs
+  (4, 42, 44, 143, 173, 192) that were being scored as failures for doing exactly
+  what their own corpus descriptions say they are built to do.
 
 ## Recommendation
 
-Do not sign off Gate 0 as passed — the 206/206 checkbox is materially unmet (93/206).
+Do not sign off Gate 0 as passed — the 206/206 checkbox is materially unmet (98/206).
 The other three checkboxes are genuinely met and the instrument itself (harness,
 controls, tool wiring, ledger discipline) looks sound: every fix this pass was found
 via a real counterexample trace and re-verified through the harness, not asserted.
-The natural next increment is root-causing the 6 fail_invariant/fail_liveness specs
-and deciding a budget/bounds policy for the 18 timeouts — closing those would likely
+Two amendments are PENDING Eric's actual sign-off (Amendment 1 already interactively
+approved this session; Amendment 3 is not — both are applied provisionally per
+RALPH_INSTRUCTIONS.md, following Amendment 1's own precedent of propose-then-approve).
+The natural next increment is deciding a budget/bounds policy for the 18 timeouts and
+resolving the `tlc=error` bucket's real cfg/harness gaps — closing those would likely
 put the honest number well above 50%, still short of 206/206, at which point Stage 1's
 repair sweep (PLAN.md §3, the one-shot SOPHIA job) becomes the right tool for the
 remainder rather than more manual per-spec archaeology.
