@@ -19,14 +19,14 @@ this is evidence for that decision, not a self-certification.
       this session has its own `results/runs/` entry (append-only, ~40 run
       directories) plus `corpus/configs/patches/`, `.../wrappers/`, `.../overrides/`
       for every applied fix, each independently re-verifiable. `corpus/DEFERRED.json`
-      (15 specs, per-spec reason) covers what's excluded from active work.
+      (14 specs, per-spec reason) covers what's excluded from active work.
 
 **3 of 4 met.** The unmet one is the headline number, not a technicality — see below.
 
 ## Corpus closure (Rule 3: corpus + split, N, stage, budget, reproduction command)
 
 Corpus: FormaLLM (`/Users/eric/GitHub/tla_benchmark/data`), 206 entries (205 `.tla` +
-1 orphan description, spec 120 — counted in the 15 deferred). Method: `oracle`
+1 orphan description, spec 120 — counted in the 14 deferred). Method: `oracle`
 (canonical corpus text, patched only where a documented corpus defect required it —
 `corpus/configs/patches/`). Stage: SANY + TLC (+ TLAPS for `proof_module` specs).
 Budget: 90s/spec TLC default, per-spec override to 150s for 4 specs individually
@@ -41,15 +41,15 @@ Population classification lives in `corpus/configs/populations.json`.
 
 | | count | of 206 |
 |---|---|---|
-| **Closed** (meets Amendment 1/3 criterion) | **156** | 76% |
+| **Closed** (meets Amendment 1/3 criterion) | **157** | 76% |
 | Open (active, not yet closed) | 35 | 17% |
-| Deferred (Amendment 2, excluded from active work) | 15 | 8% |
+| Deferred (Amendment 2, excluded from active work) | 14 | 8% |
 
-**156/206, with 15 stated separately per Amendment 2's reporting rule.** Not 206/206.
+**157/206, with 14 stated separately per Amendment 2's reporting rule.** Not 206/206.
 Gate 0's own text calls this correctly: Stage 0's job is proving the *instrument*
 (harness + oracle + controls + tool wiring), not reaching 100% in Stage 0 itself —
 that's explicitly Stage 1's (the repair sweep's) job, expected to land in the 60-85%
-band per ROADMAP.md, off a 23-45% single-shot baseline (AUDIT.md). 156/206 (76%) from
+band per ROADMAP.md, off a 23-45% single-shot baseline (AUDIT.md). 157/206 (76%) from
 an *oracle* run (no repair, no model generation — canonical text plus documented
 corpus-defect patches and wrapper wiring) is at the top of that band already, ahead
 of the repair sweep.
@@ -68,7 +68,20 @@ Per-spec docs (`ALIAS_CFG.md`, `SIBLING_WRAPPERS.md`, `SPEC72_NOTES.md`,
 `SPEC92_NOTES.md`, `TIMEOUT_POLICY.md`) have the precise current status and
 reproduction command for each open spec.
 
-## Deferred-set deep dive (this iteration)
+## Deferred-set deep dive, continued (this iteration)
+
+Closed spec 108 (`Prob`, absorbing Markov chain): hand-authored `TypeOK` invariant —
+flagged since the original W0.3 pass as having no zero-arity checkable predicate at
+all. Root-caused spec 78 (`EWD998ChanTrace`) to a real, confirmed-unfixable-here
+limitation: `tools/community-modules/*.tla` are declaration-only stubs missing their
+paired Java class overrides (the real jar breaks TLC outright,
+`NoClassDefFoundError: KSubsetValue`, a genuine version incompatibility, confirmed by
+direct test) — `COMMUNITY_MODULES_STUBS.md`, including an integrity check confirming
+none of the 156-then-157 closed specs secretly rest on this stub behavior. Found and
+fixed a real harness bug along the way: the sweep summary printer crashed
+(`TypeError`) whenever a row never reached the `sany` stage.
+
+## Deferred-set deep dive (previous iteration)
 
 Closed spec 18: another combined multi-module corpus file (same finding as spec 72) —
 `data/tla_files/18.tla` concatenates three modules (`BufferedRandomAccessFile`,
@@ -150,7 +163,7 @@ per-spec technique in `SIBLING_WRAPPERS.md`).
    load but closed instantly alone. `TIMEOUT_CONTENTION.md`.
 3. **Vacuity detector false positive** for `VARIABLES`-less modules (above).
 
-## What this session fixed (cumulative — 0/206 baseline → 156/206)
+## What this session fixed (cumulative — 0/206 baseline → 157/206)
 
 - Amendments 1 and 2 approved by Eric; Amendment 3 proposed, applied provisionally.
 - TLAPS wired as a real harness stage; proof modules close via SANY + all obligations
@@ -178,7 +191,7 @@ per-spec technique in `SIBLING_WRAPPERS.md`).
 
 ## Recommendation
 
-Do not sign off Gate 0 as passed — the 206/206 checkbox is materially unmet (156/206,
+Do not sign off Gate 0 as passed — the 206/206 checkbox is materially unmet (157/206,
 76%). The other three checkboxes are genuinely met and the instrument itself (harness,
 controls, tool wiring, ledger discipline) looks sound: every fix was found via a real
 counterexample trace, a real corpus cross-reference, or a real harness bug, and
