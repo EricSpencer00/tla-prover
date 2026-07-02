@@ -1,0 +1,2 @@
+spec,method,sany,tlc,tlc_vacuity,cfg_origin,tlaps,tlaps_obligations,apalache,budget_used,log_path
+30,oracle,pass,fail_invariant,,draft,,,,"{""sany_s"": 0.2, ""tlc_s"": 33.7}",/Users/eric/GitHub/prove-TLA/results/runs/patch-30-verify3/logs/30.log

@@ -187,7 +187,13 @@ def eval_spec(num: str, corpus: Path, num2mod, mod2path, cfg_dirs, workroot: Pat
         row["sany"] = "no_tla_file"
         (logdir / f"{num}.log").write_text("no .tla file in corpus\n")
         return row
-    text = tla_src.read_text(errors="replace")
+    # documented corpus-defect repair (Amendment 1: "repaired from upstream sources";
+    # for specs where the defect is upstream too, corpus/configs/PATCHES.md records
+    # the minimal hand-authored fix): full-module override, same module name.
+    patch_file = REPO / "corpus" / "configs" / "patches" / f"{num}.tla"
+    text = patch_file.read_text(errors="replace") if patch_file.exists() else tla_src.read_text(errors="replace")
+    if patch_file.exists():
+        row["source_origin"] = "patched"
     mod = num2mod.get(num)
     if not mod:
         row["sany"] = "no_module_header"

@@ -1,0 +1,1 @@
+{"spec": "30", "method": "oracle", "sany": "pass", "tlc": "no_cfg", "tlc_vacuity": null, "tlaps": null, "apalache": null, "budget_used": {"sany_s": 0.2}, "log_path": "/Users/eric/GitHub/prove-TLA/results/runs/patch-30-verify/logs/30.log", "source_origin": "patched"}
