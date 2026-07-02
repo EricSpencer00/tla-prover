@@ -1,0 +1,9 @@
+spec,method,sany,tlc,tlc_vacuity,cfg_origin,tlaps,tlaps_obligations,apalache,budget_used,log_path
+49,oracle,pass,timeout,,original,,,,"{""sany_s"": 0.2, ""tlc_s"": 90.1}",/Users/eric/GitHub/prove-TLA/results/runs/timeout-recheck-isolated2/logs/49.log
+57,oracle,pass,timeout,,original,,,,"{""sany_s"": 0.2, ""tlc_s"": 90.1}",/Users/eric/GitHub/prove-TLA/results/runs/timeout-recheck-isolated2/logs/57.log
+73,oracle,pass,timeout,,original,,,,"{""sany_s"": 0.4, ""tlc_s"": 90.1}",/Users/eric/GitHub/prove-TLA/results/runs/timeout-recheck-isolated2/logs/73.log
+79,oracle,pass,timeout,,original,,,,"{""sany_s"": 0.3, ""tlc_s"": 90.1}",/Users/eric/GitHub/prove-TLA/results/runs/timeout-recheck-isolated2/logs/79.log
+89,oracle,pass,timeout,,draft,,,,"{""sany_s"": 0.2, ""tlc_s"": 90.1}",/Users/eric/GitHub/prove-TLA/results/runs/timeout-recheck-isolated2/logs/89.log
+107,oracle,pass,timeout,,draft,,,,"{""sany_s"": 0.2, ""tlc_s"": 90.1}",/Users/eric/GitHub/prove-TLA/results/runs/timeout-recheck-isolated2/logs/107.log
+135,oracle,pass,pass,clean,original,,,,"{""sany_s"": 0.2, ""tlc_s"": 70.2}",/Users/eric/GitHub/prove-TLA/results/runs/timeout-recheck-isolated2/logs/135.log
+146,oracle,pass,timeout,,original,,,,"{""sany_s"": 0.2, ""tlc_s"": 90.1}",/Users/eric/GitHub/prove-TLA/results/runs/timeout-recheck-isolated2/logs/146.log

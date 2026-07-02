@@ -1,0 +1,14 @@
+{
+  "run_id": "gate0-sweep-v4",
+  "corpus": "/Users/eric/GitHub/tla_benchmark/data",
+  "stages": [
+    "sany",
+    "tlc",
+    "tlaps"
+  ],
+  "timeout_s": 90,
+  "jobs": 8,
+  "n_specs": 174,
+  "extra_cfg_dir": "corpus/configs/drafts",
+  "tla2tools": "/Users/eric/GitHub/prove-TLA/tools/tla2tools.jar"
+}

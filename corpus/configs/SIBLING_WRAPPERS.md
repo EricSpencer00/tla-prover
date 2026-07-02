@@ -56,11 +56,37 @@ TLC build or deeper investigation of TLC's `TLCGet("-D...")` internals, both out
 scope for a quick per-spec fix. `jvm_flags` plumbing is in place in `harness/runner.py`
 and `policy.json` for whenever this gets picked up again.
 
+## Batch 2 — resolved
+
+| base spec | wrapper spec | note |
+|---|---|---|
+| 176 (spanning) | 175 (MC_spanning) | **closed** — same module as the already-fixed `corpus/configs/patches/176.tla` (TypeOK edge direction), now wired for spec 176's own number too |
+| 61 (EWD687a) | 63 (MCEWD687a) | **closed** |
+| 168 (ReadersWriters) | 171 (module `MC`, byte-identical duplicate at 167) | **closed** |
+| 157, 163, 170 (Paxos — three byte-identical duplicate base copies) | 155, 161 (MCPaxos — byte-identical duplicates of each other) | **closed**, all three |
+| 130 (Majority) | 132 (MCMajority, unqualified `INSTANCE Majority`) | **closed** |
+| 148 (Nano) | 147 (MCNano, named `N == INSTANCE Nano`) | **closed** — same content as the already-closed spec 147, now wired for spec 148's own number |
+
+Each of these needed the sibling's own working `.cfg` copied to
+`corpus/configs/overrides/<base-num>.cfg` too, not just the module wired — the base
+spec's original cfg assumed a plain (unwrapped) constant substitution that only makes
+sense once the wrapper's own `CONSTANTS` block is present.
+
+## Reclassified as `library` (SANY-only, not a `tlc=error` fix)
+
+**134 (MCReachabilityTest), 138 (Reachability), 140 (ReachabilityTest)** — all three
+are constant-only/`ASSUME`-driven test-harness modules with no behavior spec
+(`corpus/configs/REPORT.md`'s LOW-tier breakdown already said as much: "no behavior
+spec, so TLC has nothing to run"). TLC was never the right criterion; added to
+`corpus/configs/populations.json`'s `library` list. All three already pass SANY.
+
 ## Remaining `tlc=error` specs not yet investigated
 
-72, 124, 130, 134, 138, 140, 148, 157, 163, 168, 170, 176, 198, 205, 206, 61 — each
-reports "constant parameter X is not assigned a value" or a substitution error not yet
-traced to a sibling. Same method applies: find the undefined identifier's real
-definition (`grep -rl "IDENT ==" tla_files/`), confirm which corpus spec's module
-actually EXTENDS the base module, wire via `corpus_spec`. Not attempted this pass —
-time-boxed to what was resolved above.
+72 (EWD998_anim), 124 (LevelSpec), 198 (Alternate), 205 (YoYoNoPruning), 206
+(YoYoPruning) — no sibling `EXTENDS`/`INSTANCE` relationship found in the corpus for
+any of these (checked via `grep -rl "EXTENDS <module>"`). 198 in particular is
+confirmed a parameterized template per `corpus/configs/REPORT.md` ("a template meant
+to be instantiated") with no concrete instantiation anywhere in the corpus. These
+likely need either a hand-authored wrapper (same treatment as spec 192/HanoiSeq) or
+are genuinely not closeable without inventing test values from scratch — not
+attempted this pass.
