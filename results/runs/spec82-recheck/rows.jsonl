@@ -1,0 +1,1 @@
+{"spec": "82", "method": "oracle", "sany": "pass", "tlc": "pass", "tlc_vacuity": "clean", "tlaps": null, "apalache": null, "budget_used": {"sany_s": 0.3, "tlc_s": 14.2}, "log_path": "/Users/eric/GitHub/prove-TLA/results/runs/spec82-recheck/logs/82.log", "cfg_origin": "override"}
