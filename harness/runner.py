@@ -189,7 +189,14 @@ def eval_spec(num: str, corpus: Path, num2mod, mod2path, cfg_dirs, workroot: Pat
             # per-spec policy (corpus/configs/policy.json): e.g. {"5": {"tlc_flags":
             # ["-deadlock"], "reason": "terminating algorithm; deadlock check n/a"}}
             pol = POLICY.get(num, {})
-            st, vac, out, dt = check_tlc(mod, cfg_text, workdir, timeout,
+            tlc_mod = mod
+            # optional MC-wrapper: {"wrapper": {"module": "MCFoo", "file": "corpus/configs/wrappers/MCFoo.tla"}}
+            if "wrapper" in pol:
+                w = pol["wrapper"]
+                (workdir / f"{w['module']}.tla").write_text((REPO / w["file"]).read_text())
+                tlc_mod = w["module"]
+                (workdir / f"{tlc_mod}.cfg").write_text(cfg_text)
+            st, vac, out, dt = check_tlc(tlc_mod, cfg_text, workdir, timeout,
                                          extra_flags=pol.get("tlc_flags", ()))
             if pol:
                 row["policy"] = pol.get("reason", "custom flags")

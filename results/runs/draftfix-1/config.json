@@ -1,0 +1,13 @@
+{
+  "run_id": "draftfix-1",
+  "corpus": "/Users/eric/GitHub/tla_benchmark/data",
+  "stages": [
+    "sany",
+    "tlc"
+  ],
+  "timeout_s": 120,
+  "jobs": 6,
+  "n_specs": 14,
+  "extra_cfg_dir": "/Users/eric/GitHub/prove-TLA/corpus/configs/drafts",
+  "tla2tools": "/Users/eric/GitHub/prove-TLA/tools/tla2tools.jar"
+}

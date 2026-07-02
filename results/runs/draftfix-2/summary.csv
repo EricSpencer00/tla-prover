@@ -1,0 +1,7 @@
+spec,method,sany,tlc,tlc_vacuity,cfg_origin,tlaps,apalache,budget_used,log_path
+30,oracle,pass,error,,draft,,,"{""sany_s"": 0.3, ""tlc_s"": 1.0}",/Users/eric/GitHub/prove-TLA/results/runs/draftfix-2/logs/30.log
+62,oracle,pass,pass,clean,draft,,,"{""sany_s"": 0.3, ""tlc_s"": 8.6}",/Users/eric/GitHub/prove-TLA/results/runs/draftfix-2/logs/62.log
+107,oracle,pass,error,,draft,,,"{""sany_s"": 0.3, ""tlc_s"": 0.3}",/Users/eric/GitHub/prove-TLA/results/runs/draftfix-2/logs/107.log
+108,oracle,pass,pass,vacuous:no_invariant_or_property_in_cfg,draft,,,"{""sany_s"": 0.2, ""tlc_s"": 0.9}",/Users/eric/GitHub/prove-TLA/results/runs/draftfix-2/logs/108.log
+121,oracle,pass,error,,draft,,,"{""sany_s"": 0.3, ""tlc_s"": 0.9}",/Users/eric/GitHub/prove-TLA/results/runs/draftfix-2/logs/121.log
+145,oracle,pass,error,,draft,,,"{""sany_s"": 0.4, ""tlc_s"": 0.9}",/Users/eric/GitHub/prove-TLA/results/runs/draftfix-2/logs/145.log
