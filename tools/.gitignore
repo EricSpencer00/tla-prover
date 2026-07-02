@@ -1,0 +1,18 @@
+# Downloaded distributions and binaries (see TOOLS.md for re-provisioning)
+apalache-*/
+apalache*.tgz
+apalache*.zip
+tlapm/
+tlapm-*.tar.gz
+tlaps-*.bin
+
+# Tool run artifacts
+smoke/_apalache-out/
+smoke/.tlacache/
+_apalache-out/
+.tlacache/
+
+# Keep tracked
+!TOOLS.md
+!.gitignore
+!smoke/
