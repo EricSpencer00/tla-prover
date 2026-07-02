@@ -266,14 +266,19 @@ def eval_spec(num: str, corpus: Path, num2mod, mod2path, cfg_dirs, workroot: Pat
         shutil.rmtree(workdir)
     workdir.mkdir(parents=True)
     (workdir / f"{mod}.tla").write_text(text)
-    # copy corpus-local deps (transitive)
+    # copy corpus-local deps (transitive) -- a dep can itself have a patch (e.g.
+    # spec 175/MC_spanning EXTENDS spec 176/spanning, whose TypeOK is the actual
+    # defect; the patch lives under 176's own spec number, not 175's).
     seen, frontier = set(), local_deps(text, mod2path)
     while frontier:
         d = frontier.pop()
         if d in seen or d == mod:
             continue
         seen.add(d)
-        dtext = mod2path[d].read_text(errors="replace")
+        dep_num = mod2path[d].stem
+        dep_patch = REPO / "corpus" / "configs" / "patches" / f"{dep_num}.tla"
+        dtext = dep_patch.read_text(errors="replace") if dep_patch.exists() \
+            else mod2path[d].read_text(errors="replace")
         (workdir / f"{d}.tla").write_text(dtext)
         frontier |= (local_deps(dtext, mod2path) - seen)
 

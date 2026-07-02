@@ -1,0 +1,13 @@
+{
+  "run_id": "patch-175-verify",
+  "corpus": "/Users/eric/GitHub/tla_benchmark/data",
+  "stages": [
+    "sany",
+    "tlc"
+  ],
+  "timeout_s": 60,
+  "jobs": 1,
+  "n_specs": 1,
+  "extra_cfg_dir": null,
+  "tla2tools": "/Users/eric/GitHub/prove-TLA/tools/tla2tools.jar"
+}
