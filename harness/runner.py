@@ -144,7 +144,33 @@ def classify_tlc(rc: int, out: str, timed_out: bool):
     return "error"
 
 
-def vacuity_flags(cfg_text: str, out: str):
+INVARIANT_NAMES_RE = re.compile(r"^\s*INVARIANTS?\b(.*)$", re.M)
+
+
+def trivial_invariant_names(cfg_text: str, mod_text: str):
+    """W0.4: static TRUE-equivalent-invariant detector. Follows each name listed
+    under INVARIANT(S) in the cfg to its definition in the checked module's source
+    and flags it if the body is syntactically just TRUE -- passes TLC on any spec,
+    checks nothing. Best-effort (single-line/simple defs only, no macro expansion);
+    misses are possible, false positives on a real TRUE body are not a concern."""
+    names = []
+    for m in INVARIANT_NAMES_RE.finditer(cfg_text):
+        rest = m.group(1)
+        for tok in re.split(r"[,\s]+", rest.strip()):
+            if tok:
+                names.append(tok)
+    trivial = []
+    for name in names:
+        d = re.search(rf"^{re.escape(name)}\s*==\s*(.+?)\s*$", mod_text, re.M)
+        if not d:
+            continue
+        body = d.group(1).split("\\*", 1)[0].strip()  # drop trailing inline comment
+        if body == "TRUE":
+            trivial.append(name)
+    return trivial
+
+
+def vacuity_flags(cfg_text: str, out: str, mod_text: str = ""):
     """Pass-side vacuity checks (W0.4). Returns list of reasons; empty = non-vacuous."""
     reasons = []
     if not re.search(r"^\s*(INVARIANTS?|PROPERT(Y|IES))\b", cfg_text, re.M):
@@ -155,6 +181,8 @@ def vacuity_flags(cfg_text: str, out: str):
     m2 = re.search(r"^(\d+) states generated", out, re.M)
     if m2 and int(m2.group(1)) == 0:
         reasons.append("zero_states_generated")
+    for name in trivial_invariant_names(cfg_text, mod_text):
+        reasons.append(f"trivial_invariant:{name}")
     return reasons
 
 
@@ -164,7 +192,12 @@ def check_tlc(mod: str, cfg_text: str, workdir: Path, timeout: int, extra_flags=
          "-workers", "2", "-cleanup", "-metadir", str(workdir / "states"),
          *extra_flags, "-config", f"{mod}.cfg", f"{mod}.tla"], workdir, timeout)
     status = classify_tlc(rc, out, timed_out)
-    vac = vacuity_flags(cfg_text, out) if status == "pass" else []
+    if status == "pass":
+        mod_file = workdir / f"{mod}.tla"
+        mod_text = mod_file.read_text(errors="replace") if mod_file.exists() else ""
+        vac = vacuity_flags(cfg_text, out, mod_text)
+    else:
+        vac = []
     return status, vac, out, dt
 
 

@@ -13,6 +13,8 @@ CFGS = {
     "BadInv": "INIT Init\nNEXT Next\nINVARIANT Inv\n",
     "DeadEnd": "INIT Init\nNEXT Next\nINVARIANT Inv\n",
     "Vacuous": "INIT Init\nNEXT Next\n",  # deliberately no invariant
+    "TrueInv": "INIT Init\nNEXT Next\nINVARIANT Inv\n",
+    "UnreachableNext": "INIT Init\nNEXT Next\nINVARIANT Inv\n",
 }
 # control -> (expected sany, expected tlc, must_be_flagged_vacuous)
 EXPECT = {
@@ -20,6 +22,13 @@ EXPECT = {
     "BadInv": ("pass", "fail_invariant", False),
     "DeadEnd": ("pass", "fail_deadlock", False),
     "Vacuous": ("pass", "pass", True),  # passes TLC but MUST trip vacuity flags
+    # real state changes, real invariant name in cfg, but Inv == TRUE: MUST trip
+    # the static trivial-invariant detector (W0.4)
+    "TrueInv": ("pass", "pass", True),
+    # Next's guard is self-contradictory, never enabled even from Init: MUST
+    # deadlock immediately (W0.4's "unreachable-Next", the same detection path
+    # as DeadEnd but with zero reachable successors instead of two)
+    "UnreachableNext": ("pass", "fail_deadlock", False),
 }
 
 
