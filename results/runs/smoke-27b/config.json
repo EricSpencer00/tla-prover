@@ -1,0 +1,13 @@
+{
+  "run_id": "smoke-27b",
+  "corpus": "/Users/eric/GitHub/tla_benchmark/data",
+  "stages": [
+    "sany",
+    "tlc"
+  ],
+  "timeout_s": 60,
+  "jobs": 3,
+  "n_specs": 3,
+  "extra_cfg_dir": null,
+  "tla2tools": "/Users/eric/GitHub/prove-TLA/tools/tla2tools.jar"
+}

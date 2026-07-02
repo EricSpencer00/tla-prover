@@ -1,0 +1,206 @@
+spec_num,module_name,has_cfg,constants,chosen_bounds,invariants_listed,confidence,notes
+1,aba_asyn_byz,original,,,,,
+2,ACP_NB,drafted,inherited: participants; yes; no; undecided; commit; abort; waiting; notsent,"participants={p1,p2,p3}; protocol states as model values",TypeInvNB,HIGH,Constants/actions inherited from ACP_SB (spec 5); both files must be co-located and renamed to module names.
+3,ACP_NB_TLC,original,,,,,
+4,ACP_NB_WRONG_TLC,original,,,,,
+5,ACP_SB,drafted,participants; yes; no; undecided; commit; abort; waiting; notsent,"participants={p1,p2,p3}; protocol states as model values",TypeInv,HIGH,Atomic commitment (simple broadcast). Spec defined without separate Next.
+6,ACP_SB_TLC,original,,,,,
+7,AllocatorImplementation,original,,,,,
+8,AllocatorRefinement,original,,,,,
+9,SchedulingAllocator,original,,,,,
+10,SimpleAllocator,original,,,,,
+11,Bakery,original,,,,,
+12,Boulanger,original,,,,,
+13,MCBakery,original,,,,,
+14,MCBoulanger,original,,,,,
+15,bcastByz,original,,,,,
+16,bcastFolklore,original,,,,,
+17,bosco,original,,,,,
+18,BufferedRandomAccessFile,original,,,,,
+19,VoucherCancel,original,,,,,
+20,VoucherIssue,original,,,,,
+21,VoucherLifeCycle,original,,,,,
+22,VoucherRedeem,original,,,,,
+23,VoucherTransfer,original,,,,,
+24,BPConProof,original,,,,,
+25,Consensus,original,,,,,
+26,PConProof,original,,,,,
+27,VoteProof,original,,,,,
+28,c1cs,original,,,,,
+29,CarTalkPuzzle,drafted,N; P,N=100; P=45,,LOW,Constant-only puzzle module: no VARIABLES/Init/Next. TLC can at most evaluate ASSUME/definitions; values arbitrary.
+30,cbc_max,drafted,N; F; T; Values; Bottom,"N=3; T=1; F=1; Values={1,2}; Bottom=0",TypeOK Validity Agreement,HIGH,Bounds satisfy ASSUME 2*T<N /\ 0<=F<=T; Bottom not in Values. Termination is temporal (skipped).
+31,cf1s_folklore,original,,,,,
+32,Chameneos,original,,,,,
+33,ChangRoberts,original,,,,,
+34,MCChangRoberts,original,,,,,
+35,CheckpointCoordination,original,,,,,
+36,MCCheckpointCoordination,original,,,,,
+37,CigaretteSmokers,original,,,,,
+38,CoffeeCan,drafted,MaxBeanCount,MaxBeanCount=5,TypeInvariant,HIGH,Action properties MonotonicDecrease/LoopInvariant added as PROPERTIES.
+39,Age_Channel,drafted,Messages; Boxes,"Messages={m1,m2}; Boxes={b1,b2}",TypeOK,LOW,No zero-arity Next: only parameterized actions Pickup(msgs)/Deliver(rcver)/AttainAge. NEXT left as placeholder; needs MC wrapper.
+40,EnvironmentController,original,,,,,
+41,EPFailureDetector,drafted,Proc; d0; SendPoint; PredictPoint; Messages,"Proc={p1,p2}; d0=1; SendPoint=2; PredictPoint=2; Messages={m1,m2}",TypeOK,LOW,No zero-arity Next (only LocallyTick/SendAlive/Receive/Predict parameterized). Messages likely a set of message records; model values may not type-check.
+42,DieHard,original,,,,,
+43,DieHarder,original,,,,,
+44,MCDieHarder,original,,,,,
+45,DijkstraMutex,drafted,Proc; defaultInitValue,"Proc={p1,p2,p3}; defaultInitValue model value",MutualExclusion,HIGH,PlusCal translation. LSpec/StarvationFree available for liveness runs.
+46,DiningPhilosophers,original,,,,,
+47,DiskSynod,drafted,Ballot(_); Disk; IsMajority(_) | inherited: N; Inputs,"N=2; Inputs={v1,v2}; Disk={d1,d2,d3}",,LOW,Operator constants Ballot(_)/IsMajority(_) cannot be assigned in cfg; parent Synod has unbounded CHOOSE (NotAnInput). Needs MC module.
+48,HDiskSynod,drafted,inherited: Ballot; Disk; IsMajority; N; Inputs,"N=2; Inputs={v1,v2}; Disk={d1,d2,d3}",HInv1..HInv6 candidates,LOW,History-variable refinement of DiskSynod; inherits operator constants Ballot/IsMajority (not cfg-assignable) and unbounded CHOOSE. Needs MC module.
+49,MC_HDiskSynod,original,,,,,
+50,Synod,drafted,N; Inputs,"N=2; Inputs={v1,v2}",,LOW,NotAnInput == CHOOSE c : c \notin Inputs is unbounded CHOOSE - TLC cannot evaluate; SynodSpec uses temporal \EE. Draft targets ISpec.
+51,Disruptor_MPMC,original,,,,,
+52,Disruptor_SPMC,original,,,,,
+53,RingBuffer,drafted,Size; Readers; Writers; Values; NULL,"Size=2; Readers={r1,r2}; Writers={w1,w2}; Values={v1,v2}; NULL model value",TypeOk NoDataRaces,LOW,"Component module (LOCAL INSTANCE, parameterized actions only, no Next). Meant to be instantiated by a host spec."
+54,Echo,original,,,,,
+55,MCEcho,original,,,,,
+56,Relation,drafted,,,,LOW,Pure operator library (relations); no VARIABLES or behavior spec - nothing for TLC to check.
+57,Einstein,original,,,,,
+58,SimTokenRing,original,,,,,
+59,TokenRing,original,,,,,
+60,EWD687a_anim,original,,,,,
+61,EWD687a,original,,,,,
+62,EWD687aPlusCal,drafted,Node; initiator; maxMsg,"Node={n1,n2,n3}; initiator=n1; maxMsg=2",TypeOK,HIGH,PlusCal translation of EWD687a. StateConstraint used to bound message counts.
+63,MCEWD687a,original,,,,,
+64,EWD840_anim,original,,,,,
+65,EWD840,original,,,,,
+66,EWD840_json,original,,,,,
+67,EWD840_proof,drafted,inherited: N,N=4,TypeOK Inv,MED,TLAPS proof module over EWD840 (spec 65); Spec/TypeOK/Inv inherited. Requires EWD840.tla and TLAPS.tla co-located.
+68,SyncTerminationDetection,original,,,,,
+69,TLAPS,drafted,,,,LOW,TLAPS standard proof-backend pragma library (duplicate copy); no behavior spec.
+70,AsyncTerminationDetection,original,,,,,
+71,AsyncTerminationDetection_proof,drafted,inherited: N,N=3,TypeOK Safe IndInv,MED,Proof module over AsyncTerminationDetection (spec 70); Spec and invariants inherited. Requires parent + TLAPS co-located.
+72,EWD998_anim,drafted,inherited: Node; N,N=3,AnimInv,LOW,Animation harness over EWD998ChanID; EXTENDS SVG which is a community module NOT in the corpus - will not parse without it.
+73,EWD998Chan,original,,,,,
+74,EWD998ChanID,original,,,,,
+75,EWD998ChanID_export,original,,,,,
+76,EWD998ChanID_shiviz,original,,,,,
+77,EWD998Chan_opts,drafted,F | inherited: N,N=3; F=1,,LOW,"Statistics/simulation harness: EXTENDS CSV (community module, not in corpus); ASSUME requires TLC 'generate' simulation mode, not model checking."
+78,EWD998ChanTrace,original,,,,,
+79,EWD998,original,,,,,
+80,EWD998_opts,drafted,F | inherited: N,N=3; F=1,,LOW,"Same pattern as 77: CSV community module + TLCGet(""config"").mode = generate ASSUMEs; simulation-only harness."
+81,EWD998_optsSC,drafted,,,,LOW,"Simulation-control/script module (CSVFile/Cmd defs, CSV community module dependency); no behavior spec of its own."
+82,EWD998PCal,original,,,,,
+83,EWD998_proof,drafted,inherited: N,N=3,TypeOK Inv,LOW,"TLAPS proof over EWD998, but EXTENDS FiniteSetTheorems which is NOT in the corpus - will not parse. Spec/invariants inherited from EWD998."
+84,SmokeEWD998,original,,,,,
+85,SmokeEWD998_SC,original,,,,,
+86,TLAPS,drafted,,,,LOW,TLAPS standard proof-backend pragma library (duplicate copy); no behavior spec.
+87,Utils,drafted,,,,LOW,Helper operator library (Utils); no VARIABLES or behavior spec.
+88,CRDT,original,,,,,
+89,CRDT_proof,drafted,inherited: Node,"Node={n1,n2,n3}",TypeOK Safety,MED,"Proof module over CRDT; Spec/TypeOK/Safety inherited. Deps (CRDT, NaturalsInduction, TLAPS) all present in corpus. OGSpec adds fairness."
+90,DistributedReplicatedLog,original,,,,,
+91,MCCRDT,original,,,,,
+92,MCDistributedReplicatedLog,original,,,,,
+93,MCReplicatedLog,original,,,,,
+94,ReplicatedLog,original,,,,,
+95,GameOfLife,original,,,,,
+96,clean,original,,,,,
+97,clean,original,,,,,
+98,product,original,,,,,
+99,stages,original,,,,,
+100,Huang,original,,,,,
+101,ClientCentric,drafted,,,,LOW,Client-centric isolation definition library (Crooks et al.); declares VARIABLES for instantiation but no Init/Next/Spec.
+102,KeyValueStore,drafted,Key; Val; TxId,"Key={k1,k2}; Val={v1,v2}; TxId={t1,t2}; NoVal=NoVal (definition override)",TypeInvariant TxLifecycle,MED,NoVal == CHOOSE v : v \notin Val is an unbounded CHOOSE; overridden here with a model value via definition override.
+103,KVsnap,original,,,,,
+104,MCKVS,drafted,inherited: Key; Val; TxId,"Key={k1,k2}; Val={v1,v2}; TxId={t1,t2,t3}; NoVal=NoVal",TypeInvariant TxLifecycle,MED,MC wrapper for KeyValueStore adding symmetry on TxId. NoVal definition override as in 102.
+105,DyadicRationals,drafted,,,,LOW,Dyadic rationals arithmetic library (used by KnuthYao); no behavior spec.
+106,Util,drafted,,,,LOW,Helper operator library (Util); no behavior spec.
+107,KnuthYao,drafted,,(no constants),,HIGH,Knuth-Yao die simulation; no constants to bound. No invariant-like state predicates defined.
+108,Prob,drafted,,(no constants),,HIGH,Self-contained Markov-chain probability spec; all parameters are internal definitions.
+109,SimKnuthYao,original,,,,,
+110,Functions,drafted,,,,LOW,Function-theory operator library (Functions); no behavior spec.
+111,LamportMutex,original,,,,,
+112,LamportMutex_proofs,drafted,inherited: N; maxClock,N=3; maxClock=3,TypeOK Mutex,MED,"Proof module over LamportMutex; Spec inherited. BasicInv/ClockInv (inductive invariants) also available. Deps in corpus (LamportMutex, SequenceTheorems, TLAPS)."
+113,MCLamportMutex,original,,,,,
+114,NaturalsInduction,drafted,,,,LOW,NaturalsInduction theorem library (TLAPS); no behavior spec.
+115,SequenceTheorems,drafted,,,,LOW,SequenceTheorems theorem library (TLAPS); no behavior spec.
+116,TLAPS,drafted,,,,LOW,TLAPS standard proof-backend pragma library (duplicate copy); no behavior spec.
+117,WellFoundedInduction,drafted,,,,LOW,WellFoundedInduction theorem library (TLAPS); no behavior spec.
+118,AddTwo,drafted,,(no constants),TypeOK Even,MED,x ranges over unbounded Nat - state space infinite; add a CONSTRAINT (e.g. x <= 10) before long runs. EXTENDS TLAPS (in corpus).
+119,FindHighest,drafted,,(no constants),TypeOK Correctness,MED,Init has f \in Seq(Nat) (unbounded); needs an MC override bounding f's domain/range for TLC. InductiveInvariant also defined.
+121,LeastCircularSubstring,drafted,CharacterSet,"CharacterSet={0,1,2}",TypeInvariant Correctness,LOW,"Init draws from Corpus == ZSeq(CharacterSet), an infinite set - TLC cannot enumerate. Use MCLeastCircularSubstring (spec 122)."
+122,MCLeastCircularSubstring,drafted,CharSetSize; MaxStringLength | inherited: CharacterSet,CharSetSize=3; MaxStringLength=4; CharacterSet <- MCCharacterSet,TypeInvariant Correctness,MED,MC wrapper bounding LeastCircularSubstring. Verify whether ZSeqNat must also override a ZSequences definition.
+123,ZSequences,drafted,,,,LOW,Zero-indexed sequences operator library (ZSequences); no behavior spec.
+124,LevelSpec,drafted,NodeId; Node,,TypeOK LevelCorrect (constant-level predicates),LOW,"Constant-only spec of TLA+ level checking (Specifying Systems): no VARIABLES; Node is a function NodeId -> semantic-node records, not expressible in cfg."
+125,BinarySearch,original,,,,,
+126,MCBinarySearch,original,,,,,
+127,MCQuicksort,original,,,,,
+128,Quicksort,original,,,,,
+129,SumSequence,drafted,Values,"Values={1,2}",PCorrect TypeOK Inv,LOW,"EXTENDS SequencesExtTheorems (TLAPS library, NOT in corpus) - will not parse. Also Init draws s \in Seq(Values) (unbounded)."
+130,Majority,original,,,,,
+131,MajorityProof,drafted,inherited: Value,"Value={a1,a2}",TypeOK Correct Inv,LOW,Proof module over Majority; EXTENDS FiniteSetTheorems (NOT in corpus) - will not parse. Parent draws seq \in Seq(Value) (unbounded).
+132,MCMajority,original,,,,,
+133,MCParReach,original,,,,,
+134,MCReachabilityTest,drafted,RandomSuccCount | inherited: Nodes; SuccSet; Succ,RandomSuccCount=3,,LOW,ASSUME-driven random test harness over ReachabilityTest (which EXTENDS TLAPS/TLC); no behavior spec; Test evaluated at parse time.
+135,MCReachable,original,,,,,
+136,ParReach,original,,,,,
+137,ParReachProofs,drafted,inherited: Root; Procs; Nodes; Succ,"Nodes={n1,n2,n3}; Root=n1; Procs={pr1,pr2}",(parent Inv/Inv1/Inv2),LOW,Proofs over ParReach; parent constant Succ \in [Nodes -> SUBSET Nodes] is function-valued - not expressible in cfg; needs MC module.
+138,Reachability,drafted,Nodes; Succ,"Nodes={n1,n2,n3}",,LOW,Constant-only operator module (ReachableFrom etc.); no VARIABLES; Succ function-valued.
+139,ReachabilityProofs,drafted,inherited: Nodes; Succ,,,LOW,Pure theorem module over Reachability (TLAPS); no behavior spec; parent constants function-valued.
+140,ReachabilityTest,drafted,Nodes; SuccSet | inherited: Nodes; Succ,"Nodes={n1,n2,n3}",,LOW,ASSUME/operator test module (EXTENDS TLAPS); SuccSet is a set of functions - not expressible in cfg; no behavior spec.
+141,Reachable,original,,,,,
+142,ReachableProofs,drafted,inherited: Root; Nodes; Succ,"Nodes={n1,n2,n3}; Root=n1",(parent TypeOK/Inv1/Inv2/Inv3),LOW,Proofs over Reachable; Succ function-valued constant - needs MC module.
+143,MissionariesAndCannibals,original,,,,,
+144,Elevator,drafted,Person; Elevator; FloorCount,"Person={p1,p2}; Elevator={e1,e2}; FloorCount=3",TypeInvariant SafetyInvariant,HIGH,TemporalInvariant available for liveness runs.
+145,MultiPaxos,drafted,Replicas; Writes; Reads; MaxBallot,"Replicas={r1,r2,r3}; Writes={w1,w2}; Reads={rd1}; MaxBallot=2",,MED,No invariant-style state predicates defined (correctness stated as temporal Termination). Sets are symmetric per comments; consider SYMMETRY via MC module.
+146,MultiPaxos_MC,original,,,,,
+147,MCNano,drafted,"CalculateHash(_,_,_); Hash; NoHashVal; PrivateKey; PublicKey; Node; GenesisBalance; NoBlockVal | inherited: Hash; CalculateHash; PrivateKey; PublicKey; KeyPair; Node; GenesisBalance; Ownership","Hash={h1,h2,h3}; PrivateKey={pk1,pk2}; PublicKey={pub1,pub2}; Node={n1,n2}; GenesisBalance=3; NoHashVal/NoBlockVal model values; CalculateHash <- CalculateHashImpl",TypeInvariant SafetyInvariant,MED,MC wrapper for Nano; CalculateHash mapped to CalculateHashImpl defined in the module. Cardinality assumptions: |PrivateKey|=|PublicKey|<=|Node|.
+148,Nano,drafted,"Hash; CalculateHash(_,_,_); PrivateKey; PublicKey; KeyPair; Node; GenesisBalance; Ownership","Hash={h1,h2,h3}; PrivateKey={pk1,pk2}; PublicKey={pub1,pub2}; Node={n1,n2}; GenesisBalance=3",TypeInvariant CryptographicInvariant BalanceInvariant SafetyInvariant,LOW,"CalculateHash(_,_,_) operator constant and KeyPair/Ownership function constants not expressible in cfg. Model-check via MCNano (spec 147)."
+149,nbacc_ray97,original,,,,,
+150,nbacg_guer01,original,,,,,
+151,Queens,drafted,N,N=4,TypeInvariant Invariant,HIGH,N-queens; Termination property available under fairness.
+152,QueensPluscal,drafted,N,N=4,TypeInvariant Invariant,HIGH,PlusCal version of Queens.
+153,Consensus,original,,,,,
+154,MCConsensus,original,,,,,
+155,MCPaxos,original,,,,,
+156,MCVoting,original,,,,,
+157,Paxos,original,,,,,
+158,Voting,original,,,,,
+159,Consensus,original,,,,,
+160,MCConsensus,original,,,,,
+161,MCPaxos,original,,,,,
+162,MCVoting,original,,,,,
+163,Paxos,original,,,,,
+164,Voting,original,,,,,
+165,MCPrisoners,drafted,inherited: Prisoner; Counter,"Prisoner={p1,p2,p3,p4}; Counter=p1",InductiveInvariant,HIGH,Inductive-invariant test spec for Prisoners; bounds mirror the original 166.cfg.
+166,Prisoners,original,,,,,
+167,MC,original,,,,,
+168,ReadersWriters,original,,,,,
+169,FastPaxos,original,,,,,
+170,Paxos,original,,,,,
+171,MC,original,,,,,
+172,SingleLaneBridge,drafted,CarsRight; CarsLeft; Bridge; Positions,"CarsRight={c1,c2}; CarsLeft={c3,c4}; Positions={1,2,3,4}; Bridge={2,3}",TypeOK Invariants,HIGH,"Bounds satisfy StartPos<StartBridge, EndPos>EndBridge, |Bridge|<|Positions|, disjoint car sets."
+173,SlidingPuzzles,original,,,,,
+174,Slush,drafted,Node; SlushLoopProcess; SlushQueryProcess; HostMapping; SlushIterationCount; SampleSetSize; PickFlipThreshold,"Node={n1,n2}; SlushLoopProcess={l1,l2}; SlushQueryProcess={q1,q2}; HostMapping={{n1,l1,q1},{n2,l2,q2}}; SlushIterationCount=1; SampleSetSize=1; PickFlipThreshold=1",TypeInvariant,MED,"HostMapping is a set of 3-element sets mixing the three model-value sorts; verify TLC cfg accepts nested set literals, else move to MC module."
+175,MC_spanning,original,,,,,
+176,spanning,drafted,Proc; NoPrnt; root; nbrs,"Proc={p1,p2,p3}; root=p1; NoPrnt model value; nbrs: needs MC module",TypeOK,LOW,nbrs \subseteq Proc \X Proc is a set of tuples - not expressible in cfg; needs MC module defining a concrete edge relation.
+177,SpanTree,original,,,,,
+178,SpanTreeRandom,original,,,,,
+179,SpanTreeTest,drafted,Nodes; Root; MaxCardinality,"Nodes={n1,n2,n3}; Root=n1; MaxCardinality=3",TypeOK,HIGH,Edges is a variable (test enumerates graphs). PostCondition checked via temporal Safety/Liveness if desired.
+180,Stones,original,,,,,
+181,MC_sums_even,original,,,,,
+182,sums_even,drafted,,,,LOW,"TLAPS proof exercise module (sums_even): theorems only, no behavior spec."
+183,TLAPS,drafted,,,,LOW,TLAPS standard proof-backend pragma library (duplicate copy); no behavior spec.
+184,MCtcp,original,,,,,
+185,tcp,original,,,,,
+186,Simple,original,,,,,
+187,SimpleRegular,original,,,,,
+188,TestGraphs,original,,,,,
+189,TLCMC,drafted,StateGraph; ViolationStates; null,null model value; ViolationStates={},,LOW,"StateGraph is a record-valued constant ([states|->..., actions|->...]) - not expressible in cfg; needs MC module with a concrete graph."
+190,Bits,drafted,,,,LOW,Bits operator library (TLC Java-override module); no behavior spec.
+191,Hanoi,drafted,D; N,D=3; N=3,TypeOK Inv,MED,"Towers of Hanoi (N towers, D disks). EXTENDS Bits (spec 190) which relies on a TLC Java module override - verify availability."
+192,HanoiSeq,drafted,A; B; C,A/B/C: sequence-valued constants - needs MC module,TypeOK,LOW,"A, B, C are sequence-valued constants (tower contents, ASSUME A \in [1..Len(A) -> Nat]); tuples/sequences not expressible in cfg."
+193,2PCwithBTM,original,,,,,
+194,PaxosCommit,original,,,,,
+195,TCommit,original,,,,,
+196,TwoPhase,original,,,,,
+197,TransitiveClosure,original,,,,,
+198,Alternate,drafted,"XInit(_); XAct(_, _, _)","XInit(_)/XAct(_,_,_): operator constants - needs MC module",,LOW,Both constants are operator-valued; TLC needs an MC module supplying concrete XInit/XAct definitions.
+199,MCTwoPhase,original,,,,,
+200,TLAPS,drafted,,,,LOW,TLAPS standard proof-backend pragma library (duplicate copy); no behavior spec.
+201,TwoPhase,original,,,,,
+202,MCYoYoNoPruning,original,,,,,
+203,MCYoYoPruning,original,,,,,
+204,YoYoAllGraphs,original,,,,,
+205,YoYoNoPruning,original,,,,,
+206,YoYoPruning,original,,,,,

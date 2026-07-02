@@ -1,0 +1,13 @@
+{
+  "run_id": "oracle-v0-modfix",
+  "corpus": "/Users/eric/GitHub/tla_benchmark/data",
+  "stages": [
+    "sany",
+    "tlc"
+  ],
+  "timeout_s": 120,
+  "jobs": 8,
+  "n_specs": 55,
+  "extra_cfg_dir": null,
+  "tla2tools": "/Users/eric/GitHub/tla_benchmark/tla2tools.jar"
+}

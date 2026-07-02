@@ -111,3 +111,7 @@ Add to a shell session (or a project script) when working here:
 ```sh
 export PATH="/Users/eric/GitHub/prove-TLA/tools/apalache-0.58.2/bin:/Users/eric/GitHub/prove-TLA/tools/tlapm/bin:$PATH"
 ```
+
+## 3. tla2tools.jar (SANY+TLC)
+- Pinned at tools/tla2tools.jar (latest GitHub release, fetched 2026-07-02). The jar in tla_benchmark/ is SANY 2.2 (2020) and mis-parses TLAPS proof syntax - do not use.
+- CommunityModules-deps.jar + tlapm stdlib + tools/extra-modules/Apalache.tla are on the module path (see harness/runner.py).

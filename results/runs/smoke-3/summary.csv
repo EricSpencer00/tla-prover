@@ -1,0 +1,4 @@
+spec,method,sany,tlc,tlc_vacuity,cfg_origin,tlaps,apalache,budget_used,log_path
+1,oracle,pass,timeout,,original,,,"{""sany_s"": 0.2, ""tlc_s"": 60.1}",/Users/eric/GitHub/prove-TLA/results/runs/smoke-3/logs/1.log
+2,oracle,pass,no_cfg,,,,,"{""sany_s"": 0.2}",/Users/eric/GitHub/prove-TLA/results/runs/smoke-3/logs/2.log
+3,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.3, ""tlc_s"": 1.1}",/Users/eric/GitHub/prove-TLA/results/runs/smoke-3/logs/3.log

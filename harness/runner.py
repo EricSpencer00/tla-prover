@@ -12,8 +12,17 @@ import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
-TLA2TOOLS = Path("/Users/eric/GitHub/tla_benchmark/tla2tools.jar")
 REPO = Path(__file__).resolve().parent.parent
+# Pinned current release (SANY 2.2/2020 in tla_benchmark's jar mis-parses TLAPS proofs)
+TLA2TOOLS = REPO / "tools" / "tla2tools.jar"
+# CM modules as plain .tla on the library path — the CM fat jar bundles classes
+# compiled against a newer tla2tools (KSubsetValue) and breaks TLC if on the classpath.
+CLASSPATH = str(TLA2TOOLS)
+TLA_LIBRARY = ":".join(str(p) for p in [
+    REPO / "tools" / "tlapm" / "lib" / "tlapm" / "stdlib",
+    REPO / "tools" / "community-modules",
+    REPO / "tools" / "extra-modules",
+])
 
 # Modules shipped inside tla2tools.jar; anything else EXTENDed must be a
 # corpus sibling or it is a missing-module failure.
@@ -70,7 +79,8 @@ def run_cmd(cmd, cwd, timeout):
 
 def check_sany(tla_file: Path, workdir: Path, timeout: int):
     rc, out, dt, timed_out = run_cmd(
-        ["java", "-cp", str(TLA2TOOLS), "tla2sany.SANY", tla_file.name], workdir, timeout)
+        ["java", f"-DTLA-Library={TLA_LIBRARY}", "-cp", CLASSPATH,
+         "tla2sany.SANY", tla_file.name], workdir, timeout)
     if timed_out:
         return "timeout", out, dt
     ok = rc == 0 and "Fatal errors" not in out and "*** Errors:" not in out \
@@ -113,7 +123,7 @@ def vacuity_flags(cfg_text: str, out: str):
 
 def check_tlc(mod: str, cfg_text: str, workdir: Path, timeout: int):
     rc, out, dt, timed_out = run_cmd(
-        ["java", "-XX:+UseParallelGC", "-cp", str(TLA2TOOLS), "tlc2.TLC",
+        ["java", "-XX:+UseParallelGC", f"-DTLA-Library={TLA_LIBRARY}", "-cp", CLASSPATH, "tlc2.TLC",
          "-workers", "2", "-cleanup", "-metadir", str(workdir / "states"),
          "-config", f"{mod}.cfg", f"{mod}.tla"], workdir, timeout)
     status = classify_tlc(rc, out, timed_out)
