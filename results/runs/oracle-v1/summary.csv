@@ -1,0 +1,207 @@
+spec,method,sany,tlc,tlc_vacuity,cfg_origin,tlaps,apalache,budget_used,log_path
+1,oracle,pass,timeout,,original,,,"{""sany_s"": 0.3, ""tlc_s"": 120.4}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/1.log
+2,oracle,pass,fail_deadlock,,draft,,,"{""sany_s"": 0.4, ""tlc_s"": 1.6}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/2.log
+3,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.5, ""tlc_s"": 2.4}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/3.log
+4,oracle,pass,fail_invariant,,original,,,"{""sany_s"": 0.5, ""tlc_s"": 2.0}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/4.log
+5,oracle,pass,fail_deadlock,,draft,,,"{""sany_s"": 0.4, ""tlc_s"": 1.4}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/5.log
+6,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.4, ""tlc_s"": 2.7}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/6.log
+7,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.5, ""tlc_s"": 8.9}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/7.log
+8,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.5, ""tlc_s"": 2.3}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/8.log
+9,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.7, ""tlc_s"": 3.6}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/9.log
+10,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.6, ""tlc_s"": 2.0}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/10.log
+11,oracle,pass,error,,original,,,"{""sany_s"": 0.5, ""tlc_s"": 0.8}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/11.log
+12,oracle,pass,error,,original,,,"{""sany_s"": 0.6, ""tlc_s"": 1.0}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/12.log
+13,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.7, ""tlc_s"": 12.4}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/13.log
+14,oracle,pass,timeout,,original,,,"{""sany_s"": 0.9, ""tlc_s"": 120.2}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/14.log
+15,oracle,pass,pass,clean,original,,,"{""sany_s"": 1.0, ""tlc_s"": 14.3}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/15.log
+16,oracle,pass,timeout,,original,,,"{""sany_s"": 0.6, ""tlc_s"": 120.1}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/16.log
+17,oracle,pass,timeout,,original,,,"{""sany_s"": 0.5, ""tlc_s"": 120.2}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/17.log
+18,oracle,fail_missing_module,,,,,,"{""sany_s"": 0.4}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/18.log
+19,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.5, ""tlc_s"": 1.7}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/19.log
+20,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.4, ""tlc_s"": 1.7}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/20.log
+21,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.3, ""tlc_s"": 1.1}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/21.log
+22,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.4, ""tlc_s"": 1.5}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/22.log
+23,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.4, ""tlc_s"": 1.5}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/23.log
+24,oracle,fail,,,,,,"{""sany_s"": 0.9}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/24.log
+25,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.6, ""tlc_s"": 1.2}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/25.log
+26,oracle,fail,,,,,,"{""sany_s"": 0.7}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/26.log
+27,oracle,fail,,,,,,"{""sany_s"": 0.7}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/27.log
+28,oracle,pass,timeout,,original,,,"{""sany_s"": 0.5, ""tlc_s"": 120.1}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/28.log
+29,oracle,pass,timeout,,draft,,,"{""sany_s"": 0.3, ""tlc_s"": 120.0}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/29.log
+30,oracle,pass,fail_deadlock,,draft,,,"{""sany_s"": 0.4, ""tlc_s"": 1.2}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/30.log
+31,oracle,pass,timeout,,original,,,"{""sany_s"": 0.4, ""tlc_s"": 120.1}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/31.log
+32,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.3, ""tlc_s"": 1.9}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/32.log
+33,oracle,pass,error,,original,,,"{""sany_s"": 0.4, ""tlc_s"": 0.5}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/33.log
+34,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.3, ""tlc_s"": 1.1}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/34.log
+35,oracle,pass,error,,original,,,"{""sany_s"": 0.4, ""tlc_s"": 0.5}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/35.log
+36,oracle,pass,timeout,,original,,,"{""sany_s"": 0.4, ""tlc_s"": 120.1}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/36.log
+37,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.5, ""tlc_s"": 1.1}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/37.log
+38,oracle,pass,pass,clean,draft,,,"{""sany_s"": 0.5, ""tlc_s"": 1.0}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/38.log
+39,oracle,pass,error,,draft,,,"{""sany_s"": 0.4, ""tlc_s"": 0.5}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/39.log
+40,oracle,pass,timeout,,original,,,"{""sany_s"": 0.4, ""tlc_s"": 120.1}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/40.log
+41,oracle,pass,error,,draft,,,"{""sany_s"": 0.4, ""tlc_s"": 0.7}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/41.log
+42,oracle,pass,fail_invariant,,original,,,"{""sany_s"": 0.4, ""tlc_s"": 1.0}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/42.log
+43,oracle,pass,error,,original,,,"{""sany_s"": 0.3, ""tlc_s"": 0.5}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/43.log
+44,oracle,pass,fail_invariant,,original,,,"{""sany_s"": 0.3, ""tlc_s"": 0.9}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/44.log
+45,oracle,pass,pass,clean,draft,,,"{""sany_s"": 0.4, ""tlc_s"": 2.0}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/45.log
+46,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.3, ""tlc_s"": 1.2}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/46.log
+47,oracle,pass,error,,draft,,,"{""sany_s"": 0.4, ""tlc_s"": 0.5}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/47.log
+48,oracle,pass,error,,draft,,,"{""sany_s"": 0.4, ""tlc_s"": 0.6}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/48.log
+49,oracle,pass,timeout,,original,,,"{""sany_s"": 0.4, ""tlc_s"": 120.1}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/49.log
+50,oracle,pass,error,,draft,,,"{""sany_s"": 0.3, ""tlc_s"": 0.4}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/50.log
+51,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.4, ""tlc_s"": 4.3}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/51.log
+52,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.4, ""tlc_s"": 2.2}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/52.log
+53,oracle,pass,error,,draft,,,"{""sany_s"": 0.3, ""tlc_s"": 0.5}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/53.log
+54,oracle,pass,error,,original,,,"{""sany_s"": 0.4, ""tlc_s"": 0.6}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/54.log
+55,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.4, ""tlc_s"": 1.2}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/55.log
+56,oracle,pass,pass,vacuous:no_invariant_or_property_in_cfg;only_0_distinct_states;zero_states_generated,draft,,,"{""sany_s"": 0.3, ""tlc_s"": 1.0}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/56.log
+57,oracle,pass,timeout,,original,,,"{""sany_s"": 0.4, ""tlc_s"": 120.1}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/57.log
+58,oracle,pass,error,,original,,,"{""sany_s"": 0.6, ""tlc_s"": 1.5}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/58.log
+59,oracle,pass,error,,original,,,"{""sany_s"": 0.4, ""tlc_s"": 0.6}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/59.log
+60,oracle,pass,error,,original,,,"{""sany_s"": 0.9, ""tlc_s"": 1.0}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/60.log
+61,oracle,pass,error,,original,,,"{""sany_s"": 0.9, ""tlc_s"": 0.9}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/61.log
+62,oracle,pass,error,,draft,,,"{""sany_s"": 0.5, ""tlc_s"": 1.1}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/62.log
+63,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.8, ""tlc_s"": 26.7}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/63.log
+64,oracle,pass,error,,original,,,"{""sany_s"": 0.7, ""tlc_s"": 0.4}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/64.log
+65,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.4, ""tlc_s"": 1.2}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/65.log
+66,oracle,fail_missing_module,,,,,,"{""sany_s"": 0.4}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/66.log
+67,oracle,pass,fail_deadlock,,draft,,,"{""sany_s"": 0.5, ""tlc_s"": 1.4}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/67.log
+68,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.4, ""tlc_s"": 1.2}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/68.log
+69,oracle,pass,pass,vacuous:no_invariant_or_property_in_cfg;only_0_distinct_states;zero_states_generated,draft,,,"{""sany_s"": 0.4, ""tlc_s"": 1.1}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/69.log
+70,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.4, ""tlc_s"": 1.6}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/70.log
+71,oracle,fail,,,,,,"{""sany_s"": 0.4}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/71.log
+72,oracle,fail,,,,,,"{""sany_s"": 0.7}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/72.log
+73,oracle,fail,,,,,,"{""sany_s"": 0.8}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/73.log
+74,oracle,fail,,,,,,"{""sany_s"": 0.7}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/74.log
+75,oracle,fail_missing_module,,,,,,"{""sany_s"": 0.4}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/75.log
+76,oracle,fail_missing_module,,,,,,"{""sany_s"": 0.4}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/76.log
+77,oracle,fail_missing_module,,,,,,"{""sany_s"": 0.3}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/77.log
+78,oracle,fail,,,,,,"{""sany_s"": 0.7}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/78.log
+79,oracle,fail,,,,,,"{""sany_s"": 0.7}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/79.log
+80,oracle,fail,,,,,,"{""sany_s"": 0.7}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/80.log
+81,oracle,pass,error,,draft,,,"{""sany_s"": 0.7, ""tlc_s"": 1.4}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/81.log
+82,oracle,fail,,,,,,"{""sany_s"": 0.7}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/82.log
+83,oracle,fail,,,,,,"{""sany_s"": 0.8}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/83.log
+84,oracle,fail,,,,,,"{""sany_s"": 0.6}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/84.log
+85,oracle,pass,error,,original,,,"{""sany_s"": 0.7, ""tlc_s"": 1.3}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/85.log
+86,oracle,pass,pass,vacuous:no_invariant_or_property_in_cfg;only_0_distinct_states;zero_states_generated,draft,,,"{""sany_s"": 0.3, ""tlc_s"": 1.1}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/86.log
+87,oracle,fail,,,,,,"{""sany_s"": 0.6}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/87.log
+88,oracle,pass,error,,original,,,"{""sany_s"": 0.3, ""tlc_s"": 0.5}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/88.log
+89,oracle,fail,,,,,,"{""sany_s"": 0.5}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/89.log
+90,oracle,pass,error,,original,,,"{""sany_s"": 0.6, ""tlc_s"": 0.8}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/90.log
+91,oracle,pass,error,,original,,,"{""sany_s"": 0.4, ""tlc_s"": 1.2}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/91.log
+92,oracle,pass,fail_liveness,,original,,,"{""sany_s"": 0.7, ""tlc_s"": 1.5}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/92.log
+93,oracle,pass,error,,original,,,"{""sany_s"": 0.5, ""tlc_s"": 1.1}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/93.log
+94,oracle,pass,error,,original,,,"{""sany_s"": 0.3, ""tlc_s"": 0.5}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/94.log
+95,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.4, ""tlc_s"": 8.5}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/95.log
+96,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.3, ""tlc_s"": 1.0}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/96.log
+97,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.3, ""tlc_s"": 1.0}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/97.log
+98,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.4, ""tlc_s"": 1.3}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/98.log
+99,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.4, ""tlc_s"": 1.1}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/99.log
+100,oracle,fail,,,,,,"{""sany_s"": 0.6}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/100.log
+101,oracle,fail,,,,,,"{""sany_s"": 0.4}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/101.log
+102,oracle,pass,pass,clean,draft,,,"{""sany_s"": 0.3, ""tlc_s"": 2.1}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/102.log
+103,oracle,fail,,,,,,"{""sany_s"": 0.4}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/103.log
+104,oracle,pass,pass,clean,draft,,,"{""sany_s"": 0.3, ""tlc_s"": 34.3}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/104.log
+105,oracle,pass,pass,vacuous:no_invariant_or_property_in_cfg;only_0_distinct_states;zero_states_generated,draft,,,"{""sany_s"": 0.5, ""tlc_s"": 1.1}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/105.log
+106,oracle,fail,,,,,,"{""sany_s"": 0.4}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/106.log
+107,oracle,pass,fail_deadlock,,draft,,,"{""sany_s"": 0.4, ""tlc_s"": 1.0}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/107.log
+108,oracle,pass,fail_deadlock,,draft,,,"{""sany_s"": 0.4, ""tlc_s"": 1.0}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/108.log
+109,oracle,fail_missing_module,,,,,,"{""sany_s"": 0.4}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/109.log
+110,oracle,pass,pass,vacuous:no_invariant_or_property_in_cfg;only_0_distinct_states;zero_states_generated,draft,,,"{""sany_s"": 0.3, ""tlc_s"": 0.9}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/110.log
+111,oracle,pass,error,,original,,,"{""sany_s"": 0.3, ""tlc_s"": 0.5}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/111.log
+112,oracle,pass,error,,draft,,,"{""sany_s"": 0.7, ""tlc_s"": 1.4}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/112.log
+113,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.4, ""tlc_s"": 17.0}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/113.log
+114,oracle,pass,pass,vacuous:no_invariant_or_property_in_cfg;only_0_distinct_states;zero_states_generated,draft,,,"{""sany_s"": 0.5, ""tlc_s"": 1.0}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/114.log
+115,oracle,pass,pass,vacuous:no_invariant_or_property_in_cfg;only_0_distinct_states;zero_states_generated,draft,,,"{""sany_s"": 0.6, ""tlc_s"": 1.2}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/115.log
+116,oracle,pass,pass,vacuous:no_invariant_or_property_in_cfg;only_0_distinct_states;zero_states_generated,draft,,,"{""sany_s"": 0.4, ""tlc_s"": 0.9}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/116.log
+117,oracle,pass,pass,vacuous:no_invariant_or_property_in_cfg;only_0_distinct_states;zero_states_generated,draft,,,"{""sany_s"": 0.4, ""tlc_s"": 1.0}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/117.log
+118,oracle,pass,error,,draft,,,"{""sany_s"": 0.3, ""tlc_s"": 1.0}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/118.log
+119,oracle,pass,error,,draft,,,"{""sany_s"": 0.4, ""tlc_s"": 1.1}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/119.log
+120,oracle,no_tla_file,,,,,,{},/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/120.log
+121,oracle,pass,error,,draft,,,"{""sany_s"": 0.4, ""tlc_s"": 1.1}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/121.log
+122,oracle,pass,error,,draft,,,"{""sany_s"": 0.4, ""tlc_s"": 1.0}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/122.log
+123,oracle,pass,pass,vacuous:no_invariant_or_property_in_cfg;only_0_distinct_states;zero_states_generated,draft,,,"{""sany_s"": 0.3, ""tlc_s"": 1.0}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/123.log
+124,oracle,pass,error,,draft,,,"{""sany_s"": 0.6, ""tlc_s"": 0.7}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/124.log
+125,oracle,pass,error,,original,,,"{""sany_s"": 0.4, ""tlc_s"": 0.7}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/125.log
+126,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.6, ""tlc_s"": 3.9}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/126.log
+127,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.7, ""tlc_s"": 5.6}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/127.log
+128,oracle,pass,error,,original,,,"{""sany_s"": 0.7, ""tlc_s"": 0.9}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/128.log
+129,oracle,fail,,,,,,"{""sany_s"": 1.0}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/129.log
+130,oracle,pass,error,,original,,,"{""sany_s"": 0.5, ""tlc_s"": 0.5}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/130.log
+131,oracle,pass,error,,draft,,,"{""sany_s"": 0.6, ""tlc_s"": 1.1}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/131.log
+132,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.3, ""tlc_s"": 1.3}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/132.log
+133,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.5, ""tlc_s"": 17.7}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/133.log
+134,oracle,pass,error,,draft,,,"{""sany_s"": 0.4, ""tlc_s"": 0.6}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/134.log
+135,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.4, ""tlc_s"": 104.7}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/135.log
+136,oracle,pass,error,,original,,,"{""sany_s"": 0.4, ""tlc_s"": 0.5}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/136.log
+137,oracle,pass,error,,draft,,,"{""sany_s"": 0.4, ""tlc_s"": 0.5}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/137.log
+138,oracle,pass,error,,draft,,,"{""sany_s"": 0.3, ""tlc_s"": 0.4}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/138.log
+139,oracle,pass,error,,draft,,,"{""sany_s"": 0.4, ""tlc_s"": 0.5}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/139.log
+140,oracle,fail_missing_module,,,,,,"{""sany_s"": 0.3}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/140.log
+141,oracle,pass,error,,original,,,"{""sany_s"": 0.3, ""tlc_s"": 0.5}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/141.log
+142,oracle,pass,error,,draft,,,"{""sany_s"": 0.5, ""tlc_s"": 0.5}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/142.log
+143,oracle,pass,fail_invariant,,original,,,"{""sany_s"": 0.3, ""tlc_s"": 0.9}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/143.log
+144,oracle,pass,pass,clean,draft,,,"{""sany_s"": 0.4, ""tlc_s"": 2.8}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/144.log
+145,oracle,pass,fail_liveness,,draft,,,"{""sany_s"": 0.5, ""tlc_s"": 4.3}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/145.log
+146,oracle,pass,timeout,,original,,,"{""sany_s"": 0.4, ""tlc_s"": 120.1}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/146.log
+147,oracle,pass,error,,draft,,,"{""sany_s"": 0.5, ""tlc_s"": 1.2}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/147.log
+148,oracle,pass,error,,draft,,,"{""sany_s"": 0.5, ""tlc_s"": 0.7}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/148.log
+149,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.4, ""tlc_s"": 1.1}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/149.log
+150,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.4, ""tlc_s"": 3.6}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/150.log
+151,oracle,pass,fail_deadlock,,draft,,,"{""sany_s"": 0.4, ""tlc_s"": 1.2}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/151.log
+152,oracle,pass,pass,clean,draft,,,"{""sany_s"": 0.4, ""tlc_s"": 1.0}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/152.log
+153,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.5, ""tlc_s"": 1.2}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/153.log
+154,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.5, ""tlc_s"": 1.1}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/154.log
+155,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.6, ""tlc_s"": 1.5}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/155.log
+156,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.6, ""tlc_s"": 1.4}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/156.log
+157,oracle,pass,error,,original,,,"{""sany_s"": 0.6, ""tlc_s"": 0.7}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/157.log
+158,oracle,pass,error,,original,,,"{""sany_s"": 0.6, ""tlc_s"": 0.7}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/158.log
+159,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.5, ""tlc_s"": 1.1}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/159.log
+160,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.6, ""tlc_s"": 1.2}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/160.log
+161,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.5, ""tlc_s"": 1.3}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/161.log
+162,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.6, ""tlc_s"": 1.3}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/162.log
+163,oracle,pass,error,,original,,,"{""sany_s"": 0.5, ""tlc_s"": 0.8}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/163.log
+164,oracle,pass,error,,original,,,"{""sany_s"": 0.5, ""tlc_s"": 0.6}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/164.log
+165,oracle,pass,pass,clean,draft,,,"{""sany_s"": 0.3, ""tlc_s"": 1.0}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/165.log
+166,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.3, ""tlc_s"": 1.1}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/166.log
+167,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.4, ""tlc_s"": 3.6}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/167.log
+168,oracle,pass,error,,original,,,"{""sany_s"": 0.3, ""tlc_s"": 0.6}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/168.log
+169,oracle,fail,,,,,,"{""sany_s"": 0.6}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/169.log
+170,oracle,pass,error,,original,,,"{""sany_s"": 0.5, ""tlc_s"": 0.7}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/170.log
+171,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.4, ""tlc_s"": 3.6}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/171.log
+172,oracle,pass,pass,clean,draft,,,"{""sany_s"": 0.4, ""tlc_s"": 1.1}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/172.log
+173,oracle,pass,fail_invariant,,original,,,"{""sany_s"": 0.3, ""tlc_s"": 1.9}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/173.log
+174,oracle,pass,error,,draft,,,"{""sany_s"": 0.4, ""tlc_s"": 1.2}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/174.log
+175,oracle,pass,fail_invariant,,original,,,"{""sany_s"": 0.3, ""tlc_s"": 1.0}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/175.log
+176,oracle,pass,error,,draft,,,"{""sany_s"": 0.3, ""tlc_s"": 0.5}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/176.log
+177,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.4, ""tlc_s"": 1.4}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/177.log
+178,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.3, ""tlc_s"": 4.7}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/178.log
+179,oracle,pass,fail_deadlock,,draft,,,"{""sany_s"": 0.4, ""tlc_s"": 1.1}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/179.log
+180,oracle,pass,pass,vacuous:no_invariant_or_property_in_cfg;only_0_distinct_states;zero_states_generated,original,,,"{""sany_s"": 0.3, ""tlc_s"": 1.2}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/180.log
+181,oracle,pass,pass,vacuous:no_invariant_or_property_in_cfg;only_0_distinct_states;zero_states_generated,original,,,"{""sany_s"": 0.3, ""tlc_s"": 1.1}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/181.log
+182,oracle,pass,pass,vacuous:no_invariant_or_property_in_cfg;only_0_distinct_states;zero_states_generated,draft,,,"{""sany_s"": 0.3, ""tlc_s"": 0.9}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/182.log
+183,oracle,pass,pass,vacuous:no_invariant_or_property_in_cfg;only_0_distinct_states;zero_states_generated,draft,,,"{""sany_s"": 0.3, ""tlc_s"": 1.0}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/183.log
+184,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.7, ""tlc_s"": 1.7}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/184.log
+185,oracle,pass,error,,original,,,"{""sany_s"": 0.6, ""tlc_s"": 0.8}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/185.log
+186,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.5, ""tlc_s"": 1.2}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/186.log
+187,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.4, ""tlc_s"": 5.9}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/187.log
+188,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.5, ""tlc_s"": 1.6}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/188.log
+189,oracle,pass,error,,draft,,,"{""sany_s"": 0.4, ""tlc_s"": 0.6}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/189.log
+190,oracle,pass,pass,vacuous:no_invariant_or_property_in_cfg;only_0_distinct_states;zero_states_generated,draft,,,"{""sany_s"": 0.4, ""tlc_s"": 0.9}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/190.log
+191,oracle,pass,pass,clean,draft,,,"{""sany_s"": 0.3, ""tlc_s"": 1.0}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/191.log
+192,oracle,pass,error,,draft,,,"{""sany_s"": 0.3, ""tlc_s"": 0.5}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/192.log
+193,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.3, ""tlc_s"": 1.2}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/193.log
+194,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.3, ""tlc_s"": 78.9}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/194.log
+195,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.3, ""tlc_s"": 1.0}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/195.log
+196,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.3, ""tlc_s"": 1.0}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/196.log
+197,oracle,pass,pass,vacuous:no_invariant_or_property_in_cfg;only_0_distinct_states;zero_states_generated,original,,,"{""sany_s"": 0.4, ""tlc_s"": 1.5}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/197.log
+198,oracle,pass,error,,draft,,,"{""sany_s"": 0.3, ""tlc_s"": 0.4}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/198.log
+199,oracle,fail,,,,,,"{""sany_s"": 0.3}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/199.log
+200,oracle,pass,pass,vacuous:no_invariant_or_property_in_cfg;only_0_distinct_states;zero_states_generated,draft,,,"{""sany_s"": 0.3, ""tlc_s"": 0.9}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/200.log
+201,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.3, ""tlc_s"": 1.0}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/201.log
+202,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.7, ""tlc_s"": 1.3}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/202.log
+203,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.6, ""tlc_s"": 1.5}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/203.log
+204,oracle,pass,pass,clean,original,,,"{""sany_s"": 0.7, ""tlc_s"": 6.0}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/204.log
+205,oracle,pass,error,,original,,,"{""sany_s"": 0.6, ""tlc_s"": 0.8}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/205.log
+206,oracle,pass,error,,original,,,"{""sany_s"": 0.6, ""tlc_s"": 0.8}",/Users/eric/GitHub/prove-TLA/results/runs/oracle-v1/logs/206.log

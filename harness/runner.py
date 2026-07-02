@@ -31,6 +31,9 @@ STANDARD_MODULES = {
     "TLC", "TLCExt", "Randomization", "RealTime", "Toolbox", "Json",
 }
 
+_policy_file = REPO / "corpus" / "configs" / "policy.json"
+POLICY = json.loads(_policy_file.read_text()) if _policy_file.exists() else {}
+
 MODULE_RE = re.compile(r"^\s*-{4,}\s*MODULE\s+(\w+)\s*-{4,}", re.M)
 EXTENDS_RE = re.compile(r"^\s*EXTENDS\s+(.+)$", re.M)
 INSTANCE_RE = re.compile(r"\bINSTANCE\s+(\w+)", re.M)
@@ -121,11 +124,11 @@ def vacuity_flags(cfg_text: str, out: str):
     return reasons
 
 
-def check_tlc(mod: str, cfg_text: str, workdir: Path, timeout: int):
+def check_tlc(mod: str, cfg_text: str, workdir: Path, timeout: int, extra_flags=()):
     rc, out, dt, timed_out = run_cmd(
         ["java", "-XX:+UseParallelGC", f"-DTLA-Library={TLA_LIBRARY}", "-cp", CLASSPATH, "tlc2.TLC",
          "-workers", "2", "-cleanup", "-metadir", str(workdir / "states"),
-         "-config", f"{mod}.cfg", f"{mod}.tla"], workdir, timeout)
+         *extra_flags, "-config", f"{mod}.cfg", f"{mod}.tla"], workdir, timeout)
     status = classify_tlc(rc, out, timed_out)
     vac = vacuity_flags(cfg_text, out) if status == "pass" else []
     return status, vac, out, dt
@@ -183,7 +186,13 @@ def eval_spec(num: str, corpus: Path, num2mod, mod2path, cfg_dirs, workroot: Pat
             row["tlc"] = "no_cfg"
         else:
             (workdir / f"{mod}.cfg").write_text(cfg_text)
-            st, vac, out, dt = check_tlc(mod, cfg_text, workdir, timeout)
+            # per-spec policy (corpus/configs/policy.json): e.g. {"5": {"tlc_flags":
+            # ["-deadlock"], "reason": "terminating algorithm; deadlock check n/a"}}
+            pol = POLICY.get(num, {})
+            st, vac, out, dt = check_tlc(mod, cfg_text, workdir, timeout,
+                                         extra_flags=pol.get("tlc_flags", ()))
+            if pol:
+                row["policy"] = pol.get("reason", "custom flags")
             row["tlc"] = st
             row["tlc_vacuity"] = ("vacuous:" + ";".join(vac)) if vac else ("clean" if st == "pass" else None)
             row["cfg_origin"] = cfg_origin

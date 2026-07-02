@@ -172,4 +172,4 @@ no lower-hanging fruit).
 
 | # | Date | Change | Goal-seeking justification | Approved |
 |---|------|--------|---------------------------|----------|
-| — | — | — | — | — |
+| 1 | 2026-07-02 | **Population-aware G1 pass criterion (proposed).** W0.3 inventory (corpus/configs/INVENTORY.csv) shows the 206 are four populations: state machines & MC wrappers; TLAPS proof modules; pure operator/theorem libraries (~24, for which "TLC pass" is undefined — nothing to model-check); corpus defects (orphan 120, five duplicate TLAPS.tla copies, 15 cfgs referencing never-extracted MC wrappers, dep-edition mismatches). Proposed criterion: state machine/wrapper → SANY ∧ non-vacuous TLC; proof module → SANY ∧ **all TLAPS obligations proved** (stronger than TLC); library → SANY ∧ TLAPS on any proved theorems it contains. Corpus defects must be **repaired from upstream sources** — the denominator stays 206; nothing is dropped. | Corrects a demonstrated measurement error (TLC is not defined for operator libraries — Rule 1 exception) and net-strengthens G1: proof modules previously had no proof obligation at all; now they must prove, not merely parse. | **PENDING Eric** |
