@@ -29,6 +29,12 @@
       "corpus_spec": "14"
     }
   },
+  "130": {
+    "reason": "Majority: original cfg needs A/B/C/bound style concrete constants, defined only in spec 132 (MCMajority, unqualified INSTANCE Majority).",
+    "wrapper": {
+      "corpus_spec": "132"
+    }
+  },
   "136": {
     "reason": "ParReach: original cfg substitutes Succ <- ConnectedToSomeButNotAll, defined only in spec 133 (MCParReach, EXTENDS ParReach).",
     "wrapper": {
@@ -41,11 +47,23 @@
       "corpus_spec": "135"
     }
   },
+  "148": {
+    "reason": "Nano: original cfg needs CalculateHash/NoHash/NoBlock overrides, defined only in spec 147 (MCNano, named INSTANCE N == INSTANCE Nano). Already closed as spec 147 itself; this wires spec 148 to the same content.",
+    "wrapper": {
+      "corpus_spec": "147"
+    }
+  },
   "151": {
     "reason": "Queens: solver terminates when todo = {} (Termination property in spec); terminating algorithm",
     "tlc_flags": [
       "-deadlock"
     ]
+  },
+  "157": {
+    "reason": "Paxos: original cfg needs Quorum <- MCQuorum-style overrides, defined only in the MCPaxos wrapper (spec 155). Specs 157/163/170 are byte-identical duplicate base copies; 155/161 are byte-identical duplicate wrappers.",
+    "wrapper": {
+      "corpus_spec": "155"
+    }
   },
   "158": {
     "reason": "Voting: original cfg substitutes Quorum <- MCQuorum, defined only in spec 156 (MCVoting, EXTENDS Voting). Spec 158 is byte-identical to spec 164 (duplicate corpus entries), spec 156 byte-identical to spec 162.",
@@ -53,10 +71,34 @@
       "corpus_spec": "156"
     }
   },
+  "163": {
+    "reason": "Paxos (duplicate of 157): paired with the other MCPaxos duplicate (161) for symmetry.",
+    "wrapper": {
+      "corpus_spec": "161"
+    }
+  },
   "164": {
     "reason": "Voting (duplicate of spec 158): same fix, paired with the other MCVoting duplicate (spec 162) for symmetry, though 156 would work identically.",
     "wrapper": {
       "corpus_spec": "162"
+    }
+  },
+  "168": {
+    "reason": "ReadersWriters: original cfg needs NumActors etc, defined only in spec 171 (module MC, EXTENDS ReadersWriters). Spec 167 is a byte-identical duplicate wrapper.",
+    "wrapper": {
+      "corpus_spec": "171"
+    }
+  },
+  "170": {
+    "reason": "Paxos (duplicate of 157): same fix.",
+    "wrapper": {
+      "corpus_spec": "155"
+    }
+  },
+  "176": {
+    "reason": "spanning: original cfg substitutes nbrs <- Neighbors, defined only in spec 175 (MC_spanning, EXTENDS spanning=spec 176 itself). Reuses the already-fixed TypeOK patch transitively (corpus/configs/patches/176.tla).",
+    "wrapper": {
+      "corpus_spec": "175"
     }
   },
   "179": {
@@ -133,6 +175,12 @@
     "reason": "Echo: original cfg needs I1 and other identifiers defined only in spec 55 (MCEcho, EXTENDS Echo).",
     "wrapper": {
       "corpus_spec": "55"
+    }
+  },
+  "61": {
+    "reason": "EWD687a: original cfg needs identifiers defined only in spec 63 (MCEWD687a, EXTENDS EWD687a).",
+    "wrapper": {
+      "corpus_spec": "63"
     }
   },
   "62": {
