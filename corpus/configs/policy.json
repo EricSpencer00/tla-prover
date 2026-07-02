@@ -11,17 +11,65 @@
       "-deadlock"
     ]
   },
+  "11": {
+    "reason": "Bakery: original cfg substitutes Nat <- NatOverride, defined only in spec 13 (MCBakery, EXTENDS Bakery). Wired via corpus_spec wrapper instead of duplicating spec 13 content.",
+    "wrapper": {
+      "corpus_spec": "13"
+    }
+  },
+  "111": {
+    "reason": "LamportMutex: original cfg substitutes Nat <- NatOverride, defined only in spec 113 (MCLamportMutex, EXTENDS LamportMutex).",
+    "wrapper": {
+      "corpus_spec": "113"
+    }
+  },
+  "12": {
+    "reason": "Boulanger: original cfg needs identifiers defined only in spec 14 (MCBoulanger, EXTENDS Boulanger).",
+    "wrapper": {
+      "corpus_spec": "14"
+    }
+  },
+  "136": {
+    "reason": "ParReach: original cfg substitutes Succ <- ConnectedToSomeButNotAll, defined only in spec 133 (MCParReach, EXTENDS ParReach).",
+    "wrapper": {
+      "corpus_spec": "133"
+    }
+  },
+  "141": {
+    "reason": "Reachable: original cfg substitutes Succ <- ConnectedToSomeButNotAll, defined only in spec 135 (MCReachable, EXTENDS Reachable).",
+    "wrapper": {
+      "corpus_spec": "135"
+    }
+  },
   "151": {
     "reason": "Queens: solver terminates when todo = {} (Termination property in spec); terminating algorithm",
     "tlc_flags": [
       "-deadlock"
     ]
   },
+  "158": {
+    "reason": "Voting: original cfg substitutes Quorum <- MCQuorum, defined only in spec 156 (MCVoting, EXTENDS Voting). Spec 158 is byte-identical to spec 164 (duplicate corpus entries), spec 156 byte-identical to spec 162.",
+    "wrapper": {
+      "corpus_spec": "156"
+    }
+  },
+  "164": {
+    "reason": "Voting (duplicate of spec 158): same fix, paired with the other MCVoting duplicate (spec 162) for symmetry, though 156 would work identically.",
+    "wrapper": {
+      "corpus_spec": "162"
+    }
+  },
   "179": {
     "reason": "SpanTreeTest: spanning-tree computation converges to a fixpoint with no enabled actions; terminating algorithm",
     "tlc_flags": [
       "-deadlock"
     ]
+  },
+  "185": {
+    "reason": "tcp: original cfg substitutes Peers <- peers, defined only in spec 184 (MCtcp, EXTENDS tcp).",
+    "wrapper": {
+      "corpus_spec": "184"
+    }
   },
   "189": {
     "reason": "TLCMC: StateGraph is a record-valued constant, not expressible in cfg syntax; TestGraphs (vendored from tla-examples/specifications/TLC/) unqualified-INSTANCEs TLCMC with a concrete graph (G7/V7).",
@@ -49,6 +97,25 @@
       "-deadlock"
     ]
   },
+  "35": {
+    "reason": "CheckpointCoordination: original cfg substitutes Nat <- MCNat, LogIndex <- MCLogIndex, defined only in spec 36 (MCCheckpointCoordination, EXTENDS CheckpointCoordination).",
+    "wrapper": {
+      "corpus_spec": "36"
+    }
+  },
+  "43": {
+    "reason": "DieHarder: original cfg substitutes Jug <- MCJug, Capacity <- MCCapacity, defined only in spec 44 (MCDieHarder, EXTENDS DieHarder=spec 43 itself).",
+    "wrapper": {
+      "corpus_spec": "44"
+    }
+  },
+  "47": {
+    "reason": "DiskSynod: same operator constants (Ballot/IsMajority) as spec 48 (HDiskSynod), which EXTENDS DiskSynod. Reuses spec 48s vendored wrapper -- HDiskSynod transitively covers DiskSynods own constants.",
+    "wrapper": {
+      "file": "corpus/configs/wrappers/MC_HDiskSynod.tla",
+      "module": "MC_HDiskSynod"
+    }
+  },
   "48": {
     "reason": "HDiskSynod: Ballot(_)/IsMajority(_) are operator constants, no in-module substitution possible via cfg alone; MC_HDiskSynod (vendored from tla-examples/specifications/diskpaxos/) supplies BallotImpl/IsMajorityImpl and the HInit/HNext/HInv1-4,6 checkable predicates.",
     "wrapper": {
@@ -62,6 +129,12 @@
       "-deadlock"
     ]
   },
+  "54": {
+    "reason": "Echo: original cfg needs I1 and other identifiers defined only in spec 55 (MCEcho, EXTENDS Echo).",
+    "wrapper": {
+      "corpus_spec": "55"
+    }
+  },
   "62": {
     "reason": "EWD687aPlusCal: termination-detection algorithm quiesces once termination is declared; upstream MCEWD687a.cfg sets CHECK_DEADLOCK FALSE",
     "tlc_flags": [
@@ -73,5 +146,23 @@
     "tlc_flags": [
       "-deadlock"
     ]
+  },
+  "88": {
+    "jvm_flags": [
+      "-Dtlc2.tool.impl.Tool.cdot=true"
+    ],
+    "reason": "CRDT: original cfg substitutes Next <- ReductionNext, defined only in spec 91 (MCCRDT, EXTENDS CRDT). Also needs -Dtlc2.tool.impl.Tool.cdot=true (experimental action-composition support, tlaplus/tlaplus#805) to satisfy an ASSUME guard in MCCRDT.",
+    "wrapper": {
+      "corpus_spec": "91"
+    }
+  },
+  "94": {
+    "jvm_flags": [
+      "-Dtlc2.tool.impl.Tool.cdot=true"
+    ],
+    "reason": "ReplicatedLog: original cfg substitutes Next <- ReductionNext, defined only in spec 93 (MCReplicatedLog, EXTENDS ReplicatedLog). Also needs -Dtlc2.tool.impl.Tool.cdot=true (experimental action-composition support, tlaplus/tlaplus#805) to satisfy an ASSUME guard in MCReplicatedLog.",
+    "wrapper": {
+      "corpus_spec": "93"
+    }
   }
 }

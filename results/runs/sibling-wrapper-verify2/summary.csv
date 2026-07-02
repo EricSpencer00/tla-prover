@@ -1,0 +1,10 @@
+spec,method,sany,tlc,tlc_vacuity,cfg_origin,tlaps,tlaps_obligations,apalache,budget_used,log_path
+47,oracle,pass,error,,draft,,,,"{""sany_s"": 0.6, ""tlc_s"": 0.5}",/Users/eric/GitHub/prove-TLA/results/runs/sibling-wrapper-verify2/logs/47.log
+88,oracle,pass,error,,original,,,,"{""sany_s"": 0.4, ""tlc_s"": 1.2}",/Users/eric/GitHub/prove-TLA/results/runs/sibling-wrapper-verify2/logs/88.log
+94,oracle,pass,error,,original,,,,"{""sany_s"": 0.4, ""tlc_s"": 1.4}",/Users/eric/GitHub/prove-TLA/results/runs/sibling-wrapper-verify2/logs/94.log
+111,oracle,pass,pass,clean,original,,,,"{""sany_s"": 0.4, ""tlc_s"": 9.4}",/Users/eric/GitHub/prove-TLA/results/runs/sibling-wrapper-verify2/logs/111.log
+136,oracle,pass,pass,clean,original,,,,"{""sany_s"": 0.6, ""tlc_s"": 11.8}",/Users/eric/GitHub/prove-TLA/results/runs/sibling-wrapper-verify2/logs/136.log
+141,oracle,pass,pass,clean,original,,,,"{""sany_s"": 0.5, ""tlc_s"": 55.9}",/Users/eric/GitHub/prove-TLA/results/runs/sibling-wrapper-verify2/logs/141.log
+158,oracle,pass,pass,clean,original,,,,"{""sany_s"": 0.8, ""tlc_s"": 1.7}",/Users/eric/GitHub/prove-TLA/results/runs/sibling-wrapper-verify2/logs/158.log
+164,oracle,pass,pass,clean,original,,,,"{""sany_s"": 0.8, ""tlc_s"": 1.7}",/Users/eric/GitHub/prove-TLA/results/runs/sibling-wrapper-verify2/logs/164.log
+185,oracle,pass,pass,clean,original,,,,"{""sany_s"": 0.8, ""tlc_s"": 1.3}",/Users/eric/GitHub/prove-TLA/results/runs/sibling-wrapper-verify2/logs/185.log

@@ -1,0 +1,4 @@
+spec,method,sany,tlc,tlc_vacuity,cfg_origin,tlaps,tlaps_obligations,apalache,budget_used,log_path
+47,oracle,pass,error,,draft,,,,"{""sany_s"": 0.2, ""tlc_s"": 0.3}",/Users/eric/GitHub/prove-TLA/results/runs/sibling-wrapper-verify3/logs/47.log
+88,oracle,pass,error,,original,,,,"{""sany_s"": 0.2, ""tlc_s"": 0.7}",/Users/eric/GitHub/prove-TLA/results/runs/sibling-wrapper-verify3/logs/88.log
+94,oracle,pass,error,,original,,,,"{""sany_s"": 0.2, ""tlc_s"": 0.7}",/Users/eric/GitHub/prove-TLA/results/runs/sibling-wrapper-verify3/logs/94.log

@@ -203,10 +203,10 @@ def vacuity_flags(cfg_text: str, out: str, mod_text: str = ""):
     return reasons
 
 
-def check_tlc(mod: str, cfg_text: str, workdir: Path, timeout: int, extra_flags=()):
+def check_tlc(mod: str, cfg_text: str, workdir: Path, timeout: int, extra_flags=(), jvm_flags=()):
     rc, out, dt, timed_out = run_cmd(
         ["java", "-XX:+UseParallelGC", f"-Djava.io.tmpdir={_jtmpdir(workdir)}",
-         f"-DTLA-Library={TLA_LIBRARY}", "-cp", CLASSPATH, "tlc2.TLC",
+         f"-DTLA-Library={TLA_LIBRARY}", *jvm_flags, "-cp", CLASSPATH, "tlc2.TLC",
          "-workers", "2", "-cleanup", "-metadir", str(workdir / "states"),
          *extra_flags, "-config", f"{mod}.cfg", f"{mod}.tla"], workdir, timeout)
     status = classify_tlc(rc, out, timed_out)
@@ -321,14 +321,47 @@ def eval_spec(num: str, corpus: Path, num2mod, mod2path, cfg_dirs, workroot: Pat
             # ["-deadlock"], "reason": "terminating algorithm; deadlock check n/a"}}
             pol = POLICY.get(num, {})
             tlc_mod = mod
-            # optional MC-wrapper: {"wrapper": {"module": "MCFoo", "file": "corpus/configs/wrappers/MCFoo.tla"}}
+            # optional MC-wrapper, two forms:
+            #  {"wrapper": {"module": "MCFoo", "file": "corpus/configs/wrappers/MCFoo.tla"}}
+            #    -- vendored external file (upstream tla-examples or hand-authored)
+            #  {"wrapper": {"corpus_spec": "13"}}
+            #    -- the wrapper IS another corpus spec (e.g. spec 11's original .cfg
+            #    was written for spec 13's MCBakery, EXTENDS Bakery=spec 11 itself;
+            #    both are already in the corpus as separate benchmark entries).
+            #    Resolved dynamically via num2mod/mod2path so there is no vendored
+            #    copy to go stale; respects corpus/configs/patches/ like any other
+            #    corpus-local dependency.
             if "wrapper" in pol:
                 w = pol["wrapper"]
-                (workdir / f"{w['module']}.tla").write_text((REPO / w["file"]).read_text())
-                tlc_mod = w["module"]
+                if "corpus_spec" in w:
+                    w_num = w["corpus_spec"]
+                    w_mod = num2mod[w_num]
+                    w_path = mod2path[w_mod]
+                    w_patch = REPO / "corpus" / "configs" / "patches" / f"{w_num}.tla"
+                    w_text = w_patch.read_text(errors="replace") if w_patch.exists() \
+                        else w_path.read_text(errors="replace")
+                    (workdir / f"{w_mod}.tla").write_text(w_text)
+                    for d in (local_deps(w_text, mod2path) - seen - {mod}):
+                        seen.add(d)
+                        dtext = mod2path[d].read_text(errors="replace")
+                        (workdir / f"{d}.tla").write_text(dtext)
+                    tlc_mod = w_mod
+                else:
+                    w_text = (REPO / w["file"]).read_text()
+                    (workdir / f"{w['module']}.tla").write_text(w_text)
+                    # the vendored wrapper can itself need a corpus-local module the
+                    # top-level spec doesn't transitively EXTEND (e.g. spec 47's own
+                    # module is DiskSynod; MC_HDiskSynod EXTENDS HDiskSynod, one level
+                    # up -- HDiskSynod is never pulled in by spec 47's own local_deps).
+                    for d in (local_deps(w_text, mod2path) - seen - {mod}):
+                        seen.add(d)
+                        dtext = mod2path[d].read_text(errors="replace")
+                        (workdir / f"{d}.tla").write_text(dtext)
+                    tlc_mod = w["module"]
                 (workdir / f"{tlc_mod}.cfg").write_text(cfg_text)
             st, vac, out, dt = check_tlc(tlc_mod, cfg_text, workdir, timeout,
-                                         extra_flags=pol.get("tlc_flags", ()))
+                                         extra_flags=pol.get("tlc_flags", ()),
+                                         jvm_flags=pol.get("jvm_flags", ()))
             expected_prop = EXPECTED_VIOLATIONS.get(num)
             if expected_prop and st in ("fail_invariant", "fail_liveness") and \
                     re.search(rf"(?:Invariant|Property)\s+{re.escape(expected_prop)}\s+is violated", out):
