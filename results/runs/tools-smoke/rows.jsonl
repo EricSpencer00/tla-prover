@@ -1,2 +1,2 @@
-{"tool": "tlapm", "example": "ProofSmoke.tla", "status": "pass", "obligations": "2/2", "seconds": 0.7}
-{"tool": "apalache", "example": "Counter.tla", "status": "pass", "seconds": 3.2}
+{"tool": "tlapm", "example": "ProofSmoke.tla", "status": "pass", "obligations": "2/2", "seconds": 0.5}
+{"tool": "apalache", "example": "Counter.tla", "status": "pass", "seconds": 2.3}

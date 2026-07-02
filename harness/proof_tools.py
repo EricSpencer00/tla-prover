@@ -4,47 +4,13 @@ Run: python3 -m harness.proof_tools  -> verifies both tools on known-good
 examples through harness code paths and writes a ledger entry.
 """
 import json
-import re
 import shutil
 import sys
 from pathlib import Path
 
-from .runner import REPO, run_cmd
+from .runner import REPO, check_apalache, check_tlapm
 
-TLAPM = REPO / "tools" / "tlapm" / "bin" / "tlapm"
-APALACHE = REPO / "tools" / "apalache-0.58.2" / "bin" / "apalache-mc"
 SMOKE = REPO / "tools" / "smoke"
-
-
-def check_tlapm(tla_file: Path, workdir: Path, timeout=300):
-    """Returns (status, proved, total, output). pass = all obligations proved."""
-    rc, out, dt, timed_out = run_cmd([str(TLAPM), tla_file.name], workdir, timeout)
-    if timed_out:
-        return "timeout", 0, 0, out, dt
-    m = re.search(r"All (\d+) obligations? proved", out)
-    if m:
-        n = int(m.group(1))
-        return "pass", n, n, out, dt
-    mm = re.search(r"(\d+)/(\d+) obligations? proved", out)
-    if mm:
-        return "partial", int(mm.group(1)), int(mm.group(2)), out, dt
-    return "error", 0, 0, out, dt
-
-
-def check_apalache(tla_file: Path, workdir: Path, inv=None, length=5, timeout=300):
-    """Returns (status, output). pass = 'The outcome is: NoError'."""
-    cmd = [str(APALACHE), "check", f"--length={length}"]
-    if inv:
-        cmd.append(f"--inv={inv}")
-    cmd.append(tla_file.name)
-    rc, out, dt, timed_out = run_cmd(cmd, workdir, timeout)
-    if timed_out:
-        return "timeout", out, dt
-    if "The outcome is: NoError" in out:
-        return "pass", out, dt
-    if "The outcome is: Error" in out:
-        return "fail_violation", out, dt
-    return "error", out, dt
 
 
 def main():

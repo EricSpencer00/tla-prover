@@ -15,6 +15,8 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent
 # Pinned current release (SANY 2.2/2020 in tla_benchmark's jar mis-parses TLAPS proofs)
 TLA2TOOLS = REPO / "tools" / "tla2tools.jar"
+TLAPM = REPO / "tools" / "tlapm" / "bin" / "tlapm"
+APALACHE = REPO / "tools" / "apalache-0.58.2" / "bin" / "apalache-mc"
 # CM modules as plain .tla on the library path — the CM fat jar bundles classes
 # compiled against a newer tla2tools (KSubsetValue) and breaks TLC if on the classpath.
 CLASSPATH = str(TLA2TOOLS)
@@ -33,6 +35,10 @@ STANDARD_MODULES = {
 
 _policy_file = REPO / "corpus" / "configs" / "policy.json"
 POLICY = json.loads(_policy_file.read_text()) if _policy_file.exists() else {}
+_populations_file = REPO / "corpus" / "configs" / "populations.json"
+_populations = json.loads(_populations_file.read_text()) if _populations_file.exists() else {}
+PROOF_MODULES = set(_populations.get("proof_module", []))
+LIBRARIES = set(_populations.get("library", []))
 
 MODULE_RE = re.compile(r"^\s*-{4,}\s*MODULE\s+(\w+)\s*-{4,}", re.M)
 EXTENDS_RE = re.compile(r"^\s*EXTENDS\s+(.+)$", re.M)
@@ -134,6 +140,41 @@ def check_tlc(mod: str, cfg_text: str, workdir: Path, timeout: int, extra_flags=
     return status, vac, out, dt
 
 
+def check_tlapm(tla_file: Path, workdir: Path, timeout=300):
+    """Returns (status, proved, total, output, seconds). pass = all obligations proved."""
+    rc, out, dt, timed_out = run_cmd([str(TLAPM), tla_file.name], workdir, timeout)
+    if timed_out:
+        return "timeout", 0, 0, out, dt
+    m = re.search(r"All (\d+) obligations? proved", out)
+    if m:
+        n = int(m.group(1))
+        return "pass", n, n, out, dt
+    mm = re.search(r"(\d+)/(\d+) obligations? proved", out)
+    if mm:
+        return "partial", int(mm.group(1)), int(mm.group(2)), out, dt
+    mf = re.search(r"(\d+)/(\d+) obligations? failed", out)
+    if mf:
+        failed, total = int(mf.group(1)), int(mf.group(2))
+        return "partial", total - failed, total, out, dt
+    return "error", 0, 0, out, dt
+
+
+def check_apalache(tla_file: Path, workdir: Path, inv=None, length=5, timeout=300):
+    """Returns (status, output, seconds). pass = 'The outcome is: NoError'."""
+    cmd = [str(APALACHE), "check", f"--length={length}"]
+    if inv:
+        cmd.append(f"--inv={inv}")
+    cmd.append(tla_file.name)
+    rc, out, dt, timed_out = run_cmd(cmd, workdir, timeout)
+    if timed_out:
+        return "timeout", out, dt
+    if "The outcome is: NoError" in out:
+        return "pass", out, dt
+    if "The outcome is: Error" in out:
+        return "fail_violation", out, dt
+    return "error", out, dt
+
+
 def eval_spec(num: str, corpus: Path, num2mod, mod2path, cfg_dirs, workroot: Path,
               logdir: Path, timeout: int, stages):
     """Evaluate one corpus spec (oracle method: verbatim canonical files)."""
@@ -206,6 +247,13 @@ def eval_spec(num: str, corpus: Path, num2mod, mod2path, cfg_dirs, workroot: Pat
             row["budget_used"]["tlc_s"] = round(dt, 1)
             log_parts.append(f"===== TLC ({st}, cfg={cfg_origin}) =====\n{out[-8000:]}")
 
+    if "tlaps" in stages and row["sany"] == "pass" and num in PROOF_MODULES:
+        st, proved, total, out, dt = check_tlapm(workdir / f"{mod}.tla", workdir, timeout=timeout * 3)
+        row["tlaps"] = st
+        row["tlaps_obligations"] = f"{proved}/{total}"
+        row["budget_used"]["tlaps_s"] = round(dt, 1)
+        log_parts.append(f"===== TLAPS ({st}, {proved}/{total} obligations) =====\n{out[-8000:]}")
+
     (logdir / f"{num}.log").write_text("\n".join(log_parts) or "no stages run\n")
     shutil.rmtree(workdir, ignore_errors=True)
     return row
@@ -246,7 +294,8 @@ def run_sweep(corpus: Path, run_id: str, stages, specs=None, timeout=120, jobs=6
     rows.sort(key=lambda r: int(r["spec"]))
     with open(rundir / "summary.csv", "w", newline="") as fh:
         w = csv.DictWriter(fh, fieldnames=["spec", "method", "sany", "tlc", "tlc_vacuity",
-                                           "cfg_origin", "tlaps", "apalache", "budget_used", "log_path"],
+                                           "cfg_origin", "tlaps", "tlaps_obligations", "apalache",
+                                           "budget_used", "log_path"],
                            extrasaction="ignore")
         w.writeheader()
         for r in rows:

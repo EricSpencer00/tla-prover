@@ -1,0 +1,14 @@
+{
+  "run_id": "tlaps-proof-modules",
+  "corpus": "/Users/eric/GitHub/tla_benchmark/data",
+  "stages": [
+    "sany",
+    "tlc",
+    "tlaps"
+  ],
+  "timeout_s": 120,
+  "jobs": 4,
+  "n_specs": 9,
+  "extra_cfg_dir": "corpus/configs/drafts",
+  "tla2tools": "/Users/eric/GitHub/prove-TLA/tools/tla2tools.jar"
+}
