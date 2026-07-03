@@ -165,3 +165,31 @@ where `Synod.tla`'s nested `MODULE Inner` triggers Apalache's internal
 independent of any type annotation). Verified the file is identical
 (`diff` clean) before relying on the spec-48 finding rather than re-running
 the same crash. Not attempted for the same reason as spec 48.
+
+## 57 (Einstein) — solution found (2.4s), not a bounded-depth case
+
+Different shape than every other spec in this sweep: `Einstein.tla` is Zebra/
+Einstein's-riddle puzzle-solving, already `EXTENDS Apalache` and pre-annotated
+with `\* @type:` comments by its original author for exactly this tool (the file
+even ends with the literal `apalache-mc` invocation to use, in a comment). No
+corpus modification or new annotation was needed — copied the corpus `.tla`
+byte-for-byte plus its declared `Apalache.tla` dependency
+(`tools/extra-modules/Apalache.tla`).
+
+`Next == UNCHANGED vars` (no real transition relation — this is a constant-state
+CSP-style puzzle, same shape as spec 180/Stones' vacuity-flagged pattern), and
+`FindSolution == ~Solution`. Command (from the file's own header):
+`apalache-mc check --init=Init --inv=FindSolution --length=0 Einstein.tla`.
+Result: `Error` (i.e. the invariant `~Solution` is violated — meaning `Solution`
+itself holds), in 2.4s. This is the *intended* outcome, not a bug: the
+"violation" trace is the riddle's solution. Read the trace
+(`violation1.tla`) and confirmed it's the correct, well-known answer:
+`nationality[4] = "german"`, `pets[4] = "fish"` — the German owns the fish.
+
+This is an `expected_violation`-shaped spec (same pattern as the 7 specs
+already in `populations.json`'s `expected_violation` population — Amendment 3,
+still PENDING Eric) but per this loop's hard boundary, **not added to
+populations.json** here; noted only as a candidate for whoever next reviews
+Amendment 3. No bounded-depth framing applies to this result — it's a full
+(unbounded, `--length=0`) constant-state solve, not a partial-depth safety
+check like the other specs in this sweep.
