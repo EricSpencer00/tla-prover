@@ -45,3 +45,16 @@ the disposition of the other confirmed-large-timeout specs (30/48/49/146/1/16/17
 a real bug or a `VIEW`-artifact (per tlaplus/tlaplus#1045) — that question would need
 either a genuinely long run (hours) or manual trace analysis, neither attempted.
 Left open.
+
+**Addendum (Apalache informational sweep):** while locating the upstream base
+module for an unrelated Apalache check (see `APALACHE_FINDINGS.md` spec 92
+entry), found the module author's own comment directly on `InSync`:
+*"TLC correctly verifies that InSync is not a property of the system because
+followers are permitted to copy only a prefix of the missing suffix."*
+(`tla-examples/specifications/FiniteMonotonic/DistributedReplicatedLog.tla`).
+This resolves the question above: the designer already knew and expected
+`InSync` to fail — it is not a `VIEW`-abstraction artifact (tlaplus/tlaplus#1045),
+it's a genuine, intentional property of the algorithm's design (followers only
+copy a prefix, so full synchronization isn't guaranteed). Left as-is per this
+loop's scope (not touching `GATE0_STATUS.md`'s counts or `populations.json`)
+— recorded here as evidence for whoever next reviews this spec's disposition.

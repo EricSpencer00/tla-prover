@@ -319,3 +319,60 @@ CRDT.tla` (`Node = {"n1","n2","n3"}`, matching `drafts/89.cfg`'s `Node =
 `Safety` (`\A n,o \in Node : counter[n][n] >= counter[o][n]` — the actual
 correctness property, not just a type check): `--length=7`. Result: `NoError`,
 44.2s. `--length=8` did not complete within 60s.
+
+## 92 (MCDistributedReplicatedLog) — `TypeOK` and `BoundedLag` `NoError` to
+depth 4; unrelated but relevant discovery about `InSync`
+
+Wrapper spec (`corpus/92.tla`, module `MCDistributedReplicatedLog`) `EXTENDS
+DistributedReplicatedLog` — checked the base module directly (upstream copy at
+`tla-examples/specifications/FiniteMonotonic/DistributedReplicatedLog.tla`),
+same reasoning as spec 89.
+
+**Discovery, not from Apalache** — reading the upstream base module's own
+source comments while locating it answers the open question in
+`corpus/configs/SPEC92_NOTES.md`: that file left it unresolved whether TLC's
+`InSync` counterexample is a real bug or an artifact of the `VIEW
+DropCommonPrefix` abstraction (per tlaplus/tlaplus#1045). The upstream
+author's own comment directly on `InSync` says: *"TLC correctly verifies that
+InSync is not a property of the system because followers are permitted to
+copy only a prefix of the missing suffix."* — i.e. the module's designer
+already knew and expected `InSync` to fail; it is not a property the algorithm
+is meant to satisfy. This resolves `SPEC92_NOTES.md`'s open question (real
+finding, not a `VIEW` artifact) without needing Apalache at all — added an
+addendum there pointing back here. Per this loop's scope, not touching
+`GATE0_STATUS.md`'s closed/open counts, `populations.json`, or `DEFERRED.json`
+based on this — it's evidence for whoever next reviews spec 92's disposition,
+not a disposition change made by this sweep.
+
+Two Apalache-specific fixes needed beyond the standard annotations:
+- `vars == <<cLogs>>` (single-element tuple) was ambiguous between "1-tuple"
+  and "sequence" — needed an explicit `\* @type: <<Str -> Seq(Str)>>;`
+  annotation, same ambiguity class as spec 57's `vars` (that file's own
+  comment already flags this exact ambiguity for Apalache).
+- `Extend(i)`'s use of the community-module operator `BoundedSeq(Values, n)`
+  (`= SeqOf(Values, n) = UNION {[1..m -> Values] : m \in 0..n}`) failed with
+  `unsupported expression: Not supported: BoundedSeq` — Apalache rejects this
+  operator outright, not a type error. Rewrote to the standard Apalache
+  bounded-sequence idiom: pick a length `l \in 0..maxLag` and a function over
+  a **fixed**-capacity domain `[1..Lag -> Values]` (`Lag` is a `CONSTANT`, so
+  this domain is genuinely constant-sized), then use `Apalache!FunAsSeq(s, l,
+  Lag)` (from `tools/extra-modules/Apalache.tla`) to truncate to the
+  existentially-chosen length `l`. The first attempt used `[1..l -> Values]`
+  (the dynamic length directly as the domain) and hit the same "Expected a
+  constant integer range in `[..]`, found `1..l`" known-issue seen in spec
+  73 — using the *fixed* `Lag` for the domain and letting `FunAsSeq` do the
+  truncation avoids it while preserving exactly the same reachable set of
+  sequences.
+
+Also rewrote `TypeOK`'s `cLogs \in [Servers -> Seq(Values)]` to the elementwise
+form (`DOMAIN cLogs = Servers /\ \A s,i : cLogs[s][i] \in Values`) preemptively,
+same known Seq-membership issue as spec 73.
+
+Command: `apalache-mc check --length=4 --inv=TypeOK --config=DistributedReplicatedLog.cfg
+DistributedReplicatedLog.tla` (Servers={"n1","n2","n3"}, Values={"v"}, Lag=3,
+matching the corpus `.cfg`). Result: `NoError`, 17.3s. `--length=5` and `--length=8`
+did not complete within 60-90s. `BoundedLag` (the real safety invariant): `--length=4`,
+`NoError`, 9.2s. `AllExtending`/`InSync` are temporal (liveness) properties, not
+attempted — outside bounded-model-checking's natural fit, and (per the discovery
+above) `InSync` is expected to fail by design, not a target for a "does it hold"
+check anyway.
