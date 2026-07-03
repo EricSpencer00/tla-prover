@@ -41,8 +41,8 @@ Population classification lives in `corpus/configs/populations.json`.
 
 | | count | of 206 |
 |---|---|---|
-| **Closed** (meets Amendment 1/3 criterion) | **163** | 79% |
-| Open (active, not yet closed) | 30 | 15% |
+| **Closed** (meets Amendment 1/3 criterion) | **164** | 80% |
+| Open (active, not yet closed) | 29 | 14% |
 | Deferred (Amendment 2, excluded from active work) | 13 | 6% |
 
 *(Re-verified and extended this session — see "Re-verification and grinding session"
@@ -295,7 +295,8 @@ large-state-space specs: ~70-85K states/min (vs. millions), decelerating, states
 roughly flat (~11-14K, not growing unboundedly). Heavy per-progress-report temporal
 (liveness) property re-checking overhead is the likely cause of the slowness, not raw
 state explosion. Left open, undetermined — would need a much longer (hours) dedicated
-run to know if it converges; not attempted at that scale here.
+run to know if it converges; not attempted at that scale here. *(Update 2026-07-03:
+resolved — converges in ~916s; see "Holdout session" below.)*
 
 **Spec 90 fixed from `tlc=error` to a correctly-diagnosed `tlc=fail_liveness`.** Was a
 hard SANY/cfg-level error (`VIEW DropCommonPrefix... is not defined`) — `90.tla` is the
@@ -475,9 +476,20 @@ proof-case coverage (fixed with `DEF Terminating`). Two `BY`-line strengthenings
 `sany=pass, tlaps=pass, 325/325` via harness — evidence:
 `results/runs/spec129-patch-verify/`; full writeup: `TLAPS_REPORT.md`.
 
-Remaining holdouts from this batch: spec 112 (LamportMutex_proofs, ~10-12/654
-resource-sensitive obligations) and spec 100 (Huang, temporal-checking timeout) —
-being worked sequentially, one at a time, per `TIMEOUT_CONTENTION.md`.
+**Spec 100 (Huang) — CLOSED (same holdout session). All four batch holdouts now
+resolved.** Never a large-state-space timeout: the reachable space under the canonical
+override cfg is only 81,256 distinct states (1.17M generated, depth 21) — TypeOK-only
+finishes in 80s. The Safe/Live temporal properties slow raw state *generation* 11.4x
+(916s total) via per-transition liveness bookkeeping: behavior-graph construction plus
+re-evaluating 10 weak-fairness action predicates (recursive DyadicRationals GCD
+arithmetic, `RemoveAt` = SubSeq∘SubSeq) at a ~14:1 generated:distinct ratio. The
+liveness *checks* themselves are trivial (every "Checking temporal properties" phase,
+including the final 162,512-node one, takes 00s); the StateConstraint is benign.
+Resolution per TIMEOUT_POLICY.md's prefer-longer-budget rule: `policy.json` entry
+`"100": {"timeout": 1800}` (2x headroom), canonical cfg untouched, nothing weakened or
+split. Two clean harness runs: `spec100-diag1` (`tlc=pass, vac=clean`, 916.0s) and
+`spec100-diag2` (907.1s, also verifying the max(timeout, policy) mechanism). Full
+writeup in `TIMEOUT_POLICY.md`. 164/206.
 
 **Spec 112 (LamportMutex_proofs) — CLOSED (same holdout session).** The
 "resource-sensitive obligations" hypothesis was wrong: the benchmark file is a

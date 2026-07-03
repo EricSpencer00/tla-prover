@@ -1,4 +1,8 @@
 {
+  "100": {
+    "reason": "Huang: small state space (81,256 distinct, depth 21; TypeOK-only completes in 80s) but the Safe/Live temporal properties slow TLC state generation ~11x via per-transition liveness-graph bookkeeping (all 'Checking temporal properties' phases finish in 00s). Confirmed clean pass in 916s at --jobs 1 (results/runs/spec100-diag1); 1800s gives 2x headroom.",
+    "timeout": 1800
+  },
   "103": {
     "reason": "KVsnap: cfg references SYMMETRY TxIdSymmetric, no such operator defined anywhere in the corpus; hand-authored using TLCs standard Permutations(TxId) symmetry-reduction idiom.",
     "wrapper": {

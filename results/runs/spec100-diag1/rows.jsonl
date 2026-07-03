@@ -1,0 +1,1 @@
+{"spec": "100", "method": "oracle", "sany": "pass", "tlc": "pass", "tlc_vacuity": "clean", "tlaps": null, "apalache": null, "budget_used": {"sany_s": 0.3, "tlc_s": 916.0}, "log_path": "/Users/eric/GitHub/prove-TLA/results/runs/spec100-diag1/logs/100.log", "cfg_origin": "override"}
