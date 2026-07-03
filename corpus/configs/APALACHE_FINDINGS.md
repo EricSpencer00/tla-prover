@@ -254,3 +254,37 @@ Result: `NoError`, 4.4s. `--length=5` (90s budget) did not complete.
 **This result is explicitly weaker than a `TypeOK` bound** — it excludes the
 token-uniqueness conjunct entirely rather than bounding it; treat it as
 "3 of 4 TypeOK conjuncts hold to depth 3," not "TypeOK holds to depth 3."
+
+## 79 (EWD998) — `TypeOK` `NoError` to depth 12; `TypedInv` (Safra's inductive
+invariant) `NoError` to depth 4
+
+This is the canonical, upstream `tlaplus/examples` `EWD998.tla` that spec 73's
+`EWD998Chan` refines — and it ships **already Apalache-annotated by its
+original author**, down to a comment on the `Rng(a,b)` helper explaining it
+exists specifically *"to help Apalache construct a bounded set"*. Only two
+changes needed, both mechanical:
+- `EXTENDS ... Randomization` — not present in `tools/community-modules/`, but
+  confirmed bundled inside `apalache.jar` itself
+  (`tla2sany/StandardModules/Randomization.tla`), so no copy was needed.
+- The file's annotations use an older record-type syntax (Apalache "Type
+  System 1"); our pinned `apalache-0.58.2` defaults to the newer row-based
+  "Type System 1.2" and errors with *"Found imprecise record types... use
+  --features=no-rows"* — a version-compat flag, not a content change. Added
+  `--features=no-rows` to every command for this spec.
+- Stripped the unused `TD == INSTANCE AsyncTerminationDetection` /
+  `TDSpec` / `THEOREM` block (same reasoning as spec 73's stripped `EWD998`
+  instance — irrelevant to `Init`/`Next`/`TypeOK`/`Inv`, would pull in a whole
+  additional un-annotated module for a temporal property already excluded from
+  the corpus `.cfg`'s active `INVARIANT`/`PROPERTIES` list).
+
+`TypeOK`: `apalache-mc check --features=no-rows --length=12 --inv=TypeOK
+--config=EWD998.cfg EWD998.tla` (N=3). Result: `NoError`, 58.2s. This is the
+deepest clean bound of any spec in this sweep so far.
+
+`TypedInv` (`TypeOK /\ Inv` — Safra's full inductive invariant, `P0` plus the
+`P1 \/ P2 \/ P3 \/ P4` disjunction): `--length=4`. Result: `NoError`, 8.9s.
+`--length=5` did not complete within 60s (no output line — heavier invariant
+per state than plain `TypeOK`, cost grows faster with depth). This is the
+first spec in the sweep where a genuine *inductive* invariant (not just a type
+invariant) was checked, not merely attempted opportunistically — worth noting
+since `Inv` is closer to a real correctness property than `TypeOK` alone.
