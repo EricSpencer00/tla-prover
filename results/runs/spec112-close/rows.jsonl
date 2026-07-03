@@ -1,0 +1,1 @@
+{"spec": "112", "method": "oracle", "sany": "pass", "tlc": null, "tlc_vacuity": null, "tlaps": "pass", "apalache": null, "budget_used": {"sany_s": 0.3, "tlaps_s": 33.6}, "log_path": "/Users/eric/GitHub/prove-TLA/results/runs/spec112-close/logs/112.log", "source_origin": "patched", "tlaps_obligations": "729/729"}

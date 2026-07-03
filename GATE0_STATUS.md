@@ -41,8 +41,8 @@ Population classification lives in `corpus/configs/populations.json`.
 
 | | count | of 206 |
 |---|---|---|
-| **Closed** (meets Amendment 1/3 criterion) | **162** | 79% |
-| Open (active, not yet closed) | 31 | 15% |
+| **Closed** (meets Amendment 1/3 criterion) | **163** | 79% |
+| Open (active, not yet closed) | 30 | 15% |
 | Deferred (Amendment 2, excluded from active work) | 13 | 6% |
 
 *(Re-verified and extended this session — see "Re-verification and grinding session"
@@ -69,7 +69,7 @@ of the repair sweep.
 | `tlc=timeout`, confirmed genuinely large (retested at 150s and 300s) | 12 | 1, 16, 17, 28, 40, 57, 73, 79, 89 (no convergence even at 300s, `TIMEOUT_POLICY.md`); 48, 49, 146 (sustained multi-million-state/minute growth past 10 minutes, `CANONICAL_MODEL_FIXES.md`); 107 (KnuthYao, needs TLC simulation mode + an R runtime, `SIBLING_WRAPPERS.md`). Spec 30 (cbc_max) formerly here — now CLOSED, see "Holdout session" below |
 | `tlc=pass` but vacuous | 1 | spec 145 (MultiPaxos-SMR) — genuinely has no invariant of its own by design (safety property lives in spec 146, itself a confirmed timeout) |
 | `tlc=fail_liveness` | 1 | spec 92 — root-caused to the specific property (`InSync`, not `AllExtending`) and why (cfg cites a known TLC `VIEW`-abstraction liveness-counterexample issue, tlaplus/tlaplus#1045); inconclusive whether real bug or artifact, `SPEC92_NOTES.md`, left open rather than guess |
-| `tlaps=partial` | 1 | spec 112 (LamportMutex_proofs) — 636-642/654 obligations depending on run budget, `TLAPS_REPORT.md` |
+| `tlaps=partial` | 0 | spec 112 (LamportMutex_proofs) formerly here — now CLOSED at 729/729 (the benchmark file had collapsed upstream's sub-proofs and mutated one lemma statement; restored from upstream), see "Holdout session" below and `TLAPS_REPORT.md` |
 
 Per-spec docs (`ALIAS_CFG.md`, `SIBLING_WRAPPERS.md`, `SPEC72_NOTES.md`,
 `SPEC92_NOTES.md`, `TIMEOUT_POLICY.md`) have the precise current status and
@@ -478,3 +478,15 @@ proof-case coverage (fixed with `DEF Terminating`). Two `BY`-line strengthenings
 Remaining holdouts from this batch: spec 112 (LamportMutex_proofs, ~10-12/654
 resource-sensitive obligations) and spec 100 (Huang, temporal-checking timeout) —
 being worked sequentially, one at a time, per `TIMEOUT_CONTENTION.md`.
+
+**Spec 112 (LamportMutex_proofs) — CLOSED (same holdout session).** The
+"resource-sensitive obligations" hypothesis was wrong: the benchmark file is a
+mechanically collapsed copy of the upstream proof — upstream has decomposed sub-proofs
+at exactly the failing sites, flattened here into single `BY` leaps no backend closes
+at any budget, plus one benchmark-introduced statement mutation (`PrecedesTail` lost
+upstream's `s # << >>` hypothesis, formally unprovable as mutated — probed directly).
+Restored from upstream in `corpus/configs/patches/112.tla` (13 hunks). Harness-verified
+twice from scratch: `sany=pass, tlaps=pass, 729/729` in ~34s at default stretch —
+enormous budget headroom once the proofs are decomposed. Evidence:
+`results/runs/spec112-close/`, `spec112-close-confirm/`; writeups in `PATCHES.md` and
+`TLAPS_REPORT.md`. 163/206.

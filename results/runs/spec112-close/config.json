@@ -1,0 +1,13 @@
+{
+  "run_id": "spec112-close",
+  "corpus": "/Users/eric/GitHub/tla_benchmark/data",
+  "stages": [
+    "sany",
+    "tlaps"
+  ],
+  "timeout_s": 3600,
+  "jobs": 1,
+  "n_specs": 1,
+  "extra_cfg_dir": "corpus/configs/drafts",
+  "tla2tools": "/Users/eric/GitHub/prove-TLA/tools/tla2tools.jar"
+}

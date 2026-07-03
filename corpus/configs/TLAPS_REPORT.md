@@ -60,6 +60,37 @@ long-running check (the Isabelle fallback alone can plausibly take 30+ minutes f
 worst obligations) or per-obligation proof-script inspection to separate genuine gaps
 from slow-but-valid ones.
 
+**Update (2026-07-03): CLOSED — and the "slow-but-valid" hypothesis was wrong; these
+were genuine gaps.** Decisive finding: 112.tla is a mechanically *collapsed* version of
+the upstream `tla-examples/specifications/lamport_mutex/LamportMutex_proofs.tla` —
+upstream contains decomposed sub-proofs at exactly the failing sites, and the benchmark
+flattened them into single `BY ... DEF ...` leaps no backend bridges at any budget. All
+involve element-index reasoning over `Append`/`Tail` inside the file's own quantified
+definitions (`Precedes`, `Contains`, `ClockInvInner`) — zenon hits memory limits and SMT
+can't invent the index-shift instantiations (`Tail(s)[i] = s[i+1]`,
+`Append(s,m)[Len(s)+1] = m`) inside large expanded invariants. One failure (line 174,
+`PrecedesTail`) is worse: a benchmark-introduced *statement mutation* — upstream's
+`s # << >>` hypothesis was dropped, and the strengthened lemma is formally unprovable
+(`Tail(<<>>)` is underspecified in every backend encoding; probed directly — 6 standalone
+`Tail(<<>>) = <<>>` lemmas fail under OBVIOUS/SMT/Isabelle/Zenon — and the mutated
+statement is falsifiable under the axiomatization).
+
+Fixed in `corpus/configs/patches/112.tla`: 13 hunks, all but one taken verbatim from or
+modeled on the canonical upstream file (restored decomposed sub-proofs at lines
+79/84/142/182/374/559/579/611/622/640/667/676); the one statement change restores
+upstream's `s # << >>` hypothesis on `PrecedesTail` (both call sites already supply
+non-emptiness; all downstream theorems including `Safety` still prove). Squarely within
+Amendment 1's "corpus defects must be repaired from upstream sources" rule — this is
+the case where the upstream source exists and the benchmark diverged from it.
+
+Verified via harness twice from scratch (`results/runs/spec112-close`,
+`spec112-close-confirm`): `sany=pass`, `tlaps=pass, 729/729`, `source_origin=patched`
+("All 729 obligations proved" — count grew 654→729 from the added sub-steps), 33.5–37.5s
+at the harness's default stretch. Note for future proof specs: the harness runs tlapm
+with no `--stretch` flag, and two obligations (lines 79/142) passed at stretch 5 but
+failed at default stretch before hardening — single harness passes on proof specs can be
+borderline; decomposed proofs remove that sensitivity.
+
 ## Harness bug #2 found and fixed: `check_tlapm` had no `-I` include path
 
 `check_tlapm` invoked `tlapm <file>` with no `-I` flags at all — unlike SANY (which gets

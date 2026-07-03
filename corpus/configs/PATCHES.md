@@ -130,3 +130,20 @@ community `SequencesExt` `Front` doesn't unfold usefully (fix: cite the file's o
 `Next` broke proof-case coverage (fix: add `DEF Terminating`). Two `BY`-line
 strengthenings only; no theorem, invariant, or step statement changed. Full
 root-cause writeup in `TLAPS_REPORT.md` ("Spec 129 ... CLOSED at 325/325").
+
+## Spec 112 (LamportMutex_proofs) — full safety proof of Lamport's mutex
+
+Status: **CLOSED.** `tlaps=pass, 729/729` via harness, twice from scratch
+(`results/runs/spec112-close`, `spec112-close-confirm`, `source_origin=patched`).
+
+The benchmark file is a mechanically *collapsed* copy of upstream
+`tla-examples/specifications/lamport_mutex/LamportMutex_proofs.tla`: decomposed
+sub-proofs at exactly the failing sites were flattened into single `BY ... DEF ...`
+leaps no backend closes at any budget, and one lemma statement was mutated
+(`PrecedesTail` lost upstream's `s # << >>` hypothesis, making it formally unprovable —
+`Tail(<<>>)` is underspecified in every backend encoding). Fix: 13 hunks restoring the
+upstream decompositions and the dropped hypothesis (both call sites already supply
+non-emptiness; all downstream theorems including `Safety` still prove). This is the
+Amendment 1 case where a usable upstream source *exists* and the benchmark diverged
+from it — the patch is a restoration, not invention. Full root-cause writeup in
+`TLAPS_REPORT.md` ("Update (2026-07-03): CLOSED").
