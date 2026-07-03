@@ -288,3 +288,34 @@ per state than plain `TypeOK`, cost grows faster with depth). This is the
 first spec in the sweep where a genuine *inductive* invariant (not just a type
 invariant) was checked, not merely attempted opportunistically — worth noting
 since `Inv` is closer to a real correctness property than `TypeOK` alone.
+
+## 89 (CRDT_proof) — `TypeOK` `NoError` to depth 5, `Safety` `NoError` to depth 7
+
+Different shape from the rest of the list: `corpus/89.tla` (module `CRDT_proof`)
+is a **TLAPS proof module** (`EXTENDS CRDT, ..., TLAPS`, body is entirely
+`THEOREM`/`LEMMA` proof steps, zero `VARIABLES`/`CONSTANT`/`Init`/`Next` of its
+own — `data/v1_json/89.json`'s own metadata confirms empty `VariableNames`/
+`ConstantNames`). It gets its checkable `Init`/`Next`/`TypeOK`/`Safety`/`Spec`
+entirely by `EXTENDS`-inheriting them from the base state machine, `CRDT.tla`
+(a G-Counter CRDT: `counter \in [Node -> [Node -> Nat]]`, `Increment`/`Gossip`
+actions) — which is why `GATE0_STATUS.md` could still record a genuine
+`tlc=timeout` for it (TLC ignores `THEOREM`/proof steps and checks the
+inherited state machine directly; the corpus draft cfg,
+`corpus/configs/drafts/89.cfg`, has no `StateConstraint`, and `counter` is
+unbounded `Nat`, so state space genuinely diverges).
+
+For this Apalache pass, checked the base `CRDT.tla` directly rather than
+`CRDT_proof.tla` — same `Init`/`Next`/`TypeOK`/`Safety` predicates either way
+(nothing in `CRDT_proof` redefines them), and going direct avoids pulling in
+`TLAPS.tla` + `NaturalsInduction.tla` (present in `tools/tlapm/lib/tlapm/stdlib/`
+but not needed for a non-proof-checking Apalache run, and `NaturalsInduction`
+risked its own RECURSIVE-pattern issues like spec 73's `Utils.tla`, not
+investigated since the direct route worked cleanly).
+
+`TypeOK`: `apalache-mc check --length=5 --inv=TypeOK --config=CRDT.cfg
+CRDT.tla` (`Node = {"n1","n2","n3"}`, matching `drafts/89.cfg`'s `Node =
+{n1,n2,n3}`). Result: `NoError`, 8.7s.
+
+`Safety` (`\A n,o \in Node : counter[n][n] >= counter[o][n]` — the actual
+correctness property, not just a type check): `--length=7`. Result: `NoError`,
+44.2s. `--length=8` did not complete within 60s.
