@@ -38,3 +38,12 @@ Only `TypeOK` attempted (the `PROPERTIES` — `Unforg_Ltl`/`Corr_Ltl`/`Agreement
 are temporal/liveness, which Apalache handles differently and was not attempted this
 spec given the time already spent on the type-annotation/assignment-error round trip
 above).
+
+## 16 (bcastFolklore) — `NoError` up to depth 12
+
+Command: `apalache-mc check --length=12 --inv=TypeOK --config=bcastFolklore.cfg bcastFolklore.tla`
+(N=4, T=1, F=1). Result: `NoError`, 20.7s. Depth 20 didn't complete within 90s (still
+running at state 15). Types needed a set-of-tuples shape (`rcvd`/`sent` are
+`Int -> Set(<<Int, Str>>)` / `Set(<<Int, Str>>)`) — annotated correctly on the first
+attempt, no assignment-analysis errors this time (unlike spec 1). Only `TypeOK`
+attempted, same reasoning as spec 1 (properties are temporal/liveness).
