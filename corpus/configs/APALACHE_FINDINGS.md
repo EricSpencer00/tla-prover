@@ -56,3 +56,18 @@ Command: `apalache-mc check --length=5 --inv=TypeOK --config=bosco.cfg bosco.tla
 Set(<<Int,Str>>)` / `Set(<<Int,Str>>)` shapes as spec 16). Only `TypeOK` attempted
 (`Lemma3_0`/`Lemma3_1`/`Lemma4_0`/`Lemma4_1` are plain state predicates, not the
 active `INVARIANT`/`PROPERTY` in the original cfg — not attempted this pass).
+
+## 28 (c1cs) — `NoError` up to depth 5
+
+Command: `apalache-mc check --length=5 --inv=TypeOK --config=c1cs.cfg c1cs.tla`
+(N=4, T=1, F=1, Values={"v1","v2"}, Bottom="Bottom"). Result: `NoError`, 5.9s.
+Depths 7, 8, 10, and 15 all failed to complete within 90s — profiling the log shows
+the bottleneck is consistently a single state-invariant check at symbolic state 8
+(one SMT query alone took ~53-93s at that state across multiple attempts), not a
+gradual slowdown — a genuine SMT-scaling wall rather than simple state growth.
+Record type needed for messages: `bcastMsg`/`rcvdMsg` hold sets of
+`{type: Str, value: Str, sndr: Int}` records (first record-typed spec in this
+sweep; `PMsg \cup DMsg` collapses to one record shape since both share the same
+field set). Only `TypeOK` attempted — `Validity`/`Agreement`/`WeakAgreement`/
+`IndStrengthens` are additional named invariants in the original cfg,
+`Termination` is a temporal property; none attempted this pass.
