@@ -1,0 +1,2 @@
+spec,method,sany,tlc,tlc_vacuity,cfg_origin,tlaps,tlaps_obligations,apalache,budget_used,log_path
+100,oracle,pass,pass,clean,override,,,,"{""sany_s"": 0.5, ""tlc_s"": 205.2}",/home/eric-spencer/tla-spec100/prove-TLA/results/runs/spec100-sophia/logs/100.log

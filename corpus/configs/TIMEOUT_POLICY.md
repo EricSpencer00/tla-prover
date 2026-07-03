@@ -102,3 +102,14 @@ confirmed to converge). Canonical override cfg unchanged; nothing weakened or sp
   entry: tlc=pass, clean, tlc_s=907.1 — max(timeout, policy) mechanism verified.
 - scratch expA-typeok — direct TLC TypeOK-only baseline (not a harness run;
   scratchpad/expA-typeok/).
+
+### Cross-platform confirmation (SOPHIA, 2026-07-03)
+
+The same canonical run was independently reproduced on ALCF Sophia (PBS job 161702,
+1 node, `TLC_WORKERS=24` — the only harness deviation, an env-var worker override on
+the shipped copy): `sany=pass, tlc=pass, vac=clean`, **identical state space**
+(1,165,101 generated / 81,256 distinct / depth 21, 0 on queue), "Model checking
+completed. No error has been found.", TLC 205.2s (vs 916s at `-workers 2` locally —
+consistent with the bookkeeping-bound diagnosis: ~4.5x from 12x workers, not linear,
+because the liveness graph serializes part of the work). Ledger:
+`results/runs/spec100-sophia/`.
