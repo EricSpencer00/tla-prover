@@ -1,0 +1,2 @@
+spec,method,sany,tlc,tlc_vacuity,cfg_origin,tlaps,tlaps_obligations,apalache,budget_used,log_path
+146,oracle,pass,pass,clean,original,,,,"{""sany_s"": 0.5, ""tlc_s"": 441.7}",/home/eric-spencer/tla-sweep/prove-TLA/results/runs/sweep-large-146/logs/146.log

@@ -8,7 +8,8 @@
     "42": "NotSolved",
     "43": "NotSolved",
     "44": "NotSolved",
-    "_comment": "PLAN.md Amendment 3 (PENDING Eric). Puzzle-solving specs where the counterexample IS the solution, and pedagogical negative-control specs designed to demonstrate TLC catching a bug. Value is the exact invariant/property name that must be the one violated."
+    "_comment": "PLAN.md Amendment 3 (PENDING Eric). Puzzle-solving specs where the counterexample IS the solution, and pedagogical negative-control specs designed to demonstrate TLC catching a bug. Value is the exact invariant/property name that must be the one violated.",
+    "57": "FindSolution"
   },
   "library": [
     "29",

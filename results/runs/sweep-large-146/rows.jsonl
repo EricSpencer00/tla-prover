@@ -1,0 +1,1 @@
+{"spec": "146", "method": "oracle", "sany": "pass", "tlc": "pass", "tlc_vacuity": "clean", "tlaps": null, "apalache": null, "budget_used": {"sany_s": 0.5, "tlc_s": 441.7}, "log_path": "/home/eric-spencer/tla-sweep/prove-TLA/results/runs/sweep-large-146/logs/146.log", "cfg_origin": "original"}
