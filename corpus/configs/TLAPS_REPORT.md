@@ -46,3 +46,45 @@ a `TypeOK'` induction step near line 811. Not yet root-caused — needs a step-b
 in the corpus's proof. Routed per Amendment 1 ("corpus defects must be repaired from
 upstream sources") — left as a documented partial pending that investigation, denominator
 unchanged.
+
+**Update (re-verification/grinding session):** the failing count is resource-sensitive,
+not fixed — `tlapm --stretch 2` → 12 failed, `--stretch 5` → 11, `--stretch 15` → the
+zenon backend gives up and tlapm falls back to the (much slower) Isabelle backend, which
+takes multiple minutes *per obligation* still running at time of writing. This strongly
+suggests most of the 10-12 nominally-"failing" obligations are legitimate but slow —
+the automated provers eventually succeed given enough budget — rather than genuine gaps
+in the proof's logic, though this isn't confirmed for all of them (a genuine gap would
+also eventually report "could not prove", indistinguishable from "still working" without
+waiting it out). Not fully resolved this session; would need either a dedicated
+long-running check (the Isabelle fallback alone can plausibly take 30+ minutes for the
+worst obligations) or per-obligation proof-script inspection to separate genuine gaps
+from slow-but-valid ones.
+
+## Harness bug #2 found and fixed: `check_tlapm` had no `-I` include path
+
+`check_tlapm` invoked `tlapm <file>` with no `-I` flags at all — unlike SANY (which gets
+community-modules/extra-modules via the `-DTLA-Library` Java property automatically),
+tlapm has no equivalent env-based resolution and needs explicit `-I <dir>` per directory.
+This silently worked for 8/9 proof_module specs because they only `EXTENDS` tlapm's own
+bundled stdlib theorem modules — but spec 129 (`SumSequence`) `EXTENDS
+SequencesExtTheorems` (a community-module-only theorem library) and failed outright:
+`Error: Unknown module "SequencesExtTheorems"`, even though SANY parses the same file
+fine. This is why spec 129 was originally deferred as a "genuine cross-library theorem
+conflict" (`corpus/DEFERRED.json`) — **that diagnosis was wrong**: there is no conflict
+(`SequenceTheorems.tla`, tlapm's own stdlib module, doesn't even define
+`FrontInductiveDef`/`FrontInductiveDefType` — only `SequencesExtTheorems.tla` does; a
+direct SANY parse with both `EXTENDS`ed together succeeds cleanly, no duplicate-name
+error). The real, only, issue was the missing `-I` flag. Fixed: `check_tlapm` now passes
+`-I <dir>` for every directory in `TLA_LIBRARY` (same three dirs SANY already uses).
+Re-verified no regression on the other 8 proof_module specs (`results/runs/proofmodule-regression-check/`).
+
+## Spec 129 (SumSequence) reclassified `proof_module`, now 322/324 (was: hard SANY-adjacent block)
+
+Not previously classified as `proof_module` in `populations.json` — added this session
+(it has real `VARIABLES`/`Init`/`Next`/`Spec` *and* a full `THEOREM Spec => []PCorrect`
+proof, the same shape as spec 112). With the `-I` fix: `sany=pass`, `tlaps=partial,
+322/324`. The 2 remaining failures (lines 261, 279 — a `Front(s) = [i \in 1..Len(s)-1
+|-> s[i]]` step and an `Inv'` induction step) did **not** improve at `--stretch 5` (unlike
+spec 112's obligations above), suggesting these might be genuine gaps rather than
+resource-limited — not root-caused further this session. Documented as a partial,
+same disposition as spec 112, denominator unchanged.

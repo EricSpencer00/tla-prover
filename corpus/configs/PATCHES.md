@@ -74,3 +74,32 @@ deliberately not attempted here under task-batch time pressure, to avoid a rushe
 `python3 -m harness run --run-id <id> --specs 30 --stages sany,tlc --timeout 60 --extra-cfg-dir corpus/configs/drafts`
 (uses `corpus/configs/patches/30.tla` automatically; draft cfg + `-deadlock` policy
 already in place, see `corpus/configs/policy.json`).
+
+## Spec 50 (Synod) — the inner-refinement teaching example
+
+Status: **CLOSED.** `python3 -m harness run --run-id <id> --specs 50 --stages sany,tlc --timeout 60 --extra-cfg-dir corpus/configs/drafts` — `sany=pass, tlc=pass`, non-vacuous.
+
+Two real defects found and fixed while building the MC wrapper (`corpus/configs/wrappers/MC_Synod.tla`, see `MC_WRAPPERS.md`):
+
+### Bug 1 — unbounded CHOOSE for NotAnInput (fixed)
+
+`NotAnInput == CHOOSE c : c \notin Inputs` — TLC cannot evaluate a `CHOOSE` with no
+bounding set ("TLC attempted to evaluate an unbounded CHOOSE"). Its exact identity is
+irrelevant to the algorithm — it's only used as a fresh sentinel distinct from every
+real `Inputs` value. Fix: declared `NotAnInput` as a `CONSTANT` (with `ASSUME
+NotAnInput \notin Inputs`) instead of deriving it, supplied a concrete model value via
+cfg — the same idiom the sibling `DiskSynod`/`HDiskSynod` family already uses
+(`NotAnInput = NotAnInput` in their own upstream `.cfg`).
+
+### Bug 2 — missing prime in IFail (fixed)
+
+`Inner!IFail`'s `/\ allInput = allInput \cup {ip}` has no prime on the left-hand
+`allInput` — as written this is a vacuous *boolean condition* (true only when `ip`
+already happens to be a member of `allInput`), not an assignment. TLC flags this
+directly once it gets past bug 1: *"Successor state is not completely specified by the
+next-state action. The following variable is not assigned: allInput."* Fix:
+`allInput' = allInput \cup {ip}`.
+
+Both bugs are byte-identical upstream (`tla-examples/specifications/...` — this exact
+module, no `.cfg` ships with it there either, so TLC never ran on it upstream and
+never caught either bug).

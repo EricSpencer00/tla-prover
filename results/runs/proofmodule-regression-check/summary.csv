@@ -1,0 +1,9 @@
+spec,method,sany,tlc,tlc_vacuity,cfg_origin,tlaps,tlaps_obligations,apalache,budget_used,log_path
+67,oracle,pass,,,,pass,65/65,,"{""sany_s"": 0.3, ""tlaps_s"": 0.8}",/Users/eric/GitHub/prove-TLA/results/runs/proofmodule-regression-check/logs/67.log
+118,oracle,pass,,,,pass,18/18,,"{""sany_s"": 0.2, ""tlaps_s"": 0.5}",/Users/eric/GitHub/prove-TLA/results/runs/proofmodule-regression-check/logs/118.log
+119,oracle,pass,,,,pass,45/45,,"{""sany_s"": 0.3, ""tlaps_s"": 0.6}",/Users/eric/GitHub/prove-TLA/results/runs/proofmodule-regression-check/logs/119.log
+131,oracle,pass,,,,pass,97/97,,"{""sany_s"": 0.4, ""tlaps_s"": 7.1}",/Users/eric/GitHub/prove-TLA/results/runs/proofmodule-regression-check/logs/131.log
+137,oracle,pass,,,,pass,52/52,,"{""sany_s"": 0.4, ""tlaps_s"": 1.4}",/Users/eric/GitHub/prove-TLA/results/runs/proofmodule-regression-check/logs/137.log
+139,oracle,pass,,,,pass,64/64,,"{""sany_s"": 0.3, ""tlaps_s"": 7.2}",/Users/eric/GitHub/prove-TLA/results/runs/proofmodule-regression-check/logs/139.log
+142,oracle,pass,,,,pass,73/73,,"{""sany_s"": 0.3, ""tlaps_s"": 1.2}",/Users/eric/GitHub/prove-TLA/results/runs/proofmodule-regression-check/logs/142.log
+182,oracle,pass,,,,pass,21/21,,"{""sany_s"": 0.3, ""tlaps_s"": 0.6}",/Users/eric/GitHub/prove-TLA/results/runs/proofmodule-regression-check/logs/182.log

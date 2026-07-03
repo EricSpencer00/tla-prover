@@ -233,7 +233,15 @@ def check_tlc(mod: str, cfg_text: str, workdir: Path, timeout: int, extra_flags=
 
 def check_tlapm(tla_file: Path, workdir: Path, timeout=300):
     """Returns (status, proved, total, output, seconds). pass = all obligations proved."""
-    rc, out, dt, timed_out = run_cmd([str(TLAPM), tla_file.name], workdir, timeout)
+    # tlapm has no equivalent of SANY's -DTLA-Library env mechanism -- needs
+    # explicit -I per directory, or EXTENDS of a community-module-only theorem
+    # module (e.g. SequencesExtTheorems, spec 129) fails with "Unknown module"
+    # even though SANY resolves it fine via TLA_LIBRARY.
+    include_flags = []
+    for p in TLA_LIBRARY.split(":"):
+        include_flags += ["-I", p]
+    rc, out, dt, timed_out = run_cmd(
+        [str(TLAPM)] + include_flags + [tla_file.name], workdir, timeout)
     if timed_out:
         return "timeout", 0, 0, out, dt
     m = re.search(r"All (\d+) obligations? proved", out)

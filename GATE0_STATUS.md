@@ -19,7 +19,7 @@ this is evidence for that decision, not a self-certification.
       this session has its own `results/runs/` entry (append-only, ~40 run
       directories) plus `corpus/configs/patches/`, `.../wrappers/`, `.../overrides/`
       for every applied fix, each independently re-verifiable. `corpus/DEFERRED.json`
-      (14 specs, per-spec reason) covers what's excluded from active work.
+      (13 specs, per-spec reason) covers what's excluded from active work.
 
 **3 of 4 met.** The unmet one is the headline number, not a technicality — see below.
 
@@ -41,15 +41,16 @@ Population classification lives in `corpus/configs/populations.json`.
 
 | | count | of 206 |
 |---|---|---|
-| **Closed** (meets Amendment 1/3 criterion) | **157** | 76% |
+| **Closed** (meets Amendment 1/3 criterion) | **158** | 77% |
 | Open (active, not yet closed) | 35 | 17% |
-| Deferred (Amendment 2, excluded from active work) | 14 | 8% |
+| Deferred (Amendment 2, excluded from active work) | 13 | 6% |
 
-*(Re-verified this session — see "Re-verification and grinding session" below. Same
-157 headline number, now on firmer footing: independently re-derived via a fresh full
-sweep + serial re-testing, not just carried forward. One spec swapped out for another —
-198 newly closed via `library` reclassification, 178 newly excluded as unreliable — net
-zero change to the total.)*
+*(Re-verified and extended this session — see "Re-verification and grinding session"
+below. 157 → 158: independently re-derived (198 in, 178 out, net zero), then +1 for
+spec 50 (`Synod`) newly closed via a hand-built wrapper that also exposed and fixed two
+genuine corpus defects. Spec 129 un-deferred (a stale "cross-library conflict" diagnosis
+— the real blocker was a harness gap, now fixed) but not yet closed (322/324 TLAPS
+obligations) — moves deferred → open, not open → closed.)*
 
 **157/206, with 14 stated separately per Amendment 2's reporting rule.** Not 206/206.
 Gate 0's own text calls this correctly: Stage 0's job is proving the *instrument*
@@ -335,10 +336,56 @@ closure (198) and one genuine new exclusion (178) netting to zero, and two specs
 `populations.json` updated accordingly; `DEFERRED.json` untouched (none of these
 findings are Amendment-2-style deferrals).
 
-Not yet attempted this session (time-boxed, not exhausted): spec 50 (Synod inner-module
-instantiation, flagged as design work not a quick fix), spec 72/78 (animation/trace-file
+Not yet attempted this session (time-boxed, not exhausted): spec 72/78 (animation/trace-file
 blockers, same family limitations as 60/64's `_anim` siblings), spec 145 (vacuous by
 design per its own note — safety property lives in spec 146, itself genuinely large),
 the ~9 EWD998-family TLC-version-gap specs (58, 80, 81, 84, 85, 88, 91, 93, 94 — already
-confirmed not fixable at cfg/corpus level), spec 112's remaining 12-18 failing TLAPS
-obligations (`TLAPS_REPORT.md`).
+confirmed not fixable at cfg/corpus level).
+
+## Second grinding pass: spec 50 closed, spec 129 un-deferred, a real harness gap fixed
+
+**Spec 50 (Synod) — CLOSED.** `SynodSpec == \EE chosen, allInput : IS(chosen,
+allInput)!ISpec` uses a temporal-exists TLC can't check directly, and no upstream
+wrapper existed. Built one (`corpus/configs/wrappers/MC_Synod.tla`): `Synod.tla`'s own
+`IS(chosen, allInput) == INSTANCE Inner` is a top-level (non-`LOCAL`) operator, so an
+external module can call it with concrete, non-hidden `VARIABLES` instead of the
+existentially-hidden ones. Building it exposed two genuine `Synod.tla` defects, both
+byte-identical upstream and never caught there either (no `.cfg` ships with this module
+upstream): an unbounded `CHOOSE` for `NotAnInput` (TLC can't evaluate `CHOOSE c : c
+\notin Inputs` with no bounding set — turned into a declared `CONSTANT`, same idiom the
+sibling `DiskSynod`/`HDiskSynod` family already uses), and a missing prime in `Inner!IFail`
+(`allInput = allInput \cup {ip}` has no prime on the LHS — a vacuous boolean condition,
+not an assignment, leaving `allInput'` completely unconstrained). Fixed in
+`corpus/configs/patches/50.tla`, full diagnosis in `PATCHES.md`. `sany=pass, tlc=pass`,
+non-vacuous, exhaustive at N=3 (depth 6, 0 states left on queue).
+
+**Harness gap fixed: `check_tlapm` had no `-I` include path.** SANY resolves
+community-modules/extra-modules automatically via a Java `-DTLA-Library` property; tlapm
+has no equivalent and was being invoked with zero `-I` flags. Silently fine for 8/9
+`proof_module` specs (they only use tlapm's own bundled stdlib), but spec 129
+(`SumSequence`) `EXTENDS SequencesExtTheorems` (community-module-only) and failed
+outright: `Error: Unknown module "SequencesExtTheorems"`. **This is why spec 129 was
+originally deferred as a "genuine cross-library theorem conflict" — that diagnosis was
+wrong.** There is no conflict: `SequenceTheorems.tla` (tlapm's own stdlib) doesn't even
+define `FrontInductiveDef`/`FrontInductiveDefType`, only `SequencesExtTheorems.tla`
+does, and a direct SANY parse of both together succeeds cleanly. Fixed `check_tlapm` to
+pass `-I <dir>` for every `TLA_LIBRARY` directory (same three SANY already uses).
+Re-verified no regression on the other 8 `proof_module` specs.
+
+**Spec 129 — un-deferred, now correctly measured, not yet closed.** Reclassified
+`proof_module` (has real `VARIABLES`/`Init`/`Next`/`Spec` *and* a full `THEOREM Spec =>
+[]PCorrect` proof — same shape as spec 112). With the `-I` fix: `sany=pass, tlaps=partial,
+322/324`. The 2 remaining failures (a `Front(s) = [i \in 1..Len(s)-1 |-> s[i]]` step and
+an `Inv'` induction step) did not improve at `--stretch 5`, unlike spec 112's failures
+below — possibly genuine gaps, not root-caused further. Moved `DEFERRED.json` → open
+(not closed): 13 deferred now, was 14.
+
+**Spec 112 — still partial, resource-sensitivity confirmed but not resolved.** The
+failing-obligation count shrinks as prover budget increases (`--stretch 2` → 12 failed,
+`--stretch 5` → 11, `--stretch 15` → 10, with the zenon backend falling back to the much
+slower Isabelle backend for the hardest ones, individual obligations observed taking
+multiple minutes each). This strongly suggests most of the ~10-12 nominal failures are
+slow-but-valid rather than genuine proof gaps, but this isn't confirmed for all of them
+— a genuine gap looks identical to "still working" without waiting it out fully. Not
+resolved this session; would need a dedicated long-running check (plausibly 30+ minutes)
+or per-obligation proof-script inspection. `TLAPS_REPORT.md` has full detail.

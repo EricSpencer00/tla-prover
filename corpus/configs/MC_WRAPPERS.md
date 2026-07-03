@@ -47,11 +47,16 @@ G1). This task covers the remaining state_machine-population blockers.
   47's operators transitively, but 47 has no *standalone* checkable item under this
   harness (each corpus spec number is evaluated independently). Would need its own
   hand-authored wrapper — not attempted.
-- **50 (Synod)** — the base module wraps an inner `Inner` module with a temporal-exists
-  `SynodSpec == \EE chosen, allInput : ...`; TLC cannot check temporal existentials
-  directly and no upstream wrapper instantiates `Inner` with concrete `chosen`/
-  `allInput` variables (confirmed absent from tla-examples). Needs a hand-built wrapper
-  instantiating the inner module — genuine design work, not attempted.
+- ~~**50 (Synod)**~~ — **CLOSED** (re-verification/grinding session, following the
+  Apalache sweep). Hand-built `corpus/configs/wrappers/MC_Synod.tla`: `Synod.tla`'s
+  own `IS(chosen, allInput) == INSTANCE Inner` is a top-level (non-`LOCAL`) operator,
+  so an external module can call it with concrete, non-hidden `VARIABLES` instead of
+  the existentially-quantified ones in `SynodSpec == \EE chosen, allInput : ...` (which
+  TLC can't check directly). Building the wrapper exposed two genuine `Synod.tla`
+  defects — an unbounded `CHOOSE` for `NotAnInput`, and a missing prime in `IFail`
+  leaving `allInput'` unconstrained — both fixed in `corpus/configs/patches/50.tla`,
+  full diagnosis in `PATCHES.md`. `sany=pass, tlc=pass`, non-vacuous, exhaustive
+  (depth 6, 0 states left on queue) at N=3.
 - **108 (Prob)** — absorbing Markov chain, no zero-arity checkable predicate exists
   (the `Converges` THEOREM is a liveness property, not a definition TLC can check as
   `PROPERTY`). DRAFT_ITERATION.md already flagged this as needing a wrapper that adds
