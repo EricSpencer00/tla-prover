@@ -78,7 +78,7 @@ error). The real, only, issue was the missing `-I` flag. Fixed: `check_tlapm` no
 `-I <dir>` for every directory in `TLA_LIBRARY` (same three dirs SANY already uses).
 Re-verified no regression on the other 8 proof_module specs (`results/runs/proofmodule-regression-check/`).
 
-## Spec 129 (SumSequence) reclassified `proof_module`, now 322/324 (was: hard SANY-adjacent block)
+## Spec 129 (SumSequence) reclassified `proof_module`, CLOSED at 325/325 (was: hard SANY-adjacent block)
 
 Not previously classified as `proof_module` in `populations.json` — added this session
 (it has real `VARIABLES`/`Init`/`Next`/`Spec` *and* a full `THEOREM Spec => []PCorrect`
@@ -86,5 +86,29 @@ proof, the same shape as spec 112). With the `-I` fix: `sany=pass`, `tlaps=parti
 322/324`. The 2 remaining failures (lines 261, 279 — a `Front(s) = [i \in 1..Len(s)-1
 |-> s[i]]` step and an `Inv'` induction step) did **not** improve at `--stretch 5` (unlike
 spec 112's obligations above), suggesting these might be genuine gaps rather than
-resource-limited — not root-caused further this session. Documented as a partial,
-same disposition as spec 112, denominator unchanged.
+resource-limited.
+
+**Update (2026-07-03): CLOSED.** Both failures root-caused as genuine proof gaps —
+artifacts of this corpus file's setup differing from Lamport's original in "Proving
+Safety Properties" §7.3, not slow backends. Fixed in `corpus/configs/patches/129.tla`
+(two `BY` strengthenings, no theorem/invariant/statement changed):
+
+- **Line 261** (`<6>5. Front(s) = [i \in 1..Len(s)-1 |-> s[i]]`, was `BY <5>1 DEF Front`):
+  here `Front` comes from the community `SequencesExt` module
+  (`Front(s) == SubSeq(s, 1, Len(s)-1)`); expanding only `Front` leaves an opaque
+  `SubSeq` term the backends can't reduce (Lamport's original used a local `Front`
+  that unfolded directly). The file itself already proves the exact bridging fact as
+  `THEOREM FrontDef` (line 174), and step `<6>4` establishes its `s \in Seq(Int)`
+  hypothesis — fix: `BY <6>4, FrontDef`.
+- **Line 279** (`<3>` QED proving `Inv'`, was `BY <2>1, <2>2 DEF Next`): this file's
+  PlusCal translation adds a `Terminating` disjunct to `Next` that Lamport's original
+  didn't have, so the two proof cases (`CASE a`, `CASE UNCHANGED vars`) don't visibly
+  cover `[Next]_vars` — a coverage gap no solver budget closes. Fix: add
+  `DEF Terminating`, whose body (`pc = "Done" /\ UNCHANGED vars`) is subsumed by the
+  existing `UNCHANGED vars` case.
+
+Verified via harness (`results/runs/spec129-patch-verify`): `sany=pass`,
+`tlaps=pass, 325/325`, `source_origin=patched` ("All 325 obligations proved" — tlapm's
+count shifts from 324 to 325 on a trivial obligation split; zero failures). Note the
+pre-existing, harmless warning at line 176 (`Ignored unexpandable identifier "SubSeq"
+in BY DEF`) — present in the unmodified file too; that obligation proves anyway.

@@ -41,8 +41,8 @@ Population classification lives in `corpus/configs/populations.json`.
 
 | | count | of 206 |
 |---|---|---|
-| **Closed** (meets Amendment 1/3 criterion) | **160** | 78% |
-| Open (active, not yet closed) | 33 | 16% |
+| **Closed** (meets Amendment 1/3 criterion) | **162** | 79% |
+| Open (active, not yet closed) | 31 | 15% |
 | Deferred (Amendment 2, excluded from active work) | 13 | 6% |
 
 *(Re-verified and extended this session — see "Re-verification and grinding session"
@@ -66,7 +66,7 @@ of the repair sweep.
 | class | n | notes |
 |---|---|---|
 | `tlc=error` | ~18 | proof_module specs where TLC is a secondary check under Amendment 1 (several already TLAPS-closed independently); EWD998-family "opts"/simulation-mode variants + 91/93 confirmed genuinely blocked by TLC-version gaps, not fixable at cfg/corpus level (58, 80, 81, 84, 85, 88, 91, 93, 94 — `SIBLING_WRAPPERS.md`); spec 72 (EWD998_anim) partially unblocked — module extracted from a combined CONFIG+MODULE corpus file, now fails later at `Init` construction (`SPEC72_NOTES.md`); spec 78 needs a real trace-replay input file; spec 90's only path forward is spec 92, itself still open; spec 198 is a template needing invented operator semantics; spec 50 (Synod) needs a hand-built inner-module instantiation, design work not a quick fix (`MC_WRAPPERS.md`) |
-| `tlc=timeout`, confirmed genuinely large (retested at 150s and 300s) | 13 | 1, 16, 17, 28, 40, 57, 73, 79, 89 (no convergence even at 300s, `TIMEOUT_POLICY.md`); 30 (cbc_max — patched, Agreement violation open, `PATCHES.md`); 48, 49, 146 (sustained multi-million-state/minute growth past 10 minutes, `CANONICAL_MODEL_FIXES.md`); 107 (KnuthYao, needs TLC simulation mode + an R runtime, `SIBLING_WRAPPERS.md`) |
+| `tlc=timeout`, confirmed genuinely large (retested at 150s and 300s) | 12 | 1, 16, 17, 28, 40, 57, 73, 79, 89 (no convergence even at 300s, `TIMEOUT_POLICY.md`); 48, 49, 146 (sustained multi-million-state/minute growth past 10 minutes, `CANONICAL_MODEL_FIXES.md`); 107 (KnuthYao, needs TLC simulation mode + an R runtime, `SIBLING_WRAPPERS.md`). Spec 30 (cbc_max) formerly here — now CLOSED, see "Holdout session" below |
 | `tlc=pass` but vacuous | 1 | spec 145 (MultiPaxos-SMR) — genuinely has no invariant of its own by design (safety property lives in spec 146, itself a confirmed timeout) |
 | `tlc=fail_liveness` | 1 | spec 92 — root-caused to the specific property (`InSync`, not `AllExtending`) and why (cfg cites a known TLC `VIEW`-abstraction liveness-counterexample issue, tlaplus/tlaplus#1045); inconclusive whether real bug or artifact, `SPEC92_NOTES.md`, left open rather than guess |
 | `tlaps=partial` | 1 | spec 112 (LamportMutex_proofs) — 636-642/654 obligations depending on run budget, `TLAPS_REPORT.md` |
@@ -445,3 +445,36 @@ already-documented reasons — the newer jar's SANY mis-parses TLAPS proofs). Co
 the earlier finding directly rather than assuming it still holds; genuinely not fixable
 without either upgrading `tla2tools.jar` (risks breaking proof_module specs) or a
 from-scratch pure-TLA+ JSON parser (impractical). Left open.
+
+## Holdout session (2026-07-03): specs 30 and 129 closed — 162/206
+
+Two of the four remaining "genuine, bounded problem" holdouts closed, both by
+root-causing rather than budget/bounds adjustments.
+
+**Spec 30 (cbc_max) — CLOSED.** The open Agreement violation was a *third* real
+encoding bug, not a paper flaw: the TLA+ transcription flattened the source protocol's
+strict decision priority (quorum-decide is checked after every delivery, *before* the
+loop-exit test; the `F(Y_i)` fallback is reachable only when no quorum can ever form)
+into a free disjunction, so a process holding a deciding quorum could take the CHOOSE
+fallback instead. Traced step-by-step against the openly-available companion journal
+paper (Mostéfaoui–Rajsbaum–Raynal, JACM 50(6), Fig. 3 — what DSN'03 Fig. 1
+instantiates). Fix: a no-quorum guard on the CHOOSE disjunct of `Phs2(i)`, sound for
+the general parameterization. `sany=pass, tlc=pass`, vacuity clean, complete
+exploration (15.19M generated / 3.83M distinct / 0 on queue, depth 32, 70 s) with
+TypeOK, Validity, Agreement all checked — no longer a timeout spec at all; the
+pre-fix state-space blowup was the bug's own symptom. Full writeup: `PATCHES.md`
+Bug 3; evidence: `results/runs/spec30-rootcause-fix1/`.
+
+**Spec 129 (SumSequence) — CLOSED.** The 2/324 stuck TLAPS obligations were genuine
+proof gaps (as suspected from their stretch-insensitivity), both artifacts of this
+corpus file differing from Lamport's original setup: community-`SequencesExt`'s
+`Front` leaves an opaque `SubSeq` term (fixed by citing the file's own `FrontDef`
+theorem), and the PlusCal translation's extra `Terminating` disjunct in `Next` broke
+proof-case coverage (fixed with `DEF Terminating`). Two `BY`-line strengthenings in
+`corpus/configs/patches/129.tla`; no theorem/invariant/statement changed.
+`sany=pass, tlaps=pass, 325/325` via harness — evidence:
+`results/runs/spec129-patch-verify/`; full writeup: `TLAPS_REPORT.md`.
+
+Remaining holdouts from this batch: spec 112 (LamportMutex_proofs, ~10-12/654
+resource-sensitive obligations) and spec 100 (Huang, temporal-checking timeout) —
+being worked sequentially, one at a time, per `TIMEOUT_CONTENTION.md`.

@@ -9,11 +9,11 @@ usable upstream source exists (the defect is upstream too). Nothing under
 
 ## Spec 30 (cbc_max) — Condition-Based Consensus with Maximum Value (Mostéfaoui et al. 2003)
 
-Status: **NOT CLOSED.** Two real encoding bugs found and fixed; fixing them exposes a
-third, deeper problem (a genuine Agreement/safety violation) that is not yet explained.
-Left as an honest, documented `tlc=fail_invariant` — a real, non-vacuous TLC finding,
-not a harness artifact — pending further investigation. Do not report spec 30 as
-passing G1 until this is resolved.
+Status: **CLOSED.** Three real encoding bugs found and fixed (all new — TLC had never
+run on this spec anywhere). Verified via harness (`results/runs/spec30-rootcause-fix1`):
+`sany=pass, tlc=pass`, vacuity clean — complete exploration, 15.19M states generated,
+3.83M distinct, 0 on queue, depth 32, 70 s (draft cfg N=3, T=F=1, Values={1,2},
+Bottom=0, `-deadlock`). Invariants checked: TypeOK, Validity, Agreement.
 
 Upstream check: `/Users/eric/GitHub/tla-examples/specifications/cbc_max/cbc_max.tla`
 is **byte-identical** to the corpus copy, and ships with no `.cfg` at all — so TLC has
@@ -50,28 +50,42 @@ consumed and discarded.
 
 Verified via harness (`results/runs/patch-30-verify2`): the CHOOSE exception is gone.
 
-### Finding 3 — Agreement violated (open, NOT fixed)
+### Bug 3 — decision-path priority dropped: Agreement violated (fixed)
 
-With both bugs above fixed, TLC explores a real state space (7.7M states generated,
-2.2M distinct, depth 24 — `results/runs/patch-30-verify3/logs/30.log`) and finds:
+With bugs 1–2 fixed, TLC finds `Error: Invariant Agreement is violated` at depth 24
+(`results/runs/patch-30-verify3/logs/30.log`): `dval = <<1, 2, 0>>` with `nCrash = 0`
+throughout — disagreement with zero faults.
 
-```
-Error: Invariant Agreement is violated.
-```
+Root cause: a third encoding bug, in `Phs2`. The source protocol
+(Mostéfaoui–Rajsbaum–Raynal, *Conditions on Input Vectors for Consensus Solvability in
+Asynchronous Distributed Systems*, JACM 50(6), Fig. 3 — the message-passing protocol
+that DSN'03 Fig. 1 instantiates with condition C1 / F = max;
+https://www.cs.utexas.edu/~lorenzo/corsi/cs380d/papers/p922-mostefaoui.pdf) checks
+"same-w quorum delivered → return(w)" after **every** message delivery, *before* the
+loop-exit test; the deterministic fallback `return(F(Y_i))` (line 13) is reachable only
+when no value has a quorum among **all** N PHASE2 echoes — in which case no process can
+ever decide via the quorum rule either (each process sends exactly one PHASE2, and two
+>= N-T quorums for different values would need > N senders, impossible under `2T < N`).
+The TLA+ transcription flattened this strict priority into a free disjunction: the
+"received PHASE2 from all N → CHOOSE" branch was enabled even while the quorum-decide
+branch was simultaneously enabled. In the trace (inputs `v = <<1,1,2>>`, not in C1;
+`w = <<1,2,2>>` from asymmetric Phase-1 views), process 1 held echoes with wValues
+1, 2, 2 — a wValue-2 quorum it was required to decide on — but took the CHOOSE branch
+and decided 1 (arbitrary `CHOOSE` over its full vector), while process 2 later
+assembled the same wValue-2 quorum and decided 2.
 
-at a state where `dval = <<1, 2, 0>>` — process 1 has decided `1`, process 2 has
-decided `2`, with **zero crashes** (`nCrash = 0`) throughout the trace, well inside the
-configured fault tolerance (N=3, T=1, F=1, `2*T<N`). A correct crash-fault-tolerant
-consensus protocol must not disagree with zero faults, so this is either (a) a further,
-still-unidentified encoding bug distinct from bugs 1–2, or (b) a genuine flaw in this
-TLA+ transcription of the published protocol that bugs 1–2 were masking (TLC never
-reached this deep before because it crashed on the CHOOSE exception first).
+Fix: guard the CHOOSE disjunct of `Phs2(i)` with
+`\A v0 \in Values: Cardinality({m \in rcvdMsgs[i]: m.type = "Phs2" /\ m.wValue = v0}) < N - T`.
+Sound for the general parameterization: a process holding all N PHASE2 messages holds
+every one that will ever exist, so "no quorum" is a global, permanent fact — all
+deciders then go through Choose with the identical full input vector. (Residual paper
+deviation, benign: `Choose` uses an arbitrary deterministic `CHOOSE` over `V[i]`
+instead of `F = MAX`; with the guard, all CHOOSE-deciders hold the identical vector,
+so they still agree, and Validity holds.)
 
-Root-causing this needs a careful walk of the full 24-step counterexample trace
-(`results/runs/patch-30-verify3/logs/30.log`) against the original paper's Figure 1 —
-deliberately not attempted here under task-batch time pressure, to avoid a rushed
-"fix" to a consensus algorithm's safety property. Reproduce:
-`python3 -m harness run --run-id <id> --specs 30 --stages sany,tlc --timeout 60 --extra-cfg-dir corpus/configs/drafts`
+Verified via harness (`results/runs/spec30-rootcause-fix1`): `tlc=pass`, vacuity clean —
+"Model checking completed. No error has been found." Reproduce:
+`python3 -m harness run --run-id <id> --specs 30 --stages sany,tlc --timeout 300 --jobs 1 --extra-cfg-dir corpus/configs/drafts`
 (uses `corpus/configs/patches/30.tla` automatically; draft cfg + `-deadlock` policy
 already in place, see `corpus/configs/policy.json`).
 
@@ -103,3 +117,16 @@ next-state action. The following variable is not assigned: allInput."* Fix:
 Both bugs are byte-identical upstream (`tla-examples/specifications/...` — this exact
 module, no `.cfg` ships with it there either, so TLC never ran on it upstream and
 never caught either bug).
+
+## Spec 129 (SumSequence) — Lamport's "Proving Safety Properties" §7.3 example
+
+Status: **CLOSED.** `tlaps=pass, 325/325` via harness
+(`results/runs/spec129-patch-verify`, `source_origin=patched`).
+
+Two genuine TLAPS proof gaps (not resource-limited — unchanged at `--stretch 5`),
+both artifacts of this corpus file's setup differing from Lamport's original: the
+community `SequencesExt` `Front` doesn't unfold usefully (fix: cite the file's own
+`FrontDef` theorem), and the PlusCal translation's extra `Terminating` disjunct in
+`Next` broke proof-case coverage (fix: add `DEF Terminating`). Two `BY`-line
+strengthenings only; no theorem, invariant, or step statement changed. Full
+root-cause writeup in `TLAPS_REPORT.md` ("Spec 129 ... CLOSED at 325/325").

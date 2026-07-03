@@ -34,6 +34,19 @@
    catches up) instead of being consumed and discarded.
    Both defects are byte-identical upstream (tlaplus/examples ships this module
    with no .cfg at all, so TLC never ran on it there -- never caught).
+
+   (3) Third defect (Agreement violation, zero crashes): Phs2 encoded the paper's
+       two decision paths as a free disjunction, but in the source protocol
+       (Mostefaoui-Rajsbaum-Raynal, JACM 50(6) Fig. 3, which DSN'03 Fig. 1
+       instantiates with C1 / F = max) the quorum-decision check runs after every
+       message delivery and takes strict priority; the deterministic fallback
+       return(F(Y_i)) is reachable only when no value has a quorum among ALL N
+       PHASE2 echoes -- in which case no process can ever decide via the quorum
+       rule either (two >= N-T quorums for different values would need > N
+       senders). The unguarded disjunction let a process holding a deciding
+       quorum take the CHOOSE branch instead, deciding a different value than a
+       quorum-decider. Fix: guard the CHOOSE disjunct with
+       "no v0 has >= N-T same-wValue PHASE2 messages".
  *)
 
 EXTENDS Integers, FiniteSets, TLC
@@ -137,6 +150,14 @@ Phs2(i) ==
             /\ pc' = [ pc EXCEPT ![i] = "DONE" ]
             /\ UNCHANGED << v, w, nCrash, sntMsgs, rcvdMsgs, V >>
      \/ /\ \A j \in Proc: \E m \in rcvdMsgs[i] : m.type = "Phs2" /\ m.sndr = j
+        \* Paper (JACM 50(6) Fig. 3 / DSN'03 Fig. 1): the deterministic fallback
+        \* return(F(Y_i)) is reached only when the majority-decision check (which
+        \* runs after EVERY delivery, before the loop-exit test) never fired, i.e.
+        \* only when no value has a quorum among all N PHASE2 echoes. Without this
+        \* guard a process could ignore an available deciding quorum and fall
+        \* through to CHOOSE while another process decides via that quorum.
+        /\ \A v0 \in Values:
+             Cardinality( { m \in rcvdMsgs[i]: m.type = "Phs2" /\ m.wValue = v0 } ) < N - T
         /\ pc' = [ pc EXCEPT ![i] = "CHOOSE"]
         /\ UNCHANGED << v, w, nCrash, sntMsgs, dval, rcvdMsgs, V >>
 
