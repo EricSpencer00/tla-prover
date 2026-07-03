@@ -129,3 +129,29 @@ record-field access inside it: `Age_Channel!Pack_WaitingTime`,
 and `EPFailureDetector!Receive` (its second parameter, `incomingMessages`).
 Only `TypeOK` attempted — `StrongCompleteness`/`EventuallyStrongAccuracy` are
 temporal properties, not attempted this pass.
+
+## 48 (HDiskSynod) — not attempted, Apalache internal crash (not an annotation gap)
+
+`HDiskSynod EXTENDS DiskSynod EXTENDS Synod`, and `Synod.tla` itself contains a
+second, nested `MODULE Inner` (a TLA+ module-within-a-file, instantiated inside
+`Synod` for a reference spec `ISpec`). The existing corpus wrapper
+(`corpus/configs/wrappers/MC_HDiskSynod.tla`, built for TLC) uses TLC-cfg
+operator substitution (`Ballot <- BallotImpl`, `IsMajority <- IsMajorityImpl`)
+for `DiskSynod`'s higher-order `CONSTANTS Ballot(_), IsMajority(_)`.
+
+Ran `apalache-mc check` directly against the unmodified module cluster (before
+investing in any type annotations, specifically to check whether the nested-
+`Inner`-module pattern parses at all) and hit an **unhandled internal exception
+in Apalache's own type-checker**, not a type or annotation error:
+```
+java.lang.IllegalArgumentException: Unsupported expression:
+  [∃]chosen . ([∃]allInput . (IS!ISpec(chosen, allInput)))
+  at at.forsyte.apalache.tla.typecheck.etc.ToEtcExpr.transform(...)
+```
+— a crash tied to referencing an operator (`ISpec`) from a nested inner module
+through an instance-qualified name inside an existential, a pattern Apalache's
+parser front-end doesn't handle, independent of any `\* @type:` work. This is a
+tool limitation, not something fixable by annotating our scratch copy.
+Not attempted further (would require restructuring `Synod.tla`'s module
+nesting to work around an Apalache parser bug, which is out of scope for an
+informational bound — the corpus/upstream file is untouched either way).
