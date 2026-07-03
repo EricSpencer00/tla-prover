@@ -193,3 +193,64 @@ populations.json** here; noted only as a candidate for whoever next reviews
 Amendment 3. No bounded-depth framing applies to this result — it's a full
 (unbounded, `--length=0`) constant-state solve, not a partial-depth safety
 check like the other specs in this sweep.
+
+## 73 (EWD998Chan) — `TypeOK_Bounded` (a documented subset of `TypeOK`) `NoError`
+up to depth 3
+
+Second multi-module spec: `EXTENDS Utils` (`tla-examples/specifications/ewd998/Utils.tla`,
+which itself extends the community `SequencesExt`/`Functions` modules — copied
+from `tools/community-modules/`). The full module also declares `EWD998 ==
+INSTANCE EWD998 WITH token <- ..., pending <- ...` as a refinement mapping used
+only by the `EWD998Spec` temporal `PROPERTY` — irrelevant to `Init`/`Next`/
+`TypeOK`, and the corpus `.tla`'s own comment already notes *"TLC config
+doesn't accept the expression EWD998!Spec for PROPERTY"* (a known TLC
+limitation on this same file). Stripped that instance block from the scratch
+copy rather than also annotate a second full module (`EWD998.tla`) purely to
+support an already-TLC-incompatible temporal property.
+
+Three distinct Apalache issues hit and worked around, all scratch-copy-only,
+corpus untouched:
+1. **Record-set union with mismatched fields** (same pattern as specs 28/30):
+   `TokenMsg`/`BasicMsg` differ in field count. Added dummy `q`/`color` fields
+   to `"pl"`-typed messages, matching the existing precedent.
+2. **`Utils.tla`'s `SimpleCycle`/`IsSimpleCycle`** (unused by our target) use a
+   same-named nested `RECURSIVE` operator inside a `LET`, which Apalache's
+   SanyParser wrapper rejects outright ("Found two different declarations with
+   the same name") — a structural parser limitation, not a type issue. Stripped
+   both operators from the scratch `Utils.tla` copy (neither is referenced by
+   `EWD998Chan`'s `Init`/`Next`/`TypeOK`).
+3. **`x \in Seq(S)` and `x \in [field: Int, ...]`** both hit Apalache's
+   documented "infinite set" limitation
+   (https://apalache-mc.org/docs/apalache/known-issues.html#using-seqs) when
+   `inbox \in [Node -> Seq(Message)]` is checked directly, and again when
+   `Message` (`TokenMsg \cup BasicMsg`, defined via `q : Int`) is evaluated as
+   a literal set. Rewrote to elementwise field checks
+   (`\A i \in Node : \A j \in 1..Len(inbox[i]) : LET m == inbox[i][j] IN
+   m.type = "tok" /\ m.color \in Color \/ m.type = "pl"`) instead of
+   `inbox \in [Node -> Seq(Message)]`/`inbox[i][j] \in Message` — semantically
+   equivalent, avoids materializing the infinite record-set.
+4. TypeOK's last conjunct — pairwise token-uniqueness via
+   `\A i,j \in Node : \A k \in 1..Len(inbox[i]) : \A l \in 1..Len(inbox[j])`,
+   two independently-nested variable-length ranges — hit a second, distinct
+   documented Apalache limitation ("Expected a constant integer range in
+   `[..]`, found `1..Len(inbox[i])`"). A single such range nested inside one
+   outer `\A`/`\E` (as in issue 3 above, and the singleton-token existence
+   check) works; two independent variable-length ranges nested together does
+   not. Rewriting this specific conjunct without changing its meaning would
+   need a fundamentally different formulation (e.g. flattening the two Seqs
+   into an indexed value-set first) — judged out of scope for this pass, so
+   this one conjunct was **excluded**, not worked around. Defined
+   `TypeOK_Bounded == TypeOK` minus that one conjunct, clearly labeled in the
+   scratch file, and checked `TypeOK_Bounded` instead of `TypeOK`. (The
+   existence-of-exactly-one-token conjunct that *is* included had its own
+   single-range existential rewritten from `\E j \in 1..Len(inbox[i])` to
+   `\E j \in DOMAIN inbox[i]` — the same underlying limitation, but `DOMAIN`
+   over an already-scoped sequence variable Apalache accepts natively where a
+   literal `1..Len(...)` range construction does not.)
+
+Command: `apalache-mc check --length=3 --inv=TypeOK_Bounded
+--config=EWD998Chan.cfg EWD998Chan.tla` (N=3, matching the corpus `.cfg`).
+Result: `NoError`, 4.4s. `--length=5` (90s budget) did not complete.
+**This result is explicitly weaker than a `TypeOK` bound** — it excludes the
+token-uniqueness conjunct entirely rather than bounding it; treat it as
+"3 of 4 TypeOK conjuncts hold to depth 3," not "TypeOK holds to depth 3."
