@@ -41,8 +41,8 @@ Population classification lives in `corpus/configs/populations.json`.
 
 | | count | of 206 |
 |---|---|---|
-| **Closed** (meets Amendment 1/3 criterion) | **159** | 77% |
-| Open (active, not yet closed) | 34 | 17% |
+| **Closed** (meets Amendment 1/3 criterion) | **160** | 78% |
+| Open (active, not yet closed) | 33 | 16% |
 | Deferred (Amendment 2, excluded from active work) | 13 | 6% |
 
 *(Re-verified and extended this session — see "Re-verification and grinding session"
@@ -414,3 +414,34 @@ message reproduced and resolved at a time, not batch-guessed):
    `CHECK_DEADLOCK FALSE` (same idiom as this family's specs 73/79).
 
 `sany=pass, tlc=pass`, non-vacuous, exhaustive. Full diagnosis, `SPEC72_NOTES.md`.
+
+## Fourth grinding pass: spec 145 closed, spec 78 confirmed still blocked
+
+**Spec 145 (MultiPaxos) — CLOSED.** The base module defines no invariant/property of
+its own by design — `TypeOK`/`Linearizability` live only in `MultiPaxos_MC` (spec 146),
+which extends it. Reused spec 146's wrapper (same sibling-corpus-spec pattern as specs
+90/92, 12/14, 35/36, 47/48) applied to spec 145's *own* already-drafted, smaller
+constant set (`Writes = {w1}`, one command, vs. spec 146's own `{w1, w2}`) —
+`corpus/configs/overrides/145.cfg`. This is not bounds-shrinking to dodge difficulty:
+spec 145 is its own corpus entry with its own independently-drafted constants (set by
+an earlier iteration, not invented now), and spec 146 itself remains untouched,
+confirmed-large, and open. Result: `sany=pass, tlc=pass`, non-vacuous, and genuinely
+substantial — 736,012 states generated, 343,796 distinct, exhaustive (0 left on queue),
+both `TypeOK` and `Linearizability` held throughout. Not a token/degenerate pass.
+
+**Spec 78 (EWD998ChanTrace) — investigated, confirmed still blocked, not a new
+finding.** This is a genuine trace-validation spec (checks a real system log against
+the TLA+ model) — the sample trace file it needs *does* exist upstream
+(`tla-examples/specifications/ewd998/EWD998ChanTrace.ndjson`, 655 lines, no need to run
+a Java implementation), so that's not the blocker. Reproduced the actual failure fresh:
+`TLC attempted to evaluate an unbounded CHOOSE` inside the `Json` community module —
+because `tools/community-modules/*.tla` are parsed as declaration-only stubs (their
+real Java operator overrides live in `CommunityModules-deps.jar`, deliberately kept off
+the harness's classpath). Directly tested adding that jar to the classpath for this one
+spec, isolated: reproduces the exact previously-documented
+`NoClassDefFoundError: tlc2/value/impl/KSubsetValue` — the deps jar's compiled classes
+expect a newer `tla2tools.jar` than the one this harness is pinned to (for unrelated,
+already-documented reasons — the newer jar's SANY mis-parses TLAPS proofs). Confirms
+the earlier finding directly rather than assuming it still holds; genuinely not fixable
+without either upgrading `tla2tools.jar` (risks breaking proof_module specs) or a
+from-scratch pure-TLA+ JSON parser (impractical). Left open.

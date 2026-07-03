@@ -80,6 +80,12 @@
       "corpus_spec": "135"
     }
   },
+  "145": {
+    "reason": "MultiPaxos: base module defines no invariant/property of its own by design -- TypeOK/Linearizability live in MultiPaxos_MC (spec 146). Reuses spec 146s wrapper, same sibling-corpus-spec pattern as specs 90/92, 12/14, 35/36, 47/48. Draft cfg already used a smaller Writes set (1 vs spec 146s 2) -- worth trying since spec 146 itself is confirmed genuinely large.",
+    "wrapper": {
+      "corpus_spec": "146"
+    }
+  },
   "148": {
     "reason": "Nano: original cfg needs CalculateHash/NoHash/NoBlock overrides, defined only in spec 147 (MCNano, named INSTANCE N == INSTANCE Nano). Already closed as spec 147 itself; this wires spec 148 to the same content.",
     "wrapper": {
