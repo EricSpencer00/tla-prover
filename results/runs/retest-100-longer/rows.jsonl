@@ -1,0 +1,1 @@
+{"spec": "100", "method": "oracle", "sany": "pass", "tlc": "timeout", "tlc_vacuity": null, "tlaps": null, "apalache": null, "budget_used": {"sany_s": 0.3, "tlc_s": 600.1}, "log_path": "/Users/eric/GitHub/prove-TLA/results/runs/retest-100-longer/logs/100.log", "cfg_origin": "override"}

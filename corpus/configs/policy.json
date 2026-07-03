@@ -61,6 +61,9 @@
       "corpus_spec": "132"
     }
   },
+  "135": {
+    "reason": "Confirmed a --jobs contention false-timeout (TIMEOUT_CONTENTION.md) -- passes cleanly at --jobs 1, no override needed beyond serial retest, but flagged here so a future sweep at high --jobs doesnt silently miscount it."
+  },
   "136": {
     "reason": "ParReach: original cfg substitutes Succ <- ConnectedToSomeButNotAll, defined only in spec 133 (MCParReach, EXTENDS ParReach).",
     "wrapper": {
@@ -72,7 +75,7 @@
     "timeout": 150
   },
   "141": {
-    "reason": "Reachable: original cfg substitutes Succ <- ConnectedToSomeButNotAll, defined only in spec 135 (MCReachable, EXTENDS Reachable).",
+    "reason": "Reachable: original cfg substitutes Succ <- ConnectedToSomeButNotAll, defined only in spec 135 (MCReachable, EXTENDS Reachable). Confirmed a --jobs contention false-timeout (TIMEOUT_CONTENTION.md) -- passes cleanly at --jobs 1, no override needed beyond serial retest, but flagged here so a future sweep at high --jobs doesnt silently miscount it.",
     "wrapper": {
       "corpus_spec": "135"
     }
@@ -183,6 +186,9 @@
       "-deadlock"
     ]
   },
+  "31": {
+    "reason": "Confirmed a --jobs contention false-timeout (TIMEOUT_CONTENTION.md) -- passes cleanly at --jobs 1, no override needed beyond serial retest, but flagged here so a future sweep at high --jobs doesnt silently miscount it."
+  },
   "33": {
     "reason": "ChangRoberts: Id must be a length-N sequence of distinct naturals per the modules own ASSUME; no cfg tuple syntax; hand-authored wrapper supplies it as a zero-arity operator override (N=3, Id=<<3,1,2>>).",
     "wrapper": {
@@ -258,6 +264,12 @@
     "reason": "CRDT: original cfg substitutes Next <- ReductionNext, defined only in spec 91 (MCCRDT, EXTENDS CRDT). Also needs -Dtlc2.tool.impl.Tool.cdot=true (experimental action-composition support, tlaplus/tlaplus#805) to satisfy an ASSUME guard in MCCRDT.",
     "wrapper": {
       "corpus_spec": "91"
+    }
+  },
+  "90": {
+    "reason": "DistributedReplicatedLog (raw base module): original cfg requires VIEW DropCommonPrefix, defined only in spec 92 (MCDistributedReplicatedLog, EXTENDS DistributedReplicatedLog). Reuses spec 92s wrapper -- same sibling-corpus-spec pattern as specs 12/14, 35/36, 47/48.",
+    "wrapper": {
+      "corpus_spec": "92"
     }
   },
   "94": {

@@ -1,0 +1,13 @@
+{
+  "run_id": "gate0-proofmodule-check",
+  "corpus": "/Users/eric/GitHub/tla_benchmark/data",
+  "stages": [
+    "sany",
+    "tlaps"
+  ],
+  "timeout_s": 90,
+  "jobs": 4,
+  "n_specs": 9,
+  "extra_cfg_dir": null,
+  "tla2tools": "/Users/eric/GitHub/prove-TLA/tools/tla2tools.jar"
+}

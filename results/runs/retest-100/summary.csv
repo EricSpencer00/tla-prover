@@ -1,0 +1,2 @@
+spec,method,sany,tlc,tlc_vacuity,cfg_origin,tlaps,tlaps_obligations,apalache,budget_used,log_path
+100,oracle,pass,timeout,,override,,,,"{""sany_s"": 0.3, ""tlc_s"": 300.1}",/Users/eric/GitHub/prove-TLA/results/runs/retest-100/logs/100.log

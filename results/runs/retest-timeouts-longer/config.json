@@ -1,0 +1,13 @@
+{
+  "run_id": "retest-timeouts-longer",
+  "corpus": "/Users/eric/GitHub/tla_benchmark/data",
+  "stages": [
+    "sany",
+    "tlc"
+  ],
+  "timeout_s": 300,
+  "jobs": 1,
+  "n_specs": 4,
+  "extra_cfg_dir": "corpus/configs/drafts",
+  "tla2tools": "/Users/eric/GitHub/prove-TLA/tools/tla2tools.jar"
+}

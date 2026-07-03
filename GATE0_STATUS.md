@@ -45,6 +45,12 @@ Population classification lives in `corpus/configs/populations.json`.
 | Open (active, not yet closed) | 35 | 17% |
 | Deferred (Amendment 2, excluded from active work) | 14 | 8% |
 
+*(Re-verified this session — see "Re-verification and grinding session" below. Same
+157 headline number, now on firmer footing: independently re-derived via a fresh full
+sweep + serial re-testing, not just carried forward. One spec swapped out for another —
+198 newly closed via `library` reclassification, 178 newly excluded as unreliable — net
+zero change to the total.)*
+
 **157/206, with 14 stated separately per Amendment 2's reporting rule.** Not 206/206.
 Gate 0's own text calls this correctly: Stage 0's job is proving the *instrument*
 (harness + oracle + controls + tool wiring), not reaching 100% in Stage 0 itself —
@@ -254,3 +260,85 @@ for spec 92, ~7.5 minutes) with no sign of convergence.
 
 **Not signing off Gate 0** — that remains Eric's call, per PLAN.md §4. This is the
 evidence for that decision.
+
+## Re-verification and grinding session (following the Apalache informational sweep)
+
+Eric asked to move to "next phase" (Stage 1); flagged that Stage 1 is blocked by Rule 2
+(no skipping gates) and Rule 6 (no SOPHIA spend before Gate 0) since 157/206 ≠ 206/206.
+Eric chose to keep grinding Gate 0 directly. Before doing new work, re-derived the
+157 figure independently from scratch (a fresh full sweep, `results/runs/gate0-recount-*`,
+`--specs <192 active> --stages sany,tlc,tlaps --timeout 90 --jobs 8`) rather than trust
+the carried-forward number — Rule 3 discipline, and cheap insurance against exactly the
+kind of undercount/miscount risk that showed up in `TLAPS_REPORT.md` earlier (a finding
+that was on record but hadn't propagated into the tally). The fresh sweep initially
+computed **149** closed under the population-aware criterion applied programmatically —
+lower than 157, traced entirely to `--jobs 8` contention timeouts (below), not new
+breakage.
+
+**Timeout-contention re-confirmation, deeper this time.** Retested every fresh
+`tlc=timeout` result at `--jobs 1` (fully serial — one level below the `--jobs 2` this
+session's earlier `TIMEOUT_CONTENTION.md` finding had tested). Recovered **7** genuine
+false timeouts: 12, 14, 31, 35, 36, 135, 141 — including 12/14/35/36, which hadn't fully
+recovered even at `--jobs 2` previously; `--jobs 1` was needed. Detail in
+`TIMEOUT_CONTENTION.md`'s update section. This alone accounts for the 149 → 156 gap.
+
+**Two new genuinely-large confirmations.** 60 (`EWD687a_anim`) and 64 (`EWD840_anim`) —
+both "_anim" (SVG-visualization) siblings of the `EWD840`/`EWD687a` family, both show
+the same sustained-multi-million-states/minute signature as 30/48/49/146 (64 especially:
+262,144 initial states alone, 80M+ states/min generated). Added to the confirmed-large
+list (now 15, was 13).
+
+**Spec 100 (Huang's algorithm) — genuinely ambiguous, not resolved.** Times out at
+300s and even 600s, but the growth pattern is qualitatively different from the
+large-state-space specs: ~70-85K states/min (vs. millions), decelerating, states-on-queue
+roughly flat (~11-14K, not growing unboundedly). Heavy per-progress-report temporal
+(liveness) property re-checking overhead is the likely cause of the slowness, not raw
+state explosion. Left open, undetermined — would need a much longer (hours) dedicated
+run to know if it converges; not attempted at that scale here.
+
+**Spec 90 fixed from `tlc=error` to a correctly-diagnosed `tlc=fail_liveness`.** Was a
+hard SANY/cfg-level error (`VIEW DropCommonPrefix... is not defined`) — `90.tla` is the
+raw base `DistributedReplicatedLog` module, and `DropCommonPrefix` is defined only in
+spec 92's `MCDistributedReplicatedLog` wrapper. Added a `{"wrapper": {"corpus_spec":
+"92"}}` policy entry (same sibling-corpus-spec pattern as 12/14, 35/36, 47/48). Now
+runs cleanly and reproduces the exact same `InSync`-fails-by-design finding as spec 92
+(`SPEC92_NOTES.md`'s addendum from the Apalache sweep — the upstream author's own
+comment confirms this is intentional, not a bug). Still open under the default
+`state_machine` criterion (same as 92), but now genuinely understood instead of
+erroring — the "spec 90's only path forward is spec 92" note above is now: both are the
+same well-diagnosed finding, not two separate blockers.
+
+**Spec 198 (`Alternate`) reclassified as `library`.** Traced its only upstream usage:
+`tla-examples/specifications/TwoPhase/TwoPhase.tla` does `A == INSTANCE Alternate WITH
+v <- vBar` purely as a refinement-mapping teaching device (proving TwoPhase implements
+the abstract `Alternate` spec) — never instantiated with concrete `XInit`/`XAct`
+operators anywhere, upstream or in the corpus. It's a genuine parameterized
+template module, same shape as the 22 other `library` reclassifications this session,
+confirmed via upstream cross-reference rather than assumed. Closes clean (SANY already
+passes). **Net new closure: +1.**
+
+**Spec 178 (`SpanTreeRandom`) found genuinely flaky — a new caveat, not a fix.** Uses
+`RandomElement` in a `CONSTANT`-level set definition (`Edges`) to generate a random
+graph per run; the module's own extensive source comment already warns `RandomElement`
+is not referentially transparent under TLC. Ran it 4 times with different seeds:
+fail, pass, fail, pass — roughly 50% either way. **Not counted as a reliable pass
+regardless of any single run's result** (Rule 3: a number without a stable reproduction
+path doesn't exist) — excluded from the closed count going forward, whereas it's
+possible earlier sweeps happened to catch it on a passing seed. **Net: -1 relative to
+"any run that happened to pass," though this isn't a regression — it's a previously
+undetected reliability gap now correctly excluded.**
+
+Net effect: 149 (fresh, contention-affected) + 7 (serial-confirmed) + 1 (198) = **157**
+— same headline number as before, arrived at independently, with one genuine new
+closure (198) and one genuine new exclusion (178) netting to zero, and two specs (60,
+64) newly confirmed large rather than ambiguous. `policy.json` and
+`populations.json` updated accordingly; `DEFERRED.json` untouched (none of these
+findings are Amendment-2-style deferrals).
+
+Not yet attempted this session (time-boxed, not exhausted): spec 50 (Synod inner-module
+instantiation, flagged as design work not a quick fix), spec 72/78 (animation/trace-file
+blockers, same family limitations as 60/64's `_anim` siblings), spec 145 (vacuous by
+design per its own note — safety property lives in spec 146, itself genuinely large),
+the ~9 EWD998-family TLC-version-gap specs (58, 80, 81, 84, 85, 88, 91, 93, 94 — already
+confirmed not fixable at cfg/corpus level), spec 112's remaining 12-18 failing TLAPS
+obligations (`TLAPS_REPORT.md`).
