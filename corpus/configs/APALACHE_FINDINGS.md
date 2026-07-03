@@ -376,3 +376,36 @@ did not complete within 60-90s. `BoundedLag` (the real safety invariant): `--len
 attempted — outside bounded-model-checking's natural fit, and (per the discovery
 above) `InSync` is expected to fail by design, not a target for a "does it hold"
 check anyway.
+
+## 146 (MultiPaxos_MC) — not attempted, annotation complexity
+
+Canonical model for spec 145 (MultiPaxos-SMR); `corpus/configs/CANONICAL_MODEL_FIXES.md`
+already documents this as genuinely large under TLC (sustained multi-million-
+state/minute growth past 10 minutes, no sign of convergence).
+
+Base module (`tla-examples/specifications/MultiPaxos-SMR/MultiPaxos.tla`, 585
+lines) is a full PlusCal-translated MultiPaxos state-machine-replication
+protocol. Read enough to assess annotation scope before committing time (per
+RALPH_INSTRUCTIONS_APALACHE.md's "~20-30 min per spec, don't spin" guidance)
+and judged it out of budget:
+
+- `Messages` is a union of **five** distinct record shapes, not the two-shape
+  unions handled cleanly in specs 28/30/73/92 (`PMsg \cup DMsg`, `Msg1s \cup
+  Msg2s`, `TokenMsg \cup BasicMsg`): `PrepareMsgs {type,src,bal}`,
+  `PrepareReplyMsgs {type,src,bal,votes}`, `AcceptMsgs {type,src,bal,slot,cmd}`,
+  `AcceptReplyMsgs {type,src,bal,slot}`, `CommitNoticeMsgs {type,upto}`.
+  Unifying five shapes into one homogeneous record (the fix pattern used
+  elsewhere in this sweep) means auditing every one of the file's many
+  message-handling actions to confirm no dummy field is ever accidentally
+  read — a much larger and more error-prone surface than the two-shape cases.
+- State itself is deeply nested: `NodeStates` includes `insts: [Slots ->
+  InstStates]` where `InstStates` itself has a nested `voted: [bal, cmd]`
+  record; `PrepareReplyMsgs.votes` is `[Slots -> [bal, cmd]]`, a
+  function-of-records nested inside a record nested inside a five-way union.
+
+Not attempted further — this is precisely the "genuinely intricate
+record/tuple structure" case the instructions anticipate recording rather
+than rushing. No corpus files touched, no annotation attempt made (unlike
+spec 48's not-attempted finding, which came from actually running the tool
+and hitting a real crash — this one was scoped out before running Apalache
+at all, based on a structural read of the module).
