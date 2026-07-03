@@ -128,21 +128,38 @@ AnimSpec ==
     \* The next-state relation does not permit environment (sub-) actions.
     \* Replacing Spec with AnimSpec above, TLC can generate traces for large
     \* numbers of nodes.
+    \* PATCHED (prove-TLA): was `/\ Init!5` -- the base Init has 6 conjuncts
+    \* (1 clock, 2 counter, 3 inbox, 4 active, 5 color, 6 passes); AnimSpec
+    \* already restates active/color/counter/inbox explicitly below, so
+    \* Init!5 (color) was redundant while clock (1) and passes (6) -- the two
+    \* conjuncts actually missing -- were never covered at all, leaving both
+    \* unconstrained ("current state is not a legal state", clock=null,
+    \* passes=null). Confirmed by counting EWD998ChanID's own Init conjuncts
+    \* directly (corpus spec 74, byte-identical upstream). See
+    \* corpus/configs/SPEC72_NOTES.md. Init!1 (clock) must come before the
+    \* inbox conjunct below, which reads clock[n] -- TLC binds Init's
+    \* variables in written order, so a later conjunct can't be used by an
+    \* earlier one.
+    /\ Init!1
     /\ active = [ n \in Node |-> FALSE ]
     /\ color = [ n \in Node |-> "black" ]
     /\ counter = [n \in Node |-> IF Cardinality(Node) % 2 = 0
-                                 THEN IF node2nat[n] % 2 = 0 
+                                 THEN IF node2nat[n] % 2 = 0
                                       THEN 1
                                       ELSE -1
-                                 ELSE IF n # Initiator 
+                                 ELSE IF n # Initiator
                                       THEN IF node2nat[n] % 2 = 0
                                            THEN 1
                                            ELSE -1
                                       ELSE 0 ]
-    /\ inbox = [n \in Node |-> IF n  = Initiator \* RingOfNodes[Initiator] 
-                              THEN << [type |-> "tok", q |-> 0, color |-> "black" ] >> 
+    \* PATCHED (prove-TLA): the token record here was missing the `vc` (vector
+    \* clock) field that Receive/InitiateProbe (EWD998ChanID) read via
+    \* inbox[n][j].vc -- added `vc |-> clock[n]`, matching the field
+    \* EWD998ChanID's own Init puts on its token (see corpus spec 74).
+    /\ inbox = [n \in Node |-> IF n  = Initiator \* RingOfNodes[Initiator]
+                              THEN << [type |-> "tok", q |-> 0, color |-> "black", vc |-> clock[n] ] >>
                               ELSE <<>>] \* with empty channels.
-    /\ Init!5
+    /\ Init!6
     /\ [][\E n \in Node: System(n)]_vars
 
 \* Property that leads to interesting traces when animated.

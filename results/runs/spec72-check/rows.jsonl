@@ -1,0 +1,1 @@
+{"spec": "72", "method": "oracle", "sany": "pass", "tlc": "error", "tlc_vacuity": null, "tlaps": null, "apalache": null, "budget_used": {"sany_s": 0.5, "tlc_s": 2.2}, "log_path": "/Users/eric/GitHub/prove-TLA/results/runs/spec72-check/logs/72.log", "source_origin": "patched", "cfg_origin": "override"}

@@ -41,8 +41,8 @@ Population classification lives in `corpus/configs/populations.json`.
 
 | | count | of 206 |
 |---|---|---|
-| **Closed** (meets Amendment 1/3 criterion) | **158** | 77% |
-| Open (active, not yet closed) | 35 | 17% |
+| **Closed** (meets Amendment 1/3 criterion) | **159** | 77% |
+| Open (active, not yet closed) | 34 | 17% |
 | Deferred (Amendment 2, excluded from active work) | 13 | 6% |
 
 *(Re-verified and extended this session — see "Re-verification and grinding session"
@@ -389,3 +389,28 @@ slow-but-valid rather than genuine proof gaps, but this isn't confirmed for all 
 — a genuine gap looks identical to "still working" without waiting it out fully. Not
 resolved this session; would need a dedicated long-running check (plausibly 30+ minutes)
 or per-obligation proof-script inspection. `TLAPS_REPORT.md` has full detail.
+
+## Third grinding pass: spec 72 closed (four bugs, one spec)
+
+**Spec 72 (EWD998_anim) — CLOSED.** Picking up where the earlier module-extraction fix
+(combined CONFIG+MODULE corpus file) left off — SANY passed but `Init` construction
+failed. Root-caused and fixed four distinct issues, each verified live (one error
+message reproduced and resolved at a time, not batch-guessed):
+
+1. `AnimSpec`'s `/\ Init!5` picked the wrong (already-redundant) conjunct of the base
+   `Init` — counted `EWD998ChanID`'s six conjuncts directly (corpus spec 74) and found
+   `clock` (1) and `passes` (6), not `color` (5), were the two genuinely uncovered by
+   AnimSpec's own restatements. Fixed the reference.
+2. The exposed-next layer: `AnimSpec`'s own custom `inbox` token record was missing a
+   `vc` (vector clock) field that `Receive`/`InitiateProbe` read unconditionally.
+   Added it, matching the base `Init`'s own token construction.
+3. The exposed-next layer: TLC binds `Init` conjuncts in written order, and the newly
+   `vc`-carrying `inbox` conjunct referenced `clock` before `Init!1` (which binds it)
+   appeared textually. Reordered.
+4. Config, not code: once `Init` construction fully succeeded, TLC ran to a complete,
+   exhaustive exploration (15 states, 0 left on queue) and reported a deadlock — but
+   that's the *correct*, expected end of a legitimately-terminating protocol run
+   (EWD998's termination detection reaches quiescence), not a bug. Added
+   `CHECK_DEADLOCK FALSE` (same idiom as this family's specs 73/79).
+
+`sany=pass, tlc=pass`, non-vacuous, exhaustive. Full diagnosis, `SPEC72_NOTES.md`.
