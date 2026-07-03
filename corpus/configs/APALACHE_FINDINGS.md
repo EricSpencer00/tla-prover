@@ -155,3 +155,13 @@ tool limitation, not something fixable by annotating our scratch copy.
 Not attempted further (would require restructuring `Synod.tla`'s module
 nesting to work around an Apalache parser bug, which is out of scope for an
 informational bound — the corpus/upstream file is untouched either way).
+
+## 49 (MC_HDiskSynod) — not attempted, same root cause as spec 48
+
+`corpus/49.tla` is byte-identical to `tla-examples/specifications/diskpaxos/MC_HDiskSynod.tla`
+— the same module cluster as spec 48 (`HDiskSynod` → `DiskSynod` → `Synod`,
+where `Synod.tla`'s nested `MODULE Inner` triggers Apalache's internal
+`Unsupported expression: [∃]chosen . ([∃]allInput . (IS!ISpec(...)))` crash,
+independent of any type annotation). Verified the file is identical
+(`diff` clean) before relying on the spec-48 finding rather than re-running
+the same crash. Not attempted for the same reason as spec 48.
