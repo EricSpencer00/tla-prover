@@ -47,3 +47,12 @@ running at state 15). Types needed a set-of-tuples shape (`rcvd`/`sent` are
 `Int -> Set(<<Int, Str>>)` / `Set(<<Int, Str>>)`) — annotated correctly on the first
 attempt, no assignment-analysis errors this time (unlike spec 1). Only `TypeOK`
 attempted, same reasoning as spec 1 (properties are temporal/liveness).
+
+## 17 (bosco) — `NoError` up to depth 5
+
+Command: `apalache-mc check --length=5 --inv=TypeOK --config=bosco.cfg bosco.tla`
+(N=4, T=1, F=1). Result: `NoError`, 11.9s. Depths 7 and 10 didn't complete within
+60-90s. Annotated correctly on the first attempt (same `Int -> Str` / `Int ->
+Set(<<Int,Str>>)` / `Set(<<Int,Str>>)` shapes as spec 16). Only `TypeOK` attempted
+(`Lemma3_0`/`Lemma3_1`/`Lemma4_0`/`Lemma4_1` are plain state predicates, not the
+active `INVARIANT`/`PROPERTY` in the original cfg — not attempted this pass).
