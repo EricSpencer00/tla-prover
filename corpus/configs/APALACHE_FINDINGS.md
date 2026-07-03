@@ -409,3 +409,98 @@ than rushing. No corpus files touched, no annotation attempt made (unlike
 spec 48's not-attempted finding, which came from actually running the tool
 and hitting a real crash — this one was scoped out before running Apalache
 at all, based on a structural read of the module).
+
+## 2026-07-03 addendum — HPC-confirmed intractable specs 48, 49, 60, 64, 89
+
+Same scope reminder as the header: **informational only** — a `NoError` below means
+"no counterexample found by symbolic search up to depth N", bounded evidence, not
+exhaustive proof, and does not close any spec under Amendment 1. Context: an HPC
+sweep confirmed these specs' explicit state spaces are genuinely enormous for TLC
+(89: 7.0B states generated / 768M distinct / depth 36 and still growing; 48: 665M
+generated in 16 min; 49: 5.9B generated / depth 31, then out of disk; 64: 262,144
+initial states, 80M+ states/min). All work below in scratch copies only; corpus,
+tla_benchmark, and patches/ untouched.
+
+### 48 (HDiskSynod) — crash worked around; all five cfg invariants `NoError` to depth 5
+
+Supersedes the "not attempted, Apalache internal crash" entry above. The
+`[∃]chosen.([∃]allInput.(IS!ISpec(...)))` crash (re-reproduced, 0.6s) comes only
+from `Synod.tla`'s `SynodSpec == \EE chosen, allInput : IS(chosen, allInput)!ISpec`,
+which is consumed solely by DiskSynod's refinement `THEOREM DiskSynodSpec =>
+SynodSpec` — never by `HInit`/`HNext`/`HInv1..HInv6`. Scratch-only changes (same
+strip-unused-blocks precedent as specs 73/79):
+- stripped nested `MODULE Inner`, `IS == INSTANCE Inner`, `SynodSpec`, and the
+  refinement THEOREM;
+- started from `corpus/configs/patches/50.tla` for Synod (the corpus-patched
+  edition), added `\* @type:` annotations to all constants/variables across the
+  three-module cluster;
+- inlined the TLC wrapper's operator-constant substitutions
+  (`corpus/configs/wrappers/MC_HDiskSynod.tla`'s `BallotImpl`/`IsMajorityImpl`,
+  `BallotCountPerProcess = 2`) as concrete definitions — Apalache cannot take
+  `Ballot <- BallotImpl` from a TLC cfg;
+- hardcoded `N == 3`, `Inputs == {"v1","v2"}`, `NotAnInput == "NotAnInput"`,
+  `Disk == {1,2}` (= overrides/48.cfg) as definitions — `--cinit` symbolic
+  constants trip the known "Expected a constant integer range" issue on `1..N`;
+- rewrote `Ballot(p) == start..(start+1)` as the extensionally identical
+  `{ n \in 0..7 : n >= p*2 /\ n <= p*2+1 }` — same known issue, non-constant
+  range endpoints.
+
+Results (all `NoError`): `--inv=HInv1 --length=5` (312.8s); `--inv=HInvSafe
+--length=3` (26.4s) and `--length=5` (284.7s), where `HInvSafe == HInv1 /\ HInv2
+/\ HInv3 /\ HInv4 /\ HInv6` — exactly the override cfg's invariant list, i.e.
+the real Disk-Paxos safety properties, not just typing. Bounded to depth 5;
+TLC's exhaustive run diverged at depth 24+, so this bound covers a small prefix
+of that space.
+
+### 49 (MC_HDiskSynod) — `NoError` to depth 5, same cluster as 48
+
+Ran separately with an MC root module extending the annotated cluster (the
+wrapper's impls are already inlined there): `HInv1 --length=5` `NoError`
+(247.3s); `HInvSafe --length=5` `NoError` (274.4s). Everything said for 48
+transfers — same modules, same model constants.
+
+### 60 (EWD687a_anim) / 64 (EWD840_anim) — blocked, two independent tool-level causes
+
+As predicted for the `_anim` family, but verified rather than assumed (constants/
+variables of the base modules were annotated first, and missing sibling deps —
+Graphs + SequencesExt/Relation/Functions/... for 60, SyncTerminationDetection +
+IOUtils for 64 — were staged so the failures below are the real frontier):
+1. **Snowcat cannot type the community `SVG.tla` module** (whole-file
+   type-checking): `[SVG.tla:212] Cannot apply from to the argument "x" in
+   from["x"]` → `Error when computing the type of PointOnLine` — untyped
+   operator params used as records; annotating a ~500-line string-manipulation
+   community module is far beyond additive-annotation scope.
+2. **The cfg-checked invariants themselves are TLC-runtime introspection**:
+   spec 60's `InterestingBehavior == TLCGet("level") > 20 => ~neutral(Leader)`,
+   spec 64's `AnimInv == terminationDetected => TLCGet("level") < 20`. Apalache
+   types `TLCGet` as `(Int) => a` (integer registers only) — `TLCGet("level")` /
+   `TLCGet("action")` fail Snowcat outright (verified on a minimal spec). No
+   annotation can express these; the property is only meaningful inside TLC.
+Also hit and worked around on the way: Apalache's SanyParser importer rejects
+the module-level `E` (spec 60's anim file) vs `LET E` (EWD687a's TreeWithRoot)
+same-name pattern ("Found two different declarations with the same name" — the
+spec-73 Utils.tla limitation again); renamed in scratch. Not attempted further.
+Note the non-anim bases are separate corpus specs (61, 65) with their own status.
+
+### 89 (CRDT_proof) — `Safety` bound extended from depth 7 to depth 10
+
+Same approach as the entry above (base `CRDT.tla` = corpus spec 88, two
+annotations, Node = {"n1","n2","n3"}): `--inv=Safety --length=8` `NoError`
+(733.7s), `--length=10` `NoError` (1199.1s). The prior entry's depth-8 wall was
+mostly an environment artifact (see below), not SMT scaling; per-step SMT cost
+does grow (step 8→9 took ~2.5 min, 9→10 ~5 min), so depth ~10-12 is likely the
+practical ceiling at 20-minute budgets. Still bounded evidence only: TLC reached
+depth 36 with the frontier still growing.
+
+### Environment note (affects every Apalache run on this machine)
+
+Each `apalache-mc` invocation with a cold macOS code-signature cache stalls
+~6.5 min wall-clock (2.4s CPU; reproduced on a 3-line counter spec: 6m43s) in
+`dlopen` of the Z3 dylib that the z3-turnkey loader extracts fresh into a temp
+dir every run — `dyld mapSegments → fcntl(F_ADDFILESIGS)` signature validation,
+confirmed via `sample`. Once syspolicyd has the CDHash cached, identical runs
+drop to seconds (26.4s total for 48/HInvSafe/d3). Practical upshots: warm the
+cache with a trivial `check` before timing anything, and any future harness
+`apalache` stage needs a first-run timeout well above 300s. (Separately: the
+harness's `check_apalache()` is currently dead code — `eval_spec` has no
+`"apalache" in stages` branch — so `--stages sany,apalache` silently skips it.)
