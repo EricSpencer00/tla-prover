@@ -71,3 +71,61 @@ sweep; `PMsg \cup DMsg` collapses to one record shape since both share the same
 field set). Only `TypeOK` attempted — `Validity`/`Agreement`/`WeakAgreement`/
 `IndStrengthens` are additional named invariants in the original cfg,
 `Termination` is a temporal property; none attempted this pass.
+
+## 30 (cbc_max) — `NoError` up to depth 10 (TypeOK), depth 10 confirmed clean for the known
+Agreement counterexample (deeper unreached)
+
+Uses `corpus/configs/patches/30.tla` (the corpus-patched version — both known
+encoding bugs fixed, see `PATCHES.md`), not the raw upstream file, since the raw
+file's bugs are already diagnosed and fixing them is what exposed the genuine
+open Agreement violation this run was trying to corroborate.
+
+`TypeOK`: `apalache-mc check --length=5 --inv=TypeOK --config=cbc_max.cfg
+cbc_max.tla` (N=3, T=1, F=1, Values={1,2}, Bottom=0 — matches
+`corpus/configs/drafts/30.cfg`). Result: `NoError`, 6.6s.
+
+`Agreement` (the interesting target — TLC found a real violation on this patched
+spec at depth 24, `dval=<<1,2,0>>` with zero crashes, see `PATCHES.md` Finding 3):
+`--length=10` completed clean (`NoError`, 25.1s). `--length=15` (120s budget) did
+not complete — reached state 12 without finding a violation before being cut off.
+**Apalache did not reach TLC's depth-24 counterexample within budget** — this
+result neither confirms nor refutes it, it only says no violation exists at depth
+≤10. The known TLC finding remains the operative evidence; this is a smaller,
+non-overlapping bound, not a corroboration.
+
+Two Apalache-only fixes needed beyond the usual variable/constant annotations
+(scratch copy only, patch file untouched):
+- `MAX(arr) == CHOOSE maxVal \in Values: ...` had no type annotation — Apalache
+  can't infer a bare `CHOOSE`-returning operator's argument type from usage
+  alone. Added `\* @type: (Int -> Int) => Int;`.
+- `Msgs == Msg1s \cup Msg2s` unions two record shapes that differ in field sets
+  (`Msg1s`/Phs1 lacks `wValue`, `Msg2s`/Phs2 has it) — Apalache requires a single
+  set to hold one homogeneous record type. Added a dummy `wValue |-> Bottom`
+  field to `Phs1Msg`'s constructor and widened `Msg1s`'s declared shape to
+  match, in the scratch copy only. Message equality/matching logic never reads
+  `wValue` on a Phs1-type message anywhere in the spec, so this doesn't change
+  behavior — confirmed by re-reading every use site before making the change.
+
+## 40 (EnvironmentController) — `NoError` up to depth 8
+
+Multi-module spec: `EnvironmentController.tla` instances two sibling modules,
+`Age_Channel.tla` (communication layer) and `EPFailureDetector.tla` (per-process
+detector logic), via bare `INSTANCE` (implicit by-name substitution — no `WITH`
+clause). All three files needed annotations; copied all three to the scratch dir
+together since Apalache resolves `INSTANCE` by finding the sibling file on the
+module search path.
+
+Command: `apalache-mc check --length=8 --inv=TypeOK --config=EnvironmentController.cfg
+EnvironmentController.tla` (N=3, T=1, d0=2, SendPoint=2, PredictPoint=3, DELTA=1,
+PHI=1 — the constants named in the spec's own header comment as the scenario
+where "TLC spends more than 2 hours"). Result: `NoError`, 87.1s — right at the
+edge of the 90s budget; did not attempt depth 10+.
+
+Beyond the standard `VARIABLES`/`CONSTANT` annotations (applied to all three
+files), three bare operators needed explicit `\* @type:` annotations because
+Apalache can't infer a lambda-set-comprehension's argument type purely from a
+record-field access inside it: `Age_Channel!Pack_WaitingTime`,
+`Age_Channel!Unpack`, `EnvironmentController!OnlyMessagesForCorrectProcesses`,
+and `EPFailureDetector!Receive` (its second parameter, `incomingMessages`).
+Only `TypeOK` attempted — `StrongCompleteness`/`EventuallyStrongAccuracy` are
+temporal properties, not attempted this pass.
