@@ -527,13 +527,16 @@ def repair_spec(num, corpus, num2mod, mod2path, cfg_dirs, workroot, rundir, mode
     canddir = rundir / "candidates"
     rows, t0 = [], time.time()
     mod = num2mod.get(num)
-    orig, origin = baseline_text(num, corpus)
+    try:
+        orig, origin = baseline_text(num, corpus)
+    except FileNotFoundError:  # orphan spec (e.g. 120): description, no .tla
+        orig, origin, mod = None, "missing", None
     # diff base normalized to the module block only: some corpus files carry long
     # prose AFTER the terminating ==== (e.g. spec 78's "Tips & Tricks"), which TLA+
     # ignores but which would inflate candidate_diff_lines (extract_candidate
     # canonicalizes model replies to the module block) and wrongly disqualify
     # near-misses from the mutation pass.
-    orig_norm = extract_candidate(orig) or orig
+    orig_norm = (extract_candidate(orig) or orig) if orig else ""
     cfg_text, _ = resolve_cfg(num, cfg_dirs)
 
     def emit(method, attempt, row_frag, prompt=None, extra=None, log_text=""):
@@ -552,8 +555,10 @@ def repair_spec(num, corpus, num2mod, mod2path, cfg_dirs, workroot, rundir, mode
         rows.append(row)
         return row
 
-    if not mod:
-        emit("repair-baseline", 0, {"sany": "no_module_header", "budget_used": {}})
+    if not mod or orig is None:
+        emit("repair-baseline", 0,
+             {"sany": "no_source_file" if orig is None else "no_module_header",
+              "budget_used": {}})
         return rows
 
     def run_candidate(text, method, attempt, prompt=None, extra=None):
