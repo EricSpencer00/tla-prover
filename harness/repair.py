@@ -166,7 +166,9 @@ class OpenAICompatModel(Model):
             self.url,
             data=json.dumps(body).encode(),
             headers={"Authorization": f"Bearer {self._bearer()}",
-                     "content-type": "application/json"})
+                     "content-type": "application/json",
+                     # ALCF's Cloudflare rejects urllib's default UA (403 #1010)
+                     "User-Agent": "prove-tla-harness/1.0"})
         for attempt in range(4):
             self._throttle()
             try:

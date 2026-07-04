@@ -2,10 +2,10 @@
   "_comment": "W1.1 fixed per-spec budget escalation schedule (PLAN.md Stage 1). Escalation order is FIXED: baseline -> repair-r1 -> repair-r2 (iterative rounds, each fed the previous candidate's failure evidence) -> repair-bestofN (independent samples at higher temperature) -> repair-mutation (symbolic operator swaps on near-misses). 'defaults' applies to every spec; 'per_spec' entries override individual keys only, with a '_reason' string required for each (Rule 1 discipline: no silent budget games). Changing this file changes the reported inference budget -- every ledger row records the values in force (Rule 3).",
   "defaults": {
     "iterative_rounds": 2,
-    "best_of_n": 4,
+    "best_of_n": 8,
     "mutation_pass": true,
     "timeout_s": 120,
-    "max_candidates_total": 12,
+    "max_candidates_total": 24,
     "trace_max_states": 8,
     "evidence_max_chars": 6000,
     "fragment_max_chars": 4000,

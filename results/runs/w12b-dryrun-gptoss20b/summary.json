@@ -1,0 +1,23 @@
+{
+  "per_spec": {
+    "2": "repair-baseline",
+    "42": "repair-baseline",
+    "50": "repair-baseline",
+    "72": "repair-baseline",
+    "78": "fail:tlc=error",
+    "85": "fail:tlc=error",
+    "91": "invalid_candidate",
+    "92": "invalid_candidate",
+    "145": "repair-baseline",
+    "198": "repair-baseline"
+  },
+  "n": 10,
+  "baseline_pass": 6,
+  "pass_at_1_incl_baseline": 6,
+  "pass_at_full_budget": 6,
+  "token_usage": {
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "requests": 0
+  }
+}
