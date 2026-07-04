@@ -132,4 +132,8 @@ def main():
         print(json.dumps(r))
 
 
-main()
+# Guard (was a bare main() call): harness.repair imports MUTATIONS/apply_mutation
+# from this module; an unguarded main() would run argparse at import time.
+# `python3 -m harness.mutation` still works -- -m executes the module as __main__.
+if __name__ == "__main__":
+    main()

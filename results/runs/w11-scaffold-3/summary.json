@@ -1,0 +1,10 @@
+{
+  "per_spec": {
+    "21": "repair-baseline",
+    "198": "repair-baseline"
+  },
+  "n": 2,
+  "baseline_pass": 2,
+  "pass_at_1_incl_baseline": 2,
+  "pass_at_full_budget": 2
+}

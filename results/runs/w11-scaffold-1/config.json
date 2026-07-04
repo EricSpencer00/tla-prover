@@ -1,0 +1,58 @@
+{
+  "run_id": "w11-scaffold-1",
+  "corpus": "/Users/eric/GitHub/tla_benchmark/data",
+  "method_family": "repair",
+  "model": "local-stub-v1",
+  "n_specs": 2,
+  "budget_config": {
+    "_comment": "W1.1 fixed per-spec budget escalation schedule (PLAN.md Stage 1). Escalation order is FIXED: baseline -> repair-r1 -> repair-r2 (iterative rounds, each fed the previous candidate's failure evidence) -> repair-bestofN (independent samples at higher temperature) -> repair-mutation (symbolic operator swaps on near-misses). 'defaults' applies to every spec; 'per_spec' entries override individual keys only, with a '_reason' string required for each (Rule 1 discipline: no silent budget games). Changing this file changes the reported inference budget -- every ledger row records the values in force (Rule 3).",
+    "defaults": {
+      "iterative_rounds": 2,
+      "best_of_n": 4,
+      "mutation_pass": true,
+      "timeout_s": 120,
+      "max_candidates_total": 12,
+      "trace_max_states": 8,
+      "evidence_max_chars": 6000,
+      "fragment_max_chars": 4000,
+      "spec_max_chars": 24000,
+      "near_miss_max_diff_lines": 12,
+      "temperature_rounds": 0.2,
+      "temperature_best_of_n": 0.8,
+      "max_tokens": 8192
+    },
+    "per_spec": {
+      "28": {
+        "timeout_s": 600,
+        "_reason": "HPC-certified large state space (GATE0_STATUS.md); short TLC budgets only measure the timeout, not the repair"
+      },
+      "40": {
+        "timeout_s": 600,
+        "_reason": "HPC-certified large state space"
+      },
+      "48": {
+        "timeout_s": 600,
+        "_reason": "HPC-certified large state space"
+      },
+      "49": {
+        "timeout_s": 600,
+        "_reason": "HPC-certified large state space"
+      },
+      "60": {
+        "timeout_s": 600,
+        "_reason": "HPC-certified large state space"
+      },
+      "64": {
+        "timeout_s": 600,
+        "_reason": "HPC-certified large state space"
+      },
+      "89": {
+        "timeout_s": 600,
+        "_reason": "HPC-certified large state space"
+      }
+    }
+  },
+  "budget_config_sha256": "6913ecae34971bee4f40d60db6ed24050140fb46735681775653fcee4e3341df",
+  "sequential": true,
+  "note": "one verification at a time (TIMEOUT_CONTENTION.md)"
+}
