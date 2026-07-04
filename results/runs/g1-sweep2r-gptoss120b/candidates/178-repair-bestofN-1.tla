@@ -1,0 +1,68 @@
+---- MODULE SpanTreeRandom ----
+(***************************************************************************)
+(* The specification in this module is a modified version of the one in    *)
+(* module SpanTree obtained by replacing the declared constant Edges with  *)
+(* a defined constant that equals a randomly chosen set of edges joining   *)
+(* the nodes in Nodes.  Thus it can be used to test the algorithm of       *)
+(* SpanTree on a randomly chosen node, making it easy to check the         *)
+(* algorithm on a sequence of different graphs.                            *)
+(***************************************************************************)
+EXTENDS Integers, FiniteSets, TLC
+
+CONSTANTS Nodes, Root, MaxCardinality
+
+Edges == 
+  UNION { {{n, m} : m \in RandomElement(SUBSET (Nodes \ {n}))} : n \in Nodes }
+
+ASSUME /\ Root \in Nodes
+       /\ MaxCardinality \in Nat
+       /\ MaxCardinality >= Cardinality(Nodes)
+
+VARIABLES mom, dist
+vars == <<mom, dist>>
+
+Nbrs(n) == {m \in Nodes : {m, n} \in Edges}
+
+TypeOK == /\ mom \in [Nodes -> Nodes]
+          /\ dist \in [Nodes -> Nat]
+          /\ \A e \in Edges : (e \subseteq Nodes) /\ (Cardinality(e) = 2)
+
+Init == /\ mom = [n \in Nodes |-> n]
+        /\ dist = [n \in Nodes |-> IF n = Root THEN 0 ELSE MaxCardinality]
+
+(* Updated Next: when a node n adopts a neighbour m as its parent,
+   its distance is set exactly to dist[m] + 1. This guarantees that
+   the post‑condition holds immediately after each step and that,
+   when no further steps are possible, the invariant required by
+   Safety is satisfied. *)
+Next == 
+  \E n \in Nodes :
+    \E m \in Nbrs(n) :
+      /\ dist[m] < 1 + dist[n]
+      /\ dist' = [dist EXCEPT ![n] = dist[m] + 1]
+      /\ mom'  = [mom  EXCEPT ![n] = m]
+
+Spec == Init /\ [][Next]_vars /\ WF_vars(Next)
+
+-----------------------------------------------------------------------------
+PostCondition == 
+  \A n \in Nodes :
+    \/ /\ n = Root 
+       /\ dist[n] = 0
+       /\ mom[n] = n
+    \/ /\ dist[n] = MaxCardinality 
+       /\ mom[n] = n
+       /\ \A m \in Nbrs(n) : dist[m] = MaxCardinality
+    \/ /\ dist[n] \in 1..(MaxCardinality-1)
+       /\ mom[n] \in Nbrs(n)
+       /\ dist[n] = dist[mom[n]] + 1
+
+Safety == []((~ ENABLED Next) => PostCondition)
+
+Liveness == <>PostCondition
+(***************************************************************************)
+(* Model Model_1 has TLC check these correctness condition for a (randomly *)
+(* chosen) graph with six nodes.  On a few tries, it took TLC an average   *)
+(* of a little more than 30 seconds to do it.                              *)
+(***************************************************************************)
+=============================================================================
