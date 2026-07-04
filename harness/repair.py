@@ -670,7 +670,18 @@ def repair_spec(num, corpus, num2mod, mod2path, cfg_dirs, workroot, rundir, mode
 
 # --------------------------------------------------------------- the sweep
 
-def run_repair(corpus: Path, run_id: str, model_name: str, specs=None, n=None):
+def completed_specs(run_id: str):
+    """Specs a prior run finished (progress.jsonl is written after each spec's
+    rows are flushed, so a crash mid-spec never marks it complete)."""
+    p = REPO / "results" / "runs" / run_id / "progress.jsonl"
+    if not p.exists():
+        raise SystemExit(f"--resume-from {run_id}: no progress.jsonl "
+                         "(pre-resume run or wrong id)")
+    return {json.loads(l)["spec"] for l in p.read_text().splitlines() if l}
+
+
+def run_repair(corpus: Path, run_id: str, model_name: str, specs=None, n=None,
+               resume_from=None):
     rundir = REPO / "results" / "runs" / run_id
     if (rundir / "rows.jsonl").exists():
         raise SystemExit(f"{rundir} already has rows.jsonl -- runs are append-only "
@@ -688,6 +699,9 @@ def run_repair(corpus: Path, run_id: str, model_name: str, specs=None, n=None):
         todo = [x for x in specs if x in all_nums]
     else:
         todo = all_nums
+    if resume_from:  # skip specs the prior (crashed/killed) run completed;
+        done = completed_specs(resume_from)  # its rows stay in ITS ledger dir
+        todo = [x for x in todo if x not in done]
 
     (rundir / "config.json").write_text(json.dumps({
         "run_id": run_id, "corpus": str(corpus), "method_family": "repair",
@@ -711,6 +725,8 @@ def run_repair(corpus: Path, run_id: str, model_name: str, specs=None, n=None):
             passed = [r for r in rows if r["verdict"] == "pass"]
             summary[num] = passed[0]["method"] if passed else \
                 (rows[-1]["verdict"] if rows else "no_rows")
+            with open(rundir / "progress.jsonl", "a") as pf:
+                pf.write(json.dumps({"spec": num, "result": summary[num]}) + "\n")
             print(f"[{i}/{len(todo)}] spec {num}: {summary[num]} "
                   f"({len(rows)} attempts, {rows[-1]['spec_elapsed_s'] if rows else 0}s)")
 

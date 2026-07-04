@@ -28,13 +28,16 @@ def main():
                         "(OPENAI_BASE_URL+OPENAI_API_KEY) | stub (default: stub)")
     p.add_argument("--n", type=int, default=None,
                    help="best-of-N override (default: repair_budget.json)")
+    p.add_argument("--resume-from", default=None,
+                   help="prior run-id whose completed specs (progress.jsonl) are skipped")
     a = ap.parse_args()
     specs = list(dict.fromkeys(a.specs.split(","))) if a.specs else None
     if a.cmd == "repair":
         from .repair import run_repair
         # repair preserves the given --specs order (informative specs first =
         # cheap restarts; STAGE1_STRATEGY.md); `run` still treats it as a filter
-        run_repair(Path(a.corpus), a.run_id, a.model, specs=specs, n=a.n)
+        run_repair(Path(a.corpus), a.run_id, a.model, specs=specs, n=a.n,
+                   resume_from=a.resume_from)
     else:
         run_sweep(Path(a.corpus), a.run_id, a.stages.split(","), specs=specs,
                   timeout=a.timeout, jobs=a.jobs, extra_cfg_dir=a.extra_cfg_dir)
