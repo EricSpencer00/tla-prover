@@ -66,7 +66,7 @@ of the repair sweep.
 | class | n | notes |
 |---|---|---|
 | `tlc=error` | ~18 | proof_module specs where TLC is a secondary check under Amendment 1 (several already TLAPS-closed independently); EWD998-family "opts"/simulation-mode variants + 91/93 confirmed genuinely blocked by TLC-version gaps, not fixable at cfg/corpus level (58, 80, 81, 84, 85, 88, 91, 93, 94 — `SIBLING_WRAPPERS.md`); spec 72 (EWD998_anim) partially unblocked — module extracted from a combined CONFIG+MODULE corpus file, now fails later at `Init` construction (`SPEC72_NOTES.md`); spec 78 needs a real trace-replay input file; spec 90's only path forward is spec 92, itself still open; spec 198 is a template needing invented operator semantics; spec 50 (Synod) needs a hand-built inner-module instantiation, design work not a quick fix (`MC_WRAPPERS.md`) |
-| `tlc=timeout`, resolved by the HPC sweep (2026-07-03, see "HPC sweep" below) | — | CLOSED: 1, 16, 17, 73, 79, 146 (clean passes at 24 workers/5.5h budgets), 57 (Einstein riddle — reclassified `expected_violation`, TLC finds exactly `FindSolution` violated = the puzzle's solution). CERTIFIED INTRACTABLE explicit-state: 28, 48, 49, 89 (4.99B/665M/5.9B/7.0B states generated respectively, none converged — Apalache bounded evidence in `APALACHE_FINDINGS.md`). Still open: 40 (HPC run pending), 60/64 (intractable + Apalache-blocked, `_anim` family), 107 (KnuthYao, needs TLC simulation mode + an R runtime, `SIBLING_WRAPPERS.md`) |
+| `tlc=timeout`, resolved by the HPC sweep (2026-07-03, see "HPC sweep" below) | — | CLOSED: 1, 16, 17, 73, 79, 146 (clean passes at 24 workers/5.5h budgets), 57 (Einstein riddle — reclassified `expected_violation`, TLC finds exactly `FindSolution` violated = the puzzle's solution). CERTIFIED INTRACTABLE explicit-state: 28, 48, 49, 89 (4.99B/665M/5.9B/7.0B states generated respectively, none converged — Apalache bounded evidence in `APALACHE_FINDINGS.md`). Still open: 40 (certified intractable too — 413M generated / 41.3M distinct / depth 121+ across the full 5.5h budget), 60/64 (intractable + Apalache-blocked, `_anim` family), 107 (KnuthYao, needs TLC simulation mode + an R runtime, `SIBLING_WRAPPERS.md`) |
 | `tlc=pass` but vacuous | 1 | spec 145 (MultiPaxos-SMR) — genuinely has no invariant of its own by design (safety property lives in spec 146, itself a confirmed timeout) |
 | `tlc=fail_liveness` | 1 | spec 92 — root-caused to the specific property (`InSync`, not `AllExtending`) and why (cfg cites a known TLC `VIEW`-abstraction liveness-counterexample issue, tlaplus/tlaplus#1045); inconclusive whether real bug or artifact, `SPEC92_NOTES.md`, left open rather than guess |
 | `tlaps=partial` | 0 | spec 112 (LamportMutex_proofs) formerly here — now CLOSED at 729/729 (the benchmark file had collapsed upstream's sub-proofs and mutated one lemma statement; restored from upstream), see "Holdout session" below and `TLAPS_REPORT.md` |
@@ -534,8 +534,13 @@ the tool level (Snowcat cannot type SVG.tla; their cfg invariants are
 `TLCGet("level")` introspection only meaningful inside TLC). All bounded evidence
 is informational — these six stay open under Amendment 1.
 
-**Pending — 1 (spec 40).** Still running its 6h walltime at time of writing;
-result to be appended when it lands.
+**Spec 40 — certified intractable as well (result landed after the section above
+was written).** Ran its full 19,805s TLC budget at 24 workers: 413M states
+generated, 41.3M distinct, depth 121+, queue steady around 300K with periodic
+temporal-property re-checking — a deep, slowly-widening space with liveness
+overhead, not close to converging. `tlc=timeout`, `results/runs/sweep-large-40/`.
+That makes seven certified intractable (28, 40, 48, 49, 60, 64, 89); final sweep
+tally: 7 closed, 7 certified intractable, 0 unresolved.
 
 Infrastructure notes for future Sophia sweeps: TLC state pools for this class are
 tens-to-hundreds of GB — node-local /tmp and the home quota both fail; point the
