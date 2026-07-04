@@ -24,7 +24,8 @@ def main():
     p.add_argument("--run-id", required=True)
     p.add_argument("--specs", default=None, help="comma-separated spec numbers; default all")
     p.add_argument("--model", default="stub",
-                   help="anthropic | anthropic:<model-id> | stub (default: stub)")
+                   help="anthropic | anthropic:<model-id> | openai:<model-id> "
+                        "(OPENAI_BASE_URL+OPENAI_API_KEY) | stub (default: stub)")
     p.add_argument("--n", type=int, default=None,
                    help="best-of-N override (default: repair_budget.json)")
     a = ap.parse_args()

@@ -118,6 +118,67 @@ class AnthropicModel(Model):
         return [self._one(prompt, temperature, max_tokens) for _ in range(n)]
 
 
+class OpenAICompatModel(Model):
+    """Chat-completions over any OpenAI-compatible endpoint (OpenRouter, Argonne
+    routers, vLLM...). Base URL from OPENAI_BASE_URL, key from OPENAI_API_KEY.
+    Plain urllib, no SDK. Sequential calls with client-side rate limiting
+    (OPENAI_RPM env, default 10 req/min -- the Stage-1 router's limit); n>1 is n
+    sequential calls, since provider support for the n parameter is inconsistent.
+    Token usage from each response is accumulated on self.usage for cost ledgers."""
+
+    def __init__(self, model_id: str):
+        self.id = model_id
+        base = os.environ.get("OPENAI_BASE_URL")
+        self.key = os.environ.get("OPENAI_API_KEY")
+        if not base or not self.key:
+            raise SystemExit("OPENAI_BASE_URL and OPENAI_API_KEY must be set "
+                             "(required for --model openai:<id>)")
+        self.url = base.rstrip("/") + "/chat/completions"
+        self.min_interval = 60.0 / float(os.environ.get("OPENAI_RPM", "10"))
+        self._last_req = 0.0
+        self.usage = {"prompt_tokens": 0, "completion_tokens": 0, "requests": 0}
+
+    def _throttle(self):
+        wait = self._last_req + self.min_interval - time.time()
+        if wait > 0:
+            time.sleep(wait)
+        self._last_req = time.time()
+
+    def _one(self, prompt, temperature, max_tokens):
+        req = urllib.request.Request(
+            self.url,
+            data=json.dumps({
+                "model": self.id, "max_tokens": max_tokens, "temperature": temperature,
+                "messages": [{"role": "user", "content": prompt}],
+            }).encode(),
+            headers={"Authorization": f"Bearer {self.key}",
+                     "content-type": "application/json"})
+        for attempt in range(4):
+            self._throttle()
+            try:
+                with urllib.request.urlopen(req, timeout=600) as resp:
+                    data = json.loads(resp.read())
+                u = data.get("usage") or {}
+                self.usage["prompt_tokens"] += u.get("prompt_tokens", 0)
+                self.usage["completion_tokens"] += u.get("completion_tokens", 0)
+                self.usage["requests"] += 1
+                return (data.get("choices") or [{}])[0].get("message", {}).get("content", "") or ""
+            except urllib.error.HTTPError as e:
+                body = e.read().decode(errors="replace")[:500]
+                if e.code in (429, 500, 502, 503, 529) and attempt < 3:
+                    time.sleep(30 * (attempt + 1))
+                    continue
+                return f"[api_error {e.code}: {body}]"
+            except (urllib.error.URLError, TimeoutError, OSError) as e:
+                if attempt < 3:
+                    time.sleep(30 * (attempt + 1))
+                    continue
+                return f"[api_error url: {e}]"
+
+    def generate(self, prompt, n, temperature, max_tokens):
+        return [self._one(prompt, temperature, max_tokens) for _ in range(n)]
+
+
 def make_model(name: str) -> Model:
     if name == "stub":
         return LocalStub()
@@ -125,7 +186,10 @@ def make_model(name: str) -> Model:
         return AnthropicModel()
     if name.startswith("anthropic:"):
         return AnthropicModel(name.split(":", 1)[1])
-    raise SystemExit(f"unknown model {name!r} (want anthropic|anthropic:<id>|stub)")
+    if name.startswith("openai:"):
+        return OpenAICompatModel(name.split(":", 1)[1])
+    raise SystemExit(f"unknown model {name!r} "
+                     "(want anthropic|anthropic:<id>|openai:<id>|stub)")
 
 
 # ------------------------------------------------------- fault localization
@@ -634,6 +698,7 @@ def run_repair(corpus: Path, run_id: str, model_name: str, specs=None, n=None):
     (rundir / "summary.json").write_text(json.dumps({
         "per_spec": summary, "n": len(todo), "baseline_pass": baseline_pass,
         "pass_at_1_incl_baseline": pass_at_1, "pass_at_full_budget": pass_any,
+        "token_usage": getattr(model, "usage", None),
     }, indent=2))
     print(f"\n=== {run_id}: {len(todo)} specs, model={model.id} ===")
     print(f"  baseline pass (no repair needed): {baseline_pass}")
