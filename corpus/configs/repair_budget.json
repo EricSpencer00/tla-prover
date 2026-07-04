@@ -13,7 +13,7 @@
     "near_miss_max_diff_lines": 12,
     "temperature_rounds": 0.2,
     "temperature_best_of_n": 0.8,
-    "max_tokens": 8192
+    "max_tokens": 16384
   },
   "per_spec": {
     "28": {"timeout_s": 600, "_reason": "HPC-certified large state space (GATE0_STATUS.md); short TLC budgets only measure the timeout, not the repair"},

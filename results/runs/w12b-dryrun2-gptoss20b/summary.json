@@ -1,0 +1,17 @@
+{
+  "per_spec": {
+    "78": "fail:tlc=error",
+    "85": "repair-r1",
+    "91": "fail:tlc=error",
+    "92": "invalid_candidate"
+  },
+  "n": 4,
+  "baseline_pass": 0,
+  "pass_at_1_incl_baseline": 1,
+  "pass_at_full_budget": 1,
+  "token_usage": {
+    "prompt_tokens": 33055,
+    "completion_tokens": 84571,
+    "requests": 13
+  }
+}

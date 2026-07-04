@@ -692,6 +692,9 @@ def run_repair(corpus: Path, run_id: str, model_name: str, specs=None, n=None):
         "budget_config": json.loads(BUDGET_FILE.read_text()),
         "budget_config_sha256": hashlib.sha256(BUDGET_FILE.read_bytes()).hexdigest(),
         "sequential": True, "note": "one verification at a time (TIMEOUT_CONTENTION.md)",
+        "model_env": {k: os.environ[k] for k in
+                      ("OPENAI_BASE_URL", "OPENAI_RPM", "OPENAI_EXTRA_BODY")
+                      if k in os.environ},
     }, indent=2))
 
     summary = {}
