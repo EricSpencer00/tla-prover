@@ -684,7 +684,10 @@ def run_repair(corpus: Path, run_id: str, model_name: str, specs=None, n=None):
                 ("original", corpus / "cfg"),
                 ("draft", REPO / "corpus" / "configs" / "drafts")]
     all_nums = sorted({p.stem for p in (corpus / "descriptions").glob("*.json")}, key=int)
-    todo = [x for x in all_nums if not specs or x in specs]
+    if specs:  # given order preserved (front-load informative specs)
+        todo = [x for x in specs if x in all_nums]
+    else:
+        todo = all_nums
 
     (rundir / "config.json").write_text(json.dumps({
         "run_id": run_id, "corpus": str(corpus), "method_family": "repair",

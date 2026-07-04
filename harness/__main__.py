@@ -29,9 +29,11 @@ def main():
     p.add_argument("--n", type=int, default=None,
                    help="best-of-N override (default: repair_budget.json)")
     a = ap.parse_args()
-    specs = set(a.specs.split(",")) if a.specs else None
+    specs = list(dict.fromkeys(a.specs.split(","))) if a.specs else None
     if a.cmd == "repair":
         from .repair import run_repair
+        # repair preserves the given --specs order (informative specs first =
+        # cheap restarts; STAGE1_STRATEGY.md); `run` still treats it as a filter
         run_repair(Path(a.corpus), a.run_id, a.model, specs=specs, n=a.n)
     else:
         run_sweep(Path(a.corpus), a.run_id, a.stages.split(","), specs=specs,

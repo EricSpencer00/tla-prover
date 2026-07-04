@@ -16,12 +16,19 @@
     "max_tokens": 16384
   },
   "per_spec": {
-    "28": {"timeout_s": 600, "_reason": "HPC-certified large state space (GATE0_STATUS.md); short TLC budgets only measure the timeout, not the repair"},
-    "40": {"timeout_s": 600, "_reason": "HPC-certified large state space"},
-    "48": {"timeout_s": 600, "_reason": "HPC-certified large state space"},
-    "49": {"timeout_s": 600, "_reason": "HPC-certified large state space"},
-    "60": {"timeout_s": 600, "_reason": "HPC-certified large state space"},
-    "64": {"timeout_s": 600, "_reason": "HPC-certified large state space"},
-    "89": {"timeout_s": 600, "_reason": "HPC-certified large state space"}
+    "_comment": "zero-escalation specs: state spaces where NO candidate can be verified at local TLC budgets -- 7 HPC-certified intractable (0.4-7.0B states, GATE0_STATUS.md 'HPC sweep', APALACHE_FINDINGS.md) + 6 HPC-closed-only-at-24-worker/5.5h budgets. A repair 'pass' is unmeasurable locally by definition, so escalation rows would be noise, not measurement (STAGE1_STRATEGY.md fix 1, Fable-5 review 2026-07-04). Each keeps its baseline row + state-explosion failure class in the 206 matrix.",
+    "1":   {"iterative_rounds": 0, "best_of_n": 0, "mutation_pass": false, "_reason": "HPC-closed (clean pass at 24w/5.5h); locally unverifiable"},
+    "16":  {"iterative_rounds": 0, "best_of_n": 0, "mutation_pass": false, "_reason": "HPC-closed; locally unverifiable"},
+    "17":  {"iterative_rounds": 0, "best_of_n": 0, "mutation_pass": false, "_reason": "HPC-closed; locally unverifiable"},
+    "73":  {"iterative_rounds": 0, "best_of_n": 0, "mutation_pass": false, "_reason": "HPC-closed; locally unverifiable"},
+    "79":  {"iterative_rounds": 0, "best_of_n": 0, "mutation_pass": false, "_reason": "HPC-closed; locally unverifiable"},
+    "146": {"iterative_rounds": 0, "best_of_n": 0, "mutation_pass": false, "_reason": "HPC-closed; locally unverifiable"},
+    "28":  {"iterative_rounds": 0, "best_of_n": 0, "mutation_pass": false, "timeout_s": 600, "_reason": "HPC-certified intractable (4.99B states, no convergence)"},
+    "40":  {"iterative_rounds": 0, "best_of_n": 0, "mutation_pass": false, "timeout_s": 600, "_reason": "HPC-certified intractable (413M generated, depth 121+)"},
+    "48":  {"iterative_rounds": 0, "best_of_n": 0, "mutation_pass": false, "timeout_s": 600, "_reason": "HPC-certified intractable (665M states)"},
+    "49":  {"iterative_rounds": 0, "best_of_n": 0, "mutation_pass": false, "timeout_s": 600, "_reason": "HPC-certified intractable (5.9B states)"},
+    "60":  {"iterative_rounds": 0, "best_of_n": 0, "mutation_pass": false, "timeout_s": 600, "_reason": "HPC-certified intractable + Apalache-blocked (_anim)"},
+    "64":  {"iterative_rounds": 0, "best_of_n": 0, "mutation_pass": false, "timeout_s": 600, "_reason": "HPC-certified intractable + Apalache-blocked (_anim)"},
+    "89":  {"iterative_rounds": 0, "best_of_n": 0, "mutation_pass": false, "timeout_s": 600, "_reason": "HPC-certified intractable (7.0B states)"}
   }
 }
