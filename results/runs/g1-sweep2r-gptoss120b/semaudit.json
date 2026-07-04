@@ -1,0 +1,99 @@
+[
+  {
+    "spec": "57",
+    "verdict": "STRUCTURAL",
+    "checked_names": [
+      "FindSolution"
+    ],
+    "structural_names": [
+      "Spec"
+    ],
+    "touched_checked_defs": [
+      "BritLivesInTheRedHouse",
+      "DaneDrinksTea",
+      "GermanSmokesPrince",
+      "Init",
+      "SwedeKeepsDogs"
+    ],
+    "touched_structural_defs": [
+      "BritLivesInTheRedHouse",
+      "DaneDrinksTea",
+      "GermanSmokesPrince",
+      "Init",
+      "SwedeKeepsDogs"
+    ],
+    "total_defs_changed": [
+      "BritLivesInTheRedHouse",
+      "DaneDrinksTea",
+      "GermanSmokesPrince",
+      "Init",
+      "SwedeKeepsDogs"
+    ],
+    "won_via": "repair-r2"
+  },
+  {
+    "spec": "141",
+    "verdict": "REVIEW",
+    "checked_names": [
+      "Inv1",
+      "Inv2",
+      "Inv3",
+      "PartialCorrectness",
+      "Termination",
+      "TypeOK"
+    ],
+    "structural_names": [
+      "ConnectedToSomeButNotAll",
+      "LimitedSeq",
+      "Spec"
+    ],
+    "touched_checked_defs": [
+      "TypeOK"
+    ],
+    "touched_structural_defs": [],
+    "total_defs_changed": [
+      "TypeOK"
+    ],
+    "won_via": "repair-bestofN"
+  },
+  {
+    "spec": "178",
+    "verdict": "STRUCTURAL",
+    "checked_names": [
+      "Liveness",
+      "Safety",
+      "TypeOK"
+    ],
+    "structural_names": [
+      "Spec"
+    ],
+    "touched_checked_defs": [
+      "Next"
+    ],
+    "touched_structural_defs": [
+      "Next"
+    ],
+    "total_defs_changed": [
+      "Next"
+    ],
+    "won_via": "repair-bestofN"
+  },
+  {
+    "spec": "194",
+    "verdict": "STRUCTURAL",
+    "checked_names": [
+      "PCTypeOK"
+    ],
+    "structural_names": [
+      "PCSpec"
+    ],
+    "touched_checked_defs": [],
+    "touched_structural_defs": [
+      "Send"
+    ],
+    "total_defs_changed": [
+      "Send"
+    ],
+    "won_via": "repair-r2"
+  }
+]

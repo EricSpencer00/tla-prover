@@ -30,6 +30,10 @@ def main():
                    help="best-of-N override (default: repair_budget.json)")
     p.add_argument("--resume-from", default=None,
                    help="prior run-id whose completed specs (progress.jsonl) are skipped")
+    s = sub.add_parser("semaudit", help="semantic-preservation audit of model repairs")
+    s.add_argument("--corpus", default=DEFAULT_CORPUS)
+    s.add_argument("--run-id", required=True)
+    s.add_argument("--specs", default=None, help="comma-separated; default all winners")
     a = ap.parse_args()
     specs = list(dict.fromkeys(a.specs.split(","))) if a.specs else None
     if a.cmd == "repair":
@@ -38,6 +42,9 @@ def main():
         # cheap restarts; STAGE1_STRATEGY.md); `run` still treats it as a filter
         run_repair(Path(a.corpus), a.run_id, a.model, specs=specs, n=a.n,
                    resume_from=a.resume_from)
+    elif a.cmd == "semaudit":
+        from .semaudit import run_semaudit
+        run_semaudit(Path(a.corpus), a.run_id, specs=specs)
     else:
         run_sweep(Path(a.corpus), a.run_id, a.stages.split(","), specs=specs,
                   timeout=a.timeout, jobs=a.jobs, extra_cfg_dir=a.extra_cfg_dir)
