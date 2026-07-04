@@ -1,13 +1,18 @@
-# Gate 0 Status (2026-07-02)
+# Gate 0 Status (2026-07-02) — SIGNED OFF AS AMENDED 2026-07-03
 
-Evaluated against PLAN.md §3 Stage 0's checklist. Eric owns sign-off (PLAN.md §4) —
-this is evidence for that decision, not a self-certification.
+**Gate 0 PASSED under Amendment 4** (PLAN.md §6): Eric signed off 2026-07-03 with the
+corpus at 171/206 closed and a frozen, per-spec-evidenced residue list (22 open + 13
+deferred, all causes instrument-external — see the Amendment 4 row for the full
+argument). Stage 1 (repair sweep) is open. The document below is the evidence record
+as it stood at sign-off.
 
 ## Checklist
 
-- [ ] **`oracle` scores 206/206 SANY ∧ non-vacuous TLC on the full corpus, from one
-      command.** NOT MET. See "Corpus closure" below for the honest number and how
-      it's computed under Amendment 1/3's population-aware criterion.
+- [x] **`oracle` scores 206/206 SANY ∧ non-vacuous TLC on the full corpus, from one
+      command.** MET AS AMENDED (Amendment 4): population-aware criterion met on
+      every non-residue spec; residue frozen with per-spec evidence. The literal
+      206/206 remains G1's system-closure target for Stage 1+. See "Corpus closure"
+      below for how the number is computed under Amendment 1/3.
 - [x] **Every control spec in the vacuity battery fails as designed (0 false passes).**
       MET. `python3 -m harness.controls` — all 6 controls (`BadParse`, `BadInv`,
       `DeadEnd`, `Vacuous`, `TrueInv`, `UnreachableNext`) behave exactly as designed.
