@@ -84,59 +84,86 @@ def arm_summary(label, by, all_nums):
             "residue": {k: sorted(v, key=int) for k, v in residue.items()}}
 
 
-def render(arms, all_nums, oracle_pass):
+def render(arms, all_nums, oracle_repro, signoff, gap):
+    """oracle_repro = reproducible Gate-0 closed set (167). signoff = documented
+    Gate-0 figure (171). gap = unreconciled (4)."""
     n = len(all_nums)
-    union_pass = set(oracle_pass)
+    oracle_set = set(oracle_repro)
     lines = ["# GATE 1 STATUS -- Stage 1 repair sweep\n",
              "Evidence for Eric's sign-off (mirrors GATE0_STATUS.md style). Numbers "
              "trace to `results/runs/` ledger rows; model-only counts exclude "
-             "semantic-audit rejects (Rule 5, SEMAUDIT_FINDINGS.md).\n",
-             f"Denominator: {n}/206 (Amendment 2 reporting rule). Oracle baseline "
-             f"(retrieval, no model): **{len(oracle_pass)}/206**.\n",
+             "semantic-audit rejects (Rule 5, SEMAUDIT_FINDINGS.md). Oracle set from "
+             "`corpus/gate0_closed.json` (frozen at Gate-0 Amendment-4), not inferred "
+             "from model/baseline (PLAN 4).\n",
+             f"Denominator: {n}/206 (Amendment 2 reporting rule).",
+             f"Oracle (retrieval, no model): **{signoff}/206** at Gate-0 sign-off; "
+             f"**{len(oracle_repro)}/206 reproducible now** (local re-run + HPC "
+             f"supplement); **{gap}-spec unreconciled gap** -- see gate0_closed.json.\n",
              "## Per-method matrix\n",
              "| method | baseline pass | model-repaired | pass@1 | pass@N (model-only) | residue |",
              "|---|---|---|---|---|---|"]
+    model_new_all = set()
     for a in arms:
-        union_pass |= set(a["pass_at_N"])
         res_n = sum(len(v) for v in a["residue"].values())
         lines.append(f"| {a['label']} | {len(a['baseline_pass'])} | "
                      f"{len(a['model_repaired'])} | {len(a['pass_at_1'])} | "
                      f"**{len(a['pass_at_N'])}** | {res_n} |")
     lines.append("")
     for a in arms:
-        lines.append(f"### {a['label']} -- model-repaired (genuine): "
+        # model-new = specs THIS arm closed that the oracle did NOT (these move the
+        # union); the rest are re-closures of already-oracle-closed specs
+        mnew = sorted(set(a["model_repaired"]) - oracle_set, key=int)
+        model_new_all |= set(mnew)
+        recl = sorted(set(a["model_repaired"]) & oracle_set, key=int)
+        lines.append(f"### {a['label']}")
+        lines.append(f"- model-repaired (genuine): "
                      f"{', '.join(sorted(a['model_repaired'], key=int)) or 'none'}")
-        lines.append("residue by class:")
+        lines.append(f"- of which **oracle-open (move the union)**: "
+                     f"{', '.join(mnew) or 'none'}; re-closures: {', '.join(recl) or 'none'}")
+        lines.append("- residue by class:")
         for cls, specs in sorted(a["residue"].items(), key=lambda x: -len(x[1])):
-            lines.append(f"- **{cls}** ({len(specs)}): {', '.join(specs)}")
+            lines.append(f"  - **{cls}** ({len(specs)}): {', '.join(specs)}")
         lines.append("")
-    model_only_union = sorted(union_pass - set(oracle_pass) | set(), key=int)
-    system = sorted(union_pass, key=int)
-    lines += ["## G1 status line\n",
-              f"- **oracle union model = {len(system)}/206** (system closure)",
-              f"- **model-only (best across arms) = {len(union_pass)}/206**",
-              f"  - of which beyond the oracle baseline: "
-              f"+{len(union_pass - set(oracle_pass))}",
-              "", "Residue (system, still unclosed by oracle OR any model):",
-              f"{', '.join(sorted(set(all_nums) - union_pass, key=int))}"]
+    union_repro = oracle_set | model_new_all
+    union_signoff = signoff + len(model_new_all)  # sign-off oracle + model-new
+    lines += ["## G1 status line (Rule 7: oracle and model reported separately)\n",
+              f"- **oracle = {signoff}/206** (Gate-0 sign-off; {len(oracle_repro)} "
+              f"reproducible-now + {gap} unreconciled)",
+              f"- **model-only = {max(len(a['pass_at_N']) for a in arms)}/206** "
+              f"(best arm; baseline + audited repairs)",
+              f"- **model-new (oracle-open specs the model closed) = "
+              f"{len(model_new_all)}**: {', '.join(sorted(model_new_all, key=int))}",
+              f"- **oracle union model = {union_signoff}/206** (system closure) "
+              f"[= {signoff} oracle + {len(model_new_all)} model-new]; "
+              f"reproducible floor **{len(union_repro)}/206**",
+              "", f"Remaining gap to 206 ({206 - union_signoff} specs, system-open):",
+              f"{', '.join(sorted(set(all_nums) - oracle_set - model_new_all, key=int))}",
+              "", "*(The remaining gap list uses the reproducible oracle set; the "
+              f"{gap} unreconciled Gate-0 closures, once identified, would remove up "
+              "to that many from it.)*"]
     return "\n".join(lines)
 
 
-def run_report(arms_spec: str, out: str, oracle_run="oracle-v0"):
+def load_gate0_closed():
+    """Authoritative Gate-0 oracle closure (corpus/gate0_closed.json), NOT inferred
+    from model/baseline behavior (that would be self-certifying, PLAN 4). Returns
+    (reproducible_closed_set, documented_signoff_count, gap)."""
+    art = json.loads((REPO / "corpus" / "gate0_closed.json").read_text())
+    closed = set(art["closed_local"]["specs"]) | set(art["closed_hpc"]["specs"])
+    return closed, art["reconciliation"]["documented_gate0_closed"], \
+        art["reconciliation"]["UNRECONCILED_GAP"]
+
+
+def run_report(arms_spec: str, out: str):
     corpus = Path("/Users/eric/GitHub/tla_benchmark/data")
     all_nums = sorted({p.stem for p in (corpus / "descriptions").glob("*.json")},
                       key=int)
-    # oracle baseline = specs the oracle passes = baseline_pass of the strongest arm
-    # is a proxy; prefer an explicit oracle run if present
     arms = []
     for chunk in arms_spec.split(","):
         label, dirs = chunk.split("=")
         arms.append(arm_summary(label, load_arm(dirs.split("+")), all_nums))
-    # oracle pass proxy: union of baseline passes across arms (model-independent)
-    oracle_pass = set()
-    for a in arms:
-        oracle_pass |= set(a["baseline_pass"])
-    text = render(arms, all_nums, sorted(oracle_pass, key=int))
+    oracle_closed, signoff, gap = load_gate0_closed()
+    text = render(arms, all_nums, sorted(oracle_closed, key=int), signoff, gap)
     Path(out).write_text(text)
     print(text)
     print(f"\n[written to {out}]")
