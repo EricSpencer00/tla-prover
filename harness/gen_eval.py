@@ -10,10 +10,24 @@ This module holds the deterministic pieces (cfg-signature parse, prompt build,
 response parse, pass@k). Model calls reuse harness.repair's Model classes;
 scoring reuses harness.runner's oracle machinery.
 """
+import hashlib
+import json
 import random
 import re
+import shutil
+import time
+from pathlib import Path
 
 from .mutation import MUTATIONS
+from .repair import make_model, verdict_of
+from .runner import REPO, build_module_index, eval_module_text
+
+DEFAULT_CORPUS = Path("/Users/eric/GitHub/tla_benchmark/data")
+HOLDOUT_FILE = REPO / "corpus" / "holdout_30.json"
+# Amendment 12 frozen budget (PLAN ledger entry 12): never inline these elsewhere.
+TEMPERATURE = 0.8
+MAX_TOKENS = 16384
+TLC_TIMEOUT_S = 120
 
 # TLC .cfg section keywords (subset we care about for the required signature).
 _CFG_KEYWORDS = {
@@ -258,3 +272,266 @@ def summarize_passk(results, k):
                 key=int)
     return {"n": len(results), "pass@1": len(p1), f"pass@{k}": len(pk),
             "pass@1_specs": p1, f"pass@{k}_specs": pk}
+
+
+# --------------------------------------------------------- orchestration
+
+def holdout_specs_and_hash():
+    """The frozen 30-spec holdout (corpus/holdout_30.json, DO NOT MODIFY) and the
+    sha256 of that file's bytes at read time -- this IS the "frozen holdout hash"
+    the E2.c handoff refers to (PLAN ledger entry 11 records the same digest,
+    ecfc2053...54f78, computed the identical way -- sha256 of the whole file).
+    Framing-B corruption seeds are derived from this hash + spec number so they
+    are reproducible from the repo alone, with zero extra state to keep in sync."""
+    raw = HOLDOUT_FILE.read_bytes()
+    digest = hashlib.sha256(raw).hexdigest()
+    specs = [str(n) for n in json.loads(raw)["holdout_specs"]]
+    return specs, digest
+
+
+def corruption_seed(holdout_hash: str, num: str):
+    """Deterministic per-spec Framing-B corruption seed: int(sha256(f"{holdout_hash}:
+    {num}").hexdigest()[:8], 16). Documented derivation (E2.c handoff): a function
+    of the frozen holdout hash and the spec number only, so it is reproducible from
+    the repo alone and cannot be influenced by anything downstream of freezing."""
+    h = hashlib.sha256(f"{holdout_hash}:{num}".encode()).hexdigest()
+    return int(h[:8], 16)
+
+
+def canonical_spec_text(num: str, mod2path: dict, corpus: Path):
+    """Same source precedence as runner/repair: a committed patch overrides the
+    corpus original."""
+    patch = REPO / "corpus" / "configs" / "patches" / f"{num}.tla"
+    if patch.exists():
+        return patch.read_text(errors="replace")
+    mod = None
+    for m, p in mod2path.items():
+        if p.stem == num:
+            mod = m
+            break
+    if mod is None:
+        raise FileNotFoundError(f"no tla_files/{num}.tla in corpus")
+    return mod2path[mod].read_text(errors="replace")
+
+
+def row_key(row):
+    return (row["spec"], row["sample"])
+
+
+def load_existing_rows(rows_path: Path):
+    """(spec, sample) pairs already present in a prior rows.jsonl, for --resume."""
+    done = set()
+    if rows_path.exists():
+        for line in rows_path.read_text().splitlines():
+            if line:
+                r = json.loads(line)
+                done.add((r["spec"], r["sample"]))
+    return done
+
+
+def _error_evidence(verdict_row, log_text):
+    """Compact failure evidence for the Framing-B repair prompt: prefer the raw
+    SANY/TLC log tail eval_module_text already wrote (same evidence a human or
+    the Stage-1 repair loop would see), falling back to the row's own fields."""
+    if log_text:
+        return log_text if len(log_text) <= 8000 else \
+            log_text[:2000] + "\n...[truncated]...\n" + log_text[-6000:]
+    return (f"sany={verdict_row.get('sany')} tlc={verdict_row.get('tlc')} "
+            f"tlc_vacuity={verdict_row.get('tlc_vacuity')} tlaps={verdict_row.get('tlaps')}")
+
+
+def _score(num, module_text, corpus, num2mod, mod2path, cfg_dirs, workroot, logdir,
+          timeout):
+    row = eval_module_text(num, module_text, corpus, num2mod, mod2path, cfg_dirs,
+                           workroot, logdir, timeout, stages=("sany", "tlc", "tlaps"))
+    verdict = verdict_of(num, row) if row.get("sany") else "fail:no_module_header"
+    log_path = Path(row["log_path"])
+    log_text = log_path.read_text(errors="replace") if log_path.exists() else ""
+    return row, verdict, log_text
+
+
+def gen_eval_spec_framing_a(num, description_json, cfg_text, module_name_for_spec,
+                            model, run_id, k, corpus, num2mod, mod2path, cfg_dirs,
+                            workroot, logdir, done):
+    """Framing A: one greedy (temperature 0) + k temperature-0.8 samples, each
+    generated independently from the same generation prompt, extracted and scored.
+    Yields row dicts (does not write them -- caller owns the JSONL/resume ledger)."""
+    prompt = build_generation_prompt(description_json, cfg_text, module_name_for_spec)
+    prompt_sha = hashlib.sha256(prompt.encode()).hexdigest()
+    samples = [("greedy", 0.0)] + [(i, TEMPERATURE) for i in range(1, k + 1)]
+    for sample_id, temperature in samples:
+        if (num, sample_id) in done:
+            continue
+        t0 = time.time()
+        reply = model.generate(prompt, 1, temperature, MAX_TOKENS)[0]
+        model_s = round(time.time() - t0, 1)
+        module_text = extract_module(reply)
+        base = {"spec": num, "framing": "A", "model": model.id,
+                "prompt_sha256": prompt_sha, "sample": sample_id,
+                "temperature": temperature, "timestamp": time.time()}
+        if module_text is None:
+            err = isinstance(reply, str) and reply.startswith("[api_error")
+            yield {**base, "verdict": "api_error" if err else "no_module_extracted",
+                  "budget_used": {"model_s": model_s}}
+            continue
+        row, verdict, _ = _score(num, module_text, corpus, num2mod, mod2path,
+                                 cfg_dirs, workroot, logdir, TLC_TIMEOUT_S)
+        row["budget_used"]["model_s"] = model_s
+        yield {**base, "verdict": verdict, **{k2: v for k2, v in row.items()
+                                              if k2 not in ("spec",)}}
+
+
+def gen_eval_spec_framing_b(num, canonical_text, holdout_hash, model, run_id, k,
+                            corpus, num2mod, mod2path, cfg_dirs, workroot, logdir,
+                            done):
+    """Framing B: corrupt the canonical spec with the deterministic per-spec seed,
+    score the corruption to get error evidence, build the repair prompt, then one
+    greedy + k temperature-0.8 samples of repair attempts. Yields row dicts (with
+    mutation_record on every row, per the E2.c handoff)."""
+    seed = corruption_seed(holdout_hash, num)
+    corrupted_text, mutation_record = corrupt(canonical_text, seed)
+    _, _, broken_log = _score(num, corrupted_text, corpus, num2mod, mod2path,
+                              cfg_dirs, workroot, logdir, TLC_TIMEOUT_S)
+    error_evidence = _error_evidence({}, broken_log)
+    prompt = build_repair_prompt(corrupted_text, error_evidence)
+    prompt_sha = hashlib.sha256(prompt.encode()).hexdigest()
+    samples = [("greedy", 0.0)] + [(i, TEMPERATURE) for i in range(1, k + 1)]
+    for sample_id, temperature in samples:
+        if (num, sample_id) in done:
+            continue
+        t0 = time.time()
+        reply = model.generate(prompt, 1, temperature, MAX_TOKENS)[0]
+        model_s = round(time.time() - t0, 1)
+        module_text = extract_module(reply)
+        base = {"spec": num, "framing": "B", "model": model.id,
+                "prompt_sha256": prompt_sha, "sample": sample_id,
+                "temperature": temperature, "timestamp": time.time(),
+                "mutation_record": mutation_record, "seed": seed}
+        if module_text is None:
+            err = isinstance(reply, str) and reply.startswith("[api_error")
+            yield {**base, "verdict": "api_error" if err else "no_module_extracted",
+                  "budget_used": {"model_s": model_s}}
+            continue
+        row, verdict, _ = _score(num, module_text, corpus, num2mod, mod2path,
+                                 cfg_dirs, workroot, logdir, TLC_TIMEOUT_S)
+        row["budget_used"]["model_s"] = model_s
+        yield {**base, "verdict": verdict, **{k2: v for k2, v in row.items()
+                                              if k2 not in ("spec",)}}
+
+
+def run_gen_eval(corpus: Path, run_id: str, framing: str, model_name: str, k: int,
+                 specs=None, resume=True):
+    """CLI entry point (harness gen-eval). Runs Framing A or B over the (possibly
+    --specs-restricted) frozen holdout, strictly sequentially (one spec/sample's
+    TLC at a time -- Rule: no thread pool here, same contention discipline as
+    repair.py), appending rows to results/runs/{run_id}/rows.jsonl (Rule 8:
+    append-only; resume by skipping (spec, sample) pairs already present).
+    Writes config.json up front and summary.json/.csv at the end."""
+    all_specs, holdout_hash = holdout_specs_and_hash()
+    todo = [s for s in all_specs if not specs or s in specs]
+    if not todo:
+        raise SystemExit("no specs selected (check --specs against holdout_30.json)")
+
+    rundir = REPO / "results" / "runs" / run_id
+    logdir = rundir / "logs"
+    logdir.mkdir(parents=True, exist_ok=True)
+    workroot = Path("/tmp/prove-tla-gen-eval") / run_id
+    model = make_model(model_name) if model_name != "local-stub" else _LocalStubModel()
+
+    num2mod, mod2path = build_module_index(corpus)
+    cfg_dirs = [("override", REPO / "corpus" / "configs" / "overrides"),
+                ("original", corpus / "cfg"),
+                ("draft", REPO / "corpus" / "configs" / "drafts")]
+
+    rows_path = rundir / "rows.jsonl"
+    done = load_existing_rows(rows_path) if resume else set()
+
+    config = {
+        "run_id": run_id, "framing": framing, "model": model.id,
+        "corpus": str(corpus), "k": k,
+        "holdout_sha256": holdout_hash, "holdout_specs": all_specs,
+        "n_specs": len(todo),
+        "budget": {"temperature": TEMPERATURE, "max_tokens": MAX_TOKENS,
+                   "tlc_timeout_s": TLC_TIMEOUT_S, "k": k, "pass1": "greedy@temp0",
+                   "sequential": True},
+        "command": (f"python3 -m harness gen-eval --framing {framing} "
+                   f"--model {model_name} --run-id {run_id} --k {k}"),
+    }
+    (rundir / "config.json").write_text(json.dumps(config, indent=2))
+
+    results = {}  # spec -> {"greedy": bool, "samples": [bool,...]}
+    with open(rows_path, "a") as fh:
+        for i, num in enumerate(todo, 1):
+            if framing == "A":
+                desc = json.loads((corpus / "descriptions" / f"{num}.json").read_text())
+                cfg_text, _ = _resolve_cfg(num, cfg_dirs)
+                mod = num2mod.get(num)
+                if mod is None or cfg_text is None:
+                    print(f"[{i}/{len(todo)}] spec {num}: skipped (no module/cfg)")
+                    continue
+                gen = gen_eval_spec_framing_a(
+                    num, desc, cfg_text, mod, model, run_id, k, corpus, num2mod,
+                    mod2path, cfg_dirs, workroot, logdir, done)
+            else:
+                try:
+                    canonical = canonical_spec_text(num, mod2path, corpus)
+                except FileNotFoundError:
+                    print(f"[{i}/{len(todo)}] spec {num}: skipped (no source file)")
+                    continue
+                try:
+                    gen = gen_eval_spec_framing_b(
+                        num, canonical, holdout_hash, model, run_id, k, corpus,
+                        num2mod, mod2path, cfg_dirs, workroot, logdir, done)
+                except NoCandidateMutation:
+                    print(f"[{i}/{len(todo)}] spec {num}: skipped (no mutation site)")
+                    continue
+            r = results.setdefault(num, {"greedy": False, "samples": []})
+            n_written = 0
+            for row in gen:
+                fh.write(json.dumps(row) + "\n")
+                fh.flush()
+                n_written += 1
+                passed = row.get("verdict") == "pass"
+                if row["sample"] == "greedy":
+                    r["greedy"] = passed
+                else:
+                    r["samples"].append(passed)
+            print(f"[{i}/{len(todo)}] spec {num}: {n_written} sample(s) run "
+                 f"(resumed {sum(1 for s in done if s[0] == num)} skipped)")
+    shutil.rmtree(workroot, ignore_errors=True)
+
+    summary = summarize_passk(results, k)
+    (rundir / "summary.json").write_text(json.dumps(summary, indent=2))
+    with open(rundir / "summary.csv", "w") as fh:
+        fh.write("spec,greedy_pass,any_sample_pass,n_samples\n")
+        for num, r in sorted(results.items(), key=lambda kv: int(kv[0])):
+            fh.write(f"{num},{r['greedy']},{any(r['samples'])},{len(r['samples'])}\n")
+    print(f"\n=== {run_id}: framing {framing}, model={model.id} ===")
+    print(f"  n={summary['n']}  pass@1={summary['pass@1']}  pass@{k}={summary[f'pass@{k}']}")
+    return summary
+
+
+def _resolve_cfg(num, cfg_dirs):
+    for label, d in cfg_dirs:
+        c = d / f"{num}.cfg"
+        if c.exists():
+            return c.read_text(errors="replace"), label
+    return None, None
+
+
+class _LocalStubModel:
+    """Zero-spend dry-run model for --model local-stub: deterministic, ignores
+    the prompt content and returns a fixed reply per framing shape so the whole
+    pipeline (prompt build -> generate -> extract -> score -> ledger) runs without
+    any network call. Framing A's reply never satisfies a real .cfg (LocalStub
+    has no way to know the required identifiers), so expect fails there; Framing
+    B's reply echoes the SPEC embedded in the prompt (the corrupted module)
+    unchanged -- same behavior as harness.repair.LocalStub, reused here directly
+    via the ===BEGIN SPEC=== marker gen_eval's own prompts also use."""
+    id = "local-stub-v1"
+
+    def generate(self, prompt, n, temperature, max_tokens):
+        m = re.search(r"===BEGIN SPEC===\n(.*?)\n===END SPEC===", prompt, re.S)
+        if m:
+            return [m.group(1)] * n
+        return ["---- MODULE Empty ----\n===="] * n

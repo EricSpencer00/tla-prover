@@ -38,9 +38,24 @@ def main():
     g.add_argument("--arms", required=True,
                    help="label=rundir[+rundir2],...  e.g. gpt-oss-120b=g1-sweep2-gptoss120b+g1-sweep2r-gptoss120b")
     g.add_argument("--out", default="GATE1_STATUS.md")
+    e = sub.add_parser("gen-eval", help="E2.c Gate-2 baseline: generation (A) and repair (B) framings")
+    e.add_argument("--framing", required=True, choices=["A", "B"])
+    e.add_argument("--model", required=True,
+                   help="openai:<model-id> (OPENAI_BASE_URL+OPENAI_API_KEY[_CMD]) | "
+                        "anthropic | anthropic:<model-id> | local-stub (zero-spend dry run)")
+    e.add_argument("--run-id", required=True)
+    e.add_argument("--k", type=int, default=32, help="samples at temp 0.8 for pass@k (frozen budget: 32)")
+    e.add_argument("--specs", default=None, help="comma-separated holdout spec numbers; default all 30")
+    e.add_argument("--corpus-data", default="/Users/eric/GitHub/tla_benchmark/data")
+    e.add_argument("--no-resume", action="store_true",
+                   help="ignore any existing rows.jsonl and redo every (spec, sample)")
     a = ap.parse_args()
     specs = list(dict.fromkeys(a.specs.split(","))) if getattr(a, "specs", None) else None
-    if a.cmd == "repair":
+    if a.cmd == "gen-eval":
+        from .gen_eval import run_gen_eval
+        run_gen_eval(Path(a.corpus_data), a.run_id, a.framing, a.model, a.k,
+                    specs=specs, resume=not a.no_resume)
+    elif a.cmd == "repair":
         from .repair import run_repair
         # repair preserves the given --specs order (informative specs first =
         # cheap restarts; STAGE1_STRATEGY.md); `run` still treats it as a filter
