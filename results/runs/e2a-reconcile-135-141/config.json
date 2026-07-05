@@ -1,0 +1,13 @@
+{
+  "run_id": "e2a-reconcile-135-141",
+  "corpus": "/Users/eric/GitHub/tla_benchmark/data",
+  "stages": [
+    "sany",
+    "tlc"
+  ],
+  "timeout_s": 180,
+  "jobs": 1,
+  "n_specs": 2,
+  "extra_cfg_dir": "corpus/configs/drafts",
+  "tla2tools": "/Users/eric/GitHub/prove-TLA/tools/tla2tools.jar"
+}

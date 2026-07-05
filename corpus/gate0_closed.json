@@ -1,16 +1,28 @@
 {
- "_header": "Gate-0 oracle closure set. Frozen at Gate-0 Amendment-4 sign-off (2026-07-03). Append-never: corrections require a new PLAN amendment + Eric sign-off (PLAN 4). Built by reconciliation, NOT re-derived from any single run (no committed run persists the full closure).",
+ "_header": "Gate-0 oracle closure set. Frozen at Gate-0 sign-off (2026-07-03), reconciled and re-frozen under Stage-2 entry criterion E2.a (2026-07-05, Eric-approved). Append-never: corrections require a new PLAN amendment + Eric sign-off (PLAN 4). Built by reconciliation, NOT re-derived from any single run. The E2.a-frozen reproducible closure is 170 (163 local + 7 HPC); the 4-spec gap vs the 171 sign-off prose is RESOLVED (see reconciliation.e2a).",
  "reconciliation": {
-  "local_reproducible": 161,
-  "hpc_supplement": 6,
-  "reproducible_total": 167,
+  "local_reproducible": 163,
+  "hpc_supplement": 7,
+  "reproducible_total": 170,
   "documented_gate0_closed": 171,
-  "UNRECONCILED_GAP": 4,
-  "gap_note": "4 specs counted closed in GATE0_STATUS.md prose that the current local oracle (161) + 6 HPC (=167) do not account for. NOT resolved to specific spec IDs from committed artifacts -- Gate-0 closure was assembled incrementally and never persisted as one reproducible set. Needs Eric's authoritative closure record or a fresh full oracle re-run to regenerate. Reported G1 line uses 167 as the TRACEABLE FLOOR and 171 as the sign-off figure, both stated."
+  "UNRECONCILED_GAP": 0,
+  "e2a": {
+   "resolved_date": "2026-07-05",
+   "approved_by": "Eric",
+   "method": "The 171-vs-167 gap = exactly the 4 open-residue specs carrying 'closed' claims in GATE0_STATUS.md (26 reproducible-open minus 22 prose-open). Each dispositioned with committed evidence; 3 re-closed, 1 was a genuine overcount.",
+   "dispositions": {
+    "57": "RE-CLOSED -> closed_hpc. GATE0_STATUS 'HPC sweep: Closed -- 7' lists 57 but closed_hpc previously listed only 6 (transcription omission). Evidence: results/runs/sweep-large-57 (sany=pass, tlc=fail_invariant on FindSolution @503s); populations.json classifies 57 expected_violation:FindSolution. Valid closure under the population-aware criterion; requires large-budget/HPC compute (not laptop-budget reproducible), same class as the other 6 HPC closures.",
+    "135": "RE-CLOSED -> closed_local. Reproduced 2026-07-05 (results/runs/e2a-reconcile-135-141): sany=pass, tlc=pass, vacuity=clean @64.3s at --jobs 1. Genuine pass; fails only under --jobs 8 CPU contention (TIMEOUT_CONTENTION.md). SERIAL CAVEAT below.",
+    "141": "RE-CLOSED -> closed_local. Reproduced 2026-07-05 (results/runs/e2a-reconcile-135-141): sany=pass, tlc=pass, vacuity=clean @81.1s at --jobs 1. cfg substitutes Succ<-ConnectedToSomeButNotAll (defined in spec 135). Fails only under --jobs 8 contention. SERIAL CAVEAT below.",
+    "47": "OVERCOUNT -> stays OPEN (residue). GATE0_STATUS line 165 'Closed specs this way' counted 47 among sibling-wrapper closures, but SIBLING_WRAPPERS.md line 33 records it as 'wired, times out -- same large state space as spec 48', and spec 48 is certified intractable (APALACHE_FINDINGS.md). The wrapper mechanism was applied (no longer a parse/config error) but the spec does not close. This is the single genuine overcount in the 171 figure."
+   },
+   "serial_caveat": "Specs 135 and 141 close at --jobs 1 (serial) within the 90s budget but time out under --jobs 8 due to CPU contention (harness/TIMEOUT_CONTENTION.md). The closed_local reproduction command below reproduces the full set ONLY when run serially or at low --jobs for these two.",
+   "closed_total_after_e2a": 170
+  }
  },
  "closed_local": {
   "class": "local",
-  "evidence": "re-run `python3 -m harness run --stages sany,tlc` (oracle machinery); reproduces this set",
+  "evidence": "re-run `python3 -m harness run --stages sany,tlc --jobs 1` (oracle machinery, serial to avoid the 135/141 contention false-timeout); reproduces this set.",
   "specs": [
    "2",
    "3",
@@ -108,11 +120,13 @@
    "132",
    "133",
    "134",
+   "135",
    "136",
    "137",
    "138",
    "139",
    "140",
+   "141",
    "142",
    "143",
    "144",
@@ -177,11 +191,12 @@
  },
  "closed_hpc": {
   "class": "hpc",
-  "evidence": "GATE0_STATUS.md 'HPC sweep' + APALACHE_FINDINGS.md; pass only at 24-worker/5.5h budgets",
+  "evidence": "GATE0_STATUS.md 'HPC sweep' + APALACHE_FINDINGS.md + results/runs/sweep-large-*; pass only at large budgets (24-worker / 5.5h, or long serial TLC). Includes spec 57 (expected_violation:FindSolution, fail_invariant @503s, sweep-large-57).",
   "specs": [
    "1",
    "16",
    "17",
+   "57",
    "73",
    "79",
    "146"

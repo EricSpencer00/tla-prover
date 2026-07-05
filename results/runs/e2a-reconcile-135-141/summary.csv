@@ -1,0 +1,3 @@
+spec,method,sany,tlc,tlc_vacuity,cfg_origin,tlaps,tlaps_obligations,apalache,budget_used,log_path
+135,oracle,pass,pass,clean,original,,,,"{""sany_s"": 0.3, ""tlc_s"": 64.3}",/Users/eric/GitHub/prove-TLA/results/runs/e2a-reconcile-135-141/logs/135.log
+141,oracle,pass,pass,clean,original,,,,"{""sany_s"": 0.2, ""tlc_s"": 81.1}",/Users/eric/GitHub/prove-TLA/results/runs/e2a-reconcile-135-141/logs/141.log
