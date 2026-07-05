@@ -36,6 +36,24 @@ MUTATIONS = [
     # safe to swap textually.
     ("and_to_or", re.compile(r"/\\"), "\\/"),
     ("plus_to_minus", re.compile(r"(?<=\d|\s|\))\s\+\s(?=\d|\w)"), " - "),
+    # \in is unambiguously set-membership everywhere in TLA+ (no other token
+    # contains it as a substring -- \notin is the only lookalike and its
+    # presence would just match "notin" have zero overlap with "\in" since
+    # "\notin" does not contain the substring "\in" -- the token starts
+    # "\not" not "\in"). Swapping to \notin negates the membership test,
+    # which for MC-stub/library modules (whose entire body is often just
+    # ASSUME/EXTENDS/one-liner operator defs with no /\ or "n + m") is
+    # frequently the ONLY available mutation site -- added specifically to
+    # close the NoCandidateMutation gap on holdout specs 13, 14, 105, 106,
+    # 132, 133, 135, 181 (see harness/gen_eval.py corrupt()).
+    ("in_to_notin", re.compile(r"\\in"), "\\notin"),
+    # \cup (set union) and \cap (set intersection) are likewise unambiguous
+    # infix set operators; swapping preserves arity/fixity and SANY parses
+    # either symbol identically, only the runtime semantics change. Kept as
+    # a second independent site so specs with \cup but no \in-adjacent
+    # mutation risk (none currently in the frozen holdout, but future specs)
+    # aren't stranded on \in alone.
+    ("cup_to_cap", re.compile(r"\\cup"), "\\cap"),
 ]
 
 # Tried and DROPPED after testing on real corpus specs (see corpus/configs/MUTATION.md):

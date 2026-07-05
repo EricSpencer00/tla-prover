@@ -185,3 +185,33 @@ def test_corrupt_no_candidates_raises():
     text_with_no_mutation_sites = "---- MODULE Empty ----\n====\n"
     with pytest.raises(gen_eval.NoCandidateMutation):
         gen_eval.corrupt(text_with_no_mutation_sites, seed=1)
+
+
+def test_in_to_notin_mutation_does_not_touch_definition_delimiter():
+    # Regression for the \in -> \notin operator added to close the
+    # NoCandidateMutation gap on MC-stub/library holdout specs (13, 14, 105,
+    # 106, 132, 133, 135, 181) that have no /\ or "n + m" site. The tricky
+    # part: "\in" must never be confused with "==" (definition delimiter) --
+    # they share no characters, but a naive "=" -> "#" mutation (tried and
+    # dropped, see mutation.py) WOULD corrupt "==". This module has both a
+    # "==" definition and a "\in" membership test with nothing else
+    # mutation-eligible (no /\, no "n + m", no \cup), so seed=0 must pick
+    # \in and must leave every "==" untouched.
+    module = (
+        "---- MODULE OnlyIn ----\n"
+        "EXTENDS Naturals\n"
+        "CONSTANT MaxNat\n"
+        "ASSUME MaxNat \\in Nat\n"
+        "NatOverride == 0 .. MaxNat\n"
+        "====\n"
+    )
+    corrupted, record = gen_eval.corrupt(module, seed=0)
+    assert record["mutation"] == "in_to_notin"
+    assert record["original"] == "\\in"
+    assert record["replacement"] == "\\notin"
+    # every "==" definition delimiter survives untouched
+    assert corrupted.count("==") == module.count("==")
+    assert "NatOverride == 0 .. MaxNat" in corrupted
+    # the membership test itself is negated
+    assert "MaxNat \\notin Nat" in corrupted
+    assert "MaxNat \\in Nat" not in corrupted
