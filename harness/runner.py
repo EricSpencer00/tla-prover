@@ -274,40 +274,12 @@ def check_apalache(tla_file: Path, workdir: Path, inv=None, length=5, timeout=30
     return "error", out, dt
 
 
-def eval_spec(num: str, corpus: Path, num2mod, mod2path, cfg_dirs, workroot: Path,
-              logdir: Path, timeout: int, stages):
-    """Evaluate one corpus spec (oracle method: verbatim canonical files)."""
-    row = {"spec": num, "method": "oracle", "sany": None, "tlc": None,
-           "tlc_vacuity": None, "tlaps": None, "apalache": None,
-           "budget_used": {}, "log_path": str(logdir / f"{num}.log")}
-    log_parts = []
-    tla_src = corpus / "tla_files" / f"{num}.tla"
-    if not tla_src.exists():
-        row["sany"] = "no_tla_file"
-        (logdir / f"{num}.log").write_text("no .tla file in corpus\n")
-        return row
-    # documented corpus-defect repair (Amendment 1: "repaired from upstream sources";
-    # for specs where the defect is upstream too, corpus/configs/PATCHES.md records
-    # the minimal hand-authored fix): full-module override, same module name.
-    patch_file = REPO / "corpus" / "configs" / "patches" / f"{num}.tla"
-    text = patch_file.read_text(errors="replace") if patch_file.exists() else tla_src.read_text(errors="replace")
-    if patch_file.exists():
-        row["source_origin"] = "patched"
-    mod = num2mod.get(num)
-    if not mod:
-        row["sany"] = "no_module_header"
-        (logdir / f"{num}.log").write_text("could not extract module name\n")
-        return row
-
-    workdir = workroot / num
-    if workdir.exists():
-        shutil.rmtree(workdir)
-    workdir.mkdir(parents=True)
-    (workdir / f"{mod}.tla").write_text(text)
-    # copy corpus-local deps (transitive) -- a dep can itself have a patch (e.g.
-    # spec 175/MC_spanning EXTENDS spec 176/spanning, whose TypeOK is the actual
-    # defect; the patch lives under 176's own spec number, not 175's).
-    seen, frontier = set(), local_deps(text, mod2path)
+def _write_local_deps(text: str, mod: str, mod2path: dict, workdir: Path, seen: set):
+    """Copy corpus-local deps (transitive) into workdir, patch-aware -- a dep can
+    itself have a patch (e.g. spec 175/MC_spanning EXTENDS spec 176/spanning, whose
+    TypeOK is the actual defect; the patch lives under 176's own spec number, not
+    175's). Mutates and returns `seen` (the set of dep module names already copied)."""
+    frontier = local_deps(text, mod2path) - seen
     while frontier:
         d = frontier.pop()
         if d in seen or d == mod:
@@ -319,7 +291,19 @@ def eval_spec(num: str, corpus: Path, num2mod, mod2path, cfg_dirs, workroot: Pat
             else mod2path[d].read_text(errors="replace")
         (workdir / f"{d}.tla").write_text(dtext)
         frontier |= (local_deps(dtext, mod2path) - seen)
+    return seen
 
+
+def _dispatch_criterion(num: str, mod: str, workdir: Path, cfg_dirs, timeout: int,
+                        stages, row: dict, log_parts: list, num2mod, mod2path,
+                        seen: set, override_cfg=None):
+    """Shared SANY -> TLC/TLAPS dispatch tail (Amendment 1/3 population criterion):
+    state_machine: SANY + non-vacuous TLC; library: SANY only; proof_module: SANY +
+    all TLAPS obligations; expected_violation: SANY + named property violated ->
+    normalized to tlc="pass_expected_violation". Mutates row/log_parts in place;
+    also returns them for convenience. `seen` is the set of dep module names
+    already copied into workdir (so a wrapper's own deps don't duplicate them).
+    override_cfg, if given, is used in place of the reference cfg_dirs lookup."""
     if "sany" in stages:
         st, out, dt = check_sany(workdir / f"{mod}.tla", workdir, timeout)
         row["sany"] = st
@@ -327,12 +311,15 @@ def eval_spec(num: str, corpus: Path, num2mod, mod2path, cfg_dirs, workroot: Pat
         log_parts.append(f"===== SANY ({st}) =====\n{out}")
 
     if "tlc" in stages and row["sany"] == "pass":
-        cfg_text, cfg_origin = None, None
-        for label, d in cfg_dirs:
-            c = d / f"{num}.cfg"
-            if c.exists():
-                cfg_text, cfg_origin = c.read_text(errors="replace"), label
-                break
+        if override_cfg is not None:
+            cfg_text, cfg_origin = override_cfg, "override_injected"
+        else:
+            cfg_text, cfg_origin = None, None
+            for label, d in cfg_dirs:
+                c = d / f"{num}.cfg"
+                if c.exists():
+                    cfg_text, cfg_origin = c.read_text(errors="replace"), label
+                    break
         if cfg_text is None:
             row["tlc"] = "no_cfg"
         else:
@@ -414,6 +401,89 @@ def eval_spec(num: str, corpus: Path, num2mod, mod2path, cfg_dirs, workroot: Pat
         row["tlaps_obligations"] = f"{proved}/{total}"
         row["budget_used"]["tlaps_s"] = round(dt, 1)
         log_parts.append(f"===== TLAPS ({st}, {proved}/{total} obligations) =====\n{out[-8000:]}")
+
+    return row, log_parts
+
+
+def eval_spec(num: str, corpus: Path, num2mod, mod2path, cfg_dirs, workroot: Path,
+              logdir: Path, timeout: int, stages):
+    """Evaluate one corpus spec (oracle method: verbatim canonical files)."""
+    row = {"spec": num, "method": "oracle", "sany": None, "tlc": None,
+           "tlc_vacuity": None, "tlaps": None, "apalache": None,
+           "budget_used": {}, "log_path": str(logdir / f"{num}.log")}
+    log_parts = []
+    tla_src = corpus / "tla_files" / f"{num}.tla"
+    if not tla_src.exists():
+        row["sany"] = "no_tla_file"
+        (logdir / f"{num}.log").write_text("no .tla file in corpus\n")
+        return row
+    # documented corpus-defect repair (Amendment 1: "repaired from upstream sources";
+    # for specs where the defect is upstream too, corpus/configs/PATCHES.md records
+    # the minimal hand-authored fix): full-module override, same module name.
+    patch_file = REPO / "corpus" / "configs" / "patches" / f"{num}.tla"
+    text = patch_file.read_text(errors="replace") if patch_file.exists() else tla_src.read_text(errors="replace")
+    if patch_file.exists():
+        row["source_origin"] = "patched"
+    mod = num2mod.get(num)
+    if not mod:
+        row["sany"] = "no_module_header"
+        (logdir / f"{num}.log").write_text("could not extract module name\n")
+        return row
+
+    workdir = workroot / num
+    if workdir.exists():
+        shutil.rmtree(workdir)
+    workdir.mkdir(parents=True)
+    (workdir / f"{mod}.tla").write_text(text)
+    seen = _write_local_deps(text, mod, mod2path, workdir, set())
+
+    row, log_parts = _dispatch_criterion(num, mod, workdir, cfg_dirs, timeout, stages,
+                                         row, log_parts, num2mod, mod2path, seen)
+
+    (logdir / f"{num}.log").write_text("\n".join(log_parts) or "no stages run\n")
+    shutil.rmtree(workdir, ignore_errors=True)
+    return row
+
+
+def eval_module_text(num: str, module_text: str, corpus: Path, num2mod, mod2path,
+                     cfg_dirs, workroot: Path, logdir: Path, timeout: int, stages,
+                     override_cfg=None):
+    """Score an arbitrary module string (e.g. a model-generated or model-repaired
+    candidate, cf. harness.gen_eval.extract_module) for corpus spec `num` under
+    exactly the same criterion machinery as eval_spec: dependency resolution
+    (with patches), wrapper resolution, policy.json handling, and the population
+    criterion (state_machine / library / proof_module / expected_violation).
+    TLC stays SERIAL (call this with jobs=1 at the sweep level) and the 120s
+    timeout budget is the caller's `timeout` arg, same as eval_spec.
+
+    The injected module's declared name (parsed from its own `---- MODULE X ----`
+    header, NOT assumed to be num2mod[num]) is what it is written to disk as --
+    a candidate that mis-names itself is a real scoring outcome (sany=bad_module_name),
+    not something this function should silently correct.
+
+    override_cfg, if given, replaces the reference cfg_dirs lookup for spec num
+    (e.g. to score under a draft/candidate .cfg instead of the corpus original).
+    """
+    row = {"spec": num, "method": "injected", "sany": None, "tlc": None,
+           "tlc_vacuity": None, "tlaps": None, "apalache": None,
+           "budget_used": {}, "log_path": str(logdir / f"{num}.log")}
+    log_parts = []
+    mod = module_name(module_text)
+    if not mod:
+        row["sany"] = "no_module_header"
+        (logdir / f"{num}.log").write_text("could not extract module name from injected text\n")
+        return row
+
+    workdir = workroot / num
+    if workdir.exists():
+        shutil.rmtree(workdir)
+    workdir.mkdir(parents=True)
+    (workdir / f"{mod}.tla").write_text(module_text)
+    seen = _write_local_deps(module_text, mod, mod2path, workdir, set())
+
+    row, log_parts = _dispatch_criterion(num, mod, workdir, cfg_dirs, timeout, stages,
+                                         row, log_parts, num2mod, mod2path, seen,
+                                         override_cfg=override_cfg)
 
     (logdir / f"{num}.log").write_text("\n".join(log_parts) or "no stages run\n")
     shutil.rmtree(workdir, ignore_errors=True)
