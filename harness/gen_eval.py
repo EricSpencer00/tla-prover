@@ -298,20 +298,20 @@ def corruption_seed(holdout_hash: str, num: str):
     return int(h[:8], 16)
 
 
-def canonical_spec_text(num: str, mod2path: dict, corpus: Path):
+def canonical_spec_text(num: str, corpus: Path):
     """Same source precedence as runner/repair: a committed patch overrides the
-    corpus original."""
+    corpus original. Reads tla_files/{num}.tla DIRECTLY by spec number -- never
+    via mod2path, which is keyed by module name and so drops duplicate corpus
+    entries (spec 158 is byte-identical to 164 [module Voting], 183 to 86
+    [module TLAPS]; build_module_index keeps only the last path per module
+    name, so a mod2path scan finds no path with stem 158/183)."""
     patch = REPO / "corpus" / "configs" / "patches" / f"{num}.tla"
     if patch.exists():
         return patch.read_text(errors="replace")
-    mod = None
-    for m, p in mod2path.items():
-        if p.stem == num:
-            mod = m
-            break
-    if mod is None:
+    src = corpus / "tla_files" / f"{num}.tla"
+    if not src.exists():
         raise FileNotFoundError(f"no tla_files/{num}.tla in corpus")
-    return mod2path[mod].read_text(errors="replace")
+    return src.read_text(errors="replace")
 
 
 def row_key(row):
@@ -344,10 +344,60 @@ def _score(num, module_text, corpus, num2mod, mod2path, cfg_dirs, workroot, logd
           timeout):
     row = eval_module_text(num, module_text, corpus, num2mod, mod2path, cfg_dirs,
                            workroot, logdir, timeout, stages=("sany", "tlc", "tlaps"))
-    verdict = verdict_of(num, row) if row.get("sany") else "fail:no_module_header"
+    # eval_module_text always sets row["sany"] (a headerless candidate gets
+    # sany="no_module_header"), so verdict_of covers every outcome.
+    verdict = verdict_of(num, row)
     log_path = Path(row["log_path"])
     log_text = log_path.read_text(errors="replace") if log_path.exists() else ""
     return row, verdict, log_text
+
+
+def find_valid_corruption(spec_text, seed, scorer):
+    """E2C_HANDOFF §4 step 3 precondition: the corrupted module must still
+    SANY-parse AND fail the population criterion -- otherwise the repair task is
+    either unparseable noise (repairing a syntax error is a different, easier
+    task than repairing a semantic bug) or vacuous (nothing to repair).
+
+    Deterministic site fallback: enumerate ALL candidate mutation sites in the
+    same stable order corrupt() uses (MUTATIONS operator order, then re.finditer
+    scan order), start at the seeded index (identical to corrupt()'s pick, so
+    when the seeded candidate is valid the two functions agree exactly), and
+    walk the ring. Each candidate's corrupted text is scored by `scorer(text) ->
+    (row, verdict, log_text)` (real SANY + criterion via eval_module_text in
+    production; stubbed in unit tests). Accept the first candidate with
+    row["sany"] == "pass" and verdict != "pass".
+
+    Returns (corrupted_text, mutation_record, error_evidence) on success --
+    mutation_record additionally carries candidate_index, seeded_index,
+    candidates_total, rejected (each rejected candidate's index/mutation/reason/
+    verdict) and corrupted_verdict. On failure returns (None, skip_record, None)
+    where skip_record["skip"] is "no_mutation_site" (zero candidates) or
+    "no_valid_corruption" (every candidate rejected, rejections listed)."""
+    candidates = []
+    for label, regex, replacement in MUTATIONS:
+        for m in regex.finditer(spec_text):
+            candidates.append((label, m.start(), m.end(), m.group(0), replacement))
+    if not candidates:
+        return None, {"skip": "no_mutation_site", "candidates_total": 0}, None
+    start = random.Random(seed).randrange(len(candidates))
+    rejected = []
+    for j in range(len(candidates)):
+        idx = (start + j) % len(candidates)
+        label, s, e, original, replacement = candidates[idx]
+        text = spec_text[:s] + replacement + spec_text[e:]
+        row, verdict, log_text = scorer(text)
+        if row.get("sany") == "pass" and verdict != "pass":
+            record = {"mutation": label, "offset": s, "original": original,
+                      "replacement": replacement, "candidate_index": idx,
+                      "seeded_index": start, "candidates_total": len(candidates),
+                      "rejected": rejected, "corrupted_verdict": verdict}
+            return text, record, log_text
+        rejected.append({"candidate_index": idx, "mutation": label,
+                         "reason": ("sany_fail" if row.get("sany") != "pass"
+                                    else "still_passes"),
+                         "verdict": verdict})
+    return None, {"skip": "no_valid_corruption", "seeded_index": start,
+                  "candidates_total": len(candidates), "rejected": rejected}, None
 
 
 def gen_eval_spec_framing_a(num, description_json, cfg_text, module_name_for_spec,
@@ -381,18 +431,15 @@ def gen_eval_spec_framing_a(num, description_json, cfg_text, module_name_for_spe
                                               if k2 not in ("spec",)}}
 
 
-def gen_eval_spec_framing_b(num, canonical_text, holdout_hash, model, run_id, k,
-                            corpus, num2mod, mod2path, cfg_dirs, workroot, logdir,
-                            done):
-    """Framing B: corrupt the canonical spec with the deterministic per-spec seed,
-    score the corruption to get error evidence, build the repair prompt, then one
-    greedy + k temperature-0.8 samples of repair attempts. Yields row dicts (with
+def gen_eval_spec_framing_b(num, corrupted_text, mutation_record, seed,
+                            error_evidence, model, run_id, k, corpus, num2mod,
+                            mod2path, cfg_dirs, workroot, logdir, done):
+    """Framing B repair sampling: given a PRECOMPUTED valid corruption (from
+    find_valid_corruption -- corrupted text SANY-parses, criterion fails) and
+    its error evidence, build the repair prompt, then one greedy + k
+    temperature-0.8 samples of repair attempts. Yields row dicts (with
     mutation_record on every row, per the E2.c handoff)."""
-    seed = corruption_seed(holdout_hash, num)
-    corrupted_text, mutation_record = corrupt(canonical_text, seed)
-    _, _, broken_log = _score(num, corrupted_text, corpus, num2mod, mod2path,
-                              cfg_dirs, workroot, logdir, TLC_TIMEOUT_S)
-    error_evidence = _error_evidence({}, broken_log)
+    error_evidence = _error_evidence({}, error_evidence)
     prompt = build_repair_prompt(corrupted_text, error_evidence)
     prompt_sha = hashlib.sha256(prompt.encode()).hexdigest()
     samples = [("greedy", 0.0)] + [(i, TEMPERATURE) for i in range(1, k + 1)]
@@ -473,18 +520,34 @@ def run_gen_eval(corpus: Path, run_id: str, framing: str, model_name: str, k: in
                     num, desc, cfg_text, mod, model, run_id, k, corpus, num2mod,
                     mod2path, cfg_dirs, workroot, logdir, done)
             else:
+                def skip_row(verdict, extra=None):
+                    """Skips are LEDGERED rows (Rule 8), never console-only."""
+                    row = {"spec": num, "framing": "B", "model": model.id,
+                           "sample": "corruption", "verdict": verdict,
+                           "timestamp": time.time(), **(extra or {})}
+                    if (num, "corruption") not in done:
+                        fh.write(json.dumps(row) + "\n")
+                        fh.flush()
                 try:
-                    canonical = canonical_spec_text(num, mod2path, corpus)
+                    canonical = canonical_spec_text(num, corpus)
                 except FileNotFoundError:
+                    skip_row("skipped:no_source_file")
                     print(f"[{i}/{len(todo)}] spec {num}: skipped (no source file)")
                     continue
-                try:
-                    gen = gen_eval_spec_framing_b(
-                        num, canonical, holdout_hash, model, run_id, k, corpus,
-                        num2mod, mod2path, cfg_dirs, workroot, logdir, done)
-                except NoCandidateMutation:
-                    print(f"[{i}/{len(todo)}] spec {num}: skipped (no mutation site)")
+                seed = corruption_seed(holdout_hash, num)
+                corrupted, mutation_record, evidence = _corruption_for_spec(
+                    num, canonical, seed, rundir, corpus, num2mod, mod2path,
+                    cfg_dirs, workroot, logdir)
+                if corrupted is None:
+                    skip_row(f"skipped:{mutation_record['skip']}",
+                            {"mutation_record": mutation_record, "seed": seed})
+                    print(f"[{i}/{len(todo)}] spec {num}: "
+                         f"skipped ({mutation_record['skip']}) [ledgered]")
                     continue
+                gen = gen_eval_spec_framing_b(
+                    num, corrupted, mutation_record, seed, evidence, model,
+                    run_id, k, corpus, num2mod, mod2path, cfg_dirs, workroot,
+                    logdir, done)
             r = results.setdefault(num, {"greedy": False, "samples": []})
             n_written = 0
             for row in gen:
@@ -509,6 +572,32 @@ def run_gen_eval(corpus: Path, run_id: str, framing: str, model_name: str, k: in
     print(f"\n=== {run_id}: framing {framing}, model={model.id} ===")
     print(f"  n={summary['n']}  pass@1={summary['pass@1']}  pass@{k}={summary[f'pass@{k}']}")
     return summary
+
+
+def _corruption_for_spec(num, canonical, seed, rundir, corpus, num2mod, mod2path,
+                         cfg_dirs, workroot, logdir):
+    """find_valid_corruption with a per-run cache (rundir/corruptions/{num}.json):
+    the precondition check costs real SANY/TLC time per candidate, so a resumed
+    run must not redo it. The cache stores the seed it was computed under; a
+    mismatched seed (shouldn't happen -- seeds are pure functions of the frozen
+    holdout hash) invalidates the entry rather than silently reusing it."""
+    cachedir = rundir / "corruptions"
+    cachedir.mkdir(exist_ok=True)
+    cache = cachedir / f"{num}.json"
+    if cache.exists():
+        c = json.loads(cache.read_text())
+        if c.get("seed") == seed:
+            return c["corrupted_text"], c["mutation_record"], c["error_evidence"]
+
+    def scorer(text):
+        return _score(num, text, corpus, num2mod, mod2path, cfg_dirs, workroot,
+                      logdir, TLC_TIMEOUT_S)
+
+    corrupted, record, evidence = find_valid_corruption(canonical, seed, scorer)
+    cache.write_text(json.dumps({
+        "seed": seed, "corrupted_text": corrupted, "mutation_record": record,
+        "error_evidence": evidence}, indent=2))
+    return corrupted, record, evidence
 
 
 def _resolve_cfg(num, cfg_dirs):

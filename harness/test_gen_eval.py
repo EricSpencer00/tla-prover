@@ -353,23 +353,199 @@ def test_gen_eval_spec_framing_b_records_mutation_and_seed(monkeypatch, tmp_path
     logdir = tmp_path / "logs"
     logdir.mkdir()
     model = _FixedModel(reply)
-    canonical = reply  # only \in site present, matches test_in_to_notin above
+    corrupted = reply.replace("\\in", "\\notin")
+    mutation_record = {"mutation": "in_to_notin", "offset": 60,
+                       "original": "\\in", "replacement": "\\notin",
+                       "candidate_index": 0, "seeded_index": 0,
+                       "candidates_total": 1, "rejected": [],
+                       "corrupted_verdict": "fail:sany=fail"}
+    seed = gen_eval.corruption_seed("some-frozen-hash", "999")
 
     rows = list(gen_eval.gen_eval_spec_framing_b(
-        "999", canonical, "some-frozen-hash", model, "test-run", 1,
-        corpus=tmp_path, num2mod={}, mod2path={}, cfg_dirs=[],
+        "999", corrupted, mutation_record, seed, "sany error evidence", model,
+        "test-run", 1, corpus=tmp_path, num2mod={}, mod2path={}, cfg_dirs=[],
         workroot=tmp_path / "work", logdir=logdir, done=set()))
 
     assert len(rows) == 2  # greedy + k=1
     for r in rows:
         assert r["framing"] == "B"
         assert r["mutation_record"]["mutation"] == "in_to_notin"
-        assert r["seed"] == gen_eval.corruption_seed("some-frozen-hash", "999")
+        assert r["seed"] == seed
 
 
-def test_gen_eval_spec_framing_b_raises_when_nothing_to_corrupt():
-    with pytest.raises(gen_eval.NoCandidateMutation):
-        list(gen_eval.gen_eval_spec_framing_b(
-            "999", "---- MODULE Empty ----\n====\n", "hash", _FixedModel("x"),
-            "run", 1, corpus=None, num2mod={}, mod2path={}, cfg_dirs=[],
-            workroot=None, logdir=None, done=set()))
+# --------------------------------------- corruption precondition (E2C §4.3)
+
+def test_find_valid_corruption_accepts_seeded_candidate_when_valid():
+    # REALISH_MODULE seeded pick must be accepted when it sany-parses and fails.
+    def scorer(text):
+        return {"sany": "pass"}, "fail:tlc=fail_invariant", "tlc log"
+    corrupted, record, evidence = gen_eval.find_valid_corruption(
+        REALISH_MODULE, seed=42, scorer=scorer)
+    ref_corrupted, ref_record = gen_eval.corrupt(REALISH_MODULE, seed=42)
+    assert corrupted == ref_corrupted  # first candidate tried == corrupt()'s pick
+    assert record["mutation"] == ref_record["mutation"]
+    assert record["offset"] == ref_record["offset"]
+    assert record["candidate_index"] == record["seeded_index"]
+    assert record["rejected"] == []
+    assert record["corrupted_verdict"] == "fail:tlc=fail_invariant"
+    assert evidence == "tlc log"
+
+
+def test_find_valid_corruption_falls_back_past_sany_breaking_candidates():
+    # first candidate breaks SANY -> must be rejected (reason recorded) and the
+    # next candidate in rotation accepted.
+    state = {"n": 0}
+
+    def scorer(text):
+        state["n"] += 1
+        if state["n"] == 1:
+            return {"sany": "fail"}, "fail:sany=fail", "sany parse error"
+        return {"sany": "pass"}, "fail:tlc=fail_invariant", "tlc log"
+
+    corrupted, record, evidence = gen_eval.find_valid_corruption(
+        REALISH_MODULE, seed=42, scorer=scorer)
+    assert corrupted is not None
+    assert len(record["rejected"]) == 1
+    assert record["rejected"][0]["reason"] == "sany_fail"
+    assert record["candidate_index"] == \
+        (record["seeded_index"] + 1) % record["candidates_total"]
+
+
+def test_find_valid_corruption_rejects_still_passing_candidates():
+    state = {"n": 0}
+
+    def scorer(text):
+        state["n"] += 1
+        if state["n"] == 1:
+            return {"sany": "pass"}, "pass", "clean tlc log"  # mutation is a no-op
+        return {"sany": "pass"}, "fail:tlc=fail_invariant", "tlc log"
+
+    corrupted, record, _ = gen_eval.find_valid_corruption(
+        REALISH_MODULE, seed=42, scorer=scorer)
+    assert corrupted is not None
+    assert record["rejected"][0]["reason"] == "still_passes"
+
+
+def test_find_valid_corruption_no_mutation_site():
+    def scorer(text):
+        raise AssertionError("scorer must not be called with zero candidates")
+    corrupted, record, evidence = gen_eval.find_valid_corruption(
+        "---- MODULE Empty ----\n====\n", seed=1, scorer=scorer)
+    assert corrupted is None
+    assert record["skip"] == "no_mutation_site"
+    assert evidence is None
+
+
+def test_find_valid_corruption_no_valid_candidate_returns_skip_record():
+    def scorer(text):
+        return {"sany": "fail"}, "fail:sany=fail", "parse error"
+    corrupted, record, evidence = gen_eval.find_valid_corruption(
+        REALISH_MODULE, seed=3, scorer=scorer)
+    assert corrupted is None
+    assert record["skip"] == "no_valid_corruption"
+    assert record["candidates_total"] == len(record["rejected"])
+    assert all(r["reason"] == "sany_fail" for r in record["rejected"])
+    assert evidence is None
+
+
+def test_find_valid_corruption_is_deterministic():
+    def scorer(text):
+        return {"sany": "pass"}, "fail:tlc=fail_invariant", "log"
+    a = gen_eval.find_valid_corruption(REALISH_MODULE, seed=9, scorer=scorer)
+    b = gen_eval.find_valid_corruption(REALISH_MODULE, seed=9, scorer=scorer)
+    assert a == b
+
+
+# ------------------------------------------------- canonical text (158/183)
+
+def test_canonical_spec_text_reads_duplicate_numbered_specs(tmp_path):
+    # Regression: specs 158/183 are byte-identical duplicates of 164/86 (same
+    # module name -> mod2path keeps only one path per module name), so any
+    # mod2path-based lookup loses them. canonical_spec_text must read
+    # tla_files/{num}.tla directly.
+    (tmp_path / "tla_files").mkdir()
+    (tmp_path / "tla_files" / "158.tla").write_text("---- MODULE Voting ----\n====")
+    (tmp_path / "tla_files" / "164.tla").write_text("---- MODULE Voting ----\n====")
+    text = gen_eval.canonical_spec_text("158", tmp_path)
+    assert "MODULE Voting" in text
+
+
+def test_canonical_spec_text_missing_raises(tmp_path):
+    (tmp_path / "tla_files").mkdir()
+    with pytest.raises(FileNotFoundError):
+        gen_eval.canonical_spec_text("120", tmp_path)
+
+
+# --------------------------------------------- corruption cache + skip rows
+
+def test_corruption_for_spec_caches_and_resumes(monkeypatch, tmp_path):
+    calls = {"n": 0}
+
+    def fake_score(num, text, corpus, num2mod, mod2path, cfg_dirs, workroot,
+                   logdir, timeout):
+        calls["n"] += 1
+        return {"sany": "pass"}, "fail:tlc=fail_invariant", "tlc log"
+
+    monkeypatch.setattr(gen_eval, "_score", fake_score)
+    rundir = tmp_path / "run"
+    rundir.mkdir()
+    args = ("999", REALISH_MODULE, 42, rundir, None, {}, {}, [], None, None)
+
+    c1, r1, e1 = gen_eval._corruption_for_spec(*args)
+    n_after_first = calls["n"]
+    assert c1 is not None and n_after_first >= 1
+    assert (rundir / "corruptions" / "999.json").exists()
+
+    # second call (resume): served from cache, zero additional scoring
+    c2, r2, e2 = gen_eval._corruption_for_spec(*args)
+    assert calls["n"] == n_after_first
+    assert (c2, r2, e2) == (c1, r1, e1)
+
+
+def test_corruption_for_spec_caches_skip_outcome(monkeypatch, tmp_path):
+    def fake_score(num, text, corpus, num2mod, mod2path, cfg_dirs, workroot,
+                   logdir, timeout):
+        return {"sany": "fail"}, "fail:sany=fail", "parse error"
+
+    monkeypatch.setattr(gen_eval, "_score", fake_score)
+    rundir = tmp_path / "run"
+    rundir.mkdir()
+    args = ("999", REALISH_MODULE, 42, rundir, None, {}, {}, [], None, None)
+    c, record, e = gen_eval._corruption_for_spec(*args)
+    assert c is None and record["skip"] == "no_valid_corruption"
+    # cached skip survives resume
+    monkeypatch.setattr(gen_eval, "_score",
+                        lambda *a: (_ for _ in ()).throw(AssertionError("no rescore")))
+    c2, record2, _ = gen_eval._corruption_for_spec(*args)
+    assert c2 is None and record2["skip"] == "no_valid_corruption"
+
+
+def test_run_gen_eval_framing_b_ledgers_skip_rows(monkeypatch, tmp_path):
+    # A spec whose every corruption candidate breaks SANY must yield a
+    # "skipped:no_valid_corruption" ROW in rows.jsonl, not a console-only skip.
+    corpus = tmp_path / "corpus"
+    (corpus / "tla_files").mkdir(parents=True)
+    (corpus / "descriptions").mkdir()
+    (corpus / "cfg").mkdir()
+    (corpus / "tla_files" / "2.tla").write_text(REALISH_MODULE)
+
+    def fake_score(num, text, corpus_, num2mod, mod2path, cfg_dirs, workroot,
+                   logdir, timeout):
+        return {"sany": "fail"}, "fail:sany=fail", "parse error"
+
+    monkeypatch.setattr(gen_eval, "_score", fake_score)
+    rundir = tmp_path / "results-run"
+    monkeypatch.setattr(gen_eval, "REPO", tmp_path)  # results/runs under tmp
+    monkeypatch.setattr(gen_eval, "HOLDOUT_FILE", tmp_path / "holdout.json")
+    (tmp_path / "holdout.json").write_text(json.dumps({"holdout_specs": [2]}))
+
+    gen_eval.run_gen_eval(corpus, "skiprow-test", "B", "local-stub", 1,
+                          specs=["2"])
+
+    rows_path = tmp_path / "results" / "runs" / "skiprow-test" / "rows.jsonl"
+    rows = [json.loads(l) for l in rows_path.read_text().splitlines() if l]
+    assert len(rows) == 1
+    assert rows[0]["spec"] == "2"
+    assert rows[0]["sample"] == "corruption"
+    assert rows[0]["verdict"] == "skipped:no_valid_corruption"
+    assert rows[0]["mutation_record"]["skip"] == "no_valid_corruption"
