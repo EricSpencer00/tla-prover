@@ -1,0 +1,120 @@
+{
+  "run_id": "g1-sweep-gptoss20b",
+  "corpus": "/Users/eric/GitHub/tla_benchmark/data",
+  "method_family": "repair",
+  "model": "openai/gpt-oss-20b",
+  "n_specs": 206,
+  "budget_config": {
+    "_comment": "W1.1 fixed per-spec budget escalation schedule (PLAN.md Stage 1). Escalation order is FIXED: baseline -> repair-r1 -> repair-r2 (iterative rounds, each fed the previous candidate's failure evidence) -> repair-bestofN (independent samples at higher temperature) -> repair-mutation (symbolic operator swaps on near-misses). 'defaults' applies to every spec; 'per_spec' entries override individual keys only, with a '_reason' string required for each (Rule 1 discipline: no silent budget games). Changing this file changes the reported inference budget -- every ledger row records the values in force (Rule 3).",
+    "defaults": {
+      "iterative_rounds": 2,
+      "best_of_n": 8,
+      "mutation_pass": true,
+      "timeout_s": 120,
+      "max_candidates_total": 24,
+      "trace_max_states": 8,
+      "evidence_max_chars": 6000,
+      "fragment_max_chars": 4000,
+      "spec_max_chars": 24000,
+      "near_miss_max_diff_lines": 12,
+      "temperature_rounds": 0.2,
+      "temperature_best_of_n": 0.8,
+      "max_tokens": 16384
+    },
+    "per_spec": {
+      "_comment": "zero-escalation specs: state spaces where NO candidate can be verified at local TLC budgets -- 7 HPC-certified intractable (0.4-7.0B states, GATE0_STATUS.md 'HPC sweep', APALACHE_FINDINGS.md) + 6 HPC-closed-only-at-24-worker/5.5h budgets. A repair 'pass' is unmeasurable locally by definition, so escalation rows would be noise, not measurement (STAGE1_STRATEGY.md fix 1, Fable-5 review 2026-07-04). Each keeps its baseline row + state-explosion failure class in the 206 matrix.",
+      "1": {
+        "iterative_rounds": 0,
+        "best_of_n": 0,
+        "mutation_pass": false,
+        "_reason": "HPC-closed (clean pass at 24w/5.5h); locally unverifiable"
+      },
+      "16": {
+        "iterative_rounds": 0,
+        "best_of_n": 0,
+        "mutation_pass": false,
+        "_reason": "HPC-closed; locally unverifiable"
+      },
+      "17": {
+        "iterative_rounds": 0,
+        "best_of_n": 0,
+        "mutation_pass": false,
+        "_reason": "HPC-closed; locally unverifiable"
+      },
+      "73": {
+        "iterative_rounds": 0,
+        "best_of_n": 0,
+        "mutation_pass": false,
+        "_reason": "HPC-closed; locally unverifiable"
+      },
+      "79": {
+        "iterative_rounds": 0,
+        "best_of_n": 0,
+        "mutation_pass": false,
+        "_reason": "HPC-closed; locally unverifiable"
+      },
+      "146": {
+        "iterative_rounds": 0,
+        "best_of_n": 0,
+        "mutation_pass": false,
+        "_reason": "HPC-closed; locally unverifiable"
+      },
+      "28": {
+        "iterative_rounds": 0,
+        "best_of_n": 0,
+        "mutation_pass": false,
+        "timeout_s": 600,
+        "_reason": "HPC-certified intractable (4.99B states, no convergence)"
+      },
+      "40": {
+        "iterative_rounds": 0,
+        "best_of_n": 0,
+        "mutation_pass": false,
+        "timeout_s": 600,
+        "_reason": "HPC-certified intractable (413M generated, depth 121+)"
+      },
+      "48": {
+        "iterative_rounds": 0,
+        "best_of_n": 0,
+        "mutation_pass": false,
+        "timeout_s": 600,
+        "_reason": "HPC-certified intractable (665M states)"
+      },
+      "49": {
+        "iterative_rounds": 0,
+        "best_of_n": 0,
+        "mutation_pass": false,
+        "timeout_s": 600,
+        "_reason": "HPC-certified intractable (5.9B states)"
+      },
+      "60": {
+        "iterative_rounds": 0,
+        "best_of_n": 0,
+        "mutation_pass": false,
+        "timeout_s": 600,
+        "_reason": "HPC-certified intractable + Apalache-blocked (_anim)"
+      },
+      "64": {
+        "iterative_rounds": 0,
+        "best_of_n": 0,
+        "mutation_pass": false,
+        "timeout_s": 600,
+        "_reason": "HPC-certified intractable + Apalache-blocked (_anim)"
+      },
+      "89": {
+        "iterative_rounds": 0,
+        "best_of_n": 0,
+        "mutation_pass": false,
+        "timeout_s": 600,
+        "_reason": "HPC-certified intractable (7.0B states)"
+      }
+    }
+  },
+  "budget_config_sha256": "a4e3b4410871caeeb166da2debb7eb22778765d931a827537d86bba0cb30e27d",
+  "sequential": true,
+  "note": "one verification at a time (TIMEOUT_CONTENTION.md)",
+  "model_env": {
+    "OPENAI_BASE_URL": "https://inference-api.alcf.anl.gov/resource_server/sophia/vllm/v1",
+    "OPENAI_RPM": "30"
+  }
+}

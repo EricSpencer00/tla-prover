@@ -1,0 +1,41 @@
+---- MODULE KnuthYao ----
+EXTENDS DyadicRationals
+
+VARIABLES p, state, flip
+
+vars == <<p, state, flip>>
+
+Done == {"1", "2", "3", "4", "5", "6"}
+Flip == { "H", "T" }
+
+Transition == [s0 |-> [H |-> "s1", T |-> "s2"],
+               s1 |-> [H |-> "s3", T |-> "s4"],
+               s2 |-> [H |-> "s5", T |-> "s6"],
+               s3 |-> [H |-> "s1", T |-> "1" ],
+               s4 |-> [H |-> "2",  T |-> "3" ],
+               s5 |-> [H |-> "4",  T |-> "5" ],
+               s6 |-> [H |-> "6",  T |-> "s2"]]
+
+TossCoin == flip' \in Flip
+
+(* Bound on the denominator to keep the state space finite.  The bound
+   2^31 matches the machine integer limit used by the original
+   implementation.  After p.den reaches this value we stop halving
+   to preserve a finite state space for TLC.  This modification
+   does not affect the eventual termination behaviour of the
+   state transition, only the probability value. *)
+Next == /\ state \notin Done
+        /\ state' = Transition[state][flip]
+        /\ p' = IF p.den < 2 ^ 31 THEN Half(p) ELSE p
+        /\ TossCoin
+
+Init == /\ state = "s0"
+        /\ p     = One
+        /\ flip  \in Flip
+
+Spec == Init /\ [][Next]_vars /\ WF_vars(Next)
+
+(* TODO uncomment when DyadicRationals is fixed *)
+(* THEOREM Converges == \A e \in DyadicRationals \ {0} : Spec => <>(state \in Done \/ p < e) *)
+
+====

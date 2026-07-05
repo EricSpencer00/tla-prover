@@ -1,0 +1,68 @@
+[
+  {
+    "spec": "66",
+    "verdict": "REVIEW",
+    "checked_names": [
+      "JsonInv"
+    ],
+    "structural_names": [
+      "Spec"
+    ],
+    "touched_checked_defs": [
+      "Trace"
+    ],
+    "touched_structural_defs": [],
+    "total_defs_changed": [
+      "Trace"
+    ],
+    "won_via": "repair-bestofN"
+  },
+  {
+    "spec": "81",
+    "verdict": "CLEAN",
+    "checked_names": [],
+    "structural_names": [],
+    "touched_checked_defs": [],
+    "touched_structural_defs": [],
+    "total_defs_changed": [
+      "Cmd"
+    ],
+    "won_via": "repair-r2"
+  },
+  {
+    "spec": "85",
+    "verdict": "CLEAN",
+    "checked_names": [],
+    "structural_names": [],
+    "touched_checked_defs": [],
+    "touched_structural_defs": [],
+    "total_defs_changed": [
+      "Cmd"
+    ],
+    "won_via": "repair-bestofN"
+  },
+  {
+    "spec": "91",
+    "verdict": "STRUCTURAL",
+    "checked_names": [
+      "Convergence",
+      "Safety",
+      "TypeOK"
+    ],
+    "structural_names": [
+      "Constraint",
+      "FairSpec",
+      "ReductionNext"
+    ],
+    "touched_checked_defs": [],
+    "touched_structural_defs": [
+      "GossipAndReduction",
+      "IncrementAndReduction"
+    ],
+    "total_defs_changed": [
+      "GossipAndReduction",
+      "IncrementAndReduction"
+    ],
+    "won_via": "repair-r2"
+  }
+]

@@ -34,3 +34,18 @@ Baseline (oracle, no model): 161. Genuine model contribution: **5 repairs**
 
 GATE1_STATUS.md reports **166**, never the naive 170. Four false passes caught —
 exactly what Rule 5 exists to catch, and what TLC alone cannot see.
+
+## Arm 2 (gpt-oss-20b) — audit + baseline-contention note (2026-07-05)
+
+Model repairs: 66, 81, 85 genuine (same as arm 1's subset); **91 REJECTED** —
+same false pass as arm 1 (STRUCTURAL, dropped GossipAndReduction/
+IncrementAndReduction disjuncts from Next). gpt-oss-20b closes a strict subset of
+gpt-oss-120b (no 141/194) — expected for the smaller sibling.
+
+**Baseline-contention finding (measurement integrity):** arm 2's baseline read
+154, not the true 161 — 7 specs (12,14,30,31,35,36,112) FALSE-TIMED-OUT at the
+120–150s boundary under machine load (concurrent audits/scripts). All 7 are
+already GATE0_STATUS.md-documented false-timeout-prone specs; they pass at rest
+(arm 1 got them). The oracle-local baseline is 161; 154 is contention noise. ACTION:
+the canonical oracle sweep (gate0-oracle-canonical) must run on a QUIET machine and
+any boundary timeout re-verified in isolation (TIMEOUT_CONTENTION.md).
