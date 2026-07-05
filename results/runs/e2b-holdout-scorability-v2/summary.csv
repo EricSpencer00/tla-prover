@@ -1,0 +1,31 @@
+spec,method,sany,tlc,tlc_vacuity,cfg_origin,tlaps,tlaps_obligations,apalache,budget_used,log_path
+2,oracle,pass,pass,clean,draft,,,,"{""sany_s"": 0.2, ""tlc_s"": 15.9}",/Users/eric/GitHub/prove-TLA/results/runs/e2b-holdout-scorability-v2/logs/2.log
+5,oracle,pass,pass,clean,draft,,,,"{""sany_s"": 0.2, ""tlc_s"": 1.3}",/Users/eric/GitHub/prove-TLA/results/runs/e2b-holdout-scorability-v2/logs/5.log
+13,oracle,pass,pass,clean,original,,,,"{""sany_s"": 0.2, ""tlc_s"": 7.2}",/Users/eric/GitHub/prove-TLA/results/runs/e2b-holdout-scorability-v2/logs/13.log
+14,oracle,pass,pass,clean,original,,,,"{""sany_s"": 0.2, ""tlc_s"": 108.1}",/Users/eric/GitHub/prove-TLA/results/runs/e2b-holdout-scorability-v2/logs/14.log
+15,oracle,pass,pass,clean,original,,,,"{""sany_s"": 0.3, ""tlc_s"": 7.0}",/Users/eric/GitHub/prove-TLA/results/runs/e2b-holdout-scorability-v2/logs/15.log
+30,oracle,pass,pass,clean,draft,,,,"{""sany_s"": 0.2, ""tlc_s"": 80.0}",/Users/eric/GitHub/prove-TLA/results/runs/e2b-holdout-scorability-v2/logs/30.log
+32,oracle,pass,pass,clean,original,,,,"{""sany_s"": 0.2, ""tlc_s"": 1.3}",/Users/eric/GitHub/prove-TLA/results/runs/e2b-holdout-scorability-v2/logs/32.log
+37,oracle,pass,pass,clean,original,,,,"{""sany_s"": 0.2, ""tlc_s"": 0.7}",/Users/eric/GitHub/prove-TLA/results/runs/e2b-holdout-scorability-v2/logs/37.log
+41,oracle,pass,error,,draft,,,,"{""sany_s"": 0.2, ""tlc_s"": 0.3}",/Users/eric/GitHub/prove-TLA/results/runs/e2b-holdout-scorability-v2/logs/41.log
+55,oracle,pass,pass,clean,original,,,,"{""sany_s"": 0.2, ""tlc_s"": 0.8}",/Users/eric/GitHub/prove-TLA/results/runs/e2b-holdout-scorability-v2/logs/55.log
+86,oracle,pass,pass,clean,draft,,,,"{""sany_s"": 0.2, ""tlc_s"": 0.7}",/Users/eric/GitHub/prove-TLA/results/runs/e2b-holdout-scorability-v2/logs/86.log
+95,oracle,pass,pass,clean,original,,,,"{""sany_s"": 0.2, ""tlc_s"": 5.4}",/Users/eric/GitHub/prove-TLA/results/runs/e2b-holdout-scorability-v2/logs/95.log
+105,oracle,pass,pass,clean,draft,,,,"{""sany_s"": 0.2, ""tlc_s"": 0.7}",/Users/eric/GitHub/prove-TLA/results/runs/e2b-holdout-scorability-v2/logs/105.log
+106,oracle,pass,pass,clean,draft,,,,"{""sany_s"": 0.2, ""tlc_s"": 0.7}",/Users/eric/GitHub/prove-TLA/results/runs/e2b-holdout-scorability-v2/logs/106.log
+121,oracle,pass,pass,clean,draft,,,,"{""sany_s"": 0.2, ""tlc_s"": 0.7}",/Users/eric/GitHub/prove-TLA/results/runs/e2b-holdout-scorability-v2/logs/121.log
+128,oracle,pass,pass,clean,override,,,,"{""sany_s"": 0.3, ""tlc_s"": 3.3}",/Users/eric/GitHub/prove-TLA/results/runs/e2b-holdout-scorability-v2/logs/128.log
+131,oracle,pass,error,,draft,pass,97/97,,"{""sany_s"": 0.2, ""tlc_s"": 0.8, ""tlaps_s"": 6.7}",/Users/eric/GitHub/prove-TLA/results/runs/e2b-holdout-scorability-v2/logs/131.log
+132,oracle,pass,pass,clean,original,,,,"{""sany_s"": 0.2, ""tlc_s"": 0.8}",/Users/eric/GitHub/prove-TLA/results/runs/e2b-holdout-scorability-v2/logs/132.log
+133,oracle,pass,pass,clean,original,,,,"{""sany_s"": 0.2, ""tlc_s"": 11.4}",/Users/eric/GitHub/prove-TLA/results/runs/e2b-holdout-scorability-v2/logs/133.log
+135,oracle,pass,pass,clean,original,,,,"{""sany_s"": 0.2, ""tlc_s"": 62.9}",/Users/eric/GitHub/prove-TLA/results/runs/e2b-holdout-scorability-v2/logs/135.log
+141,oracle,pass,pass,clean,original,,,,"{""sany_s"": 0.2, ""tlc_s"": 63.1}",/Users/eric/GitHub/prove-TLA/results/runs/e2b-holdout-scorability-v2/logs/141.log
+142,oracle,pass,error,,draft,pass,73/73,,"{""sany_s"": 0.2, ""tlc_s"": 0.3, ""tlaps_s"": 0.9}",/Users/eric/GitHub/prove-TLA/results/runs/e2b-holdout-scorability-v2/logs/142.log
+143,oracle,pass,pass_expected_violation,clean,original,,,,"{""sany_s"": 0.2, ""tlc_s"": 0.7}",/Users/eric/GitHub/prove-TLA/results/runs/e2b-holdout-scorability-v2/logs/143.log
+148,oracle,pass,pass,clean,override,,,,"{""sany_s"": 0.3, ""tlc_s"": 0.9}",/Users/eric/GitHub/prove-TLA/results/runs/e2b-holdout-scorability-v2/logs/148.log
+158,oracle,pass,pass,clean,original,,,,"{""sany_s"": 0.2, ""tlc_s"": 0.9}",/Users/eric/GitHub/prove-TLA/results/runs/e2b-holdout-scorability-v2/logs/158.log
+168,oracle,pass,pass,clean,override,,,,"{""sany_s"": 0.2, ""tlc_s"": 2.3}",/Users/eric/GitHub/prove-TLA/results/runs/e2b-holdout-scorability-v2/logs/168.log
+174,oracle,pass,pass,clean,draft,,,,"{""sany_s"": 0.2, ""tlc_s"": 4.5}",/Users/eric/GitHub/prove-TLA/results/runs/e2b-holdout-scorability-v2/logs/174.log
+181,oracle,pass,pass,clean,original,,,,"{""sany_s"": 0.2, ""tlc_s"": 0.8}",/Users/eric/GitHub/prove-TLA/results/runs/e2b-holdout-scorability-v2/logs/181.log
+183,oracle,pass,pass,clean,draft,,,,"{""sany_s"": 0.2, ""tlc_s"": 0.7}",/Users/eric/GitHub/prove-TLA/results/runs/e2b-holdout-scorability-v2/logs/183.log
+191,oracle,pass,pass,clean,draft,,,,"{""sany_s"": 0.2, ""tlc_s"": 0.7}",/Users/eric/GitHub/prove-TLA/results/runs/e2b-holdout-scorability-v2/logs/191.log

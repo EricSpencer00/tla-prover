@@ -1,0 +1,94 @@
+{
+ "_header": "Stage-2 Gate-2 evaluation HOLDOUT — 30 specs, frozen under entry criterion E2.b (2026-07-05, Eric-approved). Append-never: changes require a PLAN amendment + Eric sign-off (PLAN 4). Frozen BEFORE the W2.1 funnel and before W2.3 training, so membership cannot be influenced by funnel/training results. The W2.1 decontamination MUST near-dup-remove these 30 specs' canonical text from chattla-corpora-v2. Gate-2 scores chattla-v2 vs the E2.c baseline on THIS set (pass@1 AND pass@32, Rule-9 semantic audit on every counted pass).",
+ "method": {
+  "eligible_pool": "the 163 closed_local specs in corpus/gate0_closed.json (reliably oracle-scorable at bounded budget; excludes 7 HPC-only, 13 deferred, 23 open/intractable)",
+  "budget_bound_s": 120,
+  "budget_bound_rationale": "= Stage-1 per-candidate TLC budget (corpus/configs/repair_budget.json defaults.timeout_s). Every holdout spec must close within the same budget the model gets at eval, else a correct model output is unscorable. Excludes spec 100 (canonical closure ~1012s).",
+  "budget_excluded": {
+   "100": "canonical closure 1012s >> 120s bound (run e2b-holdout-scorability)"
+  },
+  "stratification": "proportional to eligible-pool population mix: state_machine 23, library 4, proof_module 2, expected_violation 1",
+  "selection": "per stratum: sort pool, shuffle with Random(seed), walk in order skipping budget_excluded, take until quota filled",
+  "seed_source": "int(sha256(corpus/gate0_closed.json)[:16], 16) — a function of already-frozen state, chosen with zero outcome knowledge (un-gameable)",
+  "seed_gate0_sha256_prefix16": "f2288bbcb11f7281",
+  "derives_from_gate0_sha256": "f2288bbcb11f7281cf51f8cf995780c00fa5e24480cfc37be832ac4b437d3540"
+ },
+ "validation": {
+  "run_id": "e2b-holdout-scorability-v2",
+  "result": "all 30 score as PASS under the Amendment-1/3 population criterion AND close within 120s (state_machine: SANY & non-vacuous TLC; library: SANY; proof_module: SANY & all TLAPS obligations; expected_violation: SANY & named property violated). Slowest: spec 14 @108s; run serial (--jobs 1) to avoid contention false-timeouts.",
+  "command": "python3 -m harness run --specs <30> --stages sany,tlc,tlaps --timeout 90 --jobs 1 --extra-cfg-dir corpus/configs/drafts"
+ },
+ "holdout_specs": [
+  2,
+  5,
+  13,
+  14,
+  15,
+  30,
+  32,
+  37,
+  41,
+  55,
+  86,
+  95,
+  105,
+  106,
+  121,
+  128,
+  131,
+  132,
+  133,
+  135,
+  141,
+  142,
+  143,
+  148,
+  158,
+  168,
+  174,
+  181,
+  183,
+  191
+ ],
+ "by_population": {
+  "expected_violation": [
+   143
+  ],
+  "library": [
+   41,
+   86,
+   105,
+   183
+  ],
+  "proof_module": [
+   131,
+   142
+  ],
+  "state_machine": [
+   2,
+   5,
+   13,
+   14,
+   15,
+   30,
+   32,
+   37,
+   55,
+   95,
+   106,
+   121,
+   128,
+   132,
+   133,
+   135,
+   141,
+   148,
+   158,
+   168,
+   174,
+   181,
+   191
+  ]
+ },
+ "count": 30
+}
