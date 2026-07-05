@@ -4,7 +4,21 @@ Deterministic units (prompt build, cfg-signature parse, response parse, pass@k
 aggregation) are tested here with no network. The Sophia sweep and oracle
 scoring are exercised separately via the CLI with --model local-stub.
 """
+import pytest
+
 from harness import gen_eval
+
+REALISH_MODULE = """---- MODULE Counter ----
+EXTENDS Naturals
+VARIABLE x
+
+Init == x = 0
+Next == x' = x + 1
+TypeOK == x \\in Nat
+Safe == /\\ TypeOK
+        /\\ x >= 0
+====
+"""
 
 
 def test_required_signature_extracts_constants_spec_and_properties():
@@ -131,3 +145,43 @@ def test_summarize_passk_counts_greedy_and_any():
     assert s["n"] == 3
     assert s["pass@1_specs"] == ["8"]
     assert s["pass@3_specs"] == ["8", "10"]
+
+
+def test_corrupt_is_deterministic_for_same_seed():
+    c1, r1 = gen_eval.corrupt(REALISH_MODULE, seed=42)
+    c2, r2 = gen_eval.corrupt(REALISH_MODULE, seed=42)
+    assert c1 == c2
+    assert r1 == r2
+
+
+def test_corrupt_different_seeds_usually_differ():
+    seen = set()
+    for seed in range(20):
+        c, _ = gen_eval.corrupt(REALISH_MODULE, seed=seed)
+        seen.add(c)
+    # different seeds should not all collapse onto the same single mutation site
+    assert len(seen) > 1
+
+
+def test_corrupt_changes_exactly_one_site_and_record_matches():
+    corrupted, record = gen_eval.corrupt(REALISH_MODULE, seed=7)
+    assert corrupted != REALISH_MODULE
+    # the record's offset/original/replacement must be consistent with the diff
+    original_fragment = REALISH_MODULE[record["offset"]:record["offset"] + len(record["original"])]
+    assert original_fragment == record["original"]
+    reconstructed = (REALISH_MODULE[:record["offset"]] + record["replacement"]
+                      + REALISH_MODULE[record["offset"] + len(record["original"]):])
+    assert reconstructed == corrupted
+    # exactly one mutation applied: reconstructing from the *other* direction
+    # (corrupted with replacement swapped back to original at the recorded
+    # offset) must reproduce the original exactly -- proving nothing else changed.
+    undone = (corrupted[:record["offset"]] + record["original"]
+              + corrupted[record["offset"] + len(record["replacement"]):])
+    assert undone == REALISH_MODULE
+    assert record["mutation"] in [label for label, _, _ in gen_eval.MUTATIONS]
+
+
+def test_corrupt_no_candidates_raises():
+    text_with_no_mutation_sites = "---- MODULE Empty ----\n====\n"
+    with pytest.raises(gen_eval.NoCandidateMutation):
+        gen_eval.corrupt(text_with_no_mutation_sites, seed=1)

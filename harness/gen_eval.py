@@ -10,7 +10,10 @@ This module holds the deterministic pieces (cfg-signature parse, prompt build,
 response parse, pass@k). Model calls reuse harness.repair's Model classes;
 scoring reuses harness.runner's oracle machinery.
 """
+import random
 import re
+
+from .mutation import MUTATIONS
 
 # TLC .cfg section keywords (subset we care about for the required signature).
 _CFG_KEYWORDS = {
@@ -70,6 +73,68 @@ def extract_module(response):
     (fences stripped) or None if no complete module is present."""
     m = _MODULE_RE.search(response)
     return m.group(0).strip() if m else None
+
+
+class NoCandidateMutation(Exception):
+    """Raised by corrupt() when spec_text has no site where any MUTATIONS
+    operator regex matches -- there is nothing to corrupt, so returning the
+    text unchanged would silently make the repair task empty (forbidden by
+    the E2.c handoff). Callers must catch this and exclude the spec from the
+    Framing-B (repair) sample rather than treat it as a corrupted spec."""
+    pass
+
+
+def corrupt(spec_text, seed):
+    """Option-B corruption: apply exactly ONE deterministic seeded mutation
+    swap (reusing harness.mutation.MUTATIONS, the same SpecGen-style
+    whole-module operator-swap regexes used by the mutation kill-rate tool)
+    to spec_text, and return (corrupted_text, mutation_record).
+
+    Determinism / seed convention: `seed` is an int chosen entirely by the
+    CALLER (the orchestration step derives it from spec number + the frozen
+    holdout hash -- this function does not know or care about that scheme).
+    Given the same (spec_text, seed) this function always returns the same
+    corrupted output.
+
+    Site selection: for each MUTATIONS operator (in the fixed order they
+    appear in mutation.MUTATIONS, which is itself fixed by that module), we
+    scan spec_text for ALL non-overlapping regex matches in left-to-right
+    scan order (re.finditer's natural order -- stable across Python versions/
+    platforms). Each match is a candidate (operator_label, start, end,
+    original_fragment, replacement_fragment). The full candidate list
+    (operators concatenated in MUTATIONS order, each operator's matches in
+    scan order) is then indexed with `random.Random(seed).randrange(len(...))`
+    to pick exactly one candidate deterministically. Only that one match is
+    replaced; every other occurrence of every operator is left untouched, so
+    exactly one token in the module changes.
+
+    Returns (corrupted_text, mutation_record) where mutation_record is a dict
+    with keys: mutation (operator label from MUTATIONS), offset (character
+    offset of the mutated fragment in spec_text), original (the matched
+    fragment text), replacement (the fragment it was replaced with).
+
+    If spec_text has NO site where any MUTATIONS regex matches at all, this
+    raises NoCandidateMutation (documented choice: an exception, not a
+    None-return, so a missed check isn't silently swallowed by a caller doing
+    `if corrupted: ...`).
+    """
+    candidates = []
+    for label, regex, replacement in MUTATIONS:
+        for m in regex.finditer(spec_text):
+            candidates.append((label, m.start(), m.end(), m.group(0), replacement))
+    if not candidates:
+        raise NoCandidateMutation(
+            "no MUTATIONS operator site found in spec_text; nothing to corrupt")
+    idx = random.Random(seed).randrange(len(candidates))
+    label, start, end, original, replacement = candidates[idx]
+    corrupted_text = spec_text[:start] + replacement + spec_text[end:]
+    mutation_record = {
+        "mutation": label,
+        "offset": start,
+        "original": original,
+        "replacement": replacement,
+    }
+    return corrupted_text, mutation_record
 
 
 # ------------------------------------------------------------- the prompts
