@@ -72,6 +72,117 @@ def extract_module(response):
     return m.group(0).strip() if m else None
 
 
+# ------------------------------------------------------------- the prompts
+
+_DESC_FIELD_ORDER = [
+    "system_overview", "actors_and_components", "state_variables",
+    "initial_state", "actions", "safety_properties", "liveness_properties",
+    "model_bounds",
+]
+
+_DESC_FIELD_LABELS = {
+    "system_overview": "System overview",
+    "actors_and_components": "Actors and components",
+    "state_variables": "State variables",
+    "initial_state": "Initial state",
+    "actions": "Actions",
+    "safety_properties": "Safety properties",
+    "liveness_properties": "Liveness properties",
+    "model_bounds": "Model bounds",
+}
+
+
+def _format_description(description_json):
+    """Render a FormaLLM description JSON as labeled sections, in a stable
+    field order, skipping any fields absent from this particular description."""
+    parts = []
+    for key in _DESC_FIELD_ORDER:
+        if key in description_json and description_json[key]:
+            label = _DESC_FIELD_LABELS[key]
+            parts.append(f"{label}: {description_json[key]}")
+    # any extra fields not in the known order still get surfaced, sorted for determinism
+    for key in sorted(description_json):
+        if key not in _DESC_FIELD_ORDER and description_json[key]:
+            parts.append(f"{key}: {description_json[key]}")
+    return "\n\n".join(parts)
+
+
+def _format_signature(sig):
+    lines = []
+    if sig["constants"]:
+        lines.append("  CONSTANTS: " + ", ".join(sig["constants"]))
+    if sig["specification"]:
+        lines.append("  SPECIFICATION formula: " + sig["specification"])
+    if sig["init"]:
+        lines.append("  INIT predicate: " + sig["init"])
+    if sig["next"]:
+        lines.append("  NEXT action: " + sig["next"])
+    if sig["invariants"]:
+        lines.append("  INVARIANTS: " + ", ".join(sig["invariants"]))
+    if sig["properties"]:
+        lines.append("  PROPERTIES: " + ", ".join(sig["properties"]))
+    return "\n".join(lines) if lines else "  (no identifiers required by the .cfg)"
+
+
+GENERATION_PROMPT_TEMPLATE = """You are writing a TLA+ specification from a natural-language \
+description of the system it must model. Below is the description, followed by the \
+exact identifiers your module MUST define (derived from the reference TLC \
+configuration that will be used to check it).
+
+=== DESCRIPTION ===
+{description}
+
+=== REQUIRED IDENTIFIERS (from the reference .cfg) ===
+{signature}
+
+=== TASK ===
+Write exactly ONE complete TLA+ module named {module_name} that defines every \
+identifier listed above (the CONSTANTS as declared constants; the SPECIFICATION, \
+INIT, NEXT, INVARIANTS, and PROPERTIES as operators with those exact names) and \
+faithfully models the system described. Do not omit any required identifier and do \
+not rename it.
+
+Output ONLY the module, nothing else -- no prose before or after -- starting with \
+`---- MODULE {module_name} ----` and ending with `====`."""
+
+
+def build_generation_prompt(description_json, cfg_text, module_name):
+    """Framing A prompt: FormaLLM description + required identifier signature
+    (from required_signature(cfg_text)) -> instructions to emit exactly one
+    TLA+ module named module_name, wrapped so extract_module can recover it."""
+    return GENERATION_PROMPT_TEMPLATE.format(
+        description=_format_description(description_json),
+        signature=_format_signature(required_signature(cfg_text)),
+        module_name=module_name)
+
+
+REPAIR_PROMPT_TEMPLATE = """You are repairing a TLA+ specification so that it passes \
+SANY (parser/semantic checker) and TLC model checking. Keep the change minimal and \
+semantics-preserving with respect to the system being modeled; do NOT weaken or \
+delete invariants/properties to force a pass.
+
+=== SPEC ===
+===BEGIN SPEC===
+{broken_module}
+===END SPEC===
+
+=== FAILURE ===
+{error_evidence}
+
+Output the ENTIRE corrected module, nothing else, starting with `---- MODULE` and \
+ending with `====`."""
+
+
+def build_repair_prompt(broken_module, error_evidence):
+    """Framing B prompt: mirrors the Stage-1 repair prompt shape in repair.py
+    (spec text wrapped in BEGIN/END SPEC markers + error evidence), trimmed to
+    the two pieces of text this framing has available (no fault-localized
+    fragment or fixed .cfg criterion here -- those are runner/repair.py
+    concerns for the full escalation loop, not this bare prompt builder)."""
+    return REPAIR_PROMPT_TEMPLATE.format(
+        broken_module=broken_module, error_evidence=error_evidence)
+
+
 def summarize_passk(results, k):
     """results: {spec -> {"greedy": bool, "samples": [bool,...]}}.
     pass@1 counts specs whose temp-0 greedy sample passed; pass@k counts specs
