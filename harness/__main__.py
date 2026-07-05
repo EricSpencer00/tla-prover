@@ -34,8 +34,12 @@ def main():
     s.add_argument("--corpus", default=DEFAULT_CORPUS)
     s.add_argument("--run-id", required=True)
     s.add_argument("--specs", default=None, help="comma-separated; default all winners")
+    g = sub.add_parser("gate1-report", help="assemble GATE1_STATUS.md from arm run dirs")
+    g.add_argument("--arms", required=True,
+                   help="label=rundir[+rundir2],...  e.g. gpt-oss-120b=g1-sweep2-gptoss120b+g1-sweep2r-gptoss120b")
+    g.add_argument("--out", default="GATE1_STATUS.md")
     a = ap.parse_args()
-    specs = list(dict.fromkeys(a.specs.split(","))) if a.specs else None
+    specs = list(dict.fromkeys(a.specs.split(","))) if getattr(a, "specs", None) else None
     if a.cmd == "repair":
         from .repair import run_repair
         # repair preserves the given --specs order (informative specs first =
@@ -45,6 +49,9 @@ def main():
     elif a.cmd == "semaudit":
         from .semaudit import run_semaudit
         run_semaudit(Path(a.corpus), a.run_id, specs=specs)
+    elif a.cmd == "gate1-report":
+        from .gate1_report import run_report
+        run_report(a.arms, a.out)
     else:
         run_sweep(Path(a.corpus), a.run_id, a.stages.split(","), specs=specs,
                   timeout=a.timeout, jobs=a.jobs, extra_cfg_dir=a.extra_cfg_dir)
