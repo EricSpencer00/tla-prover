@@ -22,6 +22,7 @@ from .runner import REPO
 # on these is a gamed/weakened pass -> excluded from the model-only count.
 REJECTS = {
     "gpt-oss-120b": {"57", "91", "92", "178"},
+    "gpt-oss-20b": {"91"},  # same disjunct-dropping cheat (SEMAUDIT_FINDINGS.md)
 }
 
 
