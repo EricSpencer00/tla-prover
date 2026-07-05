@@ -458,7 +458,7 @@ def eval_module_text(num: str, module_text: str, corpus: Path, num2mod, mod2path
 
     The injected module's declared name (parsed from its own `---- MODULE X ----`
     header, NOT assumed to be num2mod[num]) is what it is written to disk as --
-    a candidate that mis-names itself is a real scoring outcome (sany=bad_module_name),
+    a candidate that mis-names itself is a real scoring outcome (sany=no_module_header),
     not something this function should silently correct.
 
     override_cfg, if given, replaces the reference cfg_dirs lookup for spec num
