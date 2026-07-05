@@ -142,6 +142,11 @@ class OpenAICompatModel(Model):
         self.min_interval = 60.0 / float(os.environ.get("OPENAI_RPM", "10"))
         self._last_req = 0.0
         self.usage = {"prompt_tokens": 0, "completion_tokens": 0, "requests": 0}
+        # cold-loaded models (ALCF rotating pool) return 408/503 "not ready" for
+        # minutes while they spin up; short retries misread that as a repair
+        # failure. Long, patient retry so a warmed model actually answers.
+        self.max_retries = int(os.environ.get("OPENAI_MAX_RETRIES", "6"))
+        self.retry_base_s = float(os.environ.get("OPENAI_RETRY_BASE_S", "45"))
 
     def _throttle(self):
         wait = self._last_req + self.min_interval - time.time()
@@ -169,7 +174,10 @@ class OpenAICompatModel(Model):
                      "content-type": "application/json",
                      # ALCF's Cloudflare rejects urllib's default UA (403 #1010)
                      "User-Agent": "prove-tla-harness/1.0"})
-        for attempt in range(4):
+        # 408 request_timeout and 503 not-ready are the cold-start signatures;
+        # retry them (plus the usual transient set) with long linear backoff
+        RETRYABLE = (408, 409, 425, 429, 500, 502, 503, 529)
+        for attempt in range(self.max_retries):
             self._throttle()
             try:
                 with urllib.request.urlopen(req, timeout=600) as resp:
@@ -182,13 +190,13 @@ class OpenAICompatModel(Model):
                 return msg.get("content") or ""
             except urllib.error.HTTPError as e:
                 body = e.read().decode(errors="replace")[:500]
-                if e.code in (429, 500, 502, 503, 529) and attempt < 3:
-                    time.sleep(30 * (attempt + 1))
+                if e.code in RETRYABLE and attempt < self.max_retries - 1:
+                    time.sleep(self.retry_base_s * (attempt + 1))
                     continue
                 return f"[api_error {e.code}: {body}]"
             except (urllib.error.URLError, TimeoutError, OSError) as e:
-                if attempt < 3:
-                    time.sleep(30 * (attempt + 1))
+                if attempt < self.max_retries - 1:
+                    time.sleep(self.retry_base_s * (attempt + 1))
                     continue
                 return f"[api_error url: {e}]"
 
@@ -543,7 +551,10 @@ def repair_spec(num, corpus, num2mod, mod2path, cfg_dirs, workroot, rundir, mode
         row = {"spec": num, "method": method, "model": model.id, "attempt": attempt,
                "prompt_sha256": hashlib.sha256(prompt.encode()).hexdigest() if prompt else None,
                **row_frag}
-        row["verdict"] = verdict_of(num, row_frag) if row_frag.get("sany") else "invalid_candidate"
+        sv = row_frag.get("sany")
+        row["verdict"] = ("api_error" if sv == "api_error"
+                          else verdict_of(num, row_frag) if sv
+                          else "invalid_candidate")
         row["budget"] = {k: budget[k] for k in
                          ("iterative_rounds", "best_of_n", "mutation_pass", "timeout_s")}
         row["spec_elapsed_s"] = round(time.time() - t0, 1)
@@ -612,9 +623,13 @@ def repair_spec(num, corpus, num2mod, mod2path, cfg_dirs, workroot, rundir, mode
         cand = extract_candidate(reply)
         total_candidates += 1
         if cand is None:
-            emit(f"repair-r{r}", 0, {"sany": None, "budget_used":
-                 {"model_s": round(time.time() - mt0, 1)}}, prompt=prompt,
-                 log_text=f"no module block in model reply:\n{(reply or '')[:4000]}")
+            err = isinstance(reply, str) and reply.startswith("[api_error")
+            emit(f"repair-r{r}", 0,
+                 {"sany": "api_error" if err else None,
+                  "budget_used": {"model_s": round(time.time() - mt0, 1)}},
+                 prompt=prompt,
+                 log_text=(reply if err else
+                           f"no module block in model reply:\n{(reply or '')[:4000]}"))
             prior_note = ("\nNOTE: your previous reply contained no parseable "
                           "module block; output ONLY the module.\n")
             continue
@@ -640,9 +655,13 @@ def repair_spec(num, corpus, num2mod, mod2path, cfg_dirs, workroot, rundir, mode
             total_candidates += 1
             cand = extract_candidate(reply)
             if cand is None:
-                emit("repair-bestofN", i, {"sany": None, "budget_used":
-                     {"model_s": model_s if i == 1 else 0}}, prompt=prompt,
-                     log_text=f"no module block in model reply:\n{(reply or '')[:4000]}")
+                err = isinstance(reply, str) and reply.startswith("[api_error")
+                emit("repair-bestofN", i,
+                     {"sany": "api_error" if err else None,
+                      "budget_used": {"model_s": model_s if i == 1 else 0}},
+                     prompt=prompt,
+                     log_text=(reply if err else
+                               f"no module block in model reply:\n{(reply or '')[:4000]}"))
                 continue
             row, _, _ = run_candidate(cand, "repair-bestofN", i, prompt=prompt)
             if i == 1:
@@ -730,8 +749,17 @@ def run_repair(corpus: Path, run_id: str, model_name: str, specs=None, n=None,
             passed = [r for r in rows if r["verdict"] == "pass"]
             summary[num] = passed[0]["method"] if passed else \
                 (rows[-1]["verdict"] if rows else "no_rows")
-            with open(rundir / "progress.jsonl", "a") as pf:
-                pf.write(json.dumps({"spec": num, "result": summary[num]}) + "\n")
+            # a spec is COMPLETE (safe to skip on --resume-from) only if it passed
+            # or every model attempt actually got an answer. If a model call hit
+            # api_error and nothing passed, the model never had a fair shot, so
+            # leave it OUT of progress.jsonl -> a resume re-attempts it rather than
+            # baking an endpoint outage in as a repair failure (measurement integrity).
+            polluted = (not passed) and any(r["verdict"] == "api_error" for r in rows)
+            if polluted:
+                summary[num] += " [POLLUTED:api_error -- excluded, resume to retry]"
+            else:
+                with open(rundir / "progress.jsonl", "a") as pf:
+                    pf.write(json.dumps({"spec": num, "result": summary[num]}) + "\n")
             print(f"[{i}/{len(todo)}] spec {num}: {summary[num]} "
                   f"({len(rows)} attempts, {rows[-1]['spec_elapsed_s'] if rows else 0}s)")
 

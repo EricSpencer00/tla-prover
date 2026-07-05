@@ -1,0 +1,7 @@
+{"spec": "50", "result": "repair-baseline"}
+{"spec": "58", "result": "fail:tlc=error"}
+{"spec": "72", "result": "repair-baseline"}
+{"spec": "78", "result": "fail:tlc=error"}
+{"spec": "80", "result": "fail:tlc=error"}
+{"spec": "81", "result": "invalid_candidate"}
+{"spec": "84", "result": "fail:tlc=error"}
