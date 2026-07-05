@@ -46,14 +46,14 @@ MUTATIONS = [
     # frequently the ONLY available mutation site -- added specifically to
     # close the NoCandidateMutation gap on holdout specs 13, 14, 105, 106,
     # 132, 133, 135, 181 (see harness/gen_eval.py corrupt()).
-    ("in_to_notin", re.compile(r"\\in"), "\\notin"),
+    ("in_to_notin", re.compile(r"\\in\b"), "\\notin"),
     # \cup (set union) and \cap (set intersection) are likewise unambiguous
     # infix set operators; swapping preserves arity/fixity and SANY parses
     # either symbol identically, only the runtime semantics change. Kept as
     # a second independent site so specs with \cup but no \in-adjacent
     # mutation risk (none currently in the frozen holdout, but future specs)
     # aren't stranded on \in alone.
-    ("cup_to_cap", re.compile(r"\\cup"), "\\cap"),
+    ("cup_to_cap", re.compile(r"\\cup\b"), "\\cap"),
 ]
 
 # Tried and DROPPED after testing on real corpus specs (see corpus/configs/MUTATION.md):
