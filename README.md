@@ -26,6 +26,46 @@ Models tried: only the `gpt-oss` family stays reliably available on the ALCF/Sop
 inference endpoint used for this work; larger independent arms (Devstral, Llama,
 Mixtral) are endpoint-blocked, not ruled out.
 
+## Results so far
+
+| Metric | N | Value | Notes |
+|---|---|---|---|
+| Oracle closure (G1, hand-verified) | 206 | **170/206 (83%)** | frozen, hash-pinned (`corpus/gate0_closed.json`, SHA `f2288bb…`) |
+| Model-only repair, gpt-oss-120b, pre-audit | 206 | 170 naive pass@N | **the naive number, before semantic audit** |
+| Model-only repair, gpt-oss-120b, **post-audit** | 206 | **166/206 (81%)** | 4 of the 170 were false passes — property weakened/deleted, not fixed |
+| Model-only repair, gpt-oss-20b, pre-audit | 206 | ~154 (contention-inflated) | ~91 additional semantic-audit rejects on this arm alone |
+| Oracle ∪ audited model repairs | 206 | **176/206 (85%)**, floor 172 | 5 genuine repairs beyond the oracle: specs 66, 81, 85, 141, 194 |
+
+Full breakdown: [GATE0_STATUS.md](GATE0_STATUS.md), [GATE1_STATUS.md](GATE1_STATUS.md).
+
+## Why this should matter to other researchers in this space
+
+This org already has a fine-tuned model with a headline number —
+[`chattla-20b`](https://github.com/LUC-AI4FM/TLA-Prove) reports **9/30 (30%) Gold**
+on a held-out suite. That number turned out not to hold up under scrutiny: the
+adapter is self-referential (its config points at its own merged weights), its
+LoRA never touched the MoE experts (so the "fine-tune" is closer to base-model
+noise), and its training corpus included all 205 benchmark specs it was later
+scored against. None of that is visible from the benchmark table alone — it only
+shows up once you go looking for how the number was produced.
+
+That's the gap this repo exists to close. Every number above is:
+
+1. **traceable** — each has a corpus/split, N, verification stage, inference
+   budget, and a command that reproduces it (Rule 3/8);
+2. **decontamination-aware** — the 206-corpus can score G1 only, never G2, because
+   it's known to be in training data; G2 claims require a provably unseen holdout
+   (`corpus/holdout_30.json`, frozen before any training run);
+3. **audited for meaning, not just syntax** — Rule 9's semantic audit is the reason
+   the model-only number *drops* from a naive 170 to an honest 166. A pass/fail
+   count that skips this step overstates capability by design, not by accident —
+   TLC and the vacuity battery both accepted the 4 rejected repairs.
+
+If you're building on this corpus or comparing against ChatTLA-style results, the
+useful thing to take from this repo isn't a bigger number — it's the instrument:
+a harness that will tell you when your model found a genuine fix versus when it
+found a way to make the checker stop complaining.
+
 ## What "honestly" means here
 
 The project runs on a binding rule set (`PLAN.md` §2), enforced in the harness, not
