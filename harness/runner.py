@@ -5,7 +5,9 @@ budget_used, log_path}. Oracle method = the canonical corpus spec verbatim.
 """
 import csv
 import json
+import os
 import re
+import signal
 import shutil
 import subprocess
 import time
@@ -109,13 +111,24 @@ def local_deps(tla_text: str, mod2path: dict):
 
 
 def run_cmd(cmd, cwd, timeout):
+    # start_new_session so a timeout kills the whole process group, not just the
+    # direct child: tlapm spawns Isabelle/z3 grandchildren that subprocess's own
+    # timeout kill orphans -- observed E2.c arm 120b-a, 2026-07-07: leaked polyml
+    # processes at 25% RAM each ground the host until the OS killed the sweep.
     t0 = time.time()
+    p = subprocess.Popen(cmd, cwd=cwd, stdout=subprocess.PIPE,
+                         stderr=subprocess.STDOUT, text=True,
+                         start_new_session=True)
     try:
-        p = subprocess.run(cmd, cwd=cwd, capture_output=True, text=True, timeout=timeout)
-        return p.returncode, p.stdout + p.stderr, time.time() - t0, False
-    except subprocess.TimeoutExpired as e:
-        out = (e.stdout or b"").decode(errors="replace") if isinstance(e.stdout, bytes) else (e.stdout or "")
-        return -1, out, time.time() - t0, True
+        out, _ = p.communicate(timeout=timeout)
+        return p.returncode, out or "", time.time() - t0, False
+    except subprocess.TimeoutExpired:
+        try:
+            os.killpg(os.getpgid(p.pid), signal.SIGKILL)
+        except (ProcessLookupError, PermissionError):
+            p.kill()
+        out, _ = p.communicate()
+        return -1, out or "", time.time() - t0, True
 
 
 def _jtmpdir(workdir: Path):
