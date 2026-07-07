@@ -1,0 +1,16 @@
+{
+  "seed": 4016067772,
+  "corrupted_text": "---------------------------- MODULE MCBakery --------------------------------\nEXTENDS Bakery\nCONSTANT MaxNat\nASSUME MaxNat \\notin Nat\nNatOverride == 0 .. MaxNat\n=============================================================================\n\n",
+  "mutation_record": {
+    "mutation": "in_to_notin",
+    "offset": 123,
+    "original": "\\in",
+    "replacement": "\\notin",
+    "candidate_index": 0,
+    "seeded_index": 0,
+    "candidates_total": 1,
+    "rejected": [],
+    "corrupted_verdict": "fail:tlc=error"
+  },
+  "error_evidence": "===== SANY (pass) =====\n\n****** SANY2 Version 2.1 created 24 February 2014\n\nParsing file /private/tmp/prove-tla-gen-eval/e2c-baseline-120b-b/13/MCBakery.tla\nParsing file /private/tmp/prove-tla-gen-eval/e2c-baseline-120b-b/13/Bakery.tla\nParsing file /private/tmp/prove-tla-gen-eval/e2c-baseline-120b-b/13/jtmp/Naturals.tla\nParsing file /Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla\nSemantic processing of module Naturals\nSemantic processing of module TLAPS\nSemantic processing of module Bakery\nSemantic processing of module MCBakery\n\n===== TLC (error, cfg=original) =====\nTLC2 Version 2.19 of 08 August 2024 (rev: 5a47802)\nRunning breadth-first search Model-Checking with fp 83 and seed 1722828761276993909 with 2 workers on 10 cores with 14564MB heap and 64MB offheap memory [pid: 36264] (Mac OS X 26.3 aarch64, Eclipse Adoptium 25 x86_64, MSBDiskFPSet, DiskStateQueue).\nParsing file /private/tmp/prove-tla-gen-eval/e2c-baseline-120b-b/13/MCBakery.tla\nParsing file /private/tmp/prove-tla-gen-eval/e2c-baseline-120b-b/13/Bakery.tla\nParsing file /private/tmp/prove-tla-gen-eval/e2c-baseline-120b-b/13/jtmp/Naturals.tla\nParsing file /Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla\nSemantic processing of module Naturals\nSemantic processing of module TLAPS\nSemantic processing of module Bakery\nSemantic processing of module MCBakery\nStarting... (2026-07-07 09:13:27)\nError: Assumption line 4, col 8 to line 4, col 24 of module MCBakery is false.\nFinished in 00s at (2026-07-07 09:13:27)\n"
+}
