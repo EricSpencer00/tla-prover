@@ -341,15 +341,44 @@ def _error_evidence(verdict_row, log_text):
 
 
 def _score(num, module_text, corpus, num2mod, mod2path, cfg_dirs, workroot, logdir,
-          timeout):
+          timeout, log_name=None):
     row = eval_module_text(num, module_text, corpus, num2mod, mod2path, cfg_dirs,
-                           workroot, logdir, timeout, stages=("sany", "tlc", "tlaps"))
+                           workroot, logdir, timeout, stages=("sany", "tlc", "tlaps"),
+                           log_name=log_name)
     # eval_module_text always sets row["sany"] (a headerless candidate gets
     # sany="no_module_header"), so verdict_of covers every outcome.
     verdict = verdict_of(num, row)
     log_path = Path(row["log_path"])
     log_text = log_path.read_text(errors="replace") if log_path.exists() else ""
     return row, verdict, log_text
+
+
+def _persist_candidate(candidates_dir, spec, framing, sample_id, module_text, reply):
+    """Rule 9 audit prerequisite (E2.c framing-B semantic diff audit): persist
+    exactly what got scored so every sample is later inspectable.
+
+    On successful extraction, writes module_text (the extract_module output --
+    the SAME text passed to eval_module_text/_score) to
+    candidates/{spec}-{framing}-{sample}.tla. When extraction failed
+    (module_text is None), writes the raw model reply instead to
+    candidates/{spec}-{framing}-{sample}.response.txt so failures are
+    auditable too, and no sha256/candidate_path fields are produced (nothing
+    was scored).
+
+    Returns (candidate_path, candidate_sha256) -- both relative to the run
+    directory (candidates_dir's parent) as POSIX strings, or (candidate_path,
+    None) for the failure/.response.txt case.
+    """
+    candidates_dir.mkdir(parents=True, exist_ok=True)
+    rundir = candidates_dir.parent
+    if module_text is None:
+        path = candidates_dir / f"{spec}-{framing}-{sample_id}.response.txt"
+        path.write_text(reply if isinstance(reply, str) else str(reply))
+        return path.relative_to(rundir).as_posix(), None
+    path = candidates_dir / f"{spec}-{framing}-{sample_id}.tla"
+    path.write_text(module_text)
+    sha = hashlib.sha256(module_text.encode()).hexdigest()
+    return path.relative_to(rundir).as_posix(), sha
 
 
 def find_valid_corruption(spec_text, seed, scorer):
@@ -402,10 +431,14 @@ def find_valid_corruption(spec_text, seed, scorer):
 
 def gen_eval_spec_framing_a(num, description_json, cfg_text, module_name_for_spec,
                             model, run_id, k, corpus, num2mod, mod2path, cfg_dirs,
-                            workroot, logdir, done):
+                            workroot, logdir, done, candidates_dir=None):
     """Framing A: one greedy (temperature 0) + k temperature-0.8 samples, each
     generated independently from the same generation prompt, extracted and scored.
-    Yields row dicts (does not write them -- caller owns the JSONL/resume ledger)."""
+    Yields row dicts (does not write them -- caller owns the JSONL/resume ledger).
+
+    candidates_dir, if given, persists every candidate (or, on extraction
+    failure, the raw reply) via _persist_candidate, and the returned row
+    carries candidate_path/candidate_sha256 (see _persist_candidate)."""
     prompt = build_generation_prompt(description_json, cfg_text, module_name_for_spec)
     prompt_sha = hashlib.sha256(prompt.encode()).hexdigest()
     samples = [("greedy", 0.0)] + [(i, TEMPERATURE) for i in range(1, k + 1)]
@@ -419,13 +452,21 @@ def gen_eval_spec_framing_a(num, description_json, cfg_text, module_name_for_spe
         base = {"spec": num, "framing": "A", "model": model.id,
                 "prompt_sha256": prompt_sha, "sample": sample_id,
                 "temperature": temperature, "timestamp": time.time()}
+        if candidates_dir is not None:
+            cand_path, cand_sha = _persist_candidate(
+                candidates_dir, num, "A", sample_id, module_text, reply)
+            if module_text is not None:
+                base["candidate_path"] = cand_path
+                base["candidate_sha256"] = cand_sha
         if module_text is None:
             err = isinstance(reply, str) and reply.startswith("[api_error")
             yield {**base, "verdict": "api_error" if err else "no_module_extracted",
                   "budget_used": {"model_s": model_s}}
             continue
+        log_name = f"{num}-A-{sample_id}.log"
         row, verdict, _ = _score(num, module_text, corpus, num2mod, mod2path,
-                                 cfg_dirs, workroot, logdir, TLC_TIMEOUT_S)
+                                 cfg_dirs, workroot, logdir, TLC_TIMEOUT_S,
+                                 log_name=log_name)
         row["budget_used"]["model_s"] = model_s
         yield {**base, "verdict": verdict, **{k2: v for k2, v in row.items()
                                               if k2 not in ("spec",)}}
@@ -433,12 +474,17 @@ def gen_eval_spec_framing_a(num, description_json, cfg_text, module_name_for_spe
 
 def gen_eval_spec_framing_b(num, corrupted_text, mutation_record, seed,
                             error_evidence, model, run_id, k, corpus, num2mod,
-                            mod2path, cfg_dirs, workroot, logdir, done):
+                            mod2path, cfg_dirs, workroot, logdir, done,
+                            candidates_dir=None):
     """Framing B repair sampling: given a PRECOMPUTED valid corruption (from
     find_valid_corruption -- corrupted text SANY-parses, criterion fails) and
     its error evidence, build the repair prompt, then one greedy + k
     temperature-0.8 samples of repair attempts. Yields row dicts (with
-    mutation_record on every row, per the E2.c handoff)."""
+    mutation_record on every row, per the E2.c handoff).
+
+    candidates_dir, if given, persists every candidate (or, on extraction
+    failure, the raw reply) via _persist_candidate, and the returned row
+    carries candidate_path/candidate_sha256 (see _persist_candidate)."""
     error_evidence = _error_evidence({}, error_evidence)
     prompt = build_repair_prompt(corrupted_text, error_evidence)
     prompt_sha = hashlib.sha256(prompt.encode()).hexdigest()
@@ -454,13 +500,21 @@ def gen_eval_spec_framing_b(num, corrupted_text, mutation_record, seed,
                 "prompt_sha256": prompt_sha, "sample": sample_id,
                 "temperature": temperature, "timestamp": time.time(),
                 "mutation_record": mutation_record, "seed": seed}
+        if candidates_dir is not None:
+            cand_path, cand_sha = _persist_candidate(
+                candidates_dir, num, "B", sample_id, module_text, reply)
+            if module_text is not None:
+                base["candidate_path"] = cand_path
+                base["candidate_sha256"] = cand_sha
         if module_text is None:
             err = isinstance(reply, str) and reply.startswith("[api_error")
             yield {**base, "verdict": "api_error" if err else "no_module_extracted",
                   "budget_used": {"model_s": model_s}}
             continue
+        log_name = f"{num}-B-{sample_id}.log"
         row, verdict, _ = _score(num, module_text, corpus, num2mod, mod2path,
-                                 cfg_dirs, workroot, logdir, TLC_TIMEOUT_S)
+                                 cfg_dirs, workroot, logdir, TLC_TIMEOUT_S,
+                                 log_name=log_name)
         row["budget_used"]["model_s"] = model_s
         yield {**base, "verdict": verdict, **{k2: v for k2, v in row.items()
                                               if k2 not in ("spec",)}}
@@ -482,6 +536,8 @@ def run_gen_eval(corpus: Path, run_id: str, framing: str, model_name: str, k: in
     rundir = REPO / "results" / "runs" / run_id
     logdir = rundir / "logs"
     logdir.mkdir(parents=True, exist_ok=True)
+    candidates_dir = rundir / "candidates"
+    candidates_dir.mkdir(parents=True, exist_ok=True)
     workroot = Path("/tmp/prove-tla-gen-eval") / run_id
     model = make_model(model_name) if model_name != "local-stub" else _LocalStubModel()
 
@@ -518,7 +574,8 @@ def run_gen_eval(corpus: Path, run_id: str, framing: str, model_name: str, k: in
                     continue
                 gen = gen_eval_spec_framing_a(
                     num, desc, cfg_text, mod, model, run_id, k, corpus, num2mod,
-                    mod2path, cfg_dirs, workroot, logdir, done)
+                    mod2path, cfg_dirs, workroot, logdir, done,
+                    candidates_dir=candidates_dir)
             else:
                 def skip_row(verdict, extra=None):
                     """Skips are LEDGERED rows (Rule 8), never console-only."""
@@ -547,7 +604,7 @@ def run_gen_eval(corpus: Path, run_id: str, framing: str, model_name: str, k: in
                 gen = gen_eval_spec_framing_b(
                     num, corrupted, mutation_record, seed, evidence, model,
                     run_id, k, corpus, num2mod, mod2path, cfg_dirs, workroot,
-                    logdir, done)
+                    logdir, done, candidates_dir=candidates_dir)
             r = results.setdefault(num, {"greedy": False, "samples": []})
             n_written = 0
             for row in gen:

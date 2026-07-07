@@ -460,7 +460,7 @@ def eval_spec(num: str, corpus: Path, num2mod, mod2path, cfg_dirs, workroot: Pat
 
 def eval_module_text(num: str, module_text: str, corpus: Path, num2mod, mod2path,
                      cfg_dirs, workroot: Path, logdir: Path, timeout: int, stages,
-                     override_cfg=None):
+                     override_cfg=None, log_name=None):
     """Score an arbitrary module string (e.g. a model-generated or model-repaired
     candidate, cf. harness.gen_eval.extract_module) for corpus spec `num` under
     exactly the same criterion machinery as eval_spec: dependency resolution
@@ -476,15 +476,21 @@ def eval_module_text(num: str, module_text: str, corpus: Path, num2mod, mod2path
 
     override_cfg, if given, replaces the reference cfg_dirs lookup for spec num
     (e.g. to score under a draft/candidate .cfg instead of the corpus original).
+
+    log_name, if given, overrides the log filename (default f"{num}.log") --
+    callers that score multiple candidates for the same spec (e.g. gen_eval's
+    per-sample scoring) pass a distinct log_name per candidate so logs don't
+    overwrite each other.
     """
+    log_file = logdir / (log_name or f"{num}.log")
     row = {"spec": num, "method": "injected", "sany": None, "tlc": None,
            "tlc_vacuity": None, "tlaps": None, "apalache": None,
-           "budget_used": {}, "log_path": str(logdir / f"{num}.log")}
+           "budget_used": {}, "log_path": str(log_file)}
     log_parts = []
     mod = module_name(module_text)
     if not mod:
         row["sany"] = "no_module_header"
-        (logdir / f"{num}.log").write_text("could not extract module name from injected text\n")
+        log_file.write_text("could not extract module name from injected text\n")
         return row
 
     workdir = workroot / num
@@ -498,7 +504,7 @@ def eval_module_text(num: str, module_text: str, corpus: Path, num2mod, mod2path
                                          row, log_parts, num2mod, mod2path, seen,
                                          override_cfg=override_cfg)
 
-    (logdir / f"{num}.log").write_text("\n".join(log_parts) or "no stages run\n")
+    log_file.write_text("\n".join(log_parts) or "no stages run\n")
     shutil.rmtree(workdir, ignore_errors=True)
     return row
 

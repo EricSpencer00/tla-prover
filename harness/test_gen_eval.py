@@ -282,8 +282,9 @@ def test_gen_eval_spec_framing_a_dry_run_with_monkeypatched_scoring(monkeypatch,
     reply = "---- MODULE Foo ----\nInit == x = 0\nNext == x' = x + 1\n===="
 
     def fake_eval_module_text(num, module_text, corpus, num2mod, mod2path, cfg_dirs,
-                              workroot, logdir, timeout, stages, override_cfg=None):
-        log_path = logdir / f"{num}.log"
+                              workroot, logdir, timeout, stages, override_cfg=None,
+                              log_name=None):
+        log_path = logdir / (log_name or f"{num}.log")
         log_path.write_text("fake sany/tlc log\n")
         return {"spec": num, "sany": "pass", "tlc": "pass", "tlc_vacuity": "clean",
                 "tlaps": None, "budget_used": {}, "log_path": str(log_path)}
@@ -318,8 +319,9 @@ def test_gen_eval_spec_framing_a_resume_skips_done_pairs(monkeypatch, tmp_path):
     reply = "---- MODULE Foo ----\nInit == x = 0\n===="
 
     def fake_eval_module_text(num, module_text, corpus, num2mod, mod2path, cfg_dirs,
-                              workroot, logdir, timeout, stages, override_cfg=None):
-        log_path = logdir / f"{num}.log"
+                              workroot, logdir, timeout, stages, override_cfg=None,
+                              log_name=None):
+        log_path = logdir / (log_name or f"{num}.log")
         log_path.write_text("log\n")
         return {"spec": num, "sany": "pass", "tlc": "pass", "tlc_vacuity": "clean",
                 "tlaps": None, "budget_used": {}, "log_path": str(log_path)}
@@ -343,8 +345,9 @@ def test_gen_eval_spec_framing_b_records_mutation_and_seed(monkeypatch, tmp_path
             "ASSUME MaxNat \\in Nat\nNatOverride == 0 .. MaxNat\n===="
 
     def fake_eval_module_text(num, module_text, corpus, num2mod, mod2path, cfg_dirs,
-                              workroot, logdir, timeout, stages, override_cfg=None):
-        log_path = logdir / f"{num}.log"
+                              workroot, logdir, timeout, stages, override_cfg=None,
+                              log_name=None):
+        log_path = logdir / (log_name or f"{num}.log")
         log_path.write_text("fake corrupted-spec sany/tlc failure log\n")
         return {"spec": num, "sany": "fail", "tlc": None, "tlc_vacuity": None,
                 "tlaps": None, "budget_used": {}, "log_path": str(log_path)}
@@ -371,6 +374,151 @@ def test_gen_eval_spec_framing_b_records_mutation_and_seed(monkeypatch, tmp_path
         assert r["framing"] == "B"
         assert r["mutation_record"]["mutation"] == "in_to_notin"
         assert r["seed"] == seed
+
+
+# --------------------------------------------- candidate persistence (Rule 9)
+
+def _fake_pass_eval_module_text(num, module_text, corpus, num2mod, mod2path,
+                                cfg_dirs, workroot, logdir, timeout, stages,
+                                override_cfg=None, log_name=None):
+    log_path = logdir / (log_name or f"{num}.log")
+    log_path.write_text("fake pass log\n")
+    return {"spec": num, "sany": "pass", "tlc": "pass", "tlc_vacuity": "clean",
+            "tlaps": None, "budget_used": {}, "log_path": str(log_path)}
+
+
+def test_framing_a_persists_candidate_with_matching_sha(monkeypatch, tmp_path):
+    reply = "---- MODULE Foo ----\nInit == x = 0\nNext == x' = x + 1\n===="
+    monkeypatch.setattr(gen_eval, "eval_module_text", _fake_pass_eval_module_text)
+
+    logdir = tmp_path / "logs"
+    logdir.mkdir()
+    candidates_dir = tmp_path / "candidates"
+    model = _FixedModel(reply)
+
+    rows = list(gen_eval.gen_eval_spec_framing_a(
+        "999", {"system_overview": "x"}, "INIT\n Init\n", "Foo", model,
+        "test-run", 0, corpus=tmp_path, num2mod={}, mod2path={}, cfg_dirs=[],
+        workroot=tmp_path / "work", logdir=logdir, done=set(),
+        candidates_dir=candidates_dir))
+
+    assert len(rows) == 1  # greedy only (k=0)
+    row = rows[0]
+    expected_text = gen_eval.extract_module(reply)
+    expected_path = candidates_dir / "999-A-greedy.tla"
+    assert expected_path.exists()
+    assert expected_path.read_text() == expected_text
+    assert row["candidate_path"] == "candidates/999-A-greedy.tla"
+    assert row["candidate_sha256"] == hashlib.sha256(expected_text.encode()).hexdigest()
+
+
+def test_framing_a_extraction_failure_writes_response_txt(monkeypatch, tmp_path):
+    reply = "I refuse to write a module today, sorry."
+    monkeypatch.setattr(gen_eval, "eval_module_text", _fake_pass_eval_module_text)
+
+    logdir = tmp_path / "logs"
+    logdir.mkdir()
+    candidates_dir = tmp_path / "candidates"
+    model = _FixedModel(reply)
+
+    rows = list(gen_eval.gen_eval_spec_framing_a(
+        "999", {"system_overview": "x"}, "INIT\n Init\n", "Foo", model,
+        "test-run", 0, corpus=tmp_path, num2mod={}, mod2path={}, cfg_dirs=[],
+        workroot=tmp_path / "work", logdir=logdir, done=set(),
+        candidates_dir=candidates_dir))
+
+    assert len(rows) == 1
+    row = rows[0]
+    assert row["verdict"] == "no_module_extracted"
+    expected_path = candidates_dir / "999-A-greedy.response.txt"
+    assert expected_path.exists()
+    assert expected_path.read_text() == reply
+    # extraction failed -- nothing was scored, so no candidate fields on the row
+    assert "candidate_path" not in row
+    assert "candidate_sha256" not in row
+
+
+def test_framing_b_persists_candidate_for_both_greedy_and_sample(monkeypatch, tmp_path):
+    reply = "---- MODULE OnlyIn ----\nEXTENDS Naturals\nCONSTANT MaxNat\n" \
+            "ASSUME MaxNat \\in Nat\nNatOverride == 0 .. MaxNat\n===="
+    monkeypatch.setattr(gen_eval, "eval_module_text", _fake_pass_eval_module_text)
+    logdir = tmp_path / "logs"
+    logdir.mkdir()
+    candidates_dir = tmp_path / "candidates"
+    model = _FixedModel(reply)
+    corrupted = reply.replace("\\in", "\\notin")
+    mutation_record = {"mutation": "in_to_notin", "offset": 60,
+                       "original": "\\in", "replacement": "\\notin",
+                       "candidate_index": 0, "seeded_index": 0,
+                       "candidates_total": 1, "rejected": [],
+                       "corrupted_verdict": "fail:sany=fail"}
+    seed = gen_eval.corruption_seed("some-frozen-hash", "999")
+
+    rows = list(gen_eval.gen_eval_spec_framing_b(
+        "999", corrupted, mutation_record, seed, "sany error evidence", model,
+        "test-run", 1, corpus=tmp_path, num2mod={}, mod2path={}, cfg_dirs=[],
+        workroot=tmp_path / "work", logdir=logdir, done=set(),
+        candidates_dir=candidates_dir))
+
+    assert len(rows) == 2  # greedy + k=1
+    expected_text = gen_eval.extract_module(reply)
+    expected_sha = hashlib.sha256(expected_text.encode()).hexdigest()
+    by_sample = {r["sample"]: r for r in rows}
+    for sample_id, fname in (("greedy", "999-B-greedy.tla"), (1, "999-B-1.tla")):
+        r = by_sample[sample_id]
+        path = candidates_dir / fname
+        assert path.exists()
+        assert path.read_text() == expected_text
+        assert r["candidate_path"] == f"candidates/{fname}"
+        assert r["candidate_sha256"] == expected_sha
+
+
+def test_candidates_not_persisted_when_candidates_dir_omitted(monkeypatch, tmp_path):
+    # Backward-compat / opt-in: callers that don't pass candidates_dir (e.g.
+    # any future caller of these generators) must not have rows mutated with
+    # candidate fields, and no candidates/ dir should be created as a side effect.
+    reply = "---- MODULE Foo ----\nInit == x = 0\n===="
+    monkeypatch.setattr(gen_eval, "eval_module_text", _fake_pass_eval_module_text)
+    logdir = tmp_path / "logs"
+    logdir.mkdir()
+    model = _FixedModel(reply)
+
+    rows = list(gen_eval.gen_eval_spec_framing_a(
+        "999", {"system_overview": "x"}, "INIT\n Init\n", "Foo", model,
+        "test-run", 0, corpus=tmp_path, num2mod={}, mod2path={}, cfg_dirs=[],
+        workroot=tmp_path / "work", logdir=logdir, done=set()))
+
+    assert "candidate_path" not in rows[0]
+    assert not (tmp_path / "candidates").exists()
+
+
+def test_framing_a_per_sample_log_paths_are_distinct(monkeypatch, tmp_path):
+    reply = "---- MODULE Foo ----\nInit == x = 0\n===="
+    captured = []
+
+    def fake_eval_module_text(num, module_text, corpus, num2mod, mod2path,
+                              cfg_dirs, workroot, logdir, timeout, stages,
+                              override_cfg=None, log_name=None):
+        captured.append((logdir, log_name))
+        log_path = logdir / (log_name or f"{num}.log")
+        log_path.write_text("log\n")
+        return {"spec": num, "sany": "pass", "tlc": "pass", "tlc_vacuity": "clean",
+                "tlaps": None, "budget_used": {}, "log_path": str(log_path)}
+
+    monkeypatch.setattr(gen_eval, "eval_module_text", fake_eval_module_text)
+    logdir = tmp_path / "logs"
+    logdir.mkdir()
+    model = _FixedModel(reply)
+
+    list(gen_eval.gen_eval_spec_framing_a(
+        "999", {"system_overview": "x"}, "INIT\n Init\n", "Foo", model,
+        "test-run", 2, corpus=tmp_path, num2mod={}, mod2path={}, cfg_dirs=[],
+        workroot=tmp_path / "work", logdir=logdir, done=set()))
+
+    assert len(captured) == 3  # greedy + 2 samples
+    log_names = [ln for _, ln in captured]
+    assert len(set(log_names)) == 3  # all distinct -- no overwrite
+    assert log_names == ["999-A-greedy.log", "999-A-1.log", "999-A-2.log"]
 
 
 # --------------------------------------- corruption precondition (E2C §4.3)

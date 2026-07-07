@@ -160,6 +160,26 @@ def test_eval_module_text_override_cfg_replaces_reference_cfg(tmp_path, patched_
     assert cfg_text_used == override_cfg
 
 
+def test_eval_module_text_log_name_overrides_default_log_filename(tmp_path, patched_checkers):
+    # Default behavior (log_name omitted) is unchanged: log file is f"{num}.log".
+    # Callers scoring multiple candidates for the same spec (gen_eval) pass a
+    # distinct log_name so repeated calls don't overwrite each other's log.
+    corpus = _make_corpus(tmp_path, {"1": {"text": STATE_MACHINE_MOD, "cfg": STATE_MACHINE_CFG}})
+    num2mod, mod2path = runner.build_module_index(corpus)
+    cfg_dirs = [("override", tmp_path / "no_override_dir"), ("original", corpus / "cfg")]
+    logdir = tmp_path / "logs5"
+    logdir.mkdir()
+
+    row = runner.eval_module_text("1", STATE_MACHINE_MOD, corpus, num2mod, mod2path,
+                                  cfg_dirs, tmp_path / "work", logdir,
+                                  timeout=120, stages=["sany", "tlc"],
+                                  log_name="1-B-3.log")
+
+    assert row["log_path"] == str(logdir / "1-B-3.log")
+    assert (logdir / "1-B-3.log").exists()
+    assert not (logdir / "1.log").exists()
+
+
 def test_eval_module_text_no_module_header_is_reported(tmp_path, patched_checkers):
     corpus = _make_corpus(tmp_path, {})
     num2mod, mod2path = runner.build_module_index(corpus)
