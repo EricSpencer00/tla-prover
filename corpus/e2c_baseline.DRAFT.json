@@ -1,0 +1,61 @@
+{
+  "_note": "DRAFT — not the frozen E2.c baseline. Final freeze (corpus/e2c_baseline.json) requires Eric's sign-off. See results/e2c_baseline_summary.md and results/runs/SEMAUDIT_FINDINGS.md (E2.c Gate-2 baseline section) for methodology, audit scope, and disclosed residual risk (no candidate module text persisted -> subtle semantics-narrowing repairs not diffable).",
+  "measured": "2026-07-07",
+  "source_runs": [
+    "results/runs/e2c-baseline-20b-a",
+    "results/runs/e2c-baseline-20b-b",
+    "results/runs/e2c-baseline-120b-a",
+    "results/runs/e2c-baseline-120b-b"
+  ],
+  "holdout_sha256": "ecfc20533b9dc9a6e727ab989732310659d469eefbcc3705df72e3094ef54f78",
+  "budget": {
+    "temperature": 0.8,
+    "max_tokens": 16384,
+    "tlc_timeout_s": 120,
+    "k": 32,
+    "pass1": "greedy@temp0",
+    "sequential": true
+  },
+  "audit": {
+    "method": "Rule 9, mechanical-channel audit only (see SEMAUDIT_FINDINGS.md E2.c section)",
+    "rows_rejected": 0,
+    "rows_flagged_not_rejected": 1,
+    "api_error_rows": 0,
+    "unauditable_gap": "candidate module text not persisted by gen_eval.run_gen_eval; subtle semantics-narrowing repairs not diffable"
+  },
+  "framing_A": {
+    "n_specs": 30,
+    "gpt-oss-20b": {
+      "pass@1": 0, "pass@32": 4,
+      "pass@1_specs": [],
+      "pass@32_specs": ["5", "86", "142", "183"]
+    },
+    "gpt-oss-120b": {
+      "pass@1": 2, "pass@32": 12,
+      "pass@1_specs": ["30", "41"],
+      "pass@32_specs": ["2", "5", "30", "37", "41", "86", "95", "105", "131", "142", "143", "183"]
+    }
+  },
+  "framing_B": {
+    "n_valid_specs": 23,
+    "n_skipped_specs": 7,
+    "skipped_specs": ["41", "86", "105", "106", "133", "135", "183"],
+    "skip_reason": "no_valid_corruption (no deterministic mutation site produced a SANY-passing + criterion-failing candidate); spec-only, not model-dependent",
+    "gpt-oss-20b": {
+      "pass@1": 6, "pass@32": 22,
+      "pass@1_specs": ["2", "13", "37", "132", "158", "181"],
+      "pass@32_specs": ["2", "5", "13", "14", "15", "30", "32", "37", "55", "95", "121", "128", "131", "132", "141", "143", "148", "158", "168", "174", "181", "191"]
+    },
+    "gpt-oss-120b": {
+      "pass@1": 14, "pass@32": 21,
+      "pass@1_specs": ["2", "5", "13", "14", "32", "37", "95", "128", "132", "148", "158", "168", "181", "191"],
+      "pass@32_specs": ["2", "5", "13", "14", "30", "32", "37", "55", "95", "121", "128", "131", "132", "141", "143", "148", "158", "168", "174", "181", "191"]
+    }
+  },
+  "best_arm": {
+    "framing_A_pass@1": "gpt-oss-120b (2/30)",
+    "framing_A_pass@32": "gpt-oss-120b (12/30)",
+    "framing_B_pass@1": "gpt-oss-120b (14/23)",
+    "framing_B_pass@32": "gpt-oss-20b (22/23), gpt-oss-120b close second (21/23)"
+  }
+}
