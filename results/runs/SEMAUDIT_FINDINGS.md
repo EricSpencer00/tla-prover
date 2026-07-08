@@ -127,3 +127,136 @@ patch `gen_eval.py` to persist candidates (mirroring `repair.py`'s
 not recommend re-running Sophia calls speculatively (cost), but flags that a
 persistent-candidates re-run is the only way to close this gap for future E2.c-
 shaped measurements.
+
+## E2.c framing-B r2 rerun: full diff-based Rule-9 audit (2026-07-08)
+
+Recommendation (b) above was taken: `gen_eval.py` now persists
+`candidates/{spec}-{framing}-{sample}.tla` (+ `.response.txt` on extraction
+failure) and rows carry `candidate_path`/`candidate_sha256`
+(`harness/gen_eval.py::_persist_candidate`). `results/runs/e2c-baseline-r2-
+{20b,120b}-b` are a full framing-B rerun (766 rows each, same holdout/budget)
+with this persistence, closing the gap the section above disclosed. **These r2
+arms REPLACE `e2c-baseline-{20b,120b}-b`** as the framing-B evidence; framing-A
+arms (`e2c-baseline-{20b,120b}-a`) are untouched and still stand.
+
+**Method:** every passing row (275/20b, 417/120b; 692 total) was audited:
+
+1. **Integrity**: `candidate_sha256` recomputed from the on-disk candidate file
+   and compared to the row's recorded value. **0 mismatches in either arm.**
+2. **Semantic diff**: candidate module text diffed against the CANONICAL
+   (uncorrupted) spec (`gen_eval.canonical_spec_text`) using `semaudit.py`'s
+   `checked_names`/`dep_closure`/`normalize` machinery (adapted for framing B:
+   canonical-vs-candidate instead of repair.py's baseline-vs-candidate) against
+   the reference `.cfg` actually used (override > original > draft precedence,
+   same as the harness). A def is "touched" if its comment/whitespace-
+   normalized body changed. `CLEAN` = no CHECKED (INVARIANT/PROPERTY) or
+   STRUCTURAL (INIT/NEXT/SPEC/VIEW + cfg `<-` overrides) def touched;
+   `REVIEW`/`STRUCTURAL` = one did, routed to manual read.
+3. **Mutation-site check**: for every row, verified whether the candidate's
+   mutated definition (per `mutation_record.offset`) still contains the
+   corruption's `replacement` text verbatim — a mechanical bypass-detector (the
+   model "fixing" a *different* definition while leaving the actual injected
+   bug untouched, e.g. via an added guard elsewhere that happens to route
+   around it in the checked configuration).
+4. **Grouping + manual read**: flagged (non-CLEAN) rows were grouped by
+   `(spec, touched_checked_defs, touched_structural_defs)` — candidates sharing
+   the same touched-def signature within a spec are the same repair shape
+   (289 flagged 20b/120b rows collapsed to 67 unique groups). One representative
+   per group was read in full; a second pass diffed EVERY flagged candidate
+   (not just the group representative) against canon and flagged any candidate
+   whose touched-def body had strictly fewer top-level `/\`/`\/` conjunct lines
+   than canon (a cheap conjunct-drop screen) for individual reading regardless
+   of grouping.
+
+**Manual reading count:** 251 flagged rows total (69 20b + 182 120b) collapsed
+to **67 unique (spec, touched-defs) groups**; every group representative was
+read, plus 34 additional individual candidates flagged by the conjunct-drop
+screen were read individually (some overlapped with group representatives).
+**All candidates whose diff touched more than the mutated site were read** —
+that is every flagged row in both arms, either via its group's representative
+(confirmed byte-for-byte equivalent after normalization within groups sharing
+identical touched-def sets modulo whitespace) or individually via the
+conjunct-drop screen.
+
+**Findings — 250 genuine, 1 rejected:**
+
+All but one flagged candidate were faithful re-expressions of the same logic:
+`\cup`→`\union` spelling, added/removed parens around `/\`/`\/` chains
+(operator-precedence clarifications, several mutations are literally
+`and_to_or`/`cup_to_cap`/`in_to_notin` swaps the model reverses), `CASE`→nested
+`IF/THEN/ELSE` rewrites with matching truth tables, hoisting `UNCHANGED` into
+both branches of an `IF`, splitting one action into named sub-actions joined by
+`\/` (e.g. spec 5 `makeDecision == makeDecisionCommit \/ makeDecisionAbort`,
+each sub-action byte-identical to the corresponding original disjunct), and
+comment rewording/deletion. Two cases warranted closer scrutiny and are
+recorded here:
+
+- **spec 2, 120b-b, sample 2** (`candidates/2-B-2.tla`): `preDecideOnForward`
+  gained `\/ UNCHANGED <<coordinator, participant>>`. Looks like a widening at
+  first read, but `SpecNB == InitNB /\ [][progNNB]_<<coordinator,participant>>
+  /\ fairnessNB` already brackets the whole next-state relation in
+  `[...]_<<coordinator,participant>>` (TLA+'s `[A]_v == A \/ v'=v`), so the
+  added disjunct is redundant with the outer box — no new behaviors are
+  introduced. cfg only checks `INVARIANTS TypeInvNB` (no liveness), so even a
+  hypothetical fairness interaction is moot. **Not a false pass** — confirmed
+  semantically inert, genuine.
+- **spec 143, 120b-b, sample 16** (`candidates/143-B-16.tla`): `Move` gained
+  `/\ S \subseteq who_is_on_bank[b]` (S must be taken from the bank the boat is
+  at). This narrows the transition relation, which can only shrink reachable
+  states for a safety-only cfg (`INVARIANTS TypeOK, Solution`, no liveness) —
+  cannot turn a real invariant violation into a spurious pass, and the added
+  guard is a real correctness constraint implied by the domain (you cannot move
+  people who are not present). **Genuine**, not gaming.
+
+**REJECTED (1): spec 15, 120b-b, sample 25** (`candidates/15-B-25.tla`) —
+mutation `in_to_notin` on `UponNonFaulty` (`\in`→`\notin` at cfg-checked-def
+dependency; cfg has `PROPERTIES CorrLtl RelayLtl UnforgLtl`, liveness-bearing).
+The candidate's `UponNonFaulty` **still contains the corrupted `\notin`**
+verbatim — the mutation-site check (step 3 above) flagged this as the one case
+in both arms where the replacement text survived unmodified in the mutated def.
+Instead of fixing it, the candidate narrows `Init` to force all correct
+processes to start with a uniform `pc` value (`/\ (/\ \A i \in Corr: pc[i] =
+"V0" \/ /\ \A i \in Corr: pc[i] = "V1")`), which restricts the state space TLC
+explores and evidently avoids exercising the branch where the corrupted guard
+would matter — this is the same false-pass pattern Stage-1's `semaudit.py`
+caught on specs 91/92 (state-space narrowing that hides rather than fixes the
+injected fault), just via `Init` instead of `Next`/`VIEW`. **Rejected**: ledgered
+as a failure, not counted in framing-B pass@1/pass@32 for 120b-b. This was
+spec 15's *only* passing row in the 120b-b arm (non-greedy, sample 25), so spec
+15 drops out of both pass@1 (already false pre-audit) and pass@32 for 120b
+post-audit.
+
+**Audited framing-B pass@1/pass@32 (r2, N=23 valid specs, replaces the first-
+sweep DRAFT numbers in `results/e2c_baseline_summary.md` /
+`corpus/e2c_baseline.DRAFT.json`):**
+
+| model | pass@1 | pass@32 |
+|---|---|---|
+| gpt-oss-20b  | 8/23  | 19/23 |
+| gpt-oss-120b | 12/23 | 20/23 |
+
+- 20b-b pass@1 specs: 5, 13, 14, 30, 132, 148, 158, 181
+- 20b-b pass@32 specs: 2, 5, 13, 14, 30, 32, 37, 95, 121, 131, 132, 141, 143, 148, 158, 168, 174, 181, 191
+- 120b-b pass@1 specs: 2, 13, 14, 32, 95, 121, 128, 132, 143, 158, 168, 181
+- 120b-b pass@32 specs: 2, 5, 13, 14, 30, 32, 37, 95, 121, 128, 131, 132, 141, 143, 148, 158, 168, 174, 181, 191
+
+**Best arm, framing B pass@1: gpt-oss-120b (12/23).** **Best arm, framing B
+pass@32: gpt-oss-120b (20/23), narrowly over gpt-oss-20b (19/23)** — this
+*reverses* the first-sweep pass@32 inversion (where 20b narrowly led 120b);
+120b now leads on both pass@1 and pass@32 in the audited r2 measurement. Note
+these r2 numbers are from an independently re-sampled 32-draw set per spec (not
+a re-audit of the original samples, which were never persisted), so absolute
+counts are not directly diffable against the first sweep sample-for-sample —
+only the audited totals are comparable.
+
+**Residual scope note:** this audit is a diff-based check against every
+CHECKED/STRUCTURAL definition's normalized text plus a mechanical mutation-
+site-bypass screen — it is NOT a full formal-equivalence proof (undecidable in
+general). It closes the specific gap the pre-r2 section above disclosed
+(candidate text now exists and was diffed) and catches the same false-pass
+shapes Stage-1 found (91/92-style state-space narrowing via Init/Next). It does
+not rule out a maximally subtle narrowing that (a) touches only non-CHECKED,
+non-STRUCTURAL helper definitions and (b) still changes reachable behavior in
+a way that happens to dodge the specific properties this cfg checks — the same
+irreducible residual any text-diff audit has against a semantics an SMT/model
+checker alone cannot certify as preserved. No such case was found in 692 rows.
