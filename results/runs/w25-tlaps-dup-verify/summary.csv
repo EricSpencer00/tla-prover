@@ -1,0 +1,6 @@
+spec,method,sany,tlc,tlc_vacuity,cfg_origin,tlaps,tlaps_obligations,apalache,budget_used,log_path
+69,oracle,pass,no_cfg,,,,,,"{""sany_s"": 0.2}",/Users/eric/GitHub/prove-TLA/results/runs/w25-tlaps-dup-verify/logs/69.log
+86,oracle,pass,no_cfg,,,,,,"{""sany_s"": 0.2}",/Users/eric/GitHub/prove-TLA/results/runs/w25-tlaps-dup-verify/logs/86.log
+116,oracle,pass,no_cfg,,,,,,"{""sany_s"": 0.2}",/Users/eric/GitHub/prove-TLA/results/runs/w25-tlaps-dup-verify/logs/116.log
+183,oracle,pass,no_cfg,,,,,,"{""sany_s"": 0.2}",/Users/eric/GitHub/prove-TLA/results/runs/w25-tlaps-dup-verify/logs/183.log
+200,oracle,pass,no_cfg,,,,,,"{""sany_s"": 0.2}",/Users/eric/GitHub/prove-TLA/results/runs/w25-tlaps-dup-verify/logs/200.log
