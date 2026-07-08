@@ -1,0 +1,8 @@
+{
+  "source": "corpus",
+  "timeout_s": 600,
+  "limit": null,
+  "modules_discovered": 15,
+  "reproduction_cmd": "python3 -m harness proof-traces --source corpus --out results/proof_traces/corpus-v1 --timeout 600",
+  "generated_at": "2026-07-08T19:11:09Z"
+}

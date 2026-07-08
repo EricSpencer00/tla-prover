@@ -1,0 +1,5208 @@
+
+\* TLAPM version 80172c6
+\* launched at 2026-07-08 14:14:25 with command line:
+\* /Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm --toolbox 0 0 --printallobs -I /Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib -I /Users/eric/GitHub/prove-TLA/tools/community-modules -I /Users/eric/GitHub/prove-TLA/tools/extra-modules BagsTheorems_proofs.tla
+
+@!!BEGIN
+@!!type:obligation
+@!!id:1
+@!!loc:51:11:51:13
+@!!status:to be proved
+@!!obl:ASSUME IsABag(B) == B \in [DOMAIN B -> {n \in Nat : n > 0}],
+       BagToSet(B) == DOMAIN B,
+       BagIn(e, B) == e \in BagToSet(B),
+       CopiesIn(e, B) == IF BagIn(e, B) THEN B[e] ELSE 0,
+       NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       \A e : CopiesIn(e, B1) = CopiesIn(e, B2) ,
+       <1>2 
+PROVE  B1 = B2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:2
+@!!loc:51:14:51:18
+@!!status:to be proved
+@!!obl:ASSUME IsABag(B) == B \in [DOMAIN B -> {n \in Nat : n > 0}],
+       BagToSet(B) == DOMAIN B,
+       BagIn(e, B) == e \in BagToSet(B),
+       CopiesIn(e, B) == IF BagIn(e, B) THEN B[e] ELSE 0,
+       NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       \A e : CopiesIn(e, B1) = CopiesIn(e, B2) 
+PROVE  <1>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:3
+@!!loc:48:3:48:5
+@!!status:to be proved
+@!!obl:ASSUME IsABag(B) == B \in [DOMAIN B -> {n \in Nat : n > 0}],
+       BagToSet(B) == DOMAIN B,
+       BagIn(e, B) == e \in BagToSet(B),
+       CopiesIn(e, B) == IF BagIn(e, B) THEN B[e] ELSE 0,
+       NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       \A e : CopiesIn(e, B1) = CopiesIn(e, B2) 
+PROVE  \A e : e \in DOMAIN B1 <=> e \in DOMAIN B2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:4
+@!!loc:50:3:50:5
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       \A e : CopiesIn(e, B1) = CopiesIn(e, B2) ,
+       <1>1 
+PROVE  DOMAIN B1 = DOMAIN B2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:5
+@!!loc:50:6:50:10
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       \A e : CopiesIn(e, B1) = CopiesIn(e, B2) 
+PROVE  <1>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:6
+@!!loc:61:1:61:3
+@!!status:to be proved
+@!!obl:ASSUME IsABag(B) == B \in [DOMAIN B -> {n \in Nat : n > 0}],
+       \sqsubseteq(B1, B2) ==
+         /\ DOMAIN B1 \subseteq DOMAIN B2
+         /\ \A e \in DOMAIN B1 : B1[e] =< B2[e],
+       NEW CONSTANT B,
+       IsABag(B) 
+PROVE  B \sqsubseteq B
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:7
+@!!loc:68:1:68:3
+@!!status:to be proved
+@!!obl:ASSUME IsABag(B) == B \in [DOMAIN B -> {n \in Nat : n > 0}],
+       \sqsubseteq(B1, B2) ==
+         /\ DOMAIN B1 \subseteq DOMAIN B2
+         /\ \A e \in DOMAIN B1 : B1[e] =< B2[e],
+       NEW CONSTANT A,
+       NEW CONSTANT B,
+       IsABag(A) ,
+       IsABag(B) ,
+       A \sqsubseteq B ,
+       B \sqsubseteq A 
+PROVE  A = B
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:8
+@!!loc:75:1:75:3
+@!!status:to be proved
+@!!obl:ASSUME IsABag(B) == B \in [DOMAIN B -> {n \in Nat : n > 0}],
+       \sqsubseteq(B1, B2) ==
+         /\ DOMAIN B1 \subseteq DOMAIN B2
+         /\ \A e \in DOMAIN B1 : B1[e] =< B2[e],
+       NEW CONSTANT A,
+       NEW CONSTANT B,
+       NEW CONSTANT C,
+       IsABag(A) ,
+       IsABag(B) ,
+       IsABag(C) ,
+       A \sqsubseteq B ,
+       B \sqsubseteq C 
+PROVE  A \sqsubseteq C
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:9
+@!!loc:88:1:88:3
+@!!status:to be proved
+@!!obl:ASSUME IsABag(B) == B \in [DOMAIN B -> {n \in Nat : n > 0}],
+       BagToSet(B) == DOMAIN B,
+       SetToBag(S) == [e \in S |-> 1],
+       BagIn(e, B) == e \in BagToSet(B),
+       EmptyBag == SetToBag({}),
+       \sqsubseteq(B1, B2) ==
+         /\ DOMAIN B1 \subseteq DOMAIN B2
+         /\ \A e \in DOMAIN B1 : B1[e] =< B2[e],
+       NEW CONSTANT B,
+       IsABag(B) 
+PROVE  /\ IsABag(EmptyBag)
+       /\ B = EmptyBag <=> DOMAIN B = {}
+       /\ DOMAIN EmptyBag = {}
+       /\ EmptyBag \sqsubseteq B
+       /\ \A e : ~BagIn(e, EmptyBag)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:10
+@!!loc:122:10:122:12
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat,
+       <1>1 ,
+       <1>2 ,
+       <1>3 ,
+       <1>4 ,
+       <1>5 ,
+       <1>6 
+PROVE  /\ IsABag(Scaling(n, B))
+       /\ Scaling(n, EmptyBag) = EmptyBag
+       /\ Scaling(0, B) = EmptyBag
+       /\ Scaling(1, B) = B
+       /\ Scaling(n * m, B) = Scaling(n, Scaling(m, B))
+       /\ n > 0 => DOMAIN Scaling(n, B) = DOMAIN B
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:11
+@!!loc:122:13:122:17
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat
+PROVE  <1>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:12
+@!!loc:122:19:122:23
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat,
+       <1>1 
+PROVE  <1>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:13
+@!!loc:122:25:122:29
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat,
+       <1>1 ,
+       <1>2 
+PROVE  <1>3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:14
+@!!loc:122:31:122:35
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat,
+       <1>1 ,
+       <1>2 ,
+       <1>3 
+PROVE  <1>4
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:15
+@!!loc:122:37:122:41
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat,
+       <1>1 ,
+       <1>2 ,
+       <1>3 ,
+       <1>4 
+PROVE  <1>5
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:16
+@!!loc:122:43:122:47
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat,
+       <1>1 ,
+       <1>2 ,
+       <1>3 ,
+       <1>4 ,
+       <1>5 
+PROVE  <1>6
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:17
+@!!loc:103:3:103:5
+@!!status:to be proved
+@!!obl:ASSUME IsABag(B) == B \in [DOMAIN B -> {n \in Nat : n > 0}],
+       SetToBag(S) == [e \in S |-> 1],
+       EmptyBag == SetToBag({}),
+       Scaling(n, B) ==
+         IF n > 0 THEN [i \in DOMAIN B |-> n * B[i]] ELSE EmptyBag,
+       NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat
+PROVE  IsABag(Scaling(n, B))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:18
+@!!loc:105:3:105:5
+@!!status:to be proved
+@!!obl:ASSUME IsABag(B) == B \in [DOMAIN B -> {n \in Nat : n > 0}],
+       SetToBag(S) == [e \in S |-> 1],
+       EmptyBag == SetToBag({}),
+       Scaling(n, B) ==
+         IF n > 0 THEN [i \in DOMAIN B |-> n * B[i]] ELSE EmptyBag,
+       NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat
+PROVE  Scaling(n, EmptyBag) = EmptyBag
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:19
+@!!loc:107:3:107:5
+@!!status:to be proved
+@!!obl:ASSUME Scaling(n, B) ==
+         IF n > 0 THEN [i \in DOMAIN B |-> n * B[i]] ELSE EmptyBag,
+       NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat
+PROVE  Scaling(0, B) = EmptyBag
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:20
+@!!loc:109:3:109:5
+@!!status:to be proved
+@!!obl:ASSUME IsABag(B) == B \in [DOMAIN B -> {n \in Nat : n > 0}],
+       Scaling(n, B) ==
+         IF n > 0 THEN [i \in DOMAIN B |-> n * B[i]] ELSE EmptyBag,
+       NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat
+PROVE  Scaling(1, B) = B
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:21
+@!!loc:119:13:119:15
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat,
+       <2>1 ,
+       <2>2 ,
+       <2>3 
+PROVE  Scaling(n * m, B) = Scaling(n, Scaling(m, B))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:22
+@!!loc:119:16:119:20
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat
+PROVE  <2>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:23
+@!!loc:119:22:119:26
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat,
+       <2>1 
+PROVE  <2>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:24
+@!!loc:119:28:119:32
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat,
+       <2>1 ,
+       <2>2 
+PROVE  <2>3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:25
+@!!loc:114:15:114:17
+@!!status:to be proved
+@!!obl:ASSUME Scaling(n, B) ==
+         IF n > 0 THEN [i \in DOMAIN B |-> n * B[i]] ELSE EmptyBag,
+       NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat,
+       <3>_a36 ,
+       <2>1 
+PROVE  Scaling(n * m, B) = Scaling(n, Scaling(m, B))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:26
+@!!loc:114:18:114:22
+@!!status:to be proved
+@!!obl:ASSUME Scaling(n, B) ==
+         IF n > 0 THEN [i \in DOMAIN B |-> n * B[i]] ELSE EmptyBag,
+       NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat,
+       <3>_a36 
+PROVE  <2>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:27
+@!!loc:113:7:113:9
+@!!status:to be proved
+@!!obl:ASSUME IsABag(B) == B \in [DOMAIN B -> {n \in Nat : n > 0}],
+       NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat
+PROVE  \A i \in DOMAIN B : n * m * B[i] = n * (m * B[i])
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:28
+@!!loc:116:5:116:7
+@!!status:to be proved
+@!!obl:ASSUME Scaling(n, B) ==
+         IF n > 0 THEN [i \in DOMAIN B |-> n * B[i]] ELSE EmptyBag,
+       NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat,
+       <2>2 ,
+       <1>2 ,
+       <1>3 
+PROVE  Scaling(n * m, B) = Scaling(n, Scaling(m, B))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:29
+@!!loc:116:8:116:12
+@!!status:to be proved
+@!!obl:ASSUME Scaling(n, B) ==
+         IF n > 0 THEN [i \in DOMAIN B |-> n * B[i]] ELSE EmptyBag,
+       NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat
+PROVE  <2>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:30
+@!!loc:116:14:116:18
+@!!status:to be proved
+@!!obl:ASSUME Scaling(n, B) ==
+         IF n > 0 THEN [i \in DOMAIN B |-> n * B[i]] ELSE EmptyBag,
+       NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat,
+       <2>2 
+PROVE  <1>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:31
+@!!loc:116:20:116:24
+@!!status:to be proved
+@!!obl:ASSUME Scaling(n, B) ==
+         IF n > 0 THEN [i \in DOMAIN B |-> n * B[i]] ELSE EmptyBag,
+       NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat,
+       <2>2 ,
+       <1>2 
+PROVE  <1>3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:32
+@!!loc:118:5:118:7
+@!!status:to be proved
+@!!obl:ASSUME Scaling(n, B) ==
+         IF n > 0 THEN [i \in DOMAIN B |-> n * B[i]] ELSE EmptyBag,
+       NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat,
+       <2>3 
+PROVE  Scaling(n * m, B) = Scaling(n, Scaling(m, B))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:33
+@!!loc:118:8:118:12
+@!!status:to be proved
+@!!obl:ASSUME Scaling(n, B) ==
+         IF n > 0 THEN [i \in DOMAIN B |-> n * B[i]] ELSE EmptyBag,
+       NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat
+PROVE  <2>3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:34
+@!!loc:121:3:121:5
+@!!status:to be proved
+@!!obl:ASSUME Scaling(n, B) ==
+         IF n > 0 THEN [i \in DOMAIN B |-> n * B[i]] ELSE EmptyBag,
+       NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat
+PROVE  n > 0 => DOMAIN Scaling(n, B) = DOMAIN B
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:35
+@!!loc:131:1:131:3
+@!!status:to be proved
+@!!obl:ASSUME BagToSet(B) == DOMAIN B,
+       SetToBag(S) == [e \in S |-> 1],
+       NEW CONSTANT S
+PROVE  BagToSet(SetToBag(S)) = S
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:36
+@!!loc:136:1:136:3
+@!!status:to be proved
+@!!obl:ASSUME IsABag(B) == B \in [DOMAIN B -> {n \in Nat : n > 0}],
+       BagToSet(B) == DOMAIN B,
+       SetToBag(S) == [e \in S |-> 1],
+       \sqsubseteq(B1, B2) ==
+         /\ DOMAIN B1 \subseteq DOMAIN B2
+         /\ \A e \in DOMAIN B1 : B1[e] =< B2[e],
+       NEW CONSTANT B,
+       IsABag(B) 
+PROVE  SetToBag(BagToSet(B)) \sqsubseteq B
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:37
+@!!loc:145:1:145:3
+@!!status:to be proved
+@!!obl:ASSUME SetToBag(S) == [e \in S |-> 1],
+       NEW CONSTANT A,
+       NEW CONSTANT B
+PROVE  A = B <=> SetToBag(A) = SetToBag(B)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:38
+@!!loc:156:1:156:3
+@!!status:to be proved
+@!!obl:ASSUME IsABag(B) == B \in [DOMAIN B -> {n \in Nat : n > 0}],
+       BagToSet(B) == DOMAIN B,
+       BagIn(e, B) == e \in BagToSet(B),
+       (+)(B1, B2) ==
+         [e \in DOMAIN B1 \cup DOMAIN B2 |->
+            (IF e \in DOMAIN B1 THEN B1[e] ELSE 0)
+            + (IF e \in DOMAIN B2 THEN B2[e] ELSE 0)],
+       CopiesIn(e, B) == IF BagIn(e, B) THEN B[e] ELSE 0,
+       NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       IsABag(B1) ,
+       IsABag(B2) 
+PROVE  /\ IsABag(B1 (+) B2)
+       /\ DOMAIN B1 (+) B2 = DOMAIN B1 \cup DOMAIN B2
+       /\ \A e : CopiesIn(e, B1 (+) B2) = CopiesIn(e, B1) + CopiesIn(e, B2)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:39
+@!!loc:187:11:187:13
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       B ==
+         [e \in DOMAIN B1 |->
+            IF e \in DOMAIN B2 THEN B1[e] - B2[e] ELSE B1[e]],
+       R == [e \in D |-> B[e]],
+       <1>1 ,
+       <1>2 ,
+       <1>3 ,
+       <1>4 ,
+       <1>5 
+PROVE  /\ IsABag(B1 (-) B2)
+       /\ DOMAIN B1 (-) B2
+          = {e \in DOMAIN B1 : e \notin DOMAIN B2 \/ B1[e] > B2[e]}
+       /\ \A e :
+             CopiesIn(e, B1 (-) B2)
+             = (IF BagIn(e, B1 (-) B2)
+                  THEN CopiesIn(e, B1) - CopiesIn(e, B2)
+                  ELSE 0)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:40
+@!!loc:187:14:187:18
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       B ==
+         [e \in DOMAIN B1 |->
+            IF e \in DOMAIN B2 THEN B1[e] - B2[e] ELSE B1[e]],
+       R == [e \in D |-> B[e]]
+PROVE  <1>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:41
+@!!loc:187:20:187:24
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       B ==
+         [e \in DOMAIN B1 |->
+            IF e \in DOMAIN B2 THEN B1[e] - B2[e] ELSE B1[e]],
+       R == [e \in D |-> B[e]],
+       <1>1 
+PROVE  <1>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:42
+@!!loc:187:26:187:30
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       B ==
+         [e \in DOMAIN B1 |->
+            IF e \in DOMAIN B2 THEN B1[e] - B2[e] ELSE B1[e]],
+       R == [e \in D |-> B[e]],
+       <1>1 ,
+       <1>2 
+PROVE  <1>3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:43
+@!!loc:187:32:187:36
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       B ==
+         [e \in DOMAIN B1 |->
+            IF e \in DOMAIN B2 THEN B1[e] - B2[e] ELSE B1[e]],
+       R == [e \in D |-> B[e]],
+       <1>1 ,
+       <1>2 ,
+       <1>3 
+PROVE  <1>4
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:44
+@!!loc:187:38:187:42
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       B ==
+         [e \in DOMAIN B1 |->
+            IF e \in DOMAIN B2 THEN B1[e] - B2[e] ELSE B1[e]],
+       R == [e \in D |-> B[e]],
+       <1>1 ,
+       <1>2 ,
+       <1>3 ,
+       <1>4 
+PROVE  <1>5
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:45
+@!!loc:175:3:175:5
+@!!status:to be proved
+@!!obl:ASSUME (-)(B1, B2) ==
+         LET B ==
+               [e \in DOMAIN B1 |->
+                  IF e \in DOMAIN B2 THEN B1[e] - B2[e] ELSE B1[e]]
+         IN  [e \in {d \in DOMAIN B : B[d] > 0} |-> B[e]],
+       NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       B ==
+         [e \in DOMAIN B1 |->
+            IF e \in DOMAIN B2 THEN B1[e] - B2[e] ELSE B1[e]],
+       D == {e \in DOMAIN B1 : B[e] > 0},
+       R == [e \in D |-> B[e]],
+       Zenon_1 
+PROVE  R = B1 (-) B2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:46
+@!!loc:175:6:175:11
+@!!status:to be proved
+@!!obl:ASSUME (-)(B1, B2) ==
+         LET B ==
+               [e \in DOMAIN B1 |->
+                  IF e \in DOMAIN B2 THEN B1[e] - B2[e] ELSE B1[e]]
+         IN  [e \in {d \in DOMAIN B : B[d] > 0} |-> B[e]],
+       NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       B ==
+         [e \in DOMAIN B1 |->
+            IF e \in DOMAIN B2 THEN B1[e] - B2[e] ELSE B1[e]],
+       D == {e \in DOMAIN B1 : B[e] > 0},
+       R == [e \in D |-> B[e]]
+PROVE  Zenon_1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:47
+@!!loc:177:3:177:5
+@!!status:to be proved
+@!!obl:ASSUME IsABag(B) == B \in [DOMAIN B -> {n \in Nat : n > 0}],
+       NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       B ==
+         [e \in DOMAIN B1 |->
+            IF e \in DOMAIN B2 THEN B1[e] - B2[e] ELSE B1[e]],
+       D == {e \in DOMAIN B1 : B[e] > 0},
+       R == [e \in D |-> B[e]]
+PROVE  \A e \in DOMAIN R : R[e] \in Nat /\ R[e] > 0
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:48
+@!!loc:179:3:179:5
+@!!status:to be proved
+@!!obl:ASSUME IsABag(B) == B \in [DOMAIN B -> {n \in Nat : n > 0}],
+       NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       B ==
+         [e \in DOMAIN B1 |->
+            IF e \in DOMAIN B2 THEN B1[e] - B2[e] ELSE B1[e]],
+       D == {e \in DOMAIN B1 : B[e] > 0},
+       R == [e \in D |-> B[e]]
+PROVE  DOMAIN R = {e \in DOMAIN B1 : e \notin DOMAIN B2 \/ B1[e] > B2[e]}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:49
+@!!loc:183:3:183:5
+@!!status:to be proved
+@!!obl:ASSUME IsABag(B) == B \in [DOMAIN B -> {n \in Nat : n > 0}],
+       BagToSet(B) == DOMAIN B,
+       BagIn(e, B) == e \in BagToSet(B),
+       CopiesIn(e, B) == IF BagIn(e, B) THEN B[e] ELSE 0,
+       NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       B ==
+         [e \in DOMAIN B1 |->
+            IF e \in DOMAIN B2 THEN B1[e] - B2[e] ELSE B1[e]],
+       D == {e \in DOMAIN B1 : B[e] > 0},
+       R == [e \in D |-> B[e]]
+PROVE  \A e :
+          CopiesIn(e, R)
+          = (IF BagIn(e, R) THEN CopiesIn(e, B1) - CopiesIn(e, B2) ELSE 0)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:50
+@!!loc:186:3:186:5
+@!!status:to be proved
+@!!obl:ASSUME IsABag(B) == B \in [DOMAIN B -> {n \in Nat : n > 0}],
+       NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       B ==
+         [e \in DOMAIN B1 |->
+            IF e \in DOMAIN B2 THEN B1[e] - B2[e] ELSE B1[e]],
+       R == [e \in D |-> B[e]],
+       <1>2 
+PROVE  IsABag(R)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:51
+@!!loc:186:6:186:10
+@!!status:to be proved
+@!!obl:ASSUME IsABag(B) == B \in [DOMAIN B -> {n \in Nat : n > 0}],
+       NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       B ==
+         [e \in DOMAIN B1 |->
+            IF e \in DOMAIN B2 THEN B1[e] - B2[e] ELSE B1[e]],
+       R == [e \in D |-> B[e]]
+PROVE  <1>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:52
+@!!loc:205:11:205:13
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       <1>1 ,
+       <1>2 
+PROVE  B1 (+) B2 = B2 (+) B1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:53
+@!!loc:205:14:205:18
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       IsABag(B1) ,
+       IsABag(B2) 
+PROVE  <1>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:54
+@!!loc:205:20:205:24
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       <1>1 
+PROVE  <1>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:55
+@!!loc:200:3:200:5
+@!!status:to be proved
+@!!obl:ASSUME IsABag(B) == B \in [DOMAIN B -> {n \in Nat : n > 0}],
+       NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       D1 == DOMAIN B1,
+       D2 == DOMAIN B2,
+       C1(e) == IF e \in D1 THEN B1[e] ELSE 0,
+       C2(e) == IF e \in D2 THEN B2[e] ELSE 0
+PROVE  \A e : C1(e) \in Nat /\ C2(e) \in Nat
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:56
+@!!loc:203:3:203:5
+@!!status:to be proved
+@!!obl:ASSUME (+)(B1, B2) ==
+         [e \in DOMAIN B1 \cup DOMAIN B2 |->
+            (IF e \in DOMAIN B1 THEN B1[e] ELSE 0)
+            + (IF e \in DOMAIN B2 THEN B2[e] ELSE 0)],
+       NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       D1 == DOMAIN B1,
+       D2 == DOMAIN B2,
+       C1(e) == IF e \in D1 THEN B1[e] ELSE 0,
+       C2(e) == IF e \in D2 THEN B2[e] ELSE 0
+PROVE  /\ B1 (+) B2 = [e \in D1 \cup D2 |-> C1(e) + C2(e)]
+       /\ B2 (+) B1 = [e \in D2 \cup D1 |-> C2(e) + C1(e)]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:57
+@!!loc:228:11:228:13
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       NEW CONSTANT B3,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       IsABag(B3) ,
+       <1>2 ,
+       <1>3 ,
+       Zenon_1 
+PROVE  B1 (+) B2 (+) B3 = B1 (+) (B2 (+) B3)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:58
+@!!loc:228:14:228:18
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       NEW CONSTANT B3,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       IsABag(B3) 
+PROVE  <1>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:59
+@!!loc:228:20:228:24
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       NEW CONSTANT B3,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       IsABag(B3) ,
+       <1>2 
+PROVE  <1>3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:60
+@!!loc:228:26:228:31
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       NEW CONSTANT B3,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       IsABag(B3) ,
+       <1>2 ,
+       <1>3 
+PROVE  Zenon_1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:61
+@!!loc:219:3:219:5
+@!!status:to be proved
+@!!obl:ASSUME IsABag(B) == B \in [DOMAIN B -> {n \in Nat : n > 0}],
+       NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       NEW CONSTANT B3,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       IsABag(B3) ,
+       D1 == DOMAIN B1,
+       D2 == DOMAIN B2,
+       D3 == DOMAIN B3,
+       C1(e) == IF e \in D1 THEN B1[e] ELSE 0,
+       C2(e) == IF e \in D2 THEN B2[e] ELSE 0,
+       C3(e) == IF e \in D3 THEN B3[e] ELSE 0
+PROVE  \A e : C1(e) \in Nat /\ C2(e) \in Nat /\ C3(e) \in Nat
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:62
+@!!loc:224:3:224:5
+@!!status:to be proved
+@!!obl:ASSUME (+)(B1, B2) ==
+         [e \in DOMAIN B1 \cup DOMAIN B2 |->
+            (IF e \in DOMAIN B1 THEN B1[e] ELSE 0)
+            + (IF e \in DOMAIN B2 THEN B2[e] ELSE 0)],
+       NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       NEW CONSTANT B3,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       IsABag(B3) ,
+       D1 == DOMAIN B1,
+       D2 == DOMAIN B2,
+       D3 == DOMAIN B3,
+       C1(e) == IF e \in D1 THEN B1[e] ELSE 0,
+       C2(e) == IF e \in D2 THEN B2[e] ELSE 0,
+       C3(e) == IF e \in D3 THEN B3[e] ELSE 0
+PROVE  /\ B1 (+) B2 (+) B3
+          = [e \in D1 \cup D2 \cup D3 |-> C1(e) + C2(e) + C3(e)]
+       /\ B1 (+) (B2 (+) B3)
+          = [e \in D1 \cup (D2 \cup D3) |-> C1(e) + (C2(e) + C3(e))]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:63
+@!!loc:227:3:227:5
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       NEW CONSTANT B3,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       IsABag(B3) ,
+       <1>1 
+PROVE  \A e : C1(e) + C2(e) + C3(e) = C1(e) + (C2(e) + C3(e))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:64
+@!!loc:227:6:227:10
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       NEW CONSTANT B3,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       IsABag(B3) 
+PROVE  <1>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:65
+@!!loc:238:1:238:3
+@!!status:to be proved
+@!!obl:ASSUME IsABag(B) == B \in [DOMAIN B -> {n \in Nat : n > 0}],
+       (+)(B1, B2) ==
+         [e \in DOMAIN B1 \cup DOMAIN B2 |->
+            (IF e \in DOMAIN B1 THEN B1[e] ELSE 0)
+            + (IF e \in DOMAIN B2 THEN B2[e] ELSE 0)],
+       \sqsubseteq(B1, B2) ==
+         /\ DOMAIN B1 \subseteq DOMAIN B2
+         /\ \A e \in DOMAIN B1 : B1[e] =< B2[e],
+       NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       IsABag(B1) ,
+       IsABag(B2) 
+PROVE  B1 \sqsubseteq B1 (+) B2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:66
+@!!loc:247:1:247:3
+@!!status:to be proved
+@!!obl:ASSUME IsABag(B) == B \in [DOMAIN B -> {n \in Nat : n > 0}],
+       SetToBag(S) == [e \in S |-> 1],
+       EmptyBag == SetToBag({}),
+       \sqsubseteq(B1, B2) ==
+         /\ DOMAIN B1 \subseteq DOMAIN B2
+         /\ \A e \in DOMAIN B1 : B1[e] =< B2[e],
+       Scaling(n, B) ==
+         IF n > 0 THEN [i \in DOMAIN B |-> n * B[i]] ELSE EmptyBag,
+       NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat,
+       m =< n 
+PROVE  Scaling(m, B) \sqsubseteq Scaling(n, B)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:67
+@!!loc:256:1:256:3
+@!!status:to be proved
+@!!obl:ASSUME IsABag(B) == B \in [DOMAIN B -> {n \in Nat : n > 0}],
+       (-)(B1, B2) ==
+         LET B ==
+               [e \in DOMAIN B1 |->
+                  IF e \in DOMAIN B2 THEN B1[e] - B2[e] ELSE B1[e]]
+         IN  [e \in {d \in DOMAIN B : B[d] > 0} |-> B[e]],
+       \sqsubseteq(B1, B2) ==
+         /\ DOMAIN B1 \subseteq DOMAIN B2
+         /\ \A e \in DOMAIN B1 : B1[e] =< B2[e],
+       NEW CONSTANT A,
+       NEW CONSTANT B,
+       IsABag(A) ,
+       IsABag(B) 
+PROVE  A (-) B \sqsubseteq A
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:68
+@!!loc:278:11:278:13
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       <1>3 ,
+       <1>4 
+PROVE  /\ B (+) EmptyBag = B
+       /\ B (-) EmptyBag = B
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:69
+@!!loc:278:14:278:18
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT B,
+       IsABag(B) 
+PROVE  <1>3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:70
+@!!loc:278:20:278:24
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       <1>3 
+PROVE  <1>4
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:71
+@!!loc:269:3:269:5
+@!!status:to be proved
+@!!obl:ASSUME IsABag(B) == B \in [DOMAIN B -> {n \in Nat : n > 0}],
+       NEW CONSTANT B,
+       IsABag(B) ,
+       D == DOMAIN B,
+       C(e) == IF e \in D THEN B[e] ELSE 0
+PROVE  /\ \A e \in D : C(e) \in Nat /\ C(e) > 0
+       /\ \A e : e \notin D => C(e) = 0
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:72
+@!!loc:272:3:272:5
+@!!status:to be proved
+@!!obl:ASSUME IsABag(B) == B \in [DOMAIN B -> {n \in Nat : n > 0}],
+       SetToBag(S) == [e \in S |-> 1],
+       EmptyBag == SetToBag({}),
+       NEW CONSTANT B,
+       IsABag(B) ,
+       D == DOMAIN B,
+       C(e) == IF e \in D THEN B[e] ELSE 0
+PROVE  /\ B = [e \in D |-> C(e)]
+       /\ EmptyBag = [e \in {} |-> 0]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:73
+@!!loc:275:3:275:5
+@!!status:to be proved
+@!!obl:ASSUME (+)(B1, B2) ==
+         [e \in DOMAIN B1 \cup DOMAIN B2 |->
+            (IF e \in DOMAIN B1 THEN B1[e] ELSE 0)
+            + (IF e \in DOMAIN B2 THEN B2[e] ELSE 0)],
+       NEW CONSTANT B,
+       IsABag(B) ,
+       <1>1 ,
+       <1>2 
+PROVE  B (+) EmptyBag = B
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:74
+@!!loc:275:6:275:10
+@!!status:to be proved
+@!!obl:ASSUME (+)(B1, B2) ==
+         [e \in DOMAIN B1 \cup DOMAIN B2 |->
+            (IF e \in DOMAIN B1 THEN B1[e] ELSE 0)
+            + (IF e \in DOMAIN B2 THEN B2[e] ELSE 0)],
+       NEW CONSTANT B,
+       IsABag(B) 
+PROVE  <1>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:75
+@!!loc:275:12:275:16
+@!!status:to be proved
+@!!obl:ASSUME (+)(B1, B2) ==
+         [e \in DOMAIN B1 \cup DOMAIN B2 |->
+            (IF e \in DOMAIN B1 THEN B1[e] ELSE 0)
+            + (IF e \in DOMAIN B2 THEN B2[e] ELSE 0)],
+       NEW CONSTANT B,
+       IsABag(B) ,
+       <1>1 
+PROVE  <1>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:76
+@!!loc:277:3:277:5
+@!!status:to be proved
+@!!obl:ASSUME (-)(B1, B2) ==
+         LET B ==
+               [e \in DOMAIN B1 |->
+                  IF e \in DOMAIN B2 THEN B1[e] - B2[e] ELSE B1[e]]
+         IN  [e \in {d \in DOMAIN B : B[d] > 0} |-> B[e]],
+       NEW CONSTANT B,
+       IsABag(B) ,
+       <1>1 ,
+       <1>2 
+PROVE  B (-) EmptyBag = B
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:77
+@!!loc:277:6:277:10
+@!!status:to be proved
+@!!obl:ASSUME (-)(B1, B2) ==
+         LET B ==
+               [e \in DOMAIN B1 |->
+                  IF e \in DOMAIN B2 THEN B1[e] - B2[e] ELSE B1[e]]
+         IN  [e \in {d \in DOMAIN B : B[d] > 0} |-> B[e]],
+       NEW CONSTANT B,
+       IsABag(B) 
+PROVE  <1>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:78
+@!!loc:277:12:277:16
+@!!status:to be proved
+@!!obl:ASSUME (-)(B1, B2) ==
+         LET B ==
+               [e \in DOMAIN B1 |->
+                  IF e \in DOMAIN B2 THEN B1[e] - B2[e] ELSE B1[e]]
+         IN  [e \in {d \in DOMAIN B : B[d] > 0} |-> B[e]],
+       NEW CONSTANT B,
+       IsABag(B) ,
+       <1>1 
+PROVE  <1>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:79
+@!!loc:287:1:287:3
+@!!status:to be proved
+@!!obl:ASSUME IsABag(B) == B \in [DOMAIN B -> {n \in Nat : n > 0}],
+       SetToBag(S) == [e \in S |-> 1],
+       NEW CONSTANT S
+PROVE  IsABag(SetToBag(S))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:80
+@!!loc:297:1:297:3
+@!!status:to be proved
+@!!obl:ASSUME IsABag(B) == B \in [DOMAIN B -> {n \in Nat : n > 0}],
+       BagToSet(B) == DOMAIN B,
+       BagIn(e, B) == e \in BagToSet(B),
+       \sqsubseteq(B1, B2) ==
+         /\ DOMAIN B1 \subseteq DOMAIN B2
+         /\ \A e \in DOMAIN B1 : B1[e] =< B2[e],
+       CopiesIn(e, B) == IF BagIn(e, B) THEN B[e] ELSE 0,
+       NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       NEW CONSTANT e,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       B1 \sqsubseteq B2 
+PROVE  /\ BagIn(e, B1) => BagIn(e, B2)
+       /\ CopiesIn(e, B1) =< CopiesIn(e, B2)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:81
+@!!loc:306:1:306:3
+@!!status:to be proved
+@!!obl:ASSUME IsABag(B) == B \in [DOMAIN B -> {n \in Nat : n > 0}],
+       BagToSet(B) == DOMAIN B,
+       SetToBag(S) == [e \in S |-> 1],
+       BagIn(e, B) == e \in BagToSet(B),
+       EmptyBag == SetToBag({}),
+       CopiesIn(e, B) == IF BagIn(e, B) THEN B[e] ELSE 0,
+       Scaling(n, B) ==
+         IF n > 0 THEN [i \in DOMAIN B |-> n * B[i]] ELSE EmptyBag,
+       NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT e
+PROVE  CopiesIn(e, Scaling(n, B)) = n * CopiesIn(e, B)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:82
+@!!loc:315:1:315:3
+@!!status:to be proved
+@!!obl:ASSUME BagToSet(B) == DOMAIN B,
+       SetToBag(S) == [e \in S |-> 1],
+       BagIn(e, B) == e \in BagToSet(B),
+       CopiesIn(e, B) == IF BagIn(e, B) THEN B[e] ELSE 0,
+       NEW CONSTANT B,
+       NEW CONSTANT e
+PROVE  CopiesIn(e, SetToBag(B)) = (IF e \in B THEN 1 ELSE 0)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:83
+@!!loc:332:11:332:13
+@!!status:to be proved
+@!!obl:ASSUME IsABag(B) == B \in [DOMAIN B -> {n \in Nat : n > 0}],
+       SeqToBag(seq) ==
+         [x \in Range(seq) |-> Cardinality({i \in DOMAIN seq : seq[i] = x})],
+       NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       occs(x) == {i \in DOMAIN seq : seq[i] = x},
+       <1>1 
+PROVE  IsABag(SeqToBag(seq))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:84
+@!!loc:332:14:332:18
+@!!status:to be proved
+@!!obl:ASSUME IsABag(B) == B \in [DOMAIN B -> {n \in Nat : n > 0}],
+       SeqToBag(seq) ==
+         [x \in Range(seq) |-> Cardinality({i \in DOMAIN seq : seq[i] = x})],
+       NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       occs(x) == {i \in DOMAIN seq : seq[i] = x}
+PROVE  <1>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:85
+@!!loc:331:13:331:15
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       occs(x) == {i \in DOMAIN seq : seq[i] = x},
+       NEW CONSTANT x \in Range(seq),
+       <2>1 ,
+       <2>2 ,
+       FS_CardinalityType ,
+       FS_EmptySet ,
+       Zenon_1 
+PROVE  Cardinality(occs(x)) \in Nat \ {0}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:86
+@!!loc:331:16:331:20
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       occs(x) == {i \in DOMAIN seq : seq[i] = x},
+       NEW CONSTANT x \in Range(seq)
+PROVE  <2>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:87
+@!!loc:331:22:331:26
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       occs(x) == {i \in DOMAIN seq : seq[i] = x},
+       NEW CONSTANT x \in Range(seq),
+       <2>1 
+PROVE  <2>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:88
+@!!loc:331:28:331:46
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       occs(x) == {i \in DOMAIN seq : seq[i] = x},
+       NEW CONSTANT x \in Range(seq),
+       <2>1 ,
+       <2>2 
+PROVE  FS_CardinalityType
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:89
+@!!loc:331:48:331:59
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       occs(x) == {i \in DOMAIN seq : seq[i] = x},
+       NEW CONSTANT x \in Range(seq),
+       <2>1 ,
+       <2>2 ,
+       FS_CardinalityType 
+PROVE  FS_EmptySet
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:90
+@!!loc:331:61:331:66
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       occs(x) == {i \in DOMAIN seq : seq[i] = x},
+       NEW CONSTANT x \in Range(seq),
+       <2>1 ,
+       <2>2 ,
+       FS_CardinalityType ,
+       FS_EmptySet 
+PROVE  Zenon_1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:91
+@!!loc:328:5:328:7
+@!!status:to be proved
+@!!obl:ASSUME Range(f) == {f[x] : x \in DOMAIN f},
+       NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       occs(x) == {i \in DOMAIN seq : seq[i] = x},
+       NEW CONSTANT x \in Range(seq)
+PROVE  occs(x) # {}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:92
+@!!loc:330:5:330:7
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       occs(x) == {i \in DOMAIN seq : seq[i] = x},
+       NEW CONSTANT x \in Range(seq),
+       FS_Interval ,
+       FS_Subset 
+PROVE  IsFiniteSet(occs(x))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:93
+@!!loc:330:8:330:19
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       occs(x) == {i \in DOMAIN seq : seq[i] = x},
+       NEW CONSTANT x \in Range(seq)
+PROVE  FS_Interval
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:94
+@!!loc:330:21:330:30
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       occs(x) == {i \in DOMAIN seq : seq[i] = x},
+       NEW CONSTANT x \in Range(seq),
+       FS_Interval 
+PROVE  FS_Subset
+
+@!!END
+
+@!!BEGIN
+@!!type:obligationsnumber
+@!!count:94
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:1
+@!!loc:51:11:51:13
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       B1 \in [DOMAIN B1 -> {n \in Nat : n > 0}] ,
+       B2 \in [DOMAIN B2 -> {n \in Nat : n > 0}] ,
+       \A e :
+          (IF e \in DOMAIN B1 THEN B1[e] ELSE 0)
+          = (IF e \in DOMAIN B2 THEN B2[e] ELSE 0) ,
+       DOMAIN B1 = DOMAIN B2 
+PROVE  B1 = B2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:2
+@!!loc:51:14:51:18
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       B1 \in [DOMAIN B1 -> {n \in Nat : n > 0}] ,
+       B2 \in [DOMAIN B2 -> {n \in Nat : n > 0}] ,
+       \A e :
+          (IF e \in DOMAIN B1 THEN B1[e] ELSE 0)
+          = (IF e \in DOMAIN B2 THEN B2[e] ELSE 0) ,
+       DOMAIN B1 = DOMAIN B2 
+PROVE  DOMAIN B1 = DOMAIN B2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:3
+@!!loc:48:3:48:5
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       B1 \in [DOMAIN B1 -> {n \in Nat : n > 0}] ,
+       B2 \in [DOMAIN B2 -> {n \in Nat : n > 0}] ,
+       \A e :
+          (IF e \in DOMAIN B1 THEN B1[e] ELSE 0)
+          = (IF e \in DOMAIN B2 THEN B2[e] ELSE 0) 
+PROVE  \A e : e \in DOMAIN B1 <=> e \in DOMAIN B2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:4
+@!!loc:50:3:50:5
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       \A e : CopiesIn(e, B1) = CopiesIn(e, B2) ,
+       \A e : e \in DOMAIN B1 <=> e \in DOMAIN B2 
+PROVE  DOMAIN B1 = DOMAIN B2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:5
+@!!loc:50:6:50:10
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       \A e : CopiesIn(e, B1) = CopiesIn(e, B2) ,
+       \A e : e \in DOMAIN B1 <=> e \in DOMAIN B2 
+PROVE  \A e : e \in DOMAIN B1 <=> e \in DOMAIN B2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:6
+@!!loc:61:1:61:3
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT B,
+       B \in [DOMAIN B -> {n \in Nat : n > 0}] 
+PROVE  /\ DOMAIN B \subseteq DOMAIN B
+       /\ \A e \in DOMAIN B : B[e] =< B[e]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:7
+@!!loc:68:1:68:3
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT A,
+       NEW CONSTANT B,
+       A \in [DOMAIN A -> {n \in Nat : n > 0}] ,
+       B \in [DOMAIN B -> {n \in Nat : n > 0}] ,
+       /\ DOMAIN A \subseteq DOMAIN B
+       /\ \A e \in DOMAIN A : A[e] =< B[e] ,
+       /\ DOMAIN B \subseteq DOMAIN A
+       /\ \A e \in DOMAIN B : B[e] =< A[e] 
+PROVE  A = B
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:8
+@!!loc:75:1:75:3
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT A,
+       NEW CONSTANT B,
+       NEW CONSTANT C,
+       A \in [DOMAIN A -> {n \in Nat : n > 0}] ,
+       B \in [DOMAIN B -> {n \in Nat : n > 0}] ,
+       C \in [DOMAIN C -> {n \in Nat : n > 0}] ,
+       /\ DOMAIN A \subseteq DOMAIN B
+       /\ \A e \in DOMAIN A : A[e] =< B[e] ,
+       /\ DOMAIN B \subseteq DOMAIN C
+       /\ \A e \in DOMAIN B : B[e] =< C[e] 
+PROVE  /\ DOMAIN A \subseteq DOMAIN C
+       /\ \A e \in DOMAIN A : A[e] =< C[e]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:9
+@!!loc:88:1:88:3
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT B,
+       B \in [DOMAIN B -> {n \in Nat : n > 0}] 
+PROVE  /\ [e \in {} |-> 1]
+          \in [DOMAIN [e \in {} |-> 1] -> {n \in Nat : n > 0}]
+       /\ B = [e \in {} |-> 1] <=> DOMAIN B = {}
+       /\ DOMAIN [e \in {} |-> 1] = {}
+       /\ /\ DOMAIN [e \in {} |-> 1] \subseteq DOMAIN B
+          /\ \A e \in DOMAIN [e \in {} |-> 1] : [e_1 \in {} |-> 1][e] =< B[e]
+       /\ \A e : ~e \in DOMAIN [e_1 \in {} |-> 1]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:10
+@!!loc:122:10:122:12
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat,
+       IsABag(Scaling(n, B)) ,
+       Scaling(n, EmptyBag) = EmptyBag ,
+       Scaling(0, B) = EmptyBag ,
+       Scaling(1, B) = B ,
+       Scaling(n * m, B) = Scaling(n, Scaling(m, B)) ,
+       n > 0 => DOMAIN Scaling(n, B) = DOMAIN B 
+PROVE  /\ IsABag(Scaling(n, B))
+       /\ Scaling(n, EmptyBag) = EmptyBag
+       /\ Scaling(0, B) = EmptyBag
+       /\ Scaling(1, B) = B
+       /\ Scaling(n * m, B) = Scaling(n, Scaling(m, B))
+       /\ n > 0 => DOMAIN Scaling(n, B) = DOMAIN B
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:11
+@!!loc:122:13:122:17
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat,
+       IsABag(Scaling(n, B)) 
+PROVE  IsABag(Scaling(n, B))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:12
+@!!loc:122:19:122:23
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat,
+       Scaling(n, EmptyBag) = EmptyBag ,
+       IsABag(Scaling(n, B)) 
+PROVE  Scaling(n, EmptyBag) = EmptyBag
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:13
+@!!loc:122:25:122:29
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat,
+       Scaling(0, B) = EmptyBag ,
+       IsABag(Scaling(n, B)) ,
+       Scaling(n, EmptyBag) = EmptyBag 
+PROVE  Scaling(0, B) = EmptyBag
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:14
+@!!loc:122:31:122:35
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat,
+       Scaling(1, B) = B ,
+       IsABag(Scaling(n, B)) ,
+       Scaling(n, EmptyBag) = EmptyBag ,
+       Scaling(0, B) = EmptyBag 
+PROVE  Scaling(1, B) = B
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:15
+@!!loc:122:37:122:41
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat,
+       Scaling(n * m, B) = Scaling(n, Scaling(m, B)) ,
+       IsABag(Scaling(n, B)) ,
+       Scaling(n, EmptyBag) = EmptyBag ,
+       Scaling(0, B) = EmptyBag ,
+       Scaling(1, B) = B 
+PROVE  Scaling(n * m, B) = Scaling(n, Scaling(m, B))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:16
+@!!loc:122:43:122:47
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat,
+       n > 0 => DOMAIN Scaling(n, B) = DOMAIN B ,
+       IsABag(Scaling(n, B)) ,
+       Scaling(n, EmptyBag) = EmptyBag ,
+       Scaling(0, B) = EmptyBag ,
+       Scaling(1, B) = B ,
+       Scaling(n * m, B) = Scaling(n, Scaling(m, B)) 
+PROVE  n > 0 => DOMAIN Scaling(n, B) = DOMAIN B
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:17
+@!!loc:103:3:103:5
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT B,
+       B \in [DOMAIN B -> {n \in Nat : n > 0}] ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat
+PROVE  (IF n > 0 THEN [i \in DOMAIN B |-> n * B[i]] ELSE [e \in {} |-> 1])
+       \in [DOMAIN (IF n > 0
+                      THEN [i \in DOMAIN B |-> n * B[i]]
+                      ELSE [e \in {} |-> 1]) ->
+              {n_1 \in Nat : n_1 > 0}]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:18
+@!!loc:105:3:105:5
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT B,
+       B \in [DOMAIN B -> {n \in Nat : n > 0}] ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat
+PROVE  (IF n > 0
+          THEN [i \in DOMAIN [e \in {} |-> 1] |-> n * [e \in {} |-> 1][i]]
+          ELSE [e \in {} |-> 1])
+       = [e \in {} |-> 1]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:17
+@!!loc:103:3:103:5
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT B,
+       B \in [DOMAIN B -> {n \in Nat : n > 0}] ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat
+PROVE  (IF n > 0 THEN [i \in DOMAIN B |-> n * B[i]] ELSE [e \in {} |-> 1])
+       \in [DOMAIN (IF n > 0
+                      THEN [i \in DOMAIN B |-> n * B[i]]
+                      ELSE [e \in {} |-> 1]) ->
+              {n_1 \in Nat : n_1 > 0}]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:10
+@!!loc:122:10:122:12
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.7 (14%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat,
+       IsABag(Scaling(n, B)) ,
+       Scaling(n, EmptyBag) = EmptyBag ,
+       Scaling(0, B) = EmptyBag ,
+       Scaling(1, B) = B ,
+       Scaling(n * m, B) = Scaling(n, Scaling(m, B)) ,
+       n > 0 => DOMAIN Scaling(n, B) = DOMAIN B 
+PROVE  /\ IsABag(Scaling(n, B))
+       /\ Scaling(n, EmptyBag) = EmptyBag
+       /\ Scaling(0, B) = EmptyBag
+       /\ Scaling(1, B) = B
+       /\ Scaling(n * m, B) = Scaling(n, Scaling(m, B))
+       /\ n > 0 => DOMAIN Scaling(n, B) = DOMAIN B
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:9
+@!!loc:88:1:88:3
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.8 (16%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT B,
+       B \in [DOMAIN B -> {n \in Nat : n > 0}] 
+PROVE  /\ [e \in {} |-> 1]
+          \in [DOMAIN [e \in {} |-> 1] -> {n \in Nat : n > 0}]
+       /\ B = [e \in {} |-> 1] <=> DOMAIN B = {}
+       /\ DOMAIN [e \in {} |-> 1] = {}
+       /\ /\ DOMAIN [e \in {} |-> 1] \subseteq DOMAIN B
+          /\ \A e \in DOMAIN [e \in {} |-> 1] : [e_1 \in {} |-> 1][e] =< B[e]
+       /\ \A e : ~e \in DOMAIN [e_1 \in {} |-> 1]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:8
+@!!loc:75:1:75:3
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.9 (19%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT A,
+       NEW CONSTANT B,
+       NEW CONSTANT C,
+       A \in [DOMAIN A -> {n \in Nat : n > 0}] ,
+       B \in [DOMAIN B -> {n \in Nat : n > 0}] ,
+       C \in [DOMAIN C -> {n \in Nat : n > 0}] ,
+       /\ DOMAIN A \subseteq DOMAIN B
+       /\ \A e \in DOMAIN A : A[e] =< B[e] ,
+       /\ DOMAIN B \subseteq DOMAIN C
+       /\ \A e \in DOMAIN B : B[e] =< C[e] 
+PROVE  /\ DOMAIN A \subseteq DOMAIN C
+       /\ \A e \in DOMAIN A : A[e] =< C[e]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:7
+@!!loc:68:1:68:3
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 1.1 (21%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT A,
+       NEW CONSTANT B,
+       A \in [DOMAIN A -> {n \in Nat : n > 0}] ,
+       B \in [DOMAIN B -> {n \in Nat : n > 0}] ,
+       /\ DOMAIN A \subseteq DOMAIN B
+       /\ \A e \in DOMAIN A : A[e] =< B[e] ,
+       /\ DOMAIN B \subseteq DOMAIN A
+       /\ \A e \in DOMAIN B : B[e] =< A[e] 
+PROVE  A = B
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:6
+@!!loc:61:1:61:3
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 1.2 (24%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT B,
+       B \in [DOMAIN B -> {n \in Nat : n > 0}] 
+PROVE  /\ DOMAIN B \subseteq DOMAIN B
+       /\ \A e \in DOMAIN B : B[e] =< B[e]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:4
+@!!loc:50:3:50:5
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 1.4 (27%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       \A e : CopiesIn(e, B1) = CopiesIn(e, B2) ,
+       \A e : e \in DOMAIN B1 <=> e \in DOMAIN B2 
+PROVE  DOMAIN B1 = DOMAIN B2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:3
+@!!loc:48:3:48:5
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 1.5 (29%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       B1 \in [DOMAIN B1 -> {n \in Nat : n > 0}] ,
+       B2 \in [DOMAIN B2 -> {n \in Nat : n > 0}] ,
+       \A e :
+          (IF e \in DOMAIN B1 THEN B1[e] ELSE 0)
+          = (IF e \in DOMAIN B2 THEN B2[e] ELSE 0) 
+PROVE  \A e : e \in DOMAIN B1 <=> e \in DOMAIN B2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:1
+@!!loc:51:11:51:13
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 1.8 (37%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       B1 \in [DOMAIN B1 -> {n \in Nat : n > 0}] ,
+       B2 \in [DOMAIN B2 -> {n \in Nat : n > 0}] ,
+       \A e :
+          (IF e \in DOMAIN B1 THEN B1[e] ELSE 0)
+          = (IF e \in DOMAIN B2 THEN B2[e] ELSE 0) ,
+       DOMAIN B1 = DOMAIN B2 
+PROVE  B1 = B2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:19
+@!!loc:107:3:107:5
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat
+PROVE  (IF 0 > 0 THEN [i \in DOMAIN B |-> 0 * B[i]] ELSE EmptyBag) = EmptyBag
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:20
+@!!loc:109:3:109:5
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT B,
+       B \in [DOMAIN B -> {n \in Nat : n > 0}] ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat
+PROVE  (IF 1 > 0 THEN [i \in DOMAIN B |-> 1 * B[i]] ELSE EmptyBag) = B
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:21
+@!!loc:119:13:119:15
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat,
+       ASSUME m > 0 /\ n > 0 
+       PROVE  Scaling(n * m, B) = Scaling(n, Scaling(m, B)) ,
+       ASSUME m = 0 
+       PROVE  Scaling(n * m, B) = Scaling(n, Scaling(m, B)) ,
+       ASSUME n = 0 
+       PROVE  Scaling(n * m, B) = Scaling(n, Scaling(m, B)) 
+PROVE  Scaling(n * m, B) = Scaling(n, Scaling(m, B))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:22
+@!!loc:119:16:119:20
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat,
+       ASSUME m > 0 /\ n > 0 
+       PROVE  Scaling(n * m, B) = Scaling(n, Scaling(m, B)) 
+PROVE  ASSUME m > 0 /\ n > 0 
+       PROVE  Scaling(n * m, B) = Scaling(n, Scaling(m, B))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:23
+@!!loc:119:22:119:26
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat,
+       ASSUME m = 0 
+       PROVE  Scaling(n * m, B) = Scaling(n, Scaling(m, B)) ,
+       ASSUME m > 0 /\ n > 0 
+       PROVE  Scaling(n * m, B) = Scaling(n, Scaling(m, B)) 
+PROVE  ASSUME m = 0 
+       PROVE  Scaling(n * m, B) = Scaling(n, Scaling(m, B))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:24
+@!!loc:119:28:119:32
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat,
+       ASSUME n = 0 
+       PROVE  Scaling(n * m, B) = Scaling(n, Scaling(m, B)) ,
+       ASSUME m > 0 /\ n > 0 
+       PROVE  Scaling(n * m, B) = Scaling(n, Scaling(m, B)) ,
+       ASSUME m = 0 
+       PROVE  Scaling(n * m, B) = Scaling(n, Scaling(m, B)) 
+PROVE  ASSUME n = 0 
+       PROVE  Scaling(n * m, B) = Scaling(n, Scaling(m, B))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:25
+@!!loc:114:15:114:17
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat,
+       \A i \in DOMAIN B : n * m * B[i] = n * (m * B[i]) ,
+       m > 0 /\ n > 0 
+PROVE  (IF n * m > 0 THEN [i \in DOMAIN B |-> n * m * B[i]] ELSE EmptyBag)
+       = (IF n > 0
+            THEN [i
+                  \in DOMAIN (IF m > 0
+                                THEN [i \in DOMAIN B |-> m * B[i]]
+                                ELSE EmptyBag) |->
+                    n
+                    * (IF m > 0
+                         THEN [i_1 \in DOMAIN B |-> m * B[i_1]]
+                         ELSE EmptyBag)[i]]
+            ELSE EmptyBag)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:26
+@!!loc:114:18:114:22
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat,
+       m > 0 /\ n > 0 ,
+       \A i \in DOMAIN B : n * m * B[i] = n * (m * B[i]) 
+PROVE  m > 0 /\ n > 0
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:27
+@!!loc:113:7:113:9
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT B,
+       B \in [DOMAIN B -> {n \in Nat : n > 0}] ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat
+PROVE  \A i \in DOMAIN B : n * m * B[i] = n * (m * B[i])
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:28
+@!!loc:116:5:116:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat,
+       m = 0 ,
+       (IF n > 0
+          THEN [i \in DOMAIN EmptyBag |-> n * EmptyBag[i]]
+          ELSE EmptyBag)
+       = EmptyBag ,
+       (IF 0 > 0 THEN [i \in DOMAIN B |-> 0 * B[i]] ELSE EmptyBag) = EmptyBag 
+PROVE  (IF n * m > 0 THEN [i \in DOMAIN B |-> n * m * B[i]] ELSE EmptyBag)
+       = (IF n > 0
+            THEN [i
+                  \in DOMAIN (IF m > 0
+                                THEN [i \in DOMAIN B |-> m * B[i]]
+                                ELSE EmptyBag) |->
+                    n
+                    * (IF m > 0
+                         THEN [i_1 \in DOMAIN B |-> m * B[i_1]]
+                         ELSE EmptyBag)[i]]
+            ELSE EmptyBag)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:29
+@!!loc:116:8:116:12
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat,
+       m = 0 
+PROVE  m = 0
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:30
+@!!loc:116:14:116:18
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat,
+       (IF n > 0
+          THEN [i \in DOMAIN EmptyBag |-> n * EmptyBag[i]]
+          ELSE EmptyBag)
+       = EmptyBag ,
+       m = 0 
+PROVE  (IF n > 0
+          THEN [i \in DOMAIN EmptyBag |-> n * EmptyBag[i]]
+          ELSE EmptyBag)
+       = EmptyBag
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:31
+@!!loc:116:20:116:24
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat,
+       (IF 0 > 0 THEN [i \in DOMAIN B |-> 0 * B[i]] ELSE EmptyBag) = EmptyBag ,
+       m = 0 ,
+       (IF n > 0
+          THEN [i \in DOMAIN EmptyBag |-> n * EmptyBag[i]]
+          ELSE EmptyBag)
+       = EmptyBag 
+PROVE  (IF 0 > 0 THEN [i \in DOMAIN B |-> 0 * B[i]] ELSE EmptyBag) = EmptyBag
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:32
+@!!loc:118:5:118:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat,
+       n = 0 
+PROVE  (IF n * m > 0 THEN [i \in DOMAIN B |-> n * m * B[i]] ELSE EmptyBag)
+       = (IF n > 0
+            THEN [i
+                  \in DOMAIN (IF m > 0
+                                THEN [i \in DOMAIN B |-> m * B[i]]
+                                ELSE EmptyBag) |->
+                    n
+                    * (IF m > 0
+                         THEN [i_1 \in DOMAIN B |-> m * B[i_1]]
+                         ELSE EmptyBag)[i]]
+            ELSE EmptyBag)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:33
+@!!loc:118:8:118:12
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat,
+       n = 0 
+PROVE  n = 0
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:34
+@!!loc:121:3:121:5
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat
+PROVE  n > 0
+       => DOMAIN (IF n > 0 THEN [i \in DOMAIN B |-> n * B[i]] ELSE EmptyBag)
+          = DOMAIN B
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:35
+@!!loc:131:1:131:3
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S
+PROVE  DOMAIN [e \in S |-> 1] = S
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:34
+@!!loc:121:3:121:5
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat
+PROVE  n > 0
+       => DOMAIN (IF n > 0 THEN [i \in DOMAIN B |-> n * B[i]] ELSE EmptyBag)
+          = DOMAIN B
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:32
+@!!loc:118:5:118:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.3 (6%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat,
+       n = 0 
+PROVE  (IF n * m > 0 THEN [i \in DOMAIN B |-> n * m * B[i]] ELSE EmptyBag)
+       = (IF n > 0
+            THEN [i
+                  \in DOMAIN (IF m > 0
+                                THEN [i \in DOMAIN B |-> m * B[i]]
+                                ELSE EmptyBag) |->
+                    n
+                    * (IF m > 0
+                         THEN [i_1 \in DOMAIN B |-> m * B[i_1]]
+                         ELSE EmptyBag)[i]]
+            ELSE EmptyBag)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:28
+@!!loc:116:5:116:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.6 (13%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat,
+       m = 0 ,
+       (IF n > 0
+          THEN [i \in DOMAIN EmptyBag |-> n * EmptyBag[i]]
+          ELSE EmptyBag)
+       = EmptyBag ,
+       (IF 0 > 0 THEN [i \in DOMAIN B |-> 0 * B[i]] ELSE EmptyBag) = EmptyBag 
+PROVE  (IF n * m > 0 THEN [i \in DOMAIN B |-> n * m * B[i]] ELSE EmptyBag)
+       = (IF n > 0
+            THEN [i
+                  \in DOMAIN (IF m > 0
+                                THEN [i \in DOMAIN B |-> m * B[i]]
+                                ELSE EmptyBag) |->
+                    n
+                    * (IF m > 0
+                         THEN [i_1 \in DOMAIN B |-> m * B[i_1]]
+                         ELSE EmptyBag)[i]]
+            ELSE EmptyBag)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:27
+@!!loc:113:7:113:9
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.8 (15%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT B,
+       B \in [DOMAIN B -> {n \in Nat : n > 0}] ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat
+PROVE  \A i \in DOMAIN B : n * m * B[i] = n * (m * B[i])
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:25
+@!!loc:114:15:114:17
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.9 (19%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat,
+       \A i \in DOMAIN B : n * m * B[i] = n * (m * B[i]) ,
+       m > 0 /\ n > 0 
+PROVE  (IF n * m > 0 THEN [i \in DOMAIN B |-> n * m * B[i]] ELSE EmptyBag)
+       = (IF n > 0
+            THEN [i
+                  \in DOMAIN (IF m > 0
+                                THEN [i \in DOMAIN B |-> m * B[i]]
+                                ELSE EmptyBag) |->
+                    n
+                    * (IF m > 0
+                         THEN [i_1 \in DOMAIN B |-> m * B[i_1]]
+                         ELSE EmptyBag)[i]]
+            ELSE EmptyBag)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:21
+@!!loc:119:13:119:15
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 1.3 (26%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat,
+       ASSUME m > 0 /\ n > 0 
+       PROVE  Scaling(n * m, B) = Scaling(n, Scaling(m, B)) ,
+       ASSUME m = 0 
+       PROVE  Scaling(n * m, B) = Scaling(n, Scaling(m, B)) ,
+       ASSUME n = 0 
+       PROVE  Scaling(n * m, B) = Scaling(n, Scaling(m, B)) 
+PROVE  Scaling(n * m, B) = Scaling(n, Scaling(m, B))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:20
+@!!loc:109:3:109:5
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 1.4 (28%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT B,
+       B \in [DOMAIN B -> {n \in Nat : n > 0}] ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat
+PROVE  (IF 1 > 0 THEN [i \in DOMAIN B |-> 1 * B[i]] ELSE EmptyBag) = B
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:19
+@!!loc:107:3:107:5
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 1.5 (30%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat
+PROVE  (IF 0 > 0 THEN [i \in DOMAIN B |-> 0 * B[i]] ELSE EmptyBag) = EmptyBag
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:18
+@!!loc:105:3:105:5
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 1.6 (32%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT B,
+       B \in [DOMAIN B -> {n \in Nat : n > 0}] ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat
+PROVE  (IF n > 0
+          THEN [i \in DOMAIN [e \in {} |-> 1] |-> n * [e \in {} |-> 1][i]]
+          ELSE [e \in {} |-> 1])
+       = [e \in {} |-> 1]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:36
+@!!loc:136:1:136:3
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT B,
+       B \in [DOMAIN B -> {n \in Nat : n > 0}] 
+PROVE  /\ DOMAIN [e \in DOMAIN B |-> 1] \subseteq DOMAIN B
+       /\ \A e \in DOMAIN [e \in DOMAIN B |-> 1] :
+             [e_1 \in DOMAIN B |-> 1][e] =< B[e]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:37
+@!!loc:145:1:145:3
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT A,
+       NEW CONSTANT B
+PROVE  A = B <=> [e \in A |-> 1] = [e \in B |-> 1]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:38
+@!!loc:156:1:156:3
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       B1 \in [DOMAIN B1 -> {n \in Nat : n > 0}] ,
+       B2 \in [DOMAIN B2 -> {n \in Nat : n > 0}] 
+PROVE  /\ [e \in DOMAIN B1 \cup DOMAIN B2 |->
+             (IF e \in DOMAIN B1 THEN B1[e] ELSE 0)
+             + (IF e \in DOMAIN B2 THEN B2[e] ELSE 0)]
+          \in [DOMAIN [e \in DOMAIN B1 \cup DOMAIN B2 |->
+                         (IF e \in DOMAIN B1 THEN B1[e] ELSE 0)
+                         + (IF e \in DOMAIN B2 THEN B2[e] ELSE 0)] ->
+                 {n \in Nat : n > 0}]
+       /\ DOMAIN [e \in DOMAIN B1 \cup DOMAIN B2 |->
+                    (IF e \in DOMAIN B1 THEN B1[e] ELSE 0)
+                    + (IF e \in DOMAIN B2 THEN B2[e] ELSE 0)]
+          = DOMAIN B1 \cup DOMAIN B2
+       /\ \A e :
+             (IF
+                e
+                \in DOMAIN [e_1 \in DOMAIN B1 \cup DOMAIN B2 |->
+                              (IF e_1 \in DOMAIN B1 THEN B1[e_1] ELSE 0)
+                              + (IF e_1 \in DOMAIN B2 THEN B2[e_1] ELSE 0)]
+                THEN [e_1 \in DOMAIN B1 \cup DOMAIN B2 |->
+                        (IF e_1 \in DOMAIN B1 THEN B1[e_1] ELSE 0)
+                        + (IF e_1 \in DOMAIN B2 THEN B2[e_1] ELSE 0)][e]
+                ELSE 0)
+             = (IF e \in DOMAIN B1 THEN B1[e] ELSE 0)
+               + (IF e \in DOMAIN B2 THEN B2[e] ELSE 0)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:39
+@!!loc:187:11:187:13
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       [e \in D |->
+          [e_1 \in DOMAIN B1 |->
+             IF e_1 \in DOMAIN B2 THEN B1[e_1] - B2[e_1] ELSE B1[e_1]][e]]
+       = B1 (-) B2 ,
+       \A e
+          \in DOMAIN [e \in D |->
+                        [e_1 \in DOMAIN B1 |->
+                           IF e_1 \in DOMAIN B2
+                             THEN B1[e_1] - B2[e_1]
+                             ELSE B1[e_1]][e]] :
+          [e_1 \in D |->
+             [e_2 \in DOMAIN B1 |->
+                IF e_2 \in DOMAIN B2 THEN B1[e_2] - B2[e_2] ELSE B1[e_2]][e_1]][e]
+          \in Nat
+          /\ [e_1 \in D |->
+                [e_2 \in DOMAIN B1 |->
+                   IF e_2 \in DOMAIN B2 THEN B1[e_2] - B2[e_2] ELSE B1[e_2]][e_1]][e]
+             > 0 ,
+       DOMAIN [e \in D |->
+                 [e_1 \in DOMAIN B1 |->
+                    IF e_1 \in DOMAIN B2 THEN B1[e_1] - B2[e_1] ELSE B1[e_1]][e]]
+       = {e \in DOMAIN B1 : e \notin DOMAIN B2 \/ B1[e] > B2[e]} ,
+       \A e :
+          CopiesIn(e,
+                   [e_1 \in D |->
+                      [e_2 \in DOMAIN B1 |->
+                         IF e_2 \in DOMAIN B2
+                           THEN B1[e_2] - B2[e_2]
+                           ELSE B1[e_2]][e_1]])
+          = (IF
+               BagIn(e,
+                     [e_1 \in D |->
+                        [e_2 \in DOMAIN B1 |->
+                           IF e_2 \in DOMAIN B2
+                             THEN B1[e_2] - B2[e_2]
+                             ELSE B1[e_2]][e_1]])
+               THEN CopiesIn(e, B1) - CopiesIn(e, B2)
+               ELSE 0) ,
+       IsABag([e \in D |->
+                 [e_1 \in DOMAIN B1 |->
+                    IF e_1 \in DOMAIN B2 THEN B1[e_1] - B2[e_1] ELSE B1[e_1]][e]]) 
+PROVE  /\ IsABag(B1 (-) B2)
+       /\ DOMAIN B1 (-) B2
+          = {e \in DOMAIN B1 : e \notin DOMAIN B2 \/ B1[e] > B2[e]}
+       /\ \A e :
+             CopiesIn(e, B1 (-) B2)
+             = (IF BagIn(e, B1 (-) B2)
+                  THEN CopiesIn(e, B1) - CopiesIn(e, B2)
+                  ELSE 0)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:40
+@!!loc:187:14:187:18
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       [e \in D |->
+          [e_1 \in DOMAIN B1 |->
+             IF e_1 \in DOMAIN B2 THEN B1[e_1] - B2[e_1] ELSE B1[e_1]][e]]
+       = B1 (-) B2 
+PROVE  [e \in D |->
+          [e_1 \in DOMAIN B1 |->
+             IF e_1 \in DOMAIN B2 THEN B1[e_1] - B2[e_1] ELSE B1[e_1]][e]]
+       = B1 (-) B2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:41
+@!!loc:187:20:187:24
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       \A e
+          \in DOMAIN [e \in D |->
+                        [e_1 \in DOMAIN B1 |->
+                           IF e_1 \in DOMAIN B2
+                             THEN B1[e_1] - B2[e_1]
+                             ELSE B1[e_1]][e]] :
+          [e_1 \in D |->
+             [e_2 \in DOMAIN B1 |->
+                IF e_2 \in DOMAIN B2 THEN B1[e_2] - B2[e_2] ELSE B1[e_2]][e_1]][e]
+          \in Nat
+          /\ [e_1 \in D |->
+                [e_2 \in DOMAIN B1 |->
+                   IF e_2 \in DOMAIN B2 THEN B1[e_2] - B2[e_2] ELSE B1[e_2]][e_1]][e]
+             > 0 ,
+       [e \in D |->
+          [e_1 \in DOMAIN B1 |->
+             IF e_1 \in DOMAIN B2 THEN B1[e_1] - B2[e_1] ELSE B1[e_1]][e]]
+       = B1 (-) B2 
+PROVE  \A e
+          \in DOMAIN [e \in D |->
+                        [e_1 \in DOMAIN B1 |->
+                           IF e_1 \in DOMAIN B2
+                             THEN B1[e_1] - B2[e_1]
+                             ELSE B1[e_1]][e]] :
+          [e_1 \in D |->
+             [e_2 \in DOMAIN B1 |->
+                IF e_2 \in DOMAIN B2 THEN B1[e_2] - B2[e_2] ELSE B1[e_2]][e_1]][e]
+          \in Nat
+          /\ [e_1 \in D |->
+                [e_2 \in DOMAIN B1 |->
+                   IF e_2 \in DOMAIN B2 THEN B1[e_2] - B2[e_2] ELSE B1[e_2]][e_1]][e]
+             > 0
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:42
+@!!loc:187:26:187:30
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       DOMAIN [e \in D |->
+                 [e_1 \in DOMAIN B1 |->
+                    IF e_1 \in DOMAIN B2 THEN B1[e_1] - B2[e_1] ELSE B1[e_1]][e]]
+       = {e \in DOMAIN B1 : e \notin DOMAIN B2 \/ B1[e] > B2[e]} ,
+       [e \in D |->
+          [e_1 \in DOMAIN B1 |->
+             IF e_1 \in DOMAIN B2 THEN B1[e_1] - B2[e_1] ELSE B1[e_1]][e]]
+       = B1 (-) B2 ,
+       \A e
+          \in DOMAIN [e \in D |->
+                        [e_1 \in DOMAIN B1 |->
+                           IF e_1 \in DOMAIN B2
+                             THEN B1[e_1] - B2[e_1]
+                             ELSE B1[e_1]][e]] :
+          [e_1 \in D |->
+             [e_2 \in DOMAIN B1 |->
+                IF e_2 \in DOMAIN B2 THEN B1[e_2] - B2[e_2] ELSE B1[e_2]][e_1]][e]
+          \in Nat
+          /\ [e_1 \in D |->
+                [e_2 \in DOMAIN B1 |->
+                   IF e_2 \in DOMAIN B2 THEN B1[e_2] - B2[e_2] ELSE B1[e_2]][e_1]][e]
+             > 0 
+PROVE  DOMAIN [e \in D |->
+                 [e_1 \in DOMAIN B1 |->
+                    IF e_1 \in DOMAIN B2 THEN B1[e_1] - B2[e_1] ELSE B1[e_1]][e]]
+       = {e \in DOMAIN B1 : e \notin DOMAIN B2 \/ B1[e] > B2[e]}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:43
+@!!loc:187:32:187:36
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       \A e :
+          CopiesIn(e,
+                   [e_1 \in D |->
+                      [e_2 \in DOMAIN B1 |->
+                         IF e_2 \in DOMAIN B2
+                           THEN B1[e_2] - B2[e_2]
+                           ELSE B1[e_2]][e_1]])
+          = (IF
+               BagIn(e,
+                     [e_1 \in D |->
+                        [e_2 \in DOMAIN B1 |->
+                           IF e_2 \in DOMAIN B2
+                             THEN B1[e_2] - B2[e_2]
+                             ELSE B1[e_2]][e_1]])
+               THEN CopiesIn(e, B1) - CopiesIn(e, B2)
+               ELSE 0) ,
+       [e \in D |->
+          [e_1 \in DOMAIN B1 |->
+             IF e_1 \in DOMAIN B2 THEN B1[e_1] - B2[e_1] ELSE B1[e_1]][e]]
+       = B1 (-) B2 ,
+       \A e
+          \in DOMAIN [e \in D |->
+                        [e_1 \in DOMAIN B1 |->
+                           IF e_1 \in DOMAIN B2
+                             THEN B1[e_1] - B2[e_1]
+                             ELSE B1[e_1]][e]] :
+          [e_1 \in D |->
+             [e_2 \in DOMAIN B1 |->
+                IF e_2 \in DOMAIN B2 THEN B1[e_2] - B2[e_2] ELSE B1[e_2]][e_1]][e]
+          \in Nat
+          /\ [e_1 \in D |->
+                [e_2 \in DOMAIN B1 |->
+                   IF e_2 \in DOMAIN B2 THEN B1[e_2] - B2[e_2] ELSE B1[e_2]][e_1]][e]
+             > 0 ,
+       DOMAIN [e \in D |->
+                 [e_1 \in DOMAIN B1 |->
+                    IF e_1 \in DOMAIN B2 THEN B1[e_1] - B2[e_1] ELSE B1[e_1]][e]]
+       = {e \in DOMAIN B1 : e \notin DOMAIN B2 \/ B1[e] > B2[e]} 
+PROVE  \A e :
+          CopiesIn(e,
+                   [e_1 \in D |->
+                      [e_2 \in DOMAIN B1 |->
+                         IF e_2 \in DOMAIN B2
+                           THEN B1[e_2] - B2[e_2]
+                           ELSE B1[e_2]][e_1]])
+          = (IF
+               BagIn(e,
+                     [e_1 \in D |->
+                        [e_2 \in DOMAIN B1 |->
+                           IF e_2 \in DOMAIN B2
+                             THEN B1[e_2] - B2[e_2]
+                             ELSE B1[e_2]][e_1]])
+               THEN CopiesIn(e, B1) - CopiesIn(e, B2)
+               ELSE 0)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:44
+@!!loc:187:38:187:42
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       IsABag([e \in D |->
+                 [e_1 \in DOMAIN B1 |->
+                    IF e_1 \in DOMAIN B2 THEN B1[e_1] - B2[e_1] ELSE B1[e_1]][e]]) ,
+       [e \in D |->
+          [e_1 \in DOMAIN B1 |->
+             IF e_1 \in DOMAIN B2 THEN B1[e_1] - B2[e_1] ELSE B1[e_1]][e]]
+       = B1 (-) B2 ,
+       \A e
+          \in DOMAIN [e \in D |->
+                        [e_1 \in DOMAIN B1 |->
+                           IF e_1 \in DOMAIN B2
+                             THEN B1[e_1] - B2[e_1]
+                             ELSE B1[e_1]][e]] :
+          [e_1 \in D |->
+             [e_2 \in DOMAIN B1 |->
+                IF e_2 \in DOMAIN B2 THEN B1[e_2] - B2[e_2] ELSE B1[e_2]][e_1]][e]
+          \in Nat
+          /\ [e_1 \in D |->
+                [e_2 \in DOMAIN B1 |->
+                   IF e_2 \in DOMAIN B2 THEN B1[e_2] - B2[e_2] ELSE B1[e_2]][e_1]][e]
+             > 0 ,
+       DOMAIN [e \in D |->
+                 [e_1 \in DOMAIN B1 |->
+                    IF e_1 \in DOMAIN B2 THEN B1[e_1] - B2[e_1] ELSE B1[e_1]][e]]
+       = {e \in DOMAIN B1 : e \notin DOMAIN B2 \/ B1[e] > B2[e]} ,
+       \A e :
+          CopiesIn(e,
+                   [e_1 \in D |->
+                      [e_2 \in DOMAIN B1 |->
+                         IF e_2 \in DOMAIN B2
+                           THEN B1[e_2] - B2[e_2]
+                           ELSE B1[e_2]][e_1]])
+          = (IF
+               BagIn(e,
+                     [e_1 \in D |->
+                        [e_2 \in DOMAIN B1 |->
+                           IF e_2 \in DOMAIN B2
+                             THEN B1[e_2] - B2[e_2]
+                             ELSE B1[e_2]][e_1]])
+               THEN CopiesIn(e, B1) - CopiesIn(e, B2)
+               ELSE 0) 
+PROVE  IsABag([e \in D |->
+                 [e_1 \in DOMAIN B1 |->
+                    IF e_1 \in DOMAIN B2 THEN B1[e_1] - B2[e_1] ELSE B1[e_1]][e]])
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:45
+@!!loc:175:3:175:5
+@!!status:normalized
+@!!meth:time-limit: 10
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       TRUE 
+PROVE  [e
+        \in {e \in DOMAIN B1 :
+               [e_1 \in DOMAIN B1 |->
+                  IF e_1 \in DOMAIN B2 THEN B1[e_1] - B2[e_1] ELSE B1[e_1]][e]
+               > 0} |->
+          [e_1 \in DOMAIN B1 |->
+             IF e_1 \in DOMAIN B2 THEN B1[e_1] - B2[e_1] ELSE B1[e_1]][e]]
+       = [e
+          \in {d \in
+                 DOMAIN [e \in DOMAIN B1 |->
+                           IF e \in DOMAIN B2 THEN B1[e] - B2[e] ELSE B1[e]] :
+                 [e \in DOMAIN B1 |->
+                    IF e \in DOMAIN B2 THEN B1[e] - B2[e] ELSE B1[e]][d]
+                 > 0} |->
+            [e_1 \in DOMAIN B1 |->
+               IF e_1 \in DOMAIN B2 THEN B1[e_1] - B2[e_1] ELSE B1[e_1]][e]]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:46
+@!!loc:175:6:175:11
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       IsABag(B1) ,
+       IsABag(B2) 
+PROVE  TRUE
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:47
+@!!loc:177:3:177:5
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       B1 \in [DOMAIN B1 -> {n \in Nat : n > 0}] ,
+       B2 \in [DOMAIN B2 -> {n \in Nat : n > 0}] 
+PROVE  \A e
+          \in DOMAIN [e
+                      \in {e \in DOMAIN B1 :
+                             [e_1 \in DOMAIN B1 |->
+                                IF e_1 \in DOMAIN B2
+                                  THEN B1[e_1] - B2[e_1]
+                                  ELSE B1[e_1]][e]
+                             > 0} |->
+                        [e_1 \in DOMAIN B1 |->
+                           IF e_1 \in DOMAIN B2
+                             THEN B1[e_1] - B2[e_1]
+                             ELSE B1[e_1]][e]] :
+          [e_1
+           \in {e_1 \in DOMAIN B1 :
+                  [e_2 \in DOMAIN B1 |->
+                     IF e_2 \in DOMAIN B2 THEN B1[e_2] - B2[e_2] ELSE B1[e_2]][e_1]
+                  > 0} |->
+             [e_2 \in DOMAIN B1 |->
+                IF e_2 \in DOMAIN B2 THEN B1[e_2] - B2[e_2] ELSE B1[e_2]][e_1]][e]
+          \in Nat
+          /\ [e_1
+              \in {e_1 \in DOMAIN B1 :
+                     [e_2 \in DOMAIN B1 |->
+                        IF e_2 \in DOMAIN B2
+                          THEN B1[e_2] - B2[e_2]
+                          ELSE B1[e_2]][e_1]
+                     > 0} |->
+                [e_2 \in DOMAIN B1 |->
+                   IF e_2 \in DOMAIN B2 THEN B1[e_2] - B2[e_2] ELSE B1[e_2]][e_1]][e]
+             > 0
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:48
+@!!loc:179:3:179:5
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       B1 \in [DOMAIN B1 -> {n \in Nat : n > 0}] ,
+       B2 \in [DOMAIN B2 -> {n \in Nat : n > 0}] 
+PROVE  DOMAIN [e
+               \in {e \in DOMAIN B1 :
+                      [e_1 \in DOMAIN B1 |->
+                         IF e_1 \in DOMAIN B2
+                           THEN B1[e_1] - B2[e_1]
+                           ELSE B1[e_1]][e]
+                      > 0} |->
+                 [e_1 \in DOMAIN B1 |->
+                    IF e_1 \in DOMAIN B2 THEN B1[e_1] - B2[e_1] ELSE B1[e_1]][e]]
+       = {e \in DOMAIN B1 : e \notin DOMAIN B2 \/ B1[e] > B2[e]}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:49
+@!!loc:183:3:183:5
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       B1 \in [DOMAIN B1 -> {n \in Nat : n > 0}] ,
+       B2 \in [DOMAIN B2 -> {n \in Nat : n > 0}] 
+PROVE  \A e :
+          (IF
+             e
+             \in DOMAIN [e_1
+                         \in {e_1 \in DOMAIN B1 :
+                                [e_2 \in DOMAIN B1 |->
+                                   IF e_2 \in DOMAIN B2
+                                     THEN B1[e_2] - B2[e_2]
+                                     ELSE B1[e_2]][e_1]
+                                > 0} |->
+                           [e_2 \in DOMAIN B1 |->
+                              IF e_2 \in DOMAIN B2
+                                THEN B1[e_2] - B2[e_2]
+                                ELSE B1[e_2]][e_1]]
+             THEN [e_1
+                   \in {e_1 \in DOMAIN B1 :
+                          [e_2 \in DOMAIN B1 |->
+                             IF e_2 \in DOMAIN B2
+                               THEN B1[e_2] - B2[e_2]
+                               ELSE B1[e_2]][e_1]
+                          > 0} |->
+                     [e_2 \in DOMAIN B1 |->
+                        IF e_2 \in DOMAIN B2
+                          THEN B1[e_2] - B2[e_2]
+                          ELSE B1[e_2]][e_1]][e]
+             ELSE 0)
+          = (IF
+               e
+               \in DOMAIN [e_1
+                           \in {e_1 \in DOMAIN B1 :
+                                  [e_2 \in DOMAIN B1 |->
+                                     IF e_2 \in DOMAIN B2
+                                       THEN B1[e_2] - B2[e_2]
+                                       ELSE B1[e_2]][e_1]
+                                  > 0} |->
+                             [e_2 \in DOMAIN B1 |->
+                                IF e_2 \in DOMAIN B2
+                                  THEN B1[e_2] - B2[e_2]
+                                  ELSE B1[e_2]][e_1]]
+               THEN (IF e \in DOMAIN B1 THEN B1[e] ELSE 0)
+                    - (IF e \in DOMAIN B2 THEN B2[e] ELSE 0)
+               ELSE 0)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:50
+@!!loc:186:3:186:5
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       B1 \in [DOMAIN B1 -> {n \in Nat : n > 0}] ,
+       B2 \in [DOMAIN B2 -> {n \in Nat : n > 0}] ,
+       \A e
+          \in DOMAIN [e \in D |->
+                        [e_1 \in DOMAIN B1 |->
+                           IF e_1 \in DOMAIN B2
+                             THEN B1[e_1] - B2[e_1]
+                             ELSE B1[e_1]][e]] :
+          [e_1 \in D |->
+             [e_2 \in DOMAIN B1 |->
+                IF e_2 \in DOMAIN B2 THEN B1[e_2] - B2[e_2] ELSE B1[e_2]][e_1]][e]
+          \in Nat
+          /\ [e_1 \in D |->
+                [e_2 \in DOMAIN B1 |->
+                   IF e_2 \in DOMAIN B2 THEN B1[e_2] - B2[e_2] ELSE B1[e_2]][e_1]][e]
+             > 0 
+PROVE  [e \in D |->
+          [e_1 \in DOMAIN B1 |->
+             IF e_1 \in DOMAIN B2 THEN B1[e_1] - B2[e_1] ELSE B1[e_1]][e]]
+       \in [DOMAIN [e \in D |->
+                      [e_1 \in DOMAIN B1 |->
+                         IF e_1 \in DOMAIN B2
+                           THEN B1[e_1] - B2[e_1]
+                           ELSE B1[e_1]][e]] ->
+              {n \in Nat : n > 0}]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:49
+@!!loc:183:3:183:5
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.2 (4%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       B1 \in [DOMAIN B1 -> {n \in Nat : n > 0}] ,
+       B2 \in [DOMAIN B2 -> {n \in Nat : n > 0}] 
+PROVE  \A e :
+          (IF
+             e
+             \in DOMAIN [e_1
+                         \in {e_1 \in DOMAIN B1 :
+                                [e_2 \in DOMAIN B1 |->
+                                   IF e_2 \in DOMAIN B2
+                                     THEN B1[e_2] - B2[e_2]
+                                     ELSE B1[e_2]][e_1]
+                                > 0} |->
+                           [e_2 \in DOMAIN B1 |->
+                              IF e_2 \in DOMAIN B2
+                                THEN B1[e_2] - B2[e_2]
+                                ELSE B1[e_2]][e_1]]
+             THEN [e_1
+                   \in {e_1 \in DOMAIN B1 :
+                          [e_2 \in DOMAIN B1 |->
+                             IF e_2 \in DOMAIN B2
+                               THEN B1[e_2] - B2[e_2]
+                               ELSE B1[e_2]][e_1]
+                          > 0} |->
+                     [e_2 \in DOMAIN B1 |->
+                        IF e_2 \in DOMAIN B2
+                          THEN B1[e_2] - B2[e_2]
+                          ELSE B1[e_2]][e_1]][e]
+             ELSE 0)
+          = (IF
+               e
+               \in DOMAIN [e_1
+                           \in {e_1 \in DOMAIN B1 :
+                                  [e_2 \in DOMAIN B1 |->
+                                     IF e_2 \in DOMAIN B2
+                                       THEN B1[e_2] - B2[e_2]
+                                       ELSE B1[e_2]][e_1]
+                                  > 0} |->
+                             [e_2 \in DOMAIN B1 |->
+                                IF e_2 \in DOMAIN B2
+                                  THEN B1[e_2] - B2[e_2]
+                                  ELSE B1[e_2]][e_1]]
+               THEN (IF e \in DOMAIN B1 THEN B1[e] ELSE 0)
+                    - (IF e \in DOMAIN B2 THEN B2[e] ELSE 0)
+               ELSE 0)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:48
+@!!loc:179:3:179:5
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.3 (7%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       B1 \in [DOMAIN B1 -> {n \in Nat : n > 0}] ,
+       B2 \in [DOMAIN B2 -> {n \in Nat : n > 0}] 
+PROVE  DOMAIN [e
+               \in {e \in DOMAIN B1 :
+                      [e_1 \in DOMAIN B1 |->
+                         IF e_1 \in DOMAIN B2
+                           THEN B1[e_1] - B2[e_1]
+                           ELSE B1[e_1]][e]
+                      > 0} |->
+                 [e_1 \in DOMAIN B1 |->
+                    IF e_1 \in DOMAIN B2 THEN B1[e_1] - B2[e_1] ELSE B1[e_1]][e]]
+       = {e \in DOMAIN B1 : e \notin DOMAIN B2 \/ B1[e] > B2[e]}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:47
+@!!loc:177:3:177:5
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.5 (9%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       B1 \in [DOMAIN B1 -> {n \in Nat : n > 0}] ,
+       B2 \in [DOMAIN B2 -> {n \in Nat : n > 0}] 
+PROVE  \A e
+          \in DOMAIN [e
+                      \in {e \in DOMAIN B1 :
+                             [e_1 \in DOMAIN B1 |->
+                                IF e_1 \in DOMAIN B2
+                                  THEN B1[e_1] - B2[e_1]
+                                  ELSE B1[e_1]][e]
+                             > 0} |->
+                        [e_1 \in DOMAIN B1 |->
+                           IF e_1 \in DOMAIN B2
+                             THEN B1[e_1] - B2[e_1]
+                             ELSE B1[e_1]][e]] :
+          [e_1
+           \in {e_1 \in DOMAIN B1 :
+                  [e_2 \in DOMAIN B1 |->
+                     IF e_2 \in DOMAIN B2 THEN B1[e_2] - B2[e_2] ELSE B1[e_2]][e_1]
+                  > 0} |->
+             [e_2 \in DOMAIN B1 |->
+                IF e_2 \in DOMAIN B2 THEN B1[e_2] - B2[e_2] ELSE B1[e_2]][e_1]][e]
+          \in Nat
+          /\ [e_1
+              \in {e_1 \in DOMAIN B1 :
+                     [e_2 \in DOMAIN B1 |->
+                        IF e_2 \in DOMAIN B2
+                          THEN B1[e_2] - B2[e_2]
+                          ELSE B1[e_2]][e_1]
+                     > 0} |->
+                [e_2 \in DOMAIN B1 |->
+                   IF e_2 \in DOMAIN B2 THEN B1[e_2] - B2[e_2] ELSE B1[e_2]][e_1]][e]
+             > 0
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:45
+@!!loc:175:3:175:5
+@!!status:proved
+@!!prover:zenon
+@!!meth:time-limit: 10; time-used: 0.7 (7%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       TRUE 
+PROVE  [e
+        \in {e \in DOMAIN B1 :
+               [e_1 \in DOMAIN B1 |->
+                  IF e_1 \in DOMAIN B2 THEN B1[e_1] - B2[e_1] ELSE B1[e_1]][e]
+               > 0} |->
+          [e_1 \in DOMAIN B1 |->
+             IF e_1 \in DOMAIN B2 THEN B1[e_1] - B2[e_1] ELSE B1[e_1]][e]]
+       = [e
+          \in {d \in
+                 DOMAIN [e \in DOMAIN B1 |->
+                           IF e \in DOMAIN B2 THEN B1[e] - B2[e] ELSE B1[e]] :
+                 [e \in DOMAIN B1 |->
+                    IF e \in DOMAIN B2 THEN B1[e] - B2[e] ELSE B1[e]][d]
+                 > 0} |->
+            [e_1 \in DOMAIN B1 |->
+               IF e_1 \in DOMAIN B2 THEN B1[e_1] - B2[e_1] ELSE B1[e_1]][e]]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:39
+@!!loc:187:11:187:13
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 1.2 (23%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       [e \in D |->
+          [e_1 \in DOMAIN B1 |->
+             IF e_1 \in DOMAIN B2 THEN B1[e_1] - B2[e_1] ELSE B1[e_1]][e]]
+       = B1 (-) B2 ,
+       \A e
+          \in DOMAIN [e \in D |->
+                        [e_1 \in DOMAIN B1 |->
+                           IF e_1 \in DOMAIN B2
+                             THEN B1[e_1] - B2[e_1]
+                             ELSE B1[e_1]][e]] :
+          [e_1 \in D |->
+             [e_2 \in DOMAIN B1 |->
+                IF e_2 \in DOMAIN B2 THEN B1[e_2] - B2[e_2] ELSE B1[e_2]][e_1]][e]
+          \in Nat
+          /\ [e_1 \in D |->
+                [e_2 \in DOMAIN B1 |->
+                   IF e_2 \in DOMAIN B2 THEN B1[e_2] - B2[e_2] ELSE B1[e_2]][e_1]][e]
+             > 0 ,
+       DOMAIN [e \in D |->
+                 [e_1 \in DOMAIN B1 |->
+                    IF e_1 \in DOMAIN B2 THEN B1[e_1] - B2[e_1] ELSE B1[e_1]][e]]
+       = {e \in DOMAIN B1 : e \notin DOMAIN B2 \/ B1[e] > B2[e]} ,
+       \A e :
+          CopiesIn(e,
+                   [e_1 \in D |->
+                      [e_2 \in DOMAIN B1 |->
+                         IF e_2 \in DOMAIN B2
+                           THEN B1[e_2] - B2[e_2]
+                           ELSE B1[e_2]][e_1]])
+          = (IF
+               BagIn(e,
+                     [e_1 \in D |->
+                        [e_2 \in DOMAIN B1 |->
+                           IF e_2 \in DOMAIN B2
+                             THEN B1[e_2] - B2[e_2]
+                             ELSE B1[e_2]][e_1]])
+               THEN CopiesIn(e, B1) - CopiesIn(e, B2)
+               ELSE 0) ,
+       IsABag([e \in D |->
+                 [e_1 \in DOMAIN B1 |->
+                    IF e_1 \in DOMAIN B2 THEN B1[e_1] - B2[e_1] ELSE B1[e_1]][e]]) 
+PROVE  /\ IsABag(B1 (-) B2)
+       /\ DOMAIN B1 (-) B2
+          = {e \in DOMAIN B1 : e \notin DOMAIN B2 \/ B1[e] > B2[e]}
+       /\ \A e :
+             CopiesIn(e, B1 (-) B2)
+             = (IF BagIn(e, B1 (-) B2)
+                  THEN CopiesIn(e, B1) - CopiesIn(e, B2)
+                  ELSE 0)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:38
+@!!loc:156:1:156:3
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 1.3 (26%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       B1 \in [DOMAIN B1 -> {n \in Nat : n > 0}] ,
+       B2 \in [DOMAIN B2 -> {n \in Nat : n > 0}] 
+PROVE  /\ [e \in DOMAIN B1 \cup DOMAIN B2 |->
+             (IF e \in DOMAIN B1 THEN B1[e] ELSE 0)
+             + (IF e \in DOMAIN B2 THEN B2[e] ELSE 0)]
+          \in [DOMAIN [e \in DOMAIN B1 \cup DOMAIN B2 |->
+                         (IF e \in DOMAIN B1 THEN B1[e] ELSE 0)
+                         + (IF e \in DOMAIN B2 THEN B2[e] ELSE 0)] ->
+                 {n \in Nat : n > 0}]
+       /\ DOMAIN [e \in DOMAIN B1 \cup DOMAIN B2 |->
+                    (IF e \in DOMAIN B1 THEN B1[e] ELSE 0)
+                    + (IF e \in DOMAIN B2 THEN B2[e] ELSE 0)]
+          = DOMAIN B1 \cup DOMAIN B2
+       /\ \A e :
+             (IF
+                e
+                \in DOMAIN [e_1 \in DOMAIN B1 \cup DOMAIN B2 |->
+                              (IF e_1 \in DOMAIN B1 THEN B1[e_1] ELSE 0)
+                              + (IF e_1 \in DOMAIN B2 THEN B2[e_1] ELSE 0)]
+                THEN [e_1 \in DOMAIN B1 \cup DOMAIN B2 |->
+                        (IF e_1 \in DOMAIN B1 THEN B1[e_1] ELSE 0)
+                        + (IF e_1 \in DOMAIN B2 THEN B2[e_1] ELSE 0)][e]
+                ELSE 0)
+             = (IF e \in DOMAIN B1 THEN B1[e] ELSE 0)
+               + (IF e \in DOMAIN B2 THEN B2[e] ELSE 0)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:37
+@!!loc:145:1:145:3
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 1.4 (29%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT A,
+       NEW CONSTANT B
+PROVE  A = B <=> [e \in A |-> 1] = [e \in B |-> 1]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:36
+@!!loc:136:1:136:3
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 1.5 (31%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT B,
+       B \in [DOMAIN B -> {n \in Nat : n > 0}] 
+PROVE  /\ DOMAIN [e \in DOMAIN B |-> 1] \subseteq DOMAIN B
+       /\ \A e \in DOMAIN [e \in DOMAIN B |-> 1] :
+             [e_1 \in DOMAIN B |-> 1][e] =< B[e]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:35
+@!!loc:131:1:131:3
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 1.7 (33%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S
+PROVE  DOMAIN [e \in S |-> 1] = S
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:51
+@!!loc:186:6:186:10
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       B1 \in [DOMAIN B1 -> {n \in Nat : n > 0}] ,
+       B2 \in [DOMAIN B2 -> {n \in Nat : n > 0}] ,
+       \A e
+          \in DOMAIN [e \in D |->
+                        [e_1 \in DOMAIN B1 |->
+                           IF e_1 \in DOMAIN B2
+                             THEN B1[e_1] - B2[e_1]
+                             ELSE B1[e_1]][e]] :
+          [e_1 \in D |->
+             [e_2 \in DOMAIN B1 |->
+                IF e_2 \in DOMAIN B2 THEN B1[e_2] - B2[e_2] ELSE B1[e_2]][e_1]][e]
+          \in Nat
+          /\ [e_1 \in D |->
+                [e_2 \in DOMAIN B1 |->
+                   IF e_2 \in DOMAIN B2 THEN B1[e_2] - B2[e_2] ELSE B1[e_2]][e_1]][e]
+             > 0 
+PROVE  \A e
+          \in DOMAIN [e \in D |->
+                        [e_1 \in DOMAIN B1 |->
+                           IF e_1 \in DOMAIN B2
+                             THEN B1[e_1] - B2[e_1]
+                             ELSE B1[e_1]][e]] :
+          [e_1 \in D |->
+             [e_2 \in DOMAIN B1 |->
+                IF e_2 \in DOMAIN B2 THEN B1[e_2] - B2[e_2] ELSE B1[e_2]][e_1]][e]
+          \in Nat
+          /\ [e_1 \in D |->
+                [e_2 \in DOMAIN B1 |->
+                   IF e_2 \in DOMAIN B2 THEN B1[e_2] - B2[e_2] ELSE B1[e_2]][e_1]][e]
+             > 0
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:52
+@!!loc:205:11:205:13
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       \A e : C1(e) \in Nat /\ C2(e) \in Nat ,
+       /\ B1 (+) B2 = [e \in D1 \cup D2 |-> C1(e) + C2(e)]
+       /\ B2 (+) B1 = [e \in D2 \cup D1 |-> C2(e) + C1(e)] 
+PROVE  B1 (+) B2 = B2 (+) B1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:53
+@!!loc:205:14:205:18
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       \A e : C1(e) \in Nat /\ C2(e) \in Nat 
+PROVE  \A e : C1(e) \in Nat /\ C2(e) \in Nat
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:54
+@!!loc:205:20:205:24
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       /\ B1 (+) B2 = [e \in D1 \cup D2 |-> C1(e) + C2(e)]
+       /\ B2 (+) B1 = [e \in D2 \cup D1 |-> C2(e) + C1(e)] ,
+       \A e : C1(e) \in Nat /\ C2(e) \in Nat 
+PROVE  /\ B1 (+) B2 = [e \in D1 \cup D2 |-> C1(e) + C2(e)]
+       /\ B2 (+) B1 = [e \in D2 \cup D1 |-> C2(e) + C1(e)]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:55
+@!!loc:200:3:200:5
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       B1 \in [DOMAIN B1 -> {n \in Nat : n > 0}] ,
+       B2 \in [DOMAIN B2 -> {n \in Nat : n > 0}] 
+PROVE  \A e :
+          (IF e \in DOMAIN B1 THEN B1[e] ELSE 0) \in Nat
+          /\ (IF e \in DOMAIN B2 THEN B2[e] ELSE 0) \in Nat
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:56
+@!!loc:203:3:203:5
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       IsABag(B1) ,
+       IsABag(B2) 
+PROVE  /\ [e \in DOMAIN B1 \cup DOMAIN B2 |->
+             (IF e \in DOMAIN B1 THEN B1[e] ELSE 0)
+             + (IF e \in DOMAIN B2 THEN B2[e] ELSE 0)]
+          = [e \in DOMAIN B1 \cup DOMAIN B2 |->
+               (IF e \in DOMAIN B1 THEN B1[e] ELSE 0)
+               + (IF e \in DOMAIN B2 THEN B2[e] ELSE 0)]
+       /\ [e \in DOMAIN B2 \cup DOMAIN B1 |->
+             (IF e \in DOMAIN B2 THEN B2[e] ELSE 0)
+             + (IF e \in DOMAIN B1 THEN B1[e] ELSE 0)]
+          = [e \in DOMAIN B2 \cup DOMAIN B1 |->
+               (IF e \in DOMAIN B2 THEN B2[e] ELSE 0)
+               + (IF e \in DOMAIN B1 THEN B1[e] ELSE 0)]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:57
+@!!loc:228:11:228:13
+@!!status:normalized
+@!!meth:time-limit: 10
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       NEW CONSTANT B3,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       IsABag(B3) ,
+       /\ B1 (+) B2 (+) B3
+          = [e \in D1 \cup D2 \cup D3 |-> C1(e) + C2(e) + C3(e)]
+       /\ B1 (+) (B2 (+) B3)
+          = [e \in D1 \cup (D2 \cup D3) |-> C1(e) + (C2(e) + C3(e))] ,
+       \A e : C1(e) + C2(e) + C3(e) = C1(e) + (C2(e) + C3(e)) ,
+       TRUE 
+PROVE  B1 (+) B2 (+) B3 = B1 (+) (B2 (+) B3)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:58
+@!!loc:228:14:228:18
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       NEW CONSTANT B3,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       IsABag(B3) ,
+       /\ B1 (+) B2 (+) B3
+          = [e \in D1 \cup D2 \cup D3 |-> C1(e) + C2(e) + C3(e)]
+       /\ B1 (+) (B2 (+) B3)
+          = [e \in D1 \cup (D2 \cup D3) |-> C1(e) + (C2(e) + C3(e))] 
+PROVE  /\ B1 (+) B2 (+) B3
+          = [e \in D1 \cup D2 \cup D3 |-> C1(e) + C2(e) + C3(e)]
+       /\ B1 (+) (B2 (+) B3)
+          = [e \in D1 \cup (D2 \cup D3) |-> C1(e) + (C2(e) + C3(e))]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:59
+@!!loc:228:20:228:24
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       NEW CONSTANT B3,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       IsABag(B3) ,
+       \A e : C1(e) + C2(e) + C3(e) = C1(e) + (C2(e) + C3(e)) ,
+       /\ B1 (+) B2 (+) B3
+          = [e \in D1 \cup D2 \cup D3 |-> C1(e) + C2(e) + C3(e)]
+       /\ B1 (+) (B2 (+) B3)
+          = [e \in D1 \cup (D2 \cup D3) |-> C1(e) + (C2(e) + C3(e))] 
+PROVE  \A e : C1(e) + C2(e) + C3(e) = C1(e) + (C2(e) + C3(e))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:60
+@!!loc:228:26:228:31
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       NEW CONSTANT B3,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       IsABag(B3) ,
+       /\ B1 (+) B2 (+) B3
+          = [e \in D1 \cup D2 \cup D3 |-> C1(e) + C2(e) + C3(e)]
+       /\ B1 (+) (B2 (+) B3)
+          = [e \in D1 \cup (D2 \cup D3) |-> C1(e) + (C2(e) + C3(e))] ,
+       \A e : C1(e) + C2(e) + C3(e) = C1(e) + (C2(e) + C3(e)) 
+PROVE  TRUE
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:61
+@!!loc:219:3:219:5
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       NEW CONSTANT B3,
+       B1 \in [DOMAIN B1 -> {n \in Nat : n > 0}] ,
+       B2 \in [DOMAIN B2 -> {n \in Nat : n > 0}] ,
+       B3 \in [DOMAIN B3 -> {n \in Nat : n > 0}] 
+PROVE  \A e :
+          (IF e \in DOMAIN B1 THEN B1[e] ELSE 0) \in Nat
+          /\ (IF e \in DOMAIN B2 THEN B2[e] ELSE 0) \in Nat
+          /\ (IF e \in DOMAIN B3 THEN B3[e] ELSE 0) \in Nat
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:62
+@!!loc:224:3:224:5
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       NEW CONSTANT B3,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       IsABag(B3) 
+PROVE  /\ [e
+           \in DOMAIN [e \in DOMAIN B1 \cup DOMAIN B2 |->
+                         (IF e \in DOMAIN B1 THEN B1[e] ELSE 0)
+                         + (IF e \in DOMAIN B2 THEN B2[e] ELSE 0)]
+               \cup DOMAIN B3 |->
+             (IF
+                e
+                \in DOMAIN [e_1 \in DOMAIN B1 \cup DOMAIN B2 |->
+                              (IF e_1 \in DOMAIN B1 THEN B1[e_1] ELSE 0)
+                              + (IF e_1 \in DOMAIN B2 THEN B2[e_1] ELSE 0)]
+                THEN [e_1 \in DOMAIN B1 \cup DOMAIN B2 |->
+                        (IF e_1 \in DOMAIN B1 THEN B1[e_1] ELSE 0)
+                        + (IF e_1 \in DOMAIN B2 THEN B2[e_1] ELSE 0)][e]
+                ELSE 0)
+             + (IF e \in DOMAIN B3 THEN B3[e] ELSE 0)]
+          = [e \in DOMAIN B1 \cup DOMAIN B2 \cup DOMAIN B3 |->
+               (IF e \in DOMAIN B1 THEN B1[e] ELSE 0)
+               + (IF e \in DOMAIN B2 THEN B2[e] ELSE 0)
+               + (IF e \in DOMAIN B3 THEN B3[e] ELSE 0)]
+       /\ [e
+           \in DOMAIN B1
+               \cup DOMAIN [e \in DOMAIN B2 \cup DOMAIN B3 |->
+                              (IF e \in DOMAIN B2 THEN B2[e] ELSE 0)
+                              + (IF e \in DOMAIN B3 THEN B3[e] ELSE 0)] |->
+             (IF e \in DOMAIN B1 THEN B1[e] ELSE 0)
+             + (IF
+                  e
+                  \in DOMAIN [e_1 \in DOMAIN B2 \cup DOMAIN B3 |->
+                                (IF e_1 \in DOMAIN B2 THEN B2[e_1] ELSE 0)
+                                + (IF e_1 \in DOMAIN B3 THEN B3[e_1] ELSE 0)]
+                  THEN [e_1 \in DOMAIN B2 \cup DOMAIN B3 |->
+                          (IF e_1 \in DOMAIN B2 THEN B2[e_1] ELSE 0)
+                          + (IF e_1 \in DOMAIN B3 THEN B3[e_1] ELSE 0)][e]
+                  ELSE 0)]
+          = [e \in DOMAIN B1 \cup (DOMAIN B2 \cup DOMAIN B3) |->
+               (IF e \in DOMAIN B1 THEN B1[e] ELSE 0)
+               + ((IF e \in DOMAIN B2 THEN B2[e] ELSE 0)
+                  + (IF e \in DOMAIN B3 THEN B3[e] ELSE 0))]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:63
+@!!loc:227:3:227:5
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       NEW CONSTANT B3,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       IsABag(B3) ,
+       \A e : C1(e) \in Nat /\ C2(e) \in Nat /\ C3(e) \in Nat 
+PROVE  \A e : C1(e) + C2(e) + C3(e) = C1(e) + (C2(e) + C3(e))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:64
+@!!loc:227:6:227:10
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       NEW CONSTANT B3,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       IsABag(B3) ,
+       \A e : C1(e) \in Nat /\ C2(e) \in Nat /\ C3(e) \in Nat 
+PROVE  \A e : C1(e) \in Nat /\ C2(e) \in Nat /\ C3(e) \in Nat
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:65
+@!!loc:238:1:238:3
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       B1 \in [DOMAIN B1 -> {n \in Nat : n > 0}] ,
+       B2 \in [DOMAIN B2 -> {n \in Nat : n > 0}] 
+PROVE  /\ DOMAIN B1
+          \subseteq DOMAIN [e \in DOMAIN B1 \cup DOMAIN B2 |->
+                              (IF e \in DOMAIN B1 THEN B1[e] ELSE 0)
+                              + (IF e \in DOMAIN B2 THEN B2[e] ELSE 0)]
+       /\ \A e \in DOMAIN B1 :
+             B1[e]
+             =< [e_1 \in DOMAIN B1 \cup DOMAIN B2 |->
+                   (IF e_1 \in DOMAIN B1 THEN B1[e_1] ELSE 0)
+                   + (IF e_1 \in DOMAIN B2 THEN B2[e_1] ELSE 0)][e]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:66
+@!!loc:247:1:247:3
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT B,
+       B \in [DOMAIN B -> {n \in Nat : n > 0}] ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat,
+       m =< n 
+PROVE  /\ DOMAIN (IF m > 0
+                    THEN [i \in DOMAIN B |-> m * B[i]]
+                    ELSE [e \in {} |-> 1])
+          \subseteq DOMAIN (IF n > 0
+                              THEN [i \in DOMAIN B |-> n * B[i]]
+                              ELSE [e \in {} |-> 1])
+       /\ \A e
+             \in DOMAIN (IF m > 0
+                           THEN [i \in DOMAIN B |-> m * B[i]]
+                           ELSE [e \in {} |-> 1]) :
+             (IF m > 0
+                THEN [i \in DOMAIN B |-> m * B[i]]
+                ELSE [e_1 \in {} |-> 1])[e]
+             =< (IF n > 0
+                   THEN [i \in DOMAIN B |-> n * B[i]]
+                   ELSE [e_1 \in {} |-> 1])[e]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:65
+@!!loc:238:1:238:3
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (3%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       B1 \in [DOMAIN B1 -> {n \in Nat : n > 0}] ,
+       B2 \in [DOMAIN B2 -> {n \in Nat : n > 0}] 
+PROVE  /\ DOMAIN B1
+          \subseteq DOMAIN [e \in DOMAIN B1 \cup DOMAIN B2 |->
+                              (IF e \in DOMAIN B1 THEN B1[e] ELSE 0)
+                              + (IF e \in DOMAIN B2 THEN B2[e] ELSE 0)]
+       /\ \A e \in DOMAIN B1 :
+             B1[e]
+             =< [e_1 \in DOMAIN B1 \cup DOMAIN B2 |->
+                   (IF e_1 \in DOMAIN B1 THEN B1[e_1] ELSE 0)
+                   + (IF e_1 \in DOMAIN B2 THEN B2[e_1] ELSE 0)][e]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:63
+@!!loc:227:3:227:5
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.3 (7%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       NEW CONSTANT B3,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       IsABag(B3) ,
+       \A e : C1(e) \in Nat /\ C2(e) \in Nat /\ C3(e) \in Nat 
+PROVE  \A e : C1(e) + C2(e) + C3(e) = C1(e) + (C2(e) + C3(e))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:62
+@!!loc:224:3:224:5
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.5 (9%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       NEW CONSTANT B3,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       IsABag(B3) 
+PROVE  /\ [e
+           \in DOMAIN [e \in DOMAIN B1 \cup DOMAIN B2 |->
+                         (IF e \in DOMAIN B1 THEN B1[e] ELSE 0)
+                         + (IF e \in DOMAIN B2 THEN B2[e] ELSE 0)]
+               \cup DOMAIN B3 |->
+             (IF
+                e
+                \in DOMAIN [e_1 \in DOMAIN B1 \cup DOMAIN B2 |->
+                              (IF e_1 \in DOMAIN B1 THEN B1[e_1] ELSE 0)
+                              + (IF e_1 \in DOMAIN B2 THEN B2[e_1] ELSE 0)]
+                THEN [e_1 \in DOMAIN B1 \cup DOMAIN B2 |->
+                        (IF e_1 \in DOMAIN B1 THEN B1[e_1] ELSE 0)
+                        + (IF e_1 \in DOMAIN B2 THEN B2[e_1] ELSE 0)][e]
+                ELSE 0)
+             + (IF e \in DOMAIN B3 THEN B3[e] ELSE 0)]
+          = [e \in DOMAIN B1 \cup DOMAIN B2 \cup DOMAIN B3 |->
+               (IF e \in DOMAIN B1 THEN B1[e] ELSE 0)
+               + (IF e \in DOMAIN B2 THEN B2[e] ELSE 0)
+               + (IF e \in DOMAIN B3 THEN B3[e] ELSE 0)]
+       /\ [e
+           \in DOMAIN B1
+               \cup DOMAIN [e \in DOMAIN B2 \cup DOMAIN B3 |->
+                              (IF e \in DOMAIN B2 THEN B2[e] ELSE 0)
+                              + (IF e \in DOMAIN B3 THEN B3[e] ELSE 0)] |->
+             (IF e \in DOMAIN B1 THEN B1[e] ELSE 0)
+             + (IF
+                  e
+                  \in DOMAIN [e_1 \in DOMAIN B2 \cup DOMAIN B3 |->
+                                (IF e_1 \in DOMAIN B2 THEN B2[e_1] ELSE 0)
+                                + (IF e_1 \in DOMAIN B3 THEN B3[e_1] ELSE 0)]
+                  THEN [e_1 \in DOMAIN B2 \cup DOMAIN B3 |->
+                          (IF e_1 \in DOMAIN B2 THEN B2[e_1] ELSE 0)
+                          + (IF e_1 \in DOMAIN B3 THEN B3[e_1] ELSE 0)][e]
+                  ELSE 0)]
+          = [e \in DOMAIN B1 \cup (DOMAIN B2 \cup DOMAIN B3) |->
+               (IF e \in DOMAIN B1 THEN B1[e] ELSE 0)
+               + ((IF e \in DOMAIN B2 THEN B2[e] ELSE 0)
+                  + (IF e \in DOMAIN B3 THEN B3[e] ELSE 0))]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:61
+@!!loc:219:3:219:5
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.6 (12%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       NEW CONSTANT B3,
+       B1 \in [DOMAIN B1 -> {n \in Nat : n > 0}] ,
+       B2 \in [DOMAIN B2 -> {n \in Nat : n > 0}] ,
+       B3 \in [DOMAIN B3 -> {n \in Nat : n > 0}] 
+PROVE  \A e :
+          (IF e \in DOMAIN B1 THEN B1[e] ELSE 0) \in Nat
+          /\ (IF e \in DOMAIN B2 THEN B2[e] ELSE 0) \in Nat
+          /\ (IF e \in DOMAIN B3 THEN B3[e] ELSE 0) \in Nat
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:57
+@!!loc:228:11:228:13
+@!!status:proved
+@!!prover:zenon
+@!!meth:time-limit: 10; time-used: 1.0 (10%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       NEW CONSTANT B3,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       IsABag(B3) ,
+       /\ B1 (+) B2 (+) B3
+          = [e \in D1 \cup D2 \cup D3 |-> C1(e) + C2(e) + C3(e)]
+       /\ B1 (+) (B2 (+) B3)
+          = [e \in D1 \cup (D2 \cup D3) |-> C1(e) + (C2(e) + C3(e))] ,
+       \A e : C1(e) + C2(e) + C3(e) = C1(e) + (C2(e) + C3(e)) ,
+       TRUE 
+PROVE  B1 (+) B2 (+) B3 = B1 (+) (B2 (+) B3)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:56
+@!!loc:203:3:203:5
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 1.1 (22%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       IsABag(B1) ,
+       IsABag(B2) 
+PROVE  /\ [e \in DOMAIN B1 \cup DOMAIN B2 |->
+             (IF e \in DOMAIN B1 THEN B1[e] ELSE 0)
+             + (IF e \in DOMAIN B2 THEN B2[e] ELSE 0)]
+          = [e \in DOMAIN B1 \cup DOMAIN B2 |->
+               (IF e \in DOMAIN B1 THEN B1[e] ELSE 0)
+               + (IF e \in DOMAIN B2 THEN B2[e] ELSE 0)]
+       /\ [e \in DOMAIN B2 \cup DOMAIN B1 |->
+             (IF e \in DOMAIN B2 THEN B2[e] ELSE 0)
+             + (IF e \in DOMAIN B1 THEN B1[e] ELSE 0)]
+          = [e \in DOMAIN B2 \cup DOMAIN B1 |->
+               (IF e \in DOMAIN B2 THEN B2[e] ELSE 0)
+               + (IF e \in DOMAIN B1 THEN B1[e] ELSE 0)]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:55
+@!!loc:200:3:200:5
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 1.2 (24%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       B1 \in [DOMAIN B1 -> {n \in Nat : n > 0}] ,
+       B2 \in [DOMAIN B2 -> {n \in Nat : n > 0}] 
+PROVE  \A e :
+          (IF e \in DOMAIN B1 THEN B1[e] ELSE 0) \in Nat
+          /\ (IF e \in DOMAIN B2 THEN B2[e] ELSE 0) \in Nat
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:52
+@!!loc:205:11:205:13
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 1.5 (30%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       IsABag(B1) ,
+       IsABag(B2) ,
+       \A e : C1(e) \in Nat /\ C2(e) \in Nat ,
+       /\ B1 (+) B2 = [e \in D1 \cup D2 |-> C1(e) + C2(e)]
+       /\ B2 (+) B1 = [e \in D2 \cup D1 |-> C2(e) + C1(e)] 
+PROVE  B1 (+) B2 = B2 (+) B1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:67
+@!!loc:256:1:256:3
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT A,
+       NEW CONSTANT B,
+       A \in [DOMAIN A -> {n \in Nat : n > 0}] ,
+       B \in [DOMAIN B -> {n \in Nat : n > 0}] 
+PROVE  /\ DOMAIN [e
+                  \in {d \in
+                         DOMAIN [e \in DOMAIN A |->
+                                   IF e \in DOMAIN B
+                                     THEN A[e] - B[e]
+                                     ELSE A[e]] :
+                         [e \in DOMAIN A |->
+                            IF e \in DOMAIN B THEN A[e] - B[e] ELSE A[e]][d]
+                         > 0} |->
+                    [e_1 \in DOMAIN A |->
+                       IF e_1 \in DOMAIN B THEN A[e_1] - B[e_1] ELSE A[e_1]][e]]
+          \subseteq DOMAIN A
+       /\ \A e
+             \in DOMAIN [e
+                         \in {d \in
+                                DOMAIN [e \in DOMAIN A |->
+                                          IF e \in DOMAIN B
+                                            THEN A[e] - B[e]
+                                            ELSE A[e]] :
+                                [e \in DOMAIN A |->
+                                   IF e \in DOMAIN B
+                                     THEN A[e] - B[e]
+                                     ELSE A[e]][d]
+                                > 0} |->
+                           [e_1 \in DOMAIN A |->
+                              IF e_1 \in DOMAIN B
+                                THEN A[e_1] - B[e_1]
+                                ELSE A[e_1]][e]] :
+             [e_1
+              \in {d \in
+                     DOMAIN [e_1 \in DOMAIN A |->
+                               IF e_1 \in DOMAIN B
+                                 THEN A[e_1] - B[e_1]
+                                 ELSE A[e_1]] :
+                     [e_1 \in DOMAIN A |->
+                        IF e_1 \in DOMAIN B THEN A[e_1] - B[e_1] ELSE A[e_1]][d]
+                     > 0} |->
+                [e_2 \in DOMAIN A |->
+                   IF e_2 \in DOMAIN B THEN A[e_2] - B[e_2] ELSE A[e_2]][e_1]][e]
+             =< A[e]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:68
+@!!loc:278:11:278:13
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       B (+) EmptyBag = B ,
+       B (-) EmptyBag = B 
+PROVE  /\ B (+) EmptyBag = B
+       /\ B (-) EmptyBag = B
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:69
+@!!loc:278:14:278:18
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       B (+) EmptyBag = B 
+PROVE  B (+) EmptyBag = B
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:70
+@!!loc:278:20:278:24
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       B (-) EmptyBag = B ,
+       B (+) EmptyBag = B 
+PROVE  B (-) EmptyBag = B
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:71
+@!!loc:269:3:269:5
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT B,
+       B \in [DOMAIN B -> {n \in Nat : n > 0}] 
+PROVE  /\ \A e \in DOMAIN B :
+             (IF e \in DOMAIN B THEN B[e] ELSE 0) \in Nat
+             /\ (IF e \in DOMAIN B THEN B[e] ELSE 0) > 0
+       /\ \A e :
+             e \notin DOMAIN B => (IF e \in DOMAIN B THEN B[e] ELSE 0) = 0
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:72
+@!!loc:272:3:272:5
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT B,
+       B \in [DOMAIN B -> {n \in Nat : n > 0}] 
+PROVE  /\ B = [e \in DOMAIN B |-> IF e \in DOMAIN B THEN B[e] ELSE 0]
+       /\ [e \in {} |-> 1] = [e \in {} |-> 0]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:73
+@!!loc:275:3:275:5
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       /\ \A e \in D : C(e) \in Nat /\ C(e) > 0
+       /\ \A e : e \notin D => C(e) = 0 ,
+       /\ B = [e \in D |-> C(e)]
+       /\ EmptyBag = [e \in {} |-> 0] 
+PROVE  [e \in DOMAIN B \cup DOMAIN EmptyBag |->
+          (IF e \in DOMAIN B THEN B[e] ELSE 0)
+          + (IF e \in DOMAIN EmptyBag THEN EmptyBag[e] ELSE 0)]
+       = B
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:74
+@!!loc:275:6:275:10
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       /\ \A e \in D : C(e) \in Nat /\ C(e) > 0
+       /\ \A e : e \notin D => C(e) = 0 
+PROVE  /\ \A e \in D : C(e) \in Nat /\ C(e) > 0
+       /\ \A e : e \notin D => C(e) = 0
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:75
+@!!loc:275:12:275:16
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       /\ B = [e \in D |-> C(e)]
+       /\ EmptyBag = [e \in {} |-> 0] ,
+       /\ \A e \in D : C(e) \in Nat /\ C(e) > 0
+       /\ \A e : e \notin D => C(e) = 0 
+PROVE  /\ B = [e \in D |-> C(e)]
+       /\ EmptyBag = [e \in {} |-> 0]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:76
+@!!loc:277:3:277:5
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       /\ \A e \in D : C(e) \in Nat /\ C(e) > 0
+       /\ \A e : e \notin D => C(e) = 0 ,
+       /\ B = [e \in D |-> C(e)]
+       /\ EmptyBag = [e \in {} |-> 0] 
+PROVE  [e
+        \in {d \in
+               DOMAIN [e \in DOMAIN B |->
+                         IF e \in DOMAIN EmptyBag
+                           THEN B[e] - EmptyBag[e]
+                           ELSE B[e]] :
+               [e \in DOMAIN B |->
+                  IF e \in DOMAIN EmptyBag THEN B[e] - EmptyBag[e] ELSE B[e]][d]
+               > 0} |->
+          [e_1 \in DOMAIN B |->
+             IF e_1 \in DOMAIN EmptyBag
+               THEN B[e_1] - EmptyBag[e_1]
+               ELSE B[e_1]][e]]
+       = B
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:77
+@!!loc:277:6:277:10
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       /\ \A e \in D : C(e) \in Nat /\ C(e) > 0
+       /\ \A e : e \notin D => C(e) = 0 
+PROVE  /\ \A e \in D : C(e) \in Nat /\ C(e) > 0
+       /\ \A e : e \notin D => C(e) = 0
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:78
+@!!loc:277:12:277:16
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       /\ B = [e \in D |-> C(e)]
+       /\ EmptyBag = [e \in {} |-> 0] ,
+       /\ \A e \in D : C(e) \in Nat /\ C(e) > 0
+       /\ \A e : e \notin D => C(e) = 0 
+PROVE  /\ B = [e \in D |-> C(e)]
+       /\ EmptyBag = [e \in {} |-> 0]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:79
+@!!loc:287:1:287:3
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S
+PROVE  [e \in S |-> 1] \in [DOMAIN [e \in S |-> 1] -> {n \in Nat : n > 0}]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:76
+@!!loc:277:3:277:5
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.3 (6%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       /\ \A e \in D : C(e) \in Nat /\ C(e) > 0
+       /\ \A e : e \notin D => C(e) = 0 ,
+       /\ B = [e \in D |-> C(e)]
+       /\ EmptyBag = [e \in {} |-> 0] 
+PROVE  [e
+        \in {d \in
+               DOMAIN [e \in DOMAIN B |->
+                         IF e \in DOMAIN EmptyBag
+                           THEN B[e] - EmptyBag[e]
+                           ELSE B[e]] :
+               [e \in DOMAIN B |->
+                  IF e \in DOMAIN EmptyBag THEN B[e] - EmptyBag[e] ELSE B[e]][d]
+               > 0} |->
+          [e_1 \in DOMAIN B |->
+             IF e_1 \in DOMAIN EmptyBag
+               THEN B[e_1] - EmptyBag[e_1]
+               ELSE B[e_1]][e]]
+       = B
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:73
+@!!loc:275:3:275:5
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.6 (12%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       /\ \A e \in D : C(e) \in Nat /\ C(e) > 0
+       /\ \A e : e \notin D => C(e) = 0 ,
+       /\ B = [e \in D |-> C(e)]
+       /\ EmptyBag = [e \in {} |-> 0] 
+PROVE  [e \in DOMAIN B \cup DOMAIN EmptyBag |->
+          (IF e \in DOMAIN B THEN B[e] ELSE 0)
+          + (IF e \in DOMAIN EmptyBag THEN EmptyBag[e] ELSE 0)]
+       = B
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:72
+@!!loc:272:3:272:5
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.7 (15%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT B,
+       B \in [DOMAIN B -> {n \in Nat : n > 0}] 
+PROVE  /\ B = [e \in DOMAIN B |-> IF e \in DOMAIN B THEN B[e] ELSE 0]
+       /\ [e \in {} |-> 1] = [e \in {} |-> 0]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:71
+@!!loc:269:3:269:5
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.9 (17%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT B,
+       B \in [DOMAIN B -> {n \in Nat : n > 0}] 
+PROVE  /\ \A e \in DOMAIN B :
+             (IF e \in DOMAIN B THEN B[e] ELSE 0) \in Nat
+             /\ (IF e \in DOMAIN B THEN B[e] ELSE 0) > 0
+       /\ \A e :
+             e \notin DOMAIN B => (IF e \in DOMAIN B THEN B[e] ELSE 0) = 0
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:68
+@!!loc:278:11:278:13
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 1.2 (23%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT B,
+       IsABag(B) ,
+       B (+) EmptyBag = B ,
+       B (-) EmptyBag = B 
+PROVE  /\ B (+) EmptyBag = B
+       /\ B (-) EmptyBag = B
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:67
+@!!loc:256:1:256:3
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 1.3 (25%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT A,
+       NEW CONSTANT B,
+       A \in [DOMAIN A -> {n \in Nat : n > 0}] ,
+       B \in [DOMAIN B -> {n \in Nat : n > 0}] 
+PROVE  /\ DOMAIN [e
+                  \in {d \in
+                         DOMAIN [e \in DOMAIN A |->
+                                   IF e \in DOMAIN B
+                                     THEN A[e] - B[e]
+                                     ELSE A[e]] :
+                         [e \in DOMAIN A |->
+                            IF e \in DOMAIN B THEN A[e] - B[e] ELSE A[e]][d]
+                         > 0} |->
+                    [e_1 \in DOMAIN A |->
+                       IF e_1 \in DOMAIN B THEN A[e_1] - B[e_1] ELSE A[e_1]][e]]
+          \subseteq DOMAIN A
+       /\ \A e
+             \in DOMAIN [e
+                         \in {d \in
+                                DOMAIN [e \in DOMAIN A |->
+                                          IF e \in DOMAIN B
+                                            THEN A[e] - B[e]
+                                            ELSE A[e]] :
+                                [e \in DOMAIN A |->
+                                   IF e \in DOMAIN B
+                                     THEN A[e] - B[e]
+                                     ELSE A[e]][d]
+                                > 0} |->
+                           [e_1 \in DOMAIN A |->
+                              IF e_1 \in DOMAIN B
+                                THEN A[e_1] - B[e_1]
+                                ELSE A[e_1]][e]] :
+             [e_1
+              \in {d \in
+                     DOMAIN [e_1 \in DOMAIN A |->
+                               IF e_1 \in DOMAIN B
+                                 THEN A[e_1] - B[e_1]
+                                 ELSE A[e_1]] :
+                     [e_1 \in DOMAIN A |->
+                        IF e_1 \in DOMAIN B THEN A[e_1] - B[e_1] ELSE A[e_1]][d]
+                     > 0} |->
+                [e_2 \in DOMAIN A |->
+                   IF e_2 \in DOMAIN B THEN A[e_2] - B[e_2] ELSE A[e_2]][e_1]][e]
+             =< A[e]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:66
+@!!loc:247:1:247:3
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 1.4 (28%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT B,
+       B \in [DOMAIN B -> {n \in Nat : n > 0}] ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT m \in Nat,
+       m =< n 
+PROVE  /\ DOMAIN (IF m > 0
+                    THEN [i \in DOMAIN B |-> m * B[i]]
+                    ELSE [e \in {} |-> 1])
+          \subseteq DOMAIN (IF n > 0
+                              THEN [i \in DOMAIN B |-> n * B[i]]
+                              ELSE [e \in {} |-> 1])
+       /\ \A e
+             \in DOMAIN (IF m > 0
+                           THEN [i \in DOMAIN B |-> m * B[i]]
+                           ELSE [e \in {} |-> 1]) :
+             (IF m > 0
+                THEN [i \in DOMAIN B |-> m * B[i]]
+                ELSE [e_1 \in {} |-> 1])[e]
+             =< (IF n > 0
+                   THEN [i \in DOMAIN B |-> n * B[i]]
+                   ELSE [e_1 \in {} |-> 1])[e]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:50
+@!!loc:186:3:186:5
+@!!status:being proved
+@!!prover:smt
+@!!meth:time-limit: 5
+@!!obl:
+ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       B1 \in [DOMAIN B1 -> {n \in Nat : n > 0}] ,
+       B2 \in [DOMAIN B2 -> {n \in Nat : n > 0}] ,
+       \A e
+          \in DOMAIN [e \in D |->
+                        [e_1 \in DOMAIN B1 |->
+                           IF e_1 \in DOMAIN B2
+                             THEN B1[e_1] - B2[e_1]
+                             ELSE B1[e_1]][e]] :
+          [e_1 \in D |->
+             [e_2 \in DOMAIN B1 |->
+                IF e_2 \in DOMAIN B2 THEN B1[e_2] - B2[e_2] ELSE B1[e_2]][e_1]][e]
+          \in Nat
+          /\ [e_1 \in D |->
+                [e_2 \in DOMAIN B1 |->
+                   IF e_2 \in DOMAIN B2 THEN B1[e_2] - B2[e_2] ELSE B1[e_2]][e_1]][e]
+             > 0 
+PROVE  [e \in D |->
+          [e_1 \in DOMAIN B1 |->
+             IF e_1 \in DOMAIN B2 THEN B1[e_1] - B2[e_1] ELSE B1[e_1]][e]]
+       \in [DOMAIN [e \in D |->
+                      [e_1 \in DOMAIN B1 |->
+                         IF e_1 \in DOMAIN B2
+                           THEN B1[e_1] - B2[e_1]
+                           ELSE B1[e_1]][e]] ->
+              {n \in Nat : n > 0}]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:80
+@!!loc:297:1:297:3
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       NEW CONSTANT e,
+       B1 \in [DOMAIN B1 -> {n \in Nat : n > 0}] ,
+       B2 \in [DOMAIN B2 -> {n \in Nat : n > 0}] ,
+       /\ DOMAIN B1 \subseteq DOMAIN B2
+       /\ \A e_1 \in DOMAIN B1 : B1[e_1] =< B2[e_1] 
+PROVE  /\ e \in DOMAIN B1 => e \in DOMAIN B2
+       /\ (IF e \in DOMAIN B1 THEN B1[e] ELSE 0)
+          =< (IF e \in DOMAIN B2 THEN B2[e] ELSE 0)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:81
+@!!loc:306:1:306:3
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT B,
+       B \in [DOMAIN B -> {n \in Nat : n > 0}] ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT e
+PROVE  (IF
+          e
+          \in DOMAIN (IF n > 0
+                        THEN [i \in DOMAIN B |-> n * B[i]]
+                        ELSE [e_1 \in {} |-> 1])
+          THEN (IF n > 0
+                  THEN [i \in DOMAIN B |-> n * B[i]]
+                  ELSE [e_1 \in {} |-> 1])[e]
+          ELSE 0)
+       = n * (IF e \in DOMAIN B THEN B[e] ELSE 0)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:82
+@!!loc:315:1:315:3
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT B,
+       NEW CONSTANT e
+PROVE  (IF e \in DOMAIN [e_1 \in B |-> 1] THEN [e_1 \in B |-> 1][e] ELSE 0)
+       = (IF e \in B THEN 1 ELSE 0)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:83
+@!!loc:332:11:332:13
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       ASSUME NEW CONSTANT x \in Range(seq)
+       PROVE  Cardinality({i \in DOMAIN seq : seq[i] = x}) \in Nat \ {0} 
+PROVE  [x \in Range(seq) |-> Cardinality({i \in DOMAIN seq : seq[i] = x})]
+       \in [DOMAIN [x \in Range(seq) |->
+                      Cardinality({i \in DOMAIN seq : seq[i] = x})] ->
+              {n \in Nat : n > 0}]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:84
+@!!loc:332:14:332:18
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       ASSUME NEW CONSTANT x \in Range(seq)
+       PROVE  Cardinality({i \in DOMAIN seq : seq[i] = x}) \in Nat \ {0} 
+PROVE  ASSUME NEW CONSTANT x \in Range(seq)
+       PROVE  Cardinality({i \in DOMAIN seq : seq[i] = x}) \in Nat \ {0}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:85
+@!!loc:331:13:331:15
+@!!status:normalized
+@!!meth:time-limit: 10
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT x \in Range(seq),
+       {i \in DOMAIN seq : seq[i] = x} # {} ,
+       IsFiniteSet({i \in DOMAIN seq : seq[i] = x}) ,
+       ASSUME NEW CONSTANT S_1,
+              IsFiniteSet(S_1) 
+       PROVE  /\ Cardinality(S_1) \in Nat
+              /\ ExistsBijection(1..Cardinality(S_1), S_1) ,
+       /\ IsFiniteSet({})
+       /\ Cardinality({}) = 0
+       /\ \A S_1 : IsFiniteSet(S_1) => Cardinality(S_1) = 0 <=> S_1 = {} ,
+       TRUE 
+PROVE  Cardinality({i \in DOMAIN seq : seq[i] = x}) \in Nat \ {0}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:86
+@!!loc:331:16:331:20
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT x \in Range(seq),
+       {i \in DOMAIN seq : seq[i] = x} # {} 
+PROVE  {i \in DOMAIN seq : seq[i] = x} # {}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:87
+@!!loc:331:22:331:26
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT x \in Range(seq),
+       IsFiniteSet({i \in DOMAIN seq : seq[i] = x}) ,
+       {i \in DOMAIN seq : seq[i] = x} # {} 
+PROVE  IsFiniteSet({i \in DOMAIN seq : seq[i] = x})
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:88
+@!!loc:331:28:331:46
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME ASSUME NEW CONSTANT S,
+              IsFiniteSet(S) 
+       PROVE  /\ Cardinality(S) \in Nat
+              /\ ExistsBijection(1..Cardinality(S), S) ,
+       NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT x \in Range(seq),
+       {i \in DOMAIN seq : seq[i] = x} # {} ,
+       IsFiniteSet({i \in DOMAIN seq : seq[i] = x}) 
+PROVE  ASSUME NEW CONSTANT S_1,
+              IsFiniteSet(S_1) 
+       PROVE  /\ Cardinality(S_1) \in Nat
+              /\ ExistsBijection(1..Cardinality(S_1), S_1)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:89
+@!!loc:331:48:331:59
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME /\ IsFiniteSet({})
+       /\ Cardinality({}) = 0
+       /\ \A S : IsFiniteSet(S) => Cardinality(S) = 0 <=> S = {} ,
+       NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT x \in Range(seq),
+       {i \in DOMAIN seq : seq[i] = x} # {} ,
+       IsFiniteSet({i \in DOMAIN seq : seq[i] = x}) ,
+       ASSUME NEW CONSTANT S_1,
+              IsFiniteSet(S_1) 
+       PROVE  /\ Cardinality(S_1) \in Nat
+              /\ ExistsBijection(1..Cardinality(S_1), S_1) 
+PROVE  /\ IsFiniteSet({})
+       /\ Cardinality({}) = 0
+       /\ \A S_1 : IsFiniteSet(S_1) => Cardinality(S_1) = 0 <=> S_1 = {}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:90
+@!!loc:331:61:331:66
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT x \in Range(seq),
+       {i \in DOMAIN seq : seq[i] = x} # {} ,
+       IsFiniteSet({i \in DOMAIN seq : seq[i] = x}) ,
+       ASSUME NEW CONSTANT S_1,
+              IsFiniteSet(S_1) 
+       PROVE  /\ Cardinality(S_1) \in Nat
+              /\ ExistsBijection(1..Cardinality(S_1), S_1) ,
+       /\ IsFiniteSet({})
+       /\ Cardinality({}) = 0
+       /\ \A S_1 : IsFiniteSet(S_1) => Cardinality(S_1) = 0 <=> S_1 = {} 
+PROVE  TRUE
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:91
+@!!loc:328:5:328:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT x \in {seq[x] : x \in DOMAIN seq}
+PROVE  {i \in DOMAIN seq : seq[i] = x} # {}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:92
+@!!loc:330:5:330:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT x \in Range(seq),
+       ASSUME NEW CONSTANT a \in Int,
+              NEW CONSTANT b \in Int
+       PROVE  /\ IsFiniteSet(a..b)
+              /\ Cardinality(a..b) = (IF a > b THEN 0 ELSE b - a + 1) ,
+       ASSUME NEW CONSTANT S_1,
+              IsFiniteSet(S_1) ,
+              NEW CONSTANT T \in SUBSET S_1
+       PROVE  /\ IsFiniteSet(T)
+              /\ Cardinality(T) =< Cardinality(S_1)
+              /\ Cardinality(S_1) = Cardinality(T) => S_1 = T 
+PROVE  IsFiniteSet({i \in DOMAIN seq : seq[i] = x})
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:93
+@!!loc:330:8:330:19
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME ASSUME NEW CONSTANT a \in Int,
+              NEW CONSTANT b \in Int
+       PROVE  /\ IsFiniteSet(a..b)
+              /\ Cardinality(a..b) = (IF a > b THEN 0 ELSE b - a + 1) ,
+       NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT x \in Range(seq)
+PROVE  ASSUME NEW CONSTANT a \in Int,
+              NEW CONSTANT b \in Int
+       PROVE  /\ IsFiniteSet(a..b)
+              /\ Cardinality(a..b) = (IF a > b THEN 0 ELSE b - a + 1)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:94
+@!!loc:330:21:330:30
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME ASSUME NEW CONSTANT S,
+              IsFiniteSet(S) ,
+              NEW CONSTANT T \in SUBSET S
+       PROVE  /\ IsFiniteSet(T)
+              /\ Cardinality(T) =< Cardinality(S)
+              /\ Cardinality(S) = Cardinality(T) => S = T ,
+       NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT x \in Range(seq),
+       ASSUME NEW CONSTANT a \in Int,
+              NEW CONSTANT b \in Int
+       PROVE  /\ IsFiniteSet(a..b)
+              /\ Cardinality(a..b) = (IF a > b THEN 0 ELSE b - a + 1) 
+PROVE  ASSUME NEW CONSTANT S_1,
+              IsFiniteSet(S_1) ,
+              NEW CONSTANT T \in SUBSET S_1
+       PROVE  /\ IsFiniteSet(T)
+              /\ Cardinality(T) =< Cardinality(S_1)
+              /\ Cardinality(S_1) = Cardinality(T) => S_1 = T
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:92
+@!!loc:330:5:330:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.2 (4%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT x \in Range(seq),
+       ASSUME NEW CONSTANT a \in Int,
+              NEW CONSTANT b \in Int
+       PROVE  /\ IsFiniteSet(a..b)
+              /\ Cardinality(a..b) = (IF a > b THEN 0 ELSE b - a + 1) ,
+       ASSUME NEW CONSTANT S_1,
+              IsFiniteSet(S_1) ,
+              NEW CONSTANT T \in SUBSET S_1
+       PROVE  /\ IsFiniteSet(T)
+              /\ Cardinality(T) =< Cardinality(S_1)
+              /\ Cardinality(S_1) = Cardinality(T) => S_1 = T 
+PROVE  IsFiniteSet({i \in DOMAIN seq : seq[i] = x})
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:91
+@!!loc:328:5:328:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.3 (7%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT x \in {seq[x] : x \in DOMAIN seq}
+PROVE  {i \in DOMAIN seq : seq[i] = x} # {}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:85
+@!!loc:331:13:331:15
+@!!status:proved
+@!!prover:zenon
+@!!meth:time-limit: 10; time-used: 1.0 (10%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT x \in Range(seq),
+       {i \in DOMAIN seq : seq[i] = x} # {} ,
+       IsFiniteSet({i \in DOMAIN seq : seq[i] = x}) ,
+       ASSUME NEW CONSTANT S_1,
+              IsFiniteSet(S_1) 
+       PROVE  /\ Cardinality(S_1) \in Nat
+              /\ ExistsBijection(1..Cardinality(S_1), S_1) ,
+       /\ IsFiniteSet({})
+       /\ Cardinality({}) = 0
+       /\ \A S_1 : IsFiniteSet(S_1) => Cardinality(S_1) = 0 <=> S_1 = {} ,
+       TRUE 
+PROVE  Cardinality({i \in DOMAIN seq : seq[i] = x}) \in Nat \ {0}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:83
+@!!loc:332:11:332:13
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 1.2 (23%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       ASSUME NEW CONSTANT x \in Range(seq)
+       PROVE  Cardinality({i \in DOMAIN seq : seq[i] = x}) \in Nat \ {0} 
+PROVE  [x \in Range(seq) |-> Cardinality({i \in DOMAIN seq : seq[i] = x})]
+       \in [DOMAIN [x \in Range(seq) |->
+                      Cardinality({i \in DOMAIN seq : seq[i] = x})] ->
+              {n \in Nat : n > 0}]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:82
+@!!loc:315:1:315:3
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 1.3 (26%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT B,
+       NEW CONSTANT e
+PROVE  (IF e \in DOMAIN [e_1 \in B |-> 1] THEN [e_1 \in B |-> 1][e] ELSE 0)
+       = (IF e \in B THEN 1 ELSE 0)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:81
+@!!loc:306:1:306:3
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 1.4 (29%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT B,
+       B \in [DOMAIN B -> {n \in Nat : n > 0}] ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT e
+PROVE  (IF
+          e
+          \in DOMAIN (IF n > 0
+                        THEN [i \in DOMAIN B |-> n * B[i]]
+                        ELSE [e_1 \in {} |-> 1])
+          THEN (IF n > 0
+                  THEN [i \in DOMAIN B |-> n * B[i]]
+                  ELSE [e_1 \in {} |-> 1])[e]
+          ELSE 0)
+       = n * (IF e \in DOMAIN B THEN B[e] ELSE 0)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:80
+@!!loc:297:1:297:3
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 1.6 (32%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       NEW CONSTANT e,
+       B1 \in [DOMAIN B1 -> {n \in Nat : n > 0}] ,
+       B2 \in [DOMAIN B2 -> {n \in Nat : n > 0}] ,
+       /\ DOMAIN B1 \subseteq DOMAIN B2
+       /\ \A e_1 \in DOMAIN B1 : B1[e_1] =< B2[e_1] 
+PROVE  /\ e \in DOMAIN B1 => e \in DOMAIN B2
+       /\ (IF e \in DOMAIN B1 THEN B1[e] ELSE 0)
+          =< (IF e \in DOMAIN B2 THEN B2[e] ELSE 0)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:79
+@!!loc:287:1:287:3
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 1.7 (35%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S
+PROVE  [e \in S |-> 1] \in [DOMAIN [e \in S |-> 1] -> {n \in Nat : n > 0}]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:50
+@!!loc:186:3:186:5
+@!!status:failed
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 5.0 (100%)
+@!!reason:timeout
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       B1 \in [DOMAIN B1 -> {n \in Nat : n > 0}] ,
+       B2 \in [DOMAIN B2 -> {n \in Nat : n > 0}] ,
+       \A e
+          \in DOMAIN [e \in D |->
+                        [e_1 \in DOMAIN B1 |->
+                           IF e_1 \in DOMAIN B2
+                             THEN B1[e_1] - B2[e_1]
+                             ELSE B1[e_1]][e]] :
+          [e_1 \in D |->
+             [e_2 \in DOMAIN B1 |->
+                IF e_2 \in DOMAIN B2 THEN B1[e_2] - B2[e_2] ELSE B1[e_2]][e_1]][e]
+          \in Nat
+          /\ [e_1 \in D |->
+                [e_2 \in DOMAIN B1 |->
+                   IF e_2 \in DOMAIN B2 THEN B1[e_2] - B2[e_2] ELSE B1[e_2]][e_1]][e]
+             > 0 
+PROVE  [e \in D |->
+          [e_1 \in DOMAIN B1 |->
+             IF e_1 \in DOMAIN B2 THEN B1[e_1] - B2[e_1] ELSE B1[e_1]][e]]
+       \in [DOMAIN [e \in D |->
+                      [e_1 \in DOMAIN B1 |->
+                         IF e_1 \in DOMAIN B2
+                           THEN B1[e_1] - B2[e_1]
+                           ELSE B1[e_1]][e]] ->
+              {n \in Nat : n > 0}]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:50
+@!!loc:186:3:186:5
+@!!status:normalized
+@!!meth:time-limit: 10
+@!!obl:ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       B1 \in [DOMAIN B1 -> {n \in Nat : n > 0}] ,
+       B2 \in [DOMAIN B2 -> {n \in Nat : n > 0}] ,
+       \A e
+          \in DOMAIN [e \in D |->
+                        [e_1 \in DOMAIN B1 |->
+                           IF e_1 \in DOMAIN B2
+                             THEN B1[e_1] - B2[e_1]
+                             ELSE B1[e_1]][e]] :
+          [e_1 \in D |->
+             [e_2 \in DOMAIN B1 |->
+                IF e_2 \in DOMAIN B2 THEN B1[e_2] - B2[e_2] ELSE B1[e_2]][e_1]][e]
+          \in Nat
+          /\ [e_1 \in D |->
+                [e_2 \in DOMAIN B1 |->
+                   IF e_2 \in DOMAIN B2 THEN B1[e_2] - B2[e_2] ELSE B1[e_2]][e_1]][e]
+             > 0 
+PROVE  [e \in D |->
+          [e_1 \in DOMAIN B1 |->
+             IF e_1 \in DOMAIN B2 THEN B1[e_1] - B2[e_1] ELSE B1[e_1]][e]]
+       \in [DOMAIN [e \in D |->
+                      [e_1 \in DOMAIN B1 |->
+                         IF e_1 \in DOMAIN B2
+                           THEN B1[e_1] - B2[e_1]
+                           ELSE B1[e_1]][e]] ->
+              {n \in Nat : n > 0}]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:50
+@!!loc:186:3:186:5
+@!!status:proved
+@!!prover:zenon
+@!!meth:time-limit: 10; time-used: 0.0 (0%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT B1,
+       NEW CONSTANT B2,
+       B1 \in [DOMAIN B1 -> {n \in Nat : n > 0}] ,
+       B2 \in [DOMAIN B2 -> {n \in Nat : n > 0}] ,
+       \A e
+          \in DOMAIN [e \in D |->
+                        [e_1 \in DOMAIN B1 |->
+                           IF e_1 \in DOMAIN B2
+                             THEN B1[e_1] - B2[e_1]
+                             ELSE B1[e_1]][e]] :
+          [e_1 \in D |->
+             [e_2 \in DOMAIN B1 |->
+                IF e_2 \in DOMAIN B2 THEN B1[e_2] - B2[e_2] ELSE B1[e_2]][e_1]][e]
+          \in Nat
+          /\ [e_1 \in D |->
+                [e_2 \in DOMAIN B1 |->
+                   IF e_2 \in DOMAIN B2 THEN B1[e_2] - B2[e_2] ELSE B1[e_2]][e_1]][e]
+             > 0 
+PROVE  [e \in D |->
+          [e_1 \in DOMAIN B1 |->
+             IF e_1 \in DOMAIN B2 THEN B1[e_1] - B2[e_1] ELSE B1[e_1]][e]]
+       \in [DOMAIN [e \in D |->
+                      [e_1 \in DOMAIN B1 |->
+                         IF e_1 \in DOMAIN B2
+                           THEN B1[e_1] - B2[e_1]
+                           ELSE B1[e_1]][e]] ->
+              {n \in Nat : n > 0}]
+
+@!!END
+
+(* created new ".tlacache/BagsTheorems_proofs.tlaps/BagsTheorems_proofs.thy" *)
+(* fingerprints written in ".tlacache/BagsTheorems_proofs.tlaps/fingerprints" *)
+File "./BagsTheorems_proofs.tla", line 1, character 1 to line 334, character 77:
+[INFO]: All 94 obligations proved.

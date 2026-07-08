@@ -1,0 +1,3751 @@
+
+\* TLAPM version 80172c6
+\* launched at 2026-07-08 14:11:09 with command line:
+\* /Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm --toolbox 0 0 --printallobs -I /Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib -I /Users/eric/GitHub/prove-TLA/tools/community-modules -I /Users/eric/GitHub/prove-TLA/tools/extra-modules EWD840_proof.tla
+
+@!!BEGIN
+@!!type:obligation
+@!!id:1
+@!!loc:39:11:39:13
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Spec == Init /\ [][Next]_vars /\ (WF_(vars) (System)),
+       <1>1 ,
+       <1>2 ,
+       PTL 
+PROVE  Spec => []TypeOK
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:2
+@!!loc:39:14:39:18
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Spec == Init /\ [][Next]_vars /\ (WF_(vars) (System))
+PROVE  <1>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:3
+@!!loc:39:20:39:24
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Spec == Init /\ [][Next]_vars /\ (WF_(vars) (System)),
+       <1>1 
+PROVE  <1>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:4
+@!!loc:39:26:39:29
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Spec == Init /\ [][Next]_vars /\ (WF_(vars) (System)),
+       <1>1 ,
+       <1>2 
+PROVE  PTL
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:5
+@!!loc:14:3:14:5
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Color == {"white", "black"},
+       TypeOK ==
+         /\ active \in [Node -> BOOLEAN]
+         /\ color \in [Node -> Color]
+         /\ tpos \in Node
+         /\ tcolor \in Color,
+       Init ==
+         /\ active \in [Node -> BOOLEAN]
+         /\ color \in [Node -> Color]
+         /\ tpos \in Node
+         /\ tcolor = "black"
+PROVE  Init => TypeOK
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:6
+@!!loc:38:5:38:7
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Node == 0..N - 1,
+       Color == {"white", "black"},
+       TypeOK ==
+         /\ active \in [Node -> BOOLEAN]
+         /\ color \in [Node -> Color]
+         /\ tpos \in Node
+         /\ tcolor \in Color,
+       System == InitiateProbe \/ (\E i \in Node \ {0} : PassToken(i)),
+       Environment == \E i \in Node : SendMsg(i) \/ Deactivate(i),
+       Next == System \/ Environment,
+       TypeOK ,
+       [Next]_vars ,
+       NAssumption ,
+       <2>1 ,
+       <2>2 ,
+       <2>3 ,
+       <2>4 ,
+       <2>5 
+PROVE  TypeOK'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:7
+@!!loc:38:8:38:12
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Node == 0..N - 1,
+       Color == {"white", "black"},
+       TypeOK ==
+         /\ active \in [Node -> BOOLEAN]
+         /\ color \in [Node -> Color]
+         /\ tpos \in Node
+         /\ tcolor \in Color,
+       System == InitiateProbe \/ (\E i \in Node \ {0} : PassToken(i)),
+       Environment == \E i \in Node : SendMsg(i) \/ Deactivate(i),
+       Next == System \/ Environment,
+       TypeOK ,
+       [Next]_vars ,
+       NAssumption 
+PROVE  <2>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:8
+@!!loc:38:14:38:18
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Node == 0..N - 1,
+       Color == {"white", "black"},
+       TypeOK ==
+         /\ active \in [Node -> BOOLEAN]
+         /\ color \in [Node -> Color]
+         /\ tpos \in Node
+         /\ tcolor \in Color,
+       System == InitiateProbe \/ (\E i \in Node \ {0} : PassToken(i)),
+       Environment == \E i \in Node : SendMsg(i) \/ Deactivate(i),
+       Next == System \/ Environment,
+       TypeOK ,
+       [Next]_vars ,
+       NAssumption ,
+       <2>1 
+PROVE  <2>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:9
+@!!loc:38:20:38:24
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Node == 0..N - 1,
+       Color == {"white", "black"},
+       TypeOK ==
+         /\ active \in [Node -> BOOLEAN]
+         /\ color \in [Node -> Color]
+         /\ tpos \in Node
+         /\ tcolor \in Color,
+       System == InitiateProbe \/ (\E i \in Node \ {0} : PassToken(i)),
+       Environment == \E i \in Node : SendMsg(i) \/ Deactivate(i),
+       Next == System \/ Environment,
+       TypeOK ,
+       [Next]_vars ,
+       NAssumption ,
+       <2>1 ,
+       <2>2 
+PROVE  <2>3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:10
+@!!loc:38:26:38:30
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Node == 0..N - 1,
+       Color == {"white", "black"},
+       TypeOK ==
+         /\ active \in [Node -> BOOLEAN]
+         /\ color \in [Node -> Color]
+         /\ tpos \in Node
+         /\ tcolor \in Color,
+       System == InitiateProbe \/ (\E i \in Node \ {0} : PassToken(i)),
+       Environment == \E i \in Node : SendMsg(i) \/ Deactivate(i),
+       Next == System \/ Environment,
+       TypeOK ,
+       [Next]_vars ,
+       NAssumption ,
+       <2>1 ,
+       <2>2 ,
+       <2>3 
+PROVE  <2>4
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:11
+@!!loc:38:32:38:36
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Node == 0..N - 1,
+       Color == {"white", "black"},
+       TypeOK ==
+         /\ active \in [Node -> BOOLEAN]
+         /\ color \in [Node -> Color]
+         /\ tpos \in Node
+         /\ tcolor \in Color,
+       System == InitiateProbe \/ (\E i \in Node \ {0} : PassToken(i)),
+       Environment == \E i \in Node : SendMsg(i) \/ Deactivate(i),
+       Next == System \/ Environment,
+       TypeOK ,
+       [Next]_vars ,
+       NAssumption ,
+       <2>1 ,
+       <2>2 ,
+       <2>3 ,
+       <2>4 
+PROVE  <2>5
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:12
+@!!loc:19:5:19:12
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       <2>_a10 
+PROVE  TypeOK /\ [Next]_vars => TypeOK'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:13
+@!!loc:20:12:20:23
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Node == 0..N - 1,
+       Color == {"white", "black"},
+       TypeOK ==
+         /\ active \in [Node -> BOOLEAN]
+         /\ color \in [Node -> Color]
+         /\ tpos \in Node
+         /\ tcolor \in Color,
+       TypeOK ,
+       [Next]_vars 
+PROVE  NAssumption
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:14
+@!!loc:22:5:22:7
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Node == 0..N - 1,
+       Color == {"white", "black"},
+       TypeOK ==
+         /\ active \in [Node -> BOOLEAN]
+         /\ color \in [Node -> Color]
+         /\ tpos \in Node
+         /\ tcolor \in Color,
+       InitiateProbe ==
+         /\ tpos = 0
+         /\ tcolor = "black" \/ color[0] = "black"
+         /\ tpos' = N - 1
+         /\ tcolor' = "white"
+         /\ active' = active
+         /\ color' = [color EXCEPT ![0] = "white"],
+       TypeOK ,
+       [Next]_vars ,
+       NAssumption ,
+       <2>1 
+PROVE  TypeOK'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:15
+@!!loc:22:8:22:12
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Node == 0..N - 1,
+       Color == {"white", "black"},
+       TypeOK ==
+         /\ active \in [Node -> BOOLEAN]
+         /\ color \in [Node -> Color]
+         /\ tpos \in Node
+         /\ tcolor \in Color,
+       InitiateProbe ==
+         /\ tpos = 0
+         /\ tcolor = "black" \/ color[0] = "black"
+         /\ tpos' = N - 1
+         /\ tcolor' = "white"
+         /\ active' = active
+         /\ color' = [color EXCEPT ![0] = "white"],
+       TypeOK ,
+       [Next]_vars ,
+       NAssumption 
+PROVE  <2>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:16
+@!!loc:26:5:26:7
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Node == 0..N - 1,
+       Color == {"white", "black"},
+       TypeOK ==
+         /\ active \in [Node -> BOOLEAN]
+         /\ color \in [Node -> Color]
+         /\ tpos \in Node
+         /\ tcolor \in Color,
+       PassToken(i) ==
+         /\ tpos = i
+         /\ ~active[i] \/ color[i] = "black" \/ tcolor = "black"
+         /\ tpos' = i - 1
+         /\ tcolor' = (IF color[i] = "black" THEN "black" ELSE tcolor)
+         /\ active' = active
+         /\ color' = [color EXCEPT ![i] = "white"],
+       TypeOK ,
+       [Next]_vars ,
+       NAssumption ,
+       NEW CONSTANT i \in Node \ {0},
+       <2>2 
+PROVE  TypeOK'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:17
+@!!loc:26:8:26:12
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Node == 0..N - 1,
+       Color == {"white", "black"},
+       TypeOK ==
+         /\ active \in [Node -> BOOLEAN]
+         /\ color \in [Node -> Color]
+         /\ tpos \in Node
+         /\ tcolor \in Color,
+       PassToken(i) ==
+         /\ tpos = i
+         /\ ~active[i] \/ color[i] = "black" \/ tcolor = "black"
+         /\ tpos' = i - 1
+         /\ tcolor' = (IF color[i] = "black" THEN "black" ELSE tcolor)
+         /\ active' = active
+         /\ color' = [color EXCEPT ![i] = "white"],
+       TypeOK ,
+       [Next]_vars ,
+       NAssumption ,
+       NEW CONSTANT i \in Node \ {0}
+PROVE  <2>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:18
+@!!loc:30:5:30:7
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Node == 0..N - 1,
+       Color == {"white", "black"},
+       TypeOK ==
+         /\ active \in [Node -> BOOLEAN]
+         /\ color \in [Node -> Color]
+         /\ tpos \in Node
+         /\ tcolor \in Color,
+       SendMsg(i) ==
+         /\ active[i]
+         /\ \E j \in Node \ {i} :
+               /\ active' = [active EXCEPT ![j] = TRUE]
+               /\ color'
+                  = [color EXCEPT ![i] = IF j > i THEN "black" ELSE color[i]]
+         /\ UNCHANGED <<tpos, tcolor>>,
+       TypeOK ,
+       [Next]_vars ,
+       NAssumption ,
+       NEW CONSTANT i \in Node,
+       <2>3 
+PROVE  TypeOK'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:19
+@!!loc:30:8:30:12
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Node == 0..N - 1,
+       Color == {"white", "black"},
+       TypeOK ==
+         /\ active \in [Node -> BOOLEAN]
+         /\ color \in [Node -> Color]
+         /\ tpos \in Node
+         /\ tcolor \in Color,
+       SendMsg(i) ==
+         /\ active[i]
+         /\ \E j \in Node \ {i} :
+               /\ active' = [active EXCEPT ![j] = TRUE]
+               /\ color'
+                  = [color EXCEPT ![i] = IF j > i THEN "black" ELSE color[i]]
+         /\ UNCHANGED <<tpos, tcolor>>,
+       TypeOK ,
+       [Next]_vars ,
+       NAssumption ,
+       NEW CONSTANT i \in Node
+PROVE  <2>3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:20
+@!!loc:34:5:34:7
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Node == 0..N - 1,
+       Color == {"white", "black"},
+       TypeOK ==
+         /\ active \in [Node -> BOOLEAN]
+         /\ color \in [Node -> Color]
+         /\ tpos \in Node
+         /\ tcolor \in Color,
+       Deactivate(i) ==
+         /\ active[i]
+         /\ active' = [active EXCEPT ![i] = FALSE]
+         /\ UNCHANGED <<color, tpos, tcolor>>,
+       TypeOK ,
+       [Next]_vars ,
+       NAssumption ,
+       NEW CONSTANT i \in Node,
+       <2>4 
+PROVE  TypeOK'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:21
+@!!loc:34:8:34:12
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Node == 0..N - 1,
+       Color == {"white", "black"},
+       TypeOK ==
+         /\ active \in [Node -> BOOLEAN]
+         /\ color \in [Node -> Color]
+         /\ tpos \in Node
+         /\ tcolor \in Color,
+       Deactivate(i) ==
+         /\ active[i]
+         /\ active' = [active EXCEPT ![i] = FALSE]
+         /\ UNCHANGED <<color, tpos, tcolor>>,
+       TypeOK ,
+       [Next]_vars ,
+       NAssumption ,
+       NEW CONSTANT i \in Node
+PROVE  <2>4
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:22
+@!!loc:36:5:36:7
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Node == 0..N - 1,
+       Color == {"white", "black"},
+       TypeOK ==
+         /\ active \in [Node -> BOOLEAN]
+         /\ color \in [Node -> Color]
+         /\ tpos \in Node
+         /\ tcolor \in Color,
+       vars == <<active, color, tpos, tcolor>>,
+       TypeOK ,
+       [Next]_vars ,
+       NAssumption ,
+       <2>5 
+PROVE  TypeOK'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:23
+@!!loc:36:8:36:12
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Node == 0..N - 1,
+       Color == {"white", "black"},
+       TypeOK ==
+         /\ active \in [Node -> BOOLEAN]
+         /\ color \in [Node -> Color]
+         /\ tpos \in Node
+         /\ tcolor \in Color,
+       vars == <<active, color, tpos, tcolor>>,
+       TypeOK ,
+       [Next]_vars ,
+       NAssumption 
+PROVE  <2>5
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:24
+@!!loc:55:3:55:5
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Spec == Init /\ [][Next]_vars /\ (WF_(vars) (System)),
+       <1>1 ,
+       <1>2 ,
+       <1>3 ,
+       TypeCorrect ,
+       PTL 
+PROVE  Spec => []TerminationDetection
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:25
+@!!loc:55:6:55:10
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Spec == Init /\ [][Next]_vars /\ (WF_(vars) (System))
+PROVE  <1>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:26
+@!!loc:55:12:55:16
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Spec == Init /\ [][Next]_vars /\ (WF_(vars) (System)),
+       <1>1 
+PROVE  <1>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:27
+@!!loc:55:18:55:22
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Spec == Init /\ [][Next]_vars /\ (WF_(vars) (System)),
+       <1>1 ,
+       <1>2 
+PROVE  <1>3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:28
+@!!loc:55:24:55:35
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Spec == Init /\ [][Next]_vars /\ (WF_(vars) (System)),
+       <1>1 ,
+       <1>2 ,
+       <1>3 
+PROVE  TypeCorrect
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:29
+@!!loc:55:37:55:40
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Spec == Init /\ [][Next]_vars /\ (WF_(vars) (System)),
+       <1>1 ,
+       <1>2 ,
+       <1>3 ,
+       TypeCorrect 
+PROVE  PTL
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:30
+@!!loc:47:3:47:5
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Node == 0..N - 1,
+       Init ==
+         /\ active \in [Node -> BOOLEAN]
+         /\ color \in [Node -> Color]
+         /\ tpos \in Node
+         /\ tcolor = "black",
+       Inv ==
+         \/ P0::\A i \in Node : tpos < i => ~active[i]
+         \/ P1::\E j \in 0..tpos : color[j] = "black"
+         \/ P2::(tcolor = "black"),
+       NAssumption 
+PROVE  Init => Inv
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:31
+@!!loc:47:6:47:17
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Node == 0..N - 1,
+       Init ==
+         /\ active \in [Node -> BOOLEAN]
+         /\ color \in [Node -> Color]
+         /\ tpos \in Node
+         /\ tcolor = "black",
+       Inv ==
+         \/ P0::\A i \in Node : tpos < i => ~active[i]
+         \/ P1::\E j \in 0..tpos : color[j] = "black"
+         \/ P2::(tcolor = "black")
+PROVE  NAssumption
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:32
+@!!loc:49:3:49:5
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Node == 0..N - 1,
+       Color == {"white", "black"},
+       TypeOK ==
+         /\ active \in [Node -> BOOLEAN]
+         /\ color \in [Node -> Color]
+         /\ tpos \in Node
+         /\ tcolor \in Color,
+       InitiateProbe ==
+         /\ tpos = 0
+         /\ tcolor = "black" \/ color[0] = "black"
+         /\ tpos' = N - 1
+         /\ tcolor' = "white"
+         /\ active' = active
+         /\ color' = [color EXCEPT ![0] = "white"],
+       PassToken(i) ==
+         /\ tpos = i
+         /\ ~active[i] \/ color[i] = "black" \/ tcolor = "black"
+         /\ tpos' = i - 1
+         /\ tcolor' = (IF color[i] = "black" THEN "black" ELSE tcolor)
+         /\ active' = active
+         /\ color' = [color EXCEPT ![i] = "white"],
+       System == InitiateProbe \/ (\E i \in Node \ {0} : PassToken(i)),
+       SendMsg(i) ==
+         /\ active[i]
+         /\ \E j \in Node \ {i} :
+               /\ active' = [active EXCEPT ![j] = TRUE]
+               /\ color'
+                  = [color EXCEPT ![i] = IF j > i THEN "black" ELSE color[i]]
+         /\ UNCHANGED <<tpos, tcolor>>,
+       Deactivate(i) ==
+         /\ active[i]
+         /\ active' = [active EXCEPT ![i] = FALSE]
+         /\ UNCHANGED <<color, tpos, tcolor>>,
+       Environment == \E i \in Node : SendMsg(i) \/ Deactivate(i),
+       Next == System \/ Environment,
+       vars == <<active, color, tpos, tcolor>>,
+       Inv ==
+         \/ P0::\A i \in Node : tpos < i => ~active[i]
+         \/ P1::\E j \in 0..tpos : color[j] = "black"
+         \/ P2::(tcolor = "black"),
+       NAssumption 
+PROVE  TypeOK /\ Inv /\ [Next]_vars => Inv'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:33
+@!!loc:49:6:49:17
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Node == 0..N - 1,
+       Color == {"white", "black"},
+       TypeOK ==
+         /\ active \in [Node -> BOOLEAN]
+         /\ color \in [Node -> Color]
+         /\ tpos \in Node
+         /\ tcolor \in Color,
+       InitiateProbe ==
+         /\ tpos = 0
+         /\ tcolor = "black" \/ color[0] = "black"
+         /\ tpos' = N - 1
+         /\ tcolor' = "white"
+         /\ active' = active
+         /\ color' = [color EXCEPT ![0] = "white"],
+       PassToken(i) ==
+         /\ tpos = i
+         /\ ~active[i] \/ color[i] = "black" \/ tcolor = "black"
+         /\ tpos' = i - 1
+         /\ tcolor' = (IF color[i] = "black" THEN "black" ELSE tcolor)
+         /\ active' = active
+         /\ color' = [color EXCEPT ![i] = "white"],
+       System == InitiateProbe \/ (\E i \in Node \ {0} : PassToken(i)),
+       SendMsg(i) ==
+         /\ active[i]
+         /\ \E j \in Node \ {i} :
+               /\ active' = [active EXCEPT ![j] = TRUE]
+               /\ color'
+                  = [color EXCEPT ![i] = IF j > i THEN "black" ELSE color[i]]
+         /\ UNCHANGED <<tpos, tcolor>>,
+       Deactivate(i) ==
+         /\ active[i]
+         /\ active' = [active EXCEPT ![i] = FALSE]
+         /\ UNCHANGED <<color, tpos, tcolor>>,
+       Environment == \E i \in Node : SendMsg(i) \/ Deactivate(i),
+       Next == System \/ Environment,
+       vars == <<active, color, tpos, tcolor>>,
+       Inv ==
+         \/ P0::\A i \in Node : tpos < i => ~active[i]
+         \/ P1::\E j \in 0..tpos : color[j] = "black"
+         \/ P2::(tcolor = "black")
+PROVE  NAssumption
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:34
+@!!loc:53:3:53:5
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Node == 0..N - 1,
+       terminationDetected ==
+         /\ tpos = 0 /\ tcolor = "white"
+         /\ color[0] = "white" /\ ~active[0],
+       TerminationDetection ==
+         terminationDetected => (\A i \in Node : ~active[i]),
+       Inv ==
+         \/ P0::\A i \in Node : tpos < i => ~active[i]
+         \/ P1::\E j \in 0..tpos : color[j] = "black"
+         \/ P2::(tcolor = "black"),
+       NAssumption 
+PROVE  Inv => TerminationDetection
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:35
+@!!loc:53:6:53:17
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Node == 0..N - 1,
+       terminationDetected ==
+         /\ tpos = 0 /\ tcolor = "white"
+         /\ color[0] = "white" /\ ~active[0],
+       TerminationDetection ==
+         terminationDetected => (\A i \in Node : ~active[i]),
+       Inv ==
+         \/ P0::\A i \in Node : tpos < i => ~active[i]
+         \/ P1::\E j \in 0..tpos : color[j] = "black"
+         \/ P2::(tcolor = "black")
+PROVE  NAssumption
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:36
+@!!loc:79:13:79:15
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Node == 0..N - 1,
+       NEW CONSTANT i \in Node,
+       <2>3 ,
+       <2>4 
+PROVE  ~active[i]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:37
+@!!loc:79:16:79:20
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Node == 0..N - 1,
+       NEW CONSTANT i \in Node
+PROVE  <2>3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:38
+@!!loc:79:22:79:26
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Node == 0..N - 1,
+       NEW CONSTANT i \in Node,
+       <2>3 
+PROVE  <2>4
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:39
+@!!loc:72:17:72:19
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Inv ==
+         \/ P0::\A i \in Node : tpos < i => ~active[i]
+         \/ P1::\E j \in 0..tpos : color[j] = "black"
+         \/ P2::(tcolor = "black"),
+       Inv ,
+       <1>2 ,
+       <1>3 
+PROVE  \A i \in Node : tpos < i => ~active[i]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:40
+@!!loc:72:20:72:23
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Inv ==
+         \/ P0::\A i \in Node : tpos < i => ~active[i]
+         \/ P1::\E j \in 0..tpos : color[j] = "black"
+         \/ P2::(tcolor = "black")
+PROVE  Inv
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:41
+@!!loc:72:25:72:29
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Inv ==
+         \/ P0::\A i \in Node : tpos < i => ~active[i]
+         \/ P1::\E j \in 0..tpos : color[j] = "black"
+         \/ P2::(tcolor = "black"),
+       Inv 
+PROVE  <1>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:42
+@!!loc:72:31:72:35
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Inv ==
+         \/ P0::\A i \in Node : tpos < i => ~active[i]
+         \/ P1::\E j \in 0..tpos : color[j] = "black"
+         \/ P2::(tcolor = "black"),
+       Inv ,
+       <1>2 
+PROVE  <1>3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:43
+@!!loc:73:3:73:24
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       <2>_a61 
+PROVE  \A i \in Node : ~active[i]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:44
+@!!loc:73:3:73:24
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       <2>_a61 
+PROVE  <2>_a61
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:45
+@!!loc:74:21:74:23
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       NEW CONSTANT i \in Node,
+       <2>1 ,
+       <1>1 ,
+       <2>3 
+PROVE  ~active[i]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:46
+@!!loc:74:24:74:28
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       NEW CONSTANT i \in Node
+PROVE  <2>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:47
+@!!loc:74:30:74:34
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       NEW CONSTANT i \in Node,
+       <2>1 
+PROVE  <1>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:48
+@!!loc:74:36:74:40
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       NEW CONSTANT i \in Node,
+       <2>1 ,
+       <1>1 
+PROVE  <2>3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:49
+@!!loc:78:15:78:17
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       NEW CONSTANT i \in Node,
+       <3>1 ,
+       <3>2 ,
+       <2>1 
+PROVE  ~active[i]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:50
+@!!loc:78:18:78:22
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       NEW CONSTANT i \in Node
+PROVE  <3>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:51
+@!!loc:78:24:78:28
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       NEW CONSTANT i \in Node,
+       <3>1 
+PROVE  <3>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:52
+@!!loc:78:30:78:34
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       NEW CONSTANT i \in Node,
+       <3>1 ,
+       <3>2 
+PROVE  <2>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:53
+@!!loc:76:21:76:23
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       NEW CONSTANT i \in Node,
+       tpos = 0 ,
+       <2>4 ,
+       NAssumption 
+PROVE  tpos < i
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:54
+@!!loc:76:24:76:30
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       NEW CONSTANT i \in Node
+PROVE  tpos = 0
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:55
+@!!loc:76:32:76:36
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       NEW CONSTANT i \in Node,
+       tpos = 0 
+PROVE  <2>4
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:56
+@!!loc:76:38:76:49
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       NEW CONSTANT i \in Node,
+       tpos = 0 ,
+       <2>4 
+PROVE  NAssumption
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:57
+@!!loc:77:18:77:20
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       NEW CONSTANT i \in Node,
+       NAssumption ,
+       <2>4 
+PROVE  i < N
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:58
+@!!loc:77:21:77:32
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       NEW CONSTANT i \in Node
+PROVE  NAssumption
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:59
+@!!loc:77:34:77:38
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       NEW CONSTANT i \in Node,
+       NAssumption 
+PROVE  <2>4
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:60
+@!!loc:68:3:68:5
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       terminationDetected ==
+         /\ tpos = 0 /\ tcolor = "white"
+         /\ color[0] = "white" /\ ~active[0],
+       TerminationDetection ==
+         terminationDetected => (\A i \in Node : ~active[i]),
+       <1>1 ,
+       <1>1 
+PROVE  Inv => TerminationDetection
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:61
+@!!loc:68:6:68:10
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       terminationDetected ==
+         /\ tpos = 0 /\ tcolor = "white"
+         /\ color[0] = "white" /\ ~active[0],
+       TerminationDetection ==
+         terminationDetected => (\A i \in Node : ~active[i]),
+       <1>1 
+PROVE  <1>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:62
+@!!loc:69:17:69:19
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Inv ==
+         \/ P0::\A i \in Node : tpos < i => ~active[i]
+         \/ P1::\E j \in 0..tpos : color[j] = "black"
+         \/ P2::(tcolor = "black"),
+       tcolor = "white" 
+PROVE  ~tcolor = "black"
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:63
+@!!loc:69:20:69:36
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Inv ==
+         \/ P0::\A i \in Node : tpos < i => ~active[i]
+         \/ P1::\E j \in 0..tpos : color[j] = "black"
+         \/ P2::(tcolor = "black")
+PROVE  tcolor = "white"
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:64
+@!!loc:70:17:70:19
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Inv ==
+         \/ P0::\A i \in Node : tpos < i => ~active[i]
+         \/ P1::\E j \in 0..tpos : color[j] = "black"
+         \/ P2::(tcolor = "black"),
+       <1>1 
+PROVE  ~(\E j \in 0..tpos : color[j] = "black")
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:65
+@!!loc:70:20:70:24
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT N,
+       NAssumption == N \in Nat \ {0},
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Inv ==
+         \/ P0::\A i \in Node : tpos < i => ~active[i]
+         \/ P1::\E j \in 0..tpos : color[j] = "black"
+         \/ P2::(tcolor = "black")
+PROVE  <1>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligationsnumber
+@!!count:65
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:1
+@!!loc:39:11:39:13
+@!!status:normalized
+@!!meth:time-limit: 10
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Init => TypeOK ,
+       TypeOK /\ [Next]_vars => TypeOK' ,
+       TRUE 
+PROVE  Init /\ [][Next]_vars /\ (WF_(vars) (System)) => []TypeOK
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:2
+@!!loc:39:14:39:18
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Init => TypeOK 
+PROVE  Init => TypeOK
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:3
+@!!loc:39:20:39:24
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       TypeOK /\ [Next]_vars => TypeOK' ,
+       Init => TypeOK 
+PROVE  TypeOK /\ [Next]_vars => TypeOK'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:4
+@!!loc:39:26:39:29
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Init => TypeOK ,
+       TypeOK /\ [Next]_vars => TypeOK' 
+PROVE  TRUE
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:5
+@!!loc:14:3:14:5
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor
+PROVE  (/\ active \in [Node -> BOOLEAN]
+        /\ color \in [Node -> {"white", "black"}]
+        /\ tpos \in Node
+        /\ tcolor = "black")
+       => (/\ active \in [Node -> BOOLEAN]
+           /\ color \in [Node -> {"white", "black"}]
+           /\ tpos \in Node
+           /\ tcolor \in {"white", "black"})
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:6
+@!!loc:38:5:38:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       /\ active \in [0..N - 1 -> BOOLEAN]
+       /\ color \in [0..N - 1 -> {"white", "black"}]
+       /\ tpos \in 0..N - 1
+       /\ tcolor \in {"white", "black"} ,
+       [InitiateProbe \/ (\E i \in 0..N - 1 \ {0} : PassToken(i))
+        \/ (\E i \in 0..N - 1 : SendMsg(i) \/ Deactivate(i))]_vars ,
+       N \in Nat \ {0} ,
+       ASSUME InitiateProbe 
+       PROVE  (/\ active \in [0..N - 1 -> BOOLEAN]
+               /\ color \in [0..N - 1 -> {"white", "black"}]
+               /\ tpos \in 0..N - 1
+               /\ tcolor \in {"white", "black"})' ,
+       ASSUME NEW CONSTANT i \in 0..N - 1 \ {0},
+              PassToken(i) 
+       PROVE  (/\ active \in [0..N - 1 -> BOOLEAN]
+               /\ color \in [0..N - 1 -> {"white", "black"}]
+               /\ tpos \in 0..N - 1
+               /\ tcolor \in {"white", "black"})' ,
+       ASSUME NEW CONSTANT i \in 0..N - 1,
+              SendMsg(i) 
+       PROVE  (/\ active \in [0..N - 1 -> BOOLEAN]
+               /\ color \in [0..N - 1 -> {"white", "black"}]
+               /\ tpos \in 0..N - 1
+               /\ tcolor \in {"white", "black"})' ,
+       ASSUME NEW CONSTANT i \in 0..N - 1,
+              Deactivate(i) 
+       PROVE  (/\ active \in [0..N - 1 -> BOOLEAN]
+               /\ color \in [0..N - 1 -> {"white", "black"}]
+               /\ tpos \in 0..N - 1
+               /\ tcolor \in {"white", "black"})' ,
+       ASSUME UNCHANGED vars 
+       PROVE  (/\ active \in [0..N - 1 -> BOOLEAN]
+               /\ color \in [0..N - 1 -> {"white", "black"}]
+               /\ tpos \in 0..N - 1
+               /\ tcolor \in {"white", "black"})' 
+PROVE  (/\ active \in [0..N - 1 -> BOOLEAN]
+        /\ color \in [0..N - 1 -> {"white", "black"}]
+        /\ tpos \in 0..N - 1
+        /\ tcolor \in {"white", "black"})'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:7
+@!!loc:38:8:38:12
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       /\ active \in [0..N - 1 -> BOOLEAN]
+       /\ color \in [0..N - 1 -> {"white", "black"}]
+       /\ tpos \in 0..N - 1
+       /\ tcolor \in {"white", "black"} ,
+       [InitiateProbe \/ (\E i \in 0..N - 1 \ {0} : PassToken(i))
+        \/ (\E i \in 0..N - 1 : SendMsg(i) \/ Deactivate(i))]_vars ,
+       N \in Nat \ {0} ,
+       ASSUME InitiateProbe 
+       PROVE  (/\ active \in [0..N - 1 -> BOOLEAN]
+               /\ color \in [0..N - 1 -> {"white", "black"}]
+               /\ tpos \in 0..N - 1
+               /\ tcolor \in {"white", "black"})' 
+PROVE  ASSUME InitiateProbe 
+       PROVE  (/\ active \in [0..N - 1 -> BOOLEAN]
+               /\ color \in [0..N - 1 -> {"white", "black"}]
+               /\ tpos \in 0..N - 1
+               /\ tcolor \in {"white", "black"})'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:8
+@!!loc:38:14:38:18
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       /\ active \in [0..N - 1 -> BOOLEAN]
+       /\ color \in [0..N - 1 -> {"white", "black"}]
+       /\ tpos \in 0..N - 1
+       /\ tcolor \in {"white", "black"} ,
+       [InitiateProbe \/ (\E i \in 0..N - 1 \ {0} : PassToken(i))
+        \/ (\E i \in 0..N - 1 : SendMsg(i) \/ Deactivate(i))]_vars ,
+       N \in Nat \ {0} ,
+       ASSUME NEW CONSTANT i \in 0..N - 1 \ {0},
+              PassToken(i) 
+       PROVE  (/\ active \in [0..N - 1 -> BOOLEAN]
+               /\ color \in [0..N - 1 -> {"white", "black"}]
+               /\ tpos \in 0..N - 1
+               /\ tcolor \in {"white", "black"})' ,
+       ASSUME InitiateProbe 
+       PROVE  (/\ active \in [0..N - 1 -> BOOLEAN]
+               /\ color \in [0..N - 1 -> {"white", "black"}]
+               /\ tpos \in 0..N - 1
+               /\ tcolor \in {"white", "black"})' 
+PROVE  ASSUME NEW CONSTANT i \in 0..N - 1 \ {0},
+              PassToken(i) 
+       PROVE  (/\ active \in [0..N - 1 -> BOOLEAN]
+               /\ color \in [0..N - 1 -> {"white", "black"}]
+               /\ tpos \in 0..N - 1
+               /\ tcolor \in {"white", "black"})'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:9
+@!!loc:38:20:38:24
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       /\ active \in [0..N - 1 -> BOOLEAN]
+       /\ color \in [0..N - 1 -> {"white", "black"}]
+       /\ tpos \in 0..N - 1
+       /\ tcolor \in {"white", "black"} ,
+       [InitiateProbe \/ (\E i \in 0..N - 1 \ {0} : PassToken(i))
+        \/ (\E i \in 0..N - 1 : SendMsg(i) \/ Deactivate(i))]_vars ,
+       N \in Nat \ {0} ,
+       ASSUME NEW CONSTANT i \in 0..N - 1,
+              SendMsg(i) 
+       PROVE  (/\ active \in [0..N - 1 -> BOOLEAN]
+               /\ color \in [0..N - 1 -> {"white", "black"}]
+               /\ tpos \in 0..N - 1
+               /\ tcolor \in {"white", "black"})' ,
+       ASSUME InitiateProbe 
+       PROVE  (/\ active \in [0..N - 1 -> BOOLEAN]
+               /\ color \in [0..N - 1 -> {"white", "black"}]
+               /\ tpos \in 0..N - 1
+               /\ tcolor \in {"white", "black"})' ,
+       ASSUME NEW CONSTANT i \in 0..N - 1 \ {0},
+              PassToken(i) 
+       PROVE  (/\ active \in [0..N - 1 -> BOOLEAN]
+               /\ color \in [0..N - 1 -> {"white", "black"}]
+               /\ tpos \in 0..N - 1
+               /\ tcolor \in {"white", "black"})' 
+PROVE  ASSUME NEW CONSTANT i \in 0..N - 1,
+              SendMsg(i) 
+       PROVE  (/\ active \in [0..N - 1 -> BOOLEAN]
+               /\ color \in [0..N - 1 -> {"white", "black"}]
+               /\ tpos \in 0..N - 1
+               /\ tcolor \in {"white", "black"})'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:10
+@!!loc:38:26:38:30
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       /\ active \in [0..N - 1 -> BOOLEAN]
+       /\ color \in [0..N - 1 -> {"white", "black"}]
+       /\ tpos \in 0..N - 1
+       /\ tcolor \in {"white", "black"} ,
+       [InitiateProbe \/ (\E i \in 0..N - 1 \ {0} : PassToken(i))
+        \/ (\E i \in 0..N - 1 : SendMsg(i) \/ Deactivate(i))]_vars ,
+       N \in Nat \ {0} ,
+       ASSUME NEW CONSTANT i \in 0..N - 1,
+              Deactivate(i) 
+       PROVE  (/\ active \in [0..N - 1 -> BOOLEAN]
+               /\ color \in [0..N - 1 -> {"white", "black"}]
+               /\ tpos \in 0..N - 1
+               /\ tcolor \in {"white", "black"})' ,
+       ASSUME InitiateProbe 
+       PROVE  (/\ active \in [0..N - 1 -> BOOLEAN]
+               /\ color \in [0..N - 1 -> {"white", "black"}]
+               /\ tpos \in 0..N - 1
+               /\ tcolor \in {"white", "black"})' ,
+       ASSUME NEW CONSTANT i \in 0..N - 1 \ {0},
+              PassToken(i) 
+       PROVE  (/\ active \in [0..N - 1 -> BOOLEAN]
+               /\ color \in [0..N - 1 -> {"white", "black"}]
+               /\ tpos \in 0..N - 1
+               /\ tcolor \in {"white", "black"})' ,
+       ASSUME NEW CONSTANT i \in 0..N - 1,
+              SendMsg(i) 
+       PROVE  (/\ active \in [0..N - 1 -> BOOLEAN]
+               /\ color \in [0..N - 1 -> {"white", "black"}]
+               /\ tpos \in 0..N - 1
+               /\ tcolor \in {"white", "black"})' 
+PROVE  ASSUME NEW CONSTANT i \in 0..N - 1,
+              Deactivate(i) 
+       PROVE  (/\ active \in [0..N - 1 -> BOOLEAN]
+               /\ color \in [0..N - 1 -> {"white", "black"}]
+               /\ tpos \in 0..N - 1
+               /\ tcolor \in {"white", "black"})'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:11
+@!!loc:38:32:38:36
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       /\ active \in [0..N - 1 -> BOOLEAN]
+       /\ color \in [0..N - 1 -> {"white", "black"}]
+       /\ tpos \in 0..N - 1
+       /\ tcolor \in {"white", "black"} ,
+       [InitiateProbe \/ (\E i \in 0..N - 1 \ {0} : PassToken(i))
+        \/ (\E i \in 0..N - 1 : SendMsg(i) \/ Deactivate(i))]_vars ,
+       N \in Nat \ {0} ,
+       ASSUME UNCHANGED vars 
+       PROVE  (/\ active \in [0..N - 1 -> BOOLEAN]
+               /\ color \in [0..N - 1 -> {"white", "black"}]
+               /\ tpos \in 0..N - 1
+               /\ tcolor \in {"white", "black"})' ,
+       ASSUME InitiateProbe 
+       PROVE  (/\ active \in [0..N - 1 -> BOOLEAN]
+               /\ color \in [0..N - 1 -> {"white", "black"}]
+               /\ tpos \in 0..N - 1
+               /\ tcolor \in {"white", "black"})' ,
+       ASSUME NEW CONSTANT i \in 0..N - 1 \ {0},
+              PassToken(i) 
+       PROVE  (/\ active \in [0..N - 1 -> BOOLEAN]
+               /\ color \in [0..N - 1 -> {"white", "black"}]
+               /\ tpos \in 0..N - 1
+               /\ tcolor \in {"white", "black"})' ,
+       ASSUME NEW CONSTANT i \in 0..N - 1,
+              SendMsg(i) 
+       PROVE  (/\ active \in [0..N - 1 -> BOOLEAN]
+               /\ color \in [0..N - 1 -> {"white", "black"}]
+               /\ tpos \in 0..N - 1
+               /\ tcolor \in {"white", "black"})' ,
+       ASSUME NEW CONSTANT i \in 0..N - 1,
+              Deactivate(i) 
+       PROVE  (/\ active \in [0..N - 1 -> BOOLEAN]
+               /\ color \in [0..N - 1 -> {"white", "black"}]
+               /\ tpos \in 0..N - 1
+               /\ tcolor \in {"white", "black"})' 
+PROVE  ASSUME UNCHANGED vars 
+       PROVE  (/\ active \in [0..N - 1 -> BOOLEAN]
+               /\ color \in [0..N - 1 -> {"white", "black"}]
+               /\ tpos \in 0..N - 1
+               /\ tcolor \in {"white", "black"})'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:12
+@!!loc:19:5:19:12
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       ASSUME TypeOK ,
+              [Next]_vars 
+       PROVE  TypeOK' 
+PROVE  TypeOK /\ [Next]_vars => TypeOK'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:13
+@!!loc:20:12:20:23
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT N,
+       N \in Nat \ {0} ,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       /\ active \in [0..N - 1 -> BOOLEAN]
+       /\ color \in [0..N - 1 -> {"white", "black"}]
+       /\ tpos \in 0..N - 1
+       /\ tcolor \in {"white", "black"} ,
+       [Next]_vars 
+PROVE  N \in Nat \ {0}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:14
+@!!loc:22:5:22:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       /\ active \in [0..N - 1 -> BOOLEAN]
+       /\ color \in [0..N - 1 -> {"white", "black"}]
+       /\ tpos \in 0..N - 1
+       /\ tcolor \in {"white", "black"} ,
+       [Next]_vars ,
+       N \in Nat \ {0} ,
+       /\ tpos = 0
+       /\ tcolor = "black" \/ color[0] = "black"
+       /\ tpos' = N - 1
+       /\ tcolor' = "white"
+       /\ active' = active
+       /\ color' = [color EXCEPT ![0] = "white"] 
+PROVE  (/\ active \in [0..N - 1 -> BOOLEAN]
+        /\ color \in [0..N - 1 -> {"white", "black"}]
+        /\ tpos \in 0..N - 1
+        /\ tcolor \in {"white", "black"})'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:15
+@!!loc:22:8:22:12
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       /\ active \in [0..N - 1 -> BOOLEAN]
+       /\ color \in [0..N - 1 -> {"white", "black"}]
+       /\ tpos \in 0..N - 1
+       /\ tcolor \in {"white", "black"} ,
+       [Next]_vars ,
+       N \in Nat \ {0} ,
+       /\ tpos = 0
+       /\ tcolor = "black" \/ color[0] = "black"
+       /\ tpos' = N - 1
+       /\ tcolor' = "white"
+       /\ active' = active
+       /\ color' = [color EXCEPT ![0] = "white"] 
+PROVE  /\ tpos = 0
+       /\ tcolor = "black" \/ color[0] = "black"
+       /\ tpos' = N - 1
+       /\ tcolor' = "white"
+       /\ active' = active
+       /\ color' = [color EXCEPT ![0] = "white"]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:16
+@!!loc:26:5:26:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       /\ active \in [0..N - 1 -> BOOLEAN]
+       /\ color \in [0..N - 1 -> {"white", "black"}]
+       /\ tpos \in 0..N - 1
+       /\ tcolor \in {"white", "black"} ,
+       [Next]_vars ,
+       N \in Nat \ {0} ,
+       NEW CONSTANT i \in 0..N - 1 \ {0},
+       /\ tpos = i
+       /\ ~active[i] \/ color[i] = "black" \/ tcolor = "black"
+       /\ tpos' = i - 1
+       /\ tcolor' = (IF color[i] = "black" THEN "black" ELSE tcolor)
+       /\ active' = active
+       /\ color' = [color EXCEPT ![i] = "white"] 
+PROVE  (/\ active \in [0..N - 1 -> BOOLEAN]
+        /\ color \in [0..N - 1 -> {"white", "black"}]
+        /\ tpos \in 0..N - 1
+        /\ tcolor \in {"white", "black"})'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:17
+@!!loc:26:8:26:12
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       /\ active \in [0..N - 1 -> BOOLEAN]
+       /\ color \in [0..N - 1 -> {"white", "black"}]
+       /\ tpos \in 0..N - 1
+       /\ tcolor \in {"white", "black"} ,
+       [Next]_vars ,
+       N \in Nat \ {0} ,
+       NEW CONSTANT i \in 0..N - 1 \ {0},
+       /\ tpos = i
+       /\ ~active[i] \/ color[i] = "black" \/ tcolor = "black"
+       /\ tpos' = i - 1
+       /\ tcolor' = (IF color[i] = "black" THEN "black" ELSE tcolor)
+       /\ active' = active
+       /\ color' = [color EXCEPT ![i] = "white"] 
+PROVE  /\ tpos = i
+       /\ ~active[i] \/ color[i] = "black" \/ tcolor = "black"
+       /\ tpos' = i - 1
+       /\ tcolor' = (IF color[i] = "black" THEN "black" ELSE tcolor)
+       /\ active' = active
+       /\ color' = [color EXCEPT ![i] = "white"]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:18
+@!!loc:30:5:30:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       /\ active \in [0..N - 1 -> BOOLEAN]
+       /\ color \in [0..N - 1 -> {"white", "black"}]
+       /\ tpos \in 0..N - 1
+       /\ tcolor \in {"white", "black"} ,
+       [Next]_vars ,
+       N \in Nat \ {0} ,
+       NEW CONSTANT i \in 0..N - 1,
+       /\ active[i]
+       /\ \E j \in 0..N - 1 \ {i} :
+             /\ active' = [active EXCEPT ![j] = TRUE]
+             /\ color'
+                = [color EXCEPT ![i] = IF j > i THEN "black" ELSE color[i]]
+       /\ UNCHANGED <<tpos, tcolor>> 
+PROVE  (/\ active \in [0..N - 1 -> BOOLEAN]
+        /\ color \in [0..N - 1 -> {"white", "black"}]
+        /\ tpos \in 0..N - 1
+        /\ tcolor \in {"white", "black"})'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:19
+@!!loc:30:8:30:12
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       /\ active \in [0..N - 1 -> BOOLEAN]
+       /\ color \in [0..N - 1 -> {"white", "black"}]
+       /\ tpos \in 0..N - 1
+       /\ tcolor \in {"white", "black"} ,
+       [Next]_vars ,
+       N \in Nat \ {0} ,
+       NEW CONSTANT i \in 0..N - 1,
+       /\ active[i]
+       /\ \E j \in 0..N - 1 \ {i} :
+             /\ active' = [active EXCEPT ![j] = TRUE]
+             /\ color'
+                = [color EXCEPT ![i] = IF j > i THEN "black" ELSE color[i]]
+       /\ UNCHANGED <<tpos, tcolor>> 
+PROVE  /\ active[i]
+       /\ \E j \in 0..N - 1 \ {i} :
+             /\ active' = [active EXCEPT ![j] = TRUE]
+             /\ color'
+                = [color EXCEPT ![i] = IF j > i THEN "black" ELSE color[i]]
+       /\ UNCHANGED <<tpos, tcolor>>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:20
+@!!loc:34:5:34:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       /\ active \in [0..N - 1 -> BOOLEAN]
+       /\ color \in [0..N - 1 -> {"white", "black"}]
+       /\ tpos \in 0..N - 1
+       /\ tcolor \in {"white", "black"} ,
+       [Next]_vars ,
+       N \in Nat \ {0} ,
+       NEW CONSTANT i \in 0..N - 1,
+       /\ active[i]
+       /\ active' = [active EXCEPT ![i] = FALSE]
+       /\ UNCHANGED <<color, tpos, tcolor>> 
+PROVE  (/\ active \in [0..N - 1 -> BOOLEAN]
+        /\ color \in [0..N - 1 -> {"white", "black"}]
+        /\ tpos \in 0..N - 1
+        /\ tcolor \in {"white", "black"})'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:21
+@!!loc:34:8:34:12
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       /\ active \in [0..N - 1 -> BOOLEAN]
+       /\ color \in [0..N - 1 -> {"white", "black"}]
+       /\ tpos \in 0..N - 1
+       /\ tcolor \in {"white", "black"} ,
+       [Next]_vars ,
+       N \in Nat \ {0} ,
+       NEW CONSTANT i \in 0..N - 1,
+       /\ active[i]
+       /\ active' = [active EXCEPT ![i] = FALSE]
+       /\ UNCHANGED <<color, tpos, tcolor>> 
+PROVE  /\ active[i]
+       /\ active' = [active EXCEPT ![i] = FALSE]
+       /\ UNCHANGED <<color, tpos, tcolor>>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:22
+@!!loc:36:5:36:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       /\ active \in [0..N - 1 -> BOOLEAN]
+       /\ color \in [0..N - 1 -> {"white", "black"}]
+       /\ tpos \in 0..N - 1
+       /\ tcolor \in {"white", "black"} ,
+       [Next]_<<active, color, tpos, tcolor>> ,
+       N \in Nat \ {0} ,
+       UNCHANGED <<active, color, tpos, tcolor>> 
+PROVE  (/\ active \in [0..N - 1 -> BOOLEAN]
+        /\ color \in [0..N - 1 -> {"white", "black"}]
+        /\ tpos \in 0..N - 1
+        /\ tcolor \in {"white", "black"})'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:23
+@!!loc:36:8:36:12
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       /\ active \in [0..N - 1 -> BOOLEAN]
+       /\ color \in [0..N - 1 -> {"white", "black"}]
+       /\ tpos \in 0..N - 1
+       /\ tcolor \in {"white", "black"} ,
+       [Next]_<<active, color, tpos, tcolor>> ,
+       N \in Nat \ {0} ,
+       UNCHANGED <<active, color, tpos, tcolor>> 
+PROVE  UNCHANGED <<active, color, tpos, tcolor>>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:24
+@!!loc:55:3:55:5
+@!!status:normalized
+@!!meth:time-limit: 10
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Init => Inv ,
+       TypeOK /\ Inv /\ [Next]_vars => Inv' ,
+       Inv => TerminationDetection ,
+       Init /\ [][Next]_vars /\ (WF_(vars) (System)) => []TypeOK ,
+       TRUE 
+PROVE  Init /\ [][Next]_vars /\ (WF_(vars) (System))
+       => []TerminationDetection
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:16
+@!!loc:26:5:26:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       /\ active \in [0..N - 1 -> BOOLEAN]
+       /\ color \in [0..N - 1 -> {"white", "black"}]
+       /\ tpos \in 0..N - 1
+       /\ tcolor \in {"white", "black"} ,
+       [Next]_vars ,
+       N \in Nat \ {0} ,
+       NEW CONSTANT i \in 0..N - 1 \ {0},
+       /\ tpos = i
+       /\ ~active[i] \/ color[i] = "black" \/ tcolor = "black"
+       /\ tpos' = i - 1
+       /\ tcolor' = (IF color[i] = "black" THEN "black" ELSE tcolor)
+       /\ active' = active
+       /\ color' = [color EXCEPT ![i] = "white"] 
+PROVE  (/\ active \in [0..N - 1 -> BOOLEAN]
+        /\ color \in [0..N - 1 -> {"white", "black"}]
+        /\ tpos \in 0..N - 1
+        /\ tcolor \in {"white", "black"})'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:14
+@!!loc:22:5:22:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       /\ active \in [0..N - 1 -> BOOLEAN]
+       /\ color \in [0..N - 1 -> {"white", "black"}]
+       /\ tpos \in 0..N - 1
+       /\ tcolor \in {"white", "black"} ,
+       [Next]_vars ,
+       N \in Nat \ {0} ,
+       /\ tpos = 0
+       /\ tcolor = "black" \/ color[0] = "black"
+       /\ tpos' = N - 1
+       /\ tcolor' = "white"
+       /\ active' = active
+       /\ color' = [color EXCEPT ![0] = "white"] 
+PROVE  (/\ active \in [0..N - 1 -> BOOLEAN]
+        /\ color \in [0..N - 1 -> {"white", "black"}]
+        /\ tpos \in 0..N - 1
+        /\ tcolor \in {"white", "black"})'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:12
+@!!loc:19:5:19:12
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       ASSUME TypeOK ,
+              [Next]_vars 
+       PROVE  TypeOK' 
+PROVE  TypeOK /\ [Next]_vars => TypeOK'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:6
+@!!loc:38:5:38:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       /\ active \in [0..N - 1 -> BOOLEAN]
+       /\ color \in [0..N - 1 -> {"white", "black"}]
+       /\ tpos \in 0..N - 1
+       /\ tcolor \in {"white", "black"} ,
+       [InitiateProbe \/ (\E i \in 0..N - 1 \ {0} : PassToken(i))
+        \/ (\E i \in 0..N - 1 : SendMsg(i) \/ Deactivate(i))]_vars ,
+       N \in Nat \ {0} ,
+       ASSUME InitiateProbe 
+       PROVE  (/\ active \in [0..N - 1 -> BOOLEAN]
+               /\ color \in [0..N - 1 -> {"white", "black"}]
+               /\ tpos \in 0..N - 1
+               /\ tcolor \in {"white", "black"})' ,
+       ASSUME NEW CONSTANT i \in 0..N - 1 \ {0},
+              PassToken(i) 
+       PROVE  (/\ active \in [0..N - 1 -> BOOLEAN]
+               /\ color \in [0..N - 1 -> {"white", "black"}]
+               /\ tpos \in 0..N - 1
+               /\ tcolor \in {"white", "black"})' ,
+       ASSUME NEW CONSTANT i \in 0..N - 1,
+              SendMsg(i) 
+       PROVE  (/\ active \in [0..N - 1 -> BOOLEAN]
+               /\ color \in [0..N - 1 -> {"white", "black"}]
+               /\ tpos \in 0..N - 1
+               /\ tcolor \in {"white", "black"})' ,
+       ASSUME NEW CONSTANT i \in 0..N - 1,
+              Deactivate(i) 
+       PROVE  (/\ active \in [0..N - 1 -> BOOLEAN]
+               /\ color \in [0..N - 1 -> {"white", "black"}]
+               /\ tpos \in 0..N - 1
+               /\ tcolor \in {"white", "black"})' ,
+       ASSUME UNCHANGED vars 
+       PROVE  (/\ active \in [0..N - 1 -> BOOLEAN]
+               /\ color \in [0..N - 1 -> {"white", "black"}]
+               /\ tpos \in 0..N - 1
+               /\ tcolor \in {"white", "black"})' 
+PROVE  (/\ active \in [0..N - 1 -> BOOLEAN]
+        /\ color \in [0..N - 1 -> {"white", "black"}]
+        /\ tpos \in 0..N - 1
+        /\ tcolor \in {"white", "black"})'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:5
+@!!loc:14:3:14:5
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor
+PROVE  (/\ active \in [Node -> BOOLEAN]
+        /\ color \in [Node -> {"white", "black"}]
+        /\ tpos \in Node
+        /\ tcolor = "black")
+       => (/\ active \in [Node -> BOOLEAN]
+           /\ color \in [Node -> {"white", "black"}]
+           /\ tpos \in Node
+           /\ tcolor \in {"white", "black"})
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:1
+@!!loc:39:11:39:13
+@!!status:proved
+@!!prover:ls4
+@!!meth:time-limit: 10; time-used: 0.4 (4%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Init => TypeOK ,
+       TypeOK /\ [Next]_vars => TypeOK' ,
+       TRUE 
+PROVE  Init /\ [][Next]_vars /\ (WF_(vars) (System)) => []TypeOK
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:25
+@!!loc:55:6:55:10
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Init => Inv 
+PROVE  Init => Inv
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:26
+@!!loc:55:12:55:16
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       TypeOK /\ Inv /\ [Next]_vars => Inv' ,
+       Init => Inv 
+PROVE  TypeOK /\ Inv /\ [Next]_vars => Inv'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:27
+@!!loc:55:18:55:22
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Inv => TerminationDetection ,
+       Init => Inv ,
+       TypeOK /\ Inv /\ [Next]_vars => Inv' 
+PROVE  Inv => TerminationDetection
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:28
+@!!loc:55:24:55:35
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Init /\ [][Next]_vars /\ (WF_(vars) (System)) => []TypeOK ,
+       Init => Inv ,
+       TypeOK /\ Inv /\ [Next]_vars => Inv' ,
+       Inv => TerminationDetection 
+PROVE  Init /\ [][Next]_vars /\ (WF_(vars) (System)) => []TypeOK
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:29
+@!!loc:55:37:55:40
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Init => Inv ,
+       TypeOK /\ Inv /\ [Next]_vars => Inv' ,
+       Inv => TerminationDetection ,
+       Init /\ [][Next]_vars /\ (WF_(vars) (System)) => []TypeOK 
+PROVE  TRUE
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:30
+@!!loc:47:3:47:5
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       N \in Nat \ {0} 
+PROVE  (/\ active \in [0..N - 1 -> BOOLEAN]
+        /\ color \in [0..N - 1 -> Color]
+        /\ tpos \in 0..N - 1
+        /\ tcolor = "black")
+       => (\/ P0::\A i \in 0..N - 1 : tpos < i => ~active[i]
+           \/ P1::\E j \in 0..tpos : color[j] = "black"
+           \/ P2::(tcolor = "black"))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:31
+@!!loc:47:6:47:17
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT N,
+       N \in Nat \ {0} ,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor
+PROVE  N \in Nat \ {0}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:32
+@!!loc:49:3:49:5
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       N \in Nat \ {0} 
+PROVE  (/\ active \in [0..N - 1 -> BOOLEAN]
+        /\ color \in [0..N - 1 -> {"white", "black"}]
+        /\ tpos \in 0..N - 1
+        /\ tcolor \in {"white", "black"})
+       /\ (\/ P0::\A i \in 0..N - 1 : tpos < i => ~active[i]
+           \/ P1::\E j \in 0..tpos : color[j] = "black"
+           \/ P2::(tcolor = "black"))
+       /\ [(/\ tpos = 0
+            /\ tcolor = "black" \/ color[0] = "black"
+            /\ tpos' = N - 1
+            /\ tcolor' = "white"
+            /\ active' = active
+            /\ color' = [color EXCEPT ![0] = "white"])
+           \/ (\E i \in 0..N - 1 \ {0} :
+                  /\ tpos = i
+                  /\ ~active[i] \/ color[i] = "black" \/ tcolor = "black"
+                  /\ tpos' = i - 1
+                  /\ tcolor'
+                     = (IF color[i] = "black" THEN "black" ELSE tcolor)
+                  /\ active' = active
+                  /\ color' = [color EXCEPT ![i] = "white"])
+           \/ (\E i \in 0..N - 1 :
+                  (/\ active[i]
+                   /\ \E j \in 0..N - 1 \ {i} :
+                         /\ active' = [active EXCEPT ![j] = TRUE]
+                         /\ color'
+                            = [color EXCEPT
+                                 ![i] = IF j > i THEN "black" ELSE color[i]]
+                   /\ UNCHANGED <<tpos, tcolor>>)
+                  \/ (/\ active[i]
+                      /\ active' = [active EXCEPT ![i] = FALSE]
+                      /\ UNCHANGED <<color, tpos, tcolor>>))]_<<active,
+                                                                color, tpos,
+                                                                tcolor>>
+       => (\/ P0::\A i \in 0..N - 1 : tpos < i => ~active[i]
+           \/ P1::\E j \in 0..tpos : color[j] = "black"
+           \/ P2::(tcolor = "black"))'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:33
+@!!loc:49:6:49:17
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT N,
+       N \in Nat \ {0} ,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor
+PROVE  N \in Nat \ {0}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:34
+@!!loc:53:3:53:5
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       N \in Nat \ {0} 
+PROVE  (\/ P0::\A i \in 0..N - 1 : tpos < i => ~active[i]
+        \/ P1::\E j \in 0..tpos : color[j] = "black"
+        \/ P2::(tcolor = "black"))
+       => ((/\ tpos = 0 /\ tcolor = "white"
+            /\ color[0] = "white" /\ ~active[0])
+           => (\A i \in 0..N - 1 : ~active[i]))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:35
+@!!loc:53:6:53:17
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT N,
+       N \in Nat \ {0} ,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor
+PROVE  N \in Nat \ {0}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:36
+@!!loc:79:13:79:15
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       NEW CONSTANT i \in 0..N - 1,
+       ASSUME i = 0 
+       PROVE  ~active[i] ,
+       ASSUME i \in 1..N - 1 
+       PROVE  ~active[i] 
+PROVE  ~active[i]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:37
+@!!loc:79:16:79:20
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       NEW CONSTANT i \in 0..N - 1,
+       ASSUME i = 0 
+       PROVE  ~active[i] 
+PROVE  ASSUME i = 0 
+       PROVE  ~active[i]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:38
+@!!loc:79:22:79:26
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       NEW CONSTANT i \in 0..N - 1,
+       ASSUME i \in 1..N - 1 
+       PROVE  ~active[i] ,
+       ASSUME i = 0 
+       PROVE  ~active[i] 
+PROVE  ASSUME i \in 1..N - 1 
+       PROVE  ~active[i]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:39
+@!!loc:72:17:72:19
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       \/ P0::\A i \in Node : tpos < i => ~active[i]
+       \/ P1::\E j \in 0..tpos : color[j] = "black"
+       \/ P2::(tcolor = "black") ,
+       ~tcolor = "black" ,
+       ~(\E j \in 0..tpos : color[j] = "black") 
+PROVE  \A i \in Node : tpos < i => ~active[i]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:40
+@!!loc:72:20:72:23
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       \/ P0::\A i \in Node : tpos < i => ~active[i]
+       \/ P1::\E j \in 0..tpos : color[j] = "black"
+       \/ P2::(tcolor = "black") 
+PROVE  \/ P0::\A i \in Node : tpos < i => ~active[i]
+       \/ P1::\E j \in 0..tpos : color[j] = "black"
+       \/ P2::(tcolor = "black")
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:41
+@!!loc:72:25:72:29
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       ~tcolor = "black" ,
+       \/ P0::\A i \in Node : tpos < i => ~active[i]
+       \/ P1::\E j \in 0..tpos : color[j] = "black"
+       \/ P2::(tcolor = "black") 
+PROVE  ~tcolor = "black"
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:42
+@!!loc:72:31:72:35
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       ~(\E j \in 0..tpos : color[j] = "black") ,
+       \/ P0::\A i \in Node : tpos < i => ~active[i]
+       \/ P1::\E j \in 0..tpos : color[j] = "black"
+       \/ P2::(tcolor = "black") ,
+       ~tcolor = "black" 
+PROVE  ~(\E j \in 0..tpos : color[j] = "black")
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:43
+@!!loc:73:3:73:24
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       ASSUME NEW CONSTANT i \in Node
+       PROVE  ~active[i] 
+PROVE  \A i \in Node : ~active[i]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:30
+@!!loc:47:3:47:5
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       N \in Nat \ {0} 
+PROVE  (/\ active \in [0..N - 1 -> BOOLEAN]
+        /\ color \in [0..N - 1 -> Color]
+        /\ tpos \in 0..N - 1
+        /\ tcolor = "black")
+       => (\/ P0::\A i \in 0..N - 1 : tpos < i => ~active[i]
+           \/ P1::\E j \in 0..tpos : color[j] = "black"
+           \/ P2::(tcolor = "black"))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:24
+@!!loc:55:3:55:5
+@!!status:proved
+@!!prover:ls4
+@!!meth:time-limit: 10; time-used: 0.1 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       Init => Inv ,
+       TypeOK /\ Inv /\ [Next]_vars => Inv' ,
+       Inv => TerminationDetection ,
+       Init /\ [][Next]_vars /\ (WF_(vars) (System)) => []TypeOK ,
+       TRUE 
+PROVE  Init /\ [][Next]_vars /\ (WF_(vars) (System))
+       => []TerminationDetection
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:22
+@!!loc:36:5:36:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       /\ active \in [0..N - 1 -> BOOLEAN]
+       /\ color \in [0..N - 1 -> {"white", "black"}]
+       /\ tpos \in 0..N - 1
+       /\ tcolor \in {"white", "black"} ,
+       [Next]_<<active, color, tpos, tcolor>> ,
+       N \in Nat \ {0} ,
+       UNCHANGED <<active, color, tpos, tcolor>> 
+PROVE  (/\ active \in [0..N - 1 -> BOOLEAN]
+        /\ color \in [0..N - 1 -> {"white", "black"}]
+        /\ tpos \in 0..N - 1
+        /\ tcolor \in {"white", "black"})'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:20
+@!!loc:34:5:34:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       /\ active \in [0..N - 1 -> BOOLEAN]
+       /\ color \in [0..N - 1 -> {"white", "black"}]
+       /\ tpos \in 0..N - 1
+       /\ tcolor \in {"white", "black"} ,
+       [Next]_vars ,
+       N \in Nat \ {0} ,
+       NEW CONSTANT i \in 0..N - 1,
+       /\ active[i]
+       /\ active' = [active EXCEPT ![i] = FALSE]
+       /\ UNCHANGED <<color, tpos, tcolor>> 
+PROVE  (/\ active \in [0..N - 1 -> BOOLEAN]
+        /\ color \in [0..N - 1 -> {"white", "black"}]
+        /\ tpos \in 0..N - 1
+        /\ tcolor \in {"white", "black"})'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:18
+@!!loc:30:5:30:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       /\ active \in [0..N - 1 -> BOOLEAN]
+       /\ color \in [0..N - 1 -> {"white", "black"}]
+       /\ tpos \in 0..N - 1
+       /\ tcolor \in {"white", "black"} ,
+       [Next]_vars ,
+       N \in Nat \ {0} ,
+       NEW CONSTANT i \in 0..N - 1,
+       /\ active[i]
+       /\ \E j \in 0..N - 1 \ {i} :
+             /\ active' = [active EXCEPT ![j] = TRUE]
+             /\ color'
+                = [color EXCEPT ![i] = IF j > i THEN "black" ELSE color[i]]
+       /\ UNCHANGED <<tpos, tcolor>> 
+PROVE  (/\ active \in [0..N - 1 -> BOOLEAN]
+        /\ color \in [0..N - 1 -> {"white", "black"}]
+        /\ tpos \in 0..N - 1
+        /\ tcolor \in {"white", "black"})'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:44
+@!!loc:73:3:73:24
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       ASSUME NEW CONSTANT i \in Node
+       PROVE  ~active[i] 
+PROVE  ASSUME NEW CONSTANT i \in Node
+       PROVE  ~active[i]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:45
+@!!loc:74:21:74:23
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       NEW CONSTANT i \in Node,
+       \A i_1 \in Node : tpos < i_1 => ~active[i_1] ,
+       /\ tpos = 0
+       /\ tcolor = "white"
+       /\ color[0] = "white"
+       /\ ~active[0]
+       /\ Inv ,
+       i = 0 
+PROVE  ~active[i]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:46
+@!!loc:74:24:74:28
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       \A i \in Node : tpos < i => ~active[i] ,
+       NEW CONSTANT i \in Node
+PROVE  \A i_1 \in Node : tpos < i_1 => ~active[i_1]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:47
+@!!loc:74:30:74:34
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       /\ tpos = 0
+       /\ tcolor = "white"
+       /\ color[0] = "white"
+       /\ ~active[0]
+       /\ Inv ,
+       NEW CONSTANT i \in Node,
+       \A i_1 \in Node : tpos < i_1 => ~active[i_1] 
+PROVE  /\ tpos = 0
+       /\ tcolor = "white"
+       /\ color[0] = "white"
+       /\ ~active[0]
+       /\ Inv
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:48
+@!!loc:74:36:74:40
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       NEW CONSTANT i \in Node,
+       i = 0 ,
+       \A i_1 \in Node : tpos < i_1 => ~active[i_1] ,
+       /\ tpos = 0
+       /\ tcolor = "white"
+       /\ color[0] = "white"
+       /\ ~active[0]
+       /\ Inv 
+PROVE  i = 0
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:49
+@!!loc:78:15:78:17
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       NEW CONSTANT i \in Node,
+       tpos < i ,
+       i < N ,
+       \A i_1 \in Node : tpos < i_1 => ~active[i_1] 
+PROVE  ~active[i]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:50
+@!!loc:78:18:78:22
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       NEW CONSTANT i \in Node,
+       tpos < i 
+PROVE  tpos < i
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:51
+@!!loc:78:24:78:28
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       NEW CONSTANT i \in Node,
+       i < N ,
+       tpos < i 
+PROVE  i < N
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:52
+@!!loc:78:30:78:34
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       \A i \in Node : tpos < i => ~active[i] ,
+       NEW CONSTANT i \in Node,
+       tpos < i ,
+       i < N 
+PROVE  \A i_1 \in Node : tpos < i_1 => ~active[i_1]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:53
+@!!loc:76:21:76:23
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       NEW CONSTANT i \in Node,
+       tpos = 0 ,
+       i \in 1..N - 1 ,
+       N \in Nat \ {0} 
+PROVE  tpos < i
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:54
+@!!loc:76:24:76:30
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       tpos = 0 ,
+       NEW CONSTANT i \in Node
+PROVE  tpos = 0
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:55
+@!!loc:76:32:76:36
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       NEW CONSTANT i \in Node,
+       i \in 1..N - 1 ,
+       tpos = 0 
+PROVE  i \in 1..N - 1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:56
+@!!loc:76:38:76:49
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT N,
+       N \in Nat \ {0} ,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       NEW CONSTANT i \in Node,
+       tpos = 0 ,
+       i \in 1..N - 1 
+PROVE  N \in Nat \ {0}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:57
+@!!loc:77:18:77:20
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       NEW CONSTANT i \in Node,
+       N \in Nat \ {0} ,
+       i \in 1..N - 1 
+PROVE  i < N
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:58
+@!!loc:77:21:77:32
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT N,
+       N \in Nat \ {0} ,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       NEW CONSTANT i \in Node
+PROVE  N \in Nat \ {0}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:59
+@!!loc:77:34:77:38
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       NEW CONSTANT i \in Node,
+       i \in 1..N - 1 ,
+       N \in Nat \ {0} 
+PROVE  i \in 1..N - 1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:60
+@!!loc:68:3:68:5
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       ASSUME tpos = 0 ,
+              tcolor = "white" ,
+              color[0] = "white" ,
+              ~active[0] ,
+              Inv 
+       PROVE  \A i \in Node : ~active[i] ,
+       ASSUME tpos = 0 ,
+              tcolor = "white" ,
+              color[0] = "white" ,
+              ~active[0] ,
+              Inv 
+       PROVE  \A i \in Node : ~active[i] 
+PROVE  Inv
+       => ((/\ tpos = 0 /\ tcolor = "white"
+            /\ color[0] = "white" /\ ~active[0])
+           => (\A i \in Node : ~active[i]))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:49
+@!!loc:78:15:78:17
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       NEW CONSTANT i \in Node,
+       tpos < i ,
+       i < N ,
+       \A i_1 \in Node : tpos < i_1 => ~active[i_1] 
+PROVE  ~active[i]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:45
+@!!loc:74:21:74:23
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       NEW CONSTANT i \in Node,
+       \A i_1 \in Node : tpos < i_1 => ~active[i_1] ,
+       /\ tpos = 0
+       /\ tcolor = "white"
+       /\ color[0] = "white"
+       /\ ~active[0]
+       /\ Inv ,
+       i = 0 
+PROVE  ~active[i]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:43
+@!!loc:73:3:73:24
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       ASSUME NEW CONSTANT i \in Node
+       PROVE  ~active[i] 
+PROVE  \A i \in Node : ~active[i]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:39
+@!!loc:72:17:72:19
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       \/ P0::\A i \in Node : tpos < i => ~active[i]
+       \/ P1::\E j \in 0..tpos : color[j] = "black"
+       \/ P2::(tcolor = "black") ,
+       ~tcolor = "black" ,
+       ~(\E j \in 0..tpos : color[j] = "black") 
+PROVE  \A i \in Node : tpos < i => ~active[i]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:36
+@!!loc:79:13:79:15
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       NEW CONSTANT i \in 0..N - 1,
+       ASSUME i = 0 
+       PROVE  ~active[i] ,
+       ASSUME i \in 1..N - 1 
+       PROVE  ~active[i] 
+PROVE  ~active[i]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:34
+@!!loc:53:3:53:5
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       N \in Nat \ {0} 
+PROVE  (\/ P0::\A i \in 0..N - 1 : tpos < i => ~active[i]
+        \/ P1::\E j \in 0..tpos : color[j] = "black"
+        \/ P2::(tcolor = "black"))
+       => ((/\ tpos = 0 /\ tcolor = "white"
+            /\ color[0] = "white" /\ ~active[0])
+           => (\A i \in 0..N - 1 : ~active[i]))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:32
+@!!loc:49:3:49:5
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       N \in Nat \ {0} 
+PROVE  (/\ active \in [0..N - 1 -> BOOLEAN]
+        /\ color \in [0..N - 1 -> {"white", "black"}]
+        /\ tpos \in 0..N - 1
+        /\ tcolor \in {"white", "black"})
+       /\ (\/ P0::\A i \in 0..N - 1 : tpos < i => ~active[i]
+           \/ P1::\E j \in 0..tpos : color[j] = "black"
+           \/ P2::(tcolor = "black"))
+       /\ [(/\ tpos = 0
+            /\ tcolor = "black" \/ color[0] = "black"
+            /\ tpos' = N - 1
+            /\ tcolor' = "white"
+            /\ active' = active
+            /\ color' = [color EXCEPT ![0] = "white"])
+           \/ (\E i \in 0..N - 1 \ {0} :
+                  /\ tpos = i
+                  /\ ~active[i] \/ color[i] = "black" \/ tcolor = "black"
+                  /\ tpos' = i - 1
+                  /\ tcolor'
+                     = (IF color[i] = "black" THEN "black" ELSE tcolor)
+                  /\ active' = active
+                  /\ color' = [color EXCEPT ![i] = "white"])
+           \/ (\E i \in 0..N - 1 :
+                  (/\ active[i]
+                   /\ \E j \in 0..N - 1 \ {i} :
+                         /\ active' = [active EXCEPT ![j] = TRUE]
+                         /\ color'
+                            = [color EXCEPT
+                                 ![i] = IF j > i THEN "black" ELSE color[i]]
+                   /\ UNCHANGED <<tpos, tcolor>>)
+                  \/ (/\ active[i]
+                      /\ active' = [active EXCEPT ![i] = FALSE]
+                      /\ UNCHANGED <<color, tpos, tcolor>>))]_<<active,
+                                                                color, tpos,
+                                                                tcolor>>
+       => (\/ P0::\A i \in 0..N - 1 : tpos < i => ~active[i]
+           \/ P1::\E j \in 0..tpos : color[j] = "black"
+           \/ P2::(tcolor = "black"))'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:61
+@!!loc:68:6:68:10
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       ASSUME tpos = 0 ,
+              tcolor = "white" ,
+              color[0] = "white" ,
+              ~active[0] ,
+              Inv 
+       PROVE  \A i \in Node : ~active[i] 
+PROVE  ASSUME tpos = 0 ,
+              tcolor = "white" ,
+              color[0] = "white" ,
+              ~active[0] ,
+              Inv 
+       PROVE  \A i \in Node : ~active[i]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:62
+@!!loc:69:17:69:19
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       tcolor = "white" 
+PROVE  ~tcolor = "black"
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:63
+@!!loc:69:20:69:36
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       tcolor = "white" 
+PROVE  tcolor = "white"
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:64
+@!!loc:70:17:70:19
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       /\ tpos = 0
+       /\ tcolor = "white"
+       /\ color[0] = "white"
+       /\ ~active[0]
+       /\ \/ P0::\A i \in Node : tpos < i => ~active[i]
+          \/ P1::\E j \in 0..tpos : color[j] = "black"
+          \/ P2::(tcolor = "black") 
+PROVE  ~(\E j \in 0..tpos : color[j] = "black")
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:65
+@!!loc:70:20:70:24
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       /\ tpos = 0
+       /\ tcolor = "white"
+       /\ color[0] = "white"
+       /\ ~active[0]
+       /\ \/ P0::\A i \in Node : tpos < i => ~active[i]
+          \/ P1::\E j \in 0..tpos : color[j] = "black"
+          \/ P2::(tcolor = "black") 
+PROVE  /\ tpos = 0
+       /\ tcolor = "white"
+       /\ color[0] = "white"
+       /\ ~active[0]
+       /\ \/ P0::\A i \in Node : tpos < i => ~active[i]
+          \/ P1::\E j \in 0..tpos : color[j] = "black"
+          \/ P2::(tcolor = "black")
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:53
+@!!loc:76:21:76:23
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       NEW CONSTANT i \in Node,
+       tpos = 0 ,
+       i \in 1..N - 1 ,
+       N \in Nat \ {0} 
+PROVE  tpos < i
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:57
+@!!loc:77:18:77:20
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       NEW CONSTANT i \in Node,
+       N \in Nat \ {0} ,
+       i \in 1..N - 1 
+PROVE  i < N
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:60
+@!!loc:68:3:68:5
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (0%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       ASSUME tpos = 0 ,
+              tcolor = "white" ,
+              color[0] = "white" ,
+              ~active[0] ,
+              Inv 
+       PROVE  \A i \in Node : ~active[i] ,
+       ASSUME tpos = 0 ,
+              tcolor = "white" ,
+              color[0] = "white" ,
+              ~active[0] ,
+              Inv 
+       PROVE  \A i \in Node : ~active[i] 
+PROVE  Inv
+       => ((/\ tpos = 0 /\ tcolor = "white"
+            /\ color[0] = "white" /\ ~active[0])
+           => (\A i \in Node : ~active[i]))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:62
+@!!loc:69:17:69:19
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       tcolor = "white" 
+PROVE  ~tcolor = "black"
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:64
+@!!loc:70:17:70:19
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT N,
+       NEW VARIABLE active,
+       NEW VARIABLE color,
+       NEW VARIABLE tpos,
+       NEW VARIABLE tcolor,
+       /\ tpos = 0
+       /\ tcolor = "white"
+       /\ color[0] = "white"
+       /\ ~active[0]
+       /\ \/ P0::\A i \in Node : tpos < i => ~active[i]
+          \/ P1::\E j \in 0..tpos : color[j] = "black"
+          \/ P2::(tcolor = "black") 
+PROVE  ~(\E j \in 0..tpos : color[j] = "black")
+
+@!!END
+
+(* created new ".tlacache/EWD840_proof.tlaps/EWD840_proof.thy" *)
+(* fingerprints written in ".tlacache/EWD840_proof.tlaps/fingerprints" *)
+File "./EWD840_proof.tla", line 1, character 1 to line 81, character 77:
+[INFO]: All 65 obligations proved.
