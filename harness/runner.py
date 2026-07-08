@@ -121,6 +121,13 @@ def run_cmd(cmd, cwd, timeout):
                          start_new_session=True)
     try:
         out, _ = p.communicate(timeout=timeout)
+        # Reap stragglers even on NORMAL exit: tlapm can return success while
+        # its z3/Isabelle workers keep running (observed 2026-07-08: 40 orphaned
+        # z3s at ppid 1, 47 min old, from a completed MajorityProof check).
+        try:
+            os.killpg(p.pid, signal.SIGKILL)
+        except (ProcessLookupError, PermissionError):
+            pass
         return p.returncode, out or "", time.time() - t0, False
     except subprocess.TimeoutExpired:
         try:
