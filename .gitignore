@@ -2,3 +2,4 @@ results/runs/*/logs/
 __pycache__/
 *.pyc
 .claude/
+tools/tlaplus-examples/
