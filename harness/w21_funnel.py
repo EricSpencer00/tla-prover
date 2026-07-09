@@ -250,9 +250,14 @@ def stage_assemble(raw: Path, run_dir: Path, corpus_dir: Path):
     dedup = {r["path"]: r for r in map(json.loads, open(run_dir / "dedup.jsonl"))}
     decon = {r["path"]: r for r in map(json.loads, open(run_dir / "decontam.jsonl"))}
     sany = {r["path"]: r for r in map(json.loads, open(run_dir / "sany.jsonl"))}
+    # TLC tier rows are optional: present once stage_tlc has swept tier1.
+    # Restarted sweeps append duplicate rows; last write wins.
+    tlc_file = run_dir / "tlc.jsonl"
+    tlc = {r["path"]: r for r in map(json.loads, open(tlc_file))} if tlc_file.exists() else {}
     corpus_dir.mkdir(parents=True, exist_ok=True)
     manifests = {t: open(corpus_dir / f"manifest_{t}.jsonl", "w") for t in
-                 ("tier1_sany_cfg", "tier2_sany", "discard_sany", "discard_dup", "discard_contam")}
+                 ("tier1_sany_cfg", "tier2_sany", "discard_sany", "discard_dup", "discard_contam")
+                 + (("tier3_tlc",) if tlc else ())}
     counts: dict[str, int] = {}
     for path, drec in dedup.items():
         if drec["verdict"] == "dup":
@@ -268,6 +273,13 @@ def stage_assemble(raw: Path, run_dir: Path, corpus_dir: Path):
                     has_cfg = any((raw / path).parent.glob("*.cfg"))
                     tier = "tier1_sany_cfg" if has_cfg else "tier2_sany"
                     extra = {"sany_dt_s": s["dt_s"], "has_cfg": has_cfg}
+                    t3 = tlc.get(path)
+                    if t3:
+                        extra.update(tier3=t3["tier3"], tlc_status=t3["tlc_status"],
+                                     tlc_vacuity=t3.get("vacuity"),
+                                     tlc_states_found=t3.get("states_found"))
+                        if t3["tier3"] == "tier3_tlc_pass":
+                            tier = "tier3_tlc"
                 else:
                     tier, extra = "discard_sany", {"sany": s["sany"]}
         counts[tier] = counts.get(tier, 0) + 1

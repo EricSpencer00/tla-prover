@@ -1,7 +1,8 @@
 {
   "tier2_sany": 170,
-  "tier1_sany_cfg": 779,
+  "tier1_sany_cfg": 697,
   "discard_sany": 169,
   "discard_contam": 429,
-  "discard_dup": 158
+  "discard_dup": 158,
+  "tier3_tlc": 82
 }
