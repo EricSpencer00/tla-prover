@@ -4,11 +4,19 @@ Stages (each resumable; state lives under the run dir):
   dedup     exact-dup removal (normalized hash) over raw .tla files
   decontam  near-dup decontamination vs 206-corpus + tlaplus/examples
   sany      serial nice-19 SANY sweep over survivors (resumable ledger)
+  tlc       templated bounded TLC + vacuity traps over tier1_sany_cfg
+            (separate run dir, e.g. results/runs/w21-tlc-<date>; reads the
+            committed tier1 manifest, NOT the sany stage's own run dir)
   assemble  tier directories + per-tier manifests + reports
 
 Usage:
   python -m harness.w21_funnel <stage> --run-dir results/runs/w21-funnel-20260708 \
       --raw /Users/eric/GitHub/tla-dataset-pipeline/data/raw [--limit N]
+
+  python -m harness.w21_funnel tlc --run-dir results/runs/w21-tlc-20260709 \
+      --raw /Users/eric/GitHub/tla-dataset-pipeline/data/raw \
+      --manifest data/chattla-corpora-v2/manifest_tier1_sany_cfg.jsonl \
+      [--limit N] [--timeout SECONDS]
 
 Tiering (PLAN.md W2.1; SANY as the cheap quality gate — TLC/vacuity/judge
 tiers are follow-on passes, disclosed in the summary):
@@ -17,12 +25,27 @@ tiers are follow-on passes, disclosed in the summary):
   discard_sany     SANY fail/timeout
   discard_dup      exact normalized duplicate of an earlier raw file
   discard_contam   near-dup of a canonical spec (Jaccard >= 0.65)
+
+  tier3 verdicts (sub-tier of tier1_sany_cfg, PLAN.md "templated bounded TLC
+  -> vacuity traps"; nothing in tier1 is deleted, files are marked):
+    tier3_tlc_pass      bounded TLC pass, non-vacuous -> promotable
+    tier3_tlc_vacuous   bounded TLC pass but trivially so (vacuity trap:
+                        0/1-state run, no invariant/property configured, or
+                        a syntactically-TRUE invariant) -> demoted
+    tier3_tlc_fail      TLC ran and found a real invariant/deadlock/liveness
+                        violation or errored -> stays tier1, marked
+    tier3_tlc_timeout   did not finish within the bounded budget -> stays
+                        tier1, marked
+    tier3_tlc_no_cfg    no usable sibling .cfg found at sweep time -> stays
+                        tier1, marked
+    tier3_tlc_no_module no MODULE header found in the file -> stays tier1
 """
 from __future__ import annotations
 
 import argparse
 import json
 import os
+import re
 import shutil
 import sys
 from pathlib import Path
@@ -118,6 +141,111 @@ def stage_sany(raw: Path, run_dir: Path, limit: int | None):
     print(f"sany chunk complete -> {out} ({sum(1 for _ in open(out))} rows)")
 
 
+# --- tier3: templated bounded TLC + vacuity traps -------------------------
+#
+# Tier1 files are arbitrary scraped repos, not corpus population-tagged
+# specs -- there is no reference "expected runtime" the way runner.py's
+# oracle sweep has via corpus/configs/policy.json. The "template" (PLAN.md
+# W2.1) is therefore a single fixed budget applied uniformly: a short
+# wall-clock cap (BOUNDED_TLC_TIMEOUT_S) *and* a state-space depth cap via
+# TLC's -dfid (iterative-deepening DFS bounded search), so a file with a
+# large/unbounded reachable state space returns a bounded verdict (timeout
+# or partial-depth pass) instead of silently running full BFS to the wall
+# on every file in a 779-file sweep. -dfid also naturally handles specs with
+# no explicit state constraint in their .cfg (most scraped tier1 cfgs won't
+# have one) without per-file tuning.
+BOUNDED_TLC_TIMEOUT_S = 90
+BOUNDED_TLC_DEPTH = 15
+
+
+def bounded_tlc_flags():
+    """extra_flags for runner.check_tlc: bounded iterative-deepening DFS.
+    -dfid requires single-worker mode (TLC rejects -dfid with >1 worker,
+    https://github.com/tlaplus/tlaplus/issues/548); check_tlc hardcodes
+    "-workers 2" ahead of extra_flags, so "-workers 1" here as a LATER flag
+    is required to override it -- confirmed empirically that TLC honors the
+    last -workers value given (found while smoke-testing tier1 sample: every
+    real tlaplus/tlaplus MC.tla file was erroring immediately without this)."""
+    return ["-dfid", str(BOUNDED_TLC_DEPTH), "-workers", "1"]
+
+
+def classify_tier3(status: str, vac: list[str]) -> str:
+    """Map a runner.check_tlc (status, vacuity) result to a tier3 verdict.
+    Vacuity trap: a nominal TLC pass with a vacuity flag (trivial invariant,
+    0/1-state run, no invariant/property configured) is demoted separately
+    from a genuine pass so it doesn't inflate the training-quality tier."""
+    if status == "no_cfg":
+        return "tier3_tlc_no_cfg"
+    if status == "timeout":
+        return "tier3_tlc_timeout"
+    if status == "pass":
+        return "tier3_tlc_vacuous" if vac else "tier3_tlc_pass"
+    return "tier3_tlc_fail"
+
+
+def _run_one_tlc(rel_path: str, raw: Path, timeout: int) -> dict:
+    """Run bounded TLC on one tier1 file (in its own dir, sibling .cfg reused)."""
+    from .runner import check_tlc, module_name
+
+    f = raw / rel_path
+    text = f.read_text(errors="replace")
+    mod = module_name(text)
+    if not mod:
+        return {"path": rel_path, "tier3": "tier3_tlc_no_module", "tlc_status": "no_module",
+                "vacuity": [], "dt_s": 0.0}
+    cfg_candidates = list(f.parent.glob("*.cfg"))
+    # prefer a same-stem cfg (module.cfg) if present, else the first sibling cfg
+    cfg_file = next((c for c in cfg_candidates if c.stem == mod or c.stem == f.stem), None) \
+        or (cfg_candidates[0] if cfg_candidates else None)
+    if cfg_file is None:
+        return {"path": rel_path, "tier3": "tier3_tlc_no_cfg", "tlc_status": "no_cfg",
+                "vacuity": [], "dt_s": 0.0}
+    cfg_text = cfg_file.read_text(errors="replace")
+    # TLC needs SPEC.tla / SPEC.cfg name-matched in its workdir; f's own
+    # basename may differ from the declared module name, and the sibling
+    # .cfg may be named for the file rather than the module -- write both
+    # under the module name if not already present (do not overwrite an
+    # existing same-name file that isn't ours).
+    workdir = f.parent
+    if not (workdir / f"{mod}.cfg").exists():
+        (workdir / f"{mod}.cfg").write_text(cfg_text)
+    if not (workdir / f"{mod}.tla").exists():
+        (workdir / f"{mod}.tla").write_text(text)
+    status, vac, out, dt = check_tlc(mod, cfg_text, workdir, timeout,
+                                     extra_flags=bounded_tlc_flags())
+    m_states = None
+    sm = re.search(r"(\d+) distinct states found", out)
+    if sm:
+        m_states = int(sm.group(1))
+    return {"path": rel_path, "tier3": classify_tier3(status, vac), "tlc_status": status,
+            "vacuity": vac, "dt_s": round(dt, 2), "states_found": m_states}
+
+
+def stage_tlc(raw: Path, run_dir: Path, manifest_path: Path, limit: int | None,
+               timeout: int = BOUNDED_TLC_TIMEOUT_S):
+    """Resumable Rule-8 sweep: bounded TLC + vacuity traps over tier1_sany_cfg.
+    Serial, nice-19 (caller sets os.nice(19) as sany stage does), per-file
+    timeout, appends to run_dir/tlc.jsonl, skipping rows already recorded so
+    a restart after a reboot picks up where it left off."""
+    rows = [json.loads(l) for l in open(manifest_path)]
+    todo_all = [r["source"].removeprefix("data/raw/") for r in rows]
+    out = run_dir / "tlc.jsonl"
+    done = {json.loads(l)["path"] for l in open(out)} if out.exists() else set()
+    todo = [p for p in todo_all if p not in done]
+    if limit:
+        todo = todo[:limit]
+    print(f"tlc: {len(done)} done, {len(todo)} this chunk, {len(todo_all)} total tier1 files")
+    with open(out, "a") as fh:
+        for i, rel_path in enumerate(todo):
+            rec = _run_one_tlc(rel_path, raw, timeout)
+            fh.write(json.dumps(rec) + "\n")
+            fh.flush()
+            if (i + 1) % 25 == 0:
+                print(f"  {i+1}/{len(todo)}")
+    n = sum(1 for _ in open(out))
+    print(f"tlc chunk complete -> {out} ({n} rows)")
+
+
 def stage_assemble(raw: Path, run_dir: Path, corpus_dir: Path):
     dedup = {r["path"]: r for r in map(json.loads, open(run_dir / "dedup.jsonl"))}
     decon = {r["path"]: r for r in map(json.loads, open(run_dir / "decontam.jsonl"))}
@@ -164,12 +292,16 @@ def stage_assemble(raw: Path, run_dir: Path, corpus_dir: Path):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("stage", choices=["dedup", "decontam", "sany", "assemble"])
+    ap.add_argument("stage", choices=["dedup", "decontam", "sany", "tlc", "assemble"])
     ap.add_argument("--run-dir", required=True, type=Path)
     ap.add_argument("--raw", required=True, type=Path)
     ap.add_argument("--corpus-dir", type=Path,
                     default=Path("/Users/eric/GitHub/prove-TLA/data/chattla-corpora-v2"))
+    ap.add_argument("--manifest", type=Path,
+                    default=Path("/Users/eric/GitHub/prove-TLA/data/chattla-corpora-v2/manifest_tier1_sany_cfg.jsonl"),
+                    help="tier1 manifest to sweep (tlc stage)")
     ap.add_argument("--limit", type=int)
+    ap.add_argument("--timeout", type=int, default=BOUNDED_TLC_TIMEOUT_S)
     a = ap.parse_args()
     a.run_dir.mkdir(parents=True, exist_ok=True)
     if a.stage == "dedup":
@@ -178,6 +310,12 @@ def main():
         stage_decontam(a.raw, a.run_dir)
     elif a.stage == "sany":
         stage_sany(a.raw, a.run_dir, a.limit)
+    elif a.stage == "tlc":
+        try:
+            os.nice(19)
+        except PermissionError:
+            pass  # already at/above nice 19 (e.g. launched under `nice -n 19` externally)
+        stage_tlc(a.raw, a.run_dir, a.manifest, a.limit, a.timeout)
     else:
         stage_assemble(a.raw, a.run_dir, a.corpus_dir)
 
