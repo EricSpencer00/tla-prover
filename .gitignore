@@ -3,3 +3,5 @@ __pycache__/
 *.pyc
 .claude/
 tools/tlaplus-examples/
+# chattla-corpora-v2: tier files regenerable from manifests + raw scrape; commit manifests only
+data/chattla-corpora-v2/tier*/
