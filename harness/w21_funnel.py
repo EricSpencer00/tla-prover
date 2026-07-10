@@ -246,6 +246,142 @@ def stage_tlc(raw: Path, run_dir: Path, manifest_path: Path, limit: int | None,
     print(f"tlc chunk complete -> {out} ({n} rows)")
 
 
+# --- adequacy: W1 battery (design doc docs/superpowers/specs/2026-07-09-
+# w21-quality-corpus-design.md, Workstream 1) -----------------------------
+#
+# Re-runs PLAIN TLC (not the tier3 sweep's bounded -dfid search) over tier1/
+# tier3 on-disk spec files to re-derive distinct_states -- tier3's own
+# tlc_states_found is 0 for every row (the -dfid bounded search doesn't
+# surface it the same way), so this stage needs its own TLC pass. Then runs
+# the deterministic mutation battery (harness.mutation.run_mutation_on_module)
+# for safety_catch_rate, and the pure-text structural_features/complexity_score
+# from harness.adequacy, and gates quality_gold via harness.adequacy.quality_label.
+ADEQUACY_TLC_TIMEOUT_S = 30
+
+
+def _resolve_adequacy_source(corpus_dir: Path, rec: dict) -> Path:
+    """tier record -> on-disk tla path under corpus_dir (stage_assemble's copy
+    layout: corpus_dir/<tier>/<source-relative-to-data/raw/>)."""
+    rel = rec["source"].removeprefix("data/raw/")
+    return corpus_dir / rec["tier"] / rel
+
+
+def _run_one_adequacy(corpus_dir: Path, rec: dict, timeout: int) -> dict:
+    from .runner import check_tlc, module_name
+    from .adequacy import structural_features, quality_label, complexity_score
+    from .mutation import run_mutation_on_module
+
+    tla_path = _resolve_adequacy_source(corpus_dir, rec)
+    text = tla_path.read_text(errors="replace")
+    mod = module_name(text) or rec.get("module")
+    workdir = tla_path.parent
+    cfg_candidates = list(workdir.glob("*.cfg"))
+    cfg_file = next((c for c in cfg_candidates if c.stem == mod or c.stem == tla_path.stem), None) \
+        or (cfg_candidates[0] if cfg_candidates else None)
+
+    features = structural_features(text)
+    row = {"source": rec["source"], "module": mod, "tier": rec["tier"],
+           "complexity_score": complexity_score(features), **features}
+
+    if cfg_file is None:
+        row.update(distinct_states=None, vacuity=[], safety_catch_rate=None,
+                   quality_gold=False, quality_fail_reasons=["no_cfg"])
+        return row
+
+    cfg_text = cfg_file.read_text(errors="replace")
+    if not (workdir / f"{mod}.cfg").exists():
+        (workdir / f"{mod}.cfg").write_text(cfg_text)
+    if not (workdir / f"{mod}.tla").exists():
+        (workdir / f"{mod}.tla").write_text(text)
+
+    status, vac, out, _ = check_tlc(mod, cfg_text, workdir, timeout)
+    distinct_states = None
+    sm = re.search(r"(\d+) distinct states found", out)
+    if sm:
+        distinct_states = int(sm.group(1))
+
+    mut = run_mutation_on_module(workdir / f"{mod}.tla", cfg_text, mod, timeout)
+    safety_catch_rate = mut.get("safety_catch_rate")
+
+    label = quality_label(vac, distinct_states, safety_catch_rate)
+    row.update(distinct_states=distinct_states, vacuity=vac,
+               safety_catch_rate=safety_catch_rate,
+               quality_gold=label["quality_gold"],
+               quality_fail_reasons=label["fail_reasons"])
+    return row
+
+
+def stage_adequacy(corpus_dir: Path, run_dir: Path, limit: int | None,
+                    timeout: int = ADEQUACY_TLC_TIMEOUT_S):
+    """Resumable W1 battery sweep over tier1_sany_cfg + tier3_tlc on-disk specs.
+    Serial, nice-19 (caller sets os.nice(19) as sany/tlc stages do), per-file
+    timeout, appends to run_dir/adequacy.jsonl, skipping rows already recorded
+    (keyed by "source") so a restart picks up where it left off."""
+    rows = []
+    for fname in ("manifest_tier1_sany_cfg.jsonl", "manifest_tier3_tlc.jsonl"):
+        f = corpus_dir / fname
+        if f.exists():
+            rows += [json.loads(l) for l in open(f) if l.strip()]
+    out = run_dir / "adequacy.jsonl"
+    done = {json.loads(l)["source"] for l in open(out)} if out.exists() else set()
+    todo = [r for r in rows if r["source"] not in done]
+    if limit:
+        todo = todo[:limit]
+    print(f"adequacy: {len(done)} done, {len(todo)} this chunk, {len(rows)} total tier1+tier3 files")
+    with open(out, "a") as fh:
+        for i, rec in enumerate(todo):
+            row = _run_one_adequacy(corpus_dir, rec, timeout)
+            fh.write(json.dumps(row) + "\n")
+            fh.flush()
+            if (i + 1) % 25 == 0:
+                print(f"  {i+1}/{len(todo)}")
+    n = sum(1 for _ in open(out))
+    print(f"adequacy chunk complete -> {out} ({n} rows)")
+
+
+def stage_quality_manifest(corpus_dir: Path, run_dir: Path):
+    """Join run_dir/adequacy.jsonl onto ALL 949 tier1+tier2+tier3 records (design
+    doc: "soft-labels on all 949, nothing deleted") -> corpus_dir/
+    manifest_tier_quality.jsonl. tier2 has no .cfg and never ran the adequacy
+    battery (no TLC state count, no mutation battery) -- it still gets
+    structural_features/complexity_score (pure text, always computable) but is
+    force-failed quality_gold with fail_reasons=["no_cfg_no_battery"] rather than
+    silently defaulting to pass."""
+    from .adequacy import structural_features, complexity_score
+
+    adeq_file = run_dir / "adequacy.jsonl"
+    adeq = {r["source"]: r for r in map(json.loads, open(adeq_file))} if adeq_file.exists() else {}
+
+    manifests = [("tier1_sany_cfg", "manifest_tier1_sany_cfg.jsonl"),
+                 ("tier2_sany", "manifest_tier2_sany.jsonl"),
+                 ("tier3_tlc", "manifest_tier3_tlc.jsonl")]
+    out = corpus_dir / "manifest_tier_quality.jsonl"
+    n = 0
+    with open(out, "w") as fh:
+        for tier, fname in manifests:
+            f = corpus_dir / fname
+            if not f.exists():
+                continue
+            for line in open(f):
+                if not line.strip():
+                    continue
+                rec = json.loads(line)
+                a = adeq.get(rec["source"])
+                if a is not None:
+                    row = {**rec, **{k: v for k, v in a.items() if k not in ("source", "module", "tier")}}
+                else:
+                    rel = rec["source"].removeprefix("data/raw/")
+                    text = (corpus_dir / tier / rel).read_text(errors="replace")
+                    features = structural_features(text)
+                    row = {**rec, "distinct_states": None, "vacuity": None,
+                           "safety_catch_rate": None, "quality_gold": False,
+                           "quality_fail_reasons": ["no_cfg_no_battery"],
+                           "complexity_score": complexity_score(features), **features}
+                fh.write(json.dumps(row) + "\n")
+                n += 1
+    print(f"quality_manifest: {n} rows -> {out}")
+
+
 def stage_assemble(raw: Path, run_dir: Path, corpus_dir: Path):
     dedup = {r["path"]: r for r in map(json.loads, open(run_dir / "dedup.jsonl"))}
     decon = {r["path"]: r for r in map(json.loads, open(run_dir / "decontam.jsonl"))}
@@ -304,9 +440,12 @@ def stage_assemble(raw: Path, run_dir: Path, corpus_dir: Path):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("stage", choices=["dedup", "decontam", "sany", "tlc", "assemble"])
+    ap.add_argument("stage", choices=["dedup", "decontam", "sany", "tlc", "adequacy",
+                                       "quality_manifest", "assemble"])
     ap.add_argument("--run-dir", required=True, type=Path)
-    ap.add_argument("--raw", required=True, type=Path)
+    ap.add_argument("--raw", type=Path,
+                    help="required for dedup/decontam/sany/tlc/assemble; unused by "
+                         "adequacy/quality_manifest, which read corpus_dir directly")
     ap.add_argument("--corpus-dir", type=Path,
                     default=Path("/Users/eric/GitHub/prove-TLA/data/chattla-corpora-v2"))
     ap.add_argument("--manifest", type=Path,
@@ -316,6 +455,8 @@ def main():
     ap.add_argument("--timeout", type=int, default=BOUNDED_TLC_TIMEOUT_S)
     a = ap.parse_args()
     a.run_dir.mkdir(parents=True, exist_ok=True)
+    if a.stage in ("dedup", "decontam", "sany", "tlc", "assemble") and a.raw is None:
+        ap.error(f"--raw is required for stage {a.stage!r}")
     if a.stage == "dedup":
         stage_dedup(a.raw, a.run_dir)
     elif a.stage == "decontam":
@@ -328,6 +469,15 @@ def main():
         except PermissionError:
             pass  # already at/above nice 19 (e.g. launched under `nice -n 19` externally)
         stage_tlc(a.raw, a.run_dir, a.manifest, a.limit, a.timeout)
+    elif a.stage == "adequacy":
+        try:
+            os.nice(19)
+        except PermissionError:
+            pass
+        stage_adequacy(a.corpus_dir, a.run_dir, a.limit,
+                       a.timeout if a.timeout != BOUNDED_TLC_TIMEOUT_S else ADEQUACY_TLC_TIMEOUT_S)
+    elif a.stage == "quality_manifest":
+        stage_quality_manifest(a.corpus_dir, a.run_dir)
     else:
         stage_assemble(a.raw, a.run_dir, a.corpus_dir)
 

@@ -68,7 +68,12 @@ MUTATIONS = [
 
 
 def apply_mutation(text: str, regex, replacement: str):
-    new_text, n = regex.subn(replacement, text)
+    # Replacement is passed through a lambda, not the raw string, so re never
+    # parses it as a backreference template -- replacements like "\cap"/"\notin"
+    # contain backslash-letter sequences (\c, \n) that Python's re engine (as of
+    # 3.12+, hardened in 3.14) rejects as an invalid escape in template syntax
+    # even though nothing here is a real \g<n> group reference.
+    new_text, n = regex.subn(lambda m: replacement, text)
     return (new_text, n) if n > 0 else (None, 0)
 
 
@@ -172,6 +177,51 @@ def run_mutation_for_spec(num: str, corpus: Path, cfg_dirs, timeout: int):
 
     return {"spec": num, "module": mod, "mutants": results,
             **summarize_mutants(results)}
+
+
+def run_mutation_on_module(tla_path: Path, cfg_text: str, module: str, timeout: int) -> dict:
+    """W1 adequacy battery entry point (design doc Workstream 1): same deterministic
+    MUTATIONS battery as run_mutation_for_spec, but keyed to an arbitrary FILE PATH
+    (tier1/tier3 scraped specs, not the numbered oracle corpus) instead of a corpus
+    spec number. tla_path's siblings are copied into the mutant workdir wholesale --
+    simpler than local_deps/build_module_index dep-resolution and safe here because
+    tier files sit on disk with their local deps/cfg already alongside them (see
+    w21_funnel.stage_assemble's copy logic)."""
+    orig_text = tla_path.read_text(errors="replace")
+    siblings = [p for p in tla_path.parent.iterdir() if p.is_file() and p != tla_path]
+
+    workroot = Path("/tmp/prove-tla-mutation-adequacy") / module
+    results = []
+    for label, regex, repl in MUTATIONS:
+        mutant_text, n = apply_mutation(orig_text, regex, repl)
+        if mutant_text is None:
+            results.append({"mutation": label, "applied": False})
+            continue
+        workdir = workroot / label
+        if workdir.exists():
+            shutil.rmtree(workdir)
+        workdir.mkdir(parents=True)
+        (workdir / f"{module}.tla").write_text(mutant_text)
+        for sib in siblings:
+            shutil.copy2(sib, workdir / sib.name)
+        sany_st, _, _ = check_sany(workdir / f"{module}.tla", workdir, timeout)
+        if sany_st != "pass":
+            results.append({"mutation": label, "applied": True, "sany": sany_st,
+                             "killed": None, "note": "mutant fails to parse, not counted"})
+            shutil.rmtree(workdir, ignore_errors=True)
+            continue
+        (workdir / f"{module}.cfg").write_text(cfg_text)
+        tlc_st, vac, tlc_out, _ = check_tlc(module, cfg_text, workdir, timeout)
+        killed = tlc_st != "pass"
+        catch = classify_mutation_catch(tlc_out)
+        results.append({"mutation": label, "applied": True, "sany": sany_st,
+                         "tlc": tlc_st, "killed": killed,
+                         "violated": catch["violated"],
+                         "safety_killed": killed and catch["is_safety_catch"]})
+        shutil.rmtree(workdir, ignore_errors=True)
+    shutil.rmtree(workroot, ignore_errors=True)
+
+    return {"module": module, "mutants": results, **summarize_mutants(results)}
 
 
 def main():
