@@ -256,7 +256,17 @@ def stage_tlc(raw: Path, run_dir: Path, manifest_path: Path, limit: int | None,
 # the deterministic mutation battery (harness.mutation.run_mutation_on_module)
 # for safety_catch_rate, and the pure-text structural_features/complexity_score
 # from harness.adequacy, and gates quality_gold via harness.adequacy.quality_label.
-ADEQUACY_TLC_TIMEOUT_S = 30
+#
+# FIX 3 -- TLC budget. 472/779 specs came back distinct_states=null at 30s plain
+# TLC on the full sweep. A small experiment (see commit msg) compared 90s plain
+# TLC vs -dfid bounded search on 8 previously-null tier3 specs: plain-90s
+# recovers real, exact distinct-state counts on the specs that complete, while
+# -dfid under-reports (the same 0/1 undercount that made tier3's own
+# tlc_states_found useless). So we bump the plain-TLC budget to 90s and keep the
+# UNBOUNDED plain run (no -dfid) -- true counts over bounded undercounts. The
+# mutation-battery TLC runs (run_mutation_on_module) already use plain check_tlc
+# at the same timeout, so the two stay consistent.
+ADEQUACY_TLC_TIMEOUT_S = 90
 
 
 def _resolve_adequacy_source(raw: Path, rec: dict) -> Path:

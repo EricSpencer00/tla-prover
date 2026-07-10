@@ -13,6 +13,7 @@ cap (BOUNDED_TIMEOUT_S) plus a depth cap via TLC's -dfid (iterative-deepening
 DFS bounded search) so that even an unbounded-looking state machine returns
 a bounded verdict instead of running to the timeout wall on every file.
 """
+import inspect
 import json
 from pathlib import Path
 
@@ -259,6 +260,47 @@ def test_stage_adequacy_respects_limit(tmp_path: Path):
     wf.stage_adequacy(corpus_dir=corpus_dir, raw=raw, run_dir=run_dir, limit=1, timeout=30)
     rows = [json.loads(l) for l in open(run_dir / "adequacy.jsonl")]
     assert len(rows) == 1
+
+
+# --- FIX 3: TLC budget ------------------------------------------------------
+#
+# 472/779 specs returned distinct_states=null at 30s plain TLC. Experiment
+# (8 previously-null tier3 specs) showed 90s plain TLC recovers real exact
+# state counts while -dfid under-reports (Paxos_MC: plain90=87 states vs
+# dfid=1). Chose: bump the default budget to 90s, keep UNBOUNDED plain TLC.
+
+def test_adequacy_default_budget_is_90s():
+    assert wf.ADEQUACY_TLC_TIMEOUT_S == 90
+    # stage_adequacy's default must track the constant, not a hardcoded 30.
+    assert inspect.signature(wf.stage_adequacy).parameters["timeout"].default == 90
+
+
+def test_run_one_adequacy_uses_unbounded_plain_tlc(monkeypatch, tmp_path):
+    # Regression: the battery TLC run must NOT pass -dfid (which under-counts
+    # states, the exact failure that made tier3's own tlc_states_found useless).
+    d = tmp_path / "raw" / "P"
+    d.mkdir(parents=True)
+    (d / "Counter.tla").write_text(_ADEQ_SPEC)
+    (d / "Counter.cfg").write_text(_ADEQ_CFG)
+
+    seen_flags = {}
+
+    from harness import runner as rn
+
+    def fake_check_tlc(mod, cfg_text, workdir, timeout, extra_flags=(), jvm_flags=()):
+        seen_flags["extra"] = list(extra_flags)
+        return "pass", [], "3 distinct states found", 0.1
+
+    monkeypatch.setattr(rn, "check_tlc", fake_check_tlc)
+    # run_mutation_on_module also calls check_tlc; stub it out entirely so we
+    # isolate the state-count TLC call's flags.
+    monkeypatch.setattr("harness.mutation.run_mutation_on_module",
+                        lambda *a, **k: {"safety_catch_rate": None, "mutants": []})
+
+    rec = {"source": "data/raw/P/Counter.tla", "module": "Counter", "tier": "tier3_tlc"}
+    row = wf._run_one_adequacy(tmp_path / "raw", rec, timeout=90)
+    assert seen_flags["extra"] == []          # plain, unbounded -- no -dfid
+    assert row["distinct_states"] == 3
 
 
 # --- stage_quality_manifest (join adequacy.jsonl onto ALL 949, incl. tier2) ---
