@@ -1,0 +1,5283 @@
+
+\* TLAPM version 80172c6
+\* launched at 2026-07-08 14:14:23 with command line:
+\* /Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm --toolbox 0 0 --printallobs -I /Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib -I /Users/eric/GitHub/prove-TLA/tools/community-modules -I /Users/eric/GitHub/prove-TLA/tools/extra-modules ReachableProofs.tla
+
+@!!BEGIN
+@!!type:obligation
+@!!id:1
+@!!loc:79:5:79:7
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Spec == /\ Init /\ [][Next]_vars
+               /\ WF_(vars) (Next),
+       <1>1 ,
+       <1>2 ,
+       PTL 
+PROVE  Spec => []Inv1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:2
+@!!loc:79:8:79:12
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Spec == /\ Init /\ [][Next]_vars
+               /\ WF_(vars) (Next)
+PROVE  <1>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:3
+@!!loc:79:14:79:18
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Spec == /\ Init /\ [][Next]_vars
+               /\ WF_(vars) (Next),
+       <1>1 
+PROVE  <1>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:4
+@!!loc:79:20:79:23
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Spec == /\ Init /\ [][Next]_vars
+               /\ WF_(vars) (Next),
+       <1>1 ,
+       <1>2 
+PROVE  PTL
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:5
+@!!loc:59:5:59:7
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Init == /\ marked = {}
+               /\ vroot = {Root}
+               /\ pc = "a",
+       TypeOK ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ pc \in {"a", "Done"}
+         /\ pc = "Done" => vroot = {},
+       Inv1 ==
+         /\ TypeOK
+         /\ \A n \in marked : Succ[n] \subseteq marked \cup vroot,
+       RootAssump 
+PROVE  Init => Inv1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:6
+@!!loc:59:8:59:18
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Init == /\ marked = {}
+               /\ vroot = {Root}
+               /\ pc = "a",
+       TypeOK ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ pc \in {"a", "Done"}
+         /\ pc = "Done" => vroot = {},
+       Inv1 ==
+         /\ TypeOK
+         /\ \A n \in marked : Succ[n] \subseteq marked \cup vroot
+PROVE  RootAssump
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:7
+@!!loc:77:7:77:9
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Terminating == pc = "Done" /\ UNCHANGED vars,
+       Next == a \/ Terminating,
+       Inv1 ,
+       [Next]_vars ,
+       <2>1 ,
+       <2>2 
+PROVE  Inv1'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:8
+@!!loc:77:10:77:14
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Terminating == pc = "Done" /\ UNCHANGED vars,
+       Next == a \/ Terminating,
+       Inv1 ,
+       [Next]_vars 
+PROVE  <2>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:9
+@!!loc:77:16:77:20
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Terminating == pc = "Done" /\ UNCHANGED vars,
+       Next == a \/ Terminating,
+       Inv1 ,
+       [Next]_vars ,
+       <2>1 
+PROVE  <2>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:10
+@!!loc:71:7:71:14
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       <2>_a30 
+PROVE  Inv1 /\ [Next]_vars => Inv1'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:11
+@!!loc:73:9:73:11
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       a ==
+         /\ pc = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot :
+                         IF v \notin marked
+                           THEN /\ marked' = marked \cup {v}
+                                /\ vroot' = vroot \cup Succ[v]
+                           ELSE /\ vroot' = vroot \ {v}
+                                /\ UNCHANGED marked
+                   /\ pc' = "a"
+              ELSE /\ pc' = "Done"
+                   /\ UNCHANGED <<marked, vroot>>,
+       TypeOK ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ pc \in {"a", "Done"}
+         /\ pc = "Done" => vroot = {},
+       Inv1 ==
+         /\ TypeOK
+         /\ \A n \in marked : Succ[n] \subseteq marked \cup vroot,
+       Inv1 ,
+       [Next]_vars ,
+       <2>1 ,
+       SuccAssump 
+PROVE  Inv1'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:12
+@!!loc:73:12:73:16
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       a ==
+         /\ pc = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot :
+                         IF v \notin marked
+                           THEN /\ marked' = marked \cup {v}
+                                /\ vroot' = vroot \cup Succ[v]
+                           ELSE /\ vroot' = vroot \ {v}
+                                /\ UNCHANGED marked
+                   /\ pc' = "a"
+              ELSE /\ pc' = "Done"
+                   /\ UNCHANGED <<marked, vroot>>,
+       TypeOK ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ pc \in {"a", "Done"}
+         /\ pc = "Done" => vroot = {},
+       Inv1 ==
+         /\ TypeOK
+         /\ \A n \in marked : Succ[n] \subseteq marked \cup vroot,
+       Inv1 ,
+       [Next]_vars 
+PROVE  <2>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:13
+@!!loc:73:18:73:28
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       a ==
+         /\ pc = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot :
+                         IF v \notin marked
+                           THEN /\ marked' = marked \cup {v}
+                                /\ vroot' = vroot \cup Succ[v]
+                           ELSE /\ vroot' = vroot \ {v}
+                                /\ UNCHANGED marked
+                   /\ pc' = "a"
+              ELSE /\ pc' = "Done"
+                   /\ UNCHANGED <<marked, vroot>>,
+       TypeOK ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ pc \in {"a", "Done"}
+         /\ pc = "Done" => vroot = {},
+       Inv1 ==
+         /\ TypeOK
+         /\ \A n \in marked : Succ[n] \subseteq marked \cup vroot,
+       Inv1 ,
+       [Next]_vars ,
+       <2>1 
+PROVE  SuccAssump
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:14
+@!!loc:75:7:75:9
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       vars == <<marked, vroot, pc>>,
+       TypeOK ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ pc \in {"a", "Done"}
+         /\ pc = "Done" => vroot = {},
+       Inv1 ==
+         /\ TypeOK
+         /\ \A n \in marked : Succ[n] \subseteq marked \cup vroot,
+       Inv1 ,
+       [Next]_vars ,
+       <2>2 
+PROVE  Inv1'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:15
+@!!loc:75:10:75:14
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       vars == <<marked, vroot, pc>>,
+       TypeOK ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ pc \in {"a", "Done"}
+         /\ pc = "Done" => vroot = {},
+       Inv1 ==
+         /\ TypeOK
+         /\ \A n \in marked : Succ[n] \subseteq marked \cup vroot,
+       Inv1 ,
+       [Next]_vars 
+PROVE  <2>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:16
+@!!loc:91:5:91:7
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       <1>1 ,
+       Thm1 ,
+       PTL 
+PROVE  Spec => [](TypeOK /\ Inv2)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:17
+@!!loc:91:8:91:12
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc
+PROVE  <1>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:18
+@!!loc:91:14:91:18
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       <1>1 
+PROVE  Thm1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:19
+@!!loc:91:20:91:23
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       <1>1 ,
+       Thm1 
+PROVE  PTL
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:20
+@!!loc:89:5:89:7
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       TypeOK ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ pc \in {"a", "Done"}
+         /\ pc = "Done" => vroot = {},
+       Inv1 ==
+         /\ TypeOK
+         /\ \A n \in marked : Succ[n] \subseteq marked \cup vroot,
+       Inv2 ==
+         marked \cup ReachableFrom(vroot) = ReachableFrom(marked \cup vroot),
+       Reachable1 
+PROVE  Inv1 => TypeOK /\ Inv2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:21
+@!!loc:89:8:89:18
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       TypeOK ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ pc \in {"a", "Done"}
+         /\ pc = "Done" => vroot = {},
+       Inv1 ==
+         /\ TypeOK
+         /\ \A n \in marked : Succ[n] \subseteq marked \cup vroot,
+       Inv2 ==
+         marked \cup ReachableFrom(vroot) = ReachableFrom(marked \cup vroot)
+PROVE  Reachable1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:22
+@!!loc:194:5:194:7
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Spec == /\ Init /\ [][Next]_vars
+               /\ WF_(vars) (Next),
+       <1>1 ,
+       <1>2 ,
+       Thm2 ,
+       PTL 
+PROVE  Spec => []Inv3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:23
+@!!loc:194:8:194:12
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Spec == /\ Init /\ [][Next]_vars
+               /\ WF_(vars) (Next)
+PROVE  <1>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:24
+@!!loc:194:14:194:18
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Spec == /\ Init /\ [][Next]_vars
+               /\ WF_(vars) (Next),
+       <1>1 
+PROVE  <1>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:25
+@!!loc:194:20:194:24
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Spec == /\ Init /\ [][Next]_vars
+               /\ WF_(vars) (Next),
+       <1>1 ,
+       <1>2 
+PROVE  Thm2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:26
+@!!loc:194:26:194:29
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Spec == /\ Init /\ [][Next]_vars
+               /\ WF_(vars) (Next),
+       <1>1 ,
+       <1>2 ,
+       Thm2 
+PROVE  PTL
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:27
+@!!loc:108:5:108:7
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       Reachable == ReachableFrom({Root}),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Init == /\ marked = {}
+               /\ vroot = {Root}
+               /\ pc = "a",
+       TypeOK ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ pc \in {"a", "Done"}
+         /\ pc = "Done" => vroot = {},
+       Inv3 == Reachable = marked \cup ReachableFrom(vroot),
+       RootAssump 
+PROVE  Init => Inv3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:28
+@!!loc:108:8:108:18
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       Reachable == ReachableFrom({Root}),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Init == /\ marked = {}
+               /\ vroot = {Root}
+               /\ pc = "a",
+       TypeOK ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ pc \in {"a", "Done"}
+         /\ pc = "Done" => vroot = {},
+       Inv3 == Reachable = marked \cup ReachableFrom(vroot)
+PROVE  RootAssump
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:29
+@!!loc:192:7:192:9
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Terminating == pc = "Done" /\ UNCHANGED vars,
+       Next == a \/ Terminating,
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       <2>2 ,
+       <2>3 
+PROVE  Inv3'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:30
+@!!loc:192:10:192:14
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Terminating == pc = "Done" /\ UNCHANGED vars,
+       Next == a \/ Terminating,
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars 
+PROVE  <2>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:31
+@!!loc:192:16:192:20
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Terminating == pc = "Done" /\ UNCHANGED vars,
+       Next == a \/ Terminating,
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       <2>2 
+PROVE  <2>3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:32
+@!!loc:122:7:122:14
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       <2>_a59 
+PROVE  TypeOK /\ TypeOK' /\ Inv2 /\ Inv2' /\ Inv3 /\ [Next]_vars => Inv3'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:33
+@!!loc:131:7:131:14
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars 
+PROVE  /\ Reachable' = Reachable
+       /\ ReachableFrom(vroot)' = ReachableFrom(vroot')
+       /\ ReachableFrom(marked \cup vroot)'
+          = ReachableFrom(marked' \cup vroot')
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:34
+@!!loc:185:11:185:13
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       a ==
+         /\ pc = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot :
+                         IF v \notin marked
+                           THEN /\ marked' = marked \cup {v}
+                                /\ vroot' = vroot \cup Succ[v]
+                           ELSE /\ vroot' = vroot \ {v}
+                                /\ UNCHANGED marked
+                   /\ pc' = "a"
+              ELSE /\ pc' = "Done"
+                   /\ UNCHANGED <<marked, vroot>>,
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       <2>2 ,
+       <3>1 ,
+       <3>2 
+PROVE  Inv3'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:35
+@!!loc:185:14:185:18
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       a ==
+         /\ pc = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot :
+                         IF v \notin marked
+                           THEN /\ marked' = marked \cup {v}
+                                /\ vroot' = vroot \cup Succ[v]
+                           ELSE /\ vroot' = vroot \ {v}
+                                /\ UNCHANGED marked
+                   /\ pc' = "a"
+              ELSE /\ pc' = "Done"
+                   /\ UNCHANGED <<marked, vroot>>,
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       <2>2 
+PROVE  <3>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:36
+@!!loc:185:20:185:24
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       a ==
+         /\ pc = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot :
+                         IF v \notin marked
+                           THEN /\ marked' = marked \cup {v}
+                                /\ vroot' = vroot \cup Succ[v]
+                           ELSE /\ vroot' = vroot \ {v}
+                                /\ UNCHANGED marked
+                   /\ pc' = "a"
+              ELSE /\ pc' = "Done"
+                   /\ UNCHANGED <<marked, vroot>>,
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       <2>2 ,
+       <3>1 
+PROVE  <3>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:37
+@!!loc:137:15:137:19
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       a ==
+         /\ pc = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot :
+                         IF v \notin marked
+                           THEN /\ marked' = marked \cup {v}
+                                /\ vroot' = vroot \cup Succ[v]
+                           ELSE /\ vroot' = vroot \ {v}
+                                /\ UNCHANGED marked
+                   /\ pc' = "a"
+              ELSE /\ pc' = "Done"
+                   /\ UNCHANGED <<marked, vroot>>,
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars 
+PROVE  <2>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:38
+@!!loc:144:9:144:11
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       a ==
+         /\ pc = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot :
+                         IF v \notin marked
+                           THEN /\ marked' = marked \cup {v}
+                                /\ vroot' = vroot \cup Succ[v]
+                           ELSE /\ vroot' = vroot \ {v}
+                                /\ UNCHANGED marked
+                   /\ pc' = "a"
+              ELSE /\ pc' = "Done"
+                   /\ UNCHANGED <<marked, vroot>>,
+       TypeOK ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ pc \in {"a", "Done"}
+         /\ pc = "Done" => vroot = {},
+       Inv3 == Reachable = marked \cup ReachableFrom(vroot),
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       <2>2 ,
+       <2>1 ,
+       <3>1 
+PROVE  Inv3'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:39
+@!!loc:144:12:144:16
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       a ==
+         /\ pc = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot :
+                         IF v \notin marked
+                           THEN /\ marked' = marked \cup {v}
+                                /\ vroot' = vroot \cup Succ[v]
+                           ELSE /\ vroot' = vroot \ {v}
+                                /\ UNCHANGED marked
+                   /\ pc' = "a"
+              ELSE /\ pc' = "Done"
+                   /\ UNCHANGED <<marked, vroot>>,
+       TypeOK ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ pc \in {"a", "Done"}
+         /\ pc = "Done" => vroot = {},
+       Inv3 == Reachable = marked \cup ReachableFrom(vroot),
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       <2>2 
+PROVE  <2>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:40
+@!!loc:144:18:144:22
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       a ==
+         /\ pc = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot :
+                         IF v \notin marked
+                           THEN /\ marked' = marked \cup {v}
+                                /\ vroot' = vroot \cup Succ[v]
+                           ELSE /\ vroot' = vroot \ {v}
+                                /\ UNCHANGED marked
+                   /\ pc' = "a"
+              ELSE /\ pc' = "Done"
+                   /\ UNCHANGED <<marked, vroot>>,
+       TypeOK ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ pc \in {"a", "Done"}
+         /\ pc = "Done" => vroot = {},
+       Inv3 == Reachable = marked \cup ReachableFrom(vroot),
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       <2>2 ,
+       <2>1 
+PROVE  <3>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:41
+@!!loc:183:11:183:13
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       a ==
+         /\ pc = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot :
+                         IF v \notin marked
+                           THEN /\ marked' = marked \cup {v}
+                                /\ vroot' = vroot \cup Succ[v]
+                           ELSE /\ vroot' = vroot \ {v}
+                                /\ UNCHANGED marked
+                   /\ pc' = "a"
+              ELSE /\ pc' = "Done"
+                   /\ UNCHANGED <<marked, vroot>>,
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       <2>2 ,
+       NEW CONSTANT v \in vroot,
+       <4>2 ,
+       <4>3 
+PROVE  Inv3'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:42
+@!!loc:183:14:183:18
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       a ==
+         /\ pc = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot :
+                         IF v \notin marked
+                           THEN /\ marked' = marked \cup {v}
+                                /\ vroot' = vroot \cup Succ[v]
+                           ELSE /\ vroot' = vroot \ {v}
+                                /\ UNCHANGED marked
+                   /\ pc' = "a"
+              ELSE /\ pc' = "Done"
+                   /\ UNCHANGED <<marked, vroot>>,
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       <2>2 ,
+       NEW CONSTANT v \in vroot
+PROVE  <4>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:43
+@!!loc:183:20:183:24
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       a ==
+         /\ pc = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot :
+                         IF v \notin marked
+                           THEN /\ marked' = marked \cup {v}
+                                /\ vroot' = vroot \cup Succ[v]
+                           ELSE /\ vroot' = vroot \ {v}
+                                /\ UNCHANGED marked
+                   /\ pc' = "a"
+              ELSE /\ pc' = "Done"
+                   /\ UNCHANGED <<marked, vroot>>,
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       <2>2 ,
+       NEW CONSTANT v \in vroot,
+       <4>2 
+PROVE  <4>3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:44
+@!!loc:156:11:156:13
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       a ==
+         /\ pc = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot :
+                         IF v \notin marked
+                           THEN /\ marked' = marked \cup {v}
+                                /\ vroot' = vroot \cup Succ[v]
+                           ELSE /\ vroot' = vroot \ {v}
+                                /\ UNCHANGED marked
+                   /\ pc' = "a"
+              ELSE /\ pc' = "Done"
+                   /\ UNCHANGED <<marked, vroot>>,
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       <2>2 ,
+       <3>2 
+PROVE  \E v \in vroot :
+          IF v \notin marked
+            THEN /\ marked' = marked \cup {v}
+                 /\ vroot' = vroot \cup Succ[v]
+            ELSE /\ vroot' = vroot \ {v}
+                 /\ UNCHANGED marked
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:45
+@!!loc:156:14:156:18
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       a ==
+         /\ pc = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot :
+                         IF v \notin marked
+                           THEN /\ marked' = marked \cup {v}
+                                /\ vroot' = vroot \cup Succ[v]
+                           ELSE /\ vroot' = vroot \ {v}
+                                /\ UNCHANGED marked
+                   /\ pc' = "a"
+              ELSE /\ pc' = "Done"
+                   /\ UNCHANGED <<marked, vroot>>,
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       <2>2 
+PROVE  <3>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:47
+@!!loc:173:13:173:15
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       a ==
+         /\ pc = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot :
+                         IF v \notin marked
+                           THEN /\ marked' = marked \cup {v}
+                                /\ vroot' = vroot \cup Succ[v]
+                           ELSE /\ vroot' = vroot \ {v}
+                                /\ UNCHANGED marked
+                   /\ pc' = "a"
+              ELSE /\ pc' = "Done"
+                   /\ UNCHANGED <<marked, vroot>>,
+       Inv3 == Reachable = marked \cup ReachableFrom(vroot),
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       <2>2 ,
+       NEW CONSTANT v \in vroot,
+       <5>1 ,
+       <4>1 ,
+       <4>2 ,
+       <5>1 ,
+       <2>1 
+PROVE  Inv3'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:48
+@!!loc:173:16:173:20
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       a ==
+         /\ pc = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot :
+                         IF v \notin marked
+                           THEN /\ marked' = marked \cup {v}
+                                /\ vroot' = vroot \cup Succ[v]
+                           ELSE /\ vroot' = vroot \ {v}
+                                /\ UNCHANGED marked
+                   /\ pc' = "a"
+              ELSE /\ pc' = "Done"
+                   /\ UNCHANGED <<marked, vroot>>,
+       Inv3 == Reachable = marked \cup ReachableFrom(vroot),
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       <2>2 ,
+       NEW CONSTANT v \in vroot
+PROVE  <5>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:49
+@!!loc:173:22:173:26
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       a ==
+         /\ pc = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot :
+                         IF v \notin marked
+                           THEN /\ marked' = marked \cup {v}
+                                /\ vroot' = vroot \cup Succ[v]
+                           ELSE /\ vroot' = vroot \ {v}
+                                /\ UNCHANGED marked
+                   /\ pc' = "a"
+              ELSE /\ pc' = "Done"
+                   /\ UNCHANGED <<marked, vroot>>,
+       Inv3 == Reachable = marked \cup ReachableFrom(vroot),
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       <2>2 ,
+       NEW CONSTANT v \in vroot,
+       <5>1 
+PROVE  <4>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:50
+@!!loc:173:28:173:32
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       a ==
+         /\ pc = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot :
+                         IF v \notin marked
+                           THEN /\ marked' = marked \cup {v}
+                                /\ vroot' = vroot \cup Succ[v]
+                           ELSE /\ vroot' = vroot \ {v}
+                                /\ UNCHANGED marked
+                   /\ pc' = "a"
+              ELSE /\ pc' = "Done"
+                   /\ UNCHANGED <<marked, vroot>>,
+       Inv3 == Reachable = marked \cup ReachableFrom(vroot),
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       <2>2 ,
+       NEW CONSTANT v \in vroot,
+       <5>1 ,
+       <4>1 
+PROVE  <4>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:51
+@!!loc:173:34:173:38
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       a ==
+         /\ pc = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot :
+                         IF v \notin marked
+                           THEN /\ marked' = marked \cup {v}
+                                /\ vroot' = vroot \cup Succ[v]
+                           ELSE /\ vroot' = vroot \ {v}
+                                /\ UNCHANGED marked
+                   /\ pc' = "a"
+              ELSE /\ pc' = "Done"
+                   /\ UNCHANGED <<marked, vroot>>,
+       Inv3 == Reachable = marked \cup ReachableFrom(vroot),
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       <2>2 ,
+       NEW CONSTANT v \in vroot,
+       <5>1 ,
+       <4>1 ,
+       <4>2 
+PROVE  <5>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:52
+@!!loc:173:40:173:44
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       a ==
+         /\ pc = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot :
+                         IF v \notin marked
+                           THEN /\ marked' = marked \cup {v}
+                                /\ vroot' = vroot \cup Succ[v]
+                           ELSE /\ vroot' = vroot \ {v}
+                                /\ UNCHANGED marked
+                   /\ pc' = "a"
+              ELSE /\ pc' = "Done"
+                   /\ UNCHANGED <<marked, vroot>>,
+       Inv3 == Reachable = marked \cup ReachableFrom(vroot),
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       <2>2 ,
+       NEW CONSTANT v \in vroot,
+       <5>1 ,
+       <4>1 ,
+       <4>2 ,
+       <5>1 
+PROVE  <2>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:53
+@!!loc:171:13:171:15
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       a ==
+         /\ pc = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot :
+                         IF v \notin marked
+                           THEN /\ marked' = marked \cup {v}
+                                /\ vroot' = vroot \cup Succ[v]
+                           ELSE /\ vroot' = vroot \ {v}
+                                /\ UNCHANGED marked
+                   /\ pc' = "a"
+              ELSE /\ pc' = "Done"
+                   /\ UNCHANGED <<marked, vroot>>,
+       TypeOK ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ pc \in {"a", "Done"}
+         /\ pc = "Done" => vroot = {},
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       <2>2 ,
+       NEW CONSTANT v \in vroot,
+       <4>1 ,
+       <4>2 ,
+       Reachable2 
+PROVE  /\ ReachableFrom(vroot') = ReachableFrom(vroot)
+       /\ v \in ReachableFrom(vroot)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:54
+@!!loc:171:16:171:20
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       a ==
+         /\ pc = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot :
+                         IF v \notin marked
+                           THEN /\ marked' = marked \cup {v}
+                                /\ vroot' = vroot \cup Succ[v]
+                           ELSE /\ vroot' = vroot \ {v}
+                                /\ UNCHANGED marked
+                   /\ pc' = "a"
+              ELSE /\ pc' = "Done"
+                   /\ UNCHANGED <<marked, vroot>>,
+       TypeOK ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ pc \in {"a", "Done"}
+         /\ pc = "Done" => vroot = {},
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       <2>2 ,
+       NEW CONSTANT v \in vroot
+PROVE  <4>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:55
+@!!loc:171:22:171:26
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       a ==
+         /\ pc = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot :
+                         IF v \notin marked
+                           THEN /\ marked' = marked \cup {v}
+                                /\ vroot' = vroot \cup Succ[v]
+                           ELSE /\ vroot' = vroot \ {v}
+                                /\ UNCHANGED marked
+                   /\ pc' = "a"
+              ELSE /\ pc' = "Done"
+                   /\ UNCHANGED <<marked, vroot>>,
+       TypeOK ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ pc \in {"a", "Done"}
+         /\ pc = "Done" => vroot = {},
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       <2>2 ,
+       NEW CONSTANT v \in vroot,
+       <4>1 
+PROVE  <4>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:56
+@!!loc:171:28:171:38
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       a ==
+         /\ pc = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot :
+                         IF v \notin marked
+                           THEN /\ marked' = marked \cup {v}
+                                /\ vroot' = vroot \cup Succ[v]
+                           ELSE /\ vroot' = vroot \ {v}
+                                /\ UNCHANGED marked
+                   /\ pc' = "a"
+              ELSE /\ pc' = "Done"
+                   /\ UNCHANGED <<marked, vroot>>,
+       TypeOK ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ pc \in {"a", "Done"}
+         /\ pc = "Done" => vroot = {},
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       <2>2 ,
+       NEW CONSTANT v \in vroot,
+       <4>1 ,
+       <4>2 
+PROVE  Reachable2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:57
+@!!loc:181:13:181:15
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       a ==
+         /\ pc = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot :
+                         IF v \notin marked
+                           THEN /\ marked' = marked \cup {v}
+                                /\ vroot' = vroot \cup Succ[v]
+                           ELSE /\ vroot' = vroot \ {v}
+                                /\ UNCHANGED marked
+                   /\ pc' = "a"
+              ELSE /\ pc' = "Done"
+                   /\ UNCHANGED <<marked, vroot>>,
+       Inv2 ==
+         marked \cup ReachableFrom(vroot) = ReachableFrom(marked \cup vroot),
+       Inv3 == Reachable = marked \cup ReachableFrom(vroot),
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       <2>2 ,
+       NEW CONSTANT v \in vroot,
+       <5>1 ,
+       <2>1 
+PROVE  Inv3'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:58
+@!!loc:181:16:181:20
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       a ==
+         /\ pc = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot :
+                         IF v \notin marked
+                           THEN /\ marked' = marked \cup {v}
+                                /\ vroot' = vroot \cup Succ[v]
+                           ELSE /\ vroot' = vroot \ {v}
+                                /\ UNCHANGED marked
+                   /\ pc' = "a"
+              ELSE /\ pc' = "Done"
+                   /\ UNCHANGED <<marked, vroot>>,
+       Inv2 ==
+         marked \cup ReachableFrom(vroot) = ReachableFrom(marked \cup vroot),
+       Inv3 == Reachable = marked \cup ReachableFrom(vroot),
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       <2>2 ,
+       NEW CONSTANT v \in vroot
+PROVE  <5>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:59
+@!!loc:181:22:181:26
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       a ==
+         /\ pc = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot :
+                         IF v \notin marked
+                           THEN /\ marked' = marked \cup {v}
+                                /\ vroot' = vroot \cup Succ[v]
+                           ELSE /\ vroot' = vroot \ {v}
+                                /\ UNCHANGED marked
+                   /\ pc' = "a"
+              ELSE /\ pc' = "Done"
+                   /\ UNCHANGED <<marked, vroot>>,
+       Inv2 ==
+         marked \cup ReachableFrom(vroot) = ReachableFrom(marked \cup vroot),
+       Inv3 == Reachable = marked \cup ReachableFrom(vroot),
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       <2>2 ,
+       NEW CONSTANT v \in vroot,
+       <5>1 
+PROVE  <2>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:60
+@!!loc:179:13:179:15
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       a ==
+         /\ pc = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot :
+                         IF v \notin marked
+                           THEN /\ marked' = marked \cup {v}
+                                /\ vroot' = vroot \cup Succ[v]
+                           ELSE /\ vroot' = vroot \ {v}
+                                /\ UNCHANGED marked
+                   /\ pc' = "a"
+              ELSE /\ pc' = "Done"
+                   /\ UNCHANGED <<marked, vroot>>,
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       <2>2 ,
+       NEW CONSTANT v \in vroot,
+       <4>1 ,
+       <4>3 
+PROVE  marked' \cup vroot' = marked \cup vroot
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:61
+@!!loc:179:16:179:20
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       a ==
+         /\ pc = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot :
+                         IF v \notin marked
+                           THEN /\ marked' = marked \cup {v}
+                                /\ vroot' = vroot \cup Succ[v]
+                           ELSE /\ vroot' = vroot \ {v}
+                                /\ UNCHANGED marked
+                   /\ pc' = "a"
+              ELSE /\ pc' = "Done"
+                   /\ UNCHANGED <<marked, vroot>>,
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       <2>2 ,
+       NEW CONSTANT v \in vroot
+PROVE  <4>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:62
+@!!loc:179:22:179:26
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       a ==
+         /\ pc = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot :
+                         IF v \notin marked
+                           THEN /\ marked' = marked \cup {v}
+                                /\ vroot' = vroot \cup Succ[v]
+                           ELSE /\ vroot' = vroot \ {v}
+                                /\ UNCHANGED marked
+                   /\ pc' = "a"
+              ELSE /\ pc' = "Done"
+                   /\ UNCHANGED <<marked, vroot>>,
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       <2>2 ,
+       NEW CONSTANT v \in vroot,
+       <4>1 
+PROVE  <4>3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:63
+@!!loc:190:7:190:9
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       vars == <<marked, vroot, pc>>,
+       TypeOK ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ pc \in {"a", "Done"}
+         /\ pc = "Done" => vroot = {},
+       Inv3 == Reachable = marked \cup ReachableFrom(vroot),
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       <2>1 ,
+       <2>3 
+PROVE  Inv3'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:64
+@!!loc:190:10:190:14
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       vars == <<marked, vroot, pc>>,
+       TypeOK ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ pc \in {"a", "Done"}
+         /\ pc = "Done" => vroot = {},
+       Inv3 == Reachable = marked \cup ReachableFrom(vroot),
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars 
+PROVE  <2>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:65
+@!!loc:190:16:190:20
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       vars == <<marked, vroot, pc>>,
+       TypeOK ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ pc \in {"a", "Done"}
+         /\ pc = "Done" => vroot = {},
+       Inv3 == Reachable = marked \cup ReachableFrom(vroot),
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       <2>1 
+PROVE  <2>3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:66
+@!!loc:211:5:211:7
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       <1>1 ,
+       <1>2 ,
+       Thm1 ,
+       Thm3 ,
+       PTL 
+PROVE  Spec => [](pc = "Done" => marked = Reachable)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:67
+@!!loc:211:8:211:12
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc
+PROVE  <1>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:68
+@!!loc:211:14:211:18
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       <1>1 
+PROVE  <1>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:69
+@!!loc:211:20:211:24
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       <1>1 ,
+       <1>2 
+PROVE  Thm1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:70
+@!!loc:211:26:211:30
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       <1>1 ,
+       <1>2 ,
+       Thm1 
+PROVE  Thm3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:71
+@!!loc:211:32:211:35
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       <1>1 ,
+       <1>2 ,
+       Thm1 ,
+       Thm3 
+PROVE  PTL
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:72
+@!!loc:207:5:207:7
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       TypeOK ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ pc \in {"a", "Done"}
+         /\ pc = "Done" => vroot = {},
+       Inv1 ==
+         /\ TypeOK
+         /\ \A n \in marked : Succ[n] \subseteq marked \cup vroot
+PROVE  Inv1 => (pc = "Done" => vroot = {})
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:73
+@!!loc:209:5:209:7
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Inv3 == Reachable = marked \cup ReachableFrom(vroot),
+       Reachable3 
+PROVE  Inv3 /\ vroot = {} => marked = Reachable
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:74
+@!!loc:209:8:209:18
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       RootAssump == Root \in Nodes,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Inv3 == Reachable = marked \cup ReachableFrom(vroot)
+PROVE  Reachable3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligationsnumber
+@!!count:73
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:1
+@!!loc:79:5:79:7
+@!!status:normalized
+@!!meth:time-limit: 10
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Init => Inv1 ,
+       Inv1 /\ [Next]_vars => Inv1' ,
+       TRUE 
+PROVE  (/\ Init /\ [][Next]_vars
+        /\ WF_(vars) (Next)) => []Inv1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:2
+@!!loc:79:8:79:12
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Init => Inv1 
+PROVE  Init => Inv1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:3
+@!!loc:79:14:79:18
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Inv1 /\ [Next]_vars => Inv1' ,
+       Init => Inv1 
+PROVE  Inv1 /\ [Next]_vars => Inv1'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:4
+@!!loc:79:20:79:23
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Init => Inv1 ,
+       Inv1 /\ [Next]_vars => Inv1' 
+PROVE  TRUE
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:5
+@!!loc:59:5:59:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Root \in Nodes 
+PROVE  (/\ marked = {}
+        /\ vroot = {Root}
+        /\ pc = "a")
+       => (/\ /\ marked \in SUBSET Nodes
+              /\ vroot \in SUBSET Nodes
+              /\ pc \in {"a", "Done"}
+              /\ pc = "Done" => vroot = {}
+           /\ \A n \in marked : Succ[n] \subseteq marked \cup vroot)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:6
+@!!loc:59:8:59:18
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       Root \in Nodes ,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc
+PROVE  Root \in Nodes
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:7
+@!!loc:77:7:77:9
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Inv1 ,
+       [a \/ (pc = "Done" /\ UNCHANGED vars)]_vars ,
+       ASSUME a 
+       PROVE  Inv1' ,
+       ASSUME UNCHANGED vars 
+       PROVE  Inv1' 
+PROVE  Inv1'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:8
+@!!loc:77:10:77:14
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Inv1 ,
+       [a \/ (pc = "Done" /\ UNCHANGED vars)]_vars ,
+       ASSUME a 
+       PROVE  Inv1' 
+PROVE  ASSUME a 
+       PROVE  Inv1'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:9
+@!!loc:77:16:77:20
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Inv1 ,
+       [a \/ (pc = "Done" /\ UNCHANGED vars)]_vars ,
+       ASSUME UNCHANGED vars 
+       PROVE  Inv1' ,
+       ASSUME a 
+       PROVE  Inv1' 
+PROVE  ASSUME UNCHANGED vars 
+       PROVE  Inv1'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:10
+@!!loc:71:7:71:14
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       ASSUME Inv1 ,
+              [Next]_vars 
+       PROVE  Inv1' 
+PROVE  Inv1 /\ [Next]_vars => Inv1'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:11
+@!!loc:73:9:73:11
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       /\ /\ marked \in SUBSET Nodes
+          /\ vroot \in SUBSET Nodes
+          /\ pc \in {"a", "Done"}
+          /\ pc = "Done" => vroot = {}
+       /\ \A n \in marked : Succ[n] \subseteq marked \cup vroot ,
+       [Next]_vars ,
+       /\ pc = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot :
+                       IF v \notin marked
+                         THEN /\ marked' = marked \cup {v}
+                              /\ vroot' = vroot \cup Succ[v]
+                         ELSE /\ vroot' = vroot \ {v}
+                              /\ UNCHANGED marked
+                 /\ pc' = "a"
+            ELSE /\ pc' = "Done"
+                 /\ UNCHANGED <<marked, vroot>> ,
+       Succ \in [Nodes -> SUBSET Nodes] 
+PROVE  (/\ /\ marked \in SUBSET Nodes
+           /\ vroot \in SUBSET Nodes
+           /\ pc \in {"a", "Done"}
+           /\ pc = "Done" => vroot = {}
+        /\ \A n \in marked : Succ[n] \subseteq marked \cup vroot)'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:12
+@!!loc:73:12:73:16
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       /\ /\ marked \in SUBSET Nodes
+          /\ vroot \in SUBSET Nodes
+          /\ pc \in {"a", "Done"}
+          /\ pc = "Done" => vroot = {}
+       /\ \A n \in marked : Succ[n] \subseteq marked \cup vroot ,
+       [Next]_vars ,
+       /\ pc = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot :
+                       IF v \notin marked
+                         THEN /\ marked' = marked \cup {v}
+                              /\ vroot' = vroot \cup Succ[v]
+                         ELSE /\ vroot' = vroot \ {v}
+                              /\ UNCHANGED marked
+                 /\ pc' = "a"
+            ELSE /\ pc' = "Done"
+                 /\ UNCHANGED <<marked, vroot>> 
+PROVE  /\ pc = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot :
+                       IF v \notin marked
+                         THEN /\ marked' = marked \cup {v}
+                              /\ vroot' = vroot \cup Succ[v]
+                         ELSE /\ vroot' = vroot \ {v}
+                              /\ UNCHANGED marked
+                 /\ pc' = "a"
+            ELSE /\ pc' = "Done"
+                 /\ UNCHANGED <<marked, vroot>>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:13
+@!!loc:73:18:73:28
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       Succ \in [Nodes -> SUBSET Nodes] ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       /\ /\ marked \in SUBSET Nodes
+          /\ vroot \in SUBSET Nodes
+          /\ pc \in {"a", "Done"}
+          /\ pc = "Done" => vroot = {}
+       /\ \A n \in marked : Succ[n] \subseteq marked \cup vroot ,
+       [Next]_vars ,
+       /\ pc = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot :
+                       IF v \notin marked
+                         THEN /\ marked' = marked \cup {v}
+                              /\ vroot' = vroot \cup Succ[v]
+                         ELSE /\ vroot' = vroot \ {v}
+                              /\ UNCHANGED marked
+                 /\ pc' = "a"
+            ELSE /\ pc' = "Done"
+                 /\ UNCHANGED <<marked, vroot>> 
+PROVE  Succ \in [Nodes -> SUBSET Nodes]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:14
+@!!loc:75:7:75:9
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       /\ /\ marked \in SUBSET Nodes
+          /\ vroot \in SUBSET Nodes
+          /\ pc \in {"a", "Done"}
+          /\ pc = "Done" => vroot = {}
+       /\ \A n \in marked : Succ[n] \subseteq marked \cup vroot ,
+       [Next]_<<marked, vroot, pc>> ,
+       UNCHANGED <<marked, vroot, pc>> 
+PROVE  (/\ /\ marked \in SUBSET Nodes
+           /\ vroot \in SUBSET Nodes
+           /\ pc \in {"a", "Done"}
+           /\ pc = "Done" => vroot = {}
+        /\ \A n \in marked : Succ[n] \subseteq marked \cup vroot)'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:15
+@!!loc:75:10:75:14
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       /\ /\ marked \in SUBSET Nodes
+          /\ vroot \in SUBSET Nodes
+          /\ pc \in {"a", "Done"}
+          /\ pc = "Done" => vroot = {}
+       /\ \A n \in marked : Succ[n] \subseteq marked \cup vroot ,
+       [Next]_<<marked, vroot, pc>> ,
+       UNCHANGED <<marked, vroot, pc>> 
+PROVE  UNCHANGED <<marked, vroot, pc>>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:16
+@!!loc:91:5:91:7
+@!!status:normalized
+@!!meth:time-limit: 10
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Inv1 => TypeOK /\ Inv2 ,
+       Spec => []Inv1 ,
+       TRUE 
+PROVE  Spec => [](TypeOK /\ Inv2)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:17
+@!!loc:91:8:91:12
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Inv1 => TypeOK /\ Inv2 
+PROVE  Inv1 => TypeOK /\ Inv2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:18
+@!!loc:91:14:91:18
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Spec => []Inv1 ,
+       Inv1 => TypeOK /\ Inv2 
+PROVE  Spec => []Inv1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:19
+@!!loc:91:20:91:23
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Inv1 => TypeOK /\ Inv2 ,
+       Spec => []Inv1 
+PROVE  TRUE
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:20
+@!!loc:89:5:89:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       \A S, T \in SUBSET Nodes :
+          (\A n \in S : Succ[n] \subseteq S \cup T)
+          => S \cup ReachableFrom(T) = ReachableFrom(S \cup T) 
+PROVE  (/\ /\ marked \in SUBSET Nodes
+           /\ vroot \in SUBSET Nodes
+           /\ pc \in {"a", "Done"}
+           /\ pc = "Done" => vroot = {}
+        /\ \A n \in marked : Succ[n] \subseteq marked \cup vroot)
+       => (/\ marked \in SUBSET Nodes
+           /\ vroot \in SUBSET Nodes
+           /\ pc \in {"a", "Done"}
+           /\ pc = "Done" => vroot = {})
+          /\ marked \cup ReachableFrom(vroot)
+             = ReachableFrom(marked \cup vroot)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:21
+@!!loc:89:8:89:18
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       \A S, T \in SUBSET Nodes :
+          (\A n \in S : Succ[n] \subseteq S \cup T)
+          => S \cup ReachableFrom(T) = ReachableFrom(S \cup T) 
+PROVE  \A S, T \in SUBSET Nodes :
+          (\A n \in S : Succ[n] \subseteq S \cup T)
+          => S \cup ReachableFrom(T) = ReachableFrom(S \cup T)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:22
+@!!loc:194:5:194:7
+@!!status:normalized
+@!!meth:time-limit: 10
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Init => Inv3 ,
+       TypeOK /\ TypeOK' /\ Inv2 /\ Inv2' /\ Inv3 /\ [Next]_vars => Inv3' ,
+       (/\ Init /\ [][Next]_vars
+        /\ WF_(vars) (Next)) => [](TypeOK /\ Inv2) ,
+       TRUE 
+PROVE  (/\ Init /\ [][Next]_vars
+        /\ WF_(vars) (Next)) => []Inv3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:23
+@!!loc:194:8:194:12
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Init => Inv3 
+PROVE  Init => Inv3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:24
+@!!loc:194:14:194:18
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       TypeOK /\ TypeOK' /\ Inv2 /\ Inv2' /\ Inv3 /\ [Next]_vars => Inv3' ,
+       Init => Inv3 
+PROVE  TypeOK /\ TypeOK' /\ Inv2 /\ Inv2' /\ Inv3 /\ [Next]_vars => Inv3'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:25
+@!!loc:194:20:194:24
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       (/\ Init /\ [][Next]_vars
+        /\ WF_(vars) (Next)) => [](TypeOK /\ Inv2) ,
+       Init => Inv3 ,
+       TypeOK /\ TypeOK' /\ Inv2 /\ Inv2' /\ Inv3 /\ [Next]_vars => Inv3' 
+PROVE  (/\ Init /\ [][Next]_vars
+        /\ WF_(vars) (Next)) => [](TypeOK /\ Inv2)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:26
+@!!loc:194:26:194:29
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Init => Inv3 ,
+       TypeOK /\ TypeOK' /\ Inv2 /\ Inv2' /\ Inv3 /\ [Next]_vars => Inv3' ,
+       (/\ Init /\ [][Next]_vars
+        /\ WF_(vars) (Next)) => [](TypeOK /\ Inv2) 
+PROVE  TRUE
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:27
+@!!loc:108:5:108:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Root \in Nodes 
+PROVE  (/\ marked = {}
+        /\ vroot = {Root}
+        /\ pc = "a")
+       => ReachableFrom({Root}) = marked \cup ReachableFrom(vroot)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:22
+@!!loc:194:5:194:7
+@!!status:proved
+@!!prover:ls4
+@!!meth:time-limit: 10; time-used: 0.0 (0%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Init => Inv3 ,
+       TypeOK /\ TypeOK' /\ Inv2 /\ Inv2' /\ Inv3 /\ [Next]_vars => Inv3' ,
+       (/\ Init /\ [][Next]_vars
+        /\ WF_(vars) (Next)) => [](TypeOK /\ Inv2) ,
+       TRUE 
+PROVE  (/\ Init /\ [][Next]_vars
+        /\ WF_(vars) (Next)) => []Inv3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:16
+@!!loc:91:5:91:7
+@!!status:proved
+@!!prover:ls4
+@!!meth:time-limit: 10; time-used: 0.0 (0%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Inv1 => TypeOK /\ Inv2 ,
+       Spec => []Inv1 ,
+       TRUE 
+PROVE  Spec => [](TypeOK /\ Inv2)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:14
+@!!loc:75:7:75:9
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       /\ /\ marked \in SUBSET Nodes
+          /\ vroot \in SUBSET Nodes
+          /\ pc \in {"a", "Done"}
+          /\ pc = "Done" => vroot = {}
+       /\ \A n \in marked : Succ[n] \subseteq marked \cup vroot ,
+       [Next]_<<marked, vroot, pc>> ,
+       UNCHANGED <<marked, vroot, pc>> 
+PROVE  (/\ /\ marked \in SUBSET Nodes
+           /\ vroot \in SUBSET Nodes
+           /\ pc \in {"a", "Done"}
+           /\ pc = "Done" => vroot = {}
+        /\ \A n \in marked : Succ[n] \subseteq marked \cup vroot)'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:11
+@!!loc:73:9:73:11
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       /\ /\ marked \in SUBSET Nodes
+          /\ vroot \in SUBSET Nodes
+          /\ pc \in {"a", "Done"}
+          /\ pc = "Done" => vroot = {}
+       /\ \A n \in marked : Succ[n] \subseteq marked \cup vroot ,
+       [Next]_vars ,
+       /\ pc = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot :
+                       IF v \notin marked
+                         THEN /\ marked' = marked \cup {v}
+                              /\ vroot' = vroot \cup Succ[v]
+                         ELSE /\ vroot' = vroot \ {v}
+                              /\ UNCHANGED marked
+                 /\ pc' = "a"
+            ELSE /\ pc' = "Done"
+                 /\ UNCHANGED <<marked, vroot>> ,
+       Succ \in [Nodes -> SUBSET Nodes] 
+PROVE  (/\ /\ marked \in SUBSET Nodes
+           /\ vroot \in SUBSET Nodes
+           /\ pc \in {"a", "Done"}
+           /\ pc = "Done" => vroot = {}
+        /\ \A n \in marked : Succ[n] \subseteq marked \cup vroot)'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:10
+@!!loc:71:7:71:14
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       ASSUME Inv1 ,
+              [Next]_vars 
+       PROVE  Inv1' 
+PROVE  Inv1 /\ [Next]_vars => Inv1'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:7
+@!!loc:77:7:77:9
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Inv1 ,
+       [a \/ (pc = "Done" /\ UNCHANGED vars)]_vars ,
+       ASSUME a 
+       PROVE  Inv1' ,
+       ASSUME UNCHANGED vars 
+       PROVE  Inv1' 
+PROVE  Inv1'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:5
+@!!loc:59:5:59:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Root \in Nodes 
+PROVE  (/\ marked = {}
+        /\ vroot = {Root}
+        /\ pc = "a")
+       => (/\ /\ marked \in SUBSET Nodes
+              /\ vroot \in SUBSET Nodes
+              /\ pc \in {"a", "Done"}
+              /\ pc = "Done" => vroot = {}
+           /\ \A n \in marked : Succ[n] \subseteq marked \cup vroot)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:1
+@!!loc:79:5:79:7
+@!!status:proved
+@!!prover:ls4
+@!!meth:time-limit: 10; time-used: 0.4 (4%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Init => Inv1 ,
+       Inv1 /\ [Next]_vars => Inv1' ,
+       TRUE 
+PROVE  (/\ Init /\ [][Next]_vars
+        /\ WF_(vars) (Next)) => []Inv1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:28
+@!!loc:108:8:108:18
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       Root \in Nodes ,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc
+PROVE  Root \in Nodes
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:29
+@!!loc:192:7:192:9
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [a \/ (pc = "Done" /\ UNCHANGED vars)]_vars ,
+       ASSUME a 
+       PROVE  Inv3' ,
+       ASSUME UNCHANGED vars 
+       PROVE  Inv3' 
+PROVE  Inv3'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:30
+@!!loc:192:10:192:14
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [a \/ (pc = "Done" /\ UNCHANGED vars)]_vars ,
+       ASSUME a 
+       PROVE  Inv3' 
+PROVE  ASSUME a 
+       PROVE  Inv3'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:31
+@!!loc:192:16:192:20
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [a \/ (pc = "Done" /\ UNCHANGED vars)]_vars ,
+       ASSUME UNCHANGED vars 
+       PROVE  Inv3' ,
+       ASSUME a 
+       PROVE  Inv3' 
+PROVE  ASSUME UNCHANGED vars 
+       PROVE  Inv3'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:32
+@!!loc:122:7:122:14
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       ASSUME TypeOK ,
+              TypeOK' ,
+              Inv2 ,
+              Inv2' ,
+              Inv3 ,
+              [Next]_vars 
+       PROVE  Inv3' 
+PROVE  TypeOK /\ TypeOK' /\ Inv2 /\ Inv2' /\ Inv3 /\ [Next]_vars => Inv3'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:33
+@!!loc:131:7:131:14
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars 
+PROVE  /\ Reachable' = Reachable
+       /\ ReachableFrom(vroot)' = ReachableFrom(vroot')
+       /\ ReachableFrom(marked \cup vroot)'
+          = ReachableFrom(marked' \cup vroot')
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:34
+@!!loc:185:11:185:13
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       /\ pc = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot :
+                       IF v \notin marked
+                         THEN /\ marked' = marked \cup {v}
+                              /\ vroot' = vroot \cup Succ[v]
+                         ELSE /\ vroot' = vroot \ {v}
+                              /\ UNCHANGED marked
+                 /\ pc' = "a"
+            ELSE /\ pc' = "Done"
+                 /\ UNCHANGED <<marked, vroot>> ,
+       ASSUME vroot = {} 
+       PROVE  Inv3' ,
+       ASSUME vroot # {} 
+       PROVE  Inv3' 
+PROVE  Inv3'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:35
+@!!loc:185:14:185:18
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       /\ pc = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot :
+                       IF v \notin marked
+                         THEN /\ marked' = marked \cup {v}
+                              /\ vroot' = vroot \cup Succ[v]
+                         ELSE /\ vroot' = vroot \ {v}
+                              /\ UNCHANGED marked
+                 /\ pc' = "a"
+            ELSE /\ pc' = "Done"
+                 /\ UNCHANGED <<marked, vroot>> ,
+       ASSUME vroot = {} 
+       PROVE  Inv3' 
+PROVE  ASSUME vroot = {} 
+       PROVE  Inv3'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:36
+@!!loc:185:20:185:24
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       /\ pc = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot :
+                       IF v \notin marked
+                         THEN /\ marked' = marked \cup {v}
+                              /\ vroot' = vroot \cup Succ[v]
+                         ELSE /\ vroot' = vroot \ {v}
+                              /\ UNCHANGED marked
+                 /\ pc' = "a"
+            ELSE /\ pc' = "Done"
+                 /\ UNCHANGED <<marked, vroot>> ,
+       ASSUME vroot # {} 
+       PROVE  Inv3' ,
+       ASSUME vroot = {} 
+       PROVE  Inv3' 
+PROVE  ASSUME vroot # {} 
+       PROVE  Inv3'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:37
+@!!loc:137:15:137:19
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       /\ pc = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot :
+                       IF v \notin marked
+                         THEN /\ marked' = marked \cup {v}
+                              /\ vroot' = vroot \cup Succ[v]
+                         ELSE /\ vroot' = vroot \ {v}
+                              /\ UNCHANGED marked
+                 /\ pc' = "a"
+            ELSE /\ pc' = "Done"
+                 /\ UNCHANGED <<marked, vroot>> 
+PROVE  /\ pc = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot :
+                       IF v \notin marked
+                         THEN /\ marked' = marked \cup {v}
+                              /\ vroot' = vroot \cup Succ[v]
+                         ELSE /\ vroot' = vroot \ {v}
+                              /\ UNCHANGED marked
+                 /\ pc' = "a"
+            ELSE /\ pc' = "Done"
+                 /\ UNCHANGED <<marked, vroot>>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:38
+@!!loc:144:9:144:11
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ pc \in {"a", "Done"}
+       /\ pc = "Done" => vroot = {} ,
+       (/\ marked \in SUBSET Nodes
+        /\ vroot \in SUBSET Nodes
+        /\ pc \in {"a", "Done"}
+        /\ pc = "Done" => vroot = {})' ,
+       Inv2 ,
+       Inv2' ,
+       Reachable = marked \cup ReachableFrom(vroot) ,
+       [Next]_vars ,
+       /\ pc = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot :
+                       IF v \notin marked
+                         THEN /\ marked' = marked \cup {v}
+                              /\ vroot' = vroot \cup Succ[v]
+                         ELSE /\ vroot' = vroot \ {v}
+                              /\ UNCHANGED marked
+                 /\ pc' = "a"
+            ELSE /\ pc' = "Done"
+                 /\ UNCHANGED <<marked, vroot>> ,
+       /\ Reachable' = Reachable
+       /\ ReachableFrom(vroot)' = ReachableFrom(vroot')
+       /\ ReachableFrom(marked \cup vroot)'
+          = ReachableFrom(marked' \cup vroot') ,
+       vroot = {} 
+PROVE  (Reachable = marked \cup ReachableFrom(vroot))'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:39
+@!!loc:144:12:144:16
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ pc \in {"a", "Done"}
+       /\ pc = "Done" => vroot = {} ,
+       (/\ marked \in SUBSET Nodes
+        /\ vroot \in SUBSET Nodes
+        /\ pc \in {"a", "Done"}
+        /\ pc = "Done" => vroot = {})' ,
+       Inv2 ,
+       Inv2' ,
+       Reachable = marked \cup ReachableFrom(vroot) ,
+       [Next]_vars ,
+       /\ Reachable' = Reachable
+       /\ ReachableFrom(vroot)' = ReachableFrom(vroot')
+       /\ ReachableFrom(marked \cup vroot)'
+          = ReachableFrom(marked' \cup vroot') ,
+       /\ pc = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot :
+                       IF v \notin marked
+                         THEN /\ marked' = marked \cup {v}
+                              /\ vroot' = vroot \cup Succ[v]
+                         ELSE /\ vroot' = vroot \ {v}
+                              /\ UNCHANGED marked
+                 /\ pc' = "a"
+            ELSE /\ pc' = "Done"
+                 /\ UNCHANGED <<marked, vroot>> 
+PROVE  /\ Reachable' = Reachable
+       /\ ReachableFrom(vroot)' = ReachableFrom(vroot')
+       /\ ReachableFrom(marked \cup vroot)'
+          = ReachableFrom(marked' \cup vroot')
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:40
+@!!loc:144:18:144:22
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ pc \in {"a", "Done"}
+       /\ pc = "Done" => vroot = {} ,
+       (/\ marked \in SUBSET Nodes
+        /\ vroot \in SUBSET Nodes
+        /\ pc \in {"a", "Done"}
+        /\ pc = "Done" => vroot = {})' ,
+       Inv2 ,
+       Inv2' ,
+       Reachable = marked \cup ReachableFrom(vroot) ,
+       [Next]_vars ,
+       /\ pc = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot :
+                       IF v \notin marked
+                         THEN /\ marked' = marked \cup {v}
+                              /\ vroot' = vroot \cup Succ[v]
+                         ELSE /\ vroot' = vroot \ {v}
+                              /\ UNCHANGED marked
+                 /\ pc' = "a"
+            ELSE /\ pc' = "Done"
+                 /\ UNCHANGED <<marked, vroot>> ,
+       vroot = {} ,
+       /\ Reachable' = Reachable
+       /\ ReachableFrom(vroot)' = ReachableFrom(vroot')
+       /\ ReachableFrom(marked \cup vroot)'
+          = ReachableFrom(marked' \cup vroot') 
+PROVE  vroot = {}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:41
+@!!loc:183:11:183:13
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       /\ pc = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot :
+                       IF v \notin marked
+                         THEN /\ marked' = marked \cup {v}
+                              /\ vroot' = vroot \cup Succ[v]
+                         ELSE /\ vroot' = vroot \ {v}
+                              /\ UNCHANGED marked
+                 /\ pc' = "a"
+            ELSE /\ pc' = "Done"
+                 /\ UNCHANGED <<marked, vroot>> ,
+       NEW CONSTANT v \in vroot,
+       ASSUME v \notin marked 
+       PROVE  Inv3' ,
+       ASSUME v \in marked 
+       PROVE  Inv3' 
+PROVE  Inv3'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:42
+@!!loc:183:14:183:18
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       /\ pc = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot :
+                       IF v \notin marked
+                         THEN /\ marked' = marked \cup {v}
+                              /\ vroot' = vroot \cup Succ[v]
+                         ELSE /\ vroot' = vroot \ {v}
+                              /\ UNCHANGED marked
+                 /\ pc' = "a"
+            ELSE /\ pc' = "Done"
+                 /\ UNCHANGED <<marked, vroot>> ,
+       NEW CONSTANT v \in vroot,
+       ASSUME v \notin marked 
+       PROVE  Inv3' 
+PROVE  ASSUME v \notin marked 
+       PROVE  Inv3'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:43
+@!!loc:183:20:183:24
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       /\ pc = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot :
+                       IF v \notin marked
+                         THEN /\ marked' = marked \cup {v}
+                              /\ vroot' = vroot \cup Succ[v]
+                         ELSE /\ vroot' = vroot \ {v}
+                              /\ UNCHANGED marked
+                 /\ pc' = "a"
+            ELSE /\ pc' = "Done"
+                 /\ UNCHANGED <<marked, vroot>> ,
+       NEW CONSTANT v \in vroot,
+       ASSUME v \in marked 
+       PROVE  Inv3' ,
+       ASSUME v \notin marked 
+       PROVE  Inv3' 
+PROVE  ASSUME v \in marked 
+       PROVE  Inv3'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:44
+@!!loc:156:11:156:13
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       /\ pc = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot :
+                       IF v \notin marked
+                         THEN /\ marked' = marked \cup {v}
+                              /\ vroot' = vroot \cup Succ[v]
+                         ELSE /\ vroot' = vroot \ {v}
+                              /\ UNCHANGED marked
+                 /\ pc' = "a"
+            ELSE /\ pc' = "Done"
+                 /\ UNCHANGED <<marked, vroot>> ,
+       vroot # {} 
+PROVE  \E v \in vroot :
+          IF v \notin marked
+            THEN /\ marked' = marked \cup {v}
+                 /\ vroot' = vroot \cup Succ[v]
+            ELSE /\ vroot' = vroot \ {v}
+                 /\ UNCHANGED marked
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:45
+@!!loc:156:14:156:18
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       /\ pc = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot :
+                       IF v \notin marked
+                         THEN /\ marked' = marked \cup {v}
+                              /\ vroot' = vroot \cup Succ[v]
+                         ELSE /\ vroot' = vroot \ {v}
+                              /\ UNCHANGED marked
+                 /\ pc' = "a"
+            ELSE /\ pc' = "Done"
+                 /\ UNCHANGED <<marked, vroot>> ,
+       vroot # {} 
+PROVE  vroot # {}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:47
+@!!loc:173:13:173:15
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Reachable = marked \cup ReachableFrom(vroot) ,
+       [Next]_vars ,
+       /\ pc = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot :
+                       IF v \notin marked
+                         THEN /\ marked' = marked \cup {v}
+                              /\ vroot' = vroot \cup Succ[v]
+                         ELSE /\ vroot' = vroot \ {v}
+                              /\ UNCHANGED marked
+                 /\ pc' = "a"
+            ELSE /\ pc' = "Done"
+                 /\ UNCHANGED <<marked, vroot>> ,
+       NEW CONSTANT v \in vroot,
+       /\ ReachableFrom(vroot') = ReachableFrom(vroot)
+       /\ v \in ReachableFrom(vroot) ,
+       IF v \notin marked
+         THEN /\ marked' = marked \cup {v}
+              /\ vroot' = vroot \cup Succ[v]
+         ELSE /\ vroot' = vroot \ {v}
+              /\ UNCHANGED marked ,
+       v \notin marked ,
+       /\ ReachableFrom(vroot') = ReachableFrom(vroot)
+       /\ v \in ReachableFrom(vroot) ,
+       /\ Reachable' = Reachable
+       /\ ReachableFrom(vroot)' = ReachableFrom(vroot')
+       /\ ReachableFrom(marked \cup vroot)'
+          = ReachableFrom(marked' \cup vroot') 
+PROVE  (Reachable = marked \cup ReachableFrom(vroot))'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:41
+@!!loc:183:11:183:13
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       /\ pc = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot :
+                       IF v \notin marked
+                         THEN /\ marked' = marked \cup {v}
+                              /\ vroot' = vroot \cup Succ[v]
+                         ELSE /\ vroot' = vroot \ {v}
+                              /\ UNCHANGED marked
+                 /\ pc' = "a"
+            ELSE /\ pc' = "Done"
+                 /\ UNCHANGED <<marked, vroot>> ,
+       NEW CONSTANT v \in vroot,
+       ASSUME v \notin marked 
+       PROVE  Inv3' ,
+       ASSUME v \in marked 
+       PROVE  Inv3' 
+PROVE  Inv3'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:38
+@!!loc:144:9:144:11
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ pc \in {"a", "Done"}
+       /\ pc = "Done" => vroot = {} ,
+       (/\ marked \in SUBSET Nodes
+        /\ vroot \in SUBSET Nodes
+        /\ pc \in {"a", "Done"}
+        /\ pc = "Done" => vroot = {})' ,
+       Inv2 ,
+       Inv2' ,
+       Reachable = marked \cup ReachableFrom(vroot) ,
+       [Next]_vars ,
+       /\ pc = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot :
+                       IF v \notin marked
+                         THEN /\ marked' = marked \cup {v}
+                              /\ vroot' = vroot \cup Succ[v]
+                         ELSE /\ vroot' = vroot \ {v}
+                              /\ UNCHANGED marked
+                 /\ pc' = "a"
+            ELSE /\ pc' = "Done"
+                 /\ UNCHANGED <<marked, vroot>> ,
+       /\ Reachable' = Reachable
+       /\ ReachableFrom(vroot)' = ReachableFrom(vroot')
+       /\ ReachableFrom(marked \cup vroot)'
+          = ReachableFrom(marked' \cup vroot') ,
+       vroot = {} 
+PROVE  (Reachable = marked \cup ReachableFrom(vroot))'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:34
+@!!loc:185:11:185:13
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       /\ pc = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot :
+                       IF v \notin marked
+                         THEN /\ marked' = marked \cup {v}
+                              /\ vroot' = vroot \cup Succ[v]
+                         ELSE /\ vroot' = vroot \ {v}
+                              /\ UNCHANGED marked
+                 /\ pc' = "a"
+            ELSE /\ pc' = "Done"
+                 /\ UNCHANGED <<marked, vroot>> ,
+       ASSUME vroot = {} 
+       PROVE  Inv3' ,
+       ASSUME vroot # {} 
+       PROVE  Inv3' 
+PROVE  Inv3'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:33
+@!!loc:131:7:131:14
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars 
+PROVE  /\ Reachable' = Reachable
+       /\ ReachableFrom(vroot)' = ReachableFrom(vroot')
+       /\ ReachableFrom(marked \cup vroot)'
+          = ReachableFrom(marked' \cup vroot')
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:32
+@!!loc:122:7:122:14
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       ASSUME TypeOK ,
+              TypeOK' ,
+              Inv2 ,
+              Inv2' ,
+              Inv3 ,
+              [Next]_vars 
+       PROVE  Inv3' 
+PROVE  TypeOK /\ TypeOK' /\ Inv2 /\ Inv2' /\ Inv3 /\ [Next]_vars => Inv3'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:29
+@!!loc:192:7:192:9
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [a \/ (pc = "Done" /\ UNCHANGED vars)]_vars ,
+       ASSUME a 
+       PROVE  Inv3' ,
+       ASSUME UNCHANGED vars 
+       PROVE  Inv3' 
+PROVE  Inv3'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:27
+@!!loc:108:5:108:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (3%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Root \in Nodes 
+PROVE  (/\ marked = {}
+        /\ vroot = {Root}
+        /\ pc = "a")
+       => ReachableFrom({Root}) = marked \cup ReachableFrom(vroot)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:20
+@!!loc:89:5:89:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.2 (3%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       \A S, T \in SUBSET Nodes :
+          (\A n \in S : Succ[n] \subseteq S \cup T)
+          => S \cup ReachableFrom(T) = ReachableFrom(S \cup T) 
+PROVE  (/\ /\ marked \in SUBSET Nodes
+           /\ vroot \in SUBSET Nodes
+           /\ pc \in {"a", "Done"}
+           /\ pc = "Done" => vroot = {}
+        /\ \A n \in marked : Succ[n] \subseteq marked \cup vroot)
+       => (/\ marked \in SUBSET Nodes
+           /\ vroot \in SUBSET Nodes
+           /\ pc \in {"a", "Done"}
+           /\ pc = "Done" => vroot = {})
+          /\ marked \cup ReachableFrom(vroot)
+             = ReachableFrom(marked \cup vroot)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:48
+@!!loc:173:16:173:20
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Reachable = marked \cup ReachableFrom(vroot) ,
+       [Next]_vars ,
+       /\ pc = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot :
+                       IF v \notin marked
+                         THEN /\ marked' = marked \cup {v}
+                              /\ vroot' = vroot \cup Succ[v]
+                         ELSE /\ vroot' = vroot \ {v}
+                              /\ UNCHANGED marked
+                 /\ pc' = "a"
+            ELSE /\ pc' = "Done"
+                 /\ UNCHANGED <<marked, vroot>> ,
+       NEW CONSTANT v \in vroot,
+       /\ ReachableFrom(vroot') = ReachableFrom(vroot)
+       /\ v \in ReachableFrom(vroot) 
+PROVE  /\ ReachableFrom(vroot') = ReachableFrom(vroot)
+       /\ v \in ReachableFrom(vroot)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:49
+@!!loc:173:22:173:26
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Reachable = marked \cup ReachableFrom(vroot) ,
+       [Next]_vars ,
+       /\ pc = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot :
+                       IF v \notin marked
+                         THEN /\ marked' = marked \cup {v}
+                              /\ vroot' = vroot \cup Succ[v]
+                         ELSE /\ vroot' = vroot \ {v}
+                              /\ UNCHANGED marked
+                 /\ pc' = "a"
+            ELSE /\ pc' = "Done"
+                 /\ UNCHANGED <<marked, vroot>> ,
+       NEW CONSTANT v \in vroot,
+       IF v \notin marked
+         THEN /\ marked' = marked \cup {v}
+              /\ vroot' = vroot \cup Succ[v]
+         ELSE /\ vroot' = vroot \ {v}
+              /\ UNCHANGED marked ,
+       /\ ReachableFrom(vroot') = ReachableFrom(vroot)
+       /\ v \in ReachableFrom(vroot) 
+PROVE  IF v \notin marked
+         THEN /\ marked' = marked \cup {v}
+              /\ vroot' = vroot \cup Succ[v]
+         ELSE /\ vroot' = vroot \ {v}
+              /\ UNCHANGED marked
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:50
+@!!loc:173:28:173:32
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Reachable = marked \cup ReachableFrom(vroot) ,
+       [Next]_vars ,
+       /\ pc = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot :
+                       IF v \notin marked
+                         THEN /\ marked' = marked \cup {v}
+                              /\ vroot' = vroot \cup Succ[v]
+                         ELSE /\ vroot' = vroot \ {v}
+                              /\ UNCHANGED marked
+                 /\ pc' = "a"
+            ELSE /\ pc' = "Done"
+                 /\ UNCHANGED <<marked, vroot>> ,
+       NEW CONSTANT v \in vroot,
+       v \notin marked ,
+       /\ ReachableFrom(vroot') = ReachableFrom(vroot)
+       /\ v \in ReachableFrom(vroot) ,
+       IF v \notin marked
+         THEN /\ marked' = marked \cup {v}
+              /\ vroot' = vroot \cup Succ[v]
+         ELSE /\ vroot' = vroot \ {v}
+              /\ UNCHANGED marked 
+PROVE  v \notin marked
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:51
+@!!loc:173:34:173:38
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Reachable = marked \cup ReachableFrom(vroot) ,
+       [Next]_vars ,
+       /\ pc = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot :
+                       IF v \notin marked
+                         THEN /\ marked' = marked \cup {v}
+                              /\ vroot' = vroot \cup Succ[v]
+                         ELSE /\ vroot' = vroot \ {v}
+                              /\ UNCHANGED marked
+                 /\ pc' = "a"
+            ELSE /\ pc' = "Done"
+                 /\ UNCHANGED <<marked, vroot>> ,
+       NEW CONSTANT v \in vroot,
+       /\ ReachableFrom(vroot') = ReachableFrom(vroot)
+       /\ v \in ReachableFrom(vroot) ,
+       IF v \notin marked
+         THEN /\ marked' = marked \cup {v}
+              /\ vroot' = vroot \cup Succ[v]
+         ELSE /\ vroot' = vroot \ {v}
+              /\ UNCHANGED marked ,
+       v \notin marked 
+PROVE  /\ ReachableFrom(vroot') = ReachableFrom(vroot)
+       /\ v \in ReachableFrom(vroot)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:52
+@!!loc:173:40:173:44
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Reachable = marked \cup ReachableFrom(vroot) ,
+       [Next]_vars ,
+       /\ Reachable' = Reachable
+       /\ ReachableFrom(vroot)' = ReachableFrom(vroot')
+       /\ ReachableFrom(marked \cup vroot)'
+          = ReachableFrom(marked' \cup vroot') ,
+       /\ pc = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot :
+                       IF v \notin marked
+                         THEN /\ marked' = marked \cup {v}
+                              /\ vroot' = vroot \cup Succ[v]
+                         ELSE /\ vroot' = vroot \ {v}
+                              /\ UNCHANGED marked
+                 /\ pc' = "a"
+            ELSE /\ pc' = "Done"
+                 /\ UNCHANGED <<marked, vroot>> ,
+       NEW CONSTANT v \in vroot,
+       /\ ReachableFrom(vroot') = ReachableFrom(vroot)
+       /\ v \in ReachableFrom(vroot) ,
+       IF v \notin marked
+         THEN /\ marked' = marked \cup {v}
+              /\ vroot' = vroot \cup Succ[v]
+         ELSE /\ vroot' = vroot \ {v}
+              /\ UNCHANGED marked ,
+       v \notin marked ,
+       /\ ReachableFrom(vroot') = ReachableFrom(vroot)
+       /\ v \in ReachableFrom(vroot) 
+PROVE  /\ Reachable' = Reachable
+       /\ ReachableFrom(vroot)' = ReachableFrom(vroot')
+       /\ ReachableFrom(marked \cup vroot)'
+          = ReachableFrom(marked' \cup vroot')
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:53
+@!!loc:171:13:171:15
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ pc \in {"a", "Done"}
+       /\ pc = "Done" => vroot = {} ,
+       (/\ marked \in SUBSET Nodes
+        /\ vroot \in SUBSET Nodes
+        /\ pc \in {"a", "Done"}
+        /\ pc = "Done" => vroot = {})' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       /\ pc = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot :
+                       IF v \notin marked
+                         THEN /\ marked' = marked \cup {v}
+                              /\ vroot' = vroot \cup Succ[v]
+                         ELSE /\ vroot' = vroot \ {v}
+                              /\ UNCHANGED marked
+                 /\ pc' = "a"
+            ELSE /\ pc' = "Done"
+                 /\ UNCHANGED <<marked, vroot>> ,
+       NEW CONSTANT v \in vroot,
+       IF v \notin marked
+         THEN /\ marked' = marked \cup {v}
+              /\ vroot' = vroot \cup Succ[v]
+         ELSE /\ vroot' = vroot \ {v}
+              /\ UNCHANGED marked ,
+       v \notin marked ,
+       \A S \in SUBSET Nodes :
+          \A n \in S :
+             /\ ReachableFrom(S) = ReachableFrom(S \cup Succ[n])
+             /\ n \in ReachableFrom(S) 
+PROVE  /\ ReachableFrom(vroot') = ReachableFrom(vroot)
+       /\ v \in ReachableFrom(vroot)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:54
+@!!loc:171:16:171:20
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ pc \in {"a", "Done"}
+       /\ pc = "Done" => vroot = {} ,
+       (/\ marked \in SUBSET Nodes
+        /\ vroot \in SUBSET Nodes
+        /\ pc \in {"a", "Done"}
+        /\ pc = "Done" => vroot = {})' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       /\ pc = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot :
+                       IF v \notin marked
+                         THEN /\ marked' = marked \cup {v}
+                              /\ vroot' = vroot \cup Succ[v]
+                         ELSE /\ vroot' = vroot \ {v}
+                              /\ UNCHANGED marked
+                 /\ pc' = "a"
+            ELSE /\ pc' = "Done"
+                 /\ UNCHANGED <<marked, vroot>> ,
+       NEW CONSTANT v \in vroot,
+       IF v \notin marked
+         THEN /\ marked' = marked \cup {v}
+              /\ vroot' = vroot \cup Succ[v]
+         ELSE /\ vroot' = vroot \ {v}
+              /\ UNCHANGED marked 
+PROVE  IF v \notin marked
+         THEN /\ marked' = marked \cup {v}
+              /\ vroot' = vroot \cup Succ[v]
+         ELSE /\ vroot' = vroot \ {v}
+              /\ UNCHANGED marked
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:55
+@!!loc:171:22:171:26
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ pc \in {"a", "Done"}
+       /\ pc = "Done" => vroot = {} ,
+       (/\ marked \in SUBSET Nodes
+        /\ vroot \in SUBSET Nodes
+        /\ pc \in {"a", "Done"}
+        /\ pc = "Done" => vroot = {})' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       /\ pc = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot :
+                       IF v \notin marked
+                         THEN /\ marked' = marked \cup {v}
+                              /\ vroot' = vroot \cup Succ[v]
+                         ELSE /\ vroot' = vroot \ {v}
+                              /\ UNCHANGED marked
+                 /\ pc' = "a"
+            ELSE /\ pc' = "Done"
+                 /\ UNCHANGED <<marked, vroot>> ,
+       NEW CONSTANT v \in vroot,
+       v \notin marked ,
+       IF v \notin marked
+         THEN /\ marked' = marked \cup {v}
+              /\ vroot' = vroot \cup Succ[v]
+         ELSE /\ vroot' = vroot \ {v}
+              /\ UNCHANGED marked 
+PROVE  v \notin marked
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:56
+@!!loc:171:28:171:38
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       \A S \in SUBSET Nodes :
+          \A n \in S :
+             /\ ReachableFrom(S) = ReachableFrom(S \cup Succ[n])
+             /\ n \in ReachableFrom(S) ,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ pc \in {"a", "Done"}
+       /\ pc = "Done" => vroot = {} ,
+       (/\ marked \in SUBSET Nodes
+        /\ vroot \in SUBSET Nodes
+        /\ pc \in {"a", "Done"}
+        /\ pc = "Done" => vroot = {})' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       /\ pc = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot :
+                       IF v \notin marked
+                         THEN /\ marked' = marked \cup {v}
+                              /\ vroot' = vroot \cup Succ[v]
+                         ELSE /\ vroot' = vroot \ {v}
+                              /\ UNCHANGED marked
+                 /\ pc' = "a"
+            ELSE /\ pc' = "Done"
+                 /\ UNCHANGED <<marked, vroot>> ,
+       NEW CONSTANT v \in vroot,
+       IF v \notin marked
+         THEN /\ marked' = marked \cup {v}
+              /\ vroot' = vroot \cup Succ[v]
+         ELSE /\ vroot' = vroot \ {v}
+              /\ UNCHANGED marked ,
+       v \notin marked 
+PROVE  \A S \in SUBSET Nodes :
+          \A n \in S :
+             /\ ReachableFrom(S) = ReachableFrom(S \cup Succ[n])
+             /\ n \in ReachableFrom(S)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:57
+@!!loc:181:13:181:15
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       TypeOK ,
+       TypeOK' ,
+       marked \cup ReachableFrom(vroot) = ReachableFrom(marked \cup vroot) ,
+       (marked \cup ReachableFrom(vroot) = ReachableFrom(marked \cup vroot))' ,
+       Reachable = marked \cup ReachableFrom(vroot) ,
+       [Next]_vars ,
+       /\ pc = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot :
+                       IF v \notin marked
+                         THEN /\ marked' = marked \cup {v}
+                              /\ vroot' = vroot \cup Succ[v]
+                         ELSE /\ vroot' = vroot \ {v}
+                              /\ UNCHANGED marked
+                 /\ pc' = "a"
+            ELSE /\ pc' = "Done"
+                 /\ UNCHANGED <<marked, vroot>> ,
+       NEW CONSTANT v \in vroot,
+       marked' \cup vroot' = marked \cup vroot ,
+       /\ Reachable' = Reachable
+       /\ ReachableFrom(vroot)' = ReachableFrom(vroot')
+       /\ ReachableFrom(marked \cup vroot)'
+          = ReachableFrom(marked' \cup vroot') 
+PROVE  (Reachable = marked \cup ReachableFrom(vroot))'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:58
+@!!loc:181:16:181:20
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       TypeOK ,
+       TypeOK' ,
+       marked \cup ReachableFrom(vroot) = ReachableFrom(marked \cup vroot) ,
+       (marked \cup ReachableFrom(vroot) = ReachableFrom(marked \cup vroot))' ,
+       Reachable = marked \cup ReachableFrom(vroot) ,
+       [Next]_vars ,
+       /\ pc = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot :
+                       IF v \notin marked
+                         THEN /\ marked' = marked \cup {v}
+                              /\ vroot' = vroot \cup Succ[v]
+                         ELSE /\ vroot' = vroot \ {v}
+                              /\ UNCHANGED marked
+                 /\ pc' = "a"
+            ELSE /\ pc' = "Done"
+                 /\ UNCHANGED <<marked, vroot>> ,
+       NEW CONSTANT v \in vroot,
+       marked' \cup vroot' = marked \cup vroot 
+PROVE  marked' \cup vroot' = marked \cup vroot
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:59
+@!!loc:181:22:181:26
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       TypeOK ,
+       TypeOK' ,
+       marked \cup ReachableFrom(vroot) = ReachableFrom(marked \cup vroot) ,
+       (marked \cup ReachableFrom(vroot) = ReachableFrom(marked \cup vroot))' ,
+       Reachable = marked \cup ReachableFrom(vroot) ,
+       [Next]_vars ,
+       /\ Reachable' = Reachable
+       /\ ReachableFrom(vroot)' = ReachableFrom(vroot')
+       /\ ReachableFrom(marked \cup vroot)'
+          = ReachableFrom(marked' \cup vroot') ,
+       /\ pc = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot :
+                       IF v \notin marked
+                         THEN /\ marked' = marked \cup {v}
+                              /\ vroot' = vroot \cup Succ[v]
+                         ELSE /\ vroot' = vroot \ {v}
+                              /\ UNCHANGED marked
+                 /\ pc' = "a"
+            ELSE /\ pc' = "Done"
+                 /\ UNCHANGED <<marked, vroot>> ,
+       NEW CONSTANT v \in vroot,
+       marked' \cup vroot' = marked \cup vroot 
+PROVE  /\ Reachable' = Reachable
+       /\ ReachableFrom(vroot)' = ReachableFrom(vroot')
+       /\ ReachableFrom(marked \cup vroot)'
+          = ReachableFrom(marked' \cup vroot')
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:60
+@!!loc:179:13:179:15
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       /\ pc = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot :
+                       IF v \notin marked
+                         THEN /\ marked' = marked \cup {v}
+                              /\ vroot' = vroot \cup Succ[v]
+                         ELSE /\ vroot' = vroot \ {v}
+                              /\ UNCHANGED marked
+                 /\ pc' = "a"
+            ELSE /\ pc' = "Done"
+                 /\ UNCHANGED <<marked, vroot>> ,
+       NEW CONSTANT v \in vroot,
+       IF v \notin marked
+         THEN /\ marked' = marked \cup {v}
+              /\ vroot' = vroot \cup Succ[v]
+         ELSE /\ vroot' = vroot \ {v}
+              /\ UNCHANGED marked ,
+       v \in marked 
+PROVE  marked' \cup vroot' = marked \cup vroot
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:61
+@!!loc:179:16:179:20
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       /\ pc = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot :
+                       IF v \notin marked
+                         THEN /\ marked' = marked \cup {v}
+                              /\ vroot' = vroot \cup Succ[v]
+                         ELSE /\ vroot' = vroot \ {v}
+                              /\ UNCHANGED marked
+                 /\ pc' = "a"
+            ELSE /\ pc' = "Done"
+                 /\ UNCHANGED <<marked, vroot>> ,
+       NEW CONSTANT v \in vroot,
+       IF v \notin marked
+         THEN /\ marked' = marked \cup {v}
+              /\ vroot' = vroot \cup Succ[v]
+         ELSE /\ vroot' = vroot \ {v}
+              /\ UNCHANGED marked 
+PROVE  IF v \notin marked
+         THEN /\ marked' = marked \cup {v}
+              /\ vroot' = vroot \cup Succ[v]
+         ELSE /\ vroot' = vroot \ {v}
+              /\ UNCHANGED marked
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:62
+@!!loc:179:22:179:26
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       /\ pc = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot :
+                       IF v \notin marked
+                         THEN /\ marked' = marked \cup {v}
+                              /\ vroot' = vroot \cup Succ[v]
+                         ELSE /\ vroot' = vroot \ {v}
+                              /\ UNCHANGED marked
+                 /\ pc' = "a"
+            ELSE /\ pc' = "Done"
+                 /\ UNCHANGED <<marked, vroot>> ,
+       NEW CONSTANT v \in vroot,
+       v \in marked ,
+       IF v \notin marked
+         THEN /\ marked' = marked \cup {v}
+              /\ vroot' = vroot \cup Succ[v]
+         ELSE /\ vroot' = vroot \ {v}
+              /\ UNCHANGED marked 
+PROVE  v \in marked
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:63
+@!!loc:190:7:190:9
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ pc \in {"a", "Done"}
+       /\ pc = "Done" => vroot = {} ,
+       (/\ marked \in SUBSET Nodes
+        /\ vroot \in SUBSET Nodes
+        /\ pc \in {"a", "Done"}
+        /\ pc = "Done" => vroot = {})' ,
+       Inv2 ,
+       Inv2' ,
+       Reachable = marked \cup ReachableFrom(vroot) ,
+       [Next]_<<marked, vroot, pc>> ,
+       /\ Reachable' = Reachable
+       /\ ReachableFrom(vroot)' = ReachableFrom(vroot')
+       /\ ReachableFrom(marked \cup vroot)'
+          = ReachableFrom(marked' \cup vroot') ,
+       UNCHANGED <<marked, vroot, pc>> 
+PROVE  (Reachable = marked \cup ReachableFrom(vroot))'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:64
+@!!loc:190:10:190:14
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ pc \in {"a", "Done"}
+       /\ pc = "Done" => vroot = {} ,
+       (/\ marked \in SUBSET Nodes
+        /\ vroot \in SUBSET Nodes
+        /\ pc \in {"a", "Done"}
+        /\ pc = "Done" => vroot = {})' ,
+       Inv2 ,
+       Inv2' ,
+       Reachable = marked \cup ReachableFrom(vroot) ,
+       [Next]_<<marked, vroot, pc>> ,
+       /\ Reachable' = Reachable
+       /\ ReachableFrom(vroot)' = ReachableFrom(vroot')
+       /\ ReachableFrom(marked \cup vroot)'
+          = ReachableFrom(marked' \cup vroot') 
+PROVE  /\ Reachable' = Reachable
+       /\ ReachableFrom(vroot)' = ReachableFrom(vroot')
+       /\ ReachableFrom(marked \cup vroot)'
+          = ReachableFrom(marked' \cup vroot')
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:65
+@!!loc:190:16:190:20
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ pc \in {"a", "Done"}
+       /\ pc = "Done" => vroot = {} ,
+       (/\ marked \in SUBSET Nodes
+        /\ vroot \in SUBSET Nodes
+        /\ pc \in {"a", "Done"}
+        /\ pc = "Done" => vroot = {})' ,
+       Inv2 ,
+       Inv2' ,
+       Reachable = marked \cup ReachableFrom(vroot) ,
+       [Next]_<<marked, vroot, pc>> ,
+       UNCHANGED <<marked, vroot, pc>> ,
+       /\ Reachable' = Reachable
+       /\ ReachableFrom(vroot)' = ReachableFrom(vroot')
+       /\ ReachableFrom(marked \cup vroot)'
+          = ReachableFrom(marked' \cup vroot') 
+PROVE  UNCHANGED <<marked, vroot, pc>>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:66
+@!!loc:211:5:211:7
+@!!status:normalized
+@!!meth:time-limit: 10
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Inv1 => (pc = "Done" => vroot = {}) ,
+       Inv3 /\ vroot = {} => marked = Reachable ,
+       Spec => []Inv1 ,
+       Spec => []Inv3 ,
+       TRUE 
+PROVE  Spec => [](pc = "Done" => marked = Reachable)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:67
+@!!loc:211:8:211:12
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Inv1 => (pc = "Done" => vroot = {}) 
+PROVE  Inv1 => (pc = "Done" => vroot = {})
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:68
+@!!loc:211:14:211:18
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Inv3 /\ vroot = {} => marked = Reachable ,
+       Inv1 => (pc = "Done" => vroot = {}) 
+PROVE  Inv3 /\ vroot = {} => marked = Reachable
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:69
+@!!loc:211:20:211:24
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Spec => []Inv1 ,
+       Inv1 => (pc = "Done" => vroot = {}) ,
+       Inv3 /\ vroot = {} => marked = Reachable 
+PROVE  Spec => []Inv1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:70
+@!!loc:211:26:211:30
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Spec => []Inv3 ,
+       Inv1 => (pc = "Done" => vroot = {}) ,
+       Inv3 /\ vroot = {} => marked = Reachable ,
+       Spec => []Inv1 
+PROVE  Spec => []Inv3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:71
+@!!loc:211:32:211:35
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Inv1 => (pc = "Done" => vroot = {}) ,
+       Inv3 /\ vroot = {} => marked = Reachable ,
+       Spec => []Inv1 ,
+       Spec => []Inv3 
+PROVE  TRUE
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:72
+@!!loc:207:5:207:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc
+PROVE  (/\ /\ marked \in SUBSET Nodes
+           /\ vroot \in SUBSET Nodes
+           /\ pc \in {"a", "Done"}
+           /\ pc = "Done" => vroot = {}
+        /\ \A n \in marked : Succ[n] \subseteq marked \cup vroot)
+       => (pc = "Done" => vroot = {})
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:73
+@!!loc:209:5:209:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       ReachableFrom({}) = {} 
+PROVE  Reachable = marked \cup ReachableFrom(vroot) /\ vroot = {}
+       => marked = Reachable
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:74
+@!!loc:209:8:209:18
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       ReachableFrom({}) = {} 
+PROVE  ReachableFrom({}) = {}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:66
+@!!loc:211:5:211:7
+@!!status:proved
+@!!prover:ls4
+@!!meth:time-limit: 10; time-used: 0.0 (0%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       Inv1 => (pc = "Done" => vroot = {}) ,
+       Inv3 /\ vroot = {} => marked = Reachable ,
+       Spec => []Inv1 ,
+       Spec => []Inv3 ,
+       TRUE 
+PROVE  Spec => [](pc = "Done" => marked = Reachable)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:63
+@!!loc:190:7:190:9
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ pc \in {"a", "Done"}
+       /\ pc = "Done" => vroot = {} ,
+       (/\ marked \in SUBSET Nodes
+        /\ vroot \in SUBSET Nodes
+        /\ pc \in {"a", "Done"}
+        /\ pc = "Done" => vroot = {})' ,
+       Inv2 ,
+       Inv2' ,
+       Reachable = marked \cup ReachableFrom(vroot) ,
+       [Next]_<<marked, vroot, pc>> ,
+       /\ Reachable' = Reachable
+       /\ ReachableFrom(vroot)' = ReachableFrom(vroot')
+       /\ ReachableFrom(marked \cup vroot)'
+          = ReachableFrom(marked' \cup vroot') ,
+       UNCHANGED <<marked, vroot, pc>> 
+PROVE  (Reachable = marked \cup ReachableFrom(vroot))'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:60
+@!!loc:179:13:179:15
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       /\ pc = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot :
+                       IF v \notin marked
+                         THEN /\ marked' = marked \cup {v}
+                              /\ vroot' = vroot \cup Succ[v]
+                         ELSE /\ vroot' = vroot \ {v}
+                              /\ UNCHANGED marked
+                 /\ pc' = "a"
+            ELSE /\ pc' = "Done"
+                 /\ UNCHANGED <<marked, vroot>> ,
+       NEW CONSTANT v \in vroot,
+       IF v \notin marked
+         THEN /\ marked' = marked \cup {v}
+              /\ vroot' = vroot \cup Succ[v]
+         ELSE /\ vroot' = vroot \ {v}
+              /\ UNCHANGED marked ,
+       v \in marked 
+PROVE  marked' \cup vroot' = marked \cup vroot
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:57
+@!!loc:181:13:181:15
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       TypeOK ,
+       TypeOK' ,
+       marked \cup ReachableFrom(vroot) = ReachableFrom(marked \cup vroot) ,
+       (marked \cup ReachableFrom(vroot) = ReachableFrom(marked \cup vroot))' ,
+       Reachable = marked \cup ReachableFrom(vroot) ,
+       [Next]_vars ,
+       /\ pc = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot :
+                       IF v \notin marked
+                         THEN /\ marked' = marked \cup {v}
+                              /\ vroot' = vroot \cup Succ[v]
+                         ELSE /\ vroot' = vroot \ {v}
+                              /\ UNCHANGED marked
+                 /\ pc' = "a"
+            ELSE /\ pc' = "Done"
+                 /\ UNCHANGED <<marked, vroot>> ,
+       NEW CONSTANT v \in vroot,
+       marked' \cup vroot' = marked \cup vroot ,
+       /\ Reachable' = Reachable
+       /\ ReachableFrom(vroot)' = ReachableFrom(vroot')
+       /\ ReachableFrom(marked \cup vroot)'
+          = ReachableFrom(marked' \cup vroot') 
+PROVE  (Reachable = marked \cup ReachableFrom(vroot))'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:53
+@!!loc:171:13:171:15
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ pc \in {"a", "Done"}
+       /\ pc = "Done" => vroot = {} ,
+       (/\ marked \in SUBSET Nodes
+        /\ vroot \in SUBSET Nodes
+        /\ pc \in {"a", "Done"}
+        /\ pc = "Done" => vroot = {})' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       /\ pc = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot :
+                       IF v \notin marked
+                         THEN /\ marked' = marked \cup {v}
+                              /\ vroot' = vroot \cup Succ[v]
+                         ELSE /\ vroot' = vroot \ {v}
+                              /\ UNCHANGED marked
+                 /\ pc' = "a"
+            ELSE /\ pc' = "Done"
+                 /\ UNCHANGED <<marked, vroot>> ,
+       NEW CONSTANT v \in vroot,
+       IF v \notin marked
+         THEN /\ marked' = marked \cup {v}
+              /\ vroot' = vroot \cup Succ[v]
+         ELSE /\ vroot' = vroot \ {v}
+              /\ UNCHANGED marked ,
+       v \notin marked ,
+       \A S \in SUBSET Nodes :
+          \A n \in S :
+             /\ ReachableFrom(S) = ReachableFrom(S \cup Succ[n])
+             /\ n \in ReachableFrom(S) 
+PROVE  /\ ReachableFrom(vroot') = ReachableFrom(vroot)
+       /\ v \in ReachableFrom(vroot)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:47
+@!!loc:173:13:173:15
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.2 (3%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Reachable = marked \cup ReachableFrom(vroot) ,
+       [Next]_vars ,
+       /\ pc = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot :
+                       IF v \notin marked
+                         THEN /\ marked' = marked \cup {v}
+                              /\ vroot' = vroot \cup Succ[v]
+                         ELSE /\ vroot' = vroot \ {v}
+                              /\ UNCHANGED marked
+                 /\ pc' = "a"
+            ELSE /\ pc' = "Done"
+                 /\ UNCHANGED <<marked, vroot>> ,
+       NEW CONSTANT v \in vroot,
+       /\ ReachableFrom(vroot') = ReachableFrom(vroot)
+       /\ v \in ReachableFrom(vroot) ,
+       IF v \notin marked
+         THEN /\ marked' = marked \cup {v}
+              /\ vroot' = vroot \cup Succ[v]
+         ELSE /\ vroot' = vroot \ {v}
+              /\ UNCHANGED marked ,
+       v \notin marked ,
+       /\ ReachableFrom(vroot') = ReachableFrom(vroot)
+       /\ v \in ReachableFrom(vroot) ,
+       /\ Reachable' = Reachable
+       /\ ReachableFrom(vroot)' = ReachableFrom(vroot')
+       /\ ReachableFrom(marked \cup vroot)'
+          = ReachableFrom(marked' \cup vroot') 
+PROVE  (Reachable = marked \cup ReachableFrom(vroot))'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:44
+@!!loc:156:11:156:13
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.2 (4%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       TypeOK ,
+       TypeOK' ,
+       Inv2 ,
+       Inv2' ,
+       Inv3 ,
+       [Next]_vars ,
+       /\ pc = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot :
+                       IF v \notin marked
+                         THEN /\ marked' = marked \cup {v}
+                              /\ vroot' = vroot \cup Succ[v]
+                         ELSE /\ vroot' = vroot \ {v}
+                              /\ UNCHANGED marked
+                 /\ pc' = "a"
+            ELSE /\ pc' = "Done"
+                 /\ UNCHANGED <<marked, vroot>> ,
+       vroot # {} 
+PROVE  \E v \in vroot :
+          IF v \notin marked
+            THEN /\ marked' = marked \cup {v}
+                 /\ vroot' = vroot \cup Succ[v]
+            ELSE /\ vroot' = vroot \ {v}
+                 /\ UNCHANGED marked
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:72
+@!!loc:207:5:207:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc
+PROVE  (/\ /\ marked \in SUBSET Nodes
+           /\ vroot \in SUBSET Nodes
+           /\ pc \in {"a", "Done"}
+           /\ pc = "Done" => vroot = {}
+        /\ \A n \in marked : Succ[n] \subseteq marked \cup vroot)
+       => (pc = "Done" => vroot = {})
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:73
+@!!loc:209:5:209:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       ReachableFrom({}) = {} 
+PROVE  Reachable = marked \cup ReachableFrom(vroot) /\ vroot = {}
+       => marked = Reachable
+
+@!!END
+
+(* created new ".tlacache/ReachableProofs.tlaps/ReachableProofs.thy" *)
+(* fingerprints written in ".tlacache/ReachableProofs.tlaps/fingerprints" *)
+File "./ReachableProofs.tla", line 1, character 1 to line 212, character 77:
+[INFO]: All 73 obligations proved.

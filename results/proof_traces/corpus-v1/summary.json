@@ -1,0 +1,153 @@
+{
+  "modules_attempted": 15,
+  "modules_status": {
+    "partial": 15
+  },
+  "obligations_total": 2992,
+  "obligations_proved": 1111,
+  "module_rows": [
+    {
+      "module_id": "corpus-67",
+      "module_path": "/Users/eric/GitHub/tla_benchmark/data/tla_files/67.tla",
+      "status": "partial",
+      "obligations": 65,
+      "proved": 23,
+      "seconds": 0.7
+    },
+    {
+      "module_id": "corpus-112",
+      "module_path": "/Users/eric/GitHub/tla_benchmark/data/tla_files/112.tla",
+      "status": "partial",
+      "obligations": 654,
+      "proved": 210,
+      "seconds": 73.4
+    },
+    {
+      "module_id": "corpus-118",
+      "module_path": "/Users/eric/GitHub/tla_benchmark/data/tla_files/118.tla",
+      "status": "partial",
+      "obligations": 18,
+      "proved": 9,
+      "seconds": 0.4
+    },
+    {
+      "module_id": "corpus-119",
+      "module_path": "/Users/eric/GitHub/tla_benchmark/data/tla_files/119.tla",
+      "status": "partial",
+      "obligations": 45,
+      "proved": 20,
+      "seconds": 0.5
+    },
+    {
+      "module_id": "corpus-129",
+      "module_path": "/Users/eric/GitHub/tla_benchmark/data/tla_files/129.tla",
+      "status": "partial",
+      "obligations": 324,
+      "proved": 122,
+      "seconds": 104.0
+    },
+    {
+      "module_id": "corpus-131",
+      "module_path": "/Users/eric/GitHub/tla_benchmark/data/tla_files/131.tla",
+      "status": "partial",
+      "obligations": 97,
+      "proved": 34,
+      "seconds": 6.7
+    },
+    {
+      "module_id": "corpus-137",
+      "module_path": "/Users/eric/GitHub/tla_benchmark/data/tla_files/137.tla",
+      "status": "partial",
+      "obligations": 52,
+      "proved": 17,
+      "seconds": 1.1
+    },
+    {
+      "module_id": "corpus-139",
+      "module_path": "/Users/eric/GitHub/tla_benchmark/data/tla_files/139.tla",
+      "status": "partial",
+      "obligations": 64,
+      "proved": 34,
+      "seconds": 7.2
+    },
+    {
+      "module_id": "corpus-142",
+      "module_path": "/Users/eric/GitHub/tla_benchmark/data/tla_files/142.tla",
+      "status": "partial",
+      "obligations": 73,
+      "proved": 25,
+      "seconds": 0.9
+    },
+    {
+      "module_id": "corpus-182",
+      "module_path": "/Users/eric/GitHub/tla_benchmark/data/tla_files/182.tla",
+      "status": "partial",
+      "obligations": 21,
+      "proved": 10,
+      "seconds": 0.4
+    },
+    {
+      "module_id": "stdlib-BagsTheorems_proofs",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/BagsTheorems_proofs.tla",
+      "status": "partial",
+      "obligations": 94,
+      "proved": 51,
+      "seconds": 10.6
+    },
+    {
+      "module_id": "stdlib-FiniteSetTheorems_proofs",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/FiniteSetTheorems_proofs.tla",
+      "status": "partial",
+      "obligations": 670,
+      "proved": 211,
+      "seconds": 35.6
+    },
+    {
+      "module_id": "stdlib-NaturalsInduction_proofs",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/NaturalsInduction_proofs.tla",
+      "status": "partial",
+      "obligations": 278,
+      "proved": 115,
+      "seconds": 12.7
+    },
+    {
+      "module_id": "stdlib-SequenceTheorems_proofs",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/SequenceTheorems_proofs.tla",
+      "status": "partial",
+      "obligations": 156,
+      "proved": 87,
+      "seconds": 3.5
+    },
+    {
+      "module_id": "stdlib-WellFoundedInduction_proofs",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/WellFoundedInduction_proofs.tla",
+      "status": "partial",
+      "obligations": 381,
+      "proved": 143,
+      "seconds": 17.2
+    }
+  ],
+  "seconds_total": 275.7,
+  "backend_discharge_rates": {
+    "ls4": {
+      "proved": 21,
+      "total": 21
+    },
+    "smt": {
+      "proved": 864,
+      "total": 865
+    },
+    "zenon": {
+      "proved": 160,
+      "total": 160
+    },
+    "isabelle": {
+      "proved": 56,
+      "total": 70
+    },
+    "z3": {
+      "proved": 10,
+      "total": 10
+    }
+  }
+}

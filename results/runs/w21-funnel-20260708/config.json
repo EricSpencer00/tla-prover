@@ -1,0 +1,73 @@
+{
+  "run": "w21-funnel-20260708",
+  "work_item": "W2.1 (PLAN.md Stage 2) — funnel over regenerated raw corpus -> chattla-corpora-v2",
+  "corpus_identity": "FRESH RE-SCRAPE 2026-07-08 (started 2026-07-08T21:00:09Z UTC). NOT the DVC-frozen 2,624-file set (dvc.lock md5 dir hash 47a14165... unreachable remote). Ledgered as a new scrape per Eric's ratified decision.",
+  "pipeline": {
+    "repo": "https://github.com/LUC-FMitF/tla-dataset-pipeline",
+    "local_path": "/Users/eric/GitHub/tla-dataset-pipeline",
+    "commit": "0b21a97a5875c510f9c28a059d04704702e1b4b3",
+    "commands": [
+      "tladata discover",
+      "tladata pull --manifest manifests/sources/sources_latest.jsonl --output data/raw"
+    ],
+    "auth": "GITHUB_TOKEN=$(gh auth token)",
+    "notes": [
+      "discover found 19 repos (11 seeds + 8 via repo-search 'extension:tla'); 4 of 5 seed queries use code-search syntax (extension:) against the repository-search API and return 0 -- inherent pipeline limitation, not modified",
+      "pull downloaded 2,615 files (1,705 .tla + 910 .cfg, 19MB) from 19 repos; some raw.githubusercontent 429s dropped files (no retry in pipeline) -- ledgered as-is"
+    ]
+  },
+  "scrape": {
+    "files": 2615,
+    "tla": 1705,
+    "cfg": 910,
+    "repos": 19,
+    "raw_manifest": "raw_scrape_manifest.jsonl",
+    "raw_manifest_sha256": "10498427a77e1c234b81fba47e50ff72cd57a987f0abc63b2e08428f68242100",
+    "delta_vs_frozen": "frozen set was 2,624 files/12MB; fresh scrape is 2,615 files/19MB -- different scrape, no identity claimed"
+  },
+  "funnel": {
+    "code": "harness/w21_funnel.py + harness/corpora.py (tests harness/test_corpora.py)",
+    "stages": ["dedup", "decontam", "sany", "assemble"],
+    "dedup": "exact duplicate = sha256 of comment-stripped whitespace-normalized token stream; first occurrence (sorted path) kept",
+    "decontam": {
+      "method": "5-token shingles (blake2b-hashed, PYTHONHASHSEED-independent), Jaccard vs every canonical file; contaminated iff max Jaccard >= 0.65 (errs toward removal)",
+      "canonical_sets": {
+        "tla_benchmark": "/Users/eric/GitHub/tla_benchmark/data/tla_files/*.tla (205 files; spec 120 is the orphan with no artifact per W2.5/Amendment 9)",
+        "tlaplus_examples": "prove-TLA/tools/tlaplus-examples (git 47b0e2cc0268836b89f5ce451f38e5df5f1cf773), 408 .tla files"
+      },
+      "scope": "FULL canonical corpus (all 206 benchmark specs), holdout-30 as the Amendment-11 mandatory minimum -- ratified by Eric"
+    },
+    "sany": "harness.runner.check_sany, serial, os.nice(19), timeout 60s, workdir = file's source dir",
+    "tiers": {
+      "tier1_sany_cfg": "SANY pass + sibling .cfg in source dir",
+      "tier2_sany": "SANY pass, no cfg",
+      "discard_sany": "SANY fail/timeout/missing-module",
+      "discard_dup": "exact normalized duplicate",
+      "discard_contam": "near-dup of canonical (>=0.65)"
+    },
+    "not_run_yet": "TLC/vacuity/LLM-judge tier passes (PLAN W2.1 lists them after SANY); this run establishes the SANY-gated, decontaminated base -- disclosed, follow-on pass required before training-set freeze"
+  },
+  "results": {
+    "tla_in": 1705,
+    "discard_dup": 158,
+    "discard_contam": 429,
+    "sany_scored": 1118,
+    "discard_sany": 169,
+    "sany_fail_breakdown": {"fail": 99, "fail_missing_module": 70},
+    "tier1_sany_cfg": 779,
+    "tier2_sany": 170,
+    "holdout_decontam": "28/30 holdout specs had >=1 near-dup in the raw scrape (35 hits, most Jaccard 1.0 -- verbatim tlaplus/Examples copies); all removed; specs 105, 128 had no hit >= 0.65"
+  },
+  "outputs": {
+    "corpus_dir": "data/chattla-corpora-v2/ (tier files gitignored; manifests committed here)",
+    "manifests": ["manifest_tier1_sany_cfg.jsonl", "manifest_tier2_sany.jsonl", "manifest_discard_sany.jsonl", "manifest_discard_dup.jsonl", "manifest_discard_contam.jsonl"],
+    "decontamination_report": "decontamination_report.json"
+  },
+  "reproduce": [
+    "cd /Users/eric/GitHub/prove-TLA",
+    "python3 -m harness.w21_funnel dedup --run-dir results/runs/w21-funnel-20260708 --raw /Users/eric/GitHub/tla-dataset-pipeline/data/raw",
+    "python3 -m harness.w21_funnel decontam --run-dir ... --raw ...",
+    "python3 -m harness.w21_funnel sany --run-dir ... --raw ... (repeat until 1118 rows; resumable)",
+    "python3 -m harness.w21_funnel assemble --run-dir ... --raw ..."
+  ]
+}

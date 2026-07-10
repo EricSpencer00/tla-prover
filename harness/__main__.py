@@ -49,6 +49,15 @@ def main():
     e.add_argument("--corpus-data", default="/Users/eric/GitHub/tla_benchmark/data")
     e.add_argument("--no-resume", action="store_true",
                    help="ignore any existing rows.jsonl and redo every (spec, sample)")
+    pt = sub.add_parser("proof-traces", help="W2.4 obligation-trace bootstrap (tlapm sweep)")
+    pt.add_argument("--source", required=True, choices=["corpus", "examples"])
+    pt.add_argument("--out", required=True, help="output dir under results/proof_traces/...")
+    pt.add_argument("--corpus", default=DEFAULT_CORPUS)
+    pt.add_argument("--examples-dir", default=str(Path(__file__).resolve().parent.parent
+                                                   / "tools" / "tlaplus-examples"))
+    pt.add_argument("--timeout", type=int, default=600)
+    pt.add_argument("--limit", type=int, default=None,
+                     help="cap number of modules attempted (examples source; debug/partial runs)")
     a = ap.parse_args()
     specs = list(dict.fromkeys(a.specs.split(","))) if getattr(a, "specs", None) else None
     if a.cmd == "gen-eval":
@@ -61,6 +70,10 @@ def main():
         # cheap restarts; STAGE1_STRATEGY.md); `run` still treats it as a filter
         run_repair(Path(a.corpus), a.run_id, a.model, specs=specs, n=a.n,
                    resume_from=a.resume_from)
+    elif a.cmd == "proof-traces":
+        from .proof_traces_cli import run_proof_traces_cli
+        run_proof_traces_cli(a.source, Path(a.out), Path(a.corpus), Path(a.examples_dir),
+                              timeout=a.timeout, limit=a.limit)
     elif a.cmd == "semaudit":
         from .semaudit import run_semaudit
         run_semaudit(Path(a.corpus), a.run_id, specs=specs)

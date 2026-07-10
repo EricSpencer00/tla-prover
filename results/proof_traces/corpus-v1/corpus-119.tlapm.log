@@ -1,0 +1,2060 @@
+
+\* TLAPM version 80172c6
+\* launched at 2026-07-08 14:12:24 with command line:
+\* /Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm --toolbox 0 0 --printallobs -I /Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib -I /Users/eric/GitHub/prove-TLA/tools/community-modules -I /Users/eric/GitHub/prove-TLA/tools/extra-modules FindHighest.tla
+
+@!!BEGIN
+@!!type:obligation
+@!!id:1
+@!!loc:96:11:96:13
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       Spec == Init /\ [][Next]_vars,
+       PTL ,
+       <1>a ,
+       <1>b ,
+       <1>c 
+PROVE  Spec => []TypeOK
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:2
+@!!loc:96:14:96:17
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       Spec == Init /\ [][Next]_vars
+PROVE  PTL
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:3
+@!!loc:96:19:96:23
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       Spec == Init /\ [][Next]_vars,
+       PTL 
+PROVE  <1>a
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:4
+@!!loc:96:25:96:29
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       Spec == Init /\ [][Next]_vars,
+       PTL ,
+       <1>a 
+PROVE  <1>b
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:5
+@!!loc:96:31:96:35
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       Spec == Init /\ [][Next]_vars,
+       PTL ,
+       <1>a ,
+       <1>b 
+PROVE  <1>c
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:6
+@!!loc:85:5:85:7
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       Init == /\ f \in Seq(Nat)
+               /\ h = -1
+               /\ i = 1
+               /\ pc = "lb",
+       TypeOK ==
+         /\ f \in Seq(Nat)
+         /\ i \in 1..Len(f) + 1
+         /\ i \in Nat
+         /\ h \in Nat \cup {-1}
+PROVE  Init => TypeOK
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:7
+@!!loc:88:5:88:7
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       vars == <<f, h, i, pc>>,
+       TypeOK ==
+         /\ f \in Seq(Nat)
+         /\ i \in 1..Len(f) + 1
+         /\ i \in Nat
+         /\ h \in Nat \cup {-1}
+PROVE  TypeOK /\ UNCHANGED vars => TypeOK'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:8
+@!!loc:95:13:95:15
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       Next == lb \/ Terminating,
+       <2>a ,
+       <2>b 
+PROVE  TypeOK /\ Next => TypeOK'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:9
+@!!loc:95:16:95:20
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       Next == lb \/ Terminating
+PROVE  <2>a
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:10
+@!!loc:95:22:95:26
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       Next == lb \/ Terminating,
+       <2>a 
+PROVE  <2>b
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:11
+@!!loc:92:7:92:9
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       max(a, b) == IF a >= b THEN a ELSE b,
+       lb ==
+         /\ pc = "lb"
+         /\ IF i =< Len(f)
+              THEN /\ h' = max(h, f[i])
+                   /\ i' = i + 1
+                   /\ pc' = "lb"
+              ELSE /\ pc' = "Done"
+                   /\ UNCHANGED <<h, i>>
+         /\ f' = f,
+       TypeOK ==
+         /\ f \in Seq(Nat)
+         /\ i \in 1..Len(f) + 1
+         /\ i \in Nat
+         /\ h \in Nat \cup {-1}
+PROVE  TypeOK /\ lb => TypeOK'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:12
+@!!loc:94:7:94:9
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       vars == <<f, h, i, pc>>,
+       Terminating == pc = "Done" /\ UNCHANGED vars,
+       TypeOK ==
+         /\ f \in Seq(Nat)
+         /\ i \in 1..Len(f) + 1
+         /\ i \in Nat
+         /\ h \in Nat \cup {-1}
+PROVE  TypeOK /\ Terminating => TypeOK'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:13
+@!!loc:117:11:117:13
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       Spec == Init /\ [][Next]_vars,
+       PTL ,
+       <1>a ,
+       <1>b ,
+       <1>c ,
+       TypeInvariantHolds 
+PROVE  Spec => []InductiveInvariant
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:14
+@!!loc:117:14:117:17
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       Spec == Init /\ [][Next]_vars
+PROVE  PTL
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:15
+@!!loc:117:19:117:23
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       Spec == Init /\ [][Next]_vars,
+       PTL 
+PROVE  <1>a
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:16
+@!!loc:117:25:117:29
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       Spec == Init /\ [][Next]_vars,
+       PTL ,
+       <1>a 
+PROVE  <1>b
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:17
+@!!loc:117:31:117:35
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       Spec == Init /\ [][Next]_vars,
+       PTL ,
+       <1>a ,
+       <1>b 
+PROVE  <1>c
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:18
+@!!loc:117:37:117:55
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       Spec == Init /\ [][Next]_vars,
+       PTL ,
+       <1>a ,
+       <1>b ,
+       <1>c 
+PROVE  TypeInvariantHolds
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:19
+@!!loc:107:5:107:7
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       Init == /\ f \in Seq(Nat)
+               /\ h = -1
+               /\ i = 1
+               /\ pc = "lb",
+       InductiveInvariant == \A idx \in 1..i - 1 : f[idx] =< h
+PROVE  Init => InductiveInvariant
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:20
+@!!loc:109:5:109:7
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       vars == <<f, h, i, pc>>,
+       InductiveInvariant == \A idx \in 1..i - 1 : f[idx] =< h
+PROVE  InductiveInvariant /\ UNCHANGED vars => InductiveInvariant'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:21
+@!!loc:115:13:115:15
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       Next == lb \/ Terminating,
+       <2>a ,
+       <2>b 
+PROVE  InductiveInvariant /\ TypeOK /\ TypeOK' /\ Next => InductiveInvariant'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:22
+@!!loc:115:16:115:20
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       Next == lb \/ Terminating
+PROVE  <2>a
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:23
+@!!loc:115:22:115:26
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       Next == lb \/ Terminating,
+       <2>a 
+PROVE  <2>b
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:24
+@!!loc:112:7:112:9
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       vars == <<f, h, i, pc>>,
+       Terminating == pc = "Done" /\ UNCHANGED vars,
+       InductiveInvariant == \A idx \in 1..i - 1 : f[idx] =< h
+PROVE  InductiveInvariant /\ Terminating => InductiveInvariant'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:25
+@!!loc:114:7:114:9
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       max(a, b) == IF a >= b THEN a ELSE b,
+       lb ==
+         /\ pc = "lb"
+         /\ IF i =< Len(f)
+              THEN /\ h' = max(h, f[i])
+                   /\ i' = i + 1
+                   /\ pc' = "lb"
+              ELSE /\ pc' = "Done"
+                   /\ UNCHANGED <<h, i>>
+         /\ f' = f,
+       TypeOK ==
+         /\ f \in Seq(Nat)
+         /\ i \in 1..Len(f) + 1
+         /\ i \in Nat
+         /\ h \in Nat \cup {-1},
+       InductiveInvariant == \A idx \in 1..i - 1 : f[idx] =< h
+PROVE  InductiveInvariant /\ TypeOK /\ lb => InductiveInvariant'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:26
+@!!loc:134:11:134:13
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       Spec == Init /\ [][Next]_vars,
+       PTL ,
+       <1>a ,
+       <1>b ,
+       <1>c ,
+       TypeInvariantHolds 
+PROVE  Spec => []DoneIndexValue
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:27
+@!!loc:134:14:134:17
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       Spec == Init /\ [][Next]_vars
+PROVE  PTL
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:28
+@!!loc:134:19:134:23
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       Spec == Init /\ [][Next]_vars,
+       PTL 
+PROVE  <1>a
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:29
+@!!loc:134:25:134:29
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       Spec == Init /\ [][Next]_vars,
+       PTL ,
+       <1>a 
+PROVE  <1>b
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:30
+@!!loc:134:31:134:35
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       Spec == Init /\ [][Next]_vars,
+       PTL ,
+       <1>a ,
+       <1>b 
+PROVE  <1>c
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:31
+@!!loc:134:37:134:55
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       Spec == Init /\ [][Next]_vars,
+       PTL ,
+       <1>a ,
+       <1>b ,
+       <1>c 
+PROVE  TypeInvariantHolds
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:32
+@!!loc:125:5:125:7
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       Init == /\ f \in Seq(Nat)
+               /\ h = -1
+               /\ i = 1
+               /\ pc = "lb",
+       DoneIndexValue == pc = "Done" => i = Len(f) + 1
+PROVE  Init => DoneIndexValue
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:33
+@!!loc:127:5:127:7
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       vars == <<f, h, i, pc>>,
+       DoneIndexValue == pc = "Done" => i = Len(f) + 1
+PROVE  DoneIndexValue /\ UNCHANGED vars => DoneIndexValue'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:34
+@!!loc:133:13:133:15
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       Next == lb \/ Terminating,
+       <2>a ,
+       <2>b 
+PROVE  DoneIndexValue /\ TypeOK /\ Next => DoneIndexValue'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:35
+@!!loc:133:16:133:20
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       Next == lb \/ Terminating
+PROVE  <2>a
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:36
+@!!loc:133:22:133:26
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       Next == lb \/ Terminating,
+       <2>a 
+PROVE  <2>b
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:37
+@!!loc:130:7:130:9
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       vars == <<f, h, i, pc>>,
+       Terminating == pc = "Done" /\ UNCHANGED vars,
+       DoneIndexValue == pc = "Done" => i = Len(f) + 1
+PROVE  DoneIndexValue /\ Terminating => DoneIndexValue'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:38
+@!!loc:132:7:132:9
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       lb ==
+         /\ pc = "lb"
+         /\ IF i =< Len(f)
+              THEN /\ h' = max(h, f[i])
+                   /\ i' = i + 1
+                   /\ pc' = "lb"
+              ELSE /\ pc' = "Done"
+                   /\ UNCHANGED <<h, i>>
+         /\ f' = f,
+       TypeOK ==
+         /\ f \in Seq(Nat)
+         /\ i \in 1..Len(f) + 1
+         /\ i \in Nat
+         /\ h \in Nat \cup {-1},
+       DoneIndexValue == pc = "Done" => i = Len(f) + 1
+PROVE  DoneIndexValue /\ TypeOK /\ lb => DoneIndexValue'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:39
+@!!loc:147:3:147:5
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       <1>1 ,
+       TypeInvariantHolds ,
+       InductiveInvariantHolds ,
+       DoneIndexValueThm ,
+       PTL 
+PROVE  Spec => []Correctness
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:40
+@!!loc:147:6:147:10
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc
+PROVE  <1>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:41
+@!!loc:147:12:147:30
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       <1>1 
+PROVE  TypeInvariantHolds
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:42
+@!!loc:147:32:147:55
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       <1>1 ,
+       TypeInvariantHolds 
+PROVE  InductiveInvariantHolds
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:43
+@!!loc:147:57:147:74
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       <1>1 ,
+       TypeInvariantHolds ,
+       InductiveInvariantHolds 
+PROVE  DoneIndexValueThm
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:44
+@!!loc:147:76:147:79
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       <1>1 ,
+       TypeInvariantHolds ,
+       InductiveInvariantHolds ,
+       DoneIndexValueThm 
+PROVE  PTL
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:45
+@!!loc:145:3:145:5
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       TypeOK ==
+         /\ f \in Seq(Nat)
+         /\ i \in 1..Len(f) + 1
+         /\ i \in Nat
+         /\ h \in Nat \cup {-1},
+       InductiveInvariant == \A idx \in 1..i - 1 : f[idx] =< h,
+       DoneIndexValue == pc = "Done" => i = Len(f) + 1,
+       Correctness == pc = "Done" => (\A idx \in DOMAIN f : f[idx] =< h)
+PROVE  TypeOK /\ InductiveInvariant /\ DoneIndexValue => Correctness
+
+@!!END
+
+@!!BEGIN
+@!!type:obligationsnumber
+@!!count:45
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:1
+@!!loc:96:11:96:13
+@!!status:normalized
+@!!meth:time-limit: 10
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       TRUE ,
+       Init => TypeOK ,
+       TypeOK /\ UNCHANGED vars => TypeOK' ,
+       TypeOK /\ Next => TypeOK' 
+PROVE  Init /\ [][Next]_vars => []TypeOK
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:2
+@!!loc:96:14:96:17
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc
+PROVE  TRUE
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:3
+@!!loc:96:19:96:23
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       Init => TypeOK ,
+       TRUE 
+PROVE  Init => TypeOK
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:4
+@!!loc:96:25:96:29
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       TypeOK /\ UNCHANGED vars => TypeOK' ,
+       TRUE ,
+       Init => TypeOK 
+PROVE  TypeOK /\ UNCHANGED vars => TypeOK'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:5
+@!!loc:96:31:96:35
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       TypeOK /\ Next => TypeOK' ,
+       TRUE ,
+       Init => TypeOK ,
+       TypeOK /\ UNCHANGED vars => TypeOK' 
+PROVE  TypeOK /\ Next => TypeOK'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:6
+@!!loc:85:5:85:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc
+PROVE  (/\ f \in Seq(Nat)
+        /\ h = -1
+        /\ i = 1
+        /\ pc = "lb")
+       => (/\ f \in Seq(Nat)
+           /\ i \in 1..Len(f) + 1
+           /\ i \in Nat
+           /\ h \in Nat \cup {-1})
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:7
+@!!loc:88:5:88:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc
+PROVE  (/\ f \in Seq(Nat)
+        /\ i \in 1..Len(f) + 1
+        /\ i \in Nat
+        /\ h \in Nat \cup {-1})
+       /\ UNCHANGED <<f, h, i, pc>>
+       => (/\ f \in Seq(Nat)
+           /\ i \in 1..Len(f) + 1
+           /\ i \in Nat
+           /\ h \in Nat \cup {-1})'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:8
+@!!loc:95:13:95:15
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       TypeOK /\ lb => TypeOK' ,
+       TypeOK /\ Terminating => TypeOK' 
+PROVE  TypeOK /\ (lb \/ Terminating) => TypeOK'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:9
+@!!loc:95:16:95:20
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       TypeOK /\ lb => TypeOK' 
+PROVE  TypeOK /\ lb => TypeOK'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:10
+@!!loc:95:22:95:26
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       TypeOK /\ Terminating => TypeOK' ,
+       TypeOK /\ lb => TypeOK' 
+PROVE  TypeOK /\ Terminating => TypeOK'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:11
+@!!loc:92:7:92:9
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc
+PROVE  (/\ f \in Seq(Nat)
+        /\ i \in 1..Len(f) + 1
+        /\ i \in Nat
+        /\ h \in Nat \cup {-1})
+       /\ (/\ pc = "lb"
+           /\ IF i =< Len(f)
+                THEN /\ h' = (IF h >= f[i] THEN h ELSE f[i])
+                     /\ i' = i + 1
+                     /\ pc' = "lb"
+                ELSE /\ pc' = "Done"
+                     /\ UNCHANGED <<h, i>>
+           /\ f' = f)
+       => (/\ f \in Seq(Nat)
+           /\ i \in 1..Len(f) + 1
+           /\ i \in Nat
+           /\ h \in Nat \cup {-1})'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:12
+@!!loc:94:7:94:9
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc
+PROVE  (/\ f \in Seq(Nat)
+        /\ i \in 1..Len(f) + 1
+        /\ i \in Nat
+        /\ h \in Nat \cup {-1})
+       /\ (pc = "Done" /\ UNCHANGED <<f, h, i, pc>>)
+       => (/\ f \in Seq(Nat)
+           /\ i \in 1..Len(f) + 1
+           /\ i \in Nat
+           /\ h \in Nat \cup {-1})'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:13
+@!!loc:117:11:117:13
+@!!status:normalized
+@!!meth:time-limit: 10
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       TRUE ,
+       Init => InductiveInvariant ,
+       InductiveInvariant /\ UNCHANGED vars => InductiveInvariant' ,
+       InductiveInvariant /\ TypeOK /\ TypeOK' /\ Next => InductiveInvariant' ,
+       Init /\ [][Next]_vars => []TypeOK 
+PROVE  Init /\ [][Next]_vars => []InductiveInvariant
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:14
+@!!loc:117:14:117:17
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc
+PROVE  TRUE
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:15
+@!!loc:117:19:117:23
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       Init => InductiveInvariant ,
+       TRUE 
+PROVE  Init => InductiveInvariant
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:16
+@!!loc:117:25:117:29
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       InductiveInvariant /\ UNCHANGED vars => InductiveInvariant' ,
+       TRUE ,
+       Init => InductiveInvariant 
+PROVE  InductiveInvariant /\ UNCHANGED vars => InductiveInvariant'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:17
+@!!loc:117:31:117:35
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       InductiveInvariant /\ TypeOK /\ TypeOK' /\ Next => InductiveInvariant' ,
+       TRUE ,
+       Init => InductiveInvariant ,
+       InductiveInvariant /\ UNCHANGED vars => InductiveInvariant' 
+PROVE  InductiveInvariant /\ TypeOK /\ TypeOK' /\ Next => InductiveInvariant'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:18
+@!!loc:117:37:117:55
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       Init /\ [][Next]_vars => []TypeOK ,
+       TRUE ,
+       Init => InductiveInvariant ,
+       InductiveInvariant /\ UNCHANGED vars => InductiveInvariant' ,
+       InductiveInvariant /\ TypeOK /\ TypeOK' /\ Next => InductiveInvariant' 
+PROVE  Init /\ [][Next]_vars => []TypeOK
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:19
+@!!loc:107:5:107:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc
+PROVE  (/\ f \in Seq(Nat)
+        /\ h = -1
+        /\ i = 1
+        /\ pc = "lb")
+       => (\A idx \in 1..i - 1 : f[idx] =< h)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:20
+@!!loc:109:5:109:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc
+PROVE  (\A idx \in 1..i - 1 : f[idx] =< h) /\ UNCHANGED <<f, h, i, pc>>
+       => (\A idx \in 1..i - 1 : f[idx] =< h)'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:21
+@!!loc:115:13:115:15
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       InductiveInvariant /\ Terminating => InductiveInvariant' ,
+       InductiveInvariant /\ TypeOK /\ lb => InductiveInvariant' 
+PROVE  InductiveInvariant /\ TypeOK /\ TypeOK' /\ (lb \/ Terminating)
+       => InductiveInvariant'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:13
+@!!loc:117:11:117:13
+@!!status:proved
+@!!prover:ls4
+@!!meth:time-limit: 10; time-used: 0.0 (0%)
+@!!already:false
+@!!obl:
+ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       TRUE ,
+       Init => InductiveInvariant ,
+       InductiveInvariant /\ UNCHANGED vars => InductiveInvariant' ,
+       InductiveInvariant /\ TypeOK /\ TypeOK' /\ Next => InductiveInvariant' ,
+       Init /\ [][Next]_vars => []TypeOK 
+PROVE  Init /\ [][Next]_vars => []InductiveInvariant
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:8
+@!!loc:95:13:95:15
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       TypeOK /\ lb => TypeOK' ,
+       TypeOK /\ Terminating => TypeOK' 
+PROVE  TypeOK /\ (lb \/ Terminating) => TypeOK'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:7
+@!!loc:88:5:88:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc
+PROVE  (/\ f \in Seq(Nat)
+        /\ i \in 1..Len(f) + 1
+        /\ i \in Nat
+        /\ h \in Nat \cup {-1})
+       /\ UNCHANGED <<f, h, i, pc>>
+       => (/\ f \in Seq(Nat)
+           /\ i \in 1..Len(f) + 1
+           /\ i \in Nat
+           /\ h \in Nat \cup {-1})'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:6
+@!!loc:85:5:85:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc
+PROVE  (/\ f \in Seq(Nat)
+        /\ h = -1
+        /\ i = 1
+        /\ pc = "lb")
+       => (/\ f \in Seq(Nat)
+           /\ i \in 1..Len(f) + 1
+           /\ i \in Nat
+           /\ h \in Nat \cup {-1})
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:1
+@!!loc:96:11:96:13
+@!!status:proved
+@!!prover:ls4
+@!!meth:time-limit: 10; time-used: 0.3 (3%)
+@!!already:false
+@!!obl:
+ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       TRUE ,
+       Init => TypeOK ,
+       TypeOK /\ UNCHANGED vars => TypeOK' ,
+       TypeOK /\ Next => TypeOK' 
+PROVE  Init /\ [][Next]_vars => []TypeOK
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:22
+@!!loc:115:16:115:20
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       InductiveInvariant /\ Terminating => InductiveInvariant' 
+PROVE  InductiveInvariant /\ Terminating => InductiveInvariant'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:23
+@!!loc:115:22:115:26
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       InductiveInvariant /\ TypeOK /\ lb => InductiveInvariant' ,
+       InductiveInvariant /\ Terminating => InductiveInvariant' 
+PROVE  InductiveInvariant /\ TypeOK /\ lb => InductiveInvariant'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:24
+@!!loc:112:7:112:9
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc
+PROVE  (\A idx \in 1..i - 1 : f[idx] =< h)
+       /\ (pc = "Done" /\ UNCHANGED <<f, h, i, pc>>)
+       => (\A idx \in 1..i - 1 : f[idx] =< h)'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:25
+@!!loc:114:7:114:9
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc
+PROVE  (\A idx \in 1..i - 1 : f[idx] =< h)
+       /\ (/\ f \in Seq(Nat)
+           /\ i \in 1..Len(f) + 1
+           /\ i \in Nat
+           /\ h \in Nat \cup {-1})
+       /\ (/\ pc = "lb"
+           /\ IF i =< Len(f)
+                THEN /\ h' = (IF h >= f[i] THEN h ELSE f[i])
+                     /\ i' = i + 1
+                     /\ pc' = "lb"
+                ELSE /\ pc' = "Done"
+                     /\ UNCHANGED <<h, i>>
+           /\ f' = f)
+       => (\A idx \in 1..i - 1 : f[idx] =< h)'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:26
+@!!loc:134:11:134:13
+@!!status:normalized
+@!!meth:time-limit: 10
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       TRUE ,
+       Init => DoneIndexValue ,
+       DoneIndexValue /\ UNCHANGED vars => DoneIndexValue' ,
+       DoneIndexValue /\ TypeOK /\ Next => DoneIndexValue' ,
+       Init /\ [][Next]_vars => []TypeOK 
+PROVE  Init /\ [][Next]_vars => []DoneIndexValue
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:27
+@!!loc:134:14:134:17
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc
+PROVE  TRUE
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:28
+@!!loc:134:19:134:23
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       Init => DoneIndexValue ,
+       TRUE 
+PROVE  Init => DoneIndexValue
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:29
+@!!loc:134:25:134:29
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       DoneIndexValue /\ UNCHANGED vars => DoneIndexValue' ,
+       TRUE ,
+       Init => DoneIndexValue 
+PROVE  DoneIndexValue /\ UNCHANGED vars => DoneIndexValue'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:30
+@!!loc:134:31:134:35
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       DoneIndexValue /\ TypeOK /\ Next => DoneIndexValue' ,
+       TRUE ,
+       Init => DoneIndexValue ,
+       DoneIndexValue /\ UNCHANGED vars => DoneIndexValue' 
+PROVE  DoneIndexValue /\ TypeOK /\ Next => DoneIndexValue'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:31
+@!!loc:134:37:134:55
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       Init /\ [][Next]_vars => []TypeOK ,
+       TRUE ,
+       Init => DoneIndexValue ,
+       DoneIndexValue /\ UNCHANGED vars => DoneIndexValue' ,
+       DoneIndexValue /\ TypeOK /\ Next => DoneIndexValue' 
+PROVE  Init /\ [][Next]_vars => []TypeOK
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:32
+@!!loc:125:5:125:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc
+PROVE  (/\ f \in Seq(Nat)
+        /\ h = -1
+        /\ i = 1
+        /\ pc = "lb")
+       => (pc = "Done" => i = Len(f) + 1)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:33
+@!!loc:127:5:127:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc
+PROVE  (pc = "Done" => i = Len(f) + 1) /\ UNCHANGED <<f, h, i, pc>>
+       => (pc = "Done" => i = Len(f) + 1)'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:26
+@!!loc:134:11:134:13
+@!!status:proved
+@!!prover:ls4
+@!!meth:time-limit: 10; time-used: 0.0 (0%)
+@!!already:false
+@!!obl:
+ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       TRUE ,
+       Init => DoneIndexValue ,
+       DoneIndexValue /\ UNCHANGED vars => DoneIndexValue' ,
+       DoneIndexValue /\ TypeOK /\ Next => DoneIndexValue' ,
+       Init /\ [][Next]_vars => []TypeOK 
+PROVE  Init /\ [][Next]_vars => []DoneIndexValue
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:21
+@!!loc:115:13:115:15
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       InductiveInvariant /\ Terminating => InductiveInvariant' ,
+       InductiveInvariant /\ TypeOK /\ lb => InductiveInvariant' 
+PROVE  InductiveInvariant /\ TypeOK /\ TypeOK' /\ (lb \/ Terminating)
+       => InductiveInvariant'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:20
+@!!loc:109:5:109:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc
+PROVE  (\A idx \in 1..i - 1 : f[idx] =< h) /\ UNCHANGED <<f, h, i, pc>>
+       => (\A idx \in 1..i - 1 : f[idx] =< h)'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:19
+@!!loc:107:5:107:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc
+PROVE  (/\ f \in Seq(Nat)
+        /\ h = -1
+        /\ i = 1
+        /\ pc = "lb")
+       => (\A idx \in 1..i - 1 : f[idx] =< h)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:12
+@!!loc:94:7:94:9
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc
+PROVE  (/\ f \in Seq(Nat)
+        /\ i \in 1..Len(f) + 1
+        /\ i \in Nat
+        /\ h \in Nat \cup {-1})
+       /\ (pc = "Done" /\ UNCHANGED <<f, h, i, pc>>)
+       => (/\ f \in Seq(Nat)
+           /\ i \in 1..Len(f) + 1
+           /\ i \in Nat
+           /\ h \in Nat \cup {-1})'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:11
+@!!loc:92:7:92:9
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc
+PROVE  (/\ f \in Seq(Nat)
+        /\ i \in 1..Len(f) + 1
+        /\ i \in Nat
+        /\ h \in Nat \cup {-1})
+       /\ (/\ pc = "lb"
+           /\ IF i =< Len(f)
+                THEN /\ h' = (IF h >= f[i] THEN h ELSE f[i])
+                     /\ i' = i + 1
+                     /\ pc' = "lb"
+                ELSE /\ pc' = "Done"
+                     /\ UNCHANGED <<h, i>>
+           /\ f' = f)
+       => (/\ f \in Seq(Nat)
+           /\ i \in 1..Len(f) + 1
+           /\ i \in Nat
+           /\ h \in Nat \cup {-1})'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:34
+@!!loc:133:13:133:15
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       DoneIndexValue /\ Terminating => DoneIndexValue' ,
+       DoneIndexValue /\ TypeOK /\ lb => DoneIndexValue' 
+PROVE  DoneIndexValue /\ TypeOK /\ (lb \/ Terminating) => DoneIndexValue'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:35
+@!!loc:133:16:133:20
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       DoneIndexValue /\ Terminating => DoneIndexValue' 
+PROVE  DoneIndexValue /\ Terminating => DoneIndexValue'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:36
+@!!loc:133:22:133:26
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       DoneIndexValue /\ TypeOK /\ lb => DoneIndexValue' ,
+       DoneIndexValue /\ Terminating => DoneIndexValue' 
+PROVE  DoneIndexValue /\ TypeOK /\ lb => DoneIndexValue'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:37
+@!!loc:130:7:130:9
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc
+PROVE  (pc = "Done" => i = Len(f) + 1)
+       /\ (pc = "Done" /\ UNCHANGED <<f, h, i, pc>>)
+       => (pc = "Done" => i = Len(f) + 1)'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:38
+@!!loc:132:7:132:9
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc
+PROVE  (pc = "Done" => i = Len(f) + 1)
+       /\ (/\ f \in Seq(Nat)
+           /\ i \in 1..Len(f) + 1
+           /\ i \in Nat
+           /\ h \in Nat \cup {-1})
+       /\ (/\ pc = "lb"
+           /\ IF i =< Len(f)
+                THEN /\ h' = max(h, f[i])
+                     /\ i' = i + 1
+                     /\ pc' = "lb"
+                ELSE /\ pc' = "Done"
+                     /\ UNCHANGED <<h, i>>
+           /\ f' = f)
+       => (pc = "Done" => i = Len(f) + 1)'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:39
+@!!loc:147:3:147:5
+@!!status:normalized
+@!!meth:time-limit: 10
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       TypeOK /\ InductiveInvariant /\ DoneIndexValue => Correctness ,
+       Spec => []TypeOK ,
+       Spec => []InductiveInvariant ,
+       Spec => []DoneIndexValue ,
+       TRUE 
+PROVE  Spec => []Correctness
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:40
+@!!loc:147:6:147:10
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       TypeOK /\ InductiveInvariant /\ DoneIndexValue => Correctness 
+PROVE  TypeOK /\ InductiveInvariant /\ DoneIndexValue => Correctness
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:41
+@!!loc:147:12:147:30
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       Spec => []TypeOK ,
+       TypeOK /\ InductiveInvariant /\ DoneIndexValue => Correctness 
+PROVE  Spec => []TypeOK
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:42
+@!!loc:147:32:147:55
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       Spec => []InductiveInvariant ,
+       TypeOK /\ InductiveInvariant /\ DoneIndexValue => Correctness ,
+       Spec => []TypeOK 
+PROVE  Spec => []InductiveInvariant
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:43
+@!!loc:147:57:147:74
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       Spec => []DoneIndexValue ,
+       TypeOK /\ InductiveInvariant /\ DoneIndexValue => Correctness ,
+       Spec => []TypeOK ,
+       Spec => []InductiveInvariant 
+PROVE  Spec => []DoneIndexValue
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:44
+@!!loc:147:76:147:79
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       TypeOK /\ InductiveInvariant /\ DoneIndexValue => Correctness ,
+       Spec => []TypeOK ,
+       Spec => []InductiveInvariant ,
+       Spec => []DoneIndexValue 
+PROVE  TRUE
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:45
+@!!loc:145:3:145:5
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc
+PROVE  (/\ f \in Seq(Nat)
+        /\ i \in 1..Len(f) + 1
+        /\ i \in Nat
+        /\ h \in Nat \cup {-1})
+       /\ (\A idx \in 1..i - 1 : f[idx] =< h)
+       /\ (pc = "Done" => i = Len(f) + 1)
+       => (pc = "Done" => (\A idx \in DOMAIN f : f[idx] =< h))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:39
+@!!loc:147:3:147:5
+@!!status:proved
+@!!prover:ls4
+@!!meth:time-limit: 10; time-used: 0.0 (0%)
+@!!already:false
+@!!obl:
+ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       TypeOK /\ InductiveInvariant /\ DoneIndexValue => Correctness ,
+       Spec => []TypeOK ,
+       Spec => []InductiveInvariant ,
+       Spec => []DoneIndexValue ,
+       TRUE 
+PROVE  Spec => []Correctness
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:34
+@!!loc:133:13:133:15
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc,
+       DoneIndexValue /\ Terminating => DoneIndexValue' ,
+       DoneIndexValue /\ TypeOK /\ lb => DoneIndexValue' 
+PROVE  DoneIndexValue /\ TypeOK /\ (lb \/ Terminating) => DoneIndexValue'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:33
+@!!loc:127:5:127:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc
+PROVE  (pc = "Done" => i = Len(f) + 1) /\ UNCHANGED <<f, h, i, pc>>
+       => (pc = "Done" => i = Len(f) + 1)'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:32
+@!!loc:125:5:125:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc
+PROVE  (/\ f \in Seq(Nat)
+        /\ h = -1
+        /\ i = 1
+        /\ pc = "lb")
+       => (pc = "Done" => i = Len(f) + 1)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:25
+@!!loc:114:7:114:9
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc
+PROVE  (\A idx \in 1..i - 1 : f[idx] =< h)
+       /\ (/\ f \in Seq(Nat)
+           /\ i \in 1..Len(f) + 1
+           /\ i \in Nat
+           /\ h \in Nat \cup {-1})
+       /\ (/\ pc = "lb"
+           /\ IF i =< Len(f)
+                THEN /\ h' = (IF h >= f[i] THEN h ELSE f[i])
+                     /\ i' = i + 1
+                     /\ pc' = "lb"
+                ELSE /\ pc' = "Done"
+                     /\ UNCHANGED <<h, i>>
+           /\ f' = f)
+       => (\A idx \in 1..i - 1 : f[idx] =< h)'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:24
+@!!loc:112:7:112:9
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc
+PROVE  (\A idx \in 1..i - 1 : f[idx] =< h)
+       /\ (pc = "Done" /\ UNCHANGED <<f, h, i, pc>>)
+       => (\A idx \in 1..i - 1 : f[idx] =< h)'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:37
+@!!loc:130:7:130:9
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc
+PROVE  (pc = "Done" => i = Len(f) + 1)
+       /\ (pc = "Done" /\ UNCHANGED <<f, h, i, pc>>)
+       => (pc = "Done" => i = Len(f) + 1)'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:38
+@!!loc:132:7:132:9
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc
+PROVE  (pc = "Done" => i = Len(f) + 1)
+       /\ (/\ f \in Seq(Nat)
+           /\ i \in 1..Len(f) + 1
+           /\ i \in Nat
+           /\ h \in Nat \cup {-1})
+       /\ (/\ pc = "lb"
+           /\ IF i =< Len(f)
+                THEN /\ h' = max(h, f[i])
+                     /\ i' = i + 1
+                     /\ pc' = "lb"
+                ELSE /\ pc' = "Done"
+                     /\ UNCHANGED <<h, i>>
+           /\ f' = f)
+       => (pc = "Done" => i = Len(f) + 1)'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:45
+@!!loc:145:3:145:5
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW VARIABLE f,
+       NEW VARIABLE h,
+       NEW VARIABLE i,
+       NEW VARIABLE pc
+PROVE  (/\ f \in Seq(Nat)
+        /\ i \in 1..Len(f) + 1
+        /\ i \in Nat
+        /\ h \in Nat \cup {-1})
+       /\ (\A idx \in 1..i - 1 : f[idx] =< h)
+       /\ (pc = "Done" => i = Len(f) + 1)
+       => (pc = "Done" => (\A idx \in DOMAIN f : f[idx] =< h))
+
+@!!END
+
+(* created new ".tlacache/FindHighest.tlaps/FindHighest.thy" *)
+(* fingerprints written in ".tlacache/FindHighest.tlaps/fingerprints" *)
+File "./FindHighest.tla", line 1, character 1 to line 149, character 77:
+[INFO]: All 45 obligations proved.

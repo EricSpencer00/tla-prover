@@ -72,6 +72,47 @@ def apply_mutation(text: str, regex, replacement: str):
     return (new_text, n) if n > 0 else (None, 0)
 
 
+# TLC prints the first violated invariant/property by name, e.g.
+# "Invariant Safety is violated." / "Property Liveness is violated.".
+_VIOLATION_RE = re.compile(r"(?:Invariant|Property)\s+(\w+)\s+is violated")
+# TypeOK-style invariants only assert well-typedness; a mutant that trips only
+# one of these proves nothing about the spec's real safety property.
+_TYPE_NAME_RE = re.compile(r"type", re.IGNORECASE)
+
+
+def classify_mutation_catch(tlc_out: str):
+    """#4 catch-attribution: which invariant/property did the mutant trip, and
+    was it a REAL safety catch? Returns {"violated": name|None, "is_safety_catch":
+    bool}. A catch counts as a safety catch only when a NON-TypeOK-style property
+    was violated -- a mutant that only breaks TypeOK is a weak/gameable signal
+    (a strong TypeOK + vacuous safety invariant would otherwise score well while
+    checking nothing)."""
+    m = _VIOLATION_RE.search(tlc_out or "")
+    if not m:
+        return {"violated": None, "is_safety_catch": False}
+    name = m.group(1)
+    return {"violated": name, "is_safety_catch": not bool(_TYPE_NAME_RE.search(name))}
+
+
+def summarize_mutants(results):
+    """#4: aggregate per-mutant results into catch metrics. `attempted` = mutants
+    that ran to a kill/survive verdict (killed is not None; parse-failed or
+    inapplicable mutants excluded). Reports BOTH the raw kill_rate (any TLC
+    failure -- gameable) and the safety_catch_rate (only NON-TypeOK property
+    violations). quality_gold should gate on safety_catch_rate."""
+    attempted = [r for r in results if r.get("killed") is not None]
+    n = len(attempted)
+    killed_n = sum(1 for r in attempted if r["killed"])
+    safety_n = sum(1 for r in attempted if r.get("safety_killed"))
+    return {
+        "attempted": n,
+        "killed": killed_n,
+        "kill_rate": round(killed_n / n, 2) if n else None,
+        "safety_killed": safety_n,
+        "safety_catch_rate": round(safety_n / n, 2) if n else None,
+    }
+
+
 def run_mutation_for_spec(num: str, corpus: Path, cfg_dirs, timeout: int):
     num2mod, mod2path = build_module_index(corpus)
     mod = num2mod.get(num)
@@ -118,19 +159,19 @@ def run_mutation_for_spec(num: str, corpus: Path, cfg_dirs, timeout: int):
             continue
         (workdir / f"{mod}.cfg").write_text(cfg_text)
         pol = POLICY.get(num, {})
-        tlc_st, vac, _, _ = check_tlc(mod, cfg_text, workdir, timeout,
+        tlc_st, vac, tlc_out, _ = check_tlc(mod, cfg_text, workdir, timeout,
                                        extra_flags=pol.get("tlc_flags", ()))
         killed = tlc_st != "pass"
+        catch = classify_mutation_catch(tlc_out)
         results.append({"mutation": label, "applied": True, "sany": sany_st,
-                         "tlc": tlc_st, "killed": killed})
+                         "tlc": tlc_st, "killed": killed,
+                         "violated": catch["violated"],
+                         "safety_killed": killed and catch["is_safety_catch"]})
         shutil.rmtree(workdir, ignore_errors=True)
     shutil.rmtree(workroot, ignore_errors=True)
 
-    attempted = [r for r in results if r.get("killed") is not None]
-    killed_n = sum(1 for r in attempted if r["killed"])
     return {"spec": num, "module": mod, "mutants": results,
-            "attempted": len(attempted), "killed": killed_n,
-            "kill_rate": round(killed_n / len(attempted), 2) if attempted else None}
+            **summarize_mutants(results)}
 
 
 def main():

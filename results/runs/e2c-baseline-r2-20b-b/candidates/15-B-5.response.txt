@@ -1,0 +1,192 @@
+---- MODULE bcastByz
+EXTENDS Naturals,
+        FiniteSets,
+        Functions,
+        FunctionTheorems,
+        FiniteSetTheorems,
+        NaturalsInduction,
+        SequenceTheorems,
+        TLAPS
+
+CONSTANTS N, T, F
+
+VARIABLE Corr           (* the correct processes *)
+VARIABLE Faulty         (* the faulty processes *)
+VARIABLE pc             (* the control state of each process *)
+VARIABLE rcvd           (* the messages received by each process *)
+VARIABLE sent           (* the messages sent by all correct processes *)
+ASSUME NTF == N \in Nat /\ T \in Nat /\ F \in Nat /\ (N > 3 * T) /\ (T >= F) /\ (F >= 0)
+
+Proc == 1 .. N          (* all processes, including the faulty ones    *)
+M == { "ECHO" }
+ByzMsgs == Faulty \X M (* ByzMsgs = { <<p, "ECHO">> : p \in Faulty } *)
+         
+vars == << pc, rcvd, sent, Corr, Faulty >>
+
+(* Initial state *)
+Init == 
+  /\ sent = {}                          (* No messages sent initially *)
+  /\ pc \in [ Proc -> {"V0", "V1"} ]    (* Some processes received INIT messages, some didn't *)
+  /\ rcvd = [ i \in Proc |-> {} ]       (* No messages received initially *)
+  /\ Corr \in SUBSET Proc
+  /\ Cardinality(Corr) = N - F          (* N - F processes are correct, but their identities are unknown*)
+  /\ Faulty = Proc \ Corr               (* The rest (F) are faulty*)  
+
+(* Initial state for the unforgeability case *)
+InitNoBcast == pc \in [ Proc -> {"V0"} ] /\ Init
+
+(* Receive action: a process receives *all* messages that have been sent
+   (by correct processes) and, if includeByz is TRUE, also messages from
+   faulty processes.  This models a reliable broadcast where each correct
+   process eventually receives all messages sent by the others. *)
+Receive(self, includeByz) ==
+  /\ rcvd' = [ i \in Proc |-> IF i # self
+                     THEN rcvd[i]
+                     ELSE rcvd[self] \cup (sent \cup (IF includeByz THEN ByzMsgs ELSE {})) ]
+
+ReceiveFromCorrectSender(self) == Receive(self, FALSE)
+ReceiveFromAnySender(self) == Receive(self, TRUE)
+
+(* The first if-then expression in Figure 7 [1]: If process p received an INIT message and
+   did not send <ECHO> before, then process p sends ECHO to all. *)
+UponV1(self) ==
+  /\ pc[self] = "V1"
+  /\ pc' = [pc EXCEPT ![self] = "SE"]
+  /\ sent' = sent \cup { <<self, "ECHO">> }
+  /\ UNCHANGED << Corr, Faulty >>
+
+(* The 3rd if-then expression in Fig. 7 [1]: If correct process p received ECHO messages 
+   from at least N - 2*T distinct processes and did not send ECHO before, then process p sends
+   ECHO messages to all. *)
+UponNonFaulty(self) ==
+  /\ pc[self] \notin { "V0", "V1" }
+  /\ Cardinality(rcvd'[self]) >= N - 2*T  
+  /\ Cardinality(rcvd'[self]) < N - T
+  /\ pc' = [ pc EXCEPT ![self] = "SE" ]
+  /\ sent' = sent \cup { <<self, "ECHO">> }
+  /\ UNCHANGED << Corr, Faulty >>
+
+(* The 2nd and 3rd if-then expressions in Figure 7 [1]: If process p received <ECHO> from at 
+   least N - T distinct processes and did not send ECHO message before, then process p accepts       
+   and sends <ECHO> to all. *)
+UponAcceptNotSentBefore(self) ==
+  /\ pc[self] \in { "V0", "V1" }
+  /\ Cardinality(rcvd'[self]) >= N - T
+  /\ pc' = [ pc EXCEPT ![self] = "AC" ]
+  /\ sent' = sent \cup { <<self, "ECHO">> }
+  /\ UNCHANGED << Corr, Faulty >>
+
+(* Only the 2nd if-then expression in Fig. 7 [1]:  if process p sent ECHO messages and received 
+   ECHO messages from at least N - T distinct processes, it accepts. *)
+UponAcceptSentBefore(self) ==
+  /\ pc[self] = "SE"
+  /\ Cardinality(rcvd'[self]) >= N - T
+  /\ pc' = [pc EXCEPT ![self] = "AC"]
+  /\ sent' = sent
+  /\ UNCHANGED << Corr, Faulty >>
+
+(* All possible process steps. *)
+Step(self) == 
+  /\ ReceiveFromAnySender(self)
+  /\ \/ UponV1(self)
+     \/ UponNonFaulty(self)
+     \/ UponAcceptNotSentBefore(self)
+     \/ UponAcceptSentBefore(self)
+
+(* Some correct process does a transition step. *)
+Next ==
+     \/ \E self \in Corr: Step(self)                     
+     \/ UNCHANGED vars (* add a self-loop for terminating computations *)
+
+(* Weak fairness: if a step that performs a ReceiveFromCorrectSender or one of the
+   Upon actions is forever enabled, it eventually occurs. *)
+Spec == Init /\ [][Next]_vars 
+             /\ WF_vars(\E self \in Corr: TRUE)
+
+(* Spec for the unforgeability case (no fairness needed). *)
+SpecNoBcast == InitNoBcast /\ [][Next]_vars
+
+(* Type and cardinality constraints *)
+TypeOK == 
+  /\ pc \in [ Proc -> {"V0", "V1", "SE", "AC"} ]          
+  /\ Corr \subseteq Proc
+  /\ Faulty \subseteq Proc
+  /\ sent \subseteq Proc \times M     
+  /\ rcvd \in [ Proc -> SUBSET ( sent \cup ByzMsgs ) ]
+
+(* Constraints about the cardinalities of Faulty and Corr, their elements, and the upper bound  
+   of the set of possible Byzantine messages. *)
+FCConstraints == 
+  /\ Corr \subseteq Proc
+  /\ Faulty \subseteq Proc
+  /\ IsFiniteSet(Corr)
+  /\ IsFiniteSet(Faulty)
+  /\ Corr \cup Faulty = Proc 
+  /\ Faulty = Proc \ Corr
+  /\ Cardinality(Corr) >= N - T
+  /\ Cardinality(Faulty) <= T   
+  /\ ByzMsgs \subseteq Proc \X M     
+  /\ IsFiniteSet(ByzMsgs)
+  /\ Cardinality(ByzMsgs) = Cardinality(Faulty)        
+
+(* --- LTL properties ---------------------------------------------- *)
+
+(* If a correct process broadcasts, then every correct process eventually accepts. *)
+CorrLtl == (\A i \in Corr: pc[i] = "V1") => <>(\A i \in Corr: pc[i] = "AC")
+
+(* If a correct process accepts, then every correct process accepts. *)
+RelayLtl == []((\E i \in Corr: pc[i] = "AC") => <>(\A i \in Corr: pc[i] = "AC"))
+
+(* If no correct process broadcast ECHO messages then no correct processes accept. *)
+UnforgLtl == (\A i \in Corr: pc[i] = "V0") => [](\A i \in Corr: pc[i] /= "AC")
+
+(* The special case of the unforgeability property. When our algorithms start with InitNoBcast,
+   we can rewrite UnforgLtl as a first-order formula. *)
+Unforg == (\A i \in Proc: i \in Corr => (pc[i] /= "AC")) 
+
+(****************************** SPECIFICATION ******************************)
+
+(******************************* TLAPS PROOFS ******************************)      
+ 
+(* The constraints between N, T, and F*)
+THEOREM NTFRel == N \in Nat /\ T \in Nat /\ F \in Nat /\ (N > 3 * T) /\ (T >= F) /\ (F >= 0) /\ N - 2*T >= T + 1
+  BY NTF  
+
+(* Proc is always a finite set and its cardinality is N*)  
+THEOREM ProcProp == Cardinality(Proc) = N /\ IsFiniteSet(Proc) /\ Cardinality(Proc) \in Nat
+  BY FS_Interval, NTFRel DEF Proc    
+
+(* If we have 
+      1/ X, Y, and Z are finite,
+      2/ X and Y are disjoint, and
+      3/ the union of X and Y is Z,
+   then we have the sum of Card(X) and Card(Y) is Card(Z).*)   
+THEOREM UMFS_CardinalityType == 
+  \A X, Y, Z :    
+        /\ IsFiniteSet(X) 
+        /\ IsFiniteSet(Y) 
+        /\ IsFiniteSet(Z) 
+        /\ X \cup Y = Z
+        /\ X = Z \ Y
+     => Cardinality(X) = Cardinality(Z) - Cardinality(Y)
+  <1> SUFFICES ASSUME NEW X, NEW Y, NEW Z,    
+                      IsFiniteSet(X), 
+                      IsFiniteSet(Y), 
+                      IsFiniteSet(Z), 
+                      X \cup Y = Z,
+                      X = Z \ Y
+              PROVE Cardinality(X) = Cardinality(Z) - Cardinality(Y)
+              OBVIOUS
+  <1>1 Cardinality(X) = Cardinality(Z) - Cardinality(Z \cap Y)
+    BY FS_Difference
+  <1>2 Z \cap Y = Y
+    OBVIOUS
+  <1>3 IsFiniteSet(Z \cap Y)
+    BY FS_Intersection
+  <1>4 Cardinality(Z \cap Y) = Cardinality(Y)
+    BY <1>2
+  <1> QED 
+    BY <1>1, <1>2, <1>3, <1>4
+       
+(* In the following, we try to prove that 
+      1/ FCConstraints, TypeOK and IndInv_Unforg_NoBcastare induct

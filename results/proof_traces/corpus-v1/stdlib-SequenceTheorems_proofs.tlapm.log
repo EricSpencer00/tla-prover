@@ -1,0 +1,6835 @@
+
+\* TLAPM version 80172c6
+\* launched at 2026-07-08 14:15:24 with command line:
+\* /Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm --toolbox 0 0 --printallobs -I /Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib -I /Users/eric/GitHub/prove-TLA/tools/community-modules -I /Users/eric/GitHub/prove-TLA/tools/extra-modules SequenceTheorems_proofs.tla
+
+@!!BEGIN
+@!!type:obligation
+@!!id:1
+@!!loc:16:1:16:8
+@!!status:to be proved
+@!!obl:\A S : Seq(S) = UNION {[1..n -> S] : n \in Nat}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:2
+@!!loc:22:1:22:8
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT T,
+       NEW CONSTANT seq \in Seq(S),
+       S \subseteq T 
+PROVE  seq \in Seq(T)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:3
+@!!loc:28:1:28:8
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT n \in 1..Len(seq)
+PROVE  seq[n] \in S
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:4
+@!!loc:35:1:35:8
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S
+PROVE  /\ <<>> \in Seq(S)
+       /\ Len(<<>>) = 0
+       /\ \A seq \in Seq(S) : seq # <<>> => Len(seq) \in Nat \ {0}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:5
+@!!loc:42:1:42:8
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S)
+PROVE  /\ Len(seq) \in Nat
+       /\ seq \in [1..Len(seq) -> S]
+       /\ DOMAIN seq = 1..Len(seq)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:6
+@!!loc:48:1:48:8
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT n \in Nat,
+       NEW CONSTANT e(_),
+       NEW CONSTANT S,
+       \A i \in 1..n : e(i) \in S 
+PROVE  [i \in 1..n |-> e(i)] \in Seq(S)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:7
+@!!loc:55:1:55:8
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT i \in 1..Len(seq),
+       NEW CONSTANT e \in S
+PROVE  /\ [seq EXCEPT ![i] = e] \in Seq(S)
+       /\ Len([seq EXCEPT ![i] = e]) = Len(seq)
+       /\ \A j \in 1..Len(seq) :
+             [seq EXCEPT ![i] = e][j] = (IF j = i THEN e ELSE seq[j])
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:8
+@!!loc:61:1:61:8
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       Len(s) = Len(t) ,
+       \A i \in 1..Len(s) : s[i] = t[i] 
+PROVE  s = t
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:9
+@!!loc:73:1:73:8
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s1 \in Seq(S),
+       NEW CONSTANT s2 \in Seq(S)
+PROVE  /\ s1 \o s2 \in Seq(S)
+       /\ Len(s1 \o s2) = Len(s1) + Len(s2)
+       /\ \A i \in 1..Len(s1) + Len(s2) :
+             (s1 \o s2)[i]
+             = (IF i =< Len(s1) THEN s1[i] ELSE s2[i - Len(s1)])
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:10
+@!!loc:79:1:79:8
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S)
+PROVE  /\ seq \o <<>> = seq
+       /\ <<>> \o seq = seq
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:11
+@!!loc:86:1:86:8
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S)
+PROVE  /\ s \o t = s <=> t = <<>>
+       /\ s \o t = t <=> s = <<>>
+       /\ s \o t = <<>> <=> s = <<>> /\ t = <<>>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:12
+@!!loc:91:1:91:8
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT u \in Seq(S)
+PROVE  s \o t \o u = s \o (t \o u)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:13
+@!!loc:123:11:123:13
+@!!status:to be proved
+@!!obl:ASSUME <1>1 ,
+       <1>2 ,
+       ConcatEqualIffEmpty 
+PROVE  /\ idRight::\A S : \A s, t \in Seq(S) : s \o t = s => t = <<>>
+       /\ idLeft::\A S : \A s, t \in Seq(S) : s \o t = t => s = <<>>
+       /\ concIsEmpty::\A S :
+                          \A s, t \in Seq(S) :
+                             s \o t = <<>> => s = <<>> /\ t = <<>>
+       /\ cancelLeft::\A S : \A s, t, v \in Seq(S) : s \o t = s \o v => t = v
+       /\ cancelRight::\A S :
+                          \A s, t, v \in Seq(S) : s \o v = t \o v => s = t
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:14
+@!!loc:123:14:123:18
+@!!status:to be proved
+@!!obl:<1>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:15
+@!!loc:123:20:123:24
+@!!status:to be proved
+@!!obl:ASSUME <1>1 
+PROVE  <1>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:16
+@!!loc:123:26:123:45
+@!!status:to be proved
+@!!obl:ASSUME <1>1 ,
+       <1>2 
+PROVE  ConcatEqualIffEmpty
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:17
+@!!loc:114:13:114:15
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S),
+       <2>1 ,
+       <2>2 
+PROVE  t = v
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:18
+@!!loc:114:16:114:20
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S)
+PROVE  <2>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:19
+@!!loc:114:22:114:26
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S),
+       <2>1 
+PROVE  <2>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:20
+@!!loc:107:5:107:7
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S),
+       <1>1 
+PROVE  Len(t) = Len(v)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:21
+@!!loc:107:8:107:12
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S)
+PROVE  <1>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:22
+@!!loc:113:15:113:17
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S),
+       NEW CONSTANT i \in 1..Len(t),
+       <1>1 ,
+       <3>1 ,
+       <3>2 
+PROVE  t[i] = v[i]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:23
+@!!loc:113:18:113:22
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S),
+       NEW CONSTANT i \in 1..Len(t)
+PROVE  <1>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:24
+@!!loc:113:24:113:28
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S),
+       NEW CONSTANT i \in 1..Len(t),
+       <1>1 
+PROVE  <3>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:25
+@!!loc:113:30:113:34
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S),
+       NEW CONSTANT i \in 1..Len(t),
+       <1>1 ,
+       <3>1 
+PROVE  <3>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:26
+@!!loc:110:7:110:14
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S),
+       NEW CONSTANT i \in 1..Len(t)
+PROVE  t[i] = (s \o t)[Len(s) + i]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:27
+@!!loc:112:7:112:9
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S),
+       NEW CONSTANT i \in 1..Len(t),
+       <2>1 
+PROVE  v[i] = (s \o v)[Len(s) + i]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:28
+@!!loc:112:10:112:14
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S),
+       NEW CONSTANT i \in 1..Len(t)
+PROVE  <2>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:29
+@!!loc:122:13:122:15
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S),
+       <2>1 ,
+       <2>2 
+PROVE  s = t
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:30
+@!!loc:122:16:122:20
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S)
+PROVE  <2>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:31
+@!!loc:122:22:122:26
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S),
+       <2>1 
+PROVE  <2>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:32
+@!!loc:119:5:119:7
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S),
+       <1>2 
+PROVE  Len(s) = Len(t)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:33
+@!!loc:119:8:119:12
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S)
+PROVE  <1>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:34
+@!!loc:121:5:121:7
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S),
+       NEW CONSTANT i \in 1..Len(s),
+       <1>2 ,
+       <2>1 
+PROVE  s[i] = t[i]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:35
+@!!loc:121:8:121:12
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S),
+       NEW CONSTANT i \in 1..Len(s)
+PROVE  <1>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:36
+@!!loc:121:14:121:18
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S),
+       NEW CONSTANT i \in 1..Len(s),
+       <1>2 
+PROVE  <2>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:37
+@!!loc:136:1:136:8
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT m \in Int,
+       NEW CONSTANT n \in Int,
+       m > n \/ (1 =< m /\ n =< Len(s)) ,
+       \A i \in m..n : s[i] \in S 
+PROVE  /\ SubSeq(s, m, n) \in Seq(S)
+       /\ Len(SubSeq(s, m, n)) = (IF m =< n THEN n - m + 1 ELSE 0)
+       /\ \A i \in 1..n - m + 1 : SubSeq(s, m, n)[i] = s[m + i - 1]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:38
+@!!loc:141:1:141:8
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT m \in Int,
+       NEW CONSTANT n \in Int,
+       n < m 
+PROVE  SubSeq(s, m, n) = <<>>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:39
+@!!loc:146:1:146:3
+@!!status:to be proved
+@!!obl:ASSUME Range(f) == {f[x] : x \in DOMAIN f},
+       NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT m \in 1..Len(s),
+       NEW CONSTANT n \in 1..Len(s)
+PROVE  Range(SubSeq(s, m, n)) \subseteq Range(s)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:40
+@!!loc:157:1:157:3
+@!!status:to be proved
+@!!obl:ASSUME Range(f) == {f[x] : x \in DOMAIN f},
+       NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       s # <<>> 
+PROVE  /\ Head(s) \in S
+       /\ Head(s) \in Range(s)
+       /\ Tail(s) \in Seq(S)
+       /\ Len(Tail(s)) = Len(s) - 1
+       /\ \A i \in 1..Len(Tail(s)) : Tail(s)[i] = s[i + 1]
+       /\ Range(Tail(s)) \subseteq Range(s)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:41
+@!!loc:163:1:163:8
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       s # <<>> 
+PROVE  Tail(s) = SubSeq(s, 2, Len(s))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:42
+@!!loc:168:1:168:3
+@!!status:to be proved
+@!!obl:ASSUME Restrict(f, S) == [x \in S |-> f[x]],
+       NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT n \in 0..Len(seq)
+PROVE  SubSeq(seq, 1, n) = Restrict(seq, 1..n)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:43
+@!!loc:175:1:175:8
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT m \in 1..Len(seq),
+       NEW CONSTANT n \in m..Len(seq)
+PROVE  /\ Head(SubSeq(seq, m, n)) = seq[m]
+       /\ Tail(SubSeq(seq, m, n)) = SubSeq(seq, m + 1, n)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:44
+@!!loc:182:1:182:8
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT m \in 1..Len(seq),
+       NEW CONSTANT n \in m..Len(seq)
+PROVE  /\ SubSeq(seq, m, n) = <<seq[m]>> \o SubSeq(seq, m + 1, n)
+       /\ SubSeq(seq, m, n) = SubSeq(seq, m, n - 1) \o <<seq[n]>>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:45
+@!!loc:192:1:192:8
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT i \in 1..Len(s),
+       NEW CONSTANT j \in 1..Len(s),
+       NEW CONSTANT m \in 1..j - i + 1,
+       NEW CONSTANT n \in 1..j - i + 1
+PROVE  SubSeq(SubSeq(s, i, j), m, n) = SubSeq(s, i + m - 1, i + n - 1)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:46
+@!!loc:203:1:203:8
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT m \in 1..Len(seq) + 1,
+       NEW CONSTANT k \in m - 1..Len(seq),
+       NEW CONSTANT n \in k..Len(seq)
+PROVE  SubSeq(seq, m, k) \o SubSeq(seq, k + 1, n) = SubSeq(seq, m, n)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:47
+@!!loc:212:1:212:8
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT m \in 1..Len(s),
+       NEW CONSTANT n \in 1..Len(s)
+PROVE  SubSeq(s \o t, m, n) = SubSeq(s, m, n)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:48
+@!!loc:218:1:218:8
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT m \in Len(s) + 1..Len(s) + Len(t),
+       NEW CONSTANT n \in Len(s) + 1..Len(s) + Len(t)
+PROVE  SubSeq(s \o t, m, n) = SubSeq(t, m - Len(s), n - Len(s))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:49
+@!!loc:232:1:232:3
+@!!status:to be proved
+@!!obl:ASSUME Range(f) == {f[x] : x \in DOMAIN f},
+       NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT elt \in S
+PROVE  /\ Append(seq, elt) \in Seq(S)
+       /\ Append(seq, elt) # <<>>
+       /\ Len(Append(seq, elt)) = Len(seq) + 1
+       /\ \A i \in 1..Len(seq) : Append(seq, elt)[i] = seq[i]
+       /\ Append(seq, elt)[Len(seq) + 1] = elt
+       /\ Range(Append(seq, elt)) = Range(seq) \cup {elt}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:50
+@!!loc:237:1:237:8
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT elt \in S
+PROVE  Append(seq, elt) = seq \o <<elt>>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:51
+@!!loc:243:1:243:3
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT elt,
+       seq \in Seq(S \cup {elt}) 
+PROVE  /\ Head(Append(seq, elt)) = (IF seq = <<>> THEN elt ELSE Head(seq))
+       /\ Tail(Append(seq, elt))
+          = (IF seq = <<>> THEN <<>> ELSE Append(Tail(seq), elt))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:52
+@!!loc:243:4:243:31
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT elt
+PROVE  seq \in Seq(S \cup {elt})
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:53
+@!!loc:248:1:248:8
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT e \in S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT f \in S,
+       NEW CONSTANT t \in Seq(S)
+PROVE  Append(s, e) = Append(t, f) <=> s = t /\ e = f
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:54
+@!!loc:266:11:266:13
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       seq # <<>> ,
+       front == [i \in 1..Len(seq) - 1 |-> seq[i]],
+       last == seq[Len(seq)],
+       <1>1 ,
+       <1>4 
+PROVE  \E s \in Seq(S), elt \in S : seq = Append(s, elt)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:55
+@!!loc:266:14:266:18
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       seq # <<>> ,
+       front == [i \in 1..Len(seq) - 1 |-> seq[i]],
+       last == seq[Len(seq)]
+PROVE  <1>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:56
+@!!loc:266:20:266:24
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       seq # <<>> ,
+       front == [i \in 1..Len(seq) - 1 |-> seq[i]],
+       last == seq[Len(seq)],
+       <1>1 
+PROVE  <1>4
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:57
+@!!loc:258:3:258:10
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       seq # <<>> ,
+       front == [i \in 1..Len(seq) - 1 |-> seq[i]],
+       last == seq[Len(seq)]
+PROVE  /\ front \in Seq(S)
+       /\ Len(front) = Len(seq) - 1
+       /\ last \in S
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:58
+@!!loc:260:3:260:10
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       seq # <<>> ,
+       front == [i \in 1..Len(seq) - 1 |-> seq[i]],
+       last == seq[Len(seq)]
+PROVE  Len(seq) = Len(Append(front, last))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:59
+@!!loc:263:3:263:10
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       seq # <<>> ,
+       front == [i \in 1..Len(seq) - 1 |-> seq[i]],
+       last == seq[Len(seq)],
+       NEW CONSTANT i \in 1..Len(seq)
+PROVE  seq[i] = Append(front, last)[i]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:60
+@!!loc:265:3:265:5
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       seq # <<>> ,
+       front == [i \in 1..Len(seq) - 1 |-> seq[i]],
+       last == seq[Len(seq)],
+       <1>1 ,
+       <1>2 ,
+       <1>3 ,
+       SeqEqual 
+PROVE  seq = Append(front, last)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:61
+@!!loc:265:6:265:10
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       seq # <<>> ,
+       front == [i \in 1..Len(seq) - 1 |-> seq[i]],
+       last == seq[Len(seq)]
+PROVE  <1>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:62
+@!!loc:265:12:265:16
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       seq # <<>> ,
+       front == [i \in 1..Len(seq) - 1 |-> seq[i]],
+       last == seq[Len(seq)],
+       <1>1 
+PROVE  <1>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:63
+@!!loc:265:18:265:22
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       seq # <<>> ,
+       front == [i \in 1..Len(seq) - 1 |-> seq[i]],
+       last == seq[Len(seq)],
+       <1>1 ,
+       <1>2 
+PROVE  <1>3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:64
+@!!loc:265:24:265:32
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       seq # <<>> ,
+       front == [i \in 1..Len(seq) - 1 |-> seq[i]],
+       last == seq[Len(seq)],
+       <1>1 ,
+       <1>2 ,
+       <1>3 
+PROVE  SeqEqual
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:65
+@!!loc:290:12:290:14
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT P(_),
+       NEW CONSTANT S,
+       P(<<>>) ,
+       \A s \in Seq(S), e \in S : P(s) => P(Append(s, e)) ,
+       Q(n) == \A seq \in Seq(S) : Len(seq) = n => P(seq),
+       <1>1 ,
+       <1>2 ,
+       NatInduction ,
+       Isa 
+PROVE  \A k \in Nat : Q(k)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:66
+@!!loc:290:15:290:19
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT P(_),
+       NEW CONSTANT S,
+       P(<<>>) ,
+       \A s \in Seq(S), e \in S : P(s) => P(Append(s, e)) ,
+       Q(n) == \A seq \in Seq(S) : Len(seq) = n => P(seq)
+PROVE  <1>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:67
+@!!loc:290:21:290:25
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT P(_),
+       NEW CONSTANT S,
+       P(<<>>) ,
+       \A s \in Seq(S), e \in S : P(s) => P(Append(s, e)) ,
+       Q(n) == \A seq \in Seq(S) : Len(seq) = n => P(seq),
+       <1>1 
+PROVE  <1>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:68
+@!!loc:290:27:290:39
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT P(_),
+       NEW CONSTANT S,
+       P(<<>>) ,
+       \A s \in Seq(S), e \in S : P(s) => P(Append(s, e)) ,
+       Q(n) == \A seq \in Seq(S) : Len(seq) = n => P(seq),
+       <1>1 ,
+       <1>2 
+PROVE  NatInduction
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:69
+@!!loc:290:41:290:44
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT P(_),
+       NEW CONSTANT S,
+       P(<<>>) ,
+       \A s \in Seq(S), e \in S : P(s) => P(Append(s, e)) ,
+       Q(n) == \A seq \in Seq(S) : Len(seq) = n => P(seq),
+       <1>1 ,
+       <1>2 ,
+       NatInduction 
+PROVE  Isa
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:70
+@!!loc:279:3:279:10
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT P(_),
+       NEW CONSTANT S,
+       P(<<>>) ,
+       \A s \in Seq(S), e \in S : P(s) => P(Append(s, e)) ,
+       Q(n) == \A seq \in Seq(S) : Len(seq) = n => P(seq),
+       <1>_a69 
+PROVE  \A seq \in Seq(S) : P(seq)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:71
+@!!loc:281:3:281:10
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT P(_),
+       NEW CONSTANT S,
+       P(<<>>) ,
+       \A s \in Seq(S), e \in S : P(s) => P(Append(s, e)) ,
+       Q(n) == \A seq \in Seq(S) : Len(seq) = n => P(seq)
+PROVE  Q(0)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:72
+@!!loc:289:13:289:15
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT P(_),
+       NEW CONSTANT S,
+       P(<<>>) ,
+       \A s \in Seq(S), e \in S : P(s) => P(Append(s, e)) ,
+       Q(n) == \A seq \in Seq(S) : Len(seq) = n => P(seq),
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT s \in Seq(S),
+       Len(s) = n + 1 ,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT e \in S,
+       s = Append(seq, e) /\ Len(seq) = n ,
+       <1>2 
+PROVE  P(s)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:73
+@!!loc:289:16:289:20
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT P(_),
+       NEW CONSTANT S,
+       P(<<>>) ,
+       \A s \in Seq(S), e \in S : P(s) => P(Append(s, e)) ,
+       Q(n) == \A seq \in Seq(S) : Len(seq) = n => P(seq),
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT s \in Seq(S),
+       Len(s) = n + 1 ,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT e \in S,
+       s = Append(seq, e) /\ Len(seq) = n 
+PROVE  <1>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:74
+@!!loc:286:5:286:12
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT P(_),
+       NEW CONSTANT S,
+       P(<<>>) ,
+       \A s \in Seq(S), e \in S : P(s) => P(Append(s, e)) ,
+       Q(n) == \A seq \in Seq(S) : Len(seq) = n => P(seq),
+       NEW CONSTANT n \in Nat,
+       <2>_a70 
+PROVE  Q(n + 1)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:75
+@!!loc:288:5:288:7
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT P(_),
+       NEW CONSTANT S,
+       P(<<>>) ,
+       \A s \in Seq(S), e \in S : P(s) => P(Append(s, e)) ,
+       Q(n) == \A seq \in Seq(S) : Len(seq) = n => P(seq),
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT s \in Seq(S),
+       Len(s) = n + 1 ,
+       SequenceEmptyOrAppend 
+PROVE  \E seq \in Seq(S), e \in S : s = Append(seq, e) /\ Len(seq) = n
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:76
+@!!loc:288:8:288:29
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT P(_),
+       NEW CONSTANT S,
+       P(<<>>) ,
+       \A s \in Seq(S), e \in S : P(s) => P(Append(s, e)) ,
+       Q(n) == \A seq \in Seq(S) : Len(seq) = n => P(seq),
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT s \in Seq(S),
+       Len(s) = n + 1 
+PROVE  SequenceEmptyOrAppend
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:78
+@!!loc:311:12:311:14
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT P(_),
+       P(<<>>) ,
+       \A s \in Seq(S) : s # <<>> /\ P(Tail(s)) => P(s) ,
+       Q(n) == \A s \in Seq(S) : Len(s) = n => P(s),
+       <1>1 ,
+       <1>2 ,
+       NatInduction ,
+       Isa 
+PROVE  \A k \in Nat : Q(k)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:79
+@!!loc:311:15:311:19
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT P(_),
+       P(<<>>) ,
+       \A s \in Seq(S) : s # <<>> /\ P(Tail(s)) => P(s) ,
+       Q(n) == \A s \in Seq(S) : Len(s) = n => P(s)
+PROVE  <1>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:80
+@!!loc:311:21:311:25
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT P(_),
+       P(<<>>) ,
+       \A s \in Seq(S) : s # <<>> /\ P(Tail(s)) => P(s) ,
+       Q(n) == \A s \in Seq(S) : Len(s) = n => P(s),
+       <1>1 
+PROVE  <1>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:81
+@!!loc:311:27:311:39
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT P(_),
+       P(<<>>) ,
+       \A s \in Seq(S) : s # <<>> /\ P(Tail(s)) => P(s) ,
+       Q(n) == \A s \in Seq(S) : Len(s) = n => P(s),
+       <1>1 ,
+       <1>2 
+PROVE  NatInduction
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:82
+@!!loc:311:41:311:44
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT P(_),
+       P(<<>>) ,
+       \A s \in Seq(S) : s # <<>> /\ P(Tail(s)) => P(s) ,
+       Q(n) == \A s \in Seq(S) : Len(s) = n => P(s),
+       <1>1 ,
+       <1>2 ,
+       NatInduction 
+PROVE  Isa
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:83
+@!!loc:299:3:299:10
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT P(_),
+       P(<<>>) ,
+       \A s \in Seq(S) : s # <<>> /\ P(Tail(s)) => P(s) ,
+       Q(n) == \A s \in Seq(S) : Len(s) = n => P(s),
+       <1>_a82 
+PROVE  \A s \in Seq(S) : P(s)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:84
+@!!loc:301:3:301:10
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT P(_),
+       P(<<>>) ,
+       \A s \in Seq(S) : s # <<>> /\ P(Tail(s)) => P(s) ,
+       Q(n) == \A s \in Seq(S) : Len(s) = n => P(s)
+PROVE  Q(0)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:85
+@!!loc:310:13:310:15
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT P(_),
+       P(<<>>) ,
+       \A s \in Seq(S) : s # <<>> /\ P(Tail(s)) => P(s) ,
+       Q(n) == \A s \in Seq(S) : Len(s) = n => P(s),
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT s \in Seq(S),
+       Len(s) = n + 1 ,
+       <2>1 ,
+       <1>2 ,
+       Zenon 
+PROVE  P(s)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:86
+@!!loc:310:16:310:20
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT P(_),
+       P(<<>>) ,
+       \A s \in Seq(S) : s # <<>> /\ P(Tail(s)) => P(s) ,
+       Q(n) == \A s \in Seq(S) : Len(s) = n => P(s),
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT s \in Seq(S),
+       Len(s) = n + 1 
+PROVE  <2>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:87
+@!!loc:310:22:310:26
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT P(_),
+       P(<<>>) ,
+       \A s \in Seq(S) : s # <<>> /\ P(Tail(s)) => P(s) ,
+       Q(n) == \A s \in Seq(S) : Len(s) = n => P(s),
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT s \in Seq(S),
+       Len(s) = n + 1 ,
+       <2>1 
+PROVE  <1>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:88
+@!!loc:310:28:310:33
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT P(_),
+       P(<<>>) ,
+       \A s \in Seq(S) : s # <<>> /\ P(Tail(s)) => P(s) ,
+       Q(n) == \A s \in Seq(S) : Len(s) = n => P(s),
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT s \in Seq(S),
+       Len(s) = n + 1 ,
+       <2>1 ,
+       <1>2 
+PROVE  Zenon
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:89
+@!!loc:306:5:306:12
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT P(_),
+       P(<<>>) ,
+       \A s \in Seq(S) : s # <<>> /\ P(Tail(s)) => P(s) ,
+       Q(n) == \A s \in Seq(S) : Len(s) = n => P(s),
+       NEW CONSTANT n \in Nat,
+       <2>_a83 
+PROVE  Q(n + 1)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:90
+@!!loc:309:5:309:12
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT P(_),
+       P(<<>>) ,
+       \A s \in Seq(S) : s # <<>> /\ P(Tail(s)) => P(s) ,
+       Q(n) == \A s \in Seq(S) : Len(s) = n => P(s),
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT s \in Seq(S),
+       Len(s) = n + 1 
+PROVE  /\ Tail(s) \in Seq(S)
+       /\ Len(Tail(s)) = n
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:91
+@!!loc:321:1:321:3
+@!!status:to be proved
+@!!obl:ASSUME Range(f) == {f[x] : x \in DOMAIN f},
+       NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S)
+PROVE  Range(seq) \in SUBSET S
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:92
+@!!loc:326:1:326:3
+@!!status:to be proved
+@!!obl:ASSUME Range(f) == {f[x] : x \in DOMAIN f},
+       NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S)
+PROVE  Range(seq) = {seq[i] : i \in 1..Len(seq)}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:93
+@!!loc:331:1:331:3
+@!!status:to be proved
+@!!obl:ASSUME Range(f) == {f[x] : x \in DOMAIN f},
+       NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S)
+PROVE  seq \in Seq(Range(seq))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:94
+@!!loc:349:11:349:13
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s1 \in Seq(S),
+       NEW CONSTANT s2 \in Seq(S),
+       <1>1 ,
+       <1>2 ,
+       <1>3 
+PROVE  Range(s1 \o s2) = Range(s1) \cup Range(s2)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:95
+@!!loc:349:14:349:18
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s1 \in Seq(S),
+       NEW CONSTANT s2 \in Seq(S)
+PROVE  <1>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:96
+@!!loc:349:20:349:24
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s1 \in Seq(S),
+       NEW CONSTANT s2 \in Seq(S),
+       <1>1 
+PROVE  <1>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:97
+@!!loc:349:26:349:30
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s1 \in Seq(S),
+       NEW CONSTANT s2 \in Seq(S),
+       <1>1 ,
+       <1>2 
+PROVE  <1>3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:98
+@!!loc:338:3:338:5
+@!!status:to be proved
+@!!obl:ASSUME Range(f) == {f[x] : x \in DOMAIN f},
+       NEW CONSTANT S,
+       NEW CONSTANT s1 \in Seq(S),
+       NEW CONSTANT s2 \in Seq(S)
+PROVE  Range(s1) \subseteq Range(s1 \o s2)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:99
+@!!loc:346:13:346:15
+@!!status:to be proved
+@!!obl:ASSUME Range(f) == {f[x] : x \in DOMAIN f},
+       NEW CONSTANT S,
+       NEW CONSTANT s1 \in Seq(S),
+       NEW CONSTANT s2 \in Seq(S),
+       NEW CONSTANT i \in 1..Len(s2),
+       <2>2 
+PROVE  s2[i] \in Range(s1 \o s2)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:100
+@!!loc:346:16:346:20
+@!!status:to be proved
+@!!obl:ASSUME Range(f) == {f[x] : x \in DOMAIN f},
+       NEW CONSTANT S,
+       NEW CONSTANT s1 \in Seq(S),
+       NEW CONSTANT s2 \in Seq(S),
+       NEW CONSTANT i \in 1..Len(s2)
+PROVE  <2>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:101
+@!!loc:342:5:342:7
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s1 \in Seq(S),
+       NEW CONSTANT s2 \in Seq(S),
+       <2>1 ,
+       RangeEquality 
+PROVE  Range(s2) \subseteq Range(s1 \o s2)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:102
+@!!loc:342:8:342:21
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s1 \in Seq(S),
+       NEW CONSTANT s2 \in Seq(S),
+       <2>1 
+PROVE  RangeEquality
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:103
+@!!loc:345:5:345:12
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s1 \in Seq(S),
+       NEW CONSTANT s2 \in Seq(S),
+       NEW CONSTANT i \in 1..Len(s2)
+PROVE  /\ Len(s1) + i \in 1..Len(s1 \o s2)
+       /\ (s1 \o s2)[Len(s1) + i] = s2[i]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:104
+@!!loc:348:3:348:5
+@!!status:to be proved
+@!!obl:ASSUME Range(f) == {f[x] : x \in DOMAIN f},
+       NEW CONSTANT S,
+       NEW CONSTANT s1 \in Seq(S),
+       NEW CONSTANT s2 \in Seq(S)
+PROVE  Range(s1 \o s2) \subseteq Range(s1) \cup Range(s2)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:105
+@!!loc:358:1:358:3
+@!!status:to be proved
+@!!obl:ASSUME IsInjective(f) == \A a, b \in DOMAIN f : f[a] = f[b] => a = b
+PROVE  /\ IsInjective(<<>>)
+       /\ \A e : IsInjective(<<e>>)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:106
+@!!loc:389:11:389:13
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       st == s \o t,
+       <1>1 ,
+       <1>2 ,
+       <1>3 ,
+       <1>4 
+PROVE  IsInjective(s \o t)
+       <=> IsInjective(s) /\ IsInjective(t) /\ Range(s) \cap Range(t) = {}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:107
+@!!loc:389:14:389:18
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       st == s \o t
+PROVE  <1>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:108
+@!!loc:389:20:389:24
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       st == s \o t,
+       <1>1 
+PROVE  <1>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:109
+@!!loc:389:26:389:30
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       st == s \o t,
+       <1>1 ,
+       <1>2 
+PROVE  <1>3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:110
+@!!loc:389:32:389:36
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       st == s \o t,
+       <1>1 ,
+       <1>2 ,
+       <1>3 
+PROVE  <1>4
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:111
+@!!loc:366:3:366:5
+@!!status:to be proved
+@!!obl:ASSUME IsInjective(f) == \A a, b \in DOMAIN f : f[a] = f[b] => a = b,
+       NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       st == s \o t,
+       <1>1 
+PROVE  IsInjective(s)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:112
+@!!loc:366:6:366:10
+@!!status:to be proved
+@!!obl:ASSUME IsInjective(f) == \A a, b \in DOMAIN f : f[a] = f[b] => a = b,
+       NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       st == s \o t
+PROVE  <1>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:113
+@!!loc:375:13:375:15
+@!!status:to be proved
+@!!obl:ASSUME IsInjective(f) == \A a, b \in DOMAIN f : f[a] = f[b] => a = b,
+       NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       st == s \o t,
+       NEW CONSTANT i \in DOMAIN t,
+       NEW CONSTANT j \in DOMAIN t,
+       <1>2 ,
+       <2>2 
+PROVE  i = j
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:114
+@!!loc:375:16:375:20
+@!!status:to be proved
+@!!obl:ASSUME IsInjective(f) == \A a, b \in DOMAIN f : f[a] = f[b] => a = b,
+       NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       st == s \o t,
+       NEW CONSTANT i \in DOMAIN t,
+       NEW CONSTANT j \in DOMAIN t
+PROVE  <1>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:115
+@!!loc:375:22:375:26
+@!!status:to be proved
+@!!obl:ASSUME IsInjective(f) == \A a, b \in DOMAIN f : f[a] = f[b] => a = b,
+       NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       st == s \o t,
+       NEW CONSTANT i \in DOMAIN t,
+       NEW CONSTANT j \in DOMAIN t,
+       <1>2 
+PROVE  <2>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:116
+@!!loc:370:5:370:7
+@!!status:to be proved
+@!!obl:ASSUME IsInjective(f) == \A a, b \in DOMAIN f : f[a] = f[b] => a = b,
+       NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       st == s \o t,
+       <2>1 
+PROVE  IsInjective(t)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:117
+@!!loc:374:5:374:7
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       st == s \o t,
+       NEW CONSTANT i \in DOMAIN t,
+       NEW CONSTANT j \in DOMAIN t,
+       <2>1 
+PROVE  /\ i + Len(s) \in DOMAIN st
+       /\ j + Len(s) \in DOMAIN st
+       /\ st[i + Len(s)] = st[j + Len(s)]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:118
+@!!loc:374:8:374:12
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       st == s \o t,
+       NEW CONSTANT i \in DOMAIN t,
+       NEW CONSTANT j \in DOMAIN t
+PROVE  <2>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:119
+@!!loc:385:13:385:15
+@!!status:to be proved
+@!!obl:ASSUME IsInjective(f) == \A a, b \in DOMAIN f : f[a] = f[b] => a = b,
+       NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       st == s \o t,
+       NEW CONSTANT e \in Range(s) \cap Range(t),
+       NEW CONSTANT i \in DOMAIN s,
+       NEW CONSTANT j \in DOMAIN t,
+       <1>3 ,
+       <2>3 
+PROVE  FALSE
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:120
+@!!loc:385:16:385:20
+@!!status:to be proved
+@!!obl:ASSUME IsInjective(f) == \A a, b \in DOMAIN f : f[a] = f[b] => a = b,
+       NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       st == s \o t,
+       NEW CONSTANT e \in Range(s) \cap Range(t),
+       NEW CONSTANT i \in DOMAIN s,
+       NEW CONSTANT j \in DOMAIN t
+PROVE  <1>3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:121
+@!!loc:385:22:385:26
+@!!status:to be proved
+@!!obl:ASSUME IsInjective(f) == \A a, b \in DOMAIN f : f[a] = f[b] => a = b,
+       NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       st == s \o t,
+       NEW CONSTANT e \in Range(s) \cap Range(t),
+       NEW CONSTANT i \in DOMAIN s,
+       NEW CONSTANT j \in DOMAIN t,
+       <1>3 
+PROVE  <2>3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:122
+@!!loc:379:5:379:7
+@!!status:to be proved
+@!!obl:ASSUME Range(f) == {f[x] : x \in DOMAIN f},
+       NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       st == s \o t,
+       NEW CONSTANT e \in Range(s) \cap Range(t),
+       <1>3 
+PROVE  \E i \in DOMAIN s : s[i] = e
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:123
+@!!loc:379:8:379:12
+@!!status:to be proved
+@!!obl:ASSUME Range(f) == {f[x] : x \in DOMAIN f},
+       NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       st == s \o t,
+       NEW CONSTANT e \in Range(s) \cap Range(t)
+PROVE  <1>3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:125
+@!!loc:381:5:381:7
+@!!status:to be proved
+@!!obl:ASSUME Range(f) == {f[x] : x \in DOMAIN f},
+       NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       st == s \o t,
+       NEW CONSTANT e \in Range(s) \cap Range(t),
+       NEW CONSTANT i \in DOMAIN s,
+       <1>3 
+PROVE  \E j \in DOMAIN t : t[j] = e
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:126
+@!!loc:381:8:381:12
+@!!status:to be proved
+@!!obl:ASSUME Range(f) == {f[x] : x \in DOMAIN f},
+       NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       st == s \o t,
+       NEW CONSTANT e \in Range(s) \cap Range(t),
+       NEW CONSTANT i \in DOMAIN s
+PROVE  <1>3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:128
+@!!loc:384:5:384:7
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       st == s \o t,
+       NEW CONSTANT e \in Range(s) \cap Range(t),
+       NEW CONSTANT i \in DOMAIN s,
+       NEW CONSTANT j \in DOMAIN t,
+       <2>1 ,
+       <2>2 
+PROVE  /\ i \in DOMAIN st /\ st[i] = e
+       /\ j + Len(s) \in DOMAIN st /\ st[j + Len(s)] = e
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:129
+@!!loc:384:8:384:12
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       st == s \o t,
+       NEW CONSTANT e \in Range(s) \cap Range(t),
+       NEW CONSTANT i \in DOMAIN s,
+       NEW CONSTANT j \in DOMAIN t
+PROVE  <2>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:130
+@!!loc:384:14:384:18
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       st == s \o t,
+       NEW CONSTANT e \in Range(s) \cap Range(t),
+       NEW CONSTANT i \in DOMAIN s,
+       NEW CONSTANT j \in DOMAIN t,
+       <2>1 
+PROVE  <2>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:131
+@!!loc:388:3:388:5
+@!!status:to be proved
+@!!obl:ASSUME Range(f) == {f[x] : x \in DOMAIN f},
+       IsInjective(f) == \A a, b \in DOMAIN f : f[a] = f[b] => a = b,
+       NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       st == s \o t,
+       <1>4 
+PROVE  IsInjective(st)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:132
+@!!loc:388:6:388:10
+@!!status:to be proved
+@!!obl:ASSUME Range(f) == {f[x] : x \in DOMAIN f},
+       IsInjective(f) == \A a, b \in DOMAIN f : f[a] = f[b] => a = b,
+       NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       st == s \o t
+PROVE  <1>4
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:133
+@!!loc:409:11:409:13
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT e \in S,
+       app == Append(seq, e),
+       <1>1 ,
+       <1>2 ,
+       <1>3 
+PROVE  IsInjective(Append(seq, e))
+       <=> IsInjective(seq) /\ e \notin Range(seq)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:134
+@!!loc:409:14:409:18
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT e \in S,
+       app == Append(seq, e)
+PROVE  <1>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:135
+@!!loc:409:20:409:24
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT e \in S,
+       app == Append(seq, e),
+       <1>1 
+PROVE  <1>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:136
+@!!loc:409:26:409:30
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT e \in S,
+       app == Append(seq, e),
+       <1>1 ,
+       <1>2 
+PROVE  <1>3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:137
+@!!loc:397:3:397:5
+@!!status:to be proved
+@!!obl:ASSUME IsInjective(f) == \A a, b \in DOMAIN f : f[a] = f[b] => a = b,
+       NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT e \in S,
+       app == Append(seq, e),
+       <1>1 
+PROVE  IsInjective(seq)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:138
+@!!loc:397:6:397:10
+@!!status:to be proved
+@!!obl:ASSUME IsInjective(f) == \A a, b \in DOMAIN f : f[a] = f[b] => a = b,
+       NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT e \in S,
+       app == Append(seq, e)
+PROVE  <1>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:139
+@!!loc:405:5:405:7
+@!!status:to be proved
+@!!obl:ASSUME IsInjective(f) == \A a, b \in DOMAIN f : f[a] = f[b] => a = b,
+       NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT e \in S,
+       app == Append(seq, e),
+       NEW CONSTANT i \in DOMAIN seq,
+       <1>2 ,
+       <2>2 
+PROVE  FALSE
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:140
+@!!loc:405:8:405:12
+@!!status:to be proved
+@!!obl:ASSUME IsInjective(f) == \A a, b \in DOMAIN f : f[a] = f[b] => a = b,
+       NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT e \in S,
+       app == Append(seq, e),
+       NEW CONSTANT i \in DOMAIN seq
+PROVE  <1>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:141
+@!!loc:405:14:405:18
+@!!status:to be proved
+@!!obl:ASSUME IsInjective(f) == \A a, b \in DOMAIN f : f[a] = f[b] => a = b,
+       NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT e \in S,
+       app == Append(seq, e),
+       NEW CONSTANT i \in DOMAIN seq,
+       <1>2 
+PROVE  <2>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:142
+@!!loc:401:5:401:7
+@!!status:to be proved
+@!!obl:ASSUME Range(f) == {f[x] : x \in DOMAIN f},
+       NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT e \in S,
+       app == Append(seq, e),
+       <1>2 
+PROVE  \E i \in DOMAIN seq : seq[i] = e
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:143
+@!!loc:401:8:401:12
+@!!status:to be proved
+@!!obl:ASSUME Range(f) == {f[x] : x \in DOMAIN f},
+       NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT e \in S,
+       app == Append(seq, e)
+PROVE  <1>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:145
+@!!loc:403:5:403:7
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT e \in S,
+       app == Append(seq, e),
+       NEW CONSTANT i \in DOMAIN seq,
+       <2>1 
+PROVE  app[i] = e /\ app[Len(seq) + 1] = e
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:146
+@!!loc:403:8:403:12
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT e \in S,
+       app == Append(seq, e),
+       NEW CONSTANT i \in DOMAIN seq
+PROVE  <2>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:147
+@!!loc:408:3:408:5
+@!!status:to be proved
+@!!obl:ASSUME Range(f) == {f[x] : x \in DOMAIN f},
+       IsInjective(f) == \A a, b \in DOMAIN f : f[a] = f[b] => a = b,
+       NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT e \in S,
+       app == Append(seq, e),
+       <1>3 
+PROVE  IsInjective(app)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:148
+@!!loc:408:6:408:10
+@!!status:to be proved
+@!!obl:ASSUME Range(f) == {f[x] : x \in DOMAIN f},
+       IsInjective(f) == \A a, b \in DOMAIN f : f[a] = f[b] => a = b,
+       NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT e \in S,
+       app == Append(seq, e)
+PROVE  <1>3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:149
+@!!loc:428:11:428:13
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       IsInjective(seq) ,
+       seq # <<>> ,
+       tl == Tail(seq),
+       <1>1 ,
+       <1>2 ,
+       <1>3 
+PROVE  /\ IsInjective(Tail(seq))
+       /\ Range(Tail(seq)) = Range(seq) \ {Head(seq)}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:150
+@!!loc:428:14:428:18
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       IsInjective(seq) ,
+       seq # <<>> ,
+       tl == Tail(seq)
+PROVE  <1>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:151
+@!!loc:428:20:428:24
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       IsInjective(seq) ,
+       seq # <<>> ,
+       tl == Tail(seq),
+       <1>1 
+PROVE  <1>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:152
+@!!loc:428:26:428:30
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       IsInjective(seq) ,
+       seq # <<>> ,
+       tl == Tail(seq),
+       <1>1 ,
+       <1>2 
+PROVE  <1>3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:153
+@!!loc:417:3:417:5
+@!!status:to be proved
+@!!obl:ASSUME IsInjective(f) == \A a, b \in DOMAIN f : f[a] = f[b] => a = b,
+       NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       IsInjective(seq) ,
+       seq # <<>> ,
+       tl == Tail(seq)
+PROVE  IsInjective(tl)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:154
+@!!loc:420:3:420:5
+@!!status:to be proved
+@!!obl:ASSUME Range(f) == {f[x] : x \in DOMAIN f},
+       IsInjective(f) == \A a, b \in DOMAIN f : f[a] = f[b] => a = b,
+       NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       IsInjective(seq) ,
+       seq # <<>> ,
+       tl == Tail(seq),
+       NEW CONSTANT e \in Range(tl)
+PROVE  e \in Range(seq) \ {Head(seq)}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:155
+@!!loc:427:13:427:15
+@!!status:to be proved
+@!!obl:ASSUME Range(f) == {f[x] : x \in DOMAIN f},
+       NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       IsInjective(seq) ,
+       seq # <<>> ,
+       tl == Tail(seq),
+       NEW CONSTANT e \in Range(seq) \ {Head(seq)},
+       NEW CONSTANT i \in 2..Len(seq),
+       <2>2 ,
+       Zenon 
+PROVE  e \in Range(tl)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:156
+@!!loc:427:16:427:20
+@!!status:to be proved
+@!!obl:ASSUME Range(f) == {f[x] : x \in DOMAIN f},
+       NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       IsInjective(seq) ,
+       seq # <<>> ,
+       tl == Tail(seq),
+       NEW CONSTANT e \in Range(seq) \ {Head(seq)},
+       NEW CONSTANT i \in 2..Len(seq)
+PROVE  <2>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:157
+@!!loc:427:22:427:27
+@!!status:to be proved
+@!!obl:ASSUME Range(f) == {f[x] : x \in DOMAIN f},
+       NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       IsInjective(seq) ,
+       seq # <<>> ,
+       tl == Tail(seq),
+       NEW CONSTANT e \in Range(seq) \ {Head(seq)},
+       NEW CONSTANT i \in 2..Len(seq),
+       <2>2 
+PROVE  Zenon
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:158
+@!!loc:424:5:424:7
+@!!status:to be proved
+@!!obl:ASSUME Range(f) == {f[x] : x \in DOMAIN f},
+       NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       IsInjective(seq) ,
+       seq # <<>> ,
+       tl == Tail(seq),
+       NEW CONSTANT e \in Range(seq) \ {Head(seq)}
+PROVE  \E i \in 2..Len(seq) : seq[i] = e
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:160
+@!!loc:426:5:426:7
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       IsInjective(seq) ,
+       seq # <<>> ,
+       tl == Tail(seq),
+       NEW CONSTANT e \in Range(seq) \ {Head(seq)},
+       NEW CONSTANT i \in 2..Len(seq),
+       <2>1 
+PROVE  i - 1 \in DOMAIN tl /\ tl[i - 1] = e
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:161
+@!!loc:426:8:426:12
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       IsInjective(seq) ,
+       seq # <<>> ,
+       tl == Tail(seq),
+       NEW CONSTANT e \in Range(seq) \ {Head(seq)},
+       NEW CONSTANT i \in 2..Len(seq)
+PROVE  <2>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligationsnumber
+@!!count:156
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:1
+@!!loc:16:1:16:8
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:\A S : Seq(S) = UNION {[1..n -> S] : n \in Nat}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:2
+@!!loc:22:1:22:8
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT T,
+       NEW CONSTANT seq \in Seq(S),
+       S \subseteq T 
+PROVE  seq \in Seq(T)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:3
+@!!loc:28:1:28:8
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT n \in 1..Len(seq)
+PROVE  seq[n] \in S
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:4
+@!!loc:35:1:35:8
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S
+PROVE  /\ <<>> \in Seq(S)
+       /\ Len(<<>>) = 0
+       /\ \A seq \in Seq(S) : seq # <<>> => Len(seq) \in Nat \ {0}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:5
+@!!loc:42:1:42:8
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S)
+PROVE  /\ Len(seq) \in Nat
+       /\ seq \in [1..Len(seq) -> S]
+       /\ DOMAIN seq = 1..Len(seq)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:6
+@!!loc:48:1:48:8
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT n \in Nat,
+       NEW CONSTANT e(_),
+       NEW CONSTANT S,
+       \A i \in 1..n : e(i) \in S 
+PROVE  [i \in 1..n |-> e(i)] \in Seq(S)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:7
+@!!loc:55:1:55:8
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT i \in 1..Len(seq),
+       NEW CONSTANT e \in S
+PROVE  /\ [seq EXCEPT ![i] = e] \in Seq(S)
+       /\ Len([seq EXCEPT ![i] = e]) = Len(seq)
+       /\ \A j \in 1..Len(seq) :
+             [seq EXCEPT ![i] = e][j] = (IF j = i THEN e ELSE seq[j])
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:8
+@!!loc:61:1:61:8
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       Len(s) = Len(t) ,
+       \A i \in 1..Len(s) : s[i] = t[i] 
+PROVE  s = t
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:9
+@!!loc:73:1:73:8
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s1 \in Seq(S),
+       NEW CONSTANT s2 \in Seq(S)
+PROVE  /\ s1 \o s2 \in Seq(S)
+       /\ Len(s1 \o s2) = Len(s1) + Len(s2)
+       /\ \A i \in 1..Len(s1) + Len(s2) :
+             (s1 \o s2)[i]
+             = (IF i =< Len(s1) THEN s1[i] ELSE s2[i - Len(s1)])
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:10
+@!!loc:79:1:79:8
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S)
+PROVE  /\ seq \o <<>> = seq
+       /\ <<>> \o seq = seq
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:8
+@!!loc:61:1:61:8
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       Len(s) = Len(t) ,
+       \A i \in 1..Len(s) : s[i] = t[i] 
+PROVE  s = t
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:7
+@!!loc:55:1:55:8
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT i \in 1..Len(seq),
+       NEW CONSTANT e \in S
+PROVE  /\ [seq EXCEPT ![i] = e] \in Seq(S)
+       /\ Len([seq EXCEPT ![i] = e]) = Len(seq)
+       /\ \A j \in 1..Len(seq) :
+             [seq EXCEPT ![i] = e][j] = (IF j = i THEN e ELSE seq[j])
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:6
+@!!loc:48:1:48:8
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT n \in Nat,
+       NEW CONSTANT e(_),
+       NEW CONSTANT S,
+       \A i \in 1..n : e(i) \in S 
+PROVE  [i \in 1..n |-> e(i)] \in Seq(S)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:5
+@!!loc:42:1:42:8
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S)
+PROVE  /\ Len(seq) \in Nat
+       /\ seq \in [1..Len(seq) -> S]
+       /\ DOMAIN seq = 1..Len(seq)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:4
+@!!loc:35:1:35:8
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S
+PROVE  /\ <<>> \in Seq(S)
+       /\ Len(<<>>) = 0
+       /\ \A seq \in Seq(S) : seq # <<>> => Len(seq) \in Nat \ {0}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:3
+@!!loc:28:1:28:8
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT n \in 1..Len(seq)
+PROVE  seq[n] \in S
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:2
+@!!loc:22:1:22:8
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT T,
+       NEW CONSTANT seq \in Seq(S),
+       S \subseteq T 
+PROVE  seq \in Seq(T)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:1
+@!!loc:16:1:16:8
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+\A S : Seq(S) = UNION {[1..n -> S] : n \in Nat}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:11
+@!!loc:86:1:86:8
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S)
+PROVE  /\ s \o t = s <=> t = <<>>
+       /\ s \o t = t <=> s = <<>>
+       /\ s \o t = <<>> <=> s = <<>> /\ t = <<>>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:12
+@!!loc:91:1:91:8
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT u \in Seq(S)
+PROVE  s \o t \o u = s \o (t \o u)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:13
+@!!loc:123:11:123:13
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME ASSUME NEW CONSTANT S,
+              NEW CONSTANT s \in Seq(S),
+              NEW CONSTANT t \in Seq(S),
+              NEW CONSTANT v \in Seq(S),
+              s \o t = s \o v 
+       PROVE  t = v ,
+       ASSUME NEW CONSTANT S,
+              NEW CONSTANT s \in Seq(S),
+              NEW CONSTANT t \in Seq(S),
+              NEW CONSTANT v \in Seq(S),
+              s \o v = t \o v 
+       PROVE  s = t ,
+       ASSUME NEW CONSTANT S,
+              NEW CONSTANT s \in Seq(S),
+              NEW CONSTANT t \in Seq(S)
+       PROVE  /\ s \o t = s <=> t = <<>>
+              /\ s \o t = t <=> s = <<>>
+              /\ s \o t = <<>> <=> s = <<>> /\ t = <<>> 
+PROVE  /\ idRight::\A S : \A s, t \in Seq(S) : s \o t = s => t = <<>>
+       /\ idLeft::\A S : \A s, t \in Seq(S) : s \o t = t => s = <<>>
+       /\ concIsEmpty::\A S :
+                          \A s, t \in Seq(S) :
+                             s \o t = <<>> => s = <<>> /\ t = <<>>
+       /\ cancelLeft::\A S : \A s, t, v \in Seq(S) : s \o t = s \o v => t = v
+       /\ cancelRight::\A S :
+                          \A s, t, v \in Seq(S) : s \o v = t \o v => s = t
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:14
+@!!loc:123:14:123:18
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME ASSUME NEW CONSTANT S,
+              NEW CONSTANT s \in Seq(S),
+              NEW CONSTANT t \in Seq(S),
+              NEW CONSTANT v \in Seq(S),
+              s \o t = s \o v 
+       PROVE  t = v 
+PROVE  ASSUME NEW CONSTANT S,
+              NEW CONSTANT s \in Seq(S),
+              NEW CONSTANT t \in Seq(S),
+              NEW CONSTANT v \in Seq(S),
+              s \o t = s \o v 
+       PROVE  t = v
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:15
+@!!loc:123:20:123:24
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME ASSUME NEW CONSTANT S,
+              NEW CONSTANT s \in Seq(S),
+              NEW CONSTANT t \in Seq(S),
+              NEW CONSTANT v \in Seq(S),
+              s \o v = t \o v 
+       PROVE  s = t ,
+       ASSUME NEW CONSTANT S,
+              NEW CONSTANT s \in Seq(S),
+              NEW CONSTANT t \in Seq(S),
+              NEW CONSTANT v \in Seq(S),
+              s \o t = s \o v 
+       PROVE  t = v 
+PROVE  ASSUME NEW CONSTANT S,
+              NEW CONSTANT s \in Seq(S),
+              NEW CONSTANT t \in Seq(S),
+              NEW CONSTANT v \in Seq(S),
+              s \o v = t \o v 
+       PROVE  s = t
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:16
+@!!loc:123:26:123:45
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME ASSUME NEW CONSTANT S,
+              NEW CONSTANT s \in Seq(S),
+              NEW CONSTANT t \in Seq(S)
+       PROVE  /\ s \o t = s <=> t = <<>>
+              /\ s \o t = t <=> s = <<>>
+              /\ s \o t = <<>> <=> s = <<>> /\ t = <<>> ,
+       ASSUME NEW CONSTANT S,
+              NEW CONSTANT s \in Seq(S),
+              NEW CONSTANT t \in Seq(S),
+              NEW CONSTANT v \in Seq(S),
+              s \o t = s \o v 
+       PROVE  t = v ,
+       ASSUME NEW CONSTANT S,
+              NEW CONSTANT s \in Seq(S),
+              NEW CONSTANT t \in Seq(S),
+              NEW CONSTANT v \in Seq(S),
+              s \o v = t \o v 
+       PROVE  s = t 
+PROVE  ASSUME NEW CONSTANT S,
+              NEW CONSTANT s \in Seq(S),
+              NEW CONSTANT t \in Seq(S)
+       PROVE  /\ s \o t = s <=> t = <<>>
+              /\ s \o t = t <=> s = <<>>
+              /\ s \o t = <<>> <=> s = <<>> /\ t = <<>>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:17
+@!!loc:114:13:114:15
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S),
+       Len(t) = Len(v) ,
+       ASSUME NEW CONSTANT i \in 1..Len(t)
+       PROVE  t[i] = v[i] 
+PROVE  t = v
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:18
+@!!loc:114:16:114:20
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S),
+       Len(t) = Len(v) 
+PROVE  Len(t) = Len(v)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:19
+@!!loc:114:22:114:26
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S),
+       ASSUME NEW CONSTANT i \in 1..Len(t)
+       PROVE  t[i] = v[i] ,
+       Len(t) = Len(v) 
+PROVE  ASSUME NEW CONSTANT i \in 1..Len(t)
+       PROVE  t[i] = v[i]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:20
+@!!loc:107:5:107:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S),
+       s \o t = s \o v 
+PROVE  Len(t) = Len(v)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:21
+@!!loc:107:8:107:12
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S),
+       s \o t = s \o v 
+PROVE  s \o t = s \o v
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:22
+@!!loc:113:15:113:17
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S),
+       NEW CONSTANT i \in 1..Len(t),
+       s \o t = s \o v ,
+       t[i] = (s \o t)[Len(s) + i] ,
+       v[i] = (s \o v)[Len(s) + i] 
+PROVE  t[i] = v[i]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:23
+@!!loc:113:18:113:22
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S),
+       s \o t = s \o v ,
+       NEW CONSTANT i \in 1..Len(t)
+PROVE  s \o t = s \o v
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:24
+@!!loc:113:24:113:28
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S),
+       NEW CONSTANT i \in 1..Len(t),
+       t[i] = (s \o t)[Len(s) + i] ,
+       s \o t = s \o v 
+PROVE  t[i] = (s \o t)[Len(s) + i]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:25
+@!!loc:113:30:113:34
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S),
+       NEW CONSTANT i \in 1..Len(t),
+       v[i] = (s \o v)[Len(s) + i] ,
+       s \o t = s \o v ,
+       t[i] = (s \o t)[Len(s) + i] 
+PROVE  v[i] = (s \o v)[Len(s) + i]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:26
+@!!loc:110:7:110:14
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S),
+       NEW CONSTANT i \in 1..Len(t)
+PROVE  t[i] = (s \o t)[Len(s) + i]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:27
+@!!loc:112:7:112:9
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S),
+       NEW CONSTANT i \in 1..Len(t),
+       Len(t) = Len(v) 
+PROVE  v[i] = (s \o v)[Len(s) + i]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:22
+@!!loc:113:15:113:17
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S),
+       NEW CONSTANT i \in 1..Len(t),
+       s \o t = s \o v ,
+       t[i] = (s \o t)[Len(s) + i] ,
+       v[i] = (s \o v)[Len(s) + i] 
+PROVE  t[i] = v[i]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:20
+@!!loc:107:5:107:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S),
+       s \o t = s \o v 
+PROVE  Len(t) = Len(v)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:17
+@!!loc:114:13:114:15
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S),
+       Len(t) = Len(v) ,
+       ASSUME NEW CONSTANT i \in 1..Len(t)
+       PROVE  t[i] = v[i] 
+PROVE  t = v
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:13
+@!!loc:123:11:123:13
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME ASSUME NEW CONSTANT S,
+              NEW CONSTANT s \in Seq(S),
+              NEW CONSTANT t \in Seq(S),
+              NEW CONSTANT v \in Seq(S),
+              s \o t = s \o v 
+       PROVE  t = v ,
+       ASSUME NEW CONSTANT S,
+              NEW CONSTANT s \in Seq(S),
+              NEW CONSTANT t \in Seq(S),
+              NEW CONSTANT v \in Seq(S),
+              s \o v = t \o v 
+       PROVE  s = t ,
+       ASSUME NEW CONSTANT S,
+              NEW CONSTANT s \in Seq(S),
+              NEW CONSTANT t \in Seq(S)
+       PROVE  /\ s \o t = s <=> t = <<>>
+              /\ s \o t = t <=> s = <<>>
+              /\ s \o t = <<>> <=> s = <<>> /\ t = <<>> 
+PROVE  /\ idRight::\A S : \A s, t \in Seq(S) : s \o t = s => t = <<>>
+       /\ idLeft::\A S : \A s, t \in Seq(S) : s \o t = t => s = <<>>
+       /\ concIsEmpty::\A S :
+                          \A s, t \in Seq(S) :
+                             s \o t = <<>> => s = <<>> /\ t = <<>>
+       /\ cancelLeft::\A S : \A s, t, v \in Seq(S) : s \o t = s \o v => t = v
+       /\ cancelRight::\A S :
+                          \A s, t, v \in Seq(S) : s \o v = t \o v => s = t
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:12
+@!!loc:91:1:91:8
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT u \in Seq(S)
+PROVE  s \o t \o u = s \o (t \o u)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:11
+@!!loc:86:1:86:8
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (3%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S)
+PROVE  /\ s \o t = s <=> t = <<>>
+       /\ s \o t = t <=> s = <<>>
+       /\ s \o t = <<>> <=> s = <<>> /\ t = <<>>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:10
+@!!loc:79:1:79:8
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.3 (7%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S)
+PROVE  /\ seq \o <<>> = seq
+       /\ <<>> \o seq = seq
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:9
+@!!loc:73:1:73:8
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.4 (7%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT s1 \in Seq(S),
+       NEW CONSTANT s2 \in Seq(S)
+PROVE  /\ s1 \o s2 \in Seq(S)
+       /\ Len(s1 \o s2) = Len(s1) + Len(s2)
+       /\ \A i \in 1..Len(s1) + Len(s2) :
+             (s1 \o s2)[i]
+             = (IF i =< Len(s1) THEN s1[i] ELSE s2[i - Len(s1)])
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:28
+@!!loc:112:10:112:14
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S),
+       Len(t) = Len(v) ,
+       NEW CONSTANT i \in 1..Len(t)
+PROVE  Len(t) = Len(v)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:29
+@!!loc:122:13:122:15
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S),
+       Len(s) = Len(t) ,
+       ASSUME NEW CONSTANT i \in 1..Len(s)
+       PROVE  s[i] = t[i] 
+PROVE  s = t
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:30
+@!!loc:122:16:122:20
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S),
+       Len(s) = Len(t) 
+PROVE  Len(s) = Len(t)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:31
+@!!loc:122:22:122:26
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S),
+       ASSUME NEW CONSTANT i \in 1..Len(s)
+       PROVE  s[i] = t[i] ,
+       Len(s) = Len(t) 
+PROVE  ASSUME NEW CONSTANT i \in 1..Len(s)
+       PROVE  s[i] = t[i]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:32
+@!!loc:119:5:119:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S),
+       s \o v = t \o v 
+PROVE  Len(s) = Len(t)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:33
+@!!loc:119:8:119:12
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S),
+       s \o v = t \o v 
+PROVE  s \o v = t \o v
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:34
+@!!loc:121:5:121:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S),
+       NEW CONSTANT i \in 1..Len(s),
+       s \o v = t \o v ,
+       Len(s) = Len(t) 
+PROVE  s[i] = t[i]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:35
+@!!loc:121:8:121:12
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S),
+       s \o v = t \o v ,
+       NEW CONSTANT i \in 1..Len(s)
+PROVE  s \o v = t \o v
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:36
+@!!loc:121:14:121:18
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S),
+       Len(s) = Len(t) ,
+       NEW CONSTANT i \in 1..Len(s),
+       s \o v = t \o v 
+PROVE  Len(s) = Len(t)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:37
+@!!loc:136:1:136:8
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT m \in Int,
+       NEW CONSTANT n \in Int,
+       m > n \/ (1 =< m /\ n =< Len(s)) ,
+       \A i \in m..n : s[i] \in S 
+PROVE  /\ SubSeq(s, m, n) \in Seq(S)
+       /\ Len(SubSeq(s, m, n)) = (IF m =< n THEN n - m + 1 ELSE 0)
+       /\ \A i \in 1..n - m + 1 : SubSeq(s, m, n)[i] = s[m + i - 1]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:38
+@!!loc:141:1:141:8
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT m \in Int,
+       NEW CONSTANT n \in Int,
+       n < m 
+PROVE  SubSeq(s, m, n) = <<>>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:39
+@!!loc:146:1:146:3
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT m \in 1..Len(s),
+       NEW CONSTANT n \in 1..Len(s)
+PROVE  {SubSeq(s, m, n)[x] : x \in DOMAIN SubSeq(s, m, n)}
+       \subseteq {s[x] : x \in DOMAIN s}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:40
+@!!loc:157:1:157:3
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       s # <<>> 
+PROVE  /\ Head(s) \in S
+       /\ Head(s) \in {s[x] : x \in DOMAIN s}
+       /\ Tail(s) \in Seq(S)
+       /\ Len(Tail(s)) = Len(s) - 1
+       /\ \A i \in 1..Len(Tail(s)) : Tail(s)[i] = s[i + 1]
+       /\ {Tail(s)[x] : x \in DOMAIN Tail(s)}
+          \subseteq {s[x] : x \in DOMAIN s}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:41
+@!!loc:163:1:163:8
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       s # <<>> 
+PROVE  Tail(s) = SubSeq(s, 2, Len(s))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:39
+@!!loc:146:1:146:3
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT m \in 1..Len(s),
+       NEW CONSTANT n \in 1..Len(s)
+PROVE  {SubSeq(s, m, n)[x] : x \in DOMAIN SubSeq(s, m, n)}
+       \subseteq {s[x] : x \in DOMAIN s}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:38
+@!!loc:141:1:141:8
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT m \in Int,
+       NEW CONSTANT n \in Int,
+       n < m 
+PROVE  SubSeq(s, m, n) = <<>>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:37
+@!!loc:136:1:136:8
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT m \in Int,
+       NEW CONSTANT n \in Int,
+       m > n \/ (1 =< m /\ n =< Len(s)) ,
+       \A i \in m..n : s[i] \in S 
+PROVE  /\ SubSeq(s, m, n) \in Seq(S)
+       /\ Len(SubSeq(s, m, n)) = (IF m =< n THEN n - m + 1 ELSE 0)
+       /\ \A i \in 1..n - m + 1 : SubSeq(s, m, n)[i] = s[m + i - 1]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:34
+@!!loc:121:5:121:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S),
+       NEW CONSTANT i \in 1..Len(s),
+       s \o v = t \o v ,
+       Len(s) = Len(t) 
+PROVE  s[i] = t[i]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:32
+@!!loc:119:5:119:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S),
+       s \o v = t \o v 
+PROVE  Len(s) = Len(t)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:29
+@!!loc:122:13:122:15
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (3%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S),
+       Len(s) = Len(t) ,
+       ASSUME NEW CONSTANT i \in 1..Len(s)
+       PROVE  s[i] = t[i] 
+PROVE  s = t
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:27
+@!!loc:112:7:112:9
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.2 (3%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S),
+       NEW CONSTANT i \in 1..Len(t),
+       Len(t) = Len(v) 
+PROVE  v[i] = (s \o v)[Len(s) + i]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:26
+@!!loc:110:7:110:14
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.2 (3%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT v \in Seq(S),
+       NEW CONSTANT i \in 1..Len(t)
+PROVE  t[i] = (s \o t)[Len(s) + i]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:42
+@!!loc:168:1:168:3
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT n \in 0..Len(seq)
+PROVE  SubSeq(seq, 1, n) = [x \in 1..n |-> seq[x]]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:43
+@!!loc:175:1:175:8
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT m \in 1..Len(seq),
+       NEW CONSTANT n \in m..Len(seq)
+PROVE  /\ Head(SubSeq(seq, m, n)) = seq[m]
+       /\ Tail(SubSeq(seq, m, n)) = SubSeq(seq, m + 1, n)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:44
+@!!loc:182:1:182:8
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT m \in 1..Len(seq),
+       NEW CONSTANT n \in m..Len(seq)
+PROVE  /\ SubSeq(seq, m, n) = <<seq[m]>> \o SubSeq(seq, m + 1, n)
+       /\ SubSeq(seq, m, n) = SubSeq(seq, m, n - 1) \o <<seq[n]>>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:45
+@!!loc:192:1:192:8
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT i \in 1..Len(s),
+       NEW CONSTANT j \in 1..Len(s),
+       NEW CONSTANT m \in 1..j - i + 1,
+       NEW CONSTANT n \in 1..j - i + 1
+PROVE  SubSeq(SubSeq(s, i, j), m, n) = SubSeq(s, i + m - 1, i + n - 1)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:46
+@!!loc:203:1:203:8
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT m \in 1..Len(seq) + 1,
+       NEW CONSTANT k \in m - 1..Len(seq),
+       NEW CONSTANT n \in k..Len(seq)
+PROVE  SubSeq(seq, m, k) \o SubSeq(seq, k + 1, n) = SubSeq(seq, m, n)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:47
+@!!loc:212:1:212:8
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT m \in 1..Len(s),
+       NEW CONSTANT n \in 1..Len(s)
+PROVE  SubSeq(s \o t, m, n) = SubSeq(s, m, n)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:48
+@!!loc:218:1:218:8
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT m \in Len(s) + 1..Len(s) + Len(t),
+       NEW CONSTANT n \in Len(s) + 1..Len(s) + Len(t)
+PROVE  SubSeq(s \o t, m, n) = SubSeq(t, m - Len(s), n - Len(s))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:49
+@!!loc:232:1:232:3
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT elt \in S
+PROVE  /\ Append(seq, elt) \in Seq(S)
+       /\ Append(seq, elt) # <<>>
+       /\ Len(Append(seq, elt)) = Len(seq) + 1
+       /\ \A i \in 1..Len(seq) : Append(seq, elt)[i] = seq[i]
+       /\ Append(seq, elt)[Len(seq) + 1] = elt
+       /\ {Append(seq, elt)[x] : x \in DOMAIN Append(seq, elt)}
+          = {seq[x] : x \in DOMAIN seq} \cup {elt}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:47
+@!!loc:212:1:212:8
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT m \in 1..Len(s),
+       NEW CONSTANT n \in 1..Len(s)
+PROVE  SubSeq(s \o t, m, n) = SubSeq(s, m, n)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:46
+@!!loc:203:1:203:8
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT m \in 1..Len(seq) + 1,
+       NEW CONSTANT k \in m - 1..Len(seq),
+       NEW CONSTANT n \in k..Len(seq)
+PROVE  SubSeq(seq, m, k) \o SubSeq(seq, k + 1, n) = SubSeq(seq, m, n)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:45
+@!!loc:192:1:192:8
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT i \in 1..Len(s),
+       NEW CONSTANT j \in 1..Len(s),
+       NEW CONSTANT m \in 1..j - i + 1,
+       NEW CONSTANT n \in 1..j - i + 1
+PROVE  SubSeq(SubSeq(s, i, j), m, n) = SubSeq(s, i + m - 1, i + n - 1)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:44
+@!!loc:182:1:182:8
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT m \in 1..Len(seq),
+       NEW CONSTANT n \in m..Len(seq)
+PROVE  /\ SubSeq(seq, m, n) = <<seq[m]>> \o SubSeq(seq, m + 1, n)
+       /\ SubSeq(seq, m, n) = SubSeq(seq, m, n - 1) \o <<seq[n]>>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:43
+@!!loc:175:1:175:8
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (3%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT m \in 1..Len(seq),
+       NEW CONSTANT n \in m..Len(seq)
+PROVE  /\ Head(SubSeq(seq, m, n)) = seq[m]
+       /\ Tail(SubSeq(seq, m, n)) = SubSeq(seq, m + 1, n)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:42
+@!!loc:168:1:168:3
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.2 (3%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT n \in 0..Len(seq)
+PROVE  SubSeq(seq, 1, n) = [x \in 1..n |-> seq[x]]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:41
+@!!loc:163:1:163:8
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.2 (4%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       s # <<>> 
+PROVE  Tail(s) = SubSeq(s, 2, Len(s))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:40
+@!!loc:157:1:157:3
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.2 (4%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       s # <<>> 
+PROVE  /\ Head(s) \in S
+       /\ Head(s) \in {s[x] : x \in DOMAIN s}
+       /\ Tail(s) \in Seq(S)
+       /\ Len(Tail(s)) = Len(s) - 1
+       /\ \A i \in 1..Len(Tail(s)) : Tail(s)[i] = s[i + 1]
+       /\ {Tail(s)[x] : x \in DOMAIN Tail(s)}
+          \subseteq {s[x] : x \in DOMAIN s}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:50
+@!!loc:237:1:237:8
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT elt \in S
+PROVE  Append(seq, elt) = seq \o <<elt>>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:51
+@!!loc:243:1:243:3
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT elt,
+       seq \in Seq(S \cup {elt}) 
+PROVE  /\ Head(Append(seq, elt)) = (IF seq = <<>> THEN elt ELSE Head(seq))
+       /\ Tail(Append(seq, elt))
+          = (IF seq = <<>> THEN <<>> ELSE Append(Tail(seq), elt))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:52
+@!!loc:243:4:243:31
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT elt
+PROVE  seq \in Seq(S \cup {elt})
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:53
+@!!loc:248:1:248:8
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT e \in S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT f \in S,
+       NEW CONSTANT t \in Seq(S)
+PROVE  Append(s, e) = Append(t, f) <=> s = t /\ e = f
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:54
+@!!loc:266:11:266:13
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       seq # <<>> ,
+       /\ [i \in 1..Len(seq) - 1 |-> seq[i]] \in Seq(S)
+       /\ Len([i \in 1..Len(seq) - 1 |-> seq[i]]) = Len(seq) - 1
+       /\ seq[Len(seq)] \in S ,
+       seq = Append([i \in 1..Len(seq) - 1 |-> seq[i]], seq[Len(seq)]) 
+PROVE  \E s \in Seq(S), elt \in S : seq = Append(s, elt)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:55
+@!!loc:266:14:266:18
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       seq # <<>> ,
+       /\ [i \in 1..Len(seq) - 1 |-> seq[i]] \in Seq(S)
+       /\ Len([i \in 1..Len(seq) - 1 |-> seq[i]]) = Len(seq) - 1
+       /\ seq[Len(seq)] \in S 
+PROVE  /\ [i \in 1..Len(seq) - 1 |-> seq[i]] \in Seq(S)
+       /\ Len([i \in 1..Len(seq) - 1 |-> seq[i]]) = Len(seq) - 1
+       /\ seq[Len(seq)] \in S
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:56
+@!!loc:266:20:266:24
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       seq # <<>> ,
+       seq = Append([i \in 1..Len(seq) - 1 |-> seq[i]], seq[Len(seq)]) ,
+       /\ [i \in 1..Len(seq) - 1 |-> seq[i]] \in Seq(S)
+       /\ Len([i \in 1..Len(seq) - 1 |-> seq[i]]) = Len(seq) - 1
+       /\ seq[Len(seq)] \in S 
+PROVE  seq = Append([i \in 1..Len(seq) - 1 |-> seq[i]], seq[Len(seq)])
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:57
+@!!loc:258:3:258:10
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       seq # <<>> 
+PROVE  /\ [i \in 1..Len(seq) - 1 |-> seq[i]] \in Seq(S)
+       /\ Len([i \in 1..Len(seq) - 1 |-> seq[i]]) = Len(seq) - 1
+       /\ seq[Len(seq)] \in S
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:58
+@!!loc:260:3:260:10
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       seq # <<>> 
+PROVE  Len(seq)
+       = Len(Append([i \in 1..Len(seq) - 1 |-> seq[i]], seq[Len(seq)]))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:59
+@!!loc:263:3:263:10
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       seq # <<>> ,
+       NEW CONSTANT i \in 1..Len(seq)
+PROVE  seq[i]
+       = Append([i_1 \in 1..Len(seq) - 1 |-> seq[i_1]], seq[Len(seq)])[i]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:57
+@!!loc:258:3:258:10
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       seq # <<>> 
+PROVE  /\ [i \in 1..Len(seq) - 1 |-> seq[i]] \in Seq(S)
+       /\ Len([i \in 1..Len(seq) - 1 |-> seq[i]]) = Len(seq) - 1
+       /\ seq[Len(seq)] \in S
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:54
+@!!loc:266:11:266:13
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       seq # <<>> ,
+       /\ [i \in 1..Len(seq) - 1 |-> seq[i]] \in Seq(S)
+       /\ Len([i \in 1..Len(seq) - 1 |-> seq[i]]) = Len(seq) - 1
+       /\ seq[Len(seq)] \in S ,
+       seq = Append([i \in 1..Len(seq) - 1 |-> seq[i]], seq[Len(seq)]) 
+PROVE  \E s \in Seq(S), elt \in S : seq = Append(s, elt)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:53
+@!!loc:248:1:248:8
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT e \in S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT f \in S,
+       NEW CONSTANT t \in Seq(S)
+PROVE  Append(s, e) = Append(t, f) <=> s = t /\ e = f
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:52
+@!!loc:243:4:243:31
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (3%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT elt
+PROVE  seq \in Seq(S \cup {elt})
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:51
+@!!loc:243:1:243:3
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.2 (3%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT elt,
+       seq \in Seq(S \cup {elt}) 
+PROVE  /\ Head(Append(seq, elt)) = (IF seq = <<>> THEN elt ELSE Head(seq))
+       /\ Tail(Append(seq, elt))
+          = (IF seq = <<>> THEN <<>> ELSE Append(Tail(seq), elt))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:50
+@!!loc:237:1:237:8
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.2 (4%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT elt \in S
+PROVE  Append(seq, elt) = seq \o <<elt>>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:49
+@!!loc:232:1:232:3
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.2 (4%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT elt \in S
+PROVE  /\ Append(seq, elt) \in Seq(S)
+       /\ Append(seq, elt) # <<>>
+       /\ Len(Append(seq, elt)) = Len(seq) + 1
+       /\ \A i \in 1..Len(seq) : Append(seq, elt)[i] = seq[i]
+       /\ Append(seq, elt)[Len(seq) + 1] = elt
+       /\ {Append(seq, elt)[x] : x \in DOMAIN Append(seq, elt)}
+          = {seq[x] : x \in DOMAIN seq} \cup {elt}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:48
+@!!loc:218:1:218:8
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.2 (5%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT m \in Len(s) + 1..Len(s) + Len(t),
+       NEW CONSTANT n \in Len(s) + 1..Len(s) + Len(t)
+PROVE  SubSeq(s \o t, m, n) = SubSeq(t, m - Len(s), n - Len(s))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:60
+@!!loc:265:3:265:5
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       seq # <<>> ,
+       /\ [i \in 1..Len(seq) - 1 |-> seq[i]] \in Seq(S)
+       /\ Len([i \in 1..Len(seq) - 1 |-> seq[i]]) = Len(seq) - 1
+       /\ seq[Len(seq)] \in S ,
+       Len(seq)
+       = Len(Append([i \in 1..Len(seq) - 1 |-> seq[i]], seq[Len(seq)])) ,
+       ASSUME NEW CONSTANT i \in 1..Len(seq)
+       PROVE  seq[i]
+              = Append([i_1 \in 1..Len(seq) - 1 |-> seq[i_1]], seq[Len(seq)])[i] ,
+       ASSUME NEW CONSTANT S_1,
+              NEW CONSTANT s \in Seq(S_1),
+              NEW CONSTANT t \in Seq(S_1),
+              Len(s) = Len(t) ,
+              \A i \in 1..Len(s) : s[i] = t[i] 
+       PROVE  s = t 
+PROVE  seq = Append([i \in 1..Len(seq) - 1 |-> seq[i]], seq[Len(seq)])
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:61
+@!!loc:265:6:265:10
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       seq # <<>> ,
+       /\ [i \in 1..Len(seq) - 1 |-> seq[i]] \in Seq(S)
+       /\ Len([i \in 1..Len(seq) - 1 |-> seq[i]]) = Len(seq) - 1
+       /\ seq[Len(seq)] \in S 
+PROVE  /\ [i \in 1..Len(seq) - 1 |-> seq[i]] \in Seq(S)
+       /\ Len([i \in 1..Len(seq) - 1 |-> seq[i]]) = Len(seq) - 1
+       /\ seq[Len(seq)] \in S
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:62
+@!!loc:265:12:265:16
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       seq # <<>> ,
+       Len(seq)
+       = Len(Append([i \in 1..Len(seq) - 1 |-> seq[i]], seq[Len(seq)])) ,
+       /\ [i \in 1..Len(seq) - 1 |-> seq[i]] \in Seq(S)
+       /\ Len([i \in 1..Len(seq) - 1 |-> seq[i]]) = Len(seq) - 1
+       /\ seq[Len(seq)] \in S 
+PROVE  Len(seq)
+       = Len(Append([i \in 1..Len(seq) - 1 |-> seq[i]], seq[Len(seq)]))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:63
+@!!loc:265:18:265:22
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       seq # <<>> ,
+       ASSUME NEW CONSTANT i \in 1..Len(seq)
+       PROVE  seq[i]
+              = Append([i_1 \in 1..Len(seq) - 1 |-> seq[i_1]], seq[Len(seq)])[i] ,
+       /\ [i \in 1..Len(seq) - 1 |-> seq[i]] \in Seq(S)
+       /\ Len([i \in 1..Len(seq) - 1 |-> seq[i]]) = Len(seq) - 1
+       /\ seq[Len(seq)] \in S ,
+       Len(seq)
+       = Len(Append([i \in 1..Len(seq) - 1 |-> seq[i]], seq[Len(seq)])) 
+PROVE  ASSUME NEW CONSTANT i \in 1..Len(seq)
+       PROVE  seq[i]
+              = Append([i_1 \in 1..Len(seq) - 1 |-> seq[i_1]], seq[Len(seq)])[i]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:64
+@!!loc:265:24:265:32
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME ASSUME NEW CONSTANT S,
+              NEW CONSTANT s \in Seq(S),
+              NEW CONSTANT t \in Seq(S),
+              Len(s) = Len(t) ,
+              \A i \in 1..Len(s) : s[i] = t[i] 
+       PROVE  s = t ,
+       NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       seq # <<>> ,
+       /\ [i \in 1..Len(seq) - 1 |-> seq[i]] \in Seq(S)
+       /\ Len([i \in 1..Len(seq) - 1 |-> seq[i]]) = Len(seq) - 1
+       /\ seq[Len(seq)] \in S ,
+       Len(seq)
+       = Len(Append([i \in 1..Len(seq) - 1 |-> seq[i]], seq[Len(seq)])) ,
+       ASSUME NEW CONSTANT i \in 1..Len(seq)
+       PROVE  seq[i]
+              = Append([i_1 \in 1..Len(seq) - 1 |-> seq[i_1]], seq[Len(seq)])[i] 
+PROVE  ASSUME NEW CONSTANT S_1,
+              NEW CONSTANT s \in Seq(S_1),
+              NEW CONSTANT t \in Seq(S_1),
+              Len(s) = Len(t) ,
+              \A i \in 1..Len(s) : s[i] = t[i] 
+       PROVE  s = t
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:65
+@!!loc:290:12:290:14
+@!!status:normalized
+@!!meth:time-limit: 30
+@!!obl:ASSUME NEW CONSTANT P(_),
+       NEW CONSTANT S,
+       P(<<>>) ,
+       \A s \in Seq(S), e \in S : P(s) => P(Append(s, e)) ,
+       \A seq \in Seq(S) : Len(seq) = 0 => P(seq) ,
+       ASSUME NEW CONSTANT n \in Nat,
+              \A seq \in Seq(S) : Len(seq) = n => P(seq) 
+       PROVE  \A seq \in Seq(S) : Len(seq) = n + 1 => P(seq) ,
+       ASSUME NEW CONSTANT P_1(_),
+              P_1(0) ,
+              \A n \in Nat : P_1(n) => P_1(n + 1) 
+       PROVE  \A n \in Nat : P_1(n) ,
+       TRUE 
+PROVE  \A k \in Nat : \A seq \in Seq(S) : Len(seq) = k => P(seq)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:66
+@!!loc:290:15:290:19
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT P(_),
+       NEW CONSTANT S,
+       P(<<>>) ,
+       \A s \in Seq(S), e \in S : P(s) => P(Append(s, e)) ,
+       \A seq \in Seq(S) : Len(seq) = 0 => P(seq) 
+PROVE  \A seq \in Seq(S) : Len(seq) = 0 => P(seq)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:67
+@!!loc:290:21:290:25
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT P(_),
+       NEW CONSTANT S,
+       P(<<>>) ,
+       \A s \in Seq(S), e \in S : P(s) => P(Append(s, e)) ,
+       ASSUME NEW CONSTANT n \in Nat,
+              \A seq \in Seq(S) : Len(seq) = n => P(seq) 
+       PROVE  \A seq \in Seq(S) : Len(seq) = n + 1 => P(seq) ,
+       \A seq \in Seq(S) : Len(seq) = 0 => P(seq) 
+PROVE  ASSUME NEW CONSTANT n \in Nat,
+              \A seq \in Seq(S) : Len(seq) = n => P(seq) 
+       PROVE  \A seq \in Seq(S) : Len(seq) = n + 1 => P(seq)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:68
+@!!loc:290:27:290:39
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME ASSUME NEW CONSTANT P(_),
+              P(0) ,
+              \A n \in Nat : P(n) => P(n + 1) 
+       PROVE  \A n \in Nat : P(n) ,
+       NEW CONSTANT P(_),
+       NEW CONSTANT S,
+       P(<<>>) ,
+       \A s \in Seq(S), e \in S : P(s) => P(Append(s, e)) ,
+       \A seq \in Seq(S) : Len(seq) = 0 => P(seq) ,
+       ASSUME NEW CONSTANT n \in Nat,
+              \A seq \in Seq(S) : Len(seq) = n => P(seq) 
+       PROVE  \A seq \in Seq(S) : Len(seq) = n + 1 => P(seq) 
+PROVE  ASSUME NEW CONSTANT P_1(_),
+              P_1(0) ,
+              \A n \in Nat : P_1(n) => P_1(n + 1) 
+       PROVE  \A n \in Nat : P_1(n)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:69
+@!!loc:290:41:290:44
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT P(_),
+       NEW CONSTANT S,
+       P(<<>>) ,
+       \A s \in Seq(S), e \in S : P(s) => P(Append(s, e)) ,
+       \A seq \in Seq(S) : Len(seq) = 0 => P(seq) ,
+       ASSUME NEW CONSTANT n \in Nat,
+              \A seq \in Seq(S) : Len(seq) = n => P(seq) 
+       PROVE  \A seq \in Seq(S) : Len(seq) = n + 1 => P(seq) ,
+       ASSUME NEW CONSTANT P_1(_),
+              P_1(0) ,
+              \A n \in Nat : P_1(n) => P_1(n + 1) 
+       PROVE  \A n \in Nat : P_1(n) 
+PROVE  TRUE
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:70
+@!!loc:279:3:279:10
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT P(_),
+       NEW CONSTANT S,
+       P(<<>>) ,
+       \A s \in Seq(S), e \in S : P(s) => P(Append(s, e)) ,
+       \A k \in Nat : \A seq \in Seq(S) : Len(seq) = k => P(seq) 
+PROVE  \A seq \in Seq(S) : P(seq)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:71
+@!!loc:281:3:281:10
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT P(_),
+       NEW CONSTANT S,
+       P(<<>>) ,
+       \A s \in Seq(S), e \in S : P(s) => P(Append(s, e)) 
+PROVE  \A seq \in Seq(S) : Len(seq) = 0 => P(seq)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:72
+@!!loc:289:13:289:15
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT P(_),
+       NEW CONSTANT S,
+       P(<<>>) ,
+       \A s \in Seq(S), e \in S : P(s) => P(Append(s, e)) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT s \in Seq(S),
+       Len(s) = n + 1 ,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT e \in S,
+       s = Append(seq, e) /\ Len(seq) = n ,
+       \A seq_1 \in Seq(S) : Len(seq_1) = n => P(seq_1) 
+PROVE  P(s)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:73
+@!!loc:289:16:289:20
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT P(_),
+       NEW CONSTANT S,
+       P(<<>>) ,
+       \A s \in Seq(S), e \in S : P(s) => P(Append(s, e)) ,
+       NEW CONSTANT n \in Nat,
+       \A seq \in Seq(S) : Len(seq) = n => P(seq) ,
+       NEW CONSTANT s \in Seq(S),
+       Len(s) = n + 1 ,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT e \in S,
+       s = Append(seq, e) /\ Len(seq) = n 
+PROVE  \A seq_1 \in Seq(S) : Len(seq_1) = n => P(seq_1)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:74
+@!!loc:286:5:286:12
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT P(_),
+       NEW CONSTANT S,
+       P(<<>>) ,
+       \A s \in Seq(S), e \in S : P(s) => P(Append(s, e)) ,
+       NEW CONSTANT n \in Nat,
+       ASSUME NEW CONSTANT s \in Seq(S),
+              Len(s) = n + 1 
+       PROVE  P(s) 
+PROVE  \A seq \in Seq(S) : Len(seq) = n + 1 => P(seq)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:75
+@!!loc:288:5:288:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT P(_),
+       NEW CONSTANT S,
+       P(<<>>) ,
+       \A s \in Seq(S), e \in S : P(s) => P(Append(s, e)) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT s \in Seq(S),
+       Len(s) = n + 1 ,
+       ASSUME NEW CONSTANT S_1,
+              NEW CONSTANT seq \in Seq(S_1),
+              seq # <<>> 
+       PROVE  \E s_1 \in Seq(S_1), elt \in S_1 : seq = Append(s_1, elt) 
+PROVE  \E seq \in Seq(S), e \in S : s = Append(seq, e) /\ Len(seq) = n
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:76
+@!!loc:288:8:288:29
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME ASSUME NEW CONSTANT S,
+              NEW CONSTANT seq \in Seq(S),
+              seq # <<>> 
+       PROVE  \E s \in Seq(S), elt \in S : seq = Append(s, elt) ,
+       NEW CONSTANT P(_),
+       NEW CONSTANT S,
+       P(<<>>) ,
+       \A s \in Seq(S), e \in S : P(s) => P(Append(s, e)) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT s \in Seq(S),
+       Len(s) = n + 1 
+PROVE  ASSUME NEW CONSTANT S_1,
+              NEW CONSTANT seq \in Seq(S_1),
+              seq # <<>> 
+       PROVE  \E s_1 \in Seq(S_1), elt \in S_1 : seq = Append(s_1, elt)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:78
+@!!loc:311:12:311:14
+@!!status:normalized
+@!!meth:time-limit: 30
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT P(_),
+       P(<<>>) ,
+       \A s \in Seq(S) : s # <<>> /\ P(Tail(s)) => P(s) ,
+       \A s \in Seq(S) : Len(s) = 0 => P(s) ,
+       ASSUME NEW CONSTANT n \in Nat,
+              \A s \in Seq(S) : Len(s) = n => P(s) 
+       PROVE  \A s \in Seq(S) : Len(s) = n + 1 => P(s) ,
+       ASSUME NEW CONSTANT P_1(_),
+              P_1(0) ,
+              \A n \in Nat : P_1(n) => P_1(n + 1) 
+       PROVE  \A n \in Nat : P_1(n) ,
+       TRUE 
+PROVE  \A k \in Nat : \A s \in Seq(S) : Len(s) = k => P(s)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:74
+@!!loc:286:5:286:12
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT P(_),
+       NEW CONSTANT S,
+       P(<<>>) ,
+       \A s \in Seq(S), e \in S : P(s) => P(Append(s, e)) ,
+       NEW CONSTANT n \in Nat,
+       ASSUME NEW CONSTANT s \in Seq(S),
+              Len(s) = n + 1 
+       PROVE  P(s) 
+PROVE  \A seq \in Seq(S) : Len(seq) = n + 1 => P(seq)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:72
+@!!loc:289:13:289:15
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT P(_),
+       NEW CONSTANT S,
+       P(<<>>) ,
+       \A s \in Seq(S), e \in S : P(s) => P(Append(s, e)) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT s \in Seq(S),
+       Len(s) = n + 1 ,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT e \in S,
+       s = Append(seq, e) /\ Len(seq) = n ,
+       \A seq_1 \in Seq(S) : Len(seq_1) = n => P(seq_1) 
+PROVE  P(s)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:71
+@!!loc:281:3:281:10
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT P(_),
+       NEW CONSTANT S,
+       P(<<>>) ,
+       \A s \in Seq(S), e \in S : P(s) => P(Append(s, e)) 
+PROVE  \A seq \in Seq(S) : Len(seq) = 0 => P(seq)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:70
+@!!loc:279:3:279:10
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (3%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT P(_),
+       NEW CONSTANT S,
+       P(<<>>) ,
+       \A s \in Seq(S), e \in S : P(s) => P(Append(s, e)) ,
+       \A k \in Nat : \A seq \in Seq(S) : Len(seq) = k => P(seq) 
+PROVE  \A seq \in Seq(S) : P(seq)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:60
+@!!loc:265:3:265:5
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.2 (5%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       seq # <<>> ,
+       /\ [i \in 1..Len(seq) - 1 |-> seq[i]] \in Seq(S)
+       /\ Len([i \in 1..Len(seq) - 1 |-> seq[i]]) = Len(seq) - 1
+       /\ seq[Len(seq)] \in S ,
+       Len(seq)
+       = Len(Append([i \in 1..Len(seq) - 1 |-> seq[i]], seq[Len(seq)])) ,
+       ASSUME NEW CONSTANT i \in 1..Len(seq)
+       PROVE  seq[i]
+              = Append([i_1 \in 1..Len(seq) - 1 |-> seq[i_1]], seq[Len(seq)])[i] ,
+       ASSUME NEW CONSTANT S_1,
+              NEW CONSTANT s \in Seq(S_1),
+              NEW CONSTANT t \in Seq(S_1),
+              Len(s) = Len(t) ,
+              \A i \in 1..Len(s) : s[i] = t[i] 
+       PROVE  s = t 
+PROVE  seq = Append([i \in 1..Len(seq) - 1 |-> seq[i]], seq[Len(seq)])
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:59
+@!!loc:263:3:263:10
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.3 (6%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       seq # <<>> ,
+       NEW CONSTANT i \in 1..Len(seq)
+PROVE  seq[i]
+       = Append([i_1 \in 1..Len(seq) - 1 |-> seq[i_1]], seq[Len(seq)])[i]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:58
+@!!loc:260:3:260:10
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.3 (6%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       seq # <<>> 
+PROVE  Len(seq)
+       = Len(Append([i \in 1..Len(seq) - 1 |-> seq[i]], seq[Len(seq)]))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:79
+@!!loc:311:15:311:19
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT P(_),
+       P(<<>>) ,
+       \A s \in Seq(S) : s # <<>> /\ P(Tail(s)) => P(s) ,
+       \A s \in Seq(S) : Len(s) = 0 => P(s) 
+PROVE  \A s \in Seq(S) : Len(s) = 0 => P(s)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:80
+@!!loc:311:21:311:25
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT P(_),
+       P(<<>>) ,
+       \A s \in Seq(S) : s # <<>> /\ P(Tail(s)) => P(s) ,
+       ASSUME NEW CONSTANT n \in Nat,
+              \A s \in Seq(S) : Len(s) = n => P(s) 
+       PROVE  \A s \in Seq(S) : Len(s) = n + 1 => P(s) ,
+       \A s \in Seq(S) : Len(s) = 0 => P(s) 
+PROVE  ASSUME NEW CONSTANT n \in Nat,
+              \A s \in Seq(S) : Len(s) = n => P(s) 
+       PROVE  \A s \in Seq(S) : Len(s) = n + 1 => P(s)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:81
+@!!loc:311:27:311:39
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME ASSUME NEW CONSTANT P(_),
+              P(0) ,
+              \A n \in Nat : P(n) => P(n + 1) 
+       PROVE  \A n \in Nat : P(n) ,
+       NEW CONSTANT S,
+       NEW CONSTANT P(_),
+       P(<<>>) ,
+       \A s \in Seq(S) : s # <<>> /\ P(Tail(s)) => P(s) ,
+       \A s \in Seq(S) : Len(s) = 0 => P(s) ,
+       ASSUME NEW CONSTANT n \in Nat,
+              \A s \in Seq(S) : Len(s) = n => P(s) 
+       PROVE  \A s \in Seq(S) : Len(s) = n + 1 => P(s) 
+PROVE  ASSUME NEW CONSTANT P_1(_),
+              P_1(0) ,
+              \A n \in Nat : P_1(n) => P_1(n + 1) 
+       PROVE  \A n \in Nat : P_1(n)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:82
+@!!loc:311:41:311:44
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT P(_),
+       P(<<>>) ,
+       \A s \in Seq(S) : s # <<>> /\ P(Tail(s)) => P(s) ,
+       \A s \in Seq(S) : Len(s) = 0 => P(s) ,
+       ASSUME NEW CONSTANT n \in Nat,
+              \A s \in Seq(S) : Len(s) = n => P(s) 
+       PROVE  \A s \in Seq(S) : Len(s) = n + 1 => P(s) ,
+       ASSUME NEW CONSTANT P_1(_),
+              P_1(0) ,
+              \A n \in Nat : P_1(n) => P_1(n + 1) 
+       PROVE  \A n \in Nat : P_1(n) 
+PROVE  TRUE
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:83
+@!!loc:299:3:299:10
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT P(_),
+       P(<<>>) ,
+       \A s \in Seq(S) : s # <<>> /\ P(Tail(s)) => P(s) ,
+       \A k \in Nat : \A s \in Seq(S) : Len(s) = k => P(s) 
+PROVE  \A s \in Seq(S) : P(s)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:84
+@!!loc:301:3:301:10
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT P(_),
+       P(<<>>) ,
+       \A s \in Seq(S) : s # <<>> /\ P(Tail(s)) => P(s) 
+PROVE  \A s \in Seq(S) : Len(s) = 0 => P(s)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:85
+@!!loc:310:13:310:15
+@!!status:normalized
+@!!meth:time-limit: 10
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT P(_),
+       P(<<>>) ,
+       \A s \in Seq(S) : s # <<>> /\ P(Tail(s)) => P(s) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT s \in Seq(S),
+       Len(s) = n + 1 ,
+       /\ Tail(s) \in Seq(S)
+       /\ Len(Tail(s)) = n ,
+       \A s_1 \in Seq(S) : Len(s_1) = n => P(s_1) ,
+       TRUE 
+PROVE  P(s)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:86
+@!!loc:310:16:310:20
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT P(_),
+       P(<<>>) ,
+       \A s \in Seq(S) : s # <<>> /\ P(Tail(s)) => P(s) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT s \in Seq(S),
+       Len(s) = n + 1 ,
+       /\ Tail(s) \in Seq(S)
+       /\ Len(Tail(s)) = n 
+PROVE  /\ Tail(s) \in Seq(S)
+       /\ Len(Tail(s)) = n
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:87
+@!!loc:310:22:310:26
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT P(_),
+       P(<<>>) ,
+       \A s \in Seq(S) : s # <<>> /\ P(Tail(s)) => P(s) ,
+       NEW CONSTANT n \in Nat,
+       \A s \in Seq(S) : Len(s) = n => P(s) ,
+       NEW CONSTANT s \in Seq(S),
+       Len(s) = n + 1 ,
+       /\ Tail(s) \in Seq(S)
+       /\ Len(Tail(s)) = n 
+PROVE  \A s_1 \in Seq(S) : Len(s_1) = n => P(s_1)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:88
+@!!loc:310:28:310:33
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT P(_),
+       P(<<>>) ,
+       \A s \in Seq(S) : s # <<>> /\ P(Tail(s)) => P(s) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT s \in Seq(S),
+       Len(s) = n + 1 ,
+       /\ Tail(s) \in Seq(S)
+       /\ Len(Tail(s)) = n ,
+       \A s_1 \in Seq(S) : Len(s_1) = n => P(s_1) 
+PROVE  TRUE
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:89
+@!!loc:306:5:306:12
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT P(_),
+       P(<<>>) ,
+       \A s \in Seq(S) : s # <<>> /\ P(Tail(s)) => P(s) ,
+       NEW CONSTANT n \in Nat,
+       ASSUME NEW CONSTANT s \in Seq(S),
+              Len(s) = n + 1 
+       PROVE  P(s) 
+PROVE  \A s \in Seq(S) : Len(s) = n + 1 => P(s)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:90
+@!!loc:309:5:309:12
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT P(_),
+       P(<<>>) ,
+       \A s \in Seq(S) : s # <<>> /\ P(Tail(s)) => P(s) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT s \in Seq(S),
+       Len(s) = n + 1 
+PROVE  /\ Tail(s) \in Seq(S)
+       /\ Len(Tail(s)) = n
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:91
+@!!loc:321:1:321:3
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S)
+PROVE  {seq[x] : x \in DOMAIN seq} \in SUBSET S
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:92
+@!!loc:326:1:326:3
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S)
+PROVE  {seq[x] : x \in DOMAIN seq} = {seq[i] : i \in 1..Len(seq)}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:90
+@!!loc:309:5:309:12
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT P(_),
+       P(<<>>) ,
+       \A s \in Seq(S) : s # <<>> /\ P(Tail(s)) => P(s) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT s \in Seq(S),
+       Len(s) = n + 1 
+PROVE  /\ Tail(s) \in Seq(S)
+       /\ Len(Tail(s)) = n
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:89
+@!!loc:306:5:306:12
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT P(_),
+       P(<<>>) ,
+       \A s \in Seq(S) : s # <<>> /\ P(Tail(s)) => P(s) ,
+       NEW CONSTANT n \in Nat,
+       ASSUME NEW CONSTANT s \in Seq(S),
+              Len(s) = n + 1 
+       PROVE  P(s) 
+PROVE  \A s \in Seq(S) : Len(s) = n + 1 => P(s)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:85
+@!!loc:310:13:310:15
+@!!status:proved
+@!!prover:zenon
+@!!meth:time-limit: 10; time-used: 0.2 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT P(_),
+       P(<<>>) ,
+       \A s \in Seq(S) : s # <<>> /\ P(Tail(s)) => P(s) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT s \in Seq(S),
+       Len(s) = n + 1 ,
+       /\ Tail(s) \in Seq(S)
+       /\ Len(Tail(s)) = n ,
+       \A s_1 \in Seq(S) : Len(s_1) = n => P(s_1) ,
+       TRUE 
+PROVE  P(s)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:84
+@!!loc:301:3:301:10
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.2 (4%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT P(_),
+       P(<<>>) ,
+       \A s \in Seq(S) : s # <<>> /\ P(Tail(s)) => P(s) 
+PROVE  \A s \in Seq(S) : Len(s) = 0 => P(s)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:83
+@!!loc:299:3:299:10
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.2 (5%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT P(_),
+       P(<<>>) ,
+       \A s \in Seq(S) : s # <<>> /\ P(Tail(s)) => P(s) ,
+       \A k \in Nat : \A s \in Seq(S) : Len(s) = k => P(s) 
+PROVE  \A s \in Seq(S) : P(s)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:75
+@!!loc:288:5:288:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.3 (6%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT P(_),
+       NEW CONSTANT S,
+       P(<<>>) ,
+       \A s \in Seq(S), e \in S : P(s) => P(Append(s, e)) ,
+       NEW CONSTANT n \in Nat,
+       NEW CONSTANT s \in Seq(S),
+       Len(s) = n + 1 ,
+       ASSUME NEW CONSTANT S_1,
+              NEW CONSTANT seq \in Seq(S_1),
+              seq # <<>> 
+       PROVE  \E s_1 \in Seq(S_1), elt \in S_1 : seq = Append(s_1, elt) 
+PROVE  \E seq \in Seq(S), e \in S : s = Append(seq, e) /\ Len(seq) = n
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:93
+@!!loc:331:1:331:3
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S)
+PROVE  seq \in Seq({seq[x] : x \in DOMAIN seq})
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:94
+@!!loc:349:11:349:13
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s1 \in Seq(S),
+       NEW CONSTANT s2 \in Seq(S),
+       Range(s1) \subseteq Range(s1 \o s2) ,
+       Range(s2) \subseteq Range(s1 \o s2) ,
+       Range(s1 \o s2) \subseteq Range(s1) \cup Range(s2) 
+PROVE  Range(s1 \o s2) = Range(s1) \cup Range(s2)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:95
+@!!loc:349:14:349:18
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s1 \in Seq(S),
+       NEW CONSTANT s2 \in Seq(S),
+       Range(s1) \subseteq Range(s1 \o s2) 
+PROVE  Range(s1) \subseteq Range(s1 \o s2)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:96
+@!!loc:349:20:349:24
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s1 \in Seq(S),
+       NEW CONSTANT s2 \in Seq(S),
+       Range(s2) \subseteq Range(s1 \o s2) ,
+       Range(s1) \subseteq Range(s1 \o s2) 
+PROVE  Range(s2) \subseteq Range(s1 \o s2)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:97
+@!!loc:349:26:349:30
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s1 \in Seq(S),
+       NEW CONSTANT s2 \in Seq(S),
+       Range(s1 \o s2) \subseteq Range(s1) \cup Range(s2) ,
+       Range(s1) \subseteq Range(s1 \o s2) ,
+       Range(s2) \subseteq Range(s1 \o s2) 
+PROVE  Range(s1 \o s2) \subseteq Range(s1) \cup Range(s2)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:98
+@!!loc:338:3:338:5
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s1 \in Seq(S),
+       NEW CONSTANT s2 \in Seq(S)
+PROVE  {s1[x] : x \in DOMAIN s1}
+       \subseteq {(s1 \o s2)[x] : x \in DOMAIN s1 \o s2}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:99
+@!!loc:346:13:346:15
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s1 \in Seq(S),
+       NEW CONSTANT s2 \in Seq(S),
+       NEW CONSTANT i \in 1..Len(s2),
+       /\ Len(s1) + i \in 1..Len(s1 \o s2)
+       /\ (s1 \o s2)[Len(s1) + i] = s2[i] 
+PROVE  s2[i] \in {(s1 \o s2)[x] : x \in DOMAIN s1 \o s2}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:100
+@!!loc:346:16:346:20
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s1 \in Seq(S),
+       NEW CONSTANT s2 \in Seq(S),
+       NEW CONSTANT i \in 1..Len(s2),
+       /\ Len(s1) + i \in 1..Len(s1 \o s2)
+       /\ (s1 \o s2)[Len(s1) + i] = s2[i] 
+PROVE  /\ Len(s1) + i \in 1..Len(s1 \o s2)
+       /\ (s1 \o s2)[Len(s1) + i] = s2[i]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:101
+@!!loc:342:5:342:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s1 \in Seq(S),
+       NEW CONSTANT s2 \in Seq(S),
+       ASSUME NEW CONSTANT i \in 1..Len(s2)
+       PROVE  s2[i] \in Range(s1 \o s2) ,
+       ASSUME NEW CONSTANT S_1,
+              NEW CONSTANT seq \in Seq(S_1)
+       PROVE  Range(seq) = {seq[i] : i \in 1..Len(seq)} 
+PROVE  Range(s2) \subseteq Range(s1 \o s2)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:102
+@!!loc:342:8:342:21
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME ASSUME NEW CONSTANT S,
+              NEW CONSTANT seq \in Seq(S)
+       PROVE  Range(seq) = {seq[i] : i \in 1..Len(seq)} ,
+       NEW CONSTANT S,
+       NEW CONSTANT s1 \in Seq(S),
+       NEW CONSTANT s2 \in Seq(S),
+       ASSUME NEW CONSTANT i \in 1..Len(s2)
+       PROVE  s2[i] \in Range(s1 \o s2) 
+PROVE  ASSUME NEW CONSTANT S_1,
+              NEW CONSTANT seq \in Seq(S_1)
+       PROVE  Range(seq) = {seq[i] : i \in 1..Len(seq)}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:103
+@!!loc:345:5:345:12
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s1 \in Seq(S),
+       NEW CONSTANT s2 \in Seq(S),
+       NEW CONSTANT i \in 1..Len(s2)
+PROVE  /\ Len(s1) + i \in 1..Len(s1 \o s2)
+       /\ (s1 \o s2)[Len(s1) + i] = s2[i]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:101
+@!!loc:342:5:342:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT s1 \in Seq(S),
+       NEW CONSTANT s2 \in Seq(S),
+       ASSUME NEW CONSTANT i \in 1..Len(s2)
+       PROVE  s2[i] \in Range(s1 \o s2) ,
+       ASSUME NEW CONSTANT S_1,
+              NEW CONSTANT seq \in Seq(S_1)
+       PROVE  Range(seq) = {seq[i] : i \in 1..Len(seq)} 
+PROVE  Range(s2) \subseteq Range(s1 \o s2)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:99
+@!!loc:346:13:346:15
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT s1 \in Seq(S),
+       NEW CONSTANT s2 \in Seq(S),
+       NEW CONSTANT i \in 1..Len(s2),
+       /\ Len(s1) + i \in 1..Len(s1 \o s2)
+       /\ (s1 \o s2)[Len(s1) + i] = s2[i] 
+PROVE  s2[i] \in {(s1 \o s2)[x] : x \in DOMAIN s1 \o s2}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:98
+@!!loc:338:3:338:5
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT s1 \in Seq(S),
+       NEW CONSTANT s2 \in Seq(S)
+PROVE  {s1[x] : x \in DOMAIN s1}
+       \subseteq {(s1 \o s2)[x] : x \in DOMAIN s1 \o s2}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:94
+@!!loc:349:11:349:13
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.2 (3%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT s1 \in Seq(S),
+       NEW CONSTANT s2 \in Seq(S),
+       Range(s1) \subseteq Range(s1 \o s2) ,
+       Range(s2) \subseteq Range(s1 \o s2) ,
+       Range(s1 \o s2) \subseteq Range(s1) \cup Range(s2) 
+PROVE  Range(s1 \o s2) = Range(s1) \cup Range(s2)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:93
+@!!loc:331:1:331:3
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.2 (4%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S)
+PROVE  seq \in Seq({seq[x] : x \in DOMAIN seq})
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:92
+@!!loc:326:1:326:3
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.2 (5%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S)
+PROVE  {seq[x] : x \in DOMAIN seq} = {seq[i] : i \in 1..Len(seq)}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:91
+@!!loc:321:1:321:3
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.3 (5%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S)
+PROVE  {seq[x] : x \in DOMAIN seq} \in SUBSET S
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:104
+@!!loc:348:3:348:5
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s1 \in Seq(S),
+       NEW CONSTANT s2 \in Seq(S)
+PROVE  {(s1 \o s2)[x] : x \in DOMAIN s1 \o s2}
+       \subseteq {s1[x] : x \in DOMAIN s1} \cup {s2[x] : x \in DOMAIN s2}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:105
+@!!loc:358:1:358:3
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:/\ \A a, b \in DOMAIN <<>> : <<>>[a] = <<>>[b] => a = b
+/\ \A e : \A a, b \in DOMAIN <<e>> : <<e>>[a] = <<e>>[b] => a = b
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:106
+@!!loc:389:11:389:13
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       ASSUME IsInjective(s \o t) 
+       PROVE  IsInjective(s) ,
+       ASSUME IsInjective(s \o t) 
+       PROVE  IsInjective(t) ,
+       ASSUME IsInjective(s \o t) ,
+              NEW CONSTANT e \in Range(s) \cap Range(t)
+       PROVE  FALSE ,
+       ASSUME IsInjective(s) ,
+              IsInjective(t) ,
+              Range(s) \cap Range(t) = {} 
+       PROVE  IsInjective(s \o t) 
+PROVE  IsInjective(s \o t)
+       <=> IsInjective(s) /\ IsInjective(t) /\ Range(s) \cap Range(t) = {}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:107
+@!!loc:389:14:389:18
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       ASSUME IsInjective(s \o t) 
+       PROVE  IsInjective(s) 
+PROVE  ASSUME IsInjective(s \o t) 
+       PROVE  IsInjective(s)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:108
+@!!loc:389:20:389:24
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       ASSUME IsInjective(s \o t) 
+       PROVE  IsInjective(t) ,
+       ASSUME IsInjective(s \o t) 
+       PROVE  IsInjective(s) 
+PROVE  ASSUME IsInjective(s \o t) 
+       PROVE  IsInjective(t)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:109
+@!!loc:389:26:389:30
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       ASSUME IsInjective(s \o t) ,
+              NEW CONSTANT e \in Range(s) \cap Range(t)
+       PROVE  FALSE ,
+       ASSUME IsInjective(s \o t) 
+       PROVE  IsInjective(s) ,
+       ASSUME IsInjective(s \o t) 
+       PROVE  IsInjective(t) 
+PROVE  ASSUME IsInjective(s \o t) ,
+              NEW CONSTANT e \in Range(s) \cap Range(t)
+       PROVE  FALSE
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:110
+@!!loc:389:32:389:36
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       ASSUME IsInjective(s) ,
+              IsInjective(t) ,
+              Range(s) \cap Range(t) = {} 
+       PROVE  IsInjective(s \o t) ,
+       ASSUME IsInjective(s \o t) 
+       PROVE  IsInjective(s) ,
+       ASSUME IsInjective(s \o t) 
+       PROVE  IsInjective(t) ,
+       ASSUME IsInjective(s \o t) ,
+              NEW CONSTANT e \in Range(s) \cap Range(t)
+       PROVE  FALSE 
+PROVE  ASSUME IsInjective(s) ,
+              IsInjective(t) ,
+              Range(s) \cap Range(t) = {} 
+       PROVE  IsInjective(s \o t)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:111
+@!!loc:366:3:366:5
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       \A a, b \in DOMAIN s \o t : (s \o t)[a] = (s \o t)[b] => a = b 
+PROVE  \A a, b \in DOMAIN s : s[a] = s[b] => a = b
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:112
+@!!loc:366:6:366:10
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       \A a, b \in DOMAIN s \o t : (s \o t)[a] = (s \o t)[b] => a = b 
+PROVE  \A a, b \in DOMAIN s \o t : (s \o t)[a] = (s \o t)[b] => a = b
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:113
+@!!loc:375:13:375:15
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT i \in DOMAIN t,
+       NEW CONSTANT j \in DOMAIN t,
+       \A a, b \in DOMAIN s \o t : (s \o t)[a] = (s \o t)[b] => a = b ,
+       /\ i + Len(s) \in DOMAIN s \o t
+       /\ j + Len(s) \in DOMAIN s \o t
+       /\ (s \o t)[i + Len(s)] = (s \o t)[j + Len(s)] 
+PROVE  i = j
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:114
+@!!loc:375:16:375:20
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       \A a, b \in DOMAIN s \o t : (s \o t)[a] = (s \o t)[b] => a = b ,
+       NEW CONSTANT i \in DOMAIN t,
+       NEW CONSTANT j \in DOMAIN t
+PROVE  \A a, b \in DOMAIN s \o t : (s \o t)[a] = (s \o t)[b] => a = b
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:115
+@!!loc:375:22:375:26
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT i \in DOMAIN t,
+       NEW CONSTANT j \in DOMAIN t,
+       /\ i + Len(s) \in DOMAIN s \o t
+       /\ j + Len(s) \in DOMAIN s \o t
+       /\ (s \o t)[i + Len(s)] = (s \o t)[j + Len(s)] ,
+       \A a, b \in DOMAIN s \o t : (s \o t)[a] = (s \o t)[b] => a = b 
+PROVE  /\ i + Len(s) \in DOMAIN s \o t
+       /\ j + Len(s) \in DOMAIN s \o t
+       /\ (s \o t)[i + Len(s)] = (s \o t)[j + Len(s)]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:116
+@!!loc:370:5:370:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       ASSUME NEW CONSTANT i \in DOMAIN t,
+              NEW CONSTANT j \in DOMAIN t,
+              t[i] = t[j] 
+       PROVE  i = j 
+PROVE  \A a, b \in DOMAIN t : t[a] = t[b] => a = b
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:117
+@!!loc:374:5:374:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT i \in DOMAIN t,
+       NEW CONSTANT j \in DOMAIN t,
+       t[i] = t[j] 
+PROVE  /\ i + Len(s) \in DOMAIN s \o t
+       /\ j + Len(s) \in DOMAIN s \o t
+       /\ (s \o t)[i + Len(s)] = (s \o t)[j + Len(s)]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:113
+@!!loc:375:13:375:15
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT i \in DOMAIN t,
+       NEW CONSTANT j \in DOMAIN t,
+       \A a, b \in DOMAIN s \o t : (s \o t)[a] = (s \o t)[b] => a = b ,
+       /\ i + Len(s) \in DOMAIN s \o t
+       /\ j + Len(s) \in DOMAIN s \o t
+       /\ (s \o t)[i + Len(s)] = (s \o t)[j + Len(s)] 
+PROVE  i = j
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:111
+@!!loc:366:3:366:5
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       \A a, b \in DOMAIN s \o t : (s \o t)[a] = (s \o t)[b] => a = b 
+PROVE  \A a, b \in DOMAIN s : s[a] = s[b] => a = b
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:106
+@!!loc:389:11:389:13
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.2 (4%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       ASSUME IsInjective(s \o t) 
+       PROVE  IsInjective(s) ,
+       ASSUME IsInjective(s \o t) 
+       PROVE  IsInjective(t) ,
+       ASSUME IsInjective(s \o t) ,
+              NEW CONSTANT e \in Range(s) \cap Range(t)
+       PROVE  FALSE ,
+       ASSUME IsInjective(s) ,
+              IsInjective(t) ,
+              Range(s) \cap Range(t) = {} 
+       PROVE  IsInjective(s \o t) 
+PROVE  IsInjective(s \o t)
+       <=> IsInjective(s) /\ IsInjective(t) /\ Range(s) \cap Range(t) = {}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:105
+@!!loc:358:1:358:3
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.2 (5%)
+@!!already:false
+@!!obl:
+/\ \A a, b \in DOMAIN <<>> : <<>>[a] = <<>>[b] => a = b
+/\ \A e : \A a, b \in DOMAIN <<e>> : <<e>>[a] = <<e>>[b] => a = b
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:104
+@!!loc:348:3:348:5
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.3 (5%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT s1 \in Seq(S),
+       NEW CONSTANT s2 \in Seq(S)
+PROVE  {(s1 \o s2)[x] : x \in DOMAIN s1 \o s2}
+       \subseteq {s1[x] : x \in DOMAIN s1} \cup {s2[x] : x \in DOMAIN s2}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:103
+@!!loc:345:5:345:12
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.3 (6%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT s1 \in Seq(S),
+       NEW CONSTANT s2 \in Seq(S),
+       NEW CONSTANT i \in 1..Len(s2)
+PROVE  /\ Len(s1) + i \in 1..Len(s1 \o s2)
+       /\ (s1 \o s2)[Len(s1) + i] = s2[i]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:118
+@!!loc:374:8:374:12
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT i \in DOMAIN t,
+       NEW CONSTANT j \in DOMAIN t,
+       t[i] = t[j] 
+PROVE  t[i] = t[j]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:119
+@!!loc:385:13:385:15
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT e \in Range(s) \cap Range(t),
+       NEW CONSTANT i \in DOMAIN s,
+       NEW CONSTANT j \in DOMAIN t,
+       \A a, b \in DOMAIN s \o t : (s \o t)[a] = (s \o t)[b] => a = b ,
+       /\ i \in DOMAIN s \o t /\ (s \o t)[i] = e
+       /\ j + Len(s) \in DOMAIN s \o t /\ (s \o t)[j + Len(s)] = e 
+PROVE  FALSE
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:120
+@!!loc:385:16:385:20
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT e \in Range(s) \cap Range(t),
+       \A a, b \in DOMAIN s \o t : (s \o t)[a] = (s \o t)[b] => a = b ,
+       NEW CONSTANT i \in DOMAIN s,
+       NEW CONSTANT j \in DOMAIN t
+PROVE  \A a, b \in DOMAIN s \o t : (s \o t)[a] = (s \o t)[b] => a = b
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:121
+@!!loc:385:22:385:26
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT e \in Range(s) \cap Range(t),
+       NEW CONSTANT i \in DOMAIN s,
+       NEW CONSTANT j \in DOMAIN t,
+       /\ i \in DOMAIN s \o t /\ (s \o t)[i] = e
+       /\ j + Len(s) \in DOMAIN s \o t /\ (s \o t)[j + Len(s)] = e ,
+       \A a, b \in DOMAIN s \o t : (s \o t)[a] = (s \o t)[b] => a = b 
+PROVE  /\ i \in DOMAIN s \o t /\ (s \o t)[i] = e
+       /\ j + Len(s) \in DOMAIN s \o t /\ (s \o t)[j + Len(s)] = e
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:122
+@!!loc:379:5:379:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT e \in {s[x] : x \in DOMAIN s}
+                          \cap {t[x] : x \in DOMAIN t},
+       IsInjective(s \o t) 
+PROVE  \E i \in DOMAIN s : s[i] = e
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:123
+@!!loc:379:8:379:12
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT e \in {s[x] : x \in DOMAIN s}
+                          \cap {t[x] : x \in DOMAIN t},
+       IsInjective(s \o t) 
+PROVE  IsInjective(s \o t)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:125
+@!!loc:381:5:381:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT e \in {s[x] : x \in DOMAIN s}
+                          \cap {t[x] : x \in DOMAIN t},
+       NEW CONSTANT i \in DOMAIN s,
+       IsInjective(s \o t) 
+PROVE  \E j \in DOMAIN t : t[j] = e
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:126
+@!!loc:381:8:381:12
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT e \in {s[x] : x \in DOMAIN s}
+                          \cap {t[x] : x \in DOMAIN t},
+       IsInjective(s \o t) ,
+       NEW CONSTANT i \in DOMAIN s
+PROVE  IsInjective(s \o t)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:128
+@!!loc:384:5:384:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT e \in Range(s) \cap Range(t),
+       NEW CONSTANT i \in DOMAIN s,
+       NEW CONSTANT j \in DOMAIN t,
+       s[i] = e ,
+       t[j] = e 
+PROVE  /\ i \in DOMAIN s \o t /\ (s \o t)[i] = e
+       /\ j + Len(s) \in DOMAIN s \o t /\ (s \o t)[j + Len(s)] = e
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:129
+@!!loc:384:8:384:12
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT e \in Range(s) \cap Range(t),
+       NEW CONSTANT i \in DOMAIN s,
+       s[i] = e ,
+       NEW CONSTANT j \in DOMAIN t
+PROVE  s[i] = e
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:130
+@!!loc:384:14:384:18
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT e \in Range(s) \cap Range(t),
+       NEW CONSTANT i \in DOMAIN s,
+       NEW CONSTANT j \in DOMAIN t,
+       t[j] = e ,
+       s[i] = e 
+PROVE  t[j] = e
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:131
+@!!loc:388:3:388:5
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       /\ \A a, b \in DOMAIN s : s[a] = s[b] => a = b
+       /\ \A a, b \in DOMAIN t : t[a] = t[b] => a = b
+       /\ {s[x] : x \in DOMAIN s} \cap {t[x] : x \in DOMAIN t} = {} 
+PROVE  \A a, b \in DOMAIN s \o t : (s \o t)[a] = (s \o t)[b] => a = b
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:132
+@!!loc:388:6:388:10
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       /\ \A a, b \in DOMAIN s : s[a] = s[b] => a = b
+       /\ \A a, b \in DOMAIN t : t[a] = t[b] => a = b
+       /\ {s[x] : x \in DOMAIN s} \cap {t[x] : x \in DOMAIN t} = {} 
+PROVE  /\ \A a, b \in DOMAIN s : s[a] = s[b] => a = b
+       /\ \A a, b \in DOMAIN t : t[a] = t[b] => a = b
+       /\ {s[x] : x \in DOMAIN s} \cap {t[x] : x \in DOMAIN t} = {}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:133
+@!!loc:409:11:409:13
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT e \in S,
+       ASSUME IsInjective(Append(seq, e)) 
+       PROVE  IsInjective(seq) ,
+       ASSUME IsInjective(Append(seq, e)) ,
+              e \in Range(seq) 
+       PROVE  FALSE ,
+       ASSUME IsInjective(seq) ,
+              e \notin Range(seq) 
+       PROVE  IsInjective(Append(seq, e)) 
+PROVE  IsInjective(Append(seq, e))
+       <=> IsInjective(seq) /\ e \notin Range(seq)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:131
+@!!loc:388:3:388:5
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       /\ \A a, b \in DOMAIN s : s[a] = s[b] => a = b
+       /\ \A a, b \in DOMAIN t : t[a] = t[b] => a = b
+       /\ {s[x] : x \in DOMAIN s} \cap {t[x] : x \in DOMAIN t} = {} 
+PROVE  \A a, b \in DOMAIN s \o t : (s \o t)[a] = (s \o t)[b] => a = b
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:128
+@!!loc:384:5:384:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.2 (4%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT e \in Range(s) \cap Range(t),
+       NEW CONSTANT i \in DOMAIN s,
+       NEW CONSTANT j \in DOMAIN t,
+       s[i] = e ,
+       t[j] = e 
+PROVE  /\ i \in DOMAIN s \o t /\ (s \o t)[i] = e
+       /\ j + Len(s) \in DOMAIN s \o t /\ (s \o t)[j + Len(s)] = e
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:125
+@!!loc:381:5:381:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.3 (5%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT e \in {s[x] : x \in DOMAIN s}
+                          \cap {t[x] : x \in DOMAIN t},
+       NEW CONSTANT i \in DOMAIN s,
+       IsInjective(s \o t) 
+PROVE  \E j \in DOMAIN t : t[j] = e
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:122
+@!!loc:379:5:379:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.3 (6%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT e \in {s[x] : x \in DOMAIN s}
+                          \cap {t[x] : x \in DOMAIN t},
+       IsInjective(s \o t) 
+PROVE  \E i \in DOMAIN s : s[i] = e
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:119
+@!!loc:385:13:385:15
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.4 (7%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT e \in Range(s) \cap Range(t),
+       NEW CONSTANT i \in DOMAIN s,
+       NEW CONSTANT j \in DOMAIN t,
+       \A a, b \in DOMAIN s \o t : (s \o t)[a] = (s \o t)[b] => a = b ,
+       /\ i \in DOMAIN s \o t /\ (s \o t)[i] = e
+       /\ j + Len(s) \in DOMAIN s \o t /\ (s \o t)[j + Len(s)] = e 
+PROVE  FALSE
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:117
+@!!loc:374:5:374:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.4 (8%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       NEW CONSTANT i \in DOMAIN t,
+       NEW CONSTANT j \in DOMAIN t,
+       t[i] = t[j] 
+PROVE  /\ i + Len(s) \in DOMAIN s \o t
+       /\ j + Len(s) \in DOMAIN s \o t
+       /\ (s \o t)[i + Len(s)] = (s \o t)[j + Len(s)]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:116
+@!!loc:370:5:370:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.4 (9%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT s \in Seq(S),
+       NEW CONSTANT t \in Seq(S),
+       ASSUME NEW CONSTANT i \in DOMAIN t,
+              NEW CONSTANT j \in DOMAIN t,
+              t[i] = t[j] 
+       PROVE  i = j 
+PROVE  \A a, b \in DOMAIN t : t[a] = t[b] => a = b
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:134
+@!!loc:409:14:409:18
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT e \in S,
+       ASSUME IsInjective(Append(seq, e)) 
+       PROVE  IsInjective(seq) 
+PROVE  ASSUME IsInjective(Append(seq, e)) 
+       PROVE  IsInjective(seq)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:135
+@!!loc:409:20:409:24
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT e \in S,
+       ASSUME IsInjective(Append(seq, e)) ,
+              e \in Range(seq) 
+       PROVE  FALSE ,
+       ASSUME IsInjective(Append(seq, e)) 
+       PROVE  IsInjective(seq) 
+PROVE  ASSUME IsInjective(Append(seq, e)) ,
+              e \in Range(seq) 
+       PROVE  FALSE
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:136
+@!!loc:409:26:409:30
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT e \in S,
+       ASSUME IsInjective(seq) ,
+              e \notin Range(seq) 
+       PROVE  IsInjective(Append(seq, e)) ,
+       ASSUME IsInjective(Append(seq, e)) 
+       PROVE  IsInjective(seq) ,
+       ASSUME IsInjective(Append(seq, e)) ,
+              e \in Range(seq) 
+       PROVE  FALSE 
+PROVE  ASSUME IsInjective(seq) ,
+              e \notin Range(seq) 
+       PROVE  IsInjective(Append(seq, e))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:137
+@!!loc:397:3:397:5
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT e \in S,
+       \A a, b \in DOMAIN Append(seq, e) :
+          Append(seq, e)[a] = Append(seq, e)[b] => a = b 
+PROVE  \A a, b \in DOMAIN seq : seq[a] = seq[b] => a = b
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:138
+@!!loc:397:6:397:10
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT e \in S,
+       \A a, b \in DOMAIN Append(seq, e) :
+          Append(seq, e)[a] = Append(seq, e)[b] => a = b 
+PROVE  \A a, b \in DOMAIN Append(seq, e) :
+          Append(seq, e)[a] = Append(seq, e)[b] => a = b
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:139
+@!!loc:405:5:405:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT e \in S,
+       NEW CONSTANT i \in DOMAIN seq,
+       /\ \A a, b \in DOMAIN Append(seq, e) :
+             Append(seq, e)[a] = Append(seq, e)[b] => a = b
+       /\ e \in Range(seq) ,
+       Append(seq, e)[i] = e /\ Append(seq, e)[Len(seq) + 1] = e 
+PROVE  FALSE
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:140
+@!!loc:405:8:405:12
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT e \in S,
+       /\ \A a, b \in DOMAIN Append(seq, e) :
+             Append(seq, e)[a] = Append(seq, e)[b] => a = b
+       /\ e \in Range(seq) ,
+       NEW CONSTANT i \in DOMAIN seq
+PROVE  /\ \A a, b \in DOMAIN Append(seq, e) :
+             Append(seq, e)[a] = Append(seq, e)[b] => a = b
+       /\ e \in Range(seq)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:141
+@!!loc:405:14:405:18
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT e \in S,
+       NEW CONSTANT i \in DOMAIN seq,
+       Append(seq, e)[i] = e /\ Append(seq, e)[Len(seq) + 1] = e ,
+       /\ \A a, b \in DOMAIN Append(seq, e) :
+             Append(seq, e)[a] = Append(seq, e)[b] => a = b
+       /\ e \in Range(seq) 
+PROVE  Append(seq, e)[i] = e /\ Append(seq, e)[Len(seq) + 1] = e
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:142
+@!!loc:401:5:401:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT e \in S,
+       /\ IsInjective(Append(seq, e))
+       /\ e \in {seq[x] : x \in DOMAIN seq} 
+PROVE  \E i \in DOMAIN seq : seq[i] = e
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:143
+@!!loc:401:8:401:12
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT e \in S,
+       /\ IsInjective(Append(seq, e))
+       /\ e \in {seq[x] : x \in DOMAIN seq} 
+PROVE  /\ IsInjective(Append(seq, e))
+       /\ e \in {seq[x] : x \in DOMAIN seq}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:145
+@!!loc:403:5:403:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT e \in S,
+       NEW CONSTANT i \in DOMAIN seq,
+       seq[i] = e 
+PROVE  Append(seq, e)[i] = e /\ Append(seq, e)[Len(seq) + 1] = e
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:146
+@!!loc:403:8:403:12
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT e \in S,
+       NEW CONSTANT i \in DOMAIN seq,
+       seq[i] = e 
+PROVE  seq[i] = e
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:147
+@!!loc:408:3:408:5
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT e \in S,
+       /\ \A a, b \in DOMAIN seq : seq[a] = seq[b] => a = b
+       /\ e \notin {seq[x] : x \in DOMAIN seq} 
+PROVE  \A a, b \in DOMAIN Append(seq, e) :
+          Append(seq, e)[a] = Append(seq, e)[b] => a = b
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:148
+@!!loc:408:6:408:10
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT e \in S,
+       /\ \A a, b \in DOMAIN seq : seq[a] = seq[b] => a = b
+       /\ e \notin {seq[x] : x \in DOMAIN seq} 
+PROVE  /\ \A a, b \in DOMAIN seq : seq[a] = seq[b] => a = b
+       /\ e \notin {seq[x] : x \in DOMAIN seq}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:149
+@!!loc:428:11:428:13
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       IsInjective(seq) ,
+       seq # <<>> ,
+       IsInjective(Tail(seq)) ,
+       ASSUME NEW CONSTANT e \in Range(Tail(seq))
+       PROVE  e \in Range(seq) \ {Head(seq)} ,
+       ASSUME NEW CONSTANT e \in Range(seq) \ {Head(seq)}
+       PROVE  e \in Range(Tail(seq)) 
+PROVE  /\ IsInjective(Tail(seq))
+       /\ Range(Tail(seq)) = Range(seq) \ {Head(seq)}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:150
+@!!loc:428:14:428:18
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       IsInjective(seq) ,
+       seq # <<>> ,
+       IsInjective(Tail(seq)) 
+PROVE  IsInjective(Tail(seq))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:151
+@!!loc:428:20:428:24
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       IsInjective(seq) ,
+       seq # <<>> ,
+       ASSUME NEW CONSTANT e \in Range(Tail(seq))
+       PROVE  e \in Range(seq) \ {Head(seq)} ,
+       IsInjective(Tail(seq)) 
+PROVE  ASSUME NEW CONSTANT e \in Range(Tail(seq))
+       PROVE  e \in Range(seq) \ {Head(seq)}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:152
+@!!loc:428:26:428:30
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       IsInjective(seq) ,
+       seq # <<>> ,
+       ASSUME NEW CONSTANT e \in Range(seq) \ {Head(seq)}
+       PROVE  e \in Range(Tail(seq)) ,
+       IsInjective(Tail(seq)) ,
+       ASSUME NEW CONSTANT e \in Range(Tail(seq))
+       PROVE  e \in Range(seq) \ {Head(seq)} 
+PROVE  ASSUME NEW CONSTANT e \in Range(seq) \ {Head(seq)}
+       PROVE  e \in Range(Tail(seq))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:153
+@!!loc:417:3:417:5
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       \A a, b \in DOMAIN seq : seq[a] = seq[b] => a = b ,
+       seq # <<>> 
+PROVE  \A a, b \in DOMAIN Tail(seq) : Tail(seq)[a] = Tail(seq)[b] => a = b
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:149
+@!!loc:428:11:428:13
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       IsInjective(seq) ,
+       seq # <<>> ,
+       IsInjective(Tail(seq)) ,
+       ASSUME NEW CONSTANT e \in Range(Tail(seq))
+       PROVE  e \in Range(seq) \ {Head(seq)} ,
+       ASSUME NEW CONSTANT e \in Range(seq) \ {Head(seq)}
+       PROVE  e \in Range(Tail(seq)) 
+PROVE  /\ IsInjective(Tail(seq))
+       /\ Range(Tail(seq)) = Range(seq) \ {Head(seq)}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:147
+@!!loc:408:3:408:5
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (3%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT e \in S,
+       /\ \A a, b \in DOMAIN seq : seq[a] = seq[b] => a = b
+       /\ e \notin {seq[x] : x \in DOMAIN seq} 
+PROVE  \A a, b \in DOMAIN Append(seq, e) :
+          Append(seq, e)[a] = Append(seq, e)[b] => a = b
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:145
+@!!loc:403:5:403:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.2 (4%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT e \in S,
+       NEW CONSTANT i \in DOMAIN seq,
+       seq[i] = e 
+PROVE  Append(seq, e)[i] = e /\ Append(seq, e)[Len(seq) + 1] = e
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:142
+@!!loc:401:5:401:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.2 (5%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT e \in S,
+       /\ IsInjective(Append(seq, e))
+       /\ e \in {seq[x] : x \in DOMAIN seq} 
+PROVE  \E i \in DOMAIN seq : seq[i] = e
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:139
+@!!loc:405:5:405:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.3 (6%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT e \in S,
+       NEW CONSTANT i \in DOMAIN seq,
+       /\ \A a, b \in DOMAIN Append(seq, e) :
+             Append(seq, e)[a] = Append(seq, e)[b] => a = b
+       /\ e \in Range(seq) ,
+       Append(seq, e)[i] = e /\ Append(seq, e)[Len(seq) + 1] = e 
+PROVE  FALSE
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:137
+@!!loc:397:3:397:5
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.4 (8%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT e \in S,
+       \A a, b \in DOMAIN Append(seq, e) :
+          Append(seq, e)[a] = Append(seq, e)[b] => a = b 
+PROVE  \A a, b \in DOMAIN seq : seq[a] = seq[b] => a = b
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:133
+@!!loc:409:11:409:13
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.4 (9%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       NEW CONSTANT e \in S,
+       ASSUME IsInjective(Append(seq, e)) 
+       PROVE  IsInjective(seq) ,
+       ASSUME IsInjective(Append(seq, e)) ,
+              e \in Range(seq) 
+       PROVE  FALSE ,
+       ASSUME IsInjective(seq) ,
+              e \notin Range(seq) 
+       PROVE  IsInjective(Append(seq, e)) 
+PROVE  IsInjective(Append(seq, e))
+       <=> IsInjective(seq) /\ e \notin Range(seq)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:154
+@!!loc:420:3:420:5
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       \A a, b \in DOMAIN seq : seq[a] = seq[b] => a = b ,
+       seq # <<>> ,
+       NEW CONSTANT e \in {Tail(seq)[x] : x \in DOMAIN Tail(seq)}
+PROVE  e \in {seq[x] : x \in DOMAIN seq} \ {Head(seq)}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:155
+@!!loc:427:13:427:15
+@!!status:normalized
+@!!meth:time-limit: 10
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       IsInjective(seq) ,
+       seq # <<>> ,
+       NEW CONSTANT e \in {seq[x] : x \in DOMAIN seq} \ {Head(seq)},
+       NEW CONSTANT i \in 2..Len(seq),
+       i - 1 \in DOMAIN Tail(seq) /\ Tail(seq)[i - 1] = e ,
+       TRUE 
+PROVE  e \in {Tail(seq)[x] : x \in DOMAIN Tail(seq)}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:156
+@!!loc:427:16:427:20
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       IsInjective(seq) ,
+       seq # <<>> ,
+       NEW CONSTANT e \in {seq[x] : x \in DOMAIN seq} \ {Head(seq)},
+       NEW CONSTANT i \in 2..Len(seq),
+       i - 1 \in DOMAIN Tail(seq) /\ Tail(seq)[i - 1] = e 
+PROVE  i - 1 \in DOMAIN Tail(seq) /\ Tail(seq)[i - 1] = e
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:157
+@!!loc:427:22:427:27
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       IsInjective(seq) ,
+       seq # <<>> ,
+       NEW CONSTANT e \in {seq[x] : x \in DOMAIN seq} \ {Head(seq)},
+       NEW CONSTANT i \in 2..Len(seq),
+       i - 1 \in DOMAIN Tail(seq) /\ Tail(seq)[i - 1] = e 
+PROVE  TRUE
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:158
+@!!loc:424:5:424:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       IsInjective(seq) ,
+       seq # <<>> ,
+       NEW CONSTANT e \in {seq[x] : x \in DOMAIN seq} \ {Head(seq)}
+PROVE  \E i \in 2..Len(seq) : seq[i] = e
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:160
+@!!loc:426:5:426:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       IsInjective(seq) ,
+       seq # <<>> ,
+       NEW CONSTANT e \in Range(seq) \ {Head(seq)},
+       NEW CONSTANT i \in 2..Len(seq),
+       seq[i] = e 
+PROVE  i - 1 \in DOMAIN Tail(seq) /\ Tail(seq)[i - 1] = e
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:161
+@!!loc:426:8:426:12
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       IsInjective(seq) ,
+       seq # <<>> ,
+       NEW CONSTANT e \in Range(seq) \ {Head(seq)},
+       NEW CONSTANT i \in 2..Len(seq),
+       seq[i] = e 
+PROVE  seq[i] = e
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:158
+@!!loc:424:5:424:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       IsInjective(seq) ,
+       seq # <<>> ,
+       NEW CONSTANT e \in {seq[x] : x \in DOMAIN seq} \ {Head(seq)}
+PROVE  \E i \in 2..Len(seq) : seq[i] = e
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:155
+@!!loc:427:13:427:15
+@!!status:proved
+@!!prover:zenon
+@!!meth:time-limit: 10; time-used: 0.1 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       IsInjective(seq) ,
+       seq # <<>> ,
+       NEW CONSTANT e \in {seq[x] : x \in DOMAIN seq} \ {Head(seq)},
+       NEW CONSTANT i \in 2..Len(seq),
+       i - 1 \in DOMAIN Tail(seq) /\ Tail(seq)[i - 1] = e ,
+       TRUE 
+PROVE  e \in {Tail(seq)[x] : x \in DOMAIN Tail(seq)}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:154
+@!!loc:420:3:420:5
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (3%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       \A a, b \in DOMAIN seq : seq[a] = seq[b] => a = b ,
+       seq # <<>> ,
+       NEW CONSTANT e \in {Tail(seq)[x] : x \in DOMAIN Tail(seq)}
+PROVE  e \in {seq[x] : x \in DOMAIN seq} \ {Head(seq)}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:153
+@!!loc:417:3:417:5
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.2 (3%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       \A a, b \in DOMAIN seq : seq[a] = seq[b] => a = b ,
+       seq # <<>> 
+PROVE  \A a, b \in DOMAIN Tail(seq) : Tail(seq)[a] = Tail(seq)[b] => a = b
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:65
+@!!loc:290:12:290:14
+@!!status:proved
+@!!prover:isabelle
+@!!meth:auto; time-limit: 30; time-used: 2.1 (7%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT P(_),
+       NEW CONSTANT S,
+       P(<<>>) ,
+       \A s \in Seq(S), e \in S : P(s) => P(Append(s, e)) ,
+       \A seq \in Seq(S) : Len(seq) = 0 => P(seq) ,
+       ASSUME NEW CONSTANT n \in Nat,
+              \A seq \in Seq(S) : Len(seq) = n => P(seq) 
+       PROVE  \A seq \in Seq(S) : Len(seq) = n + 1 => P(seq) ,
+       ASSUME NEW CONSTANT P_1(_),
+              P_1(0) ,
+              \A n \in Nat : P_1(n) => P_1(n + 1) 
+       PROVE  \A n \in Nat : P_1(n) ,
+       TRUE 
+PROVE  \A k \in Nat : \A seq \in Seq(S) : Len(seq) = k => P(seq)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:160
+@!!loc:426:5:426:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT seq \in Seq(S),
+       IsInjective(seq) ,
+       seq # <<>> ,
+       NEW CONSTANT e \in Range(seq) \ {Head(seq)},
+       NEW CONSTANT i \in 2..Len(seq),
+       seq[i] = e 
+PROVE  i - 1 \in DOMAIN Tail(seq) /\ Tail(seq)[i - 1] = e
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:78
+@!!loc:311:12:311:14
+@!!status:proved
+@!!prover:isabelle
+@!!meth:auto; time-limit: 30; time-used: 2.0 (7%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT S,
+       NEW CONSTANT P(_),
+       P(<<>>) ,
+       \A s \in Seq(S) : s # <<>> /\ P(Tail(s)) => P(s) ,
+       \A s \in Seq(S) : Len(s) = 0 => P(s) ,
+       ASSUME NEW CONSTANT n \in Nat,
+              \A s \in Seq(S) : Len(s) = n => P(s) 
+       PROVE  \A s \in Seq(S) : Len(s) = n + 1 => P(s) ,
+       ASSUME NEW CONSTANT P_1(_),
+              P_1(0) ,
+              \A n \in Nat : P_1(n) => P_1(n + 1) 
+       PROVE  \A n \in Nat : P_1(n) ,
+       TRUE 
+PROVE  \A k \in Nat : \A s \in Seq(S) : Len(s) = k => P(s)
+
+@!!END
+
+(* created new ".tlacache/SequenceTheorems_proofs.tlaps/SequenceTheorems_proofs.thy" *)
+(* fingerprints written in ".tlacache/SequenceTheorems_proofs.tlaps/fingerprints" *)
+File "./SequenceTheorems_proofs.tla", line 1, character 1 to line 430, character 77:
+[INFO]: All 156 obligations proved.

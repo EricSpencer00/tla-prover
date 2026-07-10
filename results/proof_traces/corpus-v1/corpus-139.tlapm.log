@@ -1,0 +1,3656 @@
+
+\* TLAPM version 80172c6
+\* launched at 2026-07-08 14:14:16 with command line:
+\* /Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm --toolbox 0 0 --printallobs -I /Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib -I /Users/eric/GitHub/prove-TLA/tools/community-modules -I /Users/eric/GitHub/prove-TLA/tools/extra-modules ReachabilityProofs.tla
+
+@!!BEGIN
+@!!type:obligation
+@!!id:1
+@!!loc:67:13:67:15
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       ExistsPath(m, n) == \E p \in Seq(Nodes) : IsPathFromTo(p, m, n),
+       ReachableFrom(S) == {n \in Nodes : \E m \in S : ExistsPath(m, n)},
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       <1>1 
+PROVE  n \in ReachableFrom(S)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:2
+@!!loc:67:16:67:20
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       ExistsPath(m, n) == \E p \in Seq(Nodes) : IsPathFromTo(p, m, n),
+       ReachableFrom(S) == {n \in Nodes : \E m \in S : ExistsPath(m, n)},
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S
+PROVE  <1>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:3
+@!!loc:33:5:33:12
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       <1>_a17 
+PROVE  \A S \in SUBSET Nodes : \A n \in S : n \in ReachableFrom(S)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:4
+@!!loc:65:7:65:14
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       IsPathFromTo(p, m, n) ==
+         /\ Len(p) > 0
+         /\ p[1] = m /\ p[Len(p)] = n
+         /\ \A i \in 1..Len(p) - 1 : p[i + 1] \in Succ[p[i]],
+       ExistsPath(m, n) == \E p \in Seq(Nodes) : IsPathFromTo(p, m, n),
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S
+PROVE  IsPathFromTo(<<n>>, n, n)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:5
+@!!loc:63:5:63:37
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       IsPathFromTo(p, m, n) ==
+         /\ Len(p) > 0
+         /\ p[1] = m /\ p[Len(p)] = n
+         /\ \A i \in 1..Len(p) - 1 : p[i + 1] \in Succ[p[i]],
+       ExistsPath(m, n) == \E p \in Seq(Nodes) : IsPathFromTo(p, m, n),
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       <2>_a18 ,
+       <3>_a21 
+PROVE  ExistsPath(n, n)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:6
+@!!loc:63:5:63:37
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       IsPathFromTo(p, m, n) ==
+         /\ Len(p) > 0
+         /\ p[1] = m /\ p[Len(p)] = n
+         /\ \A i \in 1..Len(p) - 1 : p[i + 1] \in Succ[p[i]],
+       ExistsPath(m, n) == \E p \in Seq(Nodes) : IsPathFromTo(p, m, n),
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       <2>_a18 ,
+       <3>_a21 
+PROVE  <2>_a18
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:7
+@!!loc:63:5:63:37
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       IsPathFromTo(p, m, n) ==
+         /\ Len(p) > 0
+         /\ p[1] = m /\ p[Len(p)] = n
+         /\ \A i \in 1..Len(p) - 1 : p[i + 1] \in Succ[p[i]],
+       ExistsPath(m, n) == \E p \in Seq(Nodes) : IsPathFromTo(p, m, n),
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       <2>_a18 ,
+       <3>_a21 ,
+       <2>_a18 
+PROVE  <3>_a21
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:8
+@!!loc:63:20:63:37
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       IsPathFromTo(p, m, n) ==
+         /\ Len(p) > 0
+         /\ p[1] = m /\ p[Len(p)] = n
+         /\ \A i \in 1..Len(p) - 1 : p[i + 1] \in Succ[p[i]],
+       ExistsPath(m, n) == \E p \in Seq(Nodes) : IsPathFromTo(p, m, n),
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       <2>_a18 ,
+       <<n>> \in Seq(Nodes) 
+PROVE  <<n>> \in Seq(Nodes)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:9
+@!!loc:63:20:63:37
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       IsPathFromTo(p, m, n) ==
+         /\ Len(p) > 0
+         /\ p[1] = m /\ p[Len(p)] = n
+         /\ \A i \in 1..Len(p) - 1 : p[i + 1] \in Succ[p[i]],
+       ExistsPath(m, n) == \E p \in Seq(Nodes) : IsPathFromTo(p, m, n),
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       <2>_a18 
+PROVE  <<n>> \in Seq(Nodes)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:10
+@!!loc:252:5:252:7
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       <1>1 ,
+       <1>2 
+PROVE  S \cup ReachableFrom(T) = ReachableFrom(S \cup T)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:11
+@!!loc:252:8:252:12
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T 
+PROVE  <1>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:12
+@!!loc:252:14:252:18
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       <1>1 
+PROVE  <1>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:13
+@!!loc:97:5:97:12
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       <1>_a32 
+PROVE  \A S, T \in SUBSET Nodes :
+          (\A n \in S : Succ[n] \subseteq S \cup T)
+          => S \cup ReachableFrom(T) = ReachableFrom(S \cup T)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:14
+@!!loc:121:7:121:9
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       ReachableFrom(S) == {n \in Nodes : \E m \in S : ExistsPath(m, n)},
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       <2>1 
+PROVE  S \cup ReachableFrom(T) \subseteq ReachableFrom(S \cup T)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:15
+@!!loc:121:10:121:14
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       ReachableFrom(S) == {n \in Nodes : \E m \in S : ExistsPath(m, n)},
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T 
+PROVE  <2>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:16
+@!!loc:119:7:119:9
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       Reachable0 
+PROVE  \A n \in S : n \in ReachableFrom(S)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:17
+@!!loc:119:10:119:20
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T 
+PROVE  Reachable0
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:18
+@!!loc:250:7:250:9
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       IsPathFromTo(p, m, n) ==
+         /\ Len(p) > 0
+         /\ p[1] = m /\ p[Len(p)] = n
+         /\ \A i \in 1..Len(p) - 1 : p[i + 1] \in Succ[p[i]],
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       NEW CONSTANT m \in S,
+       NEW CONSTANT p \in Seq(Nodes),
+       <2>1 ,
+       <2>2 ,
+       <2>3 
+PROVE  n \in S \cup ReachableFrom(T)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:19
+@!!loc:250:10:250:14
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       IsPathFromTo(p, m, n) ==
+         /\ Len(p) > 0
+         /\ p[1] = m /\ p[Len(p)] = n
+         /\ \A i \in 1..Len(p) - 1 : p[i + 1] \in Succ[p[i]],
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       NEW CONSTANT m \in S,
+       NEW CONSTANT p \in Seq(Nodes)
+PROVE  <2>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:20
+@!!loc:250:16:250:20
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       IsPathFromTo(p, m, n) ==
+         /\ Len(p) > 0
+         /\ p[1] = m /\ p[Len(p)] = n
+         /\ \A i \in 1..Len(p) - 1 : p[i + 1] \in Succ[p[i]],
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       NEW CONSTANT m \in S,
+       NEW CONSTANT p \in Seq(Nodes),
+       <2>1 
+PROVE  <2>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:21
+@!!loc:250:22:250:26
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       IsPathFromTo(p, m, n) ==
+         /\ Len(p) > 0
+         /\ p[1] = m /\ p[Len(p)] = n
+         /\ \A i \in 1..Len(p) - 1 : p[i + 1] \in Succ[p[i]],
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       NEW CONSTANT m \in S,
+       NEW CONSTANT p \in Seq(Nodes),
+       <2>1 ,
+       <2>2 
+PROVE  <2>3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:22
+@!!loc:131:7:131:9
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       ReachableFrom(S) == {n \in Nodes : \E m \in S : ExistsPath(m, n)},
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       <2>_a33 
+PROVE  ReachableFrom(S \cup T) \subseteq S \cup ReachableFrom(T)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:23
+@!!loc:228:9:228:11
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       <3>1 ,
+       <3>2 ,
+       NatInduction 
+PROVE  \A i \in Nat : R(i)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:24
+@!!loc:228:12:228:16
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S)
+PROVE  <3>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:25
+@!!loc:228:18:228:22
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       <3>1 
+PROVE  <3>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:26
+@!!loc:228:24:228:36
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       <3>1 ,
+       <3>2 
+PROVE  NatInduction
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:27
+@!!loc:175:11:175:13
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       IsPathFromTo(p, m, n) ==
+         /\ Len(p) > 0
+         /\ p[1] = m /\ p[Len(p)] = n
+         /\ \A i \in 1..Len(p) - 1 : p[i + 1] \in Succ[p[i]],
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       R(i) ==
+         \A m \in S, q \in Nodes :
+            (\E p \in Seq(Nodes) : /\ IsPathFromTo(p, m, q)
+                                   /\ Len(p) = i + 1)
+            => q \in S \cup ReachableFrom(T),
+       NEW CONSTANT m \in S,
+       NEW CONSTANT q \in Nodes,
+       NEW CONSTANT p \in Seq(Nodes),
+       /\ IsPathFromTo(p, m, q)
+       /\ Len(p) = 0 + 1 
+PROVE  q \in S \cup ReachableFrom(T)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:28
+@!!loc:173:11:173:18
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       R(i) ==
+         \A m \in S, q \in Nodes :
+            (\E p \in Seq(Nodes) : /\ IsPathFromTo(p, m, q)
+                                   /\ Len(p) = i + 1)
+            => q \in S \cup ReachableFrom(T),
+       <4>_a34 
+PROVE  R(0)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:29
+@!!loc:225:11:225:13
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       R(i) ==
+         \A m \in S, q \in Nodes :
+            (\E p \in Seq(Nodes) : /\ IsPathFromTo(p, m, q)
+                                   /\ Len(p) = i + 1)
+            => q \in S \cup ReachableFrom(T),
+       NEW CONSTANT i \in Nat,
+       NEW CONSTANT m \in S,
+       NEW CONSTANT q \in Nodes,
+       NEW CONSTANT p \in Seq(Nodes),
+       /\ IsPathFromTo(p, m, q)
+       /\ Len(p) = i + 1 + 1 ,
+       <4>2 ,
+       <4>3 ,
+       <4>4 
+PROVE  q \in S \cup ReachableFrom(T)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:30
+@!!loc:225:14:225:18
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       R(i) ==
+         \A m \in S, q \in Nodes :
+            (\E p \in Seq(Nodes) : /\ IsPathFromTo(p, m, q)
+                                   /\ Len(p) = i + 1)
+            => q \in S \cup ReachableFrom(T),
+       NEW CONSTANT i \in Nat,
+       NEW CONSTANT m \in S,
+       NEW CONSTANT q \in Nodes,
+       NEW CONSTANT p \in Seq(Nodes),
+       /\ IsPathFromTo(p, m, q)
+       /\ Len(p) = i + 1 + 1 
+PROVE  <4>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:31
+@!!loc:225:20:225:24
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       R(i) ==
+         \A m \in S, q \in Nodes :
+            (\E p \in Seq(Nodes) : /\ IsPathFromTo(p, m, q)
+                                   /\ Len(p) = i + 1)
+            => q \in S \cup ReachableFrom(T),
+       NEW CONSTANT i \in Nat,
+       NEW CONSTANT m \in S,
+       NEW CONSTANT q \in Nodes,
+       NEW CONSTANT p \in Seq(Nodes),
+       /\ IsPathFromTo(p, m, q)
+       /\ Len(p) = i + 1 + 1 ,
+       <4>2 
+PROVE  <4>3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:32
+@!!loc:225:26:225:30
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       R(i) ==
+         \A m \in S, q \in Nodes :
+            (\E p \in Seq(Nodes) : /\ IsPathFromTo(p, m, q)
+                                   /\ Len(p) = i + 1)
+            => q \in S \cup ReachableFrom(T),
+       NEW CONSTANT i \in Nat,
+       NEW CONSTANT m \in S,
+       NEW CONSTANT q \in Nodes,
+       NEW CONSTANT p \in Seq(Nodes),
+       /\ IsPathFromTo(p, m, q)
+       /\ Len(p) = i + 1 + 1 ,
+       <4>2 ,
+       <4>3 
+PROVE  <4>4
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:33
+@!!loc:186:11:186:13
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       R(i) ==
+         \A m \in S, q \in Nodes :
+            (\E p \in Seq(Nodes) : /\ IsPathFromTo(p, m, q)
+                                   /\ Len(p) = i + 1)
+            => q \in S \cup ReachableFrom(T),
+       NEW CONSTANT i \in Nat,
+       <4>_a35 
+PROVE  R(i + 1)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:34
+@!!loc:206:11:206:13
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       IsPathFromTo(p, m, n) ==
+         /\ Len(p) > 0
+         /\ p[1] = m /\ p[Len(p)] = n
+         /\ \A i \in 1..Len(p) - 1 : p[i + 1] \in Succ[p[i]],
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       R(i) ==
+         \A m \in S, q \in Nodes :
+            (\E p \in Seq(Nodes) : /\ IsPathFromTo(p, m, q)
+                                   /\ Len(p) = i + 1)
+            => q \in S \cup ReachableFrom(T),
+       NEW CONSTANT i \in Nat,
+       NEW CONSTANT m \in S,
+       NEW CONSTANT q \in Nodes,
+       NEW CONSTANT p \in Seq(Nodes),
+       /\ IsPathFromTo(p, m, q)
+       /\ Len(p) = i + 1 + 1 
+PROVE  /\ Tail(p) \in Seq(Nodes)
+       /\ IsPathFromTo(Tail(p), p[2], q)
+       /\ Len(Tail(p)) = i + 1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:35
+@!!loc:214:11:214:13
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       IsPathFromTo(p, m, n) ==
+         /\ Len(p) > 0
+         /\ p[1] = m /\ p[Len(p)] = n
+         /\ \A i \in 1..Len(p) - 1 : p[i + 1] \in Succ[p[i]],
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       R(i) ==
+         \A m \in S, q \in Nodes :
+            (\E p \in Seq(Nodes) : /\ IsPathFromTo(p, m, q)
+                                   /\ Len(p) = i + 1)
+            => q \in S \cup ReachableFrom(T),
+       NEW CONSTANT i \in Nat,
+       NEW CONSTANT m \in S,
+       NEW CONSTANT q \in Nodes,
+       NEW CONSTANT p \in Seq(Nodes),
+       /\ IsPathFromTo(p, m, q)
+       /\ Len(p) = i + 1 + 1 
+PROVE  p[2] \in S \cup T
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:36
+@!!loc:221:13:221:15
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       R(i) ==
+         \A m \in S, q \in Nodes :
+            (\E p \in Seq(Nodes) : /\ IsPathFromTo(p, m, q)
+                                   /\ Len(p) = i + 1)
+            => q \in S \cup ReachableFrom(T),
+       NEW CONSTANT i \in Nat,
+       NEW CONSTANT m \in S,
+       NEW CONSTANT q \in Nodes,
+       NEW CONSTANT p \in Seq(Nodes),
+       /\ IsPathFromTo(p, m, q)
+       /\ Len(p) = i + 1 + 1 ,
+       <3>2 ,
+       <4>1 ,
+       <4>3 
+PROVE  q \in S \cup ReachableFrom(T)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:37
+@!!loc:221:16:221:20
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       R(i) ==
+         \A m \in S, q \in Nodes :
+            (\E p \in Seq(Nodes) : /\ IsPathFromTo(p, m, q)
+                                   /\ Len(p) = i + 1)
+            => q \in S \cup ReachableFrom(T),
+       NEW CONSTANT i \in Nat,
+       NEW CONSTANT m \in S,
+       NEW CONSTANT q \in Nodes,
+       NEW CONSTANT p \in Seq(Nodes),
+       /\ IsPathFromTo(p, m, q)
+       /\ Len(p) = i + 1 + 1 
+PROVE  <3>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:38
+@!!loc:221:22:221:26
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       R(i) ==
+         \A m \in S, q \in Nodes :
+            (\E p \in Seq(Nodes) : /\ IsPathFromTo(p, m, q)
+                                   /\ Len(p) = i + 1)
+            => q \in S \cup ReachableFrom(T),
+       NEW CONSTANT i \in Nat,
+       NEW CONSTANT m \in S,
+       NEW CONSTANT q \in Nodes,
+       NEW CONSTANT p \in Seq(Nodes),
+       /\ IsPathFromTo(p, m, q)
+       /\ Len(p) = i + 1 + 1 ,
+       <3>2 
+PROVE  <4>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:39
+@!!loc:221:28:221:32
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       R(i) ==
+         \A m \in S, q \in Nodes :
+            (\E p \in Seq(Nodes) : /\ IsPathFromTo(p, m, q)
+                                   /\ Len(p) = i + 1)
+            => q \in S \cup ReachableFrom(T),
+       NEW CONSTANT i \in Nat,
+       NEW CONSTANT m \in S,
+       NEW CONSTANT q \in Nodes,
+       NEW CONSTANT p \in Seq(Nodes),
+       /\ IsPathFromTo(p, m, q)
+       /\ Len(p) = i + 1 + 1 ,
+       <3>2 ,
+       <4>1 
+PROVE  <4>3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:40
+@!!loc:223:11:223:13
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       ExistsPath(m, n) == \E p \in Seq(Nodes) : IsPathFromTo(p, m, n),
+       ReachableFrom(S) == {n \in Nodes : \E m \in S : ExistsPath(m, n)},
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       R(i) ==
+         \A m \in S, q \in Nodes :
+            (\E p \in Seq(Nodes) : /\ IsPathFromTo(p, m, q)
+                                   /\ Len(p) = i + 1)
+            => q \in S \cup ReachableFrom(T),
+       NEW CONSTANT i \in Nat,
+       NEW CONSTANT m \in S,
+       NEW CONSTANT q \in Nodes,
+       NEW CONSTANT p \in Seq(Nodes),
+       /\ IsPathFromTo(p, m, q)
+       /\ Len(p) = i + 1 + 1 ,
+       <4>1 ,
+       <4>4 
+PROVE  q \in S \cup ReachableFrom(T)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:41
+@!!loc:223:14:223:18
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       ExistsPath(m, n) == \E p \in Seq(Nodes) : IsPathFromTo(p, m, n),
+       ReachableFrom(S) == {n \in Nodes : \E m \in S : ExistsPath(m, n)},
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       R(i) ==
+         \A m \in S, q \in Nodes :
+            (\E p \in Seq(Nodes) : /\ IsPathFromTo(p, m, q)
+                                   /\ Len(p) = i + 1)
+            => q \in S \cup ReachableFrom(T),
+       NEW CONSTANT i \in Nat,
+       NEW CONSTANT m \in S,
+       NEW CONSTANT q \in Nodes,
+       NEW CONSTANT p \in Seq(Nodes),
+       /\ IsPathFromTo(p, m, q)
+       /\ Len(p) = i + 1 + 1 
+PROVE  <4>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:42
+@!!loc:223:20:223:24
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       ExistsPath(m, n) == \E p \in Seq(Nodes) : IsPathFromTo(p, m, n),
+       ReachableFrom(S) == {n \in Nodes : \E m \in S : ExistsPath(m, n)},
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       R(i) ==
+         \A m \in S, q \in Nodes :
+            (\E p \in Seq(Nodes) : /\ IsPathFromTo(p, m, q)
+                                   /\ Len(p) = i + 1)
+            => q \in S \cup ReachableFrom(T),
+       NEW CONSTANT i \in Nat,
+       NEW CONSTANT m \in S,
+       NEW CONSTANT q \in Nodes,
+       NEW CONSTANT p \in Seq(Nodes),
+       /\ IsPathFromTo(p, m, q)
+       /\ Len(p) = i + 1 + 1 ,
+       <4>1 
+PROVE  <4>4
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:43
+@!!loc:234:7:234:9
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       ExistsPath(m, n) == \E p \in Seq(Nodes) : IsPathFromTo(p, m, n),
+       ReachableFrom(S) == {n \in Nodes : \E m \in S : ExistsPath(m, n)},
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       R(i) ==
+         \A m \in S, q \in Nodes :
+            (\E p \in Seq(Nodes) : /\ IsPathFromTo(p, m, q)
+                                   /\ Len(p) = i + 1)
+            => q \in S \cup ReachableFrom(T)
+PROVE  \E m \in S, p \in Seq(Nodes) : IsPathFromTo(p, m, n)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:45
+@!!loc:239:7:239:9
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       IsPathFromTo(p, m, n) ==
+         /\ Len(p) > 0
+         /\ p[1] = m /\ p[Len(p)] = n
+         /\ \A i \in 1..Len(p) - 1 : p[i + 1] \in Succ[p[i]],
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       R(i) ==
+         \A m \in S, q \in Nodes :
+            (\E p \in Seq(Nodes) : /\ IsPathFromTo(p, m, q)
+                                   /\ Len(p) = i + 1)
+            => q \in S \cup ReachableFrom(T),
+       NEW CONSTANT m \in S,
+       NEW CONSTANT p \in Seq(Nodes),
+       <2>2 
+PROVE  R(Len(p) - 1) => n \in S \cup ReachableFrom(T)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:46
+@!!loc:239:10:239:14
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       IsPathFromTo(p, m, n) ==
+         /\ Len(p) > 0
+         /\ p[1] = m /\ p[Len(p)] = n
+         /\ \A i \in 1..Len(p) - 1 : p[i + 1] \in Succ[p[i]],
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       R(i) ==
+         \A m \in S, q \in Nodes :
+            (\E p \in Seq(Nodes) : /\ IsPathFromTo(p, m, q)
+                                   /\ Len(p) = i + 1)
+            => q \in S \cup ReachableFrom(T),
+       NEW CONSTANT m \in S,
+       NEW CONSTANT p \in Seq(Nodes)
+PROVE  <2>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:47
+@!!loc:304:5:304:7
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       <1>1 ,
+       <1>2 
+PROVE  /\ ReachableFrom(S) = ReachableFrom(S \cup Succ[n])
+       /\ n \in ReachableFrom(S)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:48
+@!!loc:304:8:304:12
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S
+PROVE  <1>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:49
+@!!loc:304:14:304:18
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       <1>1 
+PROVE  <1>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:50
+@!!loc:266:5:266:12
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       <1>_a83 
+PROVE  \A S \in SUBSET Nodes :
+          \A n \in S :
+             /\ ReachableFrom(S) = ReachableFrom(S \cup Succ[n])
+             /\ n \in ReachableFrom(S)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:51
+@!!loc:297:7:297:9
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       <2>1 ,
+       <2>2 
+PROVE  ReachableFrom(S) = ReachableFrom(S \cup Succ[n])
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:52
+@!!loc:297:10:297:14
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S
+PROVE  <2>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:53
+@!!loc:297:16:297:20
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       <2>1 
+PROVE  <2>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:54
+@!!loc:277:7:277:9
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       ReachableFrom(S) == {n \in Nodes : \E m \in S : ExistsPath(m, n)},
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S
+PROVE  ReachableFrom(S) \subseteq ReachableFrom(S \cup Succ[n])
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:55
+@!!loc:295:9:295:11
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       ExistsPath(m, n) == \E p \in Seq(Nodes) : IsPathFromTo(p, m, n),
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       NEW CONSTANT m \in Succ[n],
+       NEW CONSTANT o \in Nodes,
+       ExistsPath(m, o) ,
+       NEW CONSTANT p \in Seq(Nodes),
+       q == <<n>> \o p,
+       <3>2 
+PROVE  ExistsPath(n, o)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:56
+@!!loc:295:12:295:16
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       ExistsPath(m, n) == \E p \in Seq(Nodes) : IsPathFromTo(p, m, n),
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       NEW CONSTANT m \in Succ[n],
+       NEW CONSTANT o \in Nodes,
+       ExistsPath(m, o) ,
+       NEW CONSTANT p \in Seq(Nodes),
+       q == <<n>> \o p
+PROVE  <3>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:57
+@!!loc:284:9:284:11
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       ReachableFrom(S) == {n \in Nodes : \E m \in S : ExistsPath(m, n)},
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       <3>_a84 
+PROVE  ReachableFrom(S \cup Succ[n]) \subseteq ReachableFrom(S)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:58
+@!!loc:288:9:288:11
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       ReachableFrom(S) == {n \in Nodes : \E m \in S : ExistsPath(m, n)},
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       <3>_a85 
+PROVE  ReachableFrom(Succ[n]) \subseteq ReachableFrom(S)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:59
+@!!loc:290:9:290:11
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       ExistsPath(m, n) == \E p \in Seq(Nodes) : IsPathFromTo(p, m, n),
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       NEW CONSTANT m \in Succ[n],
+       NEW CONSTANT o \in Nodes,
+       ExistsPath(m, o) 
+PROVE  \E p \in Seq(Nodes) : IsPathFromTo(p, m, o)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:61
+@!!loc:293:9:293:11
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       IsPathFromTo(p, m, n) ==
+         /\ Len(p) > 0
+         /\ p[1] = m /\ p[Len(p)] = n
+         /\ \A i \in 1..Len(p) - 1 : p[i + 1] \in Succ[p[i]],
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       NEW CONSTANT m \in Succ[n],
+       NEW CONSTANT o \in Nodes,
+       ExistsPath(m, o) ,
+       NEW CONSTANT p \in Seq(Nodes),
+       q == <<n>> \o p,
+       <3>1 ,
+       SuccAssump 
+PROVE  q \in Seq(Nodes) /\ IsPathFromTo(q, n, o)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:62
+@!!loc:293:12:293:16
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       IsPathFromTo(p, m, n) ==
+         /\ Len(p) > 0
+         /\ p[1] = m /\ p[Len(p)] = n
+         /\ \A i \in 1..Len(p) - 1 : p[i + 1] \in Succ[p[i]],
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       NEW CONSTANT m \in Succ[n],
+       NEW CONSTANT o \in Nodes,
+       ExistsPath(m, o) ,
+       NEW CONSTANT p \in Seq(Nodes),
+       q == <<n>> \o p
+PROVE  <3>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:63
+@!!loc:293:18:293:28
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       IsPathFromTo(p, m, n) ==
+         /\ Len(p) > 0
+         /\ p[1] = m /\ p[Len(p)] = n
+         /\ \A i \in 1..Len(p) - 1 : p[i + 1] \in Succ[p[i]],
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       NEW CONSTANT m \in Succ[n],
+       NEW CONSTANT o \in Nodes,
+       ExistsPath(m, o) ,
+       NEW CONSTANT p \in Seq(Nodes),
+       q == <<n>> \o p,
+       <3>1 
+PROVE  SuccAssump
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:64
+@!!loc:302:5:302:7
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       Reachable0 
+PROVE  n \in ReachableFrom(S)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:65
+@!!loc:302:8:302:18
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S
+PROVE  Reachable0
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:66
+@!!loc:311:1:311:3
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       ExistsPath(m, n) == \E p \in Seq(Nodes) : IsPathFromTo(p, m, n),
+       ReachableFrom(S) == {n \in Nodes : \E m \in S : ExistsPath(m, n)}
+PROVE  ReachableFrom({}) = {}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligationsnumber
+@!!count:64
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:1
+@!!loc:67:13:67:15
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       \E p \in Seq(Nodes) : IsPathFromTo(p, n, n) 
+PROVE  n
+       \in {n_1 \in Nodes :
+              \E m \in S : \E p \in Seq(Nodes) : IsPathFromTo(p, m, n_1)}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:2
+@!!loc:67:16:67:20
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       \E p \in Seq(Nodes) : IsPathFromTo(p, n, n) 
+PROVE  \E p \in Seq(Nodes) : IsPathFromTo(p, n, n)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:3
+@!!loc:33:5:33:12
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       ASSUME NEW CONSTANT S \in SUBSET Nodes,
+              NEW CONSTANT n \in S
+       PROVE  n \in ReachableFrom(S) 
+PROVE  \A S \in SUBSET Nodes : \A n \in S : n \in ReachableFrom(S)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:4
+@!!loc:65:7:65:14
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S
+PROVE  /\ Len(<<n>>) > 0
+       /\ <<n>>[1] = n /\ <<n>>[Len(<<n>>)] = n
+       /\ \A i \in 1..Len(<<n>>) - 1 : <<n>>[i + 1] \in Succ[<<n>>[i]]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:5
+@!!loc:63:5:63:37
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       /\ Len(<<n>>) > 0
+       /\ <<n>>[1] = n /\ <<n>>[Len(<<n>>)] = n
+       /\ \A i \in 1..Len(<<n>>) - 1 : <<n>>[i + 1] \in Succ[<<n>>[i]] ,
+       <<n>> \in Seq(Nodes) 
+PROVE  \E p \in Seq(Nodes) :
+          /\ Len(p) > 0
+          /\ p[1] = n /\ p[Len(p)] = n
+          /\ \A i \in 1..Len(p) - 1 : p[i + 1] \in Succ[p[i]]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:6
+@!!loc:63:5:63:37
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       /\ Len(<<n>>) > 0
+       /\ <<n>>[1] = n /\ <<n>>[Len(<<n>>)] = n
+       /\ \A i \in 1..Len(<<n>>) - 1 : <<n>>[i + 1] \in Succ[<<n>>[i]] ,
+       <<n>> \in Seq(Nodes) 
+PROVE  /\ Len(<<n>>) > 0
+       /\ <<n>>[1] = n /\ <<n>>[Len(<<n>>)] = n
+       /\ \A i \in 1..Len(<<n>>) - 1 : <<n>>[i + 1] \in Succ[<<n>>[i]]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:7
+@!!loc:63:5:63:37
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       /\ Len(<<n>>) > 0
+       /\ <<n>>[1] = n /\ <<n>>[Len(<<n>>)] = n
+       /\ \A i \in 1..Len(<<n>>) - 1 : <<n>>[i + 1] \in Succ[<<n>>[i]] ,
+       <<n>> \in Seq(Nodes) ,
+       /\ Len(<<n>>) > 0
+       /\ <<n>>[1] = n /\ <<n>>[Len(<<n>>)] = n
+       /\ \A i \in 1..Len(<<n>>) - 1 : <<n>>[i + 1] \in Succ[<<n>>[i]] 
+PROVE  <<n>> \in Seq(Nodes)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:8
+@!!loc:63:20:63:37
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       /\ Len(<<n>>) > 0
+       /\ <<n>>[1] = n /\ <<n>>[Len(<<n>>)] = n
+       /\ \A i \in 1..Len(<<n>>) - 1 : <<n>>[i + 1] \in Succ[<<n>>[i]] ,
+       <<n>> \in Seq(Nodes) 
+PROVE  <<n>> \in Seq(Nodes)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:9
+@!!loc:63:20:63:37
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       /\ Len(<<n>>) > 0
+       /\ <<n>>[1] = n /\ <<n>>[Len(<<n>>)] = n
+       /\ \A i \in 1..Len(<<n>>) - 1 : <<n>>[i + 1] \in Succ[<<n>>[i]] 
+PROVE  <<n>> \in Seq(Nodes)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:10
+@!!loc:252:5:252:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       S \cup ReachableFrom(T) \subseteq ReachableFrom(S \cup T) ,
+       ReachableFrom(S \cup T) \subseteq S \cup ReachableFrom(T) 
+PROVE  S \cup ReachableFrom(T) = ReachableFrom(S \cup T)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:11
+@!!loc:252:8:252:12
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       S \cup ReachableFrom(T) \subseteq ReachableFrom(S \cup T) 
+PROVE  S \cup ReachableFrom(T) \subseteq ReachableFrom(S \cup T)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:12
+@!!loc:252:14:252:18
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       ReachableFrom(S \cup T) \subseteq S \cup ReachableFrom(T) ,
+       S \cup ReachableFrom(T) \subseteq ReachableFrom(S \cup T) 
+PROVE  ReachableFrom(S \cup T) \subseteq S \cup ReachableFrom(T)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:13
+@!!loc:97:5:97:12
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       ASSUME NEW CONSTANT S \in SUBSET Nodes,
+              NEW CONSTANT T \in SUBSET Nodes,
+              \A n \in S : Succ[n] \subseteq S \cup T 
+       PROVE  S \cup ReachableFrom(T) = ReachableFrom(S \cup T) 
+PROVE  \A S, T \in SUBSET Nodes :
+          (\A n \in S : Succ[n] \subseteq S \cup T)
+          => S \cup ReachableFrom(T) = ReachableFrom(S \cup T)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:14
+@!!loc:121:7:121:9
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       \A n \in S : n \in {n_1 \in Nodes : \E m \in S : ExistsPath(m, n_1)} 
+PROVE  S \cup {n \in Nodes : \E m \in T : ExistsPath(m, n)}
+       \subseteq {n \in Nodes : \E m \in S \cup T : ExistsPath(m, n)}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:15
+@!!loc:121:10:121:14
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       \A n \in S : n \in {n_1 \in Nodes : \E m \in S : ExistsPath(m, n_1)} 
+PROVE  \A n \in S : n \in {n_1 \in Nodes : \E m \in S : ExistsPath(m, n_1)}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:16
+@!!loc:119:7:119:9
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       \A S_1 \in SUBSET Nodes : \A n \in S_1 : n \in ReachableFrom(S_1) 
+PROVE  \A n \in S : n \in ReachableFrom(S)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:9
+@!!loc:63:20:63:37
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       /\ Len(<<n>>) > 0
+       /\ <<n>>[1] = n /\ <<n>>[Len(<<n>>)] = n
+       /\ \A i \in 1..Len(<<n>>) - 1 : <<n>>[i + 1] \in Succ[<<n>>[i]] 
+PROVE  <<n>> \in Seq(Nodes)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:8
+@!!loc:63:20:63:37
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       /\ Len(<<n>>) > 0
+       /\ <<n>>[1] = n /\ <<n>>[Len(<<n>>)] = n
+       /\ \A i \in 1..Len(<<n>>) - 1 : <<n>>[i + 1] \in Succ[<<n>>[i]] ,
+       <<n>> \in Seq(Nodes) 
+PROVE  <<n>> \in Seq(Nodes)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:5
+@!!loc:63:5:63:37
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       /\ Len(<<n>>) > 0
+       /\ <<n>>[1] = n /\ <<n>>[Len(<<n>>)] = n
+       /\ \A i \in 1..Len(<<n>>) - 1 : <<n>>[i + 1] \in Succ[<<n>>[i]] ,
+       <<n>> \in Seq(Nodes) 
+PROVE  \E p \in Seq(Nodes) :
+          /\ Len(p) > 0
+          /\ p[1] = n /\ p[Len(p)] = n
+          /\ \A i \in 1..Len(p) - 1 : p[i + 1] \in Succ[p[i]]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:4
+@!!loc:65:7:65:14
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S
+PROVE  /\ Len(<<n>>) > 0
+       /\ <<n>>[1] = n /\ <<n>>[Len(<<n>>)] = n
+       /\ \A i \in 1..Len(<<n>>) - 1 : <<n>>[i + 1] \in Succ[<<n>>[i]]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:3
+@!!loc:33:5:33:12
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       ASSUME NEW CONSTANT S \in SUBSET Nodes,
+              NEW CONSTANT n \in S
+       PROVE  n \in ReachableFrom(S) 
+PROVE  \A S \in SUBSET Nodes : \A n \in S : n \in ReachableFrom(S)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:1
+@!!loc:67:13:67:15
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.3 (7%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       \E p \in Seq(Nodes) : IsPathFromTo(p, n, n) 
+PROVE  n
+       \in {n_1 \in Nodes :
+              \E m \in S : \E p \in Seq(Nodes) : IsPathFromTo(p, m, n_1)}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:17
+@!!loc:119:10:119:20
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       \A S \in SUBSET Nodes : \A n \in S : n \in ReachableFrom(S) ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T 
+PROVE  \A S_1 \in SUBSET Nodes : \A n \in S_1 : n \in ReachableFrom(S_1)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:18
+@!!loc:250:7:250:9
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       NEW CONSTANT m \in S,
+       NEW CONSTANT p \in Seq(Nodes),
+       \A i \in Nat : R(i) ,
+       /\ Len(p) > 0
+       /\ p[1] = m /\ p[Len(p)] = n
+       /\ \A i \in 1..Len(p) - 1 : p[i + 1] \in Succ[p[i]] ,
+       R(Len(p) - 1) => n \in S \cup ReachableFrom(T) 
+PROVE  n \in S \cup ReachableFrom(T)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:19
+@!!loc:250:10:250:14
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       \A i \in Nat : R(i) ,
+       NEW CONSTANT m \in S,
+       NEW CONSTANT p \in Seq(Nodes)
+PROVE  \A i \in Nat : R(i)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:20
+@!!loc:250:16:250:20
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       NEW CONSTANT m \in S,
+       NEW CONSTANT p \in Seq(Nodes),
+       /\ Len(p) > 0
+       /\ p[1] = m /\ p[Len(p)] = n
+       /\ \A i \in 1..Len(p) - 1 : p[i + 1] \in Succ[p[i]] ,
+       \A i \in Nat : R(i) 
+PROVE  /\ Len(p) > 0
+       /\ p[1] = m /\ p[Len(p)] = n
+       /\ \A i \in 1..Len(p) - 1 : p[i + 1] \in Succ[p[i]]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:21
+@!!loc:250:22:250:26
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       NEW CONSTANT m \in S,
+       NEW CONSTANT p \in Seq(Nodes),
+       R(Len(p) - 1) => n \in S \cup ReachableFrom(T) ,
+       \A i \in Nat : R(i) ,
+       /\ Len(p) > 0
+       /\ p[1] = m /\ p[Len(p)] = n
+       /\ \A i \in 1..Len(p) - 1 : p[i + 1] \in Succ[p[i]] 
+PROVE  R(Len(p) - 1) => n \in S \cup ReachableFrom(T)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:22
+@!!loc:131:7:131:9
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       ASSUME NEW CONSTANT n \in {n \in Nodes :
+                                    \E m \in S : ExistsPath(m, n)}
+       PROVE  n \in S \cup {n_1 \in Nodes : \E m \in T : ExistsPath(m, n_1)} 
+PROVE  {n \in Nodes : \E m \in S \cup T : ExistsPath(m, n)}
+       \subseteq S \cup {n \in Nodes : \E m \in T : ExistsPath(m, n)}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:23
+@!!loc:228:9:228:11
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       R(0) ,
+       ASSUME NEW CONSTANT i \in Nat,
+              R(i) 
+       PROVE  R(i + 1) ,
+       ASSUME NEW CONSTANT P(_),
+              P(0) ,
+              \A n_1 \in Nat : P(n_1) => P(n_1 + 1) 
+       PROVE  \A n_1 \in Nat : P(n_1) 
+PROVE  \A i \in Nat : R(i)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:24
+@!!loc:228:12:228:16
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       R(0) 
+PROVE  R(0)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:25
+@!!loc:228:18:228:22
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       ASSUME NEW CONSTANT i \in Nat,
+              R(i) 
+       PROVE  R(i + 1) ,
+       R(0) 
+PROVE  ASSUME NEW CONSTANT i \in Nat,
+              R(i) 
+       PROVE  R(i + 1)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:26
+@!!loc:228:24:228:36
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       ASSUME NEW CONSTANT P(_),
+              P(0) ,
+              \A n \in Nat : P(n) => P(n + 1) 
+       PROVE  \A n \in Nat : P(n) ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       R(0) ,
+       ASSUME NEW CONSTANT i \in Nat,
+              R(i) 
+       PROVE  R(i + 1) 
+PROVE  ASSUME NEW CONSTANT P(_),
+              P(0) ,
+              \A n_1 \in Nat : P(n_1) => P(n_1 + 1) 
+       PROVE  \A n_1 \in Nat : P(n_1)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:27
+@!!loc:175:11:175:13
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       NEW CONSTANT m \in S,
+       NEW CONSTANT q \in Nodes,
+       NEW CONSTANT p \in Seq(Nodes),
+       /\ /\ Len(p) > 0
+          /\ p[1] = m /\ p[Len(p)] = q
+          /\ \A i \in 1..Len(p) - 1 : p[i + 1] \in Succ[p[i]]
+       /\ Len(p) = 0 + 1 
+PROVE  q \in S \cup ReachableFrom(T)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:28
+@!!loc:173:11:173:18
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       ASSUME NEW CONSTANT m \in S,
+              NEW CONSTANT q \in Nodes,
+              NEW CONSTANT p \in Seq(Nodes),
+              /\ IsPathFromTo(p, m, q)
+              /\ Len(p) = 0 + 1 
+       PROVE  q \in S \cup ReachableFrom(T) 
+PROVE  \A m \in S, q \in Nodes :
+          (\E p \in Seq(Nodes) : /\ IsPathFromTo(p, m, q)
+                                 /\ Len(p) = 0 + 1)
+          => q \in S \cup ReachableFrom(T)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:29
+@!!loc:225:11:225:13
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       NEW CONSTANT i \in Nat,
+       NEW CONSTANT m \in S,
+       NEW CONSTANT q \in Nodes,
+       NEW CONSTANT p \in Seq(Nodes),
+       /\ IsPathFromTo(p, m, q)
+       /\ Len(p) = i + 1 + 1 ,
+       p[2] \in S \cup T ,
+       ASSUME p[2] \in S 
+       PROVE  q \in S \cup ReachableFrom(T) ,
+       ASSUME p[2] \in T 
+       PROVE  q \in S \cup ReachableFrom(T) 
+PROVE  q \in S \cup ReachableFrom(T)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:18
+@!!loc:250:7:250:9
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       NEW CONSTANT m \in S,
+       NEW CONSTANT p \in Seq(Nodes),
+       \A i \in Nat : R(i) ,
+       /\ Len(p) > 0
+       /\ p[1] = m /\ p[Len(p)] = n
+       /\ \A i \in 1..Len(p) - 1 : p[i + 1] \in Succ[p[i]] ,
+       R(Len(p) - 1) => n \in S \cup ReachableFrom(T) 
+PROVE  n \in S \cup ReachableFrom(T)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:16
+@!!loc:119:7:119:9
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       \A S_1 \in SUBSET Nodes : \A n \in S_1 : n \in ReachableFrom(S_1) 
+PROVE  \A n \in S : n \in ReachableFrom(S)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:14
+@!!loc:121:7:121:9
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       \A n \in S : n \in {n_1 \in Nodes : \E m \in S : ExistsPath(m, n_1)} 
+PROVE  S \cup {n \in Nodes : \E m \in T : ExistsPath(m, n)}
+       \subseteq {n \in Nodes : \E m \in S \cup T : ExistsPath(m, n)}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:13
+@!!loc:97:5:97:12
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       ASSUME NEW CONSTANT S \in SUBSET Nodes,
+              NEW CONSTANT T \in SUBSET Nodes,
+              \A n \in S : Succ[n] \subseteq S \cup T 
+       PROVE  S \cup ReachableFrom(T) = ReachableFrom(S \cup T) 
+PROVE  \A S, T \in SUBSET Nodes :
+          (\A n \in S : Succ[n] \subseteq S \cup T)
+          => S \cup ReachableFrom(T) = ReachableFrom(S \cup T)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:10
+@!!loc:252:5:252:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       S \cup ReachableFrom(T) \subseteq ReachableFrom(S \cup T) ,
+       ReachableFrom(S \cup T) \subseteq S \cup ReachableFrom(T) 
+PROVE  S \cup ReachableFrom(T) = ReachableFrom(S \cup T)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:30
+@!!loc:225:14:225:18
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       NEW CONSTANT i \in Nat,
+       NEW CONSTANT m \in S,
+       NEW CONSTANT q \in Nodes,
+       NEW CONSTANT p \in Seq(Nodes),
+       /\ IsPathFromTo(p, m, q)
+       /\ Len(p) = i + 1 + 1 ,
+       p[2] \in S \cup T 
+PROVE  p[2] \in S \cup T
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:31
+@!!loc:225:20:225:24
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       NEW CONSTANT i \in Nat,
+       NEW CONSTANT m \in S,
+       NEW CONSTANT q \in Nodes,
+       NEW CONSTANT p \in Seq(Nodes),
+       /\ IsPathFromTo(p, m, q)
+       /\ Len(p) = i + 1 + 1 ,
+       ASSUME p[2] \in S 
+       PROVE  q \in S \cup ReachableFrom(T) ,
+       p[2] \in S \cup T 
+PROVE  ASSUME p[2] \in S 
+       PROVE  q \in S \cup ReachableFrom(T)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:32
+@!!loc:225:26:225:30
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       NEW CONSTANT i \in Nat,
+       NEW CONSTANT m \in S,
+       NEW CONSTANT q \in Nodes,
+       NEW CONSTANT p \in Seq(Nodes),
+       /\ IsPathFromTo(p, m, q)
+       /\ Len(p) = i + 1 + 1 ,
+       ASSUME p[2] \in T 
+       PROVE  q \in S \cup ReachableFrom(T) ,
+       p[2] \in S \cup T ,
+       ASSUME p[2] \in S 
+       PROVE  q \in S \cup ReachableFrom(T) 
+PROVE  ASSUME p[2] \in T 
+       PROVE  q \in S \cup ReachableFrom(T)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:33
+@!!loc:186:11:186:13
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       NEW CONSTANT i \in Nat,
+       ASSUME NEW CONSTANT m \in S,
+              NEW CONSTANT q \in Nodes,
+              NEW CONSTANT p \in Seq(Nodes),
+              /\ IsPathFromTo(p, m, q)
+              /\ Len(p) = i + 1 + 1 
+       PROVE  q \in S \cup ReachableFrom(T) 
+PROVE  \A m \in S, q \in Nodes :
+          (\E p \in Seq(Nodes) :
+              /\ IsPathFromTo(p, m, q)
+              /\ Len(p) = i + 1 + 1)
+          => q \in S \cup ReachableFrom(T)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:34
+@!!loc:206:11:206:13
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       NEW CONSTANT i \in Nat,
+       NEW CONSTANT m \in S,
+       NEW CONSTANT q \in Nodes,
+       NEW CONSTANT p \in Seq(Nodes),
+       /\ /\ Len(p) > 0
+          /\ p[1] = m /\ p[Len(p)] = q
+          /\ \A i_1 \in 1..Len(p) - 1 : p[i_1 + 1] \in Succ[p[i_1]]
+       /\ Len(p) = i + 1 + 1 
+PROVE  /\ Tail(p) \in Seq(Nodes)
+       /\ /\ Len(Tail(p)) > 0
+          /\ Tail(p)[1] = p[2] /\ Tail(p)[Len(Tail(p))] = q
+          /\ \A i_1 \in 1..Len(Tail(p)) - 1 :
+                Tail(p)[i_1 + 1] \in Succ[Tail(p)[i_1]]
+       /\ Len(Tail(p)) = i + 1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:35
+@!!loc:214:11:214:13
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       NEW CONSTANT i \in Nat,
+       NEW CONSTANT m \in S,
+       NEW CONSTANT q \in Nodes,
+       NEW CONSTANT p \in Seq(Nodes),
+       /\ /\ Len(p) > 0
+          /\ p[1] = m /\ p[Len(p)] = q
+          /\ \A i_1 \in 1..Len(p) - 1 : p[i_1 + 1] \in Succ[p[i_1]]
+       /\ Len(p) = i + 1 + 1 
+PROVE  p[2] \in S \cup T
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:36
+@!!loc:221:13:221:15
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       NEW CONSTANT i \in Nat,
+       NEW CONSTANT m \in S,
+       NEW CONSTANT q \in Nodes,
+       NEW CONSTANT p \in Seq(Nodes),
+       /\ IsPathFromTo(p, m, q)
+       /\ Len(p) = i + 1 + 1 ,
+       \A m_1 \in S, q_1 \in Nodes :
+          (\E p_1 \in Seq(Nodes) :
+              /\ IsPathFromTo(p_1, m_1, q_1)
+              /\ Len(p_1) = i + 1)
+          => q_1 \in S \cup ReachableFrom(T) ,
+       /\ Tail(p) \in Seq(Nodes)
+       /\ IsPathFromTo(Tail(p), p[2], q)
+       /\ Len(Tail(p)) = i + 1 ,
+       p[2] \in S 
+PROVE  q \in S \cup ReachableFrom(T)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:37
+@!!loc:221:16:221:20
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       NEW CONSTANT i \in Nat,
+       \A m \in S, q \in Nodes :
+          (\E p \in Seq(Nodes) : /\ IsPathFromTo(p, m, q)
+                                 /\ Len(p) = i + 1)
+          => q \in S \cup ReachableFrom(T) ,
+       NEW CONSTANT m \in S,
+       NEW CONSTANT q \in Nodes,
+       NEW CONSTANT p \in Seq(Nodes),
+       /\ IsPathFromTo(p, m, q)
+       /\ Len(p) = i + 1 + 1 
+PROVE  \A m_1 \in S, q_1 \in Nodes :
+          (\E p_1 \in Seq(Nodes) :
+              /\ IsPathFromTo(p_1, m_1, q_1)
+              /\ Len(p_1) = i + 1)
+          => q_1 \in S \cup ReachableFrom(T)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:38
+@!!loc:221:22:221:26
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       NEW CONSTANT i \in Nat,
+       NEW CONSTANT m \in S,
+       NEW CONSTANT q \in Nodes,
+       NEW CONSTANT p \in Seq(Nodes),
+       /\ IsPathFromTo(p, m, q)
+       /\ Len(p) = i + 1 + 1 ,
+       /\ Tail(p) \in Seq(Nodes)
+       /\ IsPathFromTo(Tail(p), p[2], q)
+       /\ Len(Tail(p)) = i + 1 ,
+       \A m_1 \in S, q_1 \in Nodes :
+          (\E p_1 \in Seq(Nodes) :
+              /\ IsPathFromTo(p_1, m_1, q_1)
+              /\ Len(p_1) = i + 1)
+          => q_1 \in S \cup ReachableFrom(T) 
+PROVE  /\ Tail(p) \in Seq(Nodes)
+       /\ IsPathFromTo(Tail(p), p[2], q)
+       /\ Len(Tail(p)) = i + 1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:39
+@!!loc:221:28:221:32
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       NEW CONSTANT i \in Nat,
+       NEW CONSTANT m \in S,
+       NEW CONSTANT q \in Nodes,
+       NEW CONSTANT p \in Seq(Nodes),
+       /\ IsPathFromTo(p, m, q)
+       /\ Len(p) = i + 1 + 1 ,
+       p[2] \in S ,
+       \A m_1 \in S, q_1 \in Nodes :
+          (\E p_1 \in Seq(Nodes) :
+              /\ IsPathFromTo(p_1, m_1, q_1)
+              /\ Len(p_1) = i + 1)
+          => q_1 \in S \cup ReachableFrom(T) ,
+       /\ Tail(p) \in Seq(Nodes)
+       /\ IsPathFromTo(Tail(p), p[2], q)
+       /\ Len(Tail(p)) = i + 1 
+PROVE  p[2] \in S
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:40
+@!!loc:223:11:223:13
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in {n \in Nodes :
+                             \E m \in S :
+                                \E p \in Seq(Nodes) : IsPathFromTo(p, m, n)},
+       NEW CONSTANT i \in Nat,
+       NEW CONSTANT m \in S,
+       NEW CONSTANT q \in Nodes,
+       NEW CONSTANT p \in Seq(Nodes),
+       /\ IsPathFromTo(p, m, q)
+       /\ Len(p) = i + 1 + 1 ,
+       /\ Tail(p) \in Seq(Nodes)
+       /\ IsPathFromTo(Tail(p), p[2], q)
+       /\ Len(Tail(p)) = i + 1 ,
+       p[2] \in T 
+PROVE  q
+       \in S
+           \cup {n_1 \in Nodes :
+                   \E m_1 \in T :
+                      \E p_1 \in Seq(Nodes) : IsPathFromTo(p_1, m_1, n_1)}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:35
+@!!loc:214:11:214:13
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       NEW CONSTANT i \in Nat,
+       NEW CONSTANT m \in S,
+       NEW CONSTANT q \in Nodes,
+       NEW CONSTANT p \in Seq(Nodes),
+       /\ /\ Len(p) > 0
+          /\ p[1] = m /\ p[Len(p)] = q
+          /\ \A i_1 \in 1..Len(p) - 1 : p[i_1 + 1] \in Succ[p[i_1]]
+       /\ Len(p) = i + 1 + 1 
+PROVE  p[2] \in S \cup T
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:34
+@!!loc:206:11:206:13
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       NEW CONSTANT i \in Nat,
+       NEW CONSTANT m \in S,
+       NEW CONSTANT q \in Nodes,
+       NEW CONSTANT p \in Seq(Nodes),
+       /\ /\ Len(p) > 0
+          /\ p[1] = m /\ p[Len(p)] = q
+          /\ \A i_1 \in 1..Len(p) - 1 : p[i_1 + 1] \in Succ[p[i_1]]
+       /\ Len(p) = i + 1 + 1 
+PROVE  /\ Tail(p) \in Seq(Nodes)
+       /\ /\ Len(Tail(p)) > 0
+          /\ Tail(p)[1] = p[2] /\ Tail(p)[Len(Tail(p))] = q
+          /\ \A i_1 \in 1..Len(Tail(p)) - 1 :
+                Tail(p)[i_1 + 1] \in Succ[Tail(p)[i_1]]
+       /\ Len(Tail(p)) = i + 1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:33
+@!!loc:186:11:186:13
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       NEW CONSTANT i \in Nat,
+       ASSUME NEW CONSTANT m \in S,
+              NEW CONSTANT q \in Nodes,
+              NEW CONSTANT p \in Seq(Nodes),
+              /\ IsPathFromTo(p, m, q)
+              /\ Len(p) = i + 1 + 1 
+       PROVE  q \in S \cup ReachableFrom(T) 
+PROVE  \A m \in S, q \in Nodes :
+          (\E p \in Seq(Nodes) :
+              /\ IsPathFromTo(p, m, q)
+              /\ Len(p) = i + 1 + 1)
+          => q \in S \cup ReachableFrom(T)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:29
+@!!loc:225:11:225:13
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       NEW CONSTANT i \in Nat,
+       NEW CONSTANT m \in S,
+       NEW CONSTANT q \in Nodes,
+       NEW CONSTANT p \in Seq(Nodes),
+       /\ IsPathFromTo(p, m, q)
+       /\ Len(p) = i + 1 + 1 ,
+       p[2] \in S \cup T ,
+       ASSUME p[2] \in S 
+       PROVE  q \in S \cup ReachableFrom(T) ,
+       ASSUME p[2] \in T 
+       PROVE  q \in S \cup ReachableFrom(T) 
+PROVE  q \in S \cup ReachableFrom(T)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:28
+@!!loc:173:11:173:18
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       ASSUME NEW CONSTANT m \in S,
+              NEW CONSTANT q \in Nodes,
+              NEW CONSTANT p \in Seq(Nodes),
+              /\ IsPathFromTo(p, m, q)
+              /\ Len(p) = 0 + 1 
+       PROVE  q \in S \cup ReachableFrom(T) 
+PROVE  \A m \in S, q \in Nodes :
+          (\E p \in Seq(Nodes) : /\ IsPathFromTo(p, m, q)
+                                 /\ Len(p) = 0 + 1)
+          => q \in S \cup ReachableFrom(T)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:27
+@!!loc:175:11:175:13
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       NEW CONSTANT m \in S,
+       NEW CONSTANT q \in Nodes,
+       NEW CONSTANT p \in Seq(Nodes),
+       /\ /\ Len(p) > 0
+          /\ p[1] = m /\ p[Len(p)] = q
+          /\ \A i \in 1..Len(p) - 1 : p[i + 1] \in Succ[p[i]]
+       /\ Len(p) = 0 + 1 
+PROVE  q \in S \cup ReachableFrom(T)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:22
+@!!loc:131:7:131:9
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (3%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       ASSUME NEW CONSTANT n \in {n \in Nodes :
+                                    \E m \in S : ExistsPath(m, n)}
+       PROVE  n \in S \cup {n_1 \in Nodes : \E m \in T : ExistsPath(m, n_1)} 
+PROVE  {n \in Nodes : \E m \in S \cup T : ExistsPath(m, n)}
+       \subseteq S \cup {n \in Nodes : \E m \in T : ExistsPath(m, n)}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:41
+@!!loc:223:14:223:18
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in {n \in Nodes :
+                             \E m \in S :
+                                \E p \in Seq(Nodes) : IsPathFromTo(p, m, n)},
+       NEW CONSTANT i \in Nat,
+       NEW CONSTANT m \in S,
+       NEW CONSTANT q \in Nodes,
+       NEW CONSTANT p \in Seq(Nodes),
+       /\ IsPathFromTo(p, m, q)
+       /\ Len(p) = i + 1 + 1 ,
+       /\ Tail(p) \in Seq(Nodes)
+       /\ IsPathFromTo(Tail(p), p[2], q)
+       /\ Len(Tail(p)) = i + 1 
+PROVE  /\ Tail(p) \in Seq(Nodes)
+       /\ IsPathFromTo(Tail(p), p[2], q)
+       /\ Len(Tail(p)) = i + 1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:42
+@!!loc:223:20:223:24
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in {n \in Nodes :
+                             \E m \in S :
+                                \E p \in Seq(Nodes) : IsPathFromTo(p, m, n)},
+       NEW CONSTANT i \in Nat,
+       NEW CONSTANT m \in S,
+       NEW CONSTANT q \in Nodes,
+       NEW CONSTANT p \in Seq(Nodes),
+       /\ IsPathFromTo(p, m, q)
+       /\ Len(p) = i + 1 + 1 ,
+       p[2] \in T ,
+       /\ Tail(p) \in Seq(Nodes)
+       /\ IsPathFromTo(Tail(p), p[2], q)
+       /\ Len(Tail(p)) = i + 1 
+PROVE  p[2] \in T
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:43
+@!!loc:234:7:234:9
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in {n \in Nodes :
+                             \E m \in S :
+                                \E p \in Seq(Nodes) : IsPathFromTo(p, m, n)}
+PROVE  \E m \in S, p \in Seq(Nodes) : IsPathFromTo(p, m, n)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:45
+@!!loc:239:7:239:9
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       NEW CONSTANT m \in S,
+       NEW CONSTANT p \in Seq(Nodes),
+       /\ Len(p) > 0
+       /\ p[1] = m /\ p[Len(p)] = n
+       /\ \A i \in 1..Len(p) - 1 : p[i + 1] \in Succ[p[i]] 
+PROVE  (\A m_1 \in S, q \in Nodes :
+           (\E p_1 \in Seq(Nodes) :
+               /\ /\ Len(p_1) > 0
+                  /\ p_1[1] = m_1 /\ p_1[Len(p_1)] = q
+                  /\ \A i \in 1..Len(p_1) - 1 : p_1[i + 1] \in Succ[p_1[i]]
+               /\ Len(p_1) = Len(p) - 1 + 1)
+           => q \in S \cup ReachableFrom(T))
+       => n \in S \cup ReachableFrom(T)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:46
+@!!loc:239:10:239:14
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       NEW CONSTANT m \in S,
+       NEW CONSTANT p \in Seq(Nodes),
+       /\ Len(p) > 0
+       /\ p[1] = m /\ p[Len(p)] = n
+       /\ \A i \in 1..Len(p) - 1 : p[i + 1] \in Succ[p[i]] 
+PROVE  /\ Len(p) > 0
+       /\ p[1] = m /\ p[Len(p)] = n
+       /\ \A i \in 1..Len(p) - 1 : p[i + 1] \in Succ[p[i]]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:47
+@!!loc:304:5:304:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       ReachableFrom(S) = ReachableFrom(S \cup Succ[n]) ,
+       n \in ReachableFrom(S) 
+PROVE  /\ ReachableFrom(S) = ReachableFrom(S \cup Succ[n])
+       /\ n \in ReachableFrom(S)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:48
+@!!loc:304:8:304:12
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       ReachableFrom(S) = ReachableFrom(S \cup Succ[n]) 
+PROVE  ReachableFrom(S) = ReachableFrom(S \cup Succ[n])
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:49
+@!!loc:304:14:304:18
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       n \in ReachableFrom(S) ,
+       ReachableFrom(S) = ReachableFrom(S \cup Succ[n]) 
+PROVE  n \in ReachableFrom(S)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:50
+@!!loc:266:5:266:12
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       ASSUME NEW CONSTANT S \in SUBSET Nodes,
+              NEW CONSTANT n \in S
+       PROVE  /\ ReachableFrom(S) = ReachableFrom(S \cup Succ[n])
+              /\ n \in ReachableFrom(S) 
+PROVE  \A S \in SUBSET Nodes :
+          \A n \in S :
+             /\ ReachableFrom(S) = ReachableFrom(S \cup Succ[n])
+             /\ n \in ReachableFrom(S)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:51
+@!!loc:297:7:297:9
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       ReachableFrom(S) \subseteq ReachableFrom(S \cup Succ[n]) ,
+       ReachableFrom(S \cup Succ[n]) \subseteq ReachableFrom(S) 
+PROVE  ReachableFrom(S) = ReachableFrom(S \cup Succ[n])
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:52
+@!!loc:297:10:297:14
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       ReachableFrom(S) \subseteq ReachableFrom(S \cup Succ[n]) 
+PROVE  ReachableFrom(S) \subseteq ReachableFrom(S \cup Succ[n])
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:53
+@!!loc:297:16:297:20
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       ReachableFrom(S \cup Succ[n]) \subseteq ReachableFrom(S) ,
+       ReachableFrom(S) \subseteq ReachableFrom(S \cup Succ[n]) 
+PROVE  ReachableFrom(S \cup Succ[n]) \subseteq ReachableFrom(S)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:54
+@!!loc:277:7:277:9
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S
+PROVE  {n_1 \in Nodes : \E m \in S : ExistsPath(m, n_1)}
+       \subseteq {n_1 \in Nodes :
+                    \E m \in S \cup Succ[n] : ExistsPath(m, n_1)}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:55
+@!!loc:295:9:295:11
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       NEW CONSTANT m \in Succ[n],
+       NEW CONSTANT o \in Nodes,
+       \E p \in Seq(Nodes) : IsPathFromTo(p, m, o) ,
+       NEW CONSTANT p \in Seq(Nodes),
+       <<n>> \o p \in Seq(Nodes) /\ IsPathFromTo(<<n>> \o p, n, o) 
+PROVE  \E p_1 \in Seq(Nodes) : IsPathFromTo(p_1, n, o)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:50
+@!!loc:266:5:266:12
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       ASSUME NEW CONSTANT S \in SUBSET Nodes,
+              NEW CONSTANT n \in S
+       PROVE  /\ ReachableFrom(S) = ReachableFrom(S \cup Succ[n])
+              /\ n \in ReachableFrom(S) 
+PROVE  \A S \in SUBSET Nodes :
+          \A n \in S :
+             /\ ReachableFrom(S) = ReachableFrom(S \cup Succ[n])
+             /\ n \in ReachableFrom(S)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:47
+@!!loc:304:5:304:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       ReachableFrom(S) = ReachableFrom(S \cup Succ[n]) ,
+       n \in ReachableFrom(S) 
+PROVE  /\ ReachableFrom(S) = ReachableFrom(S \cup Succ[n])
+       /\ n \in ReachableFrom(S)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:45
+@!!loc:239:7:239:9
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       NEW CONSTANT m \in S,
+       NEW CONSTANT p \in Seq(Nodes),
+       /\ Len(p) > 0
+       /\ p[1] = m /\ p[Len(p)] = n
+       /\ \A i \in 1..Len(p) - 1 : p[i + 1] \in Succ[p[i]] 
+PROVE  (\A m_1 \in S, q \in Nodes :
+           (\E p_1 \in Seq(Nodes) :
+               /\ /\ Len(p_1) > 0
+                  /\ p_1[1] = m_1 /\ p_1[Len(p_1)] = q
+                  /\ \A i \in 1..Len(p_1) - 1 : p_1[i + 1] \in Succ[p_1[i]]
+               /\ Len(p_1) = Len(p) - 1 + 1)
+           => q \in S \cup ReachableFrom(T))
+       => n \in S \cup ReachableFrom(T)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:43
+@!!loc:234:7:234:9
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in {n \in Nodes :
+                             \E m \in S :
+                                \E p \in Seq(Nodes) : IsPathFromTo(p, m, n)}
+PROVE  \E m \in S, p \in Seq(Nodes) : IsPathFromTo(p, m, n)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:40
+@!!loc:223:11:223:13
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in {n \in Nodes :
+                             \E m \in S :
+                                \E p \in Seq(Nodes) : IsPathFromTo(p, m, n)},
+       NEW CONSTANT i \in Nat,
+       NEW CONSTANT m \in S,
+       NEW CONSTANT q \in Nodes,
+       NEW CONSTANT p \in Seq(Nodes),
+       /\ IsPathFromTo(p, m, q)
+       /\ Len(p) = i + 1 + 1 ,
+       /\ Tail(p) \in Seq(Nodes)
+       /\ IsPathFromTo(Tail(p), p[2], q)
+       /\ Len(Tail(p)) = i + 1 ,
+       p[2] \in T 
+PROVE  q
+       \in S
+           \cup {n_1 \in Nodes :
+                   \E m_1 \in T :
+                      \E p_1 \in Seq(Nodes) : IsPathFromTo(p_1, m_1, n_1)}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:36
+@!!loc:221:13:221:15
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       NEW CONSTANT i \in Nat,
+       NEW CONSTANT m \in S,
+       NEW CONSTANT q \in Nodes,
+       NEW CONSTANT p \in Seq(Nodes),
+       /\ IsPathFromTo(p, m, q)
+       /\ Len(p) = i + 1 + 1 ,
+       \A m_1 \in S, q_1 \in Nodes :
+          (\E p_1 \in Seq(Nodes) :
+              /\ IsPathFromTo(p_1, m_1, q_1)
+              /\ Len(p_1) = i + 1)
+          => q_1 \in S \cup ReachableFrom(T) ,
+       /\ Tail(p) \in Seq(Nodes)
+       /\ IsPathFromTo(Tail(p), p[2], q)
+       /\ Len(Tail(p)) = i + 1 ,
+       p[2] \in S 
+PROVE  q \in S \cup ReachableFrom(T)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:56
+@!!loc:295:12:295:16
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       NEW CONSTANT m \in Succ[n],
+       NEW CONSTANT o \in Nodes,
+       \E p \in Seq(Nodes) : IsPathFromTo(p, m, o) ,
+       NEW CONSTANT p \in Seq(Nodes),
+       <<n>> \o p \in Seq(Nodes) /\ IsPathFromTo(<<n>> \o p, n, o) 
+PROVE  <<n>> \o p \in Seq(Nodes) /\ IsPathFromTo(<<n>> \o p, n, o)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:57
+@!!loc:284:9:284:11
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       {n_1 \in Nodes : \E m \in Succ[n] : ExistsPath(m, n_1)}
+       \subseteq {n_1 \in Nodes : \E m \in S : ExistsPath(m, n_1)} 
+PROVE  {n_1 \in Nodes : \E m \in S \cup Succ[n] : ExistsPath(m, n_1)}
+       \subseteq {n_1 \in Nodes : \E m \in S : ExistsPath(m, n_1)}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:58
+@!!loc:288:9:288:11
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       ASSUME NEW CONSTANT m \in Succ[n],
+              NEW CONSTANT o \in Nodes,
+              ExistsPath(m, o) 
+       PROVE  ExistsPath(n, o) 
+PROVE  {n_1 \in Nodes : \E m \in Succ[n] : ExistsPath(m, n_1)}
+       \subseteq {n_1 \in Nodes : \E m \in S : ExistsPath(m, n_1)}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:59
+@!!loc:290:9:290:11
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       NEW CONSTANT m \in Succ[n],
+       NEW CONSTANT o \in Nodes,
+       \E p \in Seq(Nodes) : IsPathFromTo(p, m, o) 
+PROVE  \E p \in Seq(Nodes) : IsPathFromTo(p, m, o)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:61
+@!!loc:293:9:293:11
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       NEW CONSTANT m \in Succ[n],
+       NEW CONSTANT o \in Nodes,
+       ExistsPath(m, o) ,
+       NEW CONSTANT p \in Seq(Nodes),
+       /\ Len(p) > 0
+       /\ p[1] = m /\ p[Len(p)] = o
+       /\ \A i \in 1..Len(p) - 1 : p[i + 1] \in Succ[p[i]] ,
+       Succ \in [Nodes -> SUBSET Nodes] 
+PROVE  <<n>> \o p \in Seq(Nodes)
+       /\ (/\ Len(<<n>> \o p) > 0
+           /\ (<<n>> \o p)[1] = n /\ (<<n>> \o p)[Len(<<n>> \o p)] = o
+           /\ \A i \in 1..Len(<<n>> \o p) - 1 :
+                 (<<n>> \o p)[i + 1] \in Succ[(<<n>> \o p)[i]])
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:62
+@!!loc:293:12:293:16
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       NEW CONSTANT m \in Succ[n],
+       NEW CONSTANT o \in Nodes,
+       ExistsPath(m, o) ,
+       NEW CONSTANT p \in Seq(Nodes),
+       /\ Len(p) > 0
+       /\ p[1] = m /\ p[Len(p)] = o
+       /\ \A i \in 1..Len(p) - 1 : p[i + 1] \in Succ[p[i]] 
+PROVE  /\ Len(p) > 0
+       /\ p[1] = m /\ p[Len(p)] = o
+       /\ \A i \in 1..Len(p) - 1 : p[i + 1] \in Succ[p[i]]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:63
+@!!loc:293:18:293:28
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       Succ \in [Nodes -> SUBSET Nodes] ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       NEW CONSTANT m \in Succ[n],
+       NEW CONSTANT o \in Nodes,
+       ExistsPath(m, o) ,
+       NEW CONSTANT p \in Seq(Nodes),
+       /\ Len(p) > 0
+       /\ p[1] = m /\ p[Len(p)] = o
+       /\ \A i \in 1..Len(p) - 1 : p[i + 1] \in Succ[p[i]] 
+PROVE  Succ \in [Nodes -> SUBSET Nodes]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:64
+@!!loc:302:5:302:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       \A S_1 \in SUBSET Nodes : \A n_1 \in S_1 : n_1 \in ReachableFrom(S_1) 
+PROVE  n \in ReachableFrom(S)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:65
+@!!loc:302:8:302:18
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       \A S \in SUBSET Nodes : \A n \in S : n \in ReachableFrom(S) ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S
+PROVE  \A S_1 \in SUBSET Nodes : \A n_1 \in S_1 : n_1 \in ReachableFrom(S_1)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:66
+@!!loc:311:1:311:3
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ
+PROVE  {n \in Nodes :
+          \E m \in {} : \E p \in Seq(Nodes) : IsPathFromTo(p, m, n)}
+       = {}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:59
+@!!loc:290:9:290:11
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       NEW CONSTANT m \in Succ[n],
+       NEW CONSTANT o \in Nodes,
+       \E p \in Seq(Nodes) : IsPathFromTo(p, m, o) 
+PROVE  \E p \in Seq(Nodes) : IsPathFromTo(p, m, o)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:58
+@!!loc:288:9:288:11
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       ASSUME NEW CONSTANT m \in Succ[n],
+              NEW CONSTANT o \in Nodes,
+              ExistsPath(m, o) 
+       PROVE  ExistsPath(n, o) 
+PROVE  {n_1 \in Nodes : \E m \in Succ[n] : ExistsPath(m, n_1)}
+       \subseteq {n_1 \in Nodes : \E m \in S : ExistsPath(m, n_1)}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:57
+@!!loc:284:9:284:11
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       {n_1 \in Nodes : \E m \in Succ[n] : ExistsPath(m, n_1)}
+       \subseteq {n_1 \in Nodes : \E m \in S : ExistsPath(m, n_1)} 
+PROVE  {n_1 \in Nodes : \E m \in S \cup Succ[n] : ExistsPath(m, n_1)}
+       \subseteq {n_1 \in Nodes : \E m \in S : ExistsPath(m, n_1)}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:55
+@!!loc:295:9:295:11
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       NEW CONSTANT m \in Succ[n],
+       NEW CONSTANT o \in Nodes,
+       \E p \in Seq(Nodes) : IsPathFromTo(p, m, o) ,
+       NEW CONSTANT p \in Seq(Nodes),
+       <<n>> \o p \in Seq(Nodes) /\ IsPathFromTo(<<n>> \o p, n, o) 
+PROVE  \E p_1 \in Seq(Nodes) : IsPathFromTo(p_1, n, o)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:54
+@!!loc:277:7:277:9
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S
+PROVE  {n_1 \in Nodes : \E m \in S : ExistsPath(m, n_1)}
+       \subseteq {n_1 \in Nodes :
+                    \E m \in S \cup Succ[n] : ExistsPath(m, n_1)}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:51
+@!!loc:297:7:297:9
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       ReachableFrom(S) \subseteq ReachableFrom(S \cup Succ[n]) ,
+       ReachableFrom(S \cup Succ[n]) \subseteq ReachableFrom(S) 
+PROVE  ReachableFrom(S) = ReachableFrom(S \cup Succ[n])
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:64
+@!!loc:302:5:302:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       \A S_1 \in SUBSET Nodes : \A n_1 \in S_1 : n_1 \in ReachableFrom(S_1) 
+PROVE  n \in ReachableFrom(S)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:61
+@!!loc:293:9:293:11
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT n \in S,
+       NEW CONSTANT m \in Succ[n],
+       NEW CONSTANT o \in Nodes,
+       ExistsPath(m, o) ,
+       NEW CONSTANT p \in Seq(Nodes),
+       /\ Len(p) > 0
+       /\ p[1] = m /\ p[Len(p)] = o
+       /\ \A i \in 1..Len(p) - 1 : p[i + 1] \in Succ[p[i]] ,
+       Succ \in [Nodes -> SUBSET Nodes] 
+PROVE  <<n>> \o p \in Seq(Nodes)
+       /\ (/\ Len(<<n>> \o p) > 0
+           /\ (<<n>> \o p)[1] = n /\ (<<n>> \o p)[Len(<<n>> \o p)] = o
+           /\ \A i \in 1..Len(<<n>> \o p) - 1 :
+                 (<<n>> \o p)[i + 1] \in Succ[(<<n>> \o p)[i]])
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:66
+@!!loc:311:1:311:3
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ
+PROVE  {n \in Nodes :
+          \E m \in {} : \E p \in Seq(Nodes) : IsPathFromTo(p, m, n)}
+       = {}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:23
+@!!loc:228:9:228:11
+@!!status:being proved
+@!!prover:smt
+@!!meth:time-limit: 5
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       R(0) ,
+       ASSUME NEW CONSTANT i \in Nat,
+              R(i) 
+       PROVE  R(i + 1) ,
+       ASSUME NEW CONSTANT P(_),
+              P(0) ,
+              \A n_1 \in Nat : P(n_1) => P(n_1 + 1) 
+       PROVE  \A n_1 \in Nat : P(n_1) 
+PROVE  \A i \in Nat : R(i)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:23
+@!!loc:228:9:228:11
+@!!status:failed
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 5.0 (100%)
+@!!reason:timeout
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       R(0) ,
+       ASSUME NEW CONSTANT i \in Nat,
+              R(i) 
+       PROVE  R(i + 1) ,
+       ASSUME NEW CONSTANT P(_),
+              P(0) ,
+              \A n_1 \in Nat : P(n_1) => P(n_1 + 1) 
+       PROVE  \A n_1 \in Nat : P(n_1) 
+PROVE  \A i \in Nat : R(i)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:23
+@!!loc:228:9:228:11
+@!!status:normalized
+@!!meth:time-limit: 10
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       R(0) ,
+       ASSUME NEW CONSTANT i \in Nat,
+              R(i) 
+       PROVE  R(i + 1) ,
+       ASSUME NEW CONSTANT P(_),
+              P(0) ,
+              \A n_1 \in Nat : P(n_1) => P(n_1 + 1) 
+       PROVE  \A n_1 \in Nat : P(n_1) 
+PROVE  \A i \in Nat : R(i)
+
+@!!END
+
+Zenon error: exhausted search space without finding a proof
+@!!BEGIN
+@!!type:obligation
+@!!id:23
+@!!loc:228:9:228:11
+@!!status:failed
+@!!prover:zenon
+@!!meth:time-limit: 10; time-used: 0.0 (0%)
+@!!reason:false
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       R(0) ,
+       ASSUME NEW CONSTANT i \in Nat,
+              R(i) 
+       PROVE  R(i + 1) ,
+       ASSUME NEW CONSTANT P(_),
+              P(0) ,
+              \A n_1 \in Nat : P(n_1) => P(n_1 + 1) 
+       PROVE  \A n_1 \in Nat : P(n_1) 
+PROVE  \A i \in Nat : R(i)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:23
+@!!loc:228:9:228:11
+@!!status:normalized
+@!!meth:time-limit: 30
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       R(0) ,
+       ASSUME NEW CONSTANT i \in Nat,
+              R(i) 
+       PROVE  R(i + 1) ,
+       ASSUME NEW CONSTANT P(_),
+              P(0) ,
+              \A n_1 \in Nat : P(n_1) => P(n_1 + 1) 
+       PROVE  \A n_1 \in Nat : P(n_1) 
+PROVE  \A i \in Nat : R(i)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:23
+@!!loc:228:9:228:11
+@!!status:proved
+@!!prover:isabelle
+@!!meth:auto; time-limit: 30; time-used: 1.6 (5%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT S \in SUBSET Nodes,
+       NEW CONSTANT T \in SUBSET Nodes,
+       \A n \in S : Succ[n] \subseteq S \cup T ,
+       NEW CONSTANT n \in ReachableFrom(S),
+       R(0) ,
+       ASSUME NEW CONSTANT i \in Nat,
+              R(i) 
+       PROVE  R(i + 1) ,
+       ASSUME NEW CONSTANT P(_),
+              P(0) ,
+              \A n_1 \in Nat : P(n_1) => P(n_1 + 1) 
+       PROVE  \A n_1 \in Nat : P(n_1) 
+PROVE  \A i \in Nat : R(i)
+
+@!!END
+
+(* created new ".tlacache/ReachabilityProofs.tlaps/ReachabilityProofs.thy" *)
+(* fingerprints written in ".tlacache/ReachabilityProofs.tlaps/fingerprints" *)
+File "./ReachabilityProofs.tla", line 1, character 1 to line 312, character 77:
+[INFO]: All 64 obligations proved.

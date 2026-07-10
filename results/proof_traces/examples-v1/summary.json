@@ -1,0 +1,618 @@
+{
+  "modules_attempted": 73,
+  "modules_status": {
+    "partial": 70,
+    "timeout": 3
+  },
+  "obligations_total": 10713,
+  "obligations_proved": 3936,
+  "module_rows": [
+    {
+      "module_id": "examples-specifications__Bakery-Boulangerie__Bakery.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/Bakery-Boulangerie/Bakery.tla",
+      "status": "partial",
+      "obligations": 182,
+      "proved": 65,
+      "seconds": 12.8
+    },
+    {
+      "module_id": "examples-specifications__Bakery-Boulangerie__Boulanger.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/Bakery-Boulangerie/Boulanger.tla",
+      "status": "partial",
+      "obligations": 245,
+      "proved": 90,
+      "seconds": 18.7
+    },
+    {
+      "module_id": "examples-specifications__CigaretteSmokers__CigaretteSmokers_proof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/CigaretteSmokers/CigaretteSmokers_proof.tla",
+      "status": "partial",
+      "obligations": 243,
+      "proved": 101,
+      "seconds": 6.1
+    },
+    {
+      "module_id": "examples-specifications__CoffeeCan__CoffeeCan_proof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/CoffeeCan/CoffeeCan_proof.tla",
+      "status": "partial",
+      "obligations": 119,
+      "proved": 42,
+      "seconds": 0.9
+    },
+    {
+      "module_id": "examples-specifications__DieHard__DieHard_proof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/DieHard/DieHard_proof.tla",
+      "status": "partial",
+      "obligations": 89,
+      "proved": 34,
+      "seconds": 0.6
+    },
+    {
+      "module_id": "examples-specifications__FiniteMonotonic__CRDT_proof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/FiniteMonotonic/CRDT_proof.tla",
+      "status": "partial",
+      "obligations": 280,
+      "proved": 100,
+      "seconds": 11.8
+    },
+    {
+      "module_id": "examples-specifications__KeyValueStore__KeyValueStore_proof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/KeyValueStore/KeyValueStore_proof.tla",
+      "status": "partial",
+      "obligations": 28,
+      "proved": 11,
+      "seconds": 1.1
+    },
+    {
+      "module_id": "examples-specifications__LearnProofs__AddTwo.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/LearnProofs/AddTwo.tla",
+      "status": "partial",
+      "obligations": 18,
+      "proved": 9,
+      "seconds": 0.4
+    },
+    {
+      "module_id": "examples-specifications__LearnProofs__FindHighest.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/LearnProofs/FindHighest.tla",
+      "status": "partial",
+      "obligations": 45,
+      "proved": 20,
+      "seconds": 0.5
+    },
+    {
+      "module_id": "examples-specifications__LoopInvariance__BinarySearch.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/LoopInvariance/BinarySearch.tla",
+      "status": "partial",
+      "obligations": 176,
+      "proved": 49,
+      "seconds": 1.2
+    },
+    {
+      "module_id": "examples-specifications__LoopInvariance__Quicksort.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/LoopInvariance/Quicksort.tla",
+      "status": "partial",
+      "obligations": 470,
+      "proved": 163,
+      "seconds": 53.7
+    },
+    {
+      "module_id": "examples-specifications__LoopInvariance__SumSequence.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/LoopInvariance/SumSequence.tla",
+      "status": "partial",
+      "obligations": 336,
+      "proved": 120,
+      "seconds": 97.7
+    },
+    {
+      "module_id": "examples-specifications__Majority__MajorityProof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/Majority/MajorityProof.tla",
+      "status": "partial",
+      "obligations": 99,
+      "proved": 34,
+      "seconds": 2.7
+    },
+    {
+      "module_id": "examples-specifications__MisraReachability__ParReachProofs.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/MisraReachability/ParReachProofs.tla",
+      "status": "partial",
+      "obligations": 52,
+      "proved": 17,
+      "seconds": 1.1
+    },
+    {
+      "module_id": "examples-specifications__MisraReachability__ReachabilityProofs.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/MisraReachability/ReachabilityProofs.tla",
+      "status": "partial",
+      "obligations": 65,
+      "proved": 34,
+      "seconds": 2.1
+    },
+    {
+      "module_id": "examples-specifications__MisraReachability__ReachableProofs.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/MisraReachability/ReachableProofs.tla",
+      "status": "partial",
+      "obligations": 73,
+      "proved": 25,
+      "seconds": 0.9
+    },
+    {
+      "module_id": "examples-specifications__MissionariesAndCannibals__MissionariesAndCannibals_proof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/MissionariesAndCannibals/MissionariesAndCannibals_proof.tla",
+      "status": "partial",
+      "obligations": 39,
+      "proved": 18,
+      "seconds": 0.6
+    },
+    {
+      "module_id": "examples-specifications__MultiCarElevator__Elevator_proof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/MultiCarElevator/Elevator_proof.tla",
+      "status": "partial",
+      "obligations": 223,
+      "proved": 101,
+      "seconds": 10.1
+    },
+    {
+      "module_id": "examples-specifications__Paxos__Consensus.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/Paxos/Consensus.tla",
+      "status": "partial",
+      "obligations": 25,
+      "proved": 10,
+      "seconds": 1.0
+    },
+    {
+      "module_id": "examples-specifications__Paxos__Voting.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/Paxos/Voting.tla",
+      "status": "partial",
+      "obligations": 7,
+      "proved": 2,
+      "seconds": 0.6
+    },
+    {
+      "module_id": "examples-specifications__PaxosHowToWinATuringAward__Consensus.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/PaxosHowToWinATuringAward/Consensus.tla",
+      "status": "partial",
+      "obligations": 12,
+      "proved": 5,
+      "seconds": 0.7
+    },
+    {
+      "module_id": "examples-specifications__PaxosHowToWinATuringAward__Voting.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/PaxosHowToWinATuringAward/Voting.tla",
+      "status": "partial",
+      "obligations": 9,
+      "proved": 2,
+      "seconds": 0.6
+    },
+    {
+      "module_id": "examples-specifications__PaxosHowToWinATuringAward__Voting_proof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/PaxosHowToWinATuringAward/Voting_proof.tla",
+      "status": "partial",
+      "obligations": 119,
+      "proved": 44,
+      "seconds": 5.8
+    },
+    {
+      "module_id": "examples-specifications__ReadersWriters__ReadersWriters_proof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/ReadersWriters/ReadersWriters_proof.tla",
+      "status": "partial",
+      "obligations": 250,
+      "proved": 97,
+      "seconds": 7.7
+    },
+    {
+      "module_id": "examples-specifications__SpanningTree__SpanTree_proof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpanningTree/SpanTree_proof.tla",
+      "status": "partial",
+      "obligations": 35,
+      "proved": 16,
+      "seconds": 0.6
+    },
+    {
+      "module_id": "examples-specifications__SpecifyingSystems__AsynchronousInterface__AsynchInterface_proof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/AsynchronousInterface/AsynchInterface_proof.tla",
+      "status": "partial",
+      "obligations": 6,
+      "proved": 3,
+      "seconds": 0.4
+    },
+    {
+      "module_id": "examples-specifications__SpecifyingSystems__AsynchronousInterface__Channel_proof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/AsynchronousInterface/Channel_proof.tla",
+      "status": "partial",
+      "obligations": 6,
+      "proved": 3,
+      "seconds": 0.4
+    },
+    {
+      "module_id": "examples-specifications__SpecifyingSystems__CachingMemory__InternalMemory_proof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/CachingMemory/InternalMemory_proof.tla",
+      "status": "partial",
+      "obligations": 52,
+      "proved": 18,
+      "seconds": 0.6
+    },
+    {
+      "module_id": "examples-specifications__SpecifyingSystems__Composing__Channel_proof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/Composing/Channel_proof.tla",
+      "status": "partial",
+      "obligations": 6,
+      "proved": 3,
+      "seconds": 0.4
+    },
+    {
+      "module_id": "examples-specifications__SpecifyingSystems__Composing__HourClock_proof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/Composing/HourClock_proof.tla",
+      "status": "partial",
+      "obligations": 6,
+      "proved": 3,
+      "seconds": 0.4
+    },
+    {
+      "module_id": "examples-specifications__SpecifyingSystems__Composing__InternalMemory_proof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/Composing/InternalMemory_proof.tla",
+      "status": "partial",
+      "obligations": 52,
+      "proved": 18,
+      "seconds": 0.7
+    },
+    {
+      "module_id": "examples-specifications__SpecifyingSystems__FIFO__Channel_proof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/FIFO/Channel_proof.tla",
+      "status": "partial",
+      "obligations": 6,
+      "proved": 3,
+      "seconds": 0.4
+    },
+    {
+      "module_id": "examples-specifications__SpecifyingSystems__FIFO__InnerFIFO_proof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/FIFO/InnerFIFO_proof.tla",
+      "status": "partial",
+      "obligations": 22,
+      "proved": 9,
+      "seconds": 0.5
+    },
+    {
+      "module_id": "examples-specifications__SpecifyingSystems__HourClock__HourClock_proof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/HourClock/HourClock_proof.tla",
+      "status": "partial",
+      "obligations": 6,
+      "proved": 3,
+      "seconds": 0.4
+    },
+    {
+      "module_id": "examples-specifications__SpecifyingSystems__Liveness__HourClock_proof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/Liveness/HourClock_proof.tla",
+      "status": "partial",
+      "obligations": 6,
+      "proved": 3,
+      "seconds": 0.4
+    },
+    {
+      "module_id": "examples-specifications__SpecifyingSystems__Liveness__InternalMemory_proof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/Liveness/InternalMemory_proof.tla",
+      "status": "partial",
+      "obligations": 52,
+      "proved": 18,
+      "seconds": 0.7
+    },
+    {
+      "module_id": "examples-specifications__SpecifyingSystems__RealTime__HourClock_proof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/RealTime/HourClock_proof.tla",
+      "status": "partial",
+      "obligations": 6,
+      "proved": 3,
+      "seconds": 0.4
+    },
+    {
+      "module_id": "examples-specifications__SpecifyingSystems__RealTime__InternalMemory_proof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/RealTime/InternalMemory_proof.tla",
+      "status": "partial",
+      "obligations": 52,
+      "proved": 18,
+      "seconds": 0.6
+    },
+    {
+      "module_id": "examples-specifications__SpecifyingSystems__TLC__AlternatingBit_proof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/TLC/AlternatingBit_proof.tla",
+      "status": "partial",
+      "obligations": 44,
+      "proved": 16,
+      "seconds": 7.2
+    },
+    {
+      "module_id": "examples-specifications__TeachingConcurrency__Simple.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/TeachingConcurrency/Simple.tla",
+      "status": "partial",
+      "obligations": 29,
+      "proved": 12,
+      "seconds": 1.2
+    },
+    {
+      "module_id": "examples-specifications__TeachingConcurrency__SimpleRegular.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/TeachingConcurrency/SimpleRegular.tla",
+      "status": "partial",
+      "obligations": 37,
+      "proved": 16,
+      "seconds": 0.7
+    },
+    {
+      "module_id": "examples-specifications__TeachingConcurrency__SimpleRegular_proof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/TeachingConcurrency/SimpleRegular_proof.tla",
+      "status": "partial",
+      "obligations": 52,
+      "proved": 21,
+      "seconds": 0.6
+    },
+    {
+      "module_id": "examples-specifications__TeachingConcurrency__Simple_proof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/TeachingConcurrency/Simple_proof.tla",
+      "status": "partial",
+      "obligations": 16,
+      "proved": 7,
+      "seconds": 1.2
+    },
+    {
+      "module_id": "examples-specifications__TwoPhase__TwoPhase.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/TwoPhase/TwoPhase.tla",
+      "status": "partial",
+      "obligations": 20,
+      "proved": 7,
+      "seconds": 0.4
+    },
+    {
+      "module_id": "examples-specifications__TwoPhase__TwoPhase_proof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/TwoPhase/TwoPhase_proof.tla",
+      "status": "partial",
+      "obligations": 20,
+      "proved": 7,
+      "seconds": 0.4
+    },
+    {
+      "module_id": "examples-specifications__allocator__AllocatorImplementation_proof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/allocator/AllocatorImplementation_proof.tla",
+      "status": "partial",
+      "obligations": 195,
+      "proved": 71,
+      "seconds": 25.3
+    },
+    {
+      "module_id": "examples-specifications__allocator__SchedulingAllocator_proof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/allocator/SchedulingAllocator_proof.tla",
+      "status": "partial",
+      "obligations": 288,
+      "proved": 104,
+      "seconds": 29.2
+    },
+    {
+      "module_id": "examples-specifications__allocator__SimpleAllocator_proof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/allocator/SimpleAllocator_proof.tla",
+      "status": "partial",
+      "obligations": 94,
+      "proved": 35,
+      "seconds": 5.9
+    },
+    {
+      "module_id": "examples-specifications__barriers__Barriers.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/barriers/Barriers.tla",
+      "status": "partial",
+      "obligations": 950,
+      "proved": 327,
+      "seconds": 104.5
+    },
+    {
+      "module_id": "examples-specifications__bcastByz__bcastByz.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/bcastByz/bcastByz.tla",
+      "status": "partial",
+      "obligations": 807,
+      "proved": 299,
+      "seconds": 127.8
+    },
+    {
+      "module_id": "examples-specifications__byihive__VoucherLifeCycle_proof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/byihive/VoucherLifeCycle_proof.tla",
+      "status": "partial",
+      "obligations": 6,
+      "proved": 3,
+      "seconds": 0.4
+    },
+    {
+      "module_id": "examples-specifications__byzpaxos__BPConProof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/byzpaxos/BPConProof.tla",
+      "status": "timeout",
+      "obligations": 0,
+      "proved": 0,
+      "seconds": 600.1
+    },
+    {
+      "module_id": "examples-specifications__byzpaxos__Consensus.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/byzpaxos/Consensus.tla",
+      "status": "partial",
+      "obligations": 31,
+      "proved": 13,
+      "seconds": 1.0
+    },
+    {
+      "module_id": "examples-specifications__byzpaxos__PConProof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/byzpaxos/PConProof.tla",
+      "status": "partial",
+      "obligations": 10,
+      "proved": 3,
+      "seconds": 0.7
+    },
+    {
+      "module_id": "examples-specifications__byzpaxos__VoteProof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/byzpaxos/VoteProof.tla",
+      "status": "partial",
+      "obligations": 809,
+      "proved": 279,
+      "seconds": 56.5
+    },
+    {
+      "module_id": "examples-specifications__ewd687a__EWD687a_proof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/ewd687a/EWD687a_proof.tla",
+      "status": "partial",
+      "obligations": 741,
+      "proved": 286,
+      "seconds": 121.7
+    },
+    {
+      "module_id": "examples-specifications__ewd840__EWD840_proof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/ewd840/EWD840_proof.tla",
+      "status": "partial",
+      "obligations": 225,
+      "proved": 86,
+      "seconds": 3.7
+    },
+    {
+      "module_id": "examples-specifications__ewd840__SyncTerminationDetection_proof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/ewd840/SyncTerminationDetection_proof.tla",
+      "status": "partial",
+      "obligations": 29,
+      "proved": 13,
+      "seconds": 0.5
+    },
+    {
+      "module_id": "examples-specifications__ewd998__AsyncTerminationDetection_proof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/ewd998/AsyncTerminationDetection_proof.tla",
+      "status": "partial",
+      "obligations": 30,
+      "proved": 13,
+      "seconds": 0.5
+    },
+    {
+      "module_id": "examples-specifications__ewd998__EWD998PCal_proof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/ewd998/EWD998PCal_proof.tla",
+      "status": "timeout",
+      "obligations": 0,
+      "proved": 0,
+      "seconds": 600.1
+    },
+    {
+      "module_id": "examples-specifications__ewd998__EWD998_proof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/ewd998/EWD998_proof.tla",
+      "status": "partial",
+      "obligations": 807,
+      "proved": 281,
+      "seconds": 37.3
+    },
+    {
+      "module_id": "examples-specifications__glowingRaccoon__clean_proof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/glowingRaccoon/clean_proof.tla",
+      "status": "partial",
+      "obligations": 129,
+      "proved": 50,
+      "seconds": 0.9
+    },
+    {
+      "module_id": "examples-specifications__glowingRaccoon__stages_proof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/glowingRaccoon/stages_proof.tla",
+      "status": "partial",
+      "obligations": 43,
+      "proved": 17,
+      "seconds": 0.7
+    },
+    {
+      "module_id": "examples-specifications__lamport_mutex__LamportMutex_proofs.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/lamport_mutex/LamportMutex_proofs.tla",
+      "status": "partial",
+      "obligations": 750,
+      "proved": 263,
+      "seconds": 35.3
+    },
+    {
+      "module_id": "examples-specifications__locks_auxiliary_vars__Lock.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/locks_auxiliary_vars/Lock.tla",
+      "status": "partial",
+      "obligations": 29,
+      "proved": 12,
+      "seconds": 0.5
+    },
+    {
+      "module_id": "examples-specifications__locks_auxiliary_vars__LockHS.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/locks_auxiliary_vars/LockHS.tla",
+      "status": "partial",
+      "obligations": 279,
+      "proved": 95,
+      "seconds": 18.0
+    },
+    {
+      "module_id": "examples-specifications__locks_auxiliary_vars__Peterson.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/locks_auxiliary_vars/Peterson.tla",
+      "status": "partial",
+      "obligations": 65,
+      "proved": 25,
+      "seconds": 8.3
+    },
+    {
+      "module_id": "examples-specifications__spanning__spanning_proof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/spanning/spanning_proof.tla",
+      "status": "partial",
+      "obligations": 114,
+      "proved": 54,
+      "seconds": 1.2
+    },
+    {
+      "module_id": "examples-specifications__sums_even__sums_even.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/sums_even/sums_even.tla",
+      "status": "partial",
+      "obligations": 21,
+      "proved": 10,
+      "seconds": 0.5
+    },
+    {
+      "module_id": "examples-specifications__tcp__tcp_proof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/tcp/tcp_proof.tla",
+      "status": "timeout",
+      "obligations": 0,
+      "proved": 0,
+      "seconds": 600.2
+    },
+    {
+      "module_id": "examples-specifications__transaction_commit__PaxosCommit_proof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/transaction_commit/PaxosCommit_proof.tla",
+      "status": "partial",
+      "obligations": 443,
+      "proved": 164,
+      "seconds": 43.8
+    },
+    {
+      "module_id": "examples-specifications__transaction_commit__TCommit_proof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/transaction_commit/TCommit_proof.tla",
+      "status": "partial",
+      "obligations": 16,
+      "proved": 7,
+      "seconds": 0.4
+    },
+    {
+      "module_id": "examples-specifications__transaction_commit__TwoPhase_proof.tla",
+      "module_path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/transaction_commit/TwoPhase_proof.tla",
+      "status": "partial",
+      "obligations": 67,
+      "proved": 26,
+      "seconds": 1.3
+    }
+  ],
+  "seconds_total": 2688.0,
+  "backend_discharge_rates": {
+    "ls4": {
+      "proved": 221,
+      "total": 221
+    },
+    "smt": {
+      "proved": 3471,
+      "total": 3471
+    },
+    "zenon": {
+      "proved": 156,
+      "total": 156
+    },
+    "isabelle": {
+      "proved": 65,
+      "total": 65
+    },
+    "z3": {
+      "proved": 23,
+      "total": 23
+    }
+  }
+}

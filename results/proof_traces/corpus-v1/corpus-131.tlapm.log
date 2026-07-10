@@ -1,0 +1,6442 @@
+
+\* TLAPM version 80172c6
+\* launched at 2026-07-08 14:14:08 with command line:
+\* /Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm --toolbox 0 0 --printallobs -I /Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib -I /Users/eric/GitHub/prove-TLA/tools/community-modules -I /Users/eric/GitHub/prove-TLA/tools/extra-modules MajorityProof.tla
+
+@!!BEGIN
+@!!type:obligation
+@!!id:1
+@!!loc:12:11:12:13
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       Spec == Init /\ [][Next]_vars /\ (WF_(vars) (Next)),
+       <1>1 ,
+       <1>2 ,
+       PTL 
+PROVE  Spec => []TypeOK
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:2
+@!!loc:12:14:12:18
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       Spec == Init /\ [][Next]_vars /\ (WF_(vars) (Next))
+PROVE  <1>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:3
+@!!loc:12:20:12:24
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       Spec == Init /\ [][Next]_vars /\ (WF_(vars) (Next)),
+       <1>1 
+PROVE  <1>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:4
+@!!loc:12:26:12:29
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       Spec == Init /\ [][Next]_vars /\ (WF_(vars) (Next)),
+       <1>1 ,
+       <1>2 
+PROVE  PTL
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:5
+@!!loc:9:3:9:5
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ==
+         /\ seq \in Seq(Value)
+         /\ i \in 1..Len(seq) + 1
+         /\ cand \in Value
+         /\ cnt \in Nat,
+       Init == /\ seq \in Seq(Value)
+               /\ i = 1
+               /\ cand \in Value
+               /\ cnt = 0
+PROVE  Init => TypeOK
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:6
+@!!loc:11:3:11:5
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       vars == <<seq, i, cand, cnt>>,
+       TypeOK ==
+         /\ seq \in Seq(Value)
+         /\ i \in 1..Len(seq) + 1
+         /\ cand \in Value
+         /\ cnt \in Nat,
+       Next ==
+         /\ i =< Len(seq)
+         /\ i' = i + 1 /\ seq' = seq
+         /\ \/ /\ cnt = 0
+               /\ cand' = seq[i]
+               /\ cnt' = 1
+            \/ /\ cnt # 0 /\ cand = seq[i]
+               /\ cand' = cand
+               /\ cnt' = cnt + 1
+            \/ /\ cnt # 0 /\ cand # seq[i]
+               /\ cand' = cand
+               /\ cnt' = cnt - 1
+PROVE  TypeOK /\ [Next]_vars => TypeOK'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:7
+@!!loc:18:1:18:3
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       PositionsBefore(v, j) == {k \in 1..j - 1 : seq[k] = v}
+PROVE  \A v : PositionsBefore(v, 1) = {}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:8
+@!!loc:21:1:21:3
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       PositionsBefore(v, j) == {k \in 1..j - 1 : seq[k] = v}
+PROVE  \A v, j : PositionsBefore(v, j) \in SUBSET 1..j - 1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:9
+@!!loc:26:1:26:3
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       NEW CONSTANT v,
+       NEW CONSTANT j \in Int,
+       1 \in Int ,
+       j - 1 \in Int ,
+       PositionsType ,
+       FS_Interval ,
+       FS_Subset ,
+       Zenon 
+PROVE  IsFiniteSet(PositionsBefore(v, j))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:10
+@!!loc:26:4:26:13
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       NEW CONSTANT v,
+       NEW CONSTANT j \in Int
+PROVE  1 \in Int
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:11
+@!!loc:26:15:26:26
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       NEW CONSTANT v,
+       NEW CONSTANT j \in Int,
+       1 \in Int 
+PROVE  j - 1 \in Int
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:12
+@!!loc:26:28:26:41
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       NEW CONSTANT v,
+       NEW CONSTANT j \in Int,
+       1 \in Int ,
+       j - 1 \in Int 
+PROVE  PositionsType
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:13
+@!!loc:26:43:26:54
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       NEW CONSTANT v,
+       NEW CONSTANT j \in Int,
+       1 \in Int ,
+       j - 1 \in Int ,
+       PositionsType 
+PROVE  FS_Interval
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:14
+@!!loc:26:56:26:65
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       NEW CONSTANT v,
+       NEW CONSTANT j \in Int,
+       1 \in Int ,
+       j - 1 \in Int ,
+       PositionsType ,
+       FS_Interval 
+PROVE  FS_Subset
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:15
+@!!loc:26:67:26:72
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       NEW CONSTANT v,
+       NEW CONSTANT j \in Int,
+       1 \in Int ,
+       j - 1 \in Int ,
+       PositionsType ,
+       FS_Interval ,
+       FS_Subset 
+PROVE  Zenon
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:16
+@!!loc:33:1:33:3
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ==
+         /\ seq \in Seq(Value)
+         /\ i \in 1..Len(seq) + 1
+         /\ cand \in Value
+         /\ cnt \in Nat,
+       PositionsBefore(v, j) == {k \in 1..j - 1 : seq[k] = v},
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v
+PROVE  PositionsBefore(v, j + 1)
+       = (IF seq[j] = v
+            THEN PositionsBefore(v, j) \cup {j}
+            ELSE PositionsBefore(v, j))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:17
+@!!loc:36:1:36:3
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       OccurrencesBefore(v, j) == Cardinality(PositionsBefore(v, j)),
+       PositionsFinite ,
+       FS_CardinalityType 
+PROVE  \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:18
+@!!loc:36:4:36:19
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       OccurrencesBefore(v, j) == Cardinality(PositionsBefore(v, j))
+PROVE  PositionsFinite
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:19
+@!!loc:36:21:36:39
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       OccurrencesBefore(v, j) == Cardinality(PositionsBefore(v, j)),
+       PositionsFinite 
+PROVE  FS_CardinalityType
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:20
+@!!loc:39:1:39:3
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       OccurrencesBefore(v, j) == Cardinality(PositionsBefore(v, j)),
+       PositionsOne ,
+       FS_EmptySet 
+PROVE  \A v : OccurrencesBefore(v, 1) = 0
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:21
+@!!loc:39:4:39:16
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       OccurrencesBefore(v, j) == Cardinality(PositionsBefore(v, j))
+PROVE  PositionsOne
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:22
+@!!loc:39:18:39:29
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       OccurrencesBefore(v, j) == Cardinality(PositionsBefore(v, j)),
+       PositionsOne 
+PROVE  FS_EmptySet
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:23
+@!!loc:56:11:56:13
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v,
+       <1>1 ,
+       <1>2 
+PROVE  OccurrencesBefore(v, j + 1)
+       = (IF seq[j] = v
+            THEN OccurrencesBefore(v, j) + 1
+            ELSE OccurrencesBefore(v, j))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:24
+@!!loc:56:14:56:18
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v
+PROVE  <1>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:25
+@!!loc:56:20:56:24
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v,
+       <1>1 
+PROVE  <1>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:26
+@!!loc:53:13:53:15
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       OccurrencesBefore(v, j) == Cardinality(PositionsBefore(v, j)),
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v,
+       <1>1 ,
+       <2>1 ,
+       <2>2 ,
+       <2>3 ,
+       FS_AddElement 
+PROVE  OccurrencesBefore(v, j + 1)
+       = (IF seq[j] = v
+            THEN OccurrencesBefore(v, j) + 1
+            ELSE OccurrencesBefore(v, j))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:27
+@!!loc:53:16:53:20
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       OccurrencesBefore(v, j) == Cardinality(PositionsBefore(v, j)),
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v
+PROVE  <1>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:28
+@!!loc:53:22:53:26
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       OccurrencesBefore(v, j) == Cardinality(PositionsBefore(v, j)),
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v,
+       <1>1 
+PROVE  <2>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:29
+@!!loc:53:28:53:32
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       OccurrencesBefore(v, j) == Cardinality(PositionsBefore(v, j)),
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v,
+       <1>1 ,
+       <2>1 
+PROVE  <2>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:30
+@!!loc:53:34:53:38
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       OccurrencesBefore(v, j) == Cardinality(PositionsBefore(v, j)),
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v,
+       <1>1 ,
+       <2>1 ,
+       <2>2 
+PROVE  <2>3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:31
+@!!loc:53:40:53:53
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       OccurrencesBefore(v, j) == Cardinality(PositionsBefore(v, j)),
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v,
+       <1>1 ,
+       <2>1 ,
+       <2>2 ,
+       <2>3 
+PROVE  FS_AddElement
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:32
+@!!loc:48:5:48:7
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v,
+       PositionsFinite 
+PROVE  IsFiniteSet(PositionsBefore(v, j))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:33
+@!!loc:48:8:48:23
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v
+PROVE  PositionsFinite
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:34
+@!!loc:50:5:50:7
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v,
+       PositionsType 
+PROVE  j \notin PositionsBefore(v, j)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:35
+@!!loc:50:8:50:21
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v
+PROVE  PositionsType
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:36
+@!!loc:52:5:52:7
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v,
+       <1>1 ,
+       PositionsPlusOne ,
+       Zenon 
+PROVE  PositionsBefore(v, j + 1) = PositionsBefore(v, j) \cup {j}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:37
+@!!loc:52:8:52:12
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v
+PROVE  <1>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:38
+@!!loc:52:14:52:30
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v,
+       <1>1 
+PROVE  PositionsPlusOne
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:39
+@!!loc:52:32:52:37
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v,
+       <1>1 ,
+       PositionsPlusOne 
+PROVE  Zenon
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:40
+@!!loc:55:3:55:5
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       OccurrencesBefore(v, j) == Cardinality(PositionsBefore(v, j)),
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v,
+       <1>2 ,
+       PositionsPlusOne ,
+       Zenon 
+PROVE  OccurrencesBefore(v, j + 1)
+       = (IF seq[j] = v
+            THEN OccurrencesBefore(v, j) + 1
+            ELSE OccurrencesBefore(v, j))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:41
+@!!loc:55:6:55:10
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       OccurrencesBefore(v, j) == Cardinality(PositionsBefore(v, j)),
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v
+PROVE  <1>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:42
+@!!loc:55:12:55:28
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       OccurrencesBefore(v, j) == Cardinality(PositionsBefore(v, j)),
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v,
+       <1>2 
+PROVE  PositionsPlusOne
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:43
+@!!loc:55:30:55:35
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       OccurrencesBefore(v, j) == Cardinality(PositionsBefore(v, j)),
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v,
+       <1>2 ,
+       PositionsPlusOne 
+PROVE  Zenon
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:44
+@!!loc:97:11:97:13
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       Spec == Init /\ [][Next]_vars /\ (WF_(vars) (Next)),
+       <1>1 ,
+       <1>2 ,
+       <1>3 ,
+       TypeCorrect ,
+       PTL 
+PROVE  Spec => []Correct
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:45
+@!!loc:97:14:97:18
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       Spec == Init /\ [][Next]_vars /\ (WF_(vars) (Next))
+PROVE  <1>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:46
+@!!loc:97:20:97:24
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       Spec == Init /\ [][Next]_vars /\ (WF_(vars) (Next)),
+       <1>1 
+PROVE  <1>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:47
+@!!loc:97:26:97:30
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       Spec == Init /\ [][Next]_vars /\ (WF_(vars) (Next)),
+       <1>1 ,
+       <1>2 
+PROVE  <1>3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:48
+@!!loc:97:32:97:43
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       Spec == Init /\ [][Next]_vars /\ (WF_(vars) (Next)),
+       <1>1 ,
+       <1>2 ,
+       <1>3 
+PROVE  TypeCorrect
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:49
+@!!loc:97:45:97:48
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       Spec == Init /\ [][Next]_vars /\ (WF_(vars) (Next)),
+       <1>1 ,
+       <1>2 ,
+       <1>3 ,
+       TypeCorrect 
+PROVE  PTL
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:50
+@!!loc:63:3:63:5
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       Init == /\ seq \in Seq(Value)
+               /\ i = 1
+               /\ cand \in Value
+               /\ cnt = 0,
+       Inv ==
+         /\ cnt =< OccurrencesBefore(cand, i)
+         /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+         /\ \A v \in Value \ {cand} :
+               2 * OccurrencesBefore(v, i) =< i - 1 - cnt,
+       OccurrencesOne 
+PROVE  Init => Inv
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:51
+@!!loc:63:6:63:20
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       Init == /\ seq \in Seq(Value)
+               /\ i = 1
+               /\ cand \in Value
+               /\ cnt = 0,
+       Inv ==
+         /\ cnt =< OccurrencesBefore(cand, i)
+         /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+         /\ \A v \in Value \ {cand} :
+               2 * OccurrencesBefore(v, i) =< i - 1 - cnt
+PROVE  OccurrencesOne
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:52
+@!!loc:94:13:94:15
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ==
+         /\ seq \in Seq(Value)
+         /\ i \in 1..Len(seq) + 1
+         /\ cand \in Value
+         /\ cnt \in Nat,
+       Next ==
+         /\ i =< Len(seq)
+         /\ i' = i + 1 /\ seq' = seq
+         /\ \/ /\ cnt = 0
+               /\ cand' = seq[i]
+               /\ cnt' = 1
+            \/ /\ cnt # 0 /\ cand = seq[i]
+               /\ cand' = cand
+               /\ cnt' = cnt + 1
+            \/ /\ cnt # 0 /\ cand # seq[i]
+               /\ cand' = cand
+               /\ cnt' = cnt - 1,
+       TypeOK ,
+       Inv ,
+       Next ,
+       <2>_a71 ,
+       OccurrencesType ,
+       <2>1 ,
+       <2>2 ,
+       <2>3 
+PROVE  Inv'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:53
+@!!loc:94:16:94:20
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ==
+         /\ seq \in Seq(Value)
+         /\ i \in 1..Len(seq) + 1
+         /\ cand \in Value
+         /\ cnt \in Nat,
+       Next ==
+         /\ i =< Len(seq)
+         /\ i' = i + 1 /\ seq' = seq
+         /\ \/ /\ cnt = 0
+               /\ cand' = seq[i]
+               /\ cnt' = 1
+            \/ /\ cnt # 0 /\ cand = seq[i]
+               /\ cand' = cand
+               /\ cnt' = cnt + 1
+            \/ /\ cnt # 0 /\ cand # seq[i]
+               /\ cand' = cand
+               /\ cnt' = cnt - 1,
+       TypeOK ,
+       Inv ,
+       Next ,
+       <2>_a71 ,
+       OccurrencesType 
+PROVE  <2>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:54
+@!!loc:94:22:94:26
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ==
+         /\ seq \in Seq(Value)
+         /\ i \in 1..Len(seq) + 1
+         /\ cand \in Value
+         /\ cnt \in Nat,
+       Next ==
+         /\ i =< Len(seq)
+         /\ i' = i + 1 /\ seq' = seq
+         /\ \/ /\ cnt = 0
+               /\ cand' = seq[i]
+               /\ cnt' = 1
+            \/ /\ cnt # 0 /\ cand = seq[i]
+               /\ cand' = cand
+               /\ cnt' = cnt + 1
+            \/ /\ cnt # 0 /\ cand # seq[i]
+               /\ cand' = cand
+               /\ cnt' = cnt - 1,
+       TypeOK ,
+       Inv ,
+       Next ,
+       <2>_a71 ,
+       OccurrencesType ,
+       <2>1 
+PROVE  <2>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:55
+@!!loc:94:28:94:32
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ==
+         /\ seq \in Seq(Value)
+         /\ i \in 1..Len(seq) + 1
+         /\ cand \in Value
+         /\ cnt \in Nat,
+       Next ==
+         /\ i =< Len(seq)
+         /\ i' = i + 1 /\ seq' = seq
+         /\ \/ /\ cnt = 0
+               /\ cand' = seq[i]
+               /\ cnt' = 1
+            \/ /\ cnt # 0 /\ cand = seq[i]
+               /\ cand' = cand
+               /\ cnt' = cnt + 1
+            \/ /\ cnt # 0 /\ cand # seq[i]
+               /\ cand' = cand
+               /\ cnt' = cnt - 1,
+       TypeOK ,
+       Inv ,
+       Next ,
+       <2>_a71 ,
+       OccurrencesType ,
+       <2>1 ,
+       <2>2 
+PROVE  <2>3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:56
+@!!loc:66:5:66:7
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       vars == <<seq, i, cand, cnt>>,
+       PositionsBefore(v, j) == {k \in 1..j - 1 : seq[k] = v},
+       OccurrencesBefore(v, j) == Cardinality(PositionsBefore(v, j)),
+       Inv ==
+         /\ cnt =< OccurrencesBefore(cand, i)
+         /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+         /\ \A v \in Value \ {cand} :
+               2 * OccurrencesBefore(v, i) =< i - 1 - cnt,
+       <2>_a70 
+PROVE  TypeOK /\ Inv /\ [Next]_vars => Inv'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:57
+@!!loc:68:5:68:7
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       Next ==
+         /\ i =< Len(seq)
+         /\ i' = i + 1 /\ seq' = seq
+         /\ \/ /\ cnt = 0
+               /\ cand' = seq[i]
+               /\ cnt' = 1
+            \/ /\ cnt # 0 /\ cand = seq[i]
+               /\ cand' = cand
+               /\ cnt' = cnt + 1
+            \/ /\ cnt # 0 /\ cand # seq[i]
+               /\ cand' = cand
+               /\ cnt' = cnt - 1,
+       TypeOK ,
+       Inv ,
+       Next 
+PROVE  i =< Len(seq) /\ i' = i + 1 /\ seq' = seq
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:58
+@!!loc:70:5:70:7
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       PositionsBefore(v, j) == {k \in 1..j - 1 : seq[k] = v},
+       OccurrencesBefore(v, j) == Cardinality(PositionsBefore(v, j)),
+       TypeOK ,
+       Inv ,
+       Next ,
+       <2>_a71 
+PROVE  \A v \in Value : OccurrencesBefore(v, i)' = OccurrencesBefore(v, i')
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:59
+@!!loc:71:12:71:27
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ==
+         /\ seq \in Seq(Value)
+         /\ i \in 1..Len(seq) + 1
+         /\ cand \in Value
+         /\ cnt \in Nat,
+       TypeOK ,
+       Inv ,
+       Next ,
+       <2>_a71 
+PROVE  OccurrencesType
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:60
+@!!loc:82:15:82:17
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ==
+         /\ seq \in Seq(Value)
+         /\ i \in 1..Len(seq) + 1
+         /\ cand \in Value
+         /\ cnt \in Nat,
+       Inv ==
+         /\ cnt =< OccurrencesBefore(cand, i)
+         /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+         /\ \A v \in Value \ {cand} :
+               2 * OccurrencesBefore(v, i) =< i - 1 - cnt,
+       TypeOK ,
+       Inv ,
+       Next ,
+       <2>_a71 ,
+       OccurrencesType ,
+       <2>0 ,
+       <2>1 ,
+       <3>2 ,
+       <3>3 ,
+       <3>4 
+PROVE  Inv'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:61
+@!!loc:82:18:82:22
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ==
+         /\ seq \in Seq(Value)
+         /\ i \in 1..Len(seq) + 1
+         /\ cand \in Value
+         /\ cnt \in Nat,
+       Inv ==
+         /\ cnt =< OccurrencesBefore(cand, i)
+         /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+         /\ \A v \in Value \ {cand} :
+               2 * OccurrencesBefore(v, i) =< i - 1 - cnt,
+       TypeOK ,
+       Inv ,
+       Next ,
+       <2>_a71 ,
+       OccurrencesType 
+PROVE  <2>0
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:62
+@!!loc:82:24:82:28
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ==
+         /\ seq \in Seq(Value)
+         /\ i \in 1..Len(seq) + 1
+         /\ cand \in Value
+         /\ cnt \in Nat,
+       Inv ==
+         /\ cnt =< OccurrencesBefore(cand, i)
+         /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+         /\ \A v \in Value \ {cand} :
+               2 * OccurrencesBefore(v, i) =< i - 1 - cnt,
+       TypeOK ,
+       Inv ,
+       Next ,
+       <2>_a71 ,
+       OccurrencesType ,
+       <2>0 
+PROVE  <2>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:63
+@!!loc:82:30:82:34
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ==
+         /\ seq \in Seq(Value)
+         /\ i \in 1..Len(seq) + 1
+         /\ cand \in Value
+         /\ cnt \in Nat,
+       Inv ==
+         /\ cnt =< OccurrencesBefore(cand, i)
+         /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+         /\ \A v \in Value \ {cand} :
+               2 * OccurrencesBefore(v, i) =< i - 1 - cnt,
+       TypeOK ,
+       Inv ,
+       Next ,
+       <2>_a71 ,
+       OccurrencesType ,
+       <2>0 ,
+       <2>1 
+PROVE  <3>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:64
+@!!loc:82:36:82:40
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ==
+         /\ seq \in Seq(Value)
+         /\ i \in 1..Len(seq) + 1
+         /\ cand \in Value
+         /\ cnt \in Nat,
+       Inv ==
+         /\ cnt =< OccurrencesBefore(cand, i)
+         /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+         /\ \A v \in Value \ {cand} :
+               2 * OccurrencesBefore(v, i) =< i - 1 - cnt,
+       TypeOK ,
+       Inv ,
+       Next ,
+       <2>_a71 ,
+       OccurrencesType ,
+       <2>0 ,
+       <2>1 ,
+       <3>2 
+PROVE  <3>3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:65
+@!!loc:82:42:82:46
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ==
+         /\ seq \in Seq(Value)
+         /\ i \in 1..Len(seq) + 1
+         /\ cand \in Value
+         /\ cnt \in Nat,
+       Inv ==
+         /\ cnt =< OccurrencesBefore(cand, i)
+         /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+         /\ \A v \in Value \ {cand} :
+               2 * OccurrencesBefore(v, i) =< i - 1 - cnt,
+       TypeOK ,
+       Inv ,
+       Next ,
+       <2>_a71 ,
+       OccurrencesType ,
+       <2>0 ,
+       <2>1 ,
+       <3>2 ,
+       <3>3 
+PROVE  <3>4
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:66
+@!!loc:74:7:74:9
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ==
+         /\ seq \in Seq(Value)
+         /\ i \in 1..Len(seq) + 1
+         /\ cand \in Value
+         /\ cnt \in Nat,
+       PositionsBefore(v, j) == {k \in 1..j - 1 : seq[k] = v},
+       TypeOK ,
+       Inv ,
+       Next ,
+       <2>_a71 ,
+       OccurrencesType 
+PROVE  i \in PositionsBefore(seq[i], i + 1)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:67
+@!!loc:76:7:76:9
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ==
+         /\ seq \in Seq(Value)
+         /\ i \in 1..Len(seq) + 1
+         /\ cand \in Value
+         /\ cnt \in Nat,
+       OccurrencesBefore(v, j) == Cardinality(PositionsBefore(v, j)),
+       TypeOK ,
+       Inv ,
+       Next ,
+       <2>_a71 ,
+       OccurrencesType ,
+       <3>1 ,
+       PositionsFinite ,
+       FS_EmptySet 
+PROVE  1 =< OccurrencesBefore(seq[i], i + 1)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:68
+@!!loc:76:10:76:14
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ==
+         /\ seq \in Seq(Value)
+         /\ i \in 1..Len(seq) + 1
+         /\ cand \in Value
+         /\ cnt \in Nat,
+       OccurrencesBefore(v, j) == Cardinality(PositionsBefore(v, j)),
+       TypeOK ,
+       Inv ,
+       Next ,
+       <2>_a71 ,
+       OccurrencesType 
+PROVE  <3>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:69
+@!!loc:76:16:76:31
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ==
+         /\ seq \in Seq(Value)
+         /\ i \in 1..Len(seq) + 1
+         /\ cand \in Value
+         /\ cnt \in Nat,
+       OccurrencesBefore(v, j) == Cardinality(PositionsBefore(v, j)),
+       TypeOK ,
+       Inv ,
+       Next ,
+       <2>_a71 ,
+       OccurrencesType ,
+       <3>1 
+PROVE  PositionsFinite
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:70
+@!!loc:76:33:76:44
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ==
+         /\ seq \in Seq(Value)
+         /\ i \in 1..Len(seq) + 1
+         /\ cand \in Value
+         /\ cnt \in Nat,
+       OccurrencesBefore(v, j) == Cardinality(PositionsBefore(v, j)),
+       TypeOK ,
+       Inv ,
+       Next ,
+       <2>_a71 ,
+       OccurrencesType ,
+       <3>1 ,
+       PositionsFinite 
+PROVE  FS_EmptySet
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:71
+@!!loc:78:7:78:9
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ==
+         /\ seq \in Seq(Value)
+         /\ i \in 1..Len(seq) + 1
+         /\ cand \in Value
+         /\ cnt \in Nat,
+       Inv ==
+         /\ cnt =< OccurrencesBefore(cand, i)
+         /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+         /\ \A v \in Value \ {cand} :
+               2 * OccurrencesBefore(v, i) =< i - 1 - cnt,
+       TypeOK ,
+       Inv ,
+       Next ,
+       <2>_a71 ,
+       OccurrencesType ,
+       <2>1 ,
+       OccurrencesPlusOne 
+PROVE  2 * (OccurrencesBefore(seq[i], i + 1) - 1) =< (i + 1) - 1 - 1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:72
+@!!loc:78:10:78:14
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ==
+         /\ seq \in Seq(Value)
+         /\ i \in 1..Len(seq) + 1
+         /\ cand \in Value
+         /\ cnt \in Nat,
+       Inv ==
+         /\ cnt =< OccurrencesBefore(cand, i)
+         /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+         /\ \A v \in Value \ {cand} :
+               2 * OccurrencesBefore(v, i) =< i - 1 - cnt,
+       TypeOK ,
+       Inv ,
+       Next ,
+       <2>_a71 ,
+       OccurrencesType 
+PROVE  <2>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:73
+@!!loc:78:16:78:34
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ==
+         /\ seq \in Seq(Value)
+         /\ i \in 1..Len(seq) + 1
+         /\ cand \in Value
+         /\ cnt \in Nat,
+       Inv ==
+         /\ cnt =< OccurrencesBefore(cand, i)
+         /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+         /\ \A v \in Value \ {cand} :
+               2 * OccurrencesBefore(v, i) =< i - 1 - cnt,
+       TypeOK ,
+       Inv ,
+       Next ,
+       <2>_a71 ,
+       OccurrencesType ,
+       <2>1 
+PROVE  OccurrencesPlusOne
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:74
+@!!loc:81:7:81:9
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ==
+         /\ seq \in Seq(Value)
+         /\ i \in 1..Len(seq) + 1
+         /\ cand \in Value
+         /\ cnt \in Nat,
+       Inv ==
+         /\ cnt =< OccurrencesBefore(cand, i)
+         /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+         /\ \A v \in Value \ {cand} :
+               2 * OccurrencesBefore(v, i) =< i - 1 - cnt,
+       TypeOK ,
+       Inv ,
+       Next ,
+       <2>_a71 ,
+       OccurrencesType ,
+       NEW CONSTANT v \in Value \ {seq[i]},
+       <2>1 ,
+       OccurrencesPlusOne 
+PROVE  2 * OccurrencesBefore(v, i + 1) =< (i + 1) - 1 - 1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:75
+@!!loc:81:10:81:14
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ==
+         /\ seq \in Seq(Value)
+         /\ i \in 1..Len(seq) + 1
+         /\ cand \in Value
+         /\ cnt \in Nat,
+       Inv ==
+         /\ cnt =< OccurrencesBefore(cand, i)
+         /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+         /\ \A v \in Value \ {cand} :
+               2 * OccurrencesBefore(v, i) =< i - 1 - cnt,
+       TypeOK ,
+       Inv ,
+       Next ,
+       <2>_a71 ,
+       OccurrencesType ,
+       NEW CONSTANT v \in Value \ {seq[i]}
+PROVE  <2>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:76
+@!!loc:81:16:81:34
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ==
+         /\ seq \in Seq(Value)
+         /\ i \in 1..Len(seq) + 1
+         /\ cand \in Value
+         /\ cnt \in Nat,
+       Inv ==
+         /\ cnt =< OccurrencesBefore(cand, i)
+         /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+         /\ \A v \in Value \ {cand} :
+               2 * OccurrencesBefore(v, i) =< i - 1 - cnt,
+       TypeOK ,
+       Inv ,
+       Next ,
+       <2>_a71 ,
+       OccurrencesType ,
+       NEW CONSTANT v \in Value \ {seq[i]},
+       <2>1 
+PROVE  OccurrencesPlusOne
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:77
+@!!loc:84:5:84:7
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ==
+         /\ seq \in Seq(Value)
+         /\ i \in 1..Len(seq) + 1
+         /\ cand \in Value
+         /\ cnt \in Nat,
+       Inv ==
+         /\ cnt =< OccurrencesBefore(cand, i)
+         /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+         /\ \A v \in Value \ {cand} :
+               2 * OccurrencesBefore(v, i) =< i - 1 - cnt,
+       TypeOK ,
+       Inv ,
+       Next ,
+       <2>_a71 ,
+       OccurrencesType ,
+       <2>0 ,
+       <2>2 ,
+       OccurrencesPlusOne 
+PROVE  Inv'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:78
+@!!loc:84:8:84:12
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ==
+         /\ seq \in Seq(Value)
+         /\ i \in 1..Len(seq) + 1
+         /\ cand \in Value
+         /\ cnt \in Nat,
+       Inv ==
+         /\ cnt =< OccurrencesBefore(cand, i)
+         /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+         /\ \A v \in Value \ {cand} :
+               2 * OccurrencesBefore(v, i) =< i - 1 - cnt,
+       TypeOK ,
+       Inv ,
+       Next ,
+       <2>_a71 ,
+       OccurrencesType 
+PROVE  <2>0
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:79
+@!!loc:84:14:84:18
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ==
+         /\ seq \in Seq(Value)
+         /\ i \in 1..Len(seq) + 1
+         /\ cand \in Value
+         /\ cnt \in Nat,
+       Inv ==
+         /\ cnt =< OccurrencesBefore(cand, i)
+         /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+         /\ \A v \in Value \ {cand} :
+               2 * OccurrencesBefore(v, i) =< i - 1 - cnt,
+       TypeOK ,
+       Inv ,
+       Next ,
+       <2>_a71 ,
+       OccurrencesType ,
+       <2>0 
+PROVE  <2>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:80
+@!!loc:84:20:84:38
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ==
+         /\ seq \in Seq(Value)
+         /\ i \in 1..Len(seq) + 1
+         /\ cand \in Value
+         /\ cnt \in Nat,
+       Inv ==
+         /\ cnt =< OccurrencesBefore(cand, i)
+         /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+         /\ \A v \in Value \ {cand} :
+               2 * OccurrencesBefore(v, i) =< i - 1 - cnt,
+       TypeOK ,
+       Inv ,
+       Next ,
+       <2>_a71 ,
+       OccurrencesType ,
+       <2>0 ,
+       <2>2 
+PROVE  OccurrencesPlusOne
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:81
+@!!loc:93:15:93:17
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ==
+         /\ seq \in Seq(Value)
+         /\ i \in 1..Len(seq) + 1
+         /\ cand \in Value
+         /\ cnt \in Nat,
+       Inv ==
+         /\ cnt =< OccurrencesBefore(cand, i)
+         /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+         /\ \A v \in Value \ {cand} :
+               2 * OccurrencesBefore(v, i) =< i - 1 - cnt,
+       TypeOK ,
+       Inv ,
+       Next ,
+       <2>_a71 ,
+       OccurrencesType ,
+       <2>0 ,
+       <2>3 ,
+       <3>10 ,
+       <3>20 ,
+       <3>30 
+PROVE  Inv'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:82
+@!!loc:93:18:93:22
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ==
+         /\ seq \in Seq(Value)
+         /\ i \in 1..Len(seq) + 1
+         /\ cand \in Value
+         /\ cnt \in Nat,
+       Inv ==
+         /\ cnt =< OccurrencesBefore(cand, i)
+         /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+         /\ \A v \in Value \ {cand} :
+               2 * OccurrencesBefore(v, i) =< i - 1 - cnt,
+       TypeOK ,
+       Inv ,
+       Next ,
+       <2>_a71 ,
+       OccurrencesType 
+PROVE  <2>0
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:83
+@!!loc:93:24:93:28
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ==
+         /\ seq \in Seq(Value)
+         /\ i \in 1..Len(seq) + 1
+         /\ cand \in Value
+         /\ cnt \in Nat,
+       Inv ==
+         /\ cnt =< OccurrencesBefore(cand, i)
+         /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+         /\ \A v \in Value \ {cand} :
+               2 * OccurrencesBefore(v, i) =< i - 1 - cnt,
+       TypeOK ,
+       Inv ,
+       Next ,
+       <2>_a71 ,
+       OccurrencesType ,
+       <2>0 
+PROVE  <2>3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:84
+@!!loc:93:30:93:35
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ==
+         /\ seq \in Seq(Value)
+         /\ i \in 1..Len(seq) + 1
+         /\ cand \in Value
+         /\ cnt \in Nat,
+       Inv ==
+         /\ cnt =< OccurrencesBefore(cand, i)
+         /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+         /\ \A v \in Value \ {cand} :
+               2 * OccurrencesBefore(v, i) =< i - 1 - cnt,
+       TypeOK ,
+       Inv ,
+       Next ,
+       <2>_a71 ,
+       OccurrencesType ,
+       <2>0 ,
+       <2>3 
+PROVE  <3>10
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:85
+@!!loc:93:37:93:42
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ==
+         /\ seq \in Seq(Value)
+         /\ i \in 1..Len(seq) + 1
+         /\ cand \in Value
+         /\ cnt \in Nat,
+       Inv ==
+         /\ cnt =< OccurrencesBefore(cand, i)
+         /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+         /\ \A v \in Value \ {cand} :
+               2 * OccurrencesBefore(v, i) =< i - 1 - cnt,
+       TypeOK ,
+       Inv ,
+       Next ,
+       <2>_a71 ,
+       OccurrencesType ,
+       <2>0 ,
+       <2>3 ,
+       <3>10 
+PROVE  <3>20
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:86
+@!!loc:93:44:93:49
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ==
+         /\ seq \in Seq(Value)
+         /\ i \in 1..Len(seq) + 1
+         /\ cand \in Value
+         /\ cnt \in Nat,
+       Inv ==
+         /\ cnt =< OccurrencesBefore(cand, i)
+         /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+         /\ \A v \in Value \ {cand} :
+               2 * OccurrencesBefore(v, i) =< i - 1 - cnt,
+       TypeOK ,
+       Inv ,
+       Next ,
+       <2>_a71 ,
+       OccurrencesType ,
+       <2>0 ,
+       <2>3 ,
+       <3>10 ,
+       <3>20 
+PROVE  <3>30
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:87
+@!!loc:87:7:87:9
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ==
+         /\ seq \in Seq(Value)
+         /\ i \in 1..Len(seq) + 1
+         /\ cand \in Value
+         /\ cnt \in Nat,
+       Inv ==
+         /\ cnt =< OccurrencesBefore(cand, i)
+         /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+         /\ \A v \in Value \ {cand} :
+               2 * OccurrencesBefore(v, i) =< i - 1 - cnt,
+       TypeOK ,
+       Inv ,
+       Next ,
+       <2>_a71 ,
+       OccurrencesType ,
+       <2>3 ,
+       OccurrencesPlusOne 
+PROVE  cnt' =< OccurrencesBefore(cand', i')
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:88
+@!!loc:87:10:87:14
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ==
+         /\ seq \in Seq(Value)
+         /\ i \in 1..Len(seq) + 1
+         /\ cand \in Value
+         /\ cnt \in Nat,
+       Inv ==
+         /\ cnt =< OccurrencesBefore(cand, i)
+         /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+         /\ \A v \in Value \ {cand} :
+               2 * OccurrencesBefore(v, i) =< i - 1 - cnt,
+       TypeOK ,
+       Inv ,
+       Next ,
+       <2>_a71 ,
+       OccurrencesType 
+PROVE  <2>3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:89
+@!!loc:87:16:87:34
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ==
+         /\ seq \in Seq(Value)
+         /\ i \in 1..Len(seq) + 1
+         /\ cand \in Value
+         /\ cnt \in Nat,
+       Inv ==
+         /\ cnt =< OccurrencesBefore(cand, i)
+         /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+         /\ \A v \in Value \ {cand} :
+               2 * OccurrencesBefore(v, i) =< i - 1 - cnt,
+       TypeOK ,
+       Inv ,
+       Next ,
+       <2>_a71 ,
+       OccurrencesType ,
+       <2>3 
+PROVE  OccurrencesPlusOne
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:90
+@!!loc:89:7:89:9
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ==
+         /\ seq \in Seq(Value)
+         /\ i \in 1..Len(seq) + 1
+         /\ cand \in Value
+         /\ cnt \in Nat,
+       Inv ==
+         /\ cnt =< OccurrencesBefore(cand, i)
+         /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+         /\ \A v \in Value \ {cand} :
+               2 * OccurrencesBefore(v, i) =< i - 1 - cnt,
+       TypeOK ,
+       Inv ,
+       Next ,
+       <2>_a71 ,
+       OccurrencesType ,
+       <2>3 ,
+       OccurrencesPlusOne 
+PROVE  2 * (OccurrencesBefore(cand', i') - cnt') =< i' - 1 - cnt'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:91
+@!!loc:89:10:89:14
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ==
+         /\ seq \in Seq(Value)
+         /\ i \in 1..Len(seq) + 1
+         /\ cand \in Value
+         /\ cnt \in Nat,
+       Inv ==
+         /\ cnt =< OccurrencesBefore(cand, i)
+         /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+         /\ \A v \in Value \ {cand} :
+               2 * OccurrencesBefore(v, i) =< i - 1 - cnt,
+       TypeOK ,
+       Inv ,
+       Next ,
+       <2>_a71 ,
+       OccurrencesType 
+PROVE  <2>3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:92
+@!!loc:89:16:89:34
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ==
+         /\ seq \in Seq(Value)
+         /\ i \in 1..Len(seq) + 1
+         /\ cand \in Value
+         /\ cnt \in Nat,
+       Inv ==
+         /\ cnt =< OccurrencesBefore(cand, i)
+         /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+         /\ \A v \in Value \ {cand} :
+               2 * OccurrencesBefore(v, i) =< i - 1 - cnt,
+       TypeOK ,
+       Inv ,
+       Next ,
+       <2>_a71 ,
+       OccurrencesType ,
+       <2>3 
+PROVE  OccurrencesPlusOne
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:93
+@!!loc:92:7:92:9
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ==
+         /\ seq \in Seq(Value)
+         /\ i \in 1..Len(seq) + 1
+         /\ cand \in Value
+         /\ cnt \in Nat,
+       Inv ==
+         /\ cnt =< OccurrencesBefore(cand, i)
+         /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+         /\ \A v \in Value \ {cand} :
+               2 * OccurrencesBefore(v, i) =< i - 1 - cnt,
+       TypeOK ,
+       Inv ,
+       Next ,
+       <2>_a71 ,
+       OccurrencesType ,
+       NEW CONSTANT v \in Value \ {cand'},
+       <2>3 ,
+       OccurrencesPlusOne 
+PROVE  2 * OccurrencesBefore(v, i') =< i' - 1 - cnt'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:94
+@!!loc:92:10:92:14
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ==
+         /\ seq \in Seq(Value)
+         /\ i \in 1..Len(seq) + 1
+         /\ cand \in Value
+         /\ cnt \in Nat,
+       Inv ==
+         /\ cnt =< OccurrencesBefore(cand, i)
+         /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+         /\ \A v \in Value \ {cand} :
+               2 * OccurrencesBefore(v, i) =< i - 1 - cnt,
+       TypeOK ,
+       Inv ,
+       Next ,
+       <2>_a71 ,
+       OccurrencesType ,
+       NEW CONSTANT v \in Value \ {cand'}
+PROVE  <2>3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:95
+@!!loc:92:16:92:34
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ==
+         /\ seq \in Seq(Value)
+         /\ i \in 1..Len(seq) + 1
+         /\ cand \in Value
+         /\ cnt \in Nat,
+       Inv ==
+         /\ cnt =< OccurrencesBefore(cand, i)
+         /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+         /\ \A v \in Value \ {cand} :
+               2 * OccurrencesBefore(v, i) =< i - 1 - cnt,
+       TypeOK ,
+       Inv ,
+       Next ,
+       <2>_a71 ,
+       OccurrencesType ,
+       NEW CONSTANT v \in Value \ {cand'},
+       <2>3 
+PROVE  OccurrencesPlusOne
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:96
+@!!loc:96:3:96:5
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ==
+         /\ seq \in Seq(Value)
+         /\ i \in 1..Len(seq) + 1
+         /\ cand \in Value
+         /\ cnt \in Nat,
+       Occurrences(x) == OccurrencesBefore(x, Len(seq) + 1),
+       Correct ==
+         i > Len(seq)
+         => (\A v \in Value : 2 * Occurrences(v) > Len(seq) => v = cand),
+       Inv ==
+         /\ cnt =< OccurrencesBefore(cand, i)
+         /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+         /\ \A v \in Value \ {cand} :
+               2 * OccurrencesBefore(v, i) =< i - 1 - cnt,
+       OccurrencesType 
+PROVE  TypeOK /\ Inv => Correct
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:97
+@!!loc:96:6:96:21
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Value,
+       ConstAssump == Value # {},
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ==
+         /\ seq \in Seq(Value)
+         /\ i \in 1..Len(seq) + 1
+         /\ cand \in Value
+         /\ cnt \in Nat,
+       Occurrences(x) == OccurrencesBefore(x, Len(seq) + 1),
+       Correct ==
+         i > Len(seq)
+         => (\A v \in Value : 2 * Occurrences(v) > Len(seq) => v = cand),
+       Inv ==
+         /\ cnt =< OccurrencesBefore(cand, i)
+         /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+         /\ \A v \in Value \ {cand} :
+               2 * OccurrencesBefore(v, i) =< i - 1 - cnt
+PROVE  OccurrencesType
+
+@!!END
+
+@!!BEGIN
+@!!type:obligationsnumber
+@!!count:97
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:1
+@!!loc:12:11:12:13
+@!!status:normalized
+@!!meth:time-limit: 10
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       Init => TypeOK ,
+       TypeOK /\ [Next]_vars => TypeOK' ,
+       TRUE 
+PROVE  Init /\ [][Next]_vars /\ (WF_(vars) (Next)) => []TypeOK
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:2
+@!!loc:12:14:12:18
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       Init => TypeOK 
+PROVE  Init => TypeOK
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:3
+@!!loc:12:20:12:24
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK /\ [Next]_vars => TypeOK' ,
+       Init => TypeOK 
+PROVE  TypeOK /\ [Next]_vars => TypeOK'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:4
+@!!loc:12:26:12:29
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       Init => TypeOK ,
+       TypeOK /\ [Next]_vars => TypeOK' 
+PROVE  TRUE
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:5
+@!!loc:9:3:9:5
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt
+PROVE  (/\ seq \in Seq(Value)
+        /\ i = 1
+        /\ cand \in Value
+        /\ cnt = 0)
+       => (/\ seq \in Seq(Value)
+           /\ i \in 1..Len(seq) + 1
+           /\ cand \in Value
+           /\ cnt \in Nat)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:6
+@!!loc:11:3:11:5
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt
+PROVE  (/\ seq \in Seq(Value)
+        /\ i \in 1..Len(seq) + 1
+        /\ cand \in Value
+        /\ cnt \in Nat)
+       /\ [/\ i =< Len(seq)
+           /\ i' = i + 1 /\ seq' = seq
+           /\ \/ /\ cnt = 0
+                 /\ cand' = seq[i]
+                 /\ cnt' = 1
+              \/ /\ cnt # 0 /\ cand = seq[i]
+                 /\ cand' = cand
+                 /\ cnt' = cnt + 1
+              \/ /\ cnt # 0 /\ cand # seq[i]
+                 /\ cand' = cand
+                 /\ cnt' = cnt - 1]_<<seq, i, cand, cnt>>
+       => (/\ seq \in Seq(Value)
+           /\ i \in 1..Len(seq) + 1
+           /\ cand \in Value
+           /\ cnt \in Nat)'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:7
+@!!loc:18:1:18:3
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt
+PROVE  \A v : {k \in 1..1 - 1 : seq[k] = v} = {}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:8
+@!!loc:21:1:21:3
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt
+PROVE  \A v, j : {k \in 1..j - 1 : seq[k] = v} \in SUBSET 1..j - 1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:9
+@!!loc:26:1:26:3
+@!!status:normalized
+@!!meth:time-limit: 10
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       NEW CONSTANT v,
+       NEW CONSTANT j \in Int,
+       1 \in Int ,
+       j - 1 \in Int ,
+       \A v_1, j_1 : PositionsBefore(v_1, j_1) \in SUBSET 1..j_1 - 1 ,
+       ASSUME NEW CONSTANT a \in Int,
+              NEW CONSTANT b \in Int
+       PROVE  /\ IsFiniteSet(a..b)
+              /\ Cardinality(a..b) = (IF a > b THEN 0 ELSE b - a + 1) ,
+       ASSUME NEW CONSTANT S,
+              IsFiniteSet(S) ,
+              NEW CONSTANT T \in SUBSET S
+       PROVE  /\ IsFiniteSet(T)
+              /\ Cardinality(T) =< Cardinality(S)
+              /\ Cardinality(S) = Cardinality(T) => S = T ,
+       TRUE 
+PROVE  IsFiniteSet(PositionsBefore(v, j))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:10
+@!!loc:26:4:26:13
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       NEW CONSTANT v,
+       NEW CONSTANT j \in Int
+PROVE  1 \in Int
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:11
+@!!loc:26:15:26:26
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       NEW CONSTANT v,
+       NEW CONSTANT j \in Int,
+       1 \in Int 
+PROVE  j - 1 \in Int
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:12
+@!!loc:26:28:26:41
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       \A v, j : PositionsBefore(v, j) \in SUBSET 1..j - 1 ,
+       NEW CONSTANT v,
+       NEW CONSTANT j \in Int,
+       1 \in Int ,
+       j - 1 \in Int 
+PROVE  \A v_1, j_1 : PositionsBefore(v_1, j_1) \in SUBSET 1..j_1 - 1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:13
+@!!loc:26:43:26:54
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       ASSUME NEW CONSTANT a \in Int,
+              NEW CONSTANT b \in Int
+       PROVE  /\ IsFiniteSet(a..b)
+              /\ Cardinality(a..b) = (IF a > b THEN 0 ELSE b - a + 1) ,
+       NEW CONSTANT v,
+       NEW CONSTANT j \in Int,
+       1 \in Int ,
+       j - 1 \in Int ,
+       \A v_1, j_1 : PositionsBefore(v_1, j_1) \in SUBSET 1..j_1 - 1 
+PROVE  ASSUME NEW CONSTANT a \in Int,
+              NEW CONSTANT b \in Int
+       PROVE  /\ IsFiniteSet(a..b)
+              /\ Cardinality(a..b) = (IF a > b THEN 0 ELSE b - a + 1)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:14
+@!!loc:26:56:26:65
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       ASSUME NEW CONSTANT S,
+              IsFiniteSet(S) ,
+              NEW CONSTANT T \in SUBSET S
+       PROVE  /\ IsFiniteSet(T)
+              /\ Cardinality(T) =< Cardinality(S)
+              /\ Cardinality(S) = Cardinality(T) => S = T ,
+       NEW CONSTANT v,
+       NEW CONSTANT j \in Int,
+       1 \in Int ,
+       j - 1 \in Int ,
+       \A v_1, j_1 : PositionsBefore(v_1, j_1) \in SUBSET 1..j_1 - 1 ,
+       ASSUME NEW CONSTANT a \in Int,
+              NEW CONSTANT b \in Int
+       PROVE  /\ IsFiniteSet(a..b)
+              /\ Cardinality(a..b) = (IF a > b THEN 0 ELSE b - a + 1) 
+PROVE  ASSUME NEW CONSTANT S,
+              IsFiniteSet(S) ,
+              NEW CONSTANT T \in SUBSET S
+       PROVE  /\ IsFiniteSet(T)
+              /\ Cardinality(T) =< Cardinality(S)
+              /\ Cardinality(S) = Cardinality(T) => S = T
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:15
+@!!loc:26:67:26:72
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       NEW CONSTANT v,
+       NEW CONSTANT j \in Int,
+       1 \in Int ,
+       j - 1 \in Int ,
+       \A v_1, j_1 : PositionsBefore(v_1, j_1) \in SUBSET 1..j_1 - 1 ,
+       ASSUME NEW CONSTANT a \in Int,
+              NEW CONSTANT b \in Int
+       PROVE  /\ IsFiniteSet(a..b)
+              /\ Cardinality(a..b) = (IF a > b THEN 0 ELSE b - a + 1) ,
+       ASSUME NEW CONSTANT S,
+              IsFiniteSet(S) ,
+              NEW CONSTANT T \in SUBSET S
+       PROVE  /\ IsFiniteSet(T)
+              /\ Cardinality(T) =< Cardinality(S)
+              /\ Cardinality(S) = Cardinality(T) => S = T 
+PROVE  TRUE
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:16
+@!!loc:33:1:33:3
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v
+PROVE  {k \in 1..(j + 1) - 1 : seq[k] = v}
+       = (IF seq[j] = v
+            THEN {k \in 1..j - 1 : seq[k] = v} \cup {j}
+            ELSE {k \in 1..j - 1 : seq[k] = v})
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:17
+@!!loc:36:1:36:3
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       ASSUME NEW CONSTANT v,
+              NEW CONSTANT j \in Int
+       PROVE  IsFiniteSet(PositionsBefore(v, j)) ,
+       ASSUME NEW CONSTANT S,
+              IsFiniteSet(S) 
+       PROVE  /\ Cardinality(S) \in Nat
+              /\ ExistsBijection(1..Cardinality(S), S) 
+PROVE  \A v : \A j \in Int : Cardinality(PositionsBefore(v, j)) \in Nat
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:11
+@!!loc:26:15:26:26
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       NEW CONSTANT v,
+       NEW CONSTANT j \in Int,
+       1 \in Int 
+PROVE  j - 1 \in Int
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:10
+@!!loc:26:4:26:13
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (3%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       NEW CONSTANT v,
+       NEW CONSTANT j \in Int
+PROVE  1 \in Int
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:8
+@!!loc:21:1:21:3
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.2 (4%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt
+PROVE  \A v, j : {k \in 1..j - 1 : seq[k] = v} \in SUBSET 1..j - 1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:7
+@!!loc:18:1:18:3
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.2 (4%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt
+PROVE  \A v : {k \in 1..1 - 1 : seq[k] = v} = {}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:6
+@!!loc:11:3:11:5
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.3 (5%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt
+PROVE  (/\ seq \in Seq(Value)
+        /\ i \in 1..Len(seq) + 1
+        /\ cand \in Value
+        /\ cnt \in Nat)
+       /\ [/\ i =< Len(seq)
+           /\ i' = i + 1 /\ seq' = seq
+           /\ \/ /\ cnt = 0
+                 /\ cand' = seq[i]
+                 /\ cnt' = 1
+              \/ /\ cnt # 0 /\ cand = seq[i]
+                 /\ cand' = cand
+                 /\ cnt' = cnt + 1
+              \/ /\ cnt # 0 /\ cand # seq[i]
+                 /\ cand' = cand
+                 /\ cnt' = cnt - 1]_<<seq, i, cand, cnt>>
+       => (/\ seq \in Seq(Value)
+           /\ i \in 1..Len(seq) + 1
+           /\ cand \in Value
+           /\ cnt \in Nat)'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:5
+@!!loc:9:3:9:5
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.3 (6%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt
+PROVE  (/\ seq \in Seq(Value)
+        /\ i = 1
+        /\ cand \in Value
+        /\ cnt = 0)
+       => (/\ seq \in Seq(Value)
+           /\ i \in 1..Len(seq) + 1
+           /\ cand \in Value
+           /\ cnt \in Nat)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:1
+@!!loc:12:11:12:13
+@!!status:proved
+@!!prover:ls4
+@!!meth:time-limit: 10; time-used: 0.6 (6%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       Init => TypeOK ,
+       TypeOK /\ [Next]_vars => TypeOK' ,
+       TRUE 
+PROVE  Init /\ [][Next]_vars /\ (WF_(vars) (Next)) => []TypeOK
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:18
+@!!loc:36:4:36:19
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       ASSUME NEW CONSTANT v,
+              NEW CONSTANT j \in Int
+       PROVE  IsFiniteSet(PositionsBefore(v, j)) 
+PROVE  ASSUME NEW CONSTANT v,
+              NEW CONSTANT j \in Int
+       PROVE  IsFiniteSet(PositionsBefore(v, j))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:19
+@!!loc:36:21:36:39
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       ASSUME NEW CONSTANT S,
+              IsFiniteSet(S) 
+       PROVE  /\ Cardinality(S) \in Nat
+              /\ ExistsBijection(1..Cardinality(S), S) ,
+       ASSUME NEW CONSTANT v,
+              NEW CONSTANT j \in Int
+       PROVE  IsFiniteSet(PositionsBefore(v, j)) 
+PROVE  ASSUME NEW CONSTANT S,
+              IsFiniteSet(S) 
+       PROVE  /\ Cardinality(S) \in Nat
+              /\ ExistsBijection(1..Cardinality(S), S)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:20
+@!!loc:39:1:39:3
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       \A v : PositionsBefore(v, 1) = {} ,
+       /\ IsFiniteSet({})
+       /\ Cardinality({}) = 0
+       /\ \A S : IsFiniteSet(S) => Cardinality(S) = 0 <=> S = {} 
+PROVE  \A v : Cardinality(PositionsBefore(v, 1)) = 0
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:21
+@!!loc:39:4:39:16
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       \A v : PositionsBefore(v, 1) = {} 
+PROVE  \A v : PositionsBefore(v, 1) = {}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:22
+@!!loc:39:18:39:29
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       /\ IsFiniteSet({})
+       /\ Cardinality({}) = 0
+       /\ \A S : IsFiniteSet(S) => Cardinality(S) = 0 <=> S = {} ,
+       \A v : PositionsBefore(v, 1) = {} 
+PROVE  /\ IsFiniteSet({})
+       /\ Cardinality({}) = 0
+       /\ \A S : IsFiniteSet(S) => Cardinality(S) = 0 <=> S = {}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:23
+@!!loc:56:11:56:13
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v,
+       ASSUME seq[j] = v 
+       PROVE  OccurrencesBefore(v, j + 1)
+              = (IF seq[j] = v
+                   THEN OccurrencesBefore(v, j) + 1
+                   ELSE OccurrencesBefore(v, j)) ,
+       ASSUME seq[j] # v 
+       PROVE  OccurrencesBefore(v, j + 1)
+              = (IF seq[j] = v
+                   THEN OccurrencesBefore(v, j) + 1
+                   ELSE OccurrencesBefore(v, j)) 
+PROVE  OccurrencesBefore(v, j + 1)
+       = (IF seq[j] = v
+            THEN OccurrencesBefore(v, j) + 1
+            ELSE OccurrencesBefore(v, j))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:24
+@!!loc:56:14:56:18
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v,
+       ASSUME seq[j] = v 
+       PROVE  OccurrencesBefore(v, j + 1)
+              = (IF seq[j] = v
+                   THEN OccurrencesBefore(v, j) + 1
+                   ELSE OccurrencesBefore(v, j)) 
+PROVE  ASSUME seq[j] = v 
+       PROVE  OccurrencesBefore(v, j + 1)
+              = (IF seq[j] = v
+                   THEN OccurrencesBefore(v, j) + 1
+                   ELSE OccurrencesBefore(v, j))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:25
+@!!loc:56:20:56:24
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v,
+       ASSUME seq[j] # v 
+       PROVE  OccurrencesBefore(v, j + 1)
+              = (IF seq[j] = v
+                   THEN OccurrencesBefore(v, j) + 1
+                   ELSE OccurrencesBefore(v, j)) ,
+       ASSUME seq[j] = v 
+       PROVE  OccurrencesBefore(v, j + 1)
+              = (IF seq[j] = v
+                   THEN OccurrencesBefore(v, j) + 1
+                   ELSE OccurrencesBefore(v, j)) 
+PROVE  ASSUME seq[j] # v 
+       PROVE  OccurrencesBefore(v, j + 1)
+              = (IF seq[j] = v
+                   THEN OccurrencesBefore(v, j) + 1
+                   ELSE OccurrencesBefore(v, j))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:26
+@!!loc:53:13:53:15
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v,
+       seq[j] = v ,
+       IsFiniteSet(PositionsBefore(v, j)) ,
+       j \notin PositionsBefore(v, j) ,
+       PositionsBefore(v, j + 1) = PositionsBefore(v, j) \cup {j} ,
+       ASSUME NEW CONSTANT S,
+              NEW CONSTANT x,
+              IsFiniteSet(S) 
+       PROVE  /\ IsFiniteSet(S \cup {x})
+              /\ Cardinality(S \cup {x})
+                 = (IF x \in S THEN Cardinality(S) ELSE Cardinality(S) + 1) 
+PROVE  Cardinality(PositionsBefore(v, j + 1))
+       = (IF seq[j] = v
+            THEN Cardinality(PositionsBefore(v, j)) + 1
+            ELSE Cardinality(PositionsBefore(v, j)))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:27
+@!!loc:53:16:53:20
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v,
+       seq[j] = v 
+PROVE  seq[j] = v
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:28
+@!!loc:53:22:53:26
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v,
+       IsFiniteSet(PositionsBefore(v, j)) ,
+       seq[j] = v 
+PROVE  IsFiniteSet(PositionsBefore(v, j))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:29
+@!!loc:53:28:53:32
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v,
+       j \notin PositionsBefore(v, j) ,
+       seq[j] = v ,
+       IsFiniteSet(PositionsBefore(v, j)) 
+PROVE  j \notin PositionsBefore(v, j)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:30
+@!!loc:53:34:53:38
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v,
+       PositionsBefore(v, j + 1) = PositionsBefore(v, j) \cup {j} ,
+       seq[j] = v ,
+       IsFiniteSet(PositionsBefore(v, j)) ,
+       j \notin PositionsBefore(v, j) 
+PROVE  PositionsBefore(v, j + 1) = PositionsBefore(v, j) \cup {j}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:31
+@!!loc:53:40:53:53
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       ASSUME NEW CONSTANT S,
+              NEW CONSTANT x,
+              IsFiniteSet(S) 
+       PROVE  /\ IsFiniteSet(S \cup {x})
+              /\ Cardinality(S \cup {x})
+                 = (IF x \in S THEN Cardinality(S) ELSE Cardinality(S) + 1) ,
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v,
+       seq[j] = v ,
+       IsFiniteSet(PositionsBefore(v, j)) ,
+       j \notin PositionsBefore(v, j) ,
+       PositionsBefore(v, j + 1) = PositionsBefore(v, j) \cup {j} 
+PROVE  ASSUME NEW CONSTANT S,
+              NEW CONSTANT x,
+              IsFiniteSet(S) 
+       PROVE  /\ IsFiniteSet(S \cup {x})
+              /\ Cardinality(S \cup {x})
+                 = (IF x \in S THEN Cardinality(S) ELSE Cardinality(S) + 1)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:32
+@!!loc:48:5:48:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v,
+       ASSUME NEW CONSTANT v_1,
+              NEW CONSTANT j_1 \in Int
+       PROVE  IsFiniteSet(PositionsBefore(v_1, j_1)) 
+PROVE  IsFiniteSet(PositionsBefore(v, j))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:33
+@!!loc:48:8:48:23
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       ASSUME NEW CONSTANT v,
+              NEW CONSTANT j \in Int
+       PROVE  IsFiniteSet(PositionsBefore(v, j)) ,
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v
+PROVE  ASSUME NEW CONSTANT v_1,
+              NEW CONSTANT j_1 \in Int
+       PROVE  IsFiniteSet(PositionsBefore(v_1, j_1))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:34
+@!!loc:50:5:50:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v,
+       \A v_1, j_1 : PositionsBefore(v_1, j_1) \in SUBSET 1..j_1 - 1 
+PROVE  j \notin PositionsBefore(v, j)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:35
+@!!loc:50:8:50:21
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       \A v, j : PositionsBefore(v, j) \in SUBSET 1..j - 1 ,
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v
+PROVE  \A v_1, j_1 : PositionsBefore(v_1, j_1) \in SUBSET 1..j_1 - 1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:36
+@!!loc:52:5:52:7
+@!!status:normalized
+@!!meth:time-limit: 10
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v,
+       seq[j] = v ,
+       ASSUME TypeOK ,
+              NEW CONSTANT j_1 \in 1..Len(seq),
+              NEW CONSTANT v_1
+       PROVE  PositionsBefore(v_1, j_1 + 1)
+              = (IF seq[j_1] = v_1
+                   THEN PositionsBefore(v_1, j_1) \cup {j_1}
+                   ELSE PositionsBefore(v_1, j_1)) ,
+       TRUE 
+PROVE  PositionsBefore(v, j + 1) = PositionsBefore(v, j) \cup {j}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:37
+@!!loc:52:8:52:12
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v,
+       seq[j] = v 
+PROVE  seq[j] = v
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:38
+@!!loc:52:14:52:30
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       ASSUME TypeOK ,
+              NEW CONSTANT j \in 1..Len(seq),
+              NEW CONSTANT v
+       PROVE  PositionsBefore(v, j + 1)
+              = (IF seq[j] = v
+                   THEN PositionsBefore(v, j) \cup {j}
+                   ELSE PositionsBefore(v, j)) ,
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v,
+       seq[j] = v 
+PROVE  ASSUME TypeOK ,
+              NEW CONSTANT j_1 \in 1..Len(seq),
+              NEW CONSTANT v_1
+       PROVE  PositionsBefore(v_1, j_1 + 1)
+              = (IF seq[j_1] = v_1
+                   THEN PositionsBefore(v_1, j_1) \cup {j_1}
+                   ELSE PositionsBefore(v_1, j_1))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:39
+@!!loc:52:32:52:37
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v,
+       seq[j] = v ,
+       ASSUME TypeOK ,
+              NEW CONSTANT j_1 \in 1..Len(seq),
+              NEW CONSTANT v_1
+       PROVE  PositionsBefore(v_1, j_1 + 1)
+              = (IF seq[j_1] = v_1
+                   THEN PositionsBefore(v_1, j_1) \cup {j_1}
+                   ELSE PositionsBefore(v_1, j_1)) 
+PROVE  TRUE
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:40
+@!!loc:55:3:55:5
+@!!status:normalized
+@!!meth:time-limit: 10
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v,
+       seq[j] # v ,
+       ASSUME TypeOK ,
+              NEW CONSTANT j_1 \in 1..Len(seq),
+              NEW CONSTANT v_1
+       PROVE  PositionsBefore(v_1, j_1 + 1)
+              = (IF seq[j_1] = v_1
+                   THEN PositionsBefore(v_1, j_1) \cup {j_1}
+                   ELSE PositionsBefore(v_1, j_1)) ,
+       TRUE 
+PROVE  Cardinality(PositionsBefore(v, j + 1))
+       = (IF seq[j] = v
+            THEN Cardinality(PositionsBefore(v, j)) + 1
+            ELSE Cardinality(PositionsBefore(v, j)))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:36
+@!!loc:52:5:52:7
+@!!status:proved
+@!!prover:zenon
+@!!meth:time-limit: 10; time-used: 0.1 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v,
+       seq[j] = v ,
+       ASSUME TypeOK ,
+              NEW CONSTANT j_1 \in 1..Len(seq),
+              NEW CONSTANT v_1
+       PROVE  PositionsBefore(v_1, j_1 + 1)
+              = (IF seq[j_1] = v_1
+                   THEN PositionsBefore(v_1, j_1) \cup {j_1}
+                   ELSE PositionsBefore(v_1, j_1)) ,
+       TRUE 
+PROVE  PositionsBefore(v, j + 1) = PositionsBefore(v, j) \cup {j}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:34
+@!!loc:50:5:50:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v,
+       \A v_1, j_1 : PositionsBefore(v_1, j_1) \in SUBSET 1..j_1 - 1 
+PROVE  j \notin PositionsBefore(v, j)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:32
+@!!loc:48:5:48:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (3%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v,
+       ASSUME NEW CONSTANT v_1,
+              NEW CONSTANT j_1 \in Int
+       PROVE  IsFiniteSet(PositionsBefore(v_1, j_1)) 
+PROVE  IsFiniteSet(PositionsBefore(v, j))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:26
+@!!loc:53:13:53:15
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.2 (5%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v,
+       seq[j] = v ,
+       IsFiniteSet(PositionsBefore(v, j)) ,
+       j \notin PositionsBefore(v, j) ,
+       PositionsBefore(v, j + 1) = PositionsBefore(v, j) \cup {j} ,
+       ASSUME NEW CONSTANT S,
+              NEW CONSTANT x,
+              IsFiniteSet(S) 
+       PROVE  /\ IsFiniteSet(S \cup {x})
+              /\ Cardinality(S \cup {x})
+                 = (IF x \in S THEN Cardinality(S) ELSE Cardinality(S) + 1) 
+PROVE  Cardinality(PositionsBefore(v, j + 1))
+       = (IF seq[j] = v
+            THEN Cardinality(PositionsBefore(v, j)) + 1
+            ELSE Cardinality(PositionsBefore(v, j)))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:23
+@!!loc:56:11:56:13
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.3 (6%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v,
+       ASSUME seq[j] = v 
+       PROVE  OccurrencesBefore(v, j + 1)
+              = (IF seq[j] = v
+                   THEN OccurrencesBefore(v, j) + 1
+                   ELSE OccurrencesBefore(v, j)) ,
+       ASSUME seq[j] # v 
+       PROVE  OccurrencesBefore(v, j + 1)
+              = (IF seq[j] = v
+                   THEN OccurrencesBefore(v, j) + 1
+                   ELSE OccurrencesBefore(v, j)) 
+PROVE  OccurrencesBefore(v, j + 1)
+       = (IF seq[j] = v
+            THEN OccurrencesBefore(v, j) + 1
+            ELSE OccurrencesBefore(v, j))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:20
+@!!loc:39:1:39:3
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.3 (7%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       \A v : PositionsBefore(v, 1) = {} ,
+       /\ IsFiniteSet({})
+       /\ Cardinality({}) = 0
+       /\ \A S : IsFiniteSet(S) => Cardinality(S) = 0 <=> S = {} 
+PROVE  \A v : Cardinality(PositionsBefore(v, 1)) = 0
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:17
+@!!loc:36:1:36:3
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.4 (8%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       ASSUME NEW CONSTANT v,
+              NEW CONSTANT j \in Int
+       PROVE  IsFiniteSet(PositionsBefore(v, j)) ,
+       ASSUME NEW CONSTANT S,
+              IsFiniteSet(S) 
+       PROVE  /\ Cardinality(S) \in Nat
+              /\ ExistsBijection(1..Cardinality(S), S) 
+PROVE  \A v : \A j \in Int : Cardinality(PositionsBefore(v, j)) \in Nat
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:16
+@!!loc:33:1:33:3
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.4 (9%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v
+PROVE  {k \in 1..(j + 1) - 1 : seq[k] = v}
+       = (IF seq[j] = v
+            THEN {k \in 1..j - 1 : seq[k] = v} \cup {j}
+            ELSE {k \in 1..j - 1 : seq[k] = v})
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:9
+@!!loc:26:1:26:3
+@!!status:proved
+@!!prover:zenon
+@!!meth:time-limit: 10; time-used: 0.6 (6%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       NEW CONSTANT v,
+       NEW CONSTANT j \in Int,
+       1 \in Int ,
+       j - 1 \in Int ,
+       \A v_1, j_1 : PositionsBefore(v_1, j_1) \in SUBSET 1..j_1 - 1 ,
+       ASSUME NEW CONSTANT a \in Int,
+              NEW CONSTANT b \in Int
+       PROVE  /\ IsFiniteSet(a..b)
+              /\ Cardinality(a..b) = (IF a > b THEN 0 ELSE b - a + 1) ,
+       ASSUME NEW CONSTANT S,
+              IsFiniteSet(S) ,
+              NEW CONSTANT T \in SUBSET S
+       PROVE  /\ IsFiniteSet(T)
+              /\ Cardinality(T) =< Cardinality(S)
+              /\ Cardinality(S) = Cardinality(T) => S = T ,
+       TRUE 
+PROVE  IsFiniteSet(PositionsBefore(v, j))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:41
+@!!loc:55:6:55:10
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v,
+       seq[j] # v 
+PROVE  seq[j] # v
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:42
+@!!loc:55:12:55:28
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       ASSUME TypeOK ,
+              NEW CONSTANT j \in 1..Len(seq),
+              NEW CONSTANT v
+       PROVE  PositionsBefore(v, j + 1)
+              = (IF seq[j] = v
+                   THEN PositionsBefore(v, j) \cup {j}
+                   ELSE PositionsBefore(v, j)) ,
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v,
+       seq[j] # v 
+PROVE  ASSUME TypeOK ,
+              NEW CONSTANT j_1 \in 1..Len(seq),
+              NEW CONSTANT v_1
+       PROVE  PositionsBefore(v_1, j_1 + 1)
+              = (IF seq[j_1] = v_1
+                   THEN PositionsBefore(v_1, j_1) \cup {j_1}
+                   ELSE PositionsBefore(v_1, j_1))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:43
+@!!loc:55:30:55:35
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v,
+       seq[j] # v ,
+       ASSUME TypeOK ,
+              NEW CONSTANT j_1 \in 1..Len(seq),
+              NEW CONSTANT v_1
+       PROVE  PositionsBefore(v_1, j_1 + 1)
+              = (IF seq[j_1] = v_1
+                   THEN PositionsBefore(v_1, j_1) \cup {j_1}
+                   ELSE PositionsBefore(v_1, j_1)) 
+PROVE  TRUE
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:44
+@!!loc:97:11:97:13
+@!!status:normalized
+@!!meth:time-limit: 10
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       Init => Inv ,
+       TypeOK /\ Inv /\ [Next]_vars => Inv' ,
+       TypeOK /\ Inv => Correct ,
+       Init /\ [][Next]_vars /\ (WF_(vars) (Next)) => []TypeOK ,
+       TRUE 
+PROVE  Init /\ [][Next]_vars /\ (WF_(vars) (Next)) => []Correct
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:45
+@!!loc:97:14:97:18
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       Init => Inv 
+PROVE  Init => Inv
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:46
+@!!loc:97:20:97:24
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK /\ Inv /\ [Next]_vars => Inv' ,
+       Init => Inv 
+PROVE  TypeOK /\ Inv /\ [Next]_vars => Inv'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:47
+@!!loc:97:26:97:30
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK /\ Inv => Correct ,
+       Init => Inv ,
+       TypeOK /\ Inv /\ [Next]_vars => Inv' 
+PROVE  TypeOK /\ Inv => Correct
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:48
+@!!loc:97:32:97:43
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       Init /\ [][Next]_vars /\ (WF_(vars) (Next)) => []TypeOK ,
+       Init => Inv ,
+       TypeOK /\ Inv /\ [Next]_vars => Inv' ,
+       TypeOK /\ Inv => Correct 
+PROVE  Init /\ [][Next]_vars /\ (WF_(vars) (Next)) => []TypeOK
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:49
+@!!loc:97:45:97:48
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       Init => Inv ,
+       TypeOK /\ Inv /\ [Next]_vars => Inv' ,
+       TypeOK /\ Inv => Correct ,
+       Init /\ [][Next]_vars /\ (WF_(vars) (Next)) => []TypeOK 
+PROVE  TRUE
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:50
+@!!loc:63:3:63:5
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       \A v : OccurrencesBefore(v, 1) = 0 
+PROVE  (/\ seq \in Seq(Value)
+        /\ i = 1
+        /\ cand \in Value
+        /\ cnt = 0)
+       => (/\ cnt =< OccurrencesBefore(cand, i)
+           /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+           /\ \A v \in Value \ {cand} :
+                 2 * OccurrencesBefore(v, i) =< i - 1 - cnt)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:51
+@!!loc:63:6:63:20
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       \A v : OccurrencesBefore(v, 1) = 0 
+PROVE  \A v : OccurrencesBefore(v, 1) = 0
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:52
+@!!loc:94:13:94:15
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       Inv ,
+       /\ i =< Len(seq)
+       /\ i' = i + 1 /\ seq' = seq
+       /\ \/ /\ cnt = 0
+             /\ cand' = seq[i]
+             /\ cnt' = 1
+          \/ /\ cnt # 0 /\ cand = seq[i]
+             /\ cand' = cand
+             /\ cnt' = cnt + 1
+          \/ /\ cnt # 0 /\ cand # seq[i]
+             /\ cand' = cand
+             /\ cnt' = cnt - 1 ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat ,
+       ASSUME cnt = 0 /\ cand' = seq[i] /\ cnt' = 1 
+       PROVE  Inv' ,
+       ASSUME cnt # 0 /\ cand = seq[i] /\ cand' = cand /\ cnt' = cnt + 1 
+       PROVE  Inv' ,
+       ASSUME cnt # 0 /\ cand # seq[i] /\ cand' = cand /\ cnt' = cnt - 1 
+       PROVE  Inv' 
+PROVE  Inv'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:53
+@!!loc:94:16:94:20
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       Inv ,
+       /\ i =< Len(seq)
+       /\ i' = i + 1 /\ seq' = seq
+       /\ \/ /\ cnt = 0
+             /\ cand' = seq[i]
+             /\ cnt' = 1
+          \/ /\ cnt # 0 /\ cand = seq[i]
+             /\ cand' = cand
+             /\ cnt' = cnt + 1
+          \/ /\ cnt # 0 /\ cand # seq[i]
+             /\ cand' = cand
+             /\ cnt' = cnt - 1 ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat ,
+       ASSUME cnt = 0 /\ cand' = seq[i] /\ cnt' = 1 
+       PROVE  Inv' 
+PROVE  ASSUME cnt = 0 /\ cand' = seq[i] /\ cnt' = 1 
+       PROVE  Inv'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:54
+@!!loc:94:22:94:26
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       Inv ,
+       /\ i =< Len(seq)
+       /\ i' = i + 1 /\ seq' = seq
+       /\ \/ /\ cnt = 0
+             /\ cand' = seq[i]
+             /\ cnt' = 1
+          \/ /\ cnt # 0 /\ cand = seq[i]
+             /\ cand' = cand
+             /\ cnt' = cnt + 1
+          \/ /\ cnt # 0 /\ cand # seq[i]
+             /\ cand' = cand
+             /\ cnt' = cnt - 1 ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat ,
+       ASSUME cnt # 0 /\ cand = seq[i] /\ cand' = cand /\ cnt' = cnt + 1 
+       PROVE  Inv' ,
+       ASSUME cnt = 0 /\ cand' = seq[i] /\ cnt' = 1 
+       PROVE  Inv' 
+PROVE  ASSUME cnt # 0 /\ cand = seq[i] /\ cand' = cand /\ cnt' = cnt + 1 
+       PROVE  Inv'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:55
+@!!loc:94:28:94:32
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       Inv ,
+       /\ i =< Len(seq)
+       /\ i' = i + 1 /\ seq' = seq
+       /\ \/ /\ cnt = 0
+             /\ cand' = seq[i]
+             /\ cnt' = 1
+          \/ /\ cnt # 0 /\ cand = seq[i]
+             /\ cand' = cand
+             /\ cnt' = cnt + 1
+          \/ /\ cnt # 0 /\ cand # seq[i]
+             /\ cand' = cand
+             /\ cnt' = cnt - 1 ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat ,
+       ASSUME cnt # 0 /\ cand # seq[i] /\ cand' = cand /\ cnt' = cnt - 1 
+       PROVE  Inv' ,
+       ASSUME cnt = 0 /\ cand' = seq[i] /\ cnt' = 1 
+       PROVE  Inv' ,
+       ASSUME cnt # 0 /\ cand = seq[i] /\ cand' = cand /\ cnt' = cnt + 1 
+       PROVE  Inv' 
+PROVE  ASSUME cnt # 0 /\ cand # seq[i] /\ cand' = cand /\ cnt' = cnt - 1 
+       PROVE  Inv'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:56
+@!!loc:66:5:66:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       ASSUME TypeOK ,
+              /\ cnt =< Cardinality({k \in 1..i - 1 : seq[k] = cand})
+              /\ 2 * (Cardinality({k \in 1..i - 1 : seq[k] = cand}) - cnt)
+                 =< i - 1 - cnt
+              /\ \A v \in Value \ {cand} :
+                    2 * Cardinality({k \in 1..i - 1 : seq[k] = v})
+                    =< i - 1 - cnt ,
+              Next 
+       PROVE  (/\ cnt =< Cardinality({k \in 1..i - 1 : seq[k] = cand})
+               /\ 2 * (Cardinality({k \in 1..i - 1 : seq[k] = cand}) - cnt)
+                  =< i - 1 - cnt
+               /\ \A v \in Value \ {cand} :
+                     2 * Cardinality({k \in 1..i - 1 : seq[k] = v})
+                     =< i - 1 - cnt)' 
+PROVE  TypeOK
+       /\ (/\ cnt =< Cardinality({k \in 1..i - 1 : seq[k] = cand})
+           /\ 2 * (Cardinality({k \in 1..i - 1 : seq[k] = cand}) - cnt)
+              =< i - 1 - cnt
+           /\ \A v \in Value \ {cand} :
+                 2 * Cardinality({k \in 1..i - 1 : seq[k] = v})
+                 =< i - 1 - cnt)
+       /\ [Next]_<<seq, i, cand, cnt>>
+       => (/\ cnt =< Cardinality({k \in 1..i - 1 : seq[k] = cand})
+           /\ 2 * (Cardinality({k \in 1..i - 1 : seq[k] = cand}) - cnt)
+              =< i - 1 - cnt
+           /\ \A v \in Value \ {cand} :
+                 2 * Cardinality({k \in 1..i - 1 : seq[k] = v})
+                 =< i - 1 - cnt)'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:57
+@!!loc:68:5:68:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ,
+       Inv ,
+       /\ i =< Len(seq)
+       /\ i' = i + 1 /\ seq' = seq
+       /\ \/ /\ cnt = 0
+             /\ cand' = seq[i]
+             /\ cnt' = 1
+          \/ /\ cnt # 0 /\ cand = seq[i]
+             /\ cand' = cand
+             /\ cnt' = cnt + 1
+          \/ /\ cnt # 0 /\ cand # seq[i]
+             /\ cand' = cand
+             /\ cnt' = cnt - 1 
+PROVE  i =< Len(seq) /\ i' = i + 1 /\ seq' = seq
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:58
+@!!loc:70:5:70:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ,
+       Inv ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq 
+PROVE  \A v \in Value :
+          Cardinality({k \in 1..i - 1 : seq[k] = v})'
+          = Cardinality({k \in 1..i' - 1 : seq[k] = v})
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:59
+@!!loc:71:12:71:27
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat ,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       Inv ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq 
+PROVE  \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:60
+@!!loc:82:15:82:17
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       /\ cnt =< OccurrencesBefore(cand, i)
+       /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+       /\ \A v \in Value \ {cand} :
+             2 * OccurrencesBefore(v, i) =< i - 1 - cnt ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat ,
+       \A v \in Value : OccurrencesBefore(v, i)' = OccurrencesBefore(v, i') ,
+       cnt = 0 /\ cand' = seq[i] /\ cnt' = 1 ,
+       1 =< OccurrencesBefore(seq[i], i + 1) ,
+       2 * (OccurrencesBefore(seq[i], i + 1) - 1) =< (i + 1) - 1 - 1 ,
+       ASSUME NEW CONSTANT v \in Value \ {seq[i]}
+       PROVE  2 * OccurrencesBefore(v, i + 1) =< (i + 1) - 1 - 1 
+PROVE  (/\ cnt =< OccurrencesBefore(cand, i)
+        /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+        /\ \A v \in Value \ {cand} :
+              2 * OccurrencesBefore(v, i) =< i - 1 - cnt)'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:61
+@!!loc:82:18:82:22
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       /\ cnt =< OccurrencesBefore(cand, i)
+       /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+       /\ \A v \in Value \ {cand} :
+             2 * OccurrencesBefore(v, i) =< i - 1 - cnt ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v \in Value : OccurrencesBefore(v, i)' = OccurrencesBefore(v, i') ,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat 
+PROVE  \A v \in Value : OccurrencesBefore(v, i)' = OccurrencesBefore(v, i')
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:62
+@!!loc:82:24:82:28
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       /\ cnt =< OccurrencesBefore(cand, i)
+       /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+       /\ \A v \in Value \ {cand} :
+             2 * OccurrencesBefore(v, i) =< i - 1 - cnt ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat ,
+       cnt = 0 /\ cand' = seq[i] /\ cnt' = 1 ,
+       \A v \in Value : OccurrencesBefore(v, i)' = OccurrencesBefore(v, i') 
+PROVE  cnt = 0 /\ cand' = seq[i] /\ cnt' = 1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:63
+@!!loc:82:30:82:34
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       /\ cnt =< OccurrencesBefore(cand, i)
+       /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+       /\ \A v \in Value \ {cand} :
+             2 * OccurrencesBefore(v, i) =< i - 1 - cnt ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat ,
+       1 =< OccurrencesBefore(seq[i], i + 1) ,
+       \A v \in Value : OccurrencesBefore(v, i)' = OccurrencesBefore(v, i') ,
+       cnt = 0 /\ cand' = seq[i] /\ cnt' = 1 
+PROVE  1 =< OccurrencesBefore(seq[i], i + 1)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:64
+@!!loc:82:36:82:40
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       /\ cnt =< OccurrencesBefore(cand, i)
+       /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+       /\ \A v \in Value \ {cand} :
+             2 * OccurrencesBefore(v, i) =< i - 1 - cnt ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat ,
+       2 * (OccurrencesBefore(seq[i], i + 1) - 1) =< (i + 1) - 1 - 1 ,
+       \A v \in Value : OccurrencesBefore(v, i)' = OccurrencesBefore(v, i') ,
+       cnt = 0 /\ cand' = seq[i] /\ cnt' = 1 ,
+       1 =< OccurrencesBefore(seq[i], i + 1) 
+PROVE  2 * (OccurrencesBefore(seq[i], i + 1) - 1) =< (i + 1) - 1 - 1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:65
+@!!loc:82:42:82:46
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       /\ cnt =< OccurrencesBefore(cand, i)
+       /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+       /\ \A v \in Value \ {cand} :
+             2 * OccurrencesBefore(v, i) =< i - 1 - cnt ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat ,
+       ASSUME NEW CONSTANT v \in Value \ {seq[i]}
+       PROVE  2 * OccurrencesBefore(v, i + 1) =< (i + 1) - 1 - 1 ,
+       \A v \in Value : OccurrencesBefore(v, i)' = OccurrencesBefore(v, i') ,
+       cnt = 0 /\ cand' = seq[i] /\ cnt' = 1 ,
+       1 =< OccurrencesBefore(seq[i], i + 1) ,
+       2 * (OccurrencesBefore(seq[i], i + 1) - 1) =< (i + 1) - 1 - 1 
+PROVE  ASSUME NEW CONSTANT v \in Value \ {seq[i]}
+       PROVE  2 * OccurrencesBefore(v, i + 1) =< (i + 1) - 1 - 1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:66
+@!!loc:74:7:74:9
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       Inv ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat 
+PROVE  i \in {k \in 1..(i + 1) - 1 : seq[k] = seq[i]}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:67
+@!!loc:76:7:76:9
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       Inv ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : Cardinality(PositionsBefore(v, j)) \in Nat ,
+       i \in PositionsBefore(seq[i], i + 1) ,
+       ASSUME NEW CONSTANT v,
+              NEW CONSTANT j \in Int
+       PROVE  IsFiniteSet(PositionsBefore(v, j)) ,
+       /\ IsFiniteSet({})
+       /\ Cardinality({}) = 0
+       /\ \A S : IsFiniteSet(S) => Cardinality(S) = 0 <=> S = {} 
+PROVE  1 =< Cardinality(PositionsBefore(seq[i], i + 1))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:66
+@!!loc:74:7:74:9
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       Inv ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat 
+PROVE  i \in {k \in 1..(i + 1) - 1 : seq[k] = seq[i]}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:60
+@!!loc:82:15:82:17
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.2 (3%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       /\ cnt =< OccurrencesBefore(cand, i)
+       /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+       /\ \A v \in Value \ {cand} :
+             2 * OccurrencesBefore(v, i) =< i - 1 - cnt ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat ,
+       \A v \in Value : OccurrencesBefore(v, i)' = OccurrencesBefore(v, i') ,
+       cnt = 0 /\ cand' = seq[i] /\ cnt' = 1 ,
+       1 =< OccurrencesBefore(seq[i], i + 1) ,
+       2 * (OccurrencesBefore(seq[i], i + 1) - 1) =< (i + 1) - 1 - 1 ,
+       ASSUME NEW CONSTANT v \in Value \ {seq[i]}
+       PROVE  2 * OccurrencesBefore(v, i + 1) =< (i + 1) - 1 - 1 
+PROVE  (/\ cnt =< OccurrencesBefore(cand, i)
+        /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+        /\ \A v \in Value \ {cand} :
+              2 * OccurrencesBefore(v, i) =< i - 1 - cnt)'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:57
+@!!loc:68:5:68:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.3 (6%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ,
+       Inv ,
+       /\ i =< Len(seq)
+       /\ i' = i + 1 /\ seq' = seq
+       /\ \/ /\ cnt = 0
+             /\ cand' = seq[i]
+             /\ cnt' = 1
+          \/ /\ cnt # 0 /\ cand = seq[i]
+             /\ cand' = cand
+             /\ cnt' = cnt + 1
+          \/ /\ cnt # 0 /\ cand # seq[i]
+             /\ cand' = cand
+             /\ cnt' = cnt - 1 
+PROVE  i =< Len(seq) /\ i' = i + 1 /\ seq' = seq
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:52
+@!!loc:94:13:94:15
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.4 (8%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       Inv ,
+       /\ i =< Len(seq)
+       /\ i' = i + 1 /\ seq' = seq
+       /\ \/ /\ cnt = 0
+             /\ cand' = seq[i]
+             /\ cnt' = 1
+          \/ /\ cnt # 0 /\ cand = seq[i]
+             /\ cand' = cand
+             /\ cnt' = cnt + 1
+          \/ /\ cnt # 0 /\ cand # seq[i]
+             /\ cand' = cand
+             /\ cnt' = cnt - 1 ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat ,
+       ASSUME cnt = 0 /\ cand' = seq[i] /\ cnt' = 1 
+       PROVE  Inv' ,
+       ASSUME cnt # 0 /\ cand = seq[i] /\ cand' = cand /\ cnt' = cnt + 1 
+       PROVE  Inv' ,
+       ASSUME cnt # 0 /\ cand # seq[i] /\ cand' = cand /\ cnt' = cnt - 1 
+       PROVE  Inv' 
+PROVE  Inv'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:50
+@!!loc:63:3:63:5
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.5 (9%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       \A v : OccurrencesBefore(v, 1) = 0 
+PROVE  (/\ seq \in Seq(Value)
+        /\ i = 1
+        /\ cand \in Value
+        /\ cnt = 0)
+       => (/\ cnt =< OccurrencesBefore(cand, i)
+           /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+           /\ \A v \in Value \ {cand} :
+                 2 * OccurrencesBefore(v, i) =< i - 1 - cnt)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:44
+@!!loc:97:11:97:13
+@!!status:proved
+@!!prover:ls4
+@!!meth:time-limit: 10; time-used: 0.6 (6%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       Init => Inv ,
+       TypeOK /\ Inv /\ [Next]_vars => Inv' ,
+       TypeOK /\ Inv => Correct ,
+       Init /\ [][Next]_vars /\ (WF_(vars) (Next)) => []TypeOK ,
+       TRUE 
+PROVE  Init /\ [][Next]_vars /\ (WF_(vars) (Next)) => []Correct
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:40
+@!!loc:55:3:55:5
+@!!status:proved
+@!!prover:zenon
+@!!meth:time-limit: 10; time-used: 0.6 (6%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ,
+       NEW CONSTANT j \in 1..Len(seq),
+       NEW CONSTANT v,
+       seq[j] # v ,
+       ASSUME TypeOK ,
+              NEW CONSTANT j_1 \in 1..Len(seq),
+              NEW CONSTANT v_1
+       PROVE  PositionsBefore(v_1, j_1 + 1)
+              = (IF seq[j_1] = v_1
+                   THEN PositionsBefore(v_1, j_1) \cup {j_1}
+                   ELSE PositionsBefore(v_1, j_1)) ,
+       TRUE 
+PROVE  Cardinality(PositionsBefore(v, j + 1))
+       = (IF seq[j] = v
+            THEN Cardinality(PositionsBefore(v, j)) + 1
+            ELSE Cardinality(PositionsBefore(v, j)))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:68
+@!!loc:76:10:76:14
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       Inv ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : Cardinality(PositionsBefore(v, j)) \in Nat ,
+       i \in PositionsBefore(seq[i], i + 1) 
+PROVE  i \in PositionsBefore(seq[i], i + 1)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:69
+@!!loc:76:16:76:31
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       ASSUME NEW CONSTANT v,
+              NEW CONSTANT j \in Int
+       PROVE  IsFiniteSet(PositionsBefore(v, j)) ,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       Inv ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : Cardinality(PositionsBefore(v, j)) \in Nat ,
+       i \in PositionsBefore(seq[i], i + 1) 
+PROVE  ASSUME NEW CONSTANT v,
+              NEW CONSTANT j \in Int
+       PROVE  IsFiniteSet(PositionsBefore(v, j))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:70
+@!!loc:76:33:76:44
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       /\ IsFiniteSet({})
+       /\ Cardinality({}) = 0
+       /\ \A S : IsFiniteSet(S) => Cardinality(S) = 0 <=> S = {} ,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       Inv ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : Cardinality(PositionsBefore(v, j)) \in Nat ,
+       i \in PositionsBefore(seq[i], i + 1) ,
+       ASSUME NEW CONSTANT v,
+              NEW CONSTANT j \in Int
+       PROVE  IsFiniteSet(PositionsBefore(v, j)) 
+PROVE  /\ IsFiniteSet({})
+       /\ Cardinality({}) = 0
+       /\ \A S : IsFiniteSet(S) => Cardinality(S) = 0 <=> S = {}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:71
+@!!loc:78:7:78:9
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       /\ cnt =< OccurrencesBefore(cand, i)
+       /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+       /\ \A v \in Value \ {cand} :
+             2 * OccurrencesBefore(v, i) =< i - 1 - cnt ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat ,
+       cnt = 0 /\ cand' = seq[i] /\ cnt' = 1 ,
+       ASSUME /\ seq \in Seq(Value)
+              /\ i \in 1..Len(seq) + 1
+              /\ cand \in Value
+              /\ cnt \in Nat ,
+              NEW CONSTANT j \in 1..Len(seq),
+              NEW CONSTANT v
+       PROVE  OccurrencesBefore(v, j + 1)
+              = (IF seq[j] = v
+                   THEN OccurrencesBefore(v, j) + 1
+                   ELSE OccurrencesBefore(v, j)) 
+PROVE  2 * (OccurrencesBefore(seq[i], i + 1) - 1) =< (i + 1) - 1 - 1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:72
+@!!loc:78:10:78:14
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       /\ cnt =< OccurrencesBefore(cand, i)
+       /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+       /\ \A v \in Value \ {cand} :
+             2 * OccurrencesBefore(v, i) =< i - 1 - cnt ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat ,
+       cnt = 0 /\ cand' = seq[i] /\ cnt' = 1 
+PROVE  cnt = 0 /\ cand' = seq[i] /\ cnt' = 1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:73
+@!!loc:78:16:78:34
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       ASSUME /\ seq \in Seq(Value)
+              /\ i \in 1..Len(seq) + 1
+              /\ cand \in Value
+              /\ cnt \in Nat ,
+              NEW CONSTANT j \in 1..Len(seq),
+              NEW CONSTANT v
+       PROVE  OccurrencesBefore(v, j + 1)
+              = (IF seq[j] = v
+                   THEN OccurrencesBefore(v, j) + 1
+                   ELSE OccurrencesBefore(v, j)) ,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       /\ cnt =< OccurrencesBefore(cand, i)
+       /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+       /\ \A v \in Value \ {cand} :
+             2 * OccurrencesBefore(v, i) =< i - 1 - cnt ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat ,
+       cnt = 0 /\ cand' = seq[i] /\ cnt' = 1 
+PROVE  ASSUME /\ seq \in Seq(Value)
+              /\ i \in 1..Len(seq) + 1
+              /\ cand \in Value
+              /\ cnt \in Nat ,
+              NEW CONSTANT j \in 1..Len(seq),
+              NEW CONSTANT v
+       PROVE  OccurrencesBefore(v, j + 1)
+              = (IF seq[j] = v
+                   THEN OccurrencesBefore(v, j) + 1
+                   ELSE OccurrencesBefore(v, j))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:74
+@!!loc:81:7:81:9
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       /\ cnt =< OccurrencesBefore(cand, i)
+       /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+       /\ \A v \in Value \ {cand} :
+             2 * OccurrencesBefore(v, i) =< i - 1 - cnt ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat ,
+       NEW CONSTANT v \in Value \ {seq[i]},
+       cnt = 0 /\ cand' = seq[i] /\ cnt' = 1 ,
+       ASSUME /\ seq \in Seq(Value)
+              /\ i \in 1..Len(seq) + 1
+              /\ cand \in Value
+              /\ cnt \in Nat ,
+              NEW CONSTANT j \in 1..Len(seq),
+              NEW CONSTANT v_1
+       PROVE  OccurrencesBefore(v_1, j + 1)
+              = (IF seq[j] = v_1
+                   THEN OccurrencesBefore(v_1, j) + 1
+                   ELSE OccurrencesBefore(v_1, j)) 
+PROVE  2 * OccurrencesBefore(v, i + 1) =< (i + 1) - 1 - 1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:75
+@!!loc:81:10:81:14
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       /\ cnt =< OccurrencesBefore(cand, i)
+       /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+       /\ \A v \in Value \ {cand} :
+             2 * OccurrencesBefore(v, i) =< i - 1 - cnt ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat ,
+       cnt = 0 /\ cand' = seq[i] /\ cnt' = 1 ,
+       NEW CONSTANT v \in Value \ {seq[i]}
+PROVE  cnt = 0 /\ cand' = seq[i] /\ cnt' = 1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:76
+@!!loc:81:16:81:34
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       ASSUME /\ seq \in Seq(Value)
+              /\ i \in 1..Len(seq) + 1
+              /\ cand \in Value
+              /\ cnt \in Nat ,
+              NEW CONSTANT j \in 1..Len(seq),
+              NEW CONSTANT v
+       PROVE  OccurrencesBefore(v, j + 1)
+              = (IF seq[j] = v
+                   THEN OccurrencesBefore(v, j) + 1
+                   ELSE OccurrencesBefore(v, j)) ,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       /\ cnt =< OccurrencesBefore(cand, i)
+       /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+       /\ \A v \in Value \ {cand} :
+             2 * OccurrencesBefore(v, i) =< i - 1 - cnt ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat ,
+       NEW CONSTANT v \in Value \ {seq[i]},
+       cnt = 0 /\ cand' = seq[i] /\ cnt' = 1 
+PROVE  ASSUME /\ seq \in Seq(Value)
+              /\ i \in 1..Len(seq) + 1
+              /\ cand \in Value
+              /\ cnt \in Nat ,
+              NEW CONSTANT j \in 1..Len(seq),
+              NEW CONSTANT v_1
+       PROVE  OccurrencesBefore(v_1, j + 1)
+              = (IF seq[j] = v_1
+                   THEN OccurrencesBefore(v_1, j) + 1
+                   ELSE OccurrencesBefore(v_1, j))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:77
+@!!loc:84:5:84:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       /\ cnt =< OccurrencesBefore(cand, i)
+       /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+       /\ \A v \in Value \ {cand} :
+             2 * OccurrencesBefore(v, i) =< i - 1 - cnt ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat ,
+       \A v \in Value : OccurrencesBefore(v, i)' = OccurrencesBefore(v, i') ,
+       cnt # 0 /\ cand = seq[i] /\ cand' = cand /\ cnt' = cnt + 1 ,
+       ASSUME /\ seq \in Seq(Value)
+              /\ i \in 1..Len(seq) + 1
+              /\ cand \in Value
+              /\ cnt \in Nat ,
+              NEW CONSTANT j \in 1..Len(seq),
+              NEW CONSTANT v
+       PROVE  OccurrencesBefore(v, j + 1)
+              = (IF seq[j] = v
+                   THEN OccurrencesBefore(v, j) + 1
+                   ELSE OccurrencesBefore(v, j)) 
+PROVE  (/\ cnt =< OccurrencesBefore(cand, i)
+        /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+        /\ \A v \in Value \ {cand} :
+              2 * OccurrencesBefore(v, i) =< i - 1 - cnt)'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:78
+@!!loc:84:8:84:12
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       /\ cnt =< OccurrencesBefore(cand, i)
+       /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+       /\ \A v \in Value \ {cand} :
+             2 * OccurrencesBefore(v, i) =< i - 1 - cnt ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v \in Value : OccurrencesBefore(v, i)' = OccurrencesBefore(v, i') ,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat 
+PROVE  \A v \in Value : OccurrencesBefore(v, i)' = OccurrencesBefore(v, i')
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:79
+@!!loc:84:14:84:18
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       /\ cnt =< OccurrencesBefore(cand, i)
+       /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+       /\ \A v \in Value \ {cand} :
+             2 * OccurrencesBefore(v, i) =< i - 1 - cnt ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat ,
+       cnt # 0 /\ cand = seq[i] /\ cand' = cand /\ cnt' = cnt + 1 ,
+       \A v \in Value : OccurrencesBefore(v, i)' = OccurrencesBefore(v, i') 
+PROVE  cnt # 0 /\ cand = seq[i] /\ cand' = cand /\ cnt' = cnt + 1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:80
+@!!loc:84:20:84:38
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       ASSUME /\ seq \in Seq(Value)
+              /\ i \in 1..Len(seq) + 1
+              /\ cand \in Value
+              /\ cnt \in Nat ,
+              NEW CONSTANT j \in 1..Len(seq),
+              NEW CONSTANT v
+       PROVE  OccurrencesBefore(v, j + 1)
+              = (IF seq[j] = v
+                   THEN OccurrencesBefore(v, j) + 1
+                   ELSE OccurrencesBefore(v, j)) ,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       /\ cnt =< OccurrencesBefore(cand, i)
+       /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+       /\ \A v \in Value \ {cand} :
+             2 * OccurrencesBefore(v, i) =< i - 1 - cnt ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat ,
+       \A v \in Value : OccurrencesBefore(v, i)' = OccurrencesBefore(v, i') ,
+       cnt # 0 /\ cand = seq[i] /\ cand' = cand /\ cnt' = cnt + 1 
+PROVE  ASSUME /\ seq \in Seq(Value)
+              /\ i \in 1..Len(seq) + 1
+              /\ cand \in Value
+              /\ cnt \in Nat ,
+              NEW CONSTANT j \in 1..Len(seq),
+              NEW CONSTANT v
+       PROVE  OccurrencesBefore(v, j + 1)
+              = (IF seq[j] = v
+                   THEN OccurrencesBefore(v, j) + 1
+                   ELSE OccurrencesBefore(v, j))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:81
+@!!loc:93:15:93:17
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       /\ cnt =< OccurrencesBefore(cand, i)
+       /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+       /\ \A v \in Value \ {cand} :
+             2 * OccurrencesBefore(v, i) =< i - 1 - cnt ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat ,
+       \A v \in Value : OccurrencesBefore(v, i)' = OccurrencesBefore(v, i') ,
+       cnt # 0 /\ cand # seq[i] /\ cand' = cand /\ cnt' = cnt - 1 ,
+       cnt' =< OccurrencesBefore(cand', i') ,
+       2 * (OccurrencesBefore(cand', i') - cnt') =< i' - 1 - cnt' ,
+       ASSUME NEW CONSTANT v \in Value \ {cand'}
+       PROVE  2 * OccurrencesBefore(v, i') =< i' - 1 - cnt' 
+PROVE  (/\ cnt =< OccurrencesBefore(cand, i)
+        /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+        /\ \A v \in Value \ {cand} :
+              2 * OccurrencesBefore(v, i) =< i - 1 - cnt)'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:82
+@!!loc:93:18:93:22
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       /\ cnt =< OccurrencesBefore(cand, i)
+       /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+       /\ \A v \in Value \ {cand} :
+             2 * OccurrencesBefore(v, i) =< i - 1 - cnt ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v \in Value : OccurrencesBefore(v, i)' = OccurrencesBefore(v, i') ,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat 
+PROVE  \A v \in Value : OccurrencesBefore(v, i)' = OccurrencesBefore(v, i')
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:83
+@!!loc:93:24:93:28
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       /\ cnt =< OccurrencesBefore(cand, i)
+       /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+       /\ \A v \in Value \ {cand} :
+             2 * OccurrencesBefore(v, i) =< i - 1 - cnt ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat ,
+       cnt # 0 /\ cand # seq[i] /\ cand' = cand /\ cnt' = cnt - 1 ,
+       \A v \in Value : OccurrencesBefore(v, i)' = OccurrencesBefore(v, i') 
+PROVE  cnt # 0 /\ cand # seq[i] /\ cand' = cand /\ cnt' = cnt - 1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:84
+@!!loc:93:30:93:35
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       /\ cnt =< OccurrencesBefore(cand, i)
+       /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+       /\ \A v \in Value \ {cand} :
+             2 * OccurrencesBefore(v, i) =< i - 1 - cnt ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat ,
+       cnt' =< OccurrencesBefore(cand', i') ,
+       \A v \in Value : OccurrencesBefore(v, i)' = OccurrencesBefore(v, i') ,
+       cnt # 0 /\ cand # seq[i] /\ cand' = cand /\ cnt' = cnt - 1 
+PROVE  cnt' =< OccurrencesBefore(cand', i')
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:85
+@!!loc:93:37:93:42
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       /\ cnt =< OccurrencesBefore(cand, i)
+       /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+       /\ \A v \in Value \ {cand} :
+             2 * OccurrencesBefore(v, i) =< i - 1 - cnt ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat ,
+       2 * (OccurrencesBefore(cand', i') - cnt') =< i' - 1 - cnt' ,
+       \A v \in Value : OccurrencesBefore(v, i)' = OccurrencesBefore(v, i') ,
+       cnt # 0 /\ cand # seq[i] /\ cand' = cand /\ cnt' = cnt - 1 ,
+       cnt' =< OccurrencesBefore(cand', i') 
+PROVE  2 * (OccurrencesBefore(cand', i') - cnt') =< i' - 1 - cnt'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:86
+@!!loc:93:44:93:49
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       /\ cnt =< OccurrencesBefore(cand, i)
+       /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+       /\ \A v \in Value \ {cand} :
+             2 * OccurrencesBefore(v, i) =< i - 1 - cnt ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat ,
+       ASSUME NEW CONSTANT v \in Value \ {cand'}
+       PROVE  2 * OccurrencesBefore(v, i') =< i' - 1 - cnt' ,
+       \A v \in Value : OccurrencesBefore(v, i)' = OccurrencesBefore(v, i') ,
+       cnt # 0 /\ cand # seq[i] /\ cand' = cand /\ cnt' = cnt - 1 ,
+       cnt' =< OccurrencesBefore(cand', i') ,
+       2 * (OccurrencesBefore(cand', i') - cnt') =< i' - 1 - cnt' 
+PROVE  ASSUME NEW CONSTANT v \in Value \ {cand'}
+       PROVE  2 * OccurrencesBefore(v, i') =< i' - 1 - cnt'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:87
+@!!loc:87:7:87:9
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       /\ cnt =< OccurrencesBefore(cand, i)
+       /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+       /\ \A v \in Value \ {cand} :
+             2 * OccurrencesBefore(v, i) =< i - 1 - cnt ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat ,
+       cnt # 0 /\ cand # seq[i] /\ cand' = cand /\ cnt' = cnt - 1 ,
+       ASSUME /\ seq \in Seq(Value)
+              /\ i \in 1..Len(seq) + 1
+              /\ cand \in Value
+              /\ cnt \in Nat ,
+              NEW CONSTANT j \in 1..Len(seq),
+              NEW CONSTANT v
+       PROVE  OccurrencesBefore(v, j + 1)
+              = (IF seq[j] = v
+                   THEN OccurrencesBefore(v, j) + 1
+                   ELSE OccurrencesBefore(v, j)) 
+PROVE  cnt' =< OccurrencesBefore(cand', i')
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:88
+@!!loc:87:10:87:14
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       /\ cnt =< OccurrencesBefore(cand, i)
+       /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+       /\ \A v \in Value \ {cand} :
+             2 * OccurrencesBefore(v, i) =< i - 1 - cnt ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat ,
+       cnt # 0 /\ cand # seq[i] /\ cand' = cand /\ cnt' = cnt - 1 
+PROVE  cnt # 0 /\ cand # seq[i] /\ cand' = cand /\ cnt' = cnt - 1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:89
+@!!loc:87:16:87:34
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       ASSUME /\ seq \in Seq(Value)
+              /\ i \in 1..Len(seq) + 1
+              /\ cand \in Value
+              /\ cnt \in Nat ,
+              NEW CONSTANT j \in 1..Len(seq),
+              NEW CONSTANT v
+       PROVE  OccurrencesBefore(v, j + 1)
+              = (IF seq[j] = v
+                   THEN OccurrencesBefore(v, j) + 1
+                   ELSE OccurrencesBefore(v, j)) ,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       /\ cnt =< OccurrencesBefore(cand, i)
+       /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+       /\ \A v \in Value \ {cand} :
+             2 * OccurrencesBefore(v, i) =< i - 1 - cnt ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat ,
+       cnt # 0 /\ cand # seq[i] /\ cand' = cand /\ cnt' = cnt - 1 
+PROVE  ASSUME /\ seq \in Seq(Value)
+              /\ i \in 1..Len(seq) + 1
+              /\ cand \in Value
+              /\ cnt \in Nat ,
+              NEW CONSTANT j \in 1..Len(seq),
+              NEW CONSTANT v
+       PROVE  OccurrencesBefore(v, j + 1)
+              = (IF seq[j] = v
+                   THEN OccurrencesBefore(v, j) + 1
+                   ELSE OccurrencesBefore(v, j))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:90
+@!!loc:89:7:89:9
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       /\ cnt =< OccurrencesBefore(cand, i)
+       /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+       /\ \A v \in Value \ {cand} :
+             2 * OccurrencesBefore(v, i) =< i - 1 - cnt ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat ,
+       cnt # 0 /\ cand # seq[i] /\ cand' = cand /\ cnt' = cnt - 1 ,
+       ASSUME /\ seq \in Seq(Value)
+              /\ i \in 1..Len(seq) + 1
+              /\ cand \in Value
+              /\ cnt \in Nat ,
+              NEW CONSTANT j \in 1..Len(seq),
+              NEW CONSTANT v
+       PROVE  OccurrencesBefore(v, j + 1)
+              = (IF seq[j] = v
+                   THEN OccurrencesBefore(v, j) + 1
+                   ELSE OccurrencesBefore(v, j)) 
+PROVE  2 * (OccurrencesBefore(cand', i') - cnt') =< i' - 1 - cnt'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:91
+@!!loc:89:10:89:14
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       /\ cnt =< OccurrencesBefore(cand, i)
+       /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+       /\ \A v \in Value \ {cand} :
+             2 * OccurrencesBefore(v, i) =< i - 1 - cnt ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat ,
+       cnt # 0 /\ cand # seq[i] /\ cand' = cand /\ cnt' = cnt - 1 
+PROVE  cnt # 0 /\ cand # seq[i] /\ cand' = cand /\ cnt' = cnt - 1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:92
+@!!loc:89:16:89:34
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       ASSUME /\ seq \in Seq(Value)
+              /\ i \in 1..Len(seq) + 1
+              /\ cand \in Value
+              /\ cnt \in Nat ,
+              NEW CONSTANT j \in 1..Len(seq),
+              NEW CONSTANT v
+       PROVE  OccurrencesBefore(v, j + 1)
+              = (IF seq[j] = v
+                   THEN OccurrencesBefore(v, j) + 1
+                   ELSE OccurrencesBefore(v, j)) ,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       /\ cnt =< OccurrencesBefore(cand, i)
+       /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+       /\ \A v \in Value \ {cand} :
+             2 * OccurrencesBefore(v, i) =< i - 1 - cnt ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat ,
+       cnt # 0 /\ cand # seq[i] /\ cand' = cand /\ cnt' = cnt - 1 
+PROVE  ASSUME /\ seq \in Seq(Value)
+              /\ i \in 1..Len(seq) + 1
+              /\ cand \in Value
+              /\ cnt \in Nat ,
+              NEW CONSTANT j \in 1..Len(seq),
+              NEW CONSTANT v
+       PROVE  OccurrencesBefore(v, j + 1)
+              = (IF seq[j] = v
+                   THEN OccurrencesBefore(v, j) + 1
+                   ELSE OccurrencesBefore(v, j))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:93
+@!!loc:92:7:92:9
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       /\ cnt =< OccurrencesBefore(cand, i)
+       /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+       /\ \A v \in Value \ {cand} :
+             2 * OccurrencesBefore(v, i) =< i - 1 - cnt ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat ,
+       NEW CONSTANT v \in Value \ {cand'},
+       cnt # 0 /\ cand # seq[i] /\ cand' = cand /\ cnt' = cnt - 1 ,
+       ASSUME /\ seq \in Seq(Value)
+              /\ i \in 1..Len(seq) + 1
+              /\ cand \in Value
+              /\ cnt \in Nat ,
+              NEW CONSTANT j \in 1..Len(seq),
+              NEW CONSTANT v_1
+       PROVE  OccurrencesBefore(v_1, j + 1)
+              = (IF seq[j] = v_1
+                   THEN OccurrencesBefore(v_1, j) + 1
+                   ELSE OccurrencesBefore(v_1, j)) 
+PROVE  2 * OccurrencesBefore(v, i') =< i' - 1 - cnt'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:90
+@!!loc:89:7:89:9
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       /\ cnt =< OccurrencesBefore(cand, i)
+       /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+       /\ \A v \in Value \ {cand} :
+             2 * OccurrencesBefore(v, i) =< i - 1 - cnt ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat ,
+       cnt # 0 /\ cand # seq[i] /\ cand' = cand /\ cnt' = cnt - 1 ,
+       ASSUME /\ seq \in Seq(Value)
+              /\ i \in 1..Len(seq) + 1
+              /\ cand \in Value
+              /\ cnt \in Nat ,
+              NEW CONSTANT j \in 1..Len(seq),
+              NEW CONSTANT v
+       PROVE  OccurrencesBefore(v, j + 1)
+              = (IF seq[j] = v
+                   THEN OccurrencesBefore(v, j) + 1
+                   ELSE OccurrencesBefore(v, j)) 
+PROVE  2 * (OccurrencesBefore(cand', i') - cnt') =< i' - 1 - cnt'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:87
+@!!loc:87:7:87:9
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.2 (4%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       /\ cnt =< OccurrencesBefore(cand, i)
+       /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+       /\ \A v \in Value \ {cand} :
+             2 * OccurrencesBefore(v, i) =< i - 1 - cnt ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat ,
+       cnt # 0 /\ cand # seq[i] /\ cand' = cand /\ cnt' = cnt - 1 ,
+       ASSUME /\ seq \in Seq(Value)
+              /\ i \in 1..Len(seq) + 1
+              /\ cand \in Value
+              /\ cnt \in Nat ,
+              NEW CONSTANT j \in 1..Len(seq),
+              NEW CONSTANT v
+       PROVE  OccurrencesBefore(v, j + 1)
+              = (IF seq[j] = v
+                   THEN OccurrencesBefore(v, j) + 1
+                   ELSE OccurrencesBefore(v, j)) 
+PROVE  cnt' =< OccurrencesBefore(cand', i')
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:81
+@!!loc:93:15:93:17
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.3 (6%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       /\ cnt =< OccurrencesBefore(cand, i)
+       /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+       /\ \A v \in Value \ {cand} :
+             2 * OccurrencesBefore(v, i) =< i - 1 - cnt ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat ,
+       \A v \in Value : OccurrencesBefore(v, i)' = OccurrencesBefore(v, i') ,
+       cnt # 0 /\ cand # seq[i] /\ cand' = cand /\ cnt' = cnt - 1 ,
+       cnt' =< OccurrencesBefore(cand', i') ,
+       2 * (OccurrencesBefore(cand', i') - cnt') =< i' - 1 - cnt' ,
+       ASSUME NEW CONSTANT v \in Value \ {cand'}
+       PROVE  2 * OccurrencesBefore(v, i') =< i' - 1 - cnt' 
+PROVE  (/\ cnt =< OccurrencesBefore(cand, i)
+        /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+        /\ \A v \in Value \ {cand} :
+              2 * OccurrencesBefore(v, i) =< i - 1 - cnt)'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:77
+@!!loc:84:5:84:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.4 (8%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       /\ cnt =< OccurrencesBefore(cand, i)
+       /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+       /\ \A v \in Value \ {cand} :
+             2 * OccurrencesBefore(v, i) =< i - 1 - cnt ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat ,
+       \A v \in Value : OccurrencesBefore(v, i)' = OccurrencesBefore(v, i') ,
+       cnt # 0 /\ cand = seq[i] /\ cand' = cand /\ cnt' = cnt + 1 ,
+       ASSUME /\ seq \in Seq(Value)
+              /\ i \in 1..Len(seq) + 1
+              /\ cand \in Value
+              /\ cnt \in Nat ,
+              NEW CONSTANT j \in 1..Len(seq),
+              NEW CONSTANT v
+       PROVE  OccurrencesBefore(v, j + 1)
+              = (IF seq[j] = v
+                   THEN OccurrencesBefore(v, j) + 1
+                   ELSE OccurrencesBefore(v, j)) 
+PROVE  (/\ cnt =< OccurrencesBefore(cand, i)
+        /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+        /\ \A v \in Value \ {cand} :
+              2 * OccurrencesBefore(v, i) =< i - 1 - cnt)'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:74
+@!!loc:81:7:81:9
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.5 (10%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       /\ cnt =< OccurrencesBefore(cand, i)
+       /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+       /\ \A v \in Value \ {cand} :
+             2 * OccurrencesBefore(v, i) =< i - 1 - cnt ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat ,
+       NEW CONSTANT v \in Value \ {seq[i]},
+       cnt = 0 /\ cand' = seq[i] /\ cnt' = 1 ,
+       ASSUME /\ seq \in Seq(Value)
+              /\ i \in 1..Len(seq) + 1
+              /\ cand \in Value
+              /\ cnt \in Nat ,
+              NEW CONSTANT j \in 1..Len(seq),
+              NEW CONSTANT v_1
+       PROVE  OccurrencesBefore(v_1, j + 1)
+              = (IF seq[j] = v_1
+                   THEN OccurrencesBefore(v_1, j) + 1
+                   ELSE OccurrencesBefore(v_1, j)) 
+PROVE  2 * OccurrencesBefore(v, i + 1) =< (i + 1) - 1 - 1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:71
+@!!loc:78:7:78:9
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.6 (11%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       /\ cnt =< OccurrencesBefore(cand, i)
+       /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+       /\ \A v \in Value \ {cand} :
+             2 * OccurrencesBefore(v, i) =< i - 1 - cnt ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat ,
+       cnt = 0 /\ cand' = seq[i] /\ cnt' = 1 ,
+       ASSUME /\ seq \in Seq(Value)
+              /\ i \in 1..Len(seq) + 1
+              /\ cand \in Value
+              /\ cnt \in Nat ,
+              NEW CONSTANT j \in 1..Len(seq),
+              NEW CONSTANT v
+       PROVE  OccurrencesBefore(v, j + 1)
+              = (IF seq[j] = v
+                   THEN OccurrencesBefore(v, j) + 1
+                   ELSE OccurrencesBefore(v, j)) 
+PROVE  2 * (OccurrencesBefore(seq[i], i + 1) - 1) =< (i + 1) - 1 - 1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:67
+@!!loc:76:7:76:9
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.7 (13%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       Inv ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : Cardinality(PositionsBefore(v, j)) \in Nat ,
+       i \in PositionsBefore(seq[i], i + 1) ,
+       ASSUME NEW CONSTANT v,
+              NEW CONSTANT j \in Int
+       PROVE  IsFiniteSet(PositionsBefore(v, j)) ,
+       /\ IsFiniteSet({})
+       /\ Cardinality({}) = 0
+       /\ \A S : IsFiniteSet(S) => Cardinality(S) = 0 <=> S = {} 
+PROVE  1 =< Cardinality(PositionsBefore(seq[i], i + 1))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:94
+@!!loc:92:10:92:14
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       /\ cnt =< OccurrencesBefore(cand, i)
+       /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+       /\ \A v \in Value \ {cand} :
+             2 * OccurrencesBefore(v, i) =< i - 1 - cnt ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat ,
+       cnt # 0 /\ cand # seq[i] /\ cand' = cand /\ cnt' = cnt - 1 ,
+       NEW CONSTANT v \in Value \ {cand'}
+PROVE  cnt # 0 /\ cand # seq[i] /\ cand' = cand /\ cnt' = cnt - 1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:95
+@!!loc:92:16:92:34
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       ASSUME /\ seq \in Seq(Value)
+              /\ i \in 1..Len(seq) + 1
+              /\ cand \in Value
+              /\ cnt \in Nat ,
+              NEW CONSTANT j \in 1..Len(seq),
+              NEW CONSTANT v
+       PROVE  OccurrencesBefore(v, j + 1)
+              = (IF seq[j] = v
+                   THEN OccurrencesBefore(v, j) + 1
+                   ELSE OccurrencesBefore(v, j)) ,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       /\ cnt =< OccurrencesBefore(cand, i)
+       /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+       /\ \A v \in Value \ {cand} :
+             2 * OccurrencesBefore(v, i) =< i - 1 - cnt ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat ,
+       NEW CONSTANT v \in Value \ {cand'},
+       cnt # 0 /\ cand # seq[i] /\ cand' = cand /\ cnt' = cnt - 1 
+PROVE  ASSUME /\ seq \in Seq(Value)
+              /\ i \in 1..Len(seq) + 1
+              /\ cand \in Value
+              /\ cnt \in Nat ,
+              NEW CONSTANT j \in 1..Len(seq),
+              NEW CONSTANT v_1
+       PROVE  OccurrencesBefore(v_1, j + 1)
+              = (IF seq[j] = v_1
+                   THEN OccurrencesBefore(v_1, j) + 1
+                   ELSE OccurrencesBefore(v_1, j))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:96
+@!!loc:96:3:96:5
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat 
+PROVE  (/\ seq \in Seq(Value)
+        /\ i \in 1..Len(seq) + 1
+        /\ cand \in Value
+        /\ cnt \in Nat)
+       /\ (/\ cnt =< OccurrencesBefore(cand, i)
+           /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+           /\ \A v \in Value \ {cand} :
+                 2 * OccurrencesBefore(v, i) =< i - 1 - cnt)
+       => (i > Len(seq)
+           => (\A v \in Value :
+                  2 * OccurrencesBefore(v, Len(seq) + 1) > Len(seq)
+                  => v = cand))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:97
+@!!loc:96:6:96:21
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat 
+PROVE  \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:93
+@!!loc:92:7:92:9
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       /\ seq \in Seq(Value)
+       /\ i \in 1..Len(seq) + 1
+       /\ cand \in Value
+       /\ cnt \in Nat ,
+       /\ cnt =< OccurrencesBefore(cand, i)
+       /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+       /\ \A v \in Value \ {cand} :
+             2 * OccurrencesBefore(v, i) =< i - 1 - cnt ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq ,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat ,
+       NEW CONSTANT v \in Value \ {cand'},
+       cnt # 0 /\ cand # seq[i] /\ cand' = cand /\ cnt' = cnt - 1 ,
+       ASSUME /\ seq \in Seq(Value)
+              /\ i \in 1..Len(seq) + 1
+              /\ cand \in Value
+              /\ cnt \in Nat ,
+              NEW CONSTANT j \in 1..Len(seq),
+              NEW CONSTANT v_1
+       PROVE  OccurrencesBefore(v_1, j + 1)
+              = (IF seq[j] = v_1
+                   THEN OccurrencesBefore(v_1, j) + 1
+                   ELSE OccurrencesBefore(v_1, j)) 
+PROVE  2 * OccurrencesBefore(v, i') =< i' - 1 - cnt'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:96
+@!!loc:96:3:96:5
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       \A v : \A j \in Int : OccurrencesBefore(v, j) \in Nat 
+PROVE  (/\ seq \in Seq(Value)
+        /\ i \in 1..Len(seq) + 1
+        /\ cand \in Value
+        /\ cnt \in Nat)
+       /\ (/\ cnt =< OccurrencesBefore(cand, i)
+           /\ 2 * (OccurrencesBefore(cand, i) - cnt) =< i - 1 - cnt
+           /\ \A v \in Value \ {cand} :
+                 2 * OccurrencesBefore(v, i) =< i - 1 - cnt)
+       => (i > Len(seq)
+           => (\A v \in Value :
+                  2 * OccurrencesBefore(v, Len(seq) + 1) > Len(seq)
+                  => v = cand))
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:56
+@!!loc:66:5:66:7
+@!!status:being proved
+@!!prover:smt
+@!!meth:time-limit: 5
+@!!obl:
+ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       ASSUME TypeOK ,
+              /\ cnt =< Cardinality({k \in 1..i - 1 : seq[k] = cand})
+              /\ 2 * (Cardinality({k \in 1..i - 1 : seq[k] = cand}) - cnt)
+                 =< i - 1 - cnt
+              /\ \A v \in Value \ {cand} :
+                    2 * Cardinality({k \in 1..i - 1 : seq[k] = v})
+                    =< i - 1 - cnt ,
+              Next 
+       PROVE  (/\ cnt =< Cardinality({k \in 1..i - 1 : seq[k] = cand})
+               /\ 2 * (Cardinality({k \in 1..i - 1 : seq[k] = cand}) - cnt)
+                  =< i - 1 - cnt
+               /\ \A v \in Value \ {cand} :
+                     2 * Cardinality({k \in 1..i - 1 : seq[k] = v})
+                     =< i - 1 - cnt)' 
+PROVE  TypeOK
+       /\ (/\ cnt =< Cardinality({k \in 1..i - 1 : seq[k] = cand})
+           /\ 2 * (Cardinality({k \in 1..i - 1 : seq[k] = cand}) - cnt)
+              =< i - 1 - cnt
+           /\ \A v \in Value \ {cand} :
+                 2 * Cardinality({k \in 1..i - 1 : seq[k] = v})
+                 =< i - 1 - cnt)
+       /\ [Next]_<<seq, i, cand, cnt>>
+       => (/\ cnt =< Cardinality({k \in 1..i - 1 : seq[k] = cand})
+           /\ 2 * (Cardinality({k \in 1..i - 1 : seq[k] = cand}) - cnt)
+              =< i - 1 - cnt
+           /\ \A v \in Value \ {cand} :
+                 2 * Cardinality({k \in 1..i - 1 : seq[k] = v})
+                 =< i - 1 - cnt)'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:58
+@!!loc:70:5:70:7
+@!!status:being proved
+@!!prover:smt
+@!!meth:time-limit: 5
+@!!obl:
+ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ,
+       Inv ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq 
+PROVE  \A v \in Value :
+          Cardinality({k \in 1..i - 1 : seq[k] = v})'
+          = Cardinality({k \in 1..i' - 1 : seq[k] = v})
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:56
+@!!loc:66:5:66:7
+@!!status:failed
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 5.0 (100%)
+@!!reason:timeout
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       ASSUME TypeOK ,
+              /\ cnt =< Cardinality({k \in 1..i - 1 : seq[k] = cand})
+              /\ 2 * (Cardinality({k \in 1..i - 1 : seq[k] = cand}) - cnt)
+                 =< i - 1 - cnt
+              /\ \A v \in Value \ {cand} :
+                    2 * Cardinality({k \in 1..i - 1 : seq[k] = v})
+                    =< i - 1 - cnt ,
+              Next 
+       PROVE  (/\ cnt =< Cardinality({k \in 1..i - 1 : seq[k] = cand})
+               /\ 2 * (Cardinality({k \in 1..i - 1 : seq[k] = cand}) - cnt)
+                  =< i - 1 - cnt
+               /\ \A v \in Value \ {cand} :
+                     2 * Cardinality({k \in 1..i - 1 : seq[k] = v})
+                     =< i - 1 - cnt)' 
+PROVE  TypeOK
+       /\ (/\ cnt =< Cardinality({k \in 1..i - 1 : seq[k] = cand})
+           /\ 2 * (Cardinality({k \in 1..i - 1 : seq[k] = cand}) - cnt)
+              =< i - 1 - cnt
+           /\ \A v \in Value \ {cand} :
+                 2 * Cardinality({k \in 1..i - 1 : seq[k] = v})
+                 =< i - 1 - cnt)
+       /\ [Next]_<<seq, i, cand, cnt>>
+       => (/\ cnt =< Cardinality({k \in 1..i - 1 : seq[k] = cand})
+           /\ 2 * (Cardinality({k \in 1..i - 1 : seq[k] = cand}) - cnt)
+              =< i - 1 - cnt
+           /\ \A v \in Value \ {cand} :
+                 2 * Cardinality({k \in 1..i - 1 : seq[k] = v})
+                 =< i - 1 - cnt)'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:56
+@!!loc:66:5:66:7
+@!!status:normalized
+@!!meth:time-limit: 10
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       ASSUME TypeOK ,
+              /\ cnt =< Cardinality({k \in 1..i - 1 : seq[k] = cand})
+              /\ 2 * (Cardinality({k \in 1..i - 1 : seq[k] = cand}) - cnt)
+                 =< i - 1 - cnt
+              /\ \A v \in Value \ {cand} :
+                    2 * Cardinality({k \in 1..i - 1 : seq[k] = v})
+                    =< i - 1 - cnt ,
+              Next 
+       PROVE  (/\ cnt =< Cardinality({k \in 1..i - 1 : seq[k] = cand})
+               /\ 2 * (Cardinality({k \in 1..i - 1 : seq[k] = cand}) - cnt)
+                  =< i - 1 - cnt
+               /\ \A v \in Value \ {cand} :
+                     2 * Cardinality({k \in 1..i - 1 : seq[k] = v})
+                     =< i - 1 - cnt)' 
+PROVE  TypeOK
+       /\ (/\ cnt =< Cardinality({k \in 1..i - 1 : seq[k] = cand})
+           /\ 2 * (Cardinality({k \in 1..i - 1 : seq[k] = cand}) - cnt)
+              =< i - 1 - cnt
+           /\ \A v \in Value \ {cand} :
+                 2 * Cardinality({k \in 1..i - 1 : seq[k] = v})
+                 =< i - 1 - cnt)
+       /\ [Next]_<<seq, i, cand, cnt>>
+       => (/\ cnt =< Cardinality({k \in 1..i - 1 : seq[k] = cand})
+           /\ 2 * (Cardinality({k \in 1..i - 1 : seq[k] = cand}) - cnt)
+              =< i - 1 - cnt
+           /\ \A v \in Value \ {cand} :
+                 2 * Cardinality({k \in 1..i - 1 : seq[k] = v})
+                 =< i - 1 - cnt)'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:58
+@!!loc:70:5:70:7
+@!!status:failed
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 5.0 (100%)
+@!!reason:timeout
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ,
+       Inv ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq 
+PROVE  \A v \in Value :
+          Cardinality({k \in 1..i - 1 : seq[k] = v})'
+          = Cardinality({k \in 1..i' - 1 : seq[k] = v})
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:58
+@!!loc:70:5:70:7
+@!!status:normalized
+@!!meth:time-limit: 10
+@!!obl:ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ,
+       Inv ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq 
+PROVE  \A v \in Value :
+          Cardinality({k \in 1..i - 1 : seq[k] = v})'
+          = Cardinality({k \in 1..i' - 1 : seq[k] = v})
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:56
+@!!loc:66:5:66:7
+@!!status:proved
+@!!prover:zenon
+@!!meth:time-limit: 10; time-used: 0.1 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       ASSUME TypeOK ,
+              /\ cnt =< Cardinality({k \in 1..i - 1 : seq[k] = cand})
+              /\ 2 * (Cardinality({k \in 1..i - 1 : seq[k] = cand}) - cnt)
+                 =< i - 1 - cnt
+              /\ \A v \in Value \ {cand} :
+                    2 * Cardinality({k \in 1..i - 1 : seq[k] = v})
+                    =< i - 1 - cnt ,
+              Next 
+       PROVE  (/\ cnt =< Cardinality({k \in 1..i - 1 : seq[k] = cand})
+               /\ 2 * (Cardinality({k \in 1..i - 1 : seq[k] = cand}) - cnt)
+                  =< i - 1 - cnt
+               /\ \A v \in Value \ {cand} :
+                     2 * Cardinality({k \in 1..i - 1 : seq[k] = v})
+                     =< i - 1 - cnt)' 
+PROVE  TypeOK
+       /\ (/\ cnt =< Cardinality({k \in 1..i - 1 : seq[k] = cand})
+           /\ 2 * (Cardinality({k \in 1..i - 1 : seq[k] = cand}) - cnt)
+              =< i - 1 - cnt
+           /\ \A v \in Value \ {cand} :
+                 2 * Cardinality({k \in 1..i - 1 : seq[k] = v})
+                 =< i - 1 - cnt)
+       /\ [Next]_<<seq, i, cand, cnt>>
+       => (/\ cnt =< Cardinality({k \in 1..i - 1 : seq[k] = cand})
+           /\ 2 * (Cardinality({k \in 1..i - 1 : seq[k] = cand}) - cnt)
+              =< i - 1 - cnt
+           /\ \A v \in Value \ {cand} :
+                 2 * Cardinality({k \in 1..i - 1 : seq[k] = v})
+                 =< i - 1 - cnt)'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:58
+@!!loc:70:5:70:7
+@!!status:proved
+@!!prover:zenon
+@!!meth:time-limit: 10; time-used: 0.0 (0%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Value,
+       NEW VARIABLE seq,
+       NEW VARIABLE i,
+       NEW VARIABLE cand,
+       NEW VARIABLE cnt,
+       TypeOK ,
+       Inv ,
+       Next ,
+       i =< Len(seq) /\ i' = i + 1 /\ seq' = seq 
+PROVE  \A v \in Value :
+          Cardinality({k \in 1..i - 1 : seq[k] = v})'
+          = Cardinality({k \in 1..i' - 1 : seq[k] = v})
+
+@!!END
+
+(* created new ".tlacache/MajorityProof.tlaps/MajorityProof.thy" *)
+(* fingerprints written in ".tlacache/MajorityProof.tlaps/fingerprints" *)
+File "./MajorityProof.tla", line 1, character 1 to line 99, character 78:
+[INFO]: All 97 obligations proved.

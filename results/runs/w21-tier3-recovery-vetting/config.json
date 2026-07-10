@@ -1,0 +1,51 @@
+{
+  "purpose": "W2.1 tier3-recovery lever vetting (small-sample probes, NOT a real recovery pass; no committed manifests touched)",
+  "date": "2026-07-09",
+  "base_evidence": {
+    "tlc_evidence_raw": "results/runs/w21-tlc-20260709/tlc.jsonl (1273 rows, 494 duplicate from restarts; deduped by last-write-wins by path -> 779 unique)",
+    "tlc_evidence_deduped_alt": "results/runs/w21-funnel-20260708/tlc.jsonl (779 rows, matches)",
+    "tier1_manifest": "data/chattla-corpora-v2/manifest_tier1_sany_cfg.jsonl (697 rows)",
+    "tier2_manifest": "data/chattla-corpora-v2/manifest_tier2_sany.jsonl (170 rows)",
+    "tier1_tier3_breakdown": {"tier3_tlc_fail": 560, "tier3_tlc_vacuous": 131, "tier3_tlc_timeout": 6},
+    "vacuity_reason_breakdown": {
+      "only_1_distinct_states": 119, "no_invariant_or_property_in_cfg": 43,
+      "trivial_invariant:Inv": 17, "only_0_distinct_states": 2, "zero_states_generated": 2
+    },
+    "note": "Task brief cited 33 no_invariant_or_property_in_cfg / 71 only_1_distinct_states; actual counts from the frozen evidence file are 43 / 119. Using measured counts, not the brief's."
+  },
+  "sampling": {
+    "method": "harness.w21_tier3_vetting_probe._sample: sorted population, Random(seed).shuffle(index), take first N",
+    "seed": 20260709,
+    "n_per_lever": 25,
+    "population_note_dep_staging": "dep_staging pre-filters tier3_tlc_fail (560) to files whose EXTENDS names are neither standard-library nor a sibling .tla in the same dir -- 70 candidates found; sample is 25 of those 70, not 25 of the full 560"
+  },
+  "probe_code": "harness/tier3_recovery.py (pure parsing/matching primitives, unit-tested in harness/test_tier3_recovery.py, 16 tests) + harness/w21_tier3_vetting_probe.py (driver, wires primitives to harness.runner.check_tlc)",
+  "tlc_settings": {
+    "extra_flags": "w21_funnel.bounded_tlc_flags() -- [-dfid 15, -workers 1], same as the frozen W2.1 tlc stage",
+    "timeout_s": 60,
+    "note_vs_frozen": "frozen w21-tlc-20260709 sweep used 90s timeout; probes used 60s (smaller sample, foreground, generous-but-tighter budget per instructions). No probe hit the timeout wall (see rows.jsonl tlc_status)."
+  },
+  "repro_commands": [
+    "nice -n 19 python3 -m harness.w21_tier3_vetting_probe template_cfg --limit 25 --timeout 60",
+    "nice -n 19 python3 -m harness.w21_tier3_vetting_probe sibling_cfg --limit 25 --timeout 60",
+    "nice -n 19 python3 -m harness.w21_tier3_vetting_probe dep_staging --limit 25 --timeout 60",
+    "nice -n 19 python3 -m harness.w21_tier3_vetting_probe vacuity_novac --limit 25 --timeout 60",
+    "nice -n 19 python3 -m harness.w21_tier3_vetting_probe vacuity_states --limit 25 --timeout 60"
+  ],
+  "lever5_scrape_widening": {
+    "method": "read config/seeds/queries.yaml + src/tladata/discovery/github_search.py at /Users/eric/GitHub/tla-dataset-pipeline; confirmed via gh api that search_repositories() calls GET /search/repositories with code-search-only query syntax (extension:tla, quoted-string terms), which the repositories endpoint does not support",
+    "verification_commands": [
+      "gh api -X GET search/repositories -f q='extension:tla' -f per_page=1              # total_count=8 (repo-name/desc match only, not code-search syntax)",
+      "gh api -X GET search/repositories -f q='extension:cfg tla' -f per_page=1          # total_count=0",
+      "gh api -X GET search/repositories -f q='\"\\* PlusCal\" extension:tla' -f per_page=1  # total_count=0",
+      "gh api -X GET search/repositories -f q='\"EXTENDS\" \"VARIABLES\" extension:tla' -f per_page=1  # total_count=0",
+      "gh api -X GET search/repositories -f q='TLAPS extension:tla' -f per_page=1        # total_count=0",
+      "gh api -X GET search/code -f q='extension:tla' -f per_page=1                      # total_count=64896 (correct endpoint for this query syntax)",
+      "gh api -X GET search/code -f q='extension:cfg tla' -f per_page=1                  # total_count=10040",
+      "gh api -X GET search/code -f q='TLAPS extension:tla' -f per_page=1                # total_count=3576",
+      "gh api -X GET search/code -f q='PlusCal extension:tla' -f per_page=1              # total_count=1776",
+      "gh api -X GET search/code -f q='EXTENDS VARIABLES extension:tla' -f per_page=1    # total_count=7360"
+    ],
+    "not_rerun": "No re-scrape performed; this is read-only analysis + live GitHub search API counts, no files added to data/raw or corpus/"
+  }
+}

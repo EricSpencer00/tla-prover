@@ -1,0 +1,624 @@
+
+\* TLAPM version 80172c6
+\* launched at 2026-07-08 14:12:23 with command line:
+\* /Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm --toolbox 0 0 --printallobs -I /Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib -I /Users/eric/GitHub/prove-TLA/tools/community-modules -I /Users/eric/GitHub/prove-TLA/tools/extra-modules AddTwo.tla
+
+@!!BEGIN
+@!!type:obligation
+@!!id:1
+@!!loc:43:11:43:13
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE x,
+       Spec == Init /\ [][Next]_vars,
+       PTL ,
+       <1>a ,
+       <1>b ,
+       <1>c 
+PROVE  Spec => []TypeOK
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:2
+@!!loc:43:14:43:17
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE x,
+       Spec == Init /\ [][Next]_vars
+PROVE  PTL
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:3
+@!!loc:43:19:43:23
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE x,
+       Spec == Init /\ [][Next]_vars,
+       PTL 
+PROVE  <1>a
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:4
+@!!loc:43:25:43:29
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE x,
+       Spec == Init /\ [][Next]_vars,
+       PTL ,
+       <1>a 
+PROVE  <1>b
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:5
+@!!loc:43:31:43:35
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE x,
+       Spec == Init /\ [][Next]_vars,
+       PTL ,
+       <1>a ,
+       <1>b 
+PROVE  <1>c
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:6
+@!!loc:38:5:38:7
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE x,
+       Init == /\ x = 0,
+       TypeOK == x \in Nat
+PROVE  Init => TypeOK
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:7
+@!!loc:40:5:40:7
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE x,
+       vars == <<x>>,
+       TypeOK == x \in Nat
+PROVE  TypeOK /\ UNCHANGED vars => TypeOK'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:8
+@!!loc:42:5:42:7
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE x,
+       Next == x' = x + 2,
+       TypeOK == x \in Nat
+PROVE  TypeOK /\ Next => TypeOK'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:9
+@!!loc:57:11:57:13
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE x,
+       Spec == Init /\ [][Next]_vars,
+       PTL ,
+       <1>a ,
+       <1>b ,
+       <1>c 
+PROVE  Spec => []Even
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:10
+@!!loc:57:14:57:17
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE x,
+       Spec == Init /\ [][Next]_vars
+PROVE  PTL
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:11
+@!!loc:57:19:57:23
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE x,
+       Spec == Init /\ [][Next]_vars,
+       PTL 
+PROVE  <1>a
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:12
+@!!loc:57:25:57:29
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE x,
+       Spec == Init /\ [][Next]_vars,
+       PTL ,
+       <1>a 
+PROVE  <1>b
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:13
+@!!loc:57:31:57:35
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE x,
+       Spec == Init /\ [][Next]_vars,
+       PTL ,
+       <1>a ,
+       <1>b 
+PROVE  <1>c
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:14
+@!!loc:51:5:51:7
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE x,
+       Init == /\ x = 0,
+       |(a, b) == \E c \in Nat : a * c = b,
+       Even == 2 | x
+PROVE  Init => Even
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:15
+@!!loc:53:5:53:7
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE x,
+       vars == <<x>>,
+       Even == 2 | x
+PROVE  Even /\ UNCHANGED vars => Even'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:16
+@!!loc:55:5:55:7
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE x,
+       Next == x' = x + 2,
+       TypeOK == x \in Nat,
+       |(a, b) == \E c \in Nat : a * c = b,
+       Even == 2 | x,
+       \A c \in Nat : c + 1 \in Nat /\ 2 * (c + 1) = 2 * c + 2 ,
+       Zenon 
+PROVE  Even /\ Next => Even'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:17
+@!!loc:55:8:55:55
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE x,
+       Next == x' = x + 2,
+       TypeOK == x \in Nat,
+       |(a, b) == \E c \in Nat : a * c = b,
+       Even == 2 | x
+PROVE  \A c \in Nat : c + 1 \in Nat /\ 2 * (c + 1) = 2 * c + 2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:18
+@!!loc:55:57:55:62
+@!!status:to be proved
+@!!obl:ASSUME NEW VARIABLE x,
+       Next == x' = x + 2,
+       TypeOK == x \in Nat,
+       |(a, b) == \E c \in Nat : a * c = b,
+       Even == 2 | x,
+       \A c \in Nat : c + 1 \in Nat /\ 2 * (c + 1) = 2 * c + 2 
+PROVE  Zenon
+
+@!!END
+
+@!!BEGIN
+@!!type:obligationsnumber
+@!!count:18
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:1
+@!!loc:43:11:43:13
+@!!status:normalized
+@!!meth:time-limit: 10
+@!!obl:ASSUME NEW VARIABLE x,
+       TRUE ,
+       Init => TypeOK ,
+       TypeOK /\ UNCHANGED vars => TypeOK' ,
+       TypeOK /\ Next => TypeOK' 
+PROVE  Init /\ [][Next]_vars => []TypeOK
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:2
+@!!loc:43:14:43:17
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW VARIABLE x
+PROVE  TRUE
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:3
+@!!loc:43:19:43:23
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW VARIABLE x,
+       Init => TypeOK ,
+       TRUE 
+PROVE  Init => TypeOK
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:4
+@!!loc:43:25:43:29
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW VARIABLE x,
+       TypeOK /\ UNCHANGED vars => TypeOK' ,
+       TRUE ,
+       Init => TypeOK 
+PROVE  TypeOK /\ UNCHANGED vars => TypeOK'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:5
+@!!loc:43:31:43:35
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW VARIABLE x,
+       TypeOK /\ Next => TypeOK' ,
+       TRUE ,
+       Init => TypeOK ,
+       TypeOK /\ UNCHANGED vars => TypeOK' 
+PROVE  TypeOK /\ Next => TypeOK'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:6
+@!!loc:38:5:38:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW VARIABLE x
+PROVE  (/\ x = 0) => x \in Nat
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:7
+@!!loc:40:5:40:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW VARIABLE x
+PROVE  x \in Nat /\ UNCHANGED <<x>> => (x \in Nat)'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:8
+@!!loc:42:5:42:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW VARIABLE x
+PROVE  x \in Nat /\ x' = x + 2 => (x \in Nat)'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:9
+@!!loc:57:11:57:13
+@!!status:normalized
+@!!meth:time-limit: 10
+@!!obl:ASSUME NEW VARIABLE x,
+       TRUE ,
+       Init => Even ,
+       Even /\ UNCHANGED vars => Even' ,
+       Even /\ Next => Even' 
+PROVE  Init /\ [][Next]_vars => []Even
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:10
+@!!loc:57:14:57:17
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW VARIABLE x
+PROVE  TRUE
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:11
+@!!loc:57:19:57:23
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW VARIABLE x,
+       Init => Even ,
+       TRUE 
+PROVE  Init => Even
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:12
+@!!loc:57:25:57:29
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW VARIABLE x,
+       Even /\ UNCHANGED vars => Even' ,
+       TRUE ,
+       Init => Even 
+PROVE  Even /\ UNCHANGED vars => Even'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:13
+@!!loc:57:31:57:35
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW VARIABLE x,
+       Even /\ Next => Even' ,
+       TRUE ,
+       Init => Even ,
+       Even /\ UNCHANGED vars => Even' 
+PROVE  Even /\ Next => Even'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:14
+@!!loc:51:5:51:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW VARIABLE x
+PROVE  (/\ x = 0) => (\E c \in Nat : 2 * c = x)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:15
+@!!loc:53:5:53:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW VARIABLE x
+PROVE  2 | x /\ UNCHANGED <<x>> => (2 | x)'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:16
+@!!loc:55:5:55:7
+@!!status:normalized
+@!!meth:time-limit: 10
+@!!obl:ASSUME NEW VARIABLE x,
+       \A c \in Nat : c + 1 \in Nat /\ 2 * (c + 1) = 2 * c + 2 ,
+       TRUE 
+PROVE  (\E c \in Nat : 2 * c = x) /\ x' = x + 2
+       => (\E c \in Nat : 2 * c = x)'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:17
+@!!loc:55:8:55:55
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW VARIABLE x
+PROVE  \A c \in Nat : c + 1 \in Nat /\ 2 * (c + 1) = 2 * c + 2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:18
+@!!loc:55:57:55:62
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW VARIABLE x,
+       \A c \in Nat : c + 1 \in Nat /\ 2 * (c + 1) = 2 * c + 2 
+PROVE  TRUE
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:9
+@!!loc:57:11:57:13
+@!!status:proved
+@!!prover:ls4
+@!!meth:time-limit: 10; time-used: 0.0 (0%)
+@!!already:false
+@!!obl:
+ASSUME NEW VARIABLE x,
+       TRUE ,
+       Init => Even ,
+       Even /\ UNCHANGED vars => Even' ,
+       Even /\ Next => Even' 
+PROVE  Init /\ [][Next]_vars => []Even
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:1
+@!!loc:43:11:43:13
+@!!status:proved
+@!!prover:ls4
+@!!meth:time-limit: 10; time-used: 0.2 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW VARIABLE x,
+       TRUE ,
+       Init => TypeOK ,
+       TypeOK /\ UNCHANGED vars => TypeOK' ,
+       TypeOK /\ Next => TypeOK' 
+PROVE  Init /\ [][Next]_vars => []TypeOK
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:7
+@!!loc:40:5:40:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW VARIABLE x
+PROVE  x \in Nat /\ UNCHANGED <<x>> => (x \in Nat)'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:6
+@!!loc:38:5:38:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW VARIABLE x
+PROVE  (/\ x = 0) => x \in Nat
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:8
+@!!loc:42:5:42:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW VARIABLE x
+PROVE  x \in Nat /\ x' = x + 2 => (x \in Nat)'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:15
+@!!loc:53:5:53:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (0%)
+@!!already:false
+@!!obl:
+ASSUME NEW VARIABLE x
+PROVE  2 | x /\ UNCHANGED <<x>> => (2 | x)'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:14
+@!!loc:51:5:51:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW VARIABLE x
+PROVE  (/\ x = 0) => (\E c \in Nat : 2 * c = x)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:16
+@!!loc:55:5:55:7
+@!!status:proved
+@!!prover:zenon
+@!!meth:time-limit: 10; time-used: 0.0 (0%)
+@!!already:false
+@!!obl:
+ASSUME NEW VARIABLE x,
+       \A c \in Nat : c + 1 \in Nat /\ 2 * (c + 1) = 2 * c + 2 ,
+       TRUE 
+PROVE  (\E c \in Nat : 2 * c = x) /\ x' = x + 2
+       => (\E c \in Nat : 2 * c = x)'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:17
+@!!loc:55:8:55:55
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW VARIABLE x
+PROVE  \A c \in Nat : c + 1 \in Nat /\ 2 * (c + 1) = 2 * c + 2
+
+@!!END
+
+(* created new ".tlacache/AddTwo.tlaps/AddTwo.thy" *)
+(* fingerprints written in ".tlacache/AddTwo.tlaps/fingerprints" *)
+File "./AddTwo.tla", line 1, character 1 to line 59, character 77:
+[INFO]: All 18 obligations proved.

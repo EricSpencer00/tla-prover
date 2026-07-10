@@ -1,0 +1,198 @@
+{
+  "_note": "FROZEN E2.c Gate-2 baseline (PLAN Amendment 13, Eric sign-off 2026-07-08). Append-never; corrections require a PLAN amendment + Eric sign-off before writing. See results/e2c_baseline_summary.md and results/runs/SEMAUDIT_FINDINGS.md for methodology and audit scope. framing_A is unaudited-for-candidate-diff (no candidate text persisted; measurement-time screens applied). framing_B is the r2 rerun (candidate-persisted, full diff-audited), superseding the original framing-B arms.",
+  "measured": "2026-07-07",
+  "framing_B_measured": "2026-07-08 (r2 rerun + audit; supersedes 2026-07-07 framing-B numbers)",
+  "source_runs": [
+    "results/runs/e2c-baseline-20b-a",
+    "results/runs/e2c-baseline-120b-a",
+    "results/runs/e2c-baseline-r2-20b-b",
+    "results/runs/e2c-baseline-r2-120b-b"
+  ],
+  "superseded_source_runs": [
+    "results/runs/e2c-baseline-20b-b",
+    "results/runs/e2c-baseline-120b-b"
+  ],
+  "superseded_reason": "gen_eval.py did not persist candidate module text when these ran, blocking a diff-based Rule-9 audit for subtle semantics-narrowing repairs. e2c-baseline-r2-{20b,120b}-b are a full independent framing-B rerun (same holdout/budget) with candidate persistence (candidate_path/candidate_sha256 on every row), and every one of their 692 passing rows was diff-audited (see SEMAUDIT_FINDINGS.md, 'E2.c framing-B r2 rerun' section). Numbers below for framing_B are from the r2 arms and are not sample-for-sample diffable against the original arms (independent resample).",
+  "holdout_sha256": "ecfc20533b9dc9a6e727ab989732310659d469eefbcc3705df72e3094ef54f78",
+  "budget": {
+    "temperature": 0.8,
+    "max_tokens": 16384,
+    "tlc_timeout_s": 120,
+    "k": 32,
+    "pass1": "greedy@temp0",
+    "sequential": true
+  },
+  "audit": {
+    "framing_A": {
+      "method": "Rule 9, mechanical-channel audit only (see SEMAUDIT_FINDINGS.md E2.c section)",
+      "rows_rejected": 0,
+      "rows_flagged_not_rejected": 1,
+      "api_error_rows": 0,
+      "unauditable_gap": "candidate module text not persisted by gen_eval.run_gen_eval; subtle semantics-narrowing repairs not diffable"
+    },
+    "framing_B": {
+      "method": "Rule 9, full diff-based audit against canonical spec text (candidate_path/candidate_sha256 persisted per row); see SEMAUDIT_FINDINGS.md 'E2.c framing-B r2 rerun' section",
+      "passing_rows_audited": 692,
+      "sha256_mismatches": 0,
+      "rows_rejected": 1,
+      "rejected": [
+        {
+          "arm": "120b-b",
+          "spec": "15",
+          "sample": 25,
+          "reason": "STRUCTURAL false pass: mutated def (UponNonFaulty) left with the corrupted \\notin unfixed; candidate instead narrowed Init to dodge the corrupted branch (same pattern as Stage-1 specs 91/92)."
+        }
+      ],
+      "rows_flagged_not_rejected": 250,
+      "manual_read_groups": 67,
+      "api_error_rows": 0
+    }
+  },
+  "framing_A": {
+    "n_specs": 30,
+    "gpt-oss-20b": {
+      "pass@1": 0,
+      "pass@32": 4,
+      "pass@1_specs": [],
+      "pass@32_specs": [
+        "5",
+        "86",
+        "142",
+        "183"
+      ]
+    },
+    "gpt-oss-120b": {
+      "pass@1": 2,
+      "pass@32": 12,
+      "pass@1_specs": [
+        "30",
+        "41"
+      ],
+      "pass@32_specs": [
+        "2",
+        "5",
+        "30",
+        "37",
+        "41",
+        "86",
+        "95",
+        "105",
+        "131",
+        "142",
+        "143",
+        "183"
+      ]
+    }
+  },
+  "framing_B": {
+    "n_valid_specs": 23,
+    "n_skipped_specs": 7,
+    "skipped_specs": [
+      "41",
+      "86",
+      "105",
+      "106",
+      "133",
+      "135",
+      "183"
+    ],
+    "skip_reason": "no_valid_corruption (no deterministic mutation site produced a SANY-passing + criterion-failing candidate); spec-only, not model-dependent",
+    "gpt-oss-20b": {
+      "pass@1": 8,
+      "pass@32": 19,
+      "pass@1_specs": [
+        "5",
+        "13",
+        "14",
+        "30",
+        "132",
+        "148",
+        "158",
+        "181"
+      ],
+      "pass@32_specs": [
+        "2",
+        "5",
+        "13",
+        "14",
+        "30",
+        "32",
+        "37",
+        "95",
+        "121",
+        "131",
+        "132",
+        "141",
+        "143",
+        "148",
+        "158",
+        "168",
+        "174",
+        "181",
+        "191"
+      ]
+    },
+    "gpt-oss-120b": {
+      "pass@1": 12,
+      "pass@32": 20,
+      "pass@1_specs": [
+        "2",
+        "13",
+        "14",
+        "32",
+        "95",
+        "121",
+        "128",
+        "132",
+        "143",
+        "158",
+        "168",
+        "181"
+      ],
+      "pass@32_specs": [
+        "2",
+        "5",
+        "13",
+        "14",
+        "30",
+        "32",
+        "37",
+        "95",
+        "121",
+        "128",
+        "131",
+        "132",
+        "141",
+        "143",
+        "148",
+        "158",
+        "168",
+        "174",
+        "181",
+        "191"
+      ]
+    }
+  },
+  "best_arm": {
+    "framing_A_pass@1": "gpt-oss-120b (2/30)",
+    "framing_A_pass@32": "gpt-oss-120b (12/30)",
+    "framing_B_pass@1": "gpt-oss-120b (12/23)",
+    "framing_B_pass@32": "gpt-oss-120b (20/23), gpt-oss-20b close second (19/23)"
+  },
+  "frozen": "2026-07-08",
+  "signed_off_by": "Eric (2026-07-08)",
+  "gate2_bar": {
+    "baseline_arm": "gpt-oss-120b (best arm in all four cells)",
+    "framing_A": {
+      "pass@1": 2,
+      "pass@32": 12,
+      "n": 30
+    },
+    "framing_B": {
+      "pass@1": 12,
+      "pass@32": 20,
+      "n": 23
+    },
+    "beats_definition": "chattla-v2 beats the baseline iff >= in all four cells and strictly > in at least one, measured on the same holdout, same framing-B denominator (23), same corruption seeds and MUTATIONS list, same frozen budget, with candidates persisted and full Rule-9 diff audit in BOTH framings."
+  }
+}

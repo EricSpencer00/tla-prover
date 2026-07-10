@@ -1,0 +1,3 @@
+{"spec": "39", "method": "oracle", "sany": "pass", "tlc": "no_cfg", "tlc_vacuity": null, "tlaps": null, "apalache": null, "budget_used": {"sany_s": 0.2}, "log_path": "/Users/eric/GitHub/prove-TLA/results/runs/w25-library-verify/logs/39.log"}
+{"spec": "41", "method": "oracle", "sany": "pass", "tlc": "no_cfg", "tlc_vacuity": null, "tlaps": null, "apalache": null, "budget_used": {"sany_s": 0.2}, "log_path": "/Users/eric/GitHub/prove-TLA/results/runs/w25-library-verify/logs/41.log"}
+{"spec": "53", "method": "oracle", "sany": "pass", "tlc": "no_cfg", "tlc_vacuity": null, "tlaps": null, "apalache": null, "budget_used": {"sany_s": 0.2}, "log_path": "/Users/eric/GitHub/prove-TLA/results/runs/w25-library-verify/logs/53.log"}

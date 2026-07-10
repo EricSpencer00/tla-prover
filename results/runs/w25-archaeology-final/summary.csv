@@ -1,0 +1,13 @@
+spec,method,sany,tlc,tlc_vacuity,cfg_origin,tlaps,tlaps_obligations,apalache,budget_used,log_path
+24,oracle,fail,,,,,,,"{""sany_s"": 0.6}",/Users/eric/GitHub/prove-TLA/results/runs/w25-archaeology-final/logs/24.log
+26,oracle,fail,,,,,,,"{""sany_s"": 0.4}",/Users/eric/GitHub/prove-TLA/results/runs/w25-archaeology-final/logs/26.log
+27,oracle,fail,,,,,,,"{""sany_s"": 0.4}",/Users/eric/GitHub/prove-TLA/results/runs/w25-archaeology-final/logs/27.log
+66,oracle,fail,,,,,,,"{""sany_s"": 0.2}",/Users/eric/GitHub/prove-TLA/results/runs/w25-archaeology-final/logs/66.log
+71,oracle,fail,,,,,,,"{""sany_s"": 0.2}",/Users/eric/GitHub/prove-TLA/results/runs/w25-archaeology-final/logs/71.log
+75,oracle,fail,,,,,,,"{""sany_s"": 0.4}",/Users/eric/GitHub/prove-TLA/results/runs/w25-archaeology-final/logs/75.log
+76,oracle,fail,,,,,,,"{""sany_s"": 0.5}",/Users/eric/GitHub/prove-TLA/results/runs/w25-archaeology-final/logs/76.log
+77,oracle,pass,no_cfg,,,,,,"{""sany_s"": 0.4}",/Users/eric/GitHub/prove-TLA/results/runs/w25-archaeology-final/logs/77.log
+83,oracle,fail,,,,,,,"{""sany_s"": 0.4}",/Users/eric/GitHub/prove-TLA/results/runs/w25-archaeology-final/logs/83.log
+109,oracle,pass,error,,original,,,,"{""sany_s"": 0.3, ""tlc_s"": 0.2}",/Users/eric/GitHub/prove-TLA/results/runs/w25-archaeology-final/logs/109.log
+169,oracle,fail,,,,,,,"{""sany_s"": 0.3}",/Users/eric/GitHub/prove-TLA/results/runs/w25-archaeology-final/logs/169.log
+199,oracle,fail,,,,,,,"{""sany_s"": 0.2}",/Users/eric/GitHub/prove-TLA/results/runs/w25-archaeology-final/logs/199.log

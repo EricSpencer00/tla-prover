@@ -1,0 +1,2802 @@
+{
+  "per_canonical_contaminated": {
+    "bench:1": [
+      [
+        "tlaplus/Examples/specifications/aba-asyn-byz/aba_asyn_byz.tla",
+        1.0
+      ],
+      [
+        "apalache-mc/apalache/tla-assignments/src/test/resources/abzExperiments/aba_asyn_byzagreement0.tla",
+        0.8865
+      ],
+      [
+        "tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/examples/aba-asyn-byz/aba_asyn_byz.tla",
+        0.7259
+      ]
+    ],
+    "bench:10": [
+      [
+        "tlaplus/Examples/specifications/allocator/SimpleAllocator.tla",
+        1.0
+      ]
+    ],
+    "bench:100": [
+      [
+        "tlaplus/Examples/specifications/Huang/Huang.tla",
+        1.0
+      ],
+      [
+        "tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/examples/Huang/Huang.tla",
+        0.9825
+      ]
+    ],
+    "bench:101": [
+      [
+        "tlaplus/Examples/specifications/KeyValueStore/ClientCentric.tla",
+        1.0
+      ]
+    ],
+    "bench:102": [
+      [
+        "tlaplus/Examples/specifications/KeyValueStore/KeyValueStore.tla",
+        1.0
+      ]
+    ],
+    "bench:103": [
+      [
+        "tlaplus/Examples/specifications/KeyValueStore/KVsnap.tla",
+        1.0
+      ]
+    ],
+    "bench:104": [
+      [
+        "tlaplus/Examples/specifications/KeyValueStore/MCKVS.tla",
+        1.0
+      ]
+    ],
+    "bench:106": [
+      [
+        "tlaplus/Examples/specifications/KeyValueStore/Util.tla",
+        1.0
+      ]
+    ],
+    "bench:107": [
+      [
+        "tlaplus/Examples/specifications/KnuthYao/KnuthYao.tla",
+        1.0
+      ]
+    ],
+    "bench:108": [
+      [
+        "tlaplus/Examples/specifications/KnuthYao/Prob.tla",
+        1.0
+      ]
+    ],
+    "bench:109": [
+      [
+        "tlaplus/Examples/specifications/KnuthYao/SimKnuthYao.tla",
+        1.0
+      ]
+    ],
+    "bench:110": [
+      [
+        "apalache-mc/apalache/test/tla/FunctionsTyped.tla",
+        0.7115
+      ]
+    ],
+    "bench:111": [
+      [
+        "tlaplus/Examples/specifications/lamport_mutex/LamportMutex.tla",
+        1.0
+      ],
+      [
+        "apalache-mc/apalache/test/tla/LamportMutexTyped.tla",
+        0.9696
+      ]
+    ],
+    "bench:113": [
+      [
+        "tlaplus/Examples/specifications/lamport_mutex/MCLamportMutex.tla",
+        1.0
+      ]
+    ],
+    "bench:116": [
+      [
+        "tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/VoteProof/TLAPS.tla",
+        1.0
+      ]
+    ],
+    "bench:118": [
+      [
+        "tlaplus/Examples/specifications/LearnProofs/AddTwo.tla",
+        1.0
+      ]
+    ],
+    "bench:119": [
+      [
+        "tlaplus/Examples/specifications/LearnProofs/FindHighest.tla",
+        1.0
+      ]
+    ],
+    "bench:121": [
+      [
+        "tlaplus/Examples/specifications/LeastCircularSubstring/LeastCircularSubstring.tla",
+        1.0
+      ]
+    ],
+    "bench:122": [
+      [
+        "tlaplus/Examples/specifications/LeastCircularSubstring/MCLeastCircularSubstring.tla",
+        1.0
+      ]
+    ],
+    "bench:123": [
+      [
+        "tlaplus/Examples/specifications/LeastCircularSubstring/ZSequences.tla",
+        1.0
+      ]
+    ],
+    "bench:124": [
+      [
+        "tlaplus/Examples/specifications/LevelChecking/LevelSpec.tla",
+        1.0
+      ]
+    ],
+    "bench:125": [
+      [
+        "tlaplus/Examples/specifications/LoopInvariance/BinarySearch.tla",
+        1.0
+      ]
+    ],
+    "bench:126": [
+      [
+        "tlaplus/Examples/specifications/LoopInvariance/MCBinarySearch.tla",
+        1.0
+      ]
+    ],
+    "bench:127": [
+      [
+        "tlaplus/Examples/specifications/LoopInvariance/MCQuicksort.tla",
+        1.0
+      ]
+    ],
+    "bench:13": [
+      [
+        "tlaplus/Examples/specifications/Bakery-Boulangerie/MCBakery.tla",
+        1.0
+      ]
+    ],
+    "bench:130": [
+      [
+        "tlaplus/Examples/specifications/Majority/Majority.tla",
+        1.0
+      ]
+    ],
+    "bench:132": [
+      [
+        "tlaplus/Examples/specifications/Majority/MCMajority.tla",
+        1.0
+      ]
+    ],
+    "bench:133": [
+      [
+        "tlaplus/Examples/specifications/MisraReachability/MCParReach.tla",
+        1.0
+      ]
+    ],
+    "bench:134": [
+      [
+        "tlaplus/Examples/specifications/MisraReachability/MCReachabilityTest.tla",
+        1.0
+      ]
+    ],
+    "bench:135": [
+      [
+        "tlaplus/Examples/specifications/MisraReachability/MCReachable.tla",
+        1.0
+      ]
+    ],
+    "bench:136": [
+      [
+        "tlaplus/Examples/specifications/MisraReachability/ParReach.tla",
+        1.0
+      ]
+    ],
+    "bench:137": [
+      [
+        "tlaplus/Examples/specifications/MisraReachability/ParReachProofs.tla",
+        1.0
+      ]
+    ],
+    "bench:138": [
+      [
+        "tlaplus/Examples/specifications/MisraReachability/Reachability.tla",
+        1.0
+      ]
+    ],
+    "bench:14": [
+      [
+        "tlaplus/Examples/specifications/Bakery-Boulangerie/MCBoulanger.tla",
+        1.0
+      ]
+    ],
+    "bench:140": [
+      [
+        "tlaplus/Examples/specifications/MisraReachability/ReachabilityTest.tla",
+        1.0
+      ]
+    ],
+    "bench:141": [
+      [
+        "tlaplus/Examples/specifications/MisraReachability/Reachable.tla",
+        1.0
+      ]
+    ],
+    "bench:142": [
+      [
+        "tlaplus/Examples/specifications/MisraReachability/ReachableProofs.tla",
+        1.0
+      ]
+    ],
+    "bench:143": [
+      [
+        "tlaplus/Examples/specifications/MissionariesAndCannibals/MissionariesAndCannibals.tla",
+        1.0
+      ],
+      [
+        "apalache-mc/apalache/test/tla/MissionariesAndCannibalsTyped.tla",
+        0.7562
+      ]
+    ],
+    "bench:144": [
+      [
+        "tlaplus/Examples/specifications/MultiCarElevator/Elevator.tla",
+        1.0
+      ]
+    ],
+    "bench:145": [
+      [
+        "tlaplus/Examples/specifications/MultiPaxos-SMR/MultiPaxos.tla",
+        1.0
+      ]
+    ],
+    "bench:146": [
+      [
+        "tlaplus/Examples/specifications/MultiPaxos-SMR/MultiPaxos_MC.tla",
+        1.0
+      ]
+    ],
+    "bench:147": [
+      [
+        "tlaplus/Examples/specifications/NanoBlockchain/MCNano.tla",
+        1.0
+      ]
+    ],
+    "bench:148": [
+      [
+        "tlaplus/Examples/specifications/NanoBlockchain/Nano.tla",
+        1.0
+      ]
+    ],
+    "bench:149": [
+      [
+        "tlaplus/Examples/specifications/nbacc_ray97/nbacc_ray97.tla",
+        1.0
+      ],
+      [
+        "apalache-mc/apalache/tla-assignments/src/test/resources/abzExperiments/nbac.tla",
+        0.9715
+      ]
+    ],
+    "bench:150": [
+      [
+        "tlaplus/Examples/specifications/nbacg_guer01/nbacg_guer01.tla",
+        1.0
+      ],
+      [
+        "apalache-mc/apalache/tla-assignments/src/test/resources/abzExperiments/nbacg_asyn_guer01_nbac.tla",
+        0.9785
+      ],
+      [
+        "tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/examples/nbacg_guer01/nbacg_guer01.tla",
+        0.9713
+      ]
+    ],
+    "bench:151": [
+      [
+        "tlaplus/Examples/specifications/N-Queens/Queens.tla",
+        1.0
+      ],
+      [
+        "apalache-mc/apalache/test/tla/QueensTyped.tla",
+        0.8485
+      ]
+    ],
+    "bench:152": [
+      [
+        "tlaplus/Examples/specifications/N-Queens/QueensPluscal.tla",
+        1.0
+      ]
+    ],
+    "bench:154": [
+      [
+        "tlaplus/Examples/specifications/Paxos/MCConsensus.tla",
+        1.0
+      ]
+    ],
+    "bench:155": [
+      [
+        "tlaplus/Examples/specifications/Paxos/MCPaxos.tla",
+        1.0
+      ]
+    ],
+    "bench:156": [
+      [
+        "tlaplus/Examples/specifications/Paxos/MCVoting.tla",
+        1.0
+      ]
+    ],
+    "bench:157": [
+      [
+        "tlaplus/Examples/specifications/Paxos/Paxos.tla",
+        1.0
+      ],
+      [
+        "apalache-mc/apalache/tla-assignments/src/test/resources/abzExperiments/Paxos.tla",
+        0.7331
+      ],
+      [
+        "apalache-mc/apalache/tla-assignments/src/test/resources/assignmentSolver/miniPaxos.tla",
+        0.6827
+      ]
+    ],
+    "bench:16": [
+      [
+        "tlaplus/Examples/specifications/bcastFolklore/bcastFolklore.tla",
+        1.0
+      ],
+      [
+        "tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/examples/bcastFolklore/bcastFolklore.tla",
+        0.9423
+      ],
+      [
+        "apalache-mc/apalache/tla-assignments/src/test/resources/abzExperiments/bcastFolklore.tla",
+        0.9013
+      ]
+    ],
+    "bench:165": [
+      [
+        "tlaplus/Examples/specifications/Prisoners/MCPrisoners.tla",
+        1.0
+      ]
+    ],
+    "bench:166": [
+      [
+        "tlaplus/Examples/specifications/Prisoners/Prisoners.tla",
+        1.0
+      ],
+      [
+        "apalache-mc/apalache/test/tla/PrisonersTyped.tla",
+        0.7569
+      ]
+    ],
+    "bench:167": [
+      [
+        "tlaplus/Examples/specifications/ReadersWriters/MC.tla",
+        1.0
+      ]
+    ],
+    "bench:168": [
+      [
+        "tlaplus/Examples/specifications/ReadersWriters/ReadersWriters.tla",
+        1.0
+      ]
+    ],
+    "bench:169": [
+      [
+        "tlaplus/Examples/specifications/SimplifiedFastPaxos/FastPaxos.tla",
+        1.0
+      ]
+    ],
+    "bench:17": [
+      [
+        "tlaplus/Examples/specifications/bosco/bosco.tla",
+        1.0
+      ]
+    ],
+    "bench:172": [
+      [
+        "tlaplus/Examples/specifications/SingleLaneBridge/SingleLaneBridge.tla",
+        1.0
+      ]
+    ],
+    "bench:173": [
+      [
+        "tlaplus/Examples/specifications/SlidingPuzzles/SlidingPuzzles.tla",
+        1.0
+      ],
+      [
+        "apalache-mc/apalache/test/tla/SlidingPuzzlesTyped.tla",
+        0.8966
+      ]
+    ],
+    "bench:174": [
+      [
+        "tlaplus/Examples/specifications/SlushProtocol/Slush.tla",
+        1.0
+      ]
+    ],
+    "bench:175": [
+      [
+        "tlaplus/Examples/specifications/spanning/MC_spanning.tla",
+        1.0
+      ]
+    ],
+    "bench:177": [
+      [
+        "tlaplus/Examples/specifications/SpanningTree/SpanTree.tla",
+        1.0
+      ],
+      [
+        "tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/examples/SpanningTree/SpanTree.tla",
+        0.9582
+      ]
+    ],
+    "bench:178": [
+      [
+        "tlaplus/Examples/specifications/SpanningTree/SpanTreeRandom.tla",
+        1.0
+      ],
+      [
+        "tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/examples/SpanningTree/SpanTreeRandom.tla",
+        0.9773
+      ]
+    ],
+    "bench:179": [
+      [
+        "tlaplus/Examples/specifications/SpanningTree/SpanTreeTest.tla",
+        1.0
+      ],
+      [
+        "tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/examples/SpanningTree/SpanTreeTest.tla",
+        0.959
+      ]
+    ],
+    "bench:18": [
+      [
+        "tlaplus/Examples/specifications/braf/BufferedRandomAccessFile.tla",
+        1.0
+      ],
+      [
+        "tlaplus/tlaplus/tlatools/org.lamport.tlatools/src/tlc2/util/BufferedRandomAccessFile.tla",
+        0.9659
+      ],
+      [
+        "tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/examples/braf/BufferedRandomAccessFile.tla",
+        0.8868
+      ]
+    ],
+    "bench:180": [
+      [
+        "tlaplus/Examples/specifications/Stones/Stones.tla",
+        1.0
+      ]
+    ],
+    "bench:181": [
+      [
+        "tlaplus/Examples/specifications/sums_even/MC_sums_even.tla",
+        1.0
+      ]
+    ],
+    "bench:182": [
+      [
+        "tlaplus/Examples/specifications/sums_even/sums_even.tla",
+        1.0
+      ]
+    ],
+    "bench:184": [
+      [
+        "tlaplus/Examples/specifications/tcp/MCtcp.tla",
+        1.0
+      ]
+    ],
+    "bench:19": [
+      [
+        "tlaplus/Examples/specifications/byihive/VoucherCancel.tla",
+        1.0
+      ]
+    ],
+    "bench:190": [
+      [
+        "tlaplus/Examples/specifications/tower_of_hanoi/Bits.tla",
+        1.0
+      ]
+    ],
+    "bench:191": [
+      [
+        "tlaplus/Examples/specifications/tower_of_hanoi/Hanoi.tla",
+        1.0
+      ]
+    ],
+    "bench:192": [
+      [
+        "tlaplus/Examples/specifications/tower_of_hanoi/HanoiSeq.tla",
+        1.0
+      ]
+    ],
+    "bench:193": [
+      [
+        "tlaplus/Examples/specifications/transaction_commit/2PCwithBTM.tla",
+        1.0
+      ]
+    ],
+    "bench:194": [
+      [
+        "tlaplus/tlaplus/general/performance/PaxosCommit/PaxosCommit.tla",
+        0.9121
+      ],
+      [
+        "josehu07/learn-tla/TLA+-video-course/TxnCommit/PaxosCommit.tla",
+        0.6591
+      ]
+    ],
+    "bench:195": [
+      [
+        "apalache-mc/apalache/docs/src/tutorials/TCommit.tla",
+        1.0
+      ]
+    ],
+    "bench:196": [
+      [
+        "tlaplus/Examples/specifications/transaction_commit/TwoPhase.tla",
+        1.0
+      ],
+      [
+        "apalache-mc/apalache/docs/src/tutorials/TwoPhase.tla",
+        0.9174
+      ]
+    ],
+    "bench:197": [
+      [
+        "tlaplus/Examples/specifications/TransitiveClosure/TransitiveClosure.tla",
+        1.0
+      ]
+    ],
+    "bench:198": [
+      [
+        "tlaplus/Examples/specifications/TwoPhase/Alternate.tla",
+        1.0
+      ]
+    ],
+    "bench:199": [
+      [
+        "tlaplus/Examples/specifications/TwoPhase/MCTwoPhase.tla",
+        1.0
+      ]
+    ],
+    "bench:2": [
+      [
+        "tlaplus/Examples/specifications/acp/ACP_NB.tla",
+        1.0
+      ]
+    ],
+    "bench:20": [
+      [
+        "tlaplus/Examples/specifications/byihive/VoucherIssue.tla",
+        1.0
+      ]
+    ],
+    "bench:202": [
+      [
+        "tlaplus/Examples/specifications/YoYo/MCYoYoNoPruning.tla",
+        1.0
+      ]
+    ],
+    "bench:203": [
+      [
+        "tlaplus/Examples/specifications/YoYo/MCYoYoPruning.tla",
+        1.0
+      ]
+    ],
+    "bench:204": [
+      [
+        "tlaplus/Examples/specifications/YoYo/YoYoAllGraphs.tla",
+        1.0
+      ]
+    ],
+    "bench:205": [
+      [
+        "tlaplus/Examples/specifications/YoYo/YoYoNoPruning.tla",
+        1.0
+      ]
+    ],
+    "bench:206": [
+      [
+        "tlaplus/Examples/specifications/YoYo/YoYoPruning.tla",
+        1.0
+      ]
+    ],
+    "bench:21": [
+      [
+        "tlaplus/Examples/specifications/byihive/VoucherLifeCycle.tla",
+        1.0
+      ]
+    ],
+    "bench:22": [
+      [
+        "tlaplus/Examples/specifications/byihive/VoucherRedeem.tla",
+        1.0
+      ]
+    ],
+    "bench:23": [
+      [
+        "tlaplus/Examples/specifications/byihive/VoucherTransfer.tla",
+        1.0
+      ]
+    ],
+    "bench:26": [
+      [
+        "tlaplus/Examples/specifications/byzpaxos/PConProof.tla",
+        1.0
+      ]
+    ],
+    "bench:28": [
+      [
+        "tlaplus/Examples/specifications/c1cs/c1cs.tla",
+        1.0
+      ]
+    ],
+    "bench:29": [
+      [
+        "tlaplus/Examples/specifications/CarTalkPuzzle/CarTalkPuzzle.tla",
+        1.0
+      ],
+      [
+        "apalache-mc/apalache/test/tla/CarTalkPuzzleTyped.tla",
+        0.951
+      ]
+    ],
+    "bench:3": [
+      [
+        "tlaplus/Examples/specifications/acp/ACP_NB_TLC.tla",
+        1.0
+      ]
+    ],
+    "bench:30": [
+      [
+        "tlaplus/Examples/specifications/cbc_max/cbc_max.tla",
+        1.0
+      ]
+    ],
+    "bench:31": [
+      [
+        "tlaplus/Examples/specifications/cf1s-folklore/cf1s_folklore.tla",
+        1.0
+      ],
+      [
+        "tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/examples/cf1s-folklore/cf1s_folklore.tla",
+        0.9444
+      ]
+    ],
+    "bench:32": [
+      [
+        "tlaplus/Examples/specifications/Chameneos/Chameneos.tla",
+        1.0
+      ]
+    ],
+    "bench:33": [
+      [
+        "tlaplus/Examples/specifications/chang_roberts/ChangRoberts.tla",
+        1.0
+      ],
+      [
+        "apalache-mc/apalache/test/tla/ChangRobertsTyped.tla",
+        0.8213
+      ]
+    ],
+    "bench:34": [
+      [
+        "tlaplus/Examples/specifications/chang_roberts/MCChangRoberts.tla",
+        1.0
+      ]
+    ],
+    "bench:35": [
+      [
+        "tlaplus/Examples/specifications/CheckpointCoordination/CheckpointCoordination.tla",
+        1.0
+      ]
+    ],
+    "bench:36": [
+      [
+        "tlaplus/Examples/specifications/CheckpointCoordination/MCCheckpointCoordination.tla",
+        1.0
+      ]
+    ],
+    "bench:37": [
+      [
+        "apalache-mc/apalache/test/tla/CigaretteSmokersTyped.tla",
+        0.7778
+      ]
+    ],
+    "bench:38": [
+      [
+        "tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/examples/CoffeeCan/CoffeeCan100Beans.tla",
+        0.9755
+      ]
+    ],
+    "bench:39": [
+      [
+        "tlaplus/Examples/specifications/detector_chan96/Age_Channel.tla",
+        1.0
+      ]
+    ],
+    "bench:4": [
+      [
+        "tlaplus/Examples/specifications/acp/ACP_NB_WRONG_TLC.tla",
+        1.0
+      ],
+      [
+        "tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/examples/acp/ACP_NB_WRONG_TLC.tla",
+        0.9102
+      ]
+    ],
+    "bench:40": [
+      [
+        "tlaplus/Examples/specifications/detector_chan96/EnvironmentController.tla",
+        1.0
+      ],
+      [
+        "tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/examples/detector_chan96/EnvironmentController.tla",
+        0.9603
+      ]
+    ],
+    "bench:41": [
+      [
+        "tlaplus/Examples/specifications/detector_chan96/EPFailureDetector.tla",
+        1.0
+      ]
+    ],
+    "bench:42": [
+      [
+        "tlaplus/Examples/specifications/DieHard/DieHard.tla",
+        1.0
+      ]
+    ],
+    "bench:43": [
+      [
+        "tlaplus/Examples/specifications/DieHard/DieHarder.tla",
+        1.0
+      ]
+    ],
+    "bench:44": [
+      [
+        "tlaplus/Examples/specifications/DieHard/MCDieHarder.tla",
+        1.0
+      ]
+    ],
+    "bench:45": [
+      [
+        "tlaplus/Examples/specifications/dijkstra-mutex/DijkstraMutex.tla",
+        1.0
+      ]
+    ],
+    "bench:46": [
+      [
+        "tlaplus/Examples/specifications/DiningPhilosophers/DiningPhilosophers.tla",
+        1.0
+      ]
+    ],
+    "bench:47": [
+      [
+        "tlaplus/Examples/specifications/diskpaxos/DiskSynod.tla",
+        1.0
+      ]
+    ],
+    "bench:48": [
+      [
+        "tlaplus/Examples/specifications/diskpaxos/HDiskSynod.tla",
+        1.0
+      ]
+    ],
+    "bench:49": [
+      [
+        "tlaplus/Examples/specifications/diskpaxos/MC_HDiskSynod.tla",
+        1.0
+      ]
+    ],
+    "bench:5": [
+      [
+        "tlaplus/Examples/specifications/acp/ACP_SB.tla",
+        1.0
+      ]
+    ],
+    "bench:50": [
+      [
+        "tlaplus/Examples/specifications/diskpaxos/Synod.tla",
+        1.0
+      ]
+    ],
+    "bench:51": [
+      [
+        "tlaplus/Examples/specifications/Disruptor/Disruptor_MPMC.tla",
+        1.0
+      ]
+    ],
+    "bench:52": [
+      [
+        "tlaplus/Examples/specifications/Disruptor/Disruptor_SPMC.tla",
+        1.0
+      ]
+    ],
+    "bench:53": [
+      [
+        "tlaplus/Examples/specifications/Disruptor/RingBuffer.tla",
+        1.0
+      ]
+    ],
+    "bench:54": [
+      [
+        "tlaplus/Examples/specifications/echo/Echo.tla",
+        1.0
+      ],
+      [
+        "tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/Echo/Echo.tla",
+        0.9545
+      ]
+    ],
+    "bench:55": [
+      [
+        "tlaplus/Examples/specifications/echo/MCEcho.tla",
+        1.0
+      ],
+      [
+        "tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/Echo/MCEcho.tla",
+        0.7768
+      ]
+    ],
+    "bench:56": [
+      [
+        "tlaplus/Examples/specifications/echo/Relation.tla",
+        1.0
+      ]
+    ],
+    "bench:57": [
+      [
+        "tlaplus/Examples/specifications/EinsteinRiddle/Einstein.tla",
+        1.0
+      ]
+    ],
+    "bench:58": [
+      [
+        "tlaplus/Examples/specifications/ewd426/SimTokenRing.tla",
+        1.0
+      ]
+    ],
+    "bench:59": [
+      [
+        "tlaplus/Examples/specifications/ewd426/TokenRing.tla",
+        1.0
+      ]
+    ],
+    "bench:6": [
+      [
+        "tlaplus/Examples/specifications/acp/ACP_SB_TLC.tla",
+        1.0
+      ],
+      [
+        "tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/examples/acp/ACP_SB_TLC.tla",
+        0.7273
+      ]
+    ],
+    "bench:60": [
+      [
+        "tlaplus/Examples/specifications/ewd687a/EWD687a_anim.tla",
+        1.0
+      ]
+    ],
+    "bench:61": [
+      [
+        "tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/examples/ewd687a/EWD687a.tla",
+        1.0
+      ]
+    ],
+    "bench:62": [
+      [
+        "tlaplus/Examples/specifications/ewd687a/EWD687aPlusCal.tla",
+        1.0
+      ]
+    ],
+    "bench:63": [
+      [
+        "tlaplus/Examples/specifications/ewd687a/MCEWD687a.tla",
+        1.0
+      ]
+    ],
+    "bench:64": [
+      [
+        "tlaplus/Examples/specifications/ewd840/EWD840_anim.tla",
+        1.0
+      ]
+    ],
+    "bench:65": [
+      [
+        "apalache-mc/apalache/test/tla/EWD840.tla",
+        0.7162
+      ],
+      [
+        "tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/CodePlexBug08/EWD840.tla",
+        0.6977
+      ],
+      [
+        "tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/MonolithSpec.tla",
+        0.6937
+      ]
+    ],
+    "bench:66": [
+      [
+        "tlaplus/Examples/specifications/ewd840/EWD840_json.tla",
+        1.0
+      ]
+    ],
+    "bench:7": [
+      [
+        "tlaplus/Examples/specifications/allocator/AllocatorImplementation.tla",
+        1.0
+      ]
+    ],
+    "bench:70": [
+      [
+        "tlaplus/Examples/specifications/ewd998/AsyncTerminationDetection.tla",
+        1.0
+      ],
+      [
+        "tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/examples/ewd998/AsyncTerminationDetection.tla",
+        0.6643
+      ]
+    ],
+    "bench:73": [
+      [
+        "tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/examples/ewd998/EWD998Chan.tla",
+        0.9781
+      ]
+    ],
+    "bench:76": [
+      [
+        "tlaplus/Examples/specifications/ewd998/EWD998ChanID_shiviz.tla",
+        1.0
+      ]
+    ],
+    "bench:77": [
+      [
+        "tlaplus/Examples/specifications/ewd998/EWD998Chan_opts.tla",
+        1.0
+      ]
+    ],
+    "bench:78": [
+      [
+        "tlaplus/Examples/specifications/ewd998/EWD998ChanTrace.tla",
+        1.0
+      ]
+    ],
+    "bench:8": [
+      [
+        "tlaplus/Examples/specifications/allocator/AllocatorRefinement.tla",
+        1.0
+      ]
+    ],
+    "bench:80": [
+      [
+        "tlaplus/Examples/specifications/ewd998/EWD998_opts.tla",
+        1.0
+      ]
+    ],
+    "bench:81": [
+      [
+        "tlaplus/Examples/specifications/ewd998/EWD998_optsSC.tla",
+        1.0
+      ]
+    ],
+    "bench:82": [
+      [
+        "tlaplus/Examples/specifications/ewd998/EWD998PCal.tla",
+        1.0
+      ]
+    ],
+    "bench:84": [
+      [
+        "tlaplus/Examples/specifications/ewd998/SmokeEWD998.tla",
+        1.0
+      ]
+    ],
+    "bench:85": [
+      [
+        "tlaplus/Examples/specifications/ewd998/SmokeEWD998_SC.tla",
+        1.0
+      ]
+    ],
+    "bench:87": [
+      [
+        "tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/examples/ewd998/Utils.tla",
+        1.0
+      ]
+    ],
+    "bench:9": [
+      [
+        "tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/examples/allocator/SchedulingAllocator.tla",
+        0.743
+      ]
+    ],
+    "bench:90": [
+      [
+        "tlaplus/Examples/specifications/FiniteMonotonic/DistributedReplicatedLog.tla",
+        1.0
+      ]
+    ],
+    "bench:91": [
+      [
+        "tlaplus/Examples/specifications/FiniteMonotonic/MCCRDT.tla",
+        1.0
+      ]
+    ],
+    "bench:92": [
+      [
+        "tlaplus/Examples/specifications/FiniteMonotonic/MCDistributedReplicatedLog.tla",
+        1.0
+      ]
+    ],
+    "bench:93": [
+      [
+        "tlaplus/Examples/specifications/FiniteMonotonic/MCReplicatedLog.tla",
+        1.0
+      ]
+    ],
+    "bench:94": [
+      [
+        "tlaplus/Examples/specifications/FiniteMonotonic/ReplicatedLog.tla",
+        1.0
+      ]
+    ],
+    "bench:95": [
+      [
+        "tlaplus/Examples/specifications/GameOfLife/GameOfLife.tla",
+        1.0
+      ],
+      [
+        "apalache-mc/apalache/test/tla/GameOfLifeTyped.tla",
+        0.9301
+      ]
+    ],
+    "bench:96": [
+      [
+        "tlaplus/Examples/specifications/glowingRaccoon/clean.tla",
+        1.0
+      ]
+    ],
+    "bench:98": [
+      [
+        "tlaplus/Examples/specifications/glowingRaccoon/product.tla",
+        1.0
+      ]
+    ],
+    "bench:99": [
+      [
+        "tlaplus/Examples/specifications/glowingRaccoon/stages.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/Bakery-Boulangerie/Bakery.tla": [
+      [
+        "tlaplus/Examples/specifications/Bakery-Boulangerie/Bakery.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/Bakery-Boulangerie/Boulanger.tla": [
+      [
+        "tlaplus/Examples/specifications/Bakery-Boulangerie/Boulanger.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/CarTalkPuzzle/CarTalkPuzzle.toolbox/Model_1/CarTalkPuzzle.tla": [
+      [
+        "tlaplus/Examples/specifications/CarTalkPuzzle/CarTalkPuzzle.toolbox/Model_1/CarTalkPuzzle.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/CarTalkPuzzle/CarTalkPuzzle.toolbox/Model_1/MC.tla": [
+      [
+        "tlaplus/Examples/specifications/CarTalkPuzzle/CarTalkPuzzle.toolbox/Model_1/MC.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/CarTalkPuzzle/CarTalkPuzzle.toolbox/Model_2/MC.tla": [
+      [
+        "tlaplus/Examples/specifications/CarTalkPuzzle/CarTalkPuzzle.toolbox/Model_2/MC.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/CarTalkPuzzle/CarTalkPuzzle.toolbox/Model_3/CarTalkPuzzle.tla": [
+      [
+        "tlaplus/Examples/specifications/CarTalkPuzzle/CarTalkPuzzle.toolbox/Model_3/CarTalkPuzzle.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/CarTalkPuzzle/CarTalkPuzzle.toolbox/Model_3/MC.tla": [
+      [
+        "tlaplus/Examples/specifications/CarTalkPuzzle/CarTalkPuzzle.toolbox/Model_3/MC.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/Chameneos/APChameneos.tla": [
+      [
+        "tlaplus/Examples/specifications/Chameneos/APChameneos.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/CigaretteSmokers/APCigaretteSmokers.tla": [
+      [
+        "tlaplus/Examples/specifications/CigaretteSmokers/APCigaretteSmokers.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/CigaretteSmokers/CigaretteSmokers.tla": [
+      [
+        "tlaplus/Examples/specifications/CigaretteSmokers/CigaretteSmokers.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/CigaretteSmokers/CigaretteSmokers_proof.tla": [
+      [
+        "tlaplus/Examples/specifications/CigaretteSmokers/CigaretteSmokers_proof.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/CoffeeCan/APCoffeeCan.tla": [
+      [
+        "tlaplus/Examples/specifications/CoffeeCan/APCoffeeCan.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/CoffeeCan/CoffeeCan.tla": [
+      [
+        "tlaplus/Examples/specifications/CoffeeCan/CoffeeCan.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/CoffeeCan/CoffeeCan_proof.tla": [
+      [
+        "tlaplus/Examples/specifications/CoffeeCan/CoffeeCan_proof.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/DieHard/APADieHardest.tla": [
+      [
+        "tlaplus/Examples/specifications/DieHard/APADieHardest.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/DieHard/APDieHarder.tla": [
+      [
+        "tlaplus/Examples/specifications/DieHard/APDieHarder.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/DieHard/DieHard_proof.tla": [
+      [
+        "tlaplus/Examples/specifications/DieHard/DieHard_proof.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/DieHard/DieHardest.tla": [
+      [
+        "tlaplus/Examples/specifications/DieHard/DieHardest.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/DieHard/MCDieHardest.tla": [
+      [
+        "tlaplus/Examples/specifications/DieHard/MCDieHardest.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/DiningPhilosophers/APDiningPhilosophers.tla": [
+      [
+        "tlaplus/Examples/specifications/DiningPhilosophers/APDiningPhilosophers.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/Disruptor/APDisruptor_MPMC.tla": [
+      [
+        "tlaplus/Examples/specifications/Disruptor/APDisruptor_MPMC.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/Disruptor/APDisruptor_SPMC.tla": [
+      [
+        "tlaplus/Examples/specifications/Disruptor/APDisruptor_SPMC.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/Disruptor/APRingBuffer.tla": [
+      [
+        "tlaplus/Examples/specifications/Disruptor/APRingBuffer.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/FiniteMonotonic/APCRDT.tla": [
+      [
+        "tlaplus/Examples/specifications/FiniteMonotonic/APCRDT.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/FiniteMonotonic/APDistributedReplicatedLog.tla": [
+      [
+        "tlaplus/Examples/specifications/FiniteMonotonic/APDistributedReplicatedLog.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/FiniteMonotonic/APReplicatedLog.tla": [
+      [
+        "tlaplus/Examples/specifications/FiniteMonotonic/APReplicatedLog.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/FiniteMonotonic/CRDT.tla": [
+      [
+        "tlaplus/Examples/specifications/FiniteMonotonic/CRDT.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/FiniteMonotonic/CRDT_proof.tla": [
+      [
+        "tlaplus/Examples/specifications/FiniteMonotonic/CRDT_proof.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/KeyValueStore/APKeyValueStore.tla": [
+      [
+        "tlaplus/Examples/specifications/KeyValueStore/APKeyValueStore.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/KeyValueStore/KeyValueStore_proof.tla": [
+      [
+        "tlaplus/Examples/specifications/KeyValueStore/KeyValueStore_proof.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/KeyValueStore/MCKVsnap.tla": [
+      [
+        "tlaplus/Examples/specifications/KeyValueStore/MCKVsnap.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/LearnProofs/MCFindHighest.tla": [
+      [
+        "tlaplus/Examples/specifications/LearnProofs/MCFindHighest.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/LoopInvariance/Quicksort.tla": [
+      [
+        "tlaplus/Examples/specifications/LoopInvariance/Quicksort.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/LoopInvariance/SumSequence.tla": [
+      [
+        "tlaplus/Examples/specifications/LoopInvariance/SumSequence.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/Majority/APMajority.tla": [
+      [
+        "tlaplus/Examples/specifications/Majority/APMajority.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/Majority/MajorityProof.tla": [
+      [
+        "tlaplus/Examples/specifications/Majority/MajorityProof.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/MisraReachability/APParReach.tla": [
+      [
+        "tlaplus/Examples/specifications/MisraReachability/APParReach.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/MisraReachability/APReachable.tla": [
+      [
+        "tlaplus/Examples/specifications/MisraReachability/APReachable.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/MisraReachability/ReachabilityProofs.tla": [
+      [
+        "tlaplus/Examples/specifications/MisraReachability/ReachabilityProofs.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/MissionariesAndCannibals/APMissionariesAndCannibals.tla": [
+      [
+        "tlaplus/Examples/specifications/MissionariesAndCannibals/APMissionariesAndCannibals.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/MissionariesAndCannibals/MissionariesAndCannibals_proof.tla": [
+      [
+        "tlaplus/Examples/specifications/MissionariesAndCannibals/MissionariesAndCannibals_proof.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/Moving_Cat_Puzzle/APCat.tla": [
+      [
+        "tlaplus/Examples/specifications/Moving_Cat_Puzzle/APCat.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/Moving_Cat_Puzzle/Cat.tla": [
+      [
+        "tlaplus/Examples/specifications/Moving_Cat_Puzzle/Cat.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/MultiCarElevator/Elevator_proof.tla": [
+      [
+        "tlaplus/Examples/specifications/MultiCarElevator/Elevator_proof.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/N-Queens/Queens.toolbox/FourQueens/MC.tla": [
+      [
+        "tlaplus/Examples/specifications/N-Queens/Queens.toolbox/FourQueens/MC.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/N-Queens/QueensPluscal.toolbox/FourQueens/MC.tla": [
+      [
+        "tlaplus/Examples/specifications/N-Queens/QueensPluscal.toolbox/FourQueens/MC.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/Paxos/Consensus.tla": [
+      [
+        "tlaplus/Examples/specifications/Paxos/Consensus.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/Paxos/Voting.tla": [
+      [
+        "tlaplus/Examples/specifications/Paxos/Voting.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/PaxosHowToWinATuringAward/Consensus.tla": [
+      [
+        "tlaplus/Examples/specifications/PaxosHowToWinATuringAward/Consensus.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/PaxosHowToWinATuringAward/MCConsensus.tla": [
+      [
+        "tlaplus/Examples/specifications/PaxosHowToWinATuringAward/MCConsensus.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/PaxosHowToWinATuringAward/MCPaxos.tla": [
+      [
+        "tlaplus/Examples/specifications/PaxosHowToWinATuringAward/MCPaxos.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/PaxosHowToWinATuringAward/MCVoting.tla": [
+      [
+        "tlaplus/Examples/specifications/PaxosHowToWinATuringAward/MCVoting.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/PaxosHowToWinATuringAward/Paxos.tla": [
+      [
+        "tlaplus/Examples/specifications/PaxosHowToWinATuringAward/Paxos.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/PaxosHowToWinATuringAward/Voting.tla": [
+      [
+        "tlaplus/Examples/specifications/PaxosHowToWinATuringAward/Voting.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/PaxosHowToWinATuringAward/Voting_proof.tla": [
+      [
+        "tlaplus/Examples/specifications/PaxosHowToWinATuringAward/Voting_proof.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/Prisoners/APPrisoners.tla": [
+      [
+        "tlaplus/Examples/specifications/Prisoners/APPrisoners.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/Prisoners_Single_Switch/APPrisoner.tla": [
+      [
+        "tlaplus/Examples/specifications/Prisoners_Single_Switch/APPrisoner.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/Prisoners_Single_Switch/Prisoner.tla": [
+      [
+        "tlaplus/Examples/specifications/Prisoners_Single_Switch/Prisoner.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/ReadersWriters/APReadersWriters.tla": [
+      [
+        "tlaplus/Examples/specifications/ReadersWriters/APReadersWriters.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/ReadersWriters/ReadersWriters_proof.tla": [
+      [
+        "tlaplus/Examples/specifications/ReadersWriters/ReadersWriters_proof.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SDP_Verification/SDP_Attack_New_Solution_Spec/MC.tla": [
+      [
+        "tlaplus/Examples/specifications/SDP_Verification/SDP_Attack_New_Solution_Spec/MC.tla",
+        1.0
+      ],
+      [
+        "tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/examples/SDP_Verification/SDP_Attack_New_Solution_Spec/MC.tla",
+        0.7978
+      ]
+    ],
+    "examples:specifications/SDP_Verification/SDP_Attack_New_Solution_Spec/SPA_Attack_New.tla": [
+      [
+        "tlaplus/Examples/specifications/SDP_Verification/SDP_Attack_New_Solution_Spec/SPA_Attack_New.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SDP_Verification/SDP_Attack_Spec/MC.tla": [
+      [
+        "tlaplus/Examples/specifications/SDP_Verification/SDP_Attack_Spec/MC.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SDP_Verification/SDP_Attack_Spec/SPA_Attack.tla": [
+      [
+        "tlaplus/Examples/specifications/SDP_Verification/SDP_Attack_Spec/SPA_Attack.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SimplifiedFastPaxos/Paxos.tla": [
+      [
+        "tlaplus/Examples/specifications/SimplifiedFastPaxos/Paxos.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SingleLaneBridge/APSingleLaneBridge.tla": [
+      [
+        "tlaplus/Examples/specifications/SingleLaneBridge/APSingleLaneBridge.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SingleLaneBridge/MC.tla": [
+      [
+        "tlaplus/Examples/specifications/SingleLaneBridge/MC.tla",
+        1.0
+      ],
+      [
+        "tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/examples/SingleLaneBridge/MC.tla",
+        0.7059
+      ]
+    ],
+    "examples:specifications/SlidingPuzzles/SlidingPuzzles_anim.tla": [
+      [
+        "tlaplus/Examples/specifications/SlidingPuzzles/SlidingPuzzles_anim.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpanningTree/APSpanTree.tla": [
+      [
+        "tlaplus/Examples/specifications/SpanningTree/APSpanTree.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpanningTree/SpanTree_proof.tla": [
+      [
+        "tlaplus/Examples/specifications/SpanningTree/SpanTree_proof.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/AdvancedExamples/BNFGrammars.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/AdvancedExamples/BNFGrammars.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/AdvancedExamples/DifferentialEquations.tla": [
+      [
+        "tlaplus/CommunityModules/modules/DifferentialEquations.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/AdvancedExamples/Graphs.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/AdvancedExamples/Graphs.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/AdvancedExamples/InnerSequential.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/AdvancedExamples/InnerSequential.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/AdvancedExamples/InnerSerial.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/AdvancedExamples/InnerSerial.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/AdvancedExamples/MCInnerSequential.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/AdvancedExamples/MCInnerSequential.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/AdvancedExamples/MCInnerSerial.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/AdvancedExamples/MCInnerSerial.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/AdvancedExamples/SerialMemory.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/AdvancedExamples/SerialMemory.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/AsynchronousInterface/APAsynchInterface.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/AsynchronousInterface/APAsynchInterface.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/AsynchronousInterface/APChannel.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/AsynchronousInterface/APChannel.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/AsynchronousInterface/AsynchInterface.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/AsynchronousInterface/AsynchInterface.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/AsynchronousInterface/AsynchInterface_proof.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/AsynchronousInterface/AsynchInterface_proof.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/AsynchronousInterface/Channel.tla": [
+      [
+        "apalache-mc/apalache/test/tla/Channel.tla",
+        1.0
+      ],
+      [
+        "apalache-mc/apalache/test/tla/ChannelTyped.tla",
+        0.9344
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/AsynchronousInterface/Channel_proof.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/AsynchronousInterface/Channel_proof.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/AsynchronousInterface/PrintValues.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/AsynchronousInterface/PrintValues.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/CachingMemory/InternalMemory.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/CachingMemory/InternalMemory.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/CachingMemory/InternalMemory_proof.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/CachingMemory/InternalMemory_proof.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/CachingMemory/MCInternalMemory.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/CachingMemory/MCInternalMemory.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/CachingMemory/MCWriteThroughCache.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/CachingMemory/MCWriteThroughCache.tla",
+        1.0
+      ],
+      [
+        "tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/examples/SpecifyingSystems/CachingMemory/MCWriteThroughCache.tla",
+        0.9394
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/CachingMemory/Memory.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/CachingMemory/Memory.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/CachingMemory/MemoryInterface.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/CachingMemory/MemoryInterface.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/CachingMemory/WriteThroughCache.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/CachingMemory/WriteThroughCache.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/CachingMemory/WriteThroughCacheInstanced.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/CachingMemory/WriteThroughCacheInstanced.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/Composing/APHourClock.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/Composing/APHourClock.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/Composing/BinaryHourClock.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/Composing/BinaryHourClock.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/Composing/ChannelRefinement.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/Composing/ChannelRefinement.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/Composing/CompositeFIFO.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/Composing/CompositeFIFO.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/Composing/HourClock.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/Composing/HourClock.tla",
+        1.0
+      ],
+      [
+        "apalache-mc/apalache/test/tlaplus-suite/test63a.tla",
+        0.8723
+      ],
+      [
+        "apalache-mc/apalache/test/tla/HourClock.tla",
+        0.7547
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/Composing/HourClock_proof.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/Composing/HourClock_proof.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/Composing/JointActionMemory.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/Composing/JointActionMemory.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/FIFO/APInnerFIFO.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/FIFO/APInnerFIFO.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/FIFO/APInnerFIFOInstanced.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/FIFO/APInnerFIFOInstanced.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/FIFO/APMCInnerFIFO.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/FIFO/APMCInnerFIFO.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/FIFO/FIFO.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/FIFO/FIFO.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/FIFO/InnerFIFO.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/FIFO/InnerFIFO.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/FIFO/InnerFIFOInstanced.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/FIFO/InnerFIFOInstanced.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/FIFO/InnerFIFO_proof.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/FIFO/InnerFIFO_proof.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/FIFO/MCInnerFIFO.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/FIFO/MCInnerFIFO.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/HourClock/APHourClock2.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/HourClock/APHourClock2.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/HourClock/HourClock2.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/HourClock/HourClock2.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/Liveness/APLiveHourClock.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/Liveness/APLiveHourClock.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/Liveness/LiveHourClock.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/Liveness/LiveHourClock.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/Liveness/LiveInternalMemory.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/Liveness/LiveInternalMemory.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/Liveness/LiveWriteThroughCache.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/Liveness/LiveWriteThroughCache.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/Liveness/MCLiveInternalMemory.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/Liveness/MCLiveInternalMemory.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/Liveness/MCLiveWriteThroughCache.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/Liveness/MCLiveWriteThroughCache.tla",
+        1.0
+      ],
+      [
+        "tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/examples/SpecifyingSystems/Liveness/MCLiveWriteThroughCache.tla",
+        0.7291
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/RealTime/MCRealTime.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/RealTime/MCRealTime.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/RealTime/MCRealTimeHourClock.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/RealTime/MCRealTimeHourClock.tla",
+        1.0
+      ],
+      [
+        "apalache-mc/apalache/test/tlaplus-suite/test63.tla",
+        0.6869
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/RealTime/RTMemory.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/RealTime/RTMemory.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/RealTime/RTWriteThroughCache.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/RealTime/RTWriteThroughCache.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/RealTime/RealTimeHourClock.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/RealTime/RealTimeHourClock.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/RealTime/RealTime_SS.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/RealTime/RealTime_SS.tla",
+        1.0
+      ],
+      [
+        "tlaplus/tlaplus/tlatools/org.lamport.tlatools/src/tla2sany/StandardModules/RealTime.tla",
+        0.9653
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/SimpleMath/SimpleMath.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/SimpleMath/SimpleMath.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/Standard/Bags.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/Standard/Bags.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/Standard/FiniteSets.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/Standard/FiniteSets.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/Standard/Integers.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/Standard/Integers.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/Standard/Naturals.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/Standard/Naturals.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/Standard/Peano.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/Standard/Peano.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/Standard/ProtoReals.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/Standard/ProtoReals.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/Standard/Reals.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/Standard/Reals.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/Standard/Sequences.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/Standard/Sequences.tla",
+        1.0
+      ],
+      [
+        "tlaplus/tlaplus/tlatools/org.lamport.tlatools/src/tla2sany/StandardModules/Sequences.tla",
+        0.9455
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/Syntax/TLAPlusGrammar.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/Syntax/TLAPlusGrammar.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/TLC/ABCorrectness.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/TLC/ABCorrectness.tla",
+        1.0
+      ],
+      [
+        "tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/examples/SpecifyingSystems/TLC/ABCorrectness.tla",
+        0.9524
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/TLC/AlternatingBit.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/TLC/AlternatingBit.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/TLC/AlternatingBit_proof.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/TLC/AlternatingBit_proof.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/TLC/ConfigFileGrammar.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/TLC/ConfigFileGrammar.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/SpecifyingSystems/TLC/MCAlternatingBit.tla": [
+      [
+        "tlaplus/Examples/specifications/SpecifyingSystems/TLC/MCAlternatingBit.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/TLC/MCReachability.tla": [
+      [
+        "tlaplus/Examples/specifications/TLC/MCReachability.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/TLC/StateGraphs.tla": [
+      [
+        "tlaplus/Examples/specifications/TLC/StateGraphs.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/TLC/TLCMC.tla": [
+      [
+        "tlaplus/Examples/specifications/TLC/TLCMC.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/TLC/TestGraphs.tla": [
+      [
+        "tlaplus/Examples/specifications/TLC/TestGraphs.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/TLC/TestMCReachability.tla": [
+      [
+        "tlaplus/Examples/specifications/TLC/TestMCReachability.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/TeachingConcurrency/Simple.tla": [
+      [
+        "tlaplus/Examples/specifications/TeachingConcurrency/Simple.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/TeachingConcurrency/SimpleRegular.tla": [
+      [
+        "tlaplus/Examples/specifications/TeachingConcurrency/SimpleRegular.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/TeachingConcurrency/SimpleRegular_proof.tla": [
+      [
+        "tlaplus/Examples/specifications/TeachingConcurrency/SimpleRegular_proof.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/TeachingConcurrency/Simple_proof.tla": [
+      [
+        "tlaplus/Examples/specifications/TeachingConcurrency/Simple_proof.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/TwoPhase/TwoPhase.tla": [
+      [
+        "tlaplus/Examples/specifications/TwoPhase/TwoPhase.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/TwoPhase/TwoPhase_proof.tla": [
+      [
+        "tlaplus/Examples/specifications/TwoPhase/TwoPhase_proof.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/acp/APACP_SB.tla": [
+      [
+        "tlaplus/Examples/specifications/acp/APACP_SB.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/allocator/AllocatorImplementation_proof.tla": [
+      [
+        "tlaplus/Examples/specifications/allocator/AllocatorImplementation_proof.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/allocator/SchedulingAllocator.tla": [
+      [
+        "tlaplus/Examples/specifications/allocator/SchedulingAllocator.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/allocator/SchedulingAllocator_proof.tla": [
+      [
+        "tlaplus/Examples/specifications/allocator/SchedulingAllocator_proof.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/allocator/SimpleAllocator_proof.tla": [
+      [
+        "tlaplus/Examples/specifications/allocator/SimpleAllocator_proof.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/barriers/APBarrier.tla": [
+      [
+        "tlaplus/Examples/specifications/barriers/APBarrier.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/barriers/Barrier.tla": [
+      [
+        "tlaplus/Examples/specifications/barriers/Barrier.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/barriers/Barriers.tla": [
+      [
+        "tlaplus/Examples/specifications/barriers/Barriers.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/bcastByz/bcastByz.tla": [
+      [
+        "tlaplus/Examples/specifications/bcastByz/bcastByz.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/bcastFolklore/APbcastFolklore.tla": [
+      [
+        "tlaplus/Examples/specifications/bcastFolklore/APbcastFolklore.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/bosco/APbosco.tla": [
+      [
+        "tlaplus/Examples/specifications/bosco/APbosco.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/btree/btree.tla": [
+      [
+        "tlaplus/Examples/specifications/btree/btree.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/btree/kvstore.tla": [
+      [
+        "tlaplus/Examples/specifications/btree/kvstore.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/byihive/VoucherLifeCycle_proof.tla": [
+      [
+        "tlaplus/Examples/specifications/byihive/VoucherLifeCycle_proof.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/byzpaxos/BPConProof.tla": [
+      [
+        "tlaplus/Examples/specifications/byzpaxos/BPConProof.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/byzpaxos/Consensus.tla": [
+      [
+        "tlaplus/Examples/specifications/byzpaxos/Consensus.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/byzpaxos/VoteProof.tla": [
+      [
+        "tlaplus/Examples/specifications/byzpaxos/VoteProof.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/c1cs/APc1cs.tla": [
+      [
+        "tlaplus/Examples/specifications/c1cs/APc1cs.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/cf1s-folklore/APcf1s_folklore.tla": [
+      [
+        "tlaplus/Examples/specifications/cf1s-folklore/APcf1s_folklore.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/chang_roberts/APChangRoberts.tla": [
+      [
+        "tlaplus/Examples/specifications/chang_roberts/APChangRoberts.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/dag-consensus/BlockDag.tla": [
+      [
+        "tlaplus/Examples/specifications/dag-consensus/BlockDag.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/dag-consensus/BlockDagTest.tla": [
+      [
+        "tlaplus/Examples/specifications/dag-consensus/BlockDagTest.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/dag-consensus/Digraph.tla": [
+      [
+        "tlaplus/Examples/specifications/dag-consensus/Digraph.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/dag-consensus/Sailfish.tla": [
+      [
+        "tlaplus/Examples/specifications/dag-consensus/Sailfish.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/dag-consensus/TLCSailfish1.tla": [
+      [
+        "tlaplus/Examples/specifications/dag-consensus/TLCSailfish1.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/dag-consensus/TLCSailfish2.tla": [
+      [
+        "tlaplus/Examples/specifications/dag-consensus/TLCSailfish2.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/dag-consensus/Utils.tla": [
+      [
+        "tlaplus/Examples/specifications/dag-consensus/Utils.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/dijkstra-mutex/DijkstraMutex.toolbox/LSpec-model/MC.tla": [
+      [
+        "tlaplus/Examples/specifications/dijkstra-mutex/DijkstraMutex.toolbox/LSpec-model/MC.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/dijkstra-mutex/DijkstraMutex.toolbox/Safety-4-processors/MC.tla": [
+      [
+        "tlaplus/Examples/specifications/dijkstra-mutex/DijkstraMutex.toolbox/Safety-4-processors/MC.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/ewd426/APTokenRing.tla": [
+      [
+        "tlaplus/Examples/specifications/ewd426/APTokenRing.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/ewd687a/EWD687a.tla": [
+      [
+        "tlaplus/Examples/specifications/ewd687a/EWD687a.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/ewd687a/EWD687a_proof.tla": [
+      [
+        "tlaplus/Examples/specifications/ewd687a/EWD687a_proof.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/ewd840/APEWD840.tla": [
+      [
+        "tlaplus/Examples/specifications/ewd840/APEWD840.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/ewd840/APSyncTerminationDetection.tla": [
+      [
+        "tlaplus/Examples/specifications/ewd840/APSyncTerminationDetection.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/ewd840/EWD840.tla": [
+      [
+        "tlaplus/Examples/specifications/ewd840/EWD840.tla",
+        1.0
+      ],
+      [
+        "tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/examples/ewd840/EWD840.tla",
+        0.6825
+      ]
+    ],
+    "examples:specifications/ewd840/EWD840_proof.tla": [
+      [
+        "tlaplus/Examples/specifications/ewd840/EWD840_proof.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/ewd840/SyncTerminationDetection.tla": [
+      [
+        "tlaplus/Examples/specifications/ewd840/SyncTerminationDetection.tla",
+        1.0
+      ],
+      [
+        "tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/examples/ewd840/SyncTerminationDetection.tla",
+        0.9249
+      ]
+    ],
+    "examples:specifications/ewd840/SyncTerminationDetection_proof.tla": [
+      [
+        "tlaplus/Examples/specifications/ewd840/SyncTerminationDetection_proof.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/ewd998/AsyncTerminationDetection_proof.tla": [
+      [
+        "tlaplus/Examples/specifications/ewd998/AsyncTerminationDetection_proof.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/ewd998/EWD998.tla": [
+      [
+        "tlaplus/Examples/specifications/ewd998/EWD998.tla",
+        1.0
+      ],
+      [
+        "tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/examples/ewd998/EWD998.tla",
+        0.7642
+      ]
+    ],
+    "examples:specifications/ewd998/EWD998Chan.tla": [
+      [
+        "tlaplus/Examples/specifications/ewd998/EWD998Chan.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/ewd998/EWD998ChanID.tla": [
+      [
+        "tlaplus/Examples/specifications/ewd998/EWD998ChanID.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/ewd998/EWD998ChanID_export.tla": [
+      [
+        "tlaplus/Examples/specifications/ewd998/EWD998ChanID_export.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/ewd998/EWD998PCal_proof.tla": [
+      [
+        "tlaplus/Examples/specifications/ewd998/EWD998PCal_proof.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/ewd998/EWD998_anim.tla": [
+      [
+        "tlaplus/Examples/specifications/ewd998/EWD998_anim.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/ewd998/EWD998_proof.tla": [
+      [
+        "tlaplus/Examples/specifications/ewd998/EWD998_proof.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/ewd998/Folds.tla": [
+      [
+        "tlaplus/CommunityModules/modules/Folds.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/ewd998/Functions.tla": [
+      [
+        "tlaplus/Examples/specifications/ewd998/Functions.tla",
+        1.0
+      ],
+      [
+        "tlaplus/CommunityModules/modules/Functions.tla",
+        0.8325
+      ]
+    ],
+    "examples:specifications/ewd998/Utils.tla": [
+      [
+        "tlaplus/Examples/specifications/ewd998/Utils.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/glowingRaccoon/APclean.tla": [
+      [
+        "tlaplus/Examples/specifications/glowingRaccoon/APclean.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/glowingRaccoon/APstages.tla": [
+      [
+        "tlaplus/Examples/specifications/glowingRaccoon/APstages.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/glowingRaccoon/clean_proof.tla": [
+      [
+        "tlaplus/Examples/specifications/glowingRaccoon/clean_proof.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/glowingRaccoon/stages_proof.tla": [
+      [
+        "tlaplus/Examples/specifications/glowingRaccoon/stages_proof.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/lamport_mutex/APLamportMutex.tla": [
+      [
+        "tlaplus/Examples/specifications/lamport_mutex/APLamportMutex.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/lamport_mutex/LamportMutex_proofs.tla": [
+      [
+        "tlaplus/Examples/specifications/lamport_mutex/LamportMutex_proofs.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/locks_auxiliary_vars/Lock.tla": [
+      [
+        "tlaplus/Examples/specifications/locks_auxiliary_vars/Lock.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/locks_auxiliary_vars/LockHS.tla": [
+      [
+        "tlaplus/Examples/specifications/locks_auxiliary_vars/LockHS.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/locks_auxiliary_vars/Peterson.tla": [
+      [
+        "tlaplus/Examples/specifications/locks_auxiliary_vars/Peterson.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/locks_auxiliary_vars/Stuttering.tla": [
+      [
+        "tlaplus/Examples/specifications/locks_auxiliary_vars/Stuttering.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/nbacg_guer01/APnbacg_guer01.tla": [
+      [
+        "tlaplus/Examples/specifications/nbacg_guer01/APnbacg_guer01.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/spanning/APspanning.tla": [
+      [
+        "tlaplus/Examples/specifications/spanning/APspanning.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/spanning/spanning.tla": [
+      [
+        "tlaplus/Examples/specifications/spanning/spanning.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/spanning/spanning_proof.tla": [
+      [
+        "tlaplus/Examples/specifications/spanning/spanning_proof.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/tcp/APtcp.tla": [
+      [
+        "tlaplus/Examples/specifications/tcp/APtcp.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/tcp/IndInv_apa.tla": [
+      [
+        "tlaplus/Examples/specifications/tcp/IndInv_apa.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/tcp/tcp.tla": [
+      [
+        "tlaplus/Examples/specifications/tcp/tcp.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/tcp/tcp_proof.tla": [
+      [
+        "tlaplus/Examples/specifications/tcp/tcp_proof.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/tower_of_hanoi/Hanoi.toolbox/Model_1/MC.tla": [
+      [
+        "tlaplus/Examples/specifications/tower_of_hanoi/Hanoi.toolbox/Model_1/MC.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/tower_of_hanoi/Hanoi_anim.tla": [
+      [
+        "tlaplus/Examples/specifications/tower_of_hanoi/Hanoi_anim.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/transaction_commit/APTCommit.tla": [
+      [
+        "tlaplus/Examples/specifications/transaction_commit/APTCommit.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/transaction_commit/PaxosCommit.tla": [
+      [
+        "tlaplus/Examples/specifications/transaction_commit/PaxosCommit.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/transaction_commit/PaxosCommit_proof.tla": [
+      [
+        "tlaplus/Examples/specifications/transaction_commit/PaxosCommit_proof.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/transaction_commit/TCommit_proof.tla": [
+      [
+        "tlaplus/Examples/specifications/transaction_commit/TCommit_proof.tla",
+        1.0
+      ]
+    ],
+    "examples:specifications/transaction_commit/TwoPhase_proof.tla": [
+      [
+        "tlaplus/Examples/specifications/transaction_commit/TwoPhase_proof.tla",
+        1.0
+      ]
+    ]
+  },
+  "holdout_section": {
+    "2": {
+      "top_path": "tlaplus/Examples/specifications/acp/ACP_NB.tla",
+      "top_similarity": 1.0,
+      "hits_removed": [
+        [
+          "tlaplus/Examples/specifications/acp/ACP_NB.tla",
+          1.0
+        ],
+        [
+          "tlaplus/Examples/specifications/acp/ACP_NB_WRONG_TLC.tla",
+          0.6633
+        ]
+      ]
+    },
+    "5": {
+      "top_path": "tlaplus/Examples/specifications/acp/ACP_SB.tla",
+      "top_similarity": 1.0,
+      "hits_removed": [
+        [
+          "tlaplus/Examples/specifications/acp/ACP_SB.tla",
+          1.0
+        ]
+      ]
+    },
+    "13": {
+      "top_path": "tlaplus/Examples/specifications/Bakery-Boulangerie/MCBakery.tla",
+      "top_similarity": 1.0,
+      "hits_removed": [
+        [
+          "tlaplus/Examples/specifications/Bakery-Boulangerie/MCBakery.tla",
+          1.0
+        ]
+      ]
+    },
+    "14": {
+      "top_path": "tlaplus/Examples/specifications/Bakery-Boulangerie/MCBoulanger.tla",
+      "top_similarity": 1.0,
+      "hits_removed": [
+        [
+          "tlaplus/Examples/specifications/Bakery-Boulangerie/MCBoulanger.tla",
+          1.0
+        ]
+      ]
+    },
+    "15": {
+      "top_path": "tlaplus/Examples/specifications/bcastByz/bcastByz.tla",
+      "top_similarity": 0.9803,
+      "hits_removed": [
+        [
+          "tlaplus/Examples/specifications/bcastByz/bcastByz.tla",
+          0.9803
+        ]
+      ]
+    },
+    "30": {
+      "top_path": "tlaplus/Examples/specifications/cbc_max/cbc_max.tla",
+      "top_similarity": 1.0,
+      "hits_removed": [
+        [
+          "tlaplus/Examples/specifications/cbc_max/cbc_max.tla",
+          1.0
+        ]
+      ]
+    },
+    "32": {
+      "top_path": "tlaplus/Examples/specifications/Chameneos/Chameneos.tla",
+      "top_similarity": 1.0,
+      "hits_removed": [
+        [
+          "tlaplus/Examples/specifications/Chameneos/Chameneos.tla",
+          1.0
+        ]
+      ]
+    },
+    "37": {
+      "top_path": "tlaplus/Examples/specifications/CigaretteSmokers/CigaretteSmokers.tla",
+      "top_similarity": 0.9578,
+      "hits_removed": [
+        [
+          "tlaplus/Examples/specifications/CigaretteSmokers/CigaretteSmokers.tla",
+          0.9578
+        ],
+        [
+          "apalache-mc/apalache/test/tla/CigaretteSmokersTyped.tla",
+          0.7778
+        ]
+      ]
+    },
+    "41": {
+      "top_path": "tlaplus/Examples/specifications/detector_chan96/EPFailureDetector.tla",
+      "top_similarity": 1.0,
+      "hits_removed": [
+        [
+          "tlaplus/Examples/specifications/detector_chan96/EPFailureDetector.tla",
+          1.0
+        ]
+      ]
+    },
+    "55": {
+      "top_path": "tlaplus/Examples/specifications/echo/MCEcho.tla",
+      "top_similarity": 1.0,
+      "hits_removed": [
+        [
+          "tlaplus/Examples/specifications/echo/MCEcho.tla",
+          1.0
+        ],
+        [
+          "tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/Echo/MCEcho.tla",
+          0.7768
+        ]
+      ]
+    },
+    "86": {
+      "top_path": "tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/VoteProof/TLAPS.tla",
+      "top_similarity": 1.0,
+      "hits_removed": [
+        [
+          "tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/VoteProof/TLAPS.tla",
+          1.0
+        ]
+      ]
+    },
+    "95": {
+      "top_path": "tlaplus/Examples/specifications/GameOfLife/GameOfLife.tla",
+      "top_similarity": 1.0,
+      "hits_removed": [
+        [
+          "tlaplus/Examples/specifications/GameOfLife/GameOfLife.tla",
+          1.0
+        ],
+        [
+          "apalache-mc/apalache/test/tla/GameOfLifeTyped.tla",
+          0.9301
+        ]
+      ]
+    },
+    "105": {
+      "top_path": "tlaplus/CommunityModules/tests/DyadicRationalsTests.tla",
+      "top_similarity": 0.0144,
+      "hits_removed": []
+    },
+    "106": {
+      "top_path": "tlaplus/Examples/specifications/KeyValueStore/Util.tla",
+      "top_similarity": 1.0,
+      "hits_removed": [
+        [
+          "tlaplus/Examples/specifications/KeyValueStore/Util.tla",
+          1.0
+        ]
+      ]
+    },
+    "121": {
+      "top_path": "tlaplus/Examples/specifications/LeastCircularSubstring/LeastCircularSubstring.tla",
+      "top_similarity": 1.0,
+      "hits_removed": [
+        [
+          "tlaplus/Examples/specifications/LeastCircularSubstring/LeastCircularSubstring.tla",
+          1.0
+        ]
+      ]
+    },
+    "128": {
+      "top_path": "tlaplus/Examples/specifications/LoopInvariance/Quicksort.tla",
+      "top_similarity": 0.4585,
+      "hits_removed": []
+    },
+    "131": {
+      "top_path": "tlaplus/Examples/specifications/Majority/MajorityProof.tla",
+      "top_similarity": 0.9187,
+      "hits_removed": [
+        [
+          "tlaplus/Examples/specifications/Majority/MajorityProof.tla",
+          0.9187
+        ]
+      ]
+    },
+    "132": {
+      "top_path": "tlaplus/Examples/specifications/Majority/MCMajority.tla",
+      "top_similarity": 1.0,
+      "hits_removed": [
+        [
+          "tlaplus/Examples/specifications/Majority/MCMajority.tla",
+          1.0
+        ]
+      ]
+    },
+    "133": {
+      "top_path": "tlaplus/Examples/specifications/MisraReachability/MCParReach.tla",
+      "top_similarity": 1.0,
+      "hits_removed": [
+        [
+          "tlaplus/Examples/specifications/MisraReachability/MCParReach.tla",
+          1.0
+        ],
+        [
+          "tlaplus/Examples/specifications/MisraReachability/MCReachable.tla",
+          0.8065
+        ]
+      ]
+    },
+    "135": {
+      "top_path": "tlaplus/Examples/specifications/MisraReachability/MCReachable.tla",
+      "top_similarity": 1.0,
+      "hits_removed": [
+        [
+          "tlaplus/Examples/specifications/MisraReachability/MCReachable.tla",
+          1.0
+        ],
+        [
+          "tlaplus/Examples/specifications/MisraReachability/MCParReach.tla",
+          0.8065
+        ]
+      ]
+    },
+    "141": {
+      "top_path": "tlaplus/Examples/specifications/MisraReachability/Reachable.tla",
+      "top_similarity": 1.0,
+      "hits_removed": [
+        [
+          "tlaplus/Examples/specifications/MisraReachability/Reachable.tla",
+          1.0
+        ]
+      ]
+    },
+    "142": {
+      "top_path": "tlaplus/Examples/specifications/MisraReachability/ReachableProofs.tla",
+      "top_similarity": 1.0,
+      "hits_removed": [
+        [
+          "tlaplus/Examples/specifications/MisraReachability/ReachableProofs.tla",
+          1.0
+        ]
+      ]
+    },
+    "143": {
+      "top_path": "tlaplus/Examples/specifications/MissionariesAndCannibals/MissionariesAndCannibals.tla",
+      "top_similarity": 1.0,
+      "hits_removed": [
+        [
+          "tlaplus/Examples/specifications/MissionariesAndCannibals/MissionariesAndCannibals.tla",
+          1.0
+        ],
+        [
+          "apalache-mc/apalache/test/tla/MissionariesAndCannibalsTyped.tla",
+          0.7562
+        ]
+      ]
+    },
+    "148": {
+      "top_path": "tlaplus/Examples/specifications/NanoBlockchain/Nano.tla",
+      "top_similarity": 1.0,
+      "hits_removed": [
+        [
+          "tlaplus/Examples/specifications/NanoBlockchain/Nano.tla",
+          1.0
+        ]
+      ]
+    },
+    "158": {
+      "top_path": "tlaplus/Examples/specifications/Paxos/Voting.tla",
+      "top_similarity": 0.9861,
+      "hits_removed": [
+        [
+          "tlaplus/Examples/specifications/Paxos/Voting.tla",
+          0.9861
+        ]
+      ]
+    },
+    "168": {
+      "top_path": "tlaplus/Examples/specifications/ReadersWriters/ReadersWriters.tla",
+      "top_similarity": 1.0,
+      "hits_removed": [
+        [
+          "tlaplus/Examples/specifications/ReadersWriters/ReadersWriters.tla",
+          1.0
+        ]
+      ]
+    },
+    "174": {
+      "top_path": "tlaplus/Examples/specifications/SlushProtocol/Slush.tla",
+      "top_similarity": 1.0,
+      "hits_removed": [
+        [
+          "tlaplus/Examples/specifications/SlushProtocol/Slush.tla",
+          1.0
+        ]
+      ]
+    },
+    "181": {
+      "top_path": "tlaplus/Examples/specifications/sums_even/MC_sums_even.tla",
+      "top_similarity": 1.0,
+      "hits_removed": [
+        [
+          "tlaplus/Examples/specifications/sums_even/MC_sums_even.tla",
+          1.0
+        ]
+      ]
+    },
+    "183": {
+      "top_path": "tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/VoteProof/TLAPS.tla",
+      "top_similarity": 1.0,
+      "hits_removed": [
+        [
+          "tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/VoteProof/TLAPS.tla",
+          1.0
+        ]
+      ]
+    },
+    "191": {
+      "top_path": "tlaplus/Examples/specifications/tower_of_hanoi/Hanoi.tla",
+      "top_similarity": 1.0,
+      "hits_removed": [
+        [
+          "tlaplus/Examples/specifications/tower_of_hanoi/Hanoi.tla",
+          1.0
+        ]
+      ]
+    }
+  },
+  "threshold": 0.65,
+  "shingle_k": 5
+}

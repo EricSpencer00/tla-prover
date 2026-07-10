@@ -1,0 +1,5393 @@
+
+\* TLAPM version 80172c6
+\* launched at 2026-07-08 14:14:15 with command line:
+\* /Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm --toolbox 0 0 --printallobs -I /Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib -I /Users/eric/GitHub/prove-TLA/tools/community-modules -I /Users/eric/GitHub/prove-TLA/tools/extra-modules ParReachProofs.tla
+
+@!!BEGIN
+@!!type:obligation
+@!!id:1
+@!!loc:16:3:16:5
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       Spec ==
+         /\ Init /\ [][Next]_vars
+         /\ \A self \in Procs : WF_(vars) (p(self)),
+       <1>1 ,
+       <1>2 ,
+       PTL 
+PROVE  Spec => []Inv
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:2
+@!!loc:16:6:16:10
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       Spec ==
+         /\ Init /\ [][Next]_vars
+         /\ \A self \in Procs : WF_(vars) (p(self))
+PROVE  <1>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:3
+@!!loc:16:12:16:16
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       Spec ==
+         /\ Init /\ [][Next]_vars
+         /\ \A self \in Procs : WF_(vars) (p(self)),
+       <1>1 
+PROVE  <1>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:4
+@!!loc:16:18:16:21
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       Spec ==
+         /\ Init /\ [][Next]_vars
+         /\ \A self \in Procs : WF_(vars) (p(self)),
+       <1>1 ,
+       <1>2 
+PROVE  PTL
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:5
+@!!loc:12:5:12:7
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       ProcSet == Procs,
+       Init ==
+         /\ marked = {}
+         /\ vroot = {Root}
+         /\ u = [self \in Procs |-> Root]
+         /\ toVroot = [self \in Procs |-> {}]
+         /\ pc = [self \in ProcSet |-> "a"],
+       Inv ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ u \in [Procs -> Nodes]
+         /\ toVroot \in [Procs -> SUBSET Nodes]
+         /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+         /\ \A q \in Procs :
+               /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+               /\ pc[q] = "b" => u[q] \in vroot \cup marked,
+       RootAssump 
+PROVE  Init => Inv
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:6
+@!!loc:12:8:12:18
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       ProcSet == Procs,
+       Init ==
+         /\ marked = {}
+         /\ vroot = {Root}
+         /\ u = [self \in Procs |-> Root]
+         /\ toVroot = [self \in Procs |-> {}]
+         /\ pc = [self \in ProcSet |-> "a"],
+       Inv ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ u \in [Procs -> Nodes]
+         /\ toVroot \in [Procs -> SUBSET Nodes]
+         /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+         /\ \A q \in Procs :
+               /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+               /\ pc[q] = "b" => u[q] \in vroot \cup marked
+PROVE  RootAssump
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:7
+@!!loc:14:4:14:6
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       vars == <<marked, vroot, pc, u, toVroot>>,
+       ProcSet == Procs,
+       a(self) ==
+         /\ pc[self] = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot : u' = [u EXCEPT ![self] = v]
+                   /\ pc' = [pc EXCEPT ![self] = "b"]
+              ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
+                   /\ u' = u
+         /\ UNCHANGED <<marked, vroot, toVroot>>,
+       b(self) ==
+         /\ pc[self] = "b"
+         /\ IF u[self] \notin marked
+              THEN /\ marked' = marked \cup {u[self]}
+                   /\ toVroot' = [toVroot EXCEPT ![self] = Succ[u[self]]]
+                   /\ pc' = [pc EXCEPT ![self] = "c"]
+                   /\ vroot' = vroot
+              ELSE /\ vroot' = vroot \ {u[self]}
+                   /\ pc' = [pc EXCEPT ![self] = "a"]
+                   /\ UNCHANGED <<marked, toVroot>>
+         /\ u' = u,
+       c(self) ==
+         /\ pc[self] = "c"
+         /\ IF toVroot[self] # {}
+              THEN /\ \E w \in toVroot[self] :
+                         /\ vroot' = vroot \cup {w}
+                         /\ toVroot'
+                            = [toVroot EXCEPT ![self] = toVroot[self] \ {w}]
+                   /\ pc' = [pc EXCEPT ![self] = "c"]
+              ELSE /\ pc' = [pc EXCEPT ![self] = "a"]
+                   /\ UNCHANGED <<vroot, toVroot>>
+         /\ UNCHANGED <<marked, u>>,
+       p(self) == a(self) \/ b(self) \/ c(self),
+       Terminating ==
+         /\ \A self \in ProcSet : pc[self] = "Done"
+         /\ UNCHANGED vars,
+       Next == (\E self \in Procs : p(self)) \/ Terminating,
+       Inv ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ u \in [Procs -> Nodes]
+         /\ toVroot \in [Procs -> SUBSET Nodes]
+         /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+         /\ \A q \in Procs :
+               /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+               /\ pc[q] = "b" => u[q] \in vroot \cup marked,
+       SuccAssump 
+PROVE  Inv /\ [Next]_vars => Inv'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:8
+@!!loc:14:7:14:17
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       vars == <<marked, vroot, pc, u, toVroot>>,
+       ProcSet == Procs,
+       a(self) ==
+         /\ pc[self] = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot : u' = [u EXCEPT ![self] = v]
+                   /\ pc' = [pc EXCEPT ![self] = "b"]
+              ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
+                   /\ u' = u
+         /\ UNCHANGED <<marked, vroot, toVroot>>,
+       b(self) ==
+         /\ pc[self] = "b"
+         /\ IF u[self] \notin marked
+              THEN /\ marked' = marked \cup {u[self]}
+                   /\ toVroot' = [toVroot EXCEPT ![self] = Succ[u[self]]]
+                   /\ pc' = [pc EXCEPT ![self] = "c"]
+                   /\ vroot' = vroot
+              ELSE /\ vroot' = vroot \ {u[self]}
+                   /\ pc' = [pc EXCEPT ![self] = "a"]
+                   /\ UNCHANGED <<marked, toVroot>>
+         /\ u' = u,
+       c(self) ==
+         /\ pc[self] = "c"
+         /\ IF toVroot[self] # {}
+              THEN /\ \E w \in toVroot[self] :
+                         /\ vroot' = vroot \cup {w}
+                         /\ toVroot'
+                            = [toVroot EXCEPT ![self] = toVroot[self] \ {w}]
+                   /\ pc' = [pc EXCEPT ![self] = "c"]
+              ELSE /\ pc' = [pc EXCEPT ![self] = "a"]
+                   /\ UNCHANGED <<vroot, toVroot>>
+         /\ UNCHANGED <<marked, u>>,
+       p(self) == a(self) \/ b(self) \/ c(self),
+       Terminating ==
+         /\ \A self \in ProcSet : pc[self] = "Done"
+         /\ UNCHANGED vars,
+       Next == (\E self \in Procs : p(self)) \/ Terminating,
+       Inv ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ u \in [Procs -> Nodes]
+         /\ toVroot \in [Procs -> SUBSET Nodes]
+         /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+         /\ \A q \in Procs :
+               /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+               /\ pc[q] = "b" => u[q] \in vroot \cup marked
+PROVE  SuccAssump
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:9
+@!!loc:63:3:63:5
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       Spec ==
+         /\ Init /\ [][Next]_vars
+         /\ \A self \in Procs : WF_(vars) (p(self)),
+       <1>1 ,
+       <1>2 ,
+       TypeInvariant ,
+       PTL 
+PROVE  Spec => R!Init /\ [][R!Next]_R!vars
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:10
+@!!loc:63:6:63:10
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       Spec ==
+         /\ Init /\ [][Next]_vars
+         /\ \A self \in Procs : WF_(vars) (p(self))
+PROVE  <1>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:11
+@!!loc:63:12:63:16
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       Spec ==
+         /\ Init /\ [][Next]_vars
+         /\ \A self \in Procs : WF_(vars) (p(self)),
+       <1>1 
+PROVE  <1>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:12
+@!!loc:63:18:63:31
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       Spec ==
+         /\ Init /\ [][Next]_vars
+         /\ \A self \in Procs : WF_(vars) (p(self)),
+       <1>1 ,
+       <1>2 
+PROVE  TypeInvariant
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:13
+@!!loc:63:33:63:36
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       Spec ==
+         /\ Init /\ [][Next]_vars
+         /\ \A self \in Procs : WF_(vars) (p(self)),
+       <1>1 ,
+       <1>2 ,
+       TypeInvariant 
+PROVE  PTL
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:14
+@!!loc:20:5:20:7
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       ProcSet == Procs,
+       Init ==
+         /\ marked = {}
+         /\ vroot = {Root}
+         /\ u = [self \in Procs |-> Root]
+         /\ toVroot = [self \in Procs |-> {}]
+         /\ pc = [self \in ProcSet |-> "a"],
+       vrootBar == vroot \cup (UNION {toVroot[i] : i \in Procs}),
+       pcBar == IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a",
+       R!Init == /\ marked = {}
+                 /\ vrootBar = {Root}
+                 /\ pcBar = "a",
+       ProcsAssump 
+PROVE  Init => R!Init
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:15
+@!!loc:20:8:20:19
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       ProcSet == Procs,
+       Init ==
+         /\ marked = {}
+         /\ vroot = {Root}
+         /\ u = [self \in Procs |-> Root]
+         /\ toVroot = [self \in Procs |-> {}]
+         /\ pc = [self \in ProcSet |-> "a"],
+       vrootBar == vroot \cup (UNION {toVroot[i] : i \in Procs}),
+       pcBar == IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a",
+       R!Init == /\ marked = {}
+                 /\ vrootBar = {Root}
+                 /\ pcBar = "a"
+PROVE  ProcsAssump
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:16
+@!!loc:61:5:61:7
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       vars == <<marked, vroot, pc, u, toVroot>>,
+       p(self) == a(self) \/ b(self) \/ c(self),
+       Terminating ==
+         /\ \A self \in ProcSet : pc[self] = "Done"
+         /\ UNCHANGED vars,
+       Next == (\E self \in Procs : p(self)) \/ Terminating,
+       Inv ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ u \in [Procs -> Nodes]
+         /\ toVroot \in [Procs -> SUBSET Nodes]
+         /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+         /\ \A q \in Procs :
+               /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+               /\ pc[q] = "b" => u[q] \in vroot \cup marked,
+       vrootBar == vroot \cup (UNION {toVroot[i] : i \in Procs}),
+       pcBar == IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a",
+       R!vars == <<marked, vrootBar, pcBar>>,
+       R!Next == R!a \/ R!Terminating,
+       Inv ,
+       [Next]_vars ,
+       <2>1 ,
+       <2>2 ,
+       <2>3 ,
+       <2>4 
+PROVE  [R!Next]_R!vars
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:17
+@!!loc:61:8:61:12
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       vars == <<marked, vroot, pc, u, toVroot>>,
+       p(self) == a(self) \/ b(self) \/ c(self),
+       Terminating ==
+         /\ \A self \in ProcSet : pc[self] = "Done"
+         /\ UNCHANGED vars,
+       Next == (\E self \in Procs : p(self)) \/ Terminating,
+       Inv ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ u \in [Procs -> Nodes]
+         /\ toVroot \in [Procs -> SUBSET Nodes]
+         /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+         /\ \A q \in Procs :
+               /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+               /\ pc[q] = "b" => u[q] \in vroot \cup marked,
+       vrootBar == vroot \cup (UNION {toVroot[i] : i \in Procs}),
+       pcBar == IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a",
+       R!vars == <<marked, vrootBar, pcBar>>,
+       R!Next == R!a \/ R!Terminating,
+       Inv ,
+       [Next]_vars 
+PROVE  <2>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:18
+@!!loc:61:14:61:18
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       vars == <<marked, vroot, pc, u, toVroot>>,
+       p(self) == a(self) \/ b(self) \/ c(self),
+       Terminating ==
+         /\ \A self \in ProcSet : pc[self] = "Done"
+         /\ UNCHANGED vars,
+       Next == (\E self \in Procs : p(self)) \/ Terminating,
+       Inv ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ u \in [Procs -> Nodes]
+         /\ toVroot \in [Procs -> SUBSET Nodes]
+         /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+         /\ \A q \in Procs :
+               /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+               /\ pc[q] = "b" => u[q] \in vroot \cup marked,
+       vrootBar == vroot \cup (UNION {toVroot[i] : i \in Procs}),
+       pcBar == IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a",
+       R!vars == <<marked, vrootBar, pcBar>>,
+       R!Next == R!a \/ R!Terminating,
+       Inv ,
+       [Next]_vars ,
+       <2>1 
+PROVE  <2>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:19
+@!!loc:61:20:61:24
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       vars == <<marked, vroot, pc, u, toVroot>>,
+       p(self) == a(self) \/ b(self) \/ c(self),
+       Terminating ==
+         /\ \A self \in ProcSet : pc[self] = "Done"
+         /\ UNCHANGED vars,
+       Next == (\E self \in Procs : p(self)) \/ Terminating,
+       Inv ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ u \in [Procs -> Nodes]
+         /\ toVroot \in [Procs -> SUBSET Nodes]
+         /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+         /\ \A q \in Procs :
+               /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+               /\ pc[q] = "b" => u[q] \in vroot \cup marked,
+       vrootBar == vroot \cup (UNION {toVroot[i] : i \in Procs}),
+       pcBar == IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a",
+       R!vars == <<marked, vrootBar, pcBar>>,
+       R!Next == R!a \/ R!Terminating,
+       Inv ,
+       [Next]_vars ,
+       <2>1 ,
+       <2>2 
+PROVE  <2>3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:20
+@!!loc:61:26:61:30
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       vars == <<marked, vroot, pc, u, toVroot>>,
+       p(self) == a(self) \/ b(self) \/ c(self),
+       Terminating ==
+         /\ \A self \in ProcSet : pc[self] = "Done"
+         /\ UNCHANGED vars,
+       Next == (\E self \in Procs : p(self)) \/ Terminating,
+       Inv ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ u \in [Procs -> Nodes]
+         /\ toVroot \in [Procs -> SUBSET Nodes]
+         /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+         /\ \A q \in Procs :
+               /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+               /\ pc[q] = "b" => u[q] \in vroot \cup marked,
+       vrootBar == vroot \cup (UNION {toVroot[i] : i \in Procs}),
+       pcBar == IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a",
+       R!vars == <<marked, vrootBar, pcBar>>,
+       R!Next == R!a \/ R!Terminating,
+       Inv ,
+       [Next]_vars ,
+       <2>1 ,
+       <2>2 ,
+       <2>3 
+PROVE  <2>4
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:21
+@!!loc:25:5:25:12
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       <2>_a15 
+PROVE  Inv /\ [Next]_vars => [R!Next]_R!vars
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:22
+@!!loc:49:7:49:9
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       vars == <<marked, vroot, pc, u, toVroot>>,
+       Terminating ==
+         /\ \A self \in ProcSet : pc[self] = "Done"
+         /\ UNCHANGED vars,
+       Next == (\E self \in Procs : p(self)) \/ Terminating,
+       Inv ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ u \in [Procs -> Nodes]
+         /\ toVroot \in [Procs -> SUBSET Nodes]
+         /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+         /\ \A q \in Procs :
+               /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+               /\ pc[q] = "b" => u[q] \in vroot \cup marked,
+       vrootBar == vroot \cup (UNION {toVroot[i] : i \in Procs}),
+       pcBar == IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a",
+       R!vars == <<marked, vrootBar, pcBar>>,
+       R!Next == R!a \/ R!Terminating,
+       Inv ,
+       [Next]_vars ,
+       NEW CONSTANT self \in Procs,
+       <3>1 ,
+       <3>2 
+PROVE  [R!Next]_R!vars
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:23
+@!!loc:49:10:49:14
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       vars == <<marked, vroot, pc, u, toVroot>>,
+       Terminating ==
+         /\ \A self \in ProcSet : pc[self] = "Done"
+         /\ UNCHANGED vars,
+       Next == (\E self \in Procs : p(self)) \/ Terminating,
+       Inv ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ u \in [Procs -> Nodes]
+         /\ toVroot \in [Procs -> SUBSET Nodes]
+         /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+         /\ \A q \in Procs :
+               /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+               /\ pc[q] = "b" => u[q] \in vroot \cup marked,
+       vrootBar == vroot \cup (UNION {toVroot[i] : i \in Procs}),
+       pcBar == IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a",
+       R!vars == <<marked, vrootBar, pcBar>>,
+       R!Next == R!a \/ R!Terminating,
+       Inv ,
+       [Next]_vars ,
+       NEW CONSTANT self \in Procs
+PROVE  <3>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:24
+@!!loc:49:16:49:20
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       vars == <<marked, vroot, pc, u, toVroot>>,
+       Terminating ==
+         /\ \A self \in ProcSet : pc[self] = "Done"
+         /\ UNCHANGED vars,
+       Next == (\E self \in Procs : p(self)) \/ Terminating,
+       Inv ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ u \in [Procs -> Nodes]
+         /\ toVroot \in [Procs -> SUBSET Nodes]
+         /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+         /\ \A q \in Procs :
+               /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+               /\ pc[q] = "b" => u[q] \in vroot \cup marked,
+       vrootBar == vroot \cup (UNION {toVroot[i] : i \in Procs}),
+       pcBar == IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a",
+       R!vars == <<marked, vrootBar, pcBar>>,
+       R!Next == R!a \/ R!Terminating,
+       Inv ,
+       [Next]_vars ,
+       NEW CONSTANT self \in Procs,
+       <3>1 
+PROVE  <3>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:25
+@!!loc:32:8:32:10
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       vars == <<marked, vroot, pc, u, toVroot>>,
+       a(self) ==
+         /\ pc[self] = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot : u' = [u EXCEPT ![self] = v]
+                   /\ pc' = [pc EXCEPT ![self] = "b"]
+              ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
+                   /\ u' = u
+         /\ UNCHANGED <<marked, vroot, toVroot>>,
+       Terminating ==
+         /\ \A self \in ProcSet : pc[self] = "Done"
+         /\ UNCHANGED vars,
+       Next == (\E self \in Procs : p(self)) \/ Terminating,
+       Inv ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ u \in [Procs -> Nodes]
+         /\ toVroot \in [Procs -> SUBSET Nodes]
+         /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+         /\ \A q \in Procs :
+               /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+               /\ pc[q] = "b" => u[q] \in vroot \cup marked,
+       vrootBar == vroot \cup (UNION {toVroot[i] : i \in Procs}),
+       pcBar == IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a",
+       R!vars == <<marked, vrootBar, pcBar>>,
+       R!Next == R!a \/ R!Terminating,
+       Inv ,
+       [Next]_vars ,
+       NEW CONSTANT self \in Procs,
+       <2>1 ,
+       <3>1 
+PROVE  UNCHANGED R!vars
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:26
+@!!loc:32:11:32:15
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       vars == <<marked, vroot, pc, u, toVroot>>,
+       a(self) ==
+         /\ pc[self] = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot : u' = [u EXCEPT ![self] = v]
+                   /\ pc' = [pc EXCEPT ![self] = "b"]
+              ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
+                   /\ u' = u
+         /\ UNCHANGED <<marked, vroot, toVroot>>,
+       Terminating ==
+         /\ \A self \in ProcSet : pc[self] = "Done"
+         /\ UNCHANGED vars,
+       Next == (\E self \in Procs : p(self)) \/ Terminating,
+       Inv ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ u \in [Procs -> Nodes]
+         /\ toVroot \in [Procs -> SUBSET Nodes]
+         /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+         /\ \A q \in Procs :
+               /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+               /\ pc[q] = "b" => u[q] \in vroot \cup marked,
+       vrootBar == vroot \cup (UNION {toVroot[i] : i \in Procs}),
+       pcBar == IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a",
+       R!vars == <<marked, vrootBar, pcBar>>,
+       R!Next == R!a \/ R!Terminating,
+       Inv ,
+       [Next]_vars ,
+       NEW CONSTANT self \in Procs
+PROVE  <2>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:27
+@!!loc:32:17:32:21
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       vars == <<marked, vroot, pc, u, toVroot>>,
+       a(self) ==
+         /\ pc[self] = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot : u' = [u EXCEPT ![self] = v]
+                   /\ pc' = [pc EXCEPT ![self] = "b"]
+              ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
+                   /\ u' = u
+         /\ UNCHANGED <<marked, vroot, toVroot>>,
+       Terminating ==
+         /\ \A self \in ProcSet : pc[self] = "Done"
+         /\ UNCHANGED vars,
+       Next == (\E self \in Procs : p(self)) \/ Terminating,
+       Inv ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ u \in [Procs -> Nodes]
+         /\ toVroot \in [Procs -> SUBSET Nodes]
+         /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+         /\ \A q \in Procs :
+               /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+               /\ pc[q] = "b" => u[q] \in vroot \cup marked,
+       vrootBar == vroot \cup (UNION {toVroot[i] : i \in Procs}),
+       pcBar == IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a",
+       R!vars == <<marked, vrootBar, pcBar>>,
+       R!Next == R!a \/ R!Terminating,
+       Inv ,
+       [Next]_vars ,
+       NEW CONSTANT self \in Procs,
+       <2>1 
+PROVE  <3>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:28
+@!!loc:47:9:47:11
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       vars == <<marked, vroot, pc, u, toVroot>>,
+       Terminating ==
+         /\ \A self \in ProcSet : pc[self] = "Done"
+         /\ UNCHANGED vars,
+       Next == (\E self \in Procs : p(self)) \/ Terminating,
+       Inv ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ u \in [Procs -> Nodes]
+         /\ toVroot \in [Procs -> SUBSET Nodes]
+         /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+         /\ \A q \in Procs :
+               /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+               /\ pc[q] = "b" => u[q] \in vroot \cup marked,
+       vrootBar == vroot \cup (UNION {toVroot[i] : i \in Procs}),
+       pcBar == IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a",
+       R!vars == <<marked, vrootBar, pcBar>>,
+       R!Next == R!a \/ R!Terminating,
+       Inv ,
+       [Next]_vars ,
+       NEW CONSTANT self \in Procs,
+       <4>1 ,
+       <4>2 
+PROVE  [R!Next]_R!vars
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:29
+@!!loc:47:12:47:16
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       vars == <<marked, vroot, pc, u, toVroot>>,
+       Terminating ==
+         /\ \A self \in ProcSet : pc[self] = "Done"
+         /\ UNCHANGED vars,
+       Next == (\E self \in Procs : p(self)) \/ Terminating,
+       Inv ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ u \in [Procs -> Nodes]
+         /\ toVroot \in [Procs -> SUBSET Nodes]
+         /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+         /\ \A q \in Procs :
+               /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+               /\ pc[q] = "b" => u[q] \in vroot \cup marked,
+       vrootBar == vroot \cup (UNION {toVroot[i] : i \in Procs}),
+       pcBar == IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a",
+       R!vars == <<marked, vrootBar, pcBar>>,
+       R!Next == R!a \/ R!Terminating,
+       Inv ,
+       [Next]_vars ,
+       NEW CONSTANT self \in Procs
+PROVE  <4>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:30
+@!!loc:47:18:47:22
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       vars == <<marked, vroot, pc, u, toVroot>>,
+       Terminating ==
+         /\ \A self \in ProcSet : pc[self] = "Done"
+         /\ UNCHANGED vars,
+       Next == (\E self \in Procs : p(self)) \/ Terminating,
+       Inv ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ u \in [Procs -> Nodes]
+         /\ toVroot \in [Procs -> SUBSET Nodes]
+         /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+         /\ \A q \in Procs :
+               /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+               /\ pc[q] = "b" => u[q] \in vroot \cup marked,
+       vrootBar == vroot \cup (UNION {toVroot[i] : i \in Procs}),
+       pcBar == IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a",
+       R!vars == <<marked, vrootBar, pcBar>>,
+       R!Next == R!a \/ R!Terminating,
+       Inv ,
+       [Next]_vars ,
+       NEW CONSTANT self \in Procs,
+       <4>1 
+PROVE  <4>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:31
+@!!loc:37:9:37:11
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       vars == <<marked, vroot, pc, u, toVroot>>,
+       a(self) ==
+         /\ pc[self] = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot : u' = [u EXCEPT ![self] = v]
+                   /\ pc' = [pc EXCEPT ![self] = "b"]
+              ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
+                   /\ u' = u
+         /\ UNCHANGED <<marked, vroot, toVroot>>,
+       Terminating ==
+         /\ \A self \in ProcSet : pc[self] = "Done"
+         /\ UNCHANGED vars,
+       Next == (\E self \in Procs : p(self)) \/ Terminating,
+       Inv ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ u \in [Procs -> Nodes]
+         /\ toVroot \in [Procs -> SUBSET Nodes]
+         /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+         /\ \A q \in Procs :
+               /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+               /\ pc[q] = "b" => u[q] \in vroot \cup marked,
+       vrootBar == vroot \cup (UNION {toVroot[i] : i \in Procs}),
+       pcBar == IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a",
+       R!vars == <<marked, vrootBar, pcBar>>,
+       R!a ==
+         /\ pcBar = "a"
+         /\ IF vrootBar # {}
+              THEN /\ \E v \in vrootBar :
+                         IF v \notin marked
+                           THEN /\ marked' = marked \cup {v}
+                                /\ vrootBar' = vrootBar \cup Succ[v]
+                           ELSE /\ vrootBar' = vrootBar \ {v}
+                                /\ UNCHANGED marked
+                   /\ pcBar' = "a"
+              ELSE /\ pcBar' = "Done"
+                   /\ UNCHANGED <<marked, vrootBar>>,
+       R!Next == R!a \/ R!Terminating,
+       Inv ,
+       [Next]_vars ,
+       NEW CONSTANT self \in Procs,
+       <2>1 ,
+       <3>2 ,
+       <4>1 
+PROVE  [R!Next]_R!vars
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:32
+@!!loc:37:12:37:16
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       vars == <<marked, vroot, pc, u, toVroot>>,
+       a(self) ==
+         /\ pc[self] = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot : u' = [u EXCEPT ![self] = v]
+                   /\ pc' = [pc EXCEPT ![self] = "b"]
+              ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
+                   /\ u' = u
+         /\ UNCHANGED <<marked, vroot, toVroot>>,
+       Terminating ==
+         /\ \A self \in ProcSet : pc[self] = "Done"
+         /\ UNCHANGED vars,
+       Next == (\E self \in Procs : p(self)) \/ Terminating,
+       Inv ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ u \in [Procs -> Nodes]
+         /\ toVroot \in [Procs -> SUBSET Nodes]
+         /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+         /\ \A q \in Procs :
+               /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+               /\ pc[q] = "b" => u[q] \in vroot \cup marked,
+       vrootBar == vroot \cup (UNION {toVroot[i] : i \in Procs}),
+       pcBar == IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a",
+       R!vars == <<marked, vrootBar, pcBar>>,
+       R!a ==
+         /\ pcBar = "a"
+         /\ IF vrootBar # {}
+              THEN /\ \E v \in vrootBar :
+                         IF v \notin marked
+                           THEN /\ marked' = marked \cup {v}
+                                /\ vrootBar' = vrootBar \cup Succ[v]
+                           ELSE /\ vrootBar' = vrootBar \ {v}
+                                /\ UNCHANGED marked
+                   /\ pcBar' = "a"
+              ELSE /\ pcBar' = "Done"
+                   /\ UNCHANGED <<marked, vrootBar>>,
+       R!Next == R!a \/ R!Terminating,
+       Inv ,
+       [Next]_vars ,
+       NEW CONSTANT self \in Procs
+PROVE  <2>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:33
+@!!loc:37:18:37:22
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       vars == <<marked, vroot, pc, u, toVroot>>,
+       a(self) ==
+         /\ pc[self] = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot : u' = [u EXCEPT ![self] = v]
+                   /\ pc' = [pc EXCEPT ![self] = "b"]
+              ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
+                   /\ u' = u
+         /\ UNCHANGED <<marked, vroot, toVroot>>,
+       Terminating ==
+         /\ \A self \in ProcSet : pc[self] = "Done"
+         /\ UNCHANGED vars,
+       Next == (\E self \in Procs : p(self)) \/ Terminating,
+       Inv ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ u \in [Procs -> Nodes]
+         /\ toVroot \in [Procs -> SUBSET Nodes]
+         /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+         /\ \A q \in Procs :
+               /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+               /\ pc[q] = "b" => u[q] \in vroot \cup marked,
+       vrootBar == vroot \cup (UNION {toVroot[i] : i \in Procs}),
+       pcBar == IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a",
+       R!vars == <<marked, vrootBar, pcBar>>,
+       R!a ==
+         /\ pcBar = "a"
+         /\ IF vrootBar # {}
+              THEN /\ \E v \in vrootBar :
+                         IF v \notin marked
+                           THEN /\ marked' = marked \cup {v}
+                                /\ vrootBar' = vrootBar \cup Succ[v]
+                           ELSE /\ vrootBar' = vrootBar \ {v}
+                                /\ UNCHANGED marked
+                   /\ pcBar' = "a"
+              ELSE /\ pcBar' = "Done"
+                   /\ UNCHANGED <<marked, vrootBar>>,
+       R!Next == R!a \/ R!Terminating,
+       Inv ,
+       [Next]_vars ,
+       NEW CONSTANT self \in Procs,
+       <2>1 
+PROVE  <3>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:34
+@!!loc:37:24:37:28
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       vars == <<marked, vroot, pc, u, toVroot>>,
+       a(self) ==
+         /\ pc[self] = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot : u' = [u EXCEPT ![self] = v]
+                   /\ pc' = [pc EXCEPT ![self] = "b"]
+              ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
+                   /\ u' = u
+         /\ UNCHANGED <<marked, vroot, toVroot>>,
+       Terminating ==
+         /\ \A self \in ProcSet : pc[self] = "Done"
+         /\ UNCHANGED vars,
+       Next == (\E self \in Procs : p(self)) \/ Terminating,
+       Inv ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ u \in [Procs -> Nodes]
+         /\ toVroot \in [Procs -> SUBSET Nodes]
+         /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+         /\ \A q \in Procs :
+               /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+               /\ pc[q] = "b" => u[q] \in vroot \cup marked,
+       vrootBar == vroot \cup (UNION {toVroot[i] : i \in Procs}),
+       pcBar == IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a",
+       R!vars == <<marked, vrootBar, pcBar>>,
+       R!a ==
+         /\ pcBar = "a"
+         /\ IF vrootBar # {}
+              THEN /\ \E v \in vrootBar :
+                         IF v \notin marked
+                           THEN /\ marked' = marked \cup {v}
+                                /\ vrootBar' = vrootBar \cup Succ[v]
+                           ELSE /\ vrootBar' = vrootBar \ {v}
+                                /\ UNCHANGED marked
+                   /\ pcBar' = "a"
+              ELSE /\ pcBar' = "Done"
+                   /\ UNCHANGED <<marked, vrootBar>>,
+       R!Next == R!a \/ R!Terminating,
+       Inv ,
+       [Next]_vars ,
+       NEW CONSTANT self \in Procs,
+       <2>1 ,
+       <3>2 
+PROVE  <4>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:35
+@!!loc:45:11:45:13
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       vars == <<marked, vroot, pc, u, toVroot>>,
+       a(self) ==
+         /\ pc[self] = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot : u' = [u EXCEPT ![self] = v]
+                   /\ pc' = [pc EXCEPT ![self] = "b"]
+              ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
+                   /\ u' = u
+         /\ UNCHANGED <<marked, vroot, toVroot>>,
+       Terminating ==
+         /\ \A self \in ProcSet : pc[self] = "Done"
+         /\ UNCHANGED vars,
+       Next == (\E self \in Procs : p(self)) \/ Terminating,
+       Inv ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ u \in [Procs -> Nodes]
+         /\ toVroot \in [Procs -> SUBSET Nodes]
+         /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+         /\ \A q \in Procs :
+               /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+               /\ pc[q] = "b" => u[q] \in vroot \cup marked,
+       vrootBar == vroot \cup (UNION {toVroot[i] : i \in Procs}),
+       pcBar == IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a",
+       R!vars == <<marked, vrootBar, pcBar>>,
+       R!Next == R!a \/ R!Terminating,
+       Inv ,
+       [Next]_vars ,
+       NEW CONSTANT self \in Procs,
+       <5>2 ,
+       <3>2 ,
+       <2>1 
+PROVE  UNCHANGED R!vars
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:36
+@!!loc:45:14:45:18
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       vars == <<marked, vroot, pc, u, toVroot>>,
+       a(self) ==
+         /\ pc[self] = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot : u' = [u EXCEPT ![self] = v]
+                   /\ pc' = [pc EXCEPT ![self] = "b"]
+              ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
+                   /\ u' = u
+         /\ UNCHANGED <<marked, vroot, toVroot>>,
+       Terminating ==
+         /\ \A self \in ProcSet : pc[self] = "Done"
+         /\ UNCHANGED vars,
+       Next == (\E self \in Procs : p(self)) \/ Terminating,
+       Inv ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ u \in [Procs -> Nodes]
+         /\ toVroot \in [Procs -> SUBSET Nodes]
+         /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+         /\ \A q \in Procs :
+               /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+               /\ pc[q] = "b" => u[q] \in vroot \cup marked,
+       vrootBar == vroot \cup (UNION {toVroot[i] : i \in Procs}),
+       pcBar == IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a",
+       R!vars == <<marked, vrootBar, pcBar>>,
+       R!Next == R!a \/ R!Terminating,
+       Inv ,
+       [Next]_vars ,
+       NEW CONSTANT self \in Procs
+PROVE  <5>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:37
+@!!loc:45:20:45:24
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       vars == <<marked, vroot, pc, u, toVroot>>,
+       a(self) ==
+         /\ pc[self] = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot : u' = [u EXCEPT ![self] = v]
+                   /\ pc' = [pc EXCEPT ![self] = "b"]
+              ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
+                   /\ u' = u
+         /\ UNCHANGED <<marked, vroot, toVroot>>,
+       Terminating ==
+         /\ \A self \in ProcSet : pc[self] = "Done"
+         /\ UNCHANGED vars,
+       Next == (\E self \in Procs : p(self)) \/ Terminating,
+       Inv ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ u \in [Procs -> Nodes]
+         /\ toVroot \in [Procs -> SUBSET Nodes]
+         /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+         /\ \A q \in Procs :
+               /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+               /\ pc[q] = "b" => u[q] \in vroot \cup marked,
+       vrootBar == vroot \cup (UNION {toVroot[i] : i \in Procs}),
+       pcBar == IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a",
+       R!vars == <<marked, vrootBar, pcBar>>,
+       R!Next == R!a \/ R!Terminating,
+       Inv ,
+       [Next]_vars ,
+       NEW CONSTANT self \in Procs,
+       <5>2 
+PROVE  <3>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:38
+@!!loc:45:26:45:30
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       vars == <<marked, vroot, pc, u, toVroot>>,
+       a(self) ==
+         /\ pc[self] = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot : u' = [u EXCEPT ![self] = v]
+                   /\ pc' = [pc EXCEPT ![self] = "b"]
+              ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
+                   /\ u' = u
+         /\ UNCHANGED <<marked, vroot, toVroot>>,
+       Terminating ==
+         /\ \A self \in ProcSet : pc[self] = "Done"
+         /\ UNCHANGED vars,
+       Next == (\E self \in Procs : p(self)) \/ Terminating,
+       Inv ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ u \in [Procs -> Nodes]
+         /\ toVroot \in [Procs -> SUBSET Nodes]
+         /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+         /\ \A q \in Procs :
+               /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+               /\ pc[q] = "b" => u[q] \in vroot \cup marked,
+       vrootBar == vroot \cup (UNION {toVroot[i] : i \in Procs}),
+       pcBar == IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a",
+       R!vars == <<marked, vrootBar, pcBar>>,
+       R!Next == R!a \/ R!Terminating,
+       Inv ,
+       [Next]_vars ,
+       NEW CONSTANT self \in Procs,
+       <5>2 ,
+       <3>2 
+PROVE  <2>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:39
+@!!loc:41:11:41:13
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       vars == <<marked, vroot, pc, u, toVroot>>,
+       a(self) ==
+         /\ pc[self] = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot : u' = [u EXCEPT ![self] = v]
+                   /\ pc' = [pc EXCEPT ![self] = "b"]
+              ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
+                   /\ u' = u
+         /\ UNCHANGED <<marked, vroot, toVroot>>,
+       Terminating ==
+         /\ \A self \in ProcSet : pc[self] = "Done"
+         /\ UNCHANGED vars,
+       Next == (\E self \in Procs : p(self)) \/ Terminating,
+       Inv ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ u \in [Procs -> Nodes]
+         /\ toVroot \in [Procs -> SUBSET Nodes]
+         /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+         /\ \A q \in Procs :
+               /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+               /\ pc[q] = "b" => u[q] \in vroot \cup marked,
+       vrootBar == vroot \cup (UNION {toVroot[i] : i \in Procs}),
+       pcBar == IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a",
+       R!vars == <<marked, vrootBar, pcBar>>,
+       R!Next == R!a \/ R!Terminating,
+       Inv ,
+       [Next]_vars ,
+       NEW CONSTANT self \in Procs,
+       <4>2 ,
+       <3>2 ,
+       <2>1 
+PROVE  \E q \in Procs \ {self} : pc[q] # "Done"
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:40
+@!!loc:41:14:41:18
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       vars == <<marked, vroot, pc, u, toVroot>>,
+       a(self) ==
+         /\ pc[self] = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot : u' = [u EXCEPT ![self] = v]
+                   /\ pc' = [pc EXCEPT ![self] = "b"]
+              ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
+                   /\ u' = u
+         /\ UNCHANGED <<marked, vroot, toVroot>>,
+       Terminating ==
+         /\ \A self \in ProcSet : pc[self] = "Done"
+         /\ UNCHANGED vars,
+       Next == (\E self \in Procs : p(self)) \/ Terminating,
+       Inv ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ u \in [Procs -> Nodes]
+         /\ toVroot \in [Procs -> SUBSET Nodes]
+         /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+         /\ \A q \in Procs :
+               /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+               /\ pc[q] = "b" => u[q] \in vroot \cup marked,
+       vrootBar == vroot \cup (UNION {toVroot[i] : i \in Procs}),
+       pcBar == IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a",
+       R!vars == <<marked, vrootBar, pcBar>>,
+       R!Next == R!a \/ R!Terminating,
+       Inv ,
+       [Next]_vars ,
+       NEW CONSTANT self \in Procs
+PROVE  <4>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:41
+@!!loc:41:20:41:24
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       vars == <<marked, vroot, pc, u, toVroot>>,
+       a(self) ==
+         /\ pc[self] = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot : u' = [u EXCEPT ![self] = v]
+                   /\ pc' = [pc EXCEPT ![self] = "b"]
+              ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
+                   /\ u' = u
+         /\ UNCHANGED <<marked, vroot, toVroot>>,
+       Terminating ==
+         /\ \A self \in ProcSet : pc[self] = "Done"
+         /\ UNCHANGED vars,
+       Next == (\E self \in Procs : p(self)) \/ Terminating,
+       Inv ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ u \in [Procs -> Nodes]
+         /\ toVroot \in [Procs -> SUBSET Nodes]
+         /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+         /\ \A q \in Procs :
+               /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+               /\ pc[q] = "b" => u[q] \in vroot \cup marked,
+       vrootBar == vroot \cup (UNION {toVroot[i] : i \in Procs}),
+       pcBar == IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a",
+       R!vars == <<marked, vrootBar, pcBar>>,
+       R!Next == R!a \/ R!Terminating,
+       Inv ,
+       [Next]_vars ,
+       NEW CONSTANT self \in Procs,
+       <4>2 
+PROVE  <3>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:42
+@!!loc:41:26:41:30
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       vars == <<marked, vroot, pc, u, toVroot>>,
+       a(self) ==
+         /\ pc[self] = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot : u' = [u EXCEPT ![self] = v]
+                   /\ pc' = [pc EXCEPT ![self] = "b"]
+              ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
+                   /\ u' = u
+         /\ UNCHANGED <<marked, vroot, toVroot>>,
+       Terminating ==
+         /\ \A self \in ProcSet : pc[self] = "Done"
+         /\ UNCHANGED vars,
+       Next == (\E self \in Procs : p(self)) \/ Terminating,
+       Inv ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ u \in [Procs -> Nodes]
+         /\ toVroot \in [Procs -> SUBSET Nodes]
+         /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+         /\ \A q \in Procs :
+               /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+               /\ pc[q] = "b" => u[q] \in vroot \cup marked,
+       vrootBar == vroot \cup (UNION {toVroot[i] : i \in Procs}),
+       pcBar == IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a",
+       R!vars == <<marked, vrootBar, pcBar>>,
+       R!Next == R!a \/ R!Terminating,
+       Inv ,
+       [Next]_vars ,
+       NEW CONSTANT self \in Procs,
+       <4>2 ,
+       <3>2 
+PROVE  <2>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:43
+@!!loc:43:11:43:13
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       vars == <<marked, vroot, pc, u, toVroot>>,
+       a(self) ==
+         /\ pc[self] = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot : u' = [u EXCEPT ![self] = v]
+                   /\ pc' = [pc EXCEPT ![self] = "b"]
+              ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
+                   /\ u' = u
+         /\ UNCHANGED <<marked, vroot, toVroot>>,
+       Terminating ==
+         /\ \A self \in ProcSet : pc[self] = "Done"
+         /\ UNCHANGED vars,
+       Next == (\E self \in Procs : p(self)) \/ Terminating,
+       Inv ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ u \in [Procs -> Nodes]
+         /\ toVroot \in [Procs -> SUBSET Nodes]
+         /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+         /\ \A q \in Procs :
+               /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+               /\ pc[q] = "b" => u[q] \in vroot \cup marked,
+       vrootBar == vroot \cup (UNION {toVroot[i] : i \in Procs}),
+       pcBar == IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a",
+       R!vars == <<marked, vrootBar, pcBar>>,
+       R!Next == R!a \/ R!Terminating,
+       Inv ,
+       [Next]_vars ,
+       NEW CONSTANT self \in Procs,
+       <5>1 ,
+       <3>2 ,
+       <2>1 
+PROVE  pcBar' # "Done"
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:44
+@!!loc:43:14:43:18
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       vars == <<marked, vroot, pc, u, toVroot>>,
+       a(self) ==
+         /\ pc[self] = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot : u' = [u EXCEPT ![self] = v]
+                   /\ pc' = [pc EXCEPT ![self] = "b"]
+              ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
+                   /\ u' = u
+         /\ UNCHANGED <<marked, vroot, toVroot>>,
+       Terminating ==
+         /\ \A self \in ProcSet : pc[self] = "Done"
+         /\ UNCHANGED vars,
+       Next == (\E self \in Procs : p(self)) \/ Terminating,
+       Inv ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ u \in [Procs -> Nodes]
+         /\ toVroot \in [Procs -> SUBSET Nodes]
+         /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+         /\ \A q \in Procs :
+               /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+               /\ pc[q] = "b" => u[q] \in vroot \cup marked,
+       vrootBar == vroot \cup (UNION {toVroot[i] : i \in Procs}),
+       pcBar == IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a",
+       R!vars == <<marked, vrootBar, pcBar>>,
+       R!Next == R!a \/ R!Terminating,
+       Inv ,
+       [Next]_vars ,
+       NEW CONSTANT self \in Procs
+PROVE  <5>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:45
+@!!loc:43:20:43:24
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       vars == <<marked, vroot, pc, u, toVroot>>,
+       a(self) ==
+         /\ pc[self] = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot : u' = [u EXCEPT ![self] = v]
+                   /\ pc' = [pc EXCEPT ![self] = "b"]
+              ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
+                   /\ u' = u
+         /\ UNCHANGED <<marked, vroot, toVroot>>,
+       Terminating ==
+         /\ \A self \in ProcSet : pc[self] = "Done"
+         /\ UNCHANGED vars,
+       Next == (\E self \in Procs : p(self)) \/ Terminating,
+       Inv ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ u \in [Procs -> Nodes]
+         /\ toVroot \in [Procs -> SUBSET Nodes]
+         /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+         /\ \A q \in Procs :
+               /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+               /\ pc[q] = "b" => u[q] \in vroot \cup marked,
+       vrootBar == vroot \cup (UNION {toVroot[i] : i \in Procs}),
+       pcBar == IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a",
+       R!vars == <<marked, vrootBar, pcBar>>,
+       R!Next == R!a \/ R!Terminating,
+       Inv ,
+       [Next]_vars ,
+       NEW CONSTANT self \in Procs,
+       <5>1 
+PROVE  <3>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:46
+@!!loc:43:26:43:30
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       vars == <<marked, vroot, pc, u, toVroot>>,
+       a(self) ==
+         /\ pc[self] = "a"
+         /\ IF vroot # {}
+              THEN /\ \E v \in vroot : u' = [u EXCEPT ![self] = v]
+                   /\ pc' = [pc EXCEPT ![self] = "b"]
+              ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
+                   /\ u' = u
+         /\ UNCHANGED <<marked, vroot, toVroot>>,
+       Terminating ==
+         /\ \A self \in ProcSet : pc[self] = "Done"
+         /\ UNCHANGED vars,
+       Next == (\E self \in Procs : p(self)) \/ Terminating,
+       Inv ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ u \in [Procs -> Nodes]
+         /\ toVroot \in [Procs -> SUBSET Nodes]
+         /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+         /\ \A q \in Procs :
+               /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+               /\ pc[q] = "b" => u[q] \in vroot \cup marked,
+       vrootBar == vroot \cup (UNION {toVroot[i] : i \in Procs}),
+       pcBar == IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a",
+       R!vars == <<marked, vrootBar, pcBar>>,
+       R!Next == R!a \/ R!Terminating,
+       Inv ,
+       [Next]_vars ,
+       NEW CONSTANT self \in Procs,
+       <5>1 ,
+       <3>2 
+PROVE  <2>1
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:47
+@!!loc:53:5:53:7
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       vars == <<marked, vroot, pc, u, toVroot>>,
+       b(self) ==
+         /\ pc[self] = "b"
+         /\ IF u[self] \notin marked
+              THEN /\ marked' = marked \cup {u[self]}
+                   /\ toVroot' = [toVroot EXCEPT ![self] = Succ[u[self]]]
+                   /\ pc' = [pc EXCEPT ![self] = "c"]
+                   /\ vroot' = vroot
+              ELSE /\ vroot' = vroot \ {u[self]}
+                   /\ pc' = [pc EXCEPT ![self] = "a"]
+                   /\ UNCHANGED <<marked, toVroot>>
+         /\ u' = u,
+       Terminating ==
+         /\ \A self \in ProcSet : pc[self] = "Done"
+         /\ UNCHANGED vars,
+       Next == (\E self \in Procs : p(self)) \/ Terminating,
+       Inv ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ u \in [Procs -> Nodes]
+         /\ toVroot \in [Procs -> SUBSET Nodes]
+         /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+         /\ \A q \in Procs :
+               /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+               /\ pc[q] = "b" => u[q] \in vroot \cup marked,
+       vrootBar == vroot \cup (UNION {toVroot[i] : i \in Procs}),
+       pcBar == IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a",
+       R!vars == <<marked, vrootBar, pcBar>>,
+       R!a ==
+         /\ pcBar = "a"
+         /\ IF vrootBar # {}
+              THEN /\ \E v \in vrootBar :
+                         IF v \notin marked
+                           THEN /\ marked' = marked \cup {v}
+                                /\ vrootBar' = vrootBar \cup Succ[v]
+                           ELSE /\ vrootBar' = vrootBar \ {v}
+                                /\ UNCHANGED marked
+                   /\ pcBar' = "a"
+              ELSE /\ pcBar' = "Done"
+                   /\ UNCHANGED <<marked, vrootBar>>,
+       R!Next == R!a \/ R!Terminating,
+       Inv ,
+       [Next]_vars ,
+       NEW CONSTANT self \in Procs,
+       <2>2 
+PROVE  [R!Next]_R!vars
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:48
+@!!loc:53:8:53:12
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       vars == <<marked, vroot, pc, u, toVroot>>,
+       b(self) ==
+         /\ pc[self] = "b"
+         /\ IF u[self] \notin marked
+              THEN /\ marked' = marked \cup {u[self]}
+                   /\ toVroot' = [toVroot EXCEPT ![self] = Succ[u[self]]]
+                   /\ pc' = [pc EXCEPT ![self] = "c"]
+                   /\ vroot' = vroot
+              ELSE /\ vroot' = vroot \ {u[self]}
+                   /\ pc' = [pc EXCEPT ![self] = "a"]
+                   /\ UNCHANGED <<marked, toVroot>>
+         /\ u' = u,
+       Terminating ==
+         /\ \A self \in ProcSet : pc[self] = "Done"
+         /\ UNCHANGED vars,
+       Next == (\E self \in Procs : p(self)) \/ Terminating,
+       Inv ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ u \in [Procs -> Nodes]
+         /\ toVroot \in [Procs -> SUBSET Nodes]
+         /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+         /\ \A q \in Procs :
+               /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+               /\ pc[q] = "b" => u[q] \in vroot \cup marked,
+       vrootBar == vroot \cup (UNION {toVroot[i] : i \in Procs}),
+       pcBar == IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a",
+       R!vars == <<marked, vrootBar, pcBar>>,
+       R!a ==
+         /\ pcBar = "a"
+         /\ IF vrootBar # {}
+              THEN /\ \E v \in vrootBar :
+                         IF v \notin marked
+                           THEN /\ marked' = marked \cup {v}
+                                /\ vrootBar' = vrootBar \cup Succ[v]
+                           ELSE /\ vrootBar' = vrootBar \ {v}
+                                /\ UNCHANGED marked
+                   /\ pcBar' = "a"
+              ELSE /\ pcBar' = "Done"
+                   /\ UNCHANGED <<marked, vrootBar>>,
+       R!Next == R!a \/ R!Terminating,
+       Inv ,
+       [Next]_vars ,
+       NEW CONSTANT self \in Procs
+PROVE  <2>2
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:49
+@!!loc:57:5:57:7
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       vars == <<marked, vroot, pc, u, toVroot>>,
+       c(self) ==
+         /\ pc[self] = "c"
+         /\ IF toVroot[self] # {}
+              THEN /\ \E w \in toVroot[self] :
+                         /\ vroot' = vroot \cup {w}
+                         /\ toVroot'
+                            = [toVroot EXCEPT ![self] = toVroot[self] \ {w}]
+                   /\ pc' = [pc EXCEPT ![self] = "c"]
+              ELSE /\ pc' = [pc EXCEPT ![self] = "a"]
+                   /\ UNCHANGED <<vroot, toVroot>>
+         /\ UNCHANGED <<marked, u>>,
+       Terminating ==
+         /\ \A self \in ProcSet : pc[self] = "Done"
+         /\ UNCHANGED vars,
+       Next == (\E self \in Procs : p(self)) \/ Terminating,
+       Inv ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ u \in [Procs -> Nodes]
+         /\ toVroot \in [Procs -> SUBSET Nodes]
+         /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+         /\ \A q \in Procs :
+               /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+               /\ pc[q] = "b" => u[q] \in vroot \cup marked,
+       vrootBar == vroot \cup (UNION {toVroot[i] : i \in Procs}),
+       pcBar == IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a",
+       R!vars == <<marked, vrootBar, pcBar>>,
+       R!Next == R!a \/ R!Terminating,
+       Inv ,
+       [Next]_vars ,
+       NEW CONSTANT self \in Procs,
+       <2>3 
+PROVE  [R!Next]_R!vars
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:50
+@!!loc:57:8:57:12
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       vars == <<marked, vroot, pc, u, toVroot>>,
+       c(self) ==
+         /\ pc[self] = "c"
+         /\ IF toVroot[self] # {}
+              THEN /\ \E w \in toVroot[self] :
+                         /\ vroot' = vroot \cup {w}
+                         /\ toVroot'
+                            = [toVroot EXCEPT ![self] = toVroot[self] \ {w}]
+                   /\ pc' = [pc EXCEPT ![self] = "c"]
+              ELSE /\ pc' = [pc EXCEPT ![self] = "a"]
+                   /\ UNCHANGED <<vroot, toVroot>>
+         /\ UNCHANGED <<marked, u>>,
+       Terminating ==
+         /\ \A self \in ProcSet : pc[self] = "Done"
+         /\ UNCHANGED vars,
+       Next == (\E self \in Procs : p(self)) \/ Terminating,
+       Inv ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ u \in [Procs -> Nodes]
+         /\ toVroot \in [Procs -> SUBSET Nodes]
+         /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+         /\ \A q \in Procs :
+               /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+               /\ pc[q] = "b" => u[q] \in vroot \cup marked,
+       vrootBar == vroot \cup (UNION {toVroot[i] : i \in Procs}),
+       pcBar == IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a",
+       R!vars == <<marked, vrootBar, pcBar>>,
+       R!Next == R!a \/ R!Terminating,
+       Inv ,
+       [Next]_vars ,
+       NEW CONSTANT self \in Procs
+PROVE  <2>3
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:51
+@!!loc:59:5:59:7
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       vars == <<marked, vroot, pc, u, toVroot>>,
+       Terminating ==
+         /\ \A self \in ProcSet : pc[self] = "Done"
+         /\ UNCHANGED vars,
+       Next == (\E self \in Procs : p(self)) \/ Terminating,
+       Inv ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ u \in [Procs -> Nodes]
+         /\ toVroot \in [Procs -> SUBSET Nodes]
+         /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+         /\ \A q \in Procs :
+               /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+               /\ pc[q] = "b" => u[q] \in vroot \cup marked,
+       vrootBar == vroot \cup (UNION {toVroot[i] : i \in Procs}),
+       pcBar == IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a",
+       R!vars == <<marked, vrootBar, pcBar>>,
+       R!Next == R!a \/ R!Terminating,
+       Inv ,
+       [Next]_vars ,
+       <2>4 
+PROVE  [R!Next]_R!vars
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:52
+@!!loc:59:8:59:12
+@!!status:to be proved
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       SuccAssump == Succ \in [Nodes -> SUBSET Nodes],
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       RootAssump == Root \in Nodes,
+       ProcsAssump == /\ Procs # {}
+                      /\ IsFiniteSet(Procs),
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       vars == <<marked, vroot, pc, u, toVroot>>,
+       Terminating ==
+         /\ \A self \in ProcSet : pc[self] = "Done"
+         /\ UNCHANGED vars,
+       Next == (\E self \in Procs : p(self)) \/ Terminating,
+       Inv ==
+         /\ marked \in SUBSET Nodes
+         /\ vroot \in SUBSET Nodes
+         /\ u \in [Procs -> Nodes]
+         /\ toVroot \in [Procs -> SUBSET Nodes]
+         /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+         /\ \A q \in Procs :
+               /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+               /\ pc[q] = "b" => u[q] \in vroot \cup marked,
+       vrootBar == vroot \cup (UNION {toVroot[i] : i \in Procs}),
+       pcBar == IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a",
+       R!vars == <<marked, vrootBar, pcBar>>,
+       R!Next == R!a \/ R!Terminating,
+       Inv ,
+       [Next]_vars 
+PROVE  <2>4
+
+@!!END
+
+@!!BEGIN
+@!!type:obligationsnumber
+@!!count:52
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:1
+@!!loc:16:3:16:5
+@!!status:normalized
+@!!meth:time-limit: 10
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       Init => Inv ,
+       Inv /\ [Next]_vars => Inv' ,
+       TRUE 
+PROVE  (/\ Init /\ [][Next]_vars
+        /\ \A self \in Procs : WF_(vars) (p(self)))
+       => []Inv
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:2
+@!!loc:16:6:16:10
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       Init => Inv 
+PROVE  Init => Inv
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:3
+@!!loc:16:12:16:16
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       Inv /\ [Next]_vars => Inv' ,
+       Init => Inv 
+PROVE  Inv /\ [Next]_vars => Inv'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:4
+@!!loc:16:18:16:21
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       Init => Inv ,
+       Inv /\ [Next]_vars => Inv' 
+PROVE  TRUE
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:5
+@!!loc:12:5:12:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       Root \in Nodes 
+PROVE  (/\ marked = {}
+        /\ vroot = {Root}
+        /\ u = [self \in Procs |-> Root]
+        /\ toVroot = [self \in Procs |-> {}]
+        /\ pc = [self \in Procs |-> "a"])
+       => (/\ marked \in SUBSET Nodes
+           /\ vroot \in SUBSET Nodes
+           /\ u \in [Procs -> Nodes]
+           /\ toVroot \in [Procs -> SUBSET Nodes]
+           /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+           /\ \A q \in Procs :
+                 /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+                 /\ pc[q] = "b" => u[q] \in vroot \cup marked)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:6
+@!!loc:12:8:12:18
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       Root \in Nodes ,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot
+PROVE  Root \in Nodes
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:7
+@!!loc:14:4:14:6
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       Succ \in [Nodes -> SUBSET Nodes] 
+PROVE  (/\ marked \in SUBSET Nodes
+        /\ vroot \in SUBSET Nodes
+        /\ u \in [Procs -> Nodes]
+        /\ toVroot \in [Procs -> SUBSET Nodes]
+        /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+        /\ \A q \in Procs :
+              /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+              /\ pc[q] = "b" => u[q] \in vroot \cup marked)
+       /\ [(\E self \in Procs :
+               (/\ pc[self] = "a"
+                /\ IF vroot # {}
+                     THEN /\ \E v \in vroot : u' = [u EXCEPT ![self] = v]
+                          /\ pc' = [pc EXCEPT ![self] = "b"]
+                     ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
+                          /\ u' = u
+                /\ UNCHANGED <<marked, vroot, toVroot>>)
+               \/ (/\ pc[self] = "b"
+                   /\ IF u[self] \notin marked
+                        THEN /\ marked' = marked \cup {u[self]}
+                             /\ toVroot'
+                                = [toVroot EXCEPT ![self] = Succ[u[self]]]
+                             /\ pc' = [pc EXCEPT ![self] = "c"]
+                             /\ vroot' = vroot
+                        ELSE /\ vroot' = vroot \ {u[self]}
+                             /\ pc' = [pc EXCEPT ![self] = "a"]
+                             /\ UNCHANGED <<marked, toVroot>>
+                   /\ u' = u)
+               \/ (/\ pc[self] = "c"
+                   /\ IF toVroot[self] # {}
+                        THEN /\ \E w \in toVroot[self] :
+                                   /\ vroot' = vroot \cup {w}
+                                   /\ toVroot'
+                                      = [toVroot EXCEPT
+                                           ![self] = toVroot[self] \ {w}]
+                             /\ pc' = [pc EXCEPT ![self] = "c"]
+                        ELSE /\ pc' = [pc EXCEPT ![self] = "a"]
+                             /\ UNCHANGED <<vroot, toVroot>>
+                   /\ UNCHANGED <<marked, u>>))
+           \/ (/\ \A self \in Procs : pc[self] = "Done"
+               /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked,
+                                                                  vroot, pc,
+                                                                  u,
+                                                                  toVroot>>
+       => (/\ marked \in SUBSET Nodes
+           /\ vroot \in SUBSET Nodes
+           /\ u \in [Procs -> Nodes]
+           /\ toVroot \in [Procs -> SUBSET Nodes]
+           /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+           /\ \A q \in Procs :
+                 /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+                 /\ pc[q] = "b" => u[q] \in vroot \cup marked)'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:8
+@!!loc:14:7:14:17
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       Succ \in [Nodes -> SUBSET Nodes] ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot
+PROVE  Succ \in [Nodes -> SUBSET Nodes]
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:9
+@!!loc:63:3:63:5
+@!!status:normalized
+@!!meth:time-limit: 10
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       Init => R!Init ,
+       Inv /\ [Next]_vars => [R!Next]_R!vars ,
+       (/\ Init /\ [][Next]_vars
+        /\ \A self \in Procs : WF_(vars) (p(self)))
+       => []Inv ,
+       TRUE 
+PROVE  (/\ Init /\ [][Next]_vars
+        /\ \A self \in Procs : WF_(vars) (p(self)))
+       => R!Init /\ [][R!Next]_R!vars
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:10
+@!!loc:63:6:63:10
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       Init => R!Init 
+PROVE  Init => R!Init
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:11
+@!!loc:63:12:63:16
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       Inv /\ [Next]_vars => [R!Next]_R!vars ,
+       Init => R!Init 
+PROVE  Inv /\ [Next]_vars => [R!Next]_R!vars
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:12
+@!!loc:63:18:63:31
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       (/\ Init /\ [][Next]_vars
+        /\ \A self \in Procs : WF_(vars) (p(self)))
+       => []Inv ,
+       Init => R!Init ,
+       Inv /\ [Next]_vars => [R!Next]_R!vars 
+PROVE  (/\ Init /\ [][Next]_vars
+        /\ \A self \in Procs : WF_(vars) (p(self)))
+       => []Inv
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:13
+@!!loc:63:33:63:36
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       Init => R!Init ,
+       Inv /\ [Next]_vars => [R!Next]_R!vars ,
+       (/\ Init /\ [][Next]_vars
+        /\ \A self \in Procs : WF_(vars) (p(self)))
+       => []Inv 
+PROVE  TRUE
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:14
+@!!loc:20:5:20:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ Procs # {}
+       /\ IsFiniteSet(Procs) 
+PROVE  (/\ marked = {}
+        /\ vroot = {Root}
+        /\ u = [self \in Procs |-> Root]
+        /\ toVroot = [self \in Procs |-> {}]
+        /\ pc = [self \in Procs |-> "a"])
+       => (/\ marked = {}
+           /\ vroot \cup (UNION {toVroot[i] : i \in Procs}) = {Root}
+           /\ (IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a") = "a")
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:15
+@!!loc:20:8:20:19
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       /\ Procs # {}
+       /\ IsFiniteSet(Procs) ,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot
+PROVE  /\ Procs # {}
+       /\ IsFiniteSet(Procs)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:16
+@!!loc:61:5:61:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ u \in [Procs -> Nodes]
+       /\ toVroot \in [Procs -> SUBSET Nodes]
+       /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+       /\ \A q \in Procs :
+             /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+             /\ pc[q] = "b" => u[q] \in vroot \cup marked ,
+       [(\E self \in Procs : a(self) \/ b(self) \/ c(self))
+        \/ (/\ \A self \in ProcSet : pc[self] = "Done"
+            /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked, vroot,
+                                                               pc, u,
+                                                               toVroot>> ,
+       ASSUME NEW CONSTANT self \in Procs,
+              a(self) 
+       PROVE  [R!a \/ R!Terminating]_<<marked,
+                                       vroot
+                                       \cup (UNION {toVroot[i] : i \in Procs}),
+                                       IF \A q \in Procs : pc[q] = "Done"
+                                         THEN "Done"
+                                         ELSE "a">> ,
+       ASSUME NEW CONSTANT self \in Procs,
+              b(self) 
+       PROVE  [R!a \/ R!Terminating]_<<marked,
+                                       vroot
+                                       \cup (UNION {toVroot[i] : i \in Procs}),
+                                       IF \A q \in Procs : pc[q] = "Done"
+                                         THEN "Done"
+                                         ELSE "a">> ,
+       ASSUME NEW CONSTANT self \in Procs,
+              c(self) 
+       PROVE  [R!a \/ R!Terminating]_<<marked,
+                                       vroot
+                                       \cup (UNION {toVroot[i] : i \in Procs}),
+                                       IF \A q \in Procs : pc[q] = "Done"
+                                         THEN "Done"
+                                         ELSE "a">> ,
+       ASSUME UNCHANGED <<marked, vroot, pc, u, toVroot>> 
+       PROVE  [R!a \/ R!Terminating]_<<marked,
+                                       vroot
+                                       \cup (UNION {toVroot[i] : i \in Procs}),
+                                       IF \A q \in Procs : pc[q] = "Done"
+                                         THEN "Done"
+                                         ELSE "a">> 
+PROVE  [R!a \/ R!Terminating]_<<marked,
+                                vroot \cup (UNION {toVroot[i] : i \in Procs}),
+                                IF \A q \in Procs : pc[q] = "Done"
+                                  THEN "Done"
+                                  ELSE "a">>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:17
+@!!loc:61:8:61:12
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ u \in [Procs -> Nodes]
+       /\ toVroot \in [Procs -> SUBSET Nodes]
+       /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+       /\ \A q \in Procs :
+             /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+             /\ pc[q] = "b" => u[q] \in vroot \cup marked ,
+       [(\E self \in Procs : a(self) \/ b(self) \/ c(self))
+        \/ (/\ \A self \in ProcSet : pc[self] = "Done"
+            /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked, vroot,
+                                                               pc, u,
+                                                               toVroot>> ,
+       ASSUME NEW CONSTANT self \in Procs,
+              a(self) 
+       PROVE  [R!a \/ R!Terminating]_<<marked,
+                                       vroot
+                                       \cup (UNION {toVroot[i] : i \in Procs}),
+                                       IF \A q \in Procs : pc[q] = "Done"
+                                         THEN "Done"
+                                         ELSE "a">> 
+PROVE  ASSUME NEW CONSTANT self \in Procs,
+              a(self) 
+       PROVE  [R!a \/ R!Terminating]_<<marked,
+                                       vroot
+                                       \cup (UNION {toVroot[i] : i \in Procs}),
+                                       IF \A q \in Procs : pc[q] = "Done"
+                                         THEN "Done"
+                                         ELSE "a">>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:18
+@!!loc:61:14:61:18
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ u \in [Procs -> Nodes]
+       /\ toVroot \in [Procs -> SUBSET Nodes]
+       /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+       /\ \A q \in Procs :
+             /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+             /\ pc[q] = "b" => u[q] \in vroot \cup marked ,
+       [(\E self \in Procs : a(self) \/ b(self) \/ c(self))
+        \/ (/\ \A self \in ProcSet : pc[self] = "Done"
+            /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked, vroot,
+                                                               pc, u,
+                                                               toVroot>> ,
+       ASSUME NEW CONSTANT self \in Procs,
+              b(self) 
+       PROVE  [R!a \/ R!Terminating]_<<marked,
+                                       vroot
+                                       \cup (UNION {toVroot[i] : i \in Procs}),
+                                       IF \A q \in Procs : pc[q] = "Done"
+                                         THEN "Done"
+                                         ELSE "a">> ,
+       ASSUME NEW CONSTANT self \in Procs,
+              a(self) 
+       PROVE  [R!a \/ R!Terminating]_<<marked,
+                                       vroot
+                                       \cup (UNION {toVroot[i] : i \in Procs}),
+                                       IF \A q \in Procs : pc[q] = "Done"
+                                         THEN "Done"
+                                         ELSE "a">> 
+PROVE  ASSUME NEW CONSTANT self \in Procs,
+              b(self) 
+       PROVE  [R!a \/ R!Terminating]_<<marked,
+                                       vroot
+                                       \cup (UNION {toVroot[i] : i \in Procs}),
+                                       IF \A q \in Procs : pc[q] = "Done"
+                                         THEN "Done"
+                                         ELSE "a">>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:19
+@!!loc:61:20:61:24
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ u \in [Procs -> Nodes]
+       /\ toVroot \in [Procs -> SUBSET Nodes]
+       /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+       /\ \A q \in Procs :
+             /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+             /\ pc[q] = "b" => u[q] \in vroot \cup marked ,
+       [(\E self \in Procs : a(self) \/ b(self) \/ c(self))
+        \/ (/\ \A self \in ProcSet : pc[self] = "Done"
+            /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked, vroot,
+                                                               pc, u,
+                                                               toVroot>> ,
+       ASSUME NEW CONSTANT self \in Procs,
+              c(self) 
+       PROVE  [R!a \/ R!Terminating]_<<marked,
+                                       vroot
+                                       \cup (UNION {toVroot[i] : i \in Procs}),
+                                       IF \A q \in Procs : pc[q] = "Done"
+                                         THEN "Done"
+                                         ELSE "a">> ,
+       ASSUME NEW CONSTANT self \in Procs,
+              a(self) 
+       PROVE  [R!a \/ R!Terminating]_<<marked,
+                                       vroot
+                                       \cup (UNION {toVroot[i] : i \in Procs}),
+                                       IF \A q \in Procs : pc[q] = "Done"
+                                         THEN "Done"
+                                         ELSE "a">> ,
+       ASSUME NEW CONSTANT self \in Procs,
+              b(self) 
+       PROVE  [R!a \/ R!Terminating]_<<marked,
+                                       vroot
+                                       \cup (UNION {toVroot[i] : i \in Procs}),
+                                       IF \A q \in Procs : pc[q] = "Done"
+                                         THEN "Done"
+                                         ELSE "a">> 
+PROVE  ASSUME NEW CONSTANT self \in Procs,
+              c(self) 
+       PROVE  [R!a \/ R!Terminating]_<<marked,
+                                       vroot
+                                       \cup (UNION {toVroot[i] : i \in Procs}),
+                                       IF \A q \in Procs : pc[q] = "Done"
+                                         THEN "Done"
+                                         ELSE "a">>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:20
+@!!loc:61:26:61:30
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ u \in [Procs -> Nodes]
+       /\ toVroot \in [Procs -> SUBSET Nodes]
+       /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+       /\ \A q \in Procs :
+             /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+             /\ pc[q] = "b" => u[q] \in vroot \cup marked ,
+       [(\E self \in Procs : a(self) \/ b(self) \/ c(self))
+        \/ (/\ \A self \in ProcSet : pc[self] = "Done"
+            /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked, vroot,
+                                                               pc, u,
+                                                               toVroot>> ,
+       ASSUME UNCHANGED <<marked, vroot, pc, u, toVroot>> 
+       PROVE  [R!a \/ R!Terminating]_<<marked,
+                                       vroot
+                                       \cup (UNION {toVroot[i] : i \in Procs}),
+                                       IF \A q \in Procs : pc[q] = "Done"
+                                         THEN "Done"
+                                         ELSE "a">> ,
+       ASSUME NEW CONSTANT self \in Procs,
+              a(self) 
+       PROVE  [R!a \/ R!Terminating]_<<marked,
+                                       vroot
+                                       \cup (UNION {toVroot[i] : i \in Procs}),
+                                       IF \A q \in Procs : pc[q] = "Done"
+                                         THEN "Done"
+                                         ELSE "a">> ,
+       ASSUME NEW CONSTANT self \in Procs,
+              b(self) 
+       PROVE  [R!a \/ R!Terminating]_<<marked,
+                                       vroot
+                                       \cup (UNION {toVroot[i] : i \in Procs}),
+                                       IF \A q \in Procs : pc[q] = "Done"
+                                         THEN "Done"
+                                         ELSE "a">> ,
+       ASSUME NEW CONSTANT self \in Procs,
+              c(self) 
+       PROVE  [R!a \/ R!Terminating]_<<marked,
+                                       vroot
+                                       \cup (UNION {toVroot[i] : i \in Procs}),
+                                       IF \A q \in Procs : pc[q] = "Done"
+                                         THEN "Done"
+                                         ELSE "a">> 
+PROVE  ASSUME UNCHANGED <<marked, vroot, pc, u, toVroot>> 
+       PROVE  [R!a \/ R!Terminating]_<<marked,
+                                       vroot
+                                       \cup (UNION {toVroot[i] : i \in Procs}),
+                                       IF \A q \in Procs : pc[q] = "Done"
+                                         THEN "Done"
+                                         ELSE "a">>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:21
+@!!loc:25:5:25:12
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       ASSUME Inv ,
+              [Next]_vars 
+       PROVE  [R!Next]_R!vars 
+PROVE  Inv /\ [Next]_vars => [R!Next]_R!vars
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:22
+@!!loc:49:7:49:9
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ u \in [Procs -> Nodes]
+       /\ toVroot \in [Procs -> SUBSET Nodes]
+       /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+       /\ \A q \in Procs :
+             /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+             /\ pc[q] = "b" => u[q] \in vroot \cup marked ,
+       [(\E self \in Procs : p(self))
+        \/ (/\ \A self \in ProcSet : pc[self] = "Done"
+            /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked, vroot,
+                                                               pc, u,
+                                                               toVroot>> ,
+       NEW CONSTANT self \in Procs,
+       ASSUME vroot # {} 
+       PROVE  UNCHANGED <<marked,
+                          vroot \cup (UNION {toVroot[i] : i \in Procs}),
+                          IF \A q \in Procs : pc[q] = "Done"
+                            THEN "Done"
+                            ELSE "a">> ,
+       ASSUME vroot = {} 
+       PROVE  [R!a \/ R!Terminating]_<<marked,
+                                       vroot
+                                       \cup (UNION {toVroot[i] : i \in Procs}),
+                                       IF \A q \in Procs : pc[q] = "Done"
+                                         THEN "Done"
+                                         ELSE "a">> 
+PROVE  [R!a \/ R!Terminating]_<<marked,
+                                vroot \cup (UNION {toVroot[i] : i \in Procs}),
+                                IF \A q \in Procs : pc[q] = "Done"
+                                  THEN "Done"
+                                  ELSE "a">>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:23
+@!!loc:49:10:49:14
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ u \in [Procs -> Nodes]
+       /\ toVroot \in [Procs -> SUBSET Nodes]
+       /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+       /\ \A q \in Procs :
+             /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+             /\ pc[q] = "b" => u[q] \in vroot \cup marked ,
+       [(\E self \in Procs : p(self))
+        \/ (/\ \A self \in ProcSet : pc[self] = "Done"
+            /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked, vroot,
+                                                               pc, u,
+                                                               toVroot>> ,
+       NEW CONSTANT self \in Procs,
+       ASSUME vroot # {} 
+       PROVE  UNCHANGED <<marked,
+                          vroot \cup (UNION {toVroot[i] : i \in Procs}),
+                          IF \A q \in Procs : pc[q] = "Done"
+                            THEN "Done"
+                            ELSE "a">> 
+PROVE  ASSUME vroot # {} 
+       PROVE  UNCHANGED <<marked,
+                          vroot \cup (UNION {toVroot[i] : i \in Procs}),
+                          IF \A q \in Procs : pc[q] = "Done"
+                            THEN "Done"
+                            ELSE "a">>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:24
+@!!loc:49:16:49:20
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ u \in [Procs -> Nodes]
+       /\ toVroot \in [Procs -> SUBSET Nodes]
+       /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+       /\ \A q \in Procs :
+             /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+             /\ pc[q] = "b" => u[q] \in vroot \cup marked ,
+       [(\E self \in Procs : p(self))
+        \/ (/\ \A self \in ProcSet : pc[self] = "Done"
+            /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked, vroot,
+                                                               pc, u,
+                                                               toVroot>> ,
+       NEW CONSTANT self \in Procs,
+       ASSUME vroot = {} 
+       PROVE  [R!a \/ R!Terminating]_<<marked,
+                                       vroot
+                                       \cup (UNION {toVroot[i] : i \in Procs}),
+                                       IF \A q \in Procs : pc[q] = "Done"
+                                         THEN "Done"
+                                         ELSE "a">> ,
+       ASSUME vroot # {} 
+       PROVE  UNCHANGED <<marked,
+                          vroot \cup (UNION {toVroot[i] : i \in Procs}),
+                          IF \A q \in Procs : pc[q] = "Done"
+                            THEN "Done"
+                            ELSE "a">> 
+PROVE  ASSUME vroot = {} 
+       PROVE  [R!a \/ R!Terminating]_<<marked,
+                                       vroot
+                                       \cup (UNION {toVroot[i] : i \in Procs}),
+                                       IF \A q \in Procs : pc[q] = "Done"
+                                         THEN "Done"
+                                         ELSE "a">>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:25
+@!!loc:32:8:32:10
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ u \in [Procs -> Nodes]
+       /\ toVroot \in [Procs -> SUBSET Nodes]
+       /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+       /\ \A q \in Procs :
+             /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+             /\ pc[q] = "b" => u[q] \in vroot \cup marked ,
+       [(\E self \in Procs : p(self))
+        \/ (/\ \A self \in ProcSet : pc[self] = "Done"
+            /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked, vroot,
+                                                               pc, u,
+                                                               toVroot>> ,
+       NEW CONSTANT self \in Procs,
+       /\ pc[self] = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot : u' = [u EXCEPT ![self] = v]
+                 /\ pc' = [pc EXCEPT ![self] = "b"]
+            ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
+                 /\ u' = u
+       /\ UNCHANGED <<marked, vroot, toVroot>> ,
+       vroot # {} 
+PROVE  UNCHANGED <<marked, vroot \cup (UNION {toVroot[i] : i \in Procs}),
+                   IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a">>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:26
+@!!loc:32:11:32:15
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ u \in [Procs -> Nodes]
+       /\ toVroot \in [Procs -> SUBSET Nodes]
+       /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+       /\ \A q \in Procs :
+             /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+             /\ pc[q] = "b" => u[q] \in vroot \cup marked ,
+       [(\E self \in Procs : p(self))
+        \/ (/\ \A self \in ProcSet : pc[self] = "Done"
+            /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked, vroot,
+                                                               pc, u,
+                                                               toVroot>> ,
+       NEW CONSTANT self \in Procs,
+       /\ pc[self] = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot : u' = [u EXCEPT ![self] = v]
+                 /\ pc' = [pc EXCEPT ![self] = "b"]
+            ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
+                 /\ u' = u
+       /\ UNCHANGED <<marked, vroot, toVroot>> 
+PROVE  /\ pc[self] = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot : u' = [u EXCEPT ![self] = v]
+                 /\ pc' = [pc EXCEPT ![self] = "b"]
+            ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
+                 /\ u' = u
+       /\ UNCHANGED <<marked, vroot, toVroot>>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:27
+@!!loc:32:17:32:21
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ u \in [Procs -> Nodes]
+       /\ toVroot \in [Procs -> SUBSET Nodes]
+       /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+       /\ \A q \in Procs :
+             /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+             /\ pc[q] = "b" => u[q] \in vroot \cup marked ,
+       [(\E self \in Procs : p(self))
+        \/ (/\ \A self \in ProcSet : pc[self] = "Done"
+            /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked, vroot,
+                                                               pc, u,
+                                                               toVroot>> ,
+       NEW CONSTANT self \in Procs,
+       vroot # {} ,
+       /\ pc[self] = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot : u' = [u EXCEPT ![self] = v]
+                 /\ pc' = [pc EXCEPT ![self] = "b"]
+            ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
+                 /\ u' = u
+       /\ UNCHANGED <<marked, vroot, toVroot>> 
+PROVE  vroot # {}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:28
+@!!loc:47:9:47:11
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ u \in [Procs -> Nodes]
+       /\ toVroot \in [Procs -> SUBSET Nodes]
+       /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+       /\ \A q \in Procs :
+             /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+             /\ pc[q] = "b" => u[q] \in vroot \cup marked ,
+       [(\E self \in Procs : p(self))
+        \/ (/\ \A self \in ProcSet : pc[self] = "Done"
+            /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked, vroot,
+                                                               pc, u,
+                                                               toVroot>> ,
+       NEW CONSTANT self \in Procs,
+       ASSUME vroot \cup (UNION {toVroot[i] : i \in Procs}) = {} 
+       PROVE  [R!a \/ R!Terminating]_<<marked,
+                                       vroot
+                                       \cup (UNION {toVroot[i] : i \in Procs}),
+                                       IF \A q \in Procs : pc[q] = "Done"
+                                         THEN "Done"
+                                         ELSE "a">> ,
+       ASSUME vroot \cup (UNION {toVroot[i] : i \in Procs}) # {} 
+       PROVE  UNCHANGED <<marked,
+                          vroot \cup (UNION {toVroot[i] : i \in Procs}),
+                          IF \A q \in Procs : pc[q] = "Done"
+                            THEN "Done"
+                            ELSE "a">> 
+PROVE  [R!a \/ R!Terminating]_<<marked,
+                                vroot \cup (UNION {toVroot[i] : i \in Procs}),
+                                IF \A q \in Procs : pc[q] = "Done"
+                                  THEN "Done"
+                                  ELSE "a">>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:25
+@!!loc:32:8:32:10
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ u \in [Procs -> Nodes]
+       /\ toVroot \in [Procs -> SUBSET Nodes]
+       /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+       /\ \A q \in Procs :
+             /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+             /\ pc[q] = "b" => u[q] \in vroot \cup marked ,
+       [(\E self \in Procs : p(self))
+        \/ (/\ \A self \in ProcSet : pc[self] = "Done"
+            /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked, vroot,
+                                                               pc, u,
+                                                               toVroot>> ,
+       NEW CONSTANT self \in Procs,
+       /\ pc[self] = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot : u' = [u EXCEPT ![self] = v]
+                 /\ pc' = [pc EXCEPT ![self] = "b"]
+            ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
+                 /\ u' = u
+       /\ UNCHANGED <<marked, vroot, toVroot>> ,
+       vroot # {} 
+PROVE  UNCHANGED <<marked, vroot \cup (UNION {toVroot[i] : i \in Procs}),
+                   IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a">>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:22
+@!!loc:49:7:49:9
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ u \in [Procs -> Nodes]
+       /\ toVroot \in [Procs -> SUBSET Nodes]
+       /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+       /\ \A q \in Procs :
+             /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+             /\ pc[q] = "b" => u[q] \in vroot \cup marked ,
+       [(\E self \in Procs : p(self))
+        \/ (/\ \A self \in ProcSet : pc[self] = "Done"
+            /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked, vroot,
+                                                               pc, u,
+                                                               toVroot>> ,
+       NEW CONSTANT self \in Procs,
+       ASSUME vroot # {} 
+       PROVE  UNCHANGED <<marked,
+                          vroot \cup (UNION {toVroot[i] : i \in Procs}),
+                          IF \A q \in Procs : pc[q] = "Done"
+                            THEN "Done"
+                            ELSE "a">> ,
+       ASSUME vroot = {} 
+       PROVE  [R!a \/ R!Terminating]_<<marked,
+                                       vroot
+                                       \cup (UNION {toVroot[i] : i \in Procs}),
+                                       IF \A q \in Procs : pc[q] = "Done"
+                                         THEN "Done"
+                                         ELSE "a">> 
+PROVE  [R!a \/ R!Terminating]_<<marked,
+                                vroot \cup (UNION {toVroot[i] : i \in Procs}),
+                                IF \A q \in Procs : pc[q] = "Done"
+                                  THEN "Done"
+                                  ELSE "a">>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:21
+@!!loc:25:5:25:12
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       ASSUME Inv ,
+              [Next]_vars 
+       PROVE  [R!Next]_R!vars 
+PROVE  Inv /\ [Next]_vars => [R!Next]_R!vars
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:16
+@!!loc:61:5:61:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (3%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ u \in [Procs -> Nodes]
+       /\ toVroot \in [Procs -> SUBSET Nodes]
+       /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+       /\ \A q \in Procs :
+             /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+             /\ pc[q] = "b" => u[q] \in vroot \cup marked ,
+       [(\E self \in Procs : a(self) \/ b(self) \/ c(self))
+        \/ (/\ \A self \in ProcSet : pc[self] = "Done"
+            /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked, vroot,
+                                                               pc, u,
+                                                               toVroot>> ,
+       ASSUME NEW CONSTANT self \in Procs,
+              a(self) 
+       PROVE  [R!a \/ R!Terminating]_<<marked,
+                                       vroot
+                                       \cup (UNION {toVroot[i] : i \in Procs}),
+                                       IF \A q \in Procs : pc[q] = "Done"
+                                         THEN "Done"
+                                         ELSE "a">> ,
+       ASSUME NEW CONSTANT self \in Procs,
+              b(self) 
+       PROVE  [R!a \/ R!Terminating]_<<marked,
+                                       vroot
+                                       \cup (UNION {toVroot[i] : i \in Procs}),
+                                       IF \A q \in Procs : pc[q] = "Done"
+                                         THEN "Done"
+                                         ELSE "a">> ,
+       ASSUME NEW CONSTANT self \in Procs,
+              c(self) 
+       PROVE  [R!a \/ R!Terminating]_<<marked,
+                                       vroot
+                                       \cup (UNION {toVroot[i] : i \in Procs}),
+                                       IF \A q \in Procs : pc[q] = "Done"
+                                         THEN "Done"
+                                         ELSE "a">> ,
+       ASSUME UNCHANGED <<marked, vroot, pc, u, toVroot>> 
+       PROVE  [R!a \/ R!Terminating]_<<marked,
+                                       vroot
+                                       \cup (UNION {toVroot[i] : i \in Procs}),
+                                       IF \A q \in Procs : pc[q] = "Done"
+                                         THEN "Done"
+                                         ELSE "a">> 
+PROVE  [R!a \/ R!Terminating]_<<marked,
+                                vroot \cup (UNION {toVroot[i] : i \in Procs}),
+                                IF \A q \in Procs : pc[q] = "Done"
+                                  THEN "Done"
+                                  ELSE "a">>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:14
+@!!loc:20:5:20:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.2 (3%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ Procs # {}
+       /\ IsFiniteSet(Procs) 
+PROVE  (/\ marked = {}
+        /\ vroot = {Root}
+        /\ u = [self \in Procs |-> Root]
+        /\ toVroot = [self \in Procs |-> {}]
+        /\ pc = [self \in Procs |-> "a"])
+       => (/\ marked = {}
+           /\ vroot \cup (UNION {toVroot[i] : i \in Procs}) = {Root}
+           /\ (IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a") = "a")
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:9
+@!!loc:63:3:63:5
+@!!status:proved
+@!!prover:ls4
+@!!meth:time-limit: 10; time-used: 0.2 (2%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       Init => R!Init ,
+       Inv /\ [Next]_vars => [R!Next]_R!vars ,
+       (/\ Init /\ [][Next]_vars
+        /\ \A self \in Procs : WF_(vars) (p(self)))
+       => []Inv ,
+       TRUE 
+PROVE  (/\ Init /\ [][Next]_vars
+        /\ \A self \in Procs : WF_(vars) (p(self)))
+       => R!Init /\ [][R!Next]_R!vars
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:7
+@!!loc:14:4:14:6
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.2 (4%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       Succ \in [Nodes -> SUBSET Nodes] 
+PROVE  (/\ marked \in SUBSET Nodes
+        /\ vroot \in SUBSET Nodes
+        /\ u \in [Procs -> Nodes]
+        /\ toVroot \in [Procs -> SUBSET Nodes]
+        /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+        /\ \A q \in Procs :
+              /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+              /\ pc[q] = "b" => u[q] \in vroot \cup marked)
+       /\ [(\E self \in Procs :
+               (/\ pc[self] = "a"
+                /\ IF vroot # {}
+                     THEN /\ \E v \in vroot : u' = [u EXCEPT ![self] = v]
+                          /\ pc' = [pc EXCEPT ![self] = "b"]
+                     ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
+                          /\ u' = u
+                /\ UNCHANGED <<marked, vroot, toVroot>>)
+               \/ (/\ pc[self] = "b"
+                   /\ IF u[self] \notin marked
+                        THEN /\ marked' = marked \cup {u[self]}
+                             /\ toVroot'
+                                = [toVroot EXCEPT ![self] = Succ[u[self]]]
+                             /\ pc' = [pc EXCEPT ![self] = "c"]
+                             /\ vroot' = vroot
+                        ELSE /\ vroot' = vroot \ {u[self]}
+                             /\ pc' = [pc EXCEPT ![self] = "a"]
+                             /\ UNCHANGED <<marked, toVroot>>
+                   /\ u' = u)
+               \/ (/\ pc[self] = "c"
+                   /\ IF toVroot[self] # {}
+                        THEN /\ \E w \in toVroot[self] :
+                                   /\ vroot' = vroot \cup {w}
+                                   /\ toVroot'
+                                      = [toVroot EXCEPT
+                                           ![self] = toVroot[self] \ {w}]
+                             /\ pc' = [pc EXCEPT ![self] = "c"]
+                        ELSE /\ pc' = [pc EXCEPT ![self] = "a"]
+                             /\ UNCHANGED <<vroot, toVroot>>
+                   /\ UNCHANGED <<marked, u>>))
+           \/ (/\ \A self \in Procs : pc[self] = "Done"
+               /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked,
+                                                                  vroot, pc,
+                                                                  u,
+                                                                  toVroot>>
+       => (/\ marked \in SUBSET Nodes
+           /\ vroot \in SUBSET Nodes
+           /\ u \in [Procs -> Nodes]
+           /\ toVroot \in [Procs -> SUBSET Nodes]
+           /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+           /\ \A q \in Procs :
+                 /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+                 /\ pc[q] = "b" => u[q] \in vroot \cup marked)'
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:5
+@!!loc:12:5:12:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.2 (5%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       Root \in Nodes 
+PROVE  (/\ marked = {}
+        /\ vroot = {Root}
+        /\ u = [self \in Procs |-> Root]
+        /\ toVroot = [self \in Procs |-> {}]
+        /\ pc = [self \in Procs |-> "a"])
+       => (/\ marked \in SUBSET Nodes
+           /\ vroot \in SUBSET Nodes
+           /\ u \in [Procs -> Nodes]
+           /\ toVroot \in [Procs -> SUBSET Nodes]
+           /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+           /\ \A q \in Procs :
+                 /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+                 /\ pc[q] = "b" => u[q] \in vroot \cup marked)
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:1
+@!!loc:16:3:16:5
+@!!status:proved
+@!!prover:ls4
+@!!meth:time-limit: 10; time-used: 0.5 (5%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       Init => Inv ,
+       Inv /\ [Next]_vars => Inv' ,
+       TRUE 
+PROVE  (/\ Init /\ [][Next]_vars
+        /\ \A self \in Procs : WF_(vars) (p(self)))
+       => []Inv
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:29
+@!!loc:47:12:47:16
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ u \in [Procs -> Nodes]
+       /\ toVroot \in [Procs -> SUBSET Nodes]
+       /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+       /\ \A q \in Procs :
+             /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+             /\ pc[q] = "b" => u[q] \in vroot \cup marked ,
+       [(\E self \in Procs : p(self))
+        \/ (/\ \A self \in ProcSet : pc[self] = "Done"
+            /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked, vroot,
+                                                               pc, u,
+                                                               toVroot>> ,
+       NEW CONSTANT self \in Procs,
+       ASSUME vroot \cup (UNION {toVroot[i] : i \in Procs}) = {} 
+       PROVE  [R!a \/ R!Terminating]_<<marked,
+                                       vroot
+                                       \cup (UNION {toVroot[i] : i \in Procs}),
+                                       IF \A q \in Procs : pc[q] = "Done"
+                                         THEN "Done"
+                                         ELSE "a">> 
+PROVE  ASSUME vroot \cup (UNION {toVroot[i] : i \in Procs}) = {} 
+       PROVE  [R!a \/ R!Terminating]_<<marked,
+                                       vroot
+                                       \cup (UNION {toVroot[i] : i \in Procs}),
+                                       IF \A q \in Procs : pc[q] = "Done"
+                                         THEN "Done"
+                                         ELSE "a">>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:30
+@!!loc:47:18:47:22
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ u \in [Procs -> Nodes]
+       /\ toVroot \in [Procs -> SUBSET Nodes]
+       /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+       /\ \A q \in Procs :
+             /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+             /\ pc[q] = "b" => u[q] \in vroot \cup marked ,
+       [(\E self \in Procs : p(self))
+        \/ (/\ \A self \in ProcSet : pc[self] = "Done"
+            /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked, vroot,
+                                                               pc, u,
+                                                               toVroot>> ,
+       NEW CONSTANT self \in Procs,
+       ASSUME vroot \cup (UNION {toVroot[i] : i \in Procs}) # {} 
+       PROVE  UNCHANGED <<marked,
+                          vroot \cup (UNION {toVroot[i] : i \in Procs}),
+                          IF \A q \in Procs : pc[q] = "Done"
+                            THEN "Done"
+                            ELSE "a">> ,
+       ASSUME vroot \cup (UNION {toVroot[i] : i \in Procs}) = {} 
+       PROVE  [R!a \/ R!Terminating]_<<marked,
+                                       vroot
+                                       \cup (UNION {toVroot[i] : i \in Procs}),
+                                       IF \A q \in Procs : pc[q] = "Done"
+                                         THEN "Done"
+                                         ELSE "a">> 
+PROVE  ASSUME vroot \cup (UNION {toVroot[i] : i \in Procs}) # {} 
+       PROVE  UNCHANGED <<marked,
+                          vroot \cup (UNION {toVroot[i] : i \in Procs}),
+                          IF \A q \in Procs : pc[q] = "Done"
+                            THEN "Done"
+                            ELSE "a">>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:31
+@!!loc:37:9:37:11
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ u \in [Procs -> Nodes]
+       /\ toVroot \in [Procs -> SUBSET Nodes]
+       /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+       /\ \A q \in Procs :
+             /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+             /\ pc[q] = "b" => u[q] \in vroot \cup marked ,
+       [(\E self \in Procs : p(self))
+        \/ (/\ \A self \in ProcSet : pc[self] = "Done"
+            /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked, vroot,
+                                                               pc, u,
+                                                               toVroot>> ,
+       NEW CONSTANT self \in Procs,
+       /\ pc[self] = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot : u' = [u EXCEPT ![self] = v]
+                 /\ pc' = [pc EXCEPT ![self] = "b"]
+            ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
+                 /\ u' = u
+       /\ UNCHANGED <<marked, vroot, toVroot>> ,
+       vroot = {} ,
+       vroot \cup (UNION {toVroot[i] : i \in Procs}) = {} 
+PROVE  [(/\ (IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a") = "a"
+         /\ IF vroot \cup (UNION {toVroot[i] : i \in Procs}) # {}
+              THEN /\ \E v \in vroot \cup (UNION {toVroot[i] : i \in Procs}) :
+                         IF v \notin marked
+                           THEN /\ marked' = marked \cup {v}
+                                /\ (vroot
+                                    \cup (UNION {toVroot[i] : i \in Procs}))'
+                                   = vroot
+                                     \cup (UNION {toVroot[i] : i \in Procs})
+                                     \cup Succ[v]
+                           ELSE /\ (vroot
+                                    \cup (UNION {toVroot[i] : i \in Procs}))'
+                                   = (vroot
+                                      \cup (UNION {toVroot[i] : i \in Procs}))
+                                     \ {v}
+                                /\ UNCHANGED marked
+                   /\ (IF \A q \in Procs : pc[q] = "Done"
+                         THEN "Done"
+                         ELSE "a")'
+                      = "a"
+              ELSE /\ (IF \A q \in Procs : pc[q] = "Done"
+                         THEN "Done"
+                         ELSE "a")'
+                      = "Done"
+                   /\ UNCHANGED <<marked,
+                                  vroot
+                                  \cup (UNION {toVroot[i] : i \in Procs})>>)
+        \/ R!Terminating]_<<marked,
+                            vroot \cup (UNION {toVroot[i] : i \in Procs}),
+                            IF \A q \in Procs : pc[q] = "Done"
+                              THEN "Done"
+                              ELSE "a">>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:32
+@!!loc:37:12:37:16
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ u \in [Procs -> Nodes]
+       /\ toVroot \in [Procs -> SUBSET Nodes]
+       /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+       /\ \A q \in Procs :
+             /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+             /\ pc[q] = "b" => u[q] \in vroot \cup marked ,
+       [(\E self \in Procs : p(self))
+        \/ (/\ \A self \in ProcSet : pc[self] = "Done"
+            /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked, vroot,
+                                                               pc, u,
+                                                               toVroot>> ,
+       NEW CONSTANT self \in Procs,
+       /\ pc[self] = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot : u' = [u EXCEPT ![self] = v]
+                 /\ pc' = [pc EXCEPT ![self] = "b"]
+            ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
+                 /\ u' = u
+       /\ UNCHANGED <<marked, vroot, toVroot>> 
+PROVE  /\ pc[self] = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot : u' = [u EXCEPT ![self] = v]
+                 /\ pc' = [pc EXCEPT ![self] = "b"]
+            ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
+                 /\ u' = u
+       /\ UNCHANGED <<marked, vroot, toVroot>>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:33
+@!!loc:37:18:37:22
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ u \in [Procs -> Nodes]
+       /\ toVroot \in [Procs -> SUBSET Nodes]
+       /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+       /\ \A q \in Procs :
+             /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+             /\ pc[q] = "b" => u[q] \in vroot \cup marked ,
+       [(\E self \in Procs : p(self))
+        \/ (/\ \A self \in ProcSet : pc[self] = "Done"
+            /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked, vroot,
+                                                               pc, u,
+                                                               toVroot>> ,
+       NEW CONSTANT self \in Procs,
+       vroot = {} ,
+       /\ pc[self] = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot : u' = [u EXCEPT ![self] = v]
+                 /\ pc' = [pc EXCEPT ![self] = "b"]
+            ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
+                 /\ u' = u
+       /\ UNCHANGED <<marked, vroot, toVroot>> 
+PROVE  vroot = {}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:34
+@!!loc:37:24:37:28
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ u \in [Procs -> Nodes]
+       /\ toVroot \in [Procs -> SUBSET Nodes]
+       /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+       /\ \A q \in Procs :
+             /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+             /\ pc[q] = "b" => u[q] \in vroot \cup marked ,
+       [(\E self \in Procs : p(self))
+        \/ (/\ \A self \in ProcSet : pc[self] = "Done"
+            /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked, vroot,
+                                                               pc, u,
+                                                               toVroot>> ,
+       NEW CONSTANT self \in Procs,
+       vroot \cup (UNION {toVroot[i] : i \in Procs}) = {} ,
+       /\ pc[self] = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot : u' = [u EXCEPT ![self] = v]
+                 /\ pc' = [pc EXCEPT ![self] = "b"]
+            ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
+                 /\ u' = u
+       /\ UNCHANGED <<marked, vroot, toVroot>> ,
+       vroot = {} 
+PROVE  vroot \cup (UNION {toVroot[i] : i \in Procs}) = {}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:35
+@!!loc:45:11:45:13
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ u \in [Procs -> Nodes]
+       /\ toVroot \in [Procs -> SUBSET Nodes]
+       /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+       /\ \A q \in Procs :
+             /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+             /\ pc[q] = "b" => u[q] \in vroot \cup marked ,
+       [(\E self \in Procs : p(self))
+        \/ (/\ \A self \in ProcSet : pc[self] = "Done"
+            /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked, vroot,
+                                                               pc, u,
+                                                               toVroot>> ,
+       NEW CONSTANT self \in Procs,
+       (IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a")' # "Done" ,
+       vroot = {} ,
+       /\ pc[self] = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot : u' = [u EXCEPT ![self] = v]
+                 /\ pc' = [pc EXCEPT ![self] = "b"]
+            ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
+                 /\ u' = u
+       /\ UNCHANGED <<marked, vroot, toVroot>> 
+PROVE  UNCHANGED <<marked, vroot \cup (UNION {toVroot[i] : i \in Procs}),
+                   IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a">>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:36
+@!!loc:45:14:45:18
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ u \in [Procs -> Nodes]
+       /\ toVroot \in [Procs -> SUBSET Nodes]
+       /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+       /\ \A q \in Procs :
+             /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+             /\ pc[q] = "b" => u[q] \in vroot \cup marked ,
+       [(\E self \in Procs : p(self))
+        \/ (/\ \A self \in ProcSet : pc[self] = "Done"
+            /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked, vroot,
+                                                               pc, u,
+                                                               toVroot>> ,
+       NEW CONSTANT self \in Procs,
+       (IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a")' # "Done" 
+PROVE  (IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a")' # "Done"
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:37
+@!!loc:45:20:45:24
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ u \in [Procs -> Nodes]
+       /\ toVroot \in [Procs -> SUBSET Nodes]
+       /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+       /\ \A q \in Procs :
+             /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+             /\ pc[q] = "b" => u[q] \in vroot \cup marked ,
+       [(\E self \in Procs : p(self))
+        \/ (/\ \A self \in ProcSet : pc[self] = "Done"
+            /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked, vroot,
+                                                               pc, u,
+                                                               toVroot>> ,
+       NEW CONSTANT self \in Procs,
+       vroot = {} ,
+       (IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a")' # "Done" 
+PROVE  vroot = {}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:38
+@!!loc:45:26:45:30
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ u \in [Procs -> Nodes]
+       /\ toVroot \in [Procs -> SUBSET Nodes]
+       /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+       /\ \A q \in Procs :
+             /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+             /\ pc[q] = "b" => u[q] \in vroot \cup marked ,
+       [(\E self \in Procs : p(self))
+        \/ (/\ \A self \in ProcSet : pc[self] = "Done"
+            /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked, vroot,
+                                                               pc, u,
+                                                               toVroot>> ,
+       NEW CONSTANT self \in Procs,
+       /\ pc[self] = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot : u' = [u EXCEPT ![self] = v]
+                 /\ pc' = [pc EXCEPT ![self] = "b"]
+            ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
+                 /\ u' = u
+       /\ UNCHANGED <<marked, vroot, toVroot>> ,
+       (IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a")' # "Done" ,
+       vroot = {} 
+PROVE  /\ pc[self] = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot : u' = [u EXCEPT ![self] = v]
+                 /\ pc' = [pc EXCEPT ![self] = "b"]
+            ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
+                 /\ u' = u
+       /\ UNCHANGED <<marked, vroot, toVroot>>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:39
+@!!loc:41:11:41:13
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ u \in [Procs -> Nodes]
+       /\ toVroot \in [Procs -> SUBSET Nodes]
+       /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+       /\ \A q \in Procs :
+             /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+             /\ pc[q] = "b" => u[q] \in vroot \cup marked ,
+       [(\E self \in Procs : p(self))
+        \/ (/\ \A self \in ProcSet : pc[self] = "Done"
+            /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked, vroot,
+                                                               pc, u,
+                                                               toVroot>> ,
+       NEW CONSTANT self \in Procs,
+       vroot \cup (UNION {toVroot[i] : i \in Procs}) # {} ,
+       vroot = {} ,
+       /\ pc[self] = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot : u' = [u EXCEPT ![self] = v]
+                 /\ pc' = [pc EXCEPT ![self] = "b"]
+            ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
+                 /\ u' = u
+       /\ UNCHANGED <<marked, vroot, toVroot>> 
+PROVE  \E q \in Procs \ {self} : pc[q] # "Done"
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:40
+@!!loc:41:14:41:18
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ u \in [Procs -> Nodes]
+       /\ toVroot \in [Procs -> SUBSET Nodes]
+       /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+       /\ \A q \in Procs :
+             /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+             /\ pc[q] = "b" => u[q] \in vroot \cup marked ,
+       [(\E self \in Procs : p(self))
+        \/ (/\ \A self \in ProcSet : pc[self] = "Done"
+            /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked, vroot,
+                                                               pc, u,
+                                                               toVroot>> ,
+       NEW CONSTANT self \in Procs,
+       vroot \cup (UNION {toVroot[i] : i \in Procs}) # {} 
+PROVE  vroot \cup (UNION {toVroot[i] : i \in Procs}) # {}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:41
+@!!loc:41:20:41:24
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ u \in [Procs -> Nodes]
+       /\ toVroot \in [Procs -> SUBSET Nodes]
+       /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+       /\ \A q \in Procs :
+             /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+             /\ pc[q] = "b" => u[q] \in vroot \cup marked ,
+       [(\E self \in Procs : p(self))
+        \/ (/\ \A self \in ProcSet : pc[self] = "Done"
+            /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked, vroot,
+                                                               pc, u,
+                                                               toVroot>> ,
+       NEW CONSTANT self \in Procs,
+       vroot = {} ,
+       vroot \cup (UNION {toVroot[i] : i \in Procs}) # {} 
+PROVE  vroot = {}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:42
+@!!loc:41:26:41:30
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ u \in [Procs -> Nodes]
+       /\ toVroot \in [Procs -> SUBSET Nodes]
+       /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+       /\ \A q \in Procs :
+             /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+             /\ pc[q] = "b" => u[q] \in vroot \cup marked ,
+       [(\E self \in Procs : p(self))
+        \/ (/\ \A self \in ProcSet : pc[self] = "Done"
+            /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked, vroot,
+                                                               pc, u,
+                                                               toVroot>> ,
+       NEW CONSTANT self \in Procs,
+       /\ pc[self] = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot : u' = [u EXCEPT ![self] = v]
+                 /\ pc' = [pc EXCEPT ![self] = "b"]
+            ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
+                 /\ u' = u
+       /\ UNCHANGED <<marked, vroot, toVroot>> ,
+       vroot \cup (UNION {toVroot[i] : i \in Procs}) # {} ,
+       vroot = {} 
+PROVE  /\ pc[self] = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot : u' = [u EXCEPT ![self] = v]
+                 /\ pc' = [pc EXCEPT ![self] = "b"]
+            ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
+                 /\ u' = u
+       /\ UNCHANGED <<marked, vroot, toVroot>>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:43
+@!!loc:43:11:43:13
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ u \in [Procs -> Nodes]
+       /\ toVroot \in [Procs -> SUBSET Nodes]
+       /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+       /\ \A q \in Procs :
+             /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+             /\ pc[q] = "b" => u[q] \in vroot \cup marked ,
+       [(\E self \in Procs : p(self))
+        \/ (/\ \A self \in ProcSet : pc[self] = "Done"
+            /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked, vroot,
+                                                               pc, u,
+                                                               toVroot>> ,
+       NEW CONSTANT self \in Procs,
+       \E q \in Procs \ {self} : pc[q] # "Done" ,
+       vroot = {} ,
+       /\ pc[self] = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot : u' = [u EXCEPT ![self] = v]
+                 /\ pc' = [pc EXCEPT ![self] = "b"]
+            ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
+                 /\ u' = u
+       /\ UNCHANGED <<marked, vroot, toVroot>> 
+PROVE  (IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a")' # "Done"
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:44
+@!!loc:43:14:43:18
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ u \in [Procs -> Nodes]
+       /\ toVroot \in [Procs -> SUBSET Nodes]
+       /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+       /\ \A q \in Procs :
+             /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+             /\ pc[q] = "b" => u[q] \in vroot \cup marked ,
+       [(\E self \in Procs : p(self))
+        \/ (/\ \A self \in ProcSet : pc[self] = "Done"
+            /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked, vroot,
+                                                               pc, u,
+                                                               toVroot>> ,
+       NEW CONSTANT self \in Procs,
+       \E q \in Procs \ {self} : pc[q] # "Done" 
+PROVE  \E q \in Procs \ {self} : pc[q] # "Done"
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:45
+@!!loc:43:20:43:24
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ u \in [Procs -> Nodes]
+       /\ toVroot \in [Procs -> SUBSET Nodes]
+       /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+       /\ \A q \in Procs :
+             /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+             /\ pc[q] = "b" => u[q] \in vroot \cup marked ,
+       [(\E self \in Procs : p(self))
+        \/ (/\ \A self \in ProcSet : pc[self] = "Done"
+            /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked, vroot,
+                                                               pc, u,
+                                                               toVroot>> ,
+       NEW CONSTANT self \in Procs,
+       vroot = {} ,
+       \E q \in Procs \ {self} : pc[q] # "Done" 
+PROVE  vroot = {}
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:46
+@!!loc:43:26:43:30
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ u \in [Procs -> Nodes]
+       /\ toVroot \in [Procs -> SUBSET Nodes]
+       /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+       /\ \A q \in Procs :
+             /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+             /\ pc[q] = "b" => u[q] \in vroot \cup marked ,
+       [(\E self \in Procs : p(self))
+        \/ (/\ \A self \in ProcSet : pc[self] = "Done"
+            /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked, vroot,
+                                                               pc, u,
+                                                               toVroot>> ,
+       NEW CONSTANT self \in Procs,
+       /\ pc[self] = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot : u' = [u EXCEPT ![self] = v]
+                 /\ pc' = [pc EXCEPT ![self] = "b"]
+            ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
+                 /\ u' = u
+       /\ UNCHANGED <<marked, vroot, toVroot>> ,
+       \E q \in Procs \ {self} : pc[q] # "Done" ,
+       vroot = {} 
+PROVE  /\ pc[self] = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot : u' = [u EXCEPT ![self] = v]
+                 /\ pc' = [pc EXCEPT ![self] = "b"]
+            ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
+                 /\ u' = u
+       /\ UNCHANGED <<marked, vroot, toVroot>>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:47
+@!!loc:53:5:53:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ u \in [Procs -> Nodes]
+       /\ toVroot \in [Procs -> SUBSET Nodes]
+       /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+       /\ \A q \in Procs :
+             /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+             /\ pc[q] = "b" => u[q] \in vroot \cup marked ,
+       [(\E self \in Procs : p(self))
+        \/ (/\ \A self \in ProcSet : pc[self] = "Done"
+            /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked, vroot,
+                                                               pc, u,
+                                                               toVroot>> ,
+       NEW CONSTANT self \in Procs,
+       /\ pc[self] = "b"
+       /\ IF u[self] \notin marked
+            THEN /\ marked' = marked \cup {u[self]}
+                 /\ toVroot' = [toVroot EXCEPT ![self] = Succ[u[self]]]
+                 /\ pc' = [pc EXCEPT ![self] = "c"]
+                 /\ vroot' = vroot
+            ELSE /\ vroot' = vroot \ {u[self]}
+                 /\ pc' = [pc EXCEPT ![self] = "a"]
+                 /\ UNCHANGED <<marked, toVroot>>
+       /\ u' = u 
+PROVE  [(/\ (IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a") = "a"
+         /\ IF vroot \cup (UNION {toVroot[i] : i \in Procs}) # {}
+              THEN /\ \E v \in vroot \cup (UNION {toVroot[i] : i \in Procs}) :
+                         IF v \notin marked
+                           THEN /\ marked' = marked \cup {v}
+                                /\ (vroot
+                                    \cup (UNION {toVroot[i] : i \in Procs}))'
+                                   = vroot
+                                     \cup (UNION {toVroot[i] : i \in Procs})
+                                     \cup Succ[v]
+                           ELSE /\ (vroot
+                                    \cup (UNION {toVroot[i] : i \in Procs}))'
+                                   = (vroot
+                                      \cup (UNION {toVroot[i] : i \in Procs}))
+                                     \ {v}
+                                /\ UNCHANGED marked
+                   /\ (IF \A q \in Procs : pc[q] = "Done"
+                         THEN "Done"
+                         ELSE "a")'
+                      = "a"
+              ELSE /\ (IF \A q \in Procs : pc[q] = "Done"
+                         THEN "Done"
+                         ELSE "a")'
+                      = "Done"
+                   /\ UNCHANGED <<marked,
+                                  vroot
+                                  \cup (UNION {toVroot[i] : i \in Procs})>>)
+        \/ R!Terminating]_<<marked,
+                            vroot \cup (UNION {toVroot[i] : i \in Procs}),
+                            IF \A q \in Procs : pc[q] = "Done"
+                              THEN "Done"
+                              ELSE "a">>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:48
+@!!loc:53:8:53:12
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ u \in [Procs -> Nodes]
+       /\ toVroot \in [Procs -> SUBSET Nodes]
+       /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+       /\ \A q \in Procs :
+             /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+             /\ pc[q] = "b" => u[q] \in vroot \cup marked ,
+       [(\E self \in Procs : p(self))
+        \/ (/\ \A self \in ProcSet : pc[self] = "Done"
+            /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked, vroot,
+                                                               pc, u,
+                                                               toVroot>> ,
+       NEW CONSTANT self \in Procs,
+       /\ pc[self] = "b"
+       /\ IF u[self] \notin marked
+            THEN /\ marked' = marked \cup {u[self]}
+                 /\ toVroot' = [toVroot EXCEPT ![self] = Succ[u[self]]]
+                 /\ pc' = [pc EXCEPT ![self] = "c"]
+                 /\ vroot' = vroot
+            ELSE /\ vroot' = vroot \ {u[self]}
+                 /\ pc' = [pc EXCEPT ![self] = "a"]
+                 /\ UNCHANGED <<marked, toVroot>>
+       /\ u' = u 
+PROVE  /\ pc[self] = "b"
+       /\ IF u[self] \notin marked
+            THEN /\ marked' = marked \cup {u[self]}
+                 /\ toVroot' = [toVroot EXCEPT ![self] = Succ[u[self]]]
+                 /\ pc' = [pc EXCEPT ![self] = "c"]
+                 /\ vroot' = vroot
+            ELSE /\ vroot' = vroot \ {u[self]}
+                 /\ pc' = [pc EXCEPT ![self] = "a"]
+                 /\ UNCHANGED <<marked, toVroot>>
+       /\ u' = u
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:49
+@!!loc:57:5:57:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ u \in [Procs -> Nodes]
+       /\ toVroot \in [Procs -> SUBSET Nodes]
+       /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+       /\ \A q \in Procs :
+             /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+             /\ pc[q] = "b" => u[q] \in vroot \cup marked ,
+       [(\E self \in Procs : p(self))
+        \/ (/\ \A self \in ProcSet : pc[self] = "Done"
+            /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked, vroot,
+                                                               pc, u,
+                                                               toVroot>> ,
+       NEW CONSTANT self \in Procs,
+       /\ pc[self] = "c"
+       /\ IF toVroot[self] # {}
+            THEN /\ \E w \in toVroot[self] :
+                       /\ vroot' = vroot \cup {w}
+                       /\ toVroot'
+                          = [toVroot EXCEPT ![self] = toVroot[self] \ {w}]
+                 /\ pc' = [pc EXCEPT ![self] = "c"]
+            ELSE /\ pc' = [pc EXCEPT ![self] = "a"]
+                 /\ UNCHANGED <<vroot, toVroot>>
+       /\ UNCHANGED <<marked, u>> 
+PROVE  [R!a \/ R!Terminating]_<<marked,
+                                vroot \cup (UNION {toVroot[i] : i \in Procs}),
+                                IF \A q \in Procs : pc[q] = "Done"
+                                  THEN "Done"
+                                  ELSE "a">>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:50
+@!!loc:57:8:57:12
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ u \in [Procs -> Nodes]
+       /\ toVroot \in [Procs -> SUBSET Nodes]
+       /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+       /\ \A q \in Procs :
+             /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+             /\ pc[q] = "b" => u[q] \in vroot \cup marked ,
+       [(\E self \in Procs : p(self))
+        \/ (/\ \A self \in ProcSet : pc[self] = "Done"
+            /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked, vroot,
+                                                               pc, u,
+                                                               toVroot>> ,
+       NEW CONSTANT self \in Procs,
+       /\ pc[self] = "c"
+       /\ IF toVroot[self] # {}
+            THEN /\ \E w \in toVroot[self] :
+                       /\ vroot' = vroot \cup {w}
+                       /\ toVroot'
+                          = [toVroot EXCEPT ![self] = toVroot[self] \ {w}]
+                 /\ pc' = [pc EXCEPT ![self] = "c"]
+            ELSE /\ pc' = [pc EXCEPT ![self] = "a"]
+                 /\ UNCHANGED <<vroot, toVroot>>
+       /\ UNCHANGED <<marked, u>> 
+PROVE  /\ pc[self] = "c"
+       /\ IF toVroot[self] # {}
+            THEN /\ \E w \in toVroot[self] :
+                       /\ vroot' = vroot \cup {w}
+                       /\ toVroot'
+                          = [toVroot EXCEPT ![self] = toVroot[self] \ {w}]
+                 /\ pc' = [pc EXCEPT ![self] = "c"]
+            ELSE /\ pc' = [pc EXCEPT ![self] = "a"]
+                 /\ UNCHANGED <<vroot, toVroot>>
+       /\ UNCHANGED <<marked, u>>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:51
+@!!loc:59:5:59:7
+@!!status:normalized
+@!!meth:time-limit: 5
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ u \in [Procs -> Nodes]
+       /\ toVroot \in [Procs -> SUBSET Nodes]
+       /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+       /\ \A q \in Procs :
+             /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+             /\ pc[q] = "b" => u[q] \in vroot \cup marked ,
+       [(\E self \in Procs : p(self))
+        \/ (/\ \A self \in ProcSet : pc[self] = "Done"
+            /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked, vroot,
+                                                               pc, u,
+                                                               toVroot>> ,
+       UNCHANGED <<marked, vroot, pc, u, toVroot>> 
+PROVE  [R!a \/ R!Terminating]_<<marked,
+                                vroot \cup (UNION {toVroot[i] : i \in Procs}),
+                                IF \A q \in Procs : pc[q] = "Done"
+                                  THEN "Done"
+                                  ELSE "a">>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:52
+@!!loc:59:8:59:12
+@!!status:trivial
+@!!prover:tlapm
+@!!already:false
+@!!obl:ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ u \in [Procs -> Nodes]
+       /\ toVroot \in [Procs -> SUBSET Nodes]
+       /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+       /\ \A q \in Procs :
+             /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+             /\ pc[q] = "b" => u[q] \in vroot \cup marked ,
+       [(\E self \in Procs : p(self))
+        \/ (/\ \A self \in ProcSet : pc[self] = "Done"
+            /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked, vroot,
+                                                               pc, u,
+                                                               toVroot>> ,
+       UNCHANGED <<marked, vroot, pc, u, toVroot>> 
+PROVE  UNCHANGED <<marked, vroot, pc, u, toVroot>>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:43
+@!!loc:43:11:43:13
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (3%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ u \in [Procs -> Nodes]
+       /\ toVroot \in [Procs -> SUBSET Nodes]
+       /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+       /\ \A q \in Procs :
+             /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+             /\ pc[q] = "b" => u[q] \in vroot \cup marked ,
+       [(\E self \in Procs : p(self))
+        \/ (/\ \A self \in ProcSet : pc[self] = "Done"
+            /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked, vroot,
+                                                               pc, u,
+                                                               toVroot>> ,
+       NEW CONSTANT self \in Procs,
+       \E q \in Procs \ {self} : pc[q] # "Done" ,
+       vroot = {} ,
+       /\ pc[self] = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot : u' = [u EXCEPT ![self] = v]
+                 /\ pc' = [pc EXCEPT ![self] = "b"]
+            ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
+                 /\ u' = u
+       /\ UNCHANGED <<marked, vroot, toVroot>> 
+PROVE  (IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a")' # "Done"
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:39
+@!!loc:41:11:41:13
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.2 (4%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ u \in [Procs -> Nodes]
+       /\ toVroot \in [Procs -> SUBSET Nodes]
+       /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+       /\ \A q \in Procs :
+             /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+             /\ pc[q] = "b" => u[q] \in vroot \cup marked ,
+       [(\E self \in Procs : p(self))
+        \/ (/\ \A self \in ProcSet : pc[self] = "Done"
+            /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked, vroot,
+                                                               pc, u,
+                                                               toVroot>> ,
+       NEW CONSTANT self \in Procs,
+       vroot \cup (UNION {toVroot[i] : i \in Procs}) # {} ,
+       vroot = {} ,
+       /\ pc[self] = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot : u' = [u EXCEPT ![self] = v]
+                 /\ pc' = [pc EXCEPT ![self] = "b"]
+            ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
+                 /\ u' = u
+       /\ UNCHANGED <<marked, vroot, toVroot>> 
+PROVE  \E q \in Procs \ {self} : pc[q] # "Done"
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:35
+@!!loc:45:11:45:13
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.2 (5%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ u \in [Procs -> Nodes]
+       /\ toVroot \in [Procs -> SUBSET Nodes]
+       /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+       /\ \A q \in Procs :
+             /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+             /\ pc[q] = "b" => u[q] \in vroot \cup marked ,
+       [(\E self \in Procs : p(self))
+        \/ (/\ \A self \in ProcSet : pc[self] = "Done"
+            /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked, vroot,
+                                                               pc, u,
+                                                               toVroot>> ,
+       NEW CONSTANT self \in Procs,
+       (IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a")' # "Done" ,
+       vroot = {} ,
+       /\ pc[self] = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot : u' = [u EXCEPT ![self] = v]
+                 /\ pc' = [pc EXCEPT ![self] = "b"]
+            ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
+                 /\ u' = u
+       /\ UNCHANGED <<marked, vroot, toVroot>> 
+PROVE  UNCHANGED <<marked, vroot \cup (UNION {toVroot[i] : i \in Procs}),
+                   IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a">>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:31
+@!!loc:37:9:37:11
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.3 (6%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ u \in [Procs -> Nodes]
+       /\ toVroot \in [Procs -> SUBSET Nodes]
+       /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+       /\ \A q \in Procs :
+             /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+             /\ pc[q] = "b" => u[q] \in vroot \cup marked ,
+       [(\E self \in Procs : p(self))
+        \/ (/\ \A self \in ProcSet : pc[self] = "Done"
+            /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked, vroot,
+                                                               pc, u,
+                                                               toVroot>> ,
+       NEW CONSTANT self \in Procs,
+       /\ pc[self] = "a"
+       /\ IF vroot # {}
+            THEN /\ \E v \in vroot : u' = [u EXCEPT ![self] = v]
+                 /\ pc' = [pc EXCEPT ![self] = "b"]
+            ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
+                 /\ u' = u
+       /\ UNCHANGED <<marked, vroot, toVroot>> ,
+       vroot = {} ,
+       vroot \cup (UNION {toVroot[i] : i \in Procs}) = {} 
+PROVE  [(/\ (IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a") = "a"
+         /\ IF vroot \cup (UNION {toVroot[i] : i \in Procs}) # {}
+              THEN /\ \E v \in vroot \cup (UNION {toVroot[i] : i \in Procs}) :
+                         IF v \notin marked
+                           THEN /\ marked' = marked \cup {v}
+                                /\ (vroot
+                                    \cup (UNION {toVroot[i] : i \in Procs}))'
+                                   = vroot
+                                     \cup (UNION {toVroot[i] : i \in Procs})
+                                     \cup Succ[v]
+                           ELSE /\ (vroot
+                                    \cup (UNION {toVroot[i] : i \in Procs}))'
+                                   = (vroot
+                                      \cup (UNION {toVroot[i] : i \in Procs}))
+                                     \ {v}
+                                /\ UNCHANGED marked
+                   /\ (IF \A q \in Procs : pc[q] = "Done"
+                         THEN "Done"
+                         ELSE "a")'
+                      = "a"
+              ELSE /\ (IF \A q \in Procs : pc[q] = "Done"
+                         THEN "Done"
+                         ELSE "a")'
+                      = "Done"
+                   /\ UNCHANGED <<marked,
+                                  vroot
+                                  \cup (UNION {toVroot[i] : i \in Procs})>>)
+        \/ R!Terminating]_<<marked,
+                            vroot \cup (UNION {toVroot[i] : i \in Procs}),
+                            IF \A q \in Procs : pc[q] = "Done"
+                              THEN "Done"
+                              ELSE "a">>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:28
+@!!loc:47:9:47:11
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.3 (7%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ u \in [Procs -> Nodes]
+       /\ toVroot \in [Procs -> SUBSET Nodes]
+       /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+       /\ \A q \in Procs :
+             /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+             /\ pc[q] = "b" => u[q] \in vroot \cup marked ,
+       [(\E self \in Procs : p(self))
+        \/ (/\ \A self \in ProcSet : pc[self] = "Done"
+            /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked, vroot,
+                                                               pc, u,
+                                                               toVroot>> ,
+       NEW CONSTANT self \in Procs,
+       ASSUME vroot \cup (UNION {toVroot[i] : i \in Procs}) = {} 
+       PROVE  [R!a \/ R!Terminating]_<<marked,
+                                       vroot
+                                       \cup (UNION {toVroot[i] : i \in Procs}),
+                                       IF \A q \in Procs : pc[q] = "Done"
+                                         THEN "Done"
+                                         ELSE "a">> ,
+       ASSUME vroot \cup (UNION {toVroot[i] : i \in Procs}) # {} 
+       PROVE  UNCHANGED <<marked,
+                          vroot \cup (UNION {toVroot[i] : i \in Procs}),
+                          IF \A q \in Procs : pc[q] = "Done"
+                            THEN "Done"
+                            ELSE "a">> 
+PROVE  [R!a \/ R!Terminating]_<<marked,
+                                vroot \cup (UNION {toVroot[i] : i \in Procs}),
+                                IF \A q \in Procs : pc[q] = "Done"
+                                  THEN "Done"
+                                  ELSE "a">>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:49
+@!!loc:57:5:57:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ u \in [Procs -> Nodes]
+       /\ toVroot \in [Procs -> SUBSET Nodes]
+       /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+       /\ \A q \in Procs :
+             /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+             /\ pc[q] = "b" => u[q] \in vroot \cup marked ,
+       [(\E self \in Procs : p(self))
+        \/ (/\ \A self \in ProcSet : pc[self] = "Done"
+            /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked, vroot,
+                                                               pc, u,
+                                                               toVroot>> ,
+       NEW CONSTANT self \in Procs,
+       /\ pc[self] = "c"
+       /\ IF toVroot[self] # {}
+            THEN /\ \E w \in toVroot[self] :
+                       /\ vroot' = vroot \cup {w}
+                       /\ toVroot'
+                          = [toVroot EXCEPT ![self] = toVroot[self] \ {w}]
+                 /\ pc' = [pc EXCEPT ![self] = "c"]
+            ELSE /\ pc' = [pc EXCEPT ![self] = "a"]
+                 /\ UNCHANGED <<vroot, toVroot>>
+       /\ UNCHANGED <<marked, u>> 
+PROVE  [R!a \/ R!Terminating]_<<marked,
+                                vroot \cup (UNION {toVroot[i] : i \in Procs}),
+                                IF \A q \in Procs : pc[q] = "Done"
+                                  THEN "Done"
+                                  ELSE "a">>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:51
+@!!loc:59:5:59:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.0 (1%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ u \in [Procs -> Nodes]
+       /\ toVroot \in [Procs -> SUBSET Nodes]
+       /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+       /\ \A q \in Procs :
+             /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+             /\ pc[q] = "b" => u[q] \in vroot \cup marked ,
+       [(\E self \in Procs : p(self))
+        \/ (/\ \A self \in ProcSet : pc[self] = "Done"
+            /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked, vroot,
+                                                               pc, u,
+                                                               toVroot>> ,
+       UNCHANGED <<marked, vroot, pc, u, toVroot>> 
+PROVE  [R!a \/ R!Terminating]_<<marked,
+                                vroot \cup (UNION {toVroot[i] : i \in Procs}),
+                                IF \A q \in Procs : pc[q] = "Done"
+                                  THEN "Done"
+                                  ELSE "a">>
+
+@!!END
+
+@!!BEGIN
+@!!type:obligation
+@!!id:47
+@!!loc:53:5:53:7
+@!!status:proved
+@!!prover:smt
+@!!meth:time-limit: 5; time-used: 0.1 (3%)
+@!!already:false
+@!!obl:
+ASSUME NEW CONSTANT Nodes,
+       NEW CONSTANT Succ,
+       NEW CONSTANT Root,
+       NEW CONSTANT Procs,
+       NEW VARIABLE marked,
+       NEW VARIABLE vroot,
+       NEW VARIABLE pc,
+       NEW VARIABLE u,
+       NEW VARIABLE toVroot,
+       /\ marked \in SUBSET Nodes
+       /\ vroot \in SUBSET Nodes
+       /\ u \in [Procs -> Nodes]
+       /\ toVroot \in [Procs -> SUBSET Nodes]
+       /\ pc \in [Procs -> {"a", "b", "c", "Done"}]
+       /\ \A q \in Procs :
+             /\ pc[q] \in {"a", "b", "Done"} => toVroot[q] = {}
+             /\ pc[q] = "b" => u[q] \in vroot \cup marked ,
+       [(\E self \in Procs : p(self))
+        \/ (/\ \A self \in ProcSet : pc[self] = "Done"
+            /\ UNCHANGED <<marked, vroot, pc, u, toVroot>>)]_<<marked, vroot,
+                                                               pc, u,
+                                                               toVroot>> ,
+       NEW CONSTANT self \in Procs,
+       /\ pc[self] = "b"
+       /\ IF u[self] \notin marked
+            THEN /\ marked' = marked \cup {u[self]}
+                 /\ toVroot' = [toVroot EXCEPT ![self] = Succ[u[self]]]
+                 /\ pc' = [pc EXCEPT ![self] = "c"]
+                 /\ vroot' = vroot
+            ELSE /\ vroot' = vroot \ {u[self]}
+                 /\ pc' = [pc EXCEPT ![self] = "a"]
+                 /\ UNCHANGED <<marked, toVroot>>
+       /\ u' = u 
+PROVE  [(/\ (IF \A q \in Procs : pc[q] = "Done" THEN "Done" ELSE "a") = "a"
+         /\ IF vroot \cup (UNION {toVroot[i] : i \in Procs}) # {}
+              THEN /\ \E v \in vroot \cup (UNION {toVroot[i] : i \in Procs}) :
+                         IF v \notin marked
+                           THEN /\ marked' = marked \cup {v}
+                                /\ (vroot
+                                    \cup (UNION {toVroot[i] : i \in Procs}))'
+                                   = vroot
+                                     \cup (UNION {toVroot[i] : i \in Procs})
+                                     \cup Succ[v]
+                           ELSE /\ (vroot
+                                    \cup (UNION {toVroot[i] : i \in Procs}))'
+                                   = (vroot
+                                      \cup (UNION {toVroot[i] : i \in Procs}))
+                                     \ {v}
+                                /\ UNCHANGED marked
+                   /\ (IF \A q \in Procs : pc[q] = "Done"
+                         THEN "Done"
+                         ELSE "a")'
+                      = "a"
+              ELSE /\ (IF \A q \in Procs : pc[q] = "Done"
+                         THEN "Done"
+                         ELSE "a")'
+                      = "Done"
+                   /\ UNCHANGED <<marked,
+                                  vroot
+                                  \cup (UNION {toVroot[i] : i \in Procs})>>)
+        \/ R!Terminating]_<<marked,
+                            vroot \cup (UNION {toVroot[i] : i \in Procs}),
+                            IF \A q \in Procs : pc[q] = "Done"
+                              THEN "Done"
+                              ELSE "a">>
+
+@!!END
+
+(* created new ".tlacache/ParReachProofs.tlaps/ParReachProofs.thy" *)
+(* fingerprints written in ".tlacache/ParReachProofs.tlaps/fingerprints" *)
+File "./ParReachProofs.tla", line 1, character 1 to line 67, character 77:
+[INFO]: All 52 obligations proved.
