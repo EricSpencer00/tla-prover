@@ -24,10 +24,42 @@ Reuses (does not modify):
                         rewritten -- extract_module_and_cfg below layers a cfg
                         block extraction on top of it)
 
+Quality gates (2026-07-10 audit fixes S1/S4/S6/E1) -- all HARD METRICS, no
+LLM-judge/opinion scoring anywhere (Eric's rule):
+
+  FIX 1 (mutation floor, starve-proof): the deterministic mutation battery
+    runs on every TLC-passing candidate. no-site -> accept (tag "no_site");
+    kills but ALL TypeOK-style -> reject "typeok_only_invariant" and iterate
+    (the S4 gaming surface: the model writes its own cfg, so an invariant
+    that only catches type errors checks nothing); sites-but-no-kills ->
+    accept (tag "no_kill", weak signal, recorded not punished); any real
+    safety catch -> accept (tag "safety_catch").
+  FIX 2 (cfg invariant-name gate): the cfg must declare at least one
+    INVARIANT whose name does not match /type/i -- TypeOK-only cfgs fail
+    fast, before any TLC spend.
+  FIX 3 (NL<->invariant correspondence, STRUCTURAL): the back-translated NL
+    must contain a "SAFETY PROPERTY:" section (parse_nl raises
+    NLMissingProperty otherwise -> seed skipped); the generation reply must
+    carry "PROPERTY_INVARIANT: <Name>" naming the invariant implementing THE
+    NL property; the loop verifies that name is defined in the module,
+    listed as INVARIANT in the cfg, and not TypeOK-style-named. LIMITATION,
+    stated plainly: this pins the (NL property <-> checked invariant)
+    LINKAGE structurally -- it does NOT verify that the invariant's TLA+
+    body semantically means what the NL prose promises (impossible without
+    an LLM judge, which is banned). What it buys: the RFT pair can no longer
+    silently train on an invariant unrelated to the NL's promise.
+  FIX 4 (liveness gate, honest cheap version): if the module uses liveness
+    operators (<>, []<>, WF_, SF_ -- NOT the bare [][Next]_v safety
+    skeleton) but the cfg checks no PROPERTY, gate-fail "liveness_unchecked"
+    (either check it or drop the unused fairness). If the cfg checks a
+    PROPERTY, TLC already verifies it; liveness_checked=true is recorded.
+    Liveness is NOT required on every spec -- safety-only specs are fine.
+
 CLI:
   python3 -m harness.w2_loop --seeds data/chattla-corpora-v2/manifest_w2_seeds.jsonl \\
       --raw /Users/eric/GitHub/tla-dataset-pipeline/data/raw \\
       --run-dir results/runs/w2-<date> [--seed-cap N] [--k N] [--model NAME] [--dry-run]
+  python3 -m harness.w2_loop --report-dirs results/runs/w2-a results/runs/w2-b
 """
 from __future__ import annotations
 
@@ -62,6 +94,10 @@ def backtranslate_prompt(spec_text: str, cfg_text: str) -> str:
         "Do NOT use any TLA+ syntax, operators, or code in your answer -- plain "
         "English only, as if briefing an engineer who will re-implement the "
         "system from your description alone.\n\n"
+        "Your description MUST end with an explicit section on its own line "
+        "starting exactly with `SAFETY PROPERTY:` that states, in prose, the "
+        "safety property the invariant guarantees. A description without that "
+        "section will be discarded.\n\n"
         "===BEGIN SPEC===\n" + spec_text + "\n===END SPEC===\n\n"
         "===BEGIN CFG===\n" + cfg_text + "\n===END CFG===\n\n"
         "Natural language description:"
@@ -71,12 +107,23 @@ def backtranslate_prompt(spec_text: str, cfg_text: str) -> str:
 _FENCE_RE = re.compile(r"```(?:\w+)?\n(.*?)```", re.S)
 
 
+class NLMissingProperty(Exception):
+    """Raised by parse_nl when the back-translated NL lacks the required
+    `SAFETY PROPERTY:` section (FIX 3a) -- without it the NL<->invariant
+    fidelity contract has nothing to anchor on, so the seed is skipped
+    (rejection_reason='nl_missing_property') rather than run blind."""
+
+
 def parse_nl(reply: str) -> str:
     """Extract the natural-language description from a back-translation
-    reply, stripping markdown fences if the model wrapped its answer in one."""
+    reply, stripping markdown fences if the model wrapped its answer in one.
+    FIX 3a: raises NLMissingProperty if there is no `SAFETY PROPERTY:`
+    section -- the structural anchor for the invariant-fidelity contract."""
     m = _FENCE_RE.search(reply)
-    text = m.group(1) if m else reply
-    return text.strip()
+    text = (m.group(1) if m else reply).strip()
+    if "SAFETY PROPERTY:" not in text:
+        raise NLMissingProperty("back-translated NL lacks a 'SAFETY PROPERTY:' section")
+    return text
 
 
 def generation_prompt(nl_description: str, module_name: str, error_context: str | None = None) -> str:
@@ -94,7 +141,13 @@ def generation_prompt(nl_description: str, module_name: str, error_context: str 
         "===BEGIN NATURAL LANGUAGE DESCRIPTION===\n" + nl_description +
         "\n===END NATURAL LANGUAGE DESCRIPTION===\n\n"
         "Reply with exactly one TLA+ module in a ```tla fenced block and "
-        "exactly one .cfg in a ```cfg fenced block."
+        "exactly one .cfg in a ```cfg fenced block. After the two blocks, "
+        "add exactly one line of the form `PROPERTY_INVARIANT: <Name>` naming "
+        "the invariant in your module that implements THE safety property "
+        "stated in the description's SAFETY PROPERTY section. That name must "
+        "be defined in the module, listed as an INVARIANT in the .cfg, and "
+        "must be a semantic safety invariant (not a TypeOK-style "
+        "type-correctness check)."
     ]
     if error_context:
         parts.append(
@@ -127,6 +180,52 @@ def extract_module_and_cfg(reply: str):
     return mod, None
 
 
+_PI_LINE_RE = re.compile(r"^\s*PROPERTY_INVARIANT:\s*(\w+)\s*$", re.M)
+
+
+def parse_property_invariant(reply: str):
+    """FIX 3b: the `PROPERTY_INVARIANT: <Name>` line naming which invariant
+    implements the NL's safety property. None if absent."""
+    m = _PI_LINE_RE.search(reply)
+    return m.group(1) if m else None
+
+
+# Mirrors harness.mutation._TYPE_NAME_RE (private there; mirrored per the
+# audit instruction): TypeOK-style names assert well-typedness only.
+_TYPE_NAME_RE = re.compile(r"type", re.IGNORECASE)
+_CFG_INVARIANT_RE = re.compile(r"^\s*INVARIANTS?\b(.*)$", re.M)
+
+
+def cfg_invariant_names(cfg_text: str) -> list:
+    """All names listed under INVARIANT(S) in a TLC cfg, in order."""
+    names = []
+    for m in _CFG_INVARIANT_RE.finditer(cfg_text or ""):
+        for tok in re.split(r"[,\s]+", m.group(1).strip()):
+            if tok:
+                names.append(tok)
+    return names
+
+
+def semantic_invariant_names(cfg_text: str) -> list:
+    """FIX 2: the cfg's declared invariants whose names do NOT match /type/i.
+    Empty list = the cfg checks only type-correctness (or nothing) -- the
+    cheap S4 gate: a model writing its own cfg can't pass with TypeOK alone."""
+    return [n for n in cfg_invariant_names(cfg_text) if not _TYPE_NAME_RE.search(n)]
+
+
+# FIX 4 liveness detector: diamond <> (not the << >> tuple brackets), []<>,
+# WF_/SF_ fairness. Deliberately NOT bare [] -- every safety spec's
+# [][Next]_v skeleton contains it and is not liveness.
+_LIVENESS_RE = re.compile(r"(?<!<)<>(?!>)|WF_|SF_")
+
+
+def uses_liveness_operators(mod_text: str) -> bool:
+    return bool(_LIVENESS_RE.search(mod_text or ""))
+
+
+_CFG_PROPERTY_RE = re.compile(r"^\s*PROPERT(?:Y|IES)\b", re.M)
+
+
 # --------------------------------------------------------------- loop
 
 def _evidence(sany_out: str | None, tlc_status: str | None, tlc_out: str | None,
@@ -151,9 +250,12 @@ def run_loop_for_seed(model, nl: str, module_name_: str, workdir: Path, timeout:
     generates it once via backtranslate_prompt/parse_nl and reuses it across
     all iters of this seed) and iterate: generate -> SANY -> TLC (needs a
     cfg the model must emit) -> vacuity/thin gates -> deterministic mutation
-    battery (recorded, NOT hard-gated per the reward-not-gate decision) ->
-    converged survivor or iterate with error evidence fed back as repair
-    context. Returns a result dict; see module docstring for reuse contract."""
+    battery with the FIX-1 starve-proof floor (no-site/no-kill accepted and
+    tagged; typeok-only kills rejected -- see module docstring) -> converged
+    survivor or iterate with error evidence fed back as repair context.
+    Also gates (pre-SANY, cheap): PROPERTY_INVARIANT line present/defined/
+    listed/non-TypeOK (FIX 3), cfg has a semantic invariant (FIX 2); and the
+    liveness gate (FIX 4). Returns a result dict."""
     # MUST be absolute: check_sany/check_tlc build java-side paths (jtmp,
     # -metadir) from this dir; with a relative workdir SANY's module search
     # path resolves against a doubled prefix and even standard modules
@@ -180,6 +282,64 @@ def run_loop_for_seed(model, nl: str, module_name_: str, workdir: Path, timeout:
             error_context = _evidence(None, None, None, None,
                                        note="Your reply did not contain a parseable "
                                             "```cfg fenced .cfg block. Emit exactly one.")
+            continue
+
+        # FIX 3c: invariant-fidelity contract (structural; see module docstring
+        # for the stated limitation -- linkage, not deep semantics).
+        pi = parse_property_invariant(reply)
+        if pi is None:
+            last_reason = "property_invariant_missing"
+            error_context = _evidence(None, None, None, None,
+                                       note="Your reply is missing the required line "
+                                            "`PROPERTY_INVARIANT: <Name>` naming the "
+                                            "invariant that implements the SAFETY "
+                                            "PROPERTY from the description.")
+            continue
+
+        # FIX 2: cfg must declare at least one semantic (non-TypeOK-named)
+        # invariant -- cheap gate, fires before any TLC spend.
+        if not semantic_invariant_names(cfg_text):
+            last_reason = "no_semantic_invariant_in_cfg"
+            error_context = _evidence(None, None, None, None,
+                                       note="Your .cfg declares no semantic safety "
+                                            "invariant -- declare and check a semantic "
+                                            "safety invariant, not only type-correctness "
+                                            "(TypeOK-style invariants do not count).")
+            continue
+
+        if _TYPE_NAME_RE.search(pi):
+            last_reason = "property_invariant_typeok_named"
+            error_context = _evidence(None, None, None, None,
+                                       note=f"PROPERTY_INVARIANT names `{pi}`, a "
+                                            "TypeOK-style type-correctness check. The "
+                                            "safety property from the description must "
+                                            "be a semantic invariant, not a type check.")
+            continue
+        if not re.search(rf"^\s*{re.escape(pi)}(?:\([^)]*\))?\s*==", mod_text, re.M):
+            last_reason = "property_invariant_not_defined"
+            error_context = _evidence(None, None, None, None,
+                                       note=f"PROPERTY_INVARIANT names `{pi}` but the "
+                                            "module does not define it.")
+            continue
+        if pi not in cfg_invariant_names(cfg_text):
+            last_reason = "property_invariant_not_in_cfg"
+            error_context = _evidence(None, None, None, None,
+                                       note=f"PROPERTY_INVARIANT names `{pi}` but the "
+                                            ".cfg does not list it under INVARIANT.")
+            continue
+
+        # FIX 4: liveness gate -- fairness/temporal ops in the module with no
+        # PROPERTY in the cfg means the liveness claim is decorative.
+        liveness_checked = bool(_CFG_PROPERTY_RE.search(cfg_text))
+        if uses_liveness_operators(mod_text) and not liveness_checked:
+            last_reason = "liveness_unchecked"
+            error_context = _evidence(None, None, None, None,
+                                       note="Your module uses liveness/fairness "
+                                            "operators (<>, WF_, SF_) but the .cfg "
+                                            "checks no PROPERTY. Either add a PROPERTY "
+                                            "line to the .cfg to check the liveness "
+                                            "claim, or drop the unused fairness/"
+                                            "temporal operators.")
             continue
 
         mod = module_name(mod_text) or module_name_
@@ -227,10 +387,40 @@ def run_loop_for_seed(model, nl: str, module_name_: str, workdir: Path, timeout:
                                             "Add real behavioral variety.")
             continue
 
-        # converged: run the deterministic mutation battery for reward
-        # weighting (recorded, NOT a hard gate -- Eric's 2026-07-10 decision).
+        # FIX 1: mutation floor (starve-proof) on every TLC-passing candidate.
+        # Matrix: no site -> accept ("no_site"; the deterministic battery is
+        # known low-recall, many good specs have no mutation site); kills but
+        # ALL TypeOK-style -> REJECT "typeok_only_invariant" and iterate (the
+        # spec's own safety invariant catches nothing semantic -- S4 gaming
+        # surface, the model writes its own cfg); sites-but-no-kills -> accept
+        # ("no_kill", weak signal, recorded); real safety catch -> accept
+        # ("safety_catch"). S3 note: mutation_evidence disambiguates
+        # safety_catch_rate null (no site) from 0.0 (sites, zero catches).
         mut = run_mutation_on_module(tla_path, cfg_text, mod, timeout)
         safety_catch_rate = mut.get("safety_catch_rate")
+        attempted = mut.get("attempted") or 0
+        killed = mut.get("killed") or 0
+        safety_killed = mut.get("safety_killed") or 0
+        if attempted == 0:
+            mutation_evidence = "no_site"
+        elif killed > 0 and safety_killed == 0:
+            last_reason = "typeok_only_invariant"
+            violated = sorted({m2.get("violated") for m2 in mut.get("mutants", [])
+                               if m2.get("killed") and m2.get("violated")})
+            error_context = _evidence(None, None, None, None,
+                                       note="Mutation testing injected semantic faults "
+                                            "into your spec and your invariant "
+                                            f"{violated or ['(TypeOK-style)']} never "
+                                            "caught them as a safety violation -- every "
+                                            "catch was a TypeOK-style type check. Your "
+                                            "invariant never catches semantic mutations; "
+                                            "strengthen the safety property so it "
+                                            "constrains real behavior, not just types.")
+            continue
+        elif killed == 0:
+            mutation_evidence = "no_kill"
+        else:
+            mutation_evidence = "safety_catch"
 
         features = structural_features(mod_text)
         cscore = complexity_score(features)
@@ -241,6 +431,8 @@ def run_loop_for_seed(model, nl: str, module_name_: str, workdir: Path, timeout:
             "module": mod, "distinct_states": distinct_states, "vacuity": vac,
             "safety_catch_rate": safety_catch_rate, "kill_rate": mut.get("kill_rate"),
             "mutants_attempted": mut.get("attempted"),
+            "mutation_evidence": mutation_evidence,
+            "property_invariant": pi, "liveness_checked": liveness_checked,
             "features": features, "complexity_score": cscore,
             "reward_weight": reward_weight, "rejection_reason": None,
         }
@@ -249,6 +441,7 @@ def run_loop_for_seed(model, nl: str, module_name_: str, workdir: Path, timeout:
         "survived": False, "iters": max_iters, "spec_text": None, "cfg_text": None,
         "module": module_name_, "distinct_states": None, "vacuity": None,
         "safety_catch_rate": None, "kill_rate": None, "mutants_attempted": None,
+        "mutation_evidence": None, "property_invariant": None, "liveness_checked": None,
         "features": None, "complexity_score": None, "reward_weight": None,
         "rejection_reason": last_reason,
     }
@@ -316,7 +509,17 @@ def run_w2(model, seeds_path: Path, raw: Path, run_dir: Path, seed_cap: int | No
                 cfg_text = cfg_path.read_text(errors="replace") if cfg_path else ""
 
                 [nl_reply] = model.generate(backtranslate_prompt(spec_text, cfg_text), 1, 0.8, 4096)
-                nl = parse_nl(nl_reply)
+                try:
+                    nl = parse_nl(nl_reply)
+                except NLMissingProperty:
+                    # FIX 3a: no SAFETY PROPERTY: anchor -> the fidelity
+                    # contract can't bind; skip the seed, spend nothing more.
+                    af.write(json.dumps({"seed_key": key, "source": source, "k": ki,
+                                          "survived": False, "iters": 0,
+                                          "rejection_reason": "nl_missing_property"}) + "\n")
+                    af.flush()
+                    n_attempts_this_run += 1
+                    continue
 
                 workdir = run_dir / "work" / f"{seed.get('module', 'seed')}_k{ki}"
                 result = run_loop_for_seed(model, nl, seed.get("module", "Gen"), workdir,
@@ -351,6 +554,28 @@ def run_w2(model, seeds_path: Path, raw: Path, run_dir: Path, seed_cap: int | No
     print(f"YIELD RATE (survivors/attempts, cumulative): {total_survivors}/{total_attempts} = {rate:.3f}")
 
 
+def w2_yield_report(run_dirs) -> dict:
+    """Extra-2: one honest cumulative yield across MULTIPLE run dirs (smoke
+    runs diverge into separate dirs; per-dir yields are not comparable).
+    Returns {"attempts", "survivors", "yield_rate", "per_dir"} and prints."""
+    per_dir = {}
+    attempts = survivors = 0
+    for d in run_dirs:
+        d = Path(d)
+        a_file, s_file = d / "w2_attempts.jsonl", d / "w2_survivors.jsonl"
+        a = sum(1 for _ in open(a_file)) if a_file.exists() else 0
+        s = sum(1 for _ in open(s_file)) if s_file.exists() else 0
+        per_dir[str(d)] = {"attempts": a, "survivors": s}
+        attempts += a
+        survivors += s
+    rate = (survivors / attempts) if attempts else 0.0
+    for name, st in per_dir.items():
+        print(f"  {name}: {st['survivors']}/{st['attempts']}")
+    print(f"CUMULATIVE YIELD RATE: {survivors}/{attempts} = {rate:.3f}")
+    return {"attempts": attempts, "survivors": survivors, "yield_rate": rate,
+            "per_dir": per_dir}
+
+
 # --------------------------------------------------------------- dry-run model
 
 class DryRunModel:
@@ -364,8 +589,9 @@ class DryRunModel:
            "many units are currently allocated, starting at zero. Two actions "
            "are possible at each step: allocate one more unit, or release one "
            "unit, but release is only permitted while the count is already at "
-           "least one greater than zero so the count never goes negative. "
-           "Safety property: the allocated count is always non-negative.")
+           "least one greater than zero so the count never goes negative.\n\n"
+           "SAFETY PROPERTY: the allocated count is always non-negative "
+           "(greater than or equal to zero).")
 
     _MODULE = """---- MODULE {mod} ----
 EXTENDS Integers
@@ -385,7 +611,8 @@ NonNegative == cnt >= 0
             mmod = re.search(r"Name the module `(\w+)`", prompt)
             mod = mmod.group(1) if mmod else "Gen"
             reply = (f"```tla\n{self._MODULE.format(mod=mod)}\n```\n"
-                     f"```cfg\n{self._CFG}\n```\n")
+                     f"```cfg\n{self._CFG}\n```\n"
+                     "PROPERTY_INVARIANT: NonNegative\n")
         else:
             reply = f"Natural language description:\n\n```\n{self._NL}\n```\n"
         return [reply] * n
@@ -397,7 +624,10 @@ def main():
                     default=Path("/Users/eric/GitHub/prove-TLA/data/chattla-corpora-v2/manifest_w2_seeds.jsonl"))
     ap.add_argument("--raw", type=Path,
                     default=Path("/Users/eric/GitHub/tla-dataset-pipeline/data/raw"))
-    ap.add_argument("--run-dir", required=True, type=Path)
+    ap.add_argument("--run-dir", type=Path)
+    ap.add_argument("--report-dirs", nargs="+", type=Path,
+                    help="aggregate w2_attempts/w2_survivors across these run "
+                         "dirs and print one cumulative yield rate, then exit")
     ap.add_argument("--seed-cap", type=int, default=500)
     ap.add_argument("--k", type=int, default=1)
     ap.add_argument("--timeout", type=int, default=DEFAULT_TIMEOUT_S)
@@ -407,6 +637,12 @@ def main():
     ap.add_argument("--dry-run", action="store_true",
                     help="use the built-in canned DryRunModel, zero API spend")
     a = ap.parse_args()
+
+    if a.report_dirs:
+        w2_yield_report(a.report_dirs)
+        return
+    if a.run_dir is None:
+        ap.error("--run-dir is required unless --report-dirs is given")
 
     if a.dry_run:
         model = DryRunModel()
