@@ -8,6 +8,32 @@ SANY/TLC), so it is cheap and reproducible.
 """
 import re
 
+# quality_gold thresholds (design defaults; revisit before freeze).
+MIN_INTERESTING_STATES = 3   # thin-model floor
+T_MUT = 0.5                  # safety_catch_rate floor
+
+
+def quality_label(vacuity_reasons, distinct_states, safety_catch_rate,
+                  min_states=MIN_INTERESTING_STATES, t_mut=T_MUT):
+    """W1 quality_gold gate. gold = non-vacuous ∧ not-thin ∧ strong-mutation.
+
+    - vacuity_reasons: runner.vacuity_flags() output ([] = non-vacuous; bundles
+      no-invariant, trivial-invariant, ≤1-state).
+    - distinct_states: TLC distinct-states count (None if unknown); < min_states
+      is a thin model.
+    - safety_catch_rate: mutation.summarize_mutants()['safety_catch_rate']
+      (None or < t_mut is a weak spec -- #4: NON-TypeOK catches only).
+    Returns {"quality_gold": bool, "fail_reasons": [...]}. """
+    fail = []
+    if vacuity_reasons:
+        fail.append("vacuous")
+    if distinct_states is not None and distinct_states < min_states:
+        fail.append("thin_model")
+    if safety_catch_rate is None or safety_catch_rate < t_mut:
+        fail.append("weak_mutation")
+    return {"quality_gold": len(fail) == 0, "fail_reasons": fail}
+
+
 _EXTENDS_RE = re.compile(r"^\s*EXTENDS\b(.*)$", re.M)
 _VARS_RE = re.compile(r"^\s*VARIABLES?\b(.*)$", re.M)
 _DEF_RE = re.compile(r"^[A-Za-z_]\w*(?:\([^)]*\))?\s*==", re.M)
