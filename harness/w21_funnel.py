@@ -313,9 +313,19 @@ def _run_one_adequacy(raw: Path, rec: dict, timeout: int) -> dict:
     mut = run_mutation_on_module(workdir / f"{mod}.tla", cfg_text, mod, timeout)
     safety_catch_rate = mut.get("safety_catch_rate")
 
+    # Eric-directed 2026-07-09: emit BOTH the strict safety_catch_rate (NON-TypeOK,
+    # review fix #4) AND the raw kill_rate + attempted count + per-mutant violated
+    # names, so the full-corpus distribution can be inspected before the quality_gold
+    # threshold is frozen. quality_gold below is still computed on safety_catch_rate
+    # (the design star metric) -- it is an advisory label here, not the gate decision.
     label = quality_label(vac, distinct_states, safety_catch_rate)
     row.update(distinct_states=distinct_states, vacuity=vac,
                safety_catch_rate=safety_catch_rate,
+               kill_rate=mut.get("kill_rate"),
+               mutants_attempted=mut.get("attempted"),
+               safety_killed=mut.get("safety_killed"),
+               mutant_violations=[m.get("violated") for m in mut.get("mutants", [])
+                                  if m.get("killed")],
                quality_gold=label["quality_gold"],
                quality_fail_reasons=label["fail_reasons"])
     return row
