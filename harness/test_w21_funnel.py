@@ -123,19 +123,47 @@ NonNegative == x >= 0
 """
 _ADEQ_CFG = "INIT Init\nNEXT Next\nINVARIANT NonNegative\n"
 
+# EXTENDS-dependency case: an _MC-style harness that EXTENDS a sibling base
+# module (mirrors the real Paxos_MC/PaxosPlusCal, MultiPaxos_MC/MultiPaxos
+# tier3 rows). The base carries the state machine; the _MC pulls it in. This
+# only resolves under SANY if the sibling base .tla is co-located -- which it
+# is in the raw scrape tree but NOT in the incomplete corpus copy tree.
+_ADEQ_BASE = """---- MODULE CounterBase ----
+EXTENDS Integers
+VARIABLE x
+Init == x = 0
+Inc == x' = x + 1
+====
+"""
+# The harness EXTENDS the base (needs the sibling .tla to resolve) AND carries
+# its own mutable content (Dec's "x \in {0}" guard) so the mutation battery has
+# a real site: this exercises BOTH resolution paths -- SANY/TLC of the harness,
+# and run_mutation_on_module copying the base sibling into the mutant workdir.
+_ADEQ_MC = """---- MODULE CounterMC ----
+EXTENDS CounterBase
+Dec == x \\in {0} \\/ x' = x - 1
+Next == Dec \\/ Inc
+Spec == Init /\\ [][Next]_x
+NonNegative == x >= 0
+====
+"""
 
-def _build_adequacy_corpus(corpus_dir: Path, n: int = 1):
-    """tier1_sany_cfg fixture specs under corpus_dir/tier1_sany_cfg/<name>/,
-    matching stage_assemble's on-disk layout (source relative to data/raw/)."""
+
+def _build_adequacy_corpus(corpus_dir: Path, raw: Path, n: int = 1):
+    """Lay out fixture specs the way the real funnel does: manifests live under
+    corpus_dir (referencing data/raw/<path> sources), while the actual .tla/.cfg
+    (and EXTENDS siblings) live in the raw scrape tree under raw/<path>. Returns
+    the manifest rows."""
     rows = []
     for i in range(n):
         name = f"Counter{i}"
-        d = corpus_dir / "tier1_sany_cfg" / name
+        d = raw / name
         d.mkdir(parents=True)
         (d / f"{name}.tla").write_text(_ADEQ_SPEC.replace("Counter", name))
         (d / f"{name}.cfg").write_text(_ADEQ_CFG)
         rows.append({"source": f"data/raw/{name}/{name}.tla", "module": name,
                      "content_sha256": "deadbeef", "tier": "tier1_sany_cfg", "has_cfg": True})
+    (corpus_dir).mkdir(parents=True, exist_ok=True)
     (corpus_dir / "manifest_tier1_sany_cfg.jsonl").write_text(
         "\n".join(json.dumps(r) for r in rows) + "\n")
     (corpus_dir / "manifest_tier3_tlc.jsonl").write_text("")
@@ -144,11 +172,12 @@ def _build_adequacy_corpus(corpus_dir: Path, n: int = 1):
 
 def test_stage_adequacy_writes_expected_keys(tmp_path: Path):
     corpus_dir = tmp_path / "corpus"
+    raw = tmp_path / "raw"
     run_dir = tmp_path / "run"
     run_dir.mkdir(parents=True)
-    _build_adequacy_corpus(corpus_dir, n=1)
+    _build_adequacy_corpus(corpus_dir, raw, n=1)
 
-    wf.stage_adequacy(corpus_dir=corpus_dir, run_dir=run_dir, limit=None, timeout=30)
+    wf.stage_adequacy(corpus_dir=corpus_dir, raw=raw, run_dir=run_dir, limit=None, timeout=30)
 
     rows = [json.loads(l) for l in open(run_dir / "adequacy.jsonl")]
     assert len(rows) == 1
@@ -162,18 +191,59 @@ def test_stage_adequacy_writes_expected_keys(tmp_path: Path):
     assert row["distinct_states"] >= 1
 
 
-def test_stage_adequacy_resumable_skips_done_rows(tmp_path: Path):
+def test_stage_adequacy_resolves_extends_dependency_from_raw(tmp_path: Path):
+    """Regression: an _MC spec that EXTENDS a sibling base module must resolve
+    (SANY passes, TLC produces a real state count) because the base .tla is
+    co-located in the raw tree. Before the fix this resolved against the corpus
+    copy tree, where the base was absent -> SANY 'cannot find source file' ->
+    distinct_states/safety_catch_rate both null (battery measured nothing)."""
     corpus_dir = tmp_path / "corpus"
+    raw = tmp_path / "raw"
     run_dir = tmp_path / "run"
     run_dir.mkdir(parents=True)
-    _build_adequacy_corpus(corpus_dir, n=2)
 
-    wf.stage_adequacy(corpus_dir=corpus_dir, run_dir=run_dir, limit=None, timeout=30)
+    d = raw / "counterproj"
+    d.mkdir(parents=True)
+    (d / "CounterBase.tla").write_text(_ADEQ_BASE)
+    (d / "CounterMC.tla").write_text(_ADEQ_MC)
+    (d / "CounterMC.cfg").write_text(_ADEQ_CFG)
+
+    corpus_dir.mkdir(parents=True)
+    (corpus_dir / "manifest_tier1_sany_cfg.jsonl").write_text("")
+    (corpus_dir / "manifest_tier3_tlc.jsonl").write_text(json.dumps({
+        "source": "data/raw/counterproj/CounterMC.tla", "module": "CounterMC",
+        "tier": "tier3_tlc", "has_cfg": True}) + "\n")
+
+    wf.stage_adequacy(corpus_dir=corpus_dir, raw=raw, run_dir=run_dir, limit=None, timeout=30)
+
+    rows = [json.loads(l) for l in open(run_dir / "adequacy.jsonl")]
+    assert len(rows) == 1
+    row = rows[0]
+    assert row["module"] == "CounterMC"
+    # The whole point: the sibling base module resolved, so SANY passed and TLC
+    # actually ran to a real state count -- before the fix this was null because
+    # SANY could not find CounterBase in the copy tree.
+    assert row["distinct_states"] is not None
+    assert row["distinct_states"] >= 1
+    # The mutation battery also copied the base sibling into each mutant workdir,
+    # so mutants parsed and ran -- safety_catch_rate is a real number, not the
+    # null it would be if every mutant SANY-failed on a missing dependency.
+    assert row["safety_catch_rate"] is not None
+
+
+def test_stage_adequacy_resumable_skips_done_rows(tmp_path: Path):
+    corpus_dir = tmp_path / "corpus"
+    raw = tmp_path / "raw"
+    run_dir = tmp_path / "run"
+    run_dir.mkdir(parents=True)
+    _build_adequacy_corpus(corpus_dir, raw, n=2)
+
+    wf.stage_adequacy(corpus_dir=corpus_dir, raw=raw, run_dir=run_dir, limit=None, timeout=30)
     rows_first = [json.loads(l) for l in open(run_dir / "adequacy.jsonl")]
     assert len(rows_first) == 2
 
     # re-run: no new rows should be appended (resumable, keyed by "source")
-    wf.stage_adequacy(corpus_dir=corpus_dir, run_dir=run_dir, limit=None, timeout=30)
+    wf.stage_adequacy(corpus_dir=corpus_dir, raw=raw, run_dir=run_dir, limit=None, timeout=30)
     rows_second = [json.loads(l) for l in open(run_dir / "adequacy.jsonl")]
     assert len(rows_second) == 2
     assert {r["source"] for r in rows_second} == {r["source"] for r in rows_first}
@@ -181,11 +251,12 @@ def test_stage_adequacy_resumable_skips_done_rows(tmp_path: Path):
 
 def test_stage_adequacy_respects_limit(tmp_path: Path):
     corpus_dir = tmp_path / "corpus"
+    raw = tmp_path / "raw"
     run_dir = tmp_path / "run"
     run_dir.mkdir(parents=True)
-    _build_adequacy_corpus(corpus_dir, n=3)
+    _build_adequacy_corpus(corpus_dir, raw, n=3)
 
-    wf.stage_adequacy(corpus_dir=corpus_dir, run_dir=run_dir, limit=1, timeout=30)
+    wf.stage_adequacy(corpus_dir=corpus_dir, raw=raw, run_dir=run_dir, limit=1, timeout=30)
     rows = [json.loads(l) for l in open(run_dir / "adequacy.jsonl")]
     assert len(rows) == 1
 

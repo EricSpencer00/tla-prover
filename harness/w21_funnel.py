@@ -259,19 +259,29 @@ def stage_tlc(raw: Path, run_dir: Path, manifest_path: Path, limit: int | None,
 ADEQUACY_TLC_TIMEOUT_S = 30
 
 
-def _resolve_adequacy_source(corpus_dir: Path, rec: dict) -> Path:
-    """tier record -> on-disk tla path under corpus_dir (stage_assemble's copy
-    layout: corpus_dir/<tier>/<source-relative-to-data/raw/>)."""
+def _resolve_adequacy_source(raw: Path, rec: dict) -> Path:
+    """tier record -> on-disk tla path in the ORIGINAL raw scrape tree
+    (raw/<source-relative-to-data/raw/>), NOT the corpus copy tree.
+
+    Why raw and not corpus_dir/<tier>/<path>: stage_assemble's copy step only
+    copies each spec's own .tla plus *.cfg siblings -- it does NOT copy the
+    sibling .tla modules a spec EXTENDS/INSTANCEs. 51 of the 82 tier3 rows are
+    _MC harnesses (Paxos_MC EXTENDS PaxosPlusCal, MultiPaxos_MC EXTENDS
+    MultiPaxos, ...); resolving them from the copy tree makes SANY fail with
+    "Cannot find source file for module X" before TLC ever runs, so the whole
+    battery measured nothing on real state-machine specs. The raw tree has all
+    sibling modules co-located, which is exactly why stage_tlc/_run_one_tlc
+    already resolve against raw. Mirror that here."""
     rel = rec["source"].removeprefix("data/raw/")
-    return corpus_dir / rec["tier"] / rel
+    return raw / rel
 
 
-def _run_one_adequacy(corpus_dir: Path, rec: dict, timeout: int) -> dict:
+def _run_one_adequacy(raw: Path, rec: dict, timeout: int) -> dict:
     from .runner import check_tlc, module_name
     from .adequacy import structural_features, quality_label, complexity_score
     from .mutation import run_mutation_on_module
 
-    tla_path = _resolve_adequacy_source(corpus_dir, rec)
+    tla_path = _resolve_adequacy_source(raw, rec)
     text = tla_path.read_text(errors="replace")
     mod = module_name(text) or rec.get("module")
     workdir = tla_path.parent
@@ -311,12 +321,15 @@ def _run_one_adequacy(corpus_dir: Path, rec: dict, timeout: int) -> dict:
     return row
 
 
-def stage_adequacy(corpus_dir: Path, run_dir: Path, limit: int | None,
+def stage_adequacy(corpus_dir: Path, raw: Path, run_dir: Path, limit: int | None,
                     timeout: int = ADEQUACY_TLC_TIMEOUT_S):
-    """Resumable W1 battery sweep over tier1_sany_cfg + tier3_tlc on-disk specs.
-    Serial, nice-19 (caller sets os.nice(19) as sany/tlc stages do), per-file
-    timeout, appends to run_dir/adequacy.jsonl, skipping rows already recorded
-    (keyed by "source") so a restart picks up where it left off."""
+    """Resumable W1 battery sweep over tier1_sany_cfg + tier3_tlc specs. Manifests
+    are read from corpus_dir; each spec's .tla/.cfg + EXTENDS siblings are
+    resolved from the ORIGINAL raw scrape tree (see _resolve_adequacy_source) so
+    dependency modules are present for SANY/TLC. Serial, nice-19 (caller sets
+    os.nice(19) as sany/tlc stages do), per-file timeout, appends to
+    run_dir/adequacy.jsonl, skipping rows already recorded (keyed by "source")
+    so a restart picks up where it left off."""
     rows = []
     for fname in ("manifest_tier1_sany_cfg.jsonl", "manifest_tier3_tlc.jsonl"):
         f = corpus_dir / fname
@@ -330,7 +343,7 @@ def stage_adequacy(corpus_dir: Path, run_dir: Path, limit: int | None,
     print(f"adequacy: {len(done)} done, {len(todo)} this chunk, {len(rows)} total tier1+tier3 files")
     with open(out, "a") as fh:
         for i, rec in enumerate(todo):
-            row = _run_one_adequacy(corpus_dir, rec, timeout)
+            row = _run_one_adequacy(raw, rec, timeout)
             fh.write(json.dumps(row) + "\n")
             fh.flush()
             if (i + 1) % 25 == 0:
@@ -444,8 +457,10 @@ def main():
                                        "quality_manifest", "assemble"])
     ap.add_argument("--run-dir", required=True, type=Path)
     ap.add_argument("--raw", type=Path,
-                    help="required for dedup/decontam/sany/tlc/assemble; unused by "
-                         "adequacy/quality_manifest, which read corpus_dir directly")
+                    help="original scrape tree (raw/<path>); required for dedup/"
+                         "decontam/sany/tlc/adequacy/assemble. adequacy resolves each "
+                         "spec + its EXTENDS siblings from here (the corpus copy tree "
+                         "omits sibling deps). quality_manifest reads corpus_dir only.")
     ap.add_argument("--corpus-dir", type=Path,
                     default=Path("/Users/eric/GitHub/prove-TLA/data/chattla-corpora-v2"))
     ap.add_argument("--manifest", type=Path,
@@ -455,7 +470,7 @@ def main():
     ap.add_argument("--timeout", type=int, default=BOUNDED_TLC_TIMEOUT_S)
     a = ap.parse_args()
     a.run_dir.mkdir(parents=True, exist_ok=True)
-    if a.stage in ("dedup", "decontam", "sany", "tlc", "assemble") and a.raw is None:
+    if a.stage in ("dedup", "decontam", "sany", "tlc", "adequacy", "assemble") and a.raw is None:
         ap.error(f"--raw is required for stage {a.stage!r}")
     if a.stage == "dedup":
         stage_dedup(a.raw, a.run_dir)
@@ -474,7 +489,7 @@ def main():
             os.nice(19)
         except PermissionError:
             pass
-        stage_adequacy(a.corpus_dir, a.run_dir, a.limit,
+        stage_adequacy(a.corpus_dir, a.raw, a.run_dir, a.limit,
                        a.timeout if a.timeout != BOUNDED_TLC_TIMEOUT_S else ADEQUACY_TLC_TIMEOUT_S)
     elif a.stage == "quality_manifest":
         stage_quality_manifest(a.corpus_dir, a.run_dir)
