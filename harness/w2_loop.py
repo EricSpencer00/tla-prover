@@ -154,7 +154,12 @@ def run_loop_for_seed(model, nl: str, module_name_: str, workdir: Path, timeout:
     battery (recorded, NOT hard-gated per the reward-not-gate decision) ->
     converged survivor or iterate with error evidence fed back as repair
     context. Returns a result dict; see module docstring for reuse contract."""
-    workdir = Path(workdir)
+    # MUST be absolute: check_sany/check_tlc build java-side paths (jtmp,
+    # -metadir) from this dir; with a relative workdir SANY's module search
+    # path resolves against a doubled prefix and even standard modules
+    # (Naturals) come back fail_missing_module. Found live: first Sophia smoke
+    # was 0/5 all-sany_fail purely from this (the specs were SANY-clean).
+    workdir = Path(workdir).resolve()
     workdir.mkdir(parents=True, exist_ok=True)
     error_context = None
     last_reason = "unknown"
