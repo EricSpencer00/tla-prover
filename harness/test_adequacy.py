@@ -4,7 +4,7 @@ Structural features are a deterministic, TLC-free complexity signal used two way
 (1) as inputs to quality_gold, (2) as the complexity weights for the RFT reward
 (review fix #2 -- reward complex survivors, not just any survivor).
 """
-from harness.adequacy import structural_features, quality_label
+from harness.adequacy import structural_features, quality_label, complexity_score
 
 SPEC = """---- MODULE Counter ----
 \\* a counter spec
@@ -95,3 +95,33 @@ def test_multiple_failures_accumulate():
                       safety_catch_rate=0.0)
     assert r["quality_gold"] is False
     assert set(r["fail_reasons"]) == {"vacuous", "thin_model", "weak_mutation"}
+
+
+# --- complexity_score (RFT reward weight, review fix #2) ---------------------
+
+def _zero():
+    return structural_features("")
+
+
+def test_empty_spec_has_zero_complexity():
+    assert complexity_score(_zero()) == 0.0
+
+
+def test_richer_spec_scores_higher_than_empty():
+    assert complexity_score(structural_features(SPEC)) > complexity_score(_zero())
+
+
+def test_adding_a_variable_strictly_increases_score():
+    base = _zero()
+    more = dict(base, num_variables=base["num_variables"] + 1)
+    assert complexity_score(more) > complexity_score(base)
+
+
+def test_temporal_operators_raise_score():
+    base = _zero()
+    with_temporal = dict(base, temporal_op_count=2)
+    assert complexity_score(with_temporal) > complexity_score(base)
+
+
+def test_score_is_nonnegative():
+    assert complexity_score(structural_features(SPEC)) >= 0.0

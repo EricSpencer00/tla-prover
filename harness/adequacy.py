@@ -34,6 +34,28 @@ def quality_label(vacuity_reasons, distinct_states, safety_catch_rate,
     return {"quality_gold": len(fail) == 0, "fail_reasons": fail}
 
 
+# First-pass weights for the RFT reward (review fix #2). All non-negative so the
+# score is monotonic in every structural feature (richer spec -> higher weight),
+# and 0 for an empty/degenerate spec. Magnitudes are a heuristic -- revisit
+# before freeze once we see the RFT-vs-holdout complexity distributions.
+_COMPLEXITY_WEIGHTS = {
+    "num_variables": 2.0,
+    "num_definitions": 1.5,
+    "num_disjuncts": 1.0,
+    "num_conjuncts": 1.0,
+    "temporal_op_count": 2.0,
+    "extends_depth": 0.5,
+    "noncomment_loc": 0.1,
+}
+
+
+def complexity_score(features: dict) -> float:
+    """Scalar structural-complexity weight for the RFT reward (#2): reward
+    survival weighted by complexity so RFT does not collapse toward trivial
+    valid specs. Monotonic in each feature; 0.0 for an empty spec."""
+    return round(sum(w * features.get(k, 0) for k, w in _COMPLEXITY_WEIGHTS.items()), 3)
+
+
 _EXTENDS_RE = re.compile(r"^\s*EXTENDS\b(.*)$", re.M)
 _VARS_RE = re.compile(r"^\s*VARIABLES?\b(.*)$", re.M)
 _DEF_RE = re.compile(r"^[A-Za-z_]\w*(?:\([^)]*\))?\s*==", re.M)
