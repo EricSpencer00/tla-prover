@@ -43,6 +43,13 @@ New resumable funnel stage (follows the existing `dedup/decontam/sany/tlc/assemb
 - **mutation-sensitivity (star metric)** — reuse `harness/mutation.py::run_mutation_for_spec`
   (deterministic regex battery, reproducible — this is why we do NOT use tla-generator's
   model-generated mutant). `mutation_catch_rate = caught / applicable`.
+  - **Review fix (#4): attribute catches to which invariant fired.** The deterministic
+    mutation battery currently marks a mutant 'killed' on any TLC failure
+    (`tlc_st != 'pass'`), which counts a mutant that only breaks TypeOK the same as one
+    breaking the real safety property — gameable exactly the way this project exists to
+    catch. Fix: count a catch only when a NON-TypeOK safety property is violated; report
+    `mutation_catch_rate` over that attribution. Keep the deterministic battery for
+    reproducibility.
 - **trivial-invariant** — port `check_trivial_invariants` (`Inv == TRUE`) from tla-generator.
 - **thin-model** — distinct-states `< 3` (`min_interesting_states`); re-derive states in the
   battery TLC run since tier3's `tlc_states_found` is 0.
@@ -67,6 +74,13 @@ grounds every seed in a spec already verified to mean something; drift between `
 `spec'` is free curriculum signal. FormaLLM is excluded because the gate filters *validity*,
 never *meaning* — junk NL yields valid-but-pointless survivors.
 
+**Reward shaping — complexity-weighted reward (review fix #2).** RFT/STaR collapses toward
+simple survivors; bare survival as reward selects for trivial-but-valid specs, which is
+exactly wrong since framing A (generation of complex holdout-like specs) is the only Gate-2
+cell with headroom. Reward = survival weighted by the structural-complexity features W1
+already computes (#vars, #Next-disjuncts, #real properties). Track the complexity
+distribution of the RFT set vs the holdout to detect collapse before the fine-tune.
+
 **Contamination is non-negotiable.** Every survivor re-passes the existing `decontam` stage
 (Jaccard ≥ 0.65 vs 206-corpus + holdout-30 + tlaplus/examples). Seeds are held out from any
 holdout-mapped spec. (Existing 949 already verified clean: survivor→holdout max Jaccard 0.111.)
@@ -87,10 +101,21 @@ gold specs ──spec→NL──> seeds ──W2 loop──> survivors ──dec
 
 ## De-risking / order of work
 
+0. **Step 0 — experts-reaching MoE fine-tune: EMPIRICALLY CONFIRMED 2026-07-09** on ALCF
+   Polaris (gpt-oss-20b, the same architecture as 120b). The chattla-20b failure was
+   `target_modules='all-linear'` reaching attention only (0 expert gradient). Confirmed fix:
+   load with `Mxfp4Config(dequantize=True)` (turns packed MXFP4 experts into plain bf16
+   `mlp.experts.gate_up_proj`/`down_proj` params), then LoRA
+   `target_modules=[q/k/v/o_proj]` + `target_parameters=['mlp.experts.gate_up_proj',
+   'mlp.experts.down_proj']`. Probe result: EXPERT LoRA tensors receive nonzero gradient
+   (grad-norm 7.5). CRITICAL infra caveat: must load via CPU→FSDP (train.py's
+   `fsdp_cpu_ram_efficient_loading` path), NOT `device_map='auto'` — GPU-side multi-GPU
+   dequant illegal-memory-accesses on the transformers 5.6.2 + A100 stack.
 1. **W1 battery first** (local TLC, no Sophia, always-useful data). Smoke under `--limit`.
 2. **W2 loop, smoke small** — a few hundred survivors, log yield rate, eyeball quality.
-3. **One fine-tune, experts-reaching PEFT** on the small survivor set (the exact rock
-   chattla-20b broke on — verify experts get gradient).
+3. ~~One fine-tune, experts-reaching PEFT on the small survivor set (the exact rock
+   chattla-20b broke on — verify experts get gradient).~~ **DONE and CONFIRMED — see Step 0.**
+   The fine-tune on the small survivor set proceeds with the confirmed recipe.
 4. **Run Gate 2.** Beat baseline → scale the corpus. Miss → cheap lesson, adjust before scale.
 
 ## Parameters (defaults; revisit before freeze)
@@ -109,6 +134,7 @@ thin cases), loop-stage gates, seed back-translation parsing, decontam-on-surviv
 ## Open items for the plan
 
 - k (back-translation seeds per gold spec) and first-run seed cap.
-- Experts-reaching PEFT recipe on Sophia for gpt-oss-120b (MoE) — assumed workable (Eric).
+- RESOLVED: experts-reaching recipe confirmed (see Step 0); 120b-specific work is staging
+  weights + scaling the FSDP job.
 - Whether generated survivors are merged into the frozen corpus or kept as a labeled
   augmentation split.
