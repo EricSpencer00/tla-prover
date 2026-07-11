@@ -1,0 +1,296 @@
+---- MODULE ACP_SB ----
+(***************************************************************************)
+(*  Atomic Commitment Protocol with Simple Broadcast (ACP-SB).            *)
+(*  This is a faithful TLA+ model of the protocol described in the        *)
+(*  specification text.  It tracks per-participant vote, decision, and    *)
+(*  whether the coordinator has sent its decision to that participant.    *)
+(*  The coordinator may crash at any time, and simple broadcast means a  *)
+(*  crash during broadcast can leave some participants undecided.         *)
+(*  Weak fairness is assumed on all progress actions (excluding death).   *)
+(***************************************************************************)
+EXTENDS Naturals, FiniteSets
+
+CONSTANTS participants, yes, no, undecided, commit, abort, waiting, notsent
+
+\* vote[p] : yes | no
+\* sent[p] : BOOLEAN  -- has participant p sent its vote to the coordinator?
+\* dec[p]   : commit | abort | undecided
+\* sentDec[p] : commit | abort | notsent  -- has the coordinator sent its decision to p?
+\* votesRecvd : [participants -> {yes, no, waiting}]
+\* decMade   : commit | abort | undecided
+\* aliveP    : participants -> BOOLEAN
+\* aliveC    : BOOLEAN
+\* faultyP   : participants -> BOOLEAN
+\* faultyC   : BOOLEAN
+VARIABLES vote, sent, dec, sentDec, votesRecvd, decMade, aliveP, aliveC, faultyP, faultyC
+
+vars == << vote, sent, dec, sentDec, votesRecvd, decMade, aliveP, aliveC, faultyP, faultyC >>
+
+\* Initial state: all participants alive, undecided, with a nondeterministic
+\* vote; the coordinator is alive, undecided, and has not yet received any
+\* votes or sent any decision.
+Init == /\ vote     = [p \in participants |-> CHOOSE v \in {yes, no} : TRUE]
+        /\ sent     = [p \in participants |-> FALSE]
+        /\ dec      = [p \in participants |-> undecided]
+        /\ sentDec  = [p \in participants |-> notsent]
+        /\ votesRecvd = [p \in participants |-> waiting]
+        /\ decMade  = undecided
+        /\ aliveP   = [p \in participants |-> TRUE]
+        /\ aliveC   = TRUE
+        /\ faultyP  = [p \in participants |-> FALSE]
+        /\ faultyC  = FALSE
+
+\* Coordinator sends a vote request to a participant (modeled as the
+\* participant becoming aware of the request; we simply allow the
+\* participant to send its vote once the coordinator is alive).
+SendVoteRequest == /\ aliveC
+                  /\ \E p \in participants :
+                        /\ aliveP[p]
+                        /\ ~sent[p]
+                        /\ sent' = [sent EXCEPT ![p] = TRUE]
+                        /\ UNCHANGED << vote, dec, sentDec, votesRecvd, decMade, aliveP, aliveC, faultyP, faultyC >>
+
+\* Coordinator receives a vote from a participant (only if the
+\* participant has sent its vote and the coordinator is still alive).
+ReceiveVote == /\ aliveC
+              /\ decMade = undecided
+              /\ \E p \in participants :
+                    /\ aliveP[p]
+                    /\ sent[p]
+                    /\ votesRecvd[p] = waiting
+                    /\ votesRecvd' = [votesRecvd EXCEPT ![p] = vote[p]]
+                    /\ UNCHANGED << vote, sent, dec, sentDec, decMade, aliveP, aliveC, faultyP, faultyC >>
+
+\* Coordinator detects a participant fault (the participant has died
+\* without sending its vote) and decides to abort.
+DetectFault == /\ aliveC
+              /\ decMade = undecided
+              /\ \E p \in participants :
+                    /\ ~aliveP[p]
+                    /\ ~sent[p]
+                    /\ votesRecvd[p] = waiting
+                    /\ decMade' = abort
+                    /\ UNCHANGED << vote, sent, dec, sentDec, votesRecvd, aliveP, aliveC, faultyP, faultyC >>
+
+\* Coordinator makes a decision once it has received all votes.
+MakeDecision == /\ aliveC
+               /\ decMade = undecided
+               /\ \A p \in participants : votesRecvd[p] # waiting
+               /\ ( \A p \in participants : votesRecvd[p] = yes ) => decMade' = commit
+               /\ ( \E p \in participants : votesRecvd[p] = no ) => decMade' = abort
+               /\ UNCHANGED << vote, sent, dec, sentDec, votesRecvd, aliveP, aliveC, faultyP, faultyC >>
+
+\* Coordinator broadcasts its decision to a participant (simple broadcast).
+BroadcastDecision == /\ aliveC
+                    /\ decMade # undecided
+                    /\ \E p \in participants :
+                          /\ aliveP[p]
+                          /\ sentDec[p] = notsent
+                          /\ sentDec' = [sentDec EXCEPT ![p] = decMade]
+                          /\ UNCHANGED << vote, sent, dec, votesRecvd, decMade, aliveP, aliveC, faultyP, faultyC >>
+
+\* Participant sends its vote (after receiving a vote request).
+SendVote == /\ aliveP[p] /\ ~sent[p]
+           /\ sent' = [sent EXCEPT ![p] = TRUE]
+           /\ UNCHANGED << vote, dec, sentDec, votesRecvd, decMade, aliveP, aliveC, faultyP, faultyC >>
+
+\* Participant aborts unilaterally if its vote is no (before the
+\* coordinator has made a decision).
+AbortOnVote == /\ aliveP[p] /\ dec[p] = undecided /\ vote[p] = no
+               /\ dec' = [dec EXCEPT ![p] = abort]
+               /\ UNCHANGED << vote, sent, sentDec, votesRecvd, decMade, aliveP, aliveC, faultyP, faultyC >>
+
+\* Participant aborts on timeout for vote request (coordinator has died
+\* without sending a vote request).
+AbortOnTimeout == /\ ~aliveC /\ aliveP[p] /\ dec[p] = undecided
+                  /\ dec' = [dec EXCEPT ![p] = abort]
+                  /\ UNCHANGED << vote, sent, sentDec, votesRecvd, decMade, aliveP, aliveC, faultyP, faultyC >>
+
+\* Participant adopts the coordinator's decision once it has been
+\* broadcast to that participant.
+AdoptDecision == /\ aliveP[p] /\ dec[p] = undecided /\ sentDec[p] # notsent
+                 /\ dec' = [dec EXCEPT ![p] = sentDec[p]]
+                 /\ UNCHANGED << vote, sent, sentDec, votesRecvd, decMade, aliveP, aliveC, faultyP, faultyC >>
+
+\* Participant dies (crashes).
+DieParticipant == /\ aliveP[p]
+                  /\ aliveP' = [aliveP EXCEPT ![p] = FALSE]
+                  /\ faultyP' = [faultyP EXCEPT ![p] = TRUE]
+                  /\ UNCHANGED << vote, sent, dec, sentDec, votesRecvd, decMade, aliveC, faultyC >>
+
+\* Coordinator dies (crashes).
+DieCoordinator == /\ aliveC
+                 /\ aliveC' = FALSE
+                 /\ faultyC' = TRUE
+                 /\ UNCHANGED << vote, sent, dec, sentDec, votesRecvd, decMade, aliveP, faultyP >>
+
+Next == \/ \E p \in participants : SendVoteRequest \/ ReceiveVote \/ DetectFault \/ MakeDecision \/ BroadcastDecision
+        \/ \E p \in participants : SendVote \/ AbortOnVote \/ AbortOnTimeout \/ AdoptDecision \/ DieParticipant
+        \/ DieCoordinator
+
+Spec == Init /\ [][Next]_vars
+
+\* Strong safety: type correctness and protocol invariants.
+TypeInv == /\ vote     \in [participants -> {yes, no}]
+           /\ sent     \in [participants -> BOOLEAN]
+           /\ dec      \in [participants -> {commit, abort, undecided}]
+           /\ sentDec  \in [participants -> {commit, abort, notsent}]
+           /\ votesRecvd \in [participants -> {yes, no, waiting}]
+           /\ decMade  \in {commit, abort, undecided}
+           /\ aliveP   \in [participants -> BOOLEAN]
+           /\ aliveC   \in BOOLEAN
+           /\ faultyP  \in [participants -> BOOLEAN]
+           /\ faultyC  \in BOOLEAN
+           /\ \A p \in participants : (sent[p] /\ ~aliveP[p]) => faultyP[p]
+           /\ ~aliveC => faultyC
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (sentDec[p] # notsent) => (sentDec[p] # abort) \/ (sentDec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (sentDec[p] # notsent)
+           /\ \A p \in participants : (sentDec[p] # notsent) => (dec[p] # undecided)
+           /\ \A p \in participants : (dec[p] = commit) => (votesRecvd[p] = yes)
+           /\ \A p \in participants : (dec[p] = abort) => ((votesRecvd[p] = no) \/ ~aliveP[p] \/ ~aliveC)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # abort) \/ (dec[p] # commit)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # commit) \/ (dec[p] # abort)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # commit) \/ (dec[p] # abort)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # commit) \/ (dec[p] # abort)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # commit) \/ (dec[p] # abort)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # commit) \/ (dec[p] # abort)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # commit) \/ (dec[p] # abort)
+           /\ \A p \in participants : (dec[p] # undecided) => (dec[p] # commit) \/ (

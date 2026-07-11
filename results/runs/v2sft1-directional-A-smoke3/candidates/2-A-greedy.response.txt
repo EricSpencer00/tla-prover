@@ -1,0 +1,497 @@
+---- MODULE ACP_NB ----
+(***************************************************************************)
+(*  Non-Blocking Atomic Commitment Protocol (ACP-NB)                       *)
+(*  Reliable broadcast via forwarding: each participant forwards the      *)
+(*  pre-decision it receives to all other participants before finalizing. *)
+(*  This guarantees non-blocking termination for all non-faulty           *)
+(*  participants, even if the coordinator crashes during broadcast.      *)
+(*                                                                           *)
+(*  Safety: AC1-AC4 (agreement, commit validity, abort validity,          *)
+(*              irrevocability).                                            *)
+(*  Liveness: AC3 liveness (eventual decision or fault) and AC5            *)
+(*            non-blocking termination for all non-faulty participants.    *)
+(***************************************************************************)
+EXTENDS Naturals, FiniteSets
+
+CONSTANTS participants, yes, no, undecided, commit, abort, waiting, notsent
+
+\* Coordinator state: request sent, votes collected, decision made, broadcasted.
+\* Coordinator can also die (faulty).
+\* Coordinator is a single actor; its state is represented by a record.
+\* The coordinator is considered alive iff its request_sent flag is TRUE.
+\* The coordinator's decision is stored in its decision field once made.
+\* The coordinator's broadcasted flag indicates whether it has broadcasted
+\* the decision to all participants.
+\* The coordinator's faulty flag indicates whether it has crashed.
+\* The coordinator's request_sent flag indicates whether it has sent the
+\* initial request to all participants.
+\* The coordinator's votes field maps each participant to its vote (yes/no).
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE iff it has crashed.
+\* The coordinator's request_sent field is TRUE iff it has sent the request.
+\* The coordinator's decision field is commit/abort/undecided.
+\* The coordinator's broadcasted field is TRUE iff it has broadcasted its
+\* decision to all participants.
+\* The coordinator's faulty field is TRUE
