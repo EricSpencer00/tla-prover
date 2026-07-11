@@ -226,10 +226,14 @@ def test_stage_adequacy_resolves_extends_dependency_from_raw(tmp_path: Path):
     # SANY could not find CounterBase in the copy tree.
     assert row["distinct_states"] is not None
     assert row["distinct_states"] >= 1
-    # The mutation battery also copied the base sibling into each mutant workdir,
-    # so mutants parsed and ran -- safety_catch_rate is a real number, not the
-    # null it would be if every mutant SANY-failed on a missing dependency.
-    assert row["safety_catch_rate"] is not None
+    # This fixture's real TLC run lands at 1 distinct state (thin model), which
+    # the W2.1 throughput fix's gate-ordering skip (mutation_skipped_disqualified)
+    # now short-circuits before the mutation battery -- safety_catch_rate is None
+    # by design here, not because dependency resolution failed. The mutation
+    # battery's OWN EXTENDS-sibling-copy behavior is covered directly by
+    # test_mutation.py::test_run_mutation_on_module_mutates_extends_parent.
+    assert row["mutation_skipped_disqualified"] is True
+    assert row["safety_catch_rate"] is None
 
 
 def test_stage_adequacy_resumable_skips_done_rows(tmp_path: Path):
@@ -354,3 +358,182 @@ def test_stage_quality_manifest_covers_all_tiers(tmp_path: Path):
     assert b["distinct_states"] is None
     assert "complexity_score" in b
     assert "num_variables" in b
+
+
+# --- W2.1 throughput fix: --workers parallelism + mutation gate-ordering ---
+
+def test_stage_adequacy_parallel_matches_serial_rows(tmp_path: Path):
+    """--workers>1 must produce the same SET of rows as serial (order is not
+    guaranteed under a process pool -- tests compare as sets)."""
+    corpus_dir = tmp_path / "corpus"
+    raw = tmp_path / "raw"
+    run_dir_serial = tmp_path / "run_serial"
+    run_dir_parallel = tmp_path / "run_parallel"
+    run_dir_serial.mkdir(parents=True)
+    run_dir_parallel.mkdir(parents=True)
+    _build_adequacy_corpus(corpus_dir, raw, n=4)
+
+    wf.stage_adequacy(corpus_dir=corpus_dir, raw=raw, run_dir=run_dir_serial,
+                       limit=None, timeout=30, workers=1)
+    wf.stage_adequacy(corpus_dir=corpus_dir, raw=raw, run_dir=run_dir_parallel,
+                       limit=None, timeout=30, workers=2)
+
+    def _normalize(rows):
+        return sorted(
+            ({k: v for k, v in r.items() if k not in ("dt_s",)} for r in rows),
+            key=lambda r: r["source"])
+
+    serial_rows = [json.loads(l) for l in open(run_dir_serial / "adequacy.jsonl")]
+    parallel_rows = [json.loads(l) for l in open(run_dir_parallel / "adequacy.jsonl")]
+    assert len(serial_rows) == len(parallel_rows) == 4
+    assert _normalize(serial_rows) == _normalize(parallel_rows)
+
+
+def test_stage_adequacy_parallel_resumes_after_partial_ledger(tmp_path: Path):
+    """Simulate a crash after 1/3 rows were flushed; a --workers>1 restart must
+    only process the remaining 2 and end with exactly 3 total rows."""
+    corpus_dir = tmp_path / "corpus"
+    raw = tmp_path / "raw"
+    run_dir = tmp_path / "run"
+    run_dir.mkdir(parents=True)
+    rows = _build_adequacy_corpus(corpus_dir, raw, n=3)
+
+    # Pre-seed the ledger with one row already "done" (as if a prior chunk ran).
+    partial_row = wf._run_one_adequacy(raw, rows[0], timeout=30)
+    (run_dir / "adequacy.jsonl").write_text(json.dumps(partial_row) + "\n")
+
+    wf.stage_adequacy(corpus_dir=corpus_dir, raw=raw, run_dir=run_dir,
+                       limit=None, timeout=30, workers=2)
+
+    out_rows = [json.loads(l) for l in open(run_dir / "adequacy.jsonl")]
+    assert len(out_rows) == 3
+    assert {r["source"] for r in out_rows} == {r["source"] for r in rows}
+
+
+def test_run_one_adequacy_skips_mutation_when_vacuous(monkeypatch, tmp_path):
+    """Gate-ordering fix: a vacuous spec is already disqualified from
+    quality_gold, so the (expensive) mutation battery must not run at all."""
+    d = tmp_path / "raw" / "V"
+    d.mkdir(parents=True)
+    (d / "Counter.tla").write_text(_ADEQ_SPEC)
+    (d / "Counter.cfg").write_text(_ADEQ_CFG)
+
+    from harness import runner as rn
+
+    def fake_check_tlc(mod, cfg_text, workdir, timeout, extra_flags=(), jvm_flags=()):
+        return "pass", ["no_invariant"], "5 distinct states found", 0.1
+
+    def _boom(*a, **k):
+        raise AssertionError("mutation battery must not run for a disqualified spec")
+
+    monkeypatch.setattr(rn, "check_tlc", fake_check_tlc)
+    monkeypatch.setattr("harness.mutation.run_mutation_on_module", _boom)
+
+    rec = {"source": "data/raw/V/Counter.tla", "module": "Counter", "tier": "tier1_sany_cfg"}
+    row = wf._run_one_adequacy(tmp_path / "raw", rec, timeout=30)
+
+    assert row["mutation_skipped_disqualified"] is True
+    assert row["safety_catch_rate"] is None
+    assert row["quality_gold"] is False
+    assert "vacuous" in row["quality_fail_reasons"]
+    assert "weak_mutation" in row["quality_fail_reasons"]
+
+
+def test_run_one_adequacy_skips_mutation_when_thin_model(monkeypatch, tmp_path):
+    """Same gate-ordering fix, thin-model branch (distinct_states < 3, no vacuity
+    flag from TLC itself)."""
+    d = tmp_path / "raw" / "T"
+    d.mkdir(parents=True)
+    (d / "Counter.tla").write_text(_ADEQ_SPEC)
+    (d / "Counter.cfg").write_text(_ADEQ_CFG)
+
+    from harness import runner as rn
+
+    def fake_check_tlc(mod, cfg_text, workdir, timeout, extra_flags=(), jvm_flags=()):
+        return "pass", [], "2 distinct states found", 0.1
+
+    def _boom(*a, **k):
+        raise AssertionError("mutation battery must not run for a disqualified spec")
+
+    monkeypatch.setattr(rn, "check_tlc", fake_check_tlc)
+    monkeypatch.setattr("harness.mutation.run_mutation_on_module", _boom)
+
+    rec = {"source": "data/raw/T/Counter.tla", "module": "Counter", "tier": "tier1_sany_cfg"}
+    row = wf._run_one_adequacy(tmp_path / "raw", rec, timeout=30)
+
+    assert row["mutation_skipped_disqualified"] is True
+    assert row["safety_catch_rate"] is None
+    assert row["distinct_states"] == 2
+    assert row["quality_gold"] is False
+
+
+def test_run_one_adequacy_runs_mutation_when_qualified(monkeypatch, tmp_path):
+    """Non-vacuous, non-thin specs must still run the mutation battery (no
+    regression from the gate-ordering skip)."""
+    d = tmp_path / "raw" / "Q"
+    d.mkdir(parents=True)
+    (d / "Counter.tla").write_text(_ADEQ_SPEC)
+    (d / "Counter.cfg").write_text(_ADEQ_CFG)
+
+    from harness import runner as rn
+
+    def fake_check_tlc(mod, cfg_text, workdir, timeout, extra_flags=(), jvm_flags=()):
+        return "pass", [], "10 distinct states found", 0.1
+
+    called = {}
+
+    def fake_mutation(*a, **k):
+        called["ran"] = True
+        return {"safety_catch_rate": 0.9, "kill_rate": 0.9, "attempted": 2,
+                "safety_killed": 2, "mutants": []}
+
+    monkeypatch.setattr(rn, "check_tlc", fake_check_tlc)
+    monkeypatch.setattr("harness.mutation.run_mutation_on_module", fake_mutation)
+
+    rec = {"source": "data/raw/Q/Counter.tla", "module": "Counter", "tier": "tier1_sany_cfg"}
+    row = wf._run_one_adequacy(tmp_path / "raw", rec, timeout=30)
+
+    assert called.get("ran") is True
+    assert row["mutation_skipped_disqualified"] is False
+    assert row["safety_catch_rate"] == 0.9
+    assert row["quality_gold"] is True
+
+
+def test_run_one_adequacy_workdir_unique_under_same_module_name_collision(tmp_path):
+    """Two different spec directories both declaring `MODULE Foo` must not
+    cross-talk: each _run_one_adequacy call gets its own private tempdir, so
+    running them "concurrently" (here: interleaved in-process) can't have one
+    call's Foo.tla/Foo.cfg leak into the other's workdir."""
+    raw = tmp_path / "raw"
+    d1 = raw / "proj1"
+    d2 = raw / "proj2"
+    d1.mkdir(parents=True)
+    d2.mkdir(parents=True)
+
+    spec1 = _ADEQ_SPEC.replace("Counter", "Foo")
+    spec2 = spec1.replace("x = 0", "x = 0  \\* proj2 variant")
+    (d1 / "Foo.tla").write_text(spec1)
+    (d1 / "Foo.cfg").write_text(_ADEQ_CFG)
+    (d2 / "Foo.tla").write_text(spec2)
+    (d2 / "Foo.cfg").write_text(_ADEQ_CFG)
+
+    rec1 = {"source": "data/raw/proj1/Foo.tla", "module": "Foo", "tier": "tier1_sany_cfg"}
+    rec2 = {"source": "data/raw/proj2/Foo.tla", "module": "Foo", "tier": "tier1_sany_cfg"}
+
+    row1 = wf._run_one_adequacy(raw, rec1, timeout=30)
+    row2 = wf._run_one_adequacy(raw, rec2, timeout=30)
+
+    # Both ran to completion against their OWN source directory's Foo.tla/.cfg
+    # (comment-only difference, so both still report the same real state count)
+    # -- proving neither read/wrote the other's temp workdir.
+    assert row1["source"] == "data/raw/proj1/Foo.tla"
+    assert row2["source"] == "data/raw/proj2/Foo.tla"
+    assert row1["distinct_states"] is not None
+    assert row2["distinct_states"] is not None
+
+    # Confirm the raw tree itself was never mutated by _run_one_adequacy (both
+    # source files are untouched, proving each call worked in an isolated copy).
+    assert (d1 / "Foo.tla").read_text() == spec1
+    assert (d2 / "Foo.tla").read_text() == spec2
+    assert not (d1 / "states").exists()
+    assert not (d2 / "states").exists()
