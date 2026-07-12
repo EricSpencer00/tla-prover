@@ -1,0 +1,108 @@
+---- MODULE MCBakery ----
+EXTENDS Naturals, FiniteSets, TLC
+
+CONSTANT N, MaxNat
+
+Nat == 0 .. MaxNat
+
+VARIABLES PC, Ticket, Wait, CS, TypeOK
+
+(*--------------------------------------------------------------------
+  Types
+--------------------------------------------------------------------*)
+PCType == {"Non-Empty","Choose","Set","Try", "CS", "Return"}
+ChoiceType == {"None", "Ticket", "Wait"}
+
+(*--------------------------------------------------------------------
+  Initial state
+--------------------------------------------------------------------*)
+Init ==
+  /\ PC = [i \in 1..N |-> "Non-Empty"]
+  /\ Ticket = [i \in 1..N |-> 0]
+  /\ Wait   = [i \in 1..N |-> 0]
+  /\ CS     = {}
+  /\ TypeOK = TRUE
+
+(*--------------------------------------------------------------------
+  Mutual exclusion invariant
+--------------------------------------------------------------------*)
+MutualExclusion ==
+  Cardinality(CS) <= 1
+
+(*--------------------------------------------------------------------
+  Type correctness invariant
+--------------------------------------------------------------------*)
+TypeOK ==
+  /\ \A i \in 1..N : PC[i] \in PCType
+  /\ \A i \in 1..N : Ticket[i] \in Nat
+  /\ \A i \in 1..N : Wait[i]   \in Nat
+  /\ CS \subseteq 1..N
+
+(*--------------------------------------------------------------------
+  Full inductive invariant (used as the inductive spec)
+--------------------------------------------------------------------*)
+Inv ==
+  /\ MutualExclusion
+  /\ TypeOK
+  /\ \A i \in 1..N : Ticket[i] <= MaxNat
+
+(*--------------------------------------------------------------------
+  Actions for each process
+--------------------------------------------------------------------*)
+Choose(i) ==
+  /\ PC[i] = "Non-Empty"
+  /\ Ticket' = [Ticket EXCEPT ![i] = MaxNat]
+  /\ Wait'   = [Wait   EXCEPT ![i] = Ticket[i]]
+  /\ PC'     = [PC     EXCEPT ![i] = "Choose"]
+  /\ UNCHANGED << CS >>
+
+Set(i) ==
+  /\ PC[i] = "Choose"
+  /\ Ticket' = [Ticket EXCEPT ![i] = Wait[i]]
+  /\ PC'     = [PC     EXCEPT ![i] = "Set"]
+  /\ UNCHANGED << CS, Wait >>
+
+Try(i) ==
+  /\ PC[i] = "Set"
+  /\ Ticket[i] > 0
+  /\ \A j \in 1..N : (Ticket[j] < Ticket[i]) \/ (Ticket[j] = Ticket[i] /\ j <= i)
+  /\ PC' = [PC EXCEPT ![i] = "Try"]
+  /\ UNCHANGED << Ticket, Wait, CS >>
+
+EnterCS(i) ==
+  /\ PC[i] = "Try"
+  /\ Ticket[i] > 0
+  /\ \A j \in 1..N : (Ticket[j] < Ticket[i]) \/ (Ticket[j] = Ticket[i] /\ j <= i)
+  /\ PC'     = [PC EXCEPT ![i] = "CS"]
+  /\ CS'     = CS \cup {i}
+  /\ UNCHANGED << Ticket, Wait >>
+
+Exit(i) ==
+  /\ PC[i] = "CS"
+  /\ PC' = [PC EXCEPT ![i] = "Return"]
+  /\ CS' = CS \ {i}
+  /\ UNCHANGED << Ticket, Wait >>
+
+Return(i) ==
+  /\ PC[i] = "Return"
+  /\ Ticket' = [Ticket EXCEPT ![i] = 0]
+  /\ Wait'   = [Wait   EXCEPT ![i] = 0]
+  /\ PC'     = [PC     EXCEPT ![i] = "Non-Empty"]
+  /\ UNCHANGED CS
+
+Next ==
+  \E i \in 1..N :
+    \/ Choose(i)
+    \/ Set(i)
+    \/ Try(i)
+    \/ EnterCS(i)
+    \/ Exit(i)
+    \/ Return(i)
+
+(*--------------------------------------------------------------------
+  Specification (inductive spec)
+--------------------------------------------------------------------*)
+ISpec ==
+  Init /\ [][Next]_<<PC, Ticket, Wait, CS, TypeOK>>
+
+END MODULE MCBakery

@@ -1,0 +1,346 @@
+```tla
+---- MODULE cbc_max ----
+EXTENDS Naturals, FiniteSets, Sequences, TLC
+
+CONSTANTS N, T, F, Values, Bottom
+
+\* ----------------------------------------------------------------------
+\* Derived constants
+\* ----------------------------------------------------------------------
+VARIABLES
+    loc,          \* control location of each process
+    view,         \* N-by-N matrix of values known to each process
+    est,          \* estimated value of each process
+    dec,          \* decision value of each process
+    crashed,      \* set of crashed processes
+    sent,         \* set of messages that have been sent
+    recv          \* mapping from process to set of received messages
+
+\* ----------------------------------------------------------------------
+\* Types
+\* ----------------------------------------------------------------------
+Locs == {"B1", "W1", "P", "B2", "W2", "C", "Done", "Crashed"}
+
+MsgType == {"P1", "P2"}
+
+Msg == [type: MsgType, val: Values \cup {Bottom}, est: Values \cup {Bottom}, from: 1..N]
+
+\* ----------------------------------------------------------------------
+\* Initial state
+\* ----------------------------------------------------------------------
+Init ==
+    /\ loc = [i \in 1..N |-> "B1"]
+    /\ view = [i \in 1..N |-> [j \in 1..N |-> Bottom]]
+    /\ est = [i \in 1..N |-> Bottom]
+    /\ dec = [i \in 1..N |-> Bottom]
+    /\ crashed = {}
+    /\ sent = {}
+    /\ recv = [i \in 1..N |-> {}]
+    /\ \A i \in 1..N: dec[i] = Bottom
+
+\* ----------------------------------------------------------------------
+\* Helper definitions
+\* ----------------------------------------------------------------------
+Phase1Msg(i, v) == [type |-> "P1", val |-> v, est |-> Bottom, from |-> i]
+Phase2Msg(i, v, e) == [type |-> "P2", val |-> v, est |-> e, from |-> i]
+
+\* ----------------------------------------------------------------------
+\* Actions
+\* ----------------------------------------------------------------------
+BroadcastP1(i) ==
+    /\ loc[i] = "B1"
+    /\ \E v \in Values: \E \A j \in 1..N: dec[j] = Bottom
+    /\ sent' = sent \cup {Phase1Msg(i, dec[i])}
+    /\ loc' = [loc EXCEPT ![i] = "W1"]
+    /\ UNCHANGED << view, est, dec, crashed, recv >>
+
+ReceiveP1(i, m) ==
+    /\ loc[i] = "W1"
+    /\ m \in sent
+    /\ m.type = "P1"
+    /\ m.from \notin crashed
+    /\ view' = [view EXCEPT ![i][m.from] = m.val]
+    /\ UNCHANGED << loc, est, dec, crashed, sent, recv >>
+
+ComputeEst(i) ==
+    /\ loc[i] = "W1"
+    /\ \E msgs \in { m \in sent : m.type = "P1" /\ m.from \in 1..N } :
+          \A m \in msgs : m.from \in 1..N
+    /\ \E msgs \in { m \in sent : m.type = "P1" /\ m.from \in 1..N } :
+          \A m \in msgs : m.from \in 1..N
+    /\ \E msgs \in { m \in sent : m.type = "P1" /\ m.from \in 1..N } :
+          \A m \in msgs : m.from \in 1..N
+    /\ \E msgs \in { m \in sent : m.type = "P1" /\ m.from \in 1..N } :
+          \A m \in msgs : m.from \in 1..N
+    /\ \E msgs \in { m \in sent : m.type = "P1" /\ m.from \in 1..N } :
+          \A m \in msgs : m.from \in 1..N
+    /\ \E msgs \in { m \in sent : m.type = "P1" /\ m.from \in 1..N } :
+          \A m \in msgs : m.from \in 1..N
+    /\ \E msgs \in { m \in sent : m.type = "P1" /\ m.from \in 1..N } :
+          \A m \in msgs : m.from \in 1..N
+    /\ \E msgs \in { m \in sent : m.type = "P1" /\ m.from \in 1..N } :
+          \A m \in msgs : m.from \in 1..N
+    /\ \E msgs \in { m \in sent : m.type = "P1" /\ m.from \in 1..N } :
+          \A m \in msgs : m.from \in 1..N
+    /\ \E msgs \in { m \in sent : m.type = "P1" /\ m.from \in 1..N } :
+          \A m \in msgs : m.from \in 1..N
+    /\ \E msgs \in { m \in sent : m.type = "P1" /\ m.from \in 1..N } :
+          \A m \in msgs : m.from \in 1..N
+    /\ \E msgs \in { m \in sent : m.type = "P1" /\ m.from \in 1..N } :
+          \A m \in msgs : m.from \in 1..N
+    /\ \E msgs \in { m \in sent : m.type = "P1" /\ m.from \in 1..N } :
+          \A m \in msgs : m.from \in 1..N
+    /\ est' = [est EXCEPT ![i] = Max({ view[i][j] : j \in 1..N })]
+    /\ loc' = [loc EXCEPT ![i] = "B2"]
+    /\ UNCHANGED << view, dec, crashed, sent, recv >>
+
+BroadcastP2(i) ==
+    /\ loc[i] = "B2"
+    /\ sent' = sent \cup {Phase2Msg(i, dec[i], est[i])}
+    /\ loc' = [loc EXCEPT ![i] = "W2"]
+    /\ UNCHANGED << view, est, dec, crashed, recv >>
+
+ReceiveP2(i, m) ==
+    /\ loc[i] = "W2"
+    /\ m \in sent
+    /\ m.type = "P2"
+    /\ m.from \notin crashed
+    /\ recv' = [recv EXCEPT ![i] = recv[i] \cup {m}]
+    /\ UNCHANGED << loc, view, est, dec, crashed, sent >>
+
+DecideP2(i, v) ==
+    /\ loc[i] = "W2"
+    /\ \E msgs \in recv[i] : msgs.type = "P2"
+    /\ \E v \in Values : \A m \in recv[i] : m.type = "P2" => m.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \E msgs \in recv[i] : msgs.type = "P2" => msgs.est = v
+    /\ \

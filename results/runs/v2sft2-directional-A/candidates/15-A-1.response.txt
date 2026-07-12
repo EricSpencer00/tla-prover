@@ -1,0 +1,26 @@
+```tla
+---- MODULE bcastByz ----
+EXTENDS Naturals, FiniteSets
+
+CONSTANTS N, T, F
+
+(* ----------------------------------------------------------------------
+   Type definitions
+   ---------------------------------------------------------------------- *)
+Process == 1..N
+Msg == { <<s, "ECHO">> : s \in Process }
+
+(* Derived from state variables *)
+Sent(p) == { <<q, "ECHO">> : q \in p }
+
+VARIABLES correct, echoSent, recv, accepted, initRecvd
+
+(* ----------------------------------------------------------------------
+   Initial state
+   ---------------------------------------------------------------------- *)
+Init ==
+  /\ correct \in { S \subseteq Process : Cardinality(S) = N - F }
+  /\ initRecvd \in Subset(correct)
+  /\ echoSent = initRecvd
+  /\ accepted = initRecvd
+  /\ recv =

@@ -1,0 +1,80 @@
+```tla
+---- MODULE EPFailureDetector ----
+EXTENDS Naturals, FiniteSets, TLC
+
+CONSTANTS Proc, d0, SendPoint, PredictPoint, Messages
+
+VARIABLES Susp, TOut, LH, Clock, OutMsg
+
+(* Type invariant *)
+TypeOK ==
+    /\ Susp \in [Proc -> SUBSET Proc]
+    /\ TOut \in [Proc -> [Proc \ {p} -> Nat]]
+    /\ LH \in [Proc -> [Proc \ {p} -> Nat]]
+    /\ Clock \in [Proc -> Nat]
+    /\ OutMsg \in [Proc -> SUBSET Messages]
+    /\ \A p \in Proc: \A q \in Proc \ {p}: LH[p][q] <= TOut[p][q]
+
+(* Initial state *)
+Init ==
+    /\ Susp   = [p \in Proc |-> {}]
+    /\ TOut   = [p \in Proc |-> [q \in Proc \ {p} |-> d0]]
+    /\ LH     = [p \in Proc |-> [q \in Proc \ {p} |-> 0]]
+    /\ Clock  = [p \in Proc |-> 0]
+    /\ OutMsg = [p \in Proc |-> {}]
+
+(* Derived constants *)
+MaxTimeout(p) == MAX_{q \in Proc \ {p}} TOut[p][q]
+MaxThreshold(p) == MAX(SendPoint, PredictPoint, MaxTimeout(p))
+
+(* Send alive *)
+SendAlive(p) ==
+    /\ Clock[p] % SendPoint = 0
+    /\ Clock[p] % PredictPoint # 0
+    /\ LET msgs == { [From |-> p, To |-> q, Type |-> "Alive"] : q \in Proc \ {p} } IN
+       /\ OutMsg' = [OutMsg EXCEPT ![p] = OutMsg[p] \cup msgs]
+       /\ Susp'   = Susp
+       /\ TOut'   = TOut
+       /\ LET lh' == [q \in Proc \ {p} |
+                        IF LH[p][q] < TOut[p][q] THEN LH[p][q] + 1
+                        ELSE LH[p][q]] IN
+           LH'   = [LH EXCEPT ![p] = lh']
+       /\ Clock' = [Clock EXCEPT ![p] = IF Clock[p] + 1 > MaxThreshold(p) THEN 0 ELSE Clock[p] + 1]
+       /\ UNCHANGED << Susp, TOut, LH, OutMsg, Clock >> except for p updates
+
+(* Predict *)
+Predict(p) ==
+    /\ Clock[p] % PredictPoint = 0
+    /\ Clock[p] % SendPoint # 0
+    /\ LET newSusp == Susp[p] \cup { q \in Proc \ {p} : LH[p][q] >= TOut[p][q] } IN
+       /\ Susp'   = [Susp EXCEPT ![p] = newSusp]
+       /\ TOut'   = TOut
+       /\ LET lh' == [q \in Proc \ {p} |
+                        IF LH[p][q] < TOut[p][q] THEN LH[p][q] + 1
+                        ELSE LH[p][q]] IN
+           LH'   = [LH EXCEPT ![p] = lh']
+       /\ Clock' = [Clock EXCEPT ![p] = IF Clock[p] + 1 > MaxThreshold(p) THEN 0 ELSE Clock[p] + 1]
+       /\ OutMsg' = OutMsg
+       /\ UNCHANGED << Susp, TOut, LH, Clock >> except for p updates
+
+(* Receive *)
+Receive(p) ==
+    /\ Clock[p] % SendPoint # 0
+    /\ Clock[p] % PredictPoint # 0
+    /\ LET
+         incoming == { m \in Union_{q \in Proc \ {p}} OutMsg[q] : m.To = p }
+       IN
+    \E recv \in SUBSET incoming :
+        /\ LET
+              sendersSet == { m.From : m \in recv }
+              oldSusp   == Susp[p]
+              newSusp   == oldSusp \ sendersSet
+              newLH     == [q \in Proc \ {p} | IF q \in sendersSet THEN 0 ELSE LH[p][q] ]
+              newTOut   == [q \in Proc \ {p} |
+                              IF q \in sendersSet /\ q \in oldSusp THEN TOut[p][q] + 1
+                              ELSE TOut[p][q] ]
+              newOutMsg == [q \in Proc \ {p} |
+                              IF q \in sendersSet THEN OutMsg[q] \ recv
+                              ELSE OutMsg[q] ]
+           IN
+              /\ Susp'   = [Susp EX
