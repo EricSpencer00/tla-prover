@@ -1,12 +1,15 @@
 {
   "survivor_family_counts": {
-    "mutex_locks": 50,
-    "counters_registers": 29,
-    "queues_buffers": 6,
-    "other": 15,
-    "commit_protocols": 3,
-    "network_channels": 7,
-    "consensus": 1
+    "mutex_locks": 91,
+    "counters_registers": 47,
+    "queues_buffers": 28,
+    "network_channels": 23,
+    "other": 50,
+    "replication_storage": 1,
+    "commit_protocols": 10,
+    "caches_memory": 3,
+    "consensus": 6,
+    "clocks_time": 1
   },
   "holdout_family_counts": {
     "mutex_locks": 9,
@@ -18,6 +21,7 @@
     "queues_buffers": 1
   },
   "family_overlap": [
+    "clocks_time",
     "consensus",
     "counters_registers",
     "mutex_locks",
