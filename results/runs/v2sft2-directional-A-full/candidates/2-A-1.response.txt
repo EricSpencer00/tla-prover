@@ -1,0 +1,136 @@
+---- MODULE ACP_NB ----
+EXTENDS Naturals, FiniteSets, Sequences
+
+CONSTANTS participants, yes, no, undecided, commit, abort, waiting, notsent
+
+VARIABLES vote,
+          voteSent,
+          coordinatorVote,
+          coordinatorBroadcast,
+          participantDecision,
+          forwarding,
+          coordinatorAlive,
+          coordinatorFaulty,
+          faulty,
+          alive
+
+(* Internal constant for the coordinator identifier *)
+COORDINATOR == "coordinator"
+
+(* Type invariant for the module *)
+TypeInvNB == 
+    /\ vote \in [participants -> {yes, no}]
+    /\ voteSent \in [participants -> BOOLEAN]
+    /\ coordinatorVote \in [participants -> {"notsent", yes, no}]
+    /\ coordinatorBroadcast \in {"none", commit, abort}
+    /\ participantDecision \in [participants -> {commit, abort, undecided}]
+    /\ forwarding \in [participants -> [participants -> {"notsent", commit, abort}]]
+    /\ coordinatorAlive \in BOOLEAN
+    /\ coordinatorFaulty \in BOOLEAN
+    /\ faulty \in [participants \cup {COORDINATOR} -> BOOLEAN]
+    /\ alive \in [participants \cup {COORDINATOR} -> BOOLEAN]
+    /\ \A a \in participants \cup {COORDINATOR} :
+           ( faulty[a] = TRUE => alive[a] = FALSE )
+    /\ ( coordinatorFaulty = TRUE => coordinatorAlive = FALSE )
+    /\ \A p \in participants : voteSent[p] = TRUE => coordinatorVote[p] \in {yes, no}
+    /\ \A p \in participants : participantDecision[p] \in {commit, abort, undecided}
+    /\ \A p,q \in participants : forwarding[p][q] \in {"notsent", commit, abort}
+
+(* Initial state *)
+Init == 
+    /\ vote = [p \in participants |-> CHOOSE v \in {yes, no} : v]
+    /\ voteSent = [p \in participants |-> FALSE]
+    /\ coordinatorVote = [p \in participants |-> "notsent"]
+    /\ coordinatorBroadcast = "none"
+    /\ participantDecision = [p \in participants |-> undecided]
+    /\ forwarding = [p \in participants |-> [q \in participants |-> "notsent"]]
+    /\ coordinatorAlive = TRUE
+    /\ coordinatorFaulty = FALSE
+    /\ faulty = [a \in participants \cup {COORDINATOR} |-> FALSE]
+    /\ alive = [a \in participants \cup {COORDINATOR} |-> TRUE]
+
+(* Participant sends a vote to the coordinator *)
+ParticipantSendVote(p) == 
+    /\ p \in participants
+    /\ alive[p] /\ ~faulty[p]
+    /\ ~voteSent[p]
+    /\ voteSent' = [voteSent EXCEPT ![p] = TRUE]
+    /\ coordinatorVote' = [coordinatorVote EXCEPT ![p] = vote[p]]
+    /\ UNCHANGED <<vote, coordinatorAlive, coordinatorFaulty, coordinatorBroadcast,
+                   participantDecision, forwarding, faulty, alive>>
+
+(* Coordinator collects all votes and makes a decision *)
+CoordinatorCollectVotes ==
+    /\ coordinatorAlive /\ ~coordinatorFaulty
+    /\ \A p \in participants : coordinatorVote[p] \in {yes, no}
+    /\ LET allYes == \A p \in participants : coordinatorVote[p] = yes
+          decision == IF allYes /\ \A p \in participants : alive[p]
+                      THEN commit
+                      ELSE abort
+       IN coordinatorBroadcast' = decision
+          /\ UNCHANGED <<vote, voteSent, coordinatorVote, participantDecision,
+                        forwarding, coordinatorAlive, coordinatorFaulty, faulty, alive>>
+
+(* Coordinator crashes *)
+CoordinatorDie ==
+    /\ coordinatorAlive
+    /\ coordinatorAlive' = FALSE
+    /\ coordinatorFaulty' = TRUE
+    /\ UNCHANGED <<vote, voteSent, coordinatorVote, coordinatorBroadcast,
+                   participantDecision, forwarding, faulty, alive>>
+
+(* Participant pre‑decides from the coordinator’s broadcast *)
+ParticipantPreDecideFromCoordinator(p) ==
+    /\ p \in participants
+    /\ alive[p] /\ ~faulty[p]
+    /\ forwarding[p][p] = "notsent"
+    /\ coordinatorBroadcast \in {commit, abort}
+    /\ forwarding' = [forwarding EXCEPT ![p][p] = coordinatorBroadcast]
+    /\ UNCHANGED <<vote, voteSent, coordinatorVote, coordinatorBroadcast,
+                   participantDecision, coordinatorAlive, coordinatorFaulty, faulty, alive>>
+
+(* Participant pre‑decides from another participant’s forwarding *)
+ParticipantPreDecideFromForwarding(p) ==
+    /\ p \in participants
+    /\ alive[p] /\ ~faulty[p]
+    /\ forwarding[p][p] = "notsent"
+    /\ \E q \in participants : (q # p) /\ forwarding[q][p] \in {commit, abort}
+    /\ forwarding' = [forwarding EXCEPT ![p][p] = CHOOSE q \in participants :
+                                (q # p) /\ forwarding[q][p] \in {commit, abort}]
+    /\ UNCHANGED <<vote, voteSent, coordinatorVote, coordinatorBroadcast,
+                   participantDecision, coordinatorAlive, coordinatorFaulty, faulty, alive>>
+
+(* Participant forwards its pre‑decided value to another participant *)
+ParticipantForward(p, q) ==
+    /\ p \in participants
+    /\ q \in participants
+    /\ p # q
+    /\ alive[p] /\ ~faulty[p]
+    /\ forwarding[p][p] \in {commit, abort}
+    /\ forwarding[p][q] = "notsent"
+    /\ forwarding' = [forwarding EXCEPT ![p][q] = forwarding[p][p]]
+    /\ UNCHANGED <<vote, voteSent, coordinatorVote, coordinatorBroadcast,
+                   participantDecision, coordinatorAlive, coordinatorFaulty,
+                   faulty, alive>>
+
+(* Participant finalizes its decision after all forwards are received *)
+ParticipantDecide(p) ==
+    /\ p \in participants
+    /\ alive[p] /\ ~faulty[p]
+    /\ participantDecision[p] = undecided
+    /\ \A q \in participants : forwarding[p][q] = forwarding[p][p]
+    /\ participantDecision' = [participantDecision EXCEPT ![p] = forwarding[p][p]]
+    /\ UNCHANGED <<vote, voteSent, coordinatorVote, coordinatorBroadcast,
+                   forwarding, coordinatorAlive, coordinatorFaulty, faulty, alive>>
+
+(* Abort after timeout when no coordinator, no broadcast, and no forwarding from dead participants *)
+AbortOnTimeout(p) ==
+    /\ p \in participants
+    /\ alive[p] /\ ~faulty[p]
+    /\ participantDecision[p] = undecided
+    /\ ~coordinatorAlive
+    /\ coordinatorBroadcast = "none"
+    /\ ~(\E p2 \in participants : \E q \in participants :
+           faulty[q] /\ forwarding[q][p2] \in {commit, abort})
+    /\ participantDecision' = [participantDecision EXCEPT ![p] = abort]
+    /\ UNCHANGED <<vote, voteSent,

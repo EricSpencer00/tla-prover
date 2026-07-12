@@ -1,0 +1,134 @@
+```tla
+---- MODULE ACP_SB ----
+EXTENDS Naturals, FiniteSets
+
+CONSTANTS participants, yes, no, undecided, commit, abort, waiting, notsent
+
+VARIABLES pVote, pAlive, pFaulty, pDecision, pSentVote,
+           cAlive, cFaulty, cDecision,
+           voteReqSent, voteReceived, decisionBroadcast
+
+vars == << pVote, pAlive, pFaulty, pDecision, pSentVote,
+           cAlive, cFaulty, cDecision,
+           voteReqSent, voteReceived, decisionBroadcast >>
+
+(*-----------------------------------------------------------------*)
+(* Type invariant *)
+TypeInv ==
+  /\ pVote \in [participants -> {yes, no}]
+  /\ pAlive \in [participants -> BOOLEAN]
+  /\ pFaulty \in [participants -> BOOLEAN]
+  /\ pDecision \in [participants -> {undecided, commit, abort}]
+  /\ pSentVote \in [participants -> BOOLEAN]
+  /\ cAlive \in BOOLEAN
+  /\ cFaulty \in BOOLEAN
+  /\ cDecision \in {undecided, commit, abort}
+  /\ voteReqSent \in [participants -> BOOLEAN]
+  /\ voteReceived \in [participants -> {waiting, yes, no}]
+  /\ decisionBroadcast \in [participants -> {notsent, commit, abort}]
+  /\ \A p \in participants : (pAlive[p] => ~pFaulty[p])
+  /\ cAlive => ~cFaulty
+
+(*-----------------------------------------------------------------*)
+(* Initial state *)
+Init ==
+  /\ pVote \in [participants -> {yes, no}]
+  /\ pAlive = [p \in participants |-> TRUE]
+  /\ pFaulty = [p \in participants |-> FALSE]
+  /\ pDecision = [p \in participants |-> undecided]
+  /\ pSentVote = [p \in participants |-> FALSE]
+  /\ cAlive = TRUE
+  /\ cFaulty = FALSE
+  /\ cDecision = undecided
+  /\ voteReqSent = [p \in participants |-> FALSE]
+  /\ voteReceived = [p \in participants |-> waiting]
+  /\ decisionBroadcast = [p \in participants |-> notsent]
+  /\ TypeInv
+
+(*-----------------------------------------------------------------*)
+(* Coordinator actions *)
+
+CoordinatorSendRequest(p) ==
+  /\ cAlive
+  /\ ~cFaulty
+  /\ ~voteReqSent[p]
+  /\ voteReqSent' = [voteReqSent EXCEPT ![p] = TRUE]
+  /\ UNCHANGED << pVote, pAlive, pFaulty, pDecision, pSentVote,
+                  cAlive, cFaulty, cDecision,
+                  voteReceived, decisionBroadcast >>
+
+CoordinatorReceiveVote(p) ==
+  /\ cAlive
+  /\ ~cFaulty
+  /\ cDecision = undecided
+  /\ voteReqSent[p]
+  /\ voteReceived[p] = waiting
+  /\ pSentVote[p]
+  /\ voteReceived' = [voteReceived EXCEPT ![p] = pVote[p]]
+  /\ UNCHANGED << pVote, pAlive, pFaulty, pDecision, pSentVote,
+                  cAlive, cFaulty, cDecision,
+                  voteReqSent, decisionBroadcast >>
+
+CoordinatorDetectFault(p) ==
+  /\ cAlive
+  /\ ~cFaulty
+  /\ cDecision = undecided
+  /\ voteReqSent[p]
+  /\ voteReceived[p] = waiting
+  /\ pFaulty[p]
+  /\ cDecision' = abort
+  /\ UNCHANGED << pVote, pAlive, pFaulty, pDecision, pSentVote,
+                  cAlive, cFaulty,
+                  voteReqSent, voteReceived, decisionBroadcast >>
+
+CoordinatorMakeDecision ==
+  /\ cAlive
+  /\ ~cFaulty
+  /\ cDecision = undecided
+  /\ \A p \in participants: voteReceived[p] \in {yes, no}
+  /\ IF \A p \in participants: voteReceived[p] = yes
+        THEN cDecision' = commit
+        ELSE cDecision' = abort
+  /\ UNCHANGED << pVote, pAlive, pFaulty, pDecision, pSentVote,
+                  cAlive, cFaulty,
+                  voteReqSent, voteReceived, decisionBroadcast >>
+
+CoordinatorBroadcastDecision(p) ==
+  /\ cAlive
+  /\ ~cFaulty
+  /\ cDecision \in {commit, abort}
+  /\ decisionBroadcast[p] = notsent
+  /\ decisionBroadcast' = [decisionBroadcast EXCEPT ![p] = cDecision]
+  /\ UNCHANGED << pVote, pAlive, pFaulty, pDecision, pSentVote,
+                  cAlive, cFaulty, cDecision,
+                  voteReqSent, voteReceived >>
+
+CoordinatorDie ==
+  /\ cAlive
+  /\ ~cFaulty
+  /\ cAlive' = FALSE
+  /\ cFaulty' = TRUE
+  /\ UNCHANGED << pVote, pAlive, pFaulty, pDecision, pSentVote,
+                  cDecision,
+                  voteReqSent, voteReceived, decisionBroadcast >>
+
+(*-----------------------------------------------------------------*)
+(* Participant actions *)
+
+ParticipantSendVote(p) ==
+  /\ pAlive[p]
+  /\ ~pFaulty[p]
+  /\ voteReqSent[p]
+  /\ ~pSentVote[p]
+  /\ pSentVote' = [pSentVote EXCEPT ![p] = TRUE]
+  /\ UNCHANGED << pVote, pAlive, pFaulty, pDecision,
+                  cAlive, cFaulty, cDecision,
+                  voteReqSent, voteReceived, decisionBroadcast >>
+
+ParticipantAbortOnVote(p) ==
+  /\ pAlive[p]
+  /\ ~pFaulty[p]
+  /\ pDecision[p] = undecided
+  /\ pSentVote[p]
+  /\ pVote[p] = no
+  /\ pDecision

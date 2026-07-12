@@ -1,0 +1,455 @@
+```tla
+---- MODULE Slush ----
+EXTENDS Naturals, FiniteSets, Sequences, TLC
+
+CONSTANTS
+    Node,                     \* set of node identifiers
+    SlushLoopProcess,         \* set of loop process identifiers
+    SlushQueryProcess,        \* set of query process identifiers
+    HostMapping,              \* set of triples (node, loop, query)
+    SlushIterationCount,      \* number of iterations each loop process must perform
+    SampleSetSize,            \* size of the random sample each loop process draws
+    PickFlipThreshold,        \* threshold of matching replies needed to flip color
+    NoColor,                  \* special value representing "uncolored"
+    NoMessage                 \* special value representing "no message"
+
+\* Derived sets
+Nodes == { n \in Node | TRUE }
+LoopProcs == { lp \in SlushLoopProcess | TRUE }
+QueryProcs == { qp \in SlushQueryProcess | TRUE }
+
+\* Colors are the two possible colors plus NoColor
+ColorSet == {"Red", "Blue"} \cup {NoColor}
+
+\* Message types
+Message == [type : {"Query", "Reply", "Terminate"},
+            src  : LoopProcs \cup QueryProcs,
+            dst  : LoopProcs \cup QueryProcs,
+            color : ColorSet]
+
+\* State variables
+VARIABLES
+    color,          \* [node -> ColorSet]
+    msgSet,         \* SUBSET Message
+    pc,             \* [proc -> {"Init", "WaitColor", "Sample", "Tally", "Terminate", "Done"}]
+    sample,         \* [lp -> SUBSET Node]
+    iter,           \* [lp -> Nat]
+    termCount       \* number of termination messages received
+
+\* Helper definitions
+HostOfLoop(lp) == [n |-> n \in Node : \E qp \in QueryProcs : (n, lp, qp) \in HostMapping]
+HostOfQuery(qp) == [n |-> n \in Node : \E lp \in LoopProcs : (n, lp, qp) \in HostMapping]
+
+\* Initial state
+Init ==
+    /\ color = [n \in Node |-> NoColor]
+    /\ msgSet = {}
+    /\ pc = [p \in LoopProcs \cup QueryProcs \cup {"Client"} |-> "Init"]
+    /\ sample = [lp \in LoopProcs |-> {}]
+    /\ iter = [lp \in LoopProcs |-> 0]
+    /\ termCount = 0
+
+\* Client assigns a random color to an uncolored node
+ClientAssign ==
+    /\ pc["Client"] = "Init"
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n] = NoColor
+    /\ \E n \in Node : color[n

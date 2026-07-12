@@ -1,0 +1,22 @@
+---- MODULE ReadersWriters ----
+EXTENDS Naturals, Sequences, FiniteSets
+
+CONSTANT NumActors
+
+VARIABLES activeReaders, activeWriters, queue
+
+Actors == 1 .. NumActors
+Mode   == {"R", "W"}
+Request == [proc : Actors, mode : Mode]
+
+(* Helper to extract the set of processes currently waiting in the queue *)
+QueueProcs(q) == { r.proc : r \in q }
+
+Init ==
+    /\ activeReaders = {}
+    /\ activeWriters = {}
+    /\ queue = <<>>
+
+RequestRead(p) ==
+    /\ p \in Actors
+    /\ p \notin activeReaders
