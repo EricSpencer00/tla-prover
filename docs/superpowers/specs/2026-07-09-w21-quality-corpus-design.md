@@ -85,6 +85,16 @@ distribution of the RFT set vs the holdout to detect collapse before the fine-tu
 (Jaccard ≥ 0.65 vs 206-corpus + holdout-30 + tlaplus/examples). Seeds are held out from any
 holdout-mapped spec. (Existing 949 already verified clean: survivor→holdout max Jaccard 0.111.)
 
+**Family-leakage guardrail — stratify + ablate, don't amputate (review fix #5).** Near-dup
+decontam (Jaccard) does NOT catch algorithm-*family* familiarity: training on many mutex /
+consensus variants can inflate Gate-2 scores on the holdout's mutex/consensus specs, so a
+"generation" win reads as novelty when it is partly memorized family style. Chosen approach
+(not full family holdout, which guts an already-small corpus): (a) family-tag both the RFT
+corpus and the holdout-30; (b) report Gate-2 **stratified** into `family-seen` vs
+`family-unseen` holdout specs, both headline; (c) run ONE ablation fine-tune with the largest
+overlapping family (likely consensus/Paxos) fully removed from training, to directly measure
+familiarity inflation. Threat to Gate-2 interpretation is named, not hidden.
+
 ## Data flow
 
 ```

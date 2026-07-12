@@ -1,0 +1,28 @@
+{
+  "survivor_family_counts": {
+    "mutex_locks": 50,
+    "counters_registers": 29,
+    "queues_buffers": 6,
+    "other": 15,
+    "commit_protocols": 3,
+    "network_channels": 7,
+    "consensus": 1
+  },
+  "holdout_family_counts": {
+    "mutex_locks": 9,
+    "other": 12,
+    "network_channels": 2,
+    "counters_registers": 3,
+    "clocks_time": 2,
+    "consensus": 1,
+    "queues_buffers": 1
+  },
+  "family_overlap": [
+    "consensus",
+    "counters_registers",
+    "mutex_locks",
+    "network_channels",
+    "other",
+    "queues_buffers"
+  ]
+}

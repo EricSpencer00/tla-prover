@@ -187,7 +187,12 @@ class OpenAICompatModel(Model):
                 self.usage["completion_tokens"] += u.get("completion_tokens", 0)
                 self.usage["requests"] += 1
                 msg = (data.get("choices") or [{}])[0].get("message") or {}
-                return msg.get("content") or ""
+                # gpt-oss harmony quirk: a checkpoint SFT'd on plain text (no
+                # harmony channel markup) emits its whole answer in the
+                # analysis channel; vLLM's reasoning parser then leaves
+                # content empty with the text in reasoning_content. Fall back
+                # so evals measure spec capability, not chat formatting.
+                return msg.get("content") or msg.get("reasoning_content") or ""
             except urllib.error.HTTPError as e:
                 body = e.read().decode(errors="replace")[:500]
                 if e.code in RETRYABLE and attempt < self.max_retries - 1:

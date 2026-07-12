@@ -43,11 +43,13 @@ tiers are follow-on passes, disclosed in the summary):
 from __future__ import annotations
 
 import argparse
+import concurrent.futures
 import json
 import os
 import re
 import shutil
 import sys
+import tempfile
 from pathlib import Path
 
 from .corpora import (
@@ -246,6 +248,239 @@ def stage_tlc(raw: Path, run_dir: Path, manifest_path: Path, limit: int | None,
     print(f"tlc chunk complete -> {out} ({n} rows)")
 
 
+# --- adequacy: W1 battery (design doc docs/superpowers/specs/2026-07-09-
+# w21-quality-corpus-design.md, Workstream 1) -----------------------------
+#
+# Re-runs PLAIN TLC (not the tier3 sweep's bounded -dfid search) over tier1/
+# tier3 on-disk spec files to re-derive distinct_states -- tier3's own
+# tlc_states_found is 0 for every row (the -dfid bounded search doesn't
+# surface it the same way), so this stage needs its own TLC pass. Then runs
+# the deterministic mutation battery (harness.mutation.run_mutation_on_module)
+# for safety_catch_rate, and the pure-text structural_features/complexity_score
+# from harness.adequacy, and gates quality_gold via harness.adequacy.quality_label.
+#
+# FIX 3 -- TLC budget. 472/779 specs came back distinct_states=null at 30s plain
+# TLC on the full sweep. A small experiment (see commit msg) compared 90s plain
+# TLC vs -dfid bounded search on 8 previously-null tier3 specs: plain-90s
+# recovers real, exact distinct-state counts on the specs that complete, while
+# -dfid under-reports (the same 0/1 undercount that made tier3's own
+# tlc_states_found useless). So we bump the plain-TLC budget to 90s and keep the
+# UNBOUNDED plain run (no -dfid) -- true counts over bounded undercounts. The
+# mutation-battery TLC runs (run_mutation_on_module) already use plain check_tlc
+# at the same timeout, so the two stay consistent.
+ADEQUACY_TLC_TIMEOUT_S = 90
+
+
+def _resolve_adequacy_source(raw: Path, rec: dict) -> Path:
+    """tier record -> on-disk tla path in the ORIGINAL raw scrape tree
+    (raw/<source-relative-to-data/raw/>), NOT the corpus copy tree.
+
+    Why raw and not corpus_dir/<tier>/<path>: stage_assemble's copy step only
+    copies each spec's own .tla plus *.cfg siblings -- it does NOT copy the
+    sibling .tla modules a spec EXTENDS/INSTANCEs. 51 of the 82 tier3 rows are
+    _MC harnesses (Paxos_MC EXTENDS PaxosPlusCal, MultiPaxos_MC EXTENDS
+    MultiPaxos, ...); resolving them from the copy tree makes SANY fail with
+    "Cannot find source file for module X" before TLC ever runs, so the whole
+    battery measured nothing on real state-machine specs. The raw tree has all
+    sibling modules co-located, which is exactly why stage_tlc/_run_one_tlc
+    already resolve against raw. Mirror that here."""
+    rel = rec["source"].removeprefix("data/raw/")
+    return raw / rel
+
+
+def _run_one_adequacy(raw: Path, rec: dict, timeout: int) -> dict:
+    """Run the W1 battery for one spec. IMPORTANT for --workers>1 safety: this
+    function must not mutate the shared raw scrape tree -- two tasks in flight
+    concurrently could otherwise race on the same source directory (e.g. write
+    each other's <mod>.cfg/<mod>.tla, or collide in TLC's -metadir "states"
+    subdir under check_tlc). Instead every call gets its own tempfile.mkdtemp
+    workdir, seeded with a copy of every sibling .tla/.cfg in the spec's source
+    directory (so EXTENDS deps still resolve, see _resolve_adequacy_source),
+    and the tempdir is removed on the way out. This also makes same-module-name
+    collisions across different spec directories impossible: each task's TLC/
+    mutation run is fully contained in its own private directory."""
+    from .runner import check_tlc, module_name
+    from .adequacy import structural_features, quality_label, complexity_score, MIN_INTERESTING_STATES
+    from .mutation import run_mutation_on_module
+
+    tla_path = _resolve_adequacy_source(raw, rec)
+    text = tla_path.read_text(errors="replace")
+    mod = module_name(text) or rec.get("module")
+    src_dir = tla_path.parent
+
+    features = structural_features(text)
+    row = {"source": rec["source"], "module": mod, "tier": rec["tier"],
+           "complexity_score": complexity_score(features), **features}
+
+    tmpdir = Path(tempfile.mkdtemp(prefix="w21_adequacy_"))
+    try:
+        for f in list(src_dir.glob("*.tla")) + list(src_dir.glob("*.cfg")):
+            shutil.copy2(f, tmpdir / f.name)
+        workdir = tmpdir
+
+        cfg_candidates = list(workdir.glob("*.cfg"))
+        cfg_file = next((c for c in cfg_candidates if c.stem == mod or c.stem == tla_path.stem), None) \
+            or (cfg_candidates[0] if cfg_candidates else None)
+
+        if cfg_file is None:
+            row.update(distinct_states=None, vacuity=[], safety_catch_rate=None,
+                       quality_gold=False, quality_fail_reasons=["no_cfg"])
+            return row
+
+        cfg_text = cfg_file.read_text(errors="replace")
+        if not (workdir / f"{mod}.cfg").exists():
+            (workdir / f"{mod}.cfg").write_text(cfg_text)
+        if not (workdir / f"{mod}.tla").exists():
+            (workdir / f"{mod}.tla").write_text(text)
+
+        status, vac, out, _ = check_tlc(mod, cfg_text, workdir, timeout)
+        distinct_states = None
+        sm = re.search(r"(\d+) distinct states found", out)
+        if sm:
+            distinct_states = int(sm.group(1))
+
+        # Gate-ordering skip (Eric-approved fix #2): a spec already disqualified
+        # from quality_gold by vacuity or a thin state model can't be rescued by
+        # the mutation battery -- quality_label below fails it regardless of
+        # safety_catch_rate. Skip the (expensive) mutation battery entirely for
+        # these ~14%-of-corpus rows; quality_label(vac, distinct_states, None)
+        # still yields "weak_mutation" in fail_reasons, so labels are unchanged.
+        disqualified = bool(vac) or (distinct_states is not None and distinct_states < MIN_INTERESTING_STATES)
+        if disqualified:
+            mut = {"kill_rate": None, "attempted": None, "safety_killed": None, "mutants": []}
+            safety_catch_rate = None
+        else:
+            mut = run_mutation_on_module(workdir / f"{mod}.tla", cfg_text, mod, timeout)
+            safety_catch_rate = mut.get("safety_catch_rate")
+
+        # Eric-directed 2026-07-09: emit BOTH the strict safety_catch_rate (NON-TypeOK,
+        # review fix #4) AND the raw kill_rate + attempted count + per-mutant violated
+        # names, so the full-corpus distribution can be inspected before the quality_gold
+        # threshold is frozen. quality_gold below is still computed on safety_catch_rate
+        # (the design star metric) -- it is an advisory label here, not the gate decision.
+        label = quality_label(vac, distinct_states, safety_catch_rate)
+        row.update(distinct_states=distinct_states, vacuity=vac,
+                   safety_catch_rate=safety_catch_rate,
+                   kill_rate=mut.get("kill_rate"),
+                   mutants_attempted=mut.get("attempted"),
+                   safety_killed=mut.get("safety_killed"),
+                   mutant_violations=[m.get("violated") for m in mut.get("mutants", [])
+                                      if m.get("killed")],
+                   quality_gold=label["quality_gold"],
+                   quality_fail_reasons=label["fail_reasons"],
+                   mutation_skipped_disqualified=disqualified)
+        return row
+    finally:
+        shutil.rmtree(tmpdir, ignore_errors=True)
+
+
+def _adequacy_worker_init():
+    """ProcessPoolExecutor initializer: keep worker processes nice-19, matching
+    the serial-path behavior (caller nices the parent in main())."""
+    try:
+        os.nice(19)
+    except PermissionError:
+        pass
+
+
+DEFAULT_ADEQUACY_WORKERS = min(4, os.cpu_count() or 1)
+
+
+def stage_adequacy(corpus_dir: Path, raw: Path, run_dir: Path, limit: int | None,
+                    timeout: int = ADEQUACY_TLC_TIMEOUT_S,
+                    workers: int = 1):
+    """Resumable W1 battery sweep over tier1_sany_cfg + tier3_tlc specs. Manifests
+    are read from corpus_dir; each spec's .tla/.cfg + EXTENDS siblings are
+    resolved from the ORIGINAL raw scrape tree (see _resolve_adequacy_source) so
+    dependency modules are present for SANY/TLC. Per-file timeout, appends to
+    run_dir/adequacy.jsonl, skipping rows already recorded (keyed by "source")
+    so a restart picks up where it left off.
+
+    workers=1 (default) runs serially in-process, nice-19'd by the caller, same
+    as before. workers>1 fans _run_one_adequacy out over a ProcessPoolExecutor
+    (each spec runs its own JVM via TLC, so this is memory-bound, not CPU-bound
+    -- keep the worker count modest). ONLY the parent process ever writes to
+    adequacy.jsonl: workers just return row dicts, so the resumable
+    append-and-flush ledger semantics are unchanged and row order across a
+    parallel run is not guaranteed to match a serial run (tests compare as
+    sets, not sequences)."""
+    rows = []
+    for fname in ("manifest_tier1_sany_cfg.jsonl", "manifest_tier3_tlc.jsonl"):
+        f = corpus_dir / fname
+        if f.exists():
+            rows += [json.loads(l) for l in open(f) if l.strip()]
+    out = run_dir / "adequacy.jsonl"
+    done = {json.loads(l)["source"] for l in open(out)} if out.exists() else set()
+    todo = [r for r in rows if r["source"] not in done]
+    if limit:
+        todo = todo[:limit]
+    print(f"adequacy: {len(done)} done, {len(todo)} this chunk, {len(rows)} total tier1+tier3 files "
+          f"(workers={workers})")
+    if workers <= 1:
+        with open(out, "a") as fh:
+            for i, rec in enumerate(todo):
+                row = _run_one_adequacy(raw, rec, timeout)
+                fh.write(json.dumps(row) + "\n")
+                fh.flush()
+                if (i + 1) % 25 == 0:
+                    print(f"  {i+1}/{len(todo)}")
+    else:
+        with open(out, "a") as fh, concurrent.futures.ProcessPoolExecutor(
+                max_workers=workers, initializer=_adequacy_worker_init) as ex:
+            futures = [ex.submit(_run_one_adequacy, raw, rec, timeout) for rec in todo]
+            for i, fut in enumerate(concurrent.futures.as_completed(futures)):
+                row = fut.result()
+                fh.write(json.dumps(row) + "\n")
+                fh.flush()
+                if (i + 1) % 25 == 0:
+                    print(f"  {i+1}/{len(todo)}")
+    n = sum(1 for _ in open(out))
+    print(f"adequacy chunk complete -> {out} ({n} rows)")
+
+
+def stage_quality_manifest(corpus_dir: Path, run_dir: Path):
+    """Join run_dir/adequacy.jsonl onto ALL 949 tier1+tier2+tier3 records (design
+    doc: "soft-labels on all 949, nothing deleted") -> corpus_dir/
+    manifest_tier_quality.jsonl. tier2 has no .cfg and never ran the adequacy
+    battery (no TLC state count, no mutation battery) -- it still gets
+    structural_features/complexity_score (pure text, always computable) but is
+    force-failed quality_gold with fail_reasons=["no_cfg_no_battery"] rather than
+    silently defaulting to pass."""
+    from .adequacy import structural_features, complexity_score
+
+    adeq_file = run_dir / "adequacy.jsonl"
+    adeq = {r["source"]: r for r in map(json.loads, open(adeq_file))} if adeq_file.exists() else {}
+
+    manifests = [("tier1_sany_cfg", "manifest_tier1_sany_cfg.jsonl"),
+                 ("tier2_sany", "manifest_tier2_sany.jsonl"),
+                 ("tier3_tlc", "manifest_tier3_tlc.jsonl")]
+    out = corpus_dir / "manifest_tier_quality.jsonl"
+    n = 0
+    with open(out, "w") as fh:
+        for tier, fname in manifests:
+            f = corpus_dir / fname
+            if not f.exists():
+                continue
+            for line in open(f):
+                if not line.strip():
+                    continue
+                rec = json.loads(line)
+                a = adeq.get(rec["source"])
+                if a is not None:
+                    row = {**rec, **{k: v for k, v in a.items() if k not in ("source", "module", "tier")}}
+                else:
+                    rel = rec["source"].removeprefix("data/raw/")
+                    text = (corpus_dir / tier / rel).read_text(errors="replace")
+                    features = structural_features(text)
+                    row = {**rec, "distinct_states": None, "vacuity": None,
+                           "safety_catch_rate": None, "quality_gold": False,
+                           "quality_fail_reasons": ["no_cfg_no_battery"],
+                           "complexity_score": complexity_score(features), **features}
+                fh.write(json.dumps(row) + "\n")
+                n += 1
+    print(f"quality_manifest: {n} rows -> {out}")
+
+
 def stage_assemble(raw: Path, run_dir: Path, corpus_dir: Path):
     dedup = {r["path"]: r for r in map(json.loads, open(run_dir / "dedup.jsonl"))}
     decon = {r["path"]: r for r in map(json.loads, open(run_dir / "decontam.jsonl"))}
@@ -304,9 +539,14 @@ def stage_assemble(raw: Path, run_dir: Path, corpus_dir: Path):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("stage", choices=["dedup", "decontam", "sany", "tlc", "assemble"])
+    ap.add_argument("stage", choices=["dedup", "decontam", "sany", "tlc", "adequacy",
+                                       "quality_manifest", "assemble"])
     ap.add_argument("--run-dir", required=True, type=Path)
-    ap.add_argument("--raw", required=True, type=Path)
+    ap.add_argument("--raw", type=Path,
+                    help="original scrape tree (raw/<path>); required for dedup/"
+                         "decontam/sany/tlc/adequacy/assemble. adequacy resolves each "
+                         "spec + its EXTENDS siblings from here (the corpus copy tree "
+                         "omits sibling deps). quality_manifest reads corpus_dir only.")
     ap.add_argument("--corpus-dir", type=Path,
                     default=Path("/Users/eric/GitHub/prove-TLA/data/chattla-corpora-v2"))
     ap.add_argument("--manifest", type=Path,
@@ -314,8 +554,14 @@ def main():
                     help="tier1 manifest to sweep (tlc stage)")
     ap.add_argument("--limit", type=int)
     ap.add_argument("--timeout", type=int, default=BOUNDED_TLC_TIMEOUT_S)
+    ap.add_argument("--workers", type=int, default=DEFAULT_ADEQUACY_WORKERS,
+                    help="process-pool workers for the adequacy stage ONLY "
+                         "(TLC is a JVM per spec, memory-bound; default "
+                         "min(4, cpu_count)); ignored by all other stages")
     a = ap.parse_args()
     a.run_dir.mkdir(parents=True, exist_ok=True)
+    if a.stage in ("dedup", "decontam", "sany", "tlc", "adequacy", "assemble") and a.raw is None:
+        ap.error(f"--raw is required for stage {a.stage!r}")
     if a.stage == "dedup":
         stage_dedup(a.raw, a.run_dir)
     elif a.stage == "decontam":
@@ -328,6 +574,16 @@ def main():
         except PermissionError:
             pass  # already at/above nice 19 (e.g. launched under `nice -n 19` externally)
         stage_tlc(a.raw, a.run_dir, a.manifest, a.limit, a.timeout)
+    elif a.stage == "adequacy":
+        try:
+            os.nice(19)
+        except PermissionError:
+            pass
+        stage_adequacy(a.corpus_dir, a.raw, a.run_dir, a.limit,
+                       a.timeout if a.timeout != BOUNDED_TLC_TIMEOUT_S else ADEQUACY_TLC_TIMEOUT_S,
+                       workers=a.workers)
+    elif a.stage == "quality_manifest":
+        stage_quality_manifest(a.corpus_dir, a.run_dir)
     else:
         stage_assemble(a.raw, a.run_dir, a.corpus_dir)
 

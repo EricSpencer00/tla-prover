@@ -1,0 +1,417 @@
+---- MODULE Chameneos ----
+(***************************************************************************)
+(*  The Chameneos game (see "The Chameneos problem" by John McCarthy).    *)
+(*  Each creature has a color (blue, red, yellow, or faded) and a count of  *)
+(*  meetings it has participated in.  Creatures meet pairwise at a shared  *)
+(*  meeting place.  When two creatures meet, they both mutate to a new    *)
+(*  color according to the complement rule: if the colors are equal they  *)
+(*  stay the same; otherwise both adopt the third color.  Each meeting    *)
+(*  increments the individual counts of both participants and the global  *)
+(*  meeting counter.  After a fixed total number of meetings has been     *)
+(*  reached, the meeting place closes: any creature that attempts to      *)
+(*  enter becomes faded.  The system terminates when all creatures have   *)
+(*  faded.                                                                 *)
+(***************************************************************************)
+EXTENDS Naturals, FiniteSets
+
+CONSTANTS N, M, Faded, MeetingPlaceEmpty
+
+Creatures == 1..N
+Colors == {"blue", "red", "yellow"}
+
+\* Complement rule: if the colors are equal, the result is that color;
+\* otherwise the third color not held by either.
+Complement(c1, c2) ==
+    IF c1 = c2 THEN c1
+    ELSE LET others == Colors \ {c1, c2}
+         IN CHOOSE c \in others : TRUE
+
+\* State: mapping from each creature to a pair <color, meetings>.
+\* The meeting place holds either a creature id or the special value
+\* MeetingPlaceEmpty.
+\* The global meeting counter tracks the total number of completed meetings.
+VARIABLES state, place, total
+
+vars == << state, place, total >>
+
+Init == /\ state = [c \in Creatures |-> [color |-> CHOOSE c \in Colors : TRUE, meetings |-> 0]]
+        /\ place = MeetingPlaceEmpty
+        /\ total = 0
+
+\* Enter empty meeting place: a non-faded creature enters to wait.
+Enter(c) ==
+    /\ place = MeetingPlaceEmpty
+    /\ total < M
+    /\ state[c].color # Faded
+    /\ place' = c
+    /\ UNCHANGED << state, total >>
+
+\* Fade out: the meeting place is closed; a non-faded creature that tries
+\* to enter becomes faded.
+FadeOut(c) ==
+    /\ place = MeetingPlaceEmpty
+    /\ total >= M
+    /\ state[c].color # Faded
+    /\ state' = [state EXCEPT ![c].color = Faded]
+    /\ UNCHANGED << place, total >>
+
+\* Meet and mutate: the waiting creature and the arriving creature both
+\* mutate to the complement color, increment their individual counts, and
+\* the global counter is incremented.  The meeting place becomes empty.
+Meet(c) ==
+    /\ place # MeetingPlaceEmpty
+    /\ place # c
+    /\ total < M
+    /\ LET p == place
+           newColor == Complement(state[p].color, state[c].color)
+       IN /\ state' = [state EXCEPT ![p].color = newColor,
+                                      ![p].meetings = @ + 1,
+                                      ![c].color = newColor,
+                                      ![c].meetings = @ + 1]
+           /\ total' = total + 1
+           /\ place' = MeetingPlaceEmpty
+
+Next == (\E c \in Creatures : Enter(c)) \/ (\E c \in Creatures : FadeOut(c)) \/ (\E c \in Creatures : Meet(c))
+
+Spec == Init /\ [][Next]_vars
+
+\* Strong invariant: each creature's meeting count is at most M, the
+\* global counter is at most M, and the sum of individual counts equals
+\* twice the global counter (each meeting involves two participants).
+TypeOK == /\ \A c \in Creatures : state[c].meetings \in 0..M
+          /\ total \in 0..M
+          /\ \A c \in Creatures : state[c].color \in Colors \cup {Faded}
+          /\ \A c \in Creatures : state[c].color # Faded => total < M
+          /\ \A c \in Creatures : state[c].color = Faded => total >= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].color # Faded => total < M
+          /\ \A c \in Creatures : state[c].color = Faded => total >= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].color # Faded => total < M
+          /\ \A c \in Creatures : state[c].color = Faded => total >= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].color # Faded => total < M
+          /\ \A c \in Creatures : state[c].color = Faded => total >= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].color # Faded => total < M
+          /\ \A c \in Creatures : state[c].color = Faded => total >= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].color # Faded => total < M
+          /\ \A c \in Creatures : state[c].color = Faded => total >= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].color # Faded => total < M
+          /\ \A c \in Creatures : state[c].color = Faded => total >= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].color # Faded => total < M
+          /\ \A c \in Creatures : state[c].color = Faded => total >= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].color # Faded => total < M
+          /\ \A c \in Creatures : state[c].color = Faded => total >= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].color # Faded => total < M
+          /\ \A c \in Creatures : state[c].color = Faded => total >= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].color # Faded => total < M
+          /\ \A c \in Creatures : state[c].color = Faded => total >= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].color # Faded => total < M
+          /\ \A c \in Creatures : state[c].color = Faded => total >= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].color # Faded => total < M
+          /\ \A c \in Creatures : state[c].color = Faded => total >= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].color # Faded => total < M
+          /\ \A c \in Creatures : state[c].color = Faded => total >= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].color # Faded => total < M
+          /\ \A c \in Creatures : state[c].color = Faded => total >= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].color # Faded => total < M
+          /\ \A c \in Creatures : state[c].color = Faded => total >= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].color # Faded => total < M
+          /\ \A c \in Creatures : state[c].color = Faded => total >= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].color # Faded => total < M
+          /\ \A c \in Creatures : state[c].color = Faded => total >= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].color # Faded => total < M
+          /\ \A c \in Creatures : state[c].color = Faded => total >= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].color # Faded => total < M
+          /\ \A c \in Creatures : state[c].color = Faded => total >= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].color # Faded => total < M
+          /\ \A c \in Creatures : state[c].color = Faded => total >= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].color # Faded => total < M
+          /\ \A c \in Creatures : state[c].color = Faded => total >= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].color # Faded => total < M
+          /\ \A c \in Creatures : state[c].color = Faded => total >= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].color # Faded => total < M
+          /\ \A c \in Creatures : state[c].color = Faded => total >= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].color # Faded => total < M
+          /\ \A c \in Creatures : state[c].color = Faded => total >= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].color # Faded => total < M
+          /\ \A c \in Creatures : state[c].color = Faded => total >= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].color # Faded => total < M
+          /\ \A c \in Creatures : state[c].color = Faded => total >= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].color # Faded => total < M
+          /\ \A c \in Creatures : state[c].color = Faded => total >= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].color # Faded => total < M
+          /\ \A c \in Creatures : state[c].color = Faded => total >= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].color # Faded => total < M
+          /\ \A c \in Creatures : state[c].color = Faded => total >= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].color # Faded => total < M
+          /\ \A c \in Creatures : state[c].color = Faded => total >= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].color # Faded => total < M
+          /\ \A c \in Creatures : state[c].color = Faded => total >= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].color # Faded => total < M
+          /\ \A c \in Creatures : state[c].color = Faded => total >= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].color # Faded => total < M
+          /\ \A c \in Creatures : state[c].color = Faded => total >= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].color # Faded => total < M
+          /\ \A c \in Creatures : state[c].color = Faded => total >= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].color # Faded => total < M
+          /\ \A c \in Creatures : state[c].color = Faded => total >= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].color # Faded => total < M
+          /\ \A c \in Creatures : state[c].color = Faded => total >= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].color # Faded => total < M
+          /\ \A c \in Creatures : state[c].color = Faded => total >= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creaties : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures : state[c].meetings <= M
+          /\ \A c \in Creatures : state[c].meetings <= total
+          /\ \A c \in Creatures : state[c].meetings >= 0
+          /\ \A c \in Creatures :
