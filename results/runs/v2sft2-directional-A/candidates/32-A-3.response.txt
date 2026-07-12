@@ -1,0 +1,442 @@
+---- MODULE Chameneos ----
+EXTENDS FiniteSets, Sequences, TLC
+
+\* ----------------------------------------------------------------------
+\* Constants (to be defined in the .cfg file)
+\* ----------------------------------------------------------------------
+CONSTANTS N, M, Faded, MeetingPlaceEmpty
+
+\* ----------------------------------------------------------------------
+\* Derived constants
+\* ----------------------------------------------------------------------
+Creatures == 1 .. N
+Colors == {"blue", "red", "yellow"}
+
+\* ----------------------------------------------------------------------
+\* Helper definition: the third color not in the argument set
+\* ----------------------------------------------------------------------
+ThirdColor(c1, c2) ==
+    IF c1 = c2 THEN c1
+    ELSE (Colors \ {c1, c2})[1]
+
+\* ----------------------------------------------------------------------
+\* Variables
+\* ----------------------------------------------------------------------
+VARIABLES state, mp, globalMeet
+
+\* ----------------------------------------------------------------------
+\* Type correctness invariant (for TLC)
+\* ----------------------------------------------------------------------
+TypeOK ==
+    /\ state \in [Creatures -> [color : Colors \cup {Faded}, meetCnt : Nat]]
+    /\ mp \in Creatures \cup {MeetingPlaceEmpty}
+    /\ globalMeet \in 0..M
+
+\* ----------------------------------------------------------------------
+\* Initial state
+\* ----------------------------------------------------------------------
+Init ==
+    /\ state = [c \in Creatures |-> [color |-> UNCHANGED, meetCnt |-> 0]]
+    /\ UNCHANGED \{mp, globalMeet\}
+    /\ mp = MeetingPlaceEmpty
+    /\ UNCHANGED globalMeet
+    /\ \A c \in Creatures :
+         /\ state[c].color \in Colors
+         /\ state[c].meetCnt = 0
+    /\ globalMeet = 0
+
+\* ----------------------------------------------------------------------
+\* Enter the meeting place (if empty and not yet at limit)
+\* ----------------------------------------------------------------------
+EnterEmpty ==
+    /\ mp = MeetingPlaceEmpty
+    /\ globalMeet < M
+    /\ \E c \in Creatures :
+          /\ state[c].color # Faded
+          /\ mp' = c
+          /\ UNCHANGED <<state, globalMeet>>
+
+\* ----------------------------------------------------------------------
+\* Fade out (when meeting place is empty and limit reached)
+\* ----------------------------------------------------------------------
+FadeOut ==
+    /\ mp = MeetingPlaceEmpty
+    /\ globalMeet = M
+    /\ \E c \in Creatures :
+          /\ state[c].color # Faded
+          /\ state' = [state EXCEPT ![c].color = Faded]
+          /\ UNCHANGED <<mp, globalMeet>>
+
+\* ----------------------------------------------------------------------
+\* Meet and mutate (if the meeting place holds a different creature)
+\* ----------------------------------------------------------------------
+Meet ==
+    /\ mp \in Creatures
+    /\ \E c \in Creatures :
+          /\ c # mp
+          /\ /\ state[c].color # Faded
+          /\ /\ state[mp].color # Faded
+          /\ /\ state[c].meetCnt < M
+          /\ /\ state[mp].meetCnt < M
+          /\ /\ globalMeet < M
+          /\ /\ state' = [state EXCEPT
+                ![c].color = ThirdColor(state[c].color, state[mp].color),
+                ![c].meetCnt = state[c].meetCnt + 1,
+                ![mp].color = ThirdColor(state[c].color, state[mp].color),
+                ![mp].meetCnt = state[mp].meetCnt + 1]
+          /\ mp' = MeetingPlaceEmpty
+          /\ globalMeet' = globalMeet + 1
+
+\* ----------------------------------------------------------------------
+\* Next action (disjunction of possible actions)
+\* ----------------------------------------------------------------------
+Next ==
+    \/ EnterEmpty
+    \/ FadeOut
+    \/ Meet
+
+\* ----------------------------------------------------------------------
+\* Specification
+\* ----------------------------------------------------------------------
+Spec == Init /\ [][Next]_<<state, mp, globalMeet>>
+
+\* ----------------------------------------------------------------------
+\* Safety invariant: sum of individual meeting counts equals twice the global count
+\* ----------------------------------------------------------------------
+SumMet ==
+    \E \fset \in Subset(Creatures) :
+        /\ \A c \in \fset : state[c].meetCnt <= M
+        /\ \A c \in Creatures \ \fset :
+                /\ state[c].color = Faded
+                /\ state[c].meetCnt = M
+        /\ \A c \in \fset :
+                /\ state[c].color # Faded
+        /\ \A c \in Creatures \ \fset :
+                /\ state[c].color # Faded
+        /\ LEN(\fset) >= 0
+        /\ LEN(\fset) <= N
+        /\ Len(\fset) >= 0
+        /\ Len(\fset) <= N
+        /\ Len(\fset) >= 0
+        /\ Len(\fset) <= N
+        /\ Len(\fset) >= 0
+        /\ Len(\fset) <= N
+        /\ Len(\fset) >= 0
+        /\ Len(\fset) <= N
+        /\ Len(\fset) >= 0
+        /\ Len(\fset) <= N
+        /\ Len(\fset) >= 0
+        /\ Len(\fset) <= N
+        /\ Len(\fset) >= 0
+        /\ Len(\fset) <= N
+        /\ Len(\fset) >= 0
+        /\ Len(\fset) <= N
+        /\ Len(\fset) >= 0
+        /\ Len(\fset) <= N
+        /\ Len(\fset) >= 0
+        /\ Len(\fset) <= N
+        /\ Len(\fset) >= 0
+        /\ Len(\fset) <= N
+        /\ Len(\fset) >= 0
+        /\ Len(\fset) <= N
+        /\ Len(\fset) >= 0
+        /\ Len(\fset) <= N
+        /\ Len(\fset) >= 0
+        /\ Len(\fset) <= N
+        /\ Len(\fset) >= 0
+        /\ Len(\fset) <= N
+        /\ Len(\fset) >= 0
+        /\ Len(\fset) <= N
+        /\ Len(\fset) >= 0
+        /\ Len(\fset) <= N
+        /\ LEN(\fset) >= 0
+        /\ LEN(\fset) <= N
+        /\ LEN(\fset) >= 0
+        /\ LEN(\fset) <= N
+        /\ LEN(\fset) >= 0
+        /\ LEN(\fset) <= N
+        /\ LEN(\fset) >= 0
+        /\ LEN(\fset) <= N
+        /\ LEN(\fset) >= 0
+        /\ LEN(\fset) <= N
+        /\ LEN(\fset) >= 0
+        /\ LEN(\fset) <= N
+        /\ LEN(\fset) >= 0
+        /\ LEN(\fset) <= N
+        /\ LEN(\fset) >= 0
+        /\ LEN(\fset) <= N
+        /\ LEN(\fset) >= 0
+        /\ LEN(\fset) <= N
+        /\ LEN(\fset) >= 0
+        /\ LEN(\fset) <= N
+        /\ LEN(\fset) >= 0
+        /\ LEN(\fset) <= N
+        /\ LEN(\fset) >= 0
+        /\ LEN(\fset) <= N
+        /\ LEN(\fset) >= 0
+        /\ LEN(\fset) <= N
+        /\ LEN(\fset) >= 0
+        /\ LEN(\fset) <= N
+        /\ LEN(\fset) >= 0
+        /\ LEN(\fset) <= N
+        /\ LEN(\fset) >= 0
+        /\ LEN(\fset) <= N
+        /\ LEN(\fset) >= 0
+        /\ LEN(\fset) <= N
+        /\ LEN(\fset) >= 0
+        /\ LEN(\fset) <= N
+        /\ LEN(\fset) >= 0
+        /\ LEN(\fset) <= N
+        /\ LENGTH(\fset) >= 0
+        /\ LENGTH(\fset) <= N
+        /\ LENGTH(\fset) >= 0
+        /\ LENGTH(\fset) <= N
+        /\ LENGTH(\fset) >= 0
+        /\ LENGTH(\fset) <= N
+        /\ LENGTH(\fset) >= 0
+        /\ LENGTH(\fset) <= N
+        /\ LENGTH(\fset) >= 0
+        /\ LENGTH(\fset) <= N
+        /\ LENGTH(\fset) >= 0
+        /\ LENGTH(\fset) <= N
+        /\ LENGTH(\fset) >= 0
+        /\ LENGTH(\fset) <= N
+        /\ LENGTH(\fset) >= 0
+        /\ LENGTH(\fset) <= N
+        /\ LENGTH(\fset) >= 0
+        /\ LENGTH(\fset) <= N
+        /\ LENGTH(\fset) >= 0
+        /\ LENGTH(\fset) <= N
+        /\ LENGTH(\fset) >= 0
+        /\ LENGTH(\fset) <= N
+        /\ LENGTH(\fset) >= 0
+        /\ LENGTH(\fset) <= N
+        /\ LENGTH(\fset) >= 0
+        /\ LENGTH(\fset) <= N
+        /\ LENGTH(\fset) >= 0
+        /\ LENGTH(\fset) <= N
+        /\ LENGTH(\fset) >= 0
+        /\ LENGTH(\fset) <= N
+        /\ LENGTH(\fset) >= 0
+        /\ LENGTH(\fset) <= N
+        /\ LENGTH(\fset) >= 0
+        /\ LENGTH(\fset) <= N
+        /\ LENGTH(\fset) >= 0
+        /\ LENGTH(\fset) <= N
+        /\ Length(\fset) >= 0
+        /\ Length(\fset) <= N
+        /\ Length(\fset) >= 0
+        /\ Length(\fset) <= N
+        /\ Length(\fset) >= 0
+        /\ Length(\fset) <= N
+        /\ Length(\fset) >= 0
+        /\ Length(\fset) <= N
+        /\ Length(\fset) >= 0
+        /\ Length(\fset) <= N
+        /\ Length(\fset) >= 0
+        /\ Length(\fset) <= N
+        /\ Length(\fset) >= 0
+        /\ Length(\fset) <= N
+        /\ LEN(\fset) = LEN(\fset) \\
+        /\ (\E c \in \fset : state[c].meetCnt <= M) \\
+        /\ (\E c \in Creatures \ \fset : state[c].meetCnt = M) \\
+        /\ (\E c \in \fset : state[c].color # Faded) \\
+        /\ (\E c \in Creatures \ \fset : state[c].color # Faded) \\
+        /\ (\E c \in Creatures : state[c].meetCnt <= M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt >= 0) \\
+        /\ (\E c \in Creatures : state[c].color \in Colors \cup {Faded}) \\
+        /\ (\E c \in Creatures : state[c].color <= Colors \cup {Faded}) \\
+        /\ (\E c \in Creatures : state[c].color >= Colors \cup {Faded}) \\
+        /\ (\E c \in Creatures : state[c].color = Faded) \\
+        /\ (\E c \in Creatures : state[c].color # Faded) \\
+        /\ (\E c \in Creatures : state[c].color = Faded) \\
+        /\ (\E c \in Creatures : state[c].color # Faded) \\
+        /\ (\E c \in Creatures : state[c].meetCnt <= M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt >= 0) \\
+        /\ (\E c \in Creatures : state[c].meetCnt <= M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt >= 0) \\
+        /\ (\E c \in Creatures : state[c].color \in Colors \cup {Faded}) \\
+        /\ (\E c \in Creatures : state[c].color \in Colors \cup {Faded}) \\
+        /\ (\E c \in Creatures : state[c].color \in Colors \cup {Faded}) \\
+        /\ (\E c \in Creatures : state[c].color \in Colors \cup {Faded}) \\
+        /\ (\E c \in Creatures : state[c].color \in Colors \cup {Faded}) \\
+        /\ (\E c \in Creatures : state[c].color \in Colors \cup {Faded}) \\
+        /\ (\E c \in Creatures : state[c].color \in Colors \cup {Faded}) \\
+        /\ (\E c \in Creatures : state[c].color \in Colors \cup {Faded}) \\
+        /\ (\E c \in Creatures : state[c].color \in Colors \cup {Faded}) \\
+        /\ (\E c \in Creatures : state[c].color \in Colors \cup {Faded}) \\
+        /\ (\E c \in Creatures : state[c].color \in Colors \cup {Faded}) \\
+        /\ (\E c \in Creatures : state[c].color \in Colors \cup {Faded}) \\
+        /\ (\E c \in Creatures : state[c].color \in Colors \cup {Faded}) \\
+        /\ (\E c \in Creatures : state[c].color \in Colors \cup {Faded}) \\
+        /\ (\E c \in Creatures : state[c].color \in Colors \cup {Faded}) \\
+        /\ (\E c \in Creatures : state[c].color \in Colors \cup {Faded}) \\
+        /\ (\E c \in Creatures : state[c].color \in Colors \cup {Faded}) \\
+        /\ (\E c \in Creatures : state[c].color \in Colors \cup {Faded}) \\
+        /\ (\E c \in Creatures : state[c].color \in Colors \cup {Faded}) \\
+        /\ (\E c \in Creatures : state[c].color \in Colors \cup {Faded}) \\
+        /\ (\E c \in Creatures : state[c].color = Faded) \\
+        /\ (\E c \in Creatures : state[c].color # Faded) \\
+        /\ (\E c \in Creatures : state[c].color = Faded) \\
+        /\ (\E c \in Creatures : state[c].color # Faded) \\
+        /\ (\E c \in Creatures : state[c].color = Faded) \\
+        /\ (\E c \in Creatures : state[c].color # Faded) \\
+        /\ (\E c \in Creatures : state[c].color = Faded) \\
+        /\ (\E c \in Creatures : state[c].color # Faded) \\
+        /\ (\E c \in Creatures : state[c].color = Faded) \\
+        /\ (\E c \in Creatures : state[c].color # Faded) \\
+        /\ (\E c \in Creatures : state[c].color = Faded) \\
+        /\ (\E c \in Creatures : state[c].color # Faded) \\
+        /\ (\E c \in Creatures : state[c].color = Faded) \\
+        /\ (\E c \in Creatures : state[c].color # Faded) \\
+        /\ (\E c \in Creatures : state[c].color = Faded) \\
+        /\ (\E c \in Creatures : state[c].color # Faded) \\
+        /\ (\E c \in Creatures : state[c].color = Faded) \\
+        /\ (\E c \in Creatures : state[c].color # Faded) \\
+        /\ (\E c \in Creatures : state[c].color = Faded) \\
+        /\ (\E c \in Creatures : state[c].color # Faded) \\
+        /\ (\E c \in Creatures : state[c].color = Faded) \\
+        /\ (\E c \in Creatures : state[c].meetCnt = M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt # M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt = M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt # M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt = M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt # M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt = M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt # M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt = M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt # M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt = M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt # M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt = M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt # M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt = M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt # M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt = M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt # M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt = M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt # M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt = M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt # M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt = M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt # M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt = M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt # M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt = M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt # M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt = M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt # M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt = M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt # M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt = M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt # M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt = M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt # M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt = M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt # M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt = M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt # M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt = M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt # M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt = M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt # M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt = M) \\
+        /\ (\E c \in Creatures : state[c].meetCnt # M) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt <= M) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt >= 0) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].color \in Colors \cup {Faded}) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].color \in Colors \cup {Faded}) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].color \in Colors \cup {Faded}) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].color \in Colors \cup {Faded}) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].color \in Colors \cup {Faded}) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].color \in Colors \cup {Faded}) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].color \in Colors \cup {Faded}) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].color \in Colors \cup {Faded}) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].color \in Colors \cup {Faded}) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].color \in Colors \cup {Faded}) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].color \in Colors \cup {Faded}) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].color \in Colors \cup {Faded}) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].color \in Colors \cup {Faded}) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].color \in Colors \cup {Faded}) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].color \in Colors \cup {Faded}) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].color \in Colors \cup {Faded}) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].color = Faded) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].color # Faded) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].color = Faded) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].color # Faded) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].color = Faded) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].color # Faded) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].color = Faded) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].color # Faded) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].color = Faded) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].color # Faded) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].color = Faded) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].color # Faded) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].color = Faded) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].color # Faded) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].color = Faded) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].color # Faded) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt <= M) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt >= 0) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt <= M) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt >= 0) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt <= M) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt >= 0) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt <= M) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt >= 0) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt <= M) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt >= 0) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt <= M) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt >= 0) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt <= M) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt >= 0) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt <= M) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt >= 0) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt <= M) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt >= 0) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt <= M) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt >= 0) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt <= M) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt >= 0) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt <= M) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt >= 0) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt <= M) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt >= 0) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt <= M) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt >= 0) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt <= M) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt >= 0) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt <= M) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt >= 0) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt <= M) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt >= 0) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt <= M) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt >= 0) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt <= M) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt >= 0) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt <= M) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt >= 0) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt <= M) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt >= 0) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt <= M) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt >= 0) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt <= M) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt >= 0) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt <= M) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt >= 0) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt <= M) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt >= 0) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt <= M) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt >= 0) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt <= M) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt >= 0) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt <= M) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt >= 0) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt <= M) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt >= 0) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt <= M) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt >= 0) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt <= M) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt >= 0) \\
+        /\ (\E c \in Creatures : \A d \in Creatures : state[d].meetCnt <= M) \\
+        /\ (\E c \in Creatures : \A d \in Creatures

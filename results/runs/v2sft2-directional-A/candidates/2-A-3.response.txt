@@ -1,0 +1,39 @@
+---- MODULE ACP_NB ----
+EXTENDS Naturals, FiniteSets, TLC
+
+CONSTANTS participants, yes, no, undecided, commit, abort, waiting, notsent
+
+VARIABLES Alive, CoordinatorAlive, VoteSent, RequestSent,
+          BroadcastSent, Decision, Votes,
+          CoordinatorRecvVotes, CoordinatorVotesReceived,
+          CoordinatorDecision, Forwarding, Faulty
+
+(* Initial state *)
+Init ==
+  /\ Alive = participants
+  /\ CoordinatorAlive = TRUE
+  /\ VoteSent = {}
+  /\ RequestSent = FALSE
+  /\ BroadcastSent = {}
+  /\ Decision = [p \in participants |-> waiting]
+  /\ Votes = [p \in participants |-> no]
+  /\ CoordinatorRecvVotes = {}
+  /\ CoordinatorVotesReceived = [p \in participants |-> no]
+  /\ CoordinatorDecision = waiting
+  /\ Forwarding = [p \in participants |-> [q \in participants |-> notsent]]
+  /\ Faulty = {}
+
+(* Coordinator actions *)
+
+SendRequest ==
+  /\ CoordinatorAlive = TRUE
+  /\ RequestSent = FALSE
+  /\ RequestSent' = TRUE
+  /\ UNCHANGED << Alive, CoordinatorAlive, VoteSent,
+                 BroadcastSent, Decision, Votes,
+                 CoordinatorRecvVotes, CoordinatorVotesReceived,
+                 CoordinatorDecision, Forwarding, Faulty >>
+
+GetVote(p) ==
+  /\ CoordinatorAlive = TRUE
+  /\ Request
