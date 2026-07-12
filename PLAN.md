@@ -179,6 +179,20 @@ Work items:
   premise selection in front of the SMT backend.
 - **W3.4** Obligation-level flywheel: every checked obligation/proof pair → training data.
 
+**Reference — 2512.09758 pinned (paper scan 2026-07-10):** LMGPA (Zhou & Tripakis, 28 Feb
+2026). Repo https://github.com/YUH-Z/lmgpa · artifact https://doi.org/10.5281/zenodo.18637323.
+Method = exactly W3.2's design (LLM emits normalized assumption/goal decompositions, TLAPS
+discharges leaves Z3 5s→Zenon 10s→Isabelle 30s), **prompting only, no fine-tuning** — i.e. the
+loop-only baseline our train-the-weights approach must beat, not a fine-tuned ceiling.
+Benchmark (W3.1 adopts this) = **119 theorems: 93 miniF2F/ProofNet math translated to TLA+ + 26
+distributed-protocol inductiveness proofs** (from their ref [46] repo). Best-LMGPA numbers to
+beat at Gate 3: **distributed protocols 50.0%, math 59.1%**; syntactic validity 63.9–86.8%
+(prior SAPG 38.5/49.5; TLAPS OBVIOUS 0/44.1). Overlap with `holdout_30`: **effectively none** —
+their set is Stage-3 obligation discharge, ours is Stage-2 generation (23 state_machine / 4
+library / 2 proof_module / 1 expected_violation); only theoretical collision is their 26 external
+protocols vs our 2 proof_module holdout IDs (LOW, unverified at name level). Re-run the name-level
+check IF W3.1 pulls their protocols as seeds. Detail: memory `lmgpa-tla-proof-paper`.
+
 **Gate 3 (all required):**
 - [ ] ≥ the 2512.09758 baseline on their 119 theorems, same budget discipline, in the ledger.
 - [ ] The 18-spec prover eval that scored 0/18: re-run, any_proved > 0 with full logs.
