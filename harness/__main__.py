@@ -49,6 +49,10 @@ def main():
     e.add_argument("--corpus-data", default="/Users/eric/GitHub/tla_benchmark/data")
     e.add_argument("--no-resume", action="store_true",
                    help="ignore any existing rows.jsonl and redo every (spec, sample)")
+    gc = sub.add_parser("gate-check", help="recompute pass@k from rows.jsonl; fail hard on api_error/extraction defects (never trust summary.json)")
+    gc.add_argument("run_dirs", nargs="+", help="run dir(s) containing rows.jsonl")
+    gc.add_argument("--max-api-error-rate", type=float, default=0.05)
+    gc.add_argument("--max-unextracted-rate", type=float, default=0.90)
     pt = sub.add_parser("proof-traces", help="W2.4 obligation-trace bootstrap (tlapm sweep)")
     pt.add_argument("--source", required=True, choices=["corpus", "examples"])
     pt.add_argument("--out", required=True, help="output dir under results/proof_traces/...")
@@ -70,6 +74,10 @@ def main():
         # cheap restarts; STAGE1_STRATEGY.md); `run` still treats it as a filter
         run_repair(Path(a.corpus), a.run_id, a.model, specs=specs, n=a.n,
                    resume_from=a.resume_from)
+    elif a.cmd == "gate-check":
+        from .gate_check import main as gate_check_main
+        raise SystemExit(gate_check_main(a.run_dirs, a.max_api_error_rate,
+                                         a.max_unextracted_rate))
     elif a.cmd == "proof-traces":
         from .proof_traces_cli import run_proof_traces_cli
         run_proof_traces_cli(a.source, Path(a.out), Path(a.corpus), Path(a.examples_dir),

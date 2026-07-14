@@ -99,6 +99,28 @@ python3 -m harness run --run-id <id> --specs <list> --stages sany,tlc,tlaps
 python3 -m harness repair --model openai:<id> --run-id <id>
 python3 -m harness semaudit --run-id <id>
 python3 -m harness gen-eval --framing {A,B} --model openai:<id> --run-id <id> --k 32
+python3 -m harness gate-check results/runs/<run-id>   # ALWAYS: re-score from rows.jsonl, fail on api_error/extraction defects
+```
+
+### Toy end-to-end smoke (run before ANY 8-12h experiment)
+
+```bash
+tools/smoke/run_e2e.sh
+```
+
+Proves every pipeline stage mechanically in ~3 min local wall (first run adds
+a one-time venv + SmolLM2-135M download): generation loop with real
+SANY/TLC/mutation gates → harmony SFT file → REAL LoRA train + merge (tiny
+model) → OpenAI-compatible serve → gen-eval (pass path + resume) →
+gate-check, plus a regression that reproduces the 2026-07-14 ctx-4096 serve
+bug and asserts gate-check rejects the run. Design:
+docs/superpowers/plans/2026-07-14-toy-e2e-smoke.md.
+
+Before launching any gen-eval against a live serve endpoint, also run the
+10-second worst-case-request probe:
+
+```bash
+OPENAI_BASE_URL=http://localhost:8322/v1 python3 tools/smoke/serve_preflight.py --model chattla-v2-120b
 ```
 
 ## What's next
