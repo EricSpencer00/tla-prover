@@ -1,0 +1,1 @@
+[api_error 400: {"error":{"message":"This model's maximum context length is 512 tokens. However, you requested 17252 tokens (868 in the messages, 16384 in the completion).","type":"BadRequestError","code":400}}]

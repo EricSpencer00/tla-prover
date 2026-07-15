@@ -1,0 +1,34 @@
+---- MODULE Reachable ----
+EXTENDS Reachability, Integers, FiniteSets
+
+CONSTANT Root
+ASSUME RootAssump == Root \in Nodes
+
+(***************************************************************************)
+(* Reachable is defined to be the set of nodes reachable from Root.       *)
+(***************************************************************************)
+Reachable == ReachableFrom({Root})
+
+\*---------------------------------------------------------------------------
+\* State variables
+\*---------------------------------------------------------------------------
+VARIABLES marked, vroot, pc
+
+vars == << marked, vroot, pc >>
+
+(***************************************************************************)
+(* Initial state                                                          *)
+(***************************************************************************)
+Init ==
+    /\ marked = {}
+    /\ vroot  = {Root}
+    /\ pc     = "a"
+
+(***************************************************************************)
+(* Action a: implements Misra's variant of breadth‑first search          *)
+(***************************************************************************)
+a ==
+    /\ pc = "a"
+    /\ IF vroot = {}
+          THEN /\ pc' = "Done"
+               /\ UNCHANGED <<

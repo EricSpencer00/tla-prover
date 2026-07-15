@@ -1,0 +1,317 @@
+```tla
+---- MODULE Nano ----
+EXTENDS Naturals, Sequences, FiniteSets, TLC
+
+(*-----------------------------------------------------------------
+  Constants (to be instantiated by the .cfg file)
+-----------------------------------------------------------------*)
+CONSTANTS 
+    Hash,           \* Universe of possible hash values
+    NoHashVal,      \* Sentinel indicating "no hash yet"
+    PrivateKey,     \* Set of private keys
+    PublicKey,      \* Set of public keys
+    Node,           \* Set of network nodes
+    GenesisBalance, \* Total supply of coins (a natural number)
+    NoBlockVal,     \* Sentinel meaning "no block"
+    CalculateHash,  \* Abstract hash function
+    NoHash,         \* Alias for NoHashVal (for readability)
+    NoBlock         \* Alias for NoBlockVal (for readability)
+
+(*-----------------------------------------------------------------
+  Derived sets / functions
+-----------------------------------------------------------------*)
+\* Mapping from private to public keys (must be a total function)
+PubKey \in [PrivateKey -> PublicKey]
+
+\* Set of block types
+BlockType == {"Genesis", "Send", "Open", "Receive", "Change"}
+
+\* Record representing a block (abstract; fields may be unused for some types)
+Block == [
+    type          : BlockType,
+    prevHash      : Hash,        \* previous block in the sender's chain
+    accountKey    : PublicKey,   \* public key of the account that owns the chain
+    destKey       : PublicKey,   \* recipient (only for Send)
+    amount        : Nat,         \* amount transferred (0 for non‑transfer blocks)
+    sourceHash    : Hash,        \* referenced send block (only for Open/Receive)
+    representative: PublicKey,  \* new representative (only for Change)
+    sig           : PrivateKey   \* signature (private key of the creator)
+]
+
+\* Well‑typedness of a block (helps the TypeInvariant)
+BlockWellTyped(b) ==
+    /\ b.type \in BlockType
+    /\ b.prevHash \in Hash
+    /\ b.accountKey \in PublicKey
+    /\ b.destKey \in PublicKey
+    /\ b.amount \in Nat
+    /\ b.sourceHash \in Hash
+    /\ b.representative \in PublicKey
+    /\ b.sig \in PrivateKey
+
+(*-----------------------------------------------------------------
+  State variables
+-----------------------------------------------------------------*)
+VARIABLES 
+    lastHash,      \* The hash of the most recent block created in the system
+    ledger,        \* Mapping each node to a ledger: ledger[n][h] = block or NoBlock
+    receivedSet    \* Mapping each node to the set of blocks it has received but not yet processed
+
+(*-----------------------------------------------------------------
+  Helper definitions
+-----------------------------------------------------------------*)
+\* Initial empty ledger for a node
+EmptyLedger == [h \in Hash |-> NoBlock]
+
+\* Initial received set for a node
+EmptyReceived == {}
+
+\* Compute the predecessor hash for a block (or NoHash for genesis)
+PrevHash(b) ==
+    IF b.type = "Genesis" THEN NoHash
+    ELSE b.prevHash
+
+\* Valid signature predicate
+ValidSig(b) ==
+    PubKey[b.sig] = b.accountKey
+
+\* Balance of an account on a particular node, computed by walking its chain
+AccountBalance(node, acct) ==
+    LET Chain == 
+        { h \in Hash :
+            /\ ledger[node][h] # NoBlock
+            /\ ledger[node][h].accountKey = acct }
+    IN
+        IF Chain = {} THEN 0
+        ELSE
+            LET
+                Ordered == 
+                    CHOOSE s \in Seq(Chain) :
+                        (s = <<>> /\ Chain = {}) \/
+                        (s # <<>> /\ 
+                         /\ s[1] = 
+                            (IF \E b \in Block : b.type = "Genesis" /\ b.accountKey = acct /\ 
+                                 ledger[node][b] # NoBlock THEN b ELSE NoBlock) /\
+                         /\ \A i \in 1..Len(s)-1 :
+                                LET prev == s[i] IN
+                                LET cur  == s[i+1] IN
+                                    ledger[node][cur].prevHash = prev)
+            IN
+                \* Sum amounts from receive/open blocks minus amounts sent
+                Sum(
+                    { b.amount : b \in Chain :
+                        b.type \in {"Send"} } ) -
+                Sum(
+                    { b.amount : b \in Chain :
+                        b.type \in {"Receive", "Open"} } ) +
+                Sum(
+                    { GenesisBalance : b \in Chain :
+                        b.type = "Genesis" } )
+
+(*-----------------------------------------------------------------
+  Initialization
+-----------------------------------------------------------------*)
+Init ==
+    /\ lastHash = NoHash
+    /\ ledger = [n \in Node |-> EmptyLedger]
+    /\ receivedSet = [n \in Node |-> EmptyReceived]
+
+(*-----------------------------------------------------------------
+  Actions
+-----------------------------------------------------------------*)
+GenesisCreate ==
+    /\ \A n \in Node : ledger[n][NoHash] = NoBlock
+    /\ \E pk \in PrivateKey :
+        LET b == [
+                type          |-> "Genesis",
+                prevHash      |-> NoHash,
+                accountKey    |-> PubKey[pk],
+                destKey       |-> PubKey[pk],
+                amount        |-> GenesisBalance,
+                sourceHash    |-> NoHash,
+                representative|-> PubKey[pk],
+                sig           |-> pk
+             ] IN
+        /\ ledger[Node][ CalculateHash(b, NoHash) ] = NoBlock
+        /\ \A n \in Node :
+               ledger' = [ ledger EXCEPT ![n][ CalculateHash(b, NoHash) ] = b ]
+        /\ lastHash' = CalculateHash(b, NoHash)
+        /\ receivedSet' = [ receivedSet EXCEPT ![n] = {} ]
+        /\ UNCHANGED <<>>
+
+SendCreate ==
+    /\ \E n \in Node, pk \in PrivateKey :
+        LET accKey == PubKey[pk] IN
+        LET prevHashNode == 
+            CHOOSE h \in Hash :
+                ledger[n][h] # NoBlock /\ ledger[n][h].accountKey = accKey /\
+                ledger[n][h].type # "Send"
+        IN
+        LET balance == AccountBalance(n, accKey) IN
+        /\ balance > 0
+        /\ \E amt \in Nat :
+               amt <= balance /\ amt > 0 /\
+               \E dest \in PublicKey :
+                   LET b == [
+                        type          |-> "Send",
+                        prevHash      |-> prevHashNode,
+                        accountKey    |-> accKey,
+                        destKey       |-> dest,
+                        amount        |-> amt,
+                        sourceHash    |-> NoHash,
+                        representative|-> PubKey[pk],
+                        sig           |-> pk
+                     ] IN
+                   /\ LET h == CalculateHash(b, prevHashNode) IN
+                      /\ ledger[n][h] = NoBlock
+                      /\ ledger' = [ ledger EXCEPT ![n][h] = b ]
+                      /\ lastHash' = h
+                      /\ receivedSet' = [ receivedSet EXCEPT ![n] = {} ]
+                      /\ UNCHANGED <<>>
+
+OpenCreate ==
+    /\ \E n \in Node, pk \in PrivateKey :
+        LET accKey == PubKey[pk] IN
+        \E sendHash \in Hash :
+            /\ ledger[n][sendHash] # NoBlock
+            /\ ledger[n][sendHash].type = "Send"
+            /\ ledger[n][sendHash].destKey = accKey
+            /\ \A b \in { ledger[n][h] : h \in Hash /\ ledger[n][h] # NoBlock } :
+                 b.type # "Open" => b.accountKey # accKey
+            /\ LET b == [
+                    type          |-> "Open",
+                    prevHash      |-> NoHash,
+                    accountKey    |-> accKey,
+                    destKey       |-> accKey,
+                    amount        |-> ledger[n][sendHash].amount,
+                    sourceHash    |-> sendHash,
+                    representative|-> PubKey[pk],
+                    sig           |-> pk
+                 ] IN
+               LET h == CalculateHash(b, NoHash) IN
+               /\ ledger[n][h] = NoBlock
+               /\ ledger' = [ ledger EXCEPT ![n][h] = b ]
+               /\ lastHash' = h
+               /\ receivedSet' = [ receivedSet EXCEPT ![n] = {} ]
+               /\ UNCHANGED <<>>
+
+ReceiveCreate ==
+    /\ \E n \in Node, pk \in PrivateKey :
+        LET accKey == PubKey[pk] IN
+        \E prevHashNode \in Hash :
+            /\ ledger[n][prevHashNode] # NoBlock
+            /\ ledger[n][prevHashNode].accountKey = accKey
+            /\ \E sendHash \in Hash :
+                /\ ledger[n][sendHash] # NoBlock
+                /\ ledger[n][sendHash].type = "Send"
+                /\ ledger[n][sendHash].destKey = accKey
+                /\ \A r \in { ledger[n][h] : h \in Hash /\ ledger[n][h] # NoBlock } :
+                       r.type # "Receive" => r.sourceHash # sendHash
+                /\ LET b == [
+                        type          |-> "Receive",
+                        prevHash      |-> prevHashNode,
+                        accountKey    |-> accKey,
+                        destKey       |-> accKey,
+                        amount        |-> ledger[n][sendHash].amount,
+                        sourceHash    |-> sendHash,
+                        representative|-> PubKey[pk],
+                        sig           |-> pk
+                     ] IN
+                   LET h == CalculateHash(b, prevHashNode) IN
+                   /\ ledger[n][h] = NoBlock
+                   /\ ledger' = [ ledger EXCEPT ![n][h] = b ]
+                   /\ lastHash' = h
+                   /\ receivedSet' = [ receivedSet EXCEPT ![n] = {} ]
+                   /\ UNCHANGED <<>>
+
+ChangeRepCreate ==
+    /\ \E n \in Node, pk \in PrivateKey :
+        LET accKey == PubKey[pk] IN
+        \E prevHashNode \in Hash :
+            /\ ledger[n][prevHashNode] # NoBlock
+            /\ ledger[n][prevHashNode].accountKey = accKey
+            /\ \E newRep \in PublicKey :
+                LET b == [
+                        type          |-> "Change",
+                        prevHash      |-> prevHashNode,
+                        accountKey    |-> accKey,
+                        destKey       |-> accKey,
+                        amount        |-> 0,
+                        sourceHash    |-> NoHash,
+                        representative|-> newRep,
+                        sig           |-> pk
+                     ] IN
+               LET h == CalculateHash(b, prevHashNode) IN
+               /\ ledger[n][h] = NoBlock
+               /\ ledger' = [ ledger EXCEPT ![n][h] = b ]
+               /\ lastHash' = h
+               /\ receivedSet' = [ receivedSet EXCEPT ![n] = {} ]
+               /\ UNCHANGED <<>>
+
+Broadcast(b) ==
+    /\ \E n \in Node :
+          /\ ledger[n][CalculateHash(b, b.prevHash)] = NoBlock
+          /\ receivedSet' = [ receivedSet EXCEPT ![n] = receivedSet[n] \cup {b} ]
+          /\ UNCHANGED << ledger, lastHash >>
+
+ProcessReceived ==
+    /\ \E n \in Node, b \in receivedSet[n] :
+        LET h == CalculateHash(b, b.prevHash) IN
+        /\ ledger[n][h] = NoBlock
+        /\ /\ (* Validation *)
+            ValidSig(b)
+            /\ (b.type = "Genesis" => 
+                    \A m \in Node : ledger[m][h] = NoBlock)
+            /\ (b.type = "Send" => 
+                    /\ ledger[n][b.prevHash] # NoBlock
+                    /\ ledger[n][b.prevHash].accountKey = b.accountKey
+                    /\ b.amount <= AccountBalance(n, b.accountKey))
+            /\ (b.type = "Open" => 
+                    /\ ledger[n][b.sourceHash] # NoBlock
+                    /\ ledger[n][b.sourceHash].type = "Send"
+                    /\ ledger[n][b.sourceHash].destKey = b.accountKey
+                    /\ \A ob \in { ledger[n][h2] : h2 \in Hash /\ ledger[n][h2] # NoBlock } :
+                         ob.type # "Open" => ob.accountKey # b.accountKey)
+            /\ (b.type = "Receive" => 
+                    /\ ledger[n][b.prevHash] # NoBlock
+                    /\ ledger[n][b.prevHash].accountKey = b.accountKey
+                    /\ ledger[n][b.sourceHash] # NoBlock
+                    /\ ledger[n][b.sourceHash].type = "Send"
+                    /\ ledger[n][b.sourceHash].destKey = b.accountKey
+                    /\ \A r \in { ledger[n][h2] : h2 \in Hash /\ ledger[n][h2] # NoBlock } :
+                         r.type # "Receive" => r.sourceHash # b.sourceHash)
+            /\ (b.type = "Change" => 
+                    /\ ledger[n][b.prevHash] # NoBlock
+                    /\ ledger[n][b.prevHash].accountKey = b.accountKey)
+        /\ ledger' = [ ledger EXCEPT ![n][h] = b ]
+        /\ receivedSet' = [ receivedSet EXCEPT ![n] = receivedSet[n] \ {b} ]
+        /\ lastHash' = h
+        /\ UNCHANGED <<>>
+
+(*-----------------------------------------------------------------
+  Next-state relation
+-----------------------------------------------------------------*)
+Next ==
+    \/ GenesisCreate
+    \/ SendCreate
+    \/ OpenCreate
+    \/ ReceiveCreate
+    \/ ChangeRepCreate
+    \/ ProcessReceived
+
+(*-----------------------------------------------------------------
+  Specification
+-----------------------------------------------------------------*)
+Spec == Init /\ [][Next]_<<lastHash, ledger, receivedSet>>
+
+(*-----------------------------------------------------------------
+  Safety invariant (cryptographic signatures must be valid)
+-----------------------------------------------------------------*)
+SafetyInvariant ==
+    /\ \A n \in Node :
+          \A h \in Hash :
+            ledger[n][h] # NoBlock => ValidSig(ledger[n][h])
+
+(*-----------------------------------------------------------------
+  Type invariant (ensures all variables stay within declared types)
+-----------------------------------------------------------------

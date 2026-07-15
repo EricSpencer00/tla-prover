@@ -1,0 +1,63 @@
+```tla
+---- MODULE MajorityProof ----
+EXTENDS Majority, FiniteSetTheorems, TLAPS
+
+(***************************************************************************)
+(* Type correctness lemma.                                                *)
+(***************************************************************************)
+TypeOK ==
+    /\ seq \in Seq(Value)
+    /\ i \in 1 .. Len(seq) + 1
+    /\ cand \in Value
+    /\ cnt \in Nat
+
+LEMMA TypeCorrect == Spec => []TypeOK
+<1>1. Init => TypeOK
+    BY DEF Init, TypeOK
+<1>2. TypeOK /\ [Next]_vars => TypeOK'
+    BY DEF TypeOK, Next, vars
+<1>. QED  BY <1>1, <1>2, PTL DEF Spec
+
+(***************************************************************************)
+(* Auxiliary definitions and lemmas about positions and occurrences.      *)
+(***************************************************************************)
+PositionsBefore(v, j) ==
+    { k \in 1 .. j-1 : seq[k] = v }
+
+OccurrencesBefore(v, j) ==
+    Cardinality(PositionsBefore(v, j))
+
+LEMMA PositionsOne == \A v : PositionsBefore(v, 1) = {}
+    BY DEF PositionsBefore
+
+LEMMA PositionsType == \A v, j : PositionsBefore(v, j) \in SUBSET (1 .. j-1)
+    BY DEF PositionsBefore
+
+LEMMA PositionsFinite ==
+    ASSUME NEW v, NEW j \in Int
+    PROVE  IsFiniteSet(PositionsBefore(v, j))
+    BY 1 \in Int, j-1 \in Int,
+       PositionsType, FS_Interval, FS_Subset, Zenon
+
+LEMMA PositionsPlusOne ==
+    ASSUME TypeOK, NEW j \in 1 .. Len(seq), NEW v
+    PROVE  PositionsBefore(v, j+1) =
+          IF seq[j] = v THEN PositionsBefore(v, j) \cup {j}
+          ELSE PositionsBefore(v, j)
+    BY DEF PositionsBefore, TypeOK
+
+LEMMA OccurrencesOne == \A v : OccurrencesBefore(v, 1) = 0
+    BY PositionsOne, OccurrencesBefore, FS_EmptySet
+
+LEMMA OccurrencesPlusOne ==
+    ASSUME TypeOK, NEW j \in 1 .. Len(seq), NEW v
+    PROVE  OccurrencesBefore(v, j+1) =
+          IF seq[j] = v THEN OccurrencesBefore(v, j) + 1
+          ELSE OccurrencesBefore(v, j)
+    BY DEF OccurrencesBefore, PositionsPlusOne
+
+(***************************************************************************)
+(* The inductive invariant.                                               *)
+(***************************************************************************)
+Inv ==
+    /\ cnt =< Occ

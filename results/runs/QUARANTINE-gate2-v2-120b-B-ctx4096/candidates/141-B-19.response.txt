@@ -1,0 +1,31 @@
+---- MODULE Reachable ----
+EXTENDS Reachability, Integers, FiniteSets
+
+CONSTANT Root
+ASSUME RootAssump == Root \in Nodes
+
+(***************************************************************************)
+(* Reachable is defined to be the set of notes reachable from Root.  The   *)
+(* purpose of the algorithm is to compute Reachable.                       *)
+(***************************************************************************)
+Reachable == ReachableFrom({Root})
+
+(***************************************************************************)
+(* The algorithm's state variables.                                         *)
+(***************************************************************************)
+VARIABLES marked, vroot, pc
+
+(* Compact tuple of all variables, used in stuttering. *)
+vars == << marked, vroot, pc >>
+
+(***************************************************************************)
+(* Initial predicate.                                                       *)
+(***************************************************************************)
+Init ==
+    /\ marked = {}
+    /\ vroot = {Root}
+    /\ pc = "a"
+
+(***************************************************************************)
+(* Action a: the main loop of the algorithm.                               *)
+(* It is split into two cases

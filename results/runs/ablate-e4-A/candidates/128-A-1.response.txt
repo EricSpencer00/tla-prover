@@ -1,0 +1,66 @@
+---- MODULE Quicksort ----
+EXTENDS Naturals, Sequences, TLC
+
+CONSTANT Values, MaxSeqLen, Seq
+
+VARIABLES seq, orig, work, pc
+
+\* ----------------------------------------------------------------------
+\* Helper predicates and functions
+\* ----------------------------------------------------------------------
+IsInterval(I) == /\ I.low \in 1..Len(seq)
+                 /\ I.high \in 1..Len(seq)
+                 /\ I.low <= I.high
+
+CountVal(seq, low, high, v) == #({ i \in low..high : seq[i] = v })
+
+PermutationSubseq(seq1, seq2, low, high) ==
+    \A v \in Values : CountVal(seq1, low, high, v) = CountVal(seq2, low, high, v)
+
+Sorted(s) == \A i \in 1..Len(s)-1 : s[i] <= s[i+1]
+
+ValidPartition(seq, newSeq, I, p) ==
+    /\ I.low <= p < I.high
+    /\ newSeq \in Seq
+    /\ (\A i \in 1..Len(seq) :
+          IF i < I.low \/ i > I.high THEN newSeq[i] = seq[i]
+          ELSE IF i <= p THEN \A j \in p+1..I.high : newSeq[i] <= newSeq[j]
+          ELSE \A j \in I.low..p : newSeq[i] >= newSeq[j])
+    /\ PermutationSubseq(seq, newSeq, I.low, I.high)
+
+\* ----------------------------------------------------------------------
+\* Initial state
+\* ----------------------------------------------------------------------
+Init ==
+    /\ seq \in Seq
+    /\ orig = seq
+    /\ work = { [low |-> 1, high |-> Len(seq)] }
+    /\ pc = "RUN"
+
+\* ----------------------------------------------------------------------
+\* Actions
+\* ----------------------------------------------------------------------
+RemoveSingleton ==
+    \E I \in work :
+        /\ I.low = I.high
+        /\ work' = work \ {I}
+        /\ UNCHANGED <<seq, orig, pc>>
+
+Split ==
+    \E I \in work :
+        /\ I.low < I.high
+        /\ \E p \in I.low..I.high-1 :
+            \E newSeq \in Seq :
+                /\ ValidPartition(seq, newSeq, I, p)
+                /\ seq' = newSeq
+                /\ work' = (work \ {I}) \cup
+                           { [low |-> I.low, high |-> p],
+                             [low |-> p+1, high |-> I.high] }
+                /\ UNCHANGED <<orig, pc>>
+
+Idle ==
+    /\ work = {}
+    /\ pc' = "IDLE"
+    /\ UNCHANGED <<seq, orig, work>>
+
+Next == RemoveSingleton \/ Split

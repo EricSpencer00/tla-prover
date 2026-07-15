@@ -1,0 +1,113 @@
+We need to fix the spec so that TLC doesn't throw exception: "Attempted to select field 'block' from a non-record value NoBlockVal". That occurs when code expects a record but gets NoBlockVal. The error occurs at line 253, column 8 to 33 in Nano. Let's locate that line. In the spec, line numbers approximate. Let's search for "block" selection. The error indicates that somewhere we do something like ledger[hash].block but ledger[hash] might be NoBlock. In the spec, there are many places: e.g., in IsAccountOpen, IsSendReceived, PublicKeyOf, TopBlock, BalanceAt, ValueOfSendBlock, ValidateOpenBlock, ValidateSendBlock, ValidateReceiveBlock, ValidateChangeBlock, etc. The error occurs during initial state evaluation, before any actions. The initial state sets distributedLedger to [n \in Node |-> [h \in Hash |-> NoBlock]] and received to [n \in Node |-> {}]. So distributedLedger[n][h] = NoBlock. Then some invariant or expression is evaluated that selects .block from NoBlock. Which expression is evaluated during initial state? The error trace shows line 480-482 in Nano, which is near the end of the spec. Let's locate those lines. The spec ends with:
+
+```
+Init ==
+    /\ lastHash = NoHash
+    /\ distributedLedger = [n \in Node |-> [h \in Hash |-> NoBlock]]
+    /\ received = [n \in Node |-> {}]
+
+Next ==
+    \/ \E account \in PrivateKey : CreateGenesisBlock(account)
+    \/ \E node \in Node : CreateBlock(node)
+    \/ \E node \in Node : ProcessBlock(node)
+
+Spec ==
+    /\ Init
+    /\ [][Next]_<<lastHash, distributedLedger, received>>
+
+THEOREM Safety == Spec => TypeInvariant /\ SafetyInvariant
+```
+
+But the error trace shows line 480-482, which might be the TypeInvariant or SafetyInvariant evaluation. Let's check TypeInvariant: it checks lastHash in Hash ∪ {NoHash}, distributedLedger in [Node -> Ledger], received in [Node -> SUBSET SignedBlock]. That should be fine. SafetyInvariant is just CryptographicInvariant. CryptographicInvariant checks for each node, for each hash in Hash, if ledger[hash] /= NoBlock, then ValidateSignature(...). ValidateSignature uses signature.data and signature.signedWith. But if ledger[hash] = NoBlock, we skip. So no error. But the error occurs before any actions, so maybe the invariant is evaluated on initial state. In initial state, distributedLedger[n][h] = NoBlock for all h. So CryptographicInvariant should skip all. So no error.
+
+But the error trace shows line 253, which is earlier. Let's find line 253. Counting lines: The spec is long. Let's approximate: The error trace shows nested positions: 0. Line 111, column 3 to line 113, column 32 in MCNano. That refers to the model checking spec. 1. Line 112, column 8 to 13 in MCNano. 2. Line 78, column 1 to 18 in MCNano. 3. Line 480, column 5 to 482, column 44 in Nano. 4. Line 481, column 8 to 481, column 43 in Nano. 5. Line 481, column 27 to 481, column 43 in Nano. 6. Line 461, column 5 to 464, column 33 in Nano. 7. Line 461, column 8 to 461, column 28 in Nano. 8. Line 256, column 5 to 278, column 42 in Nano. 9. Line 261, column 5 to 278, column 42 in Nano. 10. Line 261, column 8 to 278, column 42 in Nano. 11. Line 262, column 9 to 278, column 42 in Nano. 12. Line 262, column 12 to 278, column 42 in Nano. 13. Line 263, column 13 to 278, column 42 in Nano. 14. Line 269, column 13 to 278, column 42 in Nano. 15. Line 269, column 16 to 269, column 54 in Nano. 16. Line 250, column 5 to 253, column 61 in Nano. 17. Line 253, column 8 to 253, column 61 in Nano. 18. Line 253, column 8 to 253, column 45 in Nano. 19. Line 253, column 8 to 253, column 33 in Nano.
+
+So the problematic expression is around line 253. Let's locate that. The spec lines around 250-260: Let's count from the top. The spec starts at line 1: "MODULE Nano". Then comments. Then EXTENDS. Then CONSTANTS. Then VARIABLES. Then ASSUME. Then functions. Then definitions of block types. Then SignedBlock, NoBlock, NoHash, Ledger. Then utility functions. Then type & safety invariants. Then CreateGenesisBlock, ValidateOpenBlock, CreateOpenBlock, ProcessOpenBlock, ValidateSendBlock, CreateSendBlock, ProcessSendBlock, ValidateReceiveBlock, CreateReceiveBlock, ProcessReceiveBlock, ValidateChangeBlock, CreateChangeRepBlock, ProcessChangeRepBlock, top-level actions, Init, Next, Spec, THEOREM.
+
+Line 253 likely falls within the definition of BalanceAt or ValueOfSendBlock or something. Let's find the lines. The spec has many lines. Let's approximate: The definitions of block types start around line 70. SignedBlock around 80. NoBlock around 90. NoHash around 100. Ledger around 110. Utility functions start around 120. PublicKeyOf starts around 140. TopBlock around 160. BalanceAt around 170. ValueOfSendBlock around 190. TypeInvariant around 210. CryptographicInvariant around 220. BalanceInvariant around 240. SafetyInvariant around 260. CreateGenesisBlock around 280. ValidateOpenBlock around 310. CreateOpenBlock around 330. ProcessOpenBlock around 350. ValidateSendBlock around 370. CreateSendBlock around 390. ProcessSendBlock around 410. ValidateReceiveBlock around 430. CreateReceiveBlock around 450. ProcessReceiveBlock around 470. ValidateChangeBlock around 490. CreateChangeRepBlock around 510. ProcessChangeRepBlock around 530. Top-level actions around 550. Init around 570. Next around 580. Spec around 590. THEOREM around 600.
+
+But the error trace shows line 480-482 in Nano, which is around ProcessReceiveBlock. Let's check ProcessReceiveBlock: It has ValidateReceiveBlock, ~IsSendReceived, CalculateHash, ValidateSignature, distributedLedger'. That might involve selecting .block from ledger[hash] where ledger[hash] might be NoBlock. But ProcessReceiveBlock is not executed in initial state. However, the error occurs during initial state evaluation, so maybe the invariant or some expression is evaluated that references ledger[hash].block for all hash in Hash, regardless of whether ledger[hash] is NoBlock. For example, in BalanceInvariant, we compute openAccounts = {account \in PublicKey : IsAccountOpen(ledger, account)}. IsAccountOpen iterates over hash in Hash, and for each hash, it does signedBlock == ledger[hash], then checks signedBlock /= NoBlock, then signedBlock.block.type \in {"genesis", "open"}. So if ledger[hash] = NoBlock, signedBlock /= NoBlock fails, so the rest of the expression is not evaluated. So no error. But maybe the expression is not short-circuited? In TLA+, the /\ operator is short-circuited? Actually, TLA+ uses logical conjunction, but the semantics is that if the left side is false, the right side is not evaluated. But the expression is inside a set comprehension: {account \in PublicKey : IsAccountOpen(ledger, account)}. The comprehension iterates over account, and for each account, it evaluates IsAccountOpen. IsAccountOpen uses /\ and short-circuits. So no error.
+
+But the error trace shows line 253, which might be inside the definition of IsAccountOpen or IsSendReceived. Let's locate line 253 precisely. The spec lines around 250: Let's count from the start. I'll approximate:
+
+1 MODULE Nano
+...
+EXTENDS
+...
+CONSTANTS
+...
+VARIABLES
+...
+ASSUME
+...
+(***************************************************************************)
+...
+SignHash
+...
+ValidateSignature
+...
+Signature
+...
+(***************************************************************************)
+...
+AccountBalance
+GenesisBlock
+SendBlock
+OpenBlock
+ReceiveBlock
+ChangeRepBlock
+Block
+SignedBlock
+NoBlock
+NoHash
+Ledger
+...
+(***************************************************************************)
+...
+GenesisBlockExists
+IsAccountOpen
+IsSendReceived
+PublicKeyOf
+TopBlock
+BalanceAt
+ValueOfSendBlock
+...
+(***************************************************************************)
+...
+TypeInvariant
+CryptographicInvariant
+BalanceInvariant
+SafetyInvariant
+...
+(***************************************************************************)
+...
+CreateGenesisBlock
+...
+ValidateOpenBlock
+CreateOpenBlock
+ProcessOpenBlock
+...
+ValidateSendBlock
+CreateSendBlock
+ProcessSendBlock
+...
+ValidateReceiveBlock
+CreateReceiveBlock
+ProcessReceiveBlock
+...
+ValidateChangeBlock
+CreateChangeRepBlock
+ProcessChangeRepBlock
+...
+(***************************************************************************)
+...
+CreateBlock
+ProcessBlock
+Init
+Next
+Spec
+THEOREM
+
+So line 253 might be inside the definition of BalanceAt or ValueOfSendBlock. Let's check BalanceAt: It has a LET block, then CASE block.type = "open" -> ValueOfSendBlock(ledger, block.source) [] block.type = "send" -> block.balance [] block.type = "receive" -> BalanceAt(ledger, block.previous) + ValueOfSendBlock(ledger, block.source) [] block.type = "change" -> BalanceAt(ledger, block.previous) [] block.type = "genesis" -> block.balance. That uses block.type, block.balance, block.previous, block.source. If block is NoBlock, then block.type is invalid. But BalanceAt is only called with a hash that is known to be a block? In BalanceInvariant, we compute accountBalances as BagOfAll(ledgerBalanceAt, SetToBag(topBlocks)). ledgerBalanceAt(hash) == BalanceAt(ledger, hash). topBlocks is a set of hashes that are top blocks. topBlocks is defined as {TopBlock(ledger, account) : account \in openAccounts}. TopBlock uses CHOOSE hash \in Hash : ... and inside it does signedBlock == ledger[hash], then signedBlock /= NoBlock, then PublicKeyOf(ledger, hash) = publicKey, then ~∃ otherHash ... So TopBlock returns a hash that satisfies those conditions. So topBlocks contains only hashes that are blocks. So ledgerBalanceAt(hash) will be called only on hashes that are blocks. So no error.
+
+But the error trace shows line 253, which might be inside the definition of IsAccountOpen or IsSendReceived. Let's check IsAccount

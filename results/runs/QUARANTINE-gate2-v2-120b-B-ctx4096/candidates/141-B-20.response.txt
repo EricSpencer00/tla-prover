@@ -1,0 +1,31 @@
+```tla
+---- MODULE Reachable ----
+EXTENDS Reachability, Integers, FiniteSets
+
+CONSTANT Root
+ASSUME RootAssump == Root \in Nodes
+
+(***************************************************************************)
+(* Reachable is defined to be the set of nodes reachable from Root.       *)
+(***************************************************************************)
+Reachable == ReachableFrom({Root})
+
+(***************************************************************************)
+(* Variables of the algorithm                                               *)
+(***************************************************************************)
+VARIABLES marked, vroot, pc
+
+vars == << marked, vroot, pc >>
+
+(***************************************************************************)
+(* Initial predicate                                                        *)
+(***************************************************************************)
+Init ==
+    /\ marked = {}
+    /\ vroot = {Root}
+    /\ pc = "a"
+
+(***************************************************************************)
+(* Action a: the core step of Misra's variant algorithm.                   *)
+(* The original specification omitted the update of `pc` in the branch    *)
+(* where a node is added to `marked`.  This caused TLC to

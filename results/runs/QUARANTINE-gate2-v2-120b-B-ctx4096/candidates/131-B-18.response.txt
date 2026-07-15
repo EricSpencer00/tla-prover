@@ -1,0 +1,84 @@
+---- MODULE MajorityProof ----
+EXTENDS Majority, FiniteSetTheorems, TLAPS
+
+(***************************************************************************)
+(* Auxiliary definitions (re‑exported from Majority)                       *)
+(***************************************************************************)
+
+VARIABLES seq, i, cand, cnt
+
+(***************************************************************************)
+(* Type correctness                                                       *)
+(***************************************************************************)
+
+TypeOK ==
+  /\ seq \in Seq(Value)
+  /\ i \in 1 .. Len(seq) + 1
+  /\ cand \in Value
+  /\ cnt \in Nat
+
+(***************************************************************************)
+(* Positions and occurrences (unchanged from the original proof)          *)
+(***************************************************************************)
+
+PositionsBefore(v, j) ==
+  { k \in 1 .. j-1 : seq[k] = v }
+
+OccurrencesBefore(v, j) ==
+  Cardinality(PositionsBefore(v, j))
+
+(***************************************************************************)
+(* Inductive invariant                                                    *)
+(***************************************************************************)
+
+Inv ==
+  /\ cnt <= OccurrencesBefore(cand, i)
+  /\ 2 * (OccurrencesBefore(cand, i) - cnt) <= i - 1 - cnt
+  /\ \A v \in Value \ {cand} :
+        2 * OccurrencesBefore(v, i) <= i - 1 - cnt
+
+(***************************************************************************)
+(* Initialization and next‑state relation                                 *)
+(***************************************************************************)
+
+Init ==
+  /\ seq \in Seq(Value)
+  /\ i = 1
+  /\ cand \in Value
+  /\ cnt = 0
+  /\ Inv
+
+Next ==
+  \/ /\ i <= Len(seq)
+        /\ cand' = seq[i]
+        /\ cnt' = 1
+        /\ i' = i + 1
+        /\ UNCHANGED << seq >>
+  \/ /\ i <= Len(seq)
+        /\ cand' = cand
+        /\ cnt' = cnt + 1
+        /\ i' = i + 1
+        /\ UNCHANGED << seq >>
+  \/ /\ i <= Len(seq)
+        /\ cand' = cand
+        /\ cnt' = cnt - 1
+        /\ i' = i + 1
+        /\ UNCHANGED << seq >>
+  \/ /\ i = Len(seq) + 1
+        /\ UNCHANGED << seq, i, cand, cnt >>
+
+vars == << seq, i, cand, cnt >>
+
+Spec == Init /\ [][Next]_vars
+
+(***************************************************************************)
+(* Main safety property                                                   *)
+(***************************************************************************)
+
+Correct ==
+  /\ cand \in Value
+  /\ cnt = 0 => TRUE
+  /\ cnt # 0 => 2 * (OccurrencesBefore(cand, Len(seq)) - cnt) <= Len(seq) - 1 - cnt
+
+(***************************************************************************)
+(* Lem

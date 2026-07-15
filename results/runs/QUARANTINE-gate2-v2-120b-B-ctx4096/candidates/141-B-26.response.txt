@@ -1,0 +1,15 @@
+```tla
+----------------------------- MODULE Reachable -----------------------------
+(***************************************************************************)
+(* This module specifies an algorithm for computing the set of nodes in a  *)
+(* directed graph that are reachable from a given node called Root.  The   *)
+(* algorithm is due to Jayadev Misra.  It is, to my knowledge, a new       *)
+(* variant of a fairly obvious breadth-first search for reachable nodes.   *)
+(* I find this algorithm interesting because it is easier to implement     *)
+(* using multiple processors than the obvious algorithm.  Module ParReach  *)
+(* describes such an implementation.  You may want to read it after        *)
+(* reading this module.                                                    *)
+(*                                                                         *)
+(* Module ReachableProofs contains a TLA+ proof of the algorithm's safety  *)
+(* property--that is, partial correctness, which means that if the         *)
+(* algorithm terminates then it produces the correct answer.  That proof   *)

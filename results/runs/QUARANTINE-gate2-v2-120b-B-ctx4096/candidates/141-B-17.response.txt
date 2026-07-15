@@ -1,0 +1,27 @@
+---- MODULE Reachable ----
+EXTENDS Reachability, Integers, FiniteSets
+
+CONSTANT Root
+ASSUME RootAssump == Root \in Nodes
+
+(* Reachable is the set of nodes reachable from Root. *)
+Reachable == ReachableFrom({Root})
+
+\* -------------------------------------------------------------------------
+\* Variables and initial predicate
+\* -------------------------------------------------------------------------
+VARIABLES marked, vroot, pc
+
+vars == << marked, vroot, pc >>
+
+Init ==
+    /\ marked = {}
+    /\ vroot = {Root}
+    /\ pc = "a"
+
+\* -------------------------------------------------------------------------
+\* The algorithm step (action a).  It is written as a single deterministic
+\* step that updates both the state variables and the program counter.
+\* The step follows the PlusCal description: pick an arbitrary v \in vroot,
+\* then either add v to marked and augment vroot with Succ[v] (when v is not
+\* yet

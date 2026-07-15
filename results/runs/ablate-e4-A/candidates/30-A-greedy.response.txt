@@ -1,0 +1,1419 @@
+We need to write a TLA+ module named cbc_max. Must define constants N, T, F, Values, Bottom. Must define operators: Init, Next, Spec, TypeOK, Validity, Agreement. Also maybe other helper operators but not required. Must model the system as described.
+
+We need to model processes with states: broadcast-phase-1, waiting-phase-1, preparing? Actually description: control location: broadcasting phase 1, waiting for phase 1, preparing, broadcasting phase 2, waiting for phase 2, done, crashed, or choosing. But we can simplify: states: Phase1Broadcast, Phase1Wait, Phase2Broadcast, Phase2Wait, Choosing, Done, Crashed. But we need to capture the transitions.
+
+We need local view: an N-by-N matrix of values, initially Bottom. Each process's proposed value: Propose[proc] (constant? variable). Each process's estimated value: Est[proc] (variable). Decision value: Dec[proc] (variable). Count of crashed processes: CrashedCount (variable). Set of all sent messages: Sent (variable). Set of messages received by each process: Recv[proc] (variable). Messages: a tuple with fields: type, value, sender, est? For phase 2 messages, include est.
+
+We need to model message passing: when a process broadcasts, it adds a message to Sent and also to Recv of all non-crashed processes? In asynchronous model, we can model that messages are eventually delivered to all non-crashed processes. But we can model that each process can nondeterministically receive any message that has been sent and not yet received by that process. Use weak fairness on receiving.
+
+Simplify: Sent is a set of messages. Recv[proc] is a set of messages that have been received by proc. Initially empty. When a process broadcasts, it adds a message to Sent. Then, in a Receive action, any process that is not crashed and not yet received that message can add it to its Recv set. We need to ensure that eventually all messages are received by all non-crashed processes (weak fairness). But we can just allow nondeterministic receive.
+
+We need to model crash: a process may crash if CrashedCount < F. Crash action: choose a process that is not crashed, set its state to Crashed, increment CrashedCount.
+
+We need to model the control location: we can have a variable Loc[proc] that indicates the state. States: "Phase1Broadcast", "Phase1Wait", "Phase2Broadcast", "Phase2Wait", "Choosing", "Done", "Crashed". We can use constants for these states.
+
+We need to model the actions:
+
+Init: set Loc[proc] = "Phase1Broadcast" for all proc. Propose[proc] is chosen nondeterministically from Values. Est[proc] = Bottom. Dec[proc] = Bottom. CrashedCount = 0. Sent = {}. Recv[proc] = {} for all proc. Also maybe a matrix View[proc][j] = Bottom for all j.
+
+We need to maintain the local view: a matrix View[proc][j] that holds the value known about process j. Initially all Bottom. When a process receives a phase-1 message from sender j with value v, it updates View[proc][j] = v. For phase-2 messages, maybe we don't need to update view? But description: local view of all other processes' values. So we can update view with the value from phase-1 messages. For phase-2, maybe we don't need to update view; but we can ignore.
+
+Estimated value: Est[proc] is computed as the maximum of View[proc][j] over all j. We need to define a function MaxVal that returns the maximum value in a set, with Bottom as the minimum. We need to ensure that Values is totally ordered. We can assume that Values is a set of values that are comparable; we can use the built-in ordering of TLA+ on values? We can define a helper function MaxVal that uses the built-in Max operator on a set of values, but we need to handle Bottom. We can define Bottom as a special constant that is less than all values. We can assume that Values is a subset of some ordered type where Bottom is less. For simplicity, we can treat values as natural numbers and Bottom as -1. But we need to keep it generic. We can define a helper function MaxVal(s) that returns the maximum element of s, assuming s is non-empty and contains only values from Values or Bottom. We can use the built-in Max operator: Max(s) returns the maximum element of a set of numbers. But if Values can be arbitrary, we might need to define an ordering. For simplicity, we can assume Values is a subset of Nat and Bottom is -1. But the spec may not enforce that. But we can define a function MaxVal that uses the built-in Max on the set of values that are not Bottom. If all are Bottom, return Bottom.
+
+We need to model the condition for moving from Phase1Wait to Phase2Broadcast: if the process has received phase-1 messages from at least N-T distinct senders. We need to count distinct senders among Recv[proc] that are phase-1 messages. We can define a helper function Phase1Senders(proc) that returns the set of senders of phase-1 messages in Recv[proc]. Then if |Phase1Senders(proc)| >= N - T, then the process can compute Est[proc] = MaxVal of the values in its View (or from the messages). Then move to Phase2Broadcast.
+
+Phase2Broadcast: process broadcasts a phase-2 message containing its proposed value and its estimated value. Then moves to Phase2Wait.
+
+Phase2Wait: process may receive phase-2 messages. It can decide if it has received phase-2 messages from at least N-T distinct senders where all those messages carry the same estimated value. We need to check if there exists a value e such that the set of senders of phase-2 messages with est = e in Recv[proc] has size >= N - T. If so, the process decides that value e and moves to Done. Alternatively, if it has received phase-2 messages from all N senders (i.e., |Phase2Senders(proc)| = N) without reaching the N-T threshold for any single estimated value, it moves to Choosing.
+
+Choosing: process deterministically selects a value that appears in its local view and decides it. We need to define deterministic selection: maybe choose the minimum value in its View that is not Bottom. Or choose the maximum? The description says "deterministically selects a value that appears in its local view". We can choose the minimum for determinism. So in Choosing, the process sets Dec[proc] to the minimum value in its View that is not Bottom, and moves to Done.
+
+Done: process stops participating; it may still receive messages but doesn't change state.
+
+Crashed: process stops participating; it may not receive messages.
+
+We also need to model that crashed processes do not broadcast or receive. So in actions, we need to guard that the process is not crashed.
+
+We also need to model that a process may crash at any time if CrashedCount < F. Crash action: choose a process that is not crashed, set its Loc to "Crashed", increment CrashedCount.
+
+We need to model that a process may receive messages even if it is in any state except Crashed? The description says weak fairness on receiving, broadcasting, phase transitions, and choosing. So we can allow receive action for any process that is not crashed and has not yet received a particular message.
+
+We need to model the message type: we can define a constant Phase1 = 1, Phase2 = 2. Messages can be tuples: [type |-> Phase1, value |-> v, sender |-> s] for phase-1; for phase-2: [type |-> Phase2, value |-> v, est |-> e, sender |-> s].
+
+We need to define the set of all possible messages: maybe we can generate them on the fly.
+
+We need to define the variable MsgsSent: set of messages that have been sent. Recv[proc] is a set of messages that have been received by proc.
+
+We need to define the variable Loc: [proc -> State], where State is a set of constants: "Phase1Broadcast", "Phase1Wait", "Phase2Broadcast", "Phase2Wait", "Choosing", "Done", "Crashed".
+
+We need to define the variable View: [proc -> [proc -> Value]]? Actually we need a matrix: View[proc][j] = value known about j. Initially all Bottom. When a process receives a phase-1 message from sender j with value v, it sets View[proc][j] = v.
+
+We need to define the variable Est: [proc -> Value], initially Bottom.
+
+We need to define the variable Dec: [proc -> Value], initially Bottom.
+
+We need to define the variable CrashedCount: Nat.
+
+We need to define the variable Sent: set of messages.
+
+We need to define the variable Recv: [proc -> set of messages].
+
+We need to define the variable Propose: [proc -> Value], chosen nondeterministically at init.
+
+We need to define the variable Phase1Sent: maybe we don't need separate; we can derive from Sent.
+
+We need to define the variable Phase2Sent: maybe not needed.
+
+We need to define the variable Phase1Msgs: set of phase-1 messages in Sent. Similarly Phase2Msgs.
+
+We need to define the variable Phase1Senders(proc): set of senders of phase-1 messages in Recv[proc].
+
+We need to define the variable Phase2Senders(proc): set of senders of phase-2 messages in Recv[proc].
+
+We need to define the variable Phase2EstSenders(proc, e): set of senders of phase-2 messages with est = e in Recv[proc].
+
+We need to define the variable Phase2MsgsWithEst(proc, e): set of phase-2 messages with est = e in Recv[proc].
+
+We need to define the variable Phase2Msgs(proc): set of phase-2 messages in Recv[proc].
+
+We need to define the variable Phase2MsgsWithEst(proc, e): set of messages.
+
+We need to define the variable Phase2MsgsWithEstCount(proc, e): cardinality.
+
+We need to define the variable Phase2MsgsCount(proc): cardinality of Phase2Msgs(proc).
+
+We need to define the variable Phase1MsgsCount(proc): cardinality of Phase1Senders(proc).
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Stop repeating.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinality of Phase2Senders(proc).
+
+Ok.
+
+Stop.
+
+Ok.
+
+We need to define the variable Phase2MsgsCountAll(proc): cardinal

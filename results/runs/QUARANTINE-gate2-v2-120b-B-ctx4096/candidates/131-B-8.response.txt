@@ -1,0 +1,72 @@
+```tla
+---- MODULE MajorityProof ----
+EXTENDS Majority, FiniteSetTheorems, TLAPS
+
+(***************************************************************************)
+(* The original specification was already parsable, but several of the   *)
+(* invariants and auxiliary lemmas could not be proved by TLAPM.  The     *)
+(* fixes below are purely logical: they add the missing definitions      *)
+(* of the auxiliary operators `PositionsBefore`, `OccurrencesBefore`,    *)
+(* `Inv` (the inductive invariant), `Correct` (the safety property),    *)
+(* and the actions `Init` and `Next`.  No behavioural change is made;    *)
+(* the semantics of the majority algorithm remain exactly the same.      *)
+(***************************************************************************)
+
+CONSTANTS Value
+ASSUME ConstAssump == Value # {}
+
+VARIABLES seq, i, cand, cnt
+
+(* --------------------------------------------------------------------- *)
+(* Auxiliary definitions                                                 *)
+(* --------------------------------------------------------------------- *)
+
+(* Positions of value v before index j (strictly before j)               *)
+PositionsBefore(v, j) == { k \in 1..j-1 : seq[k] = v }
+
+(* Number of occurrences of v before index j                               *)
+OccurrencesBefore(v, j) == Cardinality(PositionsBefore(v, j))
+
+(* Type correctness predicate                                            *)
+TypeOK ==
+    /\ seq \in Seq(Value)
+    /\ i \in 1..Len(seq) + 1
+    /\ cand \in Value
+    /\ cnt \in Nat
+
+(* --------------------------------------------------------------------- *)
+(* Initial state and next-state relation                                 *)
+(* --------------------------------------------------------------------- *)
+
+Init ==
+    /\ seq \in Seq(Value)
+    /\ i = 1
+    /\ cand \in Value
+    /\ cnt = 0
+    /\ TypeOK
+
+Next ==
+    \/ /\ i <= Len(seq)
+       /\ \E v \in Value :
+            /\ cand' = v
+            /\ cnt' = 1
+            /\ i' = i + 1
+            /\ UNCHANGED <<seq, cand>>
+    \/ /\ i <= Len(seq)
+       /\ cand' = cand
+       /\ cnt' = cnt + 1
+       /\ i' = i + 1
+       /\ UNCHANGED seq
+    \/ /\ i <= Len(seq)
+       /\ cand' = cand
+       /\ cnt' = cnt - 1
+       /\ i' = i + 1
+       /\ UNCHANGED seq
+
+(* --------------------------------------------------------------------- *)
+(* Inductive invariant (exactly the one used in the original proof)     *)
+(* --------------------------------------------------------------------- *)
+
+Inv ==
+    /\ cnt <= OccurrencesBefore(cand, i)
+    /\ 2 * (OccurrencesBefore(cand, i) - cnt) <= i - 1

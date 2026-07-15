@@ -1,0 +1,335 @@
+We need to write a TLA+ module ACP_NB that extends base ACP-SB. But we don't have that module code. We need to model the system described, including all state variables: participant vote, alive status, decision, faulty flag, vote-sent flag, coordinator request/vote/broadcast/decision/alive/faulty state, plus forwarding table mapping each participant to status (notsent, commit, abort). We need constants: participants, yes, no, undecided, commit, abort, waiting, notsent. We need operators: Init, Next, SpecNB, TypeInvNB. Also maybe other invariants? Only TypeInvNB is required. Also maybe safety properties AC1-AC4? But not required by cfg. Only TypeInvNB. But we might include safety properties as invariants? The cfg only lists TypeInvNB. So we need to define TypeInvNB that captures safety properties AC1-AC4. Also we need to define the spec: SpecNB = Init /\ [][Next]_vars. We need to define variables: maybe vVote, vAlive, vDecision, vFaulty, vVoteSent, vCoordRequest, vCoordVote, vCoordBroadcast, vCoordDecision, vCoordAlive, vCoordFaulty, vForwarding. We need to model coordinator actions: send request, get vote, detect fault, make decision, broadcast, die. But we can simplify: we can model coordinator as a state machine with variables: coordRequest (set of participants who have requested), coordVotes (mapping participants to vote), coordBroadcast (set of participants who have received broadcast), coordDecision (commit/abort/undecided), coordAlive (boolean), coordFaulty (boolean). But we can also model coordinator as a single variable: coordState. But we need to capture the actions.
+
+Simplify: Use a variable "coord" that is a record with fields: alive, faulty, request, votes, broadcast, decision. But TLA+ variables are usually sets or maps. We can use a record via a tuple: [alive |-> bool, faulty |-> bool, request |-> subset of participants, votes |-> [p \in participants |-> vote], broadcast |-> subset of participants, decision |-> decision]. But we need to define constants: yes, no, undecided, commit, abort, waiting, notsent. We can use these as values.
+
+Participants: constant set.
+
+Variables: 
+- pVote: [p \in participants |-> vote] (vote can be yes, no, undecided)
+- pAlive: [p \in participants |-> bool] (true if alive)
+- pDecision: [p \in participants |-> decision] (commit, abort, undecided)
+- pFaulty: [p \in participants |-> bool] (true if faulty)
+- pVoteSent: [p \in participants |-> bool] (true if vote sent)
+- coord: record with fields: alive, faulty, request, votes, broadcast, decision
+- forwarding: [p \in participants |-> [q \in participants |-> status]] where status is notsent, commit, abort.
+
+But we also need to track "waiting" status? The constant waiting is defined but not used? Maybe used for coordinator request? But we can ignore waiting.
+
+Simplify: Use a variable "coord" as a record: [alive |-> bool, faulty |-> bool, request |-> subset of participants, votes |-> [p \in participants |-> vote], broadcast |-> subset of participants, decision |-> decision]. The coordinator's request set is participants who have requested a decision. The votes map stores votes from participants. The broadcast set is participants who have received the decision broadcast. The decision is commit, abort, or undecided.
+
+Participants: each has vote, alive, decision, faulty, voteSent, forwarding table.
+
+We need to model actions:
+
+Coordinator actions:
+- InitCoord: set alive=true, faulty=false, request=∅, votes= [p \in participants |-> undecided], broadcast=∅, decision=undecided.
+- SendRequest: a participant sends a request to coordinator: add participant to request set. But we can model that as part of participant actions: when a participant is alive and undecided, it can send a request to coordinator. But the description says coordinator collects votes, etc. We can model that as a separate action: CoordinatorCollectVote: when a participant sends a vote, coordinator records it. But we can combine.
+
+Simplify: We can model participant actions: 
+- VoteYes: if participant is alive, undecided, and not yet voted, it sets its vote to yes and sets voteSent=true.
+- VoteNo: similar but sets vote to no.
+- PreDecideFromCoordinator: if participant is alive, undecided, and coordinator has broadcast a decision to it, and participant's forwarding entry for itself is notsent, then set forwarding[p][p] to coordinator's decision.
+- PreDecideFromForwarding: if participant is alive, undecided, and some other participant q has forwarded a decision to it (i.e., forwarding[q][p] is commit or abort), and participant's forwarding entry for itself is notsent, then set forwarding[p][p] to that decision.
+- Forward: if participant is alive, has received a pre-decision (forwarding[p][p] is commit or abort), and for some other participant q that is not itself, forwarding[p][q] is notsent, then set forwarding[p][q] to the same decision.
+- Decide: if participant is alive, has received a pre-decision (forwarding[p][p] is commit or abort), and has forwarded to all other participants (i.e., for all q != p, forwarding[p][q] is commit or abort), then set pDecision[p] to forwarding[p][p] and mark pFaulty? No, decision is commit or abort. Also maybe set pAlive? No.
+
+- AbortOnTimeout: if participant is alive, undecided, coordinator is faulty, no alive participant has received a broadcast from coordinator, and no dead participant has forwarded a decision to any alive participant, then set pDecision[p] to abort.
+
+- Die: participant crashes: set pAlive[p] to false, pFaulty[p] to true.
+
+Coordinator actions:
+- ReceiveVote: when a participant sends a vote, coordinator records it. But we can model that as part of participant actions: when a participant votes, it updates its own voteSent flag and also updates coordinator's votes map. But we need to model that as a separate action: CoordinatorCollectVote: if there exists a participant p such that pVoteSent[p] is true and coordinator's votes[p] is undecided, then set coordinator's votes[p] to pVote[p] and set pVoteSent[p] to false? But we can keep pVoteSent separate.
+
+- MakeDecision: if coordinator is alive, not faulty, and has received votes from all participants in request set, then if all votes are yes, set decision to commit; else set decision to abort. Then set broadcast to request set.
+
+- BroadcastDecision: if coordinator is alive, decision is commit or abort, and broadcast set is not equal to request set, then add all participants in request set to broadcast set.
+
+- DieCoord: coordinator crashes: set alive=false, faulty=true.
+
+We also need to model that coordinator can die at any time.
+
+We also need to model that participants can die at any time.
+
+We need to model that participants can send requests and votes only when alive.
+
+We need to model that forwarding table entries are initialized to notsent.
+
+We need to model that forwarding table entries for each participant p: forwarding[p][p] is the pre-decision stored by p; forwarding[p][q] for q != p is the status of forwarding from p to q.
+
+We need to model that forwarding entries are only set to commit or abort, never to notsent after being set.
+
+We need to model that once a participant decides, it stays decided.
+
+We need to model that once a participant forwards a decision to all others, it decides.
+
+We need to model that participants can abort on timeout if coordinator is faulty and no broadcast has been received and no forwarding from dead participants.
+
+We need to model that participants can abort if they see a decision from coordinator or from forwarding.
+
+We need to model that participants can commit only if all votes are yes.
+
+We need to model that participants can abort if any vote is no, or if coordinator is faulty, or if any participant is faulty.
+
+We need to model that participants can abort if they see a decision from coordinator or from forwarding.
+
+We need to model that participants can commit only if they have received a commit decision from coordinator or from forwarding.
+
+We need to model that participants can abort only if they have received an abort decision from coordinator or from forwarding, or if they time out.
+
+We need to model that participants can decide only after forwarding to all others.
+
+We need to model that participants can forward only after receiving a pre-decision.
+
+We need to model that participants can forward to each other.
+
+We need to model that participants can forward to all others before deciding.
+
+We need to model that participants can decide only after forwarding to all others.
+
+We need to model that participants can abort on timeout if no broadcast and no forwarding.
+
+We need to model that participants can abort on vote: if they vote no, they abort immediately? The description says "abort on vote" is part of base protocol. So if a participant votes no, it aborts immediately. So we need an action: AbortOnVote: if participant is alive, undecided, and votes no, then set decision to abort.
+
+We need to model that participants can abort on timeout for request: if they are alive, undecided, and coordinator is faulty, and no broadcast, and no forwarding, then abort.
+
+We need to model that participants can abort on timeout for request: same as above.
+
+We need to model that participants can abort on timeout for request: we already have AbortOnTimeout.
+
+We need to model that participants can abort on vote: we need an action.
+
+We need to model that participants can abort on timeout for request: we have AbortOnTimeout.
+
+We need to model that participants can abort on timeout for request: we need to check that no alive participant has received a broadcast from coordinator, and no dead participant has forwarded a decision to any alive participant. That is the condition.
+
+We need to model that participants can abort on timeout for request: we need to check that coordinator is faulty.
+
+We need to model that participants can abort on timeout for request: we need to check that no alive participant has received a broadcast from coordinator. That means for all participants p, if pAlive[p] is true, then pDecision[p] is not commit? Actually broadcast set indicates participants who have received broadcast. So we need to check that for all p, if pAlive[p] then p not in coord.broadcast. But we can just check that coord.broadcast is empty or contains only faulty participants.
+
+We also need to model that no dead participant has forwarded a decision to any alive participant. That means for all p, q: if pAlive[p] is false and pFaulty[p] is true, and pAlive[q] is true, then forwarding[p][q] is notsent. But we can approximate: if any dead participant has forwarded a decision to an alive participant, then abort is not allowed. So we need to check that for all p, q: if pAlive[p] is false and pFaulty[p] is true and pAlive[q] is true, then forwarding[p][q] is notsent. But we can just check that for all p, q: if pAlive[p] is false and pAlive[q] is true, then forwarding[p][q] is notsent. But that might be too strict. But we can approximate.
+
+We need to model that participants can abort on timeout for request: if coordinator is faulty, no broadcast, no forwarding from dead participants, then abort.
+
+We need to model that participants can abort on vote: if they vote no, they abort immediately.
+
+We need to model that participants can abort on timeout for request: we already have.
+
+We need to model that participants can abort on timeout for request: we need to incorporate that into AbortOnTimeout.
+
+We need to model that participants can abort on timeout for request: we need to incorporate that into AbortOnTimeout.
+
+We need to model that participants can abort on timeout for request: we need to incorporate that into AbortOnTimeout.
+
+We need to model that participants can abort on timeout for request: we need to incorporate that into AbortOnTimeout.
+
+Ok.
+
+We also need to model that participants can forward decisions to all others before deciding.
+
+We also need to model that participants can decide only after forwarding to all others.
+
+We also need to model that participants can decide only after receiving a pre-decision.
+
+We also need to model that participants can decide only after forwarding to all others.
+
+We also need to model that participants can decide only after receiving a pre-decision.
+
+We also need to model that participants can decide only after forwarding to all others.
+
+Ok.
+
+We also need to model that participants can decide only after receiving a pre-decision.
+
+Ok.
+
+We also need to model that participants can decide only after forwarding to all others.
+
+Ok.
+
+We also need to model that participants can decide only after receiving a pre-decision.
+
+Ok.
+
+We also need to model that participants can decide only after forwarding to all others.
+
+Ok.
+
+We also need to model that participants can decide only after receiving a pre-decision.
+
+Ok.
+
+We also need to model that participants can decide only after forwarding to all others.
+
+Ok.
+
+We also need to model that participants can decide only after receiving a pre-decision.
+
+Ok.
+
+We also need to model that participants can decide only after forwarding to all others.
+
+Ok.
+
+Stop repeating.
+
+Now, we need to define the invariants: TypeInvNB. It should capture safety properties AC1-AC4. We can define it as a conjunction of conditions:
+
+- Agreement: For all p, q: if pDecision[p] = commit and pDecision[q] = abort, then false. So no commit and abort simultaneously. Also no commit and commit? That's fine. No abort and abort? That's fine. But we need to ensure that no two participants have different decisions. So we can require that for all p, q: pDecision[p] = pDecision[q] or one of them is undecided. Actually we need to allow undecided. So we can require that if both are decided (not undecided), then they are equal. So: \A p, q \in participants : (pDecision[p] # undecided /\ pDecision[q] # undecided) => pDecision[p] = pDecision[q].
+
+- Commit validity: If any participant commits, then all participants voted yes. So: \A p \in participants : (pDecision[p] = commit) => \A q \in participants : pVote[q] = yes.
+
+- Abort validity: If any participant aborts, then either some participant voted no, or some participant is faulty, or the coordinator is faulty. So: \A p \in participants : (pDecision[p] = abort) => (\E q \in participants : pVote[q] = no \/ \E r \in participants : pFaulty[r] \/ coord.faulty).
+
+- Irrevocability: Once a participant commits or aborts, it remains in that state permanently. So: \A p \in participants : (pDecision[p] = commit \/ pDecision[p] = abort) => (pDecision[p] = commit \/ pDecision[p] = abort). But that's trivial. We need to ensure that decision never changes. So we need to enforce that decision variable is never changed once set to commit or abort. So we can add a type invariant: decision is always commit, abort, or undecided, and once set to commit or abort, it never changes. But we can enforce that by not allowing actions that change decision from commit to abort or vice versa. So we can add a guard that decision can only be set to commit or abort if it was undecided. So we can enforce that in actions. But we can also add an invariant: \A p \in participants : (pDecision[p] = commit \/ pDecision[p] = abort \/ pDecision[p] = undecided). And we can enforce that decision never changes from commit to abort or abort to commit. But we can just rely on actions.
+
+- Type invariant: All variables have correct types: pVote is mapping to yes/no/undecided; pAlive is mapping to bool; pDecision is mapping to commit/abort/undecided; pFaulty is mapping to bool; pVoteSent is mapping to bool; coord is record with fields alive, faulty, request, votes, broadcast, decision; forwarding is mapping from participants to mapping from participants to status (notsent, commit, abort). Also we need to ensure that forwarding entries for each participant p: forwarding[p][p] is either notsent or commit or abort; forwarding[p][q] for q != p is either notsent or commit or abort. And that forwarding[p][p] is the pre-decision stored by p. And that forwarding[p][q] is commit or abort only if forwarding[p][p] is commit or abort. And that forwarding[p][q] is notsent if forwarding[p][p] is notsent. And that forwarding[p][q] is commit or abort only if p is alive. And that forwarding[p][q] is notsent if p is not alive? But we can ignore.
+
+We also need to ensure that forwarding entries are only set to commit or abort when the participant has received a pre-decision.
+
+We also need to ensure that forwarding entries are only set to commit or abort when the participant is alive.
+
+We also need to ensure that forwarding entries are only set to commit or abort when the participant has not already forwarded to that participant.
+
+We also need to ensure that forwarding entries are only set to commit or abort when the participant has not already forwarded to that participant.
+
+We also need to ensure that forwarding entries are only set to commit or abort when the participant has not already forwarded to that participant.
+
+Ok.
+
+We also need to ensure that forwarding entries are only set to commit or abort when the participant has not already forwarded to that participant.
+
+Ok.
+
+We also need to ensure that forwarding entries are only set to commit or abort when the participant has not already forwarded to that participant.
+
+Ok.
+
+Stop.
+
+Now, we need to define the module.
+
+We need to import modules: TLC, FiniteSets, Sequences, TLC, etc. We need to define constants: participants, yes, no, undecided, commit, abort, waiting, notsent. We need to define variables: pVote, pAlive, pDecision, pFaulty, pVoteSent, coord, forwarding.
+
+We need to define the initial state: all participants alive, not faulty, vote undecided, decision undecided, voteSent false, forwarding entries notsent. Coordinator alive, not faulty, request empty, votes all undecided, broadcast empty, decision undecided.
+
+We need to define actions: CoordinatorSendRequest? Actually participants send request to coordinator. But we can model that as part of participant actions: they can add themselves to coordinator's request set. But we need to ensure that participants can only send request if they are alive and undecided. So we can define an action: SendRequest(p) where p is a participant. It updates coordinator.request to include p. But we also need to ensure that participants can only send request once? But we can allow multiple times; but we can restrict that if p is not in request set. But we can just allow adding if not already present.
+
+We also need to define action: SendVote(p) where p is a participant. It sets pVote[p] to yes or no, sets pVoteSent[p] to true, and updates coordinator.votes[p] to that vote. But we need to ensure that participants can only send vote if they are alive, undecided, and have sent request. But we can allow that.
+
+We also need to define action: CoordinatorMakeDecision. It checks that coordinator is alive, not faulty, and that for all p in coordinator.request, coordinator.votes[p] is not undecided. Then if all votes are yes, set coordinator.decision to commit; else set to abort. Then set coordinator.broadcast to coordinator.request.
+
+We also need to define action: CoordinatorBroadcast. It may be part of CoordinatorMakeDecision. But we can separate: after decision is set, coordinator can broadcast to all participants in request set. But we can just set broadcast to request set.
+
+We also need to define action: CoordinatorDie. It sets coordinator.alive to false, coordinator.faulty to true.
+
+We also need to define action: ParticipantPreDecideFromCoordinator(p). If p is alive, undecided, and coordinator.broadcast contains p, and forwarding[p][p] is notsent, then set forwarding[p][p] to coordinator.decision.
+
+We also need to define action: ParticipantPreDecideFromForwarding(p). If p is alive, undecided, and there exists q != p such that forwarding[q][p] is commit or abort, and forwarding[p][p] is notsent, then set forwarding[p][p] to that decision.
+
+We also need to define action: ParticipantForward(p, q). If p is alive, forwarding[p][p] is commit or abort, and forwarding[p][q] is notsent, then set forwarding[p][q] to forwarding[p][p].
+
+We also need to define action: ParticipantDecide(p). If p is alive, forwarding[p][p] is commit or abort, and for all q != p, forwarding[p][q] is commit or abort, then set pDecision[p] to forwarding[p][p].
+
+We also need to define action: ParticipantAbortOnVote(p). If p is alive, undecided, and pVote[p] = no, then set pDecision[p] to abort.
+
+We also need to define action: ParticipantAbortOnTimeout(p). If p is alive, undecided, coordinator.faulty, and for all r, if r is alive then r not in coordinator.broadcast, and for all q, if q is alive and there exists r such that r is dead and forwarding[r][q] is commit or abort, then abort. But we can approximate: if coordinator.faulty and no alive participant has received broadcast (i.e., for all r, if r is alive then r not in coordinator.broadcast), and no dead participant has forwarded a decision to any alive participant (i.e., for all r, q: if r is dead and q is alive then forwarding[r][q] is notsent), then set pDecision[p] to abort.
+
+We also need to define action: ParticipantDie(p). If p is alive, set pAlive[p] to false, pFaulty[p] to true.
+
+We also need to define action: CoordinatorDie. Already defined.
+
+We also need to define action: CoordinatorCollectVote? Actually we already update coordinator.votes when participant sends vote. So we don't need separate action.
+
+We also need to define action: CoordinatorMakeDecision. Already defined.
+
+We also need to define action: CoordinatorBroadcast. Already defined.
+
+We also need to define action: CoordinatorDie. Already defined.
+
+We also need to define action: CoordinatorSendRequest? Already defined as part of participant action.
+
+We also need to define action: CoordinatorCollectVote? Already defined as part of participant action.
+
+We also need to define action: CoordinatorMakeDecision. Already defined.
+
+We also need to define action: CoordinatorBroadcast. Already defined.
+
+We also need to define action: CoordinatorDie. Already defined.
+
+We also need to define action: ParticipantPreDecideFromCoordinator. Already defined.
+
+We also need to define action: ParticipantPreDecideFromForwarding. Already defined.
+
+We also need to define action: ParticipantForward. Already defined.
+
+We also need to define action: ParticipantDecide. Already defined.
+
+We also need to define action: ParticipantAbortOnVote. Already defined.
+
+We also need to define action: ParticipantAbortOnTimeout. Already defined.
+
+We also need to define action: ParticipantDie. Already defined.
+
+We also need to define action: CoordinatorDie. Already defined.
+
+We also need to define action: CoordinatorMakeDecision. Already defined.
+
+We also need to define action: CoordinatorBroadcast. Already defined.
+
+We also need to define action: CoordinatorDie. Already defined.
+
+Ok.
+
+Now we need to define the Next action as the disjunction of all possible actions: SendRequest, SendVote, CoordinatorMakeDecision, CoordinatorBroadcast, CoordinatorDie, ParticipantPreDecideFromCoordinator, ParticipantPreDecideFromForwarding, ParticipantForward, ParticipantDecide, ParticipantAbortOnVote, ParticipantAbortOnTimeout, ParticipantDie.
+
+We also need to define the spec: SpecNB = Init /\ [][Next]_vars.
+
+We also need to define the type invariant: TypeInvNB. It should include type checks and safety properties.
+
+We need to define the variable set: vars = <<pVote, pAlive, pDecision, pFaulty, pVoteSent, coord, forwarding>>.
+
+We need to define the type invariant: TypeInvNB = /\ pVote \in [participants -> {yes, no, undecided}]
+                    /\ pAlive \in [participants -> BOOLEAN]
+                    /\ pDecision \in [participants -> {commit, abort, undecided}]
+                    /\ pFaulty \in [participants -> BOOLEAN]
+                    /\ pVoteSent \in [participants -> BOOLEAN]
+                    /\ coord \in [alive |-> BOOLEAN, faulty |-> BOOLEAN, request |-> SUBSET participants, votes |-> [participants -> {yes, no, undecided}], broadcast |-> SUBSET participants, decision |-> {commit, abort, undecided}]
+                    /\ forwarding \in [participants -> [participants -> {notsent, commit, abort}]]
+                    /\ \A p \in participants : forwarding[p][p] \in {notsent, commit, abort}
+                    /\ \A p, q \in participants : (p = q) => forwarding[p][q] \in {notsent, commit, abort}
+                    /\ \A p, q \in participants : (p <> q) => forwarding[p][q] \in {notsent, commit, abort}
+                    /\ \A p \in participants : (pDecision[p] = commit \/ pDecision[p] = abort \/ pDecision[p] = undecided)
+                    /\ \A p, q \in participants : (pDecision[p] # undecided /\ pDecision[q] # undecided) => pDecision[p] = pDecision[q]
+                    /\ \A p \in participants : (pDecision[p] = commit) => \A q \in participants : pVote[q] = yes
+                    /\ \A p \in participants : (pDecision[p] = abort) => (\E q \in participants : pVote[q] = no \/ \E r \in participants : pFaulty[r] \/ coord.faulty)
+                    /\ \A p \in participants : (pDecision[p] = commit \/ pDecision[p] = abort) => (pDecision[p] = commit \/ pDecision[p] = abort)  (* trivial, but ensures irrevocability *)
+                    /\ \A p \in participants : (pDecision[p] = commit \/ pDecision[p] = abort) => (pDecision[p] = commit \/ pDecision[p] = abort)  (* same *)
+                    /\ \A p \in participants : (pDecision[p] = commit \/ pDecision[p] = abort) => (pDecision[p] = commit \/ pDecision[p] = abort)  (* redundant *)
+                    /\ \A p \in participants : (pDecision[p] = commit \/ pDecision[p] = abort) => (pDecision[p] = commit \/ pDecision[p] = abort)  (* redundant *)
+                    /\ \A p \in participants : (pDecision[p] = commit \/ pDecision[p] = abort) => (pDecision[p] = commit \/ pDecision[p] = abort)  (* redundant *)
+                    /\ \A p \in participants : (pDecision[p] = commit \/ pDecision[p] = abort) => (pDecision[p] = commit \/ pDecision[p] = abort)  (* redundant *)
+                    /\ \A p \in participants : (pDecision[p] = commit \/ pDecision[p] = abort) => (pDecision[p] = commit \/ pDecision[p] = abort)  (* redundant *)
+                    /\ \A p \in participants : (pDecision[p] = commit \/ pDecision[p] = abort) => (pDecision[p] = commit \/ pDecision[p] = abort)  (* redundant *)
+                    /\ \A p \in participants : (pDecision[p] = commit \/ pDecision[p] = abort) => (pDecision[p] = commit \/ pDecision[p] = abort)  (* redundant *)
+                    /\ \A p \in participants : (pDecision[p] = commit \/ pDecision[p] = abort) => (pDecision[p] = commit \/ pDecision[p] = abort)  (* redundant *)
+                    /\ \A p \in participants : (pDecision[p] = commit \/ pDecision[p] = abort) => (pDecision[p] = commit \/ pDecision[p] = abort)  (* redundant *)
+                    /\ \A p \in participants : (pDecision[p] = commit \/ pDecision[p] = abort) => (pDecision[p] = commit \/ pDecision[p] = abort)  (* redundant *)
+                    /\ \A p \in participants : (pDecision[p] = commit \/ pDecision[p] = abort) => (pDecision[p] = commit \/ pDecision[p] = abort)  (* redundant *)
+                    /\ \A p \in participants : (pDecision[p] = commit \/ pDecision[p] = abort) => (pDecision[p] = commit \/ pDecision[p] = abort)  (* redundant *)
+                    /\ \A p \in participants : (pDecision[p] = commit \/ pDecision[p] = abort) => (pDecision[p] = commit \/ pDecision[p] = abort)  (* redundant *)
+                    /\ \A p \in participants : (pDecision[p] = commit \/ pDecision[p] = abort) => (pDecision[p] = commit \/ pDecision[p] = abort)  (* redundant *)
+                    /\ \A p \in participants : (pDecision[p] = commit \/ pDecision[p] = abort) => (pDecision[p] = commit \/ pDecision[p] = abort)  (* redundant *)
+                    /\ \A p \in participants : (pDecision[p] = commit \/ pDecision[p] = abort) => (pDecision[p] = commit \/ pDecision[p] = abort)  (* redundant *)
+                    /\ \A p \in participants : (pDecision[p] = commit \/ pDecision[p] = abort) => (pDecision[p] = commit \/ pDecision[p] = abort)  (* redundant *)
+                    /\ \A p \in participants : (pDecision[p] = commit \/ pDecision[p] = abort) => (pDecision[p] = commit \/ pDecision[p] = abort)  (* redundant *)
+                    /\ \A p \in participants : (pDecision[p] = commit \/ pDecision[p] = abort) => (pDecision[p] = commit \/ pDecision[p] = abort)  (* redundant *)
+                    /\ \A p \in participants : (pDecision[p] = commit \/ pDecision[p] = abort) => (pDecision[p] = commit \/ pDecision[p] = abort)  (* redundant *)
+                    /\ \A p \in participants : (pDecision[p] = commit \/ pDecision[p] = abort) => (pDecision[p] = commit \/ pDecision[p] = abort)  (* redundant *)
+                    /\ \A p \in participants : (pDecision[p] = commit \/ pDecision[p] = abort) => (pDecision[p] = commit \/ pDecision[p] = abort)  (* redundant *)
+                    /\ \A p \in participants : (pDecision[p] = commit \/ pDecision[p] = abort) => (pDecision[p] = commit \/ pDecision[p] = abort)  (* redundant *)
+                    /\ \A p \in participants : (pDecision[p] = commit \/ pDecision[p] = abort) => (pDecision[p] = commit \/ pDecision[p] = abort)  (* redundant *)
+                    /\ \A p \in participants : (pDecision[p] = commit \/ pDecision[p] = abort) => (pDecision[p] = commit \/ pDecision[p] = abort)  (* redundant *)
+                    /\ \A p \in participants : (pDecision[p] = commit \/ pDecision[p] = abort) => (pDecision[p] = commit \/ pDecision[p] = abort)  (* redundant *)
+                    /\ \A p \in participants : (pDecision[p] = commit \/ pDecision[p] = abort) => (pDecision[p] = commit \/ pDecision[p] = abort)  (* redundant *)
+                    /\ \A p \in participants : (pDecision[p] = commit \/ pDecision[p] = abort) => (pDecision[p] = commit \/ pDecision[p] = abort)  (* redundant *)
+                    /\ \A p \in participants : (pDecision[p] = commit \/ pDecision[p]

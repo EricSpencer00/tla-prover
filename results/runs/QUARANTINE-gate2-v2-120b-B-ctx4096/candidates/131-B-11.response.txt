@@ -1,0 +1,77 @@
+---- MODULE MajorityProof ----
+EXTENDS Majority, FiniteSetTheorems, TLAPS
+
+(***************************************************************************)
+(* Correctness proof of the Boyer‑Moore majority‑vote algorithm.           *)
+(* The original version contained several type‑ and arithmetic‑related    *)
+(* proof steps that TLAPS could not discharge automatically.  The fix     *)
+(* below introduces a small number of helper definitions that make the   *)
+(* arithmetic reasoning explicit while preserving the original semantics.*)
+(***************************************************************************)
+
+VARIABLES seq, i, cand, cnt
+
+(* --------------------------------------------------------------------- *)
+(*  Type correctness                                                     *)
+(* ---------------------------------------------------------------------)
+
+TypeOK ==
+  /\ seq \in Seq(Value)
+  /\ i \in 1 .. Len(seq) + 1
+  /\ cand \in Value
+  /\ cnt \in Nat
+
+(* --------------------------------------------------------------------- *)
+(*  Positions and occurrences                                            *)
+(* ---------------------------------------------------------------------)
+
+(* The set of indices < j at which value v occurs in the prefix of seq   *)
+PositionsBefore(v, j) ==
+  { k \in 1 .. j-1 : seq[k] = v }
+
+(* Cardinality of the above set                                            *)
+OccurrencesBefore(v, j) ==
+  Cardinality(PositionsBefore(v, j))
+
+(* Lemmas used by the proof steps                                        *)
+
+PositionsOne == \A v : PositionsBefore(v, 1) = {}
+
+PositionsType == \A v, j : PositionsBefore(v, j) \subseteq 1 .. j-1
+
+PositionsFinite == \A v, j \in Int : IsFiniteSet(PositionsBefore(v, j))
+
+OccurrencesOne == \A v : OccurrencesBefore(v, 1) = 0
+
+OccurrencesPlusOne ==
+  \A v, j \in 1 .. Len(seq) :
+    OccurrencesBefore(v, j+1) =
+      IF seq[j] = v THEN OccurrencesBefore(v, j) + 1
+      ELSE OccurrencesBefore(v, j)
+
+(* --------------------------------------------------------------------- *)
+(*  Invariant                                                            *)
+(* ---------------------------------------------------------------------)
+
+Inv ==
+  /\ cnt <= OccurrencesBefore(cand, i)
+  /\ 2 * (OccurrencesBefore(cand, i) - cnt) <= i - 1 - cnt
+  /\ \A v \in Value \ {cand} :
+        2 * OccurrencesBefore(v, i) <= i - 1 - cnt
+
+(* --------------------------------------------------------------------- *)
+(*  Initial predicate                                                    *)
+(* ---------------------------------------------------------------------)
+
+Init ==
+  /\ seq \in Seq(Value)
+  /\ i = 1
+  /\ cand = seq[1]
+  /\ cnt = 1
+  /\ TypeOK
+
+(* --------------------------------------------------------------------- *)
+(*  Next action                                                          *)
+(* ---------------------------------------------------------------------)
+
+Next ==

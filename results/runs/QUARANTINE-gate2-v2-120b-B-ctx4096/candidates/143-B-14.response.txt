@@ -1,0 +1,35 @@
+```tla
+---- MODULE MissionariesAndCannibals ----
+EXTENDS Integers, FiniteSets
+
+CONSTANTS Missionaries, Cannibals
+
+VARIABLES bank_of_boat, who_is_on_bank
+
+(* ----------------------------------------------------------------- *)
+(* Type correctness predicate                                         *)
+(* ----------------------------------------------------------------- *)
+TypeOK ==
+    /\ bank_of_boat \in {"E", "W"}
+    /\ who_is_on_bank \in [{"E", "W"} -> SUBSET (Missionaries \cup Cannibals)]
+
+(* ----------------------------------------------------------------- *)
+(* Initial state predicate                                            *)
+(* ----------------------------------------------------------------- *)
+Init ==
+    /\ bank_of_boat = "E"
+    /\ who_is_on_bank = [i \in {"E", "W"} |-> IF i = "E"
+                                          THEN Missionaries \cup Cannibals
+                                          ELSE {}]
+
+(* ----------------------------------------------------------------- *)
+(* Helper definitions                                                *)
+(* ----------------------------------------------------------------- *)
+IsSafe(S) ==
+    \/ S \subseteq Missionaries
+    \/ Cardinality(S \cap Cannibals) =< Cardinality(S \cap Missionaries)
+
+OtherBank(b) == IF b = "E" THEN "W" ELSE "E"
+
+(* ----------------------------------------------------------------- *)
+(* Move(S,b) describes a safe

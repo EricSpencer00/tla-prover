@@ -1,0 +1,34 @@
+```tla
+---- MODULE Reachable ----
+EXTENDS Reachability, Integers, FiniteSets
+
+CONSTANT Root
+ASSUME RootAssump == Root \in Nodes
+
+(* The set of nodes reachable from Root. *)
+Reachable == ReachableFrom({Root})
+
+(*-------------------------------------------------------------------*)
+(* Variables *)
+VARIABLES marked, vroot, pc
+
+(* Tuple of all variables, used for stuttering steps *)
+vars == << marked, vroot, pc >>
+
+(*-------------------------------------------------------------------*)
+(* Initial state *)
+Init ==
+    /\ marked = {}
+    /\ vroot  = {Root}
+    /\ pc     = "a"
+
+(*-------------------------------------------------------------------*)
+(* Action 'a' – the algorithm step *)
+a ==
+    /\ pc = "a"
+    /\ IF vroot /= {}
+          THEN
+            /\ \E v \in vroot :
+                   IF v \notin marked
+                      THEN /\ marked' = marked \cup {v}
+                           /\

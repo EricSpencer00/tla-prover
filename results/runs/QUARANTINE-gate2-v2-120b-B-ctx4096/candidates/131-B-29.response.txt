@@ -1,0 +1,78 @@
+```tla
+---- MODULE MajorityProof ----
+EXTENDS Majority, FiniteSetTheorems, TLAPS
+
+(***************************************************************************)
+(* Type correctness invariant                                               *)
+(***************************************************************************)
+TypeOK ==
+  /\ seq \in Seq(Value)
+  /\ i \in 1..Len(seq) + 1
+  /\ cand \in Value
+  /\ cnt \in Nat
+
+(***************************************************************************)
+(* Helper definitions                                                      *)
+(***************************************************************************)
+PositionsBefore(v, j) ==
+  { k \in 1..j-1 : seq[k] = v }
+
+OccurrencesBefore(v, j) ==
+  Cardinality(PositionsBefore(v, j))
+
+(***************************************************************************)
+(* Inductive invariant                                                     *)
+(***************************************************************************)
+Inv ==
+  /\ cnt <= OccurrencesBefore(cand, i)
+  /\ 2 * (OccurrencesBefore(cand, i) - cnt) <= i - 1 - cnt
+  /\ \A v \in Value \ {cand} :
+        2 * OccurrencesBefore(v, i) <= i - 1 - cnt
+
+(***************************************************************************)
+(* Initial predicate                                                       *)
+(***************************************************************************)
+Init ==
+  /\ seq \in Seq(Value)
+  /\ i = 1
+  /\ cand \in Value
+  /\ cnt = 0
+  /\ Inv
+
+(***************************************************************************)
+(* Next-state relation                                                     *)
+(***************************************************************************)
+Next ==
+  \/ /\ i <= Len(seq)
+        /\ cnt = 0
+        /\ cand' = seq[i]
+        /\ cnt' = 1
+        /\ i' = i + 1
+        /\ UNCHANGED <<seq, cand>>
+  \/ /\ i <= Len(seq)
+        /\ cnt # 0
+        /\ cand' = cand
+        /\ i' = i + 1
+        /\ IF seq[i] = cand THEN cnt' = cnt + 1 ELSE cnt' = cnt - 1
+        /\ UNCHANGED seq
+  \/ /\ i > Len(seq)
+        /\ UNCHANGED <<seq, i, cand, cnt>>
+
+(***************************************************************************)
+(* Specification                                                          *)
+(***************************************************************************)
+Spec == Init /\ [][Next]_<<seq, i, cand, cnt>>
+
+(***************************************************************************)
+(* Correctness property (the majority candidate, if any, appears more   *)
+(* than half the time in the entire sequence)                             *)
+(***************************************************************************)
+Correct ==
+  /\ i = Len(seq) + 1
+  /\ cnt > 0
+  /\ 2 * OccurrencesBefore(cand, Len(seq) + 1) > Len(seq)
+
+(***************************************************************************)
+(* Theorem stating that the specification guarantees the correctness     *)
+(***************************************************************************)
+THEOREM Spec => []

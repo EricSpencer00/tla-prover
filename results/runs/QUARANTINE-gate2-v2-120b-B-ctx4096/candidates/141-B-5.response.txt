@@ -1,0 +1,26 @@
+```tla
+---- MODULE Reachable ----
+EXTENDS Reachability, Integers, FiniteSets
+
+CONSTANT Root
+ASSUME RootAssump == Root \in Nodes
+
+(***************************************************************************)
+(* Reachable is defined to be the set of nodes reachable from Root.       *)
+(***************************************************************************)
+Reachable == ReachableFrom({Root})
+
+(***************************************************************************)
+(* Variables of the algorithm:                                            *)
+(*   marked : the set of nodes that have been processed (or are known to  *)
+(*            be reachable)                                                *)
+(*   vroot  : the frontier set, i.e., nodes that are known to be          *)
+(*            reachable but have not yet been processed.                  *)
+(*   pc     : a control variable that records the current program counter, *)
+(*            used to model termination.                                   *)
+(***************************************************************************)
+VARIABLES marked, vroot, pc
+
+vars == << marked, vroot, pc >>
+
+(

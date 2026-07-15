@@ -1,0 +1,201 @@
+We need to write a TLA+ module named bcastByz. Must define constants N, T, F. Must define operators: Init, Next, Spec, TypeOK, FCConstraints, CorrLtl, RelayLtl, UnforgLtl. Also need to define any other necessary definitions: sets of processes, message types, etc. Must model the described protocol.
+
+We need to include weak fairness assumption for liveness properties. Also variant for safety-only.
+
+We need to include the unforgeability invariant: if no correct process broadcasts (i.e., all start without INIT), then no correct process ever accepts.
+
+We need to model the initial state: correct set of size N-F, faulty set complement. Each process starts in one of two states: either received INIT or not. The restricted initial state for no-broadcast case: all start without INIT.
+
+We need to model actions: receiving messages, sending ECHO, accepting.
+
+We need to track per-process control location: maybe a variable "state" mapping each process to a value among {Init, NoInit, EchoSent, Accepted}. But we also need to track whether it has received INIT. The description: "control location of each process (indicating whether it received an INIT message, has not received one, has sent an ECHO, or has accepted)". So we can use a variable "procState" mapping each process to one of these four values. But we also need to track messages received by each process: a set of pairs (sender, msgType). And the set of messages sent by all correct processes: maybe a variable "sent" mapping each process to set of messages it has sent. But we can also maintain a global set of sent messages.
+
+Simplify: maintain variable "recv" mapping each process to set of messages it has received. Each message is a tuple (sender, type). Types: "ECHO". Also we need to model the INIT message: it's not a message but an initial state property. So we don't need to model INIT messages as messages; we just set initial state accordingly.
+
+When a correct process receives INIT (i.e., starts in state Init), it immediately accepts and sends ECHO to all. So in the initial state, if a process starts with INIT, we should set its state to Accepted and add its ECHO message to the sent set. But the description says: "If a correct process received the INIT message (starts in the broadcast-received state), it immediately accepts and sends an ECHO message to all." So we can model that as part of the initial state: for each process that starts with INIT, we set its state to Accepted and add its ECHO to the sent set. But we also need to consider that the process may not have yet sent ECHO? But the description says it immediately sends ECHO. So yes.
+
+For processes that start without INIT, they start in state NoInit. They may later receive INIT? The description says "control location of each process (indicating whether it received an INIT message, has not received one, has sent an ECHO, or has accepted)". So the state can change from NoInit to EchoSent or Accepted. But can a process that starts without INIT later receive INIT? The description says "If a correct process received the INIT message (starts in the broadcast-received state), it immediately accepts and sends an ECHO message to all." It doesn't mention receiving INIT later. So we can assume that the only way to get INIT is at start. So processes either start with INIT or not, and never change that. So we can model that as a constant "initSet" of processes that start with INIT. But the description says the initial state chooses nondeterministically which processes start with INIT, but also there is a restricted initial state where no correct process received the INIT message. So we need to allow arbitrary initSet but also allow a special initial state where initSet is empty. But the spec may allow any initSet; the restricted initial state is used for checking unforgeability property. So we can model initSet as a variable that is set at initialization. But the spec says "The partition into correct and faulty sets is chosen nondeterministically at initialization, with exactly N-F correct processes and F faulty processes (where F is at most T). Correct processes follow the protocol; Byzantine processes may send arbitrary ECHO messages." So we need to nondeterministically choose correctSet and faultySet. Also we need to nondeterministically choose initSet among correct processes? The description says "Each process starts in one of two states: one indicating it received the broadcaster's INIT message, the other indicating it did not." So initSet is a subset of correctSet. But the description also says "A restricted initial state is also defined where no correct process received the INIT message (all start in the non-broadcast state)." So we need to allow that as a special case. So we can model initSet as a variable that is a subset of correctSet, but we also need to allow the possibility that initSet is empty. But we also need to allow any subset? The description says "Each process starts in one of two states: one indicating it received the broadcaster's INIT message, the other indicating it did not." It doesn't say that the number of processes that start with INIT is fixed. So we can allow any subset of correctSet. But the restricted initial state is a special case where initSet is empty. So we can just allow any subset, including empty. That covers the restricted case.
+
+Now we need to model the actions:
+
+1. Receive new messages: A correct process may receive a set of new messages, which is a subset of all sent messages by correct processes combined with all possible messages from Byzantine processes. So we need to model that a correct process can nondeterministically add to its recv set any subset of the union of sent messages from correct processes and arbitrary messages from Byzantine processes. But we need to model that Byzantine processes may send arbitrary ECHO messages. So we need to model that the set of messages that can be received by a correct process includes all ECHO messages that have been sent by correct processes, plus any ECHO messages that could be sent by Byzantine processes. But we don't model Byzantine sending explicitly; we can just allow that a correct process may receive any ECHO message from any process (including Byzantine) that hasn't been received yet. But we need to ensure that the set of messages that can be received is a subset of the set of all possible ECHO messages from all processes. But we also need to ensure that the set of messages that have been sent by correct processes is tracked. So we need a variable "sent" mapping each correct process to the set of ECHO messages it has sent. Initially, only those correct processes that start with INIT have sent an ECHO. Then when a correct process sends an ECHO, we add that message to its sent set. We also need a global set of all sent messages: maybe "AllSent" = Union over correct processes of sent[proc]. But we can compute that on the fly.
+
+Now, the action "receive new messages" can be modeled as: for each correct process p that is not yet in state Accepted, we can nondeterministically add to its recv set any subset of the set of all possible messages that could be received. But we need to ensure that the process can only receive messages that have been sent by some process (correct or Byzantine). For Byzantine, we can allow any ECHO message from any process (including Byzantine). But we need to ensure that the message is not already in recv. So we can define a variable "recv" mapping each process to a set of messages. Each message is a tuple (sender, type). The type is just "ECHO". So we can define a constant "MsgType" = {"ECHO"}. But we can just use the string "ECHO".
+
+Now, the action "receive new messages" can be defined as: choose a process p that is correct and not yet accepted, choose a subset of the set of all possible messages that are not already in recv[p], and add them to recv[p]. But we also need to consider that the process may receive messages from Byzantine processes that have not been sent by any correct process. But we can allow that by including all possible messages from any process (including Byzantine). But we need to ensure that the set of possible messages is bounded: all pairs (q, "ECHO") where q is any process (correct or faulty). So we can define "AllMsgs" = { (q, "ECHO") : q \in Proc }. Then the set of messages that can be received by a correct process is a subset of AllMsgs. But we also need to ensure that the process cannot receive a message that has already been received. So we can define the action as adding a subset of AllMsgs \ recv[p].
+
+But the description says "subset of all sent messages by correct processes combined with all possible messages from Byzantine processes." That means that the process can only receive messages that have been sent by correct processes (i.e., those in AllSent) or any message from Byzantine processes (i.e., any message from any faulty process). But if a Byzantine process hasn't sent a message yet, can it send one? The description says Byzantine processes may send arbitrary ECHO messages. So we can allow that a Byzantine process can send any ECHO message at any time. But we don't model Byzantine sending explicitly; we just allow correct processes to receive any ECHO message from any process, regardless of whether it has been sent by a correct process. That covers the combination: all possible messages from Byzantine processes plus all sent messages from correct processes. So we can just allow any message from any process.
+
+But we also need to model the sending of ECHO by correct processes. That is separate action: when a correct process sends an ECHO, we add that message to its sent set. But we also need to ensure that the process's state changes accordingly: if it hasn't sent ECHO yet, it may send ECHO when it receives enough ECHO messages. So we need to model the state transitions:
+
+- If a correct process is in state NoInit (i.e., did not receive INIT), and it has not yet sent ECHO, and it receives at least N-2T ECHO messages from distinct senders but fewer than N-T, then it sends ECHO and stays in state EchoSent (or maybe moves to EchoSent). It does not accept yet.
+
+- If a correct process is in state NoInit and has not yet sent ECHO, and it receives at least N-T ECHO messages from distinct senders, then it sends ECHO and immediately accepts. So it moves to Accepted.
+
+- If a correct process is in state EchoSent (i.e., has sent ECHO but not yet accepted), and it receives at least N-T ECHO messages from distinct senders, then it accepts. So it moves to Accepted.
+
+- If a correct process is in state Accepted, it stays in Accepted.
+
+- If a correct process is in state Init (i.e., started with INIT), it immediately accepts and sends ECHO. So we can model that as part of the initial state: set state to Accepted and add ECHO to sent set. So we don't need a transition for that.
+
+- Byzantine processes may send arbitrary ECHO messages. We can model that as an action where a Byzantine process p nondeterministically sends an ECHO message to all. That means we add the message (p, "ECHO") to the sent set of p. But we also need to ensure that the message is added to the global sent set. But we can just update the sent variable for that process. But we also need to ensure that the message is considered sent by correct processes? No, it's a Byzantine process, so we don't track its sent messages? But we need to allow correct processes to receive messages from Byzantine processes. So we need to track the set of messages that have been sent by Byzantine processes as well. But we can just allow correct processes to receive any message from any process, regardless of whether it has been sent. But that would allow receiving messages that have never been sent. But the description says "subset of all sent messages by correct processes combined with all possible messages from Byzantine processes." That means that Byzantine messages are not required to be sent; they can be arbitrary. So we can allow correct processes to receive any message from any process, but we need to differentiate between messages that have been sent by correct processes (which we track) and arbitrary messages from Byzantine processes (which we don't need to track). So we can allow correct processes to receive any message from any process, but we also need to ensure that if the message is from a correct process, it must have been sent by that correct process. So we need to enforce that constraint: if a correct process receives a message from a correct sender, that message must be in the sent set of that sender. For Byzantine senders, we don't enforce that.
+
+Thus, the receive action for a correct process p can be defined as: choose a subset of messages M such that for each (q, "ECHO") in M, either q is a faulty process (then no restriction) or q is a correct process and (q, "ECHO") is in sent[q]. Then add M to recv[p].
+
+But we also need to ensure that the process cannot receive a message that it has already received. So we add only new messages.
+
+Now, the send action for a correct process p: if p is in state NoInit and has not yet sent ECHO, and it has received at least N-2T ECHO messages from distinct senders but fewer than N-T, then it sends ECHO: we add (p, "ECHO") to sent[p] and set state to EchoSent. If it has received at least N-T ECHO messages, then it sends ECHO and immediately accepts: we add (p, "ECHO") to sent[p] and set state to Accepted.
+
+If p is in state EchoSent and has not yet accepted, and it receives at least N-T ECHO messages, then it accepts: set state to Accepted.
+
+If p is in state Accepted, no change.
+
+We also need to model the action of Byzantine processes sending arbitrary ECHO messages. We can define an action where a Byzantine process p nondeterministically sends an ECHO message: we add (p, "ECHO") to a global set of ByzantineSent? But we don't need to track that; we just need to allow correct processes to receive arbitrary messages from Byzantine processes. So we can model that as part of the receive action: correct processes can receive any message from any process, regardless of whether it has been sent. So we don't need a separate Byzantine send action. But we might need to model that Byzantine processes can send messages that are not yet in the sent set of correct processes. But we don't need to track that; we just allow correct processes to receive any message from any process. So we can skip modeling Byzantine send actions.
+
+However, we need to ensure that the set of messages that can be received by a correct process includes all messages that have been sent by correct processes (i.e., those in sent sets) plus all possible messages from Byzantine processes. So we can define the set of possible messages as: AllMsgs = { (q, "ECHO") : q \in Proc }. Then the set of messages that can be received by a correct process p is: { m \in AllMsgs : m \notin recv[p] }. But we also need to restrict that if m's sender is a correct process, then m must be in sent[sender]. But we can enforce that by requiring that the set of messages added to recv[p] is a subset of the union of sent messages from correct processes and all messages from faulty processes. So we can define:
+
+PossibleRecv(p) = { (q, "ECHO") : q \in Proc } \ recv[p]  // all messages not yet received
+But we need to restrict that if q is a correct process, then (q, "ECHO") must be in sent[q]. So we can define:
+
+PossibleRecv(p) = { (q, "ECHO") : q \in Proc /\ (q \in faulty \/ (q \in correct /\ (q, "ECHO") \in sent[q])) } \ recv[p]
+
+But we also need to consider that a correct process may receive a message from a correct process that hasn't been sent yet? That would violate the restriction. So we need to enforce that.
+
+Now, we need to define the variable "state" mapping each process to one of the four values: "Init", "NoInit", "EchoSent", "Accepted". But we also need to differentiate between processes that started with INIT and those that didn't. So we can define a constant "initSet" as the set of processes that start with INIT. But we can also encode that in the state variable: if a process is in state "Init", it means it started with INIT. But we also need to allow that a process that started with INIT may later be in state "Accepted" (since it immediately accepts). So we can just set state to "Accepted" for those processes. So we don't need a separate "Init" state. We can just set state to "Accepted" for those that start with INIT. So the state variable can be "procState" mapping each process to one of {NoInit, EchoSent, Accepted}. And we can have a constant "initSet" that is the set of processes that start with INIT. In the initial state, for each process p: if p \in initSet then procState[p] = Accepted else procState[p] = NoInit. And we also set sent[p] accordingly: if p \in initSet then sent[p] = {(p, "ECHO")} else sent[p] = {}.
+
+Now, we need to define the variable "recv" mapping each process to a set of messages. Initially, recv[p] = {} for all p.
+
+Now, we need to define the variable "correct" and "faulty" sets. We can define "correct" as a variable that is a subset of Proc of size N-F. And "faulty" as the complement. We need to nondeterministically choose them at initialization. But we also need to ensure that the partition is consistent: correct \cup faulty = Proc, correct \cap faulty = {}. And |correct| = N-F, |faulty| = F. And F <= T. And N > 3T. These constraints can be part of the invariant FCConstraints.
+
+But we also need to ensure that initSet is a subset of correct. So we need to enforce that.
+
+Now, we need to define the variable "sent" mapping each process to a set of messages. For correct processes, we track the messages they have sent. For faulty processes, we don't need to track sent messages, but we can set sent[p] = {} for faulty processes. But we might need to allow Byzantine processes to send arbitrary messages, but we don't track them. So we can just keep sent[p] = {} for faulty processes.
+
+Now, we need to define the variable "AllSent" maybe as a derived expression: Union over correct of sent[p].
+
+Now, we need to define the actions:
+
+- Receive action: choose a correct process p that is not yet Accepted (i.e., procState[p] in {NoInit, EchoSent}) and choose a non-empty subset M of PossibleRecv(p). Then update recv[p] = recv[p] \cup M. The state of p does not change.
+
+- SendECHO action: choose a correct process p that is in state NoInit and has not yet sent ECHO (i.e., sent[p] = {}), and that has received at least N-2T ECHO messages from distinct senders but fewer than N-T. Then add (p, "ECHO") to sent[p] and set procState[p] = EchoSent. (If it has received at least N-T, then we set procState[p] = Accepted instead.)
+
+- Accept action: choose a correct process p that is in state EchoSent and has received at least N-T ECHO messages from distinct senders. Then set procState[p] = Accepted.
+
+- For processes that are in state Accepted, no action.
+
+- For Byzantine processes, we don't model any actions; they can send arbitrary messages, but we don't need to model that explicitly because correct processes can receive arbitrary messages from them.
+
+Now, we need to define the Next action as the disjunction of these actions.
+
+Now, we need to define the invariant TypeOK: ensures that all variables remain within their domains: correct and faulty are subsets of Proc, |correct| = N-F, |faulty| = F, correct \cap faulty = {}, correct \cup faulty = Proc. procState maps each process to one of the allowed values. recv maps each process to a set of messages where each message is a pair (sender, "ECHO") with sender in Proc. sent maps each process to a set of messages where each message is a pair (sender, "ECHO") with sender in correct. And for each correct process p, if p \in initSet then sent[p] contains (p, "ECHO") and procState[p] = Accepted; else sent[p] = {} and procState[p] = NoInit. Also, for faulty processes, sent[p] = {} and procState[p] = NoInit? But we might not need to track state for faulty processes; we can just set them to NoInit. But we can also set them to a special value "Faulty" but not needed.
+
+Now, FCConstraints: constraints on the partition: correct and faulty sets as above, plus N > 3T, T >= F, F >= 0. Also maybe that initSet is a subset of correct.
+
+CorrLtl: liveness property: if all correct processes received the INIT message (i.e., initSet = correct), then eventually all correct processes accept. So we need to express that if initSet = correct, then eventually forall p in correct: procState[p] = Accepted.
+
+RelayLtl: if any correct process accepts, then eventually all correct processes accept. So we need to express that if exists p in correct: procState[p] = Accepted, then eventually forall q in correct: procState[q] = Accepted.
+
+UnforgLtl: if no correct process broadcasts (i.e., initSet = {}), then eventually no correct process accepts. So we need to express that if initSet = {}, then eventually forall p in correct: procState[p] != Accepted. But we also need to ensure that this holds always: if initSet = {}, then no correct process ever accepts. So we can express as: [] (initSet = {} => [] (forall p in correct: procState[p] != Accepted)). But we can also express as [] (initSet = {} => [] (procState[p] != Accepted)). But we need to ensure that the invariant holds for all reachable states. So we can define UnforgLtl as a safety property: [] (initSet = {} => forall p in correct: procState[p] != Accepted). But the description says "Unforgeability: if no correct process broadcasts (all start without the INIT message), then no correct process ever accepts." So we can express that as a safety invariant: [] (initSet = {} => forall p in correct: procState[p] != Accepted). That ensures that if initSet is empty, then no correct process ever reaches Accepted. But we also need to ensure that if initSet is empty, then no correct process can ever accept. So we can define UnforgLtl as that invariant.
+
+Now, we need to define the constants: N, T, F. We also need to define Proc = 1..N. We also need to define the set of all processes: Proc.
+
+We also need to define the set of all messages: AllMsgs = { (q, "ECHO") : q \in Proc }.
+
+Now, we need to define the variable "initSet" as a subset of correct. But we need to nondeterministically choose it at initialization. So we can define an Init action that chooses correct, faulty, initSet, and sets the other variables accordingly.
+
+Now, we need to define the variable "correct" and "faulty" as part of the state. So we need to include them in the state variables.
+
+Now, we need to define the variable "recv" and "sent" and "procState".
+
+Now, we need to define the variable "AllSent" as a derived expression: Union over correct of sent[p].
+
+Now, we need to define the action "Receive" as described.
+
+Now, we need to define the action "SendEcho" as described.
+
+Now, we need to define the action "Accept" as described.
+
+Now, we need to define the Next action as the disjunction of these actions.
+
+Now, we need to define the Spec as Init /\ [][Next]_vars, where vars = {correct, faulty, initSet, recv, sent, procState}.
+
+Now, we need to define the invariants: TypeOK, FCConstraints, UnforgLtl. But the required invariants are TypeOK and FCConstraints. UnforgLtl is a property, not an invariant. But we can also include it as an invariant if we want. But the required invariants are only TypeOK and FCConstraints. The properties are CorrLtl, RelayLtl, UnforgLtl. So we need to define those as LTL formulas.
+
+Now, we need to define the fairness assumption: weak fairness on the combined receive-and-act steps of correct processes. We can define a fairness condition in the .cfg file, but we can also include it in the module as a fairness condition? In TLA+, fairness is specified in the .cfg file, not in the module. But we can include a comment. But we don't need to include fairness in the module. The .cfg will specify fairness. But we need to include a variant without fairness for safety-only properties. That can be done by having a separate .cfg file. But we just need to define the module.
+
+Now, we need to ensure that the module compiles.
+
+Now, we need to define the variable "vars" as a set of variables: {correct, faulty, initSet, recv, sent, procState}.
+
+Now, we need to define the initial state: choose correct, faulty, initSet, and set recv, sent, procState accordingly.
+
+Now, we need to ensure that the initial state satisfies the constraints: correct and faulty partition, |correct| = N-F, |faulty| = F, correct \cap faulty = {}, correct \cup faulty = Proc. Also initSet \subseteq correct. Also for each p in correct: if p \in initSet then procState[p] = Accepted and sent[p] = {(p, "ECHO")}. Else procState[p] = NoInit and sent[p] = {}. For each p in faulty: procState[p] = NoInit and sent[p] = {}. recv[p] = {} for all p.
+
+Now, we need to define the action "Receive" carefully: choose a correct process p that is not yet Accepted. Then choose a non-empty subset M of PossibleRecv(p). Then update recv[p] = recv[p] \cup M. The other variables unchanged.
+
+Now, we need to define the action "SendEcho" for a correct process p that is in state NoInit and has not yet sent ECHO (i.e., sent[p] = {}), and that has received at least N-2T ECHO messages from distinct senders but fewer than N-T. Then we add (p, "ECHO") to sent[p] and set procState[p] = EchoSent. If it has received at least N-T, then we set procState[p] = Accepted.
+
+But we need to differentiate between the two cases. We can define two actions: SendEchoPartial and SendEchoFull. Or we can define a single action that chooses the appropriate new state based on the count. But we need to ensure that the action is deterministic: if the condition for full acceptance holds, we set to Accepted; else if the condition for partial holds, we set to EchoSent. But we need to ensure that we don't allow both to happen simultaneously. So we can define two separate actions: SendEchoPartial and SendEchoFull.
+
+Now, we need to define the action "Accept" for a correct process p that is in state EchoSent and has received at least N-T ECHO messages from distinct senders. Then set procState[p] = Accepted.
+
+Now, we need to define the action "NoOp" maybe for faulty processes? But we can just leave them unchanged.
+
+Now, we need to define the Next action as the disjunction of Receive, SendEchoPartial, SendEchoFull, Accept, and maybe a NoOp for faulty processes.
+
+Now, we need to define the variable "vars" as the set of all variables.
+
+Now, we need to define the invariant TypeOK: ensures that all variables are within their domains. We can define it as a conjunction of type checks.
+
+Now, we need to define FCConstraints: ensures that correct and faulty sets partition Proc, sizes match N-F and F, N > 3T, T >= F, F >= 0, initSet \subseteq correct.
+
+Now, we need to define the properties CorrLtl, RelayLtl, UnforgLtl as LTL formulas.
+
+Now, we need to define the module header: "---- MODULE bcastByz ----" and "EXTENDS Naturals, FiniteSets, TLC".
+
+Now, we need to define the constants: N, T, F. We also need to define the derived constants: Proc = 1..N. We also need to define the set of all messages: AllMsgs = { (q, "ECHO") : q \in Proc }.
+
+Now, we need to define the variable names: correct, faulty, initSet, recv, sent, procState.
+
+Now, we need to define the type of procState: mapping each process to one of {NoInit, EchoSent, Accepted}. We can define constants for these states: NoInit, EchoSent, Accepted. But we need to ensure that they are distinct. We can define them as strings or as distinct constants.
+
+Now, we need to define the type of recv: mapping each process to a set of messages. Each message is a tuple (sender, "ECHO"). So we can define a type for messages: Msg = [sender: Proc, type: {"ECHO"}]. But we can just use the tuple.
+
+Now, we need to define the type of sent: mapping each process to a set of messages. For correct processes, the set may contain at most one message (the ECHO). For faulty processes, we can set it to {}.
+
+Now, we need to define the initial state: choose correct, faulty, initSet. We can use the "CHOOSE" construct to nondeterministically choose them. But we need to ensure that the constraints hold. We can define a helper function "Init" that uses "CHOOSE" to pick correct, faulty, initSet, and then sets the other variables accordingly.
+
+Now, we need to define the Next action: we can define a disjunction of the actions.
+
+Now, we need to define the spec: "Spec == Init /\ [][Next]_vars".
+
+Now, we need to define the invariants: TypeOK, FCConstraints.
+
+Now, we need to define the properties: CorrLtl, RelayLtl, UnforgLtl.
+
+Now, we need to define the module end: "====".
+
+Now, we need to ensure that the module compiles.
+
+Now, we need to ensure that the constants N, T, F are declared as constants.
+
+Now, we need to ensure that the module uses the correct syntax for LTL formulas: "[] (initSet = {} => [] (forall p \in correct: procState[p] != Accepted))" for UnforgLtl. But we need to use the syntax: "[] (initSet = {} => [] (procState[p] != Accepted))" but we need to quantify over p. So we can write: "[] (initSet = {} => [] (forall p \in correct: procState[p] != Accepted))". But we need to ensure that the syntax is correct: "[] (initSet = {} => [] (forall p \in correct: procState[p] != Accepted))" is okay.
+
+Now, we need to define CorrLtl: "[] (initSet = correct => <> (forall p \in correct: procState[p] = Accepted))". But we need to express that if all correct processes received INIT (i.e., initSet = correct), then eventually all correct processes accept. So we can write: "[] (initSet = correct => <> (forall p \in correct: procState[p] = Accepted))". But we need to ensure that the eventuality is inside the []: "[] (initSet = correct => <> (forall p \in correct: procState[p] = Accepted))". That is correct.
+
+Now, we need to define RelayLtl: "[] (exists p \in correct: procState[p] = Accepted => <> (forall q \in correct: procState[q] = Accepted))". That expresses that if any correct process accepts, then eventually all correct processes accept.
+
+Now, we need to define the invariants: TypeOK and FCConstraints.
+
+Now, we need to define the type checks: For each variable, we need to ensure that it is within its domain. For example:
+
+- correct \subseteq Proc
+- faulty \subseteq Proc
+- correct \cap faulty = {}
+- correct \cup faulty = Proc
+- |correct| = N - F
+- |faulty| = F
+- initSet \subseteq correct
+- procState \in [Proc -> {"NoInit", "EchoSent", "Accepted"}]
+- recv \in [Proc -> [Proc -> {"ECHO"}]]
+- sent \in [Proc -> [Proc -> {"

@@ -1,0 +1,71 @@
+---- MODULE Voting
+EXTENDS Integers, TLAPS
+VARIABLE votes, maxBal
+
+\* ----------------------------------------------------------------------
+\* Constants (to be instantiated in the .cfg file)
+\* ----------------------------------------------------------------------
+CONSTANT Value, Acceptor, Quorum
+
+\* ----------------------------------------------------------------------
+\* Assumptions about quorums
+\* ----------------------------------------------------------------------
+ASSUME QuorumAssumption == 
+    /\ \A Q \in Quorum : Q \subseteq Acceptor
+    /\ \A Q1, Q2 \in Quorum : Q1 \cap Q2 # {}
+
+\* ----------------------------------------------------------------------
+\* Ballot numbers
+\* ----------------------------------------------------------------------
+Ballot == Nat
+
+\* ----------------------------------------------------------------------
+\* Helper definitions
+\* ----------------------------------------------------------------------
+VotedFor(a, b, v) == <<b, v>> \in votes[a]
+
+ChosenAt(b, v) ==
+    \E Q \in Quorum :
+        \A a \in Q : VotedFor(a, b, v)
+
+chosen == { v \in Value : \E b \in Ballot : ChosenAt(b, v) }
+
+DidNotVoteAt(a, b) == \A v \in Value : ~VotedFor(a, b, v)
+
+CannotVoteAt(a, b) ==
+    /\ maxBal[a] > b
+    /\ DidNotVoteAt(a, b)
+
+NoneOtherChoosableAt(b, v) ==
+    \E Q \in Quorum :
+        \A a \in Q : VotedFor(a, b, v) \/ CannotVoteAt(a, b)
+
+SafeAt(b, v) ==
+    \A c \in 0..(b-1) : NoneOtherChoosableAt(c, v)
+
+ShowsSafeAt(Q, b, v) ==
+    /\ \A a \in Q : maxBal[a] >= b
+    /\ \E c \in -1..(b-1) :
+        /\ (c # -1) => \E a \in Q : VotedFor(a, c, v)
+        /\ \A d \in (c+1)..(b-1), a \in Q : DidNotVoteAt(a, d)
+
+\* ----------------------------------------------------------------------
+\* Type-correctness invariant (modified to avoid the illegal set intersection)
+\* ----------------------------------------------------------------------
+TypeOK ==
+    /\ votes \in [Acceptor -> SUBSET (Ballot \X Value)]
+    /\ maxBal \in [Acceptor -> Ballot]
+
+\* ----------------------------------------------------------------------
+\* Safety‑related invariants
+\* ----------------------------------------------------------------------
+VotesSafe ==
+    \A a \in Acceptor, b \in Ballot, v \in Value :
+        VotedFor(a, b, v) => SafeAt(b, v)
+
+OneVote ==
+    \A a \in Acceptor, b \in Ballot, v, w \in Value :
+        VotedFor(a, b, v) /\ VotedFor(a, b, w) => v = w
+
+OneValuePerBallot ==
+    \A a1, a2 \in Acceptor,

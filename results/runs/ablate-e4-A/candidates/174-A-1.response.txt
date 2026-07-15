@@ -1,0 +1,21 @@
+---- MODULE Slush ----
+EXTENDS Naturals, Sequences, FiniteSets
+
+CONSTANTS Node, SlushLoopProcess, SlushQueryProcess, HostMapping,
+          SlushIterationCount, SampleSetSize, PickFlipThreshold,
+          NoColor, NoMessage
+
+VARIABLES color, messages, loopPC, queryPC, sample, iter, termSent
+
+(* Helper functions *)
+ColorSet == {"Red", "Blue"}
+
+NodeByLoop(l) == CHOOSE n \in Node : HostMapping[n].loop = l
+NodeByQuery(q) == CHOOSE n \in Node : HostMapping[n].query = q
+
+Message == [type : {"query","reply","term"},
+            from : SlushLoopProcess \cup SlushQueryProcess,
+            to   : SlushLoopProcess \cup SlushQueryProcess,
+            color : ColorSet \cup {NoColor}]
+
+(* Initial

@@ -1,0 +1,31 @@
+---- MODULE Reachable ----
+EXTENDS Reachability, Integers, FiniteSets
+
+CONSTANT Root
+ASSUME RootAssump == Root \in Nodes
+
+Reachable == ReachableFrom({Root})
+
+\* Variables
+VARIABLES marked, vroot, pc
+
+vars == << marked, vroot, pc >>
+
+\* Initial state
+Init ==
+    /\ marked = {}
+    /\ vroot  = {Root}
+    /\ pc     = "a"
+
+\* Action a (the algorithm's step)
+a ==
+    /\ pc = "a"
+    /\ IF vroot = {}
+          THEN /\ pc' = "Done"
+               /\ UNCHANGED << marked, vroot >>
+          ELSE
+               /\ \E v \in vroot:
+                     IF v \notin marked
+                        THEN /\ marked' = marked \cup {v}
+                             /\ vroot'  = vroot  \cup Succ[v]
+                             /\ pc

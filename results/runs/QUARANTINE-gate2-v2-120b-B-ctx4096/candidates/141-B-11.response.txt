@@ -1,0 +1,29 @@
+---- MODULE Reachable ----
+EXTENDS Reachability, Integers, FiniteSets
+
+CONSTANT Root
+ASSUME RootAssump == Root \in Nodes
+
+(* The set of nodes reachable from Root. *)
+Reachable == ReachableFrom({Root})
+
+(***************************************************************************)
+(* Variables:                                                             *)
+(*   marked : set of nodes that have been processed                       *)
+(*   vroot  : set of nodes currently in the frontier                       *)
+(*   pc     : control variable, either "a" (loop) or "Done" (termination)   *)
+(***************************************************************************)
+VARIABLES marked, vroot, pc
+
+vars == << marked, vroot, pc >>
+
+(* Initial state *)
+Init ==
+    /\ marked = {}
+    /\ vroot = {Root}
+    /\ pc = "a"
+
+(* Action "a" implements one iteration of the algorithm. *)
+a ==
+    /\ pc = "a"
+    /\ IF vroot = {}

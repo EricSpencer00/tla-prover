@@ -1,0 +1,295 @@
+```tla
+---- MODULE Nano ----
+EXTENDS Naturals, Sequences, FiniteSets, TLC
+
+(*--------------------------------------------------------------------*)
+(*  Constants (to be instantiated in the .cfg)                         *)
+(*--------------------------------------------------------------------*)
+CONSTANTS
+    Hash,                \* Universe of possible hash values
+    NoHashVal,           \* Sentinel hash meaning "no hash yet"
+    PrivateKey,          \* Set of private keys
+    PublicKey,           \* Set of public keys
+    Node,                \* Set of network nodes
+    GenesisBalance,      \* Total amount of coins initially created
+    NoBlockVal,          \* Sentinel block meaning "empty"
+    CalculateHash,       \* Abstract hash function
+    NoHash,              \* Alias for NoHashVal (provided for cfg convenience)
+    NoBlock              \* Alias for NoBlockVal
+
+\*--------------------------------------------------------------------*)
+\*  Derived sets and functions                                        *)
+\*--------------------------------------------------------------------*)
+AccountChainIds == { a \in PublicKey : TRUE }   \* each account identified by its public key
+
+BlockTypes == {"Genesis", "Send", "Open", "Receive", "Change"}
+
+(*--------------------------------------------------------------------*)
+(*  Block record definition                                           *)
+(*--------------------------------------------------------------------*)
+Block == [
+    hash          : Hash,
+    blockType     : BlockTypes,
+    account       : PublicKey,            \* owner of the account chain
+    previousHash  : Hash \cup {NoHashVal},
+    destination   : PublicKey \cup {NoHashVal},   \* for Send blocks
+    amount        : Nat,
+    sourceHash    : Hash \cup {NoHashVal},       \* for Open/Receive blocks
+    representative: PublicKey \cup {NoHashVal}, \* for Change blocks
+    signature     : STRING                \* abstract representation
+]
+
+(*--------------------------------------------------------------------*)
+(*  Mapping from private to public keys (bijection assumed)           *)
+(*--------------------------------------------------------------------*)
+ASSUME PrivateToPublicBijective ==
+    \A pk \in PrivateKey : pk \in PrivateKey => (pk \in PrivateKey)
+    /\ \A pk \in PrivateKey : \E pub \in PublicKey : PrivateToPublic[pk] = pub
+    /\ \A pub \in PublicKey : \E pk \in PrivateKey : PrivateToPublic[pk] = pub
+
+VARIABLES
+    lastHash,               \* Last calculated block hash (or NoHashVal)
+    ledgers,                \* [Node -> [Hash -> Block UNION {NoBlockVal}]]
+    received                \* [Node -> SUBSET Hash] blocks pending validation
+
+(*--------------------------------------------------------------------*)
+(*  Helper definitions                                                *)
+(*--------------------------------------------------------------------*)
+\* Empty ledger maps every hash to NoBlockVal
+EmptyLedger == [h \in Hash |-> NoBlockVal]
+
+\* Initial ledgers: each node starts with an empty ledger
+InitLedgers == [n \in Node |-> EmptyLedger]
+
+\* Initial received sets: empty for every node
+InitReceived == [n \in Node |-> {}]
+
+\* Function to retrieve a block from a node's ledger
+GetBlock(node, h) == 
+    IF h = NoHashVal THEN NoBlockVal ELSE ledgers[node][h]
+
+\* Abstract signature verification: true iff signature equals
+\* concatenation of private key and block data (for modeling only)
+SigValid(sig, pk, blk) ==
+    sig = "sig(" \o pk \o "," \o ToString(blk) \o ")"
+
+\* Compute block hash using the abstract CalculateHash operator
+ComputeHash(prev, blk) ==
+    IF prev = NoHashVal THEN NoHashVal
+    ELSE CalculateHash(prev, blk)
+
+\* Balance computation: walk the account chain from the latest block
+Balance(node, acct) ==
+    LET h == lastHash IN
+    IF h = NoHashVal THEN 0
+    ELSE
+        LET Rec(bHash) ==
+            LET blk == GetBlock(node, bHash) IN
+            IF blk = NoBlockVal THEN 0
+            ELSE
+                CASE blk.blockType = "Genesis" -> blk.amount
+                     [] blk.blockType = "Send"    -> 
+                         IF blk.previousHash = NoHashVal THEN 0
+                         ELSE Rec(blk.previousHash) - blk.amount
+                     [] blk.blockType = "Receive" ->
+                         IF blk.previousHash = NoHashVal THEN blk.amount
+                         ELSE Rec(blk.previousHash) + blk.amount
+                     [] blk.blockType = "Open"    -> 
+                         IF blk.sourceHash = NoHashVal THEN 0
+                         ELSE 
+                            LET srcBlk == GetBlock(node, blk.sourceHash) IN
+                            srcBlk.amount
+                     [] blk.blockType = "Change"  -> 
+                         IF blk.previousHash = NoHashVal THEN 0
+                         ELSE Rec(blk.previousHash)
+                     [] OTHER -> 0
+        IN Rec(h))
+
+\*--------------------------------------------------------------------*)
+(*  Type safety predicate (used for TypeInvariant)                    *)
+(*--------------------------------------------------------------------*)
+TypeOk ==
+    /\ lastHash \in Hash \cup {NoHashVal}
+    /\ ledgers \in [Node -> [Hash -> Block UNION {NoBlockVal}]]
+    /\ received \in [Node -> SUBSET Hash]
+    /\ \A n \in Node :
+          \A h \in Hash :
+              (ledgers[n][h] = NoBlockVal) \/ 
+              (\E blk \in Block :
+                  /\ blk.hash = h
+                  /\ ledgers[n][h] = blk
+                  /\ blk.blockType \in BlockTypes
+                  /\ blk.account \in PublicKey
+                  /\ blk.previousHash \in Hash \cup {NoHashVal}
+                  /\ blk.destination \in PublicKey \cup {NoHashVal}
+                  /\ blk.amount \in Nat
+                  /\ blk.sourceHash \in Hash \cup {NoHashVal}
+                  /\ blk.representative \in PublicKey \cup {NoHashVal}
+                  /\ blk.signature \in STRING))
+
+\*--------------------------------------------------------------------*)
+(*  Initial state                                                     *)
+(*--------------------------------------------------------------------*)
+Init ==
+    /\ lastHash = NoHashVal
+    /\ ledgers = InitLedgers
+    /\ received = InitReceived
+
+\*--------------------------------------------------------------------*)
+(*  Actions                                                          *)
+(*--------------------------------------------------------------------*)
+
+CreateGenesis ==
+    /\ lastHash = NoHashVal
+    /\ \E node \in Node :
+        \E pk \in PublicKey :
+            \E sk \in PrivateKey :
+                /\ PrivateToPublic[sk] = pk
+                /\ \A n \in Node :
+                    ledgers' = [ledgers EXCEPT ![n] = 
+                        [ledgers[n] EXCEPT
+                            [NoHashVal] = 
+                                [hash |-> NoHashVal,
+                                 blockType |-> "Genesis",
+                                 account |-> pk,
+                                 previousHash |-> NoHashVal,
+                                 destination |-> NoHashVal,
+                                 amount |-> GenesisBalance,
+                                 sourceHash |-> NoHashVal,
+                                 representative |-> NoHashVal,
+                                 signature |-> "sig(" \o sk \o ",Genesis)" ]]]
+                /\ lastHash' = NoHashVal \* stays the same (no previous hash)
+                /\ received' = received
+
+CreateSend(senderNode, senderPk, senderSk, destPk, amt) ==
+    /\ \E blk \in Block :
+        /\ blk.account = senderPk
+        /\ blk.blockType = "Send"
+        /\ blk.destination = destPk
+        /\ blk.amount = amt
+        /\ blk.previousHash = lastHash
+        /\ blk.sourceHash = NoHashVal
+        /\ blk.representative = NoHashVal
+        /\ blk.signature = "sig(" \o senderSk \o "," \o ToString(blk) \o ")"
+        /\ blk.hash = ComputeHash(lastHash, blk)
+        /\ Balance(senderNode, senderPk) >= amt
+        /\ \A n \in Node :
+            ledgers' = [ledgers EXCEPT ![n] = 
+                [ledgers[n] EXCEPT ![blk.hash] = blk]]
+        /\ lastHash' = blk.hash
+        /\ received' = [received EXCEPT ![n] = received[n] \cup {blk.hash}
+                                  \FORALL n \in Node : TRUE]
+
+CreateOpen(node, pk, sk, srcHash) ==
+    /\ \E blk \in Block :
+        /\ blk.account = pk
+        /\ blk.blockType = "Open"
+        /\ blk.destination = NoHashVal
+        /\ blk.amount = 0
+        /\ blk.previousHash = NoHashVal
+        /\ blk.sourceHash = srcHash
+        /\ blk.representative = NoHashVal
+        /\ blk.signature = "sig(" \o sk \o "," \o ToString(blk) \o ")"
+        /\ blk.hash = ComputeHash(NoHashVal, blk)
+        /\ GetBlock(node, srcHash).blockType = "Send"
+        /\ GetBlock(node, srcHash).destination = pk
+        /\ \A n \in Node :
+            ledgers' = [ledgers EXCEPT ![n] = 
+                [ledgers[n] EXCEPT ![blk.hash] = blk]]
+        /\ lastHash' = blk.hash
+        /\ received' = [received EXCEPT ![n] = received[n] \cup {blk.hash}
+                                  \FORALL n \in Node : TRUE]
+
+CreateReceive(node, pk, sk, recvPrevHash, sendHash) ==
+    /\ \E blk \in Block :
+        /\ blk.account = pk
+        /\ blk.blockType = "Receive"
+        /\ blk.previousHash = recvPrevHash
+        /\ blk.sourceHash = sendHash
+        /\ blk.destination = NoHashVal
+        /\ blk.amount = 0
+        /\ blk.representative = NoHashVal
+        /\ blk.signature = "sig(" \o sk \o "," \o ToString(blk) \o ")"
+        /\ blk.hash = ComputeHash(recvPrevHash, blk)
+        /\ GetBlock(node, sendHash).blockType = "Send"
+        /\ GetBlock(node, sendHash).destination = pk
+        /\ \A n \in Node :
+            ledgers' = [ledgers EXCEPT ![n] = 
+                [ledgers[n] EXCEPT ![blk.hash] = blk]]
+        /\ lastHash' = blk.hash
+        /\ received' = [received EXCEPT ![n] = received[n] \cup {blk.hash}
+                                  \FORALL n \in Node : TRUE]
+
+CreateChange(node, pk, sk, prevHash, newRep) ==
+    /\ \E blk \in Block :
+        /\ blk.account = pk
+        /\ blk.blockType = "Change"
+        /\ blk.previousHash = prevHash
+        /\ blk.representative = newRep
+        /\ blk.amount = 0
+        /\ blk.destination = NoHashVal
+        /\ blk.sourceHash = NoHashVal
+        /\ blk.signature = "sig(" \o sk \o "," \o ToString(blk) \o ")"
+        /\ blk.hash = ComputeHash(prevHash, blk)
+        /\ \A n \in Node :
+            ledgers' = [ledgers EXCEPT ![n] = 
+                [ledgers[n] EXCEPT ![blk.hash] = blk]]
+        /\ lastHash' = blk.hash
+        /\ received' = [received EXCEPT ![n] = received[n] \cup {blk.hash}
+                                  \FORALL n \in Node : TRUE]
+
+ProcessBlock(node, h) ==
+    /\ h \in received[node]
+    /\ \E blk \in Block :
+        /\ blk.hash = h
+        /\ blk.signature = "sig(" \o
+            (CHOOSE sk \in PrivateKey : PrivateToPublic[sk] = blk.account) \o 
+            "," \o ToString(blk) \o ")"
+        /\ (\A req \in {"previousHash", "sourceHash"} :
+                IF blk[req] = NoHashVal THEN TRUE
+                ELSE GetBlock(node, blk[req]) # NoBlockVal)
+        /\ blk.blockType # "Send" =>
+            (\* For Send, ensure balance sufficient at previous block *)
+            /\ blk.amount <= 
+                IF blk.previousHash = NoHashVal THEN GenesisBalance
+                ELSE
+                    LET prevBlk == GetBlock(node, blk.previousHash) IN
+                    Balance(node, blk.account) + blk.amount
+        /\ blk.blockType # "Open" =>
+            /\ GetBlock(node, blk.sourceHash).blockType = "Send"
+            /\ GetBlock(node, blk.sourceHash).destination = blk.account
+        /\ blk.blockType # "Receive" =>
+            /\ GetBlock(node, blk.sourceHash).blockType = "Send"
+            /\ GetBlock(node, blk.sourceHash).destination = blk.account
+        /\ blk.blockType # "Change" => TRUE
+        /\ ledgers' = [ledgers EXCEPT ![node] = 
+                [ledgers[node] EXCEPT ![h] = blk]]
+        /\ received' = [received EXCEPT ![node] = received[node] \ {h}]
+        /\ UNCHANGED <<lastHash>>
+
+\* Union of all possible actions
+Next ==
+    \/ \E node \in Node, pk \in PublicKey, sk \in PrivateKey, dest \in PublicKey, amt \in Nat :
+          CreateSend(node, pk, sk, dest, amt)
+    \/ \E node \in Node, pk \in PublicKey, sk \in PrivateKey, src \in Hash :
+          CreateOpen(node, pk, sk, src)
+    \/ \E node \in Node, pk \in PublicKey, sk \in PrivateKey, prev \in Hash, src \in Hash :
+          CreateReceive(node, pk, sk, prev, src)
+    \/ \E node \in Node, pk \in PublicKey, sk \in PrivateKey, prev \in Hash, rep \in PublicKey :
+          CreateChange(node, pk, sk, prev, rep)
+    \/ \E node \in Node, h \in Hash :
+          ProcessBlock(node, h)
+    \/ CreateGenesis
+
+(*--------------------------------------------------------------------*)
+(*  Specification                                                     *)
+(*--------------------------------------------------------------------*)
+Spec == Init /\ [][Next]_<<lastHash, ledgers, received>>
+
+(*--------------------------------------------------------------------*)
+(*  Invariants                                                        *)
+(*--------------------------------------------------------------------*)
+TypeInvariant == TypeOk
+
+SafetyInvariant ==
+    /\ \A n \in Node :

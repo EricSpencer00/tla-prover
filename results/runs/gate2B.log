@@ -1,0 +1,46 @@
+=== B rerun launch 19:18:17 ===
+Traceback (most recent call last):
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/eric/GitHub/prove-TLA/harness/__main__.py", line 96, in <module>
+    main()
+    ~~~~^^
+  File "/Users/eric/GitHub/prove-TLA/harness/__main__.py", line 69, in main
+    run_gen_eval(Path(a.corpus_data), a.run_id, a.framing, a.model, a.k,
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                specs=specs, resume=not a.no_resume)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/eric/GitHub/prove-TLA/harness/gen_eval.py", line 610, in run_gen_eval
+    for row in gen:
+               ^^^
+  File "/Users/eric/GitHub/prove-TLA/harness/gen_eval.py", line 515, in gen_eval_spec_framing_b
+    row, verdict, _ = _score(num, module_text, corpus, num2mod, mod2path,
+                      ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                             cfg_dirs, workroot, logdir, TLC_TIMEOUT_S,
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                             log_name=log_name)
+                             ^^^^^^^^^^^^^^^^^^
+  File "/Users/eric/GitHub/prove-TLA/harness/gen_eval.py", line 345, in _score
+    row = eval_module_text(num, module_text, corpus, num2mod, mod2path, cfg_dirs,
+                           workroot, logdir, timeout, stages=("sany", "tlc", "tlaps"),
+                           log_name=log_name)
+  File "/Users/eric/GitHub/prove-TLA/harness/runner.py", line 505, in eval_module_text
+    """
+    
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/shutil.py", line 852, in rmtree
+    _rmtree_impl(path, dir_fd, onexc)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/shutil.py", line 721, in _rmtree_safe_fd
+    _rmtree_safe_fd_step(stack, onexc)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/shutil.py", line 802, in _rmtree_safe_fd_step
+    onexc(func, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/shutil.py", line 753, in _rmtree_safe_fd_step
+    os.rmdir(name, dir_fd=dirfd)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 66] Directory not empty: '/tmp/prove-tla-gen-eval/gate2-v2-120b-B/14/states/26-07-14-20-58-43'
+[1/30] spec 2: 32 sample(s) run (resumed 1 skipped)
+[2/30] spec 5: 33 sample(s) run (resumed 0 skipped)
+[3/30] spec 13: 33 sample(s) run (resumed 0 skipped)
+=== gen-eval exited rc=1 20:58:47 ===

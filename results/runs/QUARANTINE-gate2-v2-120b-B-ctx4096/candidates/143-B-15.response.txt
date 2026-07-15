@@ -1,0 +1,31 @@
+---- MODULE MissionariesAndCannibals
+EXTENDS Integers, FiniteSets
+
+CONSTANTS Missionaries, Cannibals
+
+VARIABLES bank_of_boat, who_is_on_bank
+
+(***************************************************************************)
+(* Type invariant                                                          *)
+(***************************************************************************)
+TypeOK == /\ bank_of_boat \in {"E","W"}
+          /\ who_is_on_bank \in [{"E","W"} -> SUBSET (Cannibals \cup Missionaries)]
+
+(***************************************************************************)
+(* Initial state                                                          *)
+(***************************************************************************)
+Init == /\ bank_of_boat = "E"
+        /\ who_is_on_bank = [i \in {"E","W"} |-> 
+                               IF i = "E" THEN Cannibals \cup Missionaries
+                                          ELSE {}]
+
+(***************************************************************************)
+(* Helper definitions                                                     *)
+(***************************************************************************)
+IsSafe(S) == \/ S \subseteq Cannibals
+             \/ Cardinality(S \cap Cannibals) =< Cardinality(S \cap Missionaries)
+
+OtherBank(b) == IF b = "E" THEN "W" ELSE "E"
+
+(***************************************************************************)
+(* Move(S,b) must keep at least one person on the source bank to avoid    *)

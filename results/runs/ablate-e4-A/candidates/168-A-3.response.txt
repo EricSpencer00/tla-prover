@@ -1,0 +1,79 @@
+---- MODULE ReadersWriters ----
+EXTENDS Sequences
+
+CONSTANT NumActors
+
+IdSet == 1 .. NumActors
+RequestKind == {"R", "W"}
+Request == [pid : IdSet, kind : RequestKind]
+
+VARIABLES readers, writers, queue
+
+(* Helper to get the set of pids currently in the queue *)
+QueuePids(q) == {q[i].pid : i \in 1..Len(q)}
+
+(* Initial state: no readers, no writers, empty queue *)
+Init ==
+   /\ readers = {}
+   /\ writers = {}
+   /\ queue = <<>>
+
+(* Request to read *)
+RequestToRead ==
+   /\ UNCHANGED <<readers, writers>>
+   /\ \E p \in IdSet :
+          /\ p \notin QueuePids(queue)
+          /\ queue' = Append(queue, [pid |-> p, kind |-> "R"])
+
+(* Request to write *)
+RequestToWrite ==
+   /\ UNCHANGED <<readers, writers>>
+   /\ \E p \in IdSet :
+          /\ p \notin QueuePids(queue)
+          /\ queue' = Append(queue, [pid |-> p, kind |-> "W"])
+
+(* Process the queue *)
+BeginAccess ==
+   \/ /\ queue # <<>>
+        /\ Head(queue).kind = "R"
+        /\ #writers = 0
+        /\ readers' = readers \cup {Head(queue).pid}
+        /\ writers' = writers
+        /\ queue' = Tail(queue)
+   \/ /\ queue # <<>>
+        /\ Head(queue).kind = "W"
+        /\ #readers = 0
+        /\ writers' = writers \cup {Head(queue).pid}
+        /\ readers' = readers
+        /\ queue' = Tail(queue)
+
+(* Stop activity *)
+StopActivity ==
+   /\ UNCHANGED queue
+   /\ \E p \in IdSet :
+          \/ /\ p \in readers
+             /\ readers' = readers \ {p}
+             /\ writers' = writers
+          \/ /\ p \in writers
+             /\ writers' = writers \ {p}
+             /\ readers' = readers
+
+Next ==
+   \/ RequestToRead
+   \/ RequestToWrite
+   \/ BeginAccess
+   \/ StopActivity
+
+Spec == Init /\ [][Next]_<<readers, writers, queue>>
+
+(* Type checking invariant *)
+TypeOK ==
+   /\ readers \subseteq IdSet
+   /\ writers \subseteq IdSet
+   /\ (\A r \in queue : r.kind \in RequestKind /\ r.pid \in IdSet)
+   /\ #QueuePids(queue) = Len(queue)
+
+(* Safety invariant *)
+Safety ==
+   /\ readers # writers
+  

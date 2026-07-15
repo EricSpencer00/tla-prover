@@ -1,0 +1,69 @@
+```tla
+---- MODULE Voting ----
+EXTENDS Integers, TLAPS
+
+CONSTANTS Value,          \* The set of choosable values.
+          Acceptor,       \* The set of processes that will choose a value.
+          Quorum          \* The set of "quorums", each a large enough set of acceptors
+
+(***************************************************************************)
+(* Assumptions about quorums.                                              *)
+(***************************************************************************)
+ASSUME QuorumAssumption == 
+          /\ \A Q \in Quorum : Q \subseteq Acceptor
+          /\ \A Q1, Q2 \in Quorum : Q1 \cap Q2 # {}
+
+THEOREM QuorumNonEmpty == \A Q \in Quorum : Q # {}
+
+(***************************************************************************)
+(* Ballot numbers (natural numbers).                                        *)
+(***************************************************************************)
+Ballot == Nat
+
+(***************************************************************************)
+(* Variables.                                                              *)
+(***************************************************************************)
+VARIABLES votes,   \* votes[a] is the set of votes cast by acceptor a
+          maxBal   \* maxBal[a] is the highest ballot number that a may use
+
+(***************************************************************************)
+(* Type-correctness invariant.                                            *)
+(***************************************************************************)
+TypeOK == 
+        /\ votes \in [Acceptor -> SUBSET (Ballot \X Value)]
+        /\ maxBal \in [Acceptor -> Ballot]
+
+(***************************************************************************)
+(* Definitions.                                                            *)
+(***************************************************************************)
+
+VotedFor(a, b, v) == <<b, v>> \in votes[a]
+
+ChosenAt(b, v) == 
+    \E Q \in Quorum : \A a \in Q : VotedFor(a, b, v)
+
+chosen == { v \in Value : \E b \in Ballot : ChosenAt(b, v) }
+
+DidNotVoteAt(a, b) == \A v \in Value : ~VotedFor(a, b, v)
+
+CannotVoteAt(a, b) == 
+    /\ maxBal[a] > b
+    /\ DidNotVoteAt(a, b)
+
+NoneOtherChoosableAt(b, v) == 
+    \E Q \in Quorum :
+        \A a \in Q : VotedFor(a, b, v) \/ CannotVoteAt(a, b)
+
+SafeAt(b, v) == \A c \in 0..(b-1) : NoneOtherChoosableAt(c, v)
+
+AllSafeAtZero == \A v \in Value : SafeAt(0, v)
+
+ChoosableThm == 
+    \A b \in Ballot, v \in Value : ChosenAt(b, v) => NoneOtherChoosableAt(b, v)
+
+VotesSafe == 
+    \A a \in Acceptor, b \in Ballot, v \in Value :
+        VotedFor(a, b, v) => SafeAt(b, v)
+
+OneVote == 
+    \A a \in Acceptor, b \in Ballot, v, w \in Value :

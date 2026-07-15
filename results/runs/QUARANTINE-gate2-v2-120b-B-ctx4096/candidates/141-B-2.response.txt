@@ -1,0 +1,32 @@
+```tla
+---- MODULE Reachable ----
+EXTENDS Reachability, Integers, FiniteSets
+
+CONSTANT Root
+ASSUME RootAssump == Root \in Nodes
+
+(* ------------------------------------------------------------------------ *)
+(* Reachable is the set of nodes reachable from Root.                        *)
+(* ------------------------------------------------------------------------ *)
+Reachable == ReachableFrom({Root})
+
+VARIABLES marked, vroot, pc
+vars == << marked, vroot, pc >>
+
+(* ------------------------------------------------------------------------ *)
+(* Initial state                                                            *)
+(* ------------------------------------------------------------------------ *)
+Init ==
+    /\ marked = {}
+    /\ vroot = {Root}
+    /\ pc = "a"
+
+(* ------------------------------------------------------------------------ *)
+(* Action a: Implements Misra's variant.                                    *)
+(* ------------------------------------------------------------------------ *)
+a ==
+    /\ pc = "a"
+    /\ IF vroot = {}
+          THEN /\ pc' = "Done"
+                /\ UNCHANGED << marked, vroot >>
+          ELSE (* there exists a v in vroot to act on

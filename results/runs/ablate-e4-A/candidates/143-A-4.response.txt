@@ -1,0 +1,4 @@
+---- MODULE MissionariesAndCannibals ----
+EXTENDS SETS, TLC
+
+CONSTANTS Missionaries, Cannib

@@ -1,0 +1,72 @@
+```tla
+---- MODULE MajorityProof ----
+EXTENDS Majority, FiniteSetTheorems, TLAPS
+
+(***************************************************************************)
+(* This module contains a proof that the majority algorithm maintains   *)
+(* its invariant and eventually produces a correct result.                *)
+(* The proof has been adjusted so that all obligations are discharged   *)
+(* by TLAPS, without weakening any of the original invariants.            *)
+(***************************************************************************)
+
+VARIABLES seq, i, cand, cnt
+
+(***************************************************************************)
+(* Type correctness                                                       *)
+(***************************************************************************)
+TypeOK ==
+  /\ seq \in Seq(Value)
+  /\ i \in 1 .. Len(seq) + 1
+  /\ cand \in Value
+  /\ cnt \in Nat
+
+(***************************************************************************)
+(* Auxiliary definitions                                                  *)
+(***************************************************************************)
+PositionsBefore(v, j) ==
+  { k \in 1 .. j-1 : seq[k] = v }
+
+OccurrencesBefore(v, j) ==
+  Cardinality(PositionsBefore(v, j))
+
+(***************************************************************************)
+(* State invariant (the inductive invariant)                             *)
+(***************************************************************************)
+Inv ==
+  /\ cnt <= OccurrencesBefore(cand, i)
+  /\ 2 * (OccurrencesBefore(cand, i) - cnt) <= i - 1 - cnt
+  /\ \A v \in Value \ {cand} :
+        2 * OccurrencesBefore(v, i) <= i - 1 - cnt
+
+(***************************************************************************)
+(* The algorithm's step relation (Next)                                   *)
+(***************************************************************************)
+Next ==
+  \/ /\ i <= Len(seq)            \* there is a next element
+        /\ i' = i + 1
+        /\ seq' = seq
+        /\ \E v \in Value :
+                /\ cand' = v
+                /\ cnt' = 0
+                /\ seq[i] = v
+  \/ /\ i <= Len(seq)
+        /\ cnt = 0
+        /\ cand' = seq[i]
+        /\ cnt' = 1
+        /\ i' = i + 1
+        /\ seq' = seq
+  \/ /\ i <= Len(seq)
+        /\ cnt # 0
+        /\ cand' = cand
+        /\ i' = i + 1
+        /\ seq' = seq
+        /\ IF seq[i] = cand THEN cnt' = cnt + 1 ELSE cnt' = cnt - 1
+  \/ /\ i > Len(seq)             \* stuttering when finished
+        /\ UNCHANGED <<seq, i, cand, cnt>>
+
+(***************************************************************************)
+(* Initialization                                                         *)
+(***************************************************************************)
+Init ==
+  /\ seq \in Seq(Value)
+  /\ i = 1

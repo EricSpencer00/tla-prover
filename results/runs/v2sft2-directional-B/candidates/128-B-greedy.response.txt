@@ -1,0 +1,1 @@
+We need to fix the invariant violation. The spec: In state 2, seq = <<1,2,1>>, U = {}, pc = "a". So algorithm removed the only interval from U, but didn't set pc to "Done". The invariant Inv requires that if pc = "Done" then U = {}. But here pc = "a" and U = {}. That violates the implication? Wait Inv says (pc = "Done") => (U =

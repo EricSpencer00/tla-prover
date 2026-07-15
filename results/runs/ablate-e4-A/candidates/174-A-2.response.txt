@@ -1,0 +1,122 @@
+---- MODULE Slush ----
+EXTENDS Naturals, Sequences, TLC
+
+CONSTANTS
+    Node, SlushLoopProcess, SlushQueryProcess, HostMapping,
+    SlushIterationCount, SampleSetSize, PickFlipThreshold,
+    NoColor, NoMessage
+
+\* Colors used in the protocol
+Colors == {"Red", "Blue"}
+
+\* Helper functions to decode HostMapping
+HostNode(l) == CHOOSE r \in HostMapping : r.loop = l .node
+HostQuery(l) == CHOOSE r \in HostMapping : r.loop = l .query
+
+\* Message constructors
+QueryMsg(l, q, c) ==
+    [type  |-> "query",
+     from  |-> l,
+     to    |-> q,
+     color |-> c]
+
+ReplyMsg(q, l, c) ==
+    [type  |-> "reply",
+     from  |-> q,
+     to    |-> l,
+     color |-> c]
+
+TermMsg(l) ==
+    [type  |-> "term",
+     from  |-> l]
+
+\* Message predicates
+IsQuery(m) ==
+    /\ m.type = "query"
+    /\ m.from \in SlushLoopProcess
+    /\ m.to   \in SlushQueryProcess
+    /\ m.color \in Colors
+
+IsReply(m) ==
+    /\ m.type = "reply"
+    /\ m.from \in SlushQueryProcess
+    /\ m.to   \in SlushLoopProcess
+    /\ m.color \in Colors
+
+IsTerm(m) ==
+    /\ m.type = "term"
+    /\ m.from \in SlushLoopProcess
+
+IsMsg(m) == IsQuery(m) \/ IsReply(m) \/ IsTerm(m)
+
+\* Variables
+VARIABLES NodeColor, msgs, LoopState, QueryDone
+
+\* Initial state
+Init ==
+    /\ NodeColor = [n \in Node |-> NoColor]
+    /\ msgs = {}
+    /\ LoopState = [l \in SlushLoopProcess |
+           [ color   |-> NoColor,
+             pending |-> {},
+             counts  |-> [c \in Colors |-> 0],
+             itCount |-> 0,
+             done    |-> FALSE ]]
+    /\ QueryDone = [q \in SlushQueryProcess |-> FALSE]
+
+\* Client assigns a random color to an uncolored node
+ClientAssignColor ==
+    \E n \in Node :
+        /\ NodeColor[n] = NoColor
+        /\ \E c \in Colors :
+            /\ NodeColor' = [NodeColor EXCEPT ![n] = c]
+            /\ UNCHANGED <<msgs, LoopState, QueryDone>>
+
+\* Loop process sends a query round
+LoopSendQuery ==
+    \E l \in SlushLoopProcess :
+        /\ NOT LoopState[l].done
+        /\ LoopState[l].pending = {}
+        /\ NodeColor[HostNode(l)] # NoColor
+        /\ \E sample \in {s \subseteq (SlushQueryProcess \ {HostQuery(l)}) :
+                           Cardinality(s) = SampleSetSize} :
+            LET color == NodeColor[HostNode(l)] IN
+            /\ msgs' = msgs \cup { QueryMsg(l, q, color) : q \in sample }
+            /\ LoopState' = [LoopState EXCEPT
+                 ![l] = [color   |-> LoopState[l].color,
+                         pending |-> sample,
+                         counts  |-> [c \in Colors |-> 0],
+                         itCount |-> LoopState[l].itCount,
+                         done    |-> FALSE]]
+            /\ UNCHANGED <<NodeColor, QueryDone>>
+
+\* Loop process receives a reply
+ReceiveReply ==
+    \E m \in msgs :
+        /\ IsReply(m)
+        /\ LET l   == m.to
+              q   == m.from
+              c   == m.color
+          IN
+            /\ msgs' = msgs \ {m}
+            /\ LoopState' = [LoopState EXCEPT
+                 ![l] = [color   |-> LoopState[l].color,
+                         pending |-> LoopState[l].pending \ {q},
+                         counts  |-> [c \in Colors |-> LoopState[l].counts[c] + (IF c = m.color THEN 1 ELSE 0)],
+                         itCount |-> LoopState[l].itCount,
+                         done    |-> LoopState[l].done]]
+            /\ UNCHANGED <<NodeColor, QueryDone>>
+
+\* Loop process tallies replies and possibly flips color
+TallyReplies ==
+    \E l \in SlushLoopProcess :
+        /\ LoopState[l].pending = {}
+        /\ NOT LoopState[l].done
+        /\ LoopState[l].itCount < SlushIterationCount
+        /\ LET red  == LoopState[l].counts["Red"]
+              blue == LoopState[l].counts["Blue"]
+              newColor ==
+                  IF red >= PickFlipThreshold \/ blue >= PickFlipThreshold
+                  THEN IF red >= blue THEN "Red" ELSE "Blue"
+                  ELSE LoopState[l].color
+              newItCount == Loop

@@ -1,0 +1,36 @@
+```tla
+---- MODULE MissionariesAndCannibals ----
+EXTENDS Integers, FiniteSets
+
+CONSTANTS Missionaries, Cannibals
+
+VARIABLES bank_of_boat, who_is_on_bank
+
+(*
+  TypeOK describes the intended types of the variables.
+*)
+TypeOK ==
+  /\ bank_of_boat \in {"E","W"}
+  /\ who_is_on_bank \in [ {"E","W"} -> SUBSET (Missionaries \cup Cannibals) ]
+
+(*
+  The initial state places all people on the east bank and docks the boat there.
+*)
+Init ==
+  /\ bank_of_boat = "E"
+  /\ who_is_on_bank = [i \in {"E","W"} |-> IF i = "E"
+                                         THEN Missionaries \cup Cannibals
+                                         ELSE {}]
+
+(*
+  A bank is safe if it contains no missionaries or the number of cannibals does
+  not exceed the number of missionaries.
+*)
+IsSafe(S) ==
+  \/ S \subseteq Cannibals
+  \/ Cardinality(S \cap Cannibals) <= Cardinality(S \cap Missionaries)
+
+(*
+  The opposite bank.
+*)
+Other

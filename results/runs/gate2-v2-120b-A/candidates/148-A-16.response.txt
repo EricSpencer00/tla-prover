@@ -1,0 +1,324 @@
+```tla
+---- MODULE Nano ----
+EXTENDS Naturals, Sequences, FiniteSets, TLC
+
+CONSTANTS
+    Hash,               \* The universe of possible hash values
+    NoHashVal,          \* Sentinel value meaning “no hash has been produced yet”
+    PrivateKey,         \* Set of private keys
+    PublicKey,          \* Set of public keys
+    Node,               \* Set of network nodes
+    GenesisBalance,     \* Total amount of coins originally created
+    NoBlockVal,         \* Sentinel value meaning “no block”
+    CalculateHash,      \* Abstract hash function
+    NoHash,             \* Alias for the sentinel hash (required by the .cfg)
+    NoBlock             \* Alias for the sentinel block (required by the .cfg)
+
+\* ----------------------------------------------------------------------
+\*  Types
+\* ----------------------------------------------------------------------
+NodeSet == Node
+HashSet == Hash
+PrivKeySet == PrivateKey
+PubKeySet == PublicKey
+
+\* ----------------------------------------------------------------------
+\*  Records that model a block
+\* ----------------------------------------------------------------------
+BlockType == {"Genesis", "Send", "Open", "Receive", "Change"}
+
+Block == [
+    type          : BlockType,
+    hash          : HashSet,
+    previousHash  : HashSet,          \* predecessor in the same account chain
+    accountKey    : PublicKey,        \* public key of the account owning the chain
+    balanceDelta : Nat,              \* amount added (receive/open) or subtracted (send)
+    senderKey     : PublicKey,        \* for Send/Receive/Open blocks: who sent the funds
+    recipientKey  : PublicKey,        \* for Send blocks: who will receive the funds
+    signature     : PubKeySet,        \* placeholder for a signature (modeled as a key)
+    repKey        : PublicKey         \* for Change blocks: new representative
+]
+
+\* ----------------------------------------------------------------------
+\*  State variables
+\* ----------------------------------------------------------------------
+VARIABLES
+    lastHash,      \* The hash of the most recently created block (or NoHashVal)
+    ledger,        \* [node \in NodeSet |-> [h \in HashSet |-> NoBlockVal]]
+    received       \* [node \in NodeSet |-> {}]   (set of block hashes awaiting processing)
+
+\* ----------------------------------------------------------------------
+\*  Helper functions
+\* ----------------------------------------------------------------------
+\* Extract the block data stored under a given hash in a node's ledger
+BlockAt(node, h) == ledger[node][h]
+
+\* Determine the owner (account) of a block: its accountKey field
+Owner(b) == b.accountKey
+
+\* Compute the balance of an account by walking its chain from the latest block
+Balance(node, acct) ==
+    LET Chain == 
+        { h \in HashSet : BlockAt(node, h) # NoBlockVal /\ Owner(BlockAt(node, h)) = acct }
+    IN
+        IF Chain = {} THEN 0
+        ELSE 
+            LET latest == 
+                CHOOSE h \in Chain : 
+                    \A h2 \in Chain : 
+                        (BlockAt(node, h2).previousHash # h)   \* no block points to h as previous => h is the tip
+            IN
+                \* Recursive walk back to the genesis/open block
+                BalanceFrom(node, latest)
+
+\* Helper to walk back from a given tip hash and sum deltas
+BalanceFrom(node, tip) ==
+    LET b == BlockAt(node, tip)
+    IN
+        IF b.type = "Genesis" \/ b.type = "Open" THEN b.balanceDelta
+        ELSE IF b.type = "Send" THEN - b.balanceDelta
+        ELSE IF b.type = "Receive" THEN b.balanceDelta
+        ELSE 0  \* Change blocks do not affect balance
+        + 
+        IF b.previousHash = NoHashVal THEN 0
+        ELSE BalanceFrom(node, b.previousHash)
+
+\* ----------------------------------------------------------------------
+\*  Initial state
+\* ----------------------------------------------------------------------
+Init ==
+    /\ lastHash = NoHashVal
+    /\ ledger = [n \in NodeSet |-> [h \in HashSet |-> NoBlockVal]]
+    /\ received = [n \in NodeSet |-> {}]
+
+\* ----------------------------------------------------------------------
+\*  Actions
+\* ----------------------------------------------------------------------
+\*  1. Create genesis block (only once, by any node that holds a private key)
+CreateGenesis ==
+    \E n \in NodeSet :
+        /\ lastHash = NoHashVal
+        /\ \E pk \in PublicKey :
+            /\ \E sk \in PrivateKey :
+                /\ pk = OwnerKey(sk)               \* OwnerKey is defined below
+                /\ LET newBlock ==
+                    [ type          |-> "Genesis",
+                      hash          |-> newHash,
+                      previousHash  |-> NoHashVal,
+                      accountKey    |-> pk,
+                      balanceDelta |-> GenesisBalance,
+                      senderKey     |-> pk,
+                      recipientKey  |-> pk,
+                      signature     |-> pk,
+                      repKey        |-> pk ]
+                  IN
+                      /\ newHash = CalculateHash(newBlock, NoHashVal)
+                      /\ ledger' = [ledger EXCEPT ![n][newHash] = newBlock]
+                      /\ lastHash' = newHash
+                      /\ received' = [received EXCEPT ![i \in NodeSet] = @ \cup {newHash}]
+                      /\ UNCHANGED <<>>  \* no other state changes
+
+\*  2. Create send block
+CreateSend ==
+    \E n \in NodeSet :
+        \E pkSender \in PublicKey :
+            \E skSender \in PrivateKey :
+                /\ pkSender = OwnerKey(skSender)
+                /\ \E prevHash \in HashSet :
+                    /\ BlockAt(n, prevHash) # NoBlockVal
+                    /\ BlockAt(n, prevHash).accountKey = pkSender
+                    /\ Balance(n, pkSender) > 0
+                    /\ \E amount \in Nat :
+                        amount > 0 /\ amount <= Balance(n, pkSender)
+                        /\ \E pkRecipient \in PublicKey :
+                            LET newBlock ==
+                                [ type          |-> "Send",
+                                  hash          |-> newHash,
+                                  previousHash  |-> prevHash,
+                                  accountKey    |-> pkSender,
+                                  balanceDelta |-> amount,
+                                  senderKey     |-> pkSender,
+                                  recipientKey  |-> pkRecipient,
+                                  signature     |-> pkSender,
+                                  repKey        |-> pkSender ]
+                            IN
+                                /\ newHash = CalculateHash(newBlock, prevHash)
+                                /\ ledger' = [ledger EXCEPT ![n][newHash] = newBlock]
+                                /\ lastHash' = newHash
+                                /\ received' = [received EXCEPT ![i \in NodeSet] = @ \cup {newHash}]
+                                /\ UNCHANGED <<>>
+
+\*  3. Create open block (must reference a send block directed to the account)
+CreateOpen ==
+    \E n \in NodeSet :
+        \E pkOpen \in PublicKey :
+            \E skOpen \in PrivateKey :
+                /\ pkOpen = OwnerKey(skOpen)
+                /\ \E sendHash \in HashSet :
+                    LET snd == BlockAt(n, sendHash) IN
+                        /\ snd # NoBlockVal
+                        /\ snd.type = "Send"
+                        /\ snd.recipientKey = pkOpen
+                        /\ \E amount \in Nat :
+                            amount = snd.balanceDelta
+                            /\ LET newBlock ==
+                                [ type          |-> "Open",
+                                  hash          |-> newHash,
+                                  previousHash  |-> NoHashVal,
+                                  accountKey    |-> pkOpen,
+                                  balanceDelta |-> amount,
+                                  senderKey     |-> snd.senderKey,
+                                  recipientKey  |-> pkOpen,
+                                  signature     |-> pkOpen,
+                                  repKey        |-> pkOpen ]
+                            IN
+                                /\ newHash = CalculateHash(newBlock, NoHashVal)
+                                /\ ledger' = [ledger EXCEPT ![n][newHash] = newBlock]
+                                /\ lastHash' = newHash
+                                /\ received' = [received EXCEPT ![i \in NodeSet] = @ \cup {newHash}]
+                                /\ UNCHANGED <<>>
+
+\*  4. Create receive block
+CreateReceive ==
+    \E n \in NodeSet :
+        \E pkRecv \in PublicKey :
+            \E skRecv \in PrivateKey :
+                /\ pkRecv = OwnerKey(skRecv)
+                /\ \E prevHash \in HashSet :
+                    /\ BlockAt(n, prevHash) # NoBlockVal
+                    /\ BlockAt(n, prevHash).accountKey = pkRecv
+                    /\ \E sendHash \in HashSet :
+                        LET snd == BlockAt(n, sendHash) IN
+                            /\ snd # NoBlockVal
+                            /\ snd.type = "Send"
+                            /\ snd.recipientKey = pkRecv
+                            /\ \E amount \in Nat :
+                                amount = snd.balanceDelta
+                                /\ LET newBlock ==
+                                    [ type          |-> "Receive",
+                                      hash          |-> newHash,
+                                      previousHash  |-> prevHash,
+                                      accountKey    |-> pkRecv,
+                                      balanceDelta |-> amount,
+                                      senderKey     |-> snd.senderKey,
+                                      recipientKey  |-> pkRecv,
+                                      signature     |-> pkRecv,
+                                      repKey        |-> pkRecv ]
+                                IN
+                                    /\ newHash = CalculateHash(newBlock, prevHash)
+                                    /\ ledger' = [ledger EXCEPT ![n][newHash] = newBlock]
+                                    /\ lastHash' = newHash
+                                    /\ received' = [received EXCEPT ![i \in NodeSet] = @ \cup {newHash}]
+                                    /\ UNCHANGED <<>>
+
+\*  5. Create change representative block
+CreateChange ==
+    \E n \in NodeSet :
+        \E pk \in PublicKey :
+            \E sk \in PrivateKey :
+                /\ pk = OwnerKey(sk)
+                /\ \E prevHash \in HashSet :
+                    /\ BlockAt(n, prevHash) # NoBlockVal
+                    /\ BlockAt(n, prevHash).accountKey = pk
+                    /\ \E newRep \in PublicKey :
+                        LET newBlock ==
+                            [ type          |-> "Change",
+                              hash          |-> newHash,
+                              previousHash  |-> prevHash,
+                              accountKey    |-> pk,
+                              balanceDelta |-> 0,
+                              senderKey     |-> pk,
+                              recipientKey  |-> pk,
+                              signature     |-> pk,
+                              repKey        |-> newRep ]
+                        IN
+                            /\ newHash = CalculateHash(newBlock, prevHash)
+                            /\ ledger' = [ledger EXCEPT ![n][newHash] = newBlock]
+                            /\ lastHash' = newHash
+                            /\ received' = [received EXCEPT ![i \in NodeSet] = @ \cup {newHash}]
+                            /\ UNCHANGED <<>>
+
+\*  6. Process a received block at a node
+ProcessBlock ==
+    \E n \in NodeSet :
+        \E h \in received[n] :
+            LET b == BlockAt(n, h) IN
+                /\ b # NoBlockVal          \* block must already be present (broadcast puts it in ledger)
+                /\ ValidateBlock(n, b)    \* signature and structural checks
+                /\ ledger' = ledger        \* ledger unchanged after validation (block already stored)
+                /\ received' = [received EXCEPT ![n] = @ \ {h}]
+                /\ UNCHANGED lastHash
+
+\* ----------------------------------------------------------------------
+\*  Validation predicate (abstract, captures signature & structural rules)
+\* ----------------------------------------------------------------------
+ValidateBlock(node, b) ==
+    /\ b.signature = b.accountKey                       \* signature matches account key
+    /\ 
+       IF b.type = "Send" THEN
+            /\ b.previousHash # NoHashVal
+            /\ BlockAt(node, b.previousHash).accountKey = b.accountKey
+            /\ b.balanceDelta > 0
+            /\ b.balanceDelta <= Balance(node, b.accountKey) + b.balanceDelta
+       ELSE IF b.type = "Open" THEN
+            /\ b.previousHash = NoHashVal
+            /\ b.balanceDelta = b.balanceDelta
+            /\ b.senderKey # NoHashVal
+       ELSE IF b.type = "Receive" THEN
+            /\ b.previousHash # NoHashVal
+            /\ BlockAt(node, b.previousHash).accountKey = b.accountKey
+            /\ b.balanceDelta > 0
+       ELSE IF b.type = "Change" THEN
+            /\ b.previousHash # NoHashVal
+            /\ b.balanceDelta = 0
+       ELSE IF b.type = "Genesis" THEN
+            /\ b.previousHash = NoHashVal
+            /\ b.balanceDelta = GenesisBalance
+       ELSE FALSE
+
+\* ----------------------------------------------------------------------
+\*  Next-state relation
+\* ----------------------------------------------------------------------
+Next ==
+    \/ CreateGenesis
+    \/ CreateSend
+    \/ CreateOpen
+    \/ CreateReceive
+    \/ CreateChange
+    \/ ProcessBlock
+
+\* ----------------------------------------------------------------------
+\*  Specification
+\* ----------------------------------------------------------------------
+Spec == Init /\ [][Next]_<<lastHash, ledger, received>>
+
+\* ----------------------------------------------------------------------
+\*  Type invariant (ensures variables stay within declared domains)
+\* ----------------------------------------------------------------------
+TypeInvariant ==
+    /\ lastHash \in HashSet
+    /\ ledger \in [NodeSet -> [HashSet -> (NoBlockVal \cup Block)]]
+    /\ received \in [NodeSet -> SUBSET HashSet]
+
+\* ----------------------------------------------------------------------
+\*  Cryptographic safety invariant (every stored block has a valid signature)
+\* ----------------------------------------------------------------------
+SafetyInvariant ==
+    \A n \in NodeSet :
+        \A h \in HashSet :
+            LET b == ledger[n][h] IN
+                b # NoBlockVal => b.signature = b.accountKey
+
+\* ----------------------------------------------------------------------
+\*  Optional balance sum invariant (not required by the .cfg but useful)
+\* ----------------------------------------------------------------------
+BalanceSumInvariant ==
+    \A n \in NodeSet :
+        \A acct \in PublicKey :
+            Balance(n, acct) >= 0
+    /\ 
+    \A n \in NodeSet :
+        Sum({ Balance(n, a) : a \in PublicKey }) <= GenesisBalance
+
+\* ----------------------------------------------------------------------
+\*  Theorems (

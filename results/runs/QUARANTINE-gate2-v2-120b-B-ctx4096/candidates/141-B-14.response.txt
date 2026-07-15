@@ -1,0 +1,29 @@
+---- MODULE Reachable ----
+EXTENDS Reachability, Integers, FiniteSets
+
+CONSTANT Root
+ASSUME RootAssump == Root \in Nodes
+
+(* ------------------------------------------------------------------------- *)
+(* Reachable is defined to be the set of nodes reachable from Root.          *)
+(* ------------------------------------------------------------------------- *)
+Reachable == ReachableFrom({Root})
+
+(* ------------------------------------------------------------------------- *)
+(* Variables of the algorithm.                                              *)
+(* ------------------------------------------------------------------------- *)
+VARIABLES marked, vroot, pc
+
+(* ------------------------------------------------------------------------- *)
+(* Initial state.                                                            *)
+(* ------------------------------------------------------------------------- *)
+Init ==
+    /\ marked = {}
+    /\ vroot  = {Root}
+    /\ pc     = "a"
+
+(* ------------------------------------------------------------------------- *)
+(* Action a: implements Misra's variant of BFS.                             *)
+(* It chooses a node v from vroot and either adds it to marked and expands *)
+(* vroot with Succ[v], or removes it from vroot if it is already marked.   *)
+(* ------------------------------------------------------------------------- *)

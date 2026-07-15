@@ -1,0 +1,52 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/eric/GitHub/prove-TLA/harness/w21_funnel.py", line 521, in <module>
+    main()
+    ~~~~^^
+  File "/Users/eric/GitHub/prove-TLA/harness/w21_funnel.py", line 496, in main
+    stage_dedup(a.raw, a.run_dir)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/eric/GitHub/prove-TLA/harness/w21_funnel.py", line 87, in stage_dedup
+    nh = normalized_hash(_read(f))
+                         ~~~~~^^^
+  File "/Users/eric/GitHub/prove-TLA/harness/w21_funnel.py", line 69, in _read
+    return p.read_text(errors="replace")
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 787, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 771, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+IsADirectoryError: [Errno 21] Is a directory: '/Users/eric/GitHub/tla-dataset-pipeline/data/raw-wide-20260710/ongardie/raft.tla'
+canonical shingle sets: 613
+  200/3864
+  400/3864
+  600/3864
+  800/3864
+  1000/3864
+  1200/3864
+  1400/3864
+  1600/3864
+  1800/3864
+  2000/3864
+  2200/3864
+  2400/3864
+  2600/3864
+  2800/3864
+  3000/3864
+  3200/3864
+  3400/3864
+  3600/3864
+  3800/3864
+decontam: 3864 scored, 344 contaminated -> results/runs/w21-funnel-wide-20260710/decontam.jsonl
+sany: 0 done, 3520 this chunk, 3520 total
+sany chunk complete -> results/runs/w21-funnel-wide-20260710/sany.jsonl (3520 rows)
+{
+  "tier1_sany_cfg": 1229,
+  "tier2_sany": 1222,
+  "discard_sany": 1069,
+  "discard_contam": 344,
+  "discard_dup": 1932
+}

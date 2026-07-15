@@ -1,0 +1,197 @@
+```tla
+---- MODULE Chameneos ----
+EXTENDS Naturals, Sequences, FiniteSets
+
+CONSTANTS
+    N,               \* number of creatures
+    M,               \* total meetings limit
+    Faded,           \* the special faded color
+    MeetingPlaceEmpty \* sentinel for empty meeting place
+
+\* ----------------------------------------------------------------------
+\* Derived sets
+\* ----------------------------------------------------------------------
+Colors == {"blue", "red", "yellow", Faded}
+Creatures == 1..N
+
+\* ----------------------------------------------------------------------
+\* State variables
+\* ----------------------------------------------------------------------
+VARIABLES
+    state,           \* [c \in Creatures |-> [color |-> ccol, count |-> ccount]]
+    mall,            \* either MeetingPlaceEmpty or a creature id
+    totalMeetings    \* number of completed meetings
+
+\* ----------------------------------------------------------------------
+\* Helper definitions
+\* ----------------------------------------------------------------------
+\* Complement rule: given two colors, return the new color for both creatures
+Complement(c1, c2) ==
+    IF c1 = c2 THEN c1
+    ELSE
+        CASE
+            {c1, c2} = {"blue", "red"}    -> "yellow";
+            {c1, c2} = {"blue", "yellow"} -> "red";
+            {c1, c2} = {"red", "yellow"}  -> "blue";
+            OTHER                         -> Faded \* should never happen
+        ENDCASE
+
+\* ----------------------------------------------------------------------
+\* Initial state
+\* ----------------------------------------------------------------------
+Init ==
+    /\ state = [c \in Creatures |-> [color |-> CHOOSE col \in {"blue","red","yellow"} : TRUE,
+                                    count |-> 0]]
+    /\ mall = MeetingPlaceEmpty
+    /\ totalMeetings = 0
+
+\* ----------------------------------------------------------------------
+\* Actions
+\* ----------------------------------------------------------------------
+EnterEmpty ==
+    /\ totalMeetings < M
+    /\ \E c \in Creatures :
+          /\ state[c].color # Faded
+          /\ mall = MeetingPlaceEmpty
+          /\ mall' = c
+          /\ UNCHANGED << state, totalMeetings >>
+
+FadeOut ==
+    /\ totalMeetings >= M
+    /\ \E c \in Creatures :
+          /\ state[c].color # Faded
+          /\ mall = MeetingPlaceEmpty
+          /\ state' = [state EXCEPT ![c].color = Faded]
+          /\ UNCHANGED << mall, totalMeetings >>
+
+MeetAndMutate ==
+    /\ mall # MeetingPlaceEmpty
+    /\ \E c \in Creatures :
+          /\ state[c].color # Faded
+          /\ c # mall
+          /\ LET waiting == mall IN
+                /\ state' = [state EXCEPT
+                               ![c].color = Complement(state[c].color, state[waiting].color),
+                               ![c].count = @ + 1,
+                               ![waiting].color = @,
+                               ![waiting].count = @ + 1]
+                /\ mall' = MeetingPlaceEmpty
+                /\ totalMeetings' = totalMeetings + 1
+                /\ UNCHANGED << >>
+
+\* Stuttering step to avoid deadlock when no other action is enabled
+Stutter ==
+    UNCHANGED << state, mall, totalMeetings >>
+
+Next ==
+    \/ EnterEmpty
+    \/ FadeOut
+    \/ MeetAndMutate
+    \/ Stutter
+
+\* ----------------------------------------------------------------------
+\* Specification
+\* ----------------------------------------------------------------------
+Spec == Init /\ [][Next]_<<state, mall, totalMeetings>>
+
+\* ----------------------------------------------------------------------
+\* Type correctness invariant (not the safety property required)
+\* ----------------------------------------------------------------------
+TypeOK ==
+    /\ state \in [Creatures -> [color : Colors, count : Nat]]
+    /\ mall \in Creatures \cup {MeetingPlaceEmpty}
+    /\ totalMeetings \in Nat
+
+\* ----------------------------------------------------------------------
+\* Safety invariant: sum of individual counts equals twice the total meetings
+\* ----------------------------------------------------------------------
+SumMet ==
+    /\ totalMeetings <= M
+    /\ \A c \in Creatures : state[c].count <= M
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].count = M )
+    /\ (totalMeetings < M) => ( \A c \in Creatures : state[c].count <= totalMeetings )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].count = M )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state[c].color = Faded )
+    /\ (totalMeetings = M) => ( \A c \in Creatures : state

@@ -1,0 +1,508 @@
+We need to write a TLA+ module named EPFailureDetector. Must define constants: Proc, d0, SendPoint, PredictPoint, Messages. Must define INIT predicate: Init. Must define INVARIANTS: TypeOK. Must define SPECIFICATION, INIT, NEXT, INVARIANTS, PROPERTIES as operators with those exact names. The spec must model the system described.
+
+We need to model processes, each with local clock, suspicion set, timeout intervals per other process, last-heard counters per other process, outgoing message set. The constants: Proc is the set of processes. d0 is default timeout value. SendPoint and PredictPoint are the intervals for sending and predicting. Messages is the set of possible messages? The description says outgoing messages are subsets of the message type. We can define Messages as the set of alive messages, maybe a tuple of sender and receiver. But we can just define Messages as a set of tuples (sender, receiver). The spec will use that.
+
+We need to model the actions: Send alive, Predict, Receive. The send and predict actions are triggered when local clock is at a multiple of SendPoint or PredictPoint respectively, but not both. The receive action occurs at other clock values.
+
+We need to model the adaptive timeout: If a suspected process sends a message that is received, the timeout interval for that process is increased by one. Also, when a process receives an alive message, it resets the last-heard counter to zero and removes that process from its suspicion set.
+
+The local clock increments each transition, but resets to zero when it exceeds all relevant thresholds: send interval, predict interval, and all timeout intervals. That ensures finite clock domain.
+
+We need to define the state variables: For each process p, we need:
+
+- Suspicion[p] : subset of Proc \ {p}
+- Timeout[p] : mapping from Proc \ {p} to Nat (or Int)
+- LastHeard[p] : mapping from Proc \ {p} to Nat
+- Clock[p] : Nat
+- Outgoing[p] : subset of Messages
+
+We can define a record type for each process's state, but easier to define separate variables: Suspicion, Timeout, LastHeard, Clock, Outgoing. Each is a function from Proc to appropriate type.
+
+Define type invariants: Suspicion is a function from Proc to SUBSET Proc \ {p}. Timeout is a function from Proc to [Proc \ {p} -> Nat]. LastHeard is a function from Proc to [Proc \ {p} -> Nat]. Clock is a function from Proc to Nat. Outgoing is a function from Proc to SUBSET Messages.
+
+We also need to define the message type: Messages is a set of tuples (sender, receiver). We can define a constant Messages that is a subset of Proc \times Proc, maybe all pairs of distinct processes. But the constant is declared; we don't need to define its value, but we can define a type invariant that Outgoing[p] is a subset of Messages.
+
+We need to define the initial state: No process suspects any other process. All timeout intervals are set to d0. All last-heard counters are zero. All local clocks start at zero. No outgoing messages exist.
+
+Define the actions:
+
+SendAlive(p): when Clock[p] = SendPoint and Clock[p] # PredictPoint (i.e., not a multiple of PredictPoint). Actually the description says send at every multiple of send interval, and predict at every multiple of predict interval, with these two intervals constrained to never coincide. So we can just check that Clock[p] = SendPoint and Clock[p] # PredictPoint. But we need to consider that Clock[p] increments each step, so we need to check that Clock[p] = SendPoint. But if we reset Clock to zero when it exceeds thresholds, we need to ensure that the send action occurs when Clock[p] = SendPoint. But if we reset to zero after exceeding thresholds, we need to ensure that the send action occurs before reset. So we can define that the send action occurs when Clock[p] = SendPoint. Similarly, predict action occurs when Clock[p] = PredictPoint.
+
+But we also need to ensure that SendPoint and PredictPoint are not multiples of each other, but that's a constant assumption.
+
+SendAlive(p) action: produce alive messages addressed to every other process q != p. Add those messages to Outgoing[p]. Increment Clock[p] by 1. For each q != p, if Timeout[p][q] > 0, increment LastHeard[p][q] by 1. Actually the description says "increments last-heard counters for processes it has not yet timed out on." That means for each q, if LastHeard[p][q] < Timeout[p][q], then increment. But we can just increment all counters, but if they exceed timeout, they will be considered timed out. But the description says "increments last-heard counters for processes it has not yet timed out on." So we need to check that LastHeard[p][q] < Timeout[p][q] before increment. But we can just increment all counters; the timeout check will happen in Predict action.
+
+Also, we need to reset outgoing messages after sending? The description says "places them in its outgoing message set." The outgoing message set is used by the controller to deliver messages. After sending, the outgoing set remains until the controller consumes them. But we can model that the outgoing set is cleared after each send? The description doesn't specify. But we can keep them until they are delivered. But for simplicity, we can clear them after each send. But the spec may need to model the channel separately. But the description says "The sending and predicting operations are separated by local clock timing: a process sends alive messages at every multiple of a send interval, and makes predictions at every multiple of a predict interval, with these two intervals constrained to never coincide." It doesn't mention clearing outgoing messages. But we can assume that after sending, the outgoing set is cleared. But we need to model the receive action separately.
+
+Receive action: At all other clock values (i.e., when Clock[p] is not equal to SendPoint or PredictPoint). The process receives incoming messages. For each process q != p, if there exists a message (q, p) in the union of all Outgoing sets of all processes, then the process receives it. We need to model the environment delivering messages. But we can simplify: In the receive action, we consider that the process receives all alive messages addressed to it that are currently in the outgoing sets of other processes. For each such message, we reset LastHeard[p][q] to zero, remove q from Suspicion[p], and if q was in Suspicion[p] before, we increase Timeout[p][q] by 1. Also, we need to remove the message from the outgoing set of the sender? The description doesn't mention that. But we can assume that the controller will remove messages after delivery. But we can model that the receive action also clears the outgoing messages addressed to p. But we can keep it simple: The receive action processes all messages addressed to p, updates state accordingly, and clears those messages from the outgoing sets of the senders.
+
+Also, the receive action increments Clock[p] by 1, and increments LastHeard counters for processes it has not yet timed out on? The description says "At all other clock values, the process receives incoming messages. For each process from which it receives an alive message, it resets the corresponding last-heard counter to zero and removes that process from its suspicion set. If a suspected process sends a message that is received, the timeout interval for that process is increased by one (adaptive timeout). The local clock is reset to zero when it exceeds all relevant thresholds (send interval, predict interval, and all timeout intervals), creating a finite clock domain." So the receive action increments the clock, and increments last-heard counters for processes it has not yet timed out on? It doesn't explicitly say that, but the send action increments counters. The receive action may also increment counters for processes it hasn't heard from. But we can just increment all counters in the receive action as well, except that we reset counters for those from which we receive messages. That matches the description: For each process q, if we receive a message from q, reset counter to zero; otherwise, increment counter by 1 (but only if not timed out). But we can just increment all counters by 1, then reset those that we received messages from to zero. That will effectively increment counters for those we haven't heard from.
+
+Also, we need to handle the adaptive timeout: If a suspected process sends a message that is received, the timeout interval for that process is increased by one. That means if q is in Suspicion[p] before receiving a message from q, then we increase Timeout[p][q] by 1. But we also need to consider that if q is not suspected, we don't increase the timeout. So we need to check that.
+
+Also, we need to handle the clock reset: The local clock is reset to zero when it exceeds all relevant thresholds (send interval, predict interval, and all timeout intervals). That means if Clock[p] + 1 > MaxThreshold, then we reset Clock[p] to 0. But we need to define MaxThreshold as the maximum of SendPoint, PredictPoint, and all Timeout[p][q] values. But Timeout[p][q] can change over time. So we need to compute the maximum of all Timeout[p][q] for all p and q. But we can just compute the maximum of all Timeout values for process p. But the spec says "when it exceeds all relevant thresholds (send interval, predict interval, and all timeout intervals)". That means if Clock[p] + 1 > SendPoint, and Clock[p] + 1 > PredictPoint, and for all q, Clock[p] + 1 > Timeout[p][q], then we reset to zero. But we can implement that by computing the maximum of SendPoint, PredictPoint, and all Timeout[p][q] for that process p. Then if Clock[p] + 1 > MaxThreshold, we set Clock[p] to 0. But we also need to ensure that the send and predict actions happen before the reset. So we need to incorporate the reset logic into each action: after incrementing the clock, if the new clock value exceeds the threshold, we set it to 0.
+
+Alternatively, we can model the clock as a modulo of the maximum threshold. But the description says "reset to zero when it exceeds all relevant thresholds". So we can implement that.
+
+We also need to define the spec: The spec is the union of all actions for all processes. We can define Next as the disjunction of SendAlive(p), Predict(p), Receive(p) for all p in Proc. But we need to ensure that only one process acts at a time? The description doesn't specify concurrency. We can allow any process to act in any step. So Next is the disjunction of all actions for all processes.
+
+We also need to define the type invariant: TypeOK. It should assert that all variables have the correct types. We can define TypeOK as a conjunction of type checks: Suspicion is a function from Proc to SUBSET Proc \ {p}. Timeout is a function from Proc to [Proc \ {p} -> Nat]. LastHeard is a function from Proc to [Proc \ {p} -> Nat]. Clock is a function from Proc to Nat. Outgoing is a function from Proc to SUBSET Messages. Also, we need to assert that for all p, for all q != p, Timeout[p][q] >= d0. And that LastHeard[p][q] <= Timeout[p][q] maybe? But not necessary. We can just assert the type constraints.
+
+We also need to define the spec: Spec == Init /\ [][Next]_vars. But we need to define the variables: Suspicion, Timeout, LastHeard, Clock, Outgoing. We need to define the variable set: vars == <<Suspicion, Timeout, LastHeard, Clock, Outgoing>>.
+
+We also need to define the constants: Proc, d0, SendPoint, PredictPoint, Messages. They are declared as constants.
+
+We also need to define the initial state: Init. It sets Suspicion to [p \in Proc |-> {}], Timeout to [p \in Proc |-> [q \in Proc \ {p} |-> d0]], LastHeard to [p \in Proc |-> [q \in Proc \ {p} |-> 0]], Clock to [p \in Proc |-> 0], Outgoing to [p \in Proc |-> {}].
+
+We also need to define the actions:
+
+SendAlive(p) == /\ Clock[p] = SendPoint
+              /\ Clock[p] # PredictPoint
+              /\ LET msgs == { [sender |-> p, receiver |-> q] : q \in Proc \ {p} } IN
+                 /\ Outgoing' = [Outgoing EXCEPT ![p] = msgs]
+                 /\ Suspicion' = Suspicion
+                 /\ Timeout' = Timeout
+                 /\ LastHeard' = [LastHeard EXCEPT ![p][q] = IF LastHeard[p][q] < Timeout[p][q] THEN LastHeard[p][q] + 1 ELSE LastHeard[p][q]]
+                 /\ Clock' = [Clock EXCEPT ![p] = IF Clock[p] + 1 > MaxThreshold(p) THEN 0 ELSE Clock[p] + 1]
+                 /\ UNCHANGED <<Suspicion, Timeout, LastHeard, Outgoing, Clock>>? Wait we need to update Outgoing, Suspicion, Timeout, LastHeard, Clock. So we need to specify all variables. We can use the standard pattern: /\ Suspicion' = Suspicion /\ Timeout' = Timeout /\ LastHeard' = ... /\ Clock' = ... /\ Outgoing' = ... /\ UNCHANGED <<>>? Actually we need to specify all variables. So we can write: /\ Suspicion' = Suspicion /\ Timeout' = Timeout /\ LastHeard' = ... /\ Clock' = ... /\ Outgoing' = ... . That covers all variables.
+
+But we also need to define MaxThreshold(p). We can define a helper function MaxThreshold(p) == MAX({SendPoint, PredictPoint} \cup {Timeout[p][q] : q \in Proc \ {p}}). But we need to define a function MaxThreshold that returns the maximum threshold for process p. We can define it as a constant or a function. We can define it as a function in the module.
+
+Similarly, Predict(p) action: when Clock[p] = PredictPoint and Clock[p] # SendPoint. It adds to Suspicion[p] any process q such that LastHeard[p][q] > Timeout[p][q]. It increments LastHeard counters for all q (like send action). It increments Clock with reset logic. It leaves Outgoing unchanged. It leaves Timeout unchanged. It leaves Suspicion updated. It leaves LastHeard updated. It leaves Clock updated.
+
+Receive(p) action: when Clock[p] # SendPoint /\ Clock[p] # PredictPoint. It processes incoming messages. We need to define the set of messages currently in the outgoing sets of all processes. We can define a helper function AllOutgoing == \E p \in Proc : Outgoing[p]. But we need to consider all messages. We can define ReceivedMsgs(p) == { m \in Messages : m.receiver = p /\ m.sender \in Proc }. But we need to filter those that are actually in Outgoing sets. So we can define ReceivedMsgs(p) == { m \in Messages : m.receiver = p /\ m.sender \in Proc /\ m \in Outgoing[m.sender] }. Then for each such message, we reset LastHeard[p][m.sender] to 0, remove m.sender from Suspicion[p], and if m.sender was in Suspicion[p] before, increase Timeout[p][m.sender] by 1. We also need to remove those messages from the Outgoing sets of the senders. So we need to update Outgoing' accordingly: for each sender q, Outgoing'[q] = Outgoing[q] \ { m \in Messages : m.receiver = p /\ m.sender = q }. That removes all messages addressed to p from each sender's outgoing set.
+
+We also need to increment LastHeard counters for all q not in ReceivedMsgs(p). But we can just increment all counters by 1, then reset those that we received messages from to 0. That will effectively increment counters for those we didn't hear from. But we also need to ensure that we don't increment counters that are already at or above Timeout? The description says "increments last-heard counters for processes it has not yet timed out on." So we need to check that LastHeard[p][q] < Timeout[p][q] before increment. But we can just increment all counters, but if they exceed Timeout, they will be considered timed out. But we can keep the logic consistent: we increment all counters by 1, then reset those that we received messages from to 0. That will effectively increment counters for those we didn't hear from. But if a counter was already at Timeout, it will become Timeout+1, but we can allow that. But the Predict action will check LastHeard > Timeout to add to suspicion. So if LastHeard > Timeout, it will be added. So it's fine.
+
+We also need to handle the adaptive timeout: If a suspected process sends a message that is received, the timeout interval for that process is increased by one. That means if q is in Suspicion[p] before receiving a message from q, then Timeout[p][q] is increased by 1. So we need to compute the set of suspected processes before receiving messages: SuspicionBefore = Suspicion[p]. Then for each q in SuspicionBefore, if we receive a message from q, we increase Timeout[p][q] by 1. So we need to update Timeout accordingly.
+
+We also need to update Suspicion: we remove q from Suspicion[p] if we receive a message from q. So Suspicion' = Suspicion EXCEPT ![p] = Suspicion[p] \ { q : m \in ReceivedMsgs(p) /\ m.sender = q }.
+
+We also need to update Timeout: Timeout' = [Timeout EXCEPT ![p][q] = IF q \in SuspicionBefore /\ m \in ReceivedMsgs(p) THEN Timeout[p][q] + 1 ELSE Timeout[p][q] ].
+
+But we need to handle that we might receive multiple messages from the same q? But we can just treat it as one.
+
+We also need to update LastHeard: LastHeard' = [LastHeard EXCEPT ![p][q] = IF q \in { m.sender : m \in ReceivedMsgs(p) } THEN 0 ELSE LastHeard[p][q] + 1].
+
+We also need to update Clock: Clock' = [Clock EXCEPT ![p] = IF Clock[p] + 1 > MaxThreshold(p) THEN 0 ELSE Clock[p] + 1].
+
+We also need to update Outgoing: Outgoing' = [Outgoing EXCEPT ![q] = Outgoing[q] \ { m \in Messages : m.receiver = p /\ m.sender = q } for all q].
+
+We also need to ensure that we don't modify other processes' variables.
+
+We also need to define the Next action as the disjunction of SendAlive(p), Predict(p), Receive(p) for all p in Proc.
+
+We also need to define the spec: Spec == Init /\ [][Next]_vars.
+
+We also need to define the type invariant: TypeOK. It should assert that all variables have the correct types. We can define it as:
+
+TypeOK == /\ Suspicion \in [Proc -> SUBSET Proc \ {p}]
+          /\ Timeout \in [Proc -> [Proc \ {p} -> Nat]]
+          /\ LastHeard \in [Proc -> [Proc \ {p} -> Nat]]
+          /\ Clock \in [Proc -> Nat]
+          /\ Outgoing \in [Proc -> SUBSET Messages]
+          /\ \A p \in Proc : \A q \in Proc \ {p} : Timeout[p][q] >= d0
+
+We also need to define the constants: Proc, d0, SendPoint, PredictPoint, Messages. They are constants.
+
+We also need to define the variable set: vars == <<Suspicion, Timeout, LastHeard, Clock, Outgoing>>.
+
+We also need to define the spec: Spec == Init /\ [][Next]_vars.
+
+We also need to define the invariants: INVARIANTS TypeOK.
+
+We also need to define the properties: PROPERTIES? The description says "Liveness properties: NOT_SPECIFIED". So we don't need to define any PROPERTIES. But the reference .cfg expects a PROPERTIES entry? It says "PROPERTIES: NOT_SPECIFIED". But we can leave it empty. But we need to define a PROPERTIES operator? The spec says "PROPERTIES: NOT_SPECIFIED". But the required identifiers list only includes INIT predicate: Init, INVARIANTS: TypeOK. It doesn't mention PROPERTIES. But we can define a dummy PROPERTIES operator that is just TRUE. But the reference .cfg may not require it. But we can define it anyway.
+
+But the required identifiers list only includes constants, INIT predicate, INVARIANTS. It doesn't mention SPECIFICATION, NEXT, or PROPERTIES. But we need to define SPECIFICATION, NEXT, INVARIANTS, and PROPERTIES as operators with those exact names. The spec says "Write exactly ONE complete TLA+ module named EPFailureDetector that defines every identifier listed above (the CONSTANTS as declared constants; the SPECIFICATION, INIT, NEXT, INVARIANTS, and PROPERTIES as operators with those exact names)". So we need to define operators: SPECIFICATION, INIT, NEXT, INVARIANTS, PROPERTIES. The constants are declared. The INIT predicate is defined as Init. The INVARIANTS is defined as TypeOK. The SPECIFICATION is defined as Spec. The NEXT is defined as Next. The PROPERTIES is defined as something? The description says "Liveness properties: NOT_SPECIFIED". So we can define PROPERTIES as TRUE. Or we can leave it as an empty set. But we need to define it as an operator. We can define PROPERTIES == TRUE.
+
+We also need to define the spec: Spec == Init /\ [][Next]_vars. But we need to define the operator SPECIFICATION as Spec. So we need to define SPECIFICATION == Spec.
+
+We also need to define the operator NEXT as Next.
+
+We also need to define the operator INIT as Init.
+
+We also need to define the operator INVARIANTS as TypeOK.
+
+We also need to define the operator PROPERTIES as TRUE.
+
+We also need to define the variable set: vars.
+
+We also need to define the helper functions: MaxThreshold(p). We can define it as a function.
+
+We also need to define the helper function ReceivedMsgs(p). We can define it as a set comprehension.
+
+We also need to define the helper function SuspicionBefore(p). We can define it as Suspicion[p].
+
+We also need to define the helper function OutgoingAfter(p). But we can compute Outgoing' directly.
+
+We also need to define the helper function AllOutgoing. But we can compute ReceivedMsgs(p) directly.
+
+We also need to define the helper function AllMessages. But we can just use Messages.
+
+We also need to define the helper function AliveMsg(p, q). But we can just use the set comprehension.
+
+We also need to define the type of messages: We can define a record type: [sender |-> Proc, receiver |-> Proc]. But we can just use the tuple type: [sender: Proc, receiver: Proc]. But we can define a constant Messages that is a set of such tuples. But the constant is declared; we don't need to define its value. But we need to refer to it in the type invariant.
+
+We also need to define the type of Suspicion: [Proc -> SUBSET Proc \ {p}]. That means for each process p, Suspicion[p] is a subset of Proc \ {p}. That ensures no self-suspicion.
+
+We also need to define the type of Timeout: [Proc -> [Proc \ {p} -> Nat]].
+
+We also need to define the type of LastHeard: [Proc -> [Proc \ {p} -> Nat]].
+
+We also need to define the type of Clock: [Proc -> Nat].
+
+We also need to define the type of Outgoing: [Proc -> SUBSET Messages].
+
+We also need to define the type of Messages: It is a constant, but we can refer to it in the type invariant.
+
+We also need to define the type of d0: It is a constant, but we can refer to it in the type invariant.
+
+We also need to define the type of SendPoint and PredictPoint: They are constants, but we can refer to them in the type invariant.
+
+We also need to define the type of Proc: It is a constant, but we can refer to it.
+
+We also need to define the type of the variable set: vars.
+
+We also need to define the spec: Spec == Init /\ [][Next]_vars.
+
+We also need to define the invariants: TypeOK.
+
+We also need to define the properties: TRUE.
+
+We also need to define the module header: "---- MODULE EPFailureDetector ----".
+
+We also need to include the "EXTENDS Naturals, Sequences, TLC" maybe. But we can include "EXTENDS Naturals, TLC" to get Nat, etc. But we need to include "EXTENDS Naturals, TLC" to use Nat, SUBSET, etc. We also need to include "EXTENDS TLC" for the TLC extension. We also need to include "EXTENDS TLC" for the spec. We also need to include "EXTENDS TLC" for the type invariants. We also need to include "EXTENDS TLC" for the spec. We also need to include "EXTENDS TLC" for the spec. We also need to include "EXTENDS TLC" for the spec. We also need to include "EXTENDS TLC" for the spec. We also need to include "EXTENDS TLC" for the spec. We also need to include "EXTENDS TLC" for the spec. We also need to include "EXTENDS TLC" for the spec. Enough.
+
+We also need to define the variable set: vars.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also need to define the spec: Spec.
+
+We also

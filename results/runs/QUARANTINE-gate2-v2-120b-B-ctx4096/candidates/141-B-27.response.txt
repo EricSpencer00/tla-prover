@@ -1,0 +1,30 @@
+```tla
+---- MODULE Reachable ----
+EXTENDS Reachability, Integers, FiniteSets
+
+CONSTANT Root
+ASSUME RootAssump == Root \in Nodes
+
+(* ------------------------------------------------------------------------ *)
+(* Reachable is defined to be the set of notes reachable from Root.  The   *)
+(* purpose of the algorithm is to compute Reachable.                        *)
+(* ------------------------------------------------------------------------ *)
+Reachable == ReachableFrom({Root})
+
+(***************************************************************************)
+(* Translation of the PlusCal algorithm.                                   *)
+(***************************************************************************)
+
+VARIABLES marked, vroot, pc
+
+\* Group the variables for the stuttering operator
+vars == << marked, vroot, pc >>
+
+Init ==
+  /\ marked = {}
+  /\ vroot = {Root}
+  /\ pc = "a"
+
+(***************************************************************************)
+(* Action `a' implements the described algorithm.  It is split into two   *)
+(* cases, corresponding to whether the nondeterministically chosen node  

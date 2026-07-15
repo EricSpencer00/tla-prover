@@ -1,0 +1,31 @@
+```tla
+---- MODULE Reachable ----
+EXTENDS Reachability, Integers, FiniteSets
+
+CONSTANT Root
+ASSUME RootAssump == Root \in Nodes
+
+(* The set of nodes reachable from Root *)
+Reachable == ReachableFrom({Root})
+
+VARIABLES marked, vroot, pc
+
+(* Convenience tuple of all state variables *)
+vars == << marked, vroot, pc >>
+
+(* Initial state *)
+Init ==
+    /\ marked = {}
+    /\ vroot = {Root}
+    /\ pc = "a"
+
+(* Main loop action, labelled "a" *)
+a ==
+    /\ pc = "a"
+    /\ IF vroot = {}
+          THEN /\ pc' = "Done"
+               /\ UNCHANGED << marked, vroot >>
+          ELSE /\ \E v \in vroot:
+                 IF v \notin marked
+                    THEN /\ marked' = marked \cup {v}
+                         /\ vroot' 

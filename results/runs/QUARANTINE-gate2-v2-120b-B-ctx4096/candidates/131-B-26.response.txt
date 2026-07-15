@@ -1,0 +1,51 @@
+---- MODULE MajorityProof ----
+EXTENDS Majority, FiniteSetTheorems, TLAPS
+
+(***************************************************************************)
+(* Proving type correctness is easy.                                       *)
+(***************************************************************************)
+LEMMA TypeCorrect == Spec => []TypeOK
+<1>1. Init => TypeOK
+  BY DEF Init, TypeOK
+<1>2. TypeOK /\ [Next]_vars => TypeOK'
+  BY DEF TypeOK, Next, vars
+<1>. QED  BY <1>1, <1>2, PTL DEF Spec
+
+(***************************************************************************)
+(* Auxiliary lemmas about positions and occurrences.                       *)
+(***************************************************************************)
+LEMMA PositionsOne == \A v : PositionsBefore(v,1) = {}
+BY DEF PositionsBefore
+
+LEMMA PositionsType == \A v, j : PositionsBefore(v,j) \in SUBSET (1 .. j-1)
+BY DEF PositionsBefore
+
+LEMMA PositionsFinite == 
+  ASSUME NEW v, NEW j \in Int
+  PROVE  IsFiniteSet(PositionsBefore(v,j))
+BY 1 \in Int, j-1 \in Int, PositionsType, FS_Interval, FS_Subset, Zenon
+
+LEMMA PositionsPlusOne ==
+  ASSUME TypeOK, NEW j \in 1 .. Len(seq), NEW v
+  PROVE  PositionsBefore(v, j+1) =
+         IF seq[j] = v THEN PositionsBefore(v,j) \cup {j}
+         ELSE PositionsBefore(v,j)
+BY DEF TypeOK, PositionsBefore
+
+LEMMA OccurrencesType == \A v : \A j \in Int : OccurrencesBefore(v,j) \in Nat
+BY DEF OccurrencesBefore, PositionsFinite, FS_Cardinality
+
+LEMMA OccurrencesOne == \A v : OccurrencesBefore(v,1) = 0
+BY DEF OccurrencesBefore, PositionsOne
+
+LEMMA OccurrencesPlusOne ==
+  ASSUME TypeOK, NEW j \in 1 .. Len(seq), NEW v
+  PROVE  OccurrencesBefore(v, j+1) =
+         IF seq[j] = v THEN OccurrencesBefore(v,j) + 1
+         ELSE OccurrencesBefore(v,j)
+<1>1. CASE seq[j] = v
+  <2>1. PositionsBefore(v, j+1) = PositionsBefore(v,j) \cup {j}
+    BY PositionsPlusOne, <1>1
+  <2>2. OccurrencesBefore(v, j+1) = Cardinality(PositionsBefore(v,j) \cup {j})
+    BY DEF OccurrencesBefore
+  <2>3. j \notin PositionsBefore

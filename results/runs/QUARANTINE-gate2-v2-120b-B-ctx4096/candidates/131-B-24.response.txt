@@ -1,0 +1,83 @@
+```tla
+---- MODULE MajorityProof ----
+EXTENDS Majority, FiniteSetTheorems, TLAPS
+
+VARIABLES seq, i, cand, cnt
+
+\* ----------------------------------------------------------------------
+\* Constants and assumptions required by the Majority module
+\* ----------------------------------------------------------------------
+ASSUME Value # {}
+\* If needed, the concrete value set can be supplied in the .cfg file.
+
+\* ----------------------------------------------------------------------
+\* Helper definitions (unchanged from original intent)
+\* ----------------------------------------------------------------------
+PositionsBefore(v, j) ==
+  { k \in 1..j-1 : seq[k] = v }
+
+OccurrencesBefore(v, j) ==
+  Cardinality(PositionsBefore(v, j))
+
+\* ----------------------------------------------------------------------
+\* Type correctness predicate
+\* ----------------------------------------------------------------------
+TypeOK ==
+  /\ seq \in Seq(Value)
+  /\ i \in 1..Len(seq) + 1
+  /\ cand \in Value
+  /\ cnt \in Nat
+
+\* ----------------------------------------------------------------------
+\* State variables for TLC
+\* ----------------------------------------------------------------------
+vars == << seq, i, cand, cnt >>
+
+\* ----------------------------------------------------------------------
+\* Initial predicate (matches the original specification)
+\* ----------------------------------------------------------------------
+Init ==
+  /\ seq \in Seq(Value)
+  /\ i = 1
+  /\ cand = PickValue
+  /\ cnt = 0
+
+PickValue == CHOOSE v \in Value : TRUE
+
+\* ----------------------------------------------------------------------
+\* Transition relation (preserves the original logic)
+\* ----------------------------------------------------------------------
+Next ==
+  \/ /\ i <= Len(seq)
+     /\ cnt = 0
+     /\ cand' = seq[i]
+     /\ cnt' = 1
+     /\ i' = i + 1
+     /\ UNCHANGED seq
+  \/ /\ i <= Len(seq)
+     /\ cnt # 0
+     /\ seq[i] = cand
+     /\ cnt' = cnt + 1
+     /\ i' = i + 1
+     /\ UNCHANGED << seq, cand >>
+  \/ /\ i <= Len(seq)
+     /\ cnt # 0
+     /\ seq[i] # cand
+     /\ cnt' = cnt - 1
+     /\ i' = i + 1
+     /\ UNCHANGED << seq, cand >>
+  \/ /\ i > Len(seq)
+     /\ UNCHANGED vars
+
+\* ----------------------------------------------------------------------
+\* Specification
+\* ----------------------------------------------------------------------
+Spec == Init /\ [][Next]_vars
+
+\* ----------------------------------------------------------------------
+\* Invariant (unchanged)
+\* ----------------------------------------------------------------------
+Inv ==
+  /\ cnt <= OccurrencesBefore(cand, i)
+  /\ 2 * (OccurrencesBefore(cand, i) - cnt) <= i - 1 - cnt
+  /\ \A v \in

@@ -1,0 +1,35 @@
+```tla
+---- MODULE Reachable ----
+EXTENDS Reachability, Integers, FiniteSets
+
+CONSTANT Root
+ASSUME RootAssump == Root \in Nodes
+
+(***************************************************************************)
+(* Reachable is defined to be the set of nodes reachable from Root.       *)
+(***************************************************************************)
+Reachable == ReachableFrom({Root})
+
+(***************************************************************************)
+(* Variables of the algorithm.                                            *)
+(***************************************************************************)
+VARIABLES marked, vroot, pc
+
+vars == << marked, vroot, pc >>
+
+(***************************************************************************)
+(* Initial state.                                                         *)
+(***************************************************************************)
+Init ==
+    /\ marked = {}
+    /\ vroot = {Root}
+    /\ pc = "a"
+
+(***************************************************************************)
+(* Action a, reflecting the PlusCal algorithm.                            *)
+(***************************************************************************)
+a ==
+    /\ pc = "a"
+    /\ IF vroot /= {}
+          THEN
+              /\ \E v \in vroot:

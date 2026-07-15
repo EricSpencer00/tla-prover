@@ -1,0 +1,53 @@
+---- MODULE Voting ----
+CONSTANTS a1, Acceptor, Value, Quorum, Ballot
+
+VARIABLES Votes, Thresholds
+
+VotesType == [Acceptor -> SUBSET (Ballot \X Value)]
+ThresholdsType == [Acceptor -> Int]
+
+Init ==
+  /\ Votes = [a \in Acceptor |-> {}]
+  /\ Thresholds = [a \in Acceptor |-> -1]
+
+Promise ==
+  \E a \in Acceptor :
+    \E newT \in Ballot :
+      newT > Thresholds[a] =>
+        /\ Thresholds' = [Thresholds EXCEPT ![a] = newT]
+        /\ Votes' = Votes
+
+Vote ==
+  \E a \in Acceptor :
+    \E b \in Ballot :
+      \E v \in Value :
+        /\ b >= Thresholds[a]
+        /\ \A c \in Ballot : c = b => <<c, v>> \notin Votes[a]
+        /\ \A a' \in Acceptor :
+             (\E v' \in Value : <<b, v'>> \in Votes[a']) => v' = v
+        /\ SafeValue(v, b)
+        /\ /\ Votes' = [Votes EXCEPT ![a] = Votes[a] \cup {<<b, v>>}]
+           /\ Thresholds' = [Thresholds EXCEPT ![a] = b]
+
+Next == Promise \/ Vote
+
+Spec == Init /\ [][Next]_<<Votes, Thresholds>>
+
+SafeValue(v, b) ==
+  \A c \in Ballot :
+    c < b =>
+      \E Q \in Quorum :
+        \A a' \in Q :
+          (<<c, v>> \in Votes[a']) \/ (Thresholds[a'] > c)
+
+SafeVotes ==
+  \A a \in Acceptor :
+    \A vote \in Votes[a] :
+      let b = Fst(vote); v = Snd(vote) in
+      SafeValue(v, b)
+
+AtMostOneValuePerBallot ==
+  \A b \in Ballot :
+    \A v1, v2 \in Value :
+      ((\E a \in Acceptor : <<b, v1>> \in Votes[a]) /\
+       (\E a \in Acceptor : <<b, v2>> \in Votes[a])) => v1 =

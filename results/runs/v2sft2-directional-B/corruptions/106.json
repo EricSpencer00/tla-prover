@@ -1,0 +1,84 @@
+{
+  "seed": 3774212903,
+  "corrupted_text": null,
+  "mutation_record": {
+    "skip": "no_valid_corruption",
+    "seeded_index": 6,
+    "candidates_total": 12,
+    "rejected": [
+      {
+        "candidate_index": 6,
+        "mutation": "in_to_notin",
+        "reason": "sany_fail",
+        "verdict": "fail:sany=fail"
+      },
+      {
+        "candidate_index": 7,
+        "mutation": "in_to_notin",
+        "reason": "sany_fail",
+        "verdict": "fail:sany=fail"
+      },
+      {
+        "candidate_index": 8,
+        "mutation": "in_to_notin",
+        "reason": "sany_fail",
+        "verdict": "fail:sany=fail"
+      },
+      {
+        "candidate_index": 9,
+        "mutation": "in_to_notin",
+        "reason": "sany_fail",
+        "verdict": "fail:sany=fail"
+      },
+      {
+        "candidate_index": 10,
+        "mutation": "in_to_notin",
+        "reason": "sany_fail",
+        "verdict": "fail:sany=fail"
+      },
+      {
+        "candidate_index": 11,
+        "mutation": "in_to_notin",
+        "reason": "sany_fail",
+        "verdict": "fail:sany=fail"
+      },
+      {
+        "candidate_index": 0,
+        "mutation": "in_to_notin",
+        "reason": "sany_fail",
+        "verdict": "fail:sany=fail"
+      },
+      {
+        "candidate_index": 1,
+        "mutation": "in_to_notin",
+        "reason": "sany_fail",
+        "verdict": "fail:sany=fail"
+      },
+      {
+        "candidate_index": 2,
+        "mutation": "in_to_notin",
+        "reason": "sany_fail",
+        "verdict": "fail:sany=fail"
+      },
+      {
+        "candidate_index": 3,
+        "mutation": "in_to_notin",
+        "reason": "sany_fail",
+        "verdict": "fail:sany=fail"
+      },
+      {
+        "candidate_index": 4,
+        "mutation": "in_to_notin",
+        "reason": "sany_fail",
+        "verdict": "fail:sany=fail"
+      },
+      {
+        "candidate_index": 5,
+        "mutation": "in_to_notin",
+        "reason": "sany_fail",
+        "verdict": "fail:sany=fail"
+      }
+    ]
+  },
+  "error_evidence": null
+}

@@ -1,0 +1,210 @@
+We need to write a TLA+ module named LeastCircularSubstring. Must define constants: CharacterSet, Nat. Must define operators: Spec, Init, Next, TypeInvariant, Correctness. Also maybe other internal definitions. The spec must model the algorithm described.
+
+We need to use zero-indexed sequences. TLA+ standard sequences are one-indexed. But we can define a type for zero-indexed sequences. We can use the util module "Sequences" maybe? But we can define our own type: a function from 0..len-1 to CharacterSet. Or we can use a tuple representation: a record with fields: data: seq of CharacterSet, len: Nat. But easier: define a type for the input string as a function from 0..len-1 to CharacterSet. But we need to nondeterministically choose any zero-indexed sequence over CharacterSet. We can use the built-in type "Seq" but that's one-indexed. We can use "Seq" and then shift indices? But easier: define a type "ZeroIndexedSeq" as a function from 0..len-1 to CharacterSet, where len is a Nat. But we need to nondeterministically choose any such function. We can use the "ANY" quantifier to choose a function mapping each index to a character. But we need to define the length variable separately.
+
+We need state variables: input string (call it Str), length (Len), failure function array (Fail), pattern-match index (PM), outer loop counter (i), best rotation offset (Best), program counter (pc). Also sentinel value for undefined failure function and pattern-match index. Let's define a constant Sentinel = -1? But constants are only CharacterSet and Nat. We can define a constant Sentinel = -1 as a value not in CharacterSet. But CharacterSet is a subset of Nat, so -1 is not in Nat. But we can use a separate constant for sentinel, but not required. We can use a special value like Nat+1? But Nat is a constant set of natural numbers. We can define a constant Sentinel = Nat + 1? But Nat is a set, not a number. We can define a constant Sentinel = -1 as a number not in Nat. But TLA+ allows constants to be any value. But the reference .cfg only declares CharacterSet and Nat. We cannot add new constants. But we can define a sentinel as a value not in CharacterSet, e.g., -1. But we need to ensure it's not in CharacterSet. We can use a constant that is not in CharacterSet, but we cannot declare it as a constant. We can just use the literal -1 in the spec. That is fine.
+
+We need to model the algorithm: The algorithm processes a doubled string (iterating up to twice the string length). The failure function array is indexed from 0 to 2*Len. Each entry maps to either a value in 0..Len-1 or the sentinel -1. The pattern-match index starts at sentinel. The outer loop counter i starts at 1. The best rotation offset starts at 0. The program counter tracks which step: we can model as a simple state machine: states: "OuterCheck", "FailureLookup", "InnerCompare", "UpdateBest", "FollowFailure", "PostComparison", "Increment", "Done". But we can simplify: we can model the algorithm as a single Next action that updates all variables according to the algorithm's logic. But we need to capture the sequential steps. We can use a program counter variable pc that can be one of a set of labels. Then Next action nondeterministically chooses the next step based on pc. But we can also encode the algorithm as a single step that does all the logic in one go, but that would skip the safety property of step-by-step. But the description says "labeled steps in a sequential loop structure". So we should model the program counter.
+
+Define pc as a variable that can be one of the labels: "OuterCheck", "FailureLookup", "InnerCompare", "UpdateBest", "FollowFailure", "PostComparison", "Increment", "Done". But we can combine some steps. But we need to capture the algorithm's logic.
+
+Simplify: We can model the algorithm as a single step that increments i and updates Best and Fail accordingly, following the algorithm's logic. But we need to capture the failure function chain and inner comparison loop. That might be complex to encode in one step. But we can encode the algorithm as a deterministic step that updates all variables accordingly. But we need to ensure the algorithm's correctness property holds.
+
+Alternatively, we can model the algorithm as a nondeterministic step that chooses any valid next state according to the algorithm's logic. That is acceptable.
+
+We need to define the initial state: Str is any zero-indexed sequence over CharacterSet. Len = Len(Str). Fail = [j \in 0..2*Len :-> -1]. PM = -1. i = 1. Best = 0. pc = "OuterCheck".
+
+Define the Next action: if pc = "OuterCheck" and i < 2*Len, then set pc to "FailureLookup". If i >= 2*Len, then set pc to "Done". If pc = "FailureLookup", then set PM to Fail[i - Best] (since we need to retrieve failure function value for current position relative to best offset). Then set pc to "InnerCompare". If pc = "InnerCompare", then we need to compare characters at positions: current position = i mod Len, candidate position = (Best + i) mod Len? Wait, algorithm: we compare the character at the current loop position (modulo string length) with the character at the candidate position (modulo string length). The candidate position is the best offset plus the current loop position? Actually, the algorithm processes the string twice, comparing each position with the best offset. The inner loop compares the character at position i (mod Len) with the character at position (Best + i) mod Len? Let's think: The algorithm finds the lexicographically least rotation. It uses a failure function to skip comparisons. The algorithm typically compares the current character with the character at the best offset plus the current offset. So yes, candidate position = (Best + i) mod Len. So we compare Str[i mod Len] with Str[(Best + i) mod Len].
+
+If they differ and PM != -1, then we set PM to Fail[PM] and stay in "InnerCompare". If they differ and PM == -1, then we exit to "PostComparison". If they are equal, we stay in "InnerCompare" and maybe increment something? Actually, the algorithm increments i and continues. But we can model that by staying in "InnerCompare" until a difference is found or PM == -1. But we also need to handle the case when characters are equal: we just continue the inner loop, but we need to update PM? In the algorithm, if characters are equal, we increment the pattern-match index? Actually, the failure function chain is used when characters differ. If they are equal, we just continue to next i. So we can just stay in "InnerCompare" and increment i? But the algorithm increments i only after the inner loop finishes. So we need to model that.
+
+Simplify: We can model the algorithm as a single step that processes one iteration of the outer loop: it compares the current character with the candidate, updates Best if needed, updates Fail, increments i, and loops. That might be simpler.
+
+Let's design the Next action as follows:
+
+If i < 2*Len:
+  Let cur = i mod Len
+  Let cand = (Best + i) mod Len
+  If Str[cur] < Str[cand] then
+    Best' = cur
+  else
+    Best' = Best
+  EndIf
+  // Update failure function
+  // The algorithm sets Fail[i] = (if Str[cur] == Str[cand] then Fail[i-1] + 1 else -1)
+  // But the description says: set the failure function entry to the sentinel (resetting it) or to one plus the pattern-match index (extending the match).
+  // So we need to compute newFail = if Str[cur] == Str[cand] then PM + 1 else -1
+  // But PM is the failure function value for the previous position relative to best offset. We need to compute PM = Fail[i - Best] before updating.
+  // So we compute PM = Fail[i - Best]
+  // Then newFail = if Str[cur] == Str[cand] then PM + 1 else -1
+  // Then Fail' = [Fail EXCEPT ![i] = newFail]
+  // i' = i + 1
+  // PM' = PM (maybe not needed)
+  // pc' = "OuterCheck" (loop back)
+Else
+  // Termination: set pc to "Done" and keep variables unchanged
+EndIf
+
+But we also need to handle the case when i >= 2*Len: we go to "Done" and then stutter.
+
+We also need to handle the sentinel value for PM: if PM == -1, then newFail = -1. That matches the description: if characters differ and PM is sentinel, we set failure function entry to sentinel. If characters differ and PM is not sentinel, we set failure function entry to PM + 1. But we also need to handle the case when characters are equal: we set failure function entry to PM + 1? Actually, the algorithm sets failure function entry to one plus the pattern-match index if characters are equal. So newFail = PM + 1. But if PM is sentinel, then PM + 1 would be 0? But sentinel is -1, so -1 + 1 = 0. That might be wrong. But the description says: "set the failure function entry to the sentinel (resetting it) or to one plus the pattern-match index (extending the match)." It doesn't specify what happens when PM is sentinel and characters are equal. But logically, if PM is sentinel, that means no previous match, so if characters are equal, we start a new match of length 1, so newFail = 0? But the sentinel is -1, so PM + 1 = 0. That seems plausible. So we can implement newFail = IF Str[cur] = Str[cand] THEN PM + 1 ELSE -1.
+
+But we also need to handle the case when PM is sentinel and characters differ: newFail = -1. That matches the description.
+
+Now we need to update Best: if Str[cur] < Str[cand] then Best' = cur else Best' = Best. But we also need to consider the case when Str[cur] == Str[cand] and PM == -1? Actually, if characters are equal, we don't update Best. So we only update Best when Str[cur] < Str[cand].
+
+Now we need to compute PM: PM = Fail[i - Best] before updating. But we need to compute i - Best: i is the current outer loop counter, Best is the current best offset. But i - Best might be negative if Best > i. But i starts at 1 and Best starts at 0, so i - Best >= 1 initially. But as Best can be updated to a larger value, i - Best could become negative. But the algorithm uses the failure function relative to the best offset, so we need to compute index = i - Best. If index < 0, we treat PM as sentinel? But the algorithm likely ensures that i >= Best always, because i increments from 1 to 2*Len, and Best is always <= i. But if Best is updated to a value > i, that would break the algorithm. But the algorithm only updates Best when Str[cur] < Str[cand], which means the current rotation is lexicographically smaller than the best so far. That can happen even if Best > i? Actually, Best is the offset of the best rotation found so far. i is the current position in the doubled string. The algorithm compares the rotation starting at i with the best rotation. If i < Best, then the rotation starting at i is a prefix of the best rotation? But the algorithm ensures that i always >= Best because it only updates Best when i >= Best. But we need to enforce that in the spec: we can restrict that i >= Best always. But we can also compute index = i - Best, and if index < 0, we set PM = -1. But we can just compute PM = IF i >= Best THEN Fail[i - Best] ELSE -1.
+
+Now we need to define the type of Fail: a function from 0..2*Len to Nat or -1. So we can define Fail as a function mapping each index to either -1 or a Nat less than Len. But we can just allow any integer, but we need to enforce in TypeInvariant that each entry is either -1 or a value in 0..Len-1.
+
+Now we need to define the initial state: Str is any zero-indexed sequence over CharacterSet. We need to define a type for zero-indexed sequences. We can define a type alias: ZeroIndexedSeq = [0..Len-1 -> CharacterSet]. But Len is a variable, so we need to define Str as a function from 0..Len-1 to CharacterSet. But Len is a variable, so we need to define Str as a function from 0..Len-1 to CharacterSet. But we can define Str as a function from 0..Len-1 to CharacterSet, but Len is a variable, so we need to use a type that depends on Len. We can define Str as a function from 0..Len-1 to CharacterSet, but we need to ensure that Len is defined before Str. In the initial state, we can choose Len and Str simultaneously.
+
+We can define the initial state as:
+
+Len' = Nat
+Str' = [j \in 0..Len' - 1 |-> CHOOSE c \in CharacterSet : c]
+Fail' = [j \in 0..2*Len' |-> -1]
+PM' = -1
+i' = 1
+Best' = 0
+pc' = "OuterCheck"
+
+But we need to nondeterministically choose Str. We can use the "ANY" quantifier: ANY s \in [0..Len-1 -> CharacterSet] : s. But we need to choose Len first. We can choose Len as any Nat. But we need to restrict Len to be <= some maximum? The model checker will set a maximum via the .cfg. So we can just allow any Nat.
+
+But we need to ensure that Len > 0? The algorithm may require non-empty string. But the description doesn't specify. But we can allow Len = 0. But then the algorithm would iterate up to 0? But we can handle that.
+
+Now we need to define the Next action: we need to capture the algorithm's logic. We can define a Next action that nondeterministically chooses one of the following:
+
+- If pc = "OuterCheck" and i < 2*Len, then set pc to "FailureLookup".
+- If pc = "FailureLookup", then compute PM = IF i >= Best THEN Fail[i - Best] ELSE -1, set pc to "InnerCompare".
+- If pc = "InnerCompare", then compute cur = i mod Len, cand = (Best + i) mod Len. If Str[cur] = Str[cand], then set pc to "InnerCompare" (stay) and maybe increment i? But we need to handle the inner loop: we need to keep comparing until a difference is found or PM == -1. But we can simplify: we can treat the inner loop as a single step that compares the current characters and updates PM accordingly. But we need to handle the case when characters are equal: we just continue to the next i. So we can just do the comparison and then go to "PostComparison" if characters differ or PM == -1. But if characters are equal, we just increment i and go back to "OuterCheck". But we also need to update PM? Actually, if characters are equal, we don't update PM. But we need to update PM for the next iteration? The algorithm uses PM to track the length of the current match. If characters are equal, we extend the match: PM = PM + 1. But we can incorporate that into the failure function update. But we can just compute newFail = IF Str[cur] = Str[cand] THEN PM + 1 ELSE -1. So we can update Fail[i] accordingly. Then we increment i. Then we go back to "OuterCheck".
+
+Thus we can collapse the inner loop into a single step: compare current characters, update Best if needed, update Fail[i] based on equality, increment i, and go back to "OuterCheck". That would be a simpler Next action that still captures the algorithm's behavior.
+
+But we need to ensure that the algorithm's correctness property holds. The algorithm's correctness property is that upon termination, the best rotation offset identifies the lexicographically-minimal rotation. If we collapse the inner loop, we might still preserve correctness because we still compare each position with the best offset and update Best accordingly. The failure function is used to skip comparisons, but if we ignore it, we might still find the correct Best offset because we compare all positions. But the algorithm's correctness property might rely on the failure function to skip some comparisons, but the final result should still be correct. So we can simplify the Next action to just compare each position with the best offset and update Best accordingly, ignoring the failure function. But the spec requires that the failure function is part of the state and updated accordingly. So we need to update Fail[i] as described.
+
+Thus we can define Next as:
+
+Next ==
+  \/ /\ pc = "OuterCheck"
+     /\ i < 2*Len
+     /\ pc' = "FailureLookup"
+  \/ /\ pc = "FailureLookup"
+     /\ PM' = IF i >= Best THEN Fail[i - Best] ELSE -1
+     /\ pc' = "InnerCompare"
+  \/ /\ pc = "InnerCompare"
+     /\ cur = i % Len
+     /\ cand = (Best + i) % Len
+     /\ IF Str[cur] < Str[cand] THEN Best' = cur ELSE Best' = Best
+     /\ newFail = IF Str[cur] = Str[cand] THEN PM' + 1 ELSE -1
+     /\ Fail' = [Fail EXCEPT ![i] = newFail]
+     /\ i' = i + 1
+     /\ pc' = "OuterCheck"
+  \/ /\ pc = "OuterCheck"
+     /\ i >= 2*Len
+     /\ pc' = "Done"
+  \/ /\ pc = "Done"
+     /\ UNCHANGED <<Str, Len, Fail, PM, i, Best, pc>>
+
+But we need to ensure that the variables are updated consistently. We need to define the variables: Str, Len, Fail, PM, i, Best, pc. We need to define the initial state: Init.
+
+We also need to define the TypeInvariant: ensures that Str is a function from 0..Len-1 to CharacterSet, Len is a Nat, Fail maps 0..2*Len to either -1 or a Nat less than Len, PM is either -1 or a Nat less than Len, i is a Nat less than or equal to 2*Len, Best is a Nat less than Len, pc is one of the allowed labels.
+
+We also need to define the Correctness invariant: upon termination (pc = "Done"), the rotation at Best is lexicographically <= all other rotations. We need to express that: For all j in 0..Len-1, the rotation starting at Best is <= the rotation starting at j. We need to define a function that returns the rotation string at offset k: Rot(k) = [j \in 0..Len-1 |-> Str[(k + j) % Len]]. Then we need to assert that Rot(Best) <= Rot(j) for all j. We need to define lexicographic ordering on sequences. We can use the built-in Seq ordering? TLA+ has a built-in ordering on sequences: the <= operator on sequences is lexicographic. So we can use Rot(Best) <= Rot(j). But we need to define Rot as a function that returns a sequence. We can define a helper function Rot(k) that returns a sequence of length Len: [j \in 0..Len-1 |-> Str[(k + j) % Len]].
+
+But we need to ensure that the modulo operation works: (k + j) % Len. In TLA+, the modulo operator is Mod. So we can use (k + j) % Len. But we need to handle Len = 0? If Len = 0, then modulo by 0 is undefined. But we can restrict Len > 0 in the invariant. But we can allow Len = 0 but then the property is vacuously true? But we can just require Len > 0 in the invariant.
+
+We also need to define the sentinel value: -1. We can define a constant Sentinel = -1. But we cannot add a constant. But we can just use -1 directly.
+
+Now we need to define the module header: "---- MODULE LeastCircularSubstring ----". Then we need to import the necessary modules: "TLA+", "Sequences" maybe. But we need to use the built-in "Sequences" module for sequence operations. But we can also use "FiniteSets" or "Integers". But we can just import "TLA+" and "Sequences". But we need to use the "Sequences" module for the sequence type and operations. But we can also use "FiniteSets" for the set of indices. But we can just use the built-in set comprehension.
+
+We need to declare the constants: "CONSTANTS CharacterSet, Nat". We need to declare the variables: "VARIABLES Str, Len, Fail, PM, i, Best, pc". We need to define the initial state: "Init". We need to define the Next action: "Next". We need to define the spec: "Spec == Init /\ [][Next]_<<Str, Len, Fail, PM, i, Best, pc>>". But we need to use the "Spec" operator as required. So we define "Spec == Init /\ [][Next]_vars". Where vars = <<Str, Len, Fail, PM, i, Best, pc>>.
+
+We need to define the invariants: "TypeInvariant" and "Correctness". We need to define "TypeInvariant" as a predicate that ensures the types. We need to define "Correctness" as a predicate that ensures the lexicographic minimality upon termination.
+
+We also need to define the "vars" constant: "vars == <<Str, Len, Fail, PM, i, Best, pc>>".
+
+We also need to define the "Sentinel" value: we can define "Sentinel == -1". But we cannot add a constant. But we can define a local definition: "Sentinel == -1". That is allowed as a definition, not a constant. But the reference .cfg only declares CharacterSet and Nat as constants. So we can define a local constant "Sentinel" as a definition. That is fine.
+
+We also need to define the set of program counter labels: "PCLabels == {"OuterCheck", "FailureLookup", "InnerCompare", "Done"}". But we can just use the string constants.
+
+Now we need to define the "Init" action: we need to nondeterministically choose Len and Str. We can use "ANY" to choose Len and Str. But we need to ensure that Len is a Nat. We can use "Len' = Nat" but Nat is a set of natural numbers. So we need to choose Len from Nat. We can use "Len' \in Nat". Then we need to choose Str as a function from 0..Len-1 to CharacterSet. We can use "Str' = [j \in 0..Len-1 |-> CHOOSE c \in CharacterSet : c]". But we need to ensure that Len > 0? We can allow Len = 0. But then 0..Len-1 is empty. So Str' would be an empty function. That is fine.
+
+We also need to initialize Fail: Fail' = [j \in 0..2*Len |-> Sentinel]. PM' = Sentinel. i' = 1. Best' = 0. pc' = "OuterCheck".
+
+We need to ensure that i' <= 2*Len. Since Len can be 0, 2*Len = 0, but i' = 1 > 0. That would violate the type invariant. So we need to restrict Len > 0 in the initial state. So we can add "Len' > 0" to the Init action. That ensures i' <= 2*Len. So we need to require Len > 0. That is fine.
+
+Now we need to define the "TypeInvariant" predicate: we need to ensure that Str is a function from 0..Len-1 to CharacterSet. We can write "Str \in [0..Len-1 -> CharacterSet]". We need to ensure that Len \in Nat. We need to ensure that Fail \in [0..2*Len -> (-1 \cup [0..Len-1])]. But we can write "Fail \in [0..2*Len -> (-1 \cup [0..Len-1])]". But we need to define the union of -1 and the set of Nat less than Len. We can write "Fail \in [0..2*Len -> (-1 \cup [0..Len-1])]". But TLA+ may not allow union of a singleton and a function type. We can define a helper type: "FailType == [0..2*Len -> (-1 \cup [0..Len-1])]". But we can just write "Fail \in [0..2*Len -> (-1 \cup [0..Len-1])]" and hope it works.
+
+We need to ensure that PM \in (-1 \cup [0..Len-1]). We need to ensure that i \in 0..2*Len. We need to ensure that Best \in 0..Len-1. We need to ensure that pc \in {"OuterCheck", "FailureLookup", "InnerCompare", "Done"}.
+
+We also need to ensure that the sentinel value -1 is not in CharacterSet. But we can assume that.
+
+Now we need to define the "Correctness" invariant: we need to assert that if pc = "Done", then for all j in 0..Len-1, Rot(Best) <= Rot(j). We need to define Rot(k) as a sequence: [j \in 0..Len-1 |-> Str[(k + j) % Len]]. We need to use the modulo operator: (k + j) % Len. In TLA+, the modulo operator is "Mod". So we can write "(k + j) % Len" as "(k + j) % Len" or "Mod(k + j, Len)". But we can use "Mod(k + j, Len)". But we need to import the "Integers" module for Mod. But we can just use the built-in "Mod" operator.
+
+We need to define a helper function "Rot(k) == [j \in 0..Len-1 |-> Str[Mod(k + j, Len)]]". Then we need to assert "FORALL j \in 0..Len-1 : Rot(Best) <= Rot(j)".
+
+We also need to ensure that Len > 0 in the Correctness invariant, because modulo by 0 is undefined. So we can add "Len > 0" as a guard.
+
+Now we need to define the "Spec" operator: "Spec == Init /\ [][Next]_vars". We need to define "vars" as <<Str, Len, Fail, PM, i, Best, pc>>.
+
+Now we need to define the "Next" action as described. But we need to ensure that the variables are updated consistently. We need to use the "UNCHANGED" clause for variables that are not updated.
+
+We need to define the "Next" action as a disjunction of the possible steps. But we need to ensure that the program counter transitions correctly.
+
+We can define "Next" as:
+
+Next ==
+  \/ /\ pc = "OuterCheck"
+     /\ i < 2*Len
+     /\ pc' = "FailureLookup"
+     /\ UNCHANGED <<Str, Len, Fail, PM, i, Best>>
+  \/ /\ pc = "FailureLookup"
+     /\ PM' = IF i >= Best THEN Fail[i - Best] ELSE Sentinel
+     /\ pc' = "InnerCompare"
+     /\ UNCHANGED <<Str, Len, Fail, i, Best>>
+  \/ /\ pc = "InnerCompare"
+     /\ cur = i % Len
+     /\ cand = Mod(Best + i, Len)
+     /\ IF Str[cur] < Str[cand] THEN Best' = cur ELSE Best' = Best
+     /\ newFail = IF Str[cur] = Str[cand] THEN PM' + 1 ELSE Sentinel
+     /\ Fail' = [Fail EXCEPT ![i] = newFail]
+     /\ i' = i + 1
+     /\ pc' = "OuterCheck"
+     /\ UNCHANGED <<Str, Len, PM, Best>>
+  \/ /\ pc = "OuterCheck"
+     /\ i >= 2*Len
+     /\ pc' = "Done"
+     /\ UNCHANGED <<Str, Len, Fail, PM, i, Best>>
+  \/ /\ pc = "Done"
+     /\ UNCHANGED <<Str, Len, Fail, PM, i, Best, pc>>
+
+But we need to ensure that the "cur" and "cand" variables are defined only in the scope of the action. We can use "LET cur = i % Len, cand = Mod(Best + i, Len) IN ...".
+
+Also, we need to ensure that the "newFail" uses PM', which is defined in the same action. But we need to compute PM' first. In the "InnerCompare" step, we need to compute PM' as the failure function value for the previous position relative to best offset. But we can compute PM' as "IF i >= Best THEN Fail[i - Best] ELSE Sentinel". But we need to use the current Fail, not the updated one. So we can compute PM' as that. Then we compute newFail = IF Str[cur] = Str[cand] THEN PM' + 1 ELSE Sentinel. That uses PM'.
+
+Now we need to ensure that the "InnerCompare" step updates PM' and then uses it to compute newFail. But we also need to update PM' in the state. So we set PM' = that value. Then we compute newFail accordingly.
+
+Now we need to ensure that the "InnerCompare" step updates Fail[i] to newFail. That uses the current Fail, not the updated one. So we can use "Fail' = [Fail EXCEPT ![i] = newFail]".
+
+Now we need to ensure that the "InnerCompare" step updates i to i + 1, and pc to "OuterCheck".
+
+Now we need to ensure that the "FailureLookup" step updates PM' but not i. So we set PM' accordingly.
+
+Now we need to ensure that the "OuterCheck" step when i < 2*Len transitions to "FailureLookup" without changing other variables. When i >= 2*Len, it transitions to "Done".
+
+Now we need to ensure that the "Done" step stutters.
+
+Now we need to define the "Init" action: we need to nondeterministically choose Len and Str. We can use "ANY Len' \in Nat : Len' > 0" and "ANY Str' \in [0..Len'-1 -> CharacterSet]". But we need to combine them. We can use "ANY Len' \in Nat : Len' > 0 /\ Str' \in [0..Len'-1 -> CharacterSet]". But we also need to set the other variables accordingly. So we can write:
+
+Init ==
+  /\ Len \in Nat
+  /\ Len > 0
+  /\ Str \in [0..Len-1 -> CharacterSet]
+  /\ Fail \in [0..2*Len -> (-1 \cup [0..Len-1])]
+  /\ PM = -1
+  /\ i = 1
+  /\ Best = 0
+  /\ pc = "OuterCheck"
+
+But we need to nondeterministically choose Str. We can use "ANY Str' \in [0..Len-1 -> CharacterSet] : Str'". But we need to define Len first. We can use "ANY Len' \in Nat : Len' >
