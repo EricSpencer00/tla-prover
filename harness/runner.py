@@ -15,6 +15,20 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
+def _clear_workdir(workdir):
+    """rmtree that survives the TLC states-dir race: a timed-out TLC's JVM can
+    still be writing states/* while we delete, so a bare rmtree dies with
+    ENOTEMPTY and takes the whole (resumable, hours-long) sweep down with it
+    (observed 2026-07-14, Gate-2 B re-run, spec 2). Retry once, then shove the
+    stubborn dir aside so mkdir can proceed; the stale dir is inside the
+    per-run workroot, which is rmtree'd (ignore_errors) at sweep end anyway."""
+    for _ in range(2):
+        shutil.rmtree(workdir, ignore_errors=True)
+        if not workdir.exists():
+            return
+        time.sleep(1.0)
+    workdir.rename(workdir.parent / f"{workdir.name}.stale-{int(time.time()*1000)}")
+
 # Pinned current release (SANY 2.2/2020 in tla_benchmark's jar mis-parses TLAPS proofs)
 TLA2TOOLS = REPO / "tools" / "tla2tools.jar"
 TLAPM = REPO / "tools" / "tlapm" / "bin" / "tlapm"
@@ -452,7 +466,7 @@ def eval_spec(num: str, corpus: Path, num2mod, mod2path, cfg_dirs, workroot: Pat
 
     workdir = workroot / num
     if workdir.exists():
-        shutil.rmtree(workdir)
+        _clear_workdir(workdir)
     workdir.mkdir(parents=True)
     (workdir / f"{mod}.tla").write_text(text)
     seen = _write_local_deps(text, mod, mod2path, workdir, set())
@@ -502,7 +516,7 @@ def eval_module_text(num: str, module_text: str, corpus: Path, num2mod, mod2path
 
     workdir = workroot / num
     if workdir.exists():
-        shutil.rmtree(workdir)
+        _clear_workdir(workdir)
     workdir.mkdir(parents=True)
     (workdir / f"{mod}.tla").write_text(module_text)
     seen = _write_local_deps(module_text, mod, mod2path, workdir, set())
