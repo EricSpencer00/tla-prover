@@ -43,6 +43,7 @@ from .runner import check_sany, check_tlc, module_name
 # for legitimate multi-line fixes while rejecting wholesale rewrites (baseline
 # B wholesale rewrites measured 0.5-1.0 in the 2026-07-14 autopsy).
 DIFF_MINIMALITY_THRESHOLD = 0.15
+CORRUPTION_TRIES = 10
 MAX_TOKENS = 16384
 TEMPERATURE = 0.8
 
@@ -117,27 +118,36 @@ def harvest_one(surv, model, k, workroot, timeout=60):
     base = {"seed_key": surv["seed_key"], "spec_sha": surv["spec_sha"],
             "corruption_seed": seed, "timestamp": time.time(), "model": model.id}
 
-    try:
-        broken, mrec = corrupt(spec, seed)
-    except NoCandidateMutation:
-        yield {**base, "sample": None, "accepted": False,
-               "reject_reason": "no_corruption_site"}
-        return
-
-    mod = module_name(broken)
+    # Try up to CORRUPTION_TRIES derived seeds for a VALID corruption (SANY
+    # still parses, TLC detects the fault) -- mirrors gen_eval's
+    # find_valid_corruption; a single unlucky seed must not discard the spec.
     wd = workroot / surv["spec_sha"][:16]
     wd.mkdir(parents=True, exist_ok=True)
+    broken = mrec = evidence = None
+    last_reason = "no_corruption_site"
+    for attempt in range(CORRUPTION_TRIES):
+        try:
+            cand, cand_rec = corrupt(spec, seed + attempt)
+        except NoCandidateMutation:
+            break
+        mod = module_name(cand)
+        (wd / f"{mod}.tla").write_text(cand)
+        sany_v, _, _ = check_sany(wd / f"{mod}.tla", wd, timeout)
+        if sany_v != "pass":
+            last_reason = "corruption_breaks_sany"
+            continue
+        tlc_v, _vac, ev = _tlc_evidence(mod, cfg, wd, timeout)
+        if tlc_v == "pass":
+            last_reason = "corruption_not_detected_by_tlc"
+            continue
+        broken, mrec, evidence = cand, {**cand_rec, "seed_offset": attempt}, ev
+        break
+    if broken is None:
+        yield {**base, "sample": None, "accepted": False,
+               "reject_reason": last_reason}
+        return
+    mod = module_name(broken)
     (wd / f"{mod}.tla").write_text(broken)
-    sany_v, _, _ = check_sany(wd / f"{mod}.tla", wd, timeout)
-    if sany_v != "pass":
-        yield {**base, "sample": None, "accepted": False,
-               "reject_reason": "corruption_breaks_sany", "mutation": mrec}
-        return
-    tlc_v, _vac, evidence = _tlc_evidence(mod, cfg, wd, timeout)
-    if tlc_v == "pass":
-        yield {**base, "sample": None, "accepted": False,
-               "reject_reason": "corruption_not_detected_by_tlc", "mutation": mrec}
-        return
 
     prompt = build_repair_prompt(broken, evidence)
     # k samples are independent; prefetch them concurrently like gen_eval
