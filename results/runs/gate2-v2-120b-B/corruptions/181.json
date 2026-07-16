@@ -1,0 +1,16 @@
+{
+  "seed": 2224770364,
+  "corrupted_text": "------------------------ MODULE MC_sums_even -----------------------\nEXTENDS sums_even\nCONSTANT MaxNat\nASSUME MaxNat \\notin Nat\nNatOverride == 0 .. MaxNat\nASSUME T1\n====================================================================\n\n",
+  "mutation_record": {
+    "mutation": "in_to_notin",
+    "offset": 117,
+    "original": "\\in",
+    "replacement": "\\notin",
+    "candidate_index": 0,
+    "seeded_index": 0,
+    "candidates_total": 1,
+    "rejected": [],
+    "corrupted_verdict": "fail:tlc=error"
+  },
+  "error_evidence": "===== SANY (pass) =====\n\n****** SANY2 Version 2.1 created 24 February 2014\n\nParsing file /private/tmp/prove-tla-gen-eval/gate2-v2-120b-B/181/MC_sums_even.tla\nParsing file /private/tmp/prove-tla-gen-eval/gate2-v2-120b-B/181/sums_even.tla\nParsing file /private/tmp/prove-tla-gen-eval/gate2-v2-120b-B/181/jtmp/Naturals.tla\nParsing file /Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla\nSemantic processing of module Naturals\nSemantic processing of module TLAPS\nSemantic processing of module sums_even\nSemantic processing of module MC_sums_even\n\n===== TLC (error, cfg=original) =====\nTLC2 Version 2.19 of 08 August 2024 (rev: 5a47802)\nRunning breadth-first search Model-Checking with fp 51 and seed -6664946819752571535 with 2 workers on 10 cores with 14564MB heap and 64MB offheap memory [pid: 89095] (Mac OS X 26.3 aarch64, Eclipse Adoptium 25 x86_64, MSBDiskFPSet, DiskStateQueue).\nParsing file /private/tmp/prove-tla-gen-eval/gate2-v2-120b-B/181/MC_sums_even.tla\nParsing file /private/tmp/prove-tla-gen-eval/gate2-v2-120b-B/181/sums_even.tla\nParsing file /private/tmp/prove-tla-gen-eval/gate2-v2-120b-B/181/jtmp/Naturals.tla\nParsing file /Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla\nSemantic processing of module Naturals\nSemantic processing of module TLAPS\nSemantic processing of module sums_even\nSemantic processing of module MC_sums_even\nStarting... (2026-07-15 18:56:00)\nError: Assumption line 4, col 8 to line 4, col 24 of module MC_sums_even is false.\nFinished in 00s at (2026-07-15 18:56:00)\n"
+}

@@ -39,3 +39,114 @@ Traceback (most recent call last):
     os.rmdir(name, dir_fd=dirfd)
     ~~~~~~~~^^^^^^^^^^^^^^^^^^^^
 OSError: [Errno 66] Directory not empty: '/tmp/prove-tla-gen-eval/gate2-v2-120b-B/2/states/26-07-14-19-21-32'
+Traceback (most recent call last):
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/eric/GitHub/prove-TLA/harness/__main__.py", line 96, in <module>
+    main()
+    ~~~~^^
+  File "/Users/eric/GitHub/prove-TLA/harness/__main__.py", line 69, in main
+    run_gen_eval(Path(a.corpus_data), a.run_id, a.framing, a.model, a.k,
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                specs=specs, resume=not a.no_resume)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/eric/GitHub/prove-TLA/harness/gen_eval.py", line 610, in run_gen_eval
+    for row in gen:
+               ^^^
+  File "/Users/eric/GitHub/prove-TLA/harness/gen_eval.py", line 515, in gen_eval_spec_framing_b
+    row, verdict, _ = _score(num, module_text, corpus, num2mod, mod2path,
+                      ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                             cfg_dirs, workroot, logdir, TLC_TIMEOUT_S,
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                             log_name=log_name)
+                             ^^^^^^^^^^^^^^^^^^
+  File "/Users/eric/GitHub/prove-TLA/harness/gen_eval.py", line 345, in _score
+    row = eval_module_text(num, module_text, corpus, num2mod, mod2path, cfg_dirs,
+                           workroot, logdir, timeout, stages=("sany", "tlc", "tlaps"),
+                           log_name=log_name)
+  File "/Users/eric/GitHub/prove-TLA/harness/runner.py", line 524, in eval_module_text
+    row, log_parts = _dispatch_criterion(num, mod, workdir, cfg_dirs, timeout, stages,
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                         row, log_parts, num2mod, mod2path, seen,
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                         override_cfg=override_cfg)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/eric/GitHub/prove-TLA/harness/runner.py", line 433, in _dispatch_criterion
+    st, proved, total, out, dt = check_tlapm(workdir / f"{mod}.tla", workdir, timeout=timeout * 3)
+                                 ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/eric/GitHub/prove-TLA/harness/runner.py", line 277, in check_tlapm
+    rc, out, dt, timed_out = run_cmd(
+                             ~~~~~~~^
+        [str(TLAPM)] + include_flags + [tla_file.name], workdir, timeout)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/eric/GitHub/prove-TLA/harness/runner.py", line 133, in run_cmd
+    p = subprocess.Popen(cmd, cwd=cwd, stdout=subprocess.PIPE,
+                         stderr=subprocess.STDOUT, text=True,
+                         start_new_session=True)
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 1039, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                        pass_fds, cwd, env,
+                        ^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+                        gid, gids, uid, umask,
+                        ^^^^^^^^^^^^^^^^^^^^^^
+                        start_new_session, process_group)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 1990, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: PosixPath('/tmp/prove-tla-gen-eval/gate2-v2-120b-B/142')
+[1/30] spec 2: 0 sample(s) run (resumed 33 skipped)
+[2/30] spec 5: 0 sample(s) run (resumed 33 skipped)
+[3/30] spec 13: 0 sample(s) run (resumed 33 skipped)
+[4/30] spec 14: 0 sample(s) run (resumed 33 skipped)
+[5/30] spec 15: 0 sample(s) run (resumed 33 skipped)
+[6/30] spec 30: 0 sample(s) run (resumed 33 skipped)
+[7/30] spec 32: 0 sample(s) run (resumed 33 skipped)
+[8/30] spec 37: 0 sample(s) run (resumed 33 skipped)
+[9/30] spec 41: skipped (no_valid_corruption) [ledgered]
+[10/30] spec 55: 0 sample(s) run (resumed 33 skipped)
+[11/30] spec 86: skipped (no_valid_corruption) [ledgered]
+[12/30] spec 95: 0 sample(s) run (resumed 33 skipped)
+[13/30] spec 105: skipped (no_valid_corruption) [ledgered]
+[14/30] spec 106: skipped (no_valid_corruption) [ledgered]
+[15/30] spec 121: 0 sample(s) run (resumed 33 skipped)
+[16/30] spec 128: 0 sample(s) run (resumed 33 skipped)
+[17/30] spec 131: 0 sample(s) run (resumed 33 skipped)
+[18/30] spec 132: 0 sample(s) run (resumed 33 skipped)
+[19/30] spec 133: skipped (no_valid_corruption) [ledgered]
+[20/30] spec 135: skipped (no_valid_corruption) [ledgered]
+[21/30] spec 141: 21 sample(s) run (resumed 12 skipped)
+[1/30] spec 2: 0 sample(s) run (resumed 33 skipped)
+[2/30] spec 5: 0 sample(s) run (resumed 33 skipped)
+[3/30] spec 13: 0 sample(s) run (resumed 33 skipped)
+[4/30] spec 14: 0 sample(s) run (resumed 33 skipped)
+[5/30] spec 15: 0 sample(s) run (resumed 33 skipped)
+[6/30] spec 30: 0 sample(s) run (resumed 33 skipped)
+[7/30] spec 32: 0 sample(s) run (resumed 33 skipped)
+[8/30] spec 37: 0 sample(s) run (resumed 33 skipped)
+[9/30] spec 41: skipped (no_valid_corruption) [ledgered]
+[10/30] spec 55: 0 sample(s) run (resumed 33 skipped)
+[11/30] spec 86: skipped (no_valid_corruption) [ledgered]
+[12/30] spec 95: 0 sample(s) run (resumed 33 skipped)
+[13/30] spec 105: skipped (no_valid_corruption) [ledgered]
+[14/30] spec 106: skipped (no_valid_corruption) [ledgered]
+[15/30] spec 121: 0 sample(s) run (resumed 33 skipped)
+[16/30] spec 128: 0 sample(s) run (resumed 33 skipped)
+[17/30] spec 131: 0 sample(s) run (resumed 33 skipped)
+[18/30] spec 132: 0 sample(s) run (resumed 33 skipped)
+[19/30] spec 133: skipped (no_valid_corruption) [ledgered]
+[20/30] spec 135: skipped (no_valid_corruption) [ledgered]
+[21/30] spec 141: 21 sample(s) run (resumed 12 skipped)
+[22/30] spec 142: 33 sample(s) run (resumed 0 skipped)
+[23/30] spec 143: 33 sample(s) run (resumed 0 skipped)
+[24/30] spec 148: 33 sample(s) run (resumed 0 skipped)
+[25/30] spec 158: 33 sample(s) run (resumed 0 skipped)
+[26/30] spec 168: 33 sample(s) run (resumed 0 skipped)
+[27/30] spec 174: 33 sample(s) run (resumed 0 skipped)
+[28/30] spec 181: 33 sample(s) run (resumed 0 skipped)
+[29/30] spec 183: skipped (no_valid_corruption) [ledgered]
+[30/30] spec 191: 33 sample(s) run (resumed 0 skipped)
+
+=== gate2-v2-120b-B: framing B, model=chattla-v2-120b ===
+  n=23  pass@1=4  pass@32=7

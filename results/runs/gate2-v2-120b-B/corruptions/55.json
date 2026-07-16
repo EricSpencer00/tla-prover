@@ -1,0 +1,35 @@
+{
+  "seed": 3475097689,
+  "corrupted_text": "---------- MODULE MCEcho ----------\nEXTENDS Echo\n\n\\* A tiny graph with three nodes.\nN1 == {\"a\", \"b\", \"c\"}\n\n\\* We don't care which node gets\n\\* picked as the initiator.\nI1 == CHOOSE n \\in N1 : TRUE\n\n\\* The tiny graph is fully meshed: \n\\*      <<\"a\", \"a\">> :> FALSE @@\n\\*      <<\"a\", \"b\">> :> TRUE  @@\n\\*      <<\"b\", \"a\">> :> TRUE  @@\n\\*      <<\"b\", \"b\">> :> FALSE @@\n\\*      <<\"a\", \"c\">> :> TRUE @@\n\\*      <<\"c\", \"a\">> :> TRUE @@\n\\*      <<\"b\", \"c\">> :> TRUE  @@\n\\*      <<\"c\", \"b\">> :> TRUE  @@\n\\*      <<\"c\", \"c\">> :> FALSE\n\\* More concisely defined as:\nR1 == [ edge \\in (N1 \\X N1) |-> IF edge[1] = edge[2] \n                                THEN FALSE\n                                ELSE TRUE ]\n\n\\* To get a graph that satisfies the\n\\* assumptions in Echo, we simply \n\\* define R to be:\nR2 == CHOOSE r \\in [ N1 \\X N1 -> BOOLEAN ] : \n        /\\ IsConnected(r, N1)\n        /\\ IsSymmetric(r, N1)\n        /\\ IsIrreflexive(r, N1)\n\n\\* Print R to stdout at startup.\nTestSpec == PrintT(R) \\/ Spec        \n===================================",
+  "mutation_record": {
+    "mutation": "and_to_or",
+    "offset": 983,
+    "original": "/\\",
+    "replacement": "\\/",
+    "candidate_index": 3,
+    "seeded_index": 0,
+    "candidates_total": 7,
+    "rejected": [
+      {
+        "candidate_index": 0,
+        "mutation": "and_to_or",
+        "reason": "still_passes",
+        "verdict": "pass"
+      },
+      {
+        "candidate_index": 1,
+        "mutation": "and_to_or",
+        "reason": "sany_fail",
+        "verdict": "fail:sany=fail"
+      },
+      {
+        "candidate_index": 2,
+        "mutation": "and_to_or",
+        "reason": "still_passes",
+        "verdict": "pass"
+      }
+    ],
+    "corrupted_verdict": "fail:tlc=error"
+  },
+  "error_evidence": "===== SANY (pass) =====\n\n****** SANY2 Version 2.1 created 24 February 2014\n\nParsing file /private/tmp/prove-tla-gen-eval/gate2-v2-120b-B/55/MCEcho.tla\nParsing file /private/tmp/prove-tla-gen-eval/gate2-v2-120b-B/55/Echo.tla\nParsing file /private/tmp/prove-tla-gen-eval/gate2-v2-120b-B/55/jtmp/Naturals.tla\nParsing file /Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/FiniteSets.tla\nParsing file /Users/eric/GitHub/prove-TLA/tools/community-modules/Relation.tla\nParsing file /private/tmp/prove-tla-gen-eval/gate2-v2-120b-B/55/jtmp/TLC.tla\nParsing file /private/tmp/prove-tla-gen-eval/gate2-v2-120b-B/55/jtmp/Sequences.tla\nSemantic processing of module Naturals\nSemantic processing of module Sequences\nSemantic processing of module FiniteSets\nSemantic processing of module Relation\nSemantic processing of module TLC\nSemantic processing of module Echo\nSemantic processing of module MCEcho\n\n===== TLC (error, cfg=original) =====\nTLC2 Version 2.19 of 08 August 2024 (rev: 5a47802)\nRunning breadth-first search Model-Checking with fp 33 and seed -8044765915357706518 with 2 workers on 10 cores with 14564MB heap and 64MB offheap memory [pid: 51767] (Mac OS X 26.3 aarch64, Eclipse Adoptium 25 x86_64, MSBDiskFPSet, DiskStateQueue).\nParsing file /private/tmp/prove-tla-gen-eval/gate2-v2-120b-B/55/MCEcho.tla\nParsing file /private/tmp/prove-tla-gen-eval/gate2-v2-120b-B/55/Echo.tla\nParsing file /private/tmp/prove-tla-gen-eval/gate2-v2-120b-B/55/jtmp/Naturals.tla\nParsing file /Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/FiniteSets.tla\nParsing file /Users/eric/GitHub/prove-TLA/tools/community-modules/Relation.tla\nParsing file /private/tmp/prove-tla-gen-eval/gate2-v2-120b-B/55/jtmp/TLC.tla\nParsing file /private/tmp/prove-tla-gen-eval/gate2-v2-120b-B/55/jtmp/Sequences.tla\nSemantic processing of module Naturals\nSemantic processing of module Sequences\nSemantic processing of module FiniteSets\nSemantic processing of module Relation\nSemantic processing of module TLC\nSemantic processing of module Echo\nSemantic processing of module MCEcho\nStarting... (2026-07-14 22:46:17)\nError: The configuration file did not specify the initial state predicate.\nCan also be caused by trying to run TLC on a specification from\na module imported with a parameterized INSTANCE statement.\nFinished in 00s at (2026-07-14 22:46:17)\n"
+}
