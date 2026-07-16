@@ -1,0 +1,23 @@
+{
+  "seed": 4187332911,
+  "corrupted_text": "------------------------- MODULE MCMajority ----------------------------------\n(****************************************************************************)\n(* TLA+ module for model checking the majority vote algorithm for all       *)\n(* sequences over three elements of bounded length.                         *)\n(****************************************************************************)\nEXTENDS Integers\nCONSTANTS A, B, C, bound\nASSUME bound \\notin Nat\n\nValue == {A,B,C}\nBoundedSeq(S) == UNION { [1 .. n -> S] : n \\in 0 .. bound }\n\nVARIABLES seq, i, cand, cnt\n\nINSTANCE Majority\n\n==============================================================================\n",
+  "mutation_record": {
+    "mutation": "in_to_notin",
+    "offset": 450,
+    "original": "\\in",
+    "replacement": "\\notin",
+    "candidate_index": 0,
+    "seeded_index": 1,
+    "candidates_total": 2,
+    "rejected": [
+      {
+        "candidate_index": 1,
+        "mutation": "in_to_notin",
+        "reason": "sany_fail",
+        "verdict": "fail:sany=fail"
+      }
+    ],
+    "corrupted_verdict": "fail:tlc=error"
+  },
+  "error_evidence": "===== SANY (pass) =====\n\n****** SANY2 Version 2.1 created 24 February 2014\n\nParsing file /private/tmp/prove-tla-gen-eval/directional-repair-v1-B/132/MCMajority.tla\nParsing file /private/tmp/prove-tla-gen-eval/directional-repair-v1-B/132/jtmp/Integers.tla\nParsing file /private/tmp/prove-tla-gen-eval/directional-repair-v1-B/132/jtmp/Naturals.tla\nParsing file /private/tmp/prove-tla-gen-eval/directional-repair-v1-B/132/Majority.tla\nParsing file /private/tmp/prove-tla-gen-eval/directional-repair-v1-B/132/jtmp/Sequences.tla\nParsing file /Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/FiniteSets.tla\nSemantic processing of module Naturals\nSemantic processing of module Integers\nSemantic processing of module Sequences\nSemantic processing of module FiniteSets\nSemantic processing of module Majority\nSemantic processing of module MCMajority\n\n===== TLC (error, cfg=original) =====\nTLC2 Version 2.19 of 08 August 2024 (rev: 5a47802)\nRunning breadth-first search Model-Checking with fp 4 and seed 3872715794584488052 with 2 workers on 10 cores with 14564MB heap and 64MB offheap memory [pid: 32708] (Mac OS X 26.3 aarch64, Eclipse Adoptium 25 x86_64, MSBDiskFPSet, DiskStateQueue).\nParsing file /private/tmp/prove-tla-gen-eval/directional-repair-v1-B/132/MCMajority.tla\nParsing file /private/tmp/prove-tla-gen-eval/directional-repair-v1-B/132/jtmp/Integers.tla\nParsing file /private/tmp/prove-tla-gen-eval/directional-repair-v1-B/132/jtmp/Naturals.tla\nParsing file /private/tmp/prove-tla-gen-eval/directional-repair-v1-B/132/Majority.tla\nParsing file /private/tmp/prove-tla-gen-eval/directional-repair-v1-B/132/jtmp/Sequences.tla\nParsing file /Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/FiniteSets.tla\nSemantic processing of module Naturals\nSemantic processing of module Integers\nSemantic processing of module Sequences\nSemantic processing of module FiniteSets\nSemantic processing of module Majority\nSemantic processing of module MCMajority\nStarting... (2026-07-16 12:32:50)\nError: Assumption line 8, col 8 to line 8, col 23 of module MCMajority is false.\nFinished in 00s at (2026-07-16 12:32:51)\n"
+}

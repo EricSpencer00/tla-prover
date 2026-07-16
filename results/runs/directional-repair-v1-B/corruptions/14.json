@@ -1,0 +1,23 @@
+{
+  "seed": 2316020134,
+  "corrupted_text": "--------------------------- MODULE MCBoulanger ------------------------------\nEXTENDS Boulanger\nCONSTANT MaxNat\nASSUME MaxNat \\notin Nat\nNatOverride == 0 .. MaxNat\nStateConstraint == \\A process \\in Procs : num[process] < MaxNat\n=============================================================================\n\n",
+  "mutation_record": {
+    "mutation": "in_to_notin",
+    "offset": 126,
+    "original": "\\in",
+    "replacement": "\\notin",
+    "candidate_index": 0,
+    "seeded_index": 1,
+    "candidates_total": 2,
+    "rejected": [
+      {
+        "candidate_index": 1,
+        "mutation": "in_to_notin",
+        "reason": "sany_fail",
+        "verdict": "fail:sany=fail"
+      }
+    ],
+    "corrupted_verdict": "fail:tlc=error"
+  },
+  "error_evidence": "===== SANY (pass) =====\n\n****** SANY2 Version 2.1 created 24 February 2014\n\nParsing file /private/tmp/prove-tla-gen-eval/directional-repair-v1-B/14/MCBoulanger.tla\nParsing file /private/tmp/prove-tla-gen-eval/directional-repair-v1-B/14/Boulanger.tla\nParsing file /private/tmp/prove-tla-gen-eval/directional-repair-v1-B/14/jtmp/Integers.tla\nParsing file /Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla\nParsing file /private/tmp/prove-tla-gen-eval/directional-repair-v1-B/14/jtmp/Naturals.tla\nSemantic processing of module Naturals\nSemantic processing of module Integers\nSemantic processing of module TLAPS\nSemantic processing of module Boulanger\nSemantic processing of module MCBoulanger\n\n===== TLC (error, cfg=original) =====\nTLC2 Version 2.19 of 08 August 2024 (rev: 5a47802)\nRunning breadth-first search Model-Checking with fp 129 and seed 6240812684771965551 with 2 workers on 10 cores with 14564MB heap and 64MB offheap memory [pid: 18431] (Mac OS X 26.3 aarch64, Eclipse Adoptium 25 x86_64, MSBDiskFPSet, DiskStateQueue).\nParsing file /private/tmp/prove-tla-gen-eval/directional-repair-v1-B/14/MCBoulanger.tla\nParsing file /private/tmp/prove-tla-gen-eval/directional-repair-v1-B/14/Boulanger.tla\nParsing file /private/tmp/prove-tla-gen-eval/directional-repair-v1-B/14/jtmp/Integers.tla\nParsing file /Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla\nParsing file /private/tmp/prove-tla-gen-eval/directional-repair-v1-B/14/jtmp/Naturals.tla\nSemantic processing of module Naturals\nSemantic processing of module Integers\nSemantic processing of module TLAPS\nSemantic processing of module Boulanger\nSemantic processing of module MCBoulanger\nStarting... (2026-07-16 12:03:56)\nError: Assumption line 4, col 8 to line 4, col 24 of module MCBoulanger is false.\nFinished in 00s at (2026-07-16 12:03:56)\n"
+}
