@@ -372,3 +372,39 @@ iterations) to be validated cheaply before any 120b spend, not the primary axis.
 - **Decision rule for the round:** W2.7 and the W2.6 20b directional run first (both cheap).
   120b touches a GPU again only if the 20b directional clears its bar. Gate-2's bar itself is
   unchanged (Amendment 13 cells, /23 B denominator, frozen budget).
+
+### Amendment 17 (2026-07-16) — W2.6 20b directional: pass@1 bar met on the letter, FAILED on substance; fine-tuning shelved for Stage 2
+
+Executed the full W2.6 chain in one day (harvest → corpus → train → merge → serve → eval, every
+step preflighted, gate-checked, ledgered): 558 verified minimal-diff repair triples (980 attempts,
+208/260 survivor specs, median diff 2.3%, all SANY+TLC-nonvacuous) → 508-row repair-shaped harmony
+SFT (user = the exact eval repair prompt) → 20b FSDP2 expert-LoRA (Polaris 7258707, loss 3.28→0.19)
+→ verified merge (7258775: 48 expert tensors, 41.8GB) → directional framing-B eval at k=4
+(run `directional-repair-v1-B`, 0 api_error, preflight passed, keep-first re-score):
+
+| @k=4 budget, same scorer | 20b baseline | repair-v1 | 
+|---|---|---|
+| B pass@1 (greedy) | 8/23 | 9/23 |
+| B pass@4 | **17/23** | **9/23** |
+
+pass@4 == pass@1 for the fine-tune: its four temperature-0.8 samples added ZERO specs, while the
+baseline's added nine, and no_module_extracted rose to 93/115 samples on non-greedy rows. The
+decision rule's necessary condition (beat baseline pass@1) is met by +1, but proceeding to 120b on
+a +1/−8 result would repeat Amendment 16 at 8× the cost. Root cause consistent across both rounds:
+training a model on rejection-sampled outputs of its own family collapses sampling diversity —
+v2_sft2 showed it at 260 generation pairs, repair-v1 reproduces it at 508 repair pairs with the
+task-shape confound REMOVED. Task shape was necessary but not sufficient; the corpus source is the
+binding constraint.
+
+**Decision (per the Round-3 rule): fine-tuning is SHELVED for Stage 2. The flywheel is loop-only.**
+Verifiable TLA+ ships as: generate/repair k samples → SANY + non-vacuous TLC + mutation gates +
+Rule-9 → emit only verified output. The base 120b under this loop is the production system
+(21/23 verified repairs, 12/30 verified generations at k=32). Efficiency work goes to the loop
+(W2.8: phase split, verified-specs-per-GPU-hour), capability work goes to W2.7 (structural
+scaffolding on the 71 model-hard rejects — prompt-level, no training) and, if that shows signal,
+to trace enrichment per the structural-representation plan. Fine-tuning may be revisited only with
+a corpus NOT sampled from the model family being trained (e.g. human gold repairs, cross-family
+teachers) — ledgered as the one condition that invalidates this shelving.
+
+Amendment audit line: records a measurement and a stop-decision; changes no bar; the only metric
+motion reported is adverse to the fine-tune. Both runs' rows.jsonl committed.
