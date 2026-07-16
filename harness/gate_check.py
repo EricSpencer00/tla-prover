@@ -38,7 +38,17 @@ def gate_check(run_dir, max_api_error_rate=0.05, max_unextracted_rate=0.90) -> d
     """Recompute pass@k and run-health stats from rows.jsonl. Returns a report
     dict with report["ok"] False if any health threshold trips."""
     rows = load_rows(Path(run_dir))
-    scored = [r for r in rows if r.get("sample") != "corruption"]
+    # keep-FIRST dedup per (spec, sample): overlapping writers (Amendment-16
+    # reconciliation; run-id lockfile is the prevention, this is the cure)
+    seen: set = set()
+    deduped = []
+    for r in rows:
+        key = (str(r.get("spec")), str(r.get("sample")))
+        if key in seen:
+            continue
+        seen.add(key)
+        deduped.append(r)
+    scored = [r for r in deduped if r.get("sample") != "corruption"]
     n = len(scored)
     by_spec: dict = defaultdict(list)
     for r in scored:
@@ -46,14 +56,20 @@ def gate_check(run_dir, max_api_error_rate=0.05, max_unextracted_rate=0.90) -> d
 
     passed = sorted(s for s, rs in by_spec.items()
                     if any(r.get("verdict") == "pass" for r in rs))
+    # pass@1 = the temperature-0 greedy sample (frozen Amendment-12 definition)
     pass1 = sorted(s for s, rs in by_spec.items()
-                   if rs and sorted(rs, key=lambda r: str(r["sample"]))[0].get("verdict") == "pass")
+                   if any(r.get("sample") == "greedy" and r.get("verdict") == "pass"
+                          for r in rs))
     n_api_err = sum(1 for r in scored if r.get("verdict") == "api_error")
     n_unext = sum(1 for r in scored if r.get("verdict") == "no_module_extracted")
 
     failures = []
-    if n == 0:
-        failures.append("zero scored rows")
+    if not deduped:
+        failures.append("empty rows.jsonl -- the run produced nothing")
+    elif n == 0:
+        # rows exist but all are ledgered skips (sample=="corruption"): a
+        # legitimate outcome for skip-heavy spec subsets, not a health defect
+        pass
     else:
         if n_api_err / n > max_api_error_rate:
             failures.append(f"api_error rate {n_api_err}/{n} = {n_api_err/n:.1%} "
@@ -67,6 +83,7 @@ def gate_check(run_dir, max_api_error_rate=0.05, max_unextracted_rate=0.90) -> d
     return {
         "run_dir": str(run_dir),
         "rows_total": len(rows),
+        "rows_deduped": len(rows) - len(deduped),
         "rows_scored": n,
         "specs": len(by_spec),
         "pass_at_k": len(passed),

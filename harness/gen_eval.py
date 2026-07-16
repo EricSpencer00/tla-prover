@@ -571,6 +571,25 @@ def run_gen_eval(corpus: Path, run_id: str, framing: str, model_name: str, k: in
                 ("original", corpus / "cfg"),
                 ("draft", REPO / "corpus" / "configs" / "drafts")]
 
+    # Single-writer lockfile (Amendment-16 W2.8): two sessions appending to one
+    # run-id produced 166 duplicate ledger rows on 2026-07-15. O_EXCL + live-pid
+    # check; a stale lock (dead pid) is reclaimed with a notice.
+    lock = rundir / "writer.lock"
+    if lock.exists():
+        try:
+            other = int(lock.read_text().strip())
+            os.kill(other, 0)
+            raise SystemExit(f"run-id '{run_id}' is being written by live pid {other} "
+                             f"({lock}); refusing a second writer. Wait or use a new --run-id.")
+        except (ValueError, ProcessLookupError, PermissionError):
+            print(f"[lock] reclaiming stale writer.lock (previous writer gone)")
+            lock.unlink(missing_ok=True)
+    fd = os.open(lock, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+    os.write(fd, str(os.getpid()).encode())
+    os.close(fd)
+    import atexit
+    atexit.register(lambda: lock.unlink(missing_ok=True))
+
     rows_path = rundir / "rows.jsonl"
     done = load_existing_rows(rows_path) if resume else set()
 
@@ -645,14 +664,28 @@ def run_gen_eval(corpus: Path, run_id: str, framing: str, model_name: str, k: in
                  f"(resumed {sum(1 for s in done if s[0] == num)} skipped)")
     shutil.rmtree(workroot, ignore_errors=True)
 
-    summary = summarize_passk(results, k)
+    # Summary is recomputed from the FULL rows.jsonl ledger, never from this
+    # invocation's in-memory rows: a resumed run sees only the rows it ran, and
+    # the resulting understated summary.json caused the 2026-07-14 stale-summary
+    # near-misses. gate_check is the single scoring authority (keep-first dedup,
+    # corruption rows excluded).
+    from .gate_check import gate_check
+    ledger = gate_check(rundir)
+    summary = {"n": ledger["specs"], "pass@1": ledger["pass_at_1"],
+               f"pass@{k}": ledger["pass_at_k"], "pass_set": ledger["pass_set"],
+               "api_error_rows": ledger["api_error_rows"],
+               "recomputed_from_ledger": True}
     (rundir / "summary.json").write_text(json.dumps(summary, indent=2))
     with open(rundir / "summary.csv", "w") as fh:
         fh.write("spec,greedy_pass,any_sample_pass,n_samples\n")
         for num, r in sorted(results.items(), key=lambda kv: int(kv[0])):
             fh.write(f"{num},{r['greedy']},{any(r['samples'])},{len(r['samples'])}\n")
-    print(f"\n=== {run_id}: framing {framing}, model={model.id} ===")
+    print(f"\n=== {run_id}: framing {framing}, model={model.id} (ledger re-score) ===")
     print(f"  n={summary['n']}  pass@1={summary['pass@1']}  pass@{k}={summary[f'pass@{k}']}")
+    if not ledger["ok"]:
+        for f in ledger["failures"]:
+            print(f"GATE-CHECK FAIL: {f}")
+        raise SystemExit(1)
     return summary
 
 
