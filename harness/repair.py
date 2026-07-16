@@ -34,6 +34,7 @@ import os
 import re
 import shutil
 import time
+import threading
 import urllib.error
 import urllib.request
 from pathlib import Path
@@ -141,6 +142,7 @@ class OpenAICompatModel(Model):
         self.url = base.rstrip("/") + "/chat/completions"
         self.min_interval = 60.0 / float(os.environ.get("OPENAI_RPM", "10"))
         self._last_req = 0.0
+        self._throttle_lock = threading.Lock()  # GEN_EVAL_CONCURRENCY threads share the limiter
         self.usage = {"prompt_tokens": 0, "completion_tokens": 0, "requests": 0}
         # cold-loaded models (ALCF rotating pool) return 408/503 "not ready" for
         # minutes while they spin up; short retries misread that as a repair
@@ -149,10 +151,11 @@ class OpenAICompatModel(Model):
         self.retry_base_s = float(os.environ.get("OPENAI_RETRY_BASE_S", "45"))
 
     def _throttle(self):
-        wait = self._last_req + self.min_interval - time.time()
+        with self._throttle_lock:
+            wait = self._last_req + self.min_interval - time.time()
+            self._last_req = max(time.time(), self._last_req + self.min_interval)
         if wait > 0:
             time.sleep(wait)
-        self._last_req = time.time()
 
     def _bearer(self):
         if self.key_cmd:

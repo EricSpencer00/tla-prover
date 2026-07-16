@@ -12,10 +12,12 @@ scoring reuses harness.runner's oracle machinery.
 """
 import hashlib
 import json
+import os
 import random
 import re
 import shutil
 import time
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 from .mutation import MUTATIONS
@@ -28,6 +30,31 @@ HOLDOUT_FILE = REPO / "corpus" / "holdout_30.json"
 TEMPERATURE = 0.8
 MAX_TOKENS = 16384
 TLC_TIMEOUT_S = 120
+
+# GEN_EVAL_CONCURRENCY > 1 prefetches a spec's sample generations in parallel
+# (vLLM batches concurrent requests near-linearly; the 2026-07-15 Gate-2 B
+# re-run spent 11.2h of its 12.2h wall on strictly SERIAL model calls at 0.2%
+# KV-cache use). Scoring order, row contents, temperatures, and the per-request
+# model_s budget are unchanged -- this overlaps ONLY the network calls.
+GEN_EVAL_CONCURRENCY = int(os.environ.get("GEN_EVAL_CONCURRENCY", "1"))
+
+
+def _prefetch_replies(model, prompt, samples, done, num):
+    """Return {sample_id: (reply, model_s)} for the samples not already in the
+    resume ledger. Sequential when GEN_EVAL_CONCURRENCY==1 (frozen behavior);
+    otherwise a thread pool fires the independent requests together."""
+    todo = [(sid, t) for sid, t in samples if (num, sid) not in done]
+
+    def _one(args):
+        sid, temperature = args
+        t0 = time.time()
+        reply = model.generate(prompt, 1, temperature, MAX_TOKENS)[0]
+        return sid, (reply, round(time.time() - t0, 1))
+
+    if GEN_EVAL_CONCURRENCY <= 1 or len(todo) <= 1:
+        return dict(_one(a) for a in todo)
+    with ThreadPoolExecutor(max_workers=GEN_EVAL_CONCURRENCY) as pool:
+        return dict(pool.map(_one, todo))
 
 # TLC .cfg section keywords (subset we care about for the required signature).
 _CFG_KEYWORDS = {
@@ -442,12 +469,11 @@ def gen_eval_spec_framing_a(num, description_json, cfg_text, module_name_for_spe
     prompt = build_generation_prompt(description_json, cfg_text, module_name_for_spec)
     prompt_sha = hashlib.sha256(prompt.encode()).hexdigest()
     samples = [("greedy", 0.0)] + [(i, TEMPERATURE) for i in range(1, k + 1)]
+    replies = _prefetch_replies(model, prompt, samples, done, num)
     for sample_id, temperature in samples:
         if (num, sample_id) in done:
             continue
-        t0 = time.time()
-        reply = model.generate(prompt, 1, temperature, MAX_TOKENS)[0]
-        model_s = round(time.time() - t0, 1)
+        reply, model_s = replies[sample_id]
         module_text = extract_module(reply)
         base = {"spec": num, "framing": "A", "model": model.id,
                 "prompt_sha256": prompt_sha, "sample": sample_id,
@@ -489,12 +515,11 @@ def gen_eval_spec_framing_b(num, corrupted_text, mutation_record, seed,
     prompt = build_repair_prompt(corrupted_text, error_evidence)
     prompt_sha = hashlib.sha256(prompt.encode()).hexdigest()
     samples = [("greedy", 0.0)] + [(i, TEMPERATURE) for i in range(1, k + 1)]
+    replies = _prefetch_replies(model, prompt, samples, done, num)
     for sample_id, temperature in samples:
         if (num, sample_id) in done:
             continue
-        t0 = time.time()
-        reply = model.generate(prompt, 1, temperature, MAX_TOKENS)[0]
-        model_s = round(time.time() - t0, 1)
+        reply, model_s = replies[sample_id]
         module_text = extract_module(reply)
         base = {"spec": num, "framing": "B", "model": model.id,
                 "prompt_sha256": prompt_sha, "sample": sample_id,
