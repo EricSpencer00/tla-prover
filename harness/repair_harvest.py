@@ -202,6 +202,12 @@ def run_harvest(model, survivor_dirs, out_dir: Path, k: int, cap=None, timeout=6
     """Resumable driver: out_dir/harvest_attempts.jsonl (every sample) +
     out_dir/harvest_triples.jsonl (accepted only). Resume key = (spec_sha,
     sample)."""
+    # ABSOLUTE paths only: check_sany/check_tlc pass -Djava.io.tmpdir=<workdir>/jtmp
+    # while running WITH cwd=workdir, so a relative workroot resolves to a
+    # nonexistent nested path and SANY fails "Cannot find source file for module
+    # Naturals" on every spec that EXTENDS a standard module (2026-07-16: cost a
+    # full harvest pass, 257/260 false rejects).
+    out_dir = Path(out_dir).resolve()
     out_dir.mkdir(parents=True, exist_ok=True)
     attempts = out_dir / "harvest_attempts.jsonl"
     triples = out_dir / "harvest_triples.jsonl"
