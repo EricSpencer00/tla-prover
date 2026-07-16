@@ -403,3 +403,49 @@ def main(argv=None):
 
 if __name__ == "__main__":
     main()
+
+
+# ---------------------------------------------------------------------------
+# W2.6 repair-shaped SFT (PLAN.md Stage-2 Round 3, Amendment 16)
+# ---------------------------------------------------------------------------
+
+def to_repair_harmony_sft(triple: dict) -> dict:
+    """Convert an accepted repair_harvest triple into a harmony-rendered
+    training example whose USER side is the SAME repair prompt the eval and
+    the harvest used (gen_eval.build_repair_prompt: broken module + error
+    evidence) and whose TARGET is the verified minimal fix. Training on the
+    exact eval prompt shape is the point -- the v2_sft2 corpus taught
+    generation format to a repair task (Amendment 16 cause #1)."""
+    from .gen_eval import build_repair_prompt
+    user_text = build_repair_prompt(triple["broken_text"], triple["error_evidence"])
+    target_text = f"```tla\n{triple['fixed_text']}\n```"
+    return {
+        "text": _render_harmony(user_text, target_text),
+        "seed_key": triple.get("seed_key"),
+        "spec_sha": triple.get("spec_sha"),
+        "diff_ratio": triple.get("diff_ratio"),
+        "family": tag_family(triple.get("fixed_text") or ""),
+    }
+
+
+def build_repair_sft_file(triples_path, out_path, max_per_spec: int = 3) -> int:
+    """Render harvest_triples.jsonl to a harmony SFT file. max_per_spec caps
+    duplicates of the same (spec, corruption) so one spec's k accepted samples
+    don't dominate the corpus (the fixes are near-identical by construction --
+    the diff-minimality gate guarantees it)."""
+    from collections import defaultdict
+    out_path = Path(out_path)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    per_spec = defaultdict(int)
+    n = 0
+    with open(triples_path) as fin, open(out_path, "w") as fout:
+        for line in fin:
+            if not line.strip():
+                continue
+            t = json.loads(line)
+            if per_spec[t["spec_sha"]] >= max_per_spec:
+                continue
+            per_spec[t["spec_sha"]] += 1
+            fout.write(json.dumps(to_repair_harmony_sft(t)) + "\n")
+            n += 1
+    return n
