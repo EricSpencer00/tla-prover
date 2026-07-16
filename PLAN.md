@@ -286,3 +286,89 @@ repair-shaped minimal-diff traces. Next-flywheel decision (repair-shaped traces 
 tier-1 experiment vs. volume scaling) is gated on the clean B re-run, per the
 structural-representation plan. This section strengthens Gate 2 (adds verification steps,
 changes no bar) — ledgered by Claude 2026-07-14 per Eric's directive to commit the plan.
+
+### Amendment 16 (2026-07-15) — Gate-2 measurement of v2_sft2/120b: FAILED; box stays unchecked
+
+**Reconciliation pass (per the standing requirement above), executed before this ledger entry:**
+
+1. **Framing-B denominator = /23, permanently.** Amendment 13's 7 structurally-uncorruptible
+   skips (4 library, 3 no-SANY-preserving-site) reproduce exactly in the re-run (`no_valid_corruption`
+   ledgered skips for specs 41, 86, 105, 106, 133, 135 + 1 more per ledger). The /24 and /30 quotes in
+   earlier session notes were live-run partials; every B cell below is /23.
+2. **All four arms re-scored from `rows.jsonl` with one scorer** (`harness gate-check` semantics +
+   keep-FIRST dedup per (spec,sample), as this section prescribed). The dual-writer hazard it
+   anticipated **did occur in the re-run** (166 duplicate keys from overlapping relaunches after a
+   serve-walltime restart; deduped keep-first, 932→766 rows — the deduped row count exactly matches
+   the baseline arm's 766). Quarantined ctx-4096 B run stays excluded.
+3. **Amendment audit line:** this amendment records a measurement result and a failure analysis;
+   it changes no bar, no budget, no denominator, and cannot inflate results (every delta reported
+   is adverse to the fine-tune).
+4. **Harness hardening status:** `harness gate-check` built and mandatory (commit c033094);
+   candidates + per-spec logs persisted in both framings (since Amendment 13); serve preflight probe
+   (`tools/smoke/serve_preflight.py`) mandatory before launches; toy e2e smoke
+   (`tools/smoke/run_e2e.sh`) proves the full pipeline in ~3 min. **Run-id lockfile still OPEN** —
+   carried into W2.8 below; its absence caused the duplicate rows deduped in (2).
+
+**Result (frozen Amendment-12 budget; serve at --max-model-len 32768, preflight-verified;
+0 api_error in B; same scorer both columns; raw pre-Rule-9 counts both columns):**
+
+| cell | baseline 120b (frozen) | chattla-v2_sft2 120b | verdict |
+|---|---|---|---|
+| A pass@32 | 12/30 | 11/30 | ≥ FAILED |
+| A pass@1 (greedy) | 2/30 | 3/30 | ≥ met |
+| B pass@32 | 21/23 | 18/23 | ≥ FAILED |
+| B pass@1 (greedy) | 12/23 | 10/23 | ≥ FAILED |
+
+Set diffs: A baseline-only {30, 95, 105}, fine-tune-only {106, 168} (churn ≈ sampling noise);
+B baseline-only {15, 30, 148, 174}, fine-tune-only {142}. Rule-9 audit on the fine-tune's passing
+rows is pending and can only lower its counts; the baseline's audited figures (Amendment 13:
+B 20/23 after the spec-15 reject) don't change the verdict either. **Gate-2 requires ≥ in all four
+cells and > in one: NOT MET. The Gate-2 box stays unchecked.**
+
+**Why this round failed (evidence-cited):**
+
+1. **Task-shape mismatch (the dominant, actionable cause).** The 260-pair corpus is
+   generation-shaped (NL → complete spec); Gate-2 B is repair. The fine-tune learned
+   "write a fresh spec" and applies it to repair prompts: the B-failure diff autopsy showed
+   wholesale rewrites (PlusCal stripped, headers restyled) where the baseline makes minimal edits.
+   Greedy repair pass@1 dropped 12→10 and pass@32 21→18 — it *unlearned* minimal-diff repair.
+2. **Rejection sampling is self-limiting at this scale.** Training on 260 examples of what the
+   model family can already produce (survivors of its own generation loop) shifted style, not
+   capability: framing A's pass-set churn (+2/−3) at unchanged totals is the signature of noise,
+   not learning. The corpus can't contain the thing the model is missing.
+3. **Full fine-tune on 260 examples is a style-overwrite hammer.** Loss 3.12→0.34 on a tiny
+   corpus means heavy memorization pressure; the observed effects (format drift, wholesale-rewrite
+   habit, partial harmony-channel damage carried from sft2-20b) are all style-level.
+4. **Process, not model, consumed the calendar.** Two of the three Gate-2 measurement attempts
+   were destroyed or delayed by config/infra defects (serve ctx 4096; stale summaries; a TLC
+   states-dir race; 11.2h of a 12.2h eval spent on strictly serial model calls). These are now
+   mechanically guarded (smoke, preflight, gate-check, `GEN_EVAL_CONCURRENCY`, `_clear_workdir`)
+   — but the round's hypothesis got exactly one clean test in ~2 weeks. The flywheel must turn
+   faster than the hypotheses fail.
+
+### Stage-2 Round 3 (2026-07-15): loop-first; fine-tuning demoted to an efficiency bet
+
+Standing decision (consistent with the locked north star: correctness comes from the verify
+LOOP, not the weights): the deliverable mechanism for verifiable TLA+ is
+**generate k → SANY/TLC/mutation-gate → repair-with-error-evidence → emit only what verifies**.
+The base 120b under that loop already yields 21/23 verified repairs and 12/30 verified
+generations. Fine-tuning is henceforth an *efficiency* hypothesis (raise pass@1, cut loop
+iterations) to be validated cheaply before any 120b spend, not the primary axis.
+
+- **W2.6 — repair-shaped minimal-diff corpus (the one hypothesis Amendment 16's data licenses).**
+  Harvest (broken spec, error evidence, minimal fix) triples from the loop itself; add a
+  **diff-minimality gate** (normalized edit distance to the broken input below a fixed threshold;
+  reject wholesale rewrites at corpus time). Train **20b first**; directional eval (B framing,
+  k≥4) must beat 20b-baseline B pass@1 before any 120b run. If the 20b directional fails,
+  fine-tuning is shelved for Stage 2 and the flywheel is loop-only.
+- **W2.7 — structural tier-1 experiment (no training).** Prompt-level graph/structure scaffolding
+  on the 71 model-hard rejects (per the structural-representation plan). Pure inference; with
+  `GEN_EVAL_CONCURRENCY` this is hours, not days. Decides whether the A-framing gap is
+  representational before any further corpus investment.
+- **W2.8 — loop throughput + integrity.** Metric: **verified-specs-per-GPU-hour**. Done:
+  concurrency (b967732), smoke, preflight, gate-check, workdir-race fix. Open: run-id lockfile
+  (single-writer, in code); generate-then-verify phase split (recover the TLC-idle GPU time);
+  gen-eval resume summary recomputed from ledger (bug found by the smoke, task open).
+- **Decision rule for the round:** W2.7 and the W2.6 20b directional run first (both cheap).
+  120b touches a GPU again only if the 20b directional clears its bar. Gate-2's bar itself is
+  unchanged (Amendment 13 cells, /23 B denominator, frozen budget).
