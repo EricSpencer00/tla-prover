@@ -195,7 +195,9 @@ class OpenAICompatModel(Model):
                 # analysis channel; vLLM's reasoning parser then leaves
                 # content empty with the text in reasoning_content. Fall back
                 # so evals measure spec capability, not chat formatting.
-                return msg.get("content") or msg.get("reasoning_content") or ""
+                # (the ALCF shared endpoint names the same field "reasoning")
+                return msg.get("content") or msg.get("reasoning_content") \
+                    or msg.get("reasoning") or ""
             except urllib.error.HTTPError as e:
                 body = e.read().decode(errors="replace")[:500]
                 if e.code in RETRYABLE and attempt < self.max_retries - 1:
