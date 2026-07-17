@@ -130,9 +130,12 @@ def run_cmd(cmd, cwd, timeout):
     # timeout kill orphans -- observed E2.c arm 120b-a, 2026-07-07: leaked polyml
     # processes at 25% RAM each ground the host until the OS killed the sweep.
     t0 = time.time()
+    # errors="replace": tlapm/TLC occasionally emit non-UTF8 bytes (e.g. latin-1
+    # box-drawing in backend output); a strict decode crashed the W3.2 sweep
+    # mid-run (2026-07-17) instead of just mangling one log character.
     p = subprocess.Popen(cmd, cwd=cwd, stdout=subprocess.PIPE,
                          stderr=subprocess.STDOUT, text=True,
-                         start_new_session=True)
+                         errors="replace", start_new_session=True)
     try:
         out, _ = p.communicate(timeout=timeout)
         # Reap stragglers even on NORMAL exit: tlapm can return success while
