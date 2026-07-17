@@ -1,0 +1,835 @@
+[
+  {
+    "id": "10_lockserv",
+    "category": "distributed_ind_inv",
+    "module_file": "benchmarks/distributed_ind_inv/10_lockserv.tla",
+    "theorem_name": "Inductiveness",
+    "sha256": "76c99d64e5eca12a3a3040c63bd270f69f9c9c025a5fd3e7de6e8909049ec21e"
+  },
+  {
+    "id": "11_TwoPhase",
+    "category": "distributed_ind_inv",
+    "module_file": "benchmarks/distributed_ind_inv/11_TwoPhase.tla",
+    "theorem_name": "Inductiveness",
+    "sha256": "a0217eaf7404f9c624f13a25d6ac7d285eae3848e58f729087e818325bc121e2"
+  },
+  {
+    "id": "13_simple_decentralized_lock",
+    "category": "distributed_ind_inv",
+    "module_file": "benchmarks/distributed_ind_inv/13_simple_decentralized_lock.tla",
+    "theorem_name": "Inductiveness",
+    "sha256": "afdf9bd5240294075a748333ca4e4a568af783d04e5448ea6cbbbdc364f6ec65"
+  },
+  {
+    "id": "14_two_phase_commit",
+    "category": "distributed_ind_inv",
+    "module_file": "benchmarks/distributed_ind_inv/14_two_phase_commit.tla",
+    "theorem_name": "Inductiveness",
+    "sha256": "32cab364b259eb651eacf0c7fee81e2f7fd13d30c524fa7d68970cd707169f0e"
+  },
+  {
+    "id": "15_consensus_wo_decide",
+    "category": "distributed_ind_inv",
+    "module_file": "benchmarks/distributed_ind_inv/15_consensus_wo_decide.tla",
+    "theorem_name": "Inductiveness",
+    "sha256": "8146c310306ce08d09a73e91cb694092b58e808a0cb6b655bca78f1b334240fd"
+  },
+  {
+    "id": "16_consensus_forall",
+    "category": "distributed_ind_inv",
+    "module_file": "benchmarks/distributed_ind_inv/16_consensus_forall.tla",
+    "theorem_name": "Inductiveness",
+    "sha256": "bac37ad61f7f86fedc76703339a9dec881a6a86853fced86513f0009d4c4d8d5"
+  },
+  {
+    "id": "19_sharded_kv_no_lost_keys",
+    "category": "distributed_ind_inv",
+    "module_file": "benchmarks/distributed_ind_inv/19_sharded_kv_no_lost_keys.tla",
+    "theorem_name": "Inductiveness",
+    "sha256": "a48c5991b4f9e605f59be37ee07abd93df31406ea782982366102705ee2a26af"
+  },
+  {
+    "id": "1_Consensus",
+    "category": "distributed_ind_inv",
+    "module_file": "benchmarks/distributed_ind_inv/1_Consensus.tla",
+    "theorem_name": "Inductiveness",
+    "sha256": "61e75ab12298ab679c37ba79f1c5a2bae7b529f630679bc1b58e2387c8517b02"
+  },
+  {
+    "id": "20_naive_consensus",
+    "category": "distributed_ind_inv",
+    "module_file": "benchmarks/distributed_ind_inv/20_naive_consensus.tla",
+    "theorem_name": "Inductiveness",
+    "sha256": "b405c5f72ac209fe42bc87004063f87527798d05b53cb723c021331713d26196"
+  },
+  {
+    "id": "21_client_server_ae",
+    "category": "distributed_ind_inv",
+    "module_file": "benchmarks/distributed_ind_inv/21_client_server_ae.tla",
+    "theorem_name": "Inductiveness",
+    "sha256": "c2b5bc4661e157a7bd3ceb25f4b952577148102a45bfa5bc86cc2a28de1e07cb"
+  },
+  {
+    "id": "22_simple_election",
+    "category": "distributed_ind_inv",
+    "module_file": "benchmarks/distributed_ind_inv/22_simple_election.tla",
+    "theorem_name": "Inductiveness",
+    "sha256": "343a4bfe6353be759d263c6b09ff48df11bc608220b4fcb4a4e537ce86a8cfcf"
+  },
+  {
+    "id": "23_toy_consensus_epr",
+    "category": "distributed_ind_inv",
+    "module_file": "benchmarks/distributed_ind_inv/23_toy_consensus_epr.tla",
+    "theorem_name": "Inductiveness",
+    "sha256": "8e06d681f33d579fd84212acc567793b87fa128bad37050d89f6a6db08b9df8f"
+  },
+  {
+    "id": "24_toy_consensus",
+    "category": "distributed_ind_inv",
+    "module_file": "benchmarks/distributed_ind_inv/24_toy_consensus.tla",
+    "theorem_name": "Inductiveness",
+    "sha256": "468d3a95bed1337c623244fb3a03276f2dcd0afe488a33ba8d13c8f659114c28"
+  },
+  {
+    "id": "25_client_server_db_ae",
+    "category": "distributed_ind_inv",
+    "module_file": "benchmarks/distributed_ind_inv/25_client_server_db_ae.tla",
+    "theorem_name": "Inductiveness",
+    "sha256": "8394410504076dc2b301aae0f63e33238d30c3cc89f478feb8d6333b3115a733"
+  },
+  {
+    "id": "27_firewall",
+    "category": "distributed_ind_inv",
+    "module_file": "benchmarks/distributed_ind_inv/27_firewall.tla",
+    "theorem_name": "Inductiveness",
+    "sha256": "080e1055bc8ae7c25ef71f009d1958fe95ade83191821227d94f550216644230"
+  },
+  {
+    "id": "28_majorityset_leader_election",
+    "category": "distributed_ind_inv",
+    "module_file": "benchmarks/distributed_ind_inv/28_majorityset_leader_election.tla",
+    "theorem_name": "Inductiveness",
+    "sha256": "a7c605a91bb597e6265c0f7c951b874191e93bb77f2466cadd91b9657ff08592"
+  },
+  {
+    "id": "29_consensus_epr",
+    "category": "distributed_ind_inv",
+    "module_file": "benchmarks/distributed_ind_inv/29_consensus_epr.tla",
+    "theorem_name": "Inductiveness",
+    "sha256": "073518b24b7060047546af2a14b43750978381bcef1447cdbe43f54eb49fa497"
+  },
+  {
+    "id": "2_TCommit",
+    "category": "distributed_ind_inv",
+    "module_file": "benchmarks/distributed_ind_inv/2_TCommit.tla",
+    "theorem_name": "Inductiveness",
+    "sha256": "59d3d7b5f521dc881c62692a6853205e7bc3a590a94fb32c526c9d97beddb3a6"
+  },
+  {
+    "id": "30_MongoLoglessDynamicRaft",
+    "category": "distributed_ind_inv",
+    "module_file": "benchmarks/distributed_ind_inv/30_MongoLoglessDynamicRaft.tla",
+    "theorem_name": "Inductiveness",
+    "sha256": "5a230cdbef266efa5841377f6f46b5b85938269ceb4880f6a79ea0c7d6d836f9"
+  },
+  {
+    "id": "3_lockserver",
+    "category": "distributed_ind_inv",
+    "module_file": "benchmarks/distributed_ind_inv/3_lockserver.tla",
+    "theorem_name": "Inductiveness",
+    "sha256": "c173c24b50f5411838f16c86ed1eb82e99661d36db5e7d85afdff81efc075c72"
+  },
+  {
+    "id": "4_quorum_leader_election",
+    "category": "distributed_ind_inv",
+    "module_file": "benchmarks/distributed_ind_inv/4_quorum_leader_election.tla",
+    "theorem_name": "Inductiveness",
+    "sha256": "0e21825c9764bb89e021e29b1081dd470defbecf47cece80fe8c284532a56f2b"
+  },
+  {
+    "id": "5_toy_consensus_forall",
+    "category": "distributed_ind_inv",
+    "module_file": "benchmarks/distributed_ind_inv/5_toy_consensus_forall.tla",
+    "theorem_name": "Inductiveness",
+    "sha256": "1cba6db33ac0939e910455f7933a0b9458b84b341a8fe9e8bb4ad35e784e40a1"
+  },
+  {
+    "id": "6_Simple",
+    "category": "distributed_ind_inv",
+    "module_file": "benchmarks/distributed_ind_inv/6_Simple.tla",
+    "theorem_name": "Inductiveness",
+    "sha256": "3666d4e00af586759405a4a44f335057f2cdda66c0ca43de995aa3dd19fc8c56"
+  },
+  {
+    "id": "7_lockserv_automaton",
+    "category": "distributed_ind_inv",
+    "module_file": "benchmarks/distributed_ind_inv/7_lockserv_automaton.tla",
+    "theorem_name": "Inductiveness",
+    "sha256": "0f5b6af41b8581604b4d72bc5f788c7b94772963c62b1e2bf3f72d52a3d20db2"
+  },
+  {
+    "id": "8_SimpleRegular",
+    "category": "distributed_ind_inv",
+    "module_file": "benchmarks/distributed_ind_inv/8_SimpleRegular.tla",
+    "theorem_name": "Inductiveness",
+    "sha256": "a5562c83e6c7ffe909102d2d10abaf20d7010bcad08cc8d28f6a80ac143dd645"
+  },
+  {
+    "id": "9_sharded_kv",
+    "category": "distributed_ind_inv",
+    "module_file": "benchmarks/distributed_ind_inv/9_sharded_kv.tla",
+    "theorem_name": "Inductiveness",
+    "sha256": "d32352132c18b3cc609299677742cf99bb78e52855468efaff27de0b81d0c310"
+  },
+  {
+    "id": "aimeII_2001_p3",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/aimeII_2001_p3.tla",
+    "theorem_name": "aimeII_2001_p3",
+    "sha256": "5de01677d9942a03f0a2ede5853d8796694f737935323ab19d30a398b1c7c6fd"
+  },
+  {
+    "id": "aime_1984_p7",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/aime_1984_p7.tla",
+    "theorem_name": "aime_1984_p7",
+    "sha256": "6e55a4ecf0fc16e56a9015fa90d9e7a4d05a35a2398e258421b7ce130ba17ba9"
+  },
+  {
+    "id": "aime_1987_p5",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/aime_1987_p5.tla",
+    "theorem_name": "aime_1987_p5",
+    "sha256": "7fcd0144d53e77f528341bd37a90ff88c9464c9cf3341a86897054bb2daacb10"
+  },
+  {
+    "id": "aime_1991_p1",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/aime_1991_p1.tla",
+    "theorem_name": "aime_1991_p1",
+    "sha256": "f7bdba47f7823cdd0885d790054c21940a7e3ee2f646d157d040e584f9a77296"
+  },
+  {
+    "id": "aime_1994_p3",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/aime_1994_p3.tla",
+    "theorem_name": "aime_1994_p3",
+    "sha256": "5fe1ddc32358780e1a912e34ec1f15e94d5fc902e74ce3764e956b225a68f082"
+  },
+  {
+    "id": "algebra_xmysqpymzsqpzmxsqeqxyz_xpypzp6dvdx3y3z3",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/algebra_xmysqpymzsqpzmxsqeqxyz_xpypzp6dvdx3y3z3.tla",
+    "theorem_name": "algebra_xmysqpymzsqpzmxsqeqxyz_xpypzp6dvdx3y3z3",
+    "sha256": "dc8b6944b27113f6175b5a2f1c7f4a87a52e5f75f0900ac98de5ef471b3347c7"
+  },
+  {
+    "id": "amc12_2000_p1",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/amc12_2000_p1.tla",
+    "theorem_name": "amc12_2000_p1",
+    "sha256": "4f6e98c5b52603c6e3efcedb54761a926abe47b9368928e679e2aa322a8df541"
+  },
+  {
+    "id": "amc12_2000_p12",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/amc12_2000_p12.tla",
+    "theorem_name": "amc12_2000_p12",
+    "sha256": "ae2eede2f0615a5af95d35ab0e3914f2479d232852e9314761dd1190d4f83d34"
+  },
+  {
+    "id": "amc12_2000_p6",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/amc12_2000_p6.tla",
+    "theorem_name": "amc12_2000_p6",
+    "sha256": "807c111f326532c50a6a063aff1bab3b984c4ed03e58d2529528aa4ffb1934b1"
+  },
+  {
+    "id": "amc12_2001_p2",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/amc12_2001_p2.tla",
+    "theorem_name": "amc12_2001_p2",
+    "sha256": "4008a38a7923769936e26f7ca533443f16184640388cb9dbf4db464857396237"
+  },
+  {
+    "id": "amc12_2001_p21",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/amc12_2001_p21.tla",
+    "theorem_name": "amc12_2001_p21",
+    "sha256": "401c6363b4decac9660292b37305c9f6dce96ed9b9e1f389977347f6ce22febd"
+  },
+  {
+    "id": "amc12a_2002_p6",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/amc12a_2002_p6.tla",
+    "theorem_name": "amc12a_2002_p6",
+    "sha256": "630a0fbb50d3f3986bebb72dae43eaf62356e4e249fbda32939b7900fa3a7dd7"
+  },
+  {
+    "id": "amc12a_2003_p5",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/amc12a_2003_p5.tla",
+    "theorem_name": "amc12a_2003_p5",
+    "sha256": "5e90a586a1c943564cb4d7ee3abf8e7c3dc27a6da40e6f735cc11f8f9b3491e7"
+  },
+  {
+    "id": "amc12a_2015_p10",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/amc12a_2015_p10.tla",
+    "theorem_name": "amc12a_2015_p10",
+    "sha256": "189ffda6308f9ac3dfacff32106f1fc0aa3ceda815e40a9dce5c1f13b89ed84a"
+  },
+  {
+    "id": "amc12a_2021_p3",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/amc12a_2021_p3.tla",
+    "theorem_name": "amc12a_2021_p3",
+    "sha256": "b84038c93aff889e1484efa7d30c894f6c9f6d587716efcb544978a09d892801"
+  },
+  {
+    "id": "amc12a_2021_p8",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/amc12a_2021_p8.tla",
+    "theorem_name": "amc12a_2021_p8",
+    "sha256": "128bc57f245155d1b29028ae9b308764c1a97f7a2e44aefd4462ae6f9e51bf19"
+  },
+  {
+    "id": "amc12b_2002_p11",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/amc12b_2002_p11.tla",
+    "theorem_name": "amc12b_2002_p11",
+    "sha256": "1aa0963033346e7bff2b1f46c04a58aea928b582ce23a5858bcb453051884b47"
+  },
+  {
+    "id": "amc12b_2002_p2",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/amc12b_2002_p2.tla",
+    "theorem_name": "amc12b_2002_p2",
+    "sha256": "d4b4dd5543a3915e2abf7f8c9555e0b481351ec3c35ca7fd4c2121ebe708ea13"
+  },
+  {
+    "id": "amc12b_2002_p7",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/amc12b_2002_p7.tla",
+    "theorem_name": "amc12b_2002_p7",
+    "sha256": "86f7d8504072a603c65e7064676634be38692f5d685c48e0f55161c614c2e080"
+  },
+  {
+    "id": "imo_1977_p5",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/imo_1977_p5.tla",
+    "theorem_name": "imo_1977_p5",
+    "sha256": "b22ca88a1f16ef1c74a59d3d6fe639d53f5d22a9b3682fadc55ae95ff36af352"
+  },
+  {
+    "id": "imo_1977_p6",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/imo_1977_p6.tla",
+    "theorem_name": "imo_1977_p6",
+    "sha256": "904699d611efeb58f5c5f175abda29ec718e4cee7f7395f90640d97c9c6bb853"
+  },
+  {
+    "id": "imo_1981_p6",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/imo_1981_p6.tla",
+    "theorem_name": "imo_1981_p6",
+    "sha256": "75ea3b3b77a5ffc8b21e75087655aaffde84731434461671d5315bc6688a406b"
+  },
+  {
+    "id": "imo_1982_p1",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/imo_1982_p1.tla",
+    "theorem_name": "imo_1982_p1",
+    "sha256": "320504365f6539e304dc80f4f09e77804c124605abdc5ebf082a1e38e3233d8a"
+  },
+  {
+    "id": "imo_1987_p4",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/imo_1987_p4.tla",
+    "theorem_name": "imo_1987_p4",
+    "sha256": "c588a07afd4195262c3c6f206a6e474c7e3017313ed0cea97bdb345df38ba595"
+  },
+  {
+    "id": "imo_1992_p1",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/imo_1992_p1.tla",
+    "theorem_name": "imo_1992_p1",
+    "sha256": "de21591e282d65bd00d34686161a78898b2eaafd2106f09a4d4aeb9f457a86bc"
+  },
+  {
+    "id": "imo_1993_p5",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/imo_1993_p5.tla",
+    "theorem_name": "imo_1993_p5",
+    "sha256": "3eefbb6385c99816e3fa4a4e8a9418e733399976061f2570a7eb5d9140c96b82"
+  },
+  {
+    "id": "imo_2001_p6",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/imo_2001_p6.tla",
+    "theorem_name": "imo_2001_p6",
+    "sha256": "a4230f5a50d20ca5784420cec6310b9edc1d0d3b12a4c4546aa1a0979ad0fe87"
+  },
+  {
+    "id": "imo_2019_p1",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/imo_2019_p1.tla",
+    "theorem_name": "imo_2019_p1",
+    "sha256": "daad5e1896d1d5771316e16a4251ce795d34399f428a902e605afe6c4b9ad3bb"
+  },
+  {
+    "id": "induction_divisibility_3divnto3m2n",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/induction_divisibility_3divnto3m2n.tla",
+    "theorem_name": "induction_divisibility_3divnto3m2n",
+    "sha256": "e2617e257d7a52b7134ae1ec8f88553809763e27173ee6a2291239894bdf38fc"
+  },
+  {
+    "id": "induction_ineq_nsqlefactn",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/induction_ineq_nsqlefactn.tla",
+    "theorem_name": "induction_ineq_nsqlefactn",
+    "sha256": "26f8038053bdb3f4d343cc470dd916309a34546c5fc2171e4cfdb56ec42cc355"
+  },
+  {
+    "id": "mathd_algebra_123",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/mathd_algebra_123.tla",
+    "theorem_name": "mathd_algebra_123",
+    "sha256": "9b2bfaf0e81db140852602ad48595c2573be95b3c8476e483634ba8cac502bfa"
+  },
+  {
+    "id": "mathd_algebra_125",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/mathd_algebra_125.tla",
+    "theorem_name": "mathd_algebra_125",
+    "sha256": "118c7d33831c926cf2b57e309eb2abd8e5722e3821a7d4bf28574957df319d26"
+  },
+  {
+    "id": "mathd_algebra_144",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/mathd_algebra_144.tla",
+    "theorem_name": "mathd_algebra_144",
+    "sha256": "aa672d3aeda63f6a0253ca0e3d6e8b075f8de132d7793df651d4b8c6e6fbc546"
+  },
+  {
+    "id": "mathd_algebra_296",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/mathd_algebra_296.tla",
+    "theorem_name": "mathd_algebra_296",
+    "sha256": "e21b7e253698c3185fae19daa2ba5e849a3666aad07258ff6243192b5632f16e"
+  },
+  {
+    "id": "mathd_algebra_392",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/mathd_algebra_392.tla",
+    "theorem_name": "mathd_algebra_392",
+    "sha256": "ae8dbe692f66f6e51274bda9eb5a16508f551c9e17c85fb3ae15e9b5f7c7cf40"
+  },
+  {
+    "id": "mathd_algebra_69",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/mathd_algebra_69.tla",
+    "theorem_name": "mathd_algebra_69",
+    "sha256": "4f05a920f958904f0256c4c9036c03566e952c3870d276deb5159d41afc4ded8"
+  },
+  {
+    "id": "mathd_algebra_76",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/mathd_algebra_76.tla",
+    "theorem_name": "mathd_algebra_76",
+    "sha256": "755185f59927472753c56cb62cb02bbbfb112b957dd6f91a67641e00f2050f17"
+  },
+  {
+    "id": "mathd_numbertheory_110",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/mathd_numbertheory_110.tla",
+    "theorem_name": "mathd_numbertheory_110",
+    "sha256": "6e9505d173e994317afd87c990890fa7943f2c1a038f6b3eae10c217bd534fdf"
+  },
+  {
+    "id": "mathd_numbertheory_1124",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/mathd_numbertheory_1124.tla",
+    "theorem_name": "mathd_numbertheory_1124",
+    "sha256": "90654f6392338497fda09552bda73e0d5950c18c8dcd9537ab06506fa0178809"
+  },
+  {
+    "id": "mathd_numbertheory_136",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/mathd_numbertheory_136.tla",
+    "theorem_name": "mathd_numbertheory_136",
+    "sha256": "d9f36a7112aa477ea44834c21814e19d959eaeae3bb842cab4e3d98e3fa0a67f"
+  },
+  {
+    "id": "mathd_numbertheory_150",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/mathd_numbertheory_150.tla",
+    "theorem_name": "mathd_numbertheory_150",
+    "sha256": "7babf33f96243458edcfb03f98b3dac0b84009777a2db8fc1cabcd811bdbac7b"
+  },
+  {
+    "id": "mathd_numbertheory_185",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/mathd_numbertheory_185.tla",
+    "theorem_name": "mathd_numbertheory_185",
+    "sha256": "b53a7829e26943bc34fe3d7bc0dd0345dfc43c89dcc69784c8af7a28f6bb20d4"
+  },
+  {
+    "id": "mathd_numbertheory_22",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/mathd_numbertheory_22.tla",
+    "theorem_name": "mathd_numbertheory_22",
+    "sha256": "5bc3b48bd88a0444c5f0a36b859c8b4a40b0cfab52ac04e58a6524cf4ce5f681"
+  },
+  {
+    "id": "mathd_numbertheory_234",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/mathd_numbertheory_234.tla",
+    "theorem_name": "mathd_numbertheory_234",
+    "sha256": "d9ba3a92d837ba367f193117033849c1b82797420fe64375a055f7db11f95e04"
+  },
+  {
+    "id": "mathd_numbertheory_247",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/mathd_numbertheory_247.tla",
+    "theorem_name": "mathd_numbertheory_247",
+    "sha256": "faba1bfb531721622751f7d8ba8f5be44fa5fefcc4778b85e1b250824a557b04"
+  },
+  {
+    "id": "mathd_numbertheory_284",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/mathd_numbertheory_284.tla",
+    "theorem_name": "mathd_numbertheory_284",
+    "sha256": "fdfe52c194cbe14c3680d3acc03df924d442b63eba0a8a2d6a4a9280594de4b9"
+  },
+  {
+    "id": "mathd_numbertheory_293",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/mathd_numbertheory_293.tla",
+    "theorem_name": "mathd_numbertheory_293",
+    "sha256": "ca221d3c0095f13b60c11d7c517cbf5a8609b71413a29579789d491e20588e63"
+  },
+  {
+    "id": "mathd_numbertheory_296",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/mathd_numbertheory_296.tla",
+    "theorem_name": "mathd_numbertheory_296",
+    "sha256": "29a839e6e533154a60903fe1acc59e35c6d8b02201c0d4a0c0841ee21e7c95e1"
+  },
+  {
+    "id": "mathd_numbertheory_301",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/mathd_numbertheory_301.tla",
+    "theorem_name": "mathd_numbertheory_301",
+    "sha256": "9db94eb82531b675bff6621eb605782fc8e3413d93d9a44253a560ba1367e8f1"
+  },
+  {
+    "id": "mathd_numbertheory_314",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/mathd_numbertheory_314.tla",
+    "theorem_name": "mathd_numbertheory_314",
+    "sha256": "63e6abca44ecff2ec68c0b1cbeefe79b698e69a4743ce16efdf9a03df749be43"
+  },
+  {
+    "id": "mathd_numbertheory_320",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/mathd_numbertheory_320.tla",
+    "theorem_name": "mathd_numbertheory_320",
+    "sha256": "cd20b182b30e33ee850cc89be159f92da6b121d38ee3b085c268305124b3f193"
+  },
+  {
+    "id": "mathd_numbertheory_326",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/mathd_numbertheory_326.tla",
+    "theorem_name": "mathd_numbertheory_326",
+    "sha256": "7639c394e97ee58f8c8458795dc93a258005a1be68bc529b0dcde81a5907fcf2"
+  },
+  {
+    "id": "mathd_numbertheory_33",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/mathd_numbertheory_33.tla",
+    "theorem_name": "mathd_numbertheory_33",
+    "sha256": "7e0541e3ca06d6199a28d08900f083618b5bbd352e2613913df21aa40c2bbb15"
+  },
+  {
+    "id": "mathd_numbertheory_335",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/mathd_numbertheory_335.tla",
+    "theorem_name": "mathd_numbertheory_335",
+    "sha256": "5afb76137d10b2058e4bcd544b944f1a0c2a1c4459d1b41167b4b51b42b16999"
+  },
+  {
+    "id": "mathd_numbertheory_34",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/mathd_numbertheory_34.tla",
+    "theorem_name": "mathd_numbertheory_34",
+    "sha256": "defc4d4ce78c0a908d351ac10c1cd2a1fab7ac87d66560d76dca63d5d4c0c271"
+  },
+  {
+    "id": "mathd_numbertheory_370",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/mathd_numbertheory_370.tla",
+    "theorem_name": "mathd_numbertheory_370",
+    "sha256": "ec72e15e1cb159b26fe62e4830ab527fd41608233592e4154f66ea1893d883f2"
+  },
+  {
+    "id": "mathd_numbertheory_405",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/mathd_numbertheory_405.tla",
+    "theorem_name": "mathd_numbertheory_405",
+    "sha256": "455c26c0278ddb8c9da2e52e071b84ab93b4f4a0d729908375b1bb872d8489d3"
+  },
+  {
+    "id": "mathd_numbertheory_412",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/mathd_numbertheory_412.tla",
+    "theorem_name": "mathd_numbertheory_412",
+    "sha256": "3d9e30cd28d0e4af0ee26ca6938b006fc3f4e9819fe315e9015226d4c2c7d9c1"
+  },
+  {
+    "id": "mathd_numbertheory_430",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/mathd_numbertheory_430.tla",
+    "theorem_name": "mathd_numbertheory_430",
+    "sha256": "87618537695e9bfa1ec8b80ee0fcb009ad04ea41a9a83aa59fb303b96e6839e2"
+  },
+  {
+    "id": "mathd_numbertheory_457",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/mathd_numbertheory_457.tla",
+    "theorem_name": "mathd_numbertheory_457",
+    "sha256": "a266d1946372bef7f7ea0c982718641235ddc154cfca9170aef826a69cf68fb9"
+  },
+  {
+    "id": "mathd_numbertheory_458",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/mathd_numbertheory_458.tla",
+    "theorem_name": "mathd_numbertheory_458",
+    "sha256": "5fae9669b97d3244a1226f96c987b9bb1c0d37e51bd3f9bb31aa2fef1dd25365"
+  },
+  {
+    "id": "mathd_numbertheory_48",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/mathd_numbertheory_48.tla",
+    "theorem_name": "mathd_numbertheory_48",
+    "sha256": "8223195745a0b3091a4e3fa2f7cef4e8dfd1a14d78ab2911c422078b1a61aa05"
+  },
+  {
+    "id": "mathd_numbertheory_483",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/mathd_numbertheory_483.tla",
+    "theorem_name": "mathd_numbertheory_483",
+    "sha256": "d9aacd433171a2aed9a887e720f66d83792b58d7ee77d462f63348ce67caab17"
+  },
+  {
+    "id": "mathd_numbertheory_5",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/mathd_numbertheory_5.tla",
+    "theorem_name": "mathd_numbertheory_5",
+    "sha256": "96a4c51571e1d4eea413fc3bf320b494eef4f4c180e1c437395cf17bf6688d11"
+  },
+  {
+    "id": "mathd_numbertheory_521",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/mathd_numbertheory_521.tla",
+    "theorem_name": "mathd_numbertheory_521",
+    "sha256": "99c41e328ba4e11ba2ebc80f04271e8cbe3d203183a8800c17a546a9bd31a490"
+  },
+  {
+    "id": "mathd_numbertheory_541",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/mathd_numbertheory_541.tla",
+    "theorem_name": "mathd_numbertheory_541",
+    "sha256": "840a0e71bdb3b18b2d07914c2435ec379ff33cc326e64450aa0a3f7b045a0a80"
+  },
+  {
+    "id": "mathd_numbertheory_559",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/mathd_numbertheory_559.tla",
+    "theorem_name": "mathd_numbertheory_559",
+    "sha256": "0e46a143c7d63eda534d852262c39d4bc527a82441197f35ab9be4ee9b8d7ae0"
+  },
+  {
+    "id": "mathd_numbertheory_582",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/mathd_numbertheory_582.tla",
+    "theorem_name": "mathd_numbertheory_582",
+    "sha256": "3f3048a255570f22312229e30f0064dfcc99589f5096284b3ddf7f00fae7f70b"
+  },
+  {
+    "id": "mathd_numbertheory_64",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/mathd_numbertheory_64.tla",
+    "theorem_name": "mathd_numbertheory_64",
+    "sha256": "f943678645546582f1182520c5a0ad021a975c8f0e475884c84f377773cc5378"
+  },
+  {
+    "id": "mathd_numbertheory_690",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/mathd_numbertheory_690.tla",
+    "theorem_name": "mathd_numbertheory_690",
+    "sha256": "bd758d5b36f19754f4f0c1273af5740a68ac56776765f43b36451155589095de"
+  },
+  {
+    "id": "mathd_numbertheory_765",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/mathd_numbertheory_765.tla",
+    "theorem_name": "mathd_numbertheory_765",
+    "sha256": "1424171c6c5185c1df88e11bbdb3548209a445d2e203f5b816d644da38a5d0cb"
+  },
+  {
+    "id": "mathd_numbertheory_780",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/mathd_numbertheory_780.tla",
+    "theorem_name": "mathd_numbertheory_780",
+    "sha256": "26ce40748c3e2de75123216648ae20d2464cd77b19b061b594dd569f26a43f0b"
+  },
+  {
+    "id": "mathd_numbertheory_92",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/mathd_numbertheory_92.tla",
+    "theorem_name": "mathd_numbertheory_92",
+    "sha256": "cdcd8609165297e3a7801defd5ea4c99f451085ae88996f0e5dad92fa9fd3253"
+  },
+  {
+    "id": "mathd_numbertheory_99",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/mathd_numbertheory_99.tla",
+    "theorem_name": "mathd_numbertheory_99",
+    "sha256": "fcd94c489e6ac1adb3b523d417cb8c1ea5f21e4e4d44649a1ff78134ebdff86e"
+  },
+  {
+    "id": "numbertheory_4x3m7y3neq2003",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/numbertheory_4x3m7y3neq2003.tla",
+    "theorem_name": "numbertheory_4x3m7y3neq2003",
+    "sha256": "07172204e843865be93b69aaf1b359291b1e180a1d8be7bccf4071c051cbed5d"
+  },
+  {
+    "id": "numbertheory_aoddbdiv4asqpbsqmod8eq1",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/numbertheory_aoddbdiv4asqpbsqmod8eq1.tla",
+    "theorem_name": "numbertheory_aoddbdiv4asqpbsqmod8eq1",
+    "sha256": "fae0b7c891486fa76154e4e0e9215ffa8776773571f2033d42833679f34beb51"
+  },
+  {
+    "id": "numbertheory_notequiv2i2jasqbsqdiv8",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/numbertheory_notequiv2i2jasqbsqdiv8.tla",
+    "theorem_name": "numbertheory_notequiv2i2jasqbsqdiv8",
+    "sha256": "104b664176621810ebcd9db962241d8fa4b56acdb91ca4f3ca47c7c37f046f59"
+  },
+  {
+    "id": "numbertheory_prmdvsneqnsqmodpeq0",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/numbertheory_prmdvsneqnsqmodpeq0.tla",
+    "theorem_name": "numbertheory_prmdvsneqnsqmodpeq0",
+    "sha256": "0b5a8dcfdd6958975da533b40f40d425565bbdb6c33bf38582cc6617dc206097"
+  },
+  {
+    "id": "numbertheory_sqmod3in01d",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/numbertheory_sqmod3in01d.tla",
+    "theorem_name": "numbertheory_sqmod3in01d",
+    "sha256": "3fc06bb1c18889defbe3cb9aef4d397ee43c20c329ff2d6ac1f42791b39286e5"
+  },
+  {
+    "id": "numbertheory_sqmod4in01d",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/numbertheory_sqmod4in01d.tla",
+    "theorem_name": "numbertheory_sqmod4in01d",
+    "sha256": "cbef72f879ea3178a5507236d375018279ce361cd71724777dc23d182f25dda6"
+  },
+  {
+    "id": "numbertheory_x5neqy2p4",
+    "category": "math/minif2f",
+    "module_file": "benchmarks/math/minif2f/numbertheory_x5neqy2p4.tla",
+    "theorem_name": "numbertheory_x5neqy2p4",
+    "sha256": "b6838f015f50e674a557ff0a9a153a2bbbe3f77e3371f215774fd2c64f2a8d0d"
+  },
+  {
+    "id": "exercise_11_13_3",
+    "category": "math/proofnet",
+    "module_file": "benchmarks/math/proofnet/exercise_11_13_3.tla",
+    "theorem_name": "exercise_11_13_3",
+    "sha256": "f4b8af29b734d2720069153778c5ac51dad666d826d0c38a08369162e20871b9"
+  },
+  {
+    "id": "exercise_18_4",
+    "category": "math/proofnet",
+    "module_file": "benchmarks/math/proofnet/exercise_18_4.tla",
+    "theorem_name": "exercise_18_4",
+    "sha256": "d0138982534deba6f814bdd7f3d5dde8654568d98291f851f16e14998ae601f8"
+  },
+  {
+    "id": "exercise_1_1_2a",
+    "category": "math/proofnet",
+    "module_file": "benchmarks/math/proofnet/exercise_1_1_2a.tla",
+    "theorem_name": "exercise_1_1_2a",
+    "sha256": "55338f615c38dc24ac0d3c71f85340846d4ac38bc769b21078633388f946a690"
+  },
+  {
+    "id": "exercise_1_1_3",
+    "category": "math/proofnet",
+    "module_file": "benchmarks/math/proofnet/exercise_1_1_3.tla",
+    "theorem_name": "exercise_1_1_3",
+    "sha256": "550fdb0a2f7a1e0df3c45bb155a8f249f9d6cc98d040b935e470254a5d38f4ce"
+  },
+  {
+    "id": "exercise_1_1_4",
+    "category": "math/proofnet",
+    "module_file": "benchmarks/math/proofnet/exercise_1_1_4.tla",
+    "theorem_name": "exercise_1_1_4",
+    "sha256": "40a3e26448e61dd8fd962b8ec45bb02adfff0496873952f8c1862ff9d98bc271"
+  },
+  {
+    "id": "exercise_1_27",
+    "category": "math/proofnet",
+    "module_file": "benchmarks/math/proofnet/exercise_1_27.tla",
+    "theorem_name": "exercise_1_27",
+    "sha256": "52bda94c1b89d15db380e63b4b38596cae83689bfa814c2d2cffc1cd06f02f66"
+  },
+  {
+    "id": "exercise_2000_a2",
+    "category": "math/proofnet",
+    "module_file": "benchmarks/math/proofnet/exercise_2000_a2.tla",
+    "theorem_name": "exercise_2000_a2",
+    "sha256": "3918b3a9ba022ca0c17e2c67d24f424dfc7b3ed52530117759f4203f5c3f1269"
+  },
+  {
+    "id": "exercise_3_10",
+    "category": "math/proofnet",
+    "module_file": "benchmarks/math/proofnet/exercise_3_10.tla",
+    "theorem_name": "exercise_3_10",
+    "sha256": "29994c31ca31451c18c2b3dff302ff14a2112b27fa11323e9fef80499b6d163d"
+  },
+  {
+    "id": "exercise_3_4",
+    "category": "math/proofnet",
+    "module_file": "benchmarks/math/proofnet/exercise_3_4.tla",
+    "theorem_name": "exercise_3_4",
+    "sha256": "53c1ced53b56a9c8488f64fb291d604036ad27cd19e53ed3b598700f93d0c9f4"
+  },
+  {
+    "id": "exercise_3_5",
+    "category": "math/proofnet",
+    "module_file": "benchmarks/math/proofnet/exercise_3_5.tla",
+    "theorem_name": "exercise_3_5",
+    "sha256": "1ac4be59ce3c4cbeaf2effa7f575a6977009097c35292f74e305ca6d59374aff"
+  },
+  {
+    "id": "exercise_5_13",
+    "category": "math/proofnet",
+    "module_file": "benchmarks/math/proofnet/exercise_5_13.tla",
+    "theorem_name": "exercise_5_13",
+    "sha256": "ab43b0f4da2198cb201a983affd6c766922416d376cb0abbe5e38f68a92a30a8"
+  },
+  {
+    "id": "exercise_5_28",
+    "category": "math/proofnet",
+    "module_file": "benchmarks/math/proofnet/exercise_5_28.tla",
+    "theorem_name": "exercise_5_28",
+    "sha256": "1202ffb661959d145cd072852422384ac6eca06792059ca2d1f786cd93f549cc"
+  }
+]
