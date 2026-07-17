@@ -110,42 +110,50 @@ def run_w4(model, out_dir: Path, n_cells: int, lattice_seed: int = 20260717,
         canon = load_canonical()
     from .w2_loop import decontam_survivor
 
-    cells = lattice(lattice_seed, n_cells)
+    cells = [c for c in lattice(lattice_seed, n_cells) if cell_key(c) not in done]
     n_surv = 0
-    with open(attempts, "a") as af, open(survivors, "a") as sf:
-        for i, c in enumerate(cells, 1):
-            key = cell_key(c)
-            if key in done:
-                continue
-            prompt = SCENARIO_PROMPT.format(
-                domain=DOMAINS[c[0]], mechanism=MECHANISMS[c[1]],
-                prop=PROPERTIES[c[2]], twist=TWISTS[c[3]])
-            [reply] = model.generate(prompt, 1, 1.0, 2048)
-            base = {"cell": key, "timestamp": time.time(), "model": model.id}
-            try:
-                nl = parse_nl(reply)
-            except NLMissingProperty:
-                af.write(json.dumps({**base, "survived": False,
-                                     "rejection_reason": "nl_missing_property"}) + "\n")
+    import os
+    import threading
+    from concurrent.futures import ThreadPoolExecutor, as_completed
+    lock = threading.Lock()
+    conc = int(os.environ.get("GEN_EVAL_CONCURRENCY", "1"))
+
+    def one(c):
+        key = cell_key(c)
+        prompt = SCENARIO_PROMPT.format(
+            domain=DOMAINS[c[0]], mechanism=MECHANISMS[c[1]],
+            prop=PROPERTIES[c[2]], twist=TWISTS[c[3]])
+        [reply] = model.generate(prompt, 1, 1.0, 2048)
+        base = {"cell": key, "timestamp": time.time(), "model": model.id}
+        try:
+            nl = parse_nl(reply)
+        except NLMissingProperty:
+            return {**base, "survived": False,
+                    "rejection_reason": "nl_missing_property"}
+        wd = out_dir / "work" / key
+        wd.mkdir(parents=True, exist_ok=True)
+        r = run_loop_for_seed(model, nl, module_name_for(c), wd,
+                              timeout=timeout, max_iters=max_iters)
+        if r["survived"]:
+            verdict, score = decontam_survivor(r["spec_text"], canon)
+            if verdict != "clean":
+                r = {**r, "survived": False,
+                     "rejection_reason": f"decontam:{score:.2f}"}
+        return {**base, "seed_key": f"w4::{key}", "nl": nl, **r}
+
+    with open(attempts, "a") as af, open(survivors, "a") as sf, \
+            ThreadPoolExecutor(max_workers=max(1, conc)) as pool:
+        futs = {pool.submit(one, c): c for c in cells}
+        for i, fut in enumerate(as_completed(futs), 1):
+            row = fut.result()
+            with lock:
+                af.write(json.dumps(row) + "\n")
                 af.flush()
-                continue
-            wd = out_dir / "work" / key
-            wd.mkdir(parents=True, exist_ok=True)
-            r = run_loop_for_seed(model, nl, module_name_for(c), wd,
-                                  timeout=timeout, max_iters=max_iters)
-            if r["survived"]:
-                verdict, score = decontam_survivor(r["spec_text"], canon)
-                if verdict != "clean":
-                    r = {**r, "survived": False,
-                         "rejection_reason": f"decontam:{score:.2f}"}
-            row = {**base, "seed_key": f"w4::{key}", "nl": nl, **r}
-            af.write(json.dumps(row) + "\n")
-            af.flush()
-            if row["survived"]:
-                sf.write(json.dumps(row) + "\n")
-                sf.flush()
-                n_surv += 1
-            print(f"[{i}/{len(cells)}] {key}: survived={row['survived']} "
+                if row["survived"]:
+                    sf.write(json.dumps(row) + "\n")
+                    sf.flush()
+                    n_surv += 1
+            print(f"[{i}/{len(cells)}] {row['cell']}: survived={row['survived']} "
                   f"(total {n_surv})", flush=True)
     print(f"W4 funnel: {n_surv} survivors this run -> {survivors}")
     return n_surv
