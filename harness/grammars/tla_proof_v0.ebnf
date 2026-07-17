@@ -1,0 +1,48 @@
+# TLAPS proof-block grammar v0 -- xgrammar EBNF dialect.
+# Target (Amendment 18 / W3.2): every probe attempt died in tlapm's proof
+# parser, dominantly "Unexpected end of (sub)proof at level N before QED step".
+# This grammar forces, at decode time: leaf proofs are BY/OBVIOUS/OMITTED;
+# structured proofs are a sequence of same-level steps CLOSED BY A QED STEP
+# whose sub-proofs are one level deeper. Levels 1..4 are encoded as distinct
+# rules (EBNF cannot equate step numbers); deeper nesting than 4 is rejected
+# (rare in practice and a fine constraint for generated proofs).
+root ::= ("PROOF" "\n")? proofbody "\n"*
+proofbody ::= leaf | struct1
+leaf ::= "OBVIOUS" | "OMITTED" | by
+by ::= "BY " soup ("\n" "  " " "* soup)*
+# soup may contain "<" (step-label citations like <1>2); continuation-line
+# first char restrictions live in `cont`, not here
+soup ::= [^\n]+
+
+struct1 ::= step1+ qed1
+step1 ::= ind "<1>" lbl assertion sub1?
+qed1 ::= ind "<1>" lbl? "QED" qedproof2
+sub1 ::= leaf "\n" | struct2
+
+struct2 ::= step2+ qed2
+step2 ::= ind "<2>" lbl assertion sub2?
+qed2 ::= ind "<2>" lbl? "QED" qedproof3
+sub2 ::= leaf "\n" | struct3
+
+struct3 ::= step3+ qed3
+step3 ::= ind "<3>" lbl assertion sub3?
+qed3 ::= ind "<3>" lbl? "QED" qedproof4
+sub3 ::= leaf "\n" | struct4
+
+struct4 ::= step4+ qed4
+step4 ::= ind "<4>" lbl assertion leafnl?
+qed4 ::= ind "<4>" lbl? "QED" qedleaf
+leafnl ::= leaf "\n"
+
+# a QED's proof: inline leaf, or a leaf/struct on following lines
+qedproof2 ::= " " leaf "\n" | "\n" (leaf "\n" | struct2)?
+qedproof3 ::= " " leaf "\n" | "\n" (leaf "\n" | struct3)?
+qedproof4 ::= " " leaf "\n" | "\n" (leaf "\n" | struct4)?
+qedleaf ::= " " leaf "\n" | "\n" (leaf "\n")?
+
+ind ::= " "*
+# step label: "3." / "a." style or bare space
+lbl ::= [A-Za-z0-9_]* "." " " | " "
+# assertion: rest of line + continuation lines that don't start a new step
+assertion ::= [^\n]* "\n" (cont "\n")*
+cont ::= " "+ [^\n< ] [^\n]* | " "+
