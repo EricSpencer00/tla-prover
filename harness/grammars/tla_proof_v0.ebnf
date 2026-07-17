@@ -14,35 +14,36 @@ by ::= "BY " soup ("\n" "  " " "* soup)*
 # first char restrictions live in `cont`, not here
 soup ::= [^\n]+
 
-struct1 ::= step1+ qed1
+struct1 ::= (step1 | cmt)+ qed1
 step1 ::= ind "<1>" lbl assertion sub1?
 qed1 ::= ind "<1>" lbl? "QED" qedproof2
-sub1 ::= leaf "\n" | struct2
+sub1 ::= ind leaf "\n" | struct2
 
-struct2 ::= step2+ qed2
+struct2 ::= (step2 | cmt)+ qed2
 step2 ::= ind "<2>" lbl assertion sub2?
 qed2 ::= ind "<2>" lbl? "QED" qedproof3
-sub2 ::= leaf "\n" | struct3
+sub2 ::= ind leaf "\n" | struct3
 
-struct3 ::= step3+ qed3
+struct3 ::= (step3 | cmt)+ qed3
 step3 ::= ind "<3>" lbl assertion sub3?
 qed3 ::= ind "<3>" lbl? "QED" qedproof4
-sub3 ::= leaf "\n" | struct4
+sub3 ::= ind leaf "\n" | struct4
 
-struct4 ::= step4+ qed4
+struct4 ::= (step4 | cmt)+ qed4
 step4 ::= ind "<4>" lbl assertion leafnl?
 qed4 ::= ind "<4>" lbl? "QED" qedleaf
-leafnl ::= leaf "\n"
+leafnl ::= ind leaf "\n"
 
 # a QED's proof: inline leaf, or a leaf/struct on following lines
-qedproof2 ::= " " leaf "\n" | "\n" (leaf "\n" | struct2)?
-qedproof3 ::= " " leaf "\n" | "\n" (leaf "\n" | struct3)?
-qedproof4 ::= " " leaf "\n" | "\n" (leaf "\n" | struct4)?
-qedleaf ::= " " leaf "\n" | "\n" (leaf "\n")?
+qedproof2 ::= " "+ leaf "\n" | " "* "\n" (ind leaf "\n" | struct2)?
+qedproof3 ::= " "+ leaf "\n" | " "* "\n" (ind leaf "\n" | struct3)?
+qedproof4 ::= " "+ leaf "\n" | " "* "\n" (ind leaf "\n" | struct4)?
+qedleaf ::= " "+ leaf "\n" | " "* "\n" (ind leaf "\n")?
 
 ind ::= " "*
+cmt ::= " "* "\\*" [^\n]* "\n" | " "* "\n"
 # step label: "3." / "a." style or bare space
-lbl ::= [A-Za-z0-9_]* "." " " | " "
+lbl ::= [A-Za-z0-9_]* "."? " "+
 # assertion: rest of line + continuation lines that don't start a new step
 assertion ::= [^\n]* "\n" (cont "\n")*
 cont ::= " "+ [^\n< ] [^\n]* | " "+
