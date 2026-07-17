@@ -6,7 +6,9 @@ always stubbed.
 import json
 
 from harness.lmgpa_bench import (load_manifest, decontam_report,
-                                  run_baseline_tlapm, _read_done_ids)
+                                  run_baseline_tlapm, _read_done_ids,
+                                  classify_baseline_status, theorem_has_proof,
+                                  theorem_certified, score_baseline)
 from harness.corpora import NEAR_DUP_THRESHOLD
 
 
@@ -202,3 +204,154 @@ def test_read_done_ids_ignores_malformed_lines(tmp_path):
 
 def test_read_done_ids_missing_file_is_empty(tmp_path):
     assert _read_done_ids(tmp_path / "does_not_exist.jsonl") == set()
+
+
+# --- honest floor: no_proof / helper-lemma-masking fixes ----------------------
+
+def test_baseline_writes_no_proof_not_pass_for_zero_obligations(tmp_path):
+    """total==0 must never be recorded as 'pass' -- this is the tlapm
+    0-obligation-on-no-PROOF-body bug from lmgpa_floor_verdict.md."""
+    lmgpa_root = tmp_path / "lmgpa"
+    manifest = _small_manifest(1)
+    _write_fake_modules(lmgpa_root, manifest)
+    out_dir = tmp_path / "run"
+
+    rows_path = run_baseline_tlapm(out_dir, lmgpa_root=lmgpa_root, manifest=manifest,
+                                    checker=_stub_checker("pass", 0, 0))
+    rows = [json.loads(l) for l in rows_path.read_text().splitlines()]
+    assert rows[0]["status"] == "no_proof"
+
+
+def test_classify_baseline_status_zero_total_pass_becomes_no_proof():
+    assert classify_baseline_status("pass", 0, 0) == "no_proof"
+
+
+def test_classify_baseline_status_real_pass_unchanged():
+    assert classify_baseline_status("pass", 3, 3) == "pass"
+
+
+def test_classify_baseline_status_other_statuses_unchanged():
+    assert classify_baseline_status("timeout", 0, 0) == "timeout"
+    assert classify_baseline_status("error", 0, 0) == "error"
+    assert classify_baseline_status("partial", 1, 2) == "partial"
+
+
+BARE_THEOREM_TEXT = """---- MODULE Bare ----
+THEOREM Target == TRUE
+====
+"""
+
+PROVED_TARGET_TEXT = """---- MODULE Proved ----
+THEOREM Target == TRUE
+PROOF OBVIOUS
+====
+"""
+
+HELPER_LEMMA_MASKING_TEXT = """---- MODULE Masked ----
+LEMMA HelperFact == TRUE
+PROOF OBVIOUS
+
+THEOREM Target == TRUE
+====
+"""
+
+
+def test_theorem_has_proof_bare_theorem_is_false():
+    assert theorem_has_proof(BARE_THEOREM_TEXT, "Target") is False
+
+
+def test_theorem_has_proof_true_when_proof_present():
+    assert theorem_has_proof(PROVED_TARGET_TEXT, "Target") is True
+
+
+def test_theorem_has_proof_helper_lemma_does_not_mask_bare_target():
+    """A proved helper lemma earlier in the module must not make the
+    unproved target theorem look proved."""
+    assert theorem_has_proof(HELPER_LEMMA_MASKING_TEXT, "HelperFact") is True
+    assert theorem_has_proof(HELPER_LEMMA_MASKING_TEXT, "Target") is False
+
+
+def test_theorem_certified_requires_total_gt_zero(tmp_path):
+    mod_path = tmp_path / "Bare.tla"
+    mod_path.write_text(BARE_THEOREM_TEXT)
+    checker = _stub_checker("pass", 0, 0)
+    assert theorem_certified(mod_path, "Target", checker=checker) is False
+
+
+def test_theorem_certified_helper_lemma_masking_case_not_certified(tmp_path):
+    """Synthetic module: a proved helper lemma ships 6/6 obligations, but the
+    named target theorem itself has no PROOF/BY/OBVIOUS body. Module-wide
+    obligation counts (total=6, proved=6, status=pass) must NOT certify the
+    target -- this is the exact masking bug from the 3 lmgpa modules with
+    non-zero obligations that all belong to a helper lemma."""
+    mod_path = tmp_path / "Masked.tla"
+    mod_path.write_text(HELPER_LEMMA_MASKING_TEXT)
+    checker = _stub_checker("pass", 6, 6)
+    assert theorem_certified(mod_path, "Target", checker=checker) is False
+    # the helper lemma itself, scoped correctly, would certify
+    assert theorem_certified(mod_path, "HelperFact", checker=checker) is True
+
+
+def test_theorem_certified_true_when_proved_and_has_proof(tmp_path):
+    mod_path = tmp_path / "Proved.tla"
+    mod_path.write_text(PROVED_TARGET_TEXT)
+    checker = _stub_checker("pass", 1, 1)
+    assert theorem_certified(mod_path, "Target", checker=checker) is True
+
+
+def test_theorem_certified_false_on_partial_status(tmp_path):
+    mod_path = tmp_path / "Proved.tla"
+    mod_path.write_text(PROVED_TARGET_TEXT)
+    checker = _stub_checker("partial", 0, 1)
+    assert theorem_certified(mod_path, "Target", checker=checker) is False
+
+
+def test_score_baseline_zero_obligation_rows_are_no_proof(tmp_path):
+    lmgpa_root = tmp_path / "lmgpa"
+    manifest = _small_manifest(1)
+    _write_fake_modules(lmgpa_root, manifest)
+    rows_path = tmp_path / "rows.jsonl"
+    rows_path.write_text(json.dumps({"id": "t0", "status": "pass", "proved": 0,
+                                      "total": 0, "seconds": 0.1}) + "\n")
+
+    summary = score_baseline(rows_path, manifest=manifest, lmgpa_root=lmgpa_root)
+    assert summary["floor"] == "0/1"
+    assert summary["by_status"] == {"no_proof": 1}
+
+
+def test_score_baseline_helper_lemma_masking_not_certified(tmp_path):
+    lmgpa_root = tmp_path / "lmgpa"
+    manifest = [{
+        "id": "masked",
+        "category": "synthetic",
+        "module_file": "benchmarks/synthetic/masked.tla",
+        "theorem_name": "Target",
+        "sha256": "0" * 64,
+    }]
+    mod_path = lmgpa_root / "benchmarks" / "synthetic" / "masked.tla"
+    mod_path.parent.mkdir(parents=True)
+    mod_path.write_text(HELPER_LEMMA_MASKING_TEXT)
+    rows_path = tmp_path / "rows.jsonl"
+    # module-wide tally: 6/6 proved (all belonging to HelperFact), but the
+    # target theorem Target itself has no proof -- must not certify.
+    rows_path.write_text(json.dumps({"id": "masked", "status": "pass", "proved": 6,
+                                      "total": 6, "seconds": 0.1}) + "\n")
+
+    summary = score_baseline(rows_path, manifest=manifest, lmgpa_root=lmgpa_root)
+    assert summary["floor"] == "0/1"
+    assert summary["by_status"] == {"no_proof": 1}
+
+
+def test_score_baseline_writes_summary_to_out_path(tmp_path):
+    lmgpa_root = tmp_path / "lmgpa"
+    manifest = _small_manifest(1)
+    _write_fake_modules(lmgpa_root, manifest)
+    rows_path = tmp_path / "rows.jsonl"
+    rows_path.write_text(json.dumps({"id": "t0", "status": "pass", "proved": 0,
+                                      "total": 0, "seconds": 0.1}) + "\n")
+    out_path = tmp_path / "summary_corrected.json"
+
+    score_baseline(rows_path, manifest=manifest, lmgpa_root=lmgpa_root, out_path=out_path)
+    assert out_path.exists()
+    on_disk = json.loads(out_path.read_text())
+    assert on_disk["floor"] == "0/1"

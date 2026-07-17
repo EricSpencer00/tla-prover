@@ -17,6 +17,7 @@ CLI: python3 -m harness.lmgpa_bench {manifest,decontam,baseline} ...
 """
 import argparse
 import json
+import re
 from pathlib import Path
 
 from .corpora import normalize_tla, shingle_set, nearest_similarity, NEAR_DUP_THRESHOLD
@@ -138,6 +139,126 @@ def _read_done_ids(rows_path: Path) -> set[str]:
     return done
 
 
+def classify_baseline_status(status: str, proved: int, total: int) -> str:
+    """A whole-file 'pass' from check_tlapm with total==0 obligations means
+    tlapm never attempted a proof (no PROOF/BY body) -- that is not a pass,
+    it's an absence of proof. See results/analysis/lmgpa_floor_verdict.md."""
+    if total == 0 and status == "pass":
+        return "no_proof"
+    return status
+
+
+# Matches a THEOREM/LEMMA declaration by name, capturing everything up to the
+# next top-level THEOREM/LEMMA declaration or a module-separator line ("----"),
+# so we can check whether *that specific* theorem carries a proof body without
+# being fooled by proved obligations belonging to other (helper) theorems in
+# the same module.
+_THEOREM_SPAN_RE_TMPL = (
+    r"(?:THEOREM|LEMMA)\s+{name}\b.*?"
+    r"(?=\n(?:THEOREM|LEMMA)\s+\w|\n-{{4,}}|\Z)"
+)
+
+
+def theorem_has_proof(module_text: str, theorem_name: str) -> bool:
+    """True iff the named THEOREM/LEMMA's own source span contains a proof
+    body (PROOF, BY, or OBVIOUS). A bare `THEOREM Foo == ...` with no proof
+    keyword produces zero tlapm obligations and must not be scored as pass,
+    even if other (helper) theorems in the module are proved."""
+    pattern = re.compile(_THEOREM_SPAN_RE_TMPL.format(name=re.escape(theorem_name)),
+                          re.DOTALL)
+    m = pattern.search(module_text)
+    if not m:
+        return False
+    span = m.group(0)
+    return bool(re.search(r"\b(PROOF|BY|OBVIOUS)\b", span))
+
+
+def theorem_certified(module_path: Path, theorem_name: str, timeout: int = 600,
+                       checker=check_tlapm, workdir: Path | None = None) -> bool:
+    """Per-theorem pass criterion for the lmgpa benchmark: certify ONLY if
+    (a) tlapm reports total obligations > 0, (b) zero failed/omitted
+    (status == 'pass' with proved == total), AND (c) the named theorem's own
+    source span actually carries a proof body -- so pre-proved helper lemmas
+    shipped in the same module can't mask an unproved target theorem."""
+    workdir = workdir if workdir is not None else module_path.parent
+    status, proved, total, _out, _seconds = checker(module_path, workdir, timeout=timeout)
+    if status != "pass" or total == 0 or proved != total:
+        return False
+    module_text = module_path.read_text(errors="replace")
+    return theorem_has_proof(module_text, theorem_name)
+
+
+def score_baseline(rows_path: Path, manifest: list[dict] | None = None,
+                    lmgpa_root: Path = DEFAULT_LMGPA_ROOT,
+                    work_dir: Path | None = None, timeout: int = 600,
+                    limit: int | None = None, out_path: Path | None = None) -> dict:
+    """Re-score an existing baseline ledger (rows.jsonl) honestly: recompute
+    status from stored fields + module text where possible; only re-invoke
+    tlapm when the module text isn't available (e.g. no work/ copy)."""
+    manifest = manifest if manifest is not None else load_manifest()
+    if limit is not None:
+        manifest = manifest[:limit]
+    by_id = {e["id"]: e for e in manifest}
+
+    rows = []
+    if rows_path.exists():
+        with rows_path.open() as fh:
+            for line in fh:
+                line = line.strip()
+                if not line:
+                    continue
+                rows.append(json.loads(line))
+
+    by_status: dict[str, int] = {}
+    n_certified = 0
+    scored_rows = []
+    for row in rows:
+        entry = by_id.get(row["id"])
+        if entry is None:
+            continue
+        status = classify_baseline_status(row.get("status", "error"),
+                                           row.get("proved", 0), row.get("total", 0))
+        certified = False
+        if status == "pass":
+            # module text: prefer the saved work/ copy, else the lmgpa checkout.
+            mod_path = None
+            if work_dir is not None:
+                candidate = work_dir / row["id"] / Path(entry["module_file"]).name
+                if candidate.exists():
+                    mod_path = candidate
+            if mod_path is None:
+                candidate = lmgpa_root / entry["module_file"]
+                if candidate.exists():
+                    mod_path = candidate
+            if mod_path is not None:
+                module_text = mod_path.read_text(errors="replace")
+                if theorem_has_proof(module_text, entry["theorem_name"]):
+                    certified = True
+                else:
+                    status = "no_proof"
+            else:
+                # can't resolve module text -- fall back to a live re-check.
+                certified = theorem_certified(lmgpa_root / entry["module_file"],
+                                               entry["theorem_name"], timeout=timeout)
+                if not certified:
+                    status = "no_proof"
+        by_status[status] = by_status.get(status, 0) + 1
+        if certified:
+            n_certified += 1
+        scored_rows.append({**row, "status": status, "certified": certified})
+
+    summary = {
+        "floor": f"{n_certified}/{len(manifest)}",
+        "n_certified": n_certified,
+        "n_theorems": len(manifest),
+        "by_status": by_status,
+    }
+    if out_path is not None:
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_text(json.dumps({**summary, "rows": scored_rows}, indent=2) + "\n")
+    return summary
+
+
 def run_baseline_tlapm(out_dir: Path, lmgpa_root: Path = DEFAULT_LMGPA_ROOT,
                         manifest: list[dict] | None = None, timeout: int = 600,
                         limit: int | None = None, checker=check_tlapm) -> Path:
@@ -162,6 +283,7 @@ def run_baseline_tlapm(out_dir: Path, lmgpa_root: Path = DEFAULT_LMGPA_ROOT,
             dest.write_text(mod_path.read_text(errors="replace"))
 
             status, proved, total, _out, seconds = checker(dest, workdir, timeout=timeout)
+            status = classify_baseline_status(status, proved, total)
             row = {
                 "id": entry["id"],
                 "status": status,
@@ -196,6 +318,14 @@ def main():
     b.add_argument("--timeout", type=int, default=600)
     b.add_argument("--limit", type=int, default=None)
 
+    s = sub.add_parser("score", help="re-score an existing baseline ledger honestly")
+    s.add_argument("--lmgpa-root", default=str(DEFAULT_LMGPA_ROOT))
+    s.add_argument("--rows", required=True, help="path to rows.jsonl")
+    s.add_argument("--work-dir", default=None, help="out_dir/work from the baseline run")
+    s.add_argument("--out", required=True)
+    s.add_argument("--timeout", type=int, default=600)
+    s.add_argument("--limit", type=int, default=None)
+
     args = ap.parse_args()
 
     if args.cmd == "manifest":
@@ -216,6 +346,12 @@ def main():
         rows_path = run_baseline_tlapm(Path(args.out_dir), lmgpa_root=Path(args.lmgpa_root),
                                         timeout=args.timeout, limit=args.limit)
         print(f"wrote ledger to {rows_path}")
+    elif args.cmd == "score":
+        summary = score_baseline(Path(args.rows), lmgpa_root=Path(args.lmgpa_root),
+                                  work_dir=Path(args.work_dir) if args.work_dir else None,
+                                  timeout=args.timeout, limit=args.limit,
+                                  out_path=Path(args.out))
+        print(f"floor={summary['floor']} by_status={summary['by_status']} -> {args.out}")
 
 
 if __name__ == "__main__":
