@@ -1,0 +1,21 @@
+# TLA+ module grammar v0.1 (structural tier) -- xgrammar EBNF dialect.
+# Purpose (Amendment 18): guarantee at DECODE time the MECHANICAL properties
+# whose absence dominated W2.7 sany_fail: module header framing, terminated
+# module, balanced ()/{}/[] and closed strings/block-comments, no chat prose
+# before the module. Deliberately NOT a full TLA+ grammar: line content is
+# free-form soup, so it never rejects valid TLA+ (false-reject rate measured
+# on the 260-survivor corpus by tools/smoke/grammar_check.py).
+root ::= header line* footer
+header ::= "----" "-"* " MODULE " ident " " "-"* "----" " "* "\n"
+footer ::= "====" "="* " "* "\n"?
+line ::= item* "\n"
+item ::= safe+ | paren | brace | brack | string | comment
+paren ::= "(" (item | "\n")* ")"
+brace ::= "{" (item | "\n")* "}"
+brack ::= "[" (item | "\n")* "]"
+string ::= "\"" str_char* "\""
+str_char ::= [^"\\\n] | "\\" [^\n]
+comment ::= "(*" c_body "*)"
+c_body ::= ( [^*] | "*"+ [^*)] )* "*"*
+safe ::= [^(){}\[\]"\n]
+ident ::= [0-9]* [A-Za-z_] [A-Za-z0-9_!]*
