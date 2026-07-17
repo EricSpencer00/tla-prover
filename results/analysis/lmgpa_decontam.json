@@ -1,1203 +1,1209 @@
 {
-  "threshold": 0.65,
-  "n_theorems": 119,
-  "n_w2_survivor_texts": 260,
-  "n_corpus206_texts": 205,
-  "max_similarity_overall": 0.6844262295081968,
-  "global_verdict": "contaminated",
-  "contaminated_ids": [
-    "2_TCommit"
-  ],
-  "rows": [
-    {
-      "id": "10_lockserv",
-      "category": "distributed_ind_inv",
-      "w2_nearest": "data/raw/vasilisnasopoulos-stack/vortex-merkle-agreement/Vortex_DSE_CSlot_AE_Proofs.tla::k0",
-      "w2_similarity": 0.013388259526261586,
-      "corpus206_nearest": "94",
-      "corpus206_similarity": 0.02094972067039106,
-      "max_similarity": 0.02094972067039106,
-      "verdict": "clean"
-    },
-    {
-      "id": "11_TwoPhase",
-      "category": "distributed_ind_inv",
-      "w2_nearest": "data/raw/PoorlyDefinedBehaviour/formal-methods/tla_video_course_two_phase_commit/TwoPhase.tla::k0",
-      "w2_similarity": 0.13151927437641722,
-      "corpus206_nearest": "196",
-      "corpus206_similarity": 0.4365079365079365,
-      "max_similarity": 0.4365079365079365,
-      "verdict": "clean"
-    },
-    {
-      "id": "13_simple_decentralized_lock",
-      "category": "distributed_ind_inv",
-      "w2_nearest": "data/raw/apalache-mc/apalache-tests/parametric/SetAddDel/SetAddDel_15.tla::k0",
-      "w2_similarity": 0.0044943820224719105,
-      "corpus206_nearest": "35",
-      "corpus206_similarity": 0.008653326122228232,
-      "max_similarity": 0.008653326122228232,
-      "verdict": "clean"
-    },
-    {
-      "id": "14_two_phase_commit",
-      "category": "distributed_ind_inv",
-      "w2_nearest": "data/raw/vasilisnasopoulos-stack/vortex-merkle-agreement/Vortex_DSE_CSlot_AE_Proofs.tla::k0",
-      "w2_similarity": 0.007359705611775529,
-      "corpus206_nearest": "88",
-      "corpus206_similarity": 0.013647642679900745,
-      "max_similarity": 0.013647642679900745,
-      "verdict": "clean"
-    },
-    {
-      "id": "15_consensus_wo_decide",
-      "category": "distributed_ind_inv",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/CodePlexBug08/EWD840MC3.tla::k0",
-      "w2_similarity": 0.019189765458422176,
-      "corpus206_nearest": "68",
-      "corpus206_similarity": 0.03214285714285714,
-      "max_similarity": 0.03214285714285714,
-      "verdict": "clean"
-    },
-    {
-      "id": "16_consensus_forall",
-      "category": "distributed_ind_inv",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/CodePlexBug08/EWD840MC3.tla::k0",
-      "w2_similarity": 0.008875739644970414,
-      "corpus206_nearest": "68",
-      "corpus206_similarity": 0.020765027322404372,
-      "max_similarity": 0.020765027322404372,
-      "verdict": "clean"
-    },
-    {
-      "id": "19_sharded_kv_no_lost_keys",
-      "category": "distributed_ind_inv",
-      "w2_nearest": "data/raw/PoorlyDefinedBehaviour/formal-methods/tla_carbon_credit/spec.tla::k0",
-      "w2_similarity": 0.008862629246676515,
-      "corpus206_nearest": "102",
-      "corpus206_similarity": 0.026567481402763018,
-      "max_similarity": 0.026567481402763018,
-      "verdict": "clean"
-    },
-    {
-      "id": "1_Consensus",
-      "category": "distributed_ind_inv",
-      "w2_nearest": "data/raw/josehu07/learn-tla/Dr.-TLA+-selected/paxos/ConsensusSingle.tla::k0::w2-gen-20260710-shard1:2",
-      "w2_similarity": 0.08527131782945736,
-      "corpus206_nearest": "153",
-      "corpus206_similarity": 0.15966386554621848,
-      "max_similarity": 0.15966386554621848,
-      "verdict": "clean"
-    },
-    {
-      "id": "20_naive_consensus",
-      "category": "distributed_ind_inv",
-      "w2_nearest": "data/raw/Starydark/PaxosStore-tla/specification/deprecated/EagerVotingL.toolbox/RefineVoting/MC.tla::k0",
-      "w2_similarity": 0.019471488178025034,
-      "corpus206_nearest": "158",
-      "corpus206_similarity": 0.027629233511586453,
-      "max_similarity": 0.027629233511586453,
-      "verdict": "clean"
-    },
-    {
-      "id": "21_client_server_ae",
-      "category": "distributed_ind_inv",
-      "w2_nearest": "data/raw/vasilisnasopoulos-stack/vortex-merkle-agreement/Vortex_DSE_CSlot_AE_Proofs.tla::k0",
-      "w2_similarity": 0.007882882882882882,
-      "corpus206_nearest": "94",
-      "corpus206_similarity": 0.01904761904761905,
-      "max_similarity": 0.01904761904761905,
-      "verdict": "clean"
-    },
-    {
-      "id": "22_simple_election",
-      "category": "distributed_ind_inv",
-      "w2_nearest": "data/raw/lemmy/BlockingQueue/BlockingQueueDebug.tla::k0",
-      "w2_similarity": 0.020654044750430294,
-      "corpus206_nearest": "157",
-      "corpus206_similarity": 0.02019315188762072,
-      "max_similarity": 0.020654044750430294,
-      "verdict": "clean"
-    },
-    {
-      "id": "23_toy_consensus_epr",
-      "category": "distributed_ind_inv",
-      "w2_nearest": "data/raw/apalache-mc/apalache-tests/parametric/SetAddDel/SetAddDel_15.tla::k0",
-      "w2_similarity": 0.012422360248447204,
-      "corpus206_nearest": "158",
-      "corpus206_similarity": 0.029465930018416207,
-      "max_similarity": 0.029465930018416207,
-      "verdict": "clean"
-    },
-    {
-      "id": "24_toy_consensus",
-      "category": "distributed_ind_inv",
-      "w2_nearest": "data/raw/apalache-mc/apalache-tests/parametric/SetAddDel/SetAddDel_15.tla::k0",
-      "w2_similarity": 0.013422818791946308,
-      "corpus206_nearest": "157",
-      "corpus206_similarity": 0.01655933762649494,
-      "max_similarity": 0.01655933762649494,
-      "verdict": "clean"
-    },
-    {
-      "id": "25_client_server_db_ae",
-      "category": "distributed_ind_inv",
-      "w2_nearest": "data/raw/Cjen1/consensus-tlaplus/msfp/SimpleValue.tla::k0",
-      "w2_similarity": 0.006263048016701462,
-      "corpus206_nearest": "94",
-      "corpus206_similarity": 0.013374485596707819,
-      "max_similarity": 0.013374485596707819,
-      "verdict": "clean"
-    },
-    {
-      "id": "27_firewall",
-      "category": "distributed_ind_inv",
-      "w2_nearest": "data/raw/vasilisnasopoulos-stack/vortex-merkle-agreement/Vortex_DSE_CSlot_AE_Proofs.tla::k0",
-      "w2_similarity": 0.004576659038901602,
-      "corpus206_nearest": "70",
-      "corpus206_similarity": 0.014084507042253521,
-      "max_similarity": 0.014084507042253521,
-      "verdict": "clean"
-    },
-    {
-      "id": "28_majorityset_leader_election",
-      "category": "distributed_ind_inv",
-      "w2_nearest": "data/raw/vasilisnasopoulos-stack/vortex-merkle-agreement/Vortex_DSE_CSlot_AE_Proofs.tla::k0",
-      "w2_similarity": 0.01066925315227934,
-      "corpus206_nearest": "94",
-      "corpus206_similarity": 0.015444015444015444,
-      "max_similarity": 0.015444015444015444,
-      "verdict": "clean"
-    },
-    {
-      "id": "29_consensus_epr",
-      "category": "distributed_ind_inv",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/CodePlexBug08/EWD840MC3.tla::k0",
-      "w2_similarity": 0.01015228426395939,
-      "corpus206_nearest": "68",
-      "corpus206_similarity": 0.022573363431151242,
-      "max_similarity": 0.022573363431151242,
-      "verdict": "clean"
-    },
-    {
-      "id": "2_TCommit",
-      "category": "distributed_ind_inv",
-      "w2_nearest": "data/raw/josehu07/learn-tla/TLA+-video-course/TxnCommit/TCommit_MC.tla::k0",
-      "w2_similarity": 0.1151685393258427,
-      "corpus206_nearest": "195",
-      "corpus206_similarity": 0.6844262295081968,
-      "max_similarity": 0.6844262295081968,
-      "verdict": "contaminated"
-    },
-    {
-      "id": "30_MongoLoglessDynamicRaft",
-      "category": "distributed_ind_inv",
-      "w2_nearest": "data/raw/josehu07/learn-tla/PlusCal-tutorial/Session9/Session9sem_MC.tla::k0::w2-gen-20260710-shard0:6",
-      "w2_similarity": 0.007412898443291327,
-      "corpus206_nearest": "90",
-      "corpus206_similarity": 0.008888888888888889,
-      "max_similarity": 0.008888888888888889,
-      "verdict": "clean"
-    },
-    {
-      "id": "3_lockserver",
-      "category": "distributed_ind_inv",
-      "w2_nearest": "data/raw/apalache-mc/apalache-tests/parametric/IntClocks/IntClocks_Bounded_2.tla::k0",
-      "w2_similarity": 0.013986013986013986,
-      "corpus206_nearest": "7",
-      "corpus206_similarity": 0.0062959076600209865,
-      "max_similarity": 0.013986013986013986,
-      "verdict": "clean"
-    },
-    {
-      "id": "4_quorum_leader_election",
-      "category": "distributed_ind_inv",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/CodePlexBug08/EWD840MC3.tla::k0",
-      "w2_similarity": 0.023608768971332208,
-      "corpus206_nearest": "68",
-      "corpus206_similarity": 0.048582995951417005,
-      "max_similarity": 0.048582995951417005,
-      "verdict": "clean"
-    },
-    {
-      "id": "5_toy_consensus_forall",
-      "category": "distributed_ind_inv",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/EWD840/MC.tla::k0",
-      "w2_similarity": 0.015706806282722512,
-      "corpus206_nearest": "68",
-      "corpus206_similarity": 0.023423423423423424,
-      "max_similarity": 0.023423423423423424,
-      "verdict": "clean"
-    },
-    {
-      "id": "6_Simple",
-      "category": "distributed_ind_inv",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/DiningPhilosophers.tla::k0",
-      "w2_similarity": 0.05238828967642527,
-      "corpus206_nearest": "186",
-      "corpus206_similarity": 0.4426229508196721,
-      "max_similarity": 0.4426229508196721,
-      "verdict": "clean"
-    },
-    {
-      "id": "7_lockserv_automaton",
-      "category": "distributed_ind_inv",
-      "w2_nearest": "data/raw/vasilisnasopoulos-stack/vortex-merkle-agreement/Vortex_DSE_CSlot_AE_Proofs.tla::k0",
-      "w2_similarity": 0.013555787278415016,
-      "corpus206_nearest": "94",
-      "corpus206_similarity": 0.02130681818181818,
-      "max_similarity": 0.02130681818181818,
-      "verdict": "clean"
-    },
-    {
-      "id": "8_SimpleRegular",
-      "category": "distributed_ind_inv",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/DiningPhilosophers.tla::k0",
-      "w2_similarity": 0.04403409090909091,
-      "corpus206_nearest": "187",
-      "corpus206_similarity": 0.3776041666666667,
-      "max_similarity": 0.3776041666666667,
-      "verdict": "clean"
-    },
-    {
-      "id": "9_sharded_kv",
-      "category": "distributed_ind_inv",
-      "w2_nearest": "data/raw/vasilisnasopoulos-stack/vortex-merkle-agreement/Vortex_DSE_CSlot_AE_Proofs.tla::k0",
-      "w2_similarity": 0.010762331838565023,
-      "corpus206_nearest": "102",
-      "corpus206_similarity": 0.021415270018621976,
-      "max_similarity": 0.021415270018621976,
-      "verdict": "clean"
-    },
-    {
-      "id": "aimeII_2001_p3",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/apalache-mc/apalache-tests/parametric/IntClocks/IntClocks_Bounded_2.tla::k0",
-      "w2_similarity": 0.006578947368421052,
-      "corpus206_nearest": "43",
-      "corpus206_similarity": 0.0064516129032258064,
-      "max_similarity": 0.006578947368421052,
-      "verdict": "clean"
-    },
-    {
-      "id": "aime_1984_p7",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
-      "w2_similarity": 0.0,
-      "corpus206_nearest": "114",
-      "corpus206_similarity": 0.0012706480304955528,
-      "max_similarity": 0.0012706480304955528,
-      "verdict": "clean"
-    },
-    {
-      "id": "aime_1987_p5",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
-      "w2_similarity": 0.0,
-      "corpus206_nearest": "56",
-      "corpus206_similarity": 0.015810276679841896,
-      "max_similarity": 0.015810276679841896,
-      "verdict": "clean"
-    },
-    {
-      "id": "aime_1991_p1",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/EWD840/MC06.tla::k0::w2-gen-20260710-k3-shard0:10",
-      "w2_similarity": 0.009202453987730062,
-      "corpus206_nearest": "56",
-      "corpus206_similarity": 0.015037593984962405,
-      "max_similarity": 0.015037593984962405,
-      "verdict": "clean"
-    },
-    {
-      "id": "aime_1994_p3",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
-      "w2_similarity": 0.0,
-      "corpus206_nearest": "56",
-      "corpus206_similarity": 0.007352941176470588,
-      "max_similarity": 0.007352941176470588,
-      "verdict": "clean"
-    },
-    {
-      "id": "algebra_xmysqpymzsqpzmxsqeqxyz_xpypzp6dvdx3y3z3",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/Euclid3.tla::k0",
-      "w2_similarity": 0.0064516129032258064,
-      "corpus206_nearest": "56",
-      "corpus206_similarity": 0.01935483870967742,
-      "max_similarity": 0.01935483870967742,
-      "verdict": "clean"
-    },
-    {
-      "id": "amc12_2000_p1",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
-      "w2_similarity": 0.0,
-      "corpus206_nearest": "1",
-      "corpus206_similarity": 0.0,
-      "max_similarity": 0.0,
-      "verdict": "clean"
-    },
-    {
-      "id": "amc12_2000_p12",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
-      "w2_similarity": 0.0,
-      "corpus206_nearest": "118",
-      "corpus206_similarity": 0.0038314176245210726,
-      "max_similarity": 0.0038314176245210726,
-      "verdict": "clean"
-    },
-    {
-      "id": "amc12_2000_p6",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/josehu07/learn-tla/PlusCal-tutorial/Session9/Session9alt_MC.tla::k0::w2-gen-20260710-k3-shard2:8",
-      "w2_similarity": 0.02843601895734597,
-      "corpus206_nearest": "111",
-      "corpus206_similarity": 0.006613756613756613,
-      "max_similarity": 0.02843601895734597,
-      "verdict": "clean"
-    },
-    {
-      "id": "amc12_2001_p2",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
-      "w2_similarity": 0.0,
-      "corpus206_nearest": "110",
-      "corpus206_similarity": 0.004201680672268907,
-      "max_similarity": 0.004201680672268907,
-      "verdict": "clean"
-    },
-    {
-      "id": "amc12_2001_p21",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/muratdem/TLA-seminar/Beans/beansAlg3.tla::k0",
-      "w2_similarity": 0.00392156862745098,
-      "corpus206_nearest": "110",
-      "corpus206_similarity": 0.0037313432835820895,
-      "max_similarity": 0.00392156862745098,
-      "verdict": "clean"
-    },
-    {
-      "id": "amc12a_2002_p6",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/EWD840/MC06.tla::k0::w2-gen-20260710-k3-shard0:10",
-      "w2_similarity": 0.009554140127388535,
-      "corpus206_nearest": "68",
-      "corpus206_similarity": 0.021367521367521368,
-      "max_similarity": 0.021367521367521368,
-      "verdict": "clean"
-    },
-    {
-      "id": "amc12a_2003_p5",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
-      "w2_similarity": 0.0,
-      "corpus206_nearest": "1",
-      "corpus206_similarity": 0.0,
-      "max_similarity": 0.0,
-      "verdict": "clean"
-    },
-    {
-      "id": "amc12a_2015_p10",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
-      "w2_similarity": 0.0,
-      "corpus206_nearest": "56",
-      "corpus206_similarity": 0.01593625498007968,
-      "max_similarity": 0.01593625498007968,
-      "verdict": "clean"
-    },
-    {
-      "id": "amc12a_2021_p3",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
-      "w2_similarity": 0.0,
-      "corpus206_nearest": "56",
-      "corpus206_similarity": 0.0163265306122449,
-      "max_similarity": 0.0163265306122449,
-      "verdict": "clean"
-    },
-    {
-      "id": "amc12a_2021_p8",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/apalache-mc/apalache/test/tlaplus-suite/test59.tla::k0::w2-gen-20260710-k3-shard0:5",
-      "w2_similarity": 0.007874015748031496,
-      "corpus206_nearest": "182",
-      "corpus206_similarity": 0.04436860068259386,
-      "max_similarity": 0.04436860068259386,
-      "verdict": "clean"
-    },
-    {
-      "id": "amc12b_2002_p11",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/josehu07/learn-tla/PlusCal-tutorial/Session9/Session9alt_MC.tla::k0::w2-gen-20260710-k3-shard2:8",
-      "w2_similarity": 0.004424778761061947,
-      "corpus206_nearest": "110",
-      "corpus206_similarity": 0.011538461538461539,
-      "max_similarity": 0.011538461538461539,
-      "verdict": "clean"
-    },
-    {
-      "id": "amc12b_2002_p2",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
-      "w2_similarity": 0.0,
-      "corpus206_nearest": "56",
-      "corpus206_similarity": 0.00784313725490196,
-      "max_similarity": 0.00784313725490196,
-      "verdict": "clean"
-    },
-    {
-      "id": "amc12b_2002_p7",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/EWD840/MC06.tla::k0::w2-gen-20260710-k3-shard0:10",
-      "w2_similarity": 0.008982035928143712,
-      "corpus206_nearest": "59",
-      "corpus206_similarity": 0.013333333333333334,
-      "max_similarity": 0.013333333333333334,
-      "verdict": "clean"
-    },
-    {
-      "id": "imo_1977_p5",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/muratdem/TLA-seminar/Beans/beans.tla::k0",
-      "w2_similarity": 0.00847457627118644,
-      "corpus206_nearest": "90",
-      "corpus206_similarity": 0.017341040462427744,
-      "max_similarity": 0.017341040462427744,
-      "verdict": "clean"
-    },
-    {
-      "id": "imo_1977_p6",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
-      "w2_similarity": 0.0,
-      "corpus206_nearest": "114",
-      "corpus206_similarity": 0.007407407407407408,
-      "max_similarity": 0.007407407407407408,
-      "verdict": "clean"
-    },
-    {
-      "id": "imo_1981_p6",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/josehu07/learn-tla/PlusCal-tutorial/Session6/Session6func_MC.tla::k0",
-      "w2_similarity": 0.002777777777777778,
-      "corpus206_nearest": "56",
-      "corpus206_similarity": 0.006389776357827476,
-      "max_similarity": 0.006389776357827476,
-      "verdict": "clean"
-    },
-    {
-      "id": "imo_1982_p1",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/EWD840/MC06.tla::k0::w2-gen-20260710-k3-shard0:10",
-      "w2_similarity": 0.008333333333333333,
-      "corpus206_nearest": "59",
-      "corpus206_similarity": 0.012269938650306749,
-      "max_similarity": 0.012269938650306749,
-      "verdict": "clean"
-    },
-    {
-      "id": "imo_1987_p4",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/CharlesHoskinson/ProjectLegends/spec/tla/PALMinimal.tla::k0",
-      "w2_similarity": 0.002070393374741201,
-      "corpus206_nearest": "114",
-      "corpus206_similarity": 0.00641025641025641,
-      "max_similarity": 0.00641025641025641,
-      "verdict": "clean"
-    },
-    {
-      "id": "imo_1992_p1",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/josehu07/learn-tla/PlusCal-tutorial/Session9/Session9alt_MC.tla::k0::w2-gen-20260710-k3-shard2:8",
-      "w2_similarity": 0.008264462809917356,
-      "corpus206_nearest": "176",
-      "corpus206_similarity": 0.006237006237006237,
-      "max_similarity": 0.008264462809917356,
-      "verdict": "clean"
-    },
-    {
-      "id": "imo_1993_p5",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
-      "w2_similarity": 0.0,
-      "corpus206_nearest": "114",
-      "corpus206_similarity": 0.007471980074719801,
-      "max_similarity": 0.007471980074719801,
-      "verdict": "clean"
-    },
-    {
-      "id": "imo_2001_p6",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/josehu07/learn-tla/PlusCal-tutorial/Session9/Session9alt_MC.tla::k0::w2-gen-20260710-k3-shard2:8",
-      "w2_similarity": 0.0037593984962406013,
-      "corpus206_nearest": "177",
-      "corpus206_similarity": 0.004424778761061947,
-      "max_similarity": 0.004424778761061947,
-      "verdict": "clean"
-    },
-    {
-      "id": "imo_2019_p1",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
-      "w2_similarity": 0.0,
-      "corpus206_nearest": "110",
-      "corpus206_similarity": 0.0078125,
-      "max_similarity": 0.0078125,
-      "verdict": "clean"
-    },
-    {
-      "id": "induction_divisibility_3divnto3m2n",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/Euclid3.tla::k0",
-      "w2_similarity": 0.007874015748031496,
-      "corpus206_nearest": "91",
-      "corpus206_similarity": 0.010582010582010581,
-      "max_similarity": 0.010582010582010581,
-      "verdict": "clean"
-    },
-    {
-      "id": "induction_ineq_nsqlefactn",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/PoorlyDefinedBehaviour/formal-methods/tla_gcd/pluscal.tla::k0",
-      "w2_similarity": 0.006666666666666667,
-      "corpus206_nearest": "114",
-      "corpus206_similarity": 0.11025641025641025,
-      "max_similarity": 0.11025641025641025,
-      "verdict": "clean"
-    },
-    {
-      "id": "mathd_algebra_123",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/AntonGames/SEMM-lab1/lectures/MyGCD/MyGCD_Check.tla::k0",
-      "w2_similarity": 0.006944444444444444,
-      "corpus206_nearest": "110",
-      "corpus206_similarity": 0.0136986301369863,
-      "max_similarity": 0.0136986301369863,
-      "verdict": "clean"
-    },
-    {
-      "id": "mathd_algebra_125",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
-      "w2_similarity": 0.0,
-      "corpus206_nearest": "56",
-      "corpus206_similarity": 0.015384615384615385,
-      "max_similarity": 0.015384615384615385,
-      "verdict": "clean"
-    },
-    {
-      "id": "mathd_algebra_144",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
-      "w2_similarity": 0.0,
-      "corpus206_nearest": "110",
-      "corpus206_similarity": 0.004081632653061225,
-      "max_similarity": 0.004081632653061225,
-      "verdict": "clean"
-    },
-    {
-      "id": "mathd_algebra_296",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/apalache-mc/apalache-tests/parametric/IntClocks/IntClocks_Bounded_2.tla::k0",
-      "w2_similarity": 0.008695652173913044,
-      "corpus206_nearest": "1",
-      "corpus206_similarity": 0.0,
-      "max_similarity": 0.008695652173913044,
-      "verdict": "clean"
-    },
-    {
-      "id": "mathd_algebra_392",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/apalache-mc/apalache/test/tlaplus-suite/test59.tla::k0::w2-gen-20260710-k3-shard0:5",
-      "w2_similarity": 0.008928571428571428,
-      "corpus206_nearest": "182",
-      "corpus206_similarity": 0.028268551236749116,
-      "max_similarity": 0.028268551236749116,
-      "verdict": "clean"
-    },
-    {
-      "id": "mathd_algebra_69",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
-      "w2_similarity": 0.0,
-      "corpus206_nearest": "1",
-      "corpus206_similarity": 0.0,
-      "max_similarity": 0.0,
-      "verdict": "clean"
-    },
-    {
-      "id": "mathd_algebra_76",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/AssignmentInit.tla::k0::w2-gen-20260710-shard0:1",
-      "w2_similarity": 0.016666666666666666,
-      "corpus206_nearest": "182",
-      "corpus206_similarity": 0.009933774834437087,
-      "max_similarity": 0.016666666666666666,
-      "verdict": "clean"
-    },
-    {
-      "id": "mathd_numbertheory_110",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
-      "w2_similarity": 0.0,
-      "corpus206_nearest": "110",
-      "corpus206_similarity": 0.012987012987012988,
-      "max_similarity": 0.012987012987012988,
-      "verdict": "clean"
-    },
-    {
-      "id": "mathd_numbertheory_1124",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/Euclid3.tla::k0",
-      "w2_similarity": 0.007782101167315175,
-      "corpus206_nearest": "43",
-      "corpus206_similarity": 0.012195121951219513,
-      "max_similarity": 0.012195121951219513,
-      "verdict": "clean"
-    },
-    {
-      "id": "mathd_numbertheory_136",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/vasilisnasopoulos-stack/vortex-merkle-agreement/Vortex_DSE_CSlot_AE_Proofs.tla::k0",
-      "w2_similarity": 0.0035650623885918,
-      "corpus206_nearest": "133",
-      "corpus206_similarity": 0.011764705882352941,
-      "max_similarity": 0.011764705882352941,
-      "verdict": "clean"
-    },
-    {
-      "id": "mathd_numbertheory_150",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/Cjen1/consensus-tlaplus/msfp/SimpleValue.tla::k0",
-      "w2_similarity": 0.00911854103343465,
-      "corpus206_nearest": "91",
-      "corpus206_similarity": 0.009389671361502348,
-      "max_similarity": 0.009389671361502348,
-      "verdict": "clean"
-    },
-    {
-      "id": "mathd_numbertheory_185",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/vasilisnasopoulos-stack/vortex-merkle-agreement/Vortex_DSE_CSlot_AE_Proofs.tla::k0",
-      "w2_similarity": 0.003552397868561279,
-      "corpus206_nearest": "91",
-      "corpus206_similarity": 0.011627906976744186,
-      "max_similarity": 0.011627906976744186,
-      "verdict": "clean"
-    },
-    {
-      "id": "mathd_numbertheory_22",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
-      "w2_similarity": 0.0,
-      "corpus206_nearest": "43",
-      "corpus206_similarity": 0.00823045267489712,
-      "max_similarity": 0.00823045267489712,
-      "verdict": "clean"
-    },
-    {
-      "id": "mathd_numbertheory_234",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
-      "w2_similarity": 0.0,
-      "corpus206_nearest": "110",
-      "corpus206_similarity": 0.013215859030837005,
-      "max_similarity": 0.013215859030837005,
-      "verdict": "clean"
-    },
-    {
-      "id": "mathd_numbertheory_247",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/vasilisnasopoulos-stack/vortex-merkle-agreement/Vortex_DSE_CSlot_AE_Proofs.tla::k0",
-      "w2_similarity": 0.003552397868561279,
-      "corpus206_nearest": "91",
-      "corpus206_similarity": 0.011627906976744186,
-      "max_similarity": 0.011627906976744186,
-      "verdict": "clean"
-    },
-    {
-      "id": "mathd_numbertheory_284",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
-      "w2_similarity": 0.0,
-      "corpus206_nearest": "110",
-      "corpus206_similarity": 0.013452914798206279,
-      "max_similarity": 0.013452914798206279,
-      "verdict": "clean"
-    },
-    {
-      "id": "mathd_numbertheory_293",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/TSnapShot/MC.tla::k0",
-      "w2_similarity": 0.004629629629629629,
-      "corpus206_nearest": "91",
-      "corpus206_similarity": 0.0111731843575419,
-      "max_similarity": 0.0111731843575419,
-      "verdict": "clean"
-    },
-    {
-      "id": "mathd_numbertheory_296",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/vasilisnasopoulos-stack/vortex-merkle-agreement/Vortex_DSE_CSlot_AE_Proofs.tla::k0",
-      "w2_similarity": 0.003389830508474576,
-      "corpus206_nearest": "91",
-      "corpus206_similarity": 0.010050251256281407,
-      "max_similarity": 0.010050251256281407,
-      "verdict": "clean"
-    },
-    {
-      "id": "mathd_numbertheory_301",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/josehu07/learn-tla/PlusCal-tutorial/Session9/Session9sem_MC.tla::k0::w2-gen-20260710-shard0:6",
-      "w2_similarity": 0.004629629629629629,
-      "corpus206_nearest": "43",
-      "corpus206_similarity": 0.008695652173913044,
-      "max_similarity": 0.008695652173913044,
-      "verdict": "clean"
-    },
-    {
-      "id": "mathd_numbertheory_314",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/examples/locks_auxiliary_vars/Lock.tla::k0::w2-gen-20260710-k3-shard2:3",
-      "w2_similarity": 0.0034482758620689655,
-      "corpus206_nearest": "43",
-      "corpus206_similarity": 0.004032258064516129,
-      "max_similarity": 0.004032258064516129,
-      "verdict": "clean"
-    },
-    {
-      "id": "mathd_numbertheory_320",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/Euclid3.tla::k0",
-      "w2_similarity": 0.007722007722007722,
-      "corpus206_nearest": "91",
-      "corpus206_similarity": 0.010309278350515464,
-      "max_similarity": 0.010309278350515464,
-      "verdict": "clean"
-    },
-    {
-      "id": "mathd_numbertheory_326",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/vasilisnasopoulos-stack/vortex-merkle-agreement/Vortex_DSE_CSlot_AE_Proofs.tla::k0",
-      "w2_similarity": 0.0035087719298245615,
-      "corpus206_nearest": "91",
-      "corpus206_similarity": 0.0111731843575419,
-      "max_similarity": 0.0111731843575419,
-      "verdict": "clean"
-    },
-    {
-      "id": "mathd_numbertheory_33",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/vasilisnasopoulos-stack/vortex-merkle-agreement/Vortex_DSE_CSlot_AE_Proofs.tla::k0",
-      "w2_similarity": 0.0035211267605633804,
-      "corpus206_nearest": "91",
-      "corpus206_similarity": 0.011299435028248588,
-      "max_similarity": 0.011299435028248588,
-      "verdict": "clean"
-    },
-    {
-      "id": "mathd_numbertheory_335",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/vasilisnasopoulos-stack/vortex-merkle-agreement/Vortex_DSE_CSlot_AE_Proofs.tla::k0",
-      "w2_similarity": 0.0035460992907801418,
-      "corpus206_nearest": "91",
-      "corpus206_similarity": 0.011560693641618497,
-      "max_similarity": 0.011560693641618497,
-      "verdict": "clean"
-    },
-    {
-      "id": "mathd_numbertheory_34",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/muratdem/TLA-seminar/Beans/beansAlg3.tla::k0",
-      "w2_similarity": 0.0022222222222222222,
-      "corpus206_nearest": "182",
-      "corpus206_similarity": 0.01568627450980392,
-      "max_similarity": 0.01568627450980392,
-      "verdict": "clean"
-    },
-    {
-      "id": "mathd_numbertheory_370",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/vasilisnasopoulos-stack/vortex-merkle-agreement/Vortex_DSE_CSlot_AE_Proofs.tla::k0",
-      "w2_similarity": 0.0035335689045936395,
-      "corpus206_nearest": "91",
-      "corpus206_similarity": 0.011428571428571429,
-      "max_similarity": 0.011428571428571429,
-      "verdict": "clean"
-    },
-    {
-      "id": "mathd_numbertheory_405",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/PoorlyDefinedBehaviour/formal-methods/tla_and_pluscal_modeling_concurrency_jan_7_2025/pluscal.tla::k0",
-      "w2_similarity": 0.0038910505836575876,
-      "corpus206_nearest": "110",
-      "corpus206_similarity": 0.010380622837370242,
-      "max_similarity": 0.010380622837370242,
-      "verdict": "clean"
-    },
-    {
-      "id": "mathd_numbertheory_412",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/Test2a.tla::k0",
-      "w2_similarity": 0.01020408163265306,
-      "corpus206_nearest": "56",
-      "corpus206_similarity": 0.015209125475285171,
-      "max_similarity": 0.015209125475285171,
-      "verdict": "clean"
-    },
-    {
-      "id": "mathd_numbertheory_430",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/Loop/SystemLoop.tla::k0::w2-gen-20260710-k3-shard0:4",
-      "w2_similarity": 0.0335195530726257,
-      "corpus206_nearest": "110",
-      "corpus206_similarity": 0.003703703703703704,
-      "max_similarity": 0.0335195530726257,
-      "verdict": "clean"
-    },
-    {
-      "id": "mathd_numbertheory_457",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/PoorlyDefinedBehaviour/formal-methods/tla_gcd/pluscal.tla::k0",
-      "w2_similarity": 0.006134969325153374,
-      "corpus206_nearest": "114",
-      "corpus206_similarity": 0.10669975186104218,
-      "max_similarity": 0.10669975186104218,
-      "verdict": "clean"
-    },
-    {
-      "id": "mathd_numbertheory_458",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/vasilisnasopoulos-stack/vortex-merkle-agreement/Vortex_DSE_CSlot_AE_Proofs.tla::k0",
-      "w2_similarity": 0.0035650623885918,
-      "corpus206_nearest": "133",
-      "corpus206_similarity": 0.011764705882352941,
-      "max_similarity": 0.011764705882352941,
-      "verdict": "clean"
-    },
-    {
-      "id": "mathd_numbertheory_48",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
-      "w2_similarity": 0.0,
-      "corpus206_nearest": "158",
-      "corpus206_similarity": 0.0026455026455026454,
-      "max_similarity": 0.0026455026455026454,
-      "verdict": "clean"
-    },
-    {
-      "id": "mathd_numbertheory_483",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/vasilisnasopoulos-stack/vortex-merkle-agreement/Vortex_DSE_CSlot_AE_Proofs.tla::k0",
-      "w2_similarity": 0.00333889816360601,
-      "corpus206_nearest": "93",
-      "corpus206_similarity": 0.008849557522123894,
-      "max_similarity": 0.008849557522123894,
-      "verdict": "clean"
-    },
-    {
-      "id": "mathd_numbertheory_5",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/vasilisnasopoulos-stack/vortex-merkle-agreement/Vortex_DSE_CSlot_AE_Proofs.tla::k0",
-      "w2_similarity": 0.003430531732418525,
-      "corpus206_nearest": "91",
-      "corpus206_similarity": 0.010416666666666666,
-      "max_similarity": 0.010416666666666666,
-      "verdict": "clean"
-    },
-    {
-      "id": "mathd_numbertheory_521",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/apalache-mc/apalache/test/tlaplus-suite/test59.tla::k0::w2-gen-20260710-k3-shard0:5",
-      "w2_similarity": 0.010309278350515464,
-      "corpus206_nearest": "182",
-      "corpus206_similarity": 0.03759398496240601,
-      "max_similarity": 0.03759398496240601,
-      "verdict": "clean"
-    },
-    {
-      "id": "mathd_numbertheory_541",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
-      "w2_similarity": 0.0,
-      "corpus206_nearest": "33",
-      "corpus206_similarity": 0.005319148936170213,
-      "max_similarity": 0.005319148936170213,
-      "verdict": "clean"
-    },
-    {
-      "id": "mathd_numbertheory_559",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
-      "w2_similarity": 0.0,
-      "corpus206_nearest": "56",
-      "corpus206_similarity": 0.015810276679841896,
-      "max_similarity": 0.015810276679841896,
-      "verdict": "clean"
-    },
-    {
-      "id": "mathd_numbertheory_582",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/EWD840/MC06.tla::k0::w2-gen-20260710-k3-shard0:10",
-      "w2_similarity": 0.009036144578313253,
-      "corpus206_nearest": "68",
-      "corpus206_similarity": 0.01984126984126984,
-      "max_similarity": 0.01984126984126984,
-      "verdict": "clean"
-    },
-    {
-      "id": "mathd_numbertheory_64",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
-      "w2_similarity": 0.0,
-      "corpus206_nearest": "182",
-      "corpus206_similarity": 0.011583011583011582,
-      "max_similarity": 0.011583011583011582,
-      "verdict": "clean"
-    },
-    {
-      "id": "mathd_numbertheory_690",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/EWD840/MC06.tla::k0::w2-gen-20260710-k3-shard0:10",
-      "w2_similarity": 0.00946372239747634,
-      "corpus206_nearest": "59",
-      "corpus206_similarity": 0.014134275618374558,
-      "max_similarity": 0.014134275618374558,
-      "verdict": "clean"
-    },
-    {
-      "id": "mathd_numbertheory_765",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
-      "w2_similarity": 0.0,
-      "corpus206_nearest": "56",
-      "corpus206_similarity": 0.008130081300813009,
-      "max_similarity": 0.008130081300813009,
-      "verdict": "clean"
-    },
-    {
-      "id": "mathd_numbertheory_780",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
-      "w2_similarity": 0.0,
-      "corpus206_nearest": "114",
-      "corpus206_similarity": 0.0012406947890818859,
-      "max_similarity": 0.0012406947890818859,
-      "verdict": "clean"
-    },
-    {
-      "id": "mathd_numbertheory_92",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/vasilisnasopoulos-stack/vortex-merkle-agreement/Vortex_DSE_CSlot_AE_Proofs.tla::k0",
-      "w2_similarity": 0.003552397868561279,
-      "corpus206_nearest": "91",
-      "corpus206_similarity": 0.011627906976744186,
-      "max_similarity": 0.011627906976744186,
-      "verdict": "clean"
-    },
-    {
-      "id": "mathd_numbertheory_99",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/vasilisnasopoulos-stack/vortex-merkle-agreement/Vortex_DSE_CSlot_AE_Proofs.tla::k0",
-      "w2_similarity": 0.003552397868561279,
-      "corpus206_nearest": "91",
-      "corpus206_similarity": 0.011627906976744186,
-      "max_similarity": 0.011627906976744186,
-      "verdict": "clean"
-    },
-    {
-      "id": "numbertheory_4x3m7y3neq2003",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
-      "w2_similarity": 0.0,
-      "corpus206_nearest": "56",
-      "corpus206_similarity": 0.016597510373443983,
-      "max_similarity": 0.016597510373443983,
-      "verdict": "clean"
-    },
-    {
-      "id": "numbertheory_aoddbdiv4asqpbsqmod8eq1",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/AntonGames/SEMM-lab1/lectures/MyGCD/MyGCD_Check.tla::k0",
-      "w2_similarity": 0.00625,
-      "corpus206_nearest": "176",
-      "corpus206_similarity": 0.011441647597254004,
-      "max_similarity": 0.011441647597254004,
-      "verdict": "clean"
-    },
-    {
-      "id": "numbertheory_notequiv2i2jasqbsqdiv8",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/cs6213/tlaplus-examples/specs/TCommit.tla::k0",
-      "w2_similarity": 0.007194244604316547,
-      "corpus206_nearest": "176",
-      "corpus206_similarity": 0.011235955056179775,
-      "max_similarity": 0.011235955056179775,
-      "verdict": "clean"
-    },
-    {
-      "id": "numbertheory_prmdvsneqnsqmodpeq0",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/Euclid3.tla::k0",
-      "w2_similarity": 0.006666666666666667,
-      "corpus206_nearest": "88",
-      "corpus206_similarity": 0.008645533141210375,
-      "max_similarity": 0.008645533141210375,
-      "verdict": "clean"
-    },
-    {
-      "id": "numbertheory_sqmod3in01d",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/Starydark/PaxosStore-tla/specification/deprecated/EagerVotingL.toolbox/RefineVoting/MC.tla::k0",
-      "w2_similarity": 0.003067484662576687,
-      "corpus206_nearest": "155",
-      "corpus206_similarity": 0.004149377593360996,
-      "max_similarity": 0.004149377593360996,
-      "verdict": "clean"
-    },
-    {
-      "id": "numbertheory_sqmod4in01d",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/Starydark/PaxosStore-tla/specification/deprecated/EagerVotingL.toolbox/RefineVoting/MC.tla::k0",
-      "w2_similarity": 0.0030581039755351682,
-      "corpus206_nearest": "155",
-      "corpus206_similarity": 0.004132231404958678,
-      "max_similarity": 0.004132231404958678,
-      "verdict": "clean"
-    },
-    {
-      "id": "numbertheory_x5neqy2p4",
-      "category": "math/minif2f",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
-      "w2_similarity": 0.0,
-      "corpus206_nearest": "56",
-      "corpus206_similarity": 0.016666666666666666,
-      "max_similarity": 0.016666666666666666,
-      "verdict": "clean"
-    },
-    {
-      "id": "exercise_11_13_3",
-      "category": "math/proofnet",
-      "w2_nearest": "data/raw/apalache-mc/apalache-bench/performance/ewd840/MC4.tla::k0",
-      "w2_similarity": 0.008379888268156424,
-      "corpus206_nearest": "176",
-      "corpus206_similarity": 0.0064516129032258064,
-      "max_similarity": 0.008379888268156424,
-      "verdict": "clean"
-    },
-    {
-      "id": "exercise_18_4",
-      "category": "math/proofnet",
-      "w2_nearest": "data/raw/informalsystems/modelator-py/tests/resource/TlcMultipleTraceParse.tla::k0",
-      "w2_similarity": 0.00980392156862745,
-      "corpus206_nearest": "91",
-      "corpus206_similarity": 0.009009009009009009,
-      "max_similarity": 0.00980392156862745,
-      "verdict": "clean"
-    },
-    {
-      "id": "exercise_1_1_2a",
-      "category": "math/proofnet",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
-      "w2_similarity": 0.0,
-      "corpus206_nearest": "110",
-      "corpus206_similarity": 0.005154639175257732,
-      "max_similarity": 0.005154639175257732,
-      "verdict": "clean"
-    },
-    {
-      "id": "exercise_1_1_3",
-      "category": "math/proofnet",
-      "w2_nearest": "data/raw/vasilisnasopoulos-stack/vortex-merkle-agreement/Vortex_DSE_CSlot_AE_Proofs.tla::k0",
-      "w2_similarity": 0.0034542314335060447,
-      "corpus206_nearest": "110",
-      "corpus206_similarity": 0.0045871559633027525,
-      "max_similarity": 0.0045871559633027525,
-      "verdict": "clean"
-    },
-    {
-      "id": "exercise_1_1_4",
-      "category": "math/proofnet",
-      "w2_nearest": "data/raw/vasilisnasopoulos-stack/vortex-merkle-agreement/Vortex_DSE_CSlot_AE_Proofs.tla::k0",
-      "w2_similarity": 0.0034602076124567475,
-      "corpus206_nearest": "43",
-      "corpus206_similarity": 0.008264462809917356,
-      "max_similarity": 0.008264462809917356,
-      "verdict": "clean"
-    },
-    {
-      "id": "exercise_1_27",
-      "category": "math/proofnet",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/AssignmentInit.tla::k0::w2-gen-20260710-shard0:1",
-      "w2_similarity": 0.018050541516245487,
-      "corpus206_nearest": "91",
-      "corpus206_similarity": 0.01,
-      "max_similarity": 0.018050541516245487,
-      "verdict": "clean"
-    },
-    {
-      "id": "exercise_2000_a2",
-      "category": "math/proofnet",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/Loop/SystemLoop.tla::k0::w2-gen-20260710-k3-shard0:4",
-      "w2_similarity": 0.014925373134328358,
-      "corpus206_nearest": "43",
-      "corpus206_similarity": 0.009584664536741214,
-      "max_similarity": 0.014925373134328358,
-      "verdict": "clean"
-    },
-    {
-      "id": "exercise_3_10",
-      "category": "math/proofnet",
-      "w2_nearest": "data/raw/PoorlyDefinedBehaviour/formal-methods/tla_gcd/pluscal.tla::k0",
-      "w2_similarity": 0.005797101449275362,
-      "corpus206_nearest": "114",
-      "corpus206_similarity": 0.10692588092345079,
-      "max_similarity": 0.10692588092345079,
-      "verdict": "clean"
-    },
-    {
-      "id": "exercise_3_4",
-      "category": "math/proofnet",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
-      "w2_similarity": 0.0,
-      "corpus206_nearest": "56",
-      "corpus206_similarity": 0.004166666666666667,
-      "max_similarity": 0.004166666666666667,
-      "verdict": "clean"
-    },
-    {
-      "id": "exercise_3_5",
-      "category": "math/proofnet",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
-      "w2_similarity": 0.0,
-      "corpus206_nearest": "56",
-      "corpus206_similarity": 0.004098360655737705,
-      "max_similarity": 0.004098360655737705,
-      "verdict": "clean"
-    },
-    {
-      "id": "exercise_5_13",
-      "category": "math/proofnet",
-      "w2_nearest": "data/raw/josehu07/learn-tla/PlusCal-tutorial/Session9/Session9alt_MC.tla::k0::w2-gen-20260710-k3-shard2:8",
-      "w2_similarity": 0.00851063829787234,
-      "corpus206_nearest": "176",
-      "corpus206_similarity": 0.006329113924050633,
-      "max_similarity": 0.00851063829787234,
-      "verdict": "clean"
-    },
-    {
-      "id": "exercise_5_28",
-      "category": "math/proofnet",
-      "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/examples/locks_auxiliary_vars/Lock.tla::k0",
-      "w2_similarity": 0.009584664536741214,
-      "corpus206_nearest": "184",
-      "corpus206_similarity": 0.008130081300813009,
-      "max_similarity": 0.009584664536741214,
-      "verdict": "clean"
-    }
-  ]
+ "threshold": 0.65,
+ "n_theorems": 119,
+ "n_w2_survivor_texts": 260,
+ "n_corpus206_texts": 205,
+ "max_similarity_overall": 0.6844262295081968,
+ "global_verdict": "contaminated",
+ "contaminated_ids": [
+  "2_TCommit"
+ ],
+ "rows": [
+  {
+   "id": "10_lockserv",
+   "category": "distributed_ind_inv",
+   "w2_nearest": "data/raw/vasilisnasopoulos-stack/vortex-merkle-agreement/Vortex_DSE_CSlot_AE_Proofs.tla::k0",
+   "w2_similarity": 0.013388259526261586,
+   "corpus206_nearest": "94",
+   "corpus206_similarity": 0.02094972067039106,
+   "max_similarity": 0.02094972067039106,
+   "verdict": "clean"
+  },
+  {
+   "id": "11_TwoPhase",
+   "category": "distributed_ind_inv",
+   "w2_nearest": "data/raw/PoorlyDefinedBehaviour/formal-methods/tla_video_course_two_phase_commit/TwoPhase.tla::k0",
+   "w2_similarity": 0.13151927437641722,
+   "corpus206_nearest": "196",
+   "corpus206_similarity": 0.4365079365079365,
+   "max_similarity": 0.4365079365079365,
+   "verdict": "clean"
+  },
+  {
+   "id": "13_simple_decentralized_lock",
+   "category": "distributed_ind_inv",
+   "w2_nearest": "data/raw/apalache-mc/apalache-tests/parametric/SetAddDel/SetAddDel_15.tla::k0",
+   "w2_similarity": 0.0044943820224719105,
+   "corpus206_nearest": "35",
+   "corpus206_similarity": 0.008653326122228232,
+   "max_similarity": 0.008653326122228232,
+   "verdict": "clean"
+  },
+  {
+   "id": "14_two_phase_commit",
+   "category": "distributed_ind_inv",
+   "w2_nearest": "data/raw/vasilisnasopoulos-stack/vortex-merkle-agreement/Vortex_DSE_CSlot_AE_Proofs.tla::k0",
+   "w2_similarity": 0.007359705611775529,
+   "corpus206_nearest": "88",
+   "corpus206_similarity": 0.013647642679900745,
+   "max_similarity": 0.013647642679900745,
+   "verdict": "clean"
+  },
+  {
+   "id": "15_consensus_wo_decide",
+   "category": "distributed_ind_inv",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/CodePlexBug08/EWD840MC3.tla::k0",
+   "w2_similarity": 0.019189765458422176,
+   "corpus206_nearest": "68",
+   "corpus206_similarity": 0.03214285714285714,
+   "max_similarity": 0.03214285714285714,
+   "verdict": "clean"
+  },
+  {
+   "id": "16_consensus_forall",
+   "category": "distributed_ind_inv",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/CodePlexBug08/EWD840MC3.tla::k0",
+   "w2_similarity": 0.008875739644970414,
+   "corpus206_nearest": "68",
+   "corpus206_similarity": 0.020765027322404372,
+   "max_similarity": 0.020765027322404372,
+   "verdict": "clean"
+  },
+  {
+   "id": "19_sharded_kv_no_lost_keys",
+   "category": "distributed_ind_inv",
+   "w2_nearest": "data/raw/PoorlyDefinedBehaviour/formal-methods/tla_carbon_credit/spec.tla::k0",
+   "w2_similarity": 0.008862629246676515,
+   "corpus206_nearest": "102",
+   "corpus206_similarity": 0.026567481402763018,
+   "max_similarity": 0.026567481402763018,
+   "verdict": "clean"
+  },
+  {
+   "id": "1_Consensus",
+   "category": "distributed_ind_inv",
+   "w2_nearest": "data/raw/josehu07/learn-tla/Dr.-TLA+-selected/paxos/ConsensusSingle.tla::k0::w2-gen-20260710-shard1:2",
+   "w2_similarity": 0.08527131782945736,
+   "corpus206_nearest": "153",
+   "corpus206_similarity": 0.15966386554621848,
+   "max_similarity": 0.15966386554621848,
+   "verdict": "clean"
+  },
+  {
+   "id": "20_naive_consensus",
+   "category": "distributed_ind_inv",
+   "w2_nearest": "data/raw/Starydark/PaxosStore-tla/specification/deprecated/EagerVotingL.toolbox/RefineVoting/MC.tla::k0",
+   "w2_similarity": 0.019471488178025034,
+   "corpus206_nearest": "158",
+   "corpus206_similarity": 0.027629233511586453,
+   "max_similarity": 0.027629233511586453,
+   "verdict": "clean"
+  },
+  {
+   "id": "21_client_server_ae",
+   "category": "distributed_ind_inv",
+   "w2_nearest": "data/raw/vasilisnasopoulos-stack/vortex-merkle-agreement/Vortex_DSE_CSlot_AE_Proofs.tla::k0",
+   "w2_similarity": 0.007882882882882882,
+   "corpus206_nearest": "94",
+   "corpus206_similarity": 0.01904761904761905,
+   "max_similarity": 0.01904761904761905,
+   "verdict": "clean"
+  },
+  {
+   "id": "22_simple_election",
+   "category": "distributed_ind_inv",
+   "w2_nearest": "data/raw/lemmy/BlockingQueue/BlockingQueueDebug.tla::k0",
+   "w2_similarity": 0.020654044750430294,
+   "corpus206_nearest": "157",
+   "corpus206_similarity": 0.02019315188762072,
+   "max_similarity": 0.020654044750430294,
+   "verdict": "clean"
+  },
+  {
+   "id": "23_toy_consensus_epr",
+   "category": "distributed_ind_inv",
+   "w2_nearest": "data/raw/apalache-mc/apalache-tests/parametric/SetAddDel/SetAddDel_15.tla::k0",
+   "w2_similarity": 0.012422360248447204,
+   "corpus206_nearest": "158",
+   "corpus206_similarity": 0.029465930018416207,
+   "max_similarity": 0.029465930018416207,
+   "verdict": "clean"
+  },
+  {
+   "id": "24_toy_consensus",
+   "category": "distributed_ind_inv",
+   "w2_nearest": "data/raw/apalache-mc/apalache-tests/parametric/SetAddDel/SetAddDel_15.tla::k0",
+   "w2_similarity": 0.013422818791946308,
+   "corpus206_nearest": "157",
+   "corpus206_similarity": 0.01655933762649494,
+   "max_similarity": 0.01655933762649494,
+   "verdict": "clean"
+  },
+  {
+   "id": "25_client_server_db_ae",
+   "category": "distributed_ind_inv",
+   "w2_nearest": "data/raw/Cjen1/consensus-tlaplus/msfp/SimpleValue.tla::k0",
+   "w2_similarity": 0.006263048016701462,
+   "corpus206_nearest": "94",
+   "corpus206_similarity": 0.013374485596707819,
+   "max_similarity": 0.013374485596707819,
+   "verdict": "clean"
+  },
+  {
+   "id": "27_firewall",
+   "category": "distributed_ind_inv",
+   "w2_nearest": "data/raw/vasilisnasopoulos-stack/vortex-merkle-agreement/Vortex_DSE_CSlot_AE_Proofs.tla::k0",
+   "w2_similarity": 0.004576659038901602,
+   "corpus206_nearest": "70",
+   "corpus206_similarity": 0.014084507042253521,
+   "max_similarity": 0.014084507042253521,
+   "verdict": "clean"
+  },
+  {
+   "id": "28_majorityset_leader_election",
+   "category": "distributed_ind_inv",
+   "w2_nearest": "data/raw/vasilisnasopoulos-stack/vortex-merkle-agreement/Vortex_DSE_CSlot_AE_Proofs.tla::k0",
+   "w2_similarity": 0.01066925315227934,
+   "corpus206_nearest": "94",
+   "corpus206_similarity": 0.015444015444015444,
+   "max_similarity": 0.015444015444015444,
+   "verdict": "clean"
+  },
+  {
+   "id": "29_consensus_epr",
+   "category": "distributed_ind_inv",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/CodePlexBug08/EWD840MC3.tla::k0",
+   "w2_similarity": 0.01015228426395939,
+   "corpus206_nearest": "68",
+   "corpus206_similarity": 0.022573363431151242,
+   "max_similarity": 0.022573363431151242,
+   "verdict": "clean"
+  },
+  {
+   "id": "2_TCommit",
+   "category": "distributed_ind_inv",
+   "w2_nearest": "data/raw/josehu07/learn-tla/TLA+-video-course/TxnCommit/TCommit_MC.tla::k0",
+   "w2_similarity": 0.1151685393258427,
+   "corpus206_nearest": "195",
+   "corpus206_similarity": 0.6844262295081968,
+   "max_similarity": 0.6844262295081968,
+   "verdict": "contaminated"
+  },
+  {
+   "id": "30_MongoLoglessDynamicRaft",
+   "category": "distributed_ind_inv",
+   "w2_nearest": "data/raw/josehu07/learn-tla/PlusCal-tutorial/Session9/Session9sem_MC.tla::k0::w2-gen-20260710-shard0:6",
+   "w2_similarity": 0.007412898443291327,
+   "corpus206_nearest": "90",
+   "corpus206_similarity": 0.008888888888888889,
+   "max_similarity": 0.008888888888888889,
+   "verdict": "clean"
+  },
+  {
+   "id": "3_lockserver",
+   "category": "distributed_ind_inv",
+   "w2_nearest": "data/raw/apalache-mc/apalache-tests/parametric/IntClocks/IntClocks_Bounded_2.tla::k0",
+   "w2_similarity": 0.013986013986013986,
+   "corpus206_nearest": "7",
+   "corpus206_similarity": 0.0062959076600209865,
+   "max_similarity": 0.013986013986013986,
+   "verdict": "clean"
+  },
+  {
+   "id": "4_quorum_leader_election",
+   "category": "distributed_ind_inv",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/CodePlexBug08/EWD840MC3.tla::k0",
+   "w2_similarity": 0.023608768971332208,
+   "corpus206_nearest": "68",
+   "corpus206_similarity": 0.048582995951417005,
+   "max_similarity": 0.048582995951417005,
+   "verdict": "clean"
+  },
+  {
+   "id": "5_toy_consensus_forall",
+   "category": "distributed_ind_inv",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/EWD840/MC.tla::k0",
+   "w2_similarity": 0.015706806282722512,
+   "corpus206_nearest": "68",
+   "corpus206_similarity": 0.023423423423423424,
+   "max_similarity": 0.023423423423423424,
+   "verdict": "clean"
+  },
+  {
+   "id": "6_Simple",
+   "category": "distributed_ind_inv",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/DiningPhilosophers.tla::k0",
+   "w2_similarity": 0.05238828967642527,
+   "corpus206_nearest": "186",
+   "corpus206_similarity": 0.4426229508196721,
+   "max_similarity": 0.4426229508196721,
+   "verdict": "clean"
+  },
+  {
+   "id": "7_lockserv_automaton",
+   "category": "distributed_ind_inv",
+   "w2_nearest": "data/raw/vasilisnasopoulos-stack/vortex-merkle-agreement/Vortex_DSE_CSlot_AE_Proofs.tla::k0",
+   "w2_similarity": 0.013555787278415016,
+   "corpus206_nearest": "94",
+   "corpus206_similarity": 0.02130681818181818,
+   "max_similarity": 0.02130681818181818,
+   "verdict": "clean"
+  },
+  {
+   "id": "8_SimpleRegular",
+   "category": "distributed_ind_inv",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/DiningPhilosophers.tla::k0",
+   "w2_similarity": 0.04403409090909091,
+   "corpus206_nearest": "187",
+   "corpus206_similarity": 0.3776041666666667,
+   "max_similarity": 0.3776041666666667,
+   "verdict": "clean"
+  },
+  {
+   "id": "9_sharded_kv",
+   "category": "distributed_ind_inv",
+   "w2_nearest": "data/raw/vasilisnasopoulos-stack/vortex-merkle-agreement/Vortex_DSE_CSlot_AE_Proofs.tla::k0",
+   "w2_similarity": 0.010762331838565023,
+   "corpus206_nearest": "102",
+   "corpus206_similarity": 0.021415270018621976,
+   "max_similarity": 0.021415270018621976,
+   "verdict": "clean"
+  },
+  {
+   "id": "aimeII_2001_p3",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/apalache-mc/apalache-tests/parametric/IntClocks/IntClocks_Bounded_2.tla::k0",
+   "w2_similarity": 0.006578947368421052,
+   "corpus206_nearest": "43",
+   "corpus206_similarity": 0.0064516129032258064,
+   "max_similarity": 0.006578947368421052,
+   "verdict": "clean"
+  },
+  {
+   "id": "aime_1984_p7",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
+   "w2_similarity": 0.0,
+   "corpus206_nearest": "114",
+   "corpus206_similarity": 0.0012706480304955528,
+   "max_similarity": 0.0012706480304955528,
+   "verdict": "clean"
+  },
+  {
+   "id": "aime_1987_p5",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
+   "w2_similarity": 0.0,
+   "corpus206_nearest": "56",
+   "corpus206_similarity": 0.015810276679841896,
+   "max_similarity": 0.015810276679841896,
+   "verdict": "clean"
+  },
+  {
+   "id": "aime_1991_p1",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/EWD840/MC06.tla::k0::w2-gen-20260710-k3-shard0:10",
+   "w2_similarity": 0.009202453987730062,
+   "corpus206_nearest": "56",
+   "corpus206_similarity": 0.015037593984962405,
+   "max_similarity": 0.015037593984962405,
+   "verdict": "clean"
+  },
+  {
+   "id": "aime_1994_p3",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
+   "w2_similarity": 0.0,
+   "corpus206_nearest": "56",
+   "corpus206_similarity": 0.007352941176470588,
+   "max_similarity": 0.007352941176470588,
+   "verdict": "clean"
+  },
+  {
+   "id": "algebra_xmysqpymzsqpzmxsqeqxyz_xpypzp6dvdx3y3z3",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/Euclid3.tla::k0",
+   "w2_similarity": 0.0064516129032258064,
+   "corpus206_nearest": "56",
+   "corpus206_similarity": 0.01935483870967742,
+   "max_similarity": 0.01935483870967742,
+   "verdict": "clean"
+  },
+  {
+   "id": "amc12_2000_p1",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
+   "w2_similarity": 0.0,
+   "corpus206_nearest": "1",
+   "corpus206_similarity": 0.0,
+   "max_similarity": 0.0,
+   "verdict": "clean"
+  },
+  {
+   "id": "amc12_2000_p12",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
+   "w2_similarity": 0.0,
+   "corpus206_nearest": "118",
+   "corpus206_similarity": 0.0038314176245210726,
+   "max_similarity": 0.0038314176245210726,
+   "verdict": "clean"
+  },
+  {
+   "id": "amc12_2000_p6",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/josehu07/learn-tla/PlusCal-tutorial/Session9/Session9alt_MC.tla::k0::w2-gen-20260710-k3-shard2:8",
+   "w2_similarity": 0.02843601895734597,
+   "corpus206_nearest": "111",
+   "corpus206_similarity": 0.006613756613756613,
+   "max_similarity": 0.02843601895734597,
+   "verdict": "clean"
+  },
+  {
+   "id": "amc12_2001_p2",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
+   "w2_similarity": 0.0,
+   "corpus206_nearest": "110",
+   "corpus206_similarity": 0.004201680672268907,
+   "max_similarity": 0.004201680672268907,
+   "verdict": "clean"
+  },
+  {
+   "id": "amc12_2001_p21",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/muratdem/TLA-seminar/Beans/beansAlg3.tla::k0",
+   "w2_similarity": 0.00392156862745098,
+   "corpus206_nearest": "110",
+   "corpus206_similarity": 0.0037313432835820895,
+   "max_similarity": 0.00392156862745098,
+   "verdict": "clean"
+  },
+  {
+   "id": "amc12a_2002_p6",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/EWD840/MC06.tla::k0::w2-gen-20260710-k3-shard0:10",
+   "w2_similarity": 0.009554140127388535,
+   "corpus206_nearest": "68",
+   "corpus206_similarity": 0.021367521367521368,
+   "max_similarity": 0.021367521367521368,
+   "verdict": "clean"
+  },
+  {
+   "id": "amc12a_2003_p5",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
+   "w2_similarity": 0.0,
+   "corpus206_nearest": "1",
+   "corpus206_similarity": 0.0,
+   "max_similarity": 0.0,
+   "verdict": "clean"
+  },
+  {
+   "id": "amc12a_2015_p10",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
+   "w2_similarity": 0.0,
+   "corpus206_nearest": "56",
+   "corpus206_similarity": 0.01593625498007968,
+   "max_similarity": 0.01593625498007968,
+   "verdict": "clean"
+  },
+  {
+   "id": "amc12a_2021_p3",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
+   "w2_similarity": 0.0,
+   "corpus206_nearest": "56",
+   "corpus206_similarity": 0.0163265306122449,
+   "max_similarity": 0.0163265306122449,
+   "verdict": "clean"
+  },
+  {
+   "id": "amc12a_2021_p8",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/apalache-mc/apalache/test/tlaplus-suite/test59.tla::k0::w2-gen-20260710-k3-shard0:5",
+   "w2_similarity": 0.007874015748031496,
+   "corpus206_nearest": "182",
+   "corpus206_similarity": 0.04436860068259386,
+   "max_similarity": 0.04436860068259386,
+   "verdict": "clean"
+  },
+  {
+   "id": "amc12b_2002_p11",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/josehu07/learn-tla/PlusCal-tutorial/Session9/Session9alt_MC.tla::k0::w2-gen-20260710-k3-shard2:8",
+   "w2_similarity": 0.004424778761061947,
+   "corpus206_nearest": "110",
+   "corpus206_similarity": 0.011538461538461539,
+   "max_similarity": 0.011538461538461539,
+   "verdict": "clean"
+  },
+  {
+   "id": "amc12b_2002_p2",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
+   "w2_similarity": 0.0,
+   "corpus206_nearest": "56",
+   "corpus206_similarity": 0.00784313725490196,
+   "max_similarity": 0.00784313725490196,
+   "verdict": "clean"
+  },
+  {
+   "id": "amc12b_2002_p7",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/EWD840/MC06.tla::k0::w2-gen-20260710-k3-shard0:10",
+   "w2_similarity": 0.008982035928143712,
+   "corpus206_nearest": "59",
+   "corpus206_similarity": 0.013333333333333334,
+   "max_similarity": 0.013333333333333334,
+   "verdict": "clean"
+  },
+  {
+   "id": "imo_1977_p5",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/muratdem/TLA-seminar/Beans/beans.tla::k0",
+   "w2_similarity": 0.00847457627118644,
+   "corpus206_nearest": "90",
+   "corpus206_similarity": 0.017341040462427744,
+   "max_similarity": 0.017341040462427744,
+   "verdict": "clean"
+  },
+  {
+   "id": "imo_1977_p6",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
+   "w2_similarity": 0.0,
+   "corpus206_nearest": "114",
+   "corpus206_similarity": 0.007407407407407408,
+   "max_similarity": 0.007407407407407408,
+   "verdict": "clean"
+  },
+  {
+   "id": "imo_1981_p6",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/josehu07/learn-tla/PlusCal-tutorial/Session6/Session6func_MC.tla::k0",
+   "w2_similarity": 0.002777777777777778,
+   "corpus206_nearest": "56",
+   "corpus206_similarity": 0.006389776357827476,
+   "max_similarity": 0.006389776357827476,
+   "verdict": "clean"
+  },
+  {
+   "id": "imo_1982_p1",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/EWD840/MC06.tla::k0::w2-gen-20260710-k3-shard0:10",
+   "w2_similarity": 0.008333333333333333,
+   "corpus206_nearest": "59",
+   "corpus206_similarity": 0.012269938650306749,
+   "max_similarity": 0.012269938650306749,
+   "verdict": "clean"
+  },
+  {
+   "id": "imo_1987_p4",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/CharlesHoskinson/ProjectLegends/spec/tla/PALMinimal.tla::k0",
+   "w2_similarity": 0.002070393374741201,
+   "corpus206_nearest": "114",
+   "corpus206_similarity": 0.00641025641025641,
+   "max_similarity": 0.00641025641025641,
+   "verdict": "clean"
+  },
+  {
+   "id": "imo_1992_p1",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/josehu07/learn-tla/PlusCal-tutorial/Session9/Session9alt_MC.tla::k0::w2-gen-20260710-k3-shard2:8",
+   "w2_similarity": 0.008264462809917356,
+   "corpus206_nearest": "176",
+   "corpus206_similarity": 0.006237006237006237,
+   "max_similarity": 0.008264462809917356,
+   "verdict": "clean"
+  },
+  {
+   "id": "imo_1993_p5",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
+   "w2_similarity": 0.0,
+   "corpus206_nearest": "114",
+   "corpus206_similarity": 0.007471980074719801,
+   "max_similarity": 0.007471980074719801,
+   "verdict": "clean"
+  },
+  {
+   "id": "imo_2001_p6",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/josehu07/learn-tla/PlusCal-tutorial/Session9/Session9alt_MC.tla::k0::w2-gen-20260710-k3-shard2:8",
+   "w2_similarity": 0.0037593984962406013,
+   "corpus206_nearest": "177",
+   "corpus206_similarity": 0.004424778761061947,
+   "max_similarity": 0.004424778761061947,
+   "verdict": "clean"
+  },
+  {
+   "id": "imo_2019_p1",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
+   "w2_similarity": 0.0,
+   "corpus206_nearest": "110",
+   "corpus206_similarity": 0.0078125,
+   "max_similarity": 0.0078125,
+   "verdict": "clean"
+  },
+  {
+   "id": "induction_divisibility_3divnto3m2n",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/Euclid3.tla::k0",
+   "w2_similarity": 0.007874015748031496,
+   "corpus206_nearest": "91",
+   "corpus206_similarity": 0.010582010582010581,
+   "max_similarity": 0.010582010582010581,
+   "verdict": "clean"
+  },
+  {
+   "id": "induction_ineq_nsqlefactn",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/PoorlyDefinedBehaviour/formal-methods/tla_gcd/pluscal.tla::k0",
+   "w2_similarity": 0.006666666666666667,
+   "corpus206_nearest": "114",
+   "corpus206_similarity": 0.11025641025641025,
+   "max_similarity": 0.11025641025641025,
+   "verdict": "clean"
+  },
+  {
+   "id": "mathd_algebra_123",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/AntonGames/SEMM-lab1/lectures/MyGCD/MyGCD_Check.tla::k0",
+   "w2_similarity": 0.006944444444444444,
+   "corpus206_nearest": "110",
+   "corpus206_similarity": 0.0136986301369863,
+   "max_similarity": 0.0136986301369863,
+   "verdict": "clean"
+  },
+  {
+   "id": "mathd_algebra_125",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
+   "w2_similarity": 0.0,
+   "corpus206_nearest": "56",
+   "corpus206_similarity": 0.015384615384615385,
+   "max_similarity": 0.015384615384615385,
+   "verdict": "clean"
+  },
+  {
+   "id": "mathd_algebra_144",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
+   "w2_similarity": 0.0,
+   "corpus206_nearest": "110",
+   "corpus206_similarity": 0.004081632653061225,
+   "max_similarity": 0.004081632653061225,
+   "verdict": "clean"
+  },
+  {
+   "id": "mathd_algebra_296",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/apalache-mc/apalache-tests/parametric/IntClocks/IntClocks_Bounded_2.tla::k0",
+   "w2_similarity": 0.008695652173913044,
+   "corpus206_nearest": "1",
+   "corpus206_similarity": 0.0,
+   "max_similarity": 0.008695652173913044,
+   "verdict": "clean"
+  },
+  {
+   "id": "mathd_algebra_392",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/apalache-mc/apalache/test/tlaplus-suite/test59.tla::k0::w2-gen-20260710-k3-shard0:5",
+   "w2_similarity": 0.008928571428571428,
+   "corpus206_nearest": "182",
+   "corpus206_similarity": 0.028268551236749116,
+   "max_similarity": 0.028268551236749116,
+   "verdict": "clean"
+  },
+  {
+   "id": "mathd_algebra_69",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
+   "w2_similarity": 0.0,
+   "corpus206_nearest": "1",
+   "corpus206_similarity": 0.0,
+   "max_similarity": 0.0,
+   "verdict": "clean"
+  },
+  {
+   "id": "mathd_algebra_76",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/AssignmentInit.tla::k0::w2-gen-20260710-shard0:1",
+   "w2_similarity": 0.016666666666666666,
+   "corpus206_nearest": "182",
+   "corpus206_similarity": 0.009933774834437087,
+   "max_similarity": 0.016666666666666666,
+   "verdict": "clean"
+  },
+  {
+   "id": "mathd_numbertheory_110",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
+   "w2_similarity": 0.0,
+   "corpus206_nearest": "110",
+   "corpus206_similarity": 0.012987012987012988,
+   "max_similarity": 0.012987012987012988,
+   "verdict": "clean"
+  },
+  {
+   "id": "mathd_numbertheory_1124",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/Euclid3.tla::k0",
+   "w2_similarity": 0.007782101167315175,
+   "corpus206_nearest": "43",
+   "corpus206_similarity": 0.012195121951219513,
+   "max_similarity": 0.012195121951219513,
+   "verdict": "clean"
+  },
+  {
+   "id": "mathd_numbertheory_136",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/vasilisnasopoulos-stack/vortex-merkle-agreement/Vortex_DSE_CSlot_AE_Proofs.tla::k0",
+   "w2_similarity": 0.0035650623885918,
+   "corpus206_nearest": "133",
+   "corpus206_similarity": 0.011764705882352941,
+   "max_similarity": 0.011764705882352941,
+   "verdict": "clean"
+  },
+  {
+   "id": "mathd_numbertheory_150",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/Cjen1/consensus-tlaplus/msfp/SimpleValue.tla::k0",
+   "w2_similarity": 0.00911854103343465,
+   "corpus206_nearest": "91",
+   "corpus206_similarity": 0.009389671361502348,
+   "max_similarity": 0.009389671361502348,
+   "verdict": "clean"
+  },
+  {
+   "id": "mathd_numbertheory_185",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/vasilisnasopoulos-stack/vortex-merkle-agreement/Vortex_DSE_CSlot_AE_Proofs.tla::k0",
+   "w2_similarity": 0.003552397868561279,
+   "corpus206_nearest": "91",
+   "corpus206_similarity": 0.011627906976744186,
+   "max_similarity": 0.011627906976744186,
+   "verdict": "clean"
+  },
+  {
+   "id": "mathd_numbertheory_22",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
+   "w2_similarity": 0.0,
+   "corpus206_nearest": "43",
+   "corpus206_similarity": 0.00823045267489712,
+   "max_similarity": 0.00823045267489712,
+   "verdict": "clean"
+  },
+  {
+   "id": "mathd_numbertheory_234",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
+   "w2_similarity": 0.0,
+   "corpus206_nearest": "110",
+   "corpus206_similarity": 0.013215859030837005,
+   "max_similarity": 0.013215859030837005,
+   "verdict": "clean"
+  },
+  {
+   "id": "mathd_numbertheory_247",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/vasilisnasopoulos-stack/vortex-merkle-agreement/Vortex_DSE_CSlot_AE_Proofs.tla::k0",
+   "w2_similarity": 0.003552397868561279,
+   "corpus206_nearest": "91",
+   "corpus206_similarity": 0.011627906976744186,
+   "max_similarity": 0.011627906976744186,
+   "verdict": "clean"
+  },
+  {
+   "id": "mathd_numbertheory_284",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
+   "w2_similarity": 0.0,
+   "corpus206_nearest": "110",
+   "corpus206_similarity": 0.013452914798206279,
+   "max_similarity": 0.013452914798206279,
+   "verdict": "clean"
+  },
+  {
+   "id": "mathd_numbertheory_293",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/TSnapShot/MC.tla::k0",
+   "w2_similarity": 0.004629629629629629,
+   "corpus206_nearest": "91",
+   "corpus206_similarity": 0.0111731843575419,
+   "max_similarity": 0.0111731843575419,
+   "verdict": "clean"
+  },
+  {
+   "id": "mathd_numbertheory_296",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/vasilisnasopoulos-stack/vortex-merkle-agreement/Vortex_DSE_CSlot_AE_Proofs.tla::k0",
+   "w2_similarity": 0.003389830508474576,
+   "corpus206_nearest": "91",
+   "corpus206_similarity": 0.010050251256281407,
+   "max_similarity": 0.010050251256281407,
+   "verdict": "clean"
+  },
+  {
+   "id": "mathd_numbertheory_301",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/josehu07/learn-tla/PlusCal-tutorial/Session9/Session9sem_MC.tla::k0::w2-gen-20260710-shard0:6",
+   "w2_similarity": 0.004629629629629629,
+   "corpus206_nearest": "43",
+   "corpus206_similarity": 0.008695652173913044,
+   "max_similarity": 0.008695652173913044,
+   "verdict": "clean"
+  },
+  {
+   "id": "mathd_numbertheory_314",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/examples/locks_auxiliary_vars/Lock.tla::k0::w2-gen-20260710-k3-shard2:3",
+   "w2_similarity": 0.0034482758620689655,
+   "corpus206_nearest": "43",
+   "corpus206_similarity": 0.004032258064516129,
+   "max_similarity": 0.004032258064516129,
+   "verdict": "clean"
+  },
+  {
+   "id": "mathd_numbertheory_320",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/Euclid3.tla::k0",
+   "w2_similarity": 0.007722007722007722,
+   "corpus206_nearest": "91",
+   "corpus206_similarity": 0.010309278350515464,
+   "max_similarity": 0.010309278350515464,
+   "verdict": "clean"
+  },
+  {
+   "id": "mathd_numbertheory_326",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/vasilisnasopoulos-stack/vortex-merkle-agreement/Vortex_DSE_CSlot_AE_Proofs.tla::k0",
+   "w2_similarity": 0.0035087719298245615,
+   "corpus206_nearest": "91",
+   "corpus206_similarity": 0.0111731843575419,
+   "max_similarity": 0.0111731843575419,
+   "verdict": "clean"
+  },
+  {
+   "id": "mathd_numbertheory_33",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/vasilisnasopoulos-stack/vortex-merkle-agreement/Vortex_DSE_CSlot_AE_Proofs.tla::k0",
+   "w2_similarity": 0.0035211267605633804,
+   "corpus206_nearest": "91",
+   "corpus206_similarity": 0.011299435028248588,
+   "max_similarity": 0.011299435028248588,
+   "verdict": "clean"
+  },
+  {
+   "id": "mathd_numbertheory_335",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/vasilisnasopoulos-stack/vortex-merkle-agreement/Vortex_DSE_CSlot_AE_Proofs.tla::k0",
+   "w2_similarity": 0.0035460992907801418,
+   "corpus206_nearest": "91",
+   "corpus206_similarity": 0.011560693641618497,
+   "max_similarity": 0.011560693641618497,
+   "verdict": "clean"
+  },
+  {
+   "id": "mathd_numbertheory_34",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/muratdem/TLA-seminar/Beans/beansAlg3.tla::k0",
+   "w2_similarity": 0.0022222222222222222,
+   "corpus206_nearest": "182",
+   "corpus206_similarity": 0.01568627450980392,
+   "max_similarity": 0.01568627450980392,
+   "verdict": "clean"
+  },
+  {
+   "id": "mathd_numbertheory_370",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/vasilisnasopoulos-stack/vortex-merkle-agreement/Vortex_DSE_CSlot_AE_Proofs.tla::k0",
+   "w2_similarity": 0.0035335689045936395,
+   "corpus206_nearest": "91",
+   "corpus206_similarity": 0.011428571428571429,
+   "max_similarity": 0.011428571428571429,
+   "verdict": "clean"
+  },
+  {
+   "id": "mathd_numbertheory_405",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/PoorlyDefinedBehaviour/formal-methods/tla_and_pluscal_modeling_concurrency_jan_7_2025/pluscal.tla::k0",
+   "w2_similarity": 0.0038910505836575876,
+   "corpus206_nearest": "110",
+   "corpus206_similarity": 0.010380622837370242,
+   "max_similarity": 0.010380622837370242,
+   "verdict": "clean"
+  },
+  {
+   "id": "mathd_numbertheory_412",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/Test2a.tla::k0",
+   "w2_similarity": 0.01020408163265306,
+   "corpus206_nearest": "56",
+   "corpus206_similarity": 0.015209125475285171,
+   "max_similarity": 0.015209125475285171,
+   "verdict": "clean"
+  },
+  {
+   "id": "mathd_numbertheory_430",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/Loop/SystemLoop.tla::k0::w2-gen-20260710-k3-shard0:4",
+   "w2_similarity": 0.0335195530726257,
+   "corpus206_nearest": "110",
+   "corpus206_similarity": 0.003703703703703704,
+   "max_similarity": 0.0335195530726257,
+   "verdict": "clean"
+  },
+  {
+   "id": "mathd_numbertheory_457",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/PoorlyDefinedBehaviour/formal-methods/tla_gcd/pluscal.tla::k0",
+   "w2_similarity": 0.006134969325153374,
+   "corpus206_nearest": "114",
+   "corpus206_similarity": 0.10669975186104218,
+   "max_similarity": 0.10669975186104218,
+   "verdict": "clean"
+  },
+  {
+   "id": "mathd_numbertheory_458",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/vasilisnasopoulos-stack/vortex-merkle-agreement/Vortex_DSE_CSlot_AE_Proofs.tla::k0",
+   "w2_similarity": 0.0035650623885918,
+   "corpus206_nearest": "133",
+   "corpus206_similarity": 0.011764705882352941,
+   "max_similarity": 0.011764705882352941,
+   "verdict": "clean"
+  },
+  {
+   "id": "mathd_numbertheory_48",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
+   "w2_similarity": 0.0,
+   "corpus206_nearest": "158",
+   "corpus206_similarity": 0.0026455026455026454,
+   "max_similarity": 0.0026455026455026454,
+   "verdict": "clean"
+  },
+  {
+   "id": "mathd_numbertheory_483",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/vasilisnasopoulos-stack/vortex-merkle-agreement/Vortex_DSE_CSlot_AE_Proofs.tla::k0",
+   "w2_similarity": 0.00333889816360601,
+   "corpus206_nearest": "93",
+   "corpus206_similarity": 0.008849557522123894,
+   "max_similarity": 0.008849557522123894,
+   "verdict": "clean"
+  },
+  {
+   "id": "mathd_numbertheory_5",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/vasilisnasopoulos-stack/vortex-merkle-agreement/Vortex_DSE_CSlot_AE_Proofs.tla::k0",
+   "w2_similarity": 0.003430531732418525,
+   "corpus206_nearest": "91",
+   "corpus206_similarity": 0.010416666666666666,
+   "max_similarity": 0.010416666666666666,
+   "verdict": "clean"
+  },
+  {
+   "id": "mathd_numbertheory_521",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/apalache-mc/apalache/test/tlaplus-suite/test59.tla::k0::w2-gen-20260710-k3-shard0:5",
+   "w2_similarity": 0.010309278350515464,
+   "corpus206_nearest": "182",
+   "corpus206_similarity": 0.03759398496240601,
+   "max_similarity": 0.03759398496240601,
+   "verdict": "clean"
+  },
+  {
+   "id": "mathd_numbertheory_541",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
+   "w2_similarity": 0.0,
+   "corpus206_nearest": "33",
+   "corpus206_similarity": 0.005319148936170213,
+   "max_similarity": 0.005319148936170213,
+   "verdict": "clean"
+  },
+  {
+   "id": "mathd_numbertheory_559",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
+   "w2_similarity": 0.0,
+   "corpus206_nearest": "56",
+   "corpus206_similarity": 0.015810276679841896,
+   "max_similarity": 0.015810276679841896,
+   "verdict": "clean"
+  },
+  {
+   "id": "mathd_numbertheory_582",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/EWD840/MC06.tla::k0::w2-gen-20260710-k3-shard0:10",
+   "w2_similarity": 0.009036144578313253,
+   "corpus206_nearest": "68",
+   "corpus206_similarity": 0.01984126984126984,
+   "max_similarity": 0.01984126984126984,
+   "verdict": "clean"
+  },
+  {
+   "id": "mathd_numbertheory_64",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
+   "w2_similarity": 0.0,
+   "corpus206_nearest": "182",
+   "corpus206_similarity": 0.011583011583011582,
+   "max_similarity": 0.011583011583011582,
+   "verdict": "clean"
+  },
+  {
+   "id": "mathd_numbertheory_690",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/EWD840/MC06.tla::k0::w2-gen-20260710-k3-shard0:10",
+   "w2_similarity": 0.00946372239747634,
+   "corpus206_nearest": "59",
+   "corpus206_similarity": 0.014134275618374558,
+   "max_similarity": 0.014134275618374558,
+   "verdict": "clean"
+  },
+  {
+   "id": "mathd_numbertheory_765",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
+   "w2_similarity": 0.0,
+   "corpus206_nearest": "56",
+   "corpus206_similarity": 0.008130081300813009,
+   "max_similarity": 0.008130081300813009,
+   "verdict": "clean"
+  },
+  {
+   "id": "mathd_numbertheory_780",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
+   "w2_similarity": 0.0,
+   "corpus206_nearest": "114",
+   "corpus206_similarity": 0.0012406947890818859,
+   "max_similarity": 0.0012406947890818859,
+   "verdict": "clean"
+  },
+  {
+   "id": "mathd_numbertheory_92",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/vasilisnasopoulos-stack/vortex-merkle-agreement/Vortex_DSE_CSlot_AE_Proofs.tla::k0",
+   "w2_similarity": 0.003552397868561279,
+   "corpus206_nearest": "91",
+   "corpus206_similarity": 0.011627906976744186,
+   "max_similarity": 0.011627906976744186,
+   "verdict": "clean"
+  },
+  {
+   "id": "mathd_numbertheory_99",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/vasilisnasopoulos-stack/vortex-merkle-agreement/Vortex_DSE_CSlot_AE_Proofs.tla::k0",
+   "w2_similarity": 0.003552397868561279,
+   "corpus206_nearest": "91",
+   "corpus206_similarity": 0.011627906976744186,
+   "max_similarity": 0.011627906976744186,
+   "verdict": "clean"
+  },
+  {
+   "id": "numbertheory_4x3m7y3neq2003",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
+   "w2_similarity": 0.0,
+   "corpus206_nearest": "56",
+   "corpus206_similarity": 0.016597510373443983,
+   "max_similarity": 0.016597510373443983,
+   "verdict": "clean"
+  },
+  {
+   "id": "numbertheory_aoddbdiv4asqpbsqmod8eq1",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/AntonGames/SEMM-lab1/lectures/MyGCD/MyGCD_Check.tla::k0",
+   "w2_similarity": 0.00625,
+   "corpus206_nearest": "176",
+   "corpus206_similarity": 0.011441647597254004,
+   "max_similarity": 0.011441647597254004,
+   "verdict": "clean"
+  },
+  {
+   "id": "numbertheory_notequiv2i2jasqbsqdiv8",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/cs6213/tlaplus-examples/specs/TCommit.tla::k0",
+   "w2_similarity": 0.007194244604316547,
+   "corpus206_nearest": "176",
+   "corpus206_similarity": 0.011235955056179775,
+   "max_similarity": 0.011235955056179775,
+   "verdict": "clean"
+  },
+  {
+   "id": "numbertheory_prmdvsneqnsqmodpeq0",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/Euclid3.tla::k0",
+   "w2_similarity": 0.006666666666666667,
+   "corpus206_nearest": "88",
+   "corpus206_similarity": 0.008645533141210375,
+   "max_similarity": 0.008645533141210375,
+   "verdict": "clean"
+  },
+  {
+   "id": "numbertheory_sqmod3in01d",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/Starydark/PaxosStore-tla/specification/deprecated/EagerVotingL.toolbox/RefineVoting/MC.tla::k0",
+   "w2_similarity": 0.003067484662576687,
+   "corpus206_nearest": "155",
+   "corpus206_similarity": 0.004149377593360996,
+   "max_similarity": 0.004149377593360996,
+   "verdict": "clean"
+  },
+  {
+   "id": "numbertheory_sqmod4in01d",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/Starydark/PaxosStore-tla/specification/deprecated/EagerVotingL.toolbox/RefineVoting/MC.tla::k0",
+   "w2_similarity": 0.0030581039755351682,
+   "corpus206_nearest": "155",
+   "corpus206_similarity": 0.004132231404958678,
+   "max_similarity": 0.004132231404958678,
+   "verdict": "clean"
+  },
+  {
+   "id": "numbertheory_x5neqy2p4",
+   "category": "math/minif2f",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
+   "w2_similarity": 0.0,
+   "corpus206_nearest": "56",
+   "corpus206_similarity": 0.016666666666666666,
+   "max_similarity": 0.016666666666666666,
+   "verdict": "clean"
+  },
+  {
+   "id": "exercise_11_13_3",
+   "category": "math/proofnet",
+   "w2_nearest": "data/raw/apalache-mc/apalache-bench/performance/ewd840/MC4.tla::k0",
+   "w2_similarity": 0.008379888268156424,
+   "corpus206_nearest": "176",
+   "corpus206_similarity": 0.0064516129032258064,
+   "max_similarity": 0.008379888268156424,
+   "verdict": "clean"
+  },
+  {
+   "id": "exercise_18_4",
+   "category": "math/proofnet",
+   "w2_nearest": "data/raw/informalsystems/modelator-py/tests/resource/TlcMultipleTraceParse.tla::k0",
+   "w2_similarity": 0.00980392156862745,
+   "corpus206_nearest": "91",
+   "corpus206_similarity": 0.009009009009009009,
+   "max_similarity": 0.00980392156862745,
+   "verdict": "clean"
+  },
+  {
+   "id": "exercise_1_1_2a",
+   "category": "math/proofnet",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
+   "w2_similarity": 0.0,
+   "corpus206_nearest": "110",
+   "corpus206_similarity": 0.005154639175257732,
+   "max_similarity": 0.005154639175257732,
+   "verdict": "clean"
+  },
+  {
+   "id": "exercise_1_1_3",
+   "category": "math/proofnet",
+   "w2_nearest": "data/raw/vasilisnasopoulos-stack/vortex-merkle-agreement/Vortex_DSE_CSlot_AE_Proofs.tla::k0",
+   "w2_similarity": 0.0034542314335060447,
+   "corpus206_nearest": "110",
+   "corpus206_similarity": 0.0045871559633027525,
+   "max_similarity": 0.0045871559633027525,
+   "verdict": "clean"
+  },
+  {
+   "id": "exercise_1_1_4",
+   "category": "math/proofnet",
+   "w2_nearest": "data/raw/vasilisnasopoulos-stack/vortex-merkle-agreement/Vortex_DSE_CSlot_AE_Proofs.tla::k0",
+   "w2_similarity": 0.0034602076124567475,
+   "corpus206_nearest": "43",
+   "corpus206_similarity": 0.008264462809917356,
+   "max_similarity": 0.008264462809917356,
+   "verdict": "clean"
+  },
+  {
+   "id": "exercise_1_27",
+   "category": "math/proofnet",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/AssignmentInit.tla::k0::w2-gen-20260710-shard0:1",
+   "w2_similarity": 0.018050541516245487,
+   "corpus206_nearest": "91",
+   "corpus206_similarity": 0.01,
+   "max_similarity": 0.018050541516245487,
+   "verdict": "clean"
+  },
+  {
+   "id": "exercise_2000_a2",
+   "category": "math/proofnet",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/Loop/SystemLoop.tla::k0::w2-gen-20260710-k3-shard0:4",
+   "w2_similarity": 0.014925373134328358,
+   "corpus206_nearest": "43",
+   "corpus206_similarity": 0.009584664536741214,
+   "max_similarity": 0.014925373134328358,
+   "verdict": "clean"
+  },
+  {
+   "id": "exercise_3_10",
+   "category": "math/proofnet",
+   "w2_nearest": "data/raw/PoorlyDefinedBehaviour/formal-methods/tla_gcd/pluscal.tla::k0",
+   "w2_similarity": 0.005797101449275362,
+   "corpus206_nearest": "114",
+   "corpus206_similarity": 0.10692588092345079,
+   "max_similarity": 0.10692588092345079,
+   "verdict": "clean"
+  },
+  {
+   "id": "exercise_3_4",
+   "category": "math/proofnet",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
+   "w2_similarity": 0.0,
+   "corpus206_nearest": "56",
+   "corpus206_similarity": 0.004166666666666667,
+   "max_similarity": 0.004166666666666667,
+   "verdict": "clean"
+  },
+  {
+   "id": "exercise_3_5",
+   "category": "math/proofnet",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/pcal/FastMutexWithGoto2.tla::k0",
+   "w2_similarity": 0.0,
+   "corpus206_nearest": "56",
+   "corpus206_similarity": 0.004098360655737705,
+   "max_similarity": 0.004098360655737705,
+   "verdict": "clean"
+  },
+  {
+   "id": "exercise_5_13",
+   "category": "math/proofnet",
+   "w2_nearest": "data/raw/josehu07/learn-tla/PlusCal-tutorial/Session9/Session9alt_MC.tla::k0::w2-gen-20260710-k3-shard2:8",
+   "w2_similarity": 0.00851063829787234,
+   "corpus206_nearest": "176",
+   "corpus206_similarity": 0.006329113924050633,
+   "max_similarity": 0.00851063829787234,
+   "verdict": "clean"
+  },
+  {
+   "id": "exercise_5_28",
+   "category": "math/proofnet",
+   "w2_nearest": "data/raw/tlaplus/tlaplus/tlatools/org.lamport.tlatools/test-model/examples/locks_auxiliary_vars/Lock.tla::k0",
+   "w2_similarity": 0.009584664536741214,
+   "corpus206_nearest": "184",
+   "corpus206_similarity": 0.008130081300813009,
+   "max_similarity": 0.009584664536741214,
+   "verdict": "clean"
+  }
+ ],
+ "disposition_2_TCommit": {
+  "date": "2026-07-17",
+  "decision": "KEEP in bench with flag; headline W3 numbers reported at n=118 (excluding 2_TCommit) with n=119 alongside",
+  "rationale": "0.684-to-corpus-195 is shared-ancestor overlap (both derive from Lamport's published TCommit), not pipeline leakage; the bench theorem's PROOF is still absent from all our artifacts EXCEPT the W3.3 retrieval index, which contains proved obligations from spec 195's module family. Any W3 run using retrieval must count 2_TCommit as retrieval-contaminated and exclude it from the retrieval-arm headline.",
+  "action_required_in_reports": "proof_gen/report runs: stratify 2_TCommit out of headline; note retrieval provenance if its proof cites index entries sourced from spec 195 traces."
+ }
 }
