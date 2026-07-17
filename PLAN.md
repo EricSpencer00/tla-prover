@@ -408,3 +408,26 @@ teachers) — ledgered as the one condition that invalidates this shelving.
 
 Amendment audit line: records a measurement and a stop-decision; changes no bar; the only metric
 motion reported is adverse to the fine-tune. Both runs' rows.jsonl committed.
+
+### Amendment 18 (2026-07-17) — W2.7 and W3.2 measured on base 120b (ALCF shared endpoint): scaffolding null, proof generation at floor
+
+Both experiments ran clean (0 api_error rows) against the hot shared endpoint (openai/gpt-oss-120b),
+concurrency 4, RPM 120. Runs: w27-control-120b, w27-scaffold-120b, w32-probe-120b (ledgers committed).
+
+**W2.7 structural scaffolding (70 never-survived seeds): control 4/70, scaffold 4/70.** Overlap of the
+two pass-sets is a single seed — scaffolding reshuffles WHICH hard seeds survive but adds zero yield.
+Dominant rejection in BOTH arms: sany_fail 41/70 (59%) — on hard seeds the model's failure is basic
+parse validity, which prompt-level structure cannot fix. Tier-1 of the structural plan is therefore
+NULL; the evidence points at tier-2 (grammar-constrained decoding) as the only structural lever with a
+mechanism matching the observed failure mode.
+
+**W3.2 prompt-only proof generation (lmgpa n=20 probe incl. flagged 2_TCommit): 0/20 certified**
+(vs the 0/119 honest floor). ~4.4 iterations/theorem with tlapm error evidence + W3.3 retrieval; every
+attempt dies in tlapm's proof parser ("unexpected end of (sub)proof before QED") — the model cannot
+produce syntactically valid TLAPS proof structure, consistent with the 2026-07-07 repair-vs-generate
+asymmetry. Stage-3 conclusion: prompt-only proof GENERATION is dead at n=20; the live Stage-3 paths
+are repair-and-extend on existing proof skeletons and grammar-constrained proof emission.
+
+Program state after this amendment: the verified-loop production system (Amendment 17) stands as the
+deliverable; remaining capability levers are (a) grammar-constrained decoding for both spec syntax and
+proof syntax — one mechanism addressing both measured failure modes — and (b) Stage-3 repair-and-extend.
