@@ -109,7 +109,7 @@ def run_w4(model, out_dir: Path, n_cells: int, lattice_seed: int = 20260717,
         # resume instead of burying the cell forever
         done = {r["cell"] for r in map(json.loads,
                 (l for l in attempts.read_text().splitlines() if l.strip()))
-                if r.get("rejection_reason") != "nl_missing_property"}
+                if r.get("rejection_reason") not in ("nl_missing_property", "api_error")}
     if canon is None:
         canon = load_canonical()
     from .w2_loop import decontam_survivor
@@ -129,8 +129,13 @@ def run_w4(model, out_dir: Path, n_cells: int, lattice_seed: int = 20260717,
             prop=PROPERTIES[c[2]], twist=TWISTS[c[3]])
         base = {"cell": key, "timestamp": time.time(), "model": model.id}
         nl = None
+        api_err = False
         for _try in range(3):
             [reply] = model.generate(prompt, 1, 1.0, 2048)
+            if isinstance(reply, str) and reply.startswith("[api_error"):
+                api_err = True
+                continue
+            api_err = False
             try:
                 nl = parse_nl(reply)
                 break
@@ -138,7 +143,7 @@ def run_w4(model, out_dir: Path, n_cells: int, lattice_seed: int = 20260717,
                 continue
         if nl is None:
             return {**base, "survived": False,
-                    "rejection_reason": "nl_missing_property"}
+                    "rejection_reason": "api_error" if api_err else "nl_missing_property"}
         wd = out_dir / "work" / key
         wd.mkdir(parents=True, exist_ok=True)
         r = run_loop_for_seed(model, nl, module_name_for(c), wd,
