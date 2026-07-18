@@ -14,22 +14,22 @@ by ::= "BY " soup ("\n" "  " " "* soup)*
 # first char restrictions live in `cont`, not here
 soup ::= [ -~]+   # printable ASCII only: control chars and non-ASCII degenerate under constrained decoding and tlapm rejects them anyway
 
-struct1 ::= (step1 | cmt)+ qed1
+struct1 ::= step1+ qed1
 step1 ::= ind "<1>" lbl bare_assert sub1?
 qed1 ::= ind "<1>" lbl? "QED" qedproof2
 sub1 ::= ind leaf "\n" | struct2
 
-struct2 ::= (step2 | cmt)+ qed2
+struct2 ::= step2+ qed2
 step2 ::= ind "<2>" lbl bare_assert sub2?
 qed2 ::= ind "<2>" lbl? "QED" qedproof3
 sub2 ::= ind leaf "\n" | struct3
 
-struct3 ::= (step3 | cmt)+ qed3
+struct3 ::= step3+ qed3
 step3 ::= ind "<3>" lbl bare_assert sub3?
 qed3 ::= ind "<3>" lbl? "QED" qedproof4
 sub3 ::= ind leaf "\n" | struct4
 
-struct4 ::= (step4 | cmt)+ qed4
+struct4 ::= step4+ qed4
 step4 ::= ind "<4>" lbl bare_assert leafnl?
 qed4 ::= ind "<4>" lbl? "QED" qedleaf
 leafnl ::= ind leaf "\n"
