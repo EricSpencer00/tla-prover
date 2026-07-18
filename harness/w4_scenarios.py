@@ -105,7 +105,11 @@ def run_w4(model, out_dir: Path, n_cells: int, lattice_seed: int = 20260717,
     survivors = out_dir / "w2_survivors.jsonl"   # corpus_prep-compatible name
     done = set()
     if attempts.exists():
-        done = {json.loads(l)["cell"] for l in attempts.read_text().splitlines() if l.strip()}
+        # nl_missing_property rejects cost one generation -- retry them on
+        # resume instead of burying the cell forever
+        done = {r["cell"] for r in map(json.loads,
+                (l for l in attempts.read_text().splitlines() if l.strip()))
+                if r.get("rejection_reason") != "nl_missing_property"}
     if canon is None:
         canon = load_canonical()
     from .w2_loop import decontam_survivor
@@ -123,11 +127,16 @@ def run_w4(model, out_dir: Path, n_cells: int, lattice_seed: int = 20260717,
         prompt = SCENARIO_PROMPT.format(
             domain=DOMAINS[c[0]], mechanism=MECHANISMS[c[1]],
             prop=PROPERTIES[c[2]], twist=TWISTS[c[3]])
-        [reply] = model.generate(prompt, 1, 1.0, 2048)
         base = {"cell": key, "timestamp": time.time(), "model": model.id}
-        try:
-            nl = parse_nl(reply)
-        except NLMissingProperty:
+        nl = None
+        for _try in range(3):
+            [reply] = model.generate(prompt, 1, 1.0, 2048)
+            try:
+                nl = parse_nl(reply)
+                break
+            except NLMissingProperty:
+                continue
+        if nl is None:
             return {**base, "survived": False,
                     "rejection_reason": "nl_missing_property"}
         wd = out_dir / "work" / key
