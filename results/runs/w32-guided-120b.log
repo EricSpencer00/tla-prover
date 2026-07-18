@@ -1,0 +1,25 @@
+[proof_gen] 10_lockserv: certified=False tally=0/20
+[proof_gen] 11_TwoPhase: certified=False tally=0/20
+[proof_gen] 13_simple_decentralized_lock: certified=False tally=0/20
+[proof_gen] 14_two_phase_commit: certified=False tally=0/20
+[proof_gen] 15_consensus_wo_decide: certified=False tally=0/20
+[proof_gen] 16_consensus_forall: certified=False tally=0/20
+[proof_gen] 19_sharded_kv_no_lost_keys: certified=False tally=0/20
+[proof_gen] 1_Consensus: certified=False tally=0/20
+[proof_gen] 20_naive_consensus: certified=False tally=0/20
+[proof_gen] 21_client_server_ae: certified=False tally=0/20
+[proof_gen] 22_simple_election: certified=False tally=0/20
+[proof_gen] 23_toy_consensus_epr: certified=False tally=0/20
+[proof_gen] 24_toy_consensus: certified=False tally=0/20
+[proof_gen] 25_client_server_db_ae: certified=False tally=0/20
+[proof_gen] 27_firewall: certified=False tally=0/20
+[proof_gen] 28_majorityset_leader_election: certified=False tally=0/20
+[proof_gen] 29_consensus_epr: certified=False tally=0/20
+[proof_gen] 2_TCommit: certified=False tally=0/20
+[proof_gen] 30_MongoLoglessDynamicRaft: certified=False tally=0/20
+[proof_gen] 3_lockserver: certified=False tally=0/20
+{
+  "n_certified": 0,
+  "n_total": 20,
+  "floor": "0/20"
+}

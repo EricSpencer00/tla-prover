@@ -431,3 +431,31 @@ are repair-and-extend on existing proof skeletons and grammar-constrained proof 
 Program state after this amendment: the verified-loop production system (Amendment 17) stands as the
 deliverable; remaining capability levers are (a) grammar-constrained decoding for both spec syntax and
 proof syntax — one mechanism addressing both measured failure modes — and (b) Stage-3 repair-and-extend.
+
+### Amendment 19 (2026-07-18) — Tier-2 grammar-constrained decoding: measured null on proofs, closed on specs; structural levers exhausted at prompt/decode level
+
+**W3.2 guided (proof grammar v0.3, run w32-guided-120b, complete):** 0/20 certified, 80/80
+iteration rows tlapm_status=error with 0 obligations — identical to the unguided 0/20. The
+grammar provably forced block-level structure (QED-closed subproofs, ASCII, termination;
+validated 241/255 real proof blocks + live single-shots), and tlapm parse failures simply
+moved one level down, into step-internal syntax (ASSUME without PROVE, malformed expressions).
+Enforcing THAT level means a full TLAPS assertion/expression grammar — at which point the
+grammar, not the model, is writing the proof skeleton. Conclusion: prompt-only proof
+generation stays dead regardless of decode-time structure; Stage-3's live path is
+repair-and-extend on existing human proof skeletons (per the 2026-07-07 asymmetry), plus the
+W3.3 retrieval index for premise selection.
+
+**W2.7 guided (spec grammar): closed WITHOUT a run.** Pre-registered offline bound: the
+structural grammar rejects only 10/505 (2%) of the actual failed candidates — hard-seed
+sany_fails are expression-level, not mechanical. Combined with the serving cost (the dev
+vLLM's structured-outputs path killed the engine twice: jobs 165652, 165692 — trap ledgered
+in the HPC preflight checklist), a 70-seed guided run cannot move 4/70 outside noise and
+risks the serve window. Recorded as: tier-2 spec-side NULL by pre-registered bound.
+
+**Program consequence:** the structural-representation ladder (Amendment 18) is exhausted at
+tiers 1-2. Capability levers remaining: the W4 lattice funnel (corpus diversity, running),
+cross-family teachers (W4 design doc, needs Eric's spend decision), and Stage-3
+repair-and-extend. The verified-loop production system (Amendment 17) remains the deliverable.
+
+Audit line: two measured/bounded nulls, no bar changed, all rows committed; serve-crash trap
+documented with reproduction jobs.
