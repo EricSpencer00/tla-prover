@@ -12,25 +12,25 @@ leaf ::= "OBVIOUS" | "OMITTED" | by
 by ::= "BY " soup ("\n" "  " " "* soup)*
 # soup may contain "<" (step-label citations like <1>2); continuation-line
 # first char restrictions live in `cont`, not here
-soup ::= [^\n]+
+soup ::= [ -~]+   # printable ASCII only: control chars and non-ASCII degenerate under constrained decoding and tlapm rejects them anyway
 
 struct1 ::= (step1 | cmt)+ qed1
-step1 ::= ind "<1>" lbl assertion sub1?
+step1 ::= ind "<1>" lbl bare_assert sub1?
 qed1 ::= ind "<1>" lbl? "QED" qedproof2
 sub1 ::= ind leaf "\n" | struct2
 
 struct2 ::= (step2 | cmt)+ qed2
-step2 ::= ind "<2>" lbl assertion sub2?
+step2 ::= ind "<2>" lbl bare_assert sub2?
 qed2 ::= ind "<2>" lbl? "QED" qedproof3
 sub2 ::= ind leaf "\n" | struct3
 
 struct3 ::= (step3 | cmt)+ qed3
-step3 ::= ind "<3>" lbl assertion sub3?
+step3 ::= ind "<3>" lbl bare_assert sub3?
 qed3 ::= ind "<3>" lbl? "QED" qedproof4
 sub3 ::= ind leaf "\n" | struct4
 
 struct4 ::= (step4 | cmt)+ qed4
-step4 ::= ind "<4>" lbl assertion leafnl?
+step4 ::= ind "<4>" lbl bare_assert leafnl?
 qed4 ::= ind "<4>" lbl? "QED" qedleaf
 leafnl ::= ind leaf "\n"
 
@@ -41,9 +41,14 @@ qedproof4 ::= " "+ leaf "\n" | " "* "\n" (ind leaf "\n" | struct4)?
 qedleaf ::= " "+ leaf "\n" | " "* "\n" (ind leaf "\n")?
 
 ind ::= " "*
-cmt ::= " "* "\\*" [^\n]* "\n" | " "* "\n"
-# step label: "3." / "a." style or bare space
+cmt ::= " "* "\\*" [ -~]* "\n" | " "* "\n"
+# labeled step: "3." / "a." style; QED steps may be labeled or bare
 lbl ::= [A-Za-z0-9_]* "."? " "+
+# a bare-space step's assertion must not BE a QED line (else "<1> QED ..."
+# ambiguously parses as an unlabeled step and the struct never terminates,
+# which under constrained decoding forces degenerate infinite steps)
+bare_assert ::= nq "\n" (cont "\n")*
+nq ::= [ -PR-~] [ -~]* | "Q" ( [ -DF-~] [ -~]* )? | "QE" ( [ -CE-~] [ -~]* )? | "QED" [A-Za-z0-9_] [ -~]*
 # assertion: rest of line + continuation lines that don't start a new step
-assertion ::= [^\n]* "\n" (cont "\n")*
-cont ::= " "+ [^\n< ] [^\n]* | " "+
+assertion ::= [ -~]* "\n" (cont "\n")*
+cont ::= " "+ [!-;=-~] [ -~]* | " "+
