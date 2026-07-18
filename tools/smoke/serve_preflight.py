@@ -60,7 +60,7 @@ def main():
               {"model": a.model, "max_tokens": 32,
                "messages": [{"role": "user", "content": "Say OK."}]})
     msg = (d.get("choices") or [{}])[0].get("message") or {}
-    if not (msg.get("content") or msg.get("reasoning_content")):
+    if not (msg.get("content") or msg.get("reasoning_content") or msg.get("reasoning")):
         sys.exit(f"PREFLIGHT FAIL: empty completion: {json.dumps(d)[:400]}")
     print("      ok")
 
