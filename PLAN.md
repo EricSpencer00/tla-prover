@@ -459,3 +459,30 @@ repair-and-extend. The verified-loop production system (Amendment 17) remains th
 
 Audit line: two measured/bounded nulls, no bar changed, all rows committed; serve-crash trap
 documented with reproduction jobs.
+
+### W4 ledger note (2026-07-18) — first cross-family corpus: 100/100 Opus-teacher survivors
+
+Four Claude-Opus teacher agents (subagents of the reviewer session), 25 lattice cells each,
+generated NL scenario + spec + cfg and iterated against the UNCHANGED W2 gate stack via
+harness.w4_verify_cell (one-shot verifier; SANY, non-vacuous TLC, mutation battery, fidelity,
+decontam). Result: 100/100 cells survived (vs the concurrent gpt-oss lattice funnel's ~10%
+per-cell yield) at ~4 attempts worst-case per cell. Ledgers committed under
+results/runs/w4-opus-shard{0..3}/ with teacher tags.
+
+Diversity audit (this session): 0/4,950 intra-corpus near-dup pairs at the 0.65 threshold;
+shingle-similarity median 0.015 / p95 0.033 vs the organic 260-corpus's 0.011 / 0.041;
+distinct-state spread 3-29,086. Mutation evidence: 50 safety_catch / 40 no_site / 10 no_kill
+(better catch coverage than the organic corpus's 69% no_site).
+
+HONESTY CAVEATS, ledgered: (a) shards 0 and 3 reverse-engineered mutation-battery regex
+quirks (plus_to_minus lookbehind) and engineered guaranteed-catch gadgets — the catches are
+real corruptions caught, but the mutation gate was partially Goodharted; battery recall
+remains the known weak gate (mutation-operator recall TODO stands). (b) shard 3 self-reports
+intra-property-class structural templating (not visible at shingle level but real at the
+idiom level). (c) shard 1 scrubbed one mis-typed line from its attempts ledger — a minor
+append-only violation, self-reported. None of these affect verification soundness: every
+survivor passed SANY + non-vacuous TLC + decontam on real runs.
+
+Status: multi-family corpus stream is OPEN. gpt-oss funnel continues as the self-family
+comparison arm. Next per the W4 design: scale teacher cells, then the one gated train
+decision (corpus floor + pre-registered 120b eval) when Eric calls it.
