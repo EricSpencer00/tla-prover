@@ -1,0 +1,160 @@
+{
+  "collapse_ratio_threshold": 0.5,
+  "collapse_flag": false,
+  "survivor_count": 400,
+  "holdout_count": 30,
+  "complexity_score": {
+    "survivors": {
+      "median": 44.75,
+      "p25": 35.7,
+      "p75": 56.3,
+      "mean": 46.785,
+      "n": 400
+    },
+    "holdout": {
+      "median": 54.05,
+      "p25": 12.8,
+      "p75": 164.2,
+      "mean": 102.453,
+      "n": 30
+    }
+  },
+  "features": {
+    "num_variables": {
+      "survivors": {
+        "median": 3.0,
+        "p25": 2,
+        "p75": 4,
+        "mean": 3.025,
+        "n": 400
+      },
+      "holdout": {
+        "median": 0.0,
+        "p25": 0,
+        "p75": 4,
+        "mean": 2.9,
+        "n": 30
+      },
+      "median_ratio": null
+    },
+    "num_definitions": {
+      "survivors": {
+        "median": 9.0,
+        "p25": 8,
+        "p75": 11,
+        "mean": 9.688,
+        "n": 400
+      },
+      "holdout": {
+        "median": 12.0,
+        "p25": 2,
+        "p75": 23,
+        "mean": 16.033,
+        "n": 30
+      },
+      "median_ratio": 0.75
+    },
+    "extends_depth": {
+      "survivors": {
+        "median": 1.0,
+        "p25": 1,
+        "p75": 1,
+        "mean": 1.22,
+        "n": 400
+      },
+      "holdout": {
+        "median": 1.0,
+        "p25": 1,
+        "p75": 3,
+        "mean": 1.7,
+        "n": 30
+      },
+      "median_ratio": 1.0
+    },
+    "num_disjuncts": {
+      "survivors": {
+        "median": 3.0,
+        "p25": 2,
+        "p75": 5,
+        "mean": 3.518,
+        "n": 400
+      },
+      "holdout": {
+        "median": 2.0,
+        "p25": 0,
+        "p75": 7,
+        "mean": 5.833,
+        "n": 30
+      },
+      "median_ratio": 1.5
+    },
+    "num_conjuncts": {
+      "survivors": {
+        "median": 16.5,
+        "p25": 11,
+        "p75": 23,
+        "mean": 17.44,
+        "n": 400
+      },
+      "holdout": {
+        "median": 17.0,
+        "p25": 0,
+        "p75": 48,
+        "mean": 34.767,
+        "n": 30
+      },
+      "median_ratio": 0.971
+    },
+    "temporal_op_count": {
+      "survivors": {
+        "median": 1.0,
+        "p25": 1,
+        "p75": 1,
+        "mean": 1.01,
+        "n": 400
+      },
+      "holdout": {
+        "median": 2.0,
+        "p25": 0,
+        "p75": 5,
+        "mean": 7.233,
+        "n": 30
+      },
+      "median_ratio": 0.5
+    },
+    "noncomment_loc": {
+      "survivors": {
+        "median": 17.0,
+        "p25": 14,
+        "p75": 39,
+        "mean": 26.16,
+        "n": 400
+      },
+      "holdout": {
+        "median": 97.0,
+        "p25": 13,
+        "p75": 210,
+        "mean": 166.867,
+        "n": 30
+      },
+      "median_ratio": 0.175
+    },
+    "comment_ratio": {
+      "survivors": {
+        "median": 0.0,
+        "p25": 0.0,
+        "p75": 0.0,
+        "mean": 0.0,
+        "n": 400
+      },
+      "holdout": {
+        "median": 0.004,
+        "p25": 0.0,
+        "p75": 0.027,
+        "mean": 0.066,
+        "n": 30
+      },
+      "median_ratio": 0.0
+    }
+  }
+}
