@@ -25,6 +25,10 @@
     "w4opus::d19-m5-p3-t0": "keep-last (corrected NL appended per correction-row rule; spec identical; shard-33 report)",
     "w4opus::d1-m4-p0-t0": "keep-last (tier-enriched correction row; shard-35 report)",
     "w4opus::d9-m1-p3-t0": "keep-last (tier-enriched correction row; shard-35 report)",
-    "w4opus::d8-m7-p2-t1": "keep-last (duplicate append in shard-34; verify pending agent report, spec fields identical or last is authoritative)"
+    "w4opus::d8-m7-p2-t1": "keep-last (duplicate append in shard-34; verify pending agent report, spec fields identical or last is authoritative)",
+    "w4opus::d11-m3-p0-t0": "keep-last (correction row; shard-36 report)",
+    "w4opus::d16-m2-p0-t4": "keep-last (correction row; shard-36 report)",
+    "w4opus::d1-m6-p1-t2": "keep-last (correction row; shard-36 report)",
+    "w4opus::d4-m2-p6-t1": "keep-last (correction row; shard-36 report)"
   }
 }
