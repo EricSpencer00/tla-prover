@@ -486,3 +486,23 @@ survivor passed SANY + non-vacuous TLC + decontam on real runs.
 Status: multi-family corpus stream is OPEN. gpt-oss funnel continues as the self-family
 comparison arm. Next per the W4 design: scale teacher cells, then the one gated train
 decision (corpus floor + pre-registered 120b eval) when Eric calls it.
+
+### W4 ledger note (2026-07-19) — both arms complete: the cross-family measurement
+
+Same 400-cell lattice (seed 20260718), same gate stack, same repair-iteration budget:
+
+| arm | survivors | cell yield | dominant failure |
+|---|---|---|---|
+| gpt-oss-120b (self-family, serve-based funnel) | 50/400 | 12.5% | sany_fail 172 (43%), tlc_error 94 |
+| Claude-Opus teachers (cross-family subagents) | 400/400 | 100% | none terminal |
+
+The teacher arm needed ~4 attempts worst-case per cell; the self-family arm burned 4 repair
+iterations per attempt and still failed 87.5% of cells, with parse validity again the dominant
+mode. Corpus totals: 400 cross-family + 50 self-family lattice + 260 organic + 558 repair
+triples ~= 1.27k verified rows. All ledgers committed; serve nodes released.
+
+Interpretation, carefully bounded: this measures GENERATOR capability under the verify loop,
+not student trainability -- but it settles the corpus-sourcing question. Manufacturing verified
+TLA+ at scale is cheap ONLY via cross-family teachers; the self-family funnel is 8x the
+attempts for 1/8th the yield. The one gated decision that remains is training gpt-oss on the
+cross-family corpus (5k-row floor proposed; Eric's spend call on further Opus waves pending).
