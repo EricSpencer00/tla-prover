@@ -1,3 +1,53 @@
+# prove-TLA — week of 2026-07-13
+
+What actually happened this week, with numbers.
+
+## Gate 2 measured, failed honestly, and closed the fine-tuning question (Amendments 16-17)
+
+v2_sft2/120b vs frozen baseline (keep-first dedup, ledger re-score): A 11/30 vs 12/30,
+B 18/23 vs 21/23, B pass@1 10/23 vs 12/23 -> FAILED. The 20b directional on a
+task-shape-corrected corpus (558 verified minimal-diff repair triples, W2.6 harvest)
+went +1 pass@1 / -8 pass@4 -> diversity collapse reproduced with the shape confound
+removed. Fine-tuning SHELVED; the flywheel is loop-only; corpus SOURCE (self-family
+rejection sampling) identified as the binding constraint.
+
+## Structural levers measured null (Amendments 18-19)
+
+- W2.7 prompt scaffolding on 70 hard seeds: control 4/70, scaffold 4/70 (sany_fail 59%).
+- W3.1-3.3 built: lmgpa 119-thm TLAPS bench (honest floor 0/119), retrieval index over
+  5,047 proved obligations, skeleton-first proof loop.
+- W3.2 proof generation: 0/20 unguided AND 0/20 grammar-guided (validated grammars:
+  spec 100% acceptance on 260 real specs; proof 99% on 255 real proof blocks) -- tlapm
+  parse deaths just move down a level. Structural ladder exhausted at tiers 1-2.
+- Bonus trap found: vLLM 0.22-dev structured_outputs crashes the engine under sustained
+  guided load (2 serve jobs); ledgered in the preflight checklist.
+
+## W4: the cross-family measurement (the week's headline)
+
+Same 400-cell scenario lattice (20 domains x 10 mechanisms x 7 properties x 6 twists),
+same unchanged gate stack (SANY, non-vacuous TLC, mutation battery, fidelity, decontam):
+
+| arm | survivors | cell yield |
+|---|---|---|
+| Claude-Opus teacher subagents (16 shards, 4 waves) | **400/400** | 100% |
+| gpt-oss-120b serve-based funnel | **50/400** | 12.5% |
+
+Cross-family corpus audit: 0/79,800 near-dup pairs, similarity distribution matches the
+organic corpus, property classes balanced, honest caveats ledgered (mutation-gate
+Goodharting in wave 1, idiom convergence pressure, specs skew small vs holdout).
+Corpus now ~1.27k verified rows (400 cross-family + 50 lattice-self + 260 organic + 558
+repair triples). Train decision remains gated (proposed 5k floor, one pre-registered eval).
+
+## Infrastructure that made the week cheap
+
+Toy e2e smoke (~3 min full-pipeline), serve preflight probe (would have caught the ctx-4096
+disaster in 10s), `harness gate-check` (ledger-true scoring, run-id lockfile), eval
+concurrency (12.2h -> ~2h), ALCF no_proxy + java.io.tmpdir + venv-cluster traps ledgered.
+Every failed run this week died in minutes-to-hours, not days.
+
+
+---
+
 # prove-TLA — week of 2026-07-06
 
 What actually happened this week, with numbers.
