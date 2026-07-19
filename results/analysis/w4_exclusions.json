@@ -6,7 +6,20 @@
     "w4opus::d3-m4-p1-t5"
   ],
   "pairs": [
-    {"kept": "w4opus::d2-m1-p5-t3", "excluded": "w4opus::d11-m1-p5-t3", "similarity": 0.935, "shard": 20},
-    {"kept": "w4opus::d3-m4-p1-t1", "excluded": "w4opus::d3-m4-p1-t5", "similarity": 0.738, "shard": 21}
-  ]
+    {
+      "kept": "w4opus::d2-m1-p5-t3",
+      "excluded": "w4opus::d11-m1-p5-t3",
+      "similarity": 0.935,
+      "shard": 20
+    },
+    {
+      "kept": "w4opus::d3-m4-p1-t1",
+      "excluded": "w4opus::d3-m4-p1-t5",
+      "similarity": 0.738,
+      "shard": 21
+    }
+  ],
+  "dedup_overrides": {
+    "w4opus::d10-m7-p3-t2": "keep-last (first row carries stale NL; spec identical; per shard-22 report 2026-07-19)"
+  }
 }
