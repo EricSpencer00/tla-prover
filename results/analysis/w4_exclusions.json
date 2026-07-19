@@ -29,6 +29,9 @@
     "w4opus::d11-m3-p0-t0": "keep-last (correction row; shard-36 report)",
     "w4opus::d16-m2-p0-t4": "keep-last (correction row; shard-36 report)",
     "w4opus::d1-m6-p1-t2": "keep-last (correction row; shard-36 report)",
-    "w4opus::d4-m2-p6-t1": "keep-last (correction row; shard-36 report)"
+    "w4opus::d4-m2-p6-t1": "keep-last (correction row; shard-36 report)",
+    "w4opus::d18-m5-p5-t1": "keep-last (tier-enrichment correction row; shard-38 report)",
+    "w4opus::d16-m2-p4-t3": "keep-last (tier-enrichment correction row; shard-38 report)",
+    "w4opus::d17-m0-p6-t2": "keep-last (tier-enrichment correction row; shard-38 report)"
   }
 }
