@@ -22,6 +22,9 @@
   "dedup_overrides": {
     "w4opus::d10-m7-p3-t2": "keep-last (first row carries stale NL; spec identical; per shard-22 report 2026-07-19)",
     "w4opus::d4-m8-p3-t0": "keep-last (first row was thin 20-state config; second is the 132-state re-verify; per shard-29 report)",
-    "w4opus::d19-m5-p3-t0": "keep-last (corrected NL appended per correction-row rule; spec identical; shard-33 report)"
+    "w4opus::d19-m5-p3-t0": "keep-last (corrected NL appended per correction-row rule; spec identical; shard-33 report)",
+    "w4opus::d1-m4-p0-t0": "keep-last (tier-enriched correction row; shard-35 report)",
+    "w4opus::d9-m1-p3-t0": "keep-last (tier-enriched correction row; shard-35 report)",
+    "w4opus::d8-m7-p2-t1": "keep-last (duplicate append in shard-34; verify pending agent report, spec fields identical or last is authoritative)"
   }
 }
