@@ -46,7 +46,14 @@
     "w4opus::d10-m5-p1-t5": "keep-last (tier correction row; shard-48 report)",
     "w4opus::d1m4": "keep-last (Reset-action NL correction; shard-50 report; NOTE shard-50 used SHORT cell keys, mapping in its agent report/commit)",
     "w4opus::d2-m4-p3-t4": "keep-last (tier-enrichment correction; shard-55 report)",
-    "w4opus::d12-m6-p4-t3": "keep-last (tier-enrichment correction; shard-55 report)"
+    "w4opus::d12-m6-p4-t3": "keep-last (tier-enrichment correction; shard-55 report)",
+    "w4opus::d1-m1-p5-t1": "keep-last (NL-format correction row; shard-61 report)",
+    "w4opus::d5-m9-p0-t5": "keep-last (NL-format correction row; shard-61 report)",
+    "w4opus::d4-m6-p3-t2": "keep-last (NL-format correction row; shard-61 report)",
+    "w4opus::d10-m1-p5-t0": "keep-last (NL-format correction row; shard-61 report)",
+    "w4opus::d8-m8-p1-t2": "keep-last (NL-format correction row; shard-61 report)",
+    "w4opus::d15-m1-p2-t4": "keep-last (NL-format correction row; shard-61 report)",
+    "w4opus::d6-m8-p0-t5": "keep-last (NL-format correction row; shard-61 report)"
   },
   "notes": [
     "shard-50 seed_keys use SHORT cell keys (d3, d14m8, ...) instead of full lattice keys; unique within corpus, full mapping in wave-22 commit message",
