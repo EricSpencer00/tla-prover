@@ -43,6 +43,10 @@
     "w4opus::d17-m8-p0-t0": "keep-last (tier correction row; shard-47 report)",
     "w4opus::d4-m1-p2-t1": "keep-last (tier correction row; shard-48 report)",
     "w4opus::d19-m7-p3-t2": "keep-last (tier correction row; shard-48 report)",
-    "w4opus::d10-m5-p1-t5": "keep-last (tier correction row; shard-48 report)"
-  }
+    "w4opus::d10-m5-p1-t5": "keep-last (tier correction row; shard-48 report)",
+    "w4opus::d1m4": "keep-last (Reset-action NL correction; shard-50 report; NOTE shard-50 used SHORT cell keys, mapping in its agent report/commit)"
+  },
+  "notes": [
+    "shard-50 seed_keys use SHORT cell keys (d3, d14m8, ...) instead of full lattice keys; unique within corpus, full mapping in wave-22 commit message"
+  ]
 }
