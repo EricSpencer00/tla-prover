@@ -53,7 +53,9 @@
     "w4opus::d10-m1-p5-t0": "keep-last (NL-format correction row; shard-61 report)",
     "w4opus::d8-m8-p1-t2": "keep-last (NL-format correction row; shard-61 report)",
     "w4opus::d15-m1-p2-t4": "keep-last (NL-format correction row; shard-61 report)",
-    "w4opus::d6-m8-p0-t5": "keep-last (NL-format correction row; shard-61 report)"
+    "w4opus::d6-m8-p0-t5": "keep-last (NL-format correction row; shard-61 report)",
+    "w4opus::d9-m9-p1-t2": "keep-last (LOC-floor correction row; shard-60 report)",
+    "w4opus::d18-m1-p2-t5": "keep-last (LOC-floor correction row; shard-60 report)"
   },
   "notes": [
     "shard-50 seed_keys use SHORT cell keys (d3, d14m8, ...) instead of full lattice keys; unique within corpus, full mapping in wave-22 commit message",
