@@ -20,6 +20,7 @@
     }
   ],
   "dedup_overrides": {
-    "w4opus::d10-m7-p3-t2": "keep-last (first row carries stale NL; spec identical; per shard-22 report 2026-07-19)"
+    "w4opus::d10-m7-p3-t2": "keep-last (first row carries stale NL; spec identical; per shard-22 report 2026-07-19)",
+    "w4opus::d4-m8-p3-t0": "keep-last (first row was thin 20-state config; second is the 132-state re-verify; per shard-29 report)"
   }
 }
