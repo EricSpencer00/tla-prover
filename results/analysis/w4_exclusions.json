@@ -34,6 +34,12 @@
     "w4opus::d16-m2-p4-t3": "keep-last (tier-enrichment correction row; shard-38 report)",
     "w4opus::d17-m0-p6-t2": "keep-last (tier-enrichment correction row; shard-38 report)",
     "w4opus::d7-m9-p1-t5": "keep-last (double-append in shard-43, authoritative row pending agent report; last presumed corrected)",
-    "w4opus::d1-m0-p5-t5": "keep-last (double-append in shard-43, authoritative row pending agent report; last presumed corrected)"
+    "w4opus::d1-m0-p5-t5": "keep-last (double-append in shard-43, authoritative row pending agent report; last presumed corrected)",
+    "w4opus::d2-m8-p6-t1": "keep-last (tier correction row; shard-46 report)",
+    "w4opus::d1-m5-p4-t3": "keep-last (tier correction row; shard-46 report)",
+    "w4opus::d15-m7-p1-t2": "keep-last (tier correction row; shard-46 report)",
+    "w4opus::d12-m7-p5-t4": "keep-last (tier correction row; shard-47 report)",
+    "w4opus::d14-m1-p2-t5": "keep-last (tier correction row; shard-47 report)",
+    "w4opus::d17-m8-p0-t0": "keep-last (tier correction row; shard-47 report)"
   }
 }
