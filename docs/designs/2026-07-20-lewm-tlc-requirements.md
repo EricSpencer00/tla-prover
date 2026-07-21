@@ -183,3 +183,60 @@ still receive full exhaustive coverage, unaccelerated, before being reported `pa
   training-data source to the 287 rows that already reached `fail_invariant`/
   `fail_deadlock`/`fail_liveness` (has real distance-to-violation labels, and is the
   same population as the deployment target).
+
+## Open questions — ANSWERED (2026-07-21)
+
+Answers to the three "Open questions for review" above, from direct
+inspection of tla2tools internals and a real measurement
+(`tools/lewm_sim_baseline.py`, results in
+`results/runs/lewm-sim-baseline/SUMMARY.md`).
+
+**Q1 (pluggable hook vs. post-hoc replay).** No pluggable state-ordering or
+worker-queue hook exists in tla2tools. `IStateQueue` is TLC-internal (no
+extension point exposed for external prioritization), and `Worker` is
+declared `final`, so subclassing/overriding the BFS traversal order from
+outside the JVM process is not viable. Option (a) — a pluggable priority
+hook patched into TLC's own search loop — is dead as an integration path
+without forking and maintaining a patched tla2tools.jar (out of scope: this
+project treats tla2tools as a pinned, unmodified dependency). Option (b) —
+driving TLC's search behavior from the outside via `-config` `CONSTRAINT`
+clauses (to prune/redirect the state space TLC itself explores) plus
+`-simulate` (TLC's own built-in random-walk mode, no reordering hook needed
+at all) — is the only realistic integration path.
+
+**Q2 (cheaper non-learned baseline first).** Two baselines are relevant and
+worth comparing against any future learned component: (1) TLC's own built-in
+`-simulate` mode (measured directly in this experiment — no engineering
+cost, ships with tla2tools), and (2) hand-crafted distance heuristics in the
+HSF-SPIN tradition (a state-distance-to-goal/error heuristic guiding search
+order), which was NOT built or measured here (would require nontrivial
+TLA+-specific heuristic design) but remains the natural next non-learned
+baseline if `-simulate` alone proves insufficient.
+
+**Q3 (smallest falsifiable experiment).** This experiment. Population:
+recoverable candidates from `results/analysis/lewm_baseline_candidates.json`
+(123 recoverable manifest rows -> 77 unique candidate files after sha256
+dedup). Protocol: TLC `-simulate num=100000 -depth 100`, seeds 0/1/2, 120s
+wall cap per seed, measured directly (no training, no learned components).
+
+Measured result (full detail: `results/runs/lewm-sim-baseline/SUMMARY.md`):
+of the K = 3 unique candidates that are both in the manifest's `timeout`
+bucket (BFS timed out) AND flagged `known_broken_elsewhere` -- the
+population this whole line of work is meant to help -- `-simulate` found a
+violation in M = 1 of those 3, at a median time-to-violation of approx 0.43s
+versus BFS's 120s+ timeout (roughly 200-280x faster on that one candidate).
+The other 2 did not convert: one ran to completion with no violation found
+in ~29s (a different bottleneck than BFS hit, not a speed win), one still
+timed out under `-simulate` at the same 120s cap.
+
+This falsifies the strong hypothesis ("`-simulate` reliably converts BFS
+timeouts to fast violations") at this sample size -- it does not reliably
+convert; 1/3 is a real but narrow win, not a general triage signal. It does
+NOT falsify a weaker, more modest claim: that `-simulate` finds *some*
+violations far faster than BFS when the violation has a broad basin (cheap
+to hit by random walk), which is exactly the kind of signal a learned
+prioritizer would need to be built on top of, not replace. Recommendation:
+before investing in a learned world model, first measure the HSF-SPIN-style
+hand-heuristic baseline (Q2) on the same 77-candidate population, since a
+0-training heuristic baseline is a strictly cheaper thing to falsify or
+confirm next.
