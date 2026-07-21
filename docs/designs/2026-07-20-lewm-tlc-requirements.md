@@ -240,3 +240,31 @@ before investing in a learned world model, first measure the HSF-SPIN-style
 hand-heuristic baseline (Q2) on the same 77-candidate population, since a
 0-training heuristic baseline is a strictly cheaper thing to falsify or
 confirm next.
+
+## Scoping result / disposition (2026-07-21)
+
+**STATUS: PARKED — recommend KILL on scoping grounds (pending Eric ratification).**
+
+A decisive scoping run (`results/runs/lewm-scoping/`, `tools/lewm_scoping.py`)
+built known-broken specs by construction — harness/mutation.py operators applied
+to verified W4 Opus survivors — and measured plain-BFS time-to-first-violation to
+size LEWM's *entire* addressable population (broken candidates on which BFS is
+slow; Q1 established LEWM can only ship as option (b) post-hoc replay).
+
+Result: of 400 mutant-attempts, only 20 were confirmed-broken and only **2** had
+BFS slow (>30s / timeout) — the addressable population is **0.5% of attempts**.
+Two of four mutation operators produced zero usable signal (and_to_or 150/150 TLC
+error, in_to_notin 147/147 SANY reject), and the W4 corpus is too small-spec
+(BFS median 0.66s, p90 0.70s) to exhibit a slow tail at all. The experiment
+cannot *prove* the population is zero, but combined with the earlier
+`lewm-sim-baseline` run (only 3 known-broken slow real candidates, `-simulate`
+converting 1/3) and the fact that 61% of real TLC timeouts are oracle/correct
+specs LEWM provably cannot help, the addressable intersection — broken AND slow
+AND not already caught by free `-simulate` — is empirically a handful of cases
+against a very high build cost (permutation-invariant GNN state encoder + TLC
+per-state-trace instrumentation + unmitigated cross-spec transfer risk).
+
+**Disposition: park LEWM.** Reversible (data/script/analysis retained in git). The
+only version worth reviving is a broken-mutant sweep over the LARGE holdout specs
+(~97 LOC), not the tiny teacher specs — a bigger build with a low payoff prior.
+Full reasoning in `results/runs/lewm-scoping/SUMMARY.md`.

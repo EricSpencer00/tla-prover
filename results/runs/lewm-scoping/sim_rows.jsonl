@@ -1,0 +1,6 @@
+{"key": "w4opus::d14-m1-p1-t4::cup_to_cap::seed0", "bfs_key": "w4opus::d14-m1-p1-t4::cup_to_cap", "seed": 0, "status": "no_violation", "wall_s": 7.91, "bfs_wall_s": 120.16, "bfs_tlc": "timeout", "timestamp": 1784657915.366017}
+{"key": "w4opus::d14-m1-p1-t4::cup_to_cap::seed1", "bfs_key": "w4opus::d14-m1-p1-t4::cup_to_cap", "seed": 1, "status": "no_violation", "wall_s": 8.06, "bfs_wall_s": 120.16, "bfs_tlc": "timeout", "timestamp": 1784657923.423166}
+{"key": "w4opus::d14-m1-p1-t4::cup_to_cap::seed2", "bfs_key": "w4opus::d14-m1-p1-t4::cup_to_cap", "seed": 2, "status": "no_violation", "wall_s": 7.95, "bfs_wall_s": 120.16, "bfs_tlc": "timeout", "timestamp": 1784657931.3718662}
+{"key": "w4opus::d2-m7-p1-t4::cup_to_cap::seed0", "bfs_key": "w4opus::d2-m7-p1-t4::cup_to_cap", "seed": 0, "status": "no_violation", "wall_s": 5.64, "bfs_wall_s": 120.07, "bfs_tlc": "timeout", "timestamp": 1784657937.015763}
+{"key": "w4opus::d2-m7-p1-t4::cup_to_cap::seed1", "bfs_key": "w4opus::d2-m7-p1-t4::cup_to_cap", "seed": 1, "status": "no_violation", "wall_s": 5.62, "bfs_wall_s": 120.07, "bfs_tlc": "timeout", "timestamp": 1784657942.636318}
+{"key": "w4opus::d2-m7-p1-t4::cup_to_cap::seed2", "bfs_key": "w4opus::d2-m7-p1-t4::cup_to_cap", "seed": 2, "status": "no_violation", "wall_s": 5.51, "bfs_wall_s": 120.07, "bfs_tlc": "timeout", "timestamp": 1784657948.144247}
