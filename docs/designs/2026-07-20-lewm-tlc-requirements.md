@@ -243,7 +243,9 @@ confirm next.
 
 ## Scoping result / disposition (2026-07-21)
 
-**STATUS: PARKED — recommend KILL on scoping grounds (pending Eric ratification).**
+**STATUS: KILLED — ratified by Eric 2026-07-21.** Parked on scoping grounds; a
+full-corpus confirmation over the ~1.9k W4 survivors is appended below. Reversible
+if a large-hard-spec broken corpus ever makes the addressable tail real.
 
 A decisive scoping run (`results/runs/lewm-scoping/`, `tools/lewm_scoping.py`)
 built known-broken specs by construction — harness/mutation.py operators applied
