@@ -63,7 +63,11 @@
     "w4opus::d14-m3-p2-t4": "keep-last; shard-75 disclosed NL fidelity correction (DroneFails empty-drone guard), original row left intact per append-only",
     "w4opus::d5-m8-p6-t1": "keep-last; shard-79 disclosed floor correction (first row 91 LOC over the 90 floor, replaced by trimmed 83-LOC spec), original row left intact per append-only",
     "w4opus::d16-m2-p3-t4": "keep-last; shard-81 disclosed LOC-floor correction (91->85 LOC), original row intact per append-only",
-    "w4opus::d13-m1-p6-t2": "keep-last; shard-81 NL-fidelity fix (Recharge action added to NL, spec byte-identical), directed by coordinator"
+    "w4opus::d13-m1-p6-t2": "keep-last; shard-81 NL-fidelity fix (Recharge action added to NL, spec byte-identical), directed by coordinator",
+    "w4opus::d18-m1-p2-t4": "keep-last; shard-82 var-floor fix (3->4 vars), original intact per append-only",
+    "w4opus::d11-m4-p0-t1": "keep-last; shard-82 thin-model enrichment (25->123 states), original intact",
+    "w4opus::d5-m1-p0-t5": "keep-last; shard-82 thin-model enrichment (18->24 states), original intact",
+    "w4opus::d3-m5-p1-t5": "keep-last; shard-83 var-floor fix (3->4 vars, votes split out), original intact per append-only"
   },
   "notes": [
     "shard-50 seed_keys use SHORT cell keys (d3, d14m8, ...) instead of full lattice keys; unique within corpus, full mapping in wave-22 commit message",
