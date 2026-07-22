@@ -74,7 +74,8 @@
     "w4opus::d12-m6-p6-t0": "keep-last; shard-85 off-by-one labeling slip (spec appended under wrong cell key), corrective row appended, strays superseded",
     "w4opus::d10-m9-p0-t3": "keep-last; shard-85 off-by-one labeling slip (spec appended under wrong cell key), corrective row appended, strays superseded",
     "w4opus::d13-m3-p4-t0": "keep-last; shard-86 stale survived:false first row (pre-fix append), corrective keep-last row authoritative",
-    "w4opus::d13-m6-p5-t1": "keep-last; shard-89 pre-floor-check append (129k states over ceiling) + unflagged re-run, third keep-last row (720 states) authoritative"
+    "w4opus::d13-m6-p5-t1": "keep-last; shard-89 pre-floor-check append (129k states over ceiling) + unflagged re-run, third keep-last row (720 states) authoritative",
+    "w4opus::d8-m3-p1-t3": "keep-last; shard-95 over-ceiling first row (169k states), superseded by 9.6k-state fix"
   },
   "notes": [
     "shard-50 seed_keys use SHORT cell keys (d3, d14m8, ...) instead of full lattice keys; unique within corpus, full mapping in wave-22 commit message",
