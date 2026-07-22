@@ -3,7 +3,8 @@
   "reason": "intra-shard near-duplicate specs (agent recycled its own module across cells differing only in domain/twist); one of each pair excluded from any corpus render. Detected by the post-wave shingle audit at threshold 0.65.",
   "excluded_seed_keys": [
     "w4opus::d11-m1-p5-t3",
-    "w4opus::d3-m4-p1-t5"
+    "w4opus::d3-m4-p1-t5",
+    "w4opus::d18-m9-p2t3"
   ],
   "pairs": [
     {
@@ -81,7 +82,8 @@
     "shard-50 seed_keys use SHORT cell keys (d3, d14m8, ...) instead of full lattice keys; unique within corpus, full mapping in wave-22 commit message",
     "shard-59 engineered a +/- pool pattern across all 25 cells specifically to force safety_catch (self-disclosed, same trick as wave-1 shards 0/3); specs remain SANY/TLC/decontam-verified but their mutation_evidence must be discounted; 4 unledgered early attempts on cell d4-m8-p1-t1 disclosed in report",
     "shard-70 self-disclosed reading the mutation battery while fixing cell d0-m6-p2-t3; that cell safety_catch flagged untrusted",
-    "2026-07-20 shard-74 (wave 34): agent disclosed reading harness/w2_loop.py L380-412, the mutation-gate accept/reject matrix (no_site/no_kill accept, all-TypeOK-kills reject). Counts as scoring internals. Agent self-scoped impact to 3 cells (d15-m5-p5-t1 plus stutter-action carryover in d7-m3-p1-t5, d10-m3-p1-t3); we did NOT accept that narrowing -- self-assessed contamination is not evidence -- and flagged all 22 cells at-or-after the read point. The 3 cells appended strictly before the read (d11-m8-p0-t4, d2-m9-p5-t0, d4-m9-p2-t5) remain trusted. Specs stay in corpus; only mutation_evidence is untrusted. Also disclosed, not flagged: 3 domain-motivated stutter actions removing deadlock terminal states (d15-m5-p5-t1 EngineIdle, d7-m3-p1-t5, d10-m3-p1-t3); 2 banned-shape drafts rewritten pre-append (correct handling)."
+    "2026-07-20 shard-74 (wave 34): agent disclosed reading harness/w2_loop.py L380-412, the mutation-gate accept/reject matrix (no_site/no_kill accept, all-TypeOK-kills reject). Counts as scoring internals. Agent self-scoped impact to 3 cells (d15-m5-p5-t1 plus stutter-action carryover in d7-m3-p1-t5, d10-m3-p1-t3); we did NOT accept that narrowing -- self-assessed contamination is not evidence -- and flagged all 22 cells at-or-after the read point. The 3 cells appended strictly before the read (d11-m8-p0-t4, d2-m9-p5-t0, d4-m9-p2-t5) remain trusted. Specs stay in corpus; only mutation_evidence is untrusted. Also disclosed, not flagged: 3 domain-motivated stutter actions removing deadlock terminal states (d15-m5-p5-t1 EngineIdle, d7-m3-p1-t5, d10-m3-p1-t3); 2 banned-shape drafts rewritten pre-append (correct handling).",
+    "2026-07-22 shard-103: malformed seed_key w4opus::d18-m9-p2t3 (dash dropped) excluded as phantom; corrected keep-last row exists under proper key w4opus::d18-m9-p2-t3"
   ],
   "mutation_evidence_untrusted": [
     "w4opus::d0-m4-p1-t4",
