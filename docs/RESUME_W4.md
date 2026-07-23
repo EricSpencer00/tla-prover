@@ -17,8 +17,9 @@ continue with only this file + the repo.
    for s in range(2):
        sl = cells[s*25:(s+1)*25]
        with open(f'/tmp/shard{S+s}.txt','w') as f:
-           for c in sl:
-               f.write(f'  {cell_key(c)} | {DOMAINS[c[0]]} | {MECHANISMS[c[1]]} | {PROPERTIES[c[2]]} | {TWISTS[c[3]]}\n')"
+           for k, c in enumerate(sl):
+               arm = 'LIVENESS' if (N + s*25 + k) % 2 == 0 else 'SAFETY-ONLY'
+               f.write(f'  {cell_key(c)} | {arm} | {DOMAINS[c[0]]} | {MECHANISMS[c[1]]} | {PROPERTIES[c[2]]} | {TWISTS[c[3]]}\n')"
 
 2. Dispatch 2 Opus subagents (Agent tool, model=opus, run_in_background), one per
    shard file, with the CURRENT canonical brief. The brief has evolved through 33
@@ -31,13 +32,20 @@ continue with only this file + the repo.
    - anti-self-copy: every cell from scratch; shingle audit quarantines
    - ledger: append-only, one survivor row per cell, FULL cell key in cell/seed_key,
      never edit/strip rows, corrections as new rows flagged keep-last
-   - per cell: NL scenario ending "SAFETY PROPERTY: <sentence>" AND (since
-     2026-07-23, Eric's liveness call) "LIVENESS PROPERTY: <sentence>"; NL
-     updated BEFORE final verify when actions change; module W4O<key-no-dashes>;
+   - per cell: NL scenario ending "SAFETY PROPERTY: <sentence>"; NL updated
+     BEFORE final verify when actions change; module W4O<key-no-dashes>;
      verify via `python3 -m harness.w4_verify_cell --nl .. --spec .. --cfg ..
-     --invariant .. --workdir /tmp/... --require-liveness`; max 4 attempts;
-     survivors merged with
-   - LIVENESS (mandatory on every cell from shard 129 on): the spec must define
+     --invariant .. --workdir /tmp/...`; max 4 attempts; survivors merged with
+     {"cell","seed_key":"w4opus::<full-key>","nl","teacher":"claude-opus","tier":"complex"}
+   - LIVENESS/SAFETY SPLIT (Eric 2026-07-23, from shard 129 on): each shard
+     file marks every cell LIVENESS or SAFETY-ONLY (deterministic: even
+     lattice index = LIVENESS -- never reassign). SAFETY-ONLY cells follow the
+     original contract above unchanged. LIVENESS cells additionally end the NL
+     with "LIVENESS PROPERTY: <sentence>" and verify with the extra flag
+     `--require-liveness`. Rows self-tag: liveness cells carry non-null
+     liveness_property + stutter_check fields; corpus rendering and Gate-2
+     eval MUST stratify on that (report the two arms separately).
+   - LIVENESS cell contract detail: the spec must define
      a real eventuality (<> or ~>) implementing the NL's LIVENESS PROPERTY,
      Spec must include the WF_/SF_ fairness that makes it true, and the .cfg
      must check it with a PROPERTY line. The harness FIX-5 gate re-runs TLC
@@ -46,7 +54,6 @@ continue with only this file + the repo.
      cannot pass. Do not game with <>TRUE-shaped properties; write progress
      properties the mechanism actually guarantees (e.g. "every admitted request
      is eventually serviced", "the token eventually returns to the ring").
-     {"cell","seed_key":"w4opus::<full-key>","nl","teacher":"claude-opus","tier":"complex"}
    - INTEGRITY: no mutation.py access of ANY kind (a violator shard's evidence was
      flagged untrusted); on typeok_only rejections restructure naturally; no
      engineered mutation-catch constructs; no_kill/no_site acceptable
@@ -98,7 +105,10 @@ continue with only this file + the repo.
 Render + gate per round3-status "AFTER HARVEST" notes: corpus_prep sft over all
 w4-opus-shard* dirs (honor w4_exclusions.json exclusions + keep-last overrides
 and the shard-50 short-key mapping in commit 81bfb65), then the ONE pre-registered
-120b train+eval per Amendment 17's re-entry condition. Also outstanding: Eric's
+120b train+eval per Amendment 17's re-entry condition. STRATIFY by arm: rows with
+non-null liveness_property are the liveness arm (all shard <=128 rows plus odd-index
+cells after are safety-only); the pre-registration must report the two arms
+separately -- do not let a liveness regression hide inside a pooled number. Also outstanding: Eric's
 explicit calls on (a) full-rate vs half-rate waves, (b) the gated train run,
 (c) publishing/HF upload.
 
