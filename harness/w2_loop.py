@@ -54,6 +54,15 @@ LLM-judge/opinion scoring anywhere (Eric's rule):
     (either check it or drop the unused fairness). If the cfg checks a
     PROPERTY, TLC already verifies it; liveness_checked=true is recorded.
     Liveness is NOT required on every spec -- safety-only specs are fine.
+  FIX 5 (required liveness + stutter-vacuity, 2026-07-23, opt-in via
+    require_liveness=True -- W4 liveness cells): the cfg must check a
+    PROPERTY; at least one checked property must be an eventuality (<> or
+    ~>) defined in the module; and TLC is re-run on the fairness-free
+    closure (strip_fairness) where the property MUST fail -- an eventuality
+    that survives infinite stuttering is trivially true and is rejected
+    "liveness_stutter_trivial". Survivors record liveness_property and
+    stutter_check ("nontrivial", or "inconclusive:<status>" when the
+    stutter run times out -- recorded not punished, no_kill philosophy).
 
 CLI:
   python3 -m harness.w2_loop --seeds data/chattla-corpora-v2/manifest_w2_seeds.jsonl \\
@@ -224,6 +233,69 @@ def uses_liveness_operators(mod_text: str) -> bool:
 
 
 _CFG_PROPERTY_RE = re.compile(r"^\s*PROPERT(?:Y|IES)\b", re.M)
+_CFG_PROPERTY_NAMES_RE = re.compile(r"^\s*PROPERT(?:Y|IES)\b(.*)$", re.M)
+
+
+def cfg_property_names(cfg_text: str) -> list:
+    """All names listed under PROPERTY/PROPERTIES in a TLC cfg, in order."""
+    names = []
+    for m in _CFG_PROPERTY_NAMES_RE.finditer(cfg_text or ""):
+        for tok in re.split(r"[,\s]+", m.group(1).strip()):
+            if tok:
+                names.append(tok)
+    return names
+
+
+# FIX 5 eventuality detector: diamond <> or leads-to ~> in the property's
+# definition body. A PROPERTY that is only [](...) is safety-shaped and does
+# not satisfy a liveness requirement.
+_EVENTUALITY_RE = re.compile(r"(?<!<)<>(?!>)|~>")
+
+
+def definition_body(mod_text: str, name: str) -> str:
+    """The text of `name == ...` up to the next top-level definition or module
+    end. Empty string if not defined. Textual, not parsed -- same fidelity
+    level as the other structural gates."""
+    m = re.search(rf"^\s*{re.escape(name)}(?:\([^)]*\))?\s*==", mod_text or "", re.M)
+    if not m:
+        return ""
+    rest = mod_text[m.end():]
+    stop = re.search(r"^\w[\w!]*(?:\([^)]*\))?\s*==|^====", rest, re.M)
+    return rest[:stop.start()] if stop else rest
+
+
+def strip_fairness(mod_text: str):
+    """Remove every WF_/SF_ fairness application (and the /\\ that conjoins
+    it) from the module text. Returns (stripped_text, n_removed). Paren-
+    balanced textual scan -- handles WF_<<x, y>>(A(b)). Used by the FIX 5
+    stutter-vacuity check: a liveness PROPERTY that still passes TLC on the
+    fairness-free closure never needed fairness and is stutter-trivial."""
+    out, n, i = [], 0, 0
+    text = mod_text or ""
+    while True:
+        m = re.search(r"(?:/\\\s*)?(?:WF|SF)_", text[i:])
+        if not m:
+            out.append(text[i:])
+            break
+        start = i + m.start()
+        j = i + m.end()
+        # subscript: identifier or <<...>> tuple, up to the opening paren
+        while j < len(text) and text[j] != "(":
+            j += 1
+        depth = 0
+        while j < len(text):
+            if text[j] == "(":
+                depth += 1
+            elif text[j] == ")":
+                depth -= 1
+                if depth == 0:
+                    j += 1
+                    break
+            j += 1
+        out.append(text[i:start])
+        n += 1
+        i = j
+    return "".join(out), n
 
 
 # --------------------------------------------------------------- loop
@@ -245,7 +317,8 @@ def _evidence(sany_out: str | None, tlc_status: str | None, tlc_out: str | None,
 
 
 def run_loop_for_seed(model, nl: str, module_name_: str, workdir: Path, timeout: int,
-                       max_iters: int = DEFAULT_MAX_ITERS) -> dict:
+                       max_iters: int = DEFAULT_MAX_ITERS,
+                       require_liveness: bool = False) -> dict:
     """Property-freeze the NL (it is passed in already frozen -- the caller
     generates it once via backtranslate_prompt/parse_nl and reuses it across
     all iters of this seed) and iterate: generate -> SANY -> TLC (needs a
@@ -342,6 +415,36 @@ def run_loop_for_seed(model, nl: str, module_name_: str, workdir: Path, timeout:
                                             "temporal operators.")
             continue
 
+        # FIX 5 (required liveness, static half): when the caller demands a
+        # liveness property (W4 liveness cells), the cfg must check a PROPERTY
+        # and at least one checked property must be an eventuality (<> or ~>)
+        # defined in the module. Cheap, fires before any TLC spend.
+        liveness_property = None
+        if require_liveness:
+            prop_names = cfg_property_names(cfg_text)
+            if not prop_names:
+                last_reason = "liveness_property_missing"
+                error_context = _evidence(None, None, None, None,
+                                           note="This cell REQUIRES a liveness property: "
+                                                "define a temporal property (an "
+                                                "eventuality using <> or ~>) in the "
+                                                "module, add fairness (WF_/SF_) to Spec, "
+                                                "and check it with a PROPERTY line in "
+                                                "the .cfg.")
+                continue
+            eventualities = [p for p in prop_names
+                             if _EVENTUALITY_RE.search(definition_body(mod_text, p))]
+            if not eventualities:
+                last_reason = "temporal_property_not_eventuality"
+                error_context = _evidence(None, None, None, None,
+                                           note=f"The checked PROPERTY {prop_names} is "
+                                                "not an eventuality -- a []-only formula "
+                                                "is safety-shaped. The liveness property "
+                                                "must contain <> or ~> so it promises "
+                                                "real progress.")
+                continue
+            liveness_property = eventualities[0]
+
         mod = module_name(mod_text) or module_name_
         iter_dir = workdir / f"iter{it}"
         if iter_dir.exists():
@@ -386,6 +489,50 @@ def run_loop_for_seed(model, nl: str, module_name_: str, workdir: Path, timeout:
                                             "were generated -- the model is too thin. "
                                             "Add real behavioral variety.")
             continue
+
+        # FIX 5 (required liveness, dynamic half): stutter-vacuity check.
+        # Re-run TLC on the fairness-free closure (WF_/SF_ stripped). A real
+        # liveness property MUST fail there -- stuttering forever at any state
+        # violates any honest eventuality. If it still passes, the property
+        # never needed fairness and is trivially true (e.g. <> of an
+        # Init-true predicate): reject "liveness_stutter_trivial". A module
+        # with no fairness at all whose PROPERTY passed the main run is the
+        # same defect. Timeout/other on the stutter run is recorded
+        # "inconclusive" and accepted (no_kill philosophy: weak signal,
+        # recorded not punished). Runs before the mutation battery so the
+        # cheap single TLC run fires first.
+        stutter_check = None
+        if require_liveness:
+            stripped, n_fair = strip_fairness(mod_text)
+            if n_fair == 0:
+                last_reason = "liveness_stutter_trivial"
+                error_context = _evidence(None, None, None, None,
+                                           note="Your PROPERTY passed TLC but Spec has "
+                                                "no WF_/SF_ fairness, so the property "
+                                                "holds even if the system stutters "
+                                                "forever -- it promises nothing. Write "
+                                                "an eventuality that is FALSE without "
+                                                "fairness and add the fairness that "
+                                                "makes it true.")
+                continue
+            st_dir = iter_dir / "stutter"
+            st_dir.mkdir(parents=True, exist_ok=True)
+            (st_dir / f"{mod}.tla").write_text(stripped)
+            (st_dir / f"{mod}.cfg").write_text(cfg_text)
+            st_status, _, st_out, _ = check_tlc(mod, cfg_text, st_dir, timeout)
+            if st_status == "pass":
+                last_reason = "liveness_stutter_trivial"
+                error_context = _evidence(None, None, None, None,
+                                           note=f"Stutter-vacuity check: PROPERTY "
+                                                f"{liveness_property} still holds with "
+                                                "ALL fairness stripped from Spec -- it "
+                                                "is trivially true (holds even if the "
+                                                "system stops forever) and checks no "
+                                                "real progress. Strengthen it so it "
+                                                "requires the fairness to hold.")
+                continue
+            stutter_check = ("nontrivial" if st_status.startswith("fail")
+                             else f"inconclusive:{st_status}")
 
         # FIX 1: mutation floor (starve-proof) on every TLC-passing candidate.
         # Matrix: no site -> accept ("no_site"; the deterministic battery is
@@ -433,6 +580,7 @@ def run_loop_for_seed(model, nl: str, module_name_: str, workdir: Path, timeout:
             "mutants_attempted": mut.get("attempted"),
             "mutation_evidence": mutation_evidence,
             "property_invariant": pi, "liveness_checked": liveness_checked,
+            "liveness_property": liveness_property, "stutter_check": stutter_check,
             "features": features, "complexity_score": cscore,
             "reward_weight": reward_weight, "rejection_reason": None,
         }

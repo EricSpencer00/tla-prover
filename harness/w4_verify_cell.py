@@ -43,16 +43,27 @@ def main(argv=None):
     ap.add_argument("--workdir", required=True)
     ap.add_argument("--timeout", type=int, default=60)
     ap.add_argument("--skip-decontam", action="store_true")
+    ap.add_argument("--require-liveness", action="store_true",
+                    help="FIX 5: the cell must check a real liveness PROPERTY -- "
+                         "cfg PROPERTY line, eventuality (<>/~>) definition, "
+                         "fairness in Spec, and the stutter-vacuity TLC re-run "
+                         "(property must FAIL with fairness stripped). The NL "
+                         "must carry a LIVENESS PROPERTY: section.")
     a = ap.parse_args(argv)
 
     nl = Path(a.nl).read_text()
+    if a.require_liveness and "LIVENESS PROPERTY:" not in nl:
+        print(json.dumps({"survived": False,
+                          "rejection_reason": "nl_missing_liveness_property"}))
+        sys.exit(1)
     spec = Path(a.spec).read_text()
     cfg = Path(a.cfg).read_text()
     reply = f"```tla\n{spec}\n```\n```cfg\n{cfg}\n```\nPROPERTY_INVARIANT: {a.invariant}\n"
     wd = Path(a.workdir).resolve()   # ABSOLUTE: java.io.tmpdir trap
     wd.mkdir(parents=True, exist_ok=True)
     mod = module_name(spec) or "Unknown"
-    r = run_loop_for_seed(_OneShot(reply), nl, mod, wd, timeout=a.timeout, max_iters=1)
+    r = run_loop_for_seed(_OneShot(reply), nl, mod, wd, timeout=a.timeout, max_iters=1,
+                          require_liveness=a.require_liveness)
     if r["survived"] and not a.skip_decontam:
         verdict, score = decontam_survivor(r["spec_text"], load_canonical())
         if verdict != "clean":

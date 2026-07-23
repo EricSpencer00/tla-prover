@@ -599,3 +599,123 @@ def test_dry_run_nl_reply_carries_safety_property_section():
     reply = model.generate(wl.backtranslate_prompt(_GOOD_SPEC, _GOOD_CFG), 1, 0.8, 4096)[0]
     nl = wl.parse_nl(reply)  # must not raise NLMissingProperty
     assert "SAFETY PROPERTY:" in nl
+
+
+# --------------------------------------------------------------------- FIX 5: required liveness (stutter-vacuity)
+
+# Non-trivial liveness: <>(x > 0) is FALSE at Init and only WF_x(Next) forces
+# progress out of x=0 -- stripping fairness must produce a temporal violation.
+_REQ_LIVE_REPLY = _LIVENESS_CHECKED_REPLY
+
+# Stutter-trivial liveness: <>(x >= 0) already holds in the initial state, so
+# it passes TLC even with all fairness stripped -> must be rejected.
+_TRIVIAL_LIVE_SPEC = _GOOD_SPEC.replace(
+    "Spec == Init /\\ [][Next]_x",
+    "Spec == Init /\\ [][Next]_x /\\ WF_x(Next)\nEventuallyNonNeg == <>(x >= 0)")
+_TRIVIAL_LIVE_REPLY = f"""```tla
+{_TRIVIAL_LIVE_SPEC}
+```
+```cfg
+SPECIFICATION Spec
+INVARIANT NonNegative
+PROPERTY EventuallyNonNeg
+```
+PROPERTY_INVARIANT: NonNegative
+"""
+
+# Liveness PROPERTY declared but no fairness anywhere: if TLC passes it, the
+# property is stutter-insensitive by construction -> reject.
+_NOFAIR_LIVE_SPEC = _GOOD_SPEC.replace(
+    "Spec == Init /\\ [][Next]_x",
+    "Spec == Init /\\ [][Next]_x\nEventuallyNonNeg == <>(x >= 0)")
+_NOFAIR_LIVE_REPLY = f"""```tla
+{_NOFAIR_LIVE_SPEC}
+```
+```cfg
+SPECIFICATION Spec
+INVARIANT NonNegative
+PROPERTY EventuallyNonNeg
+```
+PROPERTY_INVARIANT: NonNegative
+"""
+
+# Named PROPERTY is not an eventuality (safety-shaped temporal formula).
+_BOXONLY_SPEC = _GOOD_SPEC.replace(
+    "Spec == Init /\\ [][Next]_x",
+    "Spec == Init /\\ [][Next]_x /\\ WF_x(Next)\nAlwaysBox == [](x >= 0)")
+_BOXONLY_REPLY = f"""```tla
+{_BOXONLY_SPEC}
+```
+```cfg
+SPECIFICATION Spec
+INVARIANT NonNegative
+PROPERTY AlwaysBox
+```
+PROPERTY_INVARIANT: NonNegative
+"""
+
+
+def test_cfg_property_names():
+    assert wl.cfg_property_names("PROPERTY Live\n") == ["Live"]
+    assert wl.cfg_property_names("PROPERTIES A, B\n") == ["A", "B"]
+    assert wl.cfg_property_names(_GOOD_CFG) == []
+
+
+def test_strip_fairness_removes_wf_sf_conjuncts():
+    stripped, n = wl.strip_fairness(
+        "Spec == Init /\\ [][Next]_x /\\ WF_x(Next) /\\ SF_<<x, y>>(Dec(x))")
+    assert n == 2
+    assert "WF_" not in stripped and "SF_" not in stripped
+    assert "[][Next]_x" in stripped
+    same, zero = wl.strip_fairness(_GOOD_SPEC)
+    assert zero == 0 and same == _GOOD_SPEC
+
+
+def test_require_liveness_missing_property_iterates_to_rejection(tmp_path):
+    model = FakeModel([[_GOOD_REPLY]] * 2)
+    r = wl.run_loop_for_seed(model, _NL_REPLY, "Counter", tmp_path, timeout=30,
+                             max_iters=2, require_liveness=True)
+    assert r["survived"] is False
+    assert r["rejection_reason"] == "liveness_property_missing"
+
+
+def test_require_liveness_non_eventuality_property_rejected(tmp_path):
+    model = FakeModel([[_BOXONLY_REPLY]] * 2)
+    r = wl.run_loop_for_seed(model, _NL_REPLY, "Counter", tmp_path, timeout=30,
+                             max_iters=2, require_liveness=True)
+    assert r["survived"] is False
+    assert r["rejection_reason"] == "temporal_property_not_eventuality"
+
+
+def test_require_liveness_nontrivial_survives_with_evidence(tmp_path):
+    model = FakeModel([[_REQ_LIVE_REPLY]])
+    r = wl.run_loop_for_seed(model, _NL_REPLY, "Counter", tmp_path, timeout=60,
+                             max_iters=8, require_liveness=True)
+    assert r["survived"] is True
+    assert r["liveness_checked"] is True
+    assert r["liveness_property"] == "EventuallyPositive"
+    assert r["stutter_check"] == "nontrivial"
+
+
+def test_require_liveness_stutter_trivial_rejected(tmp_path):
+    model = FakeModel([[_TRIVIAL_LIVE_REPLY]] * 2)
+    r = wl.run_loop_for_seed(model, _NL_REPLY, "Counter", tmp_path, timeout=60,
+                             max_iters=2, require_liveness=True)
+    assert r["survived"] is False
+    assert r["rejection_reason"] == "liveness_stutter_trivial"
+
+
+def test_require_liveness_no_fairness_rejected(tmp_path):
+    model = FakeModel([[_NOFAIR_LIVE_REPLY]] * 2)
+    r = wl.run_loop_for_seed(model, _NL_REPLY, "Counter", tmp_path, timeout=60,
+                             max_iters=2, require_liveness=True)
+    assert r["survived"] is False
+    assert r["rejection_reason"] == "liveness_stutter_trivial"
+
+
+def test_require_liveness_off_by_default_unchanged(tmp_path):
+    model = FakeModel([[_GOOD_REPLY]])
+    r = wl.run_loop_for_seed(model, _NL_REPLY, "Counter", tmp_path, timeout=30, max_iters=8)
+    assert r["survived"] is True
+    assert r.get("liveness_property") is None
+    assert r.get("stutter_check") is None

@@ -31,10 +31,21 @@ continue with only this file + the repo.
    - anti-self-copy: every cell from scratch; shingle audit quarantines
    - ledger: append-only, one survivor row per cell, FULL cell key in cell/seed_key,
      never edit/strip rows, corrections as new rows flagged keep-last
-   - per cell: NL scenario ending "SAFETY PROPERTY: <sentence>"; NL updated BEFORE
-     final verify when actions change; module W4O<key-no-dashes>; verify via
-     `python3 -m harness.w4_verify_cell --nl .. --spec .. --cfg .. --invariant ..
-     --workdir /tmp/...`; max 4 attempts; survivors merged with
+   - per cell: NL scenario ending "SAFETY PROPERTY: <sentence>" AND (since
+     2026-07-23, Eric's liveness call) "LIVENESS PROPERTY: <sentence>"; NL
+     updated BEFORE final verify when actions change; module W4O<key-no-dashes>;
+     verify via `python3 -m harness.w4_verify_cell --nl .. --spec .. --cfg ..
+     --invariant .. --workdir /tmp/... --require-liveness`; max 4 attempts;
+     survivors merged with
+   - LIVENESS (mandatory on every cell from shard 129 on): the spec must define
+     a real eventuality (<> or ~>) implementing the NL's LIVENESS PROPERTY,
+     Spec must include the WF_/SF_ fairness that makes it true, and the .cfg
+     must check it with a PROPERTY line. The harness FIX-5 gate re-runs TLC
+     with fairness stripped and REJECTS "liveness_stutter_trivial" unless the
+     property FAILS there -- so an Init-true or stutter-insensitive eventuality
+     cannot pass. Do not game with <>TRUE-shaped properties; write progress
+     properties the mechanism actually guarantees (e.g. "every admitted request
+     is eventually serviced", "the token eventually returns to the ring").
      {"cell","seed_key":"w4opus::<full-key>","nl","teacher":"claude-opus","tier":"complex"}
    - INTEGRITY: no mutation.py access of ANY kind (a violator shard's evidence was
      flagged untrusted); on typeok_only rejections restructure naturally; no
