@@ -1,0 +1,8 @@
+{"cell": "d17-m1-p6-t1", "arm": "LIVENESS", "survived": true, "rejection_reason": null, "attempts": 2}
+{"cell": "d1-m6-p1-t1", "arm": "SAFETY-ONLY", "survived": true, "rejection_reason": null, "attempts": 1}
+{"cell": "d13-m3-p6-t0", "arm": "LIVENESS", "survived": true, "rejection_reason": null, "attempts": 1}
+{"cell": "d16-m7-p5-t4", "arm": "SAFETY-ONLY", "survived": true, "rejection_reason": null, "attempts": 1}
+{"cell": "d17-m4-p5-t3", "arm": "LIVENESS", "survived": true, "rejection_reason": null, "attempts": 1}
+{"cell": "d15-m4-p4-t5", "arm": "SAFETY-ONLY", "survived": false, "rejection_reason": "typeok_only_invariant", "attempts": 5}
+{"cell": "d1-m9-p1-t4", "arm": "LIVENESS", "survived": true, "rejection_reason": null, "attempts": 4}
+{"cell": "d3-m0-p0-t2", "arm": "SAFETY-ONLY", "survived": true, "rejection_reason": null, "attempts": 2}
