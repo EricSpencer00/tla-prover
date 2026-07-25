@@ -1,126 +1,82 @@
 # W4 train readiness — 2026-07-25
 
-## TL;DR
+## Status
 
-The **trainable set is done, verified, committed, and staged on ALCF.**
+**Training is running on Polaris.** The corpus is graded, the export bug is fixed,
+and the proven recipe is executing.
 
-**A training run IS queued** — Sophia job `168981.sophia-pbs-01`, 20b LoRA on
-`sft_w4_diamond_gold.jsonl` (3,260 graded rows), 1 node / 8 GPUs / 2h walltime,
-waiting on free nodes. It smoke-tests inside its own allocation and aborts before
-spending the walltime if the smoke fails.
+| job | queue | corpus | state |
+|---|---|---|---|
+| `7284822` | debug (1h) | diamond — 508 rows, 51 liveness | **RUNNING**, 4× A100-40GB |
+| `7284828` | preemptable (6h) | diamond_gold — 3,534 rows, 220 liveness | queued, smoke-gated |
 
-This runs on a **Sophia-native hermetic venv** built tonight, not the Polaris
-recipe. The Polaris path is still the proven one and still needs a Polaris OTP —
-see below. Prefer it for anything that matters.
+Both are **20b**. The 120b remains unfired — see "Not done deliberately" below.
 
----
+## The corpus
 
-## What is ready
-
-Rendered by `python3 -m harness.corpus_prep sft --min-tier N`, all harmony-verified
+Rendered by `python3 -m harness.corpus_prep sft --min-tier N`, harmony-verified
 (final channel + ```` ```tla ```` + ```` ```cfg ```` in every target), zero duplicate
-seed_keys, exclusions and keep-last honored:
+seed_keys, exclusions and keep-last honored. Cut against corpus 4,314 / 220 liveness:
 
-| file | rows | liveness | ~tokens | top family |
-|---|---|---|---|---|
-| `results/analysis/sft_w4_diamond.jsonl` | 444 | 19 | 342k | mutex_locks 28.4% |
-| `results/analysis/sft_w4_diamond_gold.jsonl` | 3,260 | 85 | 2.6M | mutex_locks 36.0% |
-| `results/analysis/sft_w4_all_graded.jsonl` | 3,942 | 85 | 3.1M | mutex_locks 35.7% |
+| file | rows | liveness | top family |
+|---|---|---|---|
+| `sft_w4_diamond.jsonl` | 508 | 51 (**10.0%**) | mutex_locks 29.3% |
+| `sft_w4_diamond_gold.jsonl` | 3,534 | 220 (6.2%) | mutex_locks 35.8% |
+| `sft_w4_all_graded.jsonl` | 4,216 | 220 (5.2%) | mutex_locks 35.5% |
 
-That is a 3-point ablation curve mirroring TLA-Prover Table 4 (diamond-only 1,053
-beat silver-and-above 4,210: 13.3% vs 6.7%). Grading rationale and tier definitions
-are in `harness/w4_corpus.py`.
+Tier definitions and rationale: `harness/w4_corpus.py`. Diamond is the
+mutation-catch-only tier — the one TLA-Prover Table 4 found beat a corpus 4× its
+size (13.3% vs 6.7%). It also carries the best family balance in the corpus, because
+the mutation filter de-skews as a side effect.
 
-**Staged on ALCF** (`/home` and `/grand` are shared between Sophia and Polaris, so
-these are visible from both):
+## Cluster notes
 
-- `~/ChatTLA/data/sft_w4_diamond.jsonl` (444)
-- `~/ChatTLA/data/sft_w4_diamond_gold.jsonl` (3,260)
-- `~/moe_fsdp_train_w4_diamond_gold.pbs` — 20b, 3 epochs, FSDP2 expert-reaching LoRA
-- `~/moe_fsdp_train_w4_diamond.pbs` — 20b, 6 epochs (smaller corpus, more passes)
+**Polaris is the working path.** `~/ChatTLA/.venv` (py3.12.11) resolves here and the
+pinned stack imports clean: torch 2.11.0+cu128, transformers 5.6.2, peft 0.19.1,
+accelerate 1.13.0, trl 1.2.0.
 
-Both PBS scripts write checkpoints to `/grand/EVITA/eric-spencer/w4train/`, **not**
-`$HOME` — see the quota note below.
+Queue facts worth not rediscovering:
+- `debug` — max 1h, max 2 nodes. Sized diamond at 2 epochs (1,016 samples) against
+  the proven v2sft2 debug load (260 rows × 4 = 1,040).
+- `prod` — **`resources_min.nodect = 10`**. A `select=1` job is rejected with
+  "Job violates queue and/or server resource limits".
+- `preemptable` — min 1 node, max 72h. This is the queue for long single-node runs.
 
-## The blocker
+**Sophia does not work for this and is not worth retrying.** Its `.venv` is a Polaris
+venv (interpreter symlinks into `/soft/applications/conda/2025-09-25`), `sophia-pbs-01`
+has no polaris vnodes, and the cluster was fully saturated — all 23 nodes
+job-exclusive, `single-gpu` showing 0 running against 10 queued, jobs ahead holding
+24h walltimes. A job sat queued 6h12m and never started.
 
-The proven recipe (`~/moe_fsdp_train_v2sft2.pbs`) carries
-`#PBS -l select=1:system=polaris`, and `~/ChatTLA/.venv` is a **Polaris** venv — its
-interpreter symlinks to `/soft/applications/conda/2025-09-25/mconda3/bin/python3`,
-which does not exist on Sophia.
+A working Sophia-native venv does now exist at
+`/grand/EVITA/eric-spencer/venvs/sophia-train-clean` (build script
+`~/rebuild_hermetic.sh`) if capacity ever frees up. Build it **without**
+`--system-site-packages` — conda's `transformer_engine` is broken there
+(`undefined symbol cublasLtGroupedMatrixLayoutInit_internal`) and peft probes it
+unconditionally.
 
-The open ControlMaster socket is to **Sophia**. Sophia's scheduler is
-`sophia-pbs-01`; it has no `debug`/`prod` queues and no Polaris vnodes, so `qsub` of
-the Polaris script fails:
+## Not done deliberately
 
-```
-qsub: vnode_resource_hook.py failure: 'NoneType' object has no attribute 'resources_default'
-```
+**The 120b run.** Amendment 17 shelves fine-tuning and the design doc allows exactly
+ONE pre-registered 120b train+eval with arms reported separately. Firing it now would
+spend that shot on a corpus that is **5.1% liveness against a public TLA+ rate of
+23–34%** — the first thing a reviewer with `grep` will find.
 
-**To unblock:** open a Polaris socket and submit. Everything else is in place.
+The loop is closing that gap fast: 85 → 220 liveness in about twelve hours, with
+waves landing clean 25L/25S splits. The 500-liveness floor is roughly a day out.
+The right sequence is: let the 20b runs validate mechanics, let the loop hit the
+floor, re-render, write the pre-registration, then spend the 120b shot once.
 
-```bash
-ssh -fN polaris
-```
+## Housekeeping
 
-then
-
-```bash
-ssh polaris 'qsub ~/moe_fsdp_train_w4_diamond_gold.pbs'
-```
-
-## Sophia-native fallback — BUILT AND WORKING
-
-Sophia is otherwise viable: PyPI reachable from the login node, 8 GPUs/node,
-`by-node` walltime up to 24h. A Sophia venv was attempted at
-`/grand/EVITA/eric-spencer/venvs/sophia-train`. It got as far as importing
-transformers/accelerate/trl/mlflow, then hit an unfixable leak:
-
-`--system-site-packages` exposes Sophia conda's `transformer_engine`, which `peft`
-unconditionally probes for, and which is broken on that node:
-
-```
-libtransformer_engine.so: undefined symbol: cublasLtGroupedMatrixLayoutInit_internal,
-version libcublasLt.so.13
-```
-
-A hermetic rebuild (no system site-packages, own torch) **succeeded**:
-`/grand/EVITA/eric-spencer/venvs/sophia-train-clean`, script `~/rebuild_hermetic.sh`,
-log `~/rebuild_hermetic.log`. It reproduces the proven Polaris pins exactly —
-torch 2.11.0+cu128, transformers 5.6.2, peft 0.19.1, accelerate 1.13.0, trl 1.2.0 —
-and `import src.training.train` passes.
-
-Job script: `~/train_w4_sophia.pbs` (queue `by-node`, no `system=polaris`).
-
-**Caveat that has not been retired:** the imports pass on the login node, but
-FSDP2 + gpt-oss triton kernels on torch 2.11 / py3.13 has never run on Sophia. That
-is exactly what the in-allocation smoke step is there to find out. Until job 168981
-reports `SMOKE_EXIT=0`, treat this path as unproven.
-
-Also note: `harness/corpus_prep.py` and the PBS scripts default to
-`MODEL_ID = openai/gpt-oss-20b`. Both `gpt-oss-20b` and `gpt-oss-120b` are cached at
-`/grand/EVITA/eric-spencer/hf-cache/hub/`. Pass `--base-model` to switch.
-
-## Two things that need your call
-
-1. **The 120b run is pre-registered and single-shot.** Per Amendment 17 the flywheel
-   is loop-only and fine-tuning is shelved; the design doc allows exactly ONE
-   pre-registered 120b train+eval, with arms reported separately. The staged scripts
-   are 20b deliberately — a 20b run is mechanics validation and costs nothing
-   against that budget. Firing 120b overnight without a written pre-registration
-   would spend the one shot. I did not do it.
-2. **Which tier is the real training corpus.** `diamond_gold` (3,260) is the
-   recommendation; `diamond` (444) is the aggressive filter the literature favors
-   and is also the best family-balanced set. The ablation is the interesting
-   experiment and all three files exist.
-
-## Housekeeping found along the way
-
-- **ALCF home is over quota: 101G against a 45G limit.** Writes still succeed (soft
-  limit) but a 3MB scp already failed once mid-transfer. Nothing was deleted —
-  18G sits in `~/ChatTLA/outputs/` across ~12 old checkpoint dirs and ~4.5G in
-  `~/adapter_*_reconstructed/`. Reclaiming that is your call; all new output is
-  routed to `/grand`.
+- **ALCF home is over quota: 101G against 45G.** All training output is routed to
+  `/grand/EVITA/eric-spencer/w4train/`. Nothing was deleted — 18G sits in
+  `~/ChatTLA/outputs/` across ~12 old checkpoint dirs, ~4.5G in
+  `~/adapter_*_reconstructed/`. Reclaiming it is Eric's call.
 - **The Discord notifier is dead**: `hermes send` returns
-  `Discord API error (401): Unauthorized`. The OTP ping in
-  `tools/otp_nag.sh` cannot reach you until that token is refreshed.
+  `Discord API error (401): Unauthorized`, so `tools/otp_nag.sh` cannot reach Eric.
+- The cloud routine cannot delegate — its `allowed_tools` has no `Task`, so each wave
+  runs 50 cells in one long-context session. Adding `Task` would let it dispatch a
+  subagent per shard and cut the cache-read cost, which dominates spend at roughly
+  41:1 over fresh tokens. Not changed mid-run: the loop is healthy and about a day
+  from its floor, and breaking it now costs more than the tokens save.
