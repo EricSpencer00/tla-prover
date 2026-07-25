@@ -11,3 +11,7 @@
 {"cell": "d13-m8-p1-t5", "arm": "LIVENESS", "survived": true, "rejection_reason": null, "attempts": 1}
 {"cell": "d4-m5-p3-t2", "arm": "SAFETY-ONLY", "survived": true, "rejection_reason": null, "attempts": 2}
 {"cell": "d7-m8-p6-t5", "arm": "LIVENESS", "survived": true, "rejection_reason": null, "attempts": 2}
+{"cell": "d18-m8-p3-t4", "arm": "SAFETY-ONLY", "survived": true, "rejection_reason": null, "attempts": 1}
+{"cell": "d7-m4-p3-t5", "arm": "LIVENESS", "survived": true, "rejection_reason": null, "attempts": 2}
+{"cell": "d19-m2-p3-t4", "arm": "SAFETY-ONLY", "survived": true, "rejection_reason": null, "attempts": 2}
+{"cell": "d13-m0-p0-t0", "arm": "LIVENESS", "survived": true, "rejection_reason": null, "attempts": 1}
