@@ -63,31 +63,17 @@ continue with only this file + the repo.
    - RETURN: survivors/attempted, reject histogram, median LOC+states, 3 hardest
      cells, honesty note
 
-3. AFTER BOTH shards report, run the audit (paste as-is, bump range end):
-   python3 - <<'PYEOF'
-   import json, itertools
-   from pathlib import Path
-   from harness.corpora import shingle_set, normalize_tla, SHINGLE_K, NEAR_DUP_THRESHOLD
-   d=json.load(open("results/analysis/w4_exclusions.json"))
-   excl=set(d["excluded_seed_keys"]); keeplast=set(d.get("dedup_overrides",{}))
-   rows={}
-   for s in range(76):   # <-- last shard + 1
-       p=Path(f"results/runs/w4-opus-shard{s}/w2_survivors.jsonl")
-       if not p.exists(): continue
-       for l in p.read_text().splitlines():
-           if l.strip():
-               r=json.loads(l); k=r.get("seed_key")
-               if k in excl: continue
-               if k in rows and k not in keeplast: continue
-               rows[k]=r
-   rows=list(rows.values())
-   sh=[shingle_set(normalize_tla(r["spec_text"]),SHINGLE_K) for r in rows]
-   jac=lambda a,b: len(a&b)/max(1,len(a|b))
-   bad=[(round(jac(sh[i],sh[j]),3),rows[i]["seed_key"],rows[j]["seed_key"])
-        for i,j in itertools.combinations(range(len(rows)),2)
-        if jac(sh[i],sh[j])>=NEAR_DUP_THRESHOLD]
-   print(f"effective corpus {len(rows)}; near-dups: {bad if bad else 'NONE'}")
-   PYEOF
+3. AFTER BOTH shards report, run the audit:
+   python3 tools/w4_audit.py
+   It derives the shard range itself, honors w4_exclusions.json (exclusions +
+   keep-last), and prints effective corpus, arm split, family/mutation/cfg drift,
+   near-dups, and a STOP=YES/NO line. Exit 10 = every floor met. The floors are
+   constants at the top of that file: total >=5000 AND liveness arm >=500. Near-dup
+   is incremental (new wave vs everything); `--full` forces the O(n^2) sweep.
+
+   This replaced an inline heredoc whose range end had to be hand-bumped, and whose
+   floor (4130) would have stopped the run at ~3% liveness. See
+   docs/CLOUD_ROUTINE_W4.md for the full changelog.
 
 4. Handle incidents exactly as the ledgered precedents (results/analysis/
    w4_exclusions.json holds all state): near-dup pair -> add loser to
@@ -101,7 +87,15 @@ continue with only this file + the repo.
    results/analysis/w4_exclusions.json && git commit` with the wave count +
    effective total in the message. Update memory round3-status counts.
 
-## When the corpus is deemed big enough (Eric's call; proposed floor 5k rows total)
+## When the corpus is deemed big enough (floors enforced by tools/w4_audit.py)
+Floors: total >=5000 effective W4 rows AND liveness arm >=500. The liveness floor
+exists because the arm only started producing at shard 155 — at shard 161 it was
+85 rows (2.1%), and the old 4130 total-only floor would have frozen it near 3%.
+Family balance ("family-balanced" in the design doc) is reported but NOT gated:
+the lattice cell -> family map is deterministic, so a hard gate could be
+unsatisfiable. mutex_locks is 35.8% vs replication_storage 0.9%; treat that as a
+known limitation to disclose, not something a wave can fix.
+
 Render + gate per round3-status "AFTER HARVEST" notes: corpus_prep sft over all
 w4-opus-shard* dirs (honor w4_exclusions.json exclusions + keep-last overrides
 and the shard-50 short-key mapping in commit 81bfb65), then the ONE pre-registered
