@@ -1,0 +1,4 @@
+{"cell": "d18-m9-p3-t2", "arm": "SAFETY-ONLY", "survived": true, "rejection_reason": null, "attempts": 2}
+{"cell": "d16-m1-p1-t3", "arm": "SAFETY-ONLY", "survived": true, "rejection_reason": null, "attempts": 1}
+{"cell": "d14-m0-p1-t2", "arm": "LIVENESS", "survived": true, "rejection_reason": null, "attempts": 1}
+{"cell": "d14-m0-p1-t2", "arm": "LIVENESS", "survived": true, "rejection_reason": null, "attempts": 2}
