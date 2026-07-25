@@ -29,6 +29,7 @@ from harness.corpora import (  # noqa: E402
     shingle_set,
 )
 from harness.corpus_prep import tag_family  # noqa: E402
+from harness import w4_corpus  # noqa: E402
 
 # ---------------------------------------------------------------------------
 # STOP FLOORS -- the only numbers worth editing.
@@ -55,31 +56,10 @@ def max_shard() -> int:
 
 
 def load_effective(upto: int) -> list[dict]:
-    """Effective corpus: survivors, minus exclusions, first-wins unless the key
-    is a keep-last override. Mirrors the accounting in docs/RESUME_W4.md."""
-    d = json.loads(EXCLUSIONS.read_text()) if EXCLUSIONS.exists() else {}
-    excluded = set(d.get("excluded_seed_keys", []))
-    keep_last = set(d.get("dedup_overrides", {}))
-
-    rows: dict[str, dict] = {}
-    for s in range(upto + 1):
-        p = RUNS / f"w4-opus-shard{s}" / "w2_survivors.jsonl"
-        if not p.exists():
-            continue
-        for line in p.read_text().splitlines():
-            if not line.strip():
-                continue
-            r = json.loads(line)
-            if not r.get("survived", True):
-                continue
-            k = r.get("seed_key")
-            if k in excluded:
-                continue
-            if k in rows and k not in keep_last:
-                continue
-            r["_shard"] = s
-            rows[k] = r
-    return list(rows.values())
+    """Effective corpus. Delegates to harness.w4_corpus so the audit and the
+    SFT export cannot drift apart -- they did, and the export was emitting 3
+    excluded keys plus 65 duplicates against this file's numbers."""
+    return w4_corpus.load_effective(upto_shard=upto, runs_dir=RUNS)
 
 
 def near_dups(rows: list[dict], since_shard: int | None) -> list[tuple]:
@@ -150,6 +130,14 @@ def main() -> int:
     print(f"  family   top={top_fam} {top_ct} ({100 * top_share:.1f}%) "
           f"{'OK' if top_share <= FAMILY_MAX_SHARE else f'OVER {100 * FAMILY_MAX_SHARE:.0f}% (advisory)'}")
     print("  families: " + "  ".join(f"{k}={v}" for k, v in fams.most_common()))
+
+    # Quality tiers. TLA-Prover Table 4 and Wonda both found a *graded* filter
+    # beats a bigger binary-filtered pile, so track the trainable tiers, not
+    # just the raw count.
+    w4_corpus.grade_corpus(rows)
+    tt = w4_corpus.tier_table(rows)
+    print("  tiers:    " + "  ".join(
+        f"{k}={v['total']}({v['liveness']}L)" for k, v in tt.items() if k != "TOTAL"))
 
     # Surfaced because FIX 1 accepts no_kill/no_site as passes: if real
     # safety_catch stays near zero the mutation gate is not discriminating.
