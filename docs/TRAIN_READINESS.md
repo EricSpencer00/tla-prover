@@ -3,7 +3,15 @@
 ## TL;DR
 
 The **trainable set is done, verified, committed, and staged on ALCF.**
-The **train did not launch.** It is blocked on one thing: a **Polaris** OTP.
+
+**A training run IS queued** — Sophia job `168981.sophia-pbs-01`, 20b LoRA on
+`sft_w4_diamond_gold.jsonl` (3,260 graded rows), 1 node / 8 GPUs / 2h walltime,
+waiting on free nodes. It smoke-tests inside its own allocation and aborts before
+spending the walltime if the smoke fails.
+
+This runs on a **Sophia-native hermetic venv** built tonight, not the Polaris
+recipe. The Polaris path is still the proven one and still needs a Polaris OTP —
+see below. Prefer it for anything that matters.
 
 ---
 
@@ -61,7 +69,7 @@ then
 ssh polaris 'qsub ~/moe_fsdp_train_w4_diamond_gold.pbs'
 ```
 
-## Sophia-native fallback — attempted, not finished
+## Sophia-native fallback — BUILT AND WORKING
 
 Sophia is otherwise viable: PyPI reachable from the login node, 8 GPUs/node,
 `by-node` walltime up to 24h. A Sophia venv was attempted at
@@ -76,11 +84,18 @@ libtransformer_engine.so: undefined symbol: cublasLtGroupedMatrixLayoutInit_inte
 version libcublasLt.so.13
 ```
 
-A hermetic rebuild (no system site-packages, own torch) was launched at
-`/grand/EVITA/eric-spencer/venvs/sophia-train-clean`; script `~/rebuild_hermetic.sh`,
-log `~/rebuild_hermetic.log`. **Check the log before trusting it.** Even if the
-imports pass, FSDP2 + gpt-oss triton kernels on torch 2.11/py3.13 is untested on
-Sophia — the Polaris path is proven and should be preferred.
+A hermetic rebuild (no system site-packages, own torch) **succeeded**:
+`/grand/EVITA/eric-spencer/venvs/sophia-train-clean`, script `~/rebuild_hermetic.sh`,
+log `~/rebuild_hermetic.log`. It reproduces the proven Polaris pins exactly —
+torch 2.11.0+cu128, transformers 5.6.2, peft 0.19.1, accelerate 1.13.0, trl 1.2.0 —
+and `import src.training.train` passes.
+
+Job script: `~/train_w4_sophia.pbs` (queue `by-node`, no `system=polaris`).
+
+**Caveat that has not been retired:** the imports pass on the login node, but
+FSDP2 + gpt-oss triton kernels on torch 2.11 / py3.13 has never run on Sophia. That
+is exactly what the in-allocation smoke step is there to find out. Until job 168981
+reports `SMOKE_EXIT=0`, treat this path as unproven.
 
 Also note: `harness/corpus_prep.py` and the PBS scripts default to
 `MODEL_ID = openai/gpt-oss-20b`. Both `gpt-oss-20b` and `gpt-oss-120b` are cached at
