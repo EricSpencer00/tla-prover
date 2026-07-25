@@ -15,3 +15,9 @@
 {"cell": "d7-m4-p3-t5", "arm": "LIVENESS", "survived": true, "rejection_reason": null, "attempts": 2}
 {"cell": "d19-m2-p3-t4", "arm": "SAFETY-ONLY", "survived": true, "rejection_reason": null, "attempts": 2}
 {"cell": "d13-m0-p0-t0", "arm": "LIVENESS", "survived": true, "rejection_reason": null, "attempts": 1}
+{"cell": "d10-m6-p2-t1", "arm": "SAFETY-ONLY", "survived": true, "rejection_reason": null, "attempts": 1}
+{"cell": "d5-m2-p0-t5", "arm": "LIVENESS", "survived": true, "rejection_reason": null, "attempts": 2}
+{"cell": "d6-m7-p5-t2", "arm": "SAFETY-ONLY", "survived": true, "rejection_reason": null, "attempts": 1}
+{"cell": "d4-m8-p4-t3", "arm": "LIVENESS", "survived": true, "rejection_reason": null, "attempts": 1}
+{"cell": "d12-m4-p4-t1", "arm": "SAFETY-ONLY", "survived": true, "rejection_reason": null, "attempts": 1}
+{"cell": "d7-m8-p6-t2", "arm": "LIVENESS", "survived": true, "rejection_reason": null, "attempts": 2}
