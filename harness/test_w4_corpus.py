@@ -11,7 +11,7 @@ import json
 
 import pytest
 
-from harness import w4_corpus
+from harness import corpus_prep, w4_corpus
 from harness.corpus_prep import build_sft_file, load_survivors
 
 
@@ -141,6 +141,49 @@ class TestLoadSurvivorsRouting:
         (d / "w2_survivors.jsonl").write_text(json.dumps(_row("a")) + "\n")
         with pytest.raises(ValueError, match="not W4 shard dirs"):
             load_survivors([d], apply_exclusions=True)
+
+
+class TestChatFormats:
+    """Harmony is gpt-oss-specific. A Qwen tokenizer has no '<|channel|>' token,
+    so rendering harmony for it would teach the model to emit literal control
+    strings as text."""
+
+    def test_harmony_still_default(self):
+        out = corpus_prep.to_harmony_sft(_row("a"))
+        assert "<|channel|>final<|message|>" in out["text"]
+        assert out["text"].endswith("<|return|>")
+        assert out["format"] == "harmony"
+
+    def test_chatml_has_no_harmony_markup(self):
+        out = corpus_prep.to_harmony_sft(_row("a"), fmt="chatml")
+        t = out["text"]
+        assert "<|im_start|>user\n" in t
+        assert "<|im_start|>assistant\n" in t
+        assert t.endswith("<|im_end|>")
+        for tok in ("<|channel|>", "<|return|>", "<|start|>", "<|message|>"):
+            assert tok not in t, f"harmony token {tok} leaked into chatml"
+        assert out["format"] == "chatml"
+
+    def test_both_formats_carry_the_same_payload(self):
+        r = _row("a")
+        h = corpus_prep.to_harmony_sft(r, fmt="harmony")["text"]
+        c = corpus_prep.to_harmony_sft(r, fmt="chatml")["text"]
+        for t in (h, c):
+            assert "```tla" in t and "```cfg" in t
+            assert r["spec_text"] in t and r["cfg_text"] in t and r["nl"] in t
+
+    def test_unknown_format_rejected(self):
+        with pytest.raises(ValueError, match="unknown format"):
+            corpus_prep.to_harmony_sft(_row("a"), fmt="llama3")
+
+    def test_build_sft_file_honors_format(self, tmp_path, monkeypatch):
+        monkeypatch.setattr(w4_corpus, "load_exclusions", lambda *a, **k: {})
+        _write_shard(tmp_path, 0, [_row("d1-m1-p1-t1")])
+        out = tmp_path / "sft.jsonl"
+        build_sft_file([tmp_path / "w4-opus-shard0"], out, fmt="chatml")
+        rec = json.loads(out.read_text().strip())
+        assert rec["format"] == "chatml"
+        assert "<|channel|>" not in rec["text"]
 
 
 class TestTieredSft:

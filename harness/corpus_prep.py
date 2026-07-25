@@ -349,22 +349,51 @@ def _target_block(row: dict) -> str:
     return f"```tla\n{spec_text}\n```\n```cfg\n{cfg_text}\n```"
 
 
-def to_harmony_sft(survivor_row: dict) -> dict:
-    """Convert a w2 survivor row into a harmony-rendered training example.
-    Returns {"text": <rendered>, "seed_key": ..., "family": ...}."""
+def _render_chatml(user_text: str, target_text: str, system_text: str | None = None) -> str:
+    """ChatML, as used by the Qwen line (and most non-gpt-oss instruct models).
+
+    Harmony is gpt-oss-specific: its channel machinery ('<|channel|>final')
+    means nothing to a Qwen tokenizer, which would see the control strings as
+    ordinary text and learn to emit them. The structural property we care about
+    is unchanged -- the assistant target is the only supervised span, and it
+    terminates with the model's real end-of-turn token.
+    """
+    parts = []
+    if system_text:
+        parts.append(f"<|im_start|>system\n{system_text}<|im_end|>\n")
+    parts.append(f"<|im_start|>user\n{user_text}<|im_end|>\n")
+    parts.append(f"<|im_start|>assistant\n{target_text}<|im_end|>")
+    return "".join(parts)
+
+
+#: Supported chat renderings. "harmony" is gpt-oss only; "chatml" covers Qwen.
+FORMATS = ("harmony", "chatml")
+
+
+def to_harmony_sft(survivor_row: dict, fmt: str = "harmony") -> dict:
+    """Convert a w2 survivor row into a rendered training example.
+    Returns {"text": <rendered>, "seed_key": ..., "family": ..., "format": ...}."""
+    if fmt not in FORMATS:
+        raise ValueError(f"unknown format {fmt!r}; expected one of {FORMATS}")
     user_text = survivor_row.get("nl") or ""
     target_text = _target_block(survivor_row)
-    rendered = _render_harmony(user_text, target_text)
+    rendered = (_render_harmony(user_text, target_text) if fmt == "harmony"
+                else _render_chatml(user_text, target_text))
     fam_source = user_text + " " + (survivor_row.get("spec_text") or "")
     return {
         "text": rendered,
         "seed_key": survivor_row.get("seed_key"),
         "family": tag_family(fam_source),
+        "format": fmt,
     }
 
 
+#: Back-compat alias -- the name says harmony but the function is format-generic.
+to_sft = to_harmony_sft
+
+
 def build_sft_file(survivor_dirs: list, out_path, min_tier: int | None = None,
-                   apply_exclusions: bool | None = None) -> int:
+                   apply_exclusions: bool | None = None, fmt: str = "harmony") -> int:
     """Write harmony-rendered JSONL for survivors across survivor_dirs.
     Returns the number of rows written. Robust to empty/missing dirs (writes
     an empty file, returns 0).
@@ -382,7 +411,7 @@ def build_sft_file(survivor_dirs: list, out_path, min_tier: int | None = None,
     n = 0
     with open(out_path, "w") as f:
         for row in survivors:
-            example = to_harmony_sft(row)
+            example = to_harmony_sft(row, fmt=fmt)
             if "tier_name" in row:
                 example["tier_name"] = row["tier_name"]
                 example["arm"] = row["arm"]
@@ -428,6 +457,8 @@ def main(argv=None):
                          help="Glob(s) of run dirs containing w2_survivors.jsonl")
     parser.add_argument("--holdout", default=str(DEFAULT_HOLDOUT))
     parser.add_argument("--out", default=None)
+    parser.add_argument("--format", choices=FORMATS, default="harmony",
+                        help="sft mode: chat rendering. harmony=gpt-oss, chatml=Qwen et al.")
     parser.add_argument("--min-tier", type=int, default=None,
                         help="sft mode: keep rows at or above this w4_corpus tier "
                              "(3=diamond, 2=gold, 1=silver, 0=bronze)")
@@ -458,7 +489,8 @@ def main(argv=None):
         print(f"wrote {out_path}, {survivor_tags_path}, {holdout_tags_path}")
     elif args.mode == "sft":
         out_path = Path(args.out) if args.out else Path("results/analysis/sft_harmony.jsonl")
-        n = build_sft_file(args.survivor_dirs, out_path, min_tier=args.min_tier)
+        n = build_sft_file(args.survivor_dirs, out_path, min_tier=args.min_tier,
+                           fmt=args.format)
         print(f"wrote {n} rows -> {out_path}")
 
 
