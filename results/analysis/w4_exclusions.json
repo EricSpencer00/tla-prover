@@ -81,7 +81,9 @@
     "w4opus::d15-m5-p1-t0": "keep-last; shard-109 var-floor fix (7->6 vars), original row intact per append-only",
     "w4opus::d5-m1-p4-t2": "keep-last; shard-108 NL-completeness fix after post-append spec change, corrected row authoritative",
     "w4opus::d18-m2-p3-t2": "keep-last (shard-111 correction row flagged keep_last but never registered; last row is the 4-variable safety_catch re-verify superseding an earlier 3-variable row; registered by cloud wave 52-completion)",
-    "w4opus::d15-m2-p5-t5": "keep-last (shard-126 wave 63: 2PC opening-cross redesign made decision monotonic + changed action set; NL rewritten; authoritative row appended last, 2 prior attempt rows retained)"
+    "w4opus::d15-m2-p5-t5": "keep-last (shard-126 wave 63: 2PC opening-cross redesign made decision monotonic + changed action set; NL rewritten; authoritative row appended last, 2 prior attempt rows retained)",
+    "w4opus::d14-m0-p1-t2": "keep_last: first append had stutter_check=inconclusive:error because the fairness conjunct was written as a quantified '\\A c \\in Consoles : WF_vars(..) /\\ SF_vars(..)' line, which the fairness-stripped re-run could not parse; corrected row uses unquantified WF_vars(\\E c : Read(c)) / SF_vars(\\E c : Publish(c)) conjuncts and re-runs as stutter_check=nontrivial.",
+    "w4opus::d8-m5-p0-t5": "keep_last: first append carried an NL that still described a per-server edit budget which had been dropped from the spec during repair (the spec was reworked to record the entry basis instead). Corrected row has an NL matching the final action set exactly; spec, cfg and verifier result are otherwise identical."
   },
   "notes": [
     "shard-50 seed_keys use SHORT cell keys (d3, d14m8, ...) instead of full lattice keys; unique within corpus, full mapping in wave-22 commit message",

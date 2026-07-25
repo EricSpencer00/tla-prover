@@ -20,11 +20,14 @@ from __future__ import annotations
 
 import glob
 import json
+import re
 import statistics
 from pathlib import Path
 from typing import Iterable
 
 from harness.adequacy import structural_features, complexity_score
+
+from harness import w4_corpus
 
 # S2: survivor median complexity < COLLAPSE_RATIO * holdout median => flag.
 # Design default -- revisit before freeze once we have more survivor volume.
@@ -93,11 +96,54 @@ def _resolve_dirs(survivor_dirs: Iterable) -> list[Path]:
     return out
 
 
-def load_survivors(survivor_dirs: Iterable) -> list[dict]:
-    """Load survived=True rows from w2_survivors.jsonl in each dir. Robust to
-    missing files / empty dirs / malformed lines (skipped, not raised)."""
+_W4_SHARD_RE = re.compile(r"^w4-opus-shard(\d+)$")
+
+
+def load_survivors(survivor_dirs: Iterable, apply_exclusions: bool | None = None) -> list[dict]:
+    """Load survived rows from w2_survivors.jsonl in each dir. Robust to
+    missing files / empty dirs / malformed lines (skipped, not raised).
+
+    W4 shard dirs are delegated to w4_corpus.load_effective(), so this returns
+    byte-identical accounting to tools/w4_audit.py: excluded_seed_keys dropped,
+    de-duplicated by seed_key in NUMERIC shard order, keep-last corrections
+    honored, and rows with no explicit "survived" key treated as survivors.
+    Rendering the W4 dirs without that produced 3 excluded keys, 65 duplicate
+    seed_keys, an order-dependent choice of which duplicate won (glob order is
+    lexical: shard1, shard10, shard100...), and dropped the 84 rows that carry
+    no "survived" field -- 3,965 rows against the audit's 4,040.
+
+    Non-W4 dirs keep the legacy path untouched. They have no exclusions ledger
+    and no seed_key uniqueness contract: de-duplicating w2-gen-* would silently
+    cut the frozen 260-survivor v2_sft2 corpus to 196.
+
+    apply_exclusions: None (default) = auto-detect per directory. True/False
+    force the W4 or legacy path for every directory.
+    """
+    dirs = _resolve_dirs(survivor_dirs)
+    w4_shards, other_dirs = [], []
+    for d in dirs:
+        m = _W4_SHARD_RE.match(d.name)
+        if m and apply_exclusions is not False:
+            w4_shards.append((int(m.group(1)), d))
+        else:
+            other_dirs.append(d)
+    if apply_exclusions is True and other_dirs:
+        raise ValueError(
+            "apply_exclusions=True but these dirs are not W4 shard dirs and have "
+            f"no exclusions ledger: {[str(d) for d in other_dirs]}"
+        )
+
     rows: list[dict] = []
-    for d in _resolve_dirs(survivor_dirs):
+    if w4_shards:
+        runs_dirs = {d.parent for _, d in w4_shards}
+        max_shard = max(s for s, _ in w4_shards)
+        wanted = {d for _, d in w4_shards}
+        for runs_dir in sorted(runs_dirs):
+            for r in w4_corpus.load_effective(upto_shard=max_shard, runs_dir=runs_dir):
+                if runs_dir / f"w4-opus-shard{r['_shard']}" in wanted:
+                    rows.append(r)
+
+    for d in other_dirs:
         f = d / "w2_survivors.jsonl"
         if not f.exists():
             continue
@@ -303,31 +349,72 @@ def _target_block(row: dict) -> str:
     return f"```tla\n{spec_text}\n```\n```cfg\n{cfg_text}\n```"
 
 
-def to_harmony_sft(survivor_row: dict) -> dict:
-    """Convert a w2 survivor row into a harmony-rendered training example.
-    Returns {"text": <rendered>, "seed_key": ..., "family": ...}."""
+def _render_chatml(user_text: str, target_text: str, system_text: str | None = None) -> str:
+    """ChatML, as used by the Qwen line (and most non-gpt-oss instruct models).
+
+    Harmony is gpt-oss-specific: its channel machinery ('<|channel|>final')
+    means nothing to a Qwen tokenizer, which would see the control strings as
+    ordinary text and learn to emit them. The structural property we care about
+    is unchanged -- the assistant target is the only supervised span, and it
+    terminates with the model's real end-of-turn token.
+    """
+    parts = []
+    if system_text:
+        parts.append(f"<|im_start|>system\n{system_text}<|im_end|>\n")
+    parts.append(f"<|im_start|>user\n{user_text}<|im_end|>\n")
+    parts.append(f"<|im_start|>assistant\n{target_text}<|im_end|>")
+    return "".join(parts)
+
+
+#: Supported chat renderings. "harmony" is gpt-oss only; "chatml" covers Qwen.
+FORMATS = ("harmony", "chatml")
+
+
+def to_harmony_sft(survivor_row: dict, fmt: str = "harmony") -> dict:
+    """Convert a w2 survivor row into a rendered training example.
+    Returns {"text": <rendered>, "seed_key": ..., "family": ..., "format": ...}."""
+    if fmt not in FORMATS:
+        raise ValueError(f"unknown format {fmt!r}; expected one of {FORMATS}")
     user_text = survivor_row.get("nl") or ""
     target_text = _target_block(survivor_row)
-    rendered = _render_harmony(user_text, target_text)
+    rendered = (_render_harmony(user_text, target_text) if fmt == "harmony"
+                else _render_chatml(user_text, target_text))
     fam_source = user_text + " " + (survivor_row.get("spec_text") or "")
     return {
         "text": rendered,
         "seed_key": survivor_row.get("seed_key"),
         "family": tag_family(fam_source),
+        "format": fmt,
     }
 
 
-def build_sft_file(survivor_dirs: list, out_path) -> int:
-    """Write harmony-rendered JSONL for all survivors across survivor_dirs.
+#: Back-compat alias -- the name says harmony but the function is format-generic.
+to_sft = to_harmony_sft
+
+
+def build_sft_file(survivor_dirs: list, out_path, min_tier: int | None = None,
+                   apply_exclusions: bool | None = None, fmt: str = "harmony") -> int:
+    """Write harmony-rendered JSONL for survivors across survivor_dirs.
     Returns the number of rows written. Robust to empty/missing dirs (writes
-    an empty file, returns 0)."""
-    survivors = load_survivors(survivor_dirs)
+    an empty file, returns 0).
+
+    min_tier filters on the w4_corpus quality grade (3=diamond, 2=gold,
+    1=silver, 0=bronze); None keeps every row. Each emitted example carries
+    "tier_name" and "arm" so a train can stratify without re-deriving them.
+    """
+    survivors = load_survivors(survivor_dirs, apply_exclusions=apply_exclusions)
+    if min_tier is not None:
+        survivors = w4_corpus.grade_corpus(survivors)
+        survivors = [r for r in survivors if r["tier"] >= min_tier]
     out_path = Path(out_path)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     n = 0
     with open(out_path, "w") as f:
         for row in survivors:
-            example = to_harmony_sft(row)
+            example = to_harmony_sft(row, fmt=fmt)
+            if "tier_name" in row:
+                example["tier_name"] = row["tier_name"]
+                example["arm"] = row["arm"]
             f.write(json.dumps(example) + "\n")
             n += 1
     return n
@@ -370,6 +457,11 @@ def main(argv=None):
                          help="Glob(s) of run dirs containing w2_survivors.jsonl")
     parser.add_argument("--holdout", default=str(DEFAULT_HOLDOUT))
     parser.add_argument("--out", default=None)
+    parser.add_argument("--format", choices=FORMATS, default="harmony",
+                        help="sft mode: chat rendering. harmony=gpt-oss, chatml=Qwen et al.")
+    parser.add_argument("--min-tier", type=int, default=None,
+                        help="sft mode: keep rows at or above this w4_corpus tier "
+                             "(3=diamond, 2=gold, 1=silver, 0=bronze)")
     args = parser.parse_args(argv)
 
     if args.mode == "collapse":
@@ -397,7 +489,8 @@ def main(argv=None):
         print(f"wrote {out_path}, {survivor_tags_path}, {holdout_tags_path}")
     elif args.mode == "sft":
         out_path = Path(args.out) if args.out else Path("results/analysis/sft_harmony.jsonl")
-        n = build_sft_file(args.survivor_dirs, out_path)
+        n = build_sft_file(args.survivor_dirs, out_path, min_tier=args.min_tier,
+                           fmt=args.format)
         print(f"wrote {n} rows -> {out_path}")
 
 
