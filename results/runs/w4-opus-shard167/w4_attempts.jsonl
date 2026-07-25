@@ -1,0 +1,10 @@
+{"cell": "d17-m0-p6-t5", "arm": "SAFETY-ONLY", "survived": true, "rejection_reason": null, "attempts": 1}
+{"cell": "d10-m2-p6-t5", "arm": "LIVENESS", "survived": true, "rejection_reason": null, "attempts": 2}
+{"cell": "d15-m6-p4-t4", "arm": "SAFETY-ONLY", "survived": true, "rejection_reason": null, "attempts": 1}
+{"cell": "d17-m2-p1-t5", "arm": "LIVENESS", "survived": true, "rejection_reason": null, "attempts": 2}
+{"cell": "d16-m0-p3-t0", "arm": "SAFETY-ONLY", "survived": true, "rejection_reason": null, "attempts": 2}
+{"cell": "d9-m3-p2-t1", "arm": "LIVENESS", "survived": true, "rejection_reason": null, "attempts": 1}
+{"cell": "d4-m7-p4-t2", "arm": "SAFETY-ONLY", "survived": true, "rejection_reason": null, "attempts": 1}
+{"cell": "d17-m8-p2-t2", "arm": "LIVENESS", "survived": true, "rejection_reason": null, "attempts": 1}
+{"cell": "d7-m7-p0-t5", "arm": "SAFETY-ONLY", "survived": true, "rejection_reason": null, "attempts": 1}
+{"cell": "d14-m2-p4-t0", "arm": "LIVENESS", "survived": true, "rejection_reason": null, "attempts": 1}
