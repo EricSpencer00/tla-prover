@@ -69,10 +69,30 @@ floor, re-render, write the pre-registration, then spend the 120b shot once.
 
 ## Housekeeping
 
-- **ALCF home is over quota: 101G against 45G.** All training output is routed to
-  `/grand/EVITA/eric-spencer/w4train/`. Nothing was deleted — 18G sits in
-  `~/ChatTLA/outputs/` across ~12 old checkpoint dirs, ~4.5G in
-  `~/adapter_*_reconstructed/`. Reclaiming it is Eric's call.
+- **ALCF home quota RESOLVED 2026-07-25: 101G → 29.11G against 45G.** All training
+  output stays routed to `/grand/EVITA/eric-spencer/w4train/`. What was reclaimed,
+  and the evidence each was safe:
+  - **39G deleted** — `~/.cache/huggingface/hub/models--EricSpencer00--chattla-20b`.
+    Triple-checked: every blob hash also present at identical size in
+    `/grand/EVITA/eric-spencer/hf-cache/hub/` (which holds 3 snapshots vs home's 1),
+    AND the Hub repo `EricSpencer00/chattla-20b` carries the same
+    `model.safetensors` (41,829,561,832 B) and `adapter_model.safetensors`
+    (7,988,016 B). Two independent copies survive.
+  - **13G deleted** — `~/.cache/pip`. Pure wheel cache; all venvs already built.
+  - **18G relocated** — `~/ChatTLA/outputs/` →
+    `chattla_artifacts/home_outputs_archive`, verified byte-exact
+    (18,745,504,074 B both sides, 6,866 files, empty `rsync -an` diff) before the
+    source was removed. `~/ChatTLA/outputs` is now a symlink to that path, so any
+    script referencing it still resolves. The *merged* models for these checkpoints
+    (`merged_v2_sft1/sft2/ablate_e4/repair_v1`) already lived in EVITA.
+  - **4.5G relocated** — `~/adapter_*_reconstructed/` →
+    `chattla_artifacts/home_adapters_reconstructed`, byte-verified
+    (4,700,928,628 B) before removal.
+  - **Deliberately untouched**: `~/ChatTLA/.venv` (9.8G, the working Polaris venv —
+    the queued job's interpreter), `~/.conda/envs/frs` (10G, FormalRewardSignal),
+    `~/ChatTLA/.git`. Post-cleanup dry-import under the exact job env is green:
+    torch 2.11.0+cu128 / transformers 5.6.2 / peft 0.19.1 / accelerate 1.13.0 /
+    trl 1.2.0, `src.training.train` imports, job inputs present.
 - **The Discord notifier is dead**: `hermes send` returns
   `Discord API error (401): Unauthorized`, so `tools/otp_nag.sh` cannot reach Eric.
 - The cloud routine cannot delegate — its `allowed_tools` has no `Task`, so each wave
