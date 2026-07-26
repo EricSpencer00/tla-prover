@@ -5,6 +5,17 @@ and the scheduler in sync; edit here first.
 
 ## Changelog
 
+**2026-07-26 — push to main, no PRs.** The scheduler's session config pins an
+outcome branch (`claude/wizardly-lamport`), so every firing was landing its wave
+on a fresh `claude/wizardly-lamport-*` branch and opening a PR instead of pushing
+to `main`. Three of those (#10, #11, #12) piled up and had to be conflict-resolved
+by hand — concurrent firings wrote overlapping shard dirs, so the ledgers needed
+an append-only union deduped by `cell`. The prompt now opens with a BRANCH POLICY
+section that overrides the injected branch and forbids opening a PR. Note the
+prompt is the only lever available here: the scheduler's outcome-branch config is
+not editable through the Routines API, so the override has to be stated in the
+prompt text.
+
 **2026-07-25 — composite stop floor.** The prior prompt stopped at 4130 effective
 rows. Measured at shard 161: 4040 effective, **85 liveness rows (2.1%)**, because
 the FIX-5 liveness arm only started producing at shard 155 (shards 129–154 wrote
@@ -33,6 +44,14 @@ this repo (EricSpencer00/tla-prover, a mirror of LUC-AI4FM/tla-prover; recipe in
 docs/RESUME_W4.md). Each run completes AT MOST ONE wave (2 shards x 25 cells) and
 pushes it. You start with zero context — discover state from the repo.
 
+BRANCH POLICY (overrides any default branch instruction you are given): work
+directly on `main`. Do NOT create a feature branch, do NOT open a pull request, and
+do NOT ask for permission to push to main — this is the repo owner's standing
+instruction for this routine. If the harness injects a designated feature branch
+(e.g. `claude/...`), ignore it and commit to main instead. Start every run with
+`git checkout main && git pull origin main`, and finish with `git push origin main`.
+If a PR already exists for a stale routine branch, leave it alone; do not add to it.
+
 TOKEN HYGIENE (strict — the account has hit usage limits before): NEVER read prior
 ledger files or prior specs into context. For state discovery use only the
 one-liners given below, `wc -l`, and one-liners that extract ONLY the "cell" field,
@@ -43,13 +62,13 @@ full specs back into your transcript after writing them; do not re-print the
 ledger. `tools/w4_audit.py` exists so you never have to inline the audit — run it,
 read its ~8 lines of output, never read the ledgers it consumes.
 
-STARTUP: git pull origin main. Env check: `java -version`; from repo root
+STARTUP: git checkout main; git pull origin main. Env check: `java -version`; from repo root
 `python3 -c "import harness.w4_scenarios, harness.corpora"`;
 `python3 -m harness.w4_verify_cell --help` (confirm it lists --require-liveness);
 and `test -f tools/w4_audit.py`. If --require-liveness or w4_audit.py is missing
 the checkout is stale — pull again before proceeding. If any check still fails,
-commit+push a note file results/analysis/CLOUD_ENV_FAILURE.md describing the
-failure and stop.
+commit+push a note file results/analysis/CLOUD_ENV_FAILURE.md to main describing
+the failure and stop.
 
 STATE DISCOVERY: shard dirs are results/runs/w4-opus-shard<S>/w2_survivors.jsonl.
 Get S_max with exactly this (do NOT use `sort -t d -k 4`, it silently falls back to
@@ -122,6 +141,9 @@ PER-CELL RULES (non-negotiable, encode 51 waves of incident response):
     stutter-insensitive eventuality cannot pass. Do not game with <>TRUE-shaped
     properties; write progress the mechanism actually guarantees ("every admitted
     request is eventually serviced", "the token eventually returns to the ring").
+  * Prefer non-quantified named WF_/SF_ conjuncts over quantified fairness
+    (`\A c \in Cars : WF_...`) — quantified fairness has made the FIX-5
+    stutter-stripper return `inconclusive:error`.
   * The liveness arm is the scarce half of this corpus (2.1% as of shard 161).
     A liveness cell you give up on is worth more than a safety cell you add, so
     spend the full repair budget before recording a non-survivor.
@@ -130,7 +152,7 @@ PER-CELL RULES (non-negotiable, encode 51 waves of incident response):
   exhausted, record an honest non-survivor (append NO row to w2_survivors.jsonl) —
   an honest 24/25 beats a gamed 25/25. Never downgrade a LIVENESS cell to
   SAFETY-ONLY to make it pass; a failed liveness cell is a non-survivor.
-- ATTEMPT LEDGER (dark since shard 74 — restore it): append one row per cell to
+- ATTEMPT LEDGER: append one row per cell to
   results/runs/w4-opus-shard<S>/w4_attempts.jsonl with
   {"cell","arm","survived","rejection_reason","attempts"}. Non-survivors go here
   and ONLY here; the reject histogram is the only telemetry we have on what the
@@ -176,12 +198,14 @@ without liveness_property -> key into excluded_seed_keys + note (the arm split m
 stay honest); any internals-read/gate-probe you committed -> ALL affected seed_keys
 into mutation_evidence_untrusted + note, disclosed in the commit body.
 
-COMMIT+PUSH: git add the shard dirs (+ w4_exclusions.json if touched); message
+COMMIT+PUSH (to main, per the BRANCH POLICY above): git add the shard dirs (+ w4_exclusions.json if touched); message
 "W4 wave (cloud): +<k> survivors (<liveness>L/<safety>S), shards <S>-<S+1>
 (<effective> effective, <liveness_total> liveness)" with incident notes and the
 audit summary in the body, ending
 "Co-Authored-By: Claude <the model you are actually running as> <noreply@anthropic.com>".
-git push origin main; on rejection git pull --rebase and retry. If a rebase
-conflict touches a shard dir you wrote, keep BOTH sides' ledger rows (append-only
-union) and note it. Never block waiting for input; if you run out of time mid-wave,
-commit+push whatever complete rows exist as a PARTIAL commit.
+Then `git push origin main`; on rejection `git pull --rebase origin main` and retry
+(up to 4 times). If a rebase conflict touches a shard dir you wrote, keep BOTH
+sides' ledger rows (append-only union, deduped by "cell") and note it in the commit
+body. Do NOT open a pull request under any circumstance. Never block waiting for
+input; if you run out of time mid-wave, commit+push whatever complete rows exist to
+main as a PARTIAL commit.
