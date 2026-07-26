@@ -23,3 +23,4 @@
 {"cell": "d4-m4-p5-t4", "arm": "SAFETY-ONLY", "survived": true, "rejection_reason": null, "attempts": 1}
 {"cell": "d17-m0-p5-t5", "arm": "LIVENESS", "survived": true, "rejection_reason": null, "attempts": 1}
 {"cell": "d13-m8-p5-t5", "arm": "SAFETY-ONLY", "survived": true, "rejection_reason": null, "attempts": 1}
+{"cell": "d19-m8-p0-t1", "arm": "LIVENESS", "survived": false, "rejection_reason": "typeok_only_invariant", "attempts": 4}
