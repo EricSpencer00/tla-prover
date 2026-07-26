@@ -13,14 +13,22 @@ LLM can produce and repair TLA+ specifications that actually verify.
 
 G1 without G2 is a lookup table. G2 without G1 means the harness itself is broken.
 
-## Status (2026-07-05)
+## Status (2026-07-26)
 
 | Stage | Result |
 |---|---|
 | **Gate 0** — harness + oracle | ✅ signed off. `corpus/gate0_closed.json` freezes **170/206** closed (hash-pinned). |
 | **Gate 1** — Stage-1 repair sweep | ✅ signed off. oracle 171 / model-only **166/206** (audited) / oracle∪model **176/206**. See [GATE1_STATUS.md](GATE1_STATUS.md). |
-| **Stage 2 entry (E2.a–c)** | E2.a oracle reconciliation ✅, E2.b 30-spec holdout frozen ✅ (`corpus/holdout_30.json`), E2.c baseline measurement **in progress** (see [E2C_HANDOFF.md](E2C_HANDOFF.md)) |
-| **Stage 3** — TLAPS prover (G2) | design-sound, scaffolded, zero measured — correctly gated behind Stage 2. |
+| **Stage 2 entry (E2.a–c)** | ✅ complete. Oracle reconciled, 30-spec holdout frozen (`corpus/holdout_30.json`), baseline frozen (`corpus/e2c_baseline.json`). |
+| **Gate 2** — beat the frozen baseline | ❌ **measured and failed** (PLAN Amendment 16). v2_sft2/120b vs baseline: A 11/30 vs 12/30, B 18/23 vs 21/23. Box stays unchecked. |
+| **Fine-tuning** | **shelved** (Amendment 17). The W2.6 20b directional reproduced diversity collapse with the task-shape confound removed. Corpus *source* — not method — is the binding constraint. |
+| **Structural levers** | measured null (Amendments 18–19): prompt scaffolding 4/70 vs 4/70 control; proof generation 0/20 unguided **and** 0/20 grammar-guided. |
+| **W4 cross-family corpus** | **in progress** — the current active work. Claude-Opus teacher subagents yield 400/400 cells vs 12.5% for the gpt-oss funnel. **4,512 / 5,000** effective rows, liveness arm **318 / 500**. Run `python3 tools/w4_audit.py` for live state. |
+| **Stage 3** — TLAPS prover (G2) | design-sound, scaffolded, honest floor 0/119 on the lmgpa bench — correctly gated behind Stage 2. |
+
+Gate 2 failing is a result, not a blocked state: it closed the fine-tuning question and
+redirected the work to corpus source. The one pre-registered 120b train+eval that
+Amendment 17 permits as a re-entry condition is gated behind the W4 floors above.
 
 Models tried: only the `gpt-oss` family stays reliably available on the ALCF/Sophia
 inference endpoint used for this work; larger independent arms (Devstral, Llama,
@@ -125,6 +133,24 @@ OPENAI_BASE_URL=http://localhost:8322/v1 python3 tools/smoke/serve_preflight.py 
 
 ## What's next
 
-Finish E2.c (frozen baseline: `gpt-oss-20b` / `gpt-oss-120b` on the 30-spec holdout,
-generation + repair framings, pass@1 and pass@32, semantic-audited) — the number
-Stage 2 training must beat before any retraining run starts.
+Close the W4 cross-family corpus to its floors, then spend the one pre-registered
+train+eval. Concretely, in order:
+
+1. **Reach the floors** — 5,000 effective rows AND 500 liveness rows. At 4,512 / 318
+   that is ~488 rows (≈10 waves) and ~182 liveness rows. `tools/w4_audit.py` is the
+   sole authority (exit 10 = every floor met); the per-wave loop is in
+   [docs/RESUME_W4.md](docs/RESUME_W4.md).
+2. **Render + stratify** — `python3 -m harness.corpus_prep sft --survivor-dirs
+   'results/runs/w4-opus-shard*'`. Row count must equal the audit's effective total,
+   and every row carries `arm` so the eval can report the liveness and safety arms
+   separately. A pooled number is not acceptable: it can hide a liveness regression.
+3. **Spend the one pre-registered 120b train+eval** (Amendment 17's re-entry
+   condition) — pre-register the bar, both arms, before the run.
+
+Three calls are outstanding and are **Eric's**, not the harness's: (a) full-rate vs
+half-rate waves, (b) authorizing the gated train run, (c) publishing / HF upload.
+
+Known limitations to disclose rather than fix: family skew (`mutex_locks` 35.7% vs
+`replication_storage` 0.9% — the lattice cell→family map is deterministic, so a hard
+gate would be unsatisfiable), real mutation-catch rate 12.7%, and specs skewing small
+relative to the holdout.

@@ -229,6 +229,29 @@ class TestHarmonySft:
             assert "seed_key" in obj
             assert "family" in obj
 
+    def test_build_sft_file_tags_arm_without_min_tier(self, survivor_dir, tmp_path):
+        """The Gate-2 pre-registration stratifies on "arm", so every rendered row
+        must carry it -- including on the documented harvest command, which passes
+        no --min-tier. Grading used to run only under a tier filter, so the default
+        path emitted untaggable rows and a pooled number could hide a liveness
+        regression."""
+        out_path = tmp_path / "sft.jsonl"
+        n = cp.build_sft_file([survivor_dir], out_path)
+        rows = [json.loads(l) for l in out_path.read_text().strip().splitlines()]
+        assert len(rows) == n
+        for obj in rows:
+            assert obj["arm"] in ("safety", "liveness")
+            assert "tier_name" in obj
+
+    def test_build_sft_file_min_tier_zero_is_a_no_op(self, survivor_dir, tmp_path):
+        """--min-tier 0 keeps every tier, so it must not change the row set. It
+        previously changed the *schema*, which is how the missing arm tag hid."""
+        plain = tmp_path / "plain.jsonl"
+        floored = tmp_path / "floored.jsonl"
+        cp.build_sft_file([survivor_dir], plain)
+        cp.build_sft_file([survivor_dir], floored, min_tier=0)
+        assert plain.read_text() == floored.read_text()
+
     def test_build_sft_file_empty_dirs_robust(self, empty_survivor_dir, tmp_path):
         out_path = tmp_path / "sft_empty.jsonl"
         n = cp.build_sft_file([empty_survivor_dir], out_path)
