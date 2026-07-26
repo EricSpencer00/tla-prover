@@ -1,0 +1,146 @@
+name: CI
+
+# The harness is the instrument every number in this repo is measured with, so
+# the harness being correct is the project's actual load-bearing claim. These
+# checks are cheap (no model, no network, no GPU, no secrets) and run on every
+# push and PR.
+#
+# Deliberately NOT here: anything that calls a model endpoint or runs a real
+# 8-12h experiment. Those need ALCF/Polaris and a budget; they stay manual and
+# ledgered under results/runs/. tools/smoke/run_e2e.sh is the pre-experiment
+# gate for that path and needs a GPU-ish box + a model download, so it is not a
+# CI job either.
+#
+# No secrets are referenced by design, so these checks work unchanged on forks
+# and after the repo goes public.
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  tests:
+    name: harness test suite
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+
+      - name: Install dev dependencies
+        run: pip install -r requirements-dev.txt
+
+      # The suite is stdlib-only and stubs the verifier, so it needs no Java and
+      # no vendored jars -- verified by running it with java off PATH. If a test
+      # ever starts shelling out to SANY/TLC for real, this job needs a
+      # setup-java step and will fail loudly until it gets one.
+      - name: Run tests
+        run: python3 -m pytest harness/ -q
+
+  corpus-integrity:
+    name: corpus export/audit agreement
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # The wave audit is the sole authority on whether the corpus has met its
+      # stop floors, so it must never crash on committed ledger state. Exit 0 =
+      # keep going, 10 = every floor met; both are healthy, anything else is not.
+      - name: Wave audit runs clean
+        # Actions runs bash with -e, so capture the status with `|| status=$?`
+        # rather than a bare call: exit 10 is the FLOORS-MET success case and a
+        # bare call would abort the step at the exact moment the run succeeds.
+        run: |
+          status=0
+          python3 tools/w4_audit.py || status=$?
+          if [ "$status" -ne 0 ] && [ "$status" -ne 10 ]; then
+            echo "::error::w4_audit.py exited $status (expected 0 or 10)"
+            exit 1
+          fi
+          echo "w4_audit.py exited $status (0=keep going, 10=floors met)"
+
+      # The export and the audit have drifted twice -- once in row counts, once
+      # in the arm/tier fields the Gate-2 eval stratifies on. Both were silent.
+      # This asserts they still agree on rows, arms, and tiers.
+      - name: Export agrees with audit
+        run: python3 tools/check_corpus_consistency.py
+
+  frozen-artifacts:
+    name: frozen artifacts still parse
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # These files are the anti-self-certification backbone: the hash-pinned
+      # oracle closure, the decontaminated G2 holdout, the frozen baseline Gate 2
+      # is scored against, and the exclusions ledger. A malformed one silently
+      # invalidates any number computed against it.
+      - name: Validate frozen JSON artifacts
+        run: |
+          python3 - <<'PY'
+          import json, sys
+          from pathlib import Path
+          required = [
+              "corpus/gate0_closed.json",
+              "corpus/holdout_30.json",
+              "corpus/e2c_baseline.json",
+              "results/analysis/w4_exclusions.json",
+          ]
+          bad = []
+          for rel in required:
+              p = Path(rel)
+              if not p.exists():
+                  bad.append(f"{rel}: MISSING")
+                  continue
+              try:
+                  json.loads(p.read_text())
+              except json.JSONDecodeError as e:
+                  bad.append(f"{rel}: invalid JSON ({e})")
+          for line in bad:
+              print(f"::error::{line}")
+          sys.exit(1 if bad else 0)
+          PY
+
+      # Every survivor ledger must stay append-only-parseable: one JSON object
+      # per line. A single truncated write corrupts the corpus accounting.
+      - name: Survivor ledgers are well-formed JSONL
+        run: |
+          python3 - <<'PY'
+          import json, sys
+          from pathlib import Path
+          bad = []
+          files = sorted(Path("results/runs").glob("*/w2_survivors.jsonl"))
+          for f in files:
+              for i, line in enumerate(f.read_text().splitlines(), 1):
+                  if not line.strip():
+                      continue
+                  try:
+                      json.loads(line)
+                  except json.JSONDecodeError as e:
+                      bad.append(f"{f}:{i}: {e}")
+          print(f"checked {len(files)} survivor ledger(s)")
+          for line in bad[:20]:
+              print(f"::error::{line}")
+          sys.exit(1 if bad else 0)
+          PY

@@ -110,6 +110,21 @@ python3 -m harness gen-eval --framing {A,B} --model openai:<id> --run-id <id> --
 python3 -m harness gate-check results/runs/<run-id>   # ALWAYS: re-score from rows.jsonl, fail on api_error/extraction defects
 ```
 
+### Checks (CI runs these on every push and PR)
+
+```bash
+pip install -r requirements-dev.txt
+python3 -m pytest harness/ -q                    # harness suite (stdlib-only, no Java, no network)
+python3 tools/w4_audit.py                        # corpus accounting + stop floors (exit 10 = floors met)
+python3 tools/check_corpus_consistency.py        # the SFT export still agrees with the audit
+```
+
+The third one exists because the export and the audit have drifted **twice** — once in
+row counts, once in the `arm`/`tier_name` fields the Gate-2 eval stratifies on. Both
+were silent and neither changed an exit code, which is precisely how an unstratifiable
+corpus reaches a train run. `.github/workflows/ci.yml` references no secrets, so these
+work unchanged on forks.
+
 ### Toy end-to-end smoke (run before ANY 8-12h experiment)
 
 ```bash
@@ -144,11 +159,21 @@ train+eval. Concretely, in order:
    'results/runs/w4-opus-shard*'`. Row count must equal the audit's effective total,
    and every row carries `arm` so the eval can report the liveness and safety arms
    separately. A pooled number is not acceptable: it can hide a liveness regression.
-3. **Spend the one pre-registered 120b train+eval** (Amendment 17's re-entry
-   condition) — pre-register the bar, both arms, before the run.
+3. **Fix the LoRA resolver in the training repo** — architecture-aware MoE-vs-dense
+   resolution plus a trainable-parameter floor that *aborts*. Until that lands, the
+   base-model choice is not a free decision: a gpt-oss-hardcoded selector silently
+   froze a dense model's entire FFN at 0.0195% trainable, which is why the apparent
+   Qwen-beats-gpt-oss result is [retracted](results/analysis/base_model_comparison_2026-07-26.md).
+4. **Spend the one pre-registered train+eval** (Amendment 17's re-entry condition) —
+   bar and both arms registered before the run. Per Amendment 20 this is pinned to the
+   corpus and protocol, **not** to gpt-oss-120b: gpt-oss collapses entropy in both
+   measured batch configurations (−60% and −51%), which is the same diversity collapse
+   that failed W2.6.
 
-Three calls are outstanding and are **Eric's**, not the harness's: (a) full-rate vs
-half-rate waves, (b) authorizing the gated train run, (c) publishing / HF upload.
+The three previously-open calls (wave rate, the gated train run, publishing) were
+delegated and are decided in **PLAN.md Amendment 20**: full-rate waves; train run held
+until the resolver fix and un-pinned from gpt-oss; publication deferred until the
+floors are met and the eval has run.
 
 Known limitations to disclose rather than fix: family skew (`mutex_locks` 35.7% vs
 `replication_storage` 0.9% — the lattice cell→family map is deterministic, so a hard

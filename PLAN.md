@@ -506,3 +506,73 @@ not student trainability -- but it settles the corpus-sourcing question. Manufac
 TLA+ at scale is cheap ONLY via cross-family teachers; the self-family funnel is 8x the
 attempts for 1/8th the yield. The one gated decision that remains is training gpt-oss on the
 cross-family corpus (5k-row floor proposed; Eric's spend call on further Opus waves pending).
+
+### Amendment 20 (2026-07-26) — the three deferred calls, decided; the pre-registration is un-pinned from gpt-oss
+
+Eric delegated the three calls left open by `docs/RESUME_W4.md` ("do the best call for each,
+I'm not the expert here"). Ledgered here because (b) changes a pre-registration, which is not
+something a session may quietly reinterpret later.
+
+**(a) Wave rate — FULL RATE to the floors.** 488 total and 182 liveness rows remain. Because
+the liveness/safety split is deterministic even/odd on the lattice index, ~488 further cells
+yield ~244 liveness — so the TOTAL floor binds and the liveness floor clears on the way, with
+no re-weighting needed and no reassignment of already-fixed arms. That is ~10 waves at 50
+cells, ~5M Opus tokens, ~5h wall. Justification for full rate: 100% cell survival across all
+33+ waves, ~1 audit incident per 2-3 waves and every one recoverable, and cost per wave that
+has been stable enough to extrapolate. Half-rate would double wall-clock to buy caution
+against a risk the measurements say is not there. Revisit only if survival drops below ~90%
+or the near-dup sweep starts finding pairs within a single wave.
+
+**(b) The gated train run — DO NOT spend it on gpt-oss-120b. Fix the LoRA resolver first,
+then choose the base model on evidence.** Amendment 17 shelved fine-tuning and reserved one
+pre-registered 120b train+eval as the re-entry condition. Spending it now would burn the
+single reserved run on the arm the evidence most implicates:
+
+- gpt-oss collapses entropy under BOTH batch configurations measured (1.720→0.685, −60%, 2
+  GPUs; 1.711→0.840, −51%, 4 GPUs). The larger batch softened it ~0.15 nats and did not
+  reverse it.
+- Diversity collapse is exactly the failure that killed W2.6 (+1 pass@1 / −8 pass@4) with the
+  task-shape confound removed.
+- The corpus is now Claude-Opus-teacher text. Training a model that collapses entropy on a
+  corpus from a stronger family is the configuration least likely to preserve the diversity
+  the corpus was built to supply.
+
+The base-model question is **open, not answered**: the Qwen3.6-27B arm that appeared to answer
+it is RETRACTED (`results/analysis/base_model_comparison_2026-07-26.md`) because a gpt-oss-
+hardcoded `target_parameters` selector silently matched nothing on a dense model, leaving the
+whole FFN frozen at 0.0195% trainable. Its rising entropy is a model that barely moved.
+
+So the model choice is not currently a free decision — it is forced by a silent bug. The
+blocking fix lives in the OTHER repo (`src/training/train.py`, not this one) and is a
+precondition on the pre-registered run, not optional cleanup:
+
+1. Architecture-aware LoRA resolution (MoE `target_parameters` vs dense `all-linear`), plus a
+   **trainable-parameter floor that ABORTS**. A 0.0195% run must never exit 0. This is the
+   only one of the four blockers that failed silently, which is what made it expensive.
+2. PBS exit propagation — job scripts `echo TRAIN_EXIT=$?` then `exit 0`, so PBS recorded
+   `Exit_status=0` for a run whose `TRAIN_EXIT=1`. Any automation trusting PBS status reads
+   crashes as successes.
+3. Match optimizer steps across arms (32 vs 64 is a live confound), and stop comparing raw
+   loss/entropy across two tokenizers and two chat formats as if the units were shared.
+
+**Amended pre-registration:** the reserved run is pinned to the CORPUS and the PROTOCOL
+(frozen 30-spec holdout, pass@1 and pass@k, semantic-audited, **both arms reported
+separately**), NOT to gpt-oss-120b. The base model becomes a fixed parameter chosen after (1)
+lands and a valid dense-vs-MoE trainability check exists. Amendment 17's bar is unchanged --
+this narrows what may vary, it does not lower what must be beaten. Note the honest floor this
+sits above: neither checkpoint has generated a single TLA+ spec, so nothing measured to date
+supports a capability claim about either base model in either direction.
+
+**(c) Publishing / HF upload — DEFER, and it is not on the critical path.** Eric intends the
+repo public later. Uploading the corpus now would mint a citable artifact at 4,512/5,000 rows,
+7.0% liveness, mid-build — superseded within ~10 waves, and the stale copy is the one that
+gets cited. Publish after the floors are met AND the pre-registered eval has run, so the
+corpus ships with the number it produced rather than a promise. What SHOULD happen before any
+publication, and is cheap: a license decision, a secrets/PII sweep, and the disclosure set
+already enumerated (family skew `mutex_locks` 35.7% vs `replication_storage` 0.9%; real
+mutation-catch 12.7%; specs skewing small vs the holdout; wave-1 mutation-gate Goodharting;
+idiom convergence pressure). None of these block wave production, so waves continue meanwhile.
+
+**Standing reversal condition for all three:** any of these is a session-level call made on
+Eric's delegation, not a goal change. G1 and G2 in §1 are untouched. If a measurement
+contradicts the reasoning above, the amendment loses, not the measurement.
