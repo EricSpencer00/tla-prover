@@ -14,9 +14,13 @@ name: CI
 # No secrets are referenced by design, so these checks work unchanged on forks
 # and after the repo goes public.
 
+# push is limited to main: with `branches: ["**"]` every PR-branch push triggered
+# both the push and the pull_request event, running all three jobs twice (the
+# concurrency group below cannot dedupe them -- push and PR have different refs).
+# This way a PR is checked once, and main is still checked directly on merge.
 on:
   push:
-    branches: ["**"]
+    branches: [main]
   pull_request:
   workflow_dispatch:
 
