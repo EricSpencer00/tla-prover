@@ -1,0 +1,13 @@
+# Development / test dependencies.
+#
+# The harness itself is deliberately stdlib-only -- there is no requirements.txt
+# and there should not be one. Verification runs shell out to SANY/TLC/tlapm
+# (jars are vendored in tools/), and model calls go over plain urllib against an
+# OpenAI-compatible endpoint, so no client library is needed either. Keeping the
+# runtime dependency-free is what lets a reviewer reproduce a number without
+# resolving an environment.
+#
+# pytest is the one exception: the test suite needs it, and a clean checkout
+# previously could not run the suite at all without knowing to install it
+# out-of-band.
+pytest~=9.1

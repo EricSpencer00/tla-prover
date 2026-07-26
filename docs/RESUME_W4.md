@@ -102,9 +102,31 @@ and the shard-50 short-key mapping in commit 81bfb65), then the ONE pre-register
 120b train+eval per Amendment 17's re-entry condition. STRATIFY by arm: rows with
 non-null liveness_property are the liveness arm (all shard <=128 rows plus odd-index
 cells after are safety-only); the pre-registration must report the two arms
-separately -- do not let a liveness regression hide inside a pooled number. Also outstanding: Eric's
-explicit calls on (a) full-rate vs half-rate waves, (b) the gated train run,
-(c) publishing/HF upload.
+separately -- do not let a liveness regression hide inside a pooled number.
+
+The rendered SFT file carries `arm` and `tier_name` on every row, unconditionally
+(this was broken until 2026-07-26: grading ran only under --min-tier, so the command
+above emitted untagged rows and the two-arm report was impossible). Guarded by
+`tools/check_corpus_consistency.py`, which asserts the export and the audit agree on
+rows, arms, and tiers -- run it after rendering; it is also a CI job.
+
+## The three calls: DECIDED 2026-07-26 (PLAN Amendment 20)
+
+Formerly "outstanding: Eric's explicit calls." He delegated them; they are ledgered in
+PLAN.md Amendment 20. Summary for the wave loop:
+
+- **(a) Wave rate: FULL RATE.** Continue 50-cell waves to the floors, ~10 waves. The
+  TOTAL floor binds (488 to go); liveness clears on the way (~244 of those cells are
+  liveness under the deterministic even/odd split), so do NOT re-weight the arms and
+  do NOT reassign already-fixed arms.
+- **(b) Train run: NOT yet, and no longer pinned to gpt-oss-120b.** The
+  pre-registration is now pinned to the corpus + protocol; the base model is chosen
+  after `src/training/train.py` (the OTHER repo) gets architecture-aware LoRA
+  resolution and a trainable-parameter floor that ABORTS. gpt-oss collapses entropy in
+  both measured batch configs, and the Qwen arm that appeared to answer this is
+  RETRACTED. Do not launch the reserved run from a wave session.
+- **(c) Publish / HF upload: DEFER** until the floors are met AND the eval has run. Do
+  not upload a mid-build corpus. Waves continue meanwhile -- this blocks nothing.
 
 ## Cost calibration (measured)
 ~500k Opus subagent tokens per 50-spec wave; ~25-35 min/wave wall; 100% survival

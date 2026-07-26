@@ -403,8 +403,13 @@ def build_sft_file(survivor_dirs: list, out_path, min_tier: int | None = None,
     "tier_name" and "arm" so a train can stratify without re-deriving them.
     """
     survivors = load_survivors(survivor_dirs, apply_exclusions=apply_exclusions)
+    # Grade unconditionally: "arm" is what the Gate-2 pre-registration stratifies
+    # on, so it must not depend on whether a tier filter was requested. Grading
+    # only under --min-tier meant the documented harvest command (no --min-tier)
+    # emitted rows with no arm tag, and a pooled number could hide a liveness
+    # regression -- exactly what Amendment 17's re-entry condition forbids.
+    survivors = w4_corpus.grade_corpus(survivors)
     if min_tier is not None:
-        survivors = w4_corpus.grade_corpus(survivors)
         survivors = [r for r in survivors if r["tier"] >= min_tier]
     out_path = Path(out_path)
     out_path.parent.mkdir(parents=True, exist_ok=True)
