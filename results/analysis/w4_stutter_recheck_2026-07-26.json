@@ -1,0 +1,1332 @@
+[
+ {
+  "shard": 157,
+  "module": "W4Od14m1p6t0",
+  "seed_key": "w4opus::d14-m1-p6-t0",
+  "n_fair": 2,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "StaleBeliefEventuallyResolved",
+  "secs": 0.9
+ },
+ {
+  "shard": 157,
+  "module": "W4Od17m9p4t5",
+  "seed_key": "w4opus::d17-m9-p4-t5",
+  "n_fair": 1,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "RidingBagEventuallyLeaves",
+  "secs": 0.8
+ },
+ {
+  "shard": 157,
+  "module": "W4Od2m0p3t2",
+  "seed_key": "w4opus::d2-m0-p3-t2",
+  "n_fair": 2,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "ReadEventuallyResolved",
+  "secs": 0.8
+ },
+ {
+  "shard": 157,
+  "module": "W4Od12m9p4t4",
+  "seed_key": "w4opus::d12-m9-p4-t4",
+  "n_fair": 1,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "BenchUnitEventuallyLeaves",
+  "secs": 0.8
+ },
+ {
+  "shard": 157,
+  "module": "W4Od18m8p2t5",
+  "seed_key": "w4opus::d18-m8-p2-t5",
+  "n_fair": 1,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "HubLockEventuallyReleased",
+  "secs": 0.8
+ },
+ {
+  "shard": 157,
+  "module": "W4Od3m5p1t1",
+  "seed_key": "w4opus::d3-m5-p1-t1",
+  "n_fair": 2,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "VoteEventuallyLeavesFlight",
+  "secs": 0.8
+ },
+ {
+  "shard": 157,
+  "module": "W4Od17m0p1t1",
+  "seed_key": "w4opus::d17-m0-p1-t1",
+  "n_fair": 2,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "UpdateEventuallyDisposed",
+  "secs": 0.8
+ },
+ {
+  "shard": 157,
+  "module": "W4Od7m2p5t0",
+  "seed_key": "w4opus::d7-m2-p5-t0",
+  "n_fair": 3,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "PreparingJobEventuallyDecided",
+  "secs": 0.8
+ },
+ {
+  "shard": 157,
+  "module": "W4Od18m3p3t4",
+  "seed_key": "w4opus::d18-m3-p3-t4",
+  "n_fair": 1,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "HeldSlotEventuallyReturned",
+  "secs": 0.8
+ },
+ {
+  "shard": 157,
+  "module": "W4Od5m2p3t0",
+  "seed_key": "w4opus::d5-m2-p3-t0",
+  "n_fair": 1,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "CommittedMatchEventuallyReleases",
+  "secs": 0.8
+ },
+ {
+  "shard": 157,
+  "module": "W4Od12m5p1t1",
+  "seed_key": "w4opus::d12-m5-p1-t1",
+  "n_fair": 1,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "VoteEventuallyLeavesFlight",
+  "secs": 0.8
+ },
+ {
+  "shard": 160,
+  "module": "W4Od14m0p1t2",
+  "seed_key": "w4opus::d14-m0-p1-t2",
+  "n_fair": 2,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "RevisionAdvances",
+  "secs": 0.8
+ },
+ {
+  "shard": 173,
+  "module": "W4Od13m2p1t3",
+  "seed_key": "w4opus::d13-m2-p1-t3",
+  "n_fair": 3,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EveryWriteBackEventuallyDecided",
+  "secs": 0.8
+ },
+ {
+  "shard": 173,
+  "module": "W4Od19m4p5t2",
+  "seed_key": "w4opus::d19-m4-p5-t2",
+  "n_fair": 1,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EveryPickedReservationLeavesTheList",
+  "secs": 0.8
+ },
+ {
+  "shard": 173,
+  "module": "W4Od16m3p1t1",
+  "seed_key": "w4opus::d16-m3-p1-t1",
+  "n_fair": 1,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EveryRequestResolves",
+  "secs": 0.8
+ },
+ {
+  "shard": 174,
+  "module": "W4Od9m0p2t0",
+  "seed_key": "w4opus::d9-m0-p2-t0",
+  "n_fair": 1,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EveryStagingClears",
+  "secs": 1.1
+ },
+ {
+  "shard": 174,
+  "module": "W4Od4m3p3t3",
+  "seed_key": "w4opus::d4-m3-p3-t3",
+  "n_fair": 1,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EveryClaimResolves",
+  "secs": 0.8
+ },
+ {
+  "shard": 174,
+  "module": "W4Od19m4p4t1",
+  "seed_key": "w4opus::d19-m4-p4-t1",
+  "n_fair": 1,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EveryQueuedRequestLeaves",
+  "secs": 0.7
+ },
+ {
+  "shard": 174,
+  "module": "W4Od10m9p5t5",
+  "seed_key": "w4opus::d10-m9-p5-t5",
+  "n_fair": 1,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EveryAssignmentClears",
+  "secs": 0.8
+ },
+ {
+  "shard": 174,
+  "module": "W4Od11m0p5t4",
+  "seed_key": "w4opus::d11-m0-p5-t4",
+  "n_fair": 1,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EveryStagingClears",
+  "secs": 0.8
+ },
+ {
+  "shard": 174,
+  "module": "W4Od2m7p1t3",
+  "seed_key": "w4opus::d2-m7-p1-t3",
+  "n_fair": 1,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EveryReadResolves",
+  "secs": 0.8
+ },
+ {
+  "shard": 174,
+  "module": "W4Od9m0p1t3",
+  "seed_key": "w4opus::d9-m0-p1-t3",
+  "n_fair": 1,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EveryPreparationClears",
+  "secs": 0.8
+ },
+ {
+  "shard": 174,
+  "module": "W4Od10m9p5t1",
+  "seed_key": "w4opus::d10-m9-p5-t1",
+  "n_fair": 1,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EveryCommandLeaves",
+  "secs": 0.8
+ },
+ {
+  "shard": 175,
+  "module": "W4Od1m8p3t1",
+  "seed_key": "w4opus::d1-m8-p3-t1",
+  "n_fair": 2,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "LatchAlwaysReleased",
+  "secs": 0.7
+ },
+ {
+  "shard": 175,
+  "module": "W4Od12m6p3t0",
+  "seed_key": "w4opus::d12-m6-p3-t0",
+  "n_fair": 2,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "NoUnitStaysReserved",
+  "secs": 0.8
+ },
+ {
+  "shard": 175,
+  "module": "W4Od5m6p1t4",
+  "seed_key": "w4opus::d5-m6-p1-t4",
+  "n_fair": 3,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "NoSnapshotIsHeldForever",
+  "secs": 0.7
+ },
+ {
+  "shard": 176,
+  "module": "W4Od10m9p6t1",
+  "seed_key": "w4opus::d10-m9-p6-t1",
+  "n_fair": 2,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "NoCommandSitsOnTheBus",
+  "secs": 0.7
+ },
+ {
+  "shard": 176,
+  "module": "W4Od17m7p6t3",
+  "seed_key": "w4opus::d17-m7-p6-t3",
+  "n_fair": 2,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "NoPreparedCommandLingers",
+  "secs": 0.8
+ },
+ {
+  "shard": 176,
+  "module": "W4Od0m8p6t4",
+  "seed_key": "w4opus::d0-m8-p6-t4",
+  "n_fair": 2,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "NoChitIsHeldForever",
+  "secs": 0.7
+ },
+ {
+  "shard": 176,
+  "module": "W4Od3m0p5t1",
+  "seed_key": "w4opus::d3-m0-p5-t1",
+  "n_fair": 3,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "NoRequestSitsOnTheNetwork",
+  "secs": 0.7
+ },
+ {
+  "shard": 176,
+  "module": "W4Od13m1p5t3",
+  "seed_key": "w4opus::d13-m1-p5-t3",
+  "n_fair": 3,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "NoDecisionIsLeftOutstanding",
+  "secs": 0.7
+ },
+ {
+  "shard": 176,
+  "module": "W4Od18m0p2t1",
+  "seed_key": "w4opus::d18-m0-p2-t1",
+  "n_fair": 2,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "NoDonationStaysOnTheMesh",
+  "secs": 0.7
+ },
+ {
+  "shard": 176,
+  "module": "W4Od15m8p0t3",
+  "seed_key": "w4opus::d15-m8-p0-t3",
+  "n_fair": 2,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EngineIsNeverHeldForever",
+  "secs": 0.7
+ },
+ {
+  "shard": 176,
+  "module": "W4Od2m9p4t5",
+  "seed_key": "w4opus::d2-m9-p4-t5",
+  "n_fair": 2,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "NoPermitIsHeldForever",
+  "secs": 0.8
+ },
+ {
+  "shard": 176,
+  "module": "W4Od13m7p1t0",
+  "seed_key": "w4opus::d13-m7-p1-t0",
+  "n_fair": 2,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "NoReadIsHeldForever",
+  "secs": 0.7
+ },
+ {
+  "shard": 176,
+  "module": "W4Od2m9p5t3",
+  "seed_key": "w4opus::d2-m9-p5-t3",
+  "n_fair": 2,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "NoDecisionOutstandingForever",
+  "secs": 0.7
+ },
+ {
+  "shard": 176,
+  "module": "W4Od18m6p3t5",
+  "seed_key": "w4opus::d18-m6-p3-t5",
+  "n_fair": 2,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "NoKeyIsCarriedForever",
+  "secs": 0.7
+ },
+ {
+  "shard": 176,
+  "module": "W4Od18m6p1t1",
+  "seed_key": "w4opus::d18-m6-p1-t1",
+  "n_fair": 2,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "NoChangeStaysOnTheMesh",
+  "secs": 0.7
+ },
+ {
+  "shard": 178,
+  "module": "W4Od13m5p0t2",
+  "seed_key": "w4opus::d13-m5-p0-t2",
+  "n_fair": 4,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EventuallyBothServed",
+  "secs": 0.8
+ },
+ {
+  "shard": 178,
+  "module": "W4Od16m5p5t1",
+  "seed_key": "w4opus::d16-m5-p5-t1",
+  "n_fair": 3,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "AllPrescriptionsEventuallyDispensed",
+  "secs": 1.0
+ },
+ {
+  "shard": 178,
+  "module": "W4Od1m9p3t0",
+  "seed_key": "w4opus::d1-m9-p3-t0",
+  "n_fair": 2,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EventualGrant",
+  "secs": 0.7
+ },
+ {
+  "shard": 178,
+  "module": "W4Od10m7p2t4",
+  "seed_key": "w4opus::d10-m7-p2-t4",
+  "n_fair": 3,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EventualArrival",
+  "secs": 0.9
+ },
+ {
+  "shard": 178,
+  "module": "W4Od7m7p6t3",
+  "seed_key": "w4opus::d7-m7-p6-t3",
+  "n_fair": 1,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EventualRelease",
+  "secs": 0.7
+ },
+ {
+  "shard": 178,
+  "module": "W4Od9m8p2t5",
+  "seed_key": "w4opus::d9-m8-p2-t5",
+  "n_fair": 1,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EventualRestore",
+  "secs": 0.8
+ },
+ {
+  "shard": 178,
+  "module": "W4Od17m6p5t5",
+  "seed_key": "w4opus::d17-m6-p5-t5",
+  "n_fair": 1,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EventualLoad",
+  "secs": 0.7
+ },
+ {
+  "shard": 179,
+  "module": "W4Od10m7p1t5",
+  "seed_key": "w4opus::d10-m7-p1-t5",
+  "n_fair": 1,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EveryReadEventuallyResolves",
+  "secs": 0.9
+ },
+ {
+  "shard": 179,
+  "module": "W4Od11m7p5t0",
+  "seed_key": "w4opus::d11-m7-p5-t0",
+  "n_fair": 4,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "AllEventuallyPrinted",
+  "secs": 0.8
+ },
+ {
+  "shard": 179,
+  "module": "W4Od12m8p2t3",
+  "seed_key": "w4opus::d12-m8-p2-t3",
+  "n_fair": 3,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "AllAcquirersEventuallyRelease",
+  "secs": 0.8
+ },
+ {
+  "shard": 179,
+  "module": "W4Od15m4p0t1",
+  "seed_key": "w4opus::d15-m4-p0-t1",
+  "n_fair": 4,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "AllWorkersServed",
+  "secs": 0.7
+ },
+ {
+  "shard": 179,
+  "module": "W4Od16m2p0t0",
+  "seed_key": "w4opus::d16-m2-p0-t0",
+  "n_fair": 5,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "AllTerminalsServed",
+  "secs": 0.7
+ },
+ {
+  "shard": 179,
+  "module": "W4Od18m7p2t4",
+  "seed_key": "w4opus::d18-m7-p2-t4",
+  "n_fair": 3,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EveryRequestEventuallyGranted",
+  "secs": 0.7
+ },
+ {
+  "shard": 179,
+  "module": "W4Od3m4p0t0",
+  "seed_key": "w4opus::d3-m4-p0-t0",
+  "n_fair": 4,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EveryBankResolved",
+  "secs": 0.7
+ },
+ {
+  "shard": 179,
+  "module": "W4Od5m5p4t5",
+  "seed_key": "w4opus::d5-m5-p4-t5",
+  "n_fair": 3,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "AllQueuedEventuallySeated",
+  "secs": 0.7
+ },
+ {
+  "shard": 179,
+  "module": "W4Od7m4p5t0",
+  "seed_key": "w4opus::d7-m4-p5-t0",
+  "n_fair": 5,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "AllEventuallyLoaded",
+  "secs": 0.8
+ },
+ {
+  "shard": 180,
+  "module": "W4Od0m6p0t2",
+  "seed_key": "w4opus::d0-m6-p0-t2",
+  "n_fair": 3,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "AllRequestsEventuallyGranted",
+  "secs": 0.8
+ },
+ {
+  "shard": 180,
+  "module": "W4Od0m8p0t3",
+  "seed_key": "w4opus::d0-m8-p0-t3",
+  "n_fair": 5,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "TeamEventuallyIdle",
+  "secs": 0.8
+ },
+ {
+  "shard": 180,
+  "module": "W4Od14m7p6t0",
+  "seed_key": "w4opus::d14-m7-p6-t0",
+  "n_fair": 3,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EventuallyAuthorizedAction",
+  "secs": 0.9
+ },
+ {
+  "shard": 180,
+  "module": "W4Od14m9p6t3",
+  "seed_key": "w4opus::d14-m9-p6-t3",
+  "n_fair": 1,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "ReconfigurationEventuallyCompletes",
+  "secs": 0.8
+ },
+ {
+  "shard": 180,
+  "module": "W4Od15m8p3t2",
+  "seed_key": "w4opus::d15-m8-p3-t2",
+  "n_fair": 4,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EventuallyAllServed",
+  "secs": 0.7
+ },
+ {
+  "shard": 180,
+  "module": "W4Od16m7p3t4",
+  "seed_key": "w4opus::d16-m7-p3-t4",
+  "n_fair": 5,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "AllDispensed",
+  "secs": 0.8
+ },
+ {
+  "shard": 180,
+  "module": "W4Od17m8p1t3",
+  "seed_key": "w4opus::d17-m8-p1-t3",
+  "n_fair": 5,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EventualCommit",
+  "secs": 0.8
+ },
+ {
+  "shard": 180,
+  "module": "W4Od19m3p5t5",
+  "seed_key": "w4opus::d19-m3-p5-t5",
+  "n_fair": 4,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EventuallyWrittenOff",
+  "secs": 0.8
+ },
+ {
+  "shard": 180,
+  "module": "W4Od3m3p5t2",
+  "seed_key": "w4opus::d3-m3-p5-t2",
+  "n_fair": 2,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "BatchEventuallyFinalized",
+  "secs": 0.8
+ },
+ {
+  "shard": 180,
+  "module": "W4Od3m5p0t3",
+  "seed_key": "w4opus::d3-m5-p0-t3",
+  "n_fair": 4,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "RequestEventuallyGranted",
+  "secs": 0.8
+ },
+ {
+  "shard": 180,
+  "module": "W4Od7m8p1t3",
+  "seed_key": "w4opus::d7-m8-p1-t3",
+  "n_fair": 5,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "CraneAlwaysReturnsIdle",
+  "secs": 1.7
+ },
+ {
+  "shard": 180,
+  "module": "W4Od7m8p4t2",
+  "seed_key": "w4opus::d7-m8-p4-t2",
+  "n_fair": 6,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "AllRequestsEventuallySatisfied",
+  "secs": 0.7
+ },
+ {
+  "shard": 180,
+  "module": "W4Od8m1p0t5",
+  "seed_key": "w4opus::d8-m1-p0-t5",
+  "n_fair": 4,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EventuallyServed",
+  "secs": 0.7
+ },
+ {
+  "shard": 181,
+  "module": "W4Od6m7p1t4",
+  "seed_key": "w4opus::d6-m7-p1-t4",
+  "n_fair": 3,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "LedgerCompletes",
+  "secs": 0.8
+ },
+ {
+  "shard": 181,
+  "module": "W4Od3m8p4t3",
+  "seed_key": "w4opus::d3-m8-p4-t3",
+  "n_fair": 2,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "PledgesSettle",
+  "secs": 0.8
+ },
+ {
+  "shard": 181,
+  "module": "W4Od6m9p6t5",
+  "seed_key": "w4opus::d6-m9-p6-t5",
+  "n_fair": 3,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EveryCallCleared",
+  "secs": 0.8
+ },
+ {
+  "shard": 181,
+  "module": "W4Od0m8p0t1",
+  "seed_key": "w4opus::d0-m8-p0-t1",
+  "n_fair": 6,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EveryTeamSeated",
+  "secs": 0.7
+ },
+ {
+  "shard": 181,
+  "module": "W4Od16m2p6t2",
+  "seed_key": "w4opus::d16-m2-p6-t2",
+  "n_fair": 2,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EnlistmentsRelease",
+  "secs": 0.8
+ },
+ {
+  "shard": 181,
+  "module": "W4Od0m4p6t2",
+  "seed_key": "w4opus::d0-m4-p6-t2",
+  "n_fair": 2,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "StaleDesksCatchUp",
+  "secs": 0.7
+ },
+ {
+  "shard": 185,
+  "module": "W4Od18m7p1t0",
+  "seed_key": "w4opus::d18-m7-p1-t0",
+  "n_fair": 2,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "Progress",
+  "secs": 0.8
+ },
+ {
+  "shard": 185,
+  "module": "W4Od7m7p5t3",
+  "seed_key": "w4opus::d7-m7-p5-t3",
+  "n_fair": 5,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "Progress",
+  "secs": 0.7
+ },
+ {
+  "shard": 185,
+  "module": "W4Od8m2p2t3",
+  "seed_key": "w4opus::d8-m2-p2-t3",
+  "n_fair": 3,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EventualDecision",
+  "secs": 0.7
+ },
+ {
+  "shard": 185,
+  "module": "W4Od5m1p0t0",
+  "seed_key": "w4opus::d5-m1-p0-t0",
+  "n_fair": 3,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EventualService",
+  "secs": 0.7
+ },
+ {
+  "shard": 185,
+  "module": "W4Od12m2p0t5",
+  "seed_key": "w4opus::d12-m2-p0-t5",
+  "n_fair": 3,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "QueueServed",
+  "secs": 0.7
+ },
+ {
+  "shard": 185,
+  "module": "W4Od8m7p1t3",
+  "seed_key": "w4opus::d8-m7-p1-t3",
+  "n_fair": 1,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "Resolved",
+  "secs": 0.7
+ },
+ {
+  "shard": 186,
+  "module": "W4Od9m0p0t2",
+  "seed_key": "w4opus::d9-m0-p0-t2",
+  "n_fair": 2,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "StagedEventuallyResolves",
+  "secs": 0.8
+ },
+ {
+  "shard": 186,
+  "module": "W4Od17m5p0t3",
+  "seed_key": "w4opus::d17-m5-p0-t3",
+  "n_fair": 3,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "ProposalsEventuallyGranted",
+  "secs": 0.7
+ },
+ {
+  "shard": 186,
+  "module": "W4Od9m2p6t0",
+  "seed_key": "w4opus::d9-m2-p6-t0",
+  "n_fair": 3,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "CollectingEventuallyDecides",
+  "secs": 0.8
+ },
+ {
+  "shard": 186,
+  "module": "W4Od19m3p1t0",
+  "seed_key": "w4opus::d19-m3-p1-t0",
+  "n_fair": 4,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EventuallyCommitted",
+  "secs": 0.7
+ },
+ {
+  "shard": 186,
+  "module": "W4Od0m4p4t1",
+  "seed_key": "w4opus::d0-m4-p4-t1",
+  "n_fair": 4,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EventuallyScheduled",
+  "secs": 0.8
+ },
+ {
+  "shard": 186,
+  "module": "W4Od2m6p0t2",
+  "seed_key": "w4opus::d2-m6-p0-t2",
+  "n_fair": 2,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "LeaseReclaimed",
+  "secs": 0.7
+ },
+ {
+  "shard": 186,
+  "module": "W4Od5m7p5t3",
+  "seed_key": "w4opus::d5-m7-p5-t3",
+  "n_fair": 2,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EventuallyFires",
+  "secs": 0.7
+ },
+ {
+  "shard": 186,
+  "module": "W4Od7m7p3t0",
+  "seed_key": "w4opus::d7-m7-p3-t0",
+  "n_fair": 2,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "AllSlotsEventuallyClaimed",
+  "secs": 0.7
+ },
+ {
+  "shard": 186,
+  "module": "W4Od5m0p2t0",
+  "seed_key": "w4opus::d5-m0-p2-t0",
+  "n_fair": 3,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "HoldsEventuallyRelease",
+  "secs": 0.8
+ },
+ {
+  "shard": 186,
+  "module": "W4Od13m1p5t2",
+  "seed_key": "w4opus::d13-m1-p5-t2",
+  "n_fair": 4,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EventualDispense",
+  "secs": 0.7
+ },
+ {
+  "shard": 186,
+  "module": "W4Od11m8p0t0",
+  "seed_key": "w4opus::d11-m8-p0-t0",
+  "n_fair": 2,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "CrashReclaimed",
+  "secs": 0.7
+ },
+ {
+  "shard": 186,
+  "module": "W4Od11m5p2t3",
+  "seed_key": "w4opus::d11-m5-p2-t3",
+  "n_fair": 4,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "ProposalsResolved",
+  "secs": 0.7
+ },
+ {
+  "shard": 186,
+  "module": "W4Od1m2p3t5",
+  "seed_key": "w4opus::d1-m2-p3-t5",
+  "n_fair": 2,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "RequestsGranted",
+  "secs": 0.8
+ },
+ {
+  "shard": 187,
+  "module": "W4Od8m7p6t1",
+  "seed_key": "w4opus::d8-m7-p6-t1",
+  "n_fair": 1,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EveryClaimAnswered",
+  "secs": 0.8
+ },
+ {
+  "shard": 187,
+  "module": "W4Od19m3p2t1",
+  "seed_key": "w4opus::d19-m3-p2-t1",
+  "n_fair": 1,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EveryParcelLands",
+  "secs": 0.8
+ },
+ {
+  "shard": 187,
+  "module": "W4Od15m7p1t5",
+  "seed_key": "w4opus::d15-m7-p1-t5",
+  "n_fair": 1,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EveryPostAnswered",
+  "secs": 0.8
+ },
+ {
+  "shard": 187,
+  "module": "W4Od16m3p5t4",
+  "seed_key": "w4opus::d16-m3-p5-t4",
+  "n_fair": 2,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EveryClaimResolved",
+  "secs": 0.8
+ },
+ {
+  "shard": 187,
+  "module": "W4Od11m1p1t5",
+  "seed_key": "w4opus::d11-m1-p1-t5",
+  "n_fair": 2,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EveryJobBilled",
+  "secs": 0.8
+ },
+ {
+  "shard": 187,
+  "module": "W4Od15m9p6t5",
+  "seed_key": "w4opus::d15-m9-p6-t5",
+  "n_fair": 1,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EveryOrderResolved",
+  "secs": 0.8
+ },
+ {
+  "shard": 187,
+  "module": "W4Od7m8p0t0",
+  "seed_key": "w4opus::d7-m8-p0-t0",
+  "n_fair": 1,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "FailedLocksReclaimed",
+  "secs": 3.9
+ },
+ {
+  "shard": 187,
+  "module": "W4Od19m1p1t3",
+  "seed_key": "w4opus::d19-m1-p1-t3",
+  "n_fair": 2,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EveryBufferedWritten",
+  "secs": 0.7
+ },
+ {
+  "shard": 187,
+  "module": "W4Od13m0p6t2",
+  "seed_key": "w4opus::d13-m0-p6-t2",
+  "n_fair": 1,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EveryAttemptAnswered",
+  "secs": 1.0
+ },
+ {
+  "shard": 188,
+  "module": "W4Od7m3p4t5",
+  "seed_key": "w4opus::d7-m3-p4-t5",
+  "n_fair": 2,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "RequestsSettle",
+  "secs": 0.8
+ },
+ {
+  "shard": 188,
+  "module": "W4Od6m1p4t5",
+  "seed_key": "w4opus::d6-m1-p4-t5",
+  "n_fair": 3,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EveryRequestStarts",
+  "secs": 0.8
+ },
+ {
+  "shard": 188,
+  "module": "W4Od16m9p1t3",
+  "seed_key": "w4opus::d16-m9-p1-t3",
+  "n_fair": 1,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "StagedWritesSettle",
+  "secs": 0.8
+ },
+ {
+  "shard": 188,
+  "module": "W4Od13m9p4t0",
+  "seed_key": "w4opus::d13-m9-p4-t0",
+  "n_fair": 1,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "GrantsSettle",
+  "secs": 0.8
+ },
+ {
+  "shard": 188,
+  "module": "W4Od4m0p4t3",
+  "seed_key": "w4opus::d4-m0-p4-t3",
+  "n_fair": 1,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "SnapshotsResolve",
+  "secs": 0.7
+ },
+ {
+  "shard": 188,
+  "module": "W4Od11m1p0t1",
+  "seed_key": "w4opus::d11-m1-p0-t1",
+  "n_fair": 4,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EveryJobReachesThePlate",
+  "secs": 0.7
+ },
+ {
+  "shard": 188,
+  "module": "W4Od14m0p2t0",
+  "seed_key": "w4opus::d14-m0-p2-t0",
+  "n_fair": 1,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "ReadingsClear",
+  "secs": 0.8
+ },
+ {
+  "shard": 188,
+  "module": "W4Od11m0p3t5",
+  "seed_key": "w4opus::d11-m0-p3-t5",
+  "n_fair": 1,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "BookedSlotsAreFreedAgain",
+  "secs": 0.8
+ },
+ {
+  "shard": 188,
+  "module": "W4Od10m5p6t0",
+  "seed_key": "w4opus::d10-m5-p6-t0",
+  "n_fair": 2,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "BallotsDecide",
+  "secs": 0.8
+ },
+ {
+  "shard": 188,
+  "module": "W4Od17m3p4t4",
+  "seed_key": "w4opus::d17-m3-p4-t4",
+  "n_fair": 1,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "BagsLeaveTheLoop",
+  "secs": 0.7
+ },
+ {
+  "shard": 188,
+  "module": "W4Od11m6p0t5",
+  "seed_key": "w4opus::d11-m6-p0-t5",
+  "n_fair": 3,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "LeasesAreGivenUp",
+  "secs": 0.7
+ },
+ {
+  "shard": 188,
+  "module": "W4Od12m1p1t3",
+  "seed_key": "w4opus::d12-m1-p1-t3",
+  "n_fair": 4,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "StagedMovementsGetWritten",
+  "secs": 0.7
+ },
+ {
+  "shard": 188,
+  "module": "W4Od0m3p3t1",
+  "seed_key": "w4opus::d0-m3-p3-t1",
+  "n_fair": 1,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "SlipsAreResolved",
+  "secs": 0.7
+ },
+ {
+  "shard": 189,
+  "module": "W4Od4m0p6t3",
+  "seed_key": "w4opus::d4-m0-p6-t3",
+  "n_fair": 2,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "CatchesUp",
+  "secs": 0.7
+ },
+ {
+  "shard": 189,
+  "module": "W4Od18m3p2t2",
+  "seed_key": "w4opus::d18-m3-p2-t2",
+  "n_fair": 2,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "Failover",
+  "secs": 0.7
+ },
+ {
+  "shard": 189,
+  "module": "W4Od7m8p1t2",
+  "seed_key": "w4opus::d7-m8-p1-t2",
+  "n_fair": 1,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "Progress",
+  "secs": 0.8
+ },
+ {
+  "shard": 189,
+  "module": "W4Od4m5p4t1",
+  "seed_key": "w4opus::d4-m5-p4-t1",
+  "n_fair": 5,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "AllCarsFinish",
+  "secs": 0.8
+ },
+ {
+  "shard": 189,
+  "module": "W4Od12m6p0t3",
+  "seed_key": "w4opus::d12-m6-p0-t3",
+  "n_fair": 5,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EventualAccess",
+  "secs": 0.7
+ },
+ {
+  "shard": 189,
+  "module": "W4Od16m9p3t5",
+  "seed_key": "w4opus::d16-m9-p3-t5",
+  "n_fair": 1,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EventualReconciliation",
+  "secs": 0.8
+ },
+ {
+  "shard": 189,
+  "module": "W4Od3m3p4t0",
+  "seed_key": "w4opus::d3-m3-p4-t0",
+  "n_fair": 2,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EventualSettlement",
+  "secs": 0.7
+ },
+ {
+  "shard": 189,
+  "module": "W4Od17m7p6t5",
+  "seed_key": "w4opus::d17-m7-p6-t5",
+  "n_fair": 1,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "StaleRecovers",
+  "secs": 0.7
+ },
+ {
+  "shard": 189,
+  "module": "W4Od14m5p5t3",
+  "seed_key": "w4opus::d14-m5-p5-t3",
+  "n_fair": 1,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "StaleRecovers",
+  "secs": 0.7
+ },
+ {
+  "shard": 190,
+  "module": "W4Od2m8p3t5",
+  "seed_key": "w4opus::d2-m8-p3-t5",
+  "n_fair": 4,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EventualHolding",
+  "secs": 0.7
+ },
+ {
+  "shard": 190,
+  "module": "W4Od9m4p5t5",
+  "seed_key": "w4opus::d9-m4-p5-t5",
+  "n_fair": 1,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EventualResolution",
+  "secs": 0.7
+ },
+ {
+  "shard": 190,
+  "module": "W4Od11m8p6t5",
+  "seed_key": "w4opus::d11-m8-p6-t5",
+  "n_fair": 1,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "LivenessProperty",
+  "secs": 0.8
+ },
+ {
+  "shard": 190,
+  "module": "W4Od12m7p2t5",
+  "seed_key": "w4opus::d12-m7-p2-t5",
+  "n_fair": 1,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "LivenessProperty",
+  "secs": 0.7
+ },
+ {
+  "shard": 190,
+  "module": "W4Od18m2p3t1",
+  "seed_key": "w4opus::d18-m2-p3-t1",
+  "n_fair": 4,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EventuallyResolved",
+  "secs": 1.0
+ },
+ {
+  "shard": 190,
+  "module": "W4Od10m0p6t5",
+  "seed_key": "w4opus::d10-m0-p6-t5",
+  "n_fair": 1,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "TrainsCatchUp",
+  "secs": 1.0
+ },
+ {
+  "shard": 190,
+  "module": "W4Od8m8p2t4",
+  "seed_key": "w4opus::d8-m8-p2-t4",
+  "n_fair": 2,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "AttemptsResolve",
+  "secs": 0.7
+ },
+ {
+  "shard": 190,
+  "module": "W4Od16m6p5t0",
+  "seed_key": "w4opus::d16-m6-p5-t0",
+  "n_fair": 3,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EventuallyDispensed",
+  "secs": 0.7
+ },
+ {
+  "shard": 190,
+  "module": "W4Od15m5p3t5",
+  "seed_key": "w4opus::d15-m5-p3-t5",
+  "n_fair": 3,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EverySlotEventuallyAllocated",
+  "secs": 0.8
+ },
+ {
+  "shard": 190,
+  "module": "W4Od3m3p3t5",
+  "seed_key": "w4opus::d3-m3-p3-t5",
+  "n_fair": 2,
+  "status": "fail_liveness",
+  "verdict": "nontrivial",
+  "prop": "EverySlotEventuallyCommitted",
+  "secs": 0.7
+ }
+]
