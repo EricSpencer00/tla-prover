@@ -9,6 +9,7 @@ valid spec+cfg fixture is used directly (matching test_w21_funnel.py / test_
 mutation.py convention); other tests monkeypatch the gate functions.
 """
 import json
+import re
 from pathlib import Path
 
 import pytest
@@ -669,6 +670,40 @@ def test_strip_fairness_removes_wf_sf_conjuncts():
     assert "[][Next]_x" in stripped
     same, zero = wl.strip_fairness(_GOOD_SPEC)
     assert zero == 0 and same == _GOOD_SPEC
+
+
+# Regression: quantified fairness (`\A p \in Procs : WF_vars(Step(p))`) is THE
+# idiom for multi-process fairness. Deleting the WF_ term outright left the
+# quantifier prefix dangling ("... /\ \A c \in C :"), so SANY failed, TLC
+# returned "error", and the stutter-vacuity gate recorded "inconclusive" and
+# ACCEPTED -- 45 W4 liveness survivors were admitted with the gate never run.
+# Substituting TRUE keeps every binder well-formed and is the correct
+# fairness-free closure (\A c \in C : TRUE == TRUE).
+def test_strip_fairness_quantified_keeps_module_parseable():
+    stripped, n = wl.strip_fairness(
+        "Spec == Init /\\ [][Next]_vars\n        /\\ \\A c \\in Controllers : WF_vars(Step(c))\n")
+    assert n == 1
+    assert "WF_" not in stripped
+    assert "\\A c \\in Controllers : TRUE" in stripped
+    # the binder must not be left dangling with nothing after the colon
+    assert not re.search(r":\s*$", stripped.strip())
+
+
+def test_strip_fairness_never_empties_a_definition_body():
+    stripped, n = wl.strip_fairness(
+        "Fairness == \\A c \\in C : WF_v(Step(c))\n\nSpec == Init /\\ Fairness\n")
+    assert n == 1
+    body = wl.definition_body(stripped, "Fairness").strip()
+    assert body, "Fairness == <empty> is a SANY parse error"
+    assert "TRUE" in body
+
+
+def test_strip_fairness_nested_quantifiers():
+    stripped, n = wl.strip_fairness(
+        "Spec == Init /\\ \\A c \\in C : \\E d \\in D : SF_vars(Act(c, d))\n")
+    assert n == 1
+    assert "SF_" not in stripped and "TRUE" in stripped
+    assert not re.search(r":\s*$", stripped.strip())
 
 
 def test_require_liveness_missing_property_iterates_to_rejection(tmp_path):

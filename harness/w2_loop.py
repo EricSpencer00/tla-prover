@@ -265,15 +265,25 @@ def definition_body(mod_text: str, name: str) -> str:
 
 
 def strip_fairness(mod_text: str):
-    """Remove every WF_/SF_ fairness application (and the /\\ that conjoins
-    it) from the module text. Returns (stripped_text, n_removed). Paren-
-    balanced textual scan -- handles WF_<<x, y>>(A(b)). Used by the FIX 5
-    stutter-vacuity check: a liveness PROPERTY that still passes TLC on the
-    fairness-free closure never needed fairness and is stutter-trivial."""
+    """Replace every WF_/SF_ fairness application with TRUE. Returns
+    (stripped_text, n_removed). Paren-balanced textual scan -- handles
+    WF_<<x, y>>(A(b)). Used by the FIX 5 stutter-vacuity check: a liveness
+    PROPERTY that still passes TLC on the fairness-free closure never needed
+    fairness and is stutter-trivial.
+
+    Substitution, not deletion (fixed 2026-07-26). Deleting the term broke
+    quantified fairness -- `\\A p \\in Procs : WF_vars(Step(p))`, the standard
+    multi-process idiom -- by leaving the binder dangling ("... /\\ \\A p \\in
+    Procs :"), and emptied whole definition bodies ("Fairness =="). Both are
+    SANY parse errors, so TLC returned "error", the gate recorded
+    "inconclusive" and ACCEPTED the row with the vacuity check never run.
+    TRUE is the correct fairness-free closure and keeps every binder and
+    conjunct well-formed: `\\A p \\in Procs : TRUE` reduces to TRUE, and
+    `/\\ TRUE` is the identity conjunct."""
     out, n, i = [], 0, 0
     text = mod_text or ""
     while True:
-        m = re.search(r"(?:/\\\s*)?(?:WF|SF)_", text[i:])
+        m = re.search(r"(?:WF|SF)_", text[i:])
         if not m:
             out.append(text[i:])
             break
@@ -293,6 +303,7 @@ def strip_fairness(mod_text: str):
                     break
             j += 1
         out.append(text[i:start])
+        out.append("TRUE")
         n += 1
         i = j
     return "".join(out), n
