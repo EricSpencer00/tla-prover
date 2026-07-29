@@ -1,6 +1,6 @@
 # Haiku eval of the "smallest safety-relevant TLA+ model" prompt
 
-**Prompt credit:** posted on Hacker News (news.ycombinator.com); used verbatim here except for
+**Prompt credit:** https://news.ycombinator.com/item?id=48170007 — used verbatim here except for
 substituting the modeling target and adding file-output instructions.
 
 > Write the smallest TLA+ model that captures only the safety-relevant state of [the thing you're
