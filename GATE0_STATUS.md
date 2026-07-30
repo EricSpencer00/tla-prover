@@ -225,7 +225,7 @@ manual per-spec archaeology.
 
 Started this loop at 93/206 (45%, end of the prior interactive session). Ends at
 **157/206 (76%)** — every closure backed by a `results/runs/` entry, every open/deferred
-spec individually investigated and documented, per `RALPH_INSTRUCTIONS.md`'s
+spec individually investigated and documented, per the Stage-0 sweep's
 completion criteria. Summary of what moved the number, roughly in order of impact:
 
 1. Amendment 3 (expected-violation population, PENDING Eric) — 7 specs were being
@@ -549,7 +549,7 @@ tally: 7 closed, 7 certified intractable, 0 unresolved.
 
 Infrastructure notes for future Sophia sweeps: TLC state pools for this class are
 tens-to-hundreds of GB — node-local /tmp and the home quota both fail; point the
-harness workroot at Lustre scratch (`/grand/EVITA/...`, `PROVE_TLA_WORKROOT` env
+harness workroot at the site's Lustre scratch filesystem (`PROVE_TLA_WORKROOT` env
 override added to the shipped harness copy). The harness's hardcoded `-workers 2`
-got an env override too (`TLC_WORKERS`). Sweep total: ~35 node-hours of the ~2,000
-EVITA balance.
+got an env override too (`TLC_WORKERS`). Sweep total: ~35 node-hours against a ~2,000 node-hour
+allocation.

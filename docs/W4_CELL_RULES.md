@@ -1,8 +1,7 @@
 # W4 per-cell rules
 
-The cloud routine reads this file once per run (see `docs/CLOUD_ROUTINE_W4.md`).
-It is the long tail of 51 waves of incident response; the scheduler prompt stays
-short by pointing here instead of carrying it. Every rule below is
+The wave-generation loop reads this file once per run. It is the long tail of 51
+waves of incident response, kept here so the loop itself stays short. Every rule below is
 non-negotiable — each one exists because something went wrong without it.
 
 ## Hard floors, checked BEFORE append

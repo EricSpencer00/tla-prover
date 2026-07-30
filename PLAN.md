@@ -509,7 +509,7 @@ cross-family corpus (5k-row floor proposed; Eric's spend call on further Opus wa
 
 ### Amendment 20 (2026-07-26) — the three deferred calls, decided; the pre-registration is un-pinned from gpt-oss
 
-Eric delegated the three calls left open by `docs/RESUME_W4.md` ("do the best call for each,
+Eric delegated the three calls left open by the W4 resume notes ("do the best call for each,
 I'm not the expert here"). Ledgered here because (b) changes a pre-registration, which is not
 something a session may quietly reinterpret later.
 

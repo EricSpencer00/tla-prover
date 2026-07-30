@@ -49,7 +49,7 @@ These are decided and ledgered (Amendment 12). Treat as constants.
   - `extract_module(response)` → pulls `---- MODULE … ====` from a model reply (tolerates markdown fences / prose).
   - `summarize_passk(results, k)` → pass@1 (greedy) + pass@k (any-of-k) ledger summary.
 - **FormaLLM corpus:** `/Users/eric/GitHub/tla_benchmark/data` — `descriptions/{n}.json` (rich structured NL), `cfg/{n}.cfg`, `tla_files/{n}.tla`, `test_split.json`. Its `src/metrics.py` is FormaLLM's own metric — **NOT used**; Gate-2 scores with prove-TLA's population criterion.
-- **Sophia auth:** `~/.venvs/alcf-inference/get_token.sh` prints a fresh Globus access token (refresh token currently valid). Set `OPENAI_API_KEY_CMD` to it. Endpoint: `inference-api.alcf.anl.gov/resource_server/sophia/vllm/v1`. Only the **gpt-oss family is reliably hot**; expect 408/503 on cold models (harness already retries with long backoff).
+- **Endpoint auth:** the ALCF inference service takes a short-lived Globus access token. Point `OPENAI_API_KEY_CMD` at a local helper that mints one; the harness re-invokes it per call, so no token is ever written to disk here. Endpoint: `inference-api.alcf.anl.gov/resource_server/sophia/vllm/v1`. Only the **gpt-oss family is reliably hot**; expect 408/503 on cold models (harness already retries with long backoff).
 
 ---
 
@@ -64,7 +64,7 @@ Steps 1–4 are offline/testable (use `--model local-stub`, no spend). Step 5 is
 3. **Option-B corruption** (`gen_eval.py`): `corrupt(spec_text, seed)` → apply exactly one `harness.mutation` swap deterministically (seed from spec num + frozen holdout hash, mirroring E2.b's un-gameable seeding). Assert the result still SANY-parses but fails the criterion (else the "repair" task is empty). One deterministic mutation per spec, recorded.
 4. **CLI + orchestration** (`harness/gen_eval.py` `main`, wired into `harness/__main__.py`): `python3 -m harness gen-eval --framing {A,B} --model openai:<id> --run-id <id> --k 32`. Per (spec, sample): build prompt → `model.generate` → `extract_module` → injected-text score → JSONL row (Rule 8 append-only: spec, framing, model id, prompt hash, sample idx, temperature, verdict, budget). Greedy sample = temp 0 recorded separately.
 5. **Sophia baseline sweep** (compute — confirm with Eric before launching; ~3,960 model calls = 2 models × 2 framings × 30 specs × (1 greedy + 32)):
-   - `export OPENAI_BASE_URL=…/sophia/vllm/v1 OPENAI_API_KEY_CMD="$HOME/.venvs/alcf-inference/get_token.sh"`
+   - `export OPENAI_BASE_URL=…/sophia/vllm/v1 OPENAI_API_KEY_CMD=<your token-minting script>`
    - Run all four (model × framing) combinations; **serial TLC verify**; `--resume-from` for cold-endpoint restarts; quarantine 408/503-polluted rows (Stage-1 pattern).
 6. **Semantic audit (Rule 9):** run `harness semaudit` over every counted pass in both framings, both arms. Rejects → failures. Ledger the rejects (`SEMAUDIT_FINDINGS.md` style).
 7. **Freeze E2.c baseline:** write `results/` summary + a `corpus/e2c_baseline.json` (per arm × framing: pass@1, pass@32, audited). Record the frozen baseline in a **new PLAN ledger amendment (13)** — *before* any W2.3 training. This is the number chattla-v2 must beat.
@@ -79,8 +79,8 @@ Steps 1–4 are offline/testable (use `--model local-stub`, no spend). Step 5 is
 - **Serial TLC only** for verification (`--jobs 1`). `--jobs 8` produces contention false-timeouts that silently miscount (bit Gate 1; `TIMEOUT_CONTENTION.md`). Specs 14/30/135/141 in the holdout are near the 120s boundary — serial is not optional.
 - **Rule 9 before any pass counts.** The 20b arm produced ~91 semantic-audit rejects in Gate 1 — the reward-hacking channel is live and worse for weaker models.
 - **Decontamination:** W2.1 (later) MUST near-dup-remove the 30 holdout specs from `chattla-corpora-v2`. The holdout's whole value is that the model hasn't seen these.
-- **No secrets in the repo.** Sophia auth is the Globus refresh token via `get_token.sh`; never commit tokens or any provided key. (An 8-digit "SOPHIA key" was offered on 2026-07-05 but was not needed and was kept out of all files.)
-- **Concurrent-session hazard:** another live Claude session may be editing `prove-TLA`. Check before large edits (see the `concurrent-session-hazard` memory).
+- **No secrets in the repo.** Endpoint auth is a short-lived Globus token minted out-of-band; never commit tokens, keys, or one-time codes.
+- **Concurrent-session hazard:** more than one agent or operator may be editing this repo at once. Check `git log` and the working tree before large edits.
 - **Rule 3 / Rule 8:** every number carries its reproduction command; every attempt is an append-only JSONL row. Logs under `results/runs/*/logs/` are gitignored; `rows.jsonl`/`summary.csv`/`config.json` are committed as evidence.
 
 ---

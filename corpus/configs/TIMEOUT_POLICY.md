@@ -1,6 +1,6 @@
 # Bounds/budget policy for large-state-space timeouts
 
-Per RALPH_INSTRUCTIONS.md: decide a real policy for the specs that time out at the
+Decide a real policy for the specs that time out at the
 default 90s TLC budget, rather than leaving them all lumped together as "large state
 space."
 

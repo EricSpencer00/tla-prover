@@ -1,7 +1,5 @@
 # Toy End-to-End Pipeline Smoke Test Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
-
 **Goal:** A single command (`tools/smoke/run_e2e.sh`) that exercises the ENTIRE ChatTLA RFT pipeline — seed → generation loop → TLC verify → corpus build → harmony SFT file → real (tiny) SFT train → merge → OpenAI-compatible serve → gen-eval → ledger re-score — locally in ~15–30 min, so config-class bugs (like the ctx-4096 truncation that invalidated Gate-2 framing B) are caught before an 8–12h Sophia run.
 
 **Architecture:** Two tiers. **Tier L (local, this plan):** reuse the real harness modules end to end with a tiny real model (SmolLM2-135M, CPU) standing in for gpt-oss; a small OpenAI-compatible FastAPI server with a configurable `max_model_len` lets us both serve the merged toy model AND deliberately reproduce the ctx-4096 bug to prove the new preflight check catches it. **Tier S (Sophia, follow-up script only):** parameterized SMOKE=1 versions of the real PBS scripts (5 train steps, 20b, 1 GPU) — written but only run before big submissions.

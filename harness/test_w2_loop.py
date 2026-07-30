@@ -1,5 +1,5 @@
 """Tests for harness.w2_loop -- the W2 Ralph-loop RFT generation sampler
-(docs/superpowers/specs/2026-07-09-w21-quality-corpus-design.md, Workstream 2)
+(docs/designs/2026-07-09-w21-quality-corpus-design.md, Workstream 2)
 + the 2026-07-10 audit-fix quality gates (mutation floor, invariant-fidelity
 contract, liveness gate).
 

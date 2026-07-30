@@ -1,7 +1,6 @@
 # Apalache informational sweep
 
-**Scope reminder: informational only.** Per `RALPH_INSTRUCTIONS_APALACHE.md` (Eric
-confirmed directly): PLAN.md §1 (G1, immutable) requires "SANY and non-vacuous TLC"
+**Scope reminder: informational only.** Per the sweep's scope note (confirmed with the maintainer): PLAN.md §1 (G1, immutable) requires "SANY and non-vacuous TLC"
 literally; Apalache is Stage 4 scope (§3, W4.1 — reward provider first, then a gate
 layered *on top of* TLC in the full ladder), not a Stage 0 substitute. **Nothing here
 changes the 157/206 closed count, `populations.json`, or `DEFERRED.json`.** A
@@ -385,8 +384,8 @@ state/minute growth past 10 minutes, no sign of convergence).
 
 Base module (`tla-examples/specifications/MultiPaxos-SMR/MultiPaxos.tla`, 585
 lines) is a full PlusCal-translated MultiPaxos state-machine-replication
-protocol. Read enough to assess annotation scope before committing time (per
-RALPH_INSTRUCTIONS_APALACHE.md's "~20-30 min per spec, don't spin" guidance)
+protocol. Read enough to assess annotation scope before committing time (per the sweep's
+"~20-30 min per spec, don't spin" budget)
 and judged it out of budget:
 
 - `Messages` is a union of **five** distinct record shapes, not the two-shape

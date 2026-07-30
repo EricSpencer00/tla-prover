@@ -32,7 +32,7 @@ RUNS_DIR = Path("results/runs")
 DIAMOND, GOLD, SILVER, BRONZE = 3, 2, 1, 0
 TIER_NAMES = {DIAMOND: "diamond", GOLD: "gold", SILVER: "silver", BRONZE: "bronze"}
 
-# Structural floors from the W4 wave contract (docs/CLOUD_ROUTINE_W4.md).
+# Structural floors from the W4 wave contract (docs/W4_CELL_RULES.md).
 # Early waves predate the complexity tier and legitimately fall below these --
 # they are not corrupt, just small, so they land in silver rather than bronze.
 LOC_FLOOR = 40

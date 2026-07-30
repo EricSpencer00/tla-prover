@@ -1,6 +1,6 @@
 """W2.2 -- the RFT generation ("Ralph") loop.
 
-Design: docs/superpowers/specs/2026-07-09-w21-quality-corpus-design.md,
+Design: docs/designs/2026-07-09-w21-quality-corpus-design.md,
 Workstream 2. Per gold seed spec: spec -> NL (back-translation) -> the NL
 becomes a generation seed -> NL -> spec' (property-frozen generation, gated
 by SANY + non-vacuous TLC + the deterministic mutation battery), iterating

@@ -76,12 +76,12 @@ The honest model-generated ceiling on the 206, and the residue list:
   (Rule 3); vacuous pass = failure (Rule 5); never edit anything under
   `tla_benchmark/` or `tla-examples/`; corpus repairs go through
   corpus/configs/patches/ with documentation.
-- Check for concurrent sessions before mutating the repo
-  (`ps aux | grep -i "claude.*prove-TLA"`, unrecognized commits in `git log`).
+- Check for concurrent sessions before mutating the repo (unrecognized commits
+  in `git log`, or a working tree you did not leave).
 - One verification job at a time on this machine; harness `--jobs 1`.
-- SOPHIA access needs a one-time passcode only Eric can provide (Discord) — do
-  not plan work that requires it unless he's in the loop. (Bundle pattern and
-  gotchas documented in GATE0_STATUS.md "HPC sweep" and memory if needed:
-  `PROVE_TLA_WORKROOT` on Lustre, `TLC_WORKERS`, ship corpus/descriptions/.)
+- Cluster access needs an interactive one-time passcode, so it cannot be
+  automated — do not plan work that requires it without a human present. Bundle
+  pattern and gotchas are in GATE0_STATUS.md "HPC sweep": `PROVE_TLA_WORKROOT`
+  on Lustre scratch, `TLC_WORKERS`, ship `corpus/descriptions/`.
 - Spend discipline: open-model inference freely; Anthropic API only with
   explicit confirmation; report cost estimates before any sweep-scale run.

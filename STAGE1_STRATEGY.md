@@ -14,7 +14,8 @@ in corpus/configs/repair_budget.json (commit 2994165).
 | 2 (queued) | `mistralai/Devstral-2-123B-Instruct-2512` | second method — coding-tuned |
 
 Endpoint `https://inference-api.alcf.anl.gov/resource_server/sophia/vllm/v1`,
-Globus refresh-token auth (`~/.venvs/alcf-inference/get_token.sh`), no dollar
+Globus refresh-token auth (token minted by a local helper script named in
+`OPENAI_API_KEY_CMD`; nothing credential-bearing lives in this repo), no dollar
 spend. gpt-oss-20b was the dry-run model only.
 
 **Per-spec escalation (fixed in repair_budget.json):** baseline → 2 iterative

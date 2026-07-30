@@ -13,7 +13,7 @@ allows exactly one pre-registered 120b train+eval and this must not spend it.
 | hardware | 1 node, 2×A100-40GB (of 4), bf16 |
 | epochs | 2 (64 steps) |
 | runtime | 16m40s, 926k tokens |
-| result | **TRAIN_EXIT=0**, checkpoints at `/grand/EVITA/eric-spencer/w4train/checkpoints_w4_diamond` (2.1G sharded FSDP; needs the `merge_*` step to become a usable adapter) |
+| result | **TRAIN_EXIT=0**, checkpoints at `<scratch>/w4train/checkpoints_w4_diamond` (2.1G sharded FSDP; needs the `merge_*` step to become a usable adapter) |
 
 LoRA reached `mlp.experts.lora_A/B` as intended, not just attention.
 

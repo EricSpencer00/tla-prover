@@ -248,7 +248,7 @@ def stage_tlc(raw: Path, run_dir: Path, manifest_path: Path, limit: int | None,
     print(f"tlc chunk complete -> {out} ({n} rows)")
 
 
-# --- adequacy: W1 battery (design doc docs/superpowers/specs/2026-07-09-
+# --- adequacy: W1 battery (design doc docs/designs/2026-07-09-
 # w21-quality-corpus-design.md, Workstream 1) -----------------------------
 #
 # Re-runs PLAIN TLC (not the tier3 sweep's bounded -dfid search) over tier1/
