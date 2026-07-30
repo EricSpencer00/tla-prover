@@ -1,0 +1,3969 @@
+{
+  "results": [
+    {
+      "cand": "13-A-greedy.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ],
+        "R2_add_extends": [
+          "FiniteSets"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "13-A-1.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "13-A-2.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "13-A-3.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "13-A-4.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "13-A-5.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "13-A-6.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "13-A-7.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "13-A-8.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "13-A-9.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "13-A-10.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "13-A-11.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "13-A-12.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "13-A-13.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "13-A-14.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "13-A-15.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "13-A-16.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "13-A-17.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "13-A-18.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "13-A-19.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "13-A-20.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "13-A-21.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "13-A-22.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "13-A-23.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "13-A-24.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "13-A-25.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "13-A-26.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "13-A-27.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "13-A-28.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "13-A-29.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "13-A-30.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ],
+        "R3_drop_dup_def": [
+          "TypeOK"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "13-A-31.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "13-A-32.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "14-A-greedy.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "14-A-1.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Naturals"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "14-A-2.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Naturals"
+        ],
+        "R3_drop_dup_def": [
+          "TypeOK"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "14-A-3.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "14-A-4.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "14-A-5.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "14-A-6.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "14-A-7.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "14-A-8.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "14-A-9.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "14-A-10.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "14-A-11.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "14-A-12.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Naturals",
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "14-A-13.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "14-A-14.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ],
+        "R2_add_extends": [
+          "FiniteSets"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "14-A-15.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ],
+        "R2_add_extends": [
+          "FiniteSets"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "14-A-16.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "14-A-17.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "14-A-18.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "14-A-19.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "14-A-20.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "14-A-21.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "14-A-22.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "14-A-23.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "14-A-24.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "14-A-25.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "14-A-26.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Naturals"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "14-A-27.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "14-A-28.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "14-A-29.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "14-A-30.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "14-A-31.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "14-A-32.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "15-A-1.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "15-A-2.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "15-A-4.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "15-A-5.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "15-A-6.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "15-A-7.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "15-A-8.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "15-A-9.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "15-A-10.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "15-A-11.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "15-A-12.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "15-A-13.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "15-A-14.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "15-A-15.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "15-A-16.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "15-A-17.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "15-A-18.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "15-A-19.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "15-A-20.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "15-A-22.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "15-A-23.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "15-A-24.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "15-A-25.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "15-A-26.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "15-A-27.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "15-A-28.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "55-A-greedy.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "FiniteSets"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "55-A-2.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "55-A-3.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "55-A-4.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "55-A-5.tla",
+      "fixes": {
+        "R3_drop_dup_def": [
+          "TypeOK",
+          "AncestorProperties"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "55-A-6.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "55-A-7.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "55-A-8.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "55-A-9.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "FiniteSets"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "55-A-10.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "55-A-11.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Naturals"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "55-A-12.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "55-A-14.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "55-A-15.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "55-A-16.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "55-A-17.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "55-A-18.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "55-A-19.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "FiniteSets"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "55-A-20.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "55-A-21.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "55-A-22.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "55-A-23.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "FiniteSets"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "55-A-24.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "55-A-25.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "FiniteSets"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "55-A-26.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "55-A-28.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "55-A-30.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "FiniteSets"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "55-A-31.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "55-A-32.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "106-A-greedy.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "106-A-1.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "106-A-2.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "106-A-3.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "106-A-4.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "106-A-5.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "106-A-6.tla",
+      "fixes": {
+        "R3_drop_dup_def": [
+          "NoBound"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "106-A-7.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "106-A-8.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "106-A-9.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "106-A-10.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "106-A-11.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "106-A-12.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "106-A-13.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "106-A-14.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "106-A-15.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "106-A-16.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "106-A-17.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "106-A-18.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "106-A-19.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "106-A-20.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "106-A-21.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "106-A-22.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "106-A-23.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "FiniteSets"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "106-A-24.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "106-A-25.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "FiniteSets"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "106-A-26.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "106-A-27.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "106-A-28.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "106-A-29.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "106-A-30.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "106-A-31.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "106-A-32.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "121-A-greedy.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "121-A-1.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "121-A-2.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "121-A-3.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "121-A-4.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Naturals"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "121-A-5.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "121-A-6.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "121-A-7.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Naturals"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "121-A-8.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Naturals"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "121-A-9.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "121-A-10.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "121-A-11.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat",
+          "Len"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "121-A-12.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "121-A-13.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "121-A-14.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "121-A-15.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "121-A-16.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "121-A-17.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "121-A-18.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "121-A-19.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Naturals"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "121-A-20.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Naturals"
+        ],
+        "R3_drop_dup_def": [
+          "Spec"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "121-A-21.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "121-A-22.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "121-A-23.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "121-A-24.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Naturals"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "121-A-25.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "121-A-26.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "121-A-27.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "121-A-28.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "121-A-29.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Naturals"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "121-A-30.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "121-A-31.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "121-A-32.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "128-A-greedy.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "128-A-1.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "128-A-2.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "128-A-3.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "128-A-4.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "128-A-5.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "128-A-6.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "128-A-7.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "128-A-8.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "128-A-9.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "128-A-10.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "128-A-11.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "128-A-12.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "128-A-13.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "128-A-14.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "128-A-15.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ],
+        "R2_add_extends": [
+          "Integers"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "128-A-16.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "128-A-17.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "128-A-18.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "128-A-19.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "128-A-20.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "128-A-21.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "128-A-22.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "128-A-23.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "128-A-24.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "128-A-25.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "128-A-26.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "128-A-27.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "128-A-28.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "128-A-29.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "128-A-30.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq",
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "128-A-31.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "128-A-32.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "132-A-greedy.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "132-A-1.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "132-A-2.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "132-A-3.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "132-A-4.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "132-A-5.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ],
+        "R2_add_extends": [
+          "FiniteSets"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "132-A-6.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "132-A-7.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "FiniteSets",
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "132-A-8.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "132-A-9.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "FiniteSets",
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "132-A-10.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "FiniteSets",
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "132-A-11.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "132-A-12.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "132-A-13.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "FiniteSets",
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "132-A-14.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "FiniteSets",
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "132-A-15.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "132-A-17.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "132-A-19.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "132-A-20.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "132-A-21.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ],
+        "R2_add_extends": [
+          "FiniteSets"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "132-A-22.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "132-A-25.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ],
+        "R2_add_extends": [
+          "FiniteSets"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "132-A-26.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "FiniteSets",
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "132-A-27.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "132-A-28.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Sequences"
+        ],
+        "R3_drop_dup_def": [
+          "Spec"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "132-A-29.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "132-A-30.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "132-A-32.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "FiniteSets",
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "133-A-greedy.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "133-A-1.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "133-A-2.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "133-A-3.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "133-A-4.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "133-A-5.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "133-A-6.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "133-A-8.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "133-A-9.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "133-A-10.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ],
+        "R2_add_extends": [
+          "FiniteSets"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "133-A-11.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "133-A-12.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "133-A-14.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "133-A-15.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "133-A-16.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "133-A-18.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "133-A-19.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ],
+        "R2_add_extends": [
+          "FiniteSets"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "133-A-20.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "133-A-21.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "133-A-22.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "133-A-23.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "FiniteSets",
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "133-A-26.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "133-A-27.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "133-A-28.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "133-A-29.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "133-A-30.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "133-A-31.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "133-A-32.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "135-A-greedy.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "135-A-1.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "135-A-2.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "135-A-3.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "FiniteSets"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "135-A-4.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ],
+        "R2_add_extends": [
+          "FiniteSets"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "135-A-5.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "135-A-6.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ],
+        "R2_add_extends": [
+          "FiniteSets"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "135-A-7.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ],
+        "R2_add_extends": [
+          "FiniteSets"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "135-A-8.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "135-A-9.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "135-A-10.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "135-A-11.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "135-A-12.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ],
+        "R2_add_extends": [
+          "FiniteSets"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "135-A-13.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "135-A-14.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ],
+        "R2_add_extends": [
+          "FiniteSets"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "135-A-15.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ],
+        "R2_add_extends": [
+          "FiniteSets"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "135-A-16.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "FiniteSets",
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "135-A-17.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "135-A-18.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "135-A-19.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "135-A-20.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "135-A-21.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "135-A-22.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "135-A-23.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "FiniteSets",
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "135-A-24.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "135-A-25.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ],
+        "R2_add_extends": [
+          "FiniteSets"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "135-A-26.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "135-A-27.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "135-A-28.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "135-A-29.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "135-A-30.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ],
+        "R2_add_extends": [
+          "FiniteSets"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "135-A-31.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "135-A-32.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "141-A-greedy.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "141-A-1.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "141-A-2.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "141-A-3.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "141-A-5.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Seq"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "141-A-7.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "FiniteSets",
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "141-A-8.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "141-A-9.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "141-A-10.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "141-A-13.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "141-A-15.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "141-A-17.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "141-A-18.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "141-A-19.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "141-A-20.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "141-A-22.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "141-A-23.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "141-A-24.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "141-A-25.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "141-A-26.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "141-A-27.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "141-A-28.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "141-A-30.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "141-A-31.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Sequences"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "148-A-greedy.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "148-A-1.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "148-A-2.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "148-A-3.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "148-A-4.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "148-A-5.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "148-A-6.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "148-A-7.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "148-A-8.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "148-A-9.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "FiniteSets"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "148-A-10.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "148-A-11.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "148-A-12.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "148-A-13.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "148-A-14.tla",
+      "fixes": {
+        "R3_drop_dup_def": [
+          "Balance"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "148-A-15.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "148-A-16.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "148-A-17.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "148-A-18.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "148-A-19.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "148-A-20.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "148-A-21.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "148-A-22.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "148-A-23.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "148-A-24.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "148-A-25.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "148-A-26.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "148-A-27.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "148-A-28.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "148-A-29.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "148-A-30.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "148-A-31.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "148-A-32.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "158-A-greedy.tla",
+      "fixes": {
+        "R3_drop_dup_def": [
+          "Vote"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "158-A-1.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "158-A-2.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "158-A-3.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "158-A-4.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "158-A-5.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "158-A-6.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "158-A-7.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "158-A-8.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "158-A-9.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "158-A-10.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "158-A-11.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "158-A-12.tla",
+      "fixes": {
+        "R3_drop_dup_def": [
+          "Spec"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "158-A-13.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "158-A-14.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "158-A-15.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "FiniteSets"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "158-A-17.tla",
+      "fixes": {
+        "R3_drop_dup_def": [
+          "Quorums"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "158-A-19.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "158-A-20.tla",
+      "fixes": {
+        "R3_drop_dup_def": [
+          "Vote"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "158-A-21.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "158-A-22.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "158-A-23.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "FiniteSets"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "158-A-24.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "158-A-25.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "158-A-26.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "158-A-27.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "158-A-28.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "158-A-29.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "158-A-30.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "158-A-31.tla",
+      "fixes": {
+        "R3_drop_dup_def": [
+          "Vote"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "158-A-32.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "174-A-greedy.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "174-A-1.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "174-A-3.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "174-A-4.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "174-A-5.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "174-A-6.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "174-A-7.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "FiniteSets"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "174-A-9.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "174-A-10.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "174-A-11.tla",
+      "fixes": {
+        "R3_drop_dup_def": [
+          "Termination"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "174-A-12.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Naturals"
+        ],
+        "R3_drop_dup_def": [
+          "Spec"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "174-A-15.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "174-A-16.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "174-A-18.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "174-A-19.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "174-A-20.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "174-A-21.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "174-A-22.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "174-A-25.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "174-A-26.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "174-A-27.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "174-A-28.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "174-A-31.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "174-A-32.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "FiniteSets"
+        ],
+        "R3_drop_dup_def": [
+          "Termination"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "181-A-greedy.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "181-A-1.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "181-A-2.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "181-A-3.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "181-A-4.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "181-A-5.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "181-A-6.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "181-A-7.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "181-A-8.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "181-A-9.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "181-A-10.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "181-A-11.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "181-A-12.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "181-A-13.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "181-A-14.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "181-A-15.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "181-A-16.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Naturals"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "181-A-17.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "181-A-18.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "181-A-19.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Naturals"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "181-A-20.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "181-A-21.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "FiniteSets"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "181-A-22.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "181-A-23.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "181-A-24.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Naturals"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "181-A-25.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "181-A-26.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "181-A-27.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "181-A-28.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "181-A-29.tla",
+      "fixes": {
+        "R1_drop_colliding_decl": [
+          "Nat"
+        ]
+      },
+      "before": "fail",
+      "after": "pass"
+    },
+    {
+      "cand": "181-A-30.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Naturals"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    },
+    {
+      "cand": "181-A-31.tla",
+      "fixes": {},
+      "before": null,
+      "after": null
+    },
+    {
+      "cand": "181-A-32.tla",
+      "fixes": {
+        "R2_add_extends": [
+          "Naturals"
+        ],
+        "R3_drop_dup_def": [
+          "Spec"
+        ]
+      },
+      "before": "fail",
+      "after": "fail"
+    }
+  ],
+  "recovered": 88,
+  "touched": 285,
+  "targets": 454,
+  "specs_with_recovery": {
+    "13": 26,
+    "14": 26,
+    "55": 2,
+    "121": 7,
+    "132": 3,
+    "133": 9,
+    "135": 1,
+    "174": 1,
+    "181": 13
+  }
+}
