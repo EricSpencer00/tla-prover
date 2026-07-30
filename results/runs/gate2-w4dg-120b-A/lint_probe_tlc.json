@@ -1,0 +1,445 @@
+{
+  "rows": [
+    {
+      "spec": "13",
+      "cand": "13-A-greedy.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "13",
+      "cand": "13-A-1.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "13",
+      "cand": "13-A-2.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "13",
+      "cand": "13-A-3.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "13",
+      "cand": "13-A-4.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "13",
+      "cand": "13-A-5.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "13",
+      "cand": "13-A-6.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "13",
+      "cand": "13-A-7.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "13",
+      "cand": "13-A-9.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "13",
+      "cand": "13-A-13.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "13",
+      "cand": "13-A-14.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "13",
+      "cand": "13-A-15.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "13",
+      "cand": "13-A-16.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "13",
+      "cand": "13-A-17.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "13",
+      "cand": "13-A-18.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "13",
+      "cand": "13-A-19.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "13",
+      "cand": "13-A-20.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "13",
+      "cand": "13-A-21.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "13",
+      "cand": "13-A-22.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "13",
+      "cand": "13-A-23.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "13",
+      "cand": "13-A-25.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "13",
+      "cand": "13-A-26.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "13",
+      "cand": "13-A-28.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "13",
+      "cand": "13-A-30.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "13",
+      "cand": "13-A-31.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "13",
+      "cand": "13-A-32.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "14",
+      "cand": "14-A-greedy.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "14",
+      "cand": "14-A-3.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "14",
+      "cand": "14-A-4.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "14",
+      "cand": "14-A-5.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "14",
+      "cand": "14-A-6.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "14",
+      "cand": "14-A-7.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "14",
+      "cand": "14-A-8.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "14",
+      "cand": "14-A-9.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "14",
+      "cand": "14-A-10.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "14",
+      "cand": "14-A-11.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "14",
+      "cand": "14-A-13.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "14",
+      "cand": "14-A-14.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "14",
+      "cand": "14-A-16.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "14",
+      "cand": "14-A-17.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "14",
+      "cand": "14-A-19.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "14",
+      "cand": "14-A-21.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "14",
+      "cand": "14-A-22.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "14",
+      "cand": "14-A-23.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "14",
+      "cand": "14-A-24.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "14",
+      "cand": "14-A-25.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "14",
+      "cand": "14-A-27.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "14",
+      "cand": "14-A-28.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "14",
+      "cand": "14-A-29.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "14",
+      "cand": "14-A-30.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "14",
+      "cand": "14-A-31.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "14",
+      "cand": "14-A-32.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "55",
+      "cand": "55-A-greedy.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "55",
+      "cand": "55-A-5.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "121",
+      "cand": "121-A-greedy.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "121",
+      "cand": "121-A-5.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "121",
+      "cand": "121-A-9.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "121",
+      "cand": "121-A-15.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "121",
+      "cand": "121-A-17.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "121",
+      "cand": "121-A-27.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "121",
+      "cand": "121-A-31.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "132",
+      "cand": "132-A-5.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "132",
+      "cand": "132-A-15.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "132",
+      "cand": "132-A-21.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "133",
+      "cand": "133-A-greedy.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "133",
+      "cand": "133-A-6.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "133",
+      "cand": "133-A-11.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "133",
+      "cand": "133-A-16.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "133",
+      "cand": "133-A-18.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "133",
+      "cand": "133-A-22.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "133",
+      "cand": "133-A-28.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "133",
+      "cand": "133-A-30.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "133",
+      "cand": "133-A-32.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "135",
+      "cand": "135-A-25.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "174",
+      "cand": "174-A-11.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "181",
+      "cand": "181-A-greedy.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "181",
+      "cand": "181-A-1.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "181",
+      "cand": "181-A-3.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "181",
+      "cand": "181-A-5.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "181",
+      "cand": "181-A-7.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "181",
+      "cand": "181-A-8.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "181",
+      "cand": "181-A-9.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "181",
+      "cand": "181-A-11.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "181",
+      "cand": "181-A-13.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "181",
+      "cand": "181-A-20.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "181",
+      "cand": "181-A-22.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "181",
+      "cand": "181-A-28.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    },
+    {
+      "spec": "181",
+      "cand": "181-A-29.tla",
+      "verdict_after_lint": "fail:tlc=error"
+    }
+  ],
+  "flipped_specs": []
+}

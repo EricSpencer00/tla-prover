@@ -697,3 +697,114 @@ def test_run_gen_eval_framing_b_ledgers_skip_rows(monkeypatch, tmp_path):
     assert rows[0]["sample"] == "corruption"
     assert rows[0]["verdict"] == "skipped:no_valid_corruption"
     assert rows[0]["mutation_record"]["skip"] == "no_valid_corruption"
+
+
+# --- cfg substitution / multi-pair parsing (2026-07-29 audit) -----------------
+# required_signature() used to keep only the LEFT identifier of `X <- Y` and drop
+# Y, so the framing-A prompt never told the model to define Y -- while TLC hard
+# errors with "substitutes for X with the undefined identifier Y". That silently
+# under-specified 13/30 holdout specs (12 of them unsolved in gate2-w4dg-120b-A).
+
+def test_required_signature_keeps_substitution_rhs():
+    # Uses a spec-domain LHS: a builtin LHS like Nat is reported separately, see
+    # test_builtin_substitution_lhs_is_not_a_declared_constant.
+    cfg = "CONSTANT\n  MaxBallot = 2\n  Quorum <- MCQuorum\n"
+    sig = gen_eval.required_signature(cfg)
+    assert sig["constants"] == ["MaxBallot", "Quorum"]
+    assert sig["substitutions"] == [("Quorum", "MCQuorum")]
+
+
+def test_required_signature_splits_multi_pair_line():
+    # spec 158's real cfg: five assignments on one line, plus four substitutions.
+    cfg = (
+        "CONSTANTS \n"
+        "  a1=a1  a2=a2  a3=a3  v1=v1  v2=v2 \n"
+        "  Acceptor <- MCAcceptor \n"
+        "  Quorum   <- MCQuorum\n"
+        "SYMMETRY MCSymmetry\n"
+    )
+    sig = gen_eval.required_signature(cfg)
+    assert sig["constants"] == ["a1", "a2", "a3", "v1", "v2", "Acceptor", "Quorum"]
+    assert sig["substitutions"] == [("Acceptor", "MCAcceptor"), ("Quorum", "MCQuorum")]
+    assert sig["symmetry"] == "MCSymmetry"
+
+
+def test_format_signature_tells_model_to_define_rhs_operators():
+    cfg = "CONSTANT\n  MaxNat = 1000000\n  Nat <- NatOverride\n"
+    body = gen_eval._format_signature(gen_eval.required_signature(cfg))
+    assert "NatOverride" in body, "the model is never told to define the RHS operator"
+
+
+def test_substitution_free_cfg_signature_is_unchanged():
+    # regression guard: arms without `<-` must produce byte-identical prompts.
+    cfg = "CONSTANT N = 3\nINIT Init\nNEXT Next\nINVARIANT TypeOK\n"
+    sig = gen_eval.required_signature(cfg)
+    assert sig["substitutions"] == []
+    body = gen_eval._format_signature(sig)
+    assert "substitut" not in body.lower()
+
+
+def test_required_signature_keeps_bare_constant_declaration():
+    # "CONSTANT N" has no "=" or "<-"; the pair scan must not swallow it.
+    sig = gen_eval.required_signature("CONSTANT N\nINIT Init\n")
+    assert sig["constants"] == ["N"]
+
+
+def test_required_signature_mixed_bare_and_assigned():
+    sig = gen_eval.required_signature("CONSTANTS N  MaxNat = 10  Nat <- NatOverride\n")
+    # Nat is inherited from Naturals, so it is an override, not a declaration.
+    assert sig["constants"] == ["MaxNat", "N"]
+    assert sig["substitutions"] == []
+    assert sig["builtin_overrides"] == [("Nat", "NatOverride", "Naturals")]
+
+
+def test_required_signature_does_not_harvest_set_elements():
+    # spec 2's real cfg: a set literal with spaces after the commas. p2/p3 are
+    # model VALUES, not identifiers the module must declare.
+    sig = gen_eval.required_signature("CONSTANTS\n  participants = {p1, p2, p3}\n  yes = yes\n")
+    assert sig["constants"] == ["participants", "yes"]
+
+
+def test_required_signature_handles_record_and_function_values():
+    sig = gen_eval.required_signature("CONSTANT f = [a |-> 1, b |-> 2]\n")
+    assert sig["constants"] == ["f"]
+
+
+def test_required_signature_nested_set_literal():
+    # spec 37's real cfg: a set OF sets. Elements must not become constants.
+    cfg = ("CONSTANTS\n"
+           "  Ingredients = {matches, paper, tobacco}\n"
+           "  Offers = {{matches, paper}, {matches, tobacco}, {paper, tobacco}}\n")
+    assert gen_eval.required_signature(cfg)["constants"] == ["Ingredients", "Offers"]
+
+
+# --- substitution LHS: builtin vs spec-domain (2026-07-29, second pass) -------
+# `Nat <- NatOverride` must NOT make the model declare Nat: Nat comes from
+# EXTENDS Naturals, and declaring it too is a hard SANY error ("Multiply-defined
+# symbol 'Nat'"). Observed in gate2-w4dg-120b-A2: 31/33 candidates correctly
+# defined NatOverride, then all 33 died on the Nat collision.
+# `Acceptor <- MCAcceptor` is the opposite: Acceptor IS a spec constant to declare.
+
+def test_builtin_substitution_lhs_is_not_a_declared_constant():
+    cfg = "CONSTANT\n  MaxNat = 1000000\n  Nat <- NatOverride\n"
+    sig = gen_eval.required_signature(cfg)
+    assert sig["constants"] == ["MaxNat"], "Nat must not be declared"
+    assert sig["builtin_overrides"] == [("Nat", "NatOverride", "Naturals")]
+    assert sig["substitutions"] == []
+    body = gen_eval._format_signature(sig)
+    assert "NatOverride" in body
+    assert "do NOT declare" in body
+
+
+def test_domain_substitution_lhs_stays_a_declared_constant():
+    cfg = "CONSTANTS\n  Acceptor <- MCAcceptor\n  Ballot <- MCBallot\n"
+    sig = gen_eval.required_signature(cfg)
+    assert sig["constants"] == ["Acceptor", "Ballot"]
+    assert sig["builtin_overrides"] == []
+    assert sig["substitutions"] == [("Acceptor", "MCAcceptor"), ("Ballot", "MCBallot")]
+
+
+def test_seq_substitution_is_treated_as_builtin():
+    sig = gen_eval.required_signature("CONSTANT Seq <- LimitedSeq\n")
+    assert sig["constants"] == []
+    assert sig["builtin_overrides"] == [("Seq", "LimitedSeq", "Sequences")]
