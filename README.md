@@ -233,5 +233,6 @@ wording change needs explicit sign-off.
 
 ## License
 
-MIT — see [LICENSE](LICENSE), which also records the licenses of the TLA+ tools and
-community modules vendored under `tools/`.
+MIT — see [LICENSE](LICENSE). Upstream licenses for the TLA+ tools and community
+modules vendored under `tools/`, and for the specifications under `corpus/`, are
+recorded in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
