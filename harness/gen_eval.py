@@ -67,6 +67,18 @@ _CFG_KEYWORDS = {
 
 _IDENT_RE = re.compile(r"[A-Za-z_][A-Za-z0-9_]*")
 
+# Names a spec gets from a standard module rather than declaring. A cfg
+# "Nat <- NatOverride" overrides the INHERITED definition; asking the model to
+# also declare Nat is a guaranteed SANY failure, so these are reported to the
+# prompt differently from a spec's own constants (2026-07-29).
+_STANDARD_MODULE_NAMES = {
+    "Nat": "Naturals", "Int": "Integers", "Real": "Reals",
+    "Seq": "Sequences", "Len": "Sequences", "Append": "Sequences",
+    "Head": "Sequences", "Tail": "Sequences", "SubSeq": "Sequences",
+    "SelectSeq": "Sequences",
+    "Cardinality": "FiniteSets", "IsFiniteSet": "FiniteSets",
+}
+
 
 def _split_cfg_assignments(body):
     """Split one CONSTANT-section body into [(name, op, value)] plus bare names.
@@ -125,7 +137,8 @@ def required_signature(cfg_text):
     generation prompt tells the model to define, so the reference cfg can score
     its output."""
     sig = {"constants": [], "specification": None, "init": None, "next": None,
-           "invariants": [], "properties": [], "substitutions": [], "symmetry": None}
+           "invariants": [], "properties": [], "substitutions": [], "symmetry": None,
+           "builtin_overrides": []}
     section = None
     for raw in cfg_text.splitlines():
         line = raw.split("\\*", 1)[0].strip()  # strip cfg comments
@@ -153,6 +166,14 @@ def required_signature(cfg_text):
             # under-specified 13/30 holdout specs. (2026-07-29 audit)
             assigns, bare = _split_cfg_assignments(body)
             for name, op, rhs in assigns:
+                if op == "<-" and name in _STANDARD_MODULE_NAMES:
+                    # The LHS comes from a standard module the spec EXTENDS, so it
+                    # must NOT also be declared -- SANY rejects that outright
+                    # ("Multiply-defined symbol 'Nat'"). The cfg overrides the
+                    # inherited definition with the RHS operator instead.
+                    sig["builtin_overrides"].append(
+                        (name, rhs, _STANDARD_MODULE_NAMES[name]))
+                    continue
                 sig["constants"].append(name)
                 if op == "<-":
                     sig["substitutions"].append((name, rhs))
@@ -307,6 +328,16 @@ def _format_signature(sig):
         for lhs, rhs in sig["substitutions"]:
             lines.append(f"    {rhs}   (substituted for {lhs}; usually a finite "
                          f"set or bounded version of {lhs})")
+    # These override an operator the module INHERITS from a standard module, so the
+    # model must define the RHS and must NOT redeclare the LHS.
+    if sig.get("builtin_overrides"):
+        lines.append("  The .cfg also replaces some operators inherited from the "
+                     "standard modules. For each of these, define the operator on "
+                     "the right and do NOT declare or redefine the name on the left:")
+        for lhs, rhs, mod in sig["builtin_overrides"]:
+            lines.append(f"    {rhs}   (replaces {lhs} from {mod}; make it a FINITE "
+                         f"version of {lhs} so the model is checkable -- keep "
+                         f"EXTENDS {mod} and do NOT declare {lhs})")
     return "\n".join(lines) if lines else "  (no identifiers required by the .cfg)"
 
 

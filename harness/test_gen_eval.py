@@ -706,10 +706,12 @@ def test_run_gen_eval_framing_b_ledgers_skip_rows(monkeypatch, tmp_path):
 # under-specified 13/30 holdout specs (12 of them unsolved in gate2-w4dg-120b-A).
 
 def test_required_signature_keeps_substitution_rhs():
-    cfg = "CONSTANT\n  MaxNat = 1000000\n  Nat <- NatOverride\n"
+    # Uses a spec-domain LHS: a builtin LHS like Nat is reported separately, see
+    # test_builtin_substitution_lhs_is_not_a_declared_constant.
+    cfg = "CONSTANT\n  MaxBallot = 2\n  Quorum <- MCQuorum\n"
     sig = gen_eval.required_signature(cfg)
-    assert sig["constants"] == ["MaxNat", "Nat"]
-    assert sig["substitutions"] == [("Nat", "NatOverride")]
+    assert sig["constants"] == ["MaxBallot", "Quorum"]
+    assert sig["substitutions"] == [("Quorum", "MCQuorum")]
 
 
 def test_required_signature_splits_multi_pair_line():
@@ -750,8 +752,10 @@ def test_required_signature_keeps_bare_constant_declaration():
 
 def test_required_signature_mixed_bare_and_assigned():
     sig = gen_eval.required_signature("CONSTANTS N  MaxNat = 10  Nat <- NatOverride\n")
-    assert sig["constants"] == ["MaxNat", "Nat", "N"]
-    assert sig["substitutions"] == [("Nat", "NatOverride")]
+    # Nat is inherited from Naturals, so it is an override, not a declaration.
+    assert sig["constants"] == ["MaxNat", "N"]
+    assert sig["substitutions"] == []
+    assert sig["builtin_overrides"] == [("Nat", "NatOverride", "Naturals")]
 
 
 def test_required_signature_does_not_harvest_set_elements():
@@ -772,3 +776,35 @@ def test_required_signature_nested_set_literal():
            "  Ingredients = {matches, paper, tobacco}\n"
            "  Offers = {{matches, paper}, {matches, tobacco}, {paper, tobacco}}\n")
     assert gen_eval.required_signature(cfg)["constants"] == ["Ingredients", "Offers"]
+
+
+# --- substitution LHS: builtin vs spec-domain (2026-07-29, second pass) -------
+# `Nat <- NatOverride` must NOT make the model declare Nat: Nat comes from
+# EXTENDS Naturals, and declaring it too is a hard SANY error ("Multiply-defined
+# symbol 'Nat'"). Observed in gate2-w4dg-120b-A2: 31/33 candidates correctly
+# defined NatOverride, then all 33 died on the Nat collision.
+# `Acceptor <- MCAcceptor` is the opposite: Acceptor IS a spec constant to declare.
+
+def test_builtin_substitution_lhs_is_not_a_declared_constant():
+    cfg = "CONSTANT\n  MaxNat = 1000000\n  Nat <- NatOverride\n"
+    sig = gen_eval.required_signature(cfg)
+    assert sig["constants"] == ["MaxNat"], "Nat must not be declared"
+    assert sig["builtin_overrides"] == [("Nat", "NatOverride", "Naturals")]
+    assert sig["substitutions"] == []
+    body = gen_eval._format_signature(sig)
+    assert "NatOverride" in body
+    assert "do NOT declare" in body
+
+
+def test_domain_substitution_lhs_stays_a_declared_constant():
+    cfg = "CONSTANTS\n  Acceptor <- MCAcceptor\n  Ballot <- MCBallot\n"
+    sig = gen_eval.required_signature(cfg)
+    assert sig["constants"] == ["Acceptor", "Ballot"]
+    assert sig["builtin_overrides"] == []
+    assert sig["substitutions"] == [("Acceptor", "MCAcceptor"), ("Ballot", "MCBallot")]
+
+
+def test_seq_substitution_is_treated_as_builtin():
+    sig = gen_eval.required_signature("CONSTANT Seq <- LimitedSeq\n")
+    assert sig["constants"] == []
+    assert sig["builtin_overrides"] == [("Seq", "LimitedSeq", "Sequences")]
