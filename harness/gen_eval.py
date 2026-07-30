@@ -65,6 +65,59 @@ _CFG_KEYWORDS = {
 }
 
 
+_IDENT_RE = re.compile(r"[A-Za-z_][A-Za-z0-9_]*")
+
+
+def _split_cfg_assignments(body):
+    """Split one CONSTANT-section body into [(name, op, value)] plus bare names.
+
+    A cfg line can hold several entries ("a1=a1  a2=a2  a3=a3"), and a value can
+    be a nested set literal with spaces inside it
+    ("Offers = {{matches, paper}, {matches, tobacco}}"). Regex can't match balanced
+    braces, so scan with a depth counter: consume the value until depth returns to
+    0 and whitespace ends the token. Getting this wrong harvests set ELEMENTS as
+    required constants (2026-07-29: `participants = {p1, p2, p3}` yielded p2/p3).
+    """
+    assigns, bare = [], []
+    i, n = 0, len(body)
+    while i < n:
+        if body[i].isspace():
+            i += 1
+            continue
+        m = _IDENT_RE.match(body, i)
+        if not m:
+            i += 1
+            continue
+        name = m.group(0)
+        j = m.end()
+        while j < n and body[j].isspace():
+            j += 1
+        op = None
+        if body.startswith("<-", j):
+            op, j = "<-", j + 2
+        elif j < n and body[j] == "=":
+            op, j = "=", j + 1
+        if op is None:
+            bare.append(name)  # declaration with no value
+            i = m.end()
+            continue
+        while j < n and body[j].isspace():
+            j += 1
+        start, depth = j, 0
+        while j < n:
+            ch = body[j]
+            if ch in "{[(":
+                depth += 1
+            elif ch in "}])":
+                depth -= 1
+            elif ch.isspace() and depth <= 0:
+                break
+            j += 1
+        assigns.append((name, op, body[start:j].strip()))
+        i = j
+    return assigns, bare
+
+
 def required_signature(cfg_text):
     """Parse a TLC .cfg into the identifiers a generated module must define:
     constants (names), specification (temporal formula name or None), init/next
@@ -72,7 +125,7 @@ def required_signature(cfg_text):
     generation prompt tells the model to define, so the reference cfg can score
     its output."""
     sig = {"constants": [], "specification": None, "init": None, "next": None,
-           "invariants": [], "properties": []}
+           "invariants": [], "properties": [], "substitutions": [], "symmetry": None}
     section = None
     for raw in cfg_text.splitlines():
         line = raw.split("\\*", 1)[0].strip()  # strip cfg comments
@@ -88,10 +141,24 @@ def required_signature(cfg_text):
         if not body:
             continue
         if section in ("CONSTANT", "CONSTANTS"):
-            # entries "Name = value" or "Name <- op"; take the left identifier
-            name = re.split(r"<-|=", body, maxsplit=1)[0].strip()
-            if name:
+            # Entries are "Name = value" or "Name <- op", and a single line may
+            # carry SEVERAL of them (spec 158: "a1=a1  a2=a2  a3=a3 ..."), so
+            # split the line into pairs before taking left identifiers -- taking
+            # only re.split("<-|=", body)[0] dropped a2/a3/v1/v2 entirely.
+            #
+            # For a substitution "X <- Y", TLC replaces X's definition with the
+            # operator Y and hard-errors ("substitutes for X with the undefined
+            # identifier Y") unless the module DEFINES Y. So Y is a required
+            # identifier too, and the prompt must say so; recording only X
+            # under-specified 13/30 holdout specs. (2026-07-29 audit)
+            assigns, bare = _split_cfg_assignments(body)
+            for name, op, rhs in assigns:
                 sig["constants"].append(name)
+                if op == "<-":
+                    sig["substitutions"].append((name, rhs))
+            sig["constants"].extend(bare)
+        elif section == "SYMMETRY":
+            sig["symmetry"] = body.split()[0]
         elif section == "SPECIFICATION":
             sig["specification"] = body.split()[0]
         elif section == "INIT":
@@ -227,6 +294,19 @@ def _format_signature(sig):
         lines.append("  INVARIANTS: " + ", ".join(sig["invariants"]))
     if sig["properties"]:
         lines.append("  PROPERTIES: " + ", ".join(sig["properties"]))
+    if sig.get("symmetry"):
+        lines.append("  SYMMETRY set (a set of permutations): " + sig["symmetry"])
+    # The .cfg overrides each LHS with the named operator, so the module has to
+    # define that operator as well -- omitting it makes the spec unpassable no
+    # matter how well it models the system (TLC: "substitutes for X with the
+    # undefined identifier Y"). Spelled out separately from CONSTANTS because the
+    # RHS is an OPERATOR DEFINITION, not a declared constant.
+    if sig.get("substitutions"):
+        lines.append("  ALSO define these operators, which the .cfg substitutes in "
+                     "(the left name is overridden by the right operator):")
+        for lhs, rhs in sig["substitutions"]:
+            lines.append(f"    {rhs}   (substituted for {lhs}; usually a finite "
+                         f"set or bounded version of {lhs})")
     return "\n".join(lines) if lines else "  (no identifiers required by the .cfg)"
 
 
