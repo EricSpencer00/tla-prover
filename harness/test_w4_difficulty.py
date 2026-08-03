@@ -196,6 +196,64 @@ class TestFreezeAndLoad(unittest.TestCase):
             self.assertIn("no longer in the corpus", str(cm.exception))
 
 
+class TestProbePrompt(unittest.TestCase):
+    def setUp(self):
+        self.row = _row("w4opus::d1-m1-p1-t1", nl="A system.\nSAFETY PROPERTY: nothing bad.",
+                        module="W4Od1m1p1t1")
+
+    def test_generation_mode_is_byte_identical_to_w2_loop(self):
+        from .w2_loop import generation_prompt
+        self.assertEqual(
+            wd.probe_prompt(self.row, "generation"),
+            generation_prompt(self.row["nl"], self.row["module"]),
+        )
+
+    def test_generation_prompt_carries_the_contract_the_corpus_was_verified_under(self):
+        p = wd.probe_prompt(self.row, "generation")
+        self.assertIn("W4Od1m1p1t1", p)
+        self.assertIn("PROPERTY_INVARIANT", p)
+        self.assertIn("```cfg", p)
+
+    def test_sft_user_mode_is_what_corpus_prep_actually_renders(self):
+        # Pins the claim rather than asserting it: extract the user turn from
+        # the real SFT rendering and require probe_prompt to reproduce it.
+        from .corpus_prep import to_harmony_sft
+        rendered = to_harmony_sft(self.row, fmt="chatml")["text"]
+        user_turn = rendered.split("<|im_start|>user\n", 1)[1].split("<|im_end|>", 1)[0]
+        self.assertEqual(wd.probe_prompt(self.row, "sft_user"), user_turn)
+
+    def test_the_two_modes_differ__this_is_the_finding(self):
+        # If this ever passes as equal, corpus_prep was fixed to train on the
+        # generation contract -- at which point the secondary arm is redundant
+        # and the probe's primary mode should be revisited. Failing loudly is
+        # the point.
+        gen = wd.probe_prompt(self.row, "generation")
+        sft = wd.probe_prompt(self.row, "sft_user")
+        self.assertNotEqual(gen, sft)
+        self.assertNotIn("PROPERTY_INVARIANT", sft)
+        self.assertNotIn(self.row["module"], sft)
+
+    def test_sft_target_drops_the_property_invariant_line(self):
+        from .corpus_prep import _target_block
+        self.assertNotIn("PROPERTY_INVARIANT", _target_block(self.row))
+
+    def test_rejects_unknown_mode(self):
+        with self.assertRaises(ValueError):
+            wd.probe_prompt(self.row, "framing_a")
+
+    def test_rejects_row_without_nl_or_module(self):
+        with self.assertRaises(ValueError):
+            wd.probe_prompt({**self.row, "nl": ""}, "generation")
+        with self.assertRaises(ValueError):
+            wd.probe_prompt({**self.row, "module": ""}, "generation")
+
+    def test_prompt_sha_is_stable_and_discriminating(self):
+        p = wd.probe_prompt(self.row, "generation")
+        self.assertEqual(wd.prompt_sha256(p), wd.prompt_sha256(p))
+        self.assertNotEqual(wd.prompt_sha256(p),
+                            wd.prompt_sha256(wd.probe_prompt(self.row, "sft_user")))
+
+
 class TestAgainstRealCorpus(unittest.TestCase):
     """Integration: the real 5,010-row export. Skipped when shards are absent
     (forks, CI checkouts without the ledgers)."""

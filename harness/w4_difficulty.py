@@ -208,6 +208,55 @@ def load_sample(path, rows: list[dict] | None = None) -> tuple[dict, list[dict]]
     return manifest, [by_key[k] for k in manifest["seed_keys"]]
 
 
+# ------------------------------------------------------------------ prompts
+
+#: The two prompts a W4 row is associated with. They are NOT the same text, and
+#: that is a finding, not a convenience:
+#:
+#:   "generation" -- w2_loop.generation_prompt(nl, module). Names the module,
+#:     demands one ```tla block plus one ```cfg block, and requires a trailing
+#:     `PROPERTY_INVARIANT: <Name>` line. EVERY survivor in the corpus was
+#:     generated and verified under this contract.
+#:
+#:   "sft_user"   -- the bare `nl`, which is what corpus_prep.to_harmony_sft
+#:     puts in the user turn. No module name, no output contract, no
+#:     PROPERTY_INVARIANT line. The SFT target drops that line too
+#:     (corpus_prep._target_block emits only the two fenced blocks).
+#:
+#: So the trained model is taught to answer a differently-shaped question with
+#: a differently-shaped answer than the one every row was verified under.
+#: "generation" is the probe's PRIMARY mode -- p measured there is the honest
+#: "can the student clear this cell's own bar". "sft_user" runs on a small
+#: secondary arm to size the mismatch as a number.
+PROMPT_MODES = ("generation", "sft_user")
+
+
+def probe_prompt(row: dict, mode: str = "generation") -> str:
+    """The prompt shown to the student for one corpus row."""
+    if mode not in PROMPT_MODES:
+        raise ValueError(f"unknown prompt mode {mode!r}; expected one of {PROMPT_MODES}")
+    nl = row.get("nl") or ""
+    if not nl:
+        raise ValueError(f"row {row.get('seed_key')!r} has no nl text")
+    if mode == "sft_user":
+        return nl
+    module = row.get("module")
+    if not module:
+        raise ValueError(f"row {row.get('seed_key')!r} has no module name")
+    # Imported here so the module stays importable without the w2 loop's own
+    # (heavier) dependency chain for callers that only want select_sample.
+    from .w2_loop import generation_prompt
+    return generation_prompt(nl, module)
+
+
+def prompt_sha256(prompt: str) -> str:
+    """Recorded on every ledger row -- a `p` without its prompt is
+    uninterpretable, and prompts have silently drifted here before (the
+    required_signature cfg-substitution bug corrupted every framing-A number
+    the project had recorded)."""
+    return hashlib.sha256(prompt.encode("utf-8")).hexdigest()
+
+
 # --------------------------------------------------------------------- CLI
 
 def _cmd_freeze(a) -> int:
