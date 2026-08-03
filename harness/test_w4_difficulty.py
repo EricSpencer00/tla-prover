@@ -478,5 +478,166 @@ class TestAgainstRealCorpus(unittest.TestCase):
         self.assertLess(n_live, 50)
 
 
+def _load_report_tool():
+    """tools/ is not a package; load the report module by path."""
+    import importlib.util
+    p = Path(__file__).resolve().parent.parent / "tools" / "w4_difficulty_report.py"
+    spec = importlib.util.spec_from_file_location("w4_difficulty_report", p)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+class TestIntervalMath(unittest.TestCase):
+    """The stdlib Clopper-Pearson / Fisher implementations, against closed
+    forms and published values. These are the numbers the decision rule is
+    read off, so they get checked rather than trusted."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.m = _load_report_tool()
+
+    def test_all_pass_lower_bound_matches_closed_form(self):
+        # For k == n the exact CP lower bound is (alpha/2)^(1/n).
+        for n in (1, 8, 32, 122, 500):
+            lo, hi = self.m.clopper_pearson(n, n)
+            self.assertAlmostEqual(lo, 0.025 ** (1.0 / n), places=12, msg=f"n={n}")
+            self.assertEqual(hi, 1.0)
+
+    def test_all_fail_upper_bound_matches_closed_form(self):
+        for n in (1, 8, 32):
+            lo, hi = self.m.clopper_pearson(0, n)
+            self.assertEqual(lo, 0.0)
+            self.assertAlmostEqual(hi, 1 - 0.025 ** (1.0 / n), places=12)
+
+    def test_textbook_interval(self):
+        lo, hi = self.m.clopper_pearson(2, 10)
+        self.assertAlmostEqual(lo, 0.02521, places=5)
+        self.assertAlmostEqual(hi, 0.55610, places=5)
+
+    def test_interval_contains_the_point_estimate_and_is_ordered(self):
+        for n in (5, 32, 300):
+            for k in range(n + 1):
+                lo, hi = self.m.clopper_pearson(k, n)
+                self.assertLessEqual(lo, k / n + 1e-12)
+                self.assertLessEqual(k / n - 1e-12, hi)
+                self.assertLessEqual(lo, hi)
+
+    def test_k32_all_pass_does_NOT_certify_097(self):
+        # This is the arithmetic that invalidated the design doc's original
+        # decision rule. If it ever changes, the rule needs rewriting again.
+        lo, _ = self.m.clopper_pearson(32, 32)
+        self.assertLess(lo, 0.97)
+        self.assertAlmostEqual(lo, 0.891119, places=5)
+
+    def test_certifiable_k_for_097_is_122(self):
+        k = self.m.saturation_certifiable_k(0.97)
+        self.assertEqual(k, 122)
+        lo, _ = self.m.clopper_pearson(k, k)
+        self.assertGreater(lo, 0.97)
+        lo_short, _ = self.m.clopper_pearson(k - 1, k - 1)
+        self.assertLess(lo_short, 0.97)
+
+    def test_betainc_endpoints_and_symmetry(self):
+        self.assertEqual(self.m.betainc(2, 3, 0.0), 0.0)
+        self.assertEqual(self.m.betainc(2, 3, 1.0), 1.0)
+        # I_x(a,b) = 1 - I_{1-x}(b,a)
+        for a, b, x in ((2, 3, 0.3), (5, 1.5, 0.8), (0.5, 0.5, 0.25)):
+            self.assertAlmostEqual(self.m.betainc(a, b, x),
+                                   1 - self.m.betainc(b, a, 1 - x), places=10)
+
+    def test_fisher_exact_known_values(self):
+        self.assertAlmostEqual(self.m.fisher_exact_two_sided(1, 9, 11, 3),
+                               0.0027594, places=6)
+        self.assertAlmostEqual(self.m.fisher_exact_two_sided(10, 10, 10, 10),
+                               1.0, places=9)
+
+    def test_fisher_never_exceeds_one(self):
+        for quad in ((0, 5, 5, 0), (3, 3, 3, 3), (1, 0, 0, 1), (7, 1, 2, 8)):
+            self.assertLessEqual(self.m.fisher_exact_two_sided(*quad), 1.0 + 1e-9)
+
+
+class TestReportRescoring(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.m = _load_report_tool()
+
+    def _ledger(self, specs):
+        """specs: [(seed_key, arm, tier, n_pass, n_fail, n_api)] -> rows."""
+        rows = []
+        for key, arm, tier, npass, nfail, napi in specs:
+            i = 0
+            for _ in range(npass):
+                rows.append({"seed_key": key, "arm": arm, "tier_name": tier,
+                             "mode": "generation", "sample_id": i,
+                             "survived": True, "api_error": False}); i += 1
+            for _ in range(nfail):
+                rows.append({"seed_key": key, "arm": arm, "tier_name": tier,
+                             "mode": "generation", "sample_id": i,
+                             "survived": False, "api_error": False}); i += 1
+            for _ in range(napi):
+                rows.append({"seed_key": key, "arm": arm, "tier_name": tier,
+                             "mode": "generation", "sample_id": i,
+                             "survived": None, "api_error": True}); i += 1
+        return rows
+
+    def test_bins_are_computed_by_hand_correctly(self):
+        rows = self._ledger([
+            ("a", "safety", "gold", 8, 0, 0),   # all-pass
+            ("b", "safety", "gold", 0, 8, 0),   # never solved
+            ("c", "safety", "gold", 3, 5, 0),   # partial
+        ])
+        cells = self.m.cells_from_rows(rows)
+        got = {k[1]: self.m.bin_of(c) for k, c in cells.items()}
+        self.assertEqual(got["a"], "all-pass (saturated)")
+        self.assertEqual(got["b"], "p=0 (never solved)")
+        self.assertEqual(got["c"], "0<p<1 (partial)")
+
+    def test_api_error_rows_leave_the_denominator(self):
+        # 4 passes, 0 real failures, 4 outages -> all-pass on n=4, NOT 4/8.
+        rows = self._ledger([("a", "safety", "gold", 4, 0, 4)])
+        c = self.m.cells_from_rows(rows)[("generation", "a")]
+        self.assertEqual((c["n"], c["passes"], c["api_errors"]), (4, 4, 4))
+        self.assertEqual(self.m.bin_of(c), "all-pass (saturated)")
+
+    def test_a_cell_of_only_api_errors_is_unmeasured_not_failed(self):
+        rows = self._ledger([("a", "safety", "gold", 0, 0, 8)])
+        c = self.m.cells_from_rows(rows)[("generation", "a")]
+        self.assertEqual(self.m.bin_of(c), "unmeasured")
+
+    def test_report_runs_end_to_end_and_exits_zero(self):
+        import io, tempfile
+        from contextlib import redirect_stdout
+        rows = self._ledger([
+            ("a", "safety", "diamond", 8, 0, 0),
+            ("b", "safety", "gold", 0, 8, 0),
+            ("c", "liveness", "gold", 4, 4, 0),
+            ("d", "safety", "gold", 8, 0, 0),
+        ])
+        with tempfile.TemporaryDirectory() as td:
+            rd = Path(td)
+            (rd / "rows.jsonl").write_text(
+                "\n".join(json.dumps(r) for r in rows) + "\n")
+            buf = io.StringIO()
+            with redirect_stdout(buf):
+                rc = self.m.report(rd)
+            out = buf.getvalue()
+        self.assertEqual(rc, 0)
+        self.assertIn("HEADLINE", out)
+        self.assertIn("DIAMOND vs GOLD", out)
+        self.assertIn("k>=122", out)
+
+    def test_missing_or_empty_ledger_fails_loudly(self):
+        import io, tempfile
+        from contextlib import redirect_stdout
+        with tempfile.TemporaryDirectory() as td:
+            buf = io.StringIO()
+            with redirect_stdout(buf):
+                self.assertEqual(self.m.report(Path(td)), 1)
+            (Path(td) / "rows.jsonl").write_text("")
+            with redirect_stdout(buf):
+                self.assertEqual(self.m.report(Path(td)), 1)
+
+
 if __name__ == "__main__":
     unittest.main()

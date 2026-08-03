@@ -129,12 +129,12 @@ and needs its own ledger entry.
 - Modify: `harness/w4_difficulty.py` (`probe_cell`, `run_probe`, `main`)
 - Test: `harness/test_w4_difficulty.py` (stub model, no network, no Java)
 
-**Interfaces:**
+**Interfaces:** (subcommand-shaped, `freeze` | `probe`)
 ```bash
-python3 -m harness.w4_difficulty \
+python3 -m harness.w4_difficulty probe \
     --sample results/runs/w4-difficulty-v1/sample_frozen.json \
     --model openai:<id> --k 8 --mode generation \
-    --run-id w4-difficulty-v1 --concurrency 8
+    --rundir results/runs/w4-difficulty-v1 --concurrency 8
 ```
 Produces `results/runs/w4-difficulty-v1/rows.jsonl`, one row per `(seed_key, sample_id)`:
 `{seed_key, arm, tier, mode, sample_id, temperature, survived, rejection_reason,
@@ -170,13 +170,35 @@ lower bound of ≈0.63 — k=8 **cannot** distinguish `p = 0.97` from `p = 0.70`
 itself flags M=8 as too noisy and uses M=32. Hence:
 
 1. **Triage (k=8, 300 cells).** Bin into `p_hat = 0`, `0 < p_hat < 1`, `p_hat = 1`.
-2. **Confirm (k=32).** Re-run only the `p_hat = 1` cells at k=32. A cell is *saturated*
-   only if its k=32 Clopper–Pearson lower bound clears 0.97.
+2. **Confirm (k=32).** Re-run only the `p_hat = 1` cells at k=32.
+
+> **Correction (2026-08-03, made while implementing this task).** The original text
+> read "a cell is *saturated* only if its k=32 Clopper–Pearson lower bound clears 0.97."
+> **That criterion is unsatisfiable.** For an all-pass cell the exact CP lower bound is
+> `(α/2)^(1/k)`; at k=32, α=0.05 that is **0.891**, so a perfect 32/32 never clears 0.97.
+> Certifying p > 0.97 needs `k ≥ ln(0.025)/ln(0.97) ≈ 122` consecutive passes per cell —
+> 36,600 samples at 300 cells, which is a separate project, not a triage sweep.
+>
+> The criterion is therefore the honest operational one:
+>
+> **SATURATED := the cell passed on every one of its k draws**, reported *with* its exact
+> CP interval so the reader sees what k does and does not pin down.
+>
+> This costs less than it looks. No single cell's `p` needs to be pinned to 0.97 — the
+> decision rule reads off the **fraction of rows that are all-pass**, and that proportion
+> over ~300 cells has a tight interval of its own (±5.5pp at 30%). The per-cell bound was
+> never the quantity the decision depended on.
+>
+> Enforced by `test_k32_all_pass_does_NOT_certify_097` and
+> `test_certifiable_k_for_097_is_122`, so this cannot silently regress.
 
 The headline number is the **saturated fraction with a CI**, never a point estimate.
 
 - [ ] `tools/w4_difficulty_report.py` re-scores from `rows.jsonl` only (never
       `summary.json`); emits per-`(arm, tier)` bin counts and Clopper–Pearson intervals.
+      Stdlib only — the incomplete beta and Fisher exact are hand-rolled, because the
+      harness takes no numpy/scipy dependency and a reviewer must be able to reproduce a
+      number without resolving an environment.
 - [ ] Report the diamond-vs-gold `p` comparison — the secondary result on whether
       kill-rate tiering carries difficulty information.
 - [ ] Report the `generation` vs `sft_user` delta from the 50-cell arm.
