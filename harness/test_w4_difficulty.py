@@ -254,6 +254,163 @@ class TestProbePrompt(unittest.TestCase):
                             wd.prompt_sha256(wd.probe_prompt(self.row, "sft_user")))
 
 
+class _ScriptedModel:
+    """Returns replies from a fixed cycle. `n` replies per call, like the real
+    OpenAICompatModel (which issues n sequential requests)."""
+    id = "scripted-test-model"
+
+    def __init__(self, replies):
+        self.replies = list(replies)
+        self.calls = []
+        self._i = 0
+
+    def generate(self, prompt, n, temperature, max_tokens):
+        self.calls.append({"prompt": prompt, "n": n, "temperature": temperature})
+        out = []
+        for _ in range(n):
+            out.append(self.replies[self._i % len(self.replies)])
+            self._i += 1
+        return out
+
+
+def _fake_verify(reply, row, workdir, timeout=60):
+    """Survives iff the reply says GOOD. No Java, no TLC."""
+    ok = "GOOD" in reply
+    return {"survived": ok,
+            "rejection_reason": None if ok else "scripted_reject",
+            "mutation_evidence": "safety_catch" if ok else "no_kill",
+            "kill_rate": 0.5 if ok else 0.0,
+            "distinct_states": 42}
+
+
+class TestProbeCell(unittest.TestCase):
+    def setUp(self):
+        self.row = _row("w4opus::d1-m1-p1-t1")
+        self.tmp = __import__("tempfile").TemporaryDirectory()
+        self.work = Path(self.tmp.name)
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def test_half_good_gives_p_of_one_half(self):
+        m = _ScriptedModel(["GOOD", "BAD"])
+        got = wd.probe_cell(m, self.row, k=8, mode="generation",
+                            workroot=self.work, verify=_fake_verify)
+        self.assertEqual(len(got), 8)
+        self.assertEqual(sum(1 for r in got if r["survived"]) / 8, 0.5)
+
+    def test_one_model_call_of_n_not_n_calls(self):
+        m = _ScriptedModel(["GOOD"])
+        wd.probe_cell(m, self.row, k=8, mode="generation",
+                      workroot=self.work, verify=_fake_verify)
+        self.assertEqual(len(m.calls), 1)
+        self.assertEqual(m.calls[0]["n"], 8)
+        self.assertEqual(m.calls[0]["temperature"], wd.TEMPERATURE)
+
+    def test_prompt_matches_the_requested_mode(self):
+        m = _ScriptedModel(["GOOD"])
+        wd.probe_cell(m, self.row, k=1, mode="sft_user",
+                      workroot=self.work, verify=_fake_verify)
+        self.assertEqual(m.calls[0]["prompt"], self.row["nl"])
+
+    def test_rows_carry_the_full_schema(self):
+        m = _ScriptedModel(["GOOD"])
+        got = wd.probe_cell(m, self.row, k=2, mode="generation",
+                            workroot=self.work, verify=_fake_verify)
+        for r in got:
+            for f in ("seed_key", "arm", "tier_name", "mode", "sample_id",
+                      "temperature", "survived", "prompt_sha256", "model", "k"):
+                self.assertIn(f, r)
+            self.assertEqual(r["model"], "scripted-test-model")
+
+    def test_api_error_is_not_scored_as_a_failure(self):
+        m = _ScriptedModel(["[api_error 503: not ready]"])
+        got = wd.probe_cell(m, self.row, k=4, mode="generation",
+                            workroot=self.work, verify=_fake_verify)
+        self.assertTrue(all(r["api_error"] for r in got))
+        # None, not False -- an outage must not read as "the student failed".
+        self.assertTrue(all(r["survived"] is None for r in got))
+
+    def test_skip_samples_are_not_redrawn(self):
+        m = _ScriptedModel(["GOOD"])
+        got = wd.probe_cell(m, self.row, k=8, mode="generation",
+                            workroot=self.work, skip_samples={0, 1, 2},
+                            verify=_fake_verify)
+        self.assertEqual([r["sample_id"] for r in got], [3, 4, 5, 6, 7])
+
+    def test_workdirs_are_cleaned_up(self):
+        m = _ScriptedModel(["GOOD"])
+        wd.probe_cell(m, self.row, k=4, mode="generation",
+                      workroot=self.work, verify=_fake_verify)
+        leftover = [p for p in self.work.rglob("s*") if p.is_dir()]
+        self.assertEqual(leftover, [])
+
+
+class TestRunProbe(unittest.TestCase):
+    def setUp(self):
+        self.rows = _corpus({("safety", "gold"): 5})
+        self.tmp = __import__("tempfile").TemporaryDirectory()
+        self.rundir = Path(self.tmp.name) / "run"
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def _run(self, model, k=4, **kw):
+        return wd.run_probe(model, self.rows, k, "generation", self.rundir,
+                            verify=_fake_verify, **kw)
+
+    def test_writes_one_row_per_sample(self):
+        s = self._run(_ScriptedModel(["GOOD", "BAD"]), k=4)
+        self.assertEqual(s["rows_written"], 20)
+        lines = (self.rundir / "rows.jsonl").read_text().splitlines()
+        self.assertEqual(len(lines), 20)
+
+    def test_ledger_rows_are_schema_exact(self):
+        self._run(_ScriptedModel(["GOOD"]), k=2)
+        for line in (self.rundir / "rows.jsonl").read_text().splitlines():
+            self.assertEqual(set(json.loads(line)), set(wd.ROW_FIELDS))
+
+    def test_resume_skips_completed_cells(self):
+        m1 = _ScriptedModel(["GOOD"])
+        self._run(m1, k=4)
+        m2 = _ScriptedModel(["GOOD"])
+        s2 = self._run(m2, k=4)
+        self.assertEqual(s2["cells"], 0)
+        self.assertEqual(s2["rows_written"], 0)
+        self.assertEqual(len(m2.calls), 0, "resume re-drew an already-done cell")
+
+    def test_resume_redraws_api_error_rows(self):
+        # An outage must not be inherited as a completed measurement.
+        self._run(_ScriptedModel(["[api_error 503: cold]"]), k=4)
+        m2 = _ScriptedModel(["GOOD"])
+        s2 = self._run(m2, k=4)
+        self.assertEqual(s2["cells"], 5)
+        self.assertEqual(s2["survived"], 20)
+
+    def test_api_errors_are_counted_and_surfaced(self):
+        s = self._run(_ScriptedModel(["[api_error 500: boom]"]), k=2)
+        self.assertEqual(s["api_errors"], 10)
+
+    def test_concurrency_produces_the_same_row_set(self):
+        serial = self._run(_ScriptedModel(["GOOD", "BAD"]), k=4)
+        rows_serial = sorted((self.rundir / "rows.jsonl").read_text().splitlines())
+        self.tearDown()
+        self.setUp()
+        par = self._run(_ScriptedModel(["GOOD", "BAD"]), k=4, concurrency=4)
+        rows_par = sorted((self.rundir / "rows.jsonl").read_text().splitlines())
+        self.assertEqual(serial["rows_written"], par["rows_written"])
+        self.assertEqual(len(rows_serial), len(rows_par))
+
+    def test_never_writes_outside_its_rundir(self):
+        before = sorted(p.name for p in Path("results/runs").glob("w4-opus-shard*")) \
+            if Path("results/runs").exists() else []
+        self._run(_ScriptedModel(["GOOD"]), k=2)
+        after = sorted(p.name for p in Path("results/runs").glob("w4-opus-shard*")) \
+            if Path("results/runs").exists() else []
+        self.assertEqual(before, after)
+        self.assertTrue((self.rundir / "rows.jsonl").exists())
+
+
 class TestAgainstRealCorpus(unittest.TestCase):
     """Integration: the real 5,010-row export. Skipped when shards are absent
     (forks, CI checkouts without the ledgers)."""
@@ -280,6 +437,36 @@ class TestAgainstRealCorpus(unittest.TestCase):
             self.assertTrue(r.get("nl"), r["seed_key"])
             self.assertTrue(r.get("spec_text"), r["seed_key"])
             self.assertTrue(r.get("cfg_text"), r["seed_key"])
+
+    def test_gold_specs_survive_their_own_gate_stack(self):
+        """Positive control. Feed each cell's OWN verified spec back as the
+        student's reply: it must survive. Without this, a probe that rejects
+        everything reports p=0 across the whole corpus and looks like a
+        finding. Needs Java + TLC, so it is skipped where those are absent.
+        """
+        import shutil, tempfile
+        if not shutil.which("java"):
+            self.skipTest("no java on PATH")
+        if not Path("tools/tla2tools.jar").exists():
+            self.skipTest("no tools/tla2tools.jar in this checkout")
+
+        _, rows = wd.load_sample("results/runs/w4-difficulty-v1/sample_frozen.json",
+                                 rows=self.rows)
+        # One per arm -- the liveness path takes require_liveness=True and has
+        # its own stutter-strip re-run, which is where it could diverge.
+        picks = [next(r for r in rows if r["arm"] == "safety"),
+                 next(r for r in rows if r["arm"] == "liveness")]
+        for r in picks:
+            reply = (f"```tla\n{r['spec_text']}\n```\n"
+                     f"```cfg\n{r['cfg_text']}\n```\n"
+                     f"PROPERTY_INVARIANT: {r['property_invariant']}\n")
+            with tempfile.TemporaryDirectory() as td:
+                v = wd.verify_reply(reply, r, Path(td) / "w", timeout=120)
+            self.assertTrue(
+                v.get("survived"),
+                f"{r['arm']} cell {r['seed_key']} did not survive its own gate "
+                f"stack (reason={v.get('rejection_reason')}) -- the probe would "
+                f"report p=0 everywhere")
 
     def test_liveness_arm_is_represented(self):
         picked = wd.select_sample(self.rows, n=300)

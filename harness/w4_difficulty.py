@@ -257,7 +257,228 @@ def prompt_sha256(prompt: str) -> str:
     return hashlib.sha256(prompt.encode("utf-8")).hexdigest()
 
 
+# ---------------------------------------------------------------- the probe
+
+#: Matches the eval arms and w2_loop's own internal draw, so `p` is measured
+#: under the sampling regime the project already reports pass@k under.
+TEMPERATURE = 0.8
+MAX_TOKENS = 8192
+
+#: Row fields written to rows.jsonl. Fixed here so a schema change is a visible
+#: diff rather than a silent drift (the export/audit pair has drifted twice).
+ROW_FIELDS = ("seed_key", "arm", "tier_name", "mode", "sample_id", "temperature",
+              "survived", "rejection_reason", "mutation_evidence", "kill_rate",
+              "distinct_states", "prompt_sha256", "model", "k", "api_error")
+
+
+class _OneShot:
+    """Feeds one pre-generated reply into the verifier. Same shape as
+    w4_verify_cell._OneShot: the verify path builds its own prompt and this
+    ignores it, so verification is prompt-mode-independent by construction."""
+    id = "probe-candidate"
+
+    def __init__(self, reply):
+        self.reply = reply
+        self.calls = 0
+
+    def generate(self, prompt, n, temperature, max_tokens):
+        self.calls += 1
+        if self.calls > 1:
+            raise AssertionError("one-shot verifier: no repair iterations here")
+        return [self.reply]
+
+
+def is_api_error(reply: str) -> bool:
+    return isinstance(reply, str) and reply.startswith("[api_error")
+
+
+def verify_reply(reply: str, row: dict, workdir, timeout: int = 60) -> dict:
+    """Run one student reply through the corpus's OWN gate stack, once.
+
+    max_iters=1 is load-bearing: repair iterations would measure the loop, not
+    the student, and the loop is exactly what this probe must hold fixed.
+    Decontam is skipped -- see the design doc; the probe asks "can the student
+    produce a passing cell", not "may this row be admitted".
+    """
+    from .w2_loop import run_loop_for_seed
+    wd = Path(workdir).resolve()   # absolute: java.io.tmpdir / SANY path trap
+    wd.mkdir(parents=True, exist_ok=True)
+    return run_loop_for_seed(
+        _OneShot(reply), row["nl"], row["module"], wd,
+        timeout=timeout, max_iters=1,
+        require_liveness=(row.get("arm") == "liveness"),
+    )
+
+
+def probe_cell(model, row: dict, k: int, mode: str, workroot,
+               timeout: int = 60, skip_samples: set | None = None,
+               verify=None) -> list[dict]:
+    """Draw k samples for one cell and verify each. Returns k ledger rows
+    (fewer if `skip_samples` already has some, for resume).
+
+    `verify` defaults to verify_reply (real SANY/TLC/mutation). It is a
+    parameter so the loop's bookkeeping -- resume, api_error handling, ledger
+    schema -- is testable without Java.
+    """
+    import shutil
+
+    verify = verify or verify_reply
+    skip_samples = skip_samples or set()
+    wanted = [i for i in range(k) if i not in skip_samples]
+    if not wanted:
+        return []
+
+    prompt = probe_prompt(row, mode)
+    psha = prompt_sha256(prompt)
+    replies = model.generate(prompt, len(wanted), TEMPERATURE, MAX_TOKENS)
+
+    safe_key = row["seed_key"].replace("::", "__").replace("/", "_")
+    out = []
+    for sample_id, reply in zip(wanted, replies):
+        base = {
+            "seed_key": row["seed_key"],
+            "arm": row.get("arm"),
+            "tier_name": row.get("tier_name"),
+            "mode": mode,
+            "sample_id": sample_id,
+            "temperature": TEMPERATURE,
+            "prompt_sha256": psha,
+            "model": getattr(model, "id", "unknown"),
+            "k": k,
+            "api_error": False,
+        }
+        if is_api_error(reply):
+            # Never scored as a failure -- an endpoint hiccup that reads as
+            # "the student could not do it" is how a p estimate silently
+            # becomes a measurement of uptime.
+            out.append({**base, "survived": None, "api_error": True,
+                        "rejection_reason": reply[:200],
+                        "mutation_evidence": None, "kill_rate": None,
+                        "distinct_states": None})
+            continue
+        wd = Path(workroot).resolve() / safe_key / f"s{sample_id}"
+        try:
+            v = verify(reply, row, wd, timeout=timeout)
+            out.append({**base,
+                        "survived": bool(v.get("survived")),
+                        "rejection_reason": v.get("rejection_reason"),
+                        "mutation_evidence": v.get("mutation_evidence"),
+                        "kill_rate": v.get("kill_rate"),
+                        "distinct_states": v.get("distinct_states")})
+        finally:
+            shutil.rmtree(wd, ignore_errors=True)   # 2,400 TLC workdirs otherwise
+    return out
+
+
+def load_done(rows_path) -> dict:
+    """{seed_key: {sample_id, ...}} already in the ledger, for resume."""
+    p = Path(rows_path)
+    done: dict[str, set] = {}
+    if not p.exists():
+        return done
+    for line in p.read_text().splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            r = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        # An api_error row is NOT done -- it carries no measurement, so a
+        # resume must re-draw it rather than inherit the outage.
+        if r.get("api_error"):
+            continue
+        done.setdefault(r.get("seed_key"), set()).add(r.get("sample_id"))
+    return done
+
+
+def run_probe(model, rows: list[dict], k: int, mode: str, rundir,
+              timeout: int = 60, concurrency: int = 1, verify=None) -> dict:
+    """Probe every row, appending to <rundir>/rows.jsonl as results land.
+
+    The ledger is append-only and is the only source of truth; the returned
+    summary is advisory and must never be the source of a reported number.
+    """
+    import threading
+    from concurrent.futures import ThreadPoolExecutor
+
+    rundir = Path(rundir)
+    rundir.mkdir(parents=True, exist_ok=True)
+    rows_path = rundir / "rows.jsonl"
+    done = load_done(rows_path)
+
+    write_lock = threading.Lock()
+    counts = {"written": 0, "api_error": 0, "survived": 0}
+
+    def work(row):
+        got = probe_cell(model, row, k, mode, rundir / "work", timeout=timeout,
+                         skip_samples=done.get(row["seed_key"], set()),
+                         verify=verify)
+        with write_lock:
+            with rows_path.open("a") as fh:
+                for r in got:
+                    fh.write(json.dumps({f: r.get(f) for f in ROW_FIELDS}) + "\n")
+                    counts["written"] += 1
+                    counts["api_error"] += bool(r.get("api_error"))
+                    counts["survived"] += bool(r.get("survived"))
+        return len(got)
+
+    todo = [r for r in rows if len(done.get(r["seed_key"], set())) < k]
+    if concurrency > 1:
+        with ThreadPoolExecutor(max_workers=concurrency) as ex:
+            list(ex.map(work, todo))
+    else:
+        for r in todo:
+            work(r)
+
+    return {"cells": len(todo), "rows_written": counts["written"],
+            "api_errors": counts["api_error"], "survived": counts["survived"],
+            "rows_path": str(rows_path)}
+
+
 # --------------------------------------------------------------------- CLI
+
+def _cmd_probe(a) -> int:
+    from .repair import make_model
+
+    manifest, rows = load_sample(a.sample)
+    if a.limit:
+        rows = rows[:a.limit]
+    model = make_model(a.model)
+    rundir = Path(a.rundir)
+    rundir.mkdir(parents=True, exist_ok=True)
+
+    # Rule 8: the run must carry its own provenance.
+    (rundir / "config.json").write_text(json.dumps({
+        "sample": str(a.sample),
+        "sample_sha256": manifest["sha256"],
+        "n_cells": len(rows),
+        "k": a.k,
+        "mode": a.mode,
+        "model": a.model,
+        "temperature": TEMPERATURE,
+        "max_tokens": MAX_TOKENS,
+        "timeout_s": a.timeout,
+        "max_iters": 1,
+        "skip_decontam": True,
+        "repro": (f"python3 -m harness.w4_difficulty probe --sample {a.sample} "
+                  f"--model {a.model} --k {a.k} --mode {a.mode} "
+                  f"--rundir {a.rundir}"),
+    }, indent=2) + "\n")
+
+    print(f"probing {len(rows)} cells x k={a.k} mode={a.mode} model={a.model}")
+    s = run_probe(model, rows, a.k, a.mode, rundir,
+                  timeout=a.timeout, concurrency=a.concurrency)
+    print(f"cells={s['cells']} rows={s['rows_written']} "
+          f"survived={s['survived']} api_errors={s['api_errors']}")
+    print(f"ledger: {s['rows_path']}")
+    if s["api_errors"]:
+        print(f"\nFAIL: {s['api_errors']} api_error row(s). They carry no "
+              f"measurement and are NOT scored as failures -- re-run to resume "
+              f"and re-draw them before reporting any number.")
+        return 1
+    return 0
+
 
 def _cmd_freeze(a) -> int:
     rows = w4_corpus.grade_corpus(w4_corpus.load_effective())
@@ -295,6 +516,18 @@ def main(argv=None) -> int:
                    help="overwrite an existing manifest (only safe before any "
                         "run has cited its sha256)")
     f.set_defaults(fn=_cmd_freeze)
+
+    p = sub.add_parser("probe", help="draw k samples per cell and verify each")
+    p.add_argument("--sample", default="results/runs/w4-difficulty-v1/sample_frozen.json")
+    p.add_argument("--model", required=True, help="openai:<id> | stub")
+    p.add_argument("--k", type=int, default=8)
+    p.add_argument("--mode", choices=PROMPT_MODES, default="generation")
+    p.add_argument("--rundir", default="results/runs/w4-difficulty-v1")
+    p.add_argument("--timeout", type=int, default=60)
+    p.add_argument("--concurrency", type=int, default=1,
+                   help="TLC is the bottleneck, not the model")
+    p.add_argument("--limit", type=int, default=0, help="first N cells (smoke)")
+    p.set_defaults(fn=_cmd_probe)
 
     a = ap.parse_args(argv)
     return a.fn(a)
