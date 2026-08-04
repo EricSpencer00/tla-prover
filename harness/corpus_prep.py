@@ -369,22 +369,55 @@ def _render_chatml(user_text: str, target_text: str, system_text: str | None = N
 #: Supported chat renderings. "harmony" is gpt-oss only; "chatml" covers Qwen.
 FORMATS = ("harmony", "chatml")
 
+#: How the user/target pair is shaped (Amendment 21):
+#:   "bare"       -- user = the naked nl, target = the two fenced blocks with
+#:                   the PROPERTY_INVARIANT trailer stripped. Every corpus
+#:                   through W4-diamond-gold trained on this; kept byte-stable
+#:                   as the default so their provenance stays reproducible.
+#:   "generation" -- user = w2_loop.generation_prompt(nl, module), target =
+#:                   blocks + `PROPERTY_INVARIANT: <name>`; the exact contract
+#:                   every survivor was generated AND verified under
+#:                   (w4_difficulty finding, 2026-08-03). Same principle as
+#:                   to_repair_harmony_sft: train on the eval's prompt shape.
+PROMPT_STYLES = ("bare", "generation")
 
-def to_harmony_sft(survivor_row: dict, fmt: str = "harmony") -> dict:
+
+def to_harmony_sft(survivor_row: dict, fmt: str = "harmony",
+                   prompt_style: str = "bare") -> dict:
     """Convert a w2 survivor row into a rendered training example.
     Returns {"text": <rendered>, "seed_key": ..., "family": ..., "format": ...}."""
     if fmt not in FORMATS:
         raise ValueError(f"unknown format {fmt!r}; expected one of {FORMATS}")
-    user_text = survivor_row.get("nl") or ""
-    target_text = _target_block(survivor_row)
+    if prompt_style not in PROMPT_STYLES:
+        raise ValueError(f"unknown prompt_style {prompt_style!r}; expected one of {PROMPT_STYLES}")
+    if prompt_style == "bare":
+        user_text = survivor_row.get("nl") or ""
+        target_text = _target_block(survivor_row)
+    else:
+        module = survivor_row.get("module")
+        if not module:
+            raise ValueError(f"row {survivor_row.get('seed_key')!r} has no module name; "
+                             "generation prompt_style cannot reconstruct its prompt")
+        pi = survivor_row.get("property_invariant")
+        if not pi:
+            # The prompt demands the trailer; a target without it would pair
+            # the contract with an answer that violates it. Loud, not skipped:
+            # a silent skip changes corpus counts invisibly.
+            raise ValueError(f"row {survivor_row.get('seed_key')!r} has no property_invariant; "
+                             "generation prompt_style would render a contract-violating pair")
+        # Deferred import: w2_loop pulls the runner's heavier dependency chain.
+        from .w2_loop import generation_prompt
+        user_text = generation_prompt(survivor_row.get("nl") or "", module)
+        target_text = _target_block(survivor_row) + f"\nPROPERTY_INVARIANT: {pi}"
     rendered = (_render_harmony(user_text, target_text) if fmt == "harmony"
                 else _render_chatml(user_text, target_text))
-    fam_source = user_text + " " + (survivor_row.get("spec_text") or "")
+    fam_source = (survivor_row.get("nl") or "") + " " + (survivor_row.get("spec_text") or "")
     return {
         "text": rendered,
         "seed_key": survivor_row.get("seed_key"),
         "family": tag_family(fam_source),
         "format": fmt,
+        "prompt_style": prompt_style,
     }
 
 
@@ -393,7 +426,8 @@ to_sft = to_harmony_sft
 
 
 def build_sft_file(survivor_dirs: list, out_path, min_tier: int | None = None,
-                   apply_exclusions: bool | None = None, fmt: str = "harmony") -> int:
+                   apply_exclusions: bool | None = None, fmt: str = "harmony",
+                   prompt_style: str = "bare") -> int:
     """Write harmony-rendered JSONL for survivors across survivor_dirs.
     Returns the number of rows written. Robust to empty/missing dirs (writes
     an empty file, returns 0).
@@ -416,7 +450,7 @@ def build_sft_file(survivor_dirs: list, out_path, min_tier: int | None = None,
     n = 0
     with open(out_path, "w") as f:
         for row in survivors:
-            example = to_harmony_sft(row, fmt=fmt)
+            example = to_harmony_sft(row, fmt=fmt, prompt_style=prompt_style)
             if "tier_name" in row:
                 example["tier_name"] = row["tier_name"]
                 example["arm"] = row["arm"]
@@ -467,6 +501,11 @@ def main(argv=None):
     parser.add_argument("--min-tier", type=int, default=None,
                         help="sft mode: keep rows at or above this w4_corpus tier "
                              "(3=diamond, 2=gold, 1=silver, 0=bronze)")
+    parser.add_argument("--prompt-style", choices=PROMPT_STYLES, default="bare",
+                        help="sft mode: 'bare' reproduces the historical rendering "
+                             "(naked nl -> blocks); 'generation' renders the pair "
+                             "under the w2_loop contract the survivor was verified "
+                             "with (Amendment 21)")
     args = parser.parse_args(argv)
 
     if args.mode == "collapse":
@@ -495,7 +534,7 @@ def main(argv=None):
     elif args.mode == "sft":
         out_path = Path(args.out) if args.out else Path("results/analysis/sft_harmony.jsonl")
         n = build_sft_file(args.survivor_dirs, out_path, min_tier=args.min_tier,
-                           fmt=args.format)
+                           fmt=args.format, prompt_style=args.prompt_style)
         print(f"wrote {n} rows -> {out_path}")
 
 

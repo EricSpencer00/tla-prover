@@ -261,6 +261,81 @@ class TestHarmonySft:
 
 
 # ---------------------------------------------------------------------------
+# Prompt-aligned SFT rendering (Amendment 21)
+# ---------------------------------------------------------------------------
+
+class TestGenerationPromptStyle:
+    """Every survivor was generated and verified under
+    w2_loop.generation_prompt, but the bare rendering trains on the naked nl
+    and a target stripped of its PROPERTY_INVARIANT trailer. These pin the
+    "generation" style to the verified contract, byte for byte."""
+
+    def _row(self):
+        row = _mk_survivor_row("seed_x", "Write a spec for a bounded queue.", TRIVIAL_SPEC)
+        row["property_invariant"] = "SafetyInv"
+        return row
+
+    def test_user_turn_is_the_verified_generation_prompt(self):
+        from harness.w2_loop import generation_prompt
+        row = self._row()
+        text = cp.to_harmony_sft(row, prompt_style="generation")["text"]
+        assert generation_prompt(row["nl"], row["module"]) in text
+        # and the bare nl alone is NOT the user turn
+        assert "===BEGIN NATURAL LANGUAGE DESCRIPTION===" in text
+
+    def test_target_carries_property_invariant_trailer(self):
+        row = self._row()
+        text = cp.to_harmony_sft(row, prompt_style="generation")["text"]
+        start = text.index("<|channel|>final<|message|>") + len("<|channel|>final<|message|>")
+        end = text.index("<|return|>", start)
+        final_payload = text[start:end]
+        assert final_payload.rstrip().endswith("PROPERTY_INVARIANT: SafetyInv")
+        assert "```tla" in final_payload and "```cfg" in final_payload
+
+    def test_missing_property_invariant_raises(self):
+        """A survivor without its PI name cannot be rendered under the
+        generation contract without producing a target that violates the
+        prompt it is paired with. That must be a loud failure, not a silent
+        skip that changes corpus counts."""
+        row = _mk_survivor_row("seed_x", "nl", TRIVIAL_SPEC)
+        with pytest.raises(ValueError, match="property_invariant"):
+            cp.to_harmony_sft(row, prompt_style="generation")
+
+    def test_bare_default_is_byte_stable(self):
+        """prompt_style defaults to "bare" and must reproduce the historical
+        rendering exactly -- W4-diamond-gold's provenance depends on it."""
+        row = self._row()
+        assert cp.to_harmony_sft(row)["text"] == cp.to_harmony_sft(row, prompt_style="bare")["text"]
+        assert "===BEGIN NATURAL LANGUAGE DESCRIPTION===" not in cp.to_harmony_sft(row)["text"]
+
+    def test_unknown_style_raises(self):
+        with pytest.raises(ValueError, match="prompt_style"):
+            cp.to_harmony_sft(self._row(), prompt_style="chatty")
+
+    def test_build_sft_file_threads_prompt_style(self, survivor_dir, tmp_path):
+        out_path = tmp_path / "sft_gen.jsonl"
+        # fixture rows lack property_invariant -> generation style must refuse
+        with pytest.raises(ValueError, match="property_invariant"):
+            cp.build_sft_file([survivor_dir], out_path, prompt_style="generation")
+
+    def test_build_sft_file_generation_rows_tagged(self, survivor_dir, tmp_path):
+        import json as _json
+        # add PI names to the fixture survivors on disk
+        f = next(Path(str(survivor_dir)).glob("w2_survivors.jsonl"))
+        rows = [_json.loads(l) for l in f.read_text().strip().splitlines()]
+        for r in rows:
+            r["property_invariant"] = "SafetyInv"
+        f.write_text("\n".join(_json.dumps(r) for r in rows) + "\n")
+        out_path = tmp_path / "sft_gen.jsonl"
+        n = cp.build_sft_file([survivor_dir], out_path, prompt_style="generation")
+        assert n == 2
+        for line in out_path.read_text().strip().splitlines():
+            obj = _json.loads(line)
+            assert obj["prompt_style"] == "generation"
+            assert "PROPERTY_INVARIANT: SafetyInv" in obj["text"]
+
+
+# ---------------------------------------------------------------------------
 # Row loading robustness
 # ---------------------------------------------------------------------------
 

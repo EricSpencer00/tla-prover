@@ -576,3 +576,70 @@ idiom convergence pressure). None of these block wave production, so waves conti
 **Standing reversal condition for all three:** any of these is a session-level call made on
 Eric's delegation, not a goal change. G1 and G2 in §1 are untouched. If a measurement
 contradicts the reasoning above, the amendment loses, not the measurement.
+
+### Amendment 21 (2026-08-04) — the reserved run fires: base model, rendering, and venue fixed before submission
+
+Eric's directive 2026-08-04: "fix what we're doing and fire off a train tonight." The
+Amendment-20(b) precondition is met — architecture-aware LoRA resolution with an aborting
+floor landed (`ef1981d`, `c5a94b8`, `4344909` in ChatTLA) and a valid dense-vs-MoE
+trainability check exists (`results/analysis/w4_trainability_check_2026-08-03.md`). This
+entry fixes the three parameters that were open, each declared BEFORE the run, and ledgers
+one sequencing honesty note.
+
+**Sequencing note first.** The W4-diamond-gold 120b train+eval of 2026-07-28..30
+(W4DG_GATE2_SESSION_2026-07-29.md) ran after the resolver fixes but before the trainability
+check, i.e. outside the letter of Amendment 20(b). It is NOT claimed as the pre-registered
+run. It stands as an exploratory arm with its ledgered caveats (single seed, framing-A prompt
+fix mid-measurement, bare-nl rendering). Tonight's run is the pre-registered one.
+
+**(1) Base model = gpt-oss-120b.** Grounds:
+- It is the only base with a frozen, audited holdout baseline (Amendment 13,
+  `f9dc83ec…`). Any other base makes Gate-2 unscorable until a new baseline is measured —
+  eval compute spent before any training signal exists.
+- Amendment 20's entropy-collapse concern did not manifest as the failure it predicts: the
+  W4DG autopsy measured 100% distinct candidates (no diversity collapse), and the row-level
+  re-score (`c7a0d2bb`, tools/rowlevel_power.py) has W4DG-on-120b at 13.54% per-sample vs
+  base 6.88% — +59% relative, p=0.0019 vs the v2-SFT arm, p=0.064 vs base — the only
+  measured capability movement of the program.
+- The dense arm (Qwen3.6-27B) has never produced a measured TLA+ spec; choosing it tonight
+  would be evidence-free. The trainability check confirms both arms now ATTACH correctly,
+  but a controlled dense-vs-MoE capability comparison additionally needs rank equalization
+  (~2× trainable-fraction gap) and a Qwen baseline on the frozen holdout. That is a separate
+  question, still open, and this choice does not answer it.
+
+**(2) Rendering: `prompt_style=generation`, declared pre-run.** The w4_difficulty probe
+(2026-08-03, finding #2) showed every survivor was generated and verified under
+`w2_loop.generation_prompt` (names the module, demands ```tla + ```cfg + a
+`PROPERTY_INVARIANT:` trailer) while `to_harmony_sft` trained on the bare `nl` with the
+trailer stripped — a train/verify contract mismatch. The repair corpus already ledgered the
+principle (Amendment 16 cause #1: train on the prompt shape the task is evaluated under).
+`corpus_prep` now renders both styles; `bare` stays the byte-stable default so W4DG's
+provenance remains reproducible. Tonight's file:
+`results/analysis/sft_w4_diamond_gold_genprompt.jsonl` — 4,219 rows (607 diamond + 3,612
+gold; 560 liveness = 13.3%), min-tier 2 over all 201 W4 shards, row set verified identical
+to the bare rendering (rendering changes text only, never membership), 0 duplicate
+seed_keys, every row contract-checked (final channel, both fences, PI trailer, NL fence),
+SHA-256 `cb0074dbfec8959c2413484e87747cf5d0bb4adcae45e021f07bc3929ff7b677`. This is 100 rows
+more than the 4,119-row file the exploratory W4DG train used: shards 199-200 landed after
+that render. Corpus itself unchanged since the floor commit (`05b01a02`).
+
+**(3) Venue corrected.** Amendment 15's "Sophia single-node (8×80GB)" is wrong as a standing
+assumption: Sophia nodes observed serving jobs this week are A100-40GB (sophia-gpu-12 =
+4×40GB). The proven 120b recipe already assumes 40GB cards (FSDP activation checkpointing +
+param offload, `accelerate_fsdp2_8gpu.yaml`); the job requests
+`select=1:ngpus=8:mem=960gb` on `single-node` and must verify `Resource_List` after
+submission (PBS hook rewrites requests).
+
+**Ops finding, same class as the resolver bug:** the Sophia staging copy
+(`chattla_staging/ChatTLA`) had a STALE `lora_resolver.py`/`train.py` vs `~/ChatTLA` at
+`4344909` — a train launched from it would have run without the nested-config fix and
+without attach-time coverage reporting. Synced before submission; the sync step is now part
+of the launch checklist alongside `preflight_120b.py` and the dry-import.
+
+**Protocol unchanged** (this narrows nothing and lowers nothing): frozen 30-spec holdout
+`ecfc205…`, both framings, pass@1 and pass@k with **per-sample rate primary** per
+`c7a0d2bb`, Rule-9 semantic audit, arms reported separately, candidates persisted. Train
+hyperparameters follow the ledgered W4DG choice: 2 epochs (entropy cap), effective batch 8,
+LoRA via the architecture-aware resolver, output
+`checkpoints_w4dg_genprompt_120b`. The Gate-2 eval of this checkpoint is the next session's
+work; nothing here pre-commits its verdict.
