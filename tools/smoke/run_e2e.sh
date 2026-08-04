@@ -87,8 +87,13 @@ for i in $(seq 1 180); do
   kill -0 $SERVE_PID 2>/dev/null || { cat "$RUN/serve_ctxbug.log"; fail G-serve; }
   sleep 1
 done
+# gen-eval gate-checks its own ledger and exits non-zero on a broken run
+# (580c6ee6) -- on this deliberately ctx-broken serve that exit is EXPECTED,
+# so tolerate it and assert on the ledger directly below.
 python3 -m harness gen-eval --framing A --model openai:toy \
-  --run-id smoke-e2e-ctxbug --k 2 --specs "$SPECS" --corpus-data "$CORPUS" || fail G-eval
+  --run-id smoke-e2e-ctxbug --k 2 --specs "$SPECS" --corpus-data "$CORPUS" \
+  || echo "(gen-eval exit!=0 -- expected on the ctx-broken serve)"
+[ -s results/runs/smoke-e2e-ctxbug/rows.jsonl ] || fail G-rows
 if python3 -m harness gate-check results/runs/smoke-e2e-ctxbug; then
   echo "gate-check ACCEPTED a ctx-broken run -- the 2026-07-14 bug class is NOT caught"
   fail G
