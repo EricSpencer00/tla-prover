@@ -643,3 +643,17 @@ hyperparameters follow the ledgered W4DG choice: 2 epochs (entropy cap), effecti
 LoRA via the architecture-aware resolver, output
 `checkpoints_w4dg_genprompt_120b`. The Gate-2 eval of this checkpoint is the next session's
 work; nothing here pre-commits its verdict.
+
+**Postscript (same night).** First submission, job **170856**, died at 3m24s with
+`TRAIN_EXIT=1`: `train.py` passed `Mxfp4Config(dequantize=True)` for ANY gpt-oss model
+under FSDP, gated on the family rather than on the checkpoint — the pre-dequantized bf16
+export has `quantization_config: null`, so the kwarg marked the model quantized without
+dequantizing anything, and transformers 5.12.1 (the env has drifted from the proven 5.6.2)
+refuses to train an MXFP4-flagged model. This is also why the trainability check's 20b arm
+trained cleanly: that checkpoint really is MXFP4 and genuinely dequantizes. Fixed by gating
+on the checkpoint's own config (`_checkpoint_is_mxfp4`, ChatTLA `bd794a0`; verified False
+on the bf16 dir, True on hub gpt-oss-20b, False on garbage paths), synced to staging,
+resubmitted as job **170857**. Every guard from the blocker work held: attach-time coverage
+printed 144 expert tensors before the crash, and the failure propagated as Exit_status=1
+instead of a silent 0. Preflight cannot catch this class (the refusal fires in Trainer
+init, not at load) — noted as a known gap rather than papered over.
