@@ -1,7 +1,7 @@
 # Training methods: what was run and what the failures are attributable to
 
-Review date 2026-08-05. Covers every training run in the program, from the first
-20b SFT (2026-07-12) through the Amendment-21 reserved run (2026-08-05).
+Covers every training run in the program, from the first 20b SFT (2026-07-12)
+through the Amendment-21 reserved run (2026-08-05).
 
 ## Method space
 
