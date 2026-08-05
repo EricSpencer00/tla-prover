@@ -1,0 +1,98 @@
+---- MODULE ACP_NB ---------------------------------
+\* Non blocking Atomic Commitment Protocol with reliable broadcast
+\* (forwarded messages before local delivery). Extends ACP_SB.
+EXTENDS ACP_SB
+
+TypeInvParticipantNB == participant \in [
+  participants -> [
+    vote    : {yes, no},
+    alive   : BOOLEAN,
+    decision: {undecided, commit, abort},
+    faulty  : BOOLEAN,
+    voteSent: BOOLEAN,
+    forward : [ participants -> {notsent, commit, abort} ]
+  ]
+]
+
+TypeInvNB == TypeInvParticipantNB /\ TypeInvCoordinator
+
+InitParticipantNB == participant \in [
+  participants -> [
+    vote    : {yes, no},
+    alive   : {TRUE},
+    decision: {undecided},
+    faulty  : {FALSE},
+    voteSent: {FALSE},
+    forward : [ participants -> {notsent} ]
+  ]
+]
+
+InitNB == InitParticipantNB /\ InitCoordinator
+
+\* Forward a participant's predecision to another participant
+forward(i,j) == /\ i # j
+                /\ participant[i].alive
+                /\ participant[i].forward[i] # notsent
+                /\ participant[i].forward[j] = notsent
+                /\ participant' = [participant EXCEPT ![i] =
+                     [@ EXCEPT !.forward = [@ EXCEPT ![j] = participant[i].forward[i]]]
+                  ]
+                /\ UNCHANGED <<coordinator>>
+
+\* Receive a forwarded decision from another participant
+preDecideOnForward(i,j) == /\ i # j
+                           /\ participant[i].alive
+                           /\ participant[i].forward[i] = notsent
+                           /\ participant[j].forward[i] # notsent
+                           /\ participant' = [participant EXCEPT ![i] =
+                                [@ EXCEPT !.forward = [@ EXCEPT ![i] = participant[j].forward[i]]]
+                              ]
+                           \/ UNCHANGED <<coordinator>>
+
+\* Receive the coordinator's broadcasted decision
+preDecide(i) == /\ participant[i].alive
+                /\ participant[i].forward[i] = notsent
+                /\ coordinator.broadcast[i] # notsent
+                /\ participant' = [participant EXCEPT ![i] =
+                     [@ EXCEPT !.forward = [@ EXCEPT ![i] = coordinator.broadcast[i]]]
+                  ]
+                /\ UNCHANGED <<coordinator>>
+
+\* Act on a locally held predecision only once it has been forwarded to everyone
+decideNB(i) == /\ participant[i].alive
+               /\ \A j \in participants : participant[i].forward[j] # notsent
+               /\ participant' = [participant EXCEPT ![i] =
+                    [@ EXCEPT !.decision = participant[i].forward[i]]]
+               /\ UNCHANGED <<coordinator>>
+
+\* The coordinator can die without ever making a decision; a timeout then forces abort
+abortOnTimeout(i) == /\ participant[i].alive
+                     /\ participant[i].decision = undecided
+                     /\ ~coordinator.alive
+                     /\ \A j \in participants : participant[j].alive => coordinator.broadcast[j] = notsent
+                     /\ \A j,k \in participants :
+                          (~participant[j].alive /\ participant[k].alive) => participant[j].forward[k] = notsent
+                     /\ participant' = [participant EXCEPT ![i] =
+                          [@ EXCEPT !.decision = abort]]
+                     /\ UNCHANGED <<coordinator>>
+
+parProgNB(i,j) == \/ sendVote(i) \/ abortOnVote(i) \/ abortOnTimeoutRequest(i)
+                  \/ forward(i,j) \/ preDecideOnForward(i,j) \/ preDecide(i)
+                  \/ decideNB(i) \/ abortOnTimeout(i)
+
+parProgNNB == \E i,j \in participants : parDie(i) \/ parProgNB(i,j)
+progNNB == parProgNNB \/ coordProgN
+
+fairnessNB == /\ \A i \in participants :
+                  WF_<<coordinator, participant>>(\E j \in participants : parProgNB(i,j))
+              /\ WF_<<coordinator, participant>>(coordProgB)
+
+SpecNB == InitNB /\ [][progNNB]_<<coordinator, participant>> /\ fairnessNB
+
+AllCommit == \A i \in participants : <>(participant[i].decision = commit \/ participant[i].faulty)
+AllAbort  == \A i \in participants : <>(participant[i].decision = abort \/ participant[i].faulty)
+AllCommitYesVotes == \A i \in participants :
+                        (\A j \in participants : participant[j].vote = yes)
+                     ~> (participant[i].decision = commit \/ participant[i].faulty \/ coordinator.faulty)
+
+====

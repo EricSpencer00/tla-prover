@@ -657,3 +657,51 @@ resubmitted as job **170857**. Every guard from the blocker work held: attach-ti
 printed 144 expert tensors before the crash, and the failure propagated as Exit_status=1
 instead of a silent 0. Preflight cannot catch this class (the refusal fires in Trainer
 init, not at load) — noted as a known gap rather than papered over.
+
+### Amendment 22 (2026-08-05) — the reserved run measured: prompt-aligned rendering REGRESSED; Amendment 21's hypothesis loses to the measurement
+
+The Amendment-21 checkpoint (train 170857 clean: 1056/1056 steps, loss 0.395, final entropy
+0.31, 144 expert-LoRA tensors; merge 170883 clean: 72/72 expert tensors, 233.7GB) was
+measured on the frozen holdout, serve `chattla-w4dgp-120b` at ctx 32768,
+preflight-verified, ledger-scored (`gate2-w4dgp-120b-A`, `gate2-w4dgp-120b-B`).
+
+**Framing A: 12/30 pass@32, 6/30 pass@1. Per-sample 69/896 = 7.7%** (honest denominator:
+specs 183 and 191 are UNMEASURED — their full 33-row sets died as api_error when the serve
+hit walltime; they are excluded, not scored as failures). Two-level paired bootstrap on the
+17 byte-identical prompts vs the untuned base: **-0.018, p = 0.66 — null against base**,
+where the bare-rendered W4DG-A3 arm stands at +0.086, p = 0.063 (13.5% per-sample).
+Bounding the missing specs from A3's own yield (12/32 and 3/32) projects W4DGP-A to ~8.7%
+after re-draw — the regression vs bare cannot be an artifact of the two lost specs.
+Pass-set: lost 13/142/168 vs A3, gained 95. Failure profile: sany=fail rose 68.1% → 74.1%.
+
+**Framing B: 17/23 pass@32, 8/23 pass@1. Per-sample 151/736 = 20.5%** vs baseline 55.0%
+and v2-SFT 28.7% — the worst B arm measured, clean ledger (0 api_error, gate-check OK).
+
+**Verdict: Gate-2 NOT cleared. The prompt-aligned rendering did not preserve, let alone
+extend, the bare rendering's gain — it erased it.** Per Amendment 20's standing reversal
+clause: the measurement wins, Amendment 21's alignment reasoning loses. W4-diamond-gold
+with the BARE rendering remains the best fine-tune measured (13.5% vs base 6.9%).
+
+**Candidate mechanism, explicitly unproven:** Gate-2 framing A does not use the
+`w2_loop.generation_prompt` the pairs were rendered with — it uses `gen_eval`'s framing-A
+prompt (REQUIRED IDENTIFIERS block, different structure). Training on the bare `nl` may
+teach NL→spec generally; training on one rigid template may BIND the capability to that
+template. This is testable with compute already staged: the difficulty probe measures pass
+rate under the w2_loop prompt itself — if this checkpoint scores high there while sitting
+at base level under gen_eval framing A, template-binding is confirmed. The probe run is
+436 rows short (serve death); resume it before drawing the conclusion.
+
+**Corrections owed by this result:** the difficulty-probe finding that motivated Amendment
+21 ("trains on a different prompt than the corpus was verified under") was true as stated
+but did not imply the fix would help at Gate-2, because Gate-2's prompt is a third shape.
+Amendment 21 conflated "verified-under prompt" with "eval prompt". Ledgered so the next
+session does not re-derive the same plausible-but-wrong move.
+
+**Ops debt from the run:** (1) the eval chain's api_error strip matched a nonexistent
+field; api_error rows are `verdict == "api_error"` — fixed in the session script, and the
+same resume-blindness still lives in gen-eval proper (api_error rows count as done on
+resume; known since 2026-07-15, now bitten twice). (2) Two serve walltime deaths cost
+specs 183/191 and 436 probe rows; re-draw both on the next serve. (3) Framing-B v2
+comparison used 898 rows vs 736 — denominator reconciliation (Amendment 16 debt) still
+open.
+

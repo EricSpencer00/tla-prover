@@ -1,0 +1,18 @@
+{
+  "seed": 2760475622,
+  "corrupted_text": null,
+  "mutation_record": {
+    "skip": "no_valid_corruption",
+    "seeded_index": 0,
+    "candidates_total": 1,
+    "rejected": [
+      {
+        "candidate_index": 0,
+        "mutation": "in_to_notin",
+        "reason": "still_passes",
+        "verdict": "pass"
+      }
+    ]
+  },
+  "error_evidence": null
+}
