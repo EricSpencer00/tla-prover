@@ -5,16 +5,58 @@ through the Amendment-21 reserved run (2026-08-05).
 
 ## Method space
 
-One method has been used: LoRA supervised fine-tuning on verifier-accepted outputs
-(rejection-sampling fine-tuning, expert iteration). It has been run six times against
-different corpora. No reinforcement-learning or preference-optimization method has
-been run: a repository-wide search for GRPO, DPO, PPO, ORPO, KTO and SimPO returns
-no trainer, no advantage computation, and no KL term. Apparent matches are substring
-collisions ("c*orpo*ra", "end*po*int") and references to other groups' work.
-ROADMAP.md:47 refers to "our existing repair-GRPO"; no such implementation exists,
-and the phrase should be corrected before publication.
+Three methods have been used across two eras. The 2026-03/04 era in
+`LUC-AI4FM/TLA-Prove` ran DPO and GRPO on gpt-oss-20b; the 2026-07/08 era in this
+repo ran LoRA supervised fine-tuning on verifier-accepted outputs
+(rejection-sampling fine-tuning, expert iteration) six times against different
+corpora. PPO, ORPO, KTO and SimPO appear nowhere.
 
-## Runs
+An earlier draft of this review stated that no RL method had been run. That was
+wrong: it searched prove-TLA, which holds the corpus and eval harness, and not
+TLA-Prove, which holds the trainers. ROADMAP.md:47's reference to "our existing
+repair-GRPO" is accurate.
+
+## RL era, 2026-03-22 to 2026-04-15
+
+Hardware was two 49GB RTX 8000s, which set the batch geometry throughout. All runs
+are gpt-oss-20b. Training logs were untracked from the working tree in a later
+cleanup and survive only in git history at `e79a250` and `511a492`.
+
+| run | method | reward | outcome |
+|---|---|---|---|
+| per-action 20b | GRPO | tier staircase, gold 1.0 to bronze 0.1 | no log, checkpoint or eval found; flat reward reported second-hand |
+| piecewise DPO | DPO | preference pairs on a VARIABLES→TypeOK→Init→Next curriculum | final loss 0.6661 against ln 2 = 0.6931, accuracy 0.60, margins 0.0599 |
+| full-spec | GRPO | 7 weighted components, TLC full 0.35 | 172 steps, mean reward 0.0511, 37 of 172 steps nonzero, entropy 0.44→0.32 |
+| repair R1 | GRPO | improvement (after − before), shaped | 965 steps, mean reward 0.1487; 703 of 965 steps had zero reward variance |
+| repair R2 | GRPO | same | 600 steps, mean 0.0930, 430 of 600 zero-variance |
+| repair R3 | — | — | aborted before training: 152 in-band pairs after dedup against a floor of 300 |
+| repair, July, off-main | GRPO | improvement | 89 steps at uniform zero reward; after a reward-density fix, 1 of 7 held-out rows improved; reverted from main at `9724cef` |
+
+DPO v13 is the one arm reported as a gain: 9/20 SANY and 5/20 TLC against v11's 6/20
+and 2/20, from 17 preference pairs evaluated on 20 problems.
+
+A separate `rl_loop` (generate, verify, augment, re-SFT; not a policy-gradient
+method) ran 266 cycles over two weeks and left 228 benchmark CSVs. SANY pass rate
+trended down over that span, roughly 80% to 65%; TLC rose from roughly 10% to 20–25%.
+The projection recorded in `README_RL_SETUP.txt`, 85% SANY and 40–50% TLC after ~15
+cycles, was not reached.
+
+### Reward variance
+
+`frac_reward_zero_std` equals 1 on the majority of logged steps in every GRPO run:
+all completions in a group score identically, the advantage is zero, and the update
+is zero. Repair R1's mean reward of 0.1487 is the shaping function's hard-coded
+"no change" constant of 0.15, so the run sat on the flat part of its own reward for
+965 steps. KL stayed between 0.002 and 0.014 throughout, so this was not a
+policy-collapse-under-KL failure; it was reward starvation with entropy collapse
+alongside (0.44 to 0.32 full-spec, 0.003 to 0.1 on repair). The July attempt records
+the endpoint mechanically: at temperature 0.5 the model emitted byte-identical
+completions within a group.
+
+We found no evidence of reward hacking and none of verifier false positives. The
+reward was not gamed; it was flat.
+
+## SFT era, 2026-07-12 to 2026-08-05
 
 | run | corpus | base | result | comparison |
 |---|---|---|---|---|
@@ -61,8 +103,41 @@ the refusal is raised in Trainer initialization rather than at model load.
 
 ## Measurement defects
 
-Separately from training, five defects corrupted the numbers the training decisions
-were made on.
+### The RL-era Diamond-30 holdout
+
+Three numbers rest on this holdout: full-spec GRPO 4/30, repair R1 9/30, repair R2
+6/30. The 9/30 is published as 30% Gold on a 30-problem holdout (arXiv:2606.06133,
+cited at AUDIT.md:12) and restated at docs/formallm.md:25. Three problems apply to
+all three numbers.
+
+**The holdout tasks were in the RL prompt pool.** All 30 holdout module names appear
+in `data/diamond_gen_topics.json`. `fullspec_dataset.py` defaults `include_topics`
+to True, `train_rl_fullspec.py` passes it, and the loader implements no holdout
+filter; the repair line inherits the same pool through
+`collect_ralph_trajectories.py`. The SFT path does filter by module name
+(`train.py:110`), and `carve_diamond_holdout.py:17` states the requirement, so the
+omission is specific to the RL loaders. Gold specs were never shown, but the models
+received TLC-verifier reward on the natural-language descriptions of the exact 30
+evaluation tasks.
+
+**The numbers are not single-shot.** The eval is a four-shot repair loop with
+verifier feedback at temperatures 0.5, 0.7 and 0.9. Cross-tabulating result against
+`attempts_used`: of R1's 9 fixed, 3 succeeded on shot 0. Single-shot rates are 3/30,
+1/30 and 1/30. The published 30% is a pass@4-with-feedback figure and is not labeled
+as one.
+
+**The evaluated checkpoint is unverified.** In `repair_pipeline.log`, `merge_lora.py`
+fails with an argument error and the pipeline logs `LoRA merge FAILED` at 00:31:19.
+The next line begins the eval against Ollama tag `chattla:20b-repair`. No log shows
+that tag being rebuilt from the R1 adapter, so we cannot confirm the 9/30 was
+produced by the GRPO-trained weights.
+
+Separately, all 228 benchmark CSVs record the model as `chattla:20b`, a mutable tag
+rewritten on each redeploy, so no CSV can be attributed to a specific checkpoint.
+
+### The Gate-2 harness
+
+Five defects corrupted the numbers the SFT-era training decisions were made on.
 
 `required_signature()` discarded the right-hand side of cfg constant substitutions,
 under-specifying framing-A prompts for 13 of 30 holdout specs; 12 of the 15 unsolved
@@ -79,9 +154,16 @@ program on a false null.
 
 The three candidate causes are all present, in sequence, and they are separable.
 
-**Training method is not implicated by any measurement.** It has never been varied,
-and no result points at the SFT objective. The two collapse results were explained
-by a corpus property and the explanation held when tested.
+**Training method was implicated once, in the RL era, and for a reason that is
+diagnosed rather than suspected.** GRPO requires reward variance within a sampled
+group, and on this task at this model scale there was none: a group of four
+completions to a TLA+ generation prompt nearly always scores identically, because
+almost all of them fail to parse. Three separate reward designs were tried against
+this (tier staircase, seven-component partial credit, improvement-over-baseline) and
+the third was still producing `frac_reward_zero_std = 1` on 73% of steps. The
+constraint is a property of the reward landscape, not of any one implementation.
+
+Nothing implicates the SFT objective. It has been varied only in its data.
 
 **Data provenance was the binding constraint through run 3, and correcting it
 produced the only positive result.** v2_sft2 and repair-v1 both collapsed sampling
@@ -107,6 +189,15 @@ training data contains no instance of the failure mode that accounts for two-thi
 of the errors. Whether supervision on that mode helps is untested; the one attempt
 at deterministic parse repair recovered 88 of 454 candidates and flipped no spec to
 passing.
+
+The two eras failed against the same wall from opposite sides. GRPO got no gradient
+because a group of samples nearly always scored identically, and SFT's failures are
+68–74% `sany=fail`; both are the same fact, that most samples do not parse. Under a
+policy-gradient objective an unparseable sample carries no learning signal, which is
+what starved the reward. Under imitation it is simply absent from the data. This is
+the argument for treating parse-level competence as the thing to supervise directly,
+and it is also the precondition for RL becoming viable here: reward variance appears
+once a meaningful fraction of a sampled group parses.
 
 The most recent result is unexplained. Aligning the SFT prompt to the contract each
 survivor was verified under moved framing A from 13.5% to 7.7% per-sample. Gate-2
