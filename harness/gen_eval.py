@@ -20,6 +20,7 @@ import time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
+from .decoding import derive_seed, extraction_divergence, generate_traced_compat
 from .mutation import MUTATIONS
 from .repair import make_model, verdict_of
 from .runner import REPO, build_module_index, eval_module_text
@@ -39,22 +40,49 @@ TLC_TIMEOUT_S = 120
 GEN_EVAL_CONCURRENCY = int(os.environ.get("GEN_EVAL_CONCURRENCY", "1"))
 
 
-def _prefetch_replies(model, prompt, samples, done, num):
-    """Return {sample_id: (reply, model_s)} for the samples not already in the
-    resume ledger. Sequential when GEN_EVAL_CONCURRENCY==1 (frozen behavior);
-    otherwise a thread pool fires the independent requests together."""
+def _prefetch_replies(model, prompt, samples, done, num, run_id, framing):
+    """Return {sample_id: (reply, model_s, meta)} for the samples not already in
+    the resume ledger. Sequential when GEN_EVAL_CONCURRENCY==1 (frozen behavior);
+    otherwise a thread pool fires the independent requests together.
+
+    Each sample gets a decoder seed derived from (run_id, spec, framing,
+    sample_id), so a run is replayable per-row without the seed having to survive
+    in the ledger -- see harness.decoding.derive_seed and `harness replay`. meta
+    is {} for generate-only Model implementations (the test fakes); callers must
+    treat missing keys as null provenance rather than assuming they exist."""
     todo = [(sid, t) for sid, t in samples if (num, sid) not in done]
 
     def _one(args):
         sid, temperature = args
+        seed = derive_seed(run_id, num, framing, sid)
         t0 = time.time()
-        reply = model.generate(prompt, 1, temperature, MAX_TOKENS)[0]
-        return sid, (reply, round(time.time() - t0, 1))
+        text, meta = generate_traced_compat(
+            model, prompt, 1, temperature, MAX_TOKENS, seed)[0]
+        return sid, (text, round(time.time() - t0, 1), meta)
 
     if GEN_EVAL_CONCURRENCY <= 1 or len(todo) <= 1:
         return dict(_one(a) for a in todo)
     with ThreadPoolExecutor(max_workers=GEN_EVAL_CONCURRENCY) as pool:
         return dict(pool.map(_one, todo))
+
+
+def _provenance(meta, reply):
+    """Additive decoder-provenance fields for a row (Rule 8: nothing existing is
+    rewritten, and in particular the Framing-B `seed` key -- which is the
+    deterministic MUTATION seed, not a decoder seed -- is never touched here).
+
+    extract_divergent records whether harness.repair's extractor would have
+    produced something different from the one gen_eval actually used. Both
+    extractors stay frozen; only the disagreement rate is measured. See
+    harness.decoding.extraction_divergence."""
+    divergent, _, _ = extraction_divergence(reply if isinstance(reply, str) else "")
+    return {"decode_seed": meta.get("decode_seed"),
+            "decode_params_sha256": meta.get("decode_params_sha256"),
+            "provider_seed_echo": meta.get("provider_seed_echo"),
+            "seed_supported": meta.get("seed_supported"),
+            "backend_sha256": meta.get("backend_sha256"),
+            "extractor": "gen_eval.first",
+            "extract_divergent": divergent}
 
 # TLC .cfg section keywords (subset we care about for the required signature).
 _CFG_KEYWORDS = {
@@ -580,15 +608,16 @@ def gen_eval_spec_framing_a(num, description_json, cfg_text, module_name_for_spe
     prompt = build_generation_prompt(description_json, cfg_text, module_name_for_spec)
     prompt_sha = hashlib.sha256(prompt.encode()).hexdigest()
     samples = [("greedy", 0.0)] + [(i, TEMPERATURE) for i in range(1, k + 1)]
-    replies = _prefetch_replies(model, prompt, samples, done, num)
+    replies = _prefetch_replies(model, prompt, samples, done, num, run_id, "A")
     for sample_id, temperature in samples:
         if (num, sample_id) in done:
             continue
-        reply, model_s = replies[sample_id]
+        reply, model_s, meta = replies[sample_id]
         module_text = extract_module(reply)
         base = {"spec": num, "framing": "A", "model": model.id,
                 "prompt_sha256": prompt_sha, "sample": sample_id,
-                "temperature": temperature, "timestamp": time.time()}
+                "temperature": temperature, "timestamp": time.time(),
+                **_provenance(meta, reply)}
         if candidates_dir is not None:
             cand_path, cand_sha = _persist_candidate(
                 candidates_dir, num, "A", sample_id, module_text, reply)
@@ -626,16 +655,22 @@ def gen_eval_spec_framing_b(num, corrupted_text, mutation_record, seed,
     prompt = build_repair_prompt(corrupted_text, error_evidence)
     prompt_sha = hashlib.sha256(prompt.encode()).hexdigest()
     samples = [("greedy", 0.0)] + [(i, TEMPERATURE) for i in range(1, k + 1)]
-    replies = _prefetch_replies(model, prompt, samples, done, num)
+    replies = _prefetch_replies(model, prompt, samples, done, num, run_id, "B")
     for sample_id, temperature in samples:
         if (num, sample_id) in done:
             continue
-        reply, model_s = replies[sample_id]
+        reply, model_s, meta = replies[sample_id]
         module_text = extract_module(reply)
+        # NOTE: "seed" here is the deterministic harness.mutation corruption seed
+        # identifying WHICH swap produced this repair task -- it predates decoder
+        # provenance and must not be confused with, or overwritten by, the decoder
+        # seed. _provenance writes "decode_seed"; it never writes "seed".
+        # test_gen_eval.py pins this.
         base = {"spec": num, "framing": "B", "model": model.id,
                 "prompt_sha256": prompt_sha, "sample": sample_id,
                 "temperature": temperature, "timestamp": time.time(),
-                "mutation_record": mutation_record, "seed": seed}
+                "mutation_record": mutation_record, "seed": seed,
+                **_provenance(meta, reply)}
         if candidates_dir is not None:
             cand_path, cand_sha = _persist_candidate(
                 candidates_dir, num, "B", sample_id, module_text, reply)

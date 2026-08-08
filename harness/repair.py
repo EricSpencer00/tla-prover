@@ -39,6 +39,7 @@ import urllib.error
 import urllib.request
 from pathlib import Path
 
+from .decoding import effective_params_sha256, url_sha256
 from .mutation import MUTATIONS, apply_mutation
 from .runner import (EXPECTED_VIOLATIONS, LIBRARIES, POLICY, PROOF_MODULES, REPO,
                      build_module_index, check_sany, check_tlapm, check_tlc,
@@ -60,11 +61,43 @@ def load_budget(num: str):
 class Model:
     """n candidate completions for a prompt. Implementations must be stateless
     across calls so every row is reproducible from (model id, prompt hash, seed
-    semantics of the provider)."""
+    semantics of the provider).
+
+    Two entry points. `generate` returns texts and is what every long-standing
+    call site uses. `generate_traced` returns (text, meta) pairs, where meta
+    carries the decoder provenance defined in harness.decoding: decode_seed,
+    decode_params_sha256, provider_seed_echo, seed_supported, backend_sha256.
+
+    RECURSION HAZARD -- read before editing. The two methods are defined in terms
+    of each other, so the direction must be fixed per class or a subclass that
+    overrides neither will recurse until the stack blows:
+
+      * HERE, at the ABC, `generate` raises and `generate_traced` adapts
+        `generate`. That makes every generate-only subclass (all the test fakes)
+        work through the traced path for free, with an empty meta dict.
+      * IN EACH REAL SUBCLASS, `generate_traced` is implemented natively and
+        `generate` is overridden as a projection of it.
+
+    Never make the ABC's `generate` delegate to `generate_traced`; that closes the
+    cycle. test_decoding.py pins this with a bare subclass asserting
+    NotImplementedError rather than RecursionError.
+
+    Provenance rides back with its own completion rather than being stashed on the
+    instance: gen_eval runs _prefetch_replies through a ThreadPoolExecutor sharing
+    one Model, so per-request state on self would race. (self.usage is an
+    accumulator, which tolerates that; per-request provenance does not.)
+    """
     id = "abstract"
 
-    def generate(self, prompt: str, n: int, temperature: float, max_tokens: int):
+    def generate(self, prompt: str, n: int, temperature: float, max_tokens: int,
+                 seed=None):
         raise NotImplementedError
+
+    def generate_traced(self, prompt: str, n: int, temperature: float,
+                        max_tokens: int, seed=None):
+        """Default: adapt a generate-only implementation, with no provenance."""
+        return [(text, {}) for text in
+                self.generate(prompt, n, temperature, max_tokens, seed)]
 
 
 class LocalStub(Model):
@@ -73,15 +106,36 @@ class LocalStub(Model):
     extraction, re-verification, and budget termination without any API spend."""
     id = "local-stub-v1"
 
-    def generate(self, prompt, n, temperature, max_tokens):
+    def generate_traced(self, prompt, n, temperature, max_tokens, seed=None):
         m = re.search(r"===BEGIN SPEC===\n(.*?)\n===END SPEC===", prompt, re.S)
         body = m.group(1) if m else "---- MODULE Empty ----\n===="
-        return [body] * n
+        # Already deterministic by construction, so the seed is honored trivially:
+        # the same seed and the same prompt give the same bytes. Reporting
+        # seed_supported True here keeps zero-spend dry runs from looking like
+        # unreproducible rows in the ledger.
+        meta = {"decode_seed": seed, "provider_seed_echo": seed,
+                "seed_supported": True,
+                "decode_params_sha256": effective_params_sha256(
+                    {"model": self.id, "temperature": temperature,
+                     "max_tokens": max_tokens, "seed": seed}),
+                "backend_sha256": url_sha256("local-stub")}
+        return [(body, dict(meta)) for _ in range(n)]
+
+    def generate(self, prompt, n, temperature, max_tokens, seed=None):
+        return [t for t, _ in self.generate_traced(
+            prompt, n, temperature, max_tokens, seed)]
 
 
 class AnthropicModel(Model):
     """Messages API over plain HTTPS (no SDK dependency). The API has no n
-    parameter, so best-of-N is n sequential calls at the given temperature."""
+    parameter, so best-of-N is n sequential calls at the given temperature.
+
+    The Messages API also has no `seed` parameter. This class therefore reports
+    seed_supported False and decode_seed None rather than echoing back a seed it
+    never sent. Recording a seed the provider cannot honor is false provenance,
+    which is strictly worse than recording none: it makes an irreproducible row
+    look reproducible.
+    """
     API_URL = "https://api.anthropic.com/v1/messages"
 
     def __init__(self, model_id="claude-sonnet-5"):
@@ -91,12 +145,12 @@ class AnthropicModel(Model):
             raise SystemExit("ANTHROPIC_API_KEY not set (required for --model anthropic)")
 
     def _one(self, prompt, temperature, max_tokens):
+        body = {"model": self.id, "max_tokens": max_tokens,
+                "temperature": temperature,
+                "messages": [{"role": "user", "content": prompt}]}
         req = urllib.request.Request(
             self.API_URL,
-            data=json.dumps({
-                "model": self.id, "max_tokens": max_tokens, "temperature": temperature,
-                "messages": [{"role": "user", "content": prompt}],
-            }).encode(),
+            data=json.dumps(body).encode(),
             headers={"x-api-key": self.key, "anthropic-version": "2023-06-01",
                      "content-type": "application/json"})
         for attempt in range(3):
@@ -115,8 +169,19 @@ class AnthropicModel(Model):
                     continue
                 return f"[api_error url: {e}]"
 
-    def generate(self, prompt, n, temperature, max_tokens):
-        return [self._one(prompt, temperature, max_tokens) for _ in range(n)]
+    def generate_traced(self, prompt, n, temperature, max_tokens, seed=None):
+        meta = {"decode_seed": None, "provider_seed_echo": None,
+                "seed_supported": False,
+                "decode_params_sha256": effective_params_sha256(
+                    {"model": self.id, "temperature": temperature,
+                     "max_tokens": max_tokens}),
+                "backend_sha256": url_sha256(self.API_URL)}
+        return [(self._one(prompt, temperature, max_tokens), dict(meta))
+                for _ in range(n)]
+
+    def generate(self, prompt, n, temperature, max_tokens, seed=None):
+        return [t for t, _ in self.generate_traced(
+            prompt, n, temperature, max_tokens, seed)]
 
 
 class OpenAICompatModel(Model):
@@ -164,12 +229,25 @@ class OpenAICompatModel(Model):
                                            text=True, timeout=120).strip()
         return self.key
 
-    def _one(self, prompt, temperature, max_tokens):
+    def _one(self, prompt, temperature, max_tokens, seed=None):
+        """Returns (text, meta). meta carries decoder provenance; see
+        harness.decoding and the Model docstring."""
         body = {"model": self.id, "max_tokens": max_tokens, "temperature": temperature,
                 "messages": [{"role": "user", "content": prompt}]}
+        if seed is not None:
+            body["seed"] = seed
         # provider-specific knobs (e.g. {"reasoning_effort": "medium"} for
-        # gpt-oss-style reasoning models, whose thinking shares the token budget)
+        # gpt-oss-style reasoning models, whose thinking shares the token budget).
+        # Applied AFTER the seed, preserving the long-standing "extra body wins"
+        # precedence -- which means a stale OPENAI_EXTRA_BODY carrying its own seed
+        # silently overrides ours. Hence meta reads the effective seed back out of
+        # the merged body below, and hashes the merged body, not the intended one.
         body.update(json.loads(os.environ.get("OPENAI_EXTRA_BODY", "{}")))
+        meta = {"decode_seed": body.get("seed"),
+                "seed_supported": True,
+                "decode_params_sha256": effective_params_sha256(body),
+                "backend_sha256": url_sha256(self.url),
+                "provider_seed_echo": None}
         req = urllib.request.Request(
             self.url,
             data=json.dumps(body).encode(),
@@ -189,29 +267,42 @@ class OpenAICompatModel(Model):
                 self.usage["prompt_tokens"] += u.get("prompt_tokens", 0)
                 self.usage["completion_tokens"] += u.get("completion_tokens", 0)
                 self.usage["requests"] += 1
-                msg = (data.get("choices") or [{}])[0].get("message") or {}
+                # vLLM echoes the effective seed at top level on some versions and
+                # per-choice on others; absent entirely on the ALCF router. None
+                # here means "not reported", NOT "not honored" -- only
+                # tools/smoke/seed_probe.py can tell those apart.
+                choice0 = (data.get("choices") or [{}])[0]
+                meta["provider_seed_echo"] = data.get("seed", choice0.get("seed"))
+                msg = choice0.get("message") or {}
                 # gpt-oss harmony quirk: a checkpoint SFT'd on plain text (no
                 # harmony channel markup) emits its whole answer in the
                 # analysis channel; vLLM's reasoning parser then leaves
                 # content empty with the text in reasoning_content. Fall back
                 # so evals measure spec capability, not chat formatting.
                 # (the ALCF shared endpoint names the same field "reasoning")
-                return msg.get("content") or msg.get("reasoning_content") \
+                text = msg.get("content") or msg.get("reasoning_content") \
                     or msg.get("reasoning") or ""
+                return text, meta
             except urllib.error.HTTPError as e:
-                body = e.read().decode(errors="replace")[:500]
+                # was `body` before decode provenance landed; renamed so it no
+                # longer shadows the request body the params hash is taken over
+                err_body = e.read().decode(errors="replace")[:500]
                 if e.code in RETRYABLE and attempt < self.max_retries - 1:
                     time.sleep(self.retry_base_s * (attempt + 1))
                     continue
-                return f"[api_error {e.code}: {body}]"
+                return f"[api_error {e.code}: {err_body}]", meta
             except (urllib.error.URLError, TimeoutError, OSError) as e:
                 if attempt < self.max_retries - 1:
                     time.sleep(self.retry_base_s * (attempt + 1))
                     continue
-                return f"[api_error url: {e}]"
+                return f"[api_error url: {e}]", meta
 
-    def generate(self, prompt, n, temperature, max_tokens):
-        return [self._one(prompt, temperature, max_tokens) for _ in range(n)]
+    def generate_traced(self, prompt, n, temperature, max_tokens, seed=None):
+        return [self._one(prompt, temperature, max_tokens, seed) for _ in range(n)]
+
+    def generate(self, prompt, n, temperature, max_tokens, seed=None):
+        return [t for t, _ in self.generate_traced(
+            prompt, n, temperature, max_tokens, seed)]
 
 
 def make_model(name: str) -> Model:

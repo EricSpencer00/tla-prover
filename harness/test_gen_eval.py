@@ -278,6 +278,30 @@ class _FixedModel:
         return [self.reply] * n
 
 
+def gen_eval_stub_model(reply):
+    """Like _FixedModel, but a real harness.repair.Model subclass so the traced
+    path (and therefore decoder provenance) is exercised. _FixedModel stays
+    duck-typed on purpose -- it is the regression guard for the compat shim that
+    keeps the other ten four-arg stand-ins in the harness working."""
+    from .repair import Model
+
+    class _TracedFixed(Model):
+        id = "test-traced-fixed-v1"
+
+        def generate_traced(self, prompt, n, temperature, max_tokens, seed=None):
+            meta = {"decode_seed": seed, "provider_seed_echo": seed,
+                    "seed_supported": True,
+                    "decode_params_sha256": "f" * 64,
+                    "backend_sha256": "e" * 64}
+            return [(reply, dict(meta)) for _ in range(n)]
+
+        def generate(self, prompt, n, temperature, max_tokens, seed=None):
+            return [t for t, _ in self.generate_traced(
+                prompt, n, temperature, max_tokens, seed)]
+
+    return _TracedFixed()
+
+
 def test_gen_eval_spec_framing_a_dry_run_with_monkeypatched_scoring(monkeypatch, tmp_path):
     reply = "---- MODULE Foo ----\nInit == x = 0\nNext == x' = x + 1\n===="
 
@@ -374,6 +398,118 @@ def test_gen_eval_spec_framing_b_records_mutation_and_seed(monkeypatch, tmp_path
         assert r["framing"] == "B"
         assert r["mutation_record"]["mutation"] == "in_to_notin"
         assert r["seed"] == seed
+
+
+# ------------------------------------- decoder provenance (2026-08-08 design)
+
+def test_framing_b_decode_seed_never_clobbers_the_mutation_seed(monkeypatch,
+                                                                tmp_path):
+    """Landmine 1. Framing-B rows have carried a "seed" key since Amendment 12 --
+    the deterministic harness.mutation corruption seed identifying WHICH swap
+    produced the repair task. The decoder seed is a different thing and must land
+    in "decode_seed". If these ever merge, every Framing-B analysis that joins on
+    the mutation silently breaks."""
+    reply = "---- MODULE OnlyIn ----\nEXTENDS Naturals\n===="
+    monkeypatch.setattr(gen_eval, "eval_module_text", _fake_pass_eval_module_text)
+    logdir = tmp_path / "logs"
+    logdir.mkdir()
+    mutation_seed = gen_eval.corruption_seed("some-frozen-hash", "999")
+
+    rows = list(gen_eval.gen_eval_spec_framing_b(
+        "999", reply, {"mutation": "m"}, mutation_seed, "evidence",
+        gen_eval_stub_model(reply), "test-run", 1, corpus=tmp_path, num2mod={},
+        mod2path={}, cfg_dirs=[], workroot=tmp_path / "work", logdir=logdir,
+        done=set()))
+
+    assert rows
+    for r in rows:
+        assert r["seed"] == mutation_seed, "mutation seed was overwritten"
+        assert "decode_seed" in r
+        assert r["decode_seed"] != r["seed"] or r["decode_seed"] is None
+
+
+def test_rows_carry_decoder_provenance_fields(monkeypatch, tmp_path):
+    reply = "---- MODULE Foo ----\nInit == x = 0\n===="
+    monkeypatch.setattr(gen_eval, "eval_module_text", _fake_pass_eval_module_text)
+    logdir = tmp_path / "logs"
+    logdir.mkdir()
+
+    rows = list(gen_eval.gen_eval_spec_framing_a(
+        "999", {"system_overview": "x"}, "INIT\n Init\n", "Foo",
+        gen_eval_stub_model(reply), "test-run", 1, corpus=tmp_path, num2mod={},
+        mod2path={}, cfg_dirs=[], workroot=tmp_path / "work", logdir=logdir,
+        done=set()))
+
+    for r in rows:
+        for field in ("decode_seed", "decode_params_sha256", "provider_seed_echo",
+                      "seed_supported", "backend_sha256", "extractor",
+                      "extract_divergent"):
+            assert field in r, field
+        assert r["extractor"] == "gen_eval.first"
+        assert r["extract_divergent"] is False
+
+
+def test_decode_seed_differs_per_sample_and_is_reproducible(monkeypatch, tmp_path):
+    """Distinct seeds per sample (otherwise every sample in a spec is the same
+    draw), and identical across two runs of the same run_id (that is what makes
+    `harness replay` able to recompute them)."""
+    reply = "---- MODULE Foo ----\nInit == x = 0\n===="
+    monkeypatch.setattr(gen_eval, "eval_module_text", _fake_pass_eval_module_text)
+    logdir = tmp_path / "logs"
+    logdir.mkdir()
+
+    def go():
+        return list(gen_eval.gen_eval_spec_framing_a(
+            "999", {"system_overview": "x"}, "INIT\n Init\n", "Foo",
+            gen_eval_stub_model(reply), "fixed-run-id", 3, corpus=tmp_path,
+            num2mod={}, mod2path={}, cfg_dirs=[], workroot=tmp_path / "work",
+            logdir=logdir, done=set()))
+
+    first, second = go(), go()
+    seeds = [r["decode_seed"] for r in first]
+    assert len(set(seeds)) == len(seeds), "samples shared a decoder seed"
+    assert seeds == [r["decode_seed"] for r in second]
+
+
+def test_extract_divergent_flags_a_draft_then_final_reply(monkeypatch, tmp_path):
+    """gen_eval scores the FIRST module, repair would take the LAST. Neither
+    extractor changes; the disagreement is recorded so its rate is measurable."""
+    reply = ("draft:\n---- MODULE Foo ----\nInit == x = 0\n====\n"
+             "final:\n---- MODULE Foo ----\nInit == x = 1\n====\n")
+    monkeypatch.setattr(gen_eval, "eval_module_text", _fake_pass_eval_module_text)
+    logdir = tmp_path / "logs"
+    logdir.mkdir()
+
+    rows = list(gen_eval.gen_eval_spec_framing_a(
+        "999", {"system_overview": "x"}, "INIT\n Init\n", "Foo",
+        gen_eval_stub_model(reply), "test-run", 1, corpus=tmp_path, num2mod={},
+        mod2path={}, cfg_dirs=[], workroot=tmp_path / "work", logdir=logdir,
+        done=set()))
+
+    assert rows and all(r["extract_divergent"] is True for r in rows)
+
+
+def test_gate_check_is_unaffected_by_the_new_fields(tmp_path):
+    """The provenance fields are additive; gate_check reads by key and must
+    produce an identical report with and without them."""
+    from .gate_check import gate_check
+
+    lean = [{"spec": "1", "framing": "A", "sample": "greedy", "verdict": "pass"},
+            {"spec": "1", "framing": "A", "sample": 1, "verdict": "fail"}]
+    rich = [{**r, "decode_seed": 7, "decode_params_sha256": "d" * 64,
+             "provider_seed_echo": 7, "seed_supported": True,
+             "backend_sha256": "b" * 64, "extractor": "gen_eval.first",
+             "extract_divergent": False} for r in lean]
+
+    def report_for(rows, name):
+        d = tmp_path / name
+        d.mkdir()
+        (d / "rows.jsonl").write_text(
+            "".join(json.dumps(r) + "\n" for r in rows))
+        # run_dir is the tmp path itself and is expected to differ
+        return {k: v for k, v in gate_check(d).items() if k != "run_dir"}
+
+    assert report_for(lean, "lean") == report_for(rich, "rich")
 
 
 # --------------------------------------------- candidate persistence (Rule 9)
