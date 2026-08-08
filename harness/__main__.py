@@ -53,6 +53,17 @@ def main():
     gc.add_argument("run_dirs", nargs="+", help="run dir(s) containing rows.jsonl")
     gc.add_argument("--max-api-error-rate", type=float, default=0.05)
     gc.add_argument("--max-unextracted-rate", type=float, default=0.90)
+    rp = sub.add_parser("replay", help="re-run one ledgered sample at its recorded "
+                                       "decoder seed and diff against the stored candidate")
+    rp.add_argument("run_dir", help="results/runs/<run-id> containing rows.jsonl")
+    rp.add_argument("--spec", required=True)
+    rp.add_argument("--sample", required=True, help='"greedy" or a sample index')
+    rp.add_argument("--framing", default=None, choices=["A", "B"],
+                    help="required only if the pair exists in both framings")
+    rp.add_argument("--corpus-data", default=None,
+                    help="default: the corpus recorded in the run's config.json")
+    rp.add_argument("--model", default=None,
+                    help="default: openai:<model id recorded on the row>")
     pt = sub.add_parser("proof-traces", help="W2.4 obligation-trace bootstrap (tlapm sweep)")
     pt.add_argument("--source", required=True, choices=["corpus", "examples"])
     pt.add_argument("--out", required=True, help="output dir under results/proof_traces/...")
@@ -74,6 +85,10 @@ def main():
         # cheap restarts; STAGE1_STRATEGY.md); `run` still treats it as a filter
         run_repair(Path(a.corpus), a.run_id, a.model, specs=specs, n=a.n,
                    resume_from=a.resume_from)
+    elif a.cmd == "replay":
+        from .replay import run_replay_cli
+        raise SystemExit(run_replay_cli(a.run_dir, a.spec, a.sample, a.framing,
+                                        a.corpus_data, a.model))
     elif a.cmd == "gate-check":
         from .gate_check import main as gate_check_main
         raise SystemExit(gate_check_main(a.run_dirs, a.max_api_error_rate,

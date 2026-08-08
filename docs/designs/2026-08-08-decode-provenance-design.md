@@ -19,13 +19,15 @@ provider*)". The provider's seed semantics are, at present, unrecorded and unpro
 `TEMPERATURE = 0.8` is load-bearing for pass@k and stays exactly as it is. This changes
 zero verdicts on zero existing rows.
 
-**Non-goal — grammar-constrained decoding.** `harness/grammars/tla_module_v0.ebnf` is
-consumed only by `tools/smoke/grammar_check.py:14` as an offline xgrammar accept/reject
-lint; `harness/grammars/tla_proof_v0.ebnf` has no consumer at all. The one guided run that
-happened (`results/runs/w32-guided-120b`, 0/20, `PLAN.md:437`) has no in-repo wiring and is
-not reproducible, and `PLAN.md:451` records vLLM's structured-outputs path crashing the
-engine. Diagnosing that 0/20 needs a reproducible baseline to diagnose *against*. This
-design builds that baseline; the grammar work is a separate spec that depends on it.
+**Non-goal — grammar-constrained decoding.** Amendment 19 (2026-07-18) already closed this
+on both sides and the reasoning holds: the proof-side guided run
+(`results/runs/w32-guided-120b`) scored 0/20 with tlapm failures merely moving one level
+down into step-internal syntax, and the spec side was closed by a pre-registered offline
+bound — the structural grammar rejects only 10/505 (2%) of actual failed candidates. The
+`.ebnf` files are consumed only by `tools/smoke/grammar_check.py:14` as an offline xgrammar
+lint, and the dev vLLM's structured-outputs path killed the engine twice (jobs 165652,
+165692). Nothing here reopens that; this design changes no decoding *constraint*, only what
+is recorded about decoding.
 
 **Architecture:** One new module (`harness/decoding.py`) owning seed derivation and
 request-body hashing; one API extension on the existing `Model` ABC in `harness/repair.py`;
@@ -88,6 +90,21 @@ much larger blast radius than the problem justifies. **Neither extractor changes
 Instead each row records `extractor` (which one ran) and `extract_divergent` (whether the
 other one would have produced different text). That converts an unknown into a measured
 rate, which is what decides whether unifying them is worth an amendment later.
+
+**MEASURED, 2026-08-08 (`tools/extractor_divergence.py`).** Over all 1,079 raw replies
+persisted across 35 run dirs, the two extractors disagree on **0** of them — every one is a
+case where *neither* parses. Unification would recover zero rows, so the divergence is
+theoretical rather than empirical, and the frozen-extractor call now rests on evidence
+rather than caution. Decomposing that same population turned up something more useful:
+41.3% (446) are empty replies, 36.2% (391) never attempt a module, 21.3% (230) are
+`max_tokens` truncations cut off before the `====`, and 3 use a malformed
+`==== MODULE X ====` header. Two fifths of `no_module_extracted` is the endpoint returning
+nothing and a fifth is a budget artifact — neither is model incapacity, though both
+currently score as model failure. Ledgered in Amendment 23; deliberately not corrected here.
+
+Scope limit on that number: `_persist_candidate` keeps the raw reply only when extraction
+*failed*, so this cannot see replies both extractors parsed but parsed differently.
+Measuring that direction needs raw replies persisted on success too — a separate change.
 
 ### Landmine 3 — `OPENAI_EXTRA_BODY` merges last and can silently win
 

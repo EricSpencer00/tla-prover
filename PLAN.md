@@ -705,3 +705,82 @@ specs 183/191 and 436 probe rows; re-draw both on the next serve. (3) Framing-B 
 comparison used 898 rows vs 736 — denominator reconciliation (Amendment 16 debt) still
 open.
 
+
+### Amendment 23 (2026-08-08) — decoder provenance: seeds recorded, extractors measured and left frozen
+
+**The defect.** No `seed` was ever sent on any model request. `harness/repair.py`'s two
+request builders sent only `model`, `max_tokens`, `temperature`, `messages`, while
+`Model.generate`'s docstring claimed reproducibility "from (model id, prompt hash, seed
+semantics of the provider)" — a third term that was never supplied. The consequence is
+ledgered in `tools/rowlevel_power.py:8-11`: spec 30 went **5 passes → 1 pass** between
+`gate2-w4dg-120b-A` and `-A3`, same model, byte-identical `prompt_sha256`, with no way to
+reproduce either side. That control pair existed to *bound* run-to-run variance because
+nothing could *attribute* it.
+
+**What changed.** `harness/decoding.py` derives a per-sample seed from
+`(run_id, spec, framing, sample_id)` — derived, not stored, so a lost `rows.jsonl` line
+does not make a sample unreproducible. `Model` gains `generate_traced`, returning
+provenance alongside each completion. Rows gain `decode_seed`, `decode_params_sha256`
+(hashed over the **post-merge** body, so a stale `OPENAI_EXTRA_BODY` overriding the seed is
+visible), `provider_seed_echo`, `seed_supported`, `backend_sha256` (hash only — no URL, no
+key enters the ledger), `extractor`, and `extract_divergent`. `harness replay` re-runs one
+ledgered sample at its recorded seed and diffs; it refuses to issue a request when the
+rebuilt prompt hash does not match the recorded one (`PROMPT_DRIFT`), and refuses to fake a
+reproduction for pre-provenance rows (`SEED_UNSUPPORTED`). `tools/smoke/seed_probe.py`
+gates a sweep on whether the endpoint honors `seed` at all, with a different-seed negative
+control so an endpoint silently pinned to greedy cannot pass.
+
+**The frozen budget is unchanged.** Temperature 0.8, `max_tokens` 16384, k=32,
+pass@1 = one temp-0 greedy sample — all exactly as Amendment 12 froze them. A seed fixes
+the *realization*, not the distribution. Pre-amendment runs remain valid and remain
+distributional peers of seeded runs; they are **not** row-level peers, and
+`seed_supported` is null on them, which is how they are told apart. No existing row was
+rewritten (Rule 8). `gate_check` produces an identical report with and without the new
+fields, which is now a test.
+
+**Honest bound on what this buys.** It does not reduce sampled-arm variance, and it is not
+expected to make replay bitwise-exact on a shared vLLM: continuous batching changes
+floating-point reduction order, so a seed pins the sampling RNG but not the numerics.
+`PARTIAL` is an anticipated and acceptable `seed_probe` verdict. What this buys is
+attribution and a reproduction command, not determinism.
+
+**Measured: the two module extractors never actually disagree.**
+`harness/gen_eval.py:196` (first match, line-anchored, module name optional) and
+`harness/repair.py:522` (last match, unanchored, name and trailing dashes required) are two
+different functions. Unifying them would change extraction for already-scored rows and
+retroactively invalidate the ledgers, so the rate was measured first, offline and at zero
+spend, over all 1,079 raw replies persisted across 35 run dirs
+(`tools/extractor_divergence.py`):
+
+| outcome | n | share |
+|---|---:|---:|
+| neither extractor parses | 1,079 | 100.0% |
+| the two disagree | **0** | **0.0%** |
+
+Unification would recover exactly zero rows. **Both extractors stay frozen**, and
+`extract_divergent` is now recorded per row so the forward-looking rate stays visible.
+Scope limit: `_persist_candidate` keeps the raw reply only when extraction *failed*, so
+this measures the `no_module_extracted` population and cannot see replies both extractors
+parsed but parsed differently.
+
+**Side finding, worth its own follow-up.** Decomposing those same 1,079 extraction
+failures: **41.3% (446) are empty replies**, 36.2% (391) never attempt a module, **21.3%
+(230) open a module and are cut off before the `====` terminator**, and 3 use a malformed
+`==== MODULE X ====` header. So roughly a fifth of `no_module_extracted` is a `max_tokens`
+truncation artifact and two fifths is the endpoint returning nothing — neither is model
+incapacity, and both currently score as model failure. This is not corrected here (no bar
+moves, no row is rescored); it is ledgered so the next capability read does not attribute
+it to the model.
+
+**Rationale.** Strictly strengthens the evidence chain and weakens no bar: it adds
+provenance to future rows, changes no criterion, no budget value, and no historical result.
+The extractor question is resolved by measurement rather than by a change, which is the
+cheaper and less destructive of the two options.
+
+**Owner:** **Eric (2026-08-08)** — approved the design at
+`docs/designs/2026-08-08-decode-provenance-design.md`, then, asked whether to also unify the
+extractors and whether to write this amendment row, answered verbatim: *"do all"*. Recorded
+per the Amendment 2 convention of quoting the owner instruction as given. The extractor
+unification half of that instruction was answered by the measurement above rather than by a
+code change; the zero-divergence result is the reason, and reversing that call needs only
+this row and the tool that produced it.
