@@ -6,30 +6,58 @@ corruption rows dropped, `api_error` excluded from the denominator as an unmeasu
 draw. RL-era training metrics are read from TLA-Prove logs surviving at git
 `e79a250` and `511a492`.
 
+## Performance by arm
+
+![](figures/fig0_performance.png){width=100%}
+
+| arm | SANY | TLC | vacuous / checked | trainable params | per-sample | pass@32 |
+|---|---|---|---|---|---|---|
+| untuned base 120b | 10.5% | 5.1% | 1/53 | untuned | 6.9% | 12/30 |
+| v2 SFT | 9.0% | 3.9% | 3/40 | 536,813,568 | 5.1% | 11/30 |
+| W4-diamond-gold | 22.5% | 6.6% | 1/52 | 536,813,568 | 11.1% | 15/30 |
+| W4DG post prompt-fix | **30.9%** | **9.6%** | 1/78 | 536,813,568 | **13.6%** | 16/30 |
+| W4DG-genprompt | 24.5% | 6.5% | 1/52 | 536,813,568 | 8.1% | 12/28 |
+| mech composition | — | — | — | 536,813,568 | pending | pending |
+
+All four 120b arms attached **identical** LoRA geometry: 536,813,568 trainable
+parameters, 0.4574%, 144 expert tensors, `target_modules` q/k/v/o plus
+`target_parameters` on `mlp.experts.gate_up_proj` and `down_proj`. Verified from
+each run's own attach-time log line. Trainable capacity is therefore constant
+across every arm in this table.
+
+`verdict_of` is population-aware, so the TLC column excludes 6 of 30 specs: 41, 86,
+105 and 183 are LIBRARIES (SANY alone is the criterion) and 131, 142 are
+PROOF_MODULES (TLAPS). The TLC denominator is the remaining 24 specs.
+
+Vacuity is only computed on a TLC-passing draw, so the denominator is small (40–78
+draws per arm) and the counts are shown rather than percentages alone.
+
+The RL-era runs are not on this chart. They were evaluated on a different holdout
+(Diamond-30) under a four-shot repair loop, and their `sany_valid` field is a
+residual category rather than a pass rate — `holdout_repair.json` records
+`sany_valid=0` alongside 9 TLC-gold results. Those numbers are in the Diamond-30
+section below.
+
 ## Every run
 
-![](figures/fig1_timeline.png){width=100%}
-
-Dates and method are in the figure above; the table carries base, corpus and result.
-
-| # | run | base | corpus | outcome |
-|---|---|---|---|---|
-| 1 | rl_loop, 266 cycles | 20b | augmented, append-only | SANY 80%→65%, TLC 10%→25% |
-| 2 | DPO v13 | 20b | 17 preference pairs | 9/20 SANY, 5/20 TLC (v11: 6/20, 2/20) |
-| 3 | piecewise DPO | merged v14 | curriculum pairs | loss 0.6661 vs ln2 0.6931; acc 0.60 |
-| 4 | full-spec GRPO | post-DPO | 398 prompts | 172 steps; holdout 4/30, single-shot 1/30 |
-| 5 | repair GRPO R1 | post-DPO | ralph repair pairs | 965 steps; holdout 9/30, single-shot 3/30 |
-| 6 | repair GRPO R2 | post-DPO | R2 harvest | 600 steps; holdout 6/30, single-shot 1/30 |
-| 7 | repair GRPO R3 | — | — | aborted pre-training: 152 pairs vs floor 300 |
-| 8 | repair GRPO retry | 20b | 35 rows | 89 steps zero reward; then 1/7 rows; reverted |
-| 9 | v2_sft1 | 20b | 39 plain-text pairs | 0/10; 82% unextractable |
-| 10 | v2_sft2 | 20b | 260 harmony pairs | 2/30 pass@4 — first passes recorded |
-| 11 | v2_sft2 | 120b | 260 | A 5.1%, 11/30; B 26.5%, 18/23 |
-| 12 | W2.6 repair-v1 | 20b | 508 repair triples | B 9/23 pass@1, 9/23 pass@4 (base 8/23, 17/23) |
-| 13 | W4-diamond-gold | 120b | 3,534 rows, bare | A 11.1%, 15/30 |
-| 14 | W4DG, post prompt-fix | 120b | same | A 13.6%, 16/30 |
-| 15 | W4DG-genprompt | 120b | 4,219 rows, aligned | A 8.1%, 12/28; B 20.9%, 17/23 |
-| 16 | mech composition | 120b | 6,906 (4,119 gen + 2,787 repair) | training; eval pending |
+| # | date | run | base | corpus | outcome |
+|---|---|---|---|---|---|
+| 1 | 03-22→04-06 | rl_loop, 266 cycles | 20b | augmented, append-only | SANY 80%→65%, TLC 10%→25% |
+| 2 | 04-03 | DPO v13 | 20b | 17 preference pairs | 9/20 SANY, 5/20 TLC (v11: 6/20, 2/20) |
+| 3 | ~04-10 | piecewise DPO | merged v14 | curriculum pairs | loss 0.6661 vs ln2 0.6931; acc 0.60 |
+| 4 | 04-11 | full-spec GRPO | post-DPO | 398 prompts | 172 steps; holdout 4/30, 1-shot 1/30 |
+| 5 | 04-12 | repair GRPO R1 | post-DPO | ralph repair pairs | 965 steps; holdout 9/30, 1-shot 3/30 |
+| 6 | 04-13 | repair GRPO R2 | post-DPO | R2 harvest | 600 steps; holdout 6/30, 1-shot 1/30 |
+| 7 | 04-14 | repair GRPO R3 | — | — | aborted: 152 pairs vs floor 300 |
+| 8 | 07-01 | repair GRPO retry | 20b | 35 rows | 89 steps zero reward; 1/7 rows; reverted |
+| 9 | 07-12 | v2_sft1 | 20b | 39 plain-text pairs | 0/10; 82% unextractable |
+| 10 | 07-13 | v2_sft2 | 20b | 260 harmony pairs | 2/30 pass@4 — first passes recorded |
+| 11 | 07-14 | v2_sft2 | 120b | 260 | A 5.1%, 11/30; B 26.5%, 18/23 |
+| 12 | 07-25 | W2.6 repair-v1 | 20b | 508 repair triples | B 9/23 pass@1, 9/23 pass@4 |
+| 13 | 07-29 | W4-diamond-gold | 120b | 3,534 rows, bare | A 11.1%, 15/30 |
+| 14 | 07-30 | W4DG, post prompt-fix | 120b | same | A 13.6%, 16/30 |
+| 15 | 08-04 | W4DG-genprompt | 120b | 4,219 rows, aligned | A 8.1%, 12/28; B 20.9%, 17/23 |
+| 16 | 08-12 | mech composition | 120b | 6,906 (4,119 gen + 2,787 repair) | training; eval pending |
 
 Runs 1–8 are `LUC-AI4FM/TLA-Prove` on 2× RTX 8000 49GB. Runs 9–16 are `prove-TLA`
 on Argonne Sophia, 8× A100. A further arm, Qwen3.6-27B dense, is retracted: a

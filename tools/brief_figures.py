@@ -14,8 +14,11 @@ Usage: python3 tools/brief_figures.py [--out docs/figures]
 import argparse
 import collections
 import json
+import sys
 from datetime import datetime
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 import matplotlib
 matplotlib.use("Agg")
@@ -47,10 +50,11 @@ def recessive_grid(ax, axis="y"):
 
 
 # --------------------------------------------------------------- ledger stats
-def arm_stats(run):
+def arm_stats(run, full=False):
     """Per-sample pass rate + verdict composition from a Gate-2 ledger.
     Dedups (spec,sample) keep-first, drops corruption rows, excludes api_error
-    from the denominator (an api_error is an unmeasured draw, not a failure)."""
+    from the denominator (an api_error is an unmeasured draw, not a failure).
+    full=True additionally returns SANY / TLC / vacuity counts."""
     p = REPO / "results/runs" / run / "rows.jsonl"
     seen, rows = set(), []
     for line in p.read_text(errors="replace").splitlines():
@@ -84,11 +88,85 @@ def arm_stats(run):
     specs = collections.defaultdict(list)
     for d in clean:
         specs[d.get("spec")].append(d.get("verdict") == "pass")
-    return dict(n=len(clean), npass=buckets["pass"],
-                rate=buckets["pass"] / len(clean) if clean else 0.0,
-                passk=sum(1 for v in specs.values() if any(v)),
-                nspecs=len(specs), buckets=buckets,
-                api_error=len(rows) - len(clean))
+    out = dict(n=len(clean), npass=buckets["pass"],
+               rate=buckets["pass"] / len(clean) if clean else 0.0,
+               passk=sum(1 for v in specs.values() if any(v)),
+               nspecs=len(specs), buckets=buckets,
+               api_error=len(rows) - len(clean))
+    if full:
+        from harness.repair import LIBRARIES, PROOF_MODULES
+        tlc_pop = [d for d in clean
+                   if str(d.get("spec")) not in LIBRARIES
+                   and str(d.get("spec")) not in PROOF_MODULES]
+        checked = [d for d in clean if d.get("tlc_vacuity")]
+        out.update(
+            sany_ok=sum(1 for d in clean if d.get("sany") == "pass"),
+            tlc_pop=len(tlc_pop),
+            tlc_ok=sum(1 for d in tlc_pop
+                       if d.get("tlc") in ("pass", "pass_expected_violation")),
+            vac_checked=len(checked),
+            vacuous=sum(1 for d in checked if d.get("tlc_vacuity") != "clean"))
+    return out
+
+
+# ------------------------------------------------------------------ figure 0
+def fig_performance(out, arms):
+    """Four metrics per arm on the frozen 30-spec holdout. Separate panels
+    because pass rates and parameter counts cannot share an axis.
+
+    SANY  = sany == "pass" over all measured draws.
+    TLC   = tlc in (pass, pass_expected_violation) over the TLC-criterion
+            population only. verdict_of is population-aware: specs 41/86/105/183
+            are LIBRARIES (SANY alone is the criterion) and 131/142 are
+            PROOF_MODULES (TLAPS), so 6 of 30 specs never run a TLC criterion
+            and are excluded from this panel's denominator.
+    vacuity = share of TLC-passing draws whose tlc_vacuity is not "clean".
+            Rule 5 counts a vacuous pass as a failure; n is small, so counts
+            are printed.
+    params  = trainable parameters reported at LoRA attach time.
+    """
+    from harness.repair import LIBRARIES, PROOF_MODULES
+    labels, sany, tlc, vac, vacn, params = [], [], [], [], [], []
+    for lab, run, ntrain in arms:
+        s = arm_stats(run, full=True)
+        labels.append(lab)
+        n = s["n"]
+        sany.append(100 * s["sany_ok"] / n)
+        tlc.append(100 * s["tlc_ok"] / s["tlc_pop"])
+        vac.append(100 * s["vacuous"] / s["vac_checked"] if s["vac_checked"] else 0)
+        vacn.append((s["vacuous"], s["vac_checked"]))
+        params.append(ntrain / 1e6)
+
+    fig, axes = plt.subplots(2, 2, figsize=(10.4, 6.6))
+    panels = [
+        (axes[0][0], sany, "SANY pass rate (%)", "parses and type-checks", S1,
+         [f"{v:.1f}%" for v in sany]),
+        (axes[0][1], tlc, "TLC pass rate (%)", "24 TLC-criterion specs", S2,
+         [f"{v:.1f}%" for v in tlc]),
+        (axes[1][0], vac, "vacuous share of TLC passes (%)", "Rule 5: vacuous = fail", S4,
+         [f"{a}/{b}" for a, b in vacn]),
+        (axes[1][1], params, "trainable params (M)", "at LoRA attach", S3,
+         [f"{v:.0f}M" if v else "untuned" for v in params]),
+    ]
+    for ax, vals, title, sub, col, marks in panels:
+        cols = [MUTED if i == 0 else col for i in range(len(vals))]
+        bars = ax.bar(labels, vals, color=cols, width=0.62, zorder=3)
+        for b, v, m in zip(bars, vals, marks):
+            ax.annotate(m, (b.get_x() + b.get_width() / 2, v), ha="center",
+                        va="bottom", fontsize=7.8, color=INK)
+        ax.set_ylim(0, max(vals) * 1.30 if max(vals) else 1)
+        ax.set_title(title, loc="left", fontsize=9.6, color=INK, pad=14)
+        ax.annotate(sub, (0, 1.015), xycoords="axes fraction", fontsize=7.4,
+                    color=MUTED, va="bottom")
+        ax.tick_params(axis="x", labelrotation=22, labelsize=7.6)
+        for t in ax.get_xticklabels():
+            t.set_ha("right")
+        recessive_grid(ax)
+    fig.suptitle("Performance by arm, frozen 30-spec holdout (framing A, k=32)",
+                 x=0.008, ha="left", fontsize=11.5, color=INK)
+    fig.tight_layout(rect=(0, 0, 1, 0.955))
+    fig.savefig(out / "fig0_performance.png", bbox_inches="tight")
+    plt.close(fig)
 
 
 # ------------------------------------------------------------------ figure 1
@@ -286,6 +364,13 @@ def main():
     arms_b = [("untuned base", "e2c-baseline-120b-b"), ("v2 SFT", "gate2-v2-120b-B"),
               ("W4DG-genprompt", "gate2-w4dgp-120b-B")]
 
+    # trainable params at attach time, from each run's training log on Sophia
+    perf_arms = [("untuned base", "e2c-baseline-120b-a", 0),
+                 ("v2 SFT", "gate2-v2-120b-A", 536_813_568),
+                 ("W4DG", "gate2-w4dg-120b-A", 536_813_568),
+                 ("W4DG post-fix", "gate2-w4dg-120b-A3", 536_813_568),
+                 ("W4DG-genprompt", "gate2-w4dgp-120b-A", 536_813_568)]
+    fig_performance(out, perf_arms)
     fig_timeline(out)
     fig_rlloop(out)
     fig_arm_rates(out, arms_a, "fig3_framingA.png",
