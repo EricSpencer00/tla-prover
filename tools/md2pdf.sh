@@ -27,6 +27,14 @@ cat > "$HEADER" <<'TEX'
 \setlength{\emergencystretch}{3em}
 \usepackage{sectsty}
 \allsectionsfont{\normalfont\sffamily\bfseries}
+% Long inline code spans (fail:sany=fail_missing_module) are unbreakable in the
+% default tt font and run into the right margin. Allow hyphenation in tt, and
+% let \texttt break at underscores/colons as a fallback.
+\usepackage[htt]{hyphenat}
+\usepackage{xurl}
+% pandoc emits non-wrapping l-columns for short cells; a 7-column table then
+% overruns the text block. Tighter inter-column padding buys back ~28pt.
+\setlength{\tabcolsep}{4pt}
 TEX
 
 sed '1{/^# /d;}' "$IN" | pandoc \

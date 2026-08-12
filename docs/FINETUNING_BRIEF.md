@@ -10,14 +10,17 @@ draw. RL-era training metrics are read from TLA-Prove logs surviving at git
 
 ![](figures/fig0_performance.png){width=100%}
 
-| arm | SANY | TLC | vacuous / checked | trainable params | per-sample | pass@32 |
+| arm | SANY | TLC | vacuous | params | per-sample | pass@32 |
 |---|---|---|---|---|---|---|
 | untuned base 120b | 10.5% | 5.1% | 1/53 | untuned | 6.9% | 12/30 |
-| v2 SFT | 9.0% | 3.9% | 3/40 | 536,813,568 | 5.1% | 11/30 |
-| W4-diamond-gold | 22.5% | 6.6% | 1/52 | 536,813,568 | 11.1% | 15/30 |
-| W4DG post prompt-fix | **30.9%** | **9.6%** | 1/78 | 536,813,568 | **13.6%** | 16/30 |
-| W4DG-genprompt | 24.5% | 6.5% | 1/52 | 536,813,568 | 8.1% | 12/28 |
-| mech composition | — | — | — | 536,813,568 | pending | pending |
+| v2 SFT | 9.0% | 3.9% | 3/40 | 536.8M | 5.1% | 11/30 |
+| W4-diamond-gold | 22.5% | 6.6% | 1/52 | 536.8M | 11.1% | 15/30 |
+| W4DG post prompt-fix | **30.9%** | **9.6%** | 1/78 | 536.8M | **13.6%** | 16/30 |
+| W4DG-genprompt | 24.5% | 6.5% | 1/52 | 536.8M | 8.1% | 12/28 |
+| mech composition | — | — | — | 536.8M | pending | pending |
+
+`vacuous` is vacuous draws over TLC-passing draws checked; `params` is trainable
+parameters at LoRA attach.
 
 All four 120b arms attached **identical** LoRA geometry: 536,813,568 trainable
 parameters, 0.4574%, 144 expert tensors, `target_modules` q/k/v/o plus
@@ -138,7 +141,7 @@ identically, so the advantage and the update are both zero.
 
 ![](figures/fig6_grpo.png){width=100%}
 
-| run | steps | mean reward | zero-variance steps | KL range | entropy |
+| run | steps | mean reward | zero-var steps | KL | entropy |
 |---|---|---|---|---|---|
 | full-spec | 172 | 0.0511 | 135/172 (78%) | 0.002–0.014 | 0.44 → 0.32 |
 | repair R1 | 965 | 0.1487 | 703/965 (73%) | 0.002–0.014 | 0.003–0.3 |
@@ -167,7 +170,8 @@ Three properties of this holdout, each verified directly:
   passes it, and the loader implements no holdout filter. The SFT path does filter
   by module name (`train.py:110`).
 - The eval is a four-shot repair loop with verifier feedback at temperatures 0.50,
-  0.70, 0.90. Single-shot counts above are `result == fixed AND attempts_used == 1`.
+  0.70, 0.90. Single-shot counts above are rows with `result == fixed` and
+  `attempts_used == 1`.
 - `repair_pipeline.log` records `LoRA merge FAILED` at 00:31:19; the next line
   starts the eval against Ollama tag `chattla:20b-repair`. No log shows that tag
   rebuilt from the R1 adapter.

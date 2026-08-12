@@ -281,9 +281,9 @@ def fig_arm_rates(out, runs, fname, title, ylab):
     fig, ax = plt.subplots(figsize=(8.6, 3.7))
     cols = [MUTED] + [S1] * (len(rates) - 1)
     bars = ax.bar(labels, rates, color=cols, width=0.6, zorder=3)
+    # Reference line only: the gray bar at position 0 is the base and is
+    # labelled on the x axis, so a text callout on the line is redundant.
     ax.axhline(base, color=MUTED, linewidth=1.4, linestyle=(0, (4, 3)), zorder=2)
-    ax.annotate("untuned base", (1.52, base), fontsize=7.8,
-                color=INK2, va="bottom", ha="center")
     for b, r, n in zip(bars, rates, notes):
         ax.annotate(f"{r:.1f}%\n{n}", (b.get_x() + b.get_width() / 2, r),
                     ha="center", va="bottom", fontsize=8.2, color=INK)
