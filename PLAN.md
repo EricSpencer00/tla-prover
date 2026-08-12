@@ -784,3 +784,57 @@ per the Amendment 2 convention of quoting the owner instruction as given. The ex
 unification half of that instruction was answered by the measurement above rather than by a
 code change; the zero-divergence result is the reason, and reversing that call needs only
 this row and the tool that produced it.
+
+### Amendment 24 (2026-08-12) — the composition arm: mechanics supervision from oracle repair pairs
+
+Owner instruction, quoted per the Amendment-2 convention: *"go do a data aggregation and
+fine tune on Argonne, make no silly mistakes."* This amendment pre-registers that run
+BEFORE submission.
+
+**The knob.** One change against the best measured arm (bare-rendered W4-diamond-gold,
+13.5% per-sample, Amendment 22): ADD mechanics supervision to the corpus. Nothing else
+moves — base gpt-oss-120b bf16, architecture-aware LoRA, 2 epochs, effective batch 8, the
+170857 recipe and environment, bare rendering for every generation row.
+
+**Why this knob.** The failure mass: 68–74% of framing-A failures are `sany=fail` against
+~2% genuine semantic failures, and every existing corpus target is a verified spec — the
+training data contains zero instances of the dominant failure mode (training-methods
+review, 2026-08-05). The GRPO era failed against the same wall from the other side (no
+reward variance because whole groups fail to parse), so parse-level competence is also the
+precondition for any future RL arm.
+
+**The data: oracle repair pairs** (`tools/oracle_repair_pairs.py`). Corrupt a W4 survivor,
+verify the corruption REALLY fails, and take the ORIGINAL survivor text as the repair
+target. Two verified classes: `sany` (one seeded syntax corruption from a fixed operator
+list; kept only if SANY rejects it; SANY output tail = evidence) and `tlc` (one seeded
+operator swap from the frozen MUTATIONS battery; kept only if SANY still passes AND TLC
+fails; TLC output tail = evidence). Rendered with the frozen `build_repair_prompt` shape —
+the exact shape framing B evaluates with. Properties that make this the low-risk
+composition move: no teacher model and no rejection sampling (the verifier is the only
+authority); targets stay in the Opus-teacher distribution (no same-family provenance,
+Amendment 17's implicated mechanism); fixes are minimal by construction (the inverse of
+one corruption); determinism (seed = sha256 of the survivor text) makes the file
+reproducible from the shard ledgers alone.
+
+**Exclusion:** the 508 W2.6 repair-v1 rows are NOT included — their fix text is
+20b-authored, which is same-family provenance, the one mechanism a fine-tune failure has
+actually been attributed to.
+
+**Pre-registered protocol:** train file = `sft_w4_diamond_gold_5010.jsonl` (4,119 bare
+rows) + the oracle repair rows; Gate-2 framings A and B, k=32, frozen holdout, ledger-
+scored, per-sample rate primary with the two-level paired bootstrap on byte-identical
+prompts; compared against BOTH the untuned base (6.9%) and bare-W4DG-A3 (13.5%).
+Framing B per-sample compared against W4DGP's 20.5%, v2's 28.7%, and baseline's 55.0%.
+No bar from earlier amendments moves. Success is a measurement, not a promise: the arm is
+reported whatever it shows.
+
+**Disclosed second variation, not a knob:** bare-W4DG-A3 trained on the pre-floor
+3,534-row corpus cut; this arm's generation rows are the floor-met 4,119-row re-render of
+the same tiers. Corpus growth along the plan-of-record distribution was always scheduled
+and is disclosed rather than pinned back, because pinning to the stale cut would discard
+the liveness floor work for symmetry's sake.
+
+**Expected mix disclosure:** sany pairs will dominate tlc pairs (observed yields ~100% vs
+~13% per survivor attempt — the tlc yield is bounded by the corpus's real mutation-catch
+rate, 12.7%). The mix mirrors the eval failure mass, which is the point, and the achieved
+counts are recorded below at render time.
