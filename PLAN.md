@@ -838,3 +838,14 @@ the liveness floor work for symmetry's sake.
 ~13% per survivor attempt — the tlc yield is bounded by the corpus's real mutation-catch
 rate, 12.7%). The mix mirrors the eval failure mass, which is the point, and the achieved
 counts are recorded below at render time.
+
+**Postscript at submission (same night).** Achieved counts: 4,000 survivors attempted,
+**2,787 pairs kept (1,981 sany + 806 tlc, 69.7% yield)**; the seed-retry loop lifted the
+tlc arm to ~40% of its attempts. Combined train file `sft_w4dg_mech.jsonl`: **6,906 rows**
+(4,119 gen + 2,787 repair), sha256 `f094f4d4…21df6a3`, hash-verified on Sophia after
+staging. Decontam sweep against all 30 resolved holdout module names: 29 word-boundary
+hits, all the token "Voting" as scenario vocabulary (quorum-vote auction scenarios), max
+Jaccard vs the holdout Voting spec 0.158 — no near-dup, 16/29 are pre-existing gen rows.
+Preflight: ALL CHECKS PASSED (0.4574% trainable, 144 expert tensors, exit propagation).
+Submitted as Sophia job **172825** (single-node, ngpus=8/960gb verified in Resource_List,
+12h wall). At 6,906 rows × 2 epochs ≈ 1,727 steps ≈ 5.5h at the 170857 rate.
