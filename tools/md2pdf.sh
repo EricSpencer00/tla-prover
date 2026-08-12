@@ -32,6 +32,7 @@ TEX
 sed '1{/^# /d;}' "$IN" | pandoc \
   --from=markdown+pipe_tables \
   --pdf-engine=tectonic \
+  --resource-path=".:$(dirname "$IN")" \
   --metadata title="$TITLE" \
   --metadata date="$(date +%Y-%m-%d)" \
   --include-in-header="$HEADER" \
