@@ -849,3 +849,47 @@ Jaccard vs the holdout Voting spec 0.158 — no near-dup, 16/29 are pre-existing
 Preflight: ALL CHECKS PASSED (0.4574% trainable, 144 expert tensors, exit propagation).
 Submitted as Sophia job **172825** (single-node, ngpus=8/960gb verified in Resource_List,
 12h wall). At 6,906 rows × 2 epochs ≈ 1,727 steps ≈ 5.5h at the 170857 rate.
+
+### Amendment 25 (2026-08-13) — the composition arm measured: repair restored to baseline, generation held
+
+Amendment 24's mech arm (train 172825, merge 173027, serve chain 173214→173293→
+173307→173349, run-ids `gate2-w4dgm-120b-A`/`-B`) measured on the frozen holdout,
+ledger-scored, gate-check OK both arms, 0 api_error in the final ledgers.
+
+**Framing A: 11.15% per-sample (107/960), 15/30 pass@32, 7/30 pass@1.** Paired
+two-level bootstrap vs bare-W4DG-A3: −0.024, p=0.36 — null. Vs base on the 17
+matched prompts: +0.028, p=0.57. Adding 2,787 repair rows neither helped nor hurt
+generation. SANY rate 29.3% vs A3's 30.9% — the mechanics supervision did NOT move
+the generation-side parse rate, which was the design's primary mechanism claim for
+framing A. That specific hypothesis is falsified.
+
+**Framing B: 57.58% per-sample (437/759), 17/23 pass@32, 16/23 pass@1.** Against
+untuned baseline 59.7%/21/23/15 pass@1; v2 26.5%; W4DGP 20.9%. **The repair
+regression that every previous fine-tune caused is gone** — per-sample within 2.1
+points of the untuned baseline (vs −33 and −39 points for prior arms), and pass@1
+EXCEEDS baseline (16/23 vs 15/23). The oracle-pair supervision worked exactly where
+it trained: the model repairs without the wholesale-rewrite failure mode that
+Amendment 16 diagnosed.
+
+**Verdict.** The composition knob is a partial win with a clean mechanism split:
+repair-shaped supervision transferred to the repair task and did not transfer to
+generation. For the north-star loop (generate once, repair until verified), the
+deployable checkpoint is now arguably mech, not bare-W4DG: it concedes 2.4
+per-sample points on generation (null) and gains 36.7 on repair (decisive).
+Per-iteration loop yield should be computed before choosing.
+
+**RL gate, recomputed on this ledger** (`tools/group_variance.py`): staircase
+zero-variance at G=8 = 23.2% (viable; abort floor 0.55). The staircase-GRPO design
+(2026-08-12) can start from mech with repair capability intact — its framing-B arm
+inherits a policy that already repairs at baseline level.
+
+**Ops ledgered:** three serve crashes were Triton CUDA OOM under concurrent long
+prefills at util 0.95 (NOT queue preemption; the exclusive-node serve died
+identically — and vLLM reports Exit_status=0 after an engine OOM, so serve health
+must be read from the log, never the exit code). Fix: util 0.90, max-num-seqs 8,
+GEN_EVAL_CONCURRENCY=8. 891 api_error rows stripped-with-backup across three
+resume cycles; final ledgers contain none. The eval chain's completeness check
+counted raw lines (would have accepted api_error rows as complete) — fixed in the
+session chain; gen-eval proper still carries the api_error-resume defect, now
+bitten three times (2026-07-15, 2026-08-05, 2026-08-12), and should be fixed in
+the harness before the next serve-dependent run.
