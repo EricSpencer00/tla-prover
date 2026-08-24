@@ -85,6 +85,17 @@ timeouts, same `verdict_of`. An L row is comparable to an A row by construction.
    and recover. 4/4 recovered.
 4. **Signature-checker false-positive control** — 169 TLC-passing candidates,
    0 flagged (see above).
+5. **Feedback-quality audit on real failures**, run before any endpoint call:
+   all 876 failing candidates in `gate2-w4dgm-120b-A` were put through
+   `diagnose()` + `localize()`. Evidence was never empty. Rungs: sany 580 (66%),
+   signature 171 (20%), tlc_error 96 (11%), tlc_violation 29 (3%) -- the same
+   mechanics-dominated shape the ledger shows. Localization produced a fragment
+   for 95% of parse errors; the 228 empty fragments were 171 `signature` rows
+   (which have no error location by construction -- the identifier is missing)
+   plus 26 tlc_error and 30 sany. **Prompt change made as a result, before any
+   arm was run:** the `signature` rung now falls back to the module's
+   declaration block instead of "(the error did not localize to a definition)",
+   so 20% of feedback messages stop being content-free.
 
 ## Analysis rule, fixed before the run
 

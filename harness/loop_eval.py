@@ -76,6 +76,7 @@ _DEF_RE = re.compile(r"^\s*(\w+)\s*(?:\(([^)]*)\))?\s*(?:==|≜)", re.M)
 # one that is only identifiers/commas and does not start a new TLA+ construct.
 _DECL_HEAD_RE = re.compile(r"^\s*(?:CONSTANTS?|VARIABLES?)\b(.*)$")
 _IDENT_LINE_RE = re.compile(r"^[\s,]*\w+(?:\s*,\s*\w+)*\s*,?\s*$")
+MODULE_HEAD_RE = re.compile(r"^\s*-{4,}\s*MODULE\s+\w+")
 
 
 def _strip_comments(text):
@@ -200,6 +201,33 @@ def _clip(text, n):
     return text[:half] + "\n...[evidence truncated]...\n" + text[-half:]
 
 
+def declaration_block(module_text, max_lines=60):
+    """The module header through its last CONSTANTS/VARIABLES declaration.
+
+    Used as the localized fragment for the `signature` rung, where ordinary
+    localization has nothing to point at: the identifier is MISSING, so there is
+    no error location in the source. Auditing all 876 real failing candidates in
+    gate2-w4dgm-120b-A, 171 diagnosed as `signature` and every one of them
+    produced an empty fragment -- 20% of the loop's feedback messages would have
+    said "did not localize" when what the model needs to see is where its
+    declarations end."""
+    lines = _strip_comments(module_text).splitlines()
+    last = 0
+    for i, line in enumerate(lines[:max_lines]):
+        if _DECL_HEAD_RE.match(line) or line.strip().startswith("EXTENDS") \
+                or MODULE_HEAD_RE.match(line):
+            last = i
+            j = i + 1
+            while j < len(lines) and j < max_lines and _IDENT_LINE_RE.match(
+                    lines[j].strip() or "x ="):
+                last = j
+                j += 1
+    if not last:
+        last = min(len(lines), 20) - 1
+    body = "\n".join(lines[:last + 1])
+    return f"(module header, lines 1-{last + 1})\n{body}"
+
+
 LOOP_REPAIR_TEMPLATE = """You are fixing a TLA+ specification you wrote for the system \
 described below. It was checked and it FAILED. Fix it.
 
@@ -228,10 +256,13 @@ Output the ENTIRE corrected module, nothing else, starting with \
 
 def build_loop_repair_prompt(description_block, signature_block, mod, module_text,
                              rung, evidence, fragment):
+    if not fragment:
+        fragment = (declaration_block(module_text) if rung == "signature"
+                    else "(the error did not localize to a definition)")
     return LOOP_REPAIR_TEMPLATE.format(
         description=description_block, signature=signature_block, mod=mod,
         module_text=module_text, rung=rung, evidence=evidence,
-        fragment=fragment or "(the error did not localize to a definition)")
+        fragment=fragment)
 
 
 # ------------------------------------------------------------------ the loop

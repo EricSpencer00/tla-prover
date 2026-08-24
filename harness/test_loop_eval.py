@@ -228,3 +228,32 @@ def test_concurrent_rounds_produce_the_same_ledger(monkeypatch, tmp_path):
     assert [tuple(r[k] for k in keys) for r in serial] == \
            [tuple(r[k] for k in keys) for r in conc]
     assert m1.prompts == m2.prompts
+
+
+# ------------------------------------------------- signature-rung fragment
+
+def test_declaration_block_covers_extends_and_declarations():
+    block = loop_eval.declaration_block(MODULE)
+    assert "EXTENDS Naturals" in block and "MaxN" in block and "VARIABLE x" in block
+    assert "Next ==" not in block          # stops at the declarations
+
+
+def test_signature_rung_falls_back_to_the_declaration_block():
+    """`signature` failures have no error location to point at -- the identifier
+    is missing -- so an empty fragment would waste 20% of the loop's feedback."""
+    p = loop_eval.build_loop_repair_prompt("d", "s", "Counter", MODULE,
+                                           "signature", "MISSING: Safety", "")
+    assert "module header" in p and "VARIABLE x" in p
+
+
+def test_other_rungs_keep_the_explicit_no_localization_note():
+    p = loop_eval.build_loop_repair_prompt("d", "s", "Counter", MODULE,
+                                           "sany", "boom", "")
+    assert "did not localize" in p
+
+
+def test_a_real_fragment_is_never_replaced():
+    p = loop_eval.build_loop_repair_prompt("d", "s", "Counter", MODULE,
+                                           "signature", "MISSING: Safety",
+                                           "(lines 3-5)\nreal fragment")
+    assert "real fragment" in p and "module header" not in p
