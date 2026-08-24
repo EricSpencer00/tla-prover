@@ -50,12 +50,21 @@ Both open-loop cells are re-scored from `rows.jsonl`, not from `summary.json`
 is given **8 chains x 4 rounds = 32** — deliberately fewer, so the loop never wins
 on budget. Enforced in code and pinned by `test_budget_is_exactly_chains_times_rounds_when_never_passing`.
 
-**Chain.** Round 0 generates from the framing-A generation prompt, **byte-identical**
+**Concurrency.** The chains advance in LOCK STEP: each round issues one model call
+per chain, all concurrently (`GEN_EVAL_CONCURRENCY`), then scores the replies one at
+a time in chain order. TLC stays strictly serialized -- only network calls overlap,
+exactly as in `gen_eval._prefetch_replies`. This is not a nicety: framing A's calls
+have a median `model_s` of 27.8s, so a serial 32-call chain would cost ~8h of pure
+generation for 30 specs and would not fit one 6h serve window. Lock-step puts it
+near 1h.
+
+**Chain.** Round 0 of every chain generates from the framing-A generation prompt, **byte-identical**
 (pinned by `test_round0_prompt_is_byte_identical_to_framing_a`, and checkable after
 the fact because the ledger records `prompt_sha256`). Rounds 1-3 repair the previous
 round's candidate from its own diagnosis. Chain 0 round 0 is greedy@0; every other
 call is temp 0.8. A chain whose reply yields no module is abandoned and the next
-chain restarts from generation.
+round regenerates from the framing-A prompt rather than stalling, so the budget is
+always spent on either depth or diversity.
 
 **Diagnosis rungs**, priority order — the rung decides what the next prompt says:
 `signature` > `sany` > `tlc_error` > `tlc_violation`.

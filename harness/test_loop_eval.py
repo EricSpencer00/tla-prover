@@ -171,33 +171,60 @@ def test_round0_prompt_is_byte_identical_to_framing_a(monkeypatch, tmp_path):
     assert len(r0) == 2 and all(r["prompt_sha256"] == expect for r in r0)
 
 
+def test_chains_advance_in_lock_step(monkeypatch, tmp_path):
+    """Round-major order: every live chain takes its round-r call before any
+    chain takes round r+1. That is what lets the round's calls be issued
+    concurrently while TLC stays serialized."""
+    m = ScriptedModel([MODULE] * 6)
+    rows = _run(monkeypatch, tmp_path, m, ["fail:tlc=error"] * 6)
+    assert [(r["round"], r["chain"]) for r in rows] == [
+        (0, 0), (0, 1), (1, 0), (1, 1), (2, 0), (2, 1)]
+
+
+def test_round0_of_every_chain_is_a_fresh_generation(monkeypatch, tmp_path):
+    m = ScriptedModel([MODULE] * 6)
+    rows = _run(monkeypatch, tmp_path, m, ["fail:tlc=error"] * 6)
+    assert m.prompts[1] == m.prompts[0]        # chain 1 also starts from scratch
+    assert rows[1]["chain"] == 1 and rows[1]["round"] == 0
+    assert rows[1]["parent_candidate_sha256"] is None
+    assert rows[2]["parent_candidate_sha256"] == rows[0]["candidate_sha256"]
+
+
 def test_repair_rounds_carry_the_diagnosis_into_the_prompt(monkeypatch, tmp_path):
     m = ScriptedModel([MODULE] * 6)
     _run(monkeypatch, tmp_path, m, ["fail:tlc=error"] * 6)
-    assert "WHAT WENT WRONG" in m.prompts[1]
-    assert "===BEGIN SPEC===" in m.prompts[1]
-    assert m.prompts[0] != m.prompts[1]
+    assert "WHAT WENT WRONG" in m.prompts[2]   # first repair call
+    assert "===BEGIN SPEC===" in m.prompts[2]
+    assert m.prompts[0] != m.prompts[2]
 
 
-def test_chain_1_round_0_is_a_fresh_generation_not_a_repair(monkeypatch, tmp_path):
-    m = ScriptedModel([MODULE] * 6)
-    rows = _run(monkeypatch, tmp_path, m, ["fail:tlc=error"] * 6)
-    assert m.prompts[3] == m.prompts[0]        # chain 1 restarts from scratch
-    assert rows[3]["chain"] == 1 and rows[3]["round"] == 0
-    assert rows[3]["parent_candidate_sha256"] is None
-
-
-def test_greedy_only_on_the_first_chain(monkeypatch, tmp_path):
+def test_greedy_only_on_chain0_round0(monkeypatch, tmp_path):
     m = ScriptedModel([MODULE] * 6)
     rows = _run(monkeypatch, tmp_path, m, ["fail:tlc=error"] * 6)
     assert rows[0]["temperature"] == 0.0
     assert all(r["temperature"] == loop_eval.TEMPERATURE for r in rows[1:])
 
 
-def test_extraction_failure_abandons_the_chain(monkeypatch, tmp_path):
-    """A reply with no module ends that chain (nothing to repair) and the next
-    chain restarts from generation -- the budget must never stall."""
-    m = ScriptedModel(["no module here", MODULE, MODULE, MODULE])
+def test_extraction_failure_makes_the_chain_regenerate(monkeypatch, tmp_path):
+    """A reply with no module leaves that chain nothing to repair, so its next
+    round generates from scratch instead of stalling or spending a wasted call."""
+    m = ScriptedModel(["no module here", MODULE, MODULE, MODULE, MODULE, MODULE])
     rows = _run(monkeypatch, tmp_path, m, ["fail:tlc=error"] * 6)
     assert rows[0]["verdict"] == "no_module_extracted"
-    assert rows[1]["chain"] == 1 and rows[1]["round"] == 0
+    assert rows[2]["chain"] == 0 and rows[2]["round"] == 1
+    assert rows[2]["rung_in"] == "generate"
+    assert m.prompts[2] == m.prompts[0]
+
+
+def test_concurrent_rounds_produce_the_same_ledger(monkeypatch, tmp_path):
+    """GEN_EVAL_CONCURRENCY only overlaps network calls: row order, prompts and
+    verdicts must be identical to the serial path."""
+    m1 = ScriptedModel([MODULE] * 6)
+    serial = _run(monkeypatch, tmp_path, m1, ["fail:tlc=error"] * 6)
+    monkeypatch.setattr(loop_eval, "GEN_EVAL_CONCURRENCY", 8)
+    m2 = ScriptedModel([MODULE] * 6)
+    conc = _run(monkeypatch, tmp_path, m2, ["fail:tlc=error"] * 6)
+    keys = ("chain", "round", "verdict", "prompt_sha256", "calls_used")
+    assert [tuple(r[k] for k in keys) for r in serial] == \
+           [tuple(r[k] for k in keys) for r in conc]
+    assert m1.prompts == m2.prompts

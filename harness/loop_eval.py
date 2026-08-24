@@ -48,13 +48,16 @@ import os
 import re
 import shutil
 import time
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 from .decoding import derive_seed
-from .gen_eval import (MAX_TOKENS, TEMPERATURE, TLC_TIMEOUT_S, REPO, _persist_candidate,
-                       _provenance, _resolve_cfg, _score, build_generation_prompt,
-                       extract_module, holdout_specs_and_hash, load_existing_rows,
-                       required_signature)
+from .gen_eval import (GEN_EVAL_CONCURRENCY, MAX_TOKENS, TEMPERATURE, TLC_TIMEOUT_S,
+                       REPO, _format_description, _format_signature,
+                       _persist_candidate, _provenance, _resolve_cfg, _score,
+                       build_generation_prompt, extract_module,
+                       generate_traced_compat, holdout_specs_and_hash,
+                       load_existing_rows, required_signature)
 from .repair import localize, make_model, truncate_trace
 from .runner import build_module_index
 
@@ -238,8 +241,8 @@ def _one_call(model, prompt, temperature, run_id, num, sample_id):
     discipline (harness.decoding.derive_seed over run_id/spec/framing/sample)."""
     seed = derive_seed(run_id, num, "L", sample_id)
     t0 = time.time()
-    out = model.generate_traced(prompt, 1, temperature, MAX_TOKENS, seed=seed)
-    reply, meta = out[0]
+    reply, meta = generate_traced_compat(
+        model, prompt, 1, temperature, MAX_TOKENS, seed)[0]
     return reply, round(time.time() - t0, 1), meta
 
 
@@ -248,79 +251,98 @@ def loop_eval_spec(num, description_json, cfg_text, mod, model, run_id, corpus,
                    candidates_dir, chains=CHAINS, rounds=ROUNDS):
     """One spec, framing L. Yields row dicts; stops the spec on the first pass.
 
-    Chain c round 0 generates from the framing-A prompt (identical bytes, so
-    prompt_sha256 matches the open-loop arms). Rounds 1..rounds-1 repair the
-    previous round's candidate using its own diagnosis. A chain that loses its
-    candidate (extraction failure) is abandoned and the next chain restarts from
-    generation, so the budget always buys either depth or diversity, never
-    nothing."""
+    The `chains` chains advance in LOCK STEP: each round issues one model call per
+    live chain, all concurrently (framing A gets the same overlap via
+    GEN_EVAL_CONCURRENCY -- the 2026-07-15 framing-B re-run burned 11.2h of a
+    12.2h wall on serial calls at 0.2% KV-cache use), then scores the replies one
+    at a time in chain order. TLC stays strictly serialized: only the network
+    calls overlap, exactly as in gen_eval.
+
+    Chain 0 round 0 is greedy@0; every other call is temp 0.8. Round 0 of every
+    chain -- and any round of a chain whose previous reply carried no extractable
+    module -- generates from the framing-A prompt, byte-identical, so an L row and
+    an A row are comparable and the ledger's prompt_sha256 proves it. That also
+    means a chain never stalls: it either repairs its candidate or regenerates."""
     wrapper_text = wrapper_text_for(num, num2mod, mod2path)
     gen_prompt = build_generation_prompt(description_json, cfg_text, mod)
     gen_prompt_sha = hashlib.sha256(gen_prompt.encode()).hexdigest()
-    from .gen_eval import _format_description, _format_signature
     description_block = _format_description(description_json)
     signature_block = _format_signature(required_signature(cfg_text))
 
+    # per-chain carry: the candidate to repair next, its sha, and the prompt built
+    # from its diagnosis. None means "regenerate".
+    pending = [{"prompt": None, "rung": "generate", "parent": None}
+               for _ in range(chains)]
     calls = 0
-    for chain in range(chains):
-        module_text = None
-        prev_sha = None
-        for rnd in range(rounds):
+    for rnd in range(rounds):
+        batch = []
+        for chain in range(chains):
             sample_id = f"c{chain}r{rnd}"
             if (num, sample_id) in done:
                 continue
-            if rnd == 0 or module_text is None:
+            st = pending[chain]
+            if st["prompt"] is None:
                 prompt, prompt_sha, rung = gen_prompt, gen_prompt_sha, "generate"
-                temperature = 0.0 if chain == 0 else TEMPERATURE
             else:
-                prompt = pending_prompt
+                prompt = st["prompt"]
                 prompt_sha = hashlib.sha256(prompt.encode()).hexdigest()
-                rung = pending_rung
-                temperature = TEMPERATURE
-            reply, model_s, meta = _one_call(
-                model, prompt, temperature, run_id, num, sample_id)
+                rung = st["rung"]
+            temperature = 0.0 if (chain == 0 and rnd == 0) else TEMPERATURE
+            batch.append((chain, sample_id, prompt, prompt_sha, rung, temperature))
+        if not batch:
+            continue
+
+        def _fire(item):
+            chain, sample_id, prompt, _sha, _rung, temperature = item
+            return chain, _one_call(model, prompt, temperature, run_id, num,
+                                    sample_id)
+
+        if GEN_EVAL_CONCURRENCY > 1 and len(batch) > 1:
+            with ThreadPoolExecutor(max_workers=GEN_EVAL_CONCURRENCY) as pool:
+                replies = dict(pool.map(_fire, batch))
+        else:
+            replies = dict(_fire(item) for item in batch)
+
+        for chain, sample_id, _prompt, prompt_sha, rung, temperature in batch:
+            reply, model_s, meta = replies[chain]
             calls += 1
             new_text = extract_module(reply)
             base = {"spec": num, "framing": "L", "model": model.id,
                     "prompt_sha256": prompt_sha, "sample": sample_id,
                     "chain": chain, "round": rnd, "rung_in": rung,
-                    "parent_candidate_sha256": prev_sha,
+                    "parent_candidate_sha256": pending[chain]["parent"],
                     "calls_used": calls, "temperature": temperature,
                     "timestamp": time.time(), **_provenance(meta, reply)}
             cand_path, cand_sha = _persist_candidate(
                 candidates_dir, num, "L", sample_id, new_text, reply)
             if new_text is None:
                 err = isinstance(reply, str) and reply.startswith("[api_error")
+                pending[chain] = {"prompt": None, "rung": "generate", "parent": None}
                 yield {**base, "candidate_path": cand_path,
                        "verdict": "api_error" if err else "no_module_extracted",
                        "budget_used": {"model_s": model_s}}
-                module_text = None          # abandon this chain, restart next
-                break
+                continue
             base["candidate_path"] = cand_path
             base["candidate_sha256"] = cand_sha
             row, verdict, log_text = _score(
                 num, new_text, corpus, num2mod, mod2path, cfg_dirs, workroot,
                 logdir, TLC_TIMEOUT_S, log_name=f"{num}-L-{sample_id}.log")
             row["budget_used"]["model_s"] = model_s
-            scored = {**base, "verdict": verdict,
-                      **{k: v for k, v in row.items() if k != "spec"}}
             rung_out, evidence = diagnose(
                 {**row, "verdict": verdict}, new_text, cfg_text, mod, log_text,
                 wrapper_text)
-            scored["rung_out"] = rung_out
-            yield scored
+            yield {**base, "verdict": verdict, "rung_out": rung_out,
+                   **{k: v for k, v in row.items() if k != "spec"}}
             if verdict == "pass":
                 return
-            module_text = new_text
-            prev_sha = cand_sha
-            if rnd + 1 < rounds:
-                fragment, _names = localize(
-                    new_text, mod, "sany" if row.get("sany") != "pass" else "tlc",
-                    evidence or "", cfg_text, FRAGMENT_MAX_CHARS)
-                pending_prompt = build_loop_repair_prompt(
+            fragment, _names = localize(
+                new_text, mod, "sany" if row.get("sany") != "pass" else "tlc",
+                evidence or "", cfg_text, FRAGMENT_MAX_CHARS)
+            pending[chain] = {
+                "prompt": build_loop_repair_prompt(
                     description_block, signature_block, mod, new_text,
-                    rung_out or "unknown", evidence or "", fragment)
-                pending_rung = rung_out or "unknown"
+                    rung_out or "unknown", evidence or "", fragment),
+                "rung": rung_out or "unknown", "parent": cand_sha}
 
 
 def run_loop_eval(corpus: Path, run_id: str, model_name: str, chains=CHAINS,
