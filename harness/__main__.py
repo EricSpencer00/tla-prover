@@ -49,6 +49,16 @@ def main():
     e.add_argument("--corpus-data", default="/Users/eric/GitHub/tla_benchmark/data")
     e.add_argument("--no-resume", action="store_true",
                    help="ignore any existing rows.jsonl and redo every (spec, sample)")
+    le = sub.add_parser("loop-eval", help="framing L: verifier IN the loop at framing-A's model-call budget")
+    le.add_argument("--model", required=True,
+                    help="openai:<model-id> (OPENAI_BASE_URL+OPENAI_API_KEY[_CMD]) | "
+                         "anthropic | anthropic:<model-id> | local-stub")
+    le.add_argument("--run-id", required=True)
+    le.add_argument("--chains", type=int, default=8, help="independent restarts (frozen budget: 8)")
+    le.add_argument("--rounds", type=int, default=4, help="calls per chain: 1 generate + N-1 repairs (frozen budget: 4)")
+    le.add_argument("--specs", default=None, help="comma-separated holdout spec numbers; default all 30")
+    le.add_argument("--corpus-data", default="/Users/eric/GitHub/tla_benchmark/data")
+    le.add_argument("--no-resume", action="store_true")
     gc = sub.add_parser("gate-check", help="recompute pass@k from rows.jsonl; fail hard on api_error/extraction defects (never trust summary.json)")
     gc.add_argument("run_dirs", nargs="+", help="run dir(s) containing rows.jsonl")
     gc.add_argument("--max-api-error-rate", type=float, default=0.05)
@@ -79,6 +89,10 @@ def main():
         from .gen_eval import run_gen_eval
         run_gen_eval(Path(a.corpus_data), a.run_id, a.framing, a.model, a.k,
                     specs=specs, resume=not a.no_resume)
+    elif a.cmd == "loop-eval":
+        from .loop_eval import run_loop_eval
+        run_loop_eval(Path(a.corpus_data), a.run_id, a.model, chains=a.chains,
+                      rounds=a.rounds, specs=specs, resume=not a.no_resume)
     elif a.cmd == "repair":
         from .repair import run_repair
         # repair preserves the given --specs order (informative specs first =
