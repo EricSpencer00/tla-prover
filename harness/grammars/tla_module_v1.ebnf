@@ -30,7 +30,8 @@ eq4 ::= "=" "=" "=" "=" "="*
 
 unit_list ::= (unit sep)*
 
-unit ::= extends
+unit ::= module
+       | extends
        | var_decl
        | const_decl
        | recursive_decl
@@ -127,6 +128,7 @@ infix_tail ::= infix_op _ expr
 prefixed ::= prefix_op _ expr | postfixed
 postfixed ::= primary (_ postfix_suffix)*
 postfix_suffix ::= postfix_op
+                 | "!" qual_step
                  | "[" _ expr (_ "," _ expr)* _ "]"
                  | "(" _ expr (_ "," _ expr)* _ ")"
                  | "." _ ident
@@ -145,22 +147,25 @@ primary ::= number
           | set_form
           | tuple_form
           | paren_or_action
+          | labelled
           | lambda_expr
           | op_name
           | applied_ident
 
 at_ref ::= "@"
 lambda_expr ::= "LAMBDA" _ ident_list _ ":" _ expr
+labelled ::= ident ("(" _ ident_list _ ")")? _ "::" _ expr
 applied_ident ::= qualified
 qualified ::= ident ("!" qual_step)*
-qual_step ::= ident_or_num arg_group? | arg_group
+qual_step ::= ident_or_num arg_group? | arg_group | op_name | ":"
 arg_group ::= "(" _ expr (_ "," _ expr)* _ ")"
 ident_or_num ::= ident | digits
 
 # The comma in `LET a == 1, b == 2 IN` -- an ML/Haskell habit, the single most
 # common parse failure in the ledger -- is unreachable here: LET holds a
 # whitespace-separated sequence of definitions and nothing else.
-let_in ::= "LET" _ (definition _)+ "IN" _ expr
+let_in ::= "LET" _ (let_item _)+ "IN" _ expr
+let_item ::= definition | recursive_decl | mod_def | instance
 
 if_then_else ::= "IF" _ expr _ "THEN" _ expr _ "ELSE" _ expr
 case_expr ::= "CASE" _ case_arm (_ "[]" _ case_arm)* (_ "[]" _ "OTHER" _ "->" _ expr)?
@@ -206,7 +211,7 @@ except_path ::= (("." ident) | ("[" _ expr (_ "," _ expr)* _ "]"))+
 
 # ---- lexical -----------------------------------------------------------
 
-ident ::= [A-Za-z_] [A-Za-z0-9_]*
+ident ::= [0-9_]* [A-Za-z] [A-Za-z0-9_]*
 digits ::= [0-9]+
 number ::= [0-9]+ ("." [0-9]+)? | "\\b" [01]+ | "\\B" [01]+ | "\\o" [0-7]+ | "\\O" [0-7]+ | "\\h" [0-9a-fA-F]+ | "\\H" [0-9a-fA-F]+
 string ::= "\"" str_char* "\""
@@ -229,6 +234,10 @@ infix_op ::= "=>" | "<=>" | "\\equiv" | "~>" | "-+->"
            | "\\sqsubseteq" | "\\sqsubset" | "\\sqsupseteq" | "\\sqsupset"
            | "\\oplus" | "\\ominus" | "\\otimes" | "\\oslash" | "\\odot"
            | "\\cdot" | "@@" | ":>" | ":=" | "::=" | "..." | ".."
+           | "(+)" | "(-)" | "(.)" | "(/)" | "(\\X)"
+           | "-+->" | "-|" | "=|" | "|-" | "|=" | "::=" | ":=" | "<:" | ":>"
+           | "^^" | "**" | "++" | "--" | "//" | "%%" | "##" | "$$" | "??" | "!!"
+           | "&&" | "||" | "@@" | "?"
            | "^" | "+" | "-" | "*" | "/" | "%" | "&" | "|" | "$"
            | "\\"
 
@@ -238,4 +247,6 @@ sep ::= ws*
 ws ::= " " | "\t" | "\n" | "\r" | line_comment | block_comment
 line_comment ::= "\\*" [^\n]* "\n"
 block_comment ::= "(*" bc_body "*)"
-bc_body ::= ( [^*] | "*"+ [^*)] )* "*"*
+# TLA+ block comments NEST -- PlusCal lives inside one, and its own
+# (* ... *) sections nest within it.
+bc_body ::= ( block_comment | [^*(] | "*"+ [^*)] | "(" )* "*"*
