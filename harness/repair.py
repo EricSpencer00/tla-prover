@@ -236,6 +236,20 @@ class OpenAICompatModel(Model):
                 "messages": [{"role": "user", "content": prompt}]}
         if seed is not None:
             body["seed"] = seed
+        # Constrained decoding: TLA_GUIDED_GRAMMAR names an EBNF file (see
+        # harness/grammars/) whose contents go to vLLM as guided_grammar, making
+        # non-conforming output unreachable at decode time rather than merely
+        # unlikely. Read per call so a grammar edit does not need a restart, and
+        # NOT silently skipped when the path is wrong -- a run that believes it is
+        # grammar-gated and is not would be scored as if it were.
+        #
+        # WARNING, measured 2026-08-25: the ALCF SHARED inference gateway accepts
+        # guided_grammar/guided_choice with HTTP 200 and applies neither. Only a
+        # self-hosted vLLM serve actually enforces it. Verify enforcement on any
+        # new endpoint before trusting a grammar-gated arm.
+        gpath = os.environ.get("TLA_GUIDED_GRAMMAR")
+        if gpath:
+            body["guided_grammar"] = Path(gpath).read_text()
         # provider-specific knobs (e.g. {"reasoning_effort": "medium"} for
         # gpt-oss-style reasoning models, whose thinking shares the token budget).
         # Applied AFTER the seed, preserving the long-standing "extra body wins"
