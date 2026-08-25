@@ -84,7 +84,14 @@ def main(loop_dir, open_dir):
           f"{solved_by_repair}/{len(calls)}")
     print("rung the solving call was entered as:", dict(rungs))
 
-    # per-sample rates, for comparability with every prior arm
+    # Per-sample rates. CAUTION, and the tool says so rather than leaving it to
+    # the reader: framing L STOPS a spec on its first pass, so an easy spec
+    # contributes one passing row and a handful of rows total, while open-loop
+    # keeps drawing and banks 20+ passing rows on the same spec. That makes
+    # per-sample PASS rate structurally biased AGAINST L and it must not be read
+    # as a capability comparison. Per-sample SANY is biased the same direction
+    # (L's row mix skews toward the specs it could not solve), so an L advantage
+    # there is conservative.
     for name, by in (("open-loop", A), ("framing L", L)):
         rows = [r for s in specs for r in by.get(s, [])]
         n = len(rows)
