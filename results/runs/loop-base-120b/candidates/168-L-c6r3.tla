@@ -1,0 +1,109 @@
+---- MODULE ReadersWriters ----
+EXTENDS Naturals, Sequences, FiniteSets, TLC
+
+CONSTANTS NumActors
+
+(* the set of actor identifiers *)
+n == 1 .. NumActors
+
+VARIABLES Readers, Writers, Queue
+
+(*-----------------------------------------------------------------
+   Types
+-----------------------------------------------------------------*)
+Req == [type : {"read", "write"}, proc : n]
+
+TypeOK ==
+    /\ Readers \subseteq n
+    /\ Writers \subseteq n
+    /\ Queue \in Seq(Req)
+
+(*-----------------------------------------------------------------
+   Initial state
+-----------------------------------------------------------------*)
+Init ==
+    /\ Readers = {}
+    /\ Writers = {}
+    /\ Queue   = << >>
+
+(*-----------------------------------------------------------------
+   Actions
+-----------------------------------------------------------------*)
+RequestRead(p) ==
+    /\ p \in n
+    /\ \A r \in Queue : r.proc # p
+    /\ Queue' = Append(Queue, [type |-> "read", proc |-> p])
+    /\ UNCHANGED << Readers, Writers >>
+
+RequestWrite(p) ==
+    /\ p \in n
+    /\ \A r \in Queue : r.proc # p
+    /\ Queue' = Append(Queue, [type |-> "write", proc |-> p])
+    /\ UNCHANGED << Readers, Writers >>
+
+ProcessQueue ==
+    LET front == Head(Queue) IN
+        /\ Queue # <<>>
+        /\ Writers = {}
+        /\ ( /\ front.type = "read"
+              /\ Readers' = Readers \cup {front.proc}
+              /\ Writers' = Writers )
+           \/ ( /\ front.type = "write"
+              /\ Readers = {}
+              /\ Readers' = Readers
+              /\ Writers' = Writers \cup {front.proc} )
+        /\ Queue' = Tail(Queue)
+
+Stop(p) ==
+    /\ p \in n
+    /\ (p \in Readers) \/ (p \in Writers)
+    /\ IF p \in Readers THEN
+           Readers' = Readers \ {p}
+           /\ Writers' = Writers
+       ELSE
+           Readers' = Readers
+           /\ Writers' = Writers \ {p}
+    /\ UNCHANGED << Queue >>
+
+(*-----------------------------------------------------------------
+   Next-state relation
+-----------------------------------------------------------------*)
+Next ==
+    \/ \E p \in n : RequestRead(p)
+    \/ \E p \in n : RequestWrite(p)
+    \/ ProcessQueue
+    \/ \E p \in n : Stop(p)
+
+(*-----------------------------------------------------------------
+   Fairness
+-----------------------------------------------------------------*)
+RequestReadAction == \E p \in n : RequestRead(p)
+RequestWriteAction == \E p \in n : RequestWrite(p)
+StopAction == \E p \in n : Stop(p)
+
+(* tuple of state variables, used for subscripted operators *)
+vars == << Readers, Writers, Queue >>
+
+Spec ==
+    Init /\
+    [][Next]_vars /\
+    WF_{vars}(RequestReadAction) /\
+    WF_{vars}(RequestWriteAction) /\
+    WF_{vars}(ProcessQueue) /\
+    WF_{vars}(StopAction)
+
+(*-----------------------------------------------------------------
+   Invariants
+-----------------------------------------------------------------*)
+Safety ==
+    /\ (Writers = {} \/ Readers = {})
+    /\ Cardinality(Writers) <= 1
+
+(*-----------------------------------------------------------------
+   Liveness property
+-----------------------------------------------------------------*)
+Liveness ==
+    \A p \in n :
+        <> (p \in Readers) /\ <> (p \in Writers)
+
+====

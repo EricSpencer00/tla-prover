@@ -122,6 +122,47 @@ moved 1 spec across A->A3 while row-level counts swung 5->1 and 7->12). So:
   modeling failure after all, and direction 3 from the 2026-08-12 call
   (planner->generator) becomes the right next lever rather than the deferred one.
 
+## Result — ARM L-base, measured 2026-08-24
+
+Served by the ALCF shared inference API (`openai/gpt-oss-120b`), the same
+endpoint and model id the frozen control was measured on. `harness gate-check`:
+573 rows, 573 scored, 0 api_error, 0 unextracted, **OK**.
+
+| | control `e2c-baseline-120b-a` | framing L `loop-base-120b` |
+|---|---|---|
+| solved | 12/30 | **18/30** |
+| of which library (SANY-only) | 4 | 4 |
+| of which proof module (TLAPS) | 2 | 2 |
+| **TLC-scored specs solved** | **6** | **12** |
+| total model calls spent | 990 | **573** |
+
+Delta **+6, gained 6, lost 0**, McNemar exact two-sided **p = 0.0312**.
+**WIN on both pre-registered criteria** (>= +5 specs; p < 0.05), and won while
+spending 58% of the control's total model calls, because a solved spec stops.
+
+The mechanism is the feedback, not the extra sampling: **5 of the 6 gained specs
+were won on a repair round**, not on a fresh generation.
+
+| gained spec | round | call # | prompt was |
+|---|---|---|---|
+| 13 | 2 | 17 | repair (sany) |
+| 15 | 3 | 30 | repair (tlc_error) |
+| 106 | 1 | 13 | repair (sany) |
+| 174 | 1 | 13 | repair (sany) |
+| 181 | 0 | 3 | fresh generation |
+| 191 | 2 | 22 | repair (tlc_error) |
+
+Across all 18 solves: 9 came from a fresh generation within the first round of 8
+draws, and 9 came from a repair round (7 entered as `sany`, 2 as `tlc_error`).
+
+**This is the base model.** It beats the program's best fine-tune measured
+open-loop (`gate2-w4dgm-120b-A`, 15/30) without any training at all -- and that
+fine-tune is itself not distinguishable from its own base control (+3, p = 0.45).
+
+Not yet run: **ARM L-tuned**, queued behind a Sophia serve. Until it lands the
+2x2 is three-quarters filled and no claim about what tuning adds to the loop is
+licensed.
+
 ## Run commands
 
 ```

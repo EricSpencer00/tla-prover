@@ -1,0 +1,14 @@
+{
+  "n": 2,
+  "framing": "L",
+  "model_calls_per_spec": 4,
+  "solved": 1,
+  "pass_set": [
+    "2"
+  ],
+  "calls_to_solve": {
+    "2": 1
+  },
+  "api_error_rows": 0,
+  "recomputed_from_ledger": true
+}

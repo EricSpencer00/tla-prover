@@ -1,0 +1,95 @@
+---- MODULE Reachable ----
+EXTENDS Naturals, FiniteSets, Sequences
+
+CONSTANTS Nodes, Root, Succ
+
+(*
+  ConnectedToSomeButNotAll is provided by the .cfg file as a
+  replacement for Succ.  We give a default (empty) definition so
+  the module type‑checks even without the substitution.
+*)
+ConnectedToSomeButNotAll == [n \in Nodes |-> {}]
+
+(*
+  LimitedSeq replaces the unbounded Seq operator from the Sequences
+  module.  It is defined as the set of sequences over Nodes whose
+  length does not exceed a small bound (here 5) making the model
+  finite.
+*)
+LimitedSeq == { s \in Seq(Nodes) : Len(s) <= 5 }
+
+VARIABLES marked, frontier, pc
+
+\* -----------------------------------------------------------------
+\* Recursive definition of the set of nodes reachable from a node.
+\* -----------------------------------------------------------------
+RECURSIVE ReachFrom(_)
+ReachFrom(n) == {n} \cup UNION { ReachFrom(m) : m \in Succ[n] }
+
+\* Reachable nodes from a set of sources.
+ReachSet(S) == UNION { ReachFrom(n) : n \in S }
+
+\* -----------------------------------------------------------------
+\* Type correctness invariant
+\* -----------------------------------------------------------------
+TypeOK ==
+    /\ marked \subseteq Nodes
+    /\ frontier \subseteq Nodes
+    /\ pc \in {"running", "done"}
+
+\* -----------------------------------------------------------------
+\* Invariant 1: every successor of a marked node is either marked or
+\*             in the frontier.
+\* -----------------------------------------------------------------
+Inv1 == \A n \in marked : Succ[n] \subseteq marked \cup frontier
+
+\* -----------------------------------------------------------------
+\* Invariant 2: marked ∪ ReachSet(frontier) = ReachSet(marked ∪ frontier)
+\* -----------------------------------------------------------------
+Inv2 == marked \cup ReachSet(frontier) = ReachSet(marked \cup frontier)
+
+\* -----------------------------------------------------------------
+\* Invariant 3: ReachSet({Root}) = marked ∪ ReachSet(frontier)
+\* -----------------------------------------------------------------
+Inv3 == ReachSet({Root}) = marked \cup ReachSet(frontier)
+
+\* -----------------------------------------------------------------
+\* Partial correctness: when the algorithm terminates, marked equals
+\* the set of nodes reachable from the root.
+\* -----------------------------------------------------------------
+PartialCorrectness == (frontier = {} => marked = ReachSet({Root}))
+
+\* -----------------------------------------------------------------
+\* Initialization
+\* -----------------------------------------------------------------
+Init ==
+    /\ marked = {}
+    /\ frontier = {Root}
+    /\ pc = "running"
+    /\ TypeOK
+
+\* -----------------------------------------------------------------
+\* Main step (nondeterministically pick a node from the frontier)
+\* -----------------------------------------------------------------
+Next ==
+    \E n \in frontier :
+        \/ /\ n \notin marked
+           /\ marked' = marked \cup {n}
+           /\ frontier' = frontier \cup Succ[n]
+           /\ pc' = pc
+        \/ /\ n \in marked
+           /\ marked' = marked
+           /\ frontier' = frontier \ {n}
+           /\ pc' = IF frontier' = {} THEN "done" ELSE "running"
+
+\* -----------------------------------------------------------------
+\* Specification
+\* -----------------------------------------------------------------
+Spec == Init /\ [][Next]_<<marked, frontier, pc>> /\ WF_<<marked, frontier, pc>>(Next)
+
+\* -----------------------------------------------------------------
+\* Liveness property: the algorithm eventually terminates (frontier empty)
+\* -----------------------------------------------------------------
+Termination == []<>(frontier = {})
+
+====

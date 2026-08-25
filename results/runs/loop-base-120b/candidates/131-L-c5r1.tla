@@ -1,0 +1,3 @@
+---- MODULE MajorityProof ----
+EXTENDS Majority
+====
