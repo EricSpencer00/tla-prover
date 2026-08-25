@@ -91,6 +91,27 @@ def main():
     print("\nNOTE: the 'ever gained' set is a max-statistic over seeds and is "
           "optimistic;\nthe per-pairing rows above are the honest per-run picture.")
 
+    # Per-spec solve RATE across seeds is the most informative view: it separates
+    # "L reliably solves this and open-loop never does" from "one lucky draw".
+    print(f"\nper-spec solve rate (L over {len(Ls)} seeds vs open-loop over "
+          f"{len(As)} seeds), specs where they differ:")
+    rows = []
+    for s in sorted(specs, key=lambda x: int(x) if x.isdigit() else 0):
+        lr = sum(1 for S in Ls if s in S)
+        ar = sum(1 for S in As if s in S)
+        if lr / len(Ls) != ar / len(As):
+            rows.append((s, lr, ar))
+    for s, lr, ar in sorted(rows, key=lambda r: -(r[1] / len(Ls) - r[2] / len(As))):
+        bar = "#" * lr + "." * (len(Ls) - lr)
+        bar2 = "#" * ar + "." * (len(As) - ar)
+        tag = ("L only, every seed" if lr == len(Ls) and ar == 0 else
+               "L only, some seeds" if ar == 0 else
+               "open-loop only" if lr == 0 else "mixed")
+        print(f"  spec {s:>4}  L {bar} {lr}/{len(Ls)}   A {bar2} {ar}/{len(As)}   {tag}")
+    always = [s for s, lr, ar in rows if lr == len(Ls) and ar == 0]
+    print(f"\nsolved by the loop in EVERY seed and by open-loop in NONE: "
+          f"{len(always)} {always}")
+
 
 if __name__ == "__main__":
     main()

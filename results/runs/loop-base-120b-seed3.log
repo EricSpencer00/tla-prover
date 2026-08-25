@@ -1,0 +1,33 @@
+[1/30] spec 2: 1 call(s) -- SOLVED in 1 calls
+[2/30] spec 5: 1 call(s) -- SOLVED in 1 calls
+[3/30] spec 13: 20 call(s) -- SOLVED in 20 calls
+[4/30] spec 14: 32 call(s) -- unsolved
+[5/30] spec 15: 15 call(s) -- SOLVED in 15 calls
+[6/30] spec 30: 2 call(s) -- SOLVED in 2 calls
+[7/30] spec 32: 21 call(s) -- SOLVED in 21 calls
+[8/30] spec 37: 2 call(s) -- SOLVED in 2 calls
+[9/30] spec 41: 10 call(s) -- SOLVED in 10 calls
+[10/30] spec 55: 32 call(s) -- unsolved
+[11/30] spec 86: 3 call(s) -- SOLVED in 3 calls
+[12/30] spec 95: 11 call(s) -- SOLVED in 11 calls
+[13/30] spec 105: 4 call(s) -- SOLVED in 4 calls
+[14/30] spec 106: 32 call(s) -- unsolved
+[15/30] spec 121: 32 call(s) -- unsolved
+[16/30] spec 128: 32 call(s) -- unsolved
+[17/30] spec 131: 10 call(s) -- SOLVED in 10 calls
+[18/30] spec 132: 31 call(s) -- SOLVED in 31 calls
+[19/30] spec 133: 21 call(s) -- SOLVED in 21 calls
+[20/30] spec 135: 32 call(s) -- unsolved
+[21/30] spec 141: 32 call(s) -- unsolved
+[22/30] spec 142: 3 call(s) -- SOLVED in 3 calls
+[23/30] spec 143: 2 call(s) -- SOLVED in 2 calls
+[24/30] spec 148: 32 call(s) -- unsolved
+[25/30] spec 158: 32 call(s) -- unsolved
+[26/30] spec 168: 32 call(s) -- unsolved
+[27/30] spec 174: 32 call(s) -- unsolved
+[28/30] spec 181: 32 call(s) -- unsolved
+[29/30] spec 183: 4 call(s) -- SOLVED in 4 calls
+[30/30] spec 191: 26 call(s) -- SOLVED in 26 calls
+
+=== loop-base-120b-seed3: framing L, model=openai/gpt-oss-120b (ledger re-score) ===
+  n=30  solved=18/30  budget=32 calls/spec (control framing A: 33)
