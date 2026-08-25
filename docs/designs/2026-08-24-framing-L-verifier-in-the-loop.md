@@ -122,46 +122,72 @@ moved 1 spec across A->A3 while row-level counts swung 5->1 and 7->12). So:
   modeling failure after all, and direction 3 from the 2026-08-12 call
   (planner->generator) becomes the right next lever rather than the deferred one.
 
-## Result — ARM L-base, measured 2026-08-24
+## Result — ARM L-base, 3 seeds vs 3 control seeds, measured 2026-08-24/25
 
-Served by the ALCF shared inference API (`openai/gpt-oss-120b`), the same
-endpoint and model id the frozen control was measured on. `harness gate-check`:
-573 rows, 573 scored, 0 api_error, 0 unextracted, **OK**.
+Served by the ALCF shared inference API (`openai/gpt-oss-120b`) — the same
+endpoint and model id the frozen control was measured on. `harness gate-check`
+clean on all six runs: 0 api_error, 0 unextracted.
 
-| | control `e2c-baseline-120b-a` | framing L `loop-base-120b` |
-|---|---|---|
-| solved | 12/30 | **18/30** |
-| of which library (SANY-only) | 4 | 4 |
-| of which proof module (TLAPS) | 2 | 2 |
-| **TLC-scored specs solved** | **6** | **12** |
-| total model calls spent | 990 | **573** |
+| | seeds | mean | range | model calls |
+|---|---|---|---|---|
+| open-loop (framing A, k=31) | 12 / 8 / 12 | 10.7/30 | 8–12 | 960–990 |
+| **framing L** | **18 / 16 / 18** | **17.3/30** | **16–18** | **571–616** |
 
-Delta **+6, gained 6, lost 0**, McNemar exact two-sided **p = 0.0312**.
-**WIN on both pre-registered criteria** (>= +5 specs; p < 0.05), and won while
-spending 58% of the control's total model calls, because a solved spec stops.
+**The ranges do not overlap: the worst framing-L seed beats the best open-loop
+seed.** That claim needs no pairing choice and no significance test. Across all
+nine (L seed, A seed) pairings the delta is +4 to +10, mean +6.7, with one loss
+total (spec 181, in two pairings).
 
-The mechanism is the feedback, not the extra sampling: **5 of the 6 gained specs
-were won on a repair round**, not on a fresh generation.
+The loop wins while spending **~60% of the control's model calls**, because a
+solved spec stops.
 
-| gained spec | round | call # | prompt was |
-|---|---|---|---|
-| 13 | 2 | 17 | repair (sany) |
-| 15 | 3 | 30 | repair (tlc_error) |
-| 106 | 1 | 13 | repair (sany) |
-| 174 | 1 | 13 | repair (sany) |
-| 181 | 0 | 3 | fresh generation |
-| 191 | 2 | 22 | repair (tlc_error) |
+### Two confounds killed, not assumed away
 
-Across all 18 solves: 9 came from a fresh generation within the first round of 8
-draws, and 9 came from a repair round (7 entered as `sany`, 2 as `tlc_error`).
+1. **Endpoint drift.** The frozen 12/30 was measured months earlier. Re-running
+   the open-loop control on the same warm endpoint at a matched 32-call budget
+   reproduced it exactly (12/30). Per-sample SANY and median latency are flat
+   across the whole session (16.6% / 22.9% / 23.9% / 25.7% / 15.2%; 20.3s /
+   23.0 / 22.6 / 22.7 / 20.2), so the control's 8/30 third seed is spec-level
+   sampling noise, not a degrading serve.
+2. **Single-seed accident.** Seed 2 alone would have reported NULL (+4,
+   p = 0.125). Reporting seed 1 alone (+6, p = 0.031) would have been exactly the
+   sampling accident `W4DG_GATE2_SESSION_2026-07-29.md` warns about.
 
-**This is the base model.** It beats the program's best fine-tune measured
-open-loop (`gate2-w4dgm-120b-A`, 15/30) without any training at all -- and that
-fine-tune is itself not distinguishable from its own base control (+3, p = 0.45).
+### What the per-spec view takes back
 
-Not yet run: **ARM L-tuned**, queued behind a Sophia serve. Until it lands the
-2x2 is three-quarters filled and no claim about what tuning adds to the loop is
-licensed.
+Only **two** specs — 13 and 15 — are solved by the loop in every seed and by
+open-loop in none. 132 and 191 are 2/3; 32, 106, 133, 174 are 1/3. No spec is
+ever open-loop-only.
+
+So the defensible claim is **not** "the loop solves these six specs". It is: the
+loop reliably adds about five to seven specs, the direction never reverses, but
+*which* specs it adds varies by seed. That is a larger reachable set, not a
+deterministic gain.
+
+### Mechanism: the feedback, not the extra sampling
+
+In seed 1, 5 of the 6 gained specs were won on a repair round rather than a fresh
+generation (3 entered as `sany`, 2 as `tlc_error`). Across all 18 solves in that
+seed, 9 came from the first round of 8 independent draws and 9 came from repair
+rounds.
+
+### A per-sample metric that must not be quoted as a comparison
+
+Framing L stops a spec on its first pass, so an easy spec contributes one passing
+row while open-loop banks 20+ on the same spec. Per-sample **pass** rate is
+therefore structurally biased against L (3.0% vs 7.5%) and is not a capability
+comparison. Per-sample **SANY** is biased the same direction, which makes L's
+advantage there conservative: **24.1% [22.2, 26.1] vs 14.1% [12.8, 15.3]**,
+pooled over 1,760 and 2,910 rows.
+
+### The headline this licenses
+
+An **untuned base model in the loop** (17.3/30 mean) beats the program's best
+fine-tune measured open-loop (`gate2-w4dgm-120b-A`, 15/30) — and that fine-tune is
+itself not distinguishable from its own base control (+3, p = 0.45).
+
+Not yet run: **ARM L-tuned**, queued behind a Sophia serve. Until it lands,
+nothing here licenses a claim about what tuning adds *on top of* the loop.
 
 ## Run commands
 
