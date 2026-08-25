@@ -1,0 +1,65 @@
+# TLC configuration (.cfg) grammar v1 -- xgrammar EBNF dialect.
+#
+# Companion to tla_module_v1.ebnf. A .cfg is the other half of a TLC run and has
+# its own small, closed grammar; SANY never sees it, so a .cfg error surfaces
+# only as a TLC hard-error at run time. Measured in the framing-A ledgers, .cfg
+# INTERFACE mismatches are ~47% of all tlc=error rows -- the module failing to
+# provide a name the .cfg demands. That half is a scope problem, not a syntax
+# one, and is handled by harness.loop_eval's signature rung. THIS grammar covers
+# the other direction: emitting a .cfg that is itself well-formed.
+#
+# Same design rule as the module grammar: never reject a valid .cfg. Gate is
+# tools/grammar_falsereject.py --cfg over every .cfg in the corpus.
+
+root ::= _ stmt_list _
+stmt_list ::= (stmt _)*
+
+stmt ::= spec_stmt | init_stmt | next_stmt | const_stmt | invariant_stmt
+       | property_stmt | constraint_stmt | action_constraint_stmt
+       | symmetry_stmt | view_stmt | check_deadlock | postcondition | alias
+       | type_stmt
+
+spec_stmt ::= "SPECIFICATION" _ name
+init_stmt ::= "INIT" _ name
+next_stmt ::= "NEXT" _ name
+symmetry_stmt ::= "SYMMETRY" _ name
+view_stmt ::= "VIEW" _ name
+postcondition ::= "POSTCONDITION" _ name
+alias ::= "ALIAS" _ name
+type_stmt ::= ("TYPE" | "TYPE_CONSTRAINT") _ name
+check_deadlock ::= "CHECK_DEADLOCK" _ ("TRUE" | "FALSE")
+
+invariant_stmt ::= ("INVARIANTS" | "INVARIANT") _ name_list
+property_stmt ::= ("PROPERTIES" | "PROPERTY") _ name_list
+constraint_stmt ::= ("CONSTRAINTS" | "CONSTRAINT") _ name_list
+action_constraint_stmt ::= ("ACTION_CONSTRAINTS" | "ACTION_CONSTRAINT") _ name_list
+
+# A single CONSTANTS section carries several assignments, and they may share a
+# line (`a1=a1  a2=a2`) -- the shape that broke required_signature() before.
+const_stmt ::= ("CONSTANTS" | "CONSTANT") _ (assignment _)+
+
+assignment ::= lhs _ ("=" | "<-") _ value
+lhs ::= (qual_name | name) arity?
+arity ::= "(" _ "_" _ ("," _ "_" _)* ")"
+
+value ::= number | string | bool | set_value | tuple_value | record_value | qual_name | name
+# `Ballot <- [Voting] MCBallot` -- TLC's module-qualified override.
+qual_name ::= "[" _ name _ "]" _ name
+
+set_value ::= "{" _ "}" | "{" _ value (_ "," _ value)* _ "}"
+tuple_value ::= "<" "<" _ ">" ">" | "<" "<" _ value (_ "," _ value)* _ ">" ">"
+record_value ::= "[" _ field (_ "," _ field)* _ "]"
+field ::= name _ "|->" _ value
+
+name_list ::= name (_ name)*
+name ::= [A-Za-z_] [A-Za-z0-9_!]*
+number ::= "-"? [0-9]+
+bool ::= "TRUE" | "FALSE"
+string ::= "\"" str_char* "\""
+str_char ::= [^"\\\n] | "\\" [^\n]
+
+_ ::= ws*
+ws ::= " " | "\t" | "\n" | "\r" | line_comment | block_comment
+line_comment ::= "\\*" [^\n]* "\n"
+block_comment ::= "(*" bc_body "*)"
+bc_body ::= ( [^*] | "*"+ [^*)] )* "*"*
