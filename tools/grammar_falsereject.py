@@ -67,7 +67,8 @@ def good_specs(limit=None):
     corpus = Path("/Users/eric/GitHub/tla_benchmark/data/tla_files")
     if corpus.is_dir():
         holdout = json.loads((REPO / "corpus" / "holdout_30.json").read_text())
-        nums = holdout if isinstance(holdout, list) else holdout.get("specs", [])
+        nums = (holdout if isinstance(holdout, list)
+                else holdout.get("holdout_specs") or holdout.get("specs") or [])
         for n in nums:
             p = corpus / f"{n}.tla"
             patch = REPO / "corpus" / "configs" / "patches" / f"{n}.tla"

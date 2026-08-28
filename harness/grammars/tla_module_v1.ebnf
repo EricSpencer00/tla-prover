@@ -75,7 +75,7 @@ theorem ::= ("THEOREM" | "PROPOSITION" | "LEMMA" | "COROLLARY") _ (ident _ "==" 
 # corpus, not to constrain anything the generator emits.
 proof ::= "OBVIOUS" | "OMITTED" | by_stmt
         | ("PROOF" _)? (proof_step _)+
-        | "PROOF" _ expr
+        | "PROOF" _ (by_stmt | expr)
 
 proof_step ::= step_marker (_ step_body)?
 step_marker ::= "<" (digits | "*" | "+") ">" (ident | digits)? "."?
