@@ -1,0 +1,22 @@
+\ours{} evaluates \tlaplus{} generation open-loop: k independent draws from one
+prompt, each scored once by SANY and TLC, best-of reported. Every arm in this
+program has used that framing, including \ours{}'s own headline number. The
+verifier acts as a judge, not a controller. This addendum closes the loop:
+generate, verify, feed the diagnosis back, regenerate. On the frozen 30-spec
+holdout, an untuned base \texttt{gpt-oss-120b} run in the loop solves a mean of
+17.3/30 across three seeds (18/16/18). The matched open-loop control on the
+same endpoint solves a mean of 10.7/30 across three seeds (12/8/12), and the
+two ranges do not overlap. The closed loop reaches this with fewer model calls
+per spec (571--616) than the open-loop control (960--990). No fine-tuning is
+involved; the checkpoint is the untuned base model. The best fine-tuned
+checkpoint in this program reaches 15/30 open-loop against a 12/30 base
+control, a gain the program's own pre-registered rule marks null (McNemar
+$p=0.45$). The untuned base model run in the loop, at a mean of 17.3/30,
+exceeds that fine-tuned checkpoint. We also catalog why generation fails:
+across 3,836 SANY failures pooled over six arms, 51\% do not parse and 34\%
+invoke an unknown operator. Separately, we measure a decode-time grammar for
+constrained decoding, \gfile{}, against 438 known-good
+specs and 1,543 real parse failures. It false-rejects none of the 438 valid
+specs and would reject 86.7\% of the real failures. The grammar has not been
+run inside a generation arm; the 86.7\% is an offline upper bound on what
+decode-time constraint could remove, not a measured pass-rate gain.

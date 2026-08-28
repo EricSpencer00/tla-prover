@@ -1,0 +1,58 @@
+\section{Method}\label{sec:method}
+
+\BfPara{Open-Loop Baseline (Framing A)} Every prior evaluation in this program,
+and the control arm here, is open-loop: $k$ independent draws from a single
+generation prompt, each scored by SANY and then TLC, with the best-of-$k$
+result reported per spec. The verifier is a judge, never a controller; a
+failing draw contributes nothing to the next one. Framing A's budget is 33
+model calls per spec (1 greedy plus $k{=}32$ best-of-$K$), or 32 calls per
+spec in the matched-budget control described in \autoref{sec:results}.
+Scoring is unchanged from the parent evaluation: SANY parse, then TLC against
+the spec's fixed \texttt{.cfg}.
+
+\BfPara{Closed-Loop Framing (Framing L)} Framing L replaces the single
+generation prompt with a chain that reads its own verifier output. Each spec
+runs 8 independent chains of 4 rounds each, 32 model calls per spec, one
+fewer than framing A's 33. The loop cannot win on budget. Chains advance in
+lock step: all 8 chains complete round $r$ before any chain starts round
+$r{+}1$. TLC is strictly serialized across the run; only the network calls to
+the generation endpoint overlap. Round-0 prompts are byte-identical to
+framing A's generation prompt, verified per spec by comparing
+\texttt{prompt\_sha256} in the run ledger. Framing L reuses the framing-A
+scorer verbatim; no scoring code changed between arms.
+
+\BfPara{Diagnosis Rungs} A failing draw is classified into one of four rungs,
+checked in this priority order: \texttt{signature} (the candidate module
+omits an identifier that the spec's fixed \texttt{.cfg} requires), then
+\texttt{sany} (parse failure), then \texttt{tlc\_error} (TLC raised an error
+short of a full run), then \texttt{tlc\_violation} (TLC ran and found a
+counterexample). The rung selects which diagnostic text is fed back into the
+next round's prompt. The signature check is a selector, not a gate: a
+signature failure never causes a stage to be skipped, and every candidate
+still passes through SANY and TLC regardless of what the signature checker
+reports.
+
+\BfPara{Pre-Registered Analysis Rule} Before any framing-L run was executed,
+the comparison rule was fixed: a pairing counts as a win only if it reaches
+at least $+5$ solved specs over the paired control or McNemar exact
+$p < 0.05$. Anything smaller than that reports as null, regardless of the
+sign of the delta. \autoref{sec:results} applies this rule to all nine
+(loop seed, open seed) pairings without exception, including the pairings
+that fail it.
+
+\BfPara{Decode-Time Grammar} \gfile{} is a \tlaplus{}
+expression grammar intended for constrained decoding. Its methodology has a
+gate: a grammar that rejects valid input makes correct output unreachable
+under constrained decoding, so before any claim about catch rate, the
+grammar must false-reject zero specs out of a known-good corpus. That
+known-good corpus is the union of the \texttt{tlaplus/examples} corpus and
+the 30-spec holdout. Only after clearing the zero-false-reject gate is the
+grammar scored for catch rate: what fraction of real, measured SANY parse
+failures it rejects. The same gate is applied to a companion \texttt{.cfg}
+grammar against the corpus's configuration files. A structural precursor,
+\texttt{tla\_module\_v0.ebnf}, already existed in the repository before this
+work and enforces only module framing and bracket balance; it is measured by
+the same false-reject/catch-rate procedure for comparison. Junction-list
+alignment, a context-sensitive property that SANY itself parses with a
+custom lexer rather than a context-free grammar, is out of scope for either
+grammar version and is not claimed.

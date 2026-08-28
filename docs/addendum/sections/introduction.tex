@@ -1,0 +1,57 @@
+\section{Introduction}\label{sec:introduction}
+
+\ours{} pairs \tlaplus{}~\cite{lamport2002specifying} generation with the TLC
+model checker~\cite{yu1999tlc}: a deterministic verifier with a binary success
+criterion. Every evaluation in that paper, and every arm run in the training
+program that followed it, uses the verifier the same way. A prompt produces
+$k$ independent draws, SANY and TLC score each draw once, and the best draw is
+reported. The verifier judges; it never talks back to the model that produced
+the failure.
+
+This is a narrower use of the verifier than the setup allows. SANY and TLC
+both return structured diagnostics: a line number and message on a parse
+failure, a counterexample trace on a model-check failure. Nothing in the
+open-loop evaluation reads that diagnostic back into the next draw. This
+addendum does: generate, verify, feed the diagnosis back, regenerate. We call
+this framing L, matched against the parent paper's open-loop framing (framing
+A) on prompt text and on model-call budget, so that neither arm wins by
+spending more.
+
+Framing L is run on the untuned base model behind the training program,
+\texttt{gpt-oss-120b}~\cite{openai2025gptoss}, with no task-specific training
+of any kind. On the frozen 30-spec holdout, three seeds each, framing L solves
+a mean of 17.3/30 (18/16/18) against framing A's mean of 10.7/30 (12/8/12).
+The two ranges do not overlap, and framing L uses fewer model calls per spec
+(571--616) than framing A (960--990). The best fine-tuned checkpoint produced
+by this training program reaches 15/30 under framing A against a 12/30 base
+control, a result the program's own pre-registered rule marks null. The
+untuned base model under framing L exceeds it. Closing the loop, on this
+benchmark, moves the number further than the fine-tuning program has so far.
+
+We also report why generation fails and what a decode-time grammar can catch.
+Pooled over 3,836 SANY failures across six arms, 51\% of failing candidates do
+not parse at all and 34\% invoke an unknown operator. A grammar for the
+\tlaplus{} expression language, \gfile{}, is measured
+offline against 438 known-good specifications and 1,543 real parse failures:
+zero false rejects, 86.7\% of the real failures caught. A companion negative
+result narrows the interpretation: a deterministic lint pass that forces 88
+failing candidates to parse flips zero of them to a TLC pass. Parsing is not
+the bottleneck once a candidate is forced past it.
+
+\BfPara{Contributions} \ding{172} Framing L, a closed-loop generation
+procedure that feeds SANY/TLC diagnosis back into regeneration, matched to the
+parent paper's open-loop framing on prompt and model-call budget, together
+with the measurement that it exceeds both the open-loop control and the
+program's best fine-tuned checkpoint on an untuned base model.
+\ding{173} A failure taxonomy over 3,836 pooled SANY failures, decomposing the
+34\% unknown-operator class into five sub-causes and identifying the tokens
+most associated with parse failure.
+\ding{174} An offline measurement of a decode-time grammar for constrained
+\tlaplus{} decoding, \gfile{}, with its false-reject and
+catch rates, and a negative result showing that forcing output to parse does
+not by itself recover any additional solved spec.
+
+\BfPara{Organization} \autoref{sec:method} describes framing L and the grammar
+measurement; \autoref{sec:results} reports the seed-level comparison, the
+failure taxonomy, and the grammar numbers; \autoref{sec:limitations} states
+what this addendum does not establish; \autoref{sec:conclusion} concludes.

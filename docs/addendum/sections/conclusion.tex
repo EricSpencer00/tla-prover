@@ -1,0 +1,36 @@
+\section{Conclusion}\label{sec:conclusion}
+
+Every evaluation in \ours{}, including its own headline number, treats the
+verifier as a judge: score $k$ draws, report the best. Feeding the verifier's
+diagnosis back into regeneration, on an untuned base \texttt{gpt-oss-120b} and
+at a lower model-call budget than the open-loop control, raises the mean
+solved count on the frozen 30-spec holdout from 10.7/30 to 17.3/30 across
+three seeds each, with non-overlapping ranges. It also exceeds 15/30, the best
+open-loop result this training program has produced with fine-tuning, a
+result that the program's own pre-registered rule already marks null. Half of
+framing L's solves in the seed with per-call provenance come from a fresh
+draw and half from a repair round; five of the six specs gained over the
+open-loop control were won on repair, not on generation. Only two of the 30
+holdout specs are solved by every closed-loop seed and no open-loop seed; the
+rest of the gain comes from a larger reachable set whose composition shifts
+by seed, not from a fixed set of specs the loop alone can reach.
+
+The failure taxonomy and the decode-time grammar bound what closing the loop
+is working against and what remains unaddressed. 51\% of pooled SANY failures
+do not parse, and a grammar built for the \tlaplus{} expression language
+rejects 86.7\% of 1,543 real parse failures with zero false rejects on 438
+known-good specs. That number describes what a decode-time constraint would
+remove from the failure population, not a measured pass-rate gain: the
+grammar has not been run inside a generation arm, and a companion lint pass
+that forces 88 failing candidates to parse converts zero of them to a TLC
+pass. Forcing a candidate past the parser does not by itself get it past the
+model checker. The 2x2 this addendum motivates, framing (open vs. closed) by
+training (base vs. fine-tuned), has one cell unmeasured: framing L has run on
+the base model only, and the tuned-model cell requires a self-hosted serve
+that has not yet run, so nothing here says what task training adds on top of
+the loop. A related but separate gap is decode-time constraint itself: the
+shared inference endpoint used for every arm in this addendum accepts vLLM's
+\texttt{guided\_grammar} and \texttt{guided\_choice} parameters with HTTP 200
+and applies neither, so the grammar's 86.7\% catch rate cannot yet be turned
+into a generation-arm result on this endpoint. Closing either gap requires a
+self-hosted serve, which has not yet run.

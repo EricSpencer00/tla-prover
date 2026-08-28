@@ -1,0 +1,32 @@
+\section{Related Work}\label{sec:relatedworks}
+
+\BfPara{Verifier-in-the-Loop Generation} Baldur~\cite{first2023baldur}
+generates and repairs whole Isabelle proofs against the verifier's own
+feedback. DeepSeek-Prover~\cite{xin2024deepseek} uses a deterministic verifier
+as the reward signal for large-scale synthetic proof data. Both treat the
+verifier as part of the generation loop rather than as a final judge. Framing
+L applies the same idea to \tlaplus{}: the verifier's diagnostic, not just its
+pass/fail bit, is fed back into the next draw.
+
+\BfPara{Grammar-Guided Decoding} Grammar-constrained decoding
+restricts a language model's output to a formal grammar~\cite{geng2023grammar}.
+At each step an index built from the grammar, typically a finite automaton
+over the grammar's states~\cite{willard2023efficient}, masks the vocabulary
+down to the tokens that keep the prefix in the language: a non-conforming
+continuation is unreachable at decode time, not merely discouraged.
+XGrammar~\cite{dong2024xgrammar} is the engine vLLM exposes for this, and the
+dialect \gfile{} is written in. We are not aware of a
+published grammar for \tlaplus{} itself. \gfile{}
+targets the \tlaplus{} expression language specifically, including
+constructs (nested junction lists, qualified instance application, the
+symbolic operator set) that a generic programming-language grammar would not
+cover. We measure it offline; we do not run it inside a generation arm.
+
+\BfPara{\tlaplus{} Specification Synthesis} FormaLLM~\cite{bisharat2026formallm}
+established the open-loop baseline this program starts from: 26.6\% SANY
+parse and 8.6\% TLC model-check across 25 open-weight models. \ours{} is the
+parent training program. \tlaplus{}~\cite{lamport2002specifying} and
+TLC~\cite{yu1999tlc} are the target language and verifier throughout. Both
+this addendum and the parent program report against industrial \tlaplus{}
+use~\cite{Newcombe2015,cirstea_validating_2024} as the motivating context, not
+as a benchmark.

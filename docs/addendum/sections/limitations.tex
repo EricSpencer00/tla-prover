@@ -1,0 +1,25 @@
+\section{Limitations}\label{sec:limitations}
+
+The grammar has not been run inside a generation arm. The 86.7\% catch rate
+is an offline measurement over saved candidates, an upper bound on what
+decode-time constraint would remove. No claim about pass rate under
+constrained decoding is supported by this addendum.
+
+The 2x2 is incomplete. Framing L has been measured on the base model only.
+The tuned-model cell requires a self-hosted serve that has not yet run, so
+this addendum does not report what task training adds on top of the loop.
+
+Every result in this addendum comes from one model family, one model size
+(gpt-oss-120b), and one 30-spec holdout.
+
+Spec-level pass@k at $k{=}32$ is noisy: the open-loop control moved 12, 8,
+and 12 across its three seeds while its per-sample SANY rate stayed flat.
+
+The shared inference endpoint used for every arm in this addendum accepts
+vLLM's \texttt{guided\_grammar} and \texttt{guided\_choice} parameters with
+HTTP 200 and applies neither; this was verified by sending
+\texttt{guided\_choice: ["alpha","beta"]} and receiving a free-form sentence
+in response. Constrained decoding requires a self-hosted serve.
+
+4 of the 30 holdout specs are library modules scored on SANY alone and 2 are
+proof modules scored on TLAPS; 24 of the 30 are graded by TLC.

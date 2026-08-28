@@ -1,0 +1,184 @@
+@book{lamport2002specifying,
+  title={Specifying Systems: The {TLA+} Language and Tools for Hardware and Software Engineers},
+  author={Lamport, Leslie},
+  year={2002},
+  publisher = {Addison-Wesley Longman Publishing Co., Inc.},
+}
+
+@inproceedings{yu1999tlc,
+  title={Model checking {TLA+} specifications},
+  author={Yu, Yuan and Manolios, Panagiotis and Lamport, Leslie},
+  booktitle={Correct Hardware Design and Verification Methods (CHARME)},
+  series={Lecture Notes in Computer Science},
+  volume={1703},
+  pages={54--66},
+  year={1999},
+  publisher={Springer}
+}
+
+
+
+
+@misc{openai2025gptoss,
+  title={{gpt-oss-120b \& gpt-oss-20b} Model Card},
+  author={{OpenAI}},
+  year={2025},
+  howpublished={\url{https://huggingface.co/openai/gpt-oss-20b}}
+}
+
+@article{xin2024deepseek,
+  title={{DeepSeek-Prover}: Advancing theorem proving in {LLMs} through large-scale synthetic data},
+  author={Xin, Huajian and Guo, Daya and Shao, Zhihong and Ren, Zhizhou and Zhu, Qihao and Liu, Bo and Ruan, Chong and Li, Wenda and Liang, Xiaodan},
+  journal={arXiv preprint arXiv:2405.14333},
+  year={2024}
+}
+
+
+@inproceedings{first2023baldur,
+  title={Baldur: Whole-proof generation and repair with large language models},
+  author={First, Emily and Rabe, Markus N. and Ringer, Talia and Brun, Yuriy},
+  booktitle={Proceedings of the 31st ACM Joint European Software Engineering Conference and Symposium on the Foundations of Software Engineering (ESEC/FSE)},
+  pages={1229--1241},
+  year={2023}
+}
+
+
+@article{rafailov2023direct,
+  title={Direct preference optimization: Your language model is secretly a reward model},
+  author={Rafailov, Rafael and Sharma, Archit and Mitchell, Eric and Manning, Christopher D and Ermon, Stefano and Finn, Chelsea},
+  journal={Advances in Neural Information Processing Systems},
+  volume={36},
+  pages={53728--53741},
+  year={2023}
+}
+
+@article{shao2024deepseekmath,
+  title={{DeepSeekMath}: Pushing the limits of mathematical reasoning in open language models},
+  author={Shao, Zhihong and Wang, Peiyi and Zhu, Qihao and Xu, Runxin and Song, Junxiao and Bi, Xiao and Zhang, Haowei and Zhang, Mingchuan and Li, YK and Wu, Y and others},
+  journal={arXiv preprint arXiv:2402.03300},
+  year={2024}
+}
+
+@inproceedings{bisharat2026formallm,
+  title={{FormaLLM}: A systematic evaluation of large language models for {TLA+} specification generation from natural language},
+  author={Bisharat, Arslan and Laufer, Konstantin and Spencer, Eric and Thiruvathukal, George K. and others},
+  booktitle={Proceedings of the International Conference on Software Technologies (ICSOFT)},
+  year={2026},
+}
+
+
+@article{konnov2019apalache,
+author = {Konnov, Igor and Kukovec, Jure and Tran, Thanh-Hai},
+title = {{TLA+} model checking made symbolic},
+year = {2019},
+issue_date = {October 2019},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {3},
+number = {OOPSLA},
+url = {https://doi.org/10.1145/3360549},
+doi = {10.1145/3360549},
+abstract = {TLA+ is a language for formal specification of all kinds of computer systems. System designers use this language to specify concurrent, distributed, and fault-tolerant protocols, which are traditionally presented in pseudo-code. TLA+ is extremely concise yet expressive: The language primitives include Booleans, integers, functions, tuples, records, sequences, and sets thereof, which can be also nested. This is probably why the only model checker for TLA+ (called TLC) relies on explicit enumeration of values and states.  In this paper, we present APALACHE -- a first symbolic model checker for TLA+. Like TLC, it assumes that all specification parameters are fixed and all states are finite structures. Unlike TLC, APALACHE translates the underlying transition relation into quantifier-free SMT constraints, which allows us to exploit the power of SMT solvers. Designing this translation is the central challenge that we address in this paper. Our experiments show that APALACHE outperforms TLC on examples with large state spaces.},
+journal = {Proc. ACM Program. Lang.},
+month = oct,
+articleno = {123},
+numpages = {30},
+keywords = {TLA+, SMT, Model checking}
+}
+
+
+@article{skalse2022defining,
+  title={Defining and characterizing reward hacking},
+  author={Skalse, Joar and Howe, Nikolaus H. R. and Krasheninnikov, Dmitrii and Krueger, David},
+  journal={Advances in Neural Information Processing Systems},
+  volume={35},
+  pages={9460--9471},
+  year={2022}
+}
+
+@inproceedings{gao2023scaling,
+author = {Gao, Leo and Schulman, John and Hilton, Jacob},
+title = {Scaling laws for reward model overoptimization},
+year = {2023},
+publisher = {JMLR.org},
+abstract = {In reinforcement learning from human feedback, it is common to optimize against a reward model trained to predict human preferences. Because the reward model is an imperfect proxy, optimizing its value too much can hinder ground truth performance, in accordance with Goodhart's law. This effect has been frequently observed, but not carefully measured due to the expense of collecting human preference data. In this work, we use a synthetic setup in which a fixed "gold-standard" reward model plays the role of humans, providing labels used to train a proxy reward model. We study how the gold reward model score changes as we optimize against the proxy reward model using either reinforcement learning or best-of-n sampling. We find that this relationship follows a different functional form depending on the method of optimization, and that in both cases its coefficients scale smoothly with the number of reward model parameters. We also study the effect on this relationship of the size of the reward model dataset, the number of reward model and policy parameters, and the coefficient of the KL penalty added to the reward in the reinforcement learning setup. We explore the implications of these empirical results for theoretical considerations in AI alignment.},
+booktitle = {Proceedings of the 40th International Conference on Machine Learning},
+pages = {10835--10866},
+location = {Honolulu, Hawaii, USA},
+series = {ICML'23}
+}
+
+
+@inproceedings{lean4,
+author = {Moura, Leonardo de and Ullrich, Sebastian},
+title = {The Lean 4 Theorem Prover and Programming Language},
+year = {2021},
+isbn = {978-3-030-79875-8},
+publisher = {Springer-Verlag},
+address = {Berlin, Heidelberg},
+url = {https://doi.org/10.1007/978-3-030-79876-5_37},
+doi = {10.1007/978-3-030-79876-5_37},
+abstract = {Lean 4 is a reimplementation of the Lean interactive theorem prover (ITP) in Lean itself. It addresses many shortcomings of the previous versions and contains many new features. Lean 4 is fully extensible: users can modify and extend the parser, elaborator, tactics, decision procedures, pretty printer, and code generator. The new system has a hygienic macro system custom-built for ITPs. It contains a new typeclass resolution procedure based on tabled resolution, addressing significant performance problems reported by the growing user base. Lean 4 is also an efficient functional programming language based on a novel programming paradigm called functional but in-place. Efficient code generation is crucial for Lean users because many write custom proof automation procedures in Lean itself.},
+booktitle = {Automated Deduction – CADE 28: 28th International Conference on Automated Deduction, Virtual Event, July 12–15, 2021, Proceedings},
+pages = {625–635},
+numpages = {11}
+}
+
+
+@incollection{paulson2000isabelle700theoremprovers,
+      title={Isabelle: The Next 700 Theorem Provers},
+      author={Lawrence C. Paulson},
+      booktitle={Logic and Computer Science},
+      editor={Odifreddi, Piergiorgio},
+      publisher={Academic Press},
+      pages={361--386},
+      year={1990},
+      url={https://arxiv.org/abs/cs/9301106},
+}
+
+@article{Newcombe2015,
+  author = {Newcombe, Chris and Rath, Tim and Zhang, Fan and Munteanu, Bogdan and Brooker, Marc and Deardeuff, Michael},
+  title = {How {Amazon} Web Services Uses Formal Methods},
+  journal = {Communications of the ACM},
+  volume = {58},
+  number = {4},
+  pages = {66--73},
+  year = {2015},
+  publisher = {ACM}
+}
+
+@inproceedings{cirstea_validating_2024,
+  author = {Cirstea, Horatiu and Kuppe, Markus A. and Loillier, Benjamin and Merz, Stephan},
+  title = {Validating Traces of Distributed Programs Against {TLA}\textsuperscript{+} Specifications},
+  booktitle = {Software Engineering and Formal Methods (SEFM 2024)},
+  series = {Lecture Notes in Computer Science},
+  volume = {15280},
+  pages = {126--143},
+  publisher = {Springer},
+  year = {2024},
+  doi = {10.1007/978-3-031-77382-2_8}
+}
+
+@inproceedings{geng2023grammar,
+  title     = {Grammar-Constrained Decoding for Structured {NLP} Tasks without Finetuning},
+  author    = {Geng, Saibo and Josifoski, Martin and Peyrard, Maxime and West, Robert},
+  booktitle = {Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing},
+  pages     = {10932--10952},
+  year      = {2023},
+  address   = {Singapore},
+  doi       = {10.18653/v1/2023.emnlp-main.674}
+}
+
+@article{willard2023efficient,
+  title   = {Efficient Guided Generation for Large Language Models},
+  author  = {Willard, Brandon T. and Louf, R{\'e}mi},
+  journal = {arXiv preprint arXiv:2307.09702},
+  year    = {2023}
+}
+
+@article{dong2024xgrammar,
+  title   = {{XGrammar}: Flexible and Efficient Structured Generation Engine for Large Language Models},
+  author  = {Dong, Yixin and Ruan, Charlie F. and Cai, Yaxing and Lai, Ruihang and Xu, Ziyi and Zhao, Yilong and Chen, Tianqi},
+  journal = {arXiv preprint arXiv:2411.15100},
+  year    = {2024}
+}
