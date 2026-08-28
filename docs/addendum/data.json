@@ -993,5 +993,18 @@
   "specs_any_sig": 26,
   "specs_any_tlc": 20,
   "n_specs": 30
+ },
+ "grammar": {
+  "_source": "tools/grammar_falsereject.py, full run 2026-08-28",
+  "known_good_specs": 438,
+  "v1_false_rejected": 0,
+  "v1_false_reject": 0.0,
+  "bad_parses": 1543,
+  "v1_rejected": 1338,
+  "v1_catch": 0.8671,
+  "v0_false_reject": 0.05,
+  "v0_catch": 0.032,
+  "cfg_files": 230,
+  "cfg_false_rejected": 0
  }
 }
