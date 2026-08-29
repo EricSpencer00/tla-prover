@@ -33,7 +33,9 @@ done
 HOST=$(ssh sophia 'cat ~/vllm_serve_host_w4dgm_sn.txt')
 echo "$(ts) job R on $HOST; waiting for vLLM to answer"
 
-pkill -f "ssh -fN -L $PORT:" 2>/dev/null
+# The mux (ControlMaster) holds forwards, so pkill on an ssh client is a no-op.
+# Cancel through the control socket; nothing-to-cancel is fine.
+ssh -O cancel -L "$PORT:$HOST:$PORT" sophia 2>/dev/null || true
 ssh -fN -L "$PORT:$HOST:$PORT" sophia
 export OPENAI_BASE_URL="http://localhost:$PORT/v1"
 export OPENAI_API_KEY=dummy
