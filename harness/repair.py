@@ -237,19 +237,25 @@ class OpenAICompatModel(Model):
         if seed is not None:
             body["seed"] = seed
         # Constrained decoding: TLA_GUIDED_GRAMMAR names an EBNF file (see
-        # harness/grammars/) whose contents go to vLLM as guided_grammar, making
-        # non-conforming output unreachable at decode time rather than merely
-        # unlikely. Read per call so a grammar edit does not need a restart, and
-        # NOT silently skipped when the path is wrong -- a run that believes it is
-        # grammar-gated and is not would be scored as if it were.
+        # harness/grammars/) whose contents go to vLLM as a structured-output
+        # constraint, making non-conforming output unreachable at decode time
+        # rather than merely unlikely. Read per call so a grammar edit does not
+        # need a restart, and NOT silently skipped when the path is wrong -- a run
+        # that believes it is grammar-gated and is not would be scored as if it
+        # were.
         #
-        # WARNING, measured 2026-08-25: the ALCF SHARED inference gateway accepts
-        # guided_grammar/guided_choice with HTTP 200 and applies neither. Only a
-        # self-hosted vLLM serve actually enforces it. Verify enforcement on any
-        # new endpoint before trusting a grammar-gated arm.
+        # THE PARAMETER NAME IS THE HAZARD, measured 2026-08-28. vLLM 0.22 renamed
+        # `guided_grammar`/`guided_choice` to `structured_outputs`. The legacy
+        # names are still accepted with HTTP 200 and are silently IGNORED -- no
+        # error, no warning. Sending `guided_choice: ["alpha","beta"]` returns a
+        # free-form sentence; `structured_outputs: {"choice": [...]}` returns
+        # "alpha". Both the self-hosted serve and the ALCF shared endpoint enforce
+        # the new form correctly, so this was never an endpoint limitation. Any
+        # new endpoint still needs that two-request check before a grammar-gated
+        # arm is trusted, because the failure is silent.
         gpath = os.environ.get("TLA_GUIDED_GRAMMAR")
         if gpath:
-            body["guided_grammar"] = Path(gpath).read_text()
+            body["structured_outputs"] = {"grammar": Path(gpath).read_text()}
         # provider-specific knobs (e.g. {"reasoning_effort": "medium"} for
         # gpt-oss-style reasoning models, whose thinking shares the token budget).
         # Applied AFTER the seed, preserving the long-standing "extra body wins"

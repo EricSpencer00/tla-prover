@@ -32,6 +32,7 @@ def _body(model, monkeypatch):
 
 
 def test_no_grammar_by_default(model, monkeypatch):
+    assert "structured_outputs" not in _body(model, monkeypatch)
     assert "guided_grammar" not in _body(model, monkeypatch)
 
 
@@ -39,7 +40,11 @@ def test_grammar_file_reaches_the_request_body(model, monkeypatch, tmp_path):
     g = tmp_path / "g.ebnf"
     g.write_text('root ::= "ok"\n')
     monkeypatch.setenv("TLA_GUIDED_GRAMMAR", str(g))
-    assert _body(model, monkeypatch)["guided_grammar"] == 'root ::= "ok"\n'
+    b = _body(model, monkeypatch)
+    assert b["structured_outputs"] == {"grammar": 'root ::= "ok"\n'}
+    # the legacy key is accepted and IGNORED by vLLM 0.22; sending it
+    # would silently produce an ungated arm
+    assert "guided_grammar" not in b
 
 
 def test_grammar_changes_decode_params_hash(model, monkeypatch, tmp_path):

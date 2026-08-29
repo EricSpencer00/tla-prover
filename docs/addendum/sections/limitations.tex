@@ -15,11 +15,15 @@ Every result in this addendum comes from one model family, one model size
 Spec-level pass@k at $k{=}32$ is noisy: the open-loop control moved 12, 8,
 and 12 across its three seeds while its per-sample SANY rate stayed flat.
 
-The shared inference endpoint used for every arm in this addendum accepts
-vLLM's \texttt{guided\_grammar} and \texttt{guided\_choice} parameters with
-HTTP 200 and applies neither; this was verified by sending
-\texttt{guided\_choice: ["alpha","beta"]} and receiving a free-form sentence
-in response. Constrained decoding requires a self-hosted serve.
+Constrained decoding is requested under a parameter name that changed. vLLM
+0.22 renamed \texttt{guided\_grammar} and \texttt{guided\_choice} to
+\texttt{structured\_outputs}; the legacy names are accepted with HTTP 200 and
+silently ignored, with no error and no warning. Sending
+\texttt{guided\_choice: ["alpha","beta"]} returns a free-form sentence, while
+\texttt{structured\_outputs: \{"choice": [...]\}} returns \texttt{alpha}.
+Both endpoints used here enforce the current form. An arm that sends the legacy
+name is ungated and reports as though it were gated, so we check enforcement
+with two requests before any grammar-gated run.
 
 4 of the 30 holdout specs are library modules scored on SANY alone and 2 are
 proof modules scored on TLAPS; 24 of the 30 are graded by TLC.
