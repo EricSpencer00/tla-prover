@@ -1,0 +1,82 @@
+[22:41:19] serve READY job=177365 node=sophia-gpu-08
+[1/3] GET http://localhost:8321/v1/models
+      served models: ['chattla-w4dgm-120b']
+[2/3] short completion
+      ok
+[3/3] long probe: ~18000 prompt tokens + max_tokens=16384
+      ok
+PREFLIGHT OK: safe to launch gen-eval
+[22:41:33] preflight OK
+[22:41:34] guided-decoding check: IGNORED:The sky is clear and the temperature is 
+[22:41:34] ARM 1/3 framing L on the tuned model (closes the 2x2)
+[1/30] spec 2: 6 call(s) -- SOLVED in 6 calls
+[2/30] spec 5: 5 call(s) -- SOLVED in 5 calls
+[3/30] spec 13: 32 call(s) -- unsolved
+[4/30] spec 14: 32 call(s) -- unsolved
+[5/30] spec 15: 32 call(s) -- unsolved
+[6/30] spec 30: 32 call(s) -- unsolved
+[7/30] spec 32: 4 call(s) -- SOLVED in 4 calls
+[8/30] spec 37: 1 call(s) -- SOLVED in 1 calls
+[9/30] spec 41: 3 call(s) -- SOLVED in 3 calls
+[10/30] spec 55: 32 call(s) -- unsolved
+[11/30] spec 86: 1 call(s) -- SOLVED in 1 calls
+[12/30] spec 95: 1 call(s) -- SOLVED in 1 calls
+[13/30] spec 105: 4 call(s) -- SOLVED in 4 calls
+[14/30] spec 106: 32 call(s) -- unsolved
+[15/30] spec 121: 32 call(s) -- unsolved
+[16/30] spec 128: 32 call(s) -- unsolved
+[17/30] spec 131: 11 call(s) -- SOLVED in 11 calls
+[18/30] spec 132: 32 call(s) -- unsolved
+[19/30] spec 133: 32 call(s) -- unsolved
+[20/30] spec 135: 32 call(s) -- unsolved
+[21/30] spec 141: 32 call(s) -- unsolved
+[22/30] spec 142: 32 call(s) -- unsolved
+[23/30] spec 143: 7 call(s) -- SOLVED in 7 calls
+[24/30] spec 148: 32 call(s) -- unsolved
+[25/30] spec 158: 32 call(s) -- unsolved
+[26/30] spec 168: 32 call(s) -- unsolved
+[27/30] spec 174: 32 call(s) -- unsolved
+[28/30] spec 181: 1 call(s) -- SOLVED in 1 calls
+[29/30] spec 183: 1 call(s) -- SOLVED in 1 calls
+[30/30] spec 191: 32 call(s) -- unsolved
+
+=== loop-w4dgm-120b: framing L, model=chattla-w4dgm-120b (ledger re-score) ===
+  n=30  solved=12/30  budget=32 calls/spec (control framing A: 33)
+[00:03:59] ARM 1 done: pass@k = 12/30  pass@1 = 0/30
+[00:03:59] ARM 2/3 ungated framing A on THIS serve (same-session control for arm 3)
+[1/30] spec 2: 32 sample(s) run (resumed 0 skipped)
+[2/30] spec 5: 32 sample(s) run (resumed 0 skipped)
+[3/30] spec 13: 32 sample(s) run (resumed 0 skipped)
+[4/30] spec 14: 32 sample(s) run (resumed 0 skipped)
+[5/30] spec 15: 32 sample(s) run (resumed 0 skipped)
+[6/30] spec 30: 32 sample(s) run (resumed 0 skipped)
+[7/30] spec 32: 32 sample(s) run (resumed 0 skipped)
+[8/30] spec 37: 32 sample(s) run (resumed 0 skipped)
+[9/30] spec 41: 32 sample(s) run (resumed 0 skipped)
+[10/30] spec 55: 32 sample(s) run (resumed 0 skipped)
+[11/30] spec 86: 32 sample(s) run (resumed 0 skipped)
+[12/30] spec 95: 32 sample(s) run (resumed 0 skipped)
+[13/30] spec 105: 32 sample(s) run (resumed 0 skipped)
+[14/30] spec 106: 32 sample(s) run (resumed 0 skipped)
+[15/30] spec 121: 32 sample(s) run (resumed 0 skipped)
+[16/30] spec 128: 32 sample(s) run (resumed 0 skipped)
+[17/30] spec 131: 32 sample(s) run (resumed 0 skipped)
+[18/30] spec 132: 32 sample(s) run (resumed 0 skipped)
+[19/30] spec 133: 32 sample(s) run (resumed 0 skipped)
+[20/30] spec 135: 32 sample(s) run (resumed 0 skipped)
+[21/30] spec 141: 32 sample(s) run (resumed 0 skipped)
+[22/30] spec 142: 32 sample(s) run (resumed 0 skipped)
+[23/30] spec 143: 32 sample(s) run (resumed 0 skipped)
+[24/30] spec 148: 32 sample(s) run (resumed 0 skipped)
+[25/30] spec 158: 32 sample(s) run (resumed 0 skipped)
+[26/30] spec 168: 32 sample(s) run (resumed 0 skipped)
+[27/30] spec 174: 32 sample(s) run (resumed 0 skipped)
+[28/30] spec 181: 32 sample(s) run (resumed 0 skipped)
+[29/30] spec 183: 32 sample(s) run (resumed 0 skipped)
+[30/30] spec 191: 32 sample(s) run (resumed 0 skipped)
+
+=== open-w4dgm-120b-samesession: framing A, model=chattla-w4dgm-120b (ledger re-score) ===
+  n=30  pass@1=7  pass@31=16
+[03:04:44] ARM 2 done: pass@k = 16/30  pass@1 = 7/30
+[03:04:44] ARM 3 SKIPPED -- this serve does not enforce guided decoding (IGNORED:The sky is clear and the temperature is )
+[03:04:44] ALL ARMS COMPLETE

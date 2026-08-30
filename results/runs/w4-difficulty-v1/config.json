@@ -1,0 +1,14 @@
+{
+  "sample": "results/runs/w4-difficulty-v1/sample_frozen.json",
+  "sample_sha256": "68ef871bc05daf286e8a15f319913304a9a82dfe3dcf04c27e0d9b81f54a4aa6",
+  "n_cells": 300,
+  "k": 8,
+  "mode": "generation",
+  "model": "openai:chattla-w4dgp-120b",
+  "temperature": 0.8,
+  "max_tokens": 8192,
+  "timeout_s": 60,
+  "max_iters": 1,
+  "skip_decontam": true,
+  "repro": "python3 -m harness.w4_difficulty probe --sample results/runs/w4-difficulty-v1/sample_frozen.json --model openai:chattla-w4dgp-120b --k 8 --mode generation --rundir results/runs/w4-difficulty-v1"
+}

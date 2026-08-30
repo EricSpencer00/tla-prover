@@ -2,6 +2,7 @@
   "n": 2,
   "pass@1": 0,
   "pass@2": 0,
-  "pass@1_specs": [],
-  "pass@2_specs": []
+  "pass_set": [],
+  "api_error_rows": 6,
+  "recomputed_from_ledger": true
 }

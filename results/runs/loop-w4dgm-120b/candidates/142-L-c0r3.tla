@@ -1,0 +1,66 @@
+---- MODULE ReachableProofs ----
+EXTENDS Naturals, Reachability
+
+CONSTANTS Nodes, Root
+
+VARIABLES marked, frontier, pc
+
+vars == <<marked, frontier, pc>>
+
+TypeOK ==
+  /\ marked \subseteq Nodes
+  /\ frontier \subseteq Nodes
+  /\ pc \in {"idle", "working", "done"}
+
+Init ==
+  /\ marked = {}
+  /\ frontier = {Root}
+  /\ pc = "idle"
+
+Mark(n) ==
+  /\ pc = "working"
+  /\ n \in frontier
+  /\ marked' = marked \cup {n}
+  /\ frontier' = frontier \ {n}
+  /\ pc' = pc
+
+Expand(n) ==
+  /\ pc = "working"
+  /\ n \in marked
+  /\ frontier' = frontier \cup (Succ(n) \ marked)
+  /\ pc' = pc
+  /\ marked' = marked
+
+Start ==
+  /\ pc = "idle"
+  /\ frontier # {}
+  /\ pc' = "working"
+  /\ marked' = marked
+  /\ frontier' = frontier
+
+Finish ==
+  /\ pc = "working"
+  /\ frontier = {}
+  /\ pc' = "done"
+  /\ marked' = marked
+  /\ frontier' = frontier
+
+Next ==
+  \/ \E n \in Nodes : Mark(n)
+  \/ \E n \in Nodes : Expand(n)
+  \/ Start
+  \/ Finish
+
+Spec == Init /\ [][Next]_vars
+
+Invariant1 ==
+  /\ TypeOK
+  /\ \A n \in marked : Succ(n) \subseteq (marked \cup frontier)
+
+Invariant2 == marked \cup ReachFrom(frontier) = ReachFrom(marked \cup frontier)
+
+Invariant3 == ReachFrom({Root}) = (marked \cup ReachFrom(frontier))
+
+PartialCorrectness == (pc = "done") => (marked = ReachFrom({Root}))
+
+====

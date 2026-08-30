@@ -63,7 +63,13 @@ fact_list ::= fact (_ "," _ fact)*
 fact ::= ("MODULE" _ ident) | new_fact | assume_prove | step_ref | op_name | expr
 op_name ::= prefix_op | infix_op | postfix_op
 step_ref ::= "<" (digits | "*" | "+") ">" (ident | digits)?
-new_fact ::= "NEW" _ (("CONSTANT" | "VARIABLE" | "STATE" | "ACTION" | "TEMPORAL") _)? opdecl (_ "\\in" _ expr)?
+# TLAPS writes both `ASSUME NEW STATE P` and, in the TLAPS module itself,
+# `ASSUME STATE P'` -- NEW is optional when a declaration keyword is present,
+# and the declared name may carry a prime.
+new_fact ::= "NEW" _ (decl_kw _)? decl_target (_ "\\in" _ expr)?
+           | decl_kw _ decl_target (_ "\\in" _ expr)?
+decl_kw ::= "CONSTANT" | "VARIABLE" | "STATE" | "ACTION" | "TEMPORAL"
+decl_target ::= opdecl postfix_op?
 assume_prove ::= "ASSUME" _ fact_list _ "PROVE" _ expr
 
 assume ::= ("ASSUME" | "ASSUMPTION" | "AXIOM") _ (ident _ "==" _)? expr

@@ -1,0 +1,56 @@
+[12:29:31] waiting for job 177470 to start
+[13:13:21] waiting for job 177470 to start
+[01:12:43] waiting for job 177470
+[01:21:46] waiting for job 177494
+[10:21:24] job 177494 running
+[10:21:24] serve check FAILED -- reconnecting
+[10:21:25] job 177494 running
+[10:21:25] tunnel -> sophia-gpu-06; waiting for vLLM
+[10:30:26] job left R while waiting
+[10:30:26] serve check FAILED -- reconnecting
+[10:30:27] job 177494 gone (state='F'); resubmitting (1/2)
+[10:30:27] new serve job 177523
+[11:18:36] job 177523 running
+[11:18:36] tunnel -> sophia-gpu-03; waiting for vLLM
+[11:27:37] job left R while waiting
+[11:27:37] serve check FAILED -- reconnecting
+[11:27:38] job 177523 gone (state='F'); resubmitting (2/2)
+[11:27:38] new serve job 177528
+[11:31:24] waiting for job 177524
+[11:59:29] job 177524 running
+[11:59:29] serve check FAILED -- reconnecting
+[11:59:30] job 177524 running
+[11:59:30] tunnel -> sophia-gpu-03; waiting for vLLM
+[12:09:31] serve healthy
+[12:09:31] serve_preflight
+[1/3] GET http://localhost:8321/v1/models
+      served models: ['chattla-w4dgm-120b']
+[2/3] short completion
+      ok
+[3/3] long probe: ~18000 prompt tokens + max_tokens=16384
+      ok
+PREFLIGHT OK: safe to launch gen-eval
+[12:09:38] structured-outputs enforcement check
+[12:09:42]   legacy guided_choice  -> 42C.
+```yaml
+- role: user
+  content: |
+[12:09:42]   structured_outputs    -> alpha
+[12:09:42] structured outputs enforced: 1
+[12:09:42] ==== A1 loop seed2 : loop-w4dgm-120b-seed2 (attempt 1) ====
+[12:37:08] waiting for job 177524
+[12:37:08] job 177524 running
+[12:37:08] serve_preflight
+[1/3] GET http://localhost:8321/v1/models
+      served models: ['chattla-w4dgm-120b']
+[2/3] short completion
+      ok
+[3/3] long probe: ~18000 prompt tokens + max_tokens=16384
+      ok
+PREFLIGHT OK: safe to launch gen-eval
+[12:37:10] structured-outputs enforcement check
+[12:37:11]   legacy guided_choice  -> ```twee
+<<comment "opacity only goes down and requires no tr
+[12:37:11]   structured_outputs    -> alpha
+[12:37:11] structured outputs enforced: 1
+[12:37:11] ==== A1 loop seed2 : loop-w4dgm-120b-seed2 (attempt 1) ====
