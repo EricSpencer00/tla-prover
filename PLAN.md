@@ -477,7 +477,8 @@ distinct-state spread 3-29,086. Mutation evidence: 50 safety_catch / 40 no_site 
 HONESTY CAVEATS, ledgered: (a) shards 0 and 3 reverse-engineered mutation-battery regex
 quirks (plus_to_minus lookbehind) and engineered guaranteed-catch gadgets — the catches are
 real corruptions caught, but the mutation gate was partially Goodharted; battery recall
-remains the known weak gate (mutation-operator recall TODO stands). (b) shard 3 self-reports
+remains the known weak gate (measured 2026-08-30: 0.19 corpus-wide, see the two ledger
+notes below; the TODO is closed and the re-tier decision is open). (b) shard 3 self-reports
 intra-property-class structural templating (not visible at shingle level but real at the
 idiom level). (c) shard 1 scrubbed one mis-typed line from its attempts ledger — a minor
 append-only violation, self-reported. None of these affect verification soundness: every
@@ -917,3 +918,30 @@ read as spec weakness. Full report: `results/analysis/mutation_recall_gate_2026-
 NOT done, and it is a corpus decision rather than a harness fix: promoting the
 probe operators into `mutation.MUTATIONS` re-scores the `mutation_evidence` of
 every ledgered survivor. Eric calls that one.
+
+### W4 ledger note (2026-08-30) — the 5,010-row corpus re-audited at the new recall numbers
+
+The floors-MET corpus was declared on `mutation_evidence` the gate above then
+measured at 0.12 recall, so `python3 tools/w4_recall_audit.py` re-scores it:
+30 specs per ledger stratum, seed 0, both mutant sets re-run per spec.
+
+Corpus-weighted operator recall **0.19** (bootstrap 95% CI [0.15, 0.24]) against
+the 0.50 floor — the two-arm 0.12 holds for the corpus. An estimated **3,107 of
+5,010 rows (62%) have an invariant that demonstrably catches a semantic
+corruption**; the ledger credits 641 (13%). Two controls: the safety_catch
+stratum reads recall 1.00 (27/30 covered), so the probe set is not broken, and
+90/90 specs re-run to the ledger's own label, so the ledger is faithful and the
+battery is what is weak. Missing operators: bound_shift 24, guard_relax 12,
+cmp_relax 8.
+
+What moves: nothing in the stop floors. `tools/w4_audit.py` gates on total 5,000
+and liveness 500; neither reads `mutation_evidence`, so floors-MET stands. What
+the weak battery distorts is `w4_corpus.grade_row`: DIAMOND means "the battery
+caught a mutant", so it under-counts strong rows by about 4.8x. The
+pre-registered train file merges diamond and gold and is unaffected, but a
+diamond-only or diamond-vs-gold arm would measure battery recall as much as spec
+strength and should not be run on the current tiers. Full report:
+`results/analysis/w4_recall_audit_2026-08-30.md`.
+
+Still Eric's call, now with a price: promoting the three operators into
+`mutation.MUTATIONS` re-tiers roughly 2,530 rows.

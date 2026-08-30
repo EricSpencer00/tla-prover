@@ -1,0 +1,133 @@
+== W4 mutation-recall re-audit ==
+effective corpus 5010; strata no_kill=3169  no_site=1200  safety_catch=641
+sample 30/stratum, seed 0, timeout 60s
+-- stratum no_kill (N=3169)
+  [no_kill] w4opus::d12-m4-p6-t4: recall_miss battery=0/1 probe=1/9 killers=cmp_relax
+  [no_kill] w4opus::d7-m3-p0-t2: no_evidence battery=0/1 probe=0/9 killers=-
+  [no_kill] w4opus::d4-m2-p6-t5: no_evidence battery=0/1 probe=0/12 killers=-
+  [no_kill] w4opus::d7-m0-p5-t3: recall_miss battery=0/1 probe=2/8 killers=bound_shift
+  [no_kill] w4opus::d6-m2-p1-t3: recall_miss battery=0/1 probe=2/11 killers=bound_shift
+  [no_kill] w4opus::d6-m6-p6-t5: recall_miss battery=0/1 probe=1/11 killers=cmp_relax
+  [no_kill] w4opus::d5-m4-p5-t1: no_evidence battery=0/1 probe=0/14 killers=-
+  [no_kill] w4opus::d15-m8-p0-t5: no_evidence battery=0/1 probe=0/4 killers=-
+  [no_kill] w4opus::d9-m3-p0-t2: no_evidence battery=0/1 probe=0/8 killers=-
+  [no_kill] w4opus::d5-m1-p0-t2: no_evidence battery=0/1 probe=0/5 killers=-
+  [no_kill] w4opus::d17-m1-p3-t4: no_evidence battery=0/1 probe=0/9 killers=-
+  [no_kill] w4opus::d12-m0-p2-t1: recall_miss battery=0/1 probe=2/12 killers=bound_shift
+== W4 mutation-recall re-audit ==
+effective corpus 5010; strata no_kill=3169  no_site=1200  safety_catch=641
+sample 30/stratum, seed 0, timeout 60s
+resuming: 12 specs already scored in results/analysis/w4_recall_audit_2026-08-30_rows.jsonl
+-- stratum no_kill (N=3169)
+  [no_kill] w4opus::d3-m0-p3-t1: no_evidence battery=0/1 probe=0/12 killers=-
+  [no_kill] w4opus::d9-m4-p5-t0: no_evidence battery=0/1 probe=0/12 killers=-
+  [no_kill] w4opus::d6-m8-p4-t1: no_evidence battery=0/1 probe=0/10 killers=-
+  [no_kill] w4opus::d14-m3-p4-t3: recall_miss battery=0/1 probe=3/11 killers=bound_shift,guard_relax
+  [no_kill] w4opus::d16-m6-p4-t1: recall_miss battery=0/1 probe=1/11 killers=cmp_relax
+== W4 mutation-recall re-audit ==
+effective corpus 5010; strata no_kill=3169  no_site=1200  safety_catch=641
+sample 30/stratum, seed 0, timeout 60s
+resuming: 17 specs already scored in results/analysis/w4_recall_audit_2026-08-30_rows.jsonl
+-- stratum no_kill (N=3169)
+  [no_kill] w4opus::d5-m5-p2-t1: recall_miss battery=0/1 probe=3/14 killers=bound_shift
+  [no_kill] w4opus::d4-m8-p4-t2: recall_miss battery=0/1 probe=1/16 killers=bound_shift
+  [no_kill] w4opus::d9-m5-p2-t4: recall_miss battery=0/2 probe=2/9 killers=bound_shift
+  [no_kill] w4opus::d9-m3-p3-t5: no_evidence battery=0/1 probe=0/7 killers=-
+  [no_kill] w4opus::d10-m0-p1-t3: no_evidence battery=0/1 probe=0/12 killers=-
+  [no_kill] w4opus::d1-m4-p5-t5: recall_miss battery=0/1 probe=1/8 killers=guard_relax
+  [no_kill] w4opus::d0-m7-p0-t3: recall_miss battery=0/1 probe=1/7 killers=guard_relax
+  [no_kill] w4opus::d10-m7-p6-t3: no_evidence battery=0/1 probe=0/4 killers=-
+  [no_kill] w4opus::d1-m6-p3-t0: recall_miss battery=0/1 probe=2/12 killers=cmp_relax,guard_relax
+  [no_kill] w4opus::d8-m5-p3-t0: recall_miss battery=0/1 probe=1/10 killers=guard_relax
+  [no_kill] w4opus::d7-m6-p4-t5: recall_miss battery=0/1 probe=4/17 killers=bound_shift,cmp_relax
+  [no_kill] w4opus::d2-m8-p3-t1: recall_miss battery=0/1 probe=3/10 killers=bound_shift
+  [no_kill] w4opus::d13-m0-p3-t0: no_evidence battery=0/1 probe=0/8 killers=-
+-- stratum no_site (N=1200)
+  [no_site] w4opus::d14-m4-p3-t0: recall_miss battery=0/0 probe=1/10 killers=bound_shift
+  [no_site] w4opus::d10-m8-p0-t2: no_evidence battery=0/0 probe=0/6 killers=-
+  [no_site] w4opus::d9-m2-p3-t1: no_evidence battery=0/0 probe=0/1 killers=-
+  [no_site] w4opus::d9-m0-p2-t3: recall_miss battery=0/0 probe=3/12 killers=bound_shift
+  [no_site] w4opus::d15-m7-p4-t1: recall_miss battery=0/0 probe=2/17 killers=bound_shift,cmp_relax
+  [no_site] w4opus::d2-m0-p0-t2: no_evidence battery=0/0 probe=0/12 killers=-
+  [no_site] w4opus::d6-m2-p1-t0: no_evidence battery=0/0 probe=0/12 killers=-
+  [no_site] w4opus::d4-m7-p5-t2: recall_miss battery=0/0 probe=1/5 killers=guard_relax
+  [no_site] w4opus::d19-m6-p2-t3: recall_miss battery=0/0 probe=1/16 killers=bound_shift
+  [no_site] w4opus::d16-m7-p3-t0: no_evidence battery=0/0 probe=0/4 killers=-
+  [no_site] w4opus::d10-m0-p4-t3: recall_miss battery=0/0 probe=1/13 killers=cmp_relax
+  [no_site] w4opus::d10-m2-p5-t0: recall_miss battery=0/0 probe=2/8 killers=bound_shift
+  [no_site] w4opus::d14-m5-p6-t3: recall_miss battery=0/0 probe=2/10 killers=bound_shift,guard_relax
+  [no_site] w4opus::d7-m0-p1-t0: recall_miss battery=0/0 probe=4/10 killers=bound_shift
+  [no_site] w4opus::d9-m7-p4-t5: recall_miss battery=0/0 probe=1/5 killers=guard_relax
+  [no_site] w4opus::d5-m5-p2-t5: recall_miss battery=0/0 probe=1/11 killers=bound_shift
+  [no_site] w4opus::d1-m7-p2-t5: recall_miss battery=0/0 probe=4/15 killers=bound_shift
+  [no_site] w4opus::d7-m1-p6-t3: no_evidence battery=0/0 probe=0/9 killers=-
+  [no_site] w4opus::d13-m1-p1-t5: recall_miss battery=0/0 probe=2/14 killers=bound_shift
+  [no_site] w4opus::d19-m1-p0-t4: recall_miss battery=0/0 probe=2/13 killers=guard_relax
+  [no_site] w4opus::d4-m1-p2-t4: recall_miss battery=0/0 probe=4/16 killers=bound_shift,guard_relax
+  [no_site] w4opus::d12-m7-p3-t0: recall_miss battery=0/0 probe=1/4 killers=guard_relax
+  [no_site] w4opus::d8-m0-p1-t4: recall_miss battery=0/0 probe=4/13 killers=bound_shift
+  [no_site] w4opus::d7-m0-p1-t5: recall_miss battery=0/0 probe=3/9 killers=bound_shift
+  [no_site] w4opus::d1-m1-p4-t3: recall_miss battery=0/0 probe=2/13 killers=bound_shift,cmp_relax
+  [no_site] w4opus::d7-m2-p5-t0: no_evidence battery=0/0 probe=0/7 killers=-
+  [no_site] w4opus::d13-m7-p3-t4: no_evidence battery=0/0 probe=0/9 killers=-
+  [no_site] w4opus::d1-m2-p3-t1: recall_miss battery=0/0 probe=2/9 killers=guard_relax
+  [no_site] w4opus::d7-m0-p2-t5: recall_miss battery=0/0 probe=1/13 killers=bound_shift
+  [no_site] w4opus::d14-m0-p3-t0: no_evidence battery=0/0 probe=0/11 killers=-
+-- stratum safety_catch (N=641)
+  [safety_catch] w4opus::d11-m1-p3-t3: covered battery=1/1 probe=3/7 killers=bound_shift
+  [safety_catch] w4opus::d6-m6-p0-t3: covered battery=1/1 probe=3/9 killers=bound_shift,cmp_relax
+  [safety_catch] w4opus::d14-m6-p6-t5: covered battery=1/1 probe=2/7 killers=bound_shift
+  [safety_catch] w4opus::d0-m0-p1-t0: covered battery=1/2 probe=6/8 killers=bound_shift
+  [safety_catch] w4opus::d14-m7-p2-t2: covered battery=1/2 probe=4/9 killers=bound_shift
+  [safety_catch] w4opus::d14-m0-p4-t3: covered battery=1/2 probe=5/9 killers=bound_shift,cmp_relax
+  [safety_catch] w4opus::d10-m2-p6-t3: covered battery=1/2 probe=6/8 killers=bound_shift
+  [safety_catch] w4opus::d17-m6-p1-t1: covered battery=1/1 probe=2/13 killers=bound_shift
+  [safety_catch] w4opus::d3-m7-p2-t2: covered battery=1/2 probe=4/17 killers=bound_shift
+  [safety_catch] w4opus::d13-m3-p2-t5: covered battery=1/1 probe=5/10 killers=bound_shift
+  [safety_catch] w4opus::d1-m3-p2-t1: covered battery=2/2 probe=3/12 killers=bound_shift
+  [safety_catch] w4opus::d12-m0-p5-t4: covered battery=1/1 probe=3/11 killers=bound_shift
+  [safety_catch] w4opus::d11-m5-p6-t0: no_evidence battery=1/1 probe=0/6 killers=-
+  [safety_catch] w4opus::d7-m7-p1-t3: no_evidence battery=1/1 probe=0/5 killers=-
+  [safety_catch] w4opus::d16-m8-p2-t4: covered battery=1/2 probe=2/13 killers=bound_shift
+  [safety_catch] w4opus::d9-m2-p4-t1: no_evidence battery=1/2 probe=0/10 killers=-
+  [safety_catch] w4opus::d8-m6-p2-t0: covered battery=1/1 probe=2/12 killers=bound_shift
+  [safety_catch] w4opus::d16-m0-p5-t0: covered battery=1/1 probe=1/14 killers=guard_relax
+  [safety_catch] w4opus::d17-m9-p2-t1: covered battery=1/1 probe=4/15 killers=bound_shift,cmp_relax
+  [safety_catch] w4opus::d3-m4-p2-t2: covered battery=1/1 probe=6/13 killers=bound_shift
+  [safety_catch] w4opus::d5-m4-p2-t1: covered battery=1/1 probe=4/15 killers=bound_shift
+  [safety_catch] w4opus::d16-m1-p2-t3: covered battery=1/1 probe=5/16 killers=bound_shift
+  [safety_catch] w4opus::d14-m7-p1-t3: covered battery=1/1 probe=1/11 killers=bound_shift
+  [safety_catch] w4opus::d13-m8-p2-t4: covered battery=1/2 probe=5/14 killers=bound_shift
+  [safety_catch] w4opus::d12-m4-p4-t1: covered battery=1/2 probe=1/7 killers=cmp_relax
+  [safety_catch] w4opus::d4-m2-p2-t4: covered battery=1/1 probe=7/13 killers=bound_shift,cmp_relax,guard_relax
+  [safety_catch] w4opus::d1-m9-p2-t4: covered battery=1/1 probe=3/13 killers=bound_shift,conj_to_disj
+  [safety_catch] w4opus::d2-m8-p2-t4: covered battery=1/2 probe=4/13 killers=bound_shift
+  [safety_catch] w4opus::d3-m4-p4-t3: covered battery=1/1 probe=2/17 killers=bound_shift,cmp_relax
+  [safety_catch] w4opus::d6-m5-p2-t5: covered battery=1/2 probe=5/16 killers=bound_shift,guard_relax
+
+== re-audit summary ==
+stratum          n  cov  miss  noev  recall  real_catch  reproduced
+no_kill         30    0    16    14    0.00     16/30       30/30  
+no_site         30    0    21     9    0.00     21/30       30/30  
+safety_catch    30   27     0     3    1.00     27/30       30/30  
+
+weak-labelled rows (no_kill + no_site) with a demonstrable catch: 37/60 = 62%
+operators the battery is missing: {'bound_shift': 24, 'guard_relax': 12, 'cmp_relax': 8}
+== W4 mutation-recall re-audit ==
+effective corpus 5010; strata no_kill=3169  no_site=1200  safety_catch=641
+sample 30/stratum, seed 0, timeout 60s
+resuming: 90 specs already scored in results/analysis/w4_recall_audit_2026-08-30_rows.jsonl
+-- stratum no_kill (N=3169)
+-- stratum no_site (N=1200)
+-- stratum safety_catch (N=641)
+
+== re-audit summary ==
+stratum          n  cov  miss  noev  recall  real_catch  reproduced
+no_kill         30    0    16    14    0.00     16/30       30/30  
+no_site         30    0    21     9    0.00     21/30       30/30  
+safety_catch    30   27     0     3    1.00     27/30       30/30  
+
+weak-labelled rows (no_kill + no_site) with a demonstrable catch: 37/60 = 62%
+corpus-weighted operator recall = 577/3107 = 0.19 (floor 0.5)
+corpus rows with a demonstrable catch ~= 3107/5010 = 62%; ledgered safety_catch = 641 = 13%
+operators the battery is missing: {'bound_shift': 24, 'guard_relax': 12, 'cmp_relax': 8}
