@@ -187,8 +187,21 @@ def diagnose(row, module_text, cfg_text, mod, log_text, wrapper_text=None):
     if row.get("sany") != "pass":
         return "sany", _clip(log_text, EVIDENCE_MAX_CHARS)
     if row.get("tlc") in ("fail_invariant", "fail_deadlock", "fail_liveness"):
-        return "tlc_violation", truncate_trace(
-            log_text, TRACE_MAX_STATES, EVIDENCE_MAX_CHARS)
+        evidence = truncate_trace(log_text, TRACE_MAX_STATES, EVIDENCE_MAX_CHARS)
+        # Arm A6 (docs/RALPH_STAIRCASE.md it3), flag-gated so the frozen
+        # comparison arms are unaffected: on holdout 121/135/141 every
+        # generation death at this rung is "violated by the initial state",
+        # and the canonical specs all guard their postconditions with
+        # `pc = "Done" => ...` (121.tla:161, 141.tla:194). One line names
+        # the pattern instead of hoping the model infers it from the trace.
+        if (os.environ.get("TLA_LOOP_INIT_HINT") == "1"
+                and "violated by the initial state" in (log_text or "")):
+            evidence += (
+                "\nHINT: an INVARIANT must hold in every state, including the "
+                "initial state. A property about the final result must be "
+                "guarded by the termination condition, e.g. "
+                '`Correctness == pc = "Done" => <result property>`.')
+        return "tlc_violation", evidence
     return "tlc_error", _clip(log_text, EVIDENCE_MAX_CHARS)
 
 

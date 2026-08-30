@@ -257,3 +257,28 @@ def test_a_real_fragment_is_never_replaced():
                                            "signature", "MISSING: Safety",
                                            "(lines 3-5)\nreal fragment")
     assert "real fragment" in p and "module header" not in p
+
+
+def test_init_violation_hint_is_flag_gated(monkeypatch):
+    """Arm A6 (docs/RALPH_STAIRCASE.md it3): when TLC rejects the INITIAL state,
+    the models' shared mistake on holdout 121/135/141 is an unguarded
+    postcondition (canonical specs write `pc = "Done" => ...`). With
+    TLA_LOOP_INIT_HINT=1 the evidence gains one guidance line; without the
+    flag the evidence is byte-identical to the frozen behavior."""
+    log = 'Error: Invariant Correctness is violated by the initial state:\n/\\ pc = "L3"'
+    row = _row(tlc="fail_invariant", verdict="fail:tlc=fail_invariant")
+
+    monkeypatch.delenv("TLA_LOOP_INIT_HINT", raising=False)
+    rung, ev = loop_eval.diagnose(row, MODULE, CFG, "Counter", log)
+    assert rung == "tlc_violation" and "every state" not in ev
+
+    monkeypatch.setenv("TLA_LOOP_INIT_HINT", "1")
+    rung2, ev2 = loop_eval.diagnose(row, MODULE, CFG, "Counter", log)
+    assert rung2 == "tlc_violation"
+    assert "every state" in ev2 and "pc =" in ev2
+    assert ev2.startswith(ev)  # hint appends; frozen evidence unchanged
+
+    # a violation found later in the search (not at init) gets no hint
+    log2 = "Error: Invariant TypeOK is violated.\nState 7:"
+    _, ev3 = loop_eval.diagnose(row, MODULE, CFG, "Counter", log2)
+    assert "every state" not in ev3
