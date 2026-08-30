@@ -576,3 +576,391 @@ idiom convergence pressure). None of these block wave production, so waves conti
 **Standing reversal condition for all three:** any of these is a session-level call made on
 Eric's delegation, not a goal change. G1 and G2 in §1 are untouched. If a measurement
 contradicts the reasoning above, the amendment loses, not the measurement.
+
+### Amendment 21 (2026-08-04) — the reserved run fires: base model, rendering, and venue fixed before submission
+
+Eric's directive 2026-08-04: "fix what we're doing and fire off a train tonight." The
+Amendment-20(b) precondition is met — architecture-aware LoRA resolution with an aborting
+floor landed (`ef1981d`, `c5a94b8`, `4344909` in ChatTLA) and a valid dense-vs-MoE
+trainability check exists (`results/analysis/w4_trainability_check_2026-08-03.md`). This
+entry fixes the three parameters that were open, each declared BEFORE the run, and ledgers
+one sequencing honesty note.
+
+**Sequencing note first.** The W4-diamond-gold 120b train+eval of 2026-07-28..30
+(W4DG_GATE2_SESSION_2026-07-29.md) ran after the resolver fixes but before the trainability
+check, i.e. outside the letter of Amendment 20(b). It is NOT claimed as the pre-registered
+run. It stands as an exploratory arm with its ledgered caveats (single seed, framing-A prompt
+fix mid-measurement, bare-nl rendering). Tonight's run is the pre-registered one.
+
+**(1) Base model = gpt-oss-120b.** Grounds:
+- It is the only base with a frozen, audited holdout baseline (Amendment 13,
+  `f9dc83ec…`). Any other base makes Gate-2 unscorable until a new baseline is measured —
+  eval compute spent before any training signal exists.
+- Amendment 20's entropy-collapse concern did not manifest as the failure it predicts: the
+  W4DG autopsy measured 100% distinct candidates (no diversity collapse), and the row-level
+  re-score (`c7a0d2bb`, tools/rowlevel_power.py) has W4DG-on-120b at 13.54% per-sample vs
+  base 6.88% — +59% relative, p=0.0019 vs the v2-SFT arm, p=0.064 vs base — the only
+  measured capability movement of the program.
+- The dense arm (Qwen3.6-27B) has never produced a measured TLA+ spec; choosing it tonight
+  would be evidence-free. The trainability check confirms both arms now ATTACH correctly,
+  but a controlled dense-vs-MoE capability comparison additionally needs rank equalization
+  (~2× trainable-fraction gap) and a Qwen baseline on the frozen holdout. That is a separate
+  question, still open, and this choice does not answer it.
+
+**(2) Rendering: `prompt_style=generation`, declared pre-run.** The w4_difficulty probe
+(2026-08-03, finding #2) showed every survivor was generated and verified under
+`w2_loop.generation_prompt` (names the module, demands ```tla + ```cfg + a
+`PROPERTY_INVARIANT:` trailer) while `to_harmony_sft` trained on the bare `nl` with the
+trailer stripped — a train/verify contract mismatch. The repair corpus already ledgered the
+principle (Amendment 16 cause #1: train on the prompt shape the task is evaluated under).
+`corpus_prep` now renders both styles; `bare` stays the byte-stable default so W4DG's
+provenance remains reproducible. Tonight's file:
+`results/analysis/sft_w4_diamond_gold_genprompt.jsonl` — 4,219 rows (607 diamond + 3,612
+gold; 560 liveness = 13.3%), min-tier 2 over all 201 W4 shards, row set verified identical
+to the bare rendering (rendering changes text only, never membership), 0 duplicate
+seed_keys, every row contract-checked (final channel, both fences, PI trailer, NL fence),
+SHA-256 `cb0074dbfec8959c2413484e87747cf5d0bb4adcae45e021f07bc3929ff7b677`. This is 100 rows
+more than the 4,119-row file the exploratory W4DG train used: shards 199-200 landed after
+that render. Corpus itself unchanged since the floor commit (`05b01a02`).
+
+**(3) Venue corrected.** Amendment 15's "Sophia single-node (8×80GB)" is wrong as a standing
+assumption: Sophia nodes observed serving jobs this week are A100-40GB (sophia-gpu-12 =
+4×40GB). The proven 120b recipe already assumes 40GB cards (FSDP activation checkpointing +
+param offload, `accelerate_fsdp2_8gpu.yaml`); the job requests
+`select=1:ngpus=8:mem=960gb` on `single-node` and must verify `Resource_List` after
+submission (PBS hook rewrites requests).
+
+**Ops finding, same class as the resolver bug:** the Sophia staging copy
+(`chattla_staging/ChatTLA`) had a STALE `lora_resolver.py`/`train.py` vs `~/ChatTLA` at
+`4344909` — a train launched from it would have run without the nested-config fix and
+without attach-time coverage reporting. Synced before submission; the sync step is now part
+of the launch checklist alongside `preflight_120b.py` and the dry-import.
+
+**Protocol unchanged** (this narrows nothing and lowers nothing): frozen 30-spec holdout
+`ecfc205…`, both framings, pass@1 and pass@k with **per-sample rate primary** per
+`c7a0d2bb`, Rule-9 semantic audit, arms reported separately, candidates persisted. Train
+hyperparameters follow the ledgered W4DG choice: 2 epochs (entropy cap), effective batch 8,
+LoRA via the architecture-aware resolver, output
+`checkpoints_w4dg_genprompt_120b`. The Gate-2 eval of this checkpoint is the next session's
+work; nothing here pre-commits its verdict.
+
+**Postscript (same night).** First submission, job **170856**, died at 3m24s with
+`TRAIN_EXIT=1`: `train.py` passed `Mxfp4Config(dequantize=True)` for ANY gpt-oss model
+under FSDP, gated on the family rather than on the checkpoint — the pre-dequantized bf16
+export has `quantization_config: null`, so the kwarg marked the model quantized without
+dequantizing anything, and transformers 5.12.1 (the env has drifted from the proven 5.6.2)
+refuses to train an MXFP4-flagged model. This is also why the trainability check's 20b arm
+trained cleanly: that checkpoint really is MXFP4 and genuinely dequantizes. Fixed by gating
+on the checkpoint's own config (`_checkpoint_is_mxfp4`, ChatTLA `bd794a0`; verified False
+on the bf16 dir, True on hub gpt-oss-20b, False on garbage paths), synced to staging,
+resubmitted as job **170857**. Every guard from the blocker work held: attach-time coverage
+printed 144 expert tensors before the crash, and the failure propagated as Exit_status=1
+instead of a silent 0. Preflight cannot catch this class (the refusal fires in Trainer
+init, not at load) — noted as a known gap rather than papered over.
+
+### Amendment 22 (2026-08-05) — the reserved run measured: prompt-aligned rendering REGRESSED; Amendment 21's hypothesis loses to the measurement
+
+The Amendment-21 checkpoint (train 170857 clean: 1056/1056 steps, loss 0.395, final entropy
+0.31, 144 expert-LoRA tensors; merge 170883 clean: 72/72 expert tensors, 233.7GB) was
+measured on the frozen holdout, serve `chattla-w4dgp-120b` at ctx 32768,
+preflight-verified, ledger-scored (`gate2-w4dgp-120b-A`, `gate2-w4dgp-120b-B`).
+
+**Framing A: 12/30 pass@32, 6/30 pass@1. Per-sample 69/896 = 7.7%** (honest denominator:
+specs 183 and 191 are UNMEASURED — their full 33-row sets died as api_error when the serve
+hit walltime; they are excluded, not scored as failures). Two-level paired bootstrap on the
+17 byte-identical prompts vs the untuned base: **-0.018, p = 0.66 — null against base**,
+where the bare-rendered W4DG-A3 arm stands at +0.086, p = 0.063 (13.5% per-sample).
+Bounding the missing specs from A3's own yield (12/32 and 3/32) projects W4DGP-A to ~8.7%
+after re-draw — the regression vs bare cannot be an artifact of the two lost specs.
+Pass-set: lost 13/142/168 vs A3, gained 95. Failure profile: sany=fail rose 68.1% → 74.1%.
+
+**Framing B: 17/23 pass@32, 8/23 pass@1. Per-sample 151/736 = 20.5%** vs baseline 55.0%
+and v2-SFT 28.7% — the worst B arm measured, clean ledger (0 api_error, gate-check OK).
+
+**Verdict: Gate-2 NOT cleared. The prompt-aligned rendering did not preserve, let alone
+extend, the bare rendering's gain — it erased it.** Per Amendment 20's standing reversal
+clause: the measurement wins, Amendment 21's alignment reasoning loses. W4-diamond-gold
+with the BARE rendering remains the best fine-tune measured (13.5% vs base 6.9%).
+
+**Candidate mechanism, explicitly unproven:** Gate-2 framing A does not use the
+`w2_loop.generation_prompt` the pairs were rendered with — it uses `gen_eval`'s framing-A
+prompt (REQUIRED IDENTIFIERS block, different structure). Training on the bare `nl` may
+teach NL→spec generally; training on one rigid template may BIND the capability to that
+template. This is testable with compute already staged: the difficulty probe measures pass
+rate under the w2_loop prompt itself — if this checkpoint scores high there while sitting
+at base level under gen_eval framing A, template-binding is confirmed. The probe run is
+436 rows short (serve death); resume it before drawing the conclusion.
+
+**Corrections owed by this result:** the difficulty-probe finding that motivated Amendment
+21 ("trains on a different prompt than the corpus was verified under") was true as stated
+but did not imply the fix would help at Gate-2, because Gate-2's prompt is a third shape.
+Amendment 21 conflated "verified-under prompt" with "eval prompt". Ledgered so the next
+session does not re-derive the same plausible-but-wrong move.
+
+**Ops debt from the run:** (1) the eval chain's api_error strip matched a nonexistent
+field; api_error rows are `verdict == "api_error"` — fixed in the session script, and the
+same resume-blindness still lives in gen-eval proper (api_error rows count as done on
+resume; known since 2026-07-15, now bitten twice). (2) Two serve walltime deaths cost
+specs 183/191 and 436 probe rows; re-draw both on the next serve. (3) Framing-B v2
+comparison used 898 rows vs 736 — denominator reconciliation (Amendment 16 debt) still
+open.
+
+
+### Amendment 23 (2026-08-08) — decoder provenance: seeds recorded, extractors measured and left frozen
+
+**The defect.** No `seed` was ever sent on any model request. `harness/repair.py`'s two
+request builders sent only `model`, `max_tokens`, `temperature`, `messages`, while
+`Model.generate`'s docstring claimed reproducibility "from (model id, prompt hash, seed
+semantics of the provider)" — a third term that was never supplied. The consequence is
+ledgered in `tools/rowlevel_power.py:8-11`: spec 30 went **5 passes → 1 pass** between
+`gate2-w4dg-120b-A` and `-A3`, same model, byte-identical `prompt_sha256`, with no way to
+reproduce either side. That control pair existed to *bound* run-to-run variance because
+nothing could *attribute* it.
+
+**What changed.** `harness/decoding.py` derives a per-sample seed from
+`(run_id, spec, framing, sample_id)` — derived, not stored, so a lost `rows.jsonl` line
+does not make a sample unreproducible. `Model` gains `generate_traced`, returning
+provenance alongside each completion. Rows gain `decode_seed`, `decode_params_sha256`
+(hashed over the **post-merge** body, so a stale `OPENAI_EXTRA_BODY` overriding the seed is
+visible), `provider_seed_echo`, `seed_supported`, `backend_sha256` (hash only — no URL, no
+key enters the ledger), `extractor`, and `extract_divergent`. `harness replay` re-runs one
+ledgered sample at its recorded seed and diffs; it refuses to issue a request when the
+rebuilt prompt hash does not match the recorded one (`PROMPT_DRIFT`), and refuses to fake a
+reproduction for pre-provenance rows (`SEED_UNSUPPORTED`). `tools/smoke/seed_probe.py`
+gates a sweep on whether the endpoint honors `seed` at all, with a different-seed negative
+control so an endpoint silently pinned to greedy cannot pass.
+
+**The frozen budget is unchanged.** Temperature 0.8, `max_tokens` 16384, k=32,
+pass@1 = one temp-0 greedy sample — all exactly as Amendment 12 froze them. A seed fixes
+the *realization*, not the distribution. Pre-amendment runs remain valid and remain
+distributional peers of seeded runs; they are **not** row-level peers, and
+`seed_supported` is null on them, which is how they are told apart. No existing row was
+rewritten (Rule 8). `gate_check` produces an identical report with and without the new
+fields, which is now a test.
+
+**Honest bound on what this buys.** It does not reduce sampled-arm variance, and it is not
+expected to make replay bitwise-exact on a shared vLLM: continuous batching changes
+floating-point reduction order, so a seed pins the sampling RNG but not the numerics.
+`PARTIAL` is an anticipated and acceptable `seed_probe` verdict. What this buys is
+attribution and a reproduction command, not determinism.
+
+**Measured: the two module extractors never actually disagree.**
+`harness/gen_eval.py:196` (first match, line-anchored, module name optional) and
+`harness/repair.py:522` (last match, unanchored, name and trailing dashes required) are two
+different functions. Unifying them would change extraction for already-scored rows and
+retroactively invalidate the ledgers, so the rate was measured first, offline and at zero
+spend, over all 1,079 raw replies persisted across 35 run dirs
+(`tools/extractor_divergence.py`):
+
+| outcome | n | share |
+|---|---:|---:|
+| neither extractor parses | 1,079 | 100.0% |
+| the two disagree | **0** | **0.0%** |
+
+Unification would recover exactly zero rows. **Both extractors stay frozen**, and
+`extract_divergent` is now recorded per row so the forward-looking rate stays visible.
+Scope limit: `_persist_candidate` keeps the raw reply only when extraction *failed*, so
+this measures the `no_module_extracted` population and cannot see replies both extractors
+parsed but parsed differently.
+
+**Side finding, worth its own follow-up.** Decomposing those same 1,079 extraction
+failures: **41.3% (446) are empty replies**, 36.2% (391) never attempt a module, **21.3%
+(230) open a module and are cut off before the `====` terminator**, and 3 use a malformed
+`==== MODULE X ====` header. So roughly a fifth of `no_module_extracted` is a `max_tokens`
+truncation artifact and two fifths is the endpoint returning nothing — neither is model
+incapacity, and both currently score as model failure. This is not corrected here (no bar
+moves, no row is rescored); it is ledgered so the next capability read does not attribute
+it to the model.
+
+**Rationale.** Strictly strengthens the evidence chain and weakens no bar: it adds
+provenance to future rows, changes no criterion, no budget value, and no historical result.
+The extractor question is resolved by measurement rather than by a change, which is the
+cheaper and less destructive of the two options.
+
+**Owner:** **Eric (2026-08-08)** — approved the design at
+`docs/designs/2026-08-08-decode-provenance-design.md`, then, asked whether to also unify the
+extractors and whether to write this amendment row, answered verbatim: *"do all"*. Recorded
+per the Amendment 2 convention of quoting the owner instruction as given. The extractor
+unification half of that instruction was answered by the measurement above rather than by a
+code change; the zero-divergence result is the reason, and reversing that call needs only
+this row and the tool that produced it.
+
+### Amendment 24 (2026-08-12) — the composition arm: mechanics supervision from oracle repair pairs
+
+Owner instruction, quoted per the Amendment-2 convention: *"go do a data aggregation and
+fine tune on Argonne, make no silly mistakes."* This amendment pre-registers that run
+BEFORE submission.
+
+**The knob.** One change against the best measured arm (bare-rendered W4-diamond-gold,
+13.5% per-sample, Amendment 22): ADD mechanics supervision to the corpus. Nothing else
+moves — base gpt-oss-120b bf16, architecture-aware LoRA, 2 epochs, effective batch 8, the
+170857 recipe and environment, bare rendering for every generation row.
+
+**Why this knob.** The failure mass: 68–74% of framing-A failures are `sany=fail` against
+~2% genuine semantic failures, and every existing corpus target is a verified spec — the
+training data contains zero instances of the dominant failure mode (training-methods
+review, 2026-08-05). The GRPO era failed against the same wall from the other side (no
+reward variance because whole groups fail to parse), so parse-level competence is also the
+precondition for any future RL arm.
+
+**The data: oracle repair pairs** (`tools/oracle_repair_pairs.py`). Corrupt a W4 survivor,
+verify the corruption REALLY fails, and take the ORIGINAL survivor text as the repair
+target. Two verified classes: `sany` (one seeded syntax corruption from a fixed operator
+list; kept only if SANY rejects it; SANY output tail = evidence) and `tlc` (one seeded
+operator swap from the frozen MUTATIONS battery; kept only if SANY still passes AND TLC
+fails; TLC output tail = evidence). Rendered with the frozen `build_repair_prompt` shape —
+the exact shape framing B evaluates with. Properties that make this the low-risk
+composition move: no teacher model and no rejection sampling (the verifier is the only
+authority); targets stay in the Opus-teacher distribution (no same-family provenance,
+Amendment 17's implicated mechanism); fixes are minimal by construction (the inverse of
+one corruption); determinism (seed = sha256 of the survivor text) makes the file
+reproducible from the shard ledgers alone.
+
+**Exclusion:** the 508 W2.6 repair-v1 rows are NOT included — their fix text is
+20b-authored, which is same-family provenance, the one mechanism a fine-tune failure has
+actually been attributed to.
+
+**Pre-registered protocol:** train file = `sft_w4_diamond_gold_5010.jsonl` (4,119 bare
+rows) + the oracle repair rows; Gate-2 framings A and B, k=32, frozen holdout, ledger-
+scored, per-sample rate primary with the two-level paired bootstrap on byte-identical
+prompts; compared against BOTH the untuned base (6.9%) and bare-W4DG-A3 (13.5%).
+Framing B per-sample compared against W4DGP's 20.5%, v2's 28.7%, and baseline's 55.0%.
+No bar from earlier amendments moves. Success is a measurement, not a promise: the arm is
+reported whatever it shows.
+
+**Disclosed second variation, not a knob:** bare-W4DG-A3 trained on the pre-floor
+3,534-row corpus cut; this arm's generation rows are the floor-met 4,119-row re-render of
+the same tiers. Corpus growth along the plan-of-record distribution was always scheduled
+and is disclosed rather than pinned back, because pinning to the stale cut would discard
+the liveness floor work for symmetry's sake.
+
+**Expected mix disclosure:** sany pairs will dominate tlc pairs (observed yields ~100% vs
+~13% per survivor attempt — the tlc yield is bounded by the corpus's real mutation-catch
+rate, 12.7%). The mix mirrors the eval failure mass, which is the point, and the achieved
+counts are recorded below at render time.
+
+**Postscript at submission (same night).** Achieved counts: 4,000 survivors attempted,
+**2,787 pairs kept (1,981 sany + 806 tlc, 69.7% yield)**; the seed-retry loop lifted the
+tlc arm to ~40% of its attempts. Combined train file `sft_w4dg_mech.jsonl`: **6,906 rows**
+(4,119 gen + 2,787 repair), sha256 `f094f4d4…21df6a3`, hash-verified on Sophia after
+staging. Decontam sweep against all 30 resolved holdout module names: 29 word-boundary
+hits, all the token "Voting" as scenario vocabulary (quorum-vote auction scenarios), max
+Jaccard vs the holdout Voting spec 0.158 — no near-dup, 16/29 are pre-existing gen rows.
+Preflight: ALL CHECKS PASSED (0.4574% trainable, 144 expert tensors, exit propagation).
+Submitted as Sophia job **172825** (single-node, ngpus=8/960gb verified in Resource_List,
+12h wall). At 6,906 rows × 2 epochs ≈ 1,727 steps ≈ 5.5h at the 170857 rate.
+
+### Amendment 25 (2026-08-13) — the composition arm measured: repair restored to baseline, generation held
+
+Amendment 24's mech arm (train 172825, merge 173027, serve chain 173214→173293→
+173307→173349, run-ids `gate2-w4dgm-120b-A`/`-B`) measured on the frozen holdout,
+ledger-scored, gate-check OK both arms, 0 api_error in the final ledgers.
+
+**Framing A: 11.15% per-sample (107/960), 15/30 pass@32, 7/30 pass@1.** Paired
+two-level bootstrap vs bare-W4DG-A3: −0.024, p=0.36 — null. Vs base on the 17
+matched prompts: +0.028, p=0.57. Adding 2,787 repair rows neither helped nor hurt
+generation. SANY rate 29.3% vs A3's 30.9% — the mechanics supervision did NOT move
+the generation-side parse rate, which was the design's primary mechanism claim for
+framing A. That specific hypothesis is falsified.
+
+**Framing B: 57.58% per-sample (437/759), 17/23 pass@32, 16/23 pass@1.** Against
+untuned baseline 59.7%/21/23/15 pass@1; v2 26.5%; W4DGP 20.9%. **The repair
+regression that every previous fine-tune caused is gone** — per-sample within 2.1
+points of the untuned baseline (vs −33 and −39 points for prior arms), and pass@1
+EXCEEDS baseline (16/23 vs 15/23). The oracle-pair supervision worked exactly where
+it trained: the model repairs without the wholesale-rewrite failure mode that
+Amendment 16 diagnosed.
+
+**Verdict.** The composition knob is a partial win with a clean mechanism split:
+repair-shaped supervision transferred to the repair task and did not transfer to
+generation. For the north-star loop (generate once, repair until verified), the
+deployable checkpoint is now arguably mech, not bare-W4DG: it concedes 2.4
+per-sample points on generation (null) and gains 36.7 on repair (decisive).
+Per-iteration loop yield should be computed before choosing.
+
+**RL gate, recomputed on this ledger** (`tools/group_variance.py`): staircase
+zero-variance at G=8 = 23.2% (viable; abort floor 0.55). The staircase-GRPO design
+(2026-08-12) can start from mech with repair capability intact — its framing-B arm
+inherits a policy that already repairs at baseline level.
+
+**Ops ledgered:** three serve crashes were Triton CUDA OOM under concurrent long
+prefills at util 0.95 (NOT queue preemption; the exclusive-node serve died
+identically — and vLLM reports Exit_status=0 after an engine OOM, so serve health
+must be read from the log, never the exit code). Fix: util 0.90, max-num-seqs 8,
+GEN_EVAL_CONCURRENCY=8. 891 api_error rows stripped-with-backup across three
+resume cycles; final ledgers contain none. The eval chain's completeness check
+counted raw lines (would have accepted api_error rows as complete) — fixed in the
+session chain; gen-eval proper still carries the api_error-resume defect, now
+bitten three times (2026-07-15, 2026-08-05, 2026-08-12), and should be fixed in
+the harness before the next serve-dependent run.
+
+### Amendment 26 (2026-08-30) — the E2.c ledger reconciled: one table, recomputed, that any retrain must beat
+
+**The disagreement this closes.** `corpus/e2c_baseline.json` has carried the frozen
+E2.c baseline since Amendment 13 and still hashes to
+`f9dc83ec487acfae018475b4557bb7c35b6d844e5310dec33195f0f98a22c545` — unedited. The
+week-of-2026-07-06 WEEKLY entry says "No Stage-2 baseline number exists"; that was
+true when written and false two days later, and nothing marked it superseded.
+Amendment 15 left v2_sft2 "in flight" and Amendment 16 landed its result, but each
+later arm (w4dg, w4dgp, w4dgm) reported only inside its own amendment. There was no
+single artifact holding the bar and every challenge to it. This amendment makes one.
+
+**No new inference was run.** Every arm in the table was already measured at the
+frozen Amendment-12 budget on the frozen holdout. All twelve are re-scored from
+their append-only `rows.jsonl` by `tools/e2c_ledger.py`, which calls
+`harness.gate_check` (keep-first dedup, `sample=="corruption"` excluded, pass@1 =
+the temp-0 greedy sample) and never reads summary.json.
+
+**Artifacts.** `corpus/e2c_ledger.json` (machine) and `results/e2c_ledger.md`
+(human), both generated; `python3 tools/e2c_ledger.py --check` regenerates and
+fails on any drift. The tool aborts if `corpus/e2c_baseline.json` stops hashing to
+the Amendment-13 value, and aborts if the re-scored baseline arm does not reproduce
+the frozen cells. It reproduces them exactly: **A pass@1 2/30, A pass@32 12/30,
+B pass@1 12/23, B pass@32 20/23** (raw B pass@32 is 21; the frozen 20 is after the
+spec-15 Rule-9 reject). The bar is unchanged in every cell.
+
+**Verdicts, raw-vs-raw as Amendment 16 scored them:**
+
+| challenger | A pass@1 | A pass@32 | B pass@1 | B pass@32 | verdict |
+|---|---|---|---|---|---|
+| bar (baseline 120b) | 2/30 | 12/30 | 12/23 | 20/23 | — |
+| v2_sft2 (A16) | 3 | 11 | 10 | 18 | FAILED |
+| w4dgp (A22) | 6 | 12 | 8 | 17 | FAILED |
+| w4dgm (A25) | 7 | 15 | 16 | 17 | FAILED |
+
+`w4dg` (A22) gets no verdict row: its framing-B arm covers 4 of the 23 specs, so two
+of its four cells do not exist. **The Gate-2 box stays unchecked.** No arm has ever
+met the bar in all four cells.
+
+**Two defects the reconciliation found, both new to the ledger.**
+
+1. **`gate2-w4dgp-120b-A` fails `harness gate-check`** — 66/990 api_error rows =
+   6.7%, above the 5% abort threshold. Amendment 22's framing-A numbers for the
+   prompt-aligned arm rest on an unhealthy run. The verdict does not change
+   (w4dgp fails on B pass@1, 8 vs 12, from a healthy B run), but the A cells are
+   marked INVALID in the table and must not be quoted.
+2. **`gate2-v2-120b-B` has 69 passing rows whose `candidate_sha256` no longer
+   matches the file on disk.** 68 of the 69 are duplicate `(spec, sample)` keys:
+   two writers shared one run-id and the second overwrote the first's candidate
+   file. This is the same duplicate-writer defect Amendment 16 recorded, now shown
+   to have destroyed evidence, not just rows. **The run-id lockfile, open since
+   Amendment 16, is now blocking: no further serve-dependent arm runs until it
+   lands.**
+
+**Rule-9 status, stated plainly.** Only the two baseline framing-B arms carry a
+completed manual triage (Amendment 13). `harness/audit_r2b_semaudit.py` is now
+parameterized by run dir — it reproduces the Amendment-13 audit byte-for-byte
+(275 + 417 passing, 251 REVIEW/STRUCTURAL, 0 sha mismatches) and was run over the
+four challenger framing-B arms. Their counts stay **raw**, with a mechanical
+`CLEAN floor` column added: the pass count restricted to rows the audit calls CLEAN
+with a verified candidate hash, which needs no manual reads. The floor separates
+arms whose result is robust from arms whose result is mostly unread diffs —
+w4dgm-B is 17 raw and 17 floor, v2_sft2-B is 18 raw and 5 floor. Rule 9 can only
+lower a count, so every FAILED verdict above is safe; a BEATS verdict would require
+the manual triage first.
+
+**Amendment audit line:** changes no metric, no denominator, no budget, and no bar.
+It recomputes existing measurements into one artifact and records two run-health
+defects found while doing so.
+
+| ledgered by Claude (2026-08-30) |

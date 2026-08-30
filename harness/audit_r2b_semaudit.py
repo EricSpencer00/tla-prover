@@ -1,6 +1,9 @@
-"""Rule-9 semantic audit for E2.c framing-B r2 arms (candidate-persisted rerun).
+"""Rule-9 semantic audit for any candidate-persisted framing-B run.
 
-For every passing row in results/runs/e2c-baseline-r2-{20b,120b}-b:
+Default arms are the E2.c framing-B r2 baseline; pass run dirs on the command
+line to audit a challenger arm at the same bar (Amendment 26).
+
+For every passing row in the run's rows.jsonl:
   1. verify candidate_sha256 matches the candidate file on disk (integrity)
   2. diff the candidate module against the CANONICAL (uncorrupted) spec text
      (gen_eval.canonical_spec_text), using semaudit.py's checked_names/
@@ -28,8 +31,10 @@ CFG_DIRS = [("override", REPO / "corpus" / "configs" / "overrides"),
             ("draft", REPO / "corpus" / "configs" / "drafts")]
 
 
-def audit_arm(arm):
-    rundir = REPO / "results" / "runs" / f"e2c-baseline-r2-{arm}-b"
+def audit_arm(arm=None, rundir=None):
+    if rundir is None:
+        rundir = REPO / "results" / "runs" / f"e2c-baseline-r2-{arm}-b"
+    rundir = Path(rundir)
     rows = [json.loads(l) for l in (rundir / "rows.jsonl").read_text().splitlines() if l]
     passing = [r for r in rows if r["verdict"] == "pass"]
 
@@ -99,14 +104,21 @@ def audit_arm(arm):
 
 
 if __name__ == "__main__":
+    args = sys.argv[1:]
+    if args:
+        arms = [(Path(a).name, Path(a)) for a in args]
+        out_path = REPO / "results" / "runs" / "challenger_b_audit_raw.json"
+    else:
+        arms = [(a, None) for a in ("20b", "120b")]
+        out_path = REPO / "results" / "runs" / "r2b_audit_raw.json"
     all_out = {}
-    for arm in ["20b", "120b"]:
-        passing, results, sha_mismatches = audit_arm(arm)
-        all_out[arm] = {"n_passing": len(passing), "results": results,
-                         "sha_mismatches": sha_mismatches}
+    for label, rundir in arms:
+        passing, results, sha_mismatches = audit_arm(label, rundir)
+        all_out[label] = {"n_passing": len(passing), "results": results,
+                          "sha_mismatches": sha_mismatches}
         n_clean = sum(1 for x in results if x["verdict"] == "CLEAN")
         n_review = sum(1 for x in results if x["verdict"] != "CLEAN")
-        print(f"== {arm} == passing={len(passing)} CLEAN={n_clean} REVIEW/STRUCTURAL={n_review} sha_mismatches={len(sha_mismatches)}")
-    out_path = REPO / "results" / "runs" / "r2b_audit_raw.json"
+        print(f"== {label} == passing={len(passing)} CLEAN={n_clean} "
+              f"REVIEW/STRUCTURAL={n_review} sha_mismatches={len(sha_mismatches)}")
     out_path.write_text(json.dumps(all_out, indent=2))
     print("wrote", out_path)
