@@ -10,6 +10,15 @@
 # Seeds are derived from run_id (harness/decoding.py:36), so a new --run-id is a
 # new seed. There is no --seed flag and none is needed.
 #
+# Connection resilience (2026-08-30): the clusters bounced overnight and the
+# original script had two holes. (1) A transient ssh failure made the qstat
+# wait-loop read "job gone" and abort. (2) A serve/tunnel drop mid-arm wrote
+# verdict=api_error rows that resume then refused to retry. The second is fixed
+# in the harness (load_existing_rows skips api_error; gate_check dedup prefers
+# the scored retry), so the recipe here is: health-check before every arm,
+# reconnect on failure, and re-run a failed arm once -- resume only redoes the
+# missing and errored pairs.
+#
 # Arm 5 is the grammar arm. It runs ONLY if the endpoint is proven to enforce
 # structured outputs, because vLLM 0.22 accepts the legacy guided_* names with
 # HTTP 200 and silently ignores them (docs/addendum limitations).
@@ -19,42 +28,100 @@ cd "$(dirname "$0")/.."
 JOB=${JOB:?set JOB to the qsub id, e.g. JOB=177470}
 PORT=${PORT:-8321}
 MODEL=chattla-w4dgm-120b
+SERVE_PBS='~/serve_vllm_w4dgm_sn.pbs'
+HOSTFILE='~/vllm_serve_host_w4dgm_sn.txt'
 LOG=results/runs/autorun_tuned_seeds.log
+RESUBMITS=0
+MAX_RESUBMITS=2
 exec > >(tee -a "$LOG") 2>&1
 ts() { date +"[%H:%M:%S]"; }
 
-echo "$(ts) waiting for job $JOB to start"
-while :; do
-  st=$(ssh sophia "qstat -f $JOB 2>/dev/null | awk '/job_state/{print \$3}'")
-  [ "$st" = "R" ] && break
-  [ -z "$st" ] && { echo "$(ts) job $JOB gone from queue -- aborting"; exit 1; }
-  sleep 60
-done
-HOST=$(ssh sophia 'cat ~/vllm_serve_host_w4dgm_sn.txt')
-echo "$(ts) job R on $HOST; waiting for vLLM to answer"
+# job_state <id> -> R/Q/F/H/... on stdout, rc 0. rc 1 = ssh itself failed
+# (cluster unreachable -- NOT the same as the job being gone). rc 2 = ssh ok,
+# job unknown to PBS.
+job_state() {
+  local out
+  out=$(timeout 40 ssh -o ConnectTimeout=20 -o BatchMode=yes sophia \
+        "qstat -xf $1 2>/dev/null | awk '/job_state/{print \$3}'") || return 1
+  [ -n "$out" ] || return 2
+  echo "$out"
+}
 
-# The mux (ControlMaster) holds forwards, so pkill on an ssh client is a no-op.
-# Cancel through the control socket; nothing-to-cancel is fine.
-ssh -O cancel -L "$PORT:$HOST:$PORT" sophia 2>/dev/null || true
-ssh -fN -L "$PORT:$HOST:$PORT" sophia
+# Block until $JOB is running, riding out unreachable-cluster stretches.
+# A finished/vanished job is resubmitted (bounded), updating $JOB.
+wait_for_job() {
+  while :; do
+    local st rc=0
+    st=$(job_state "$JOB") || rc=$?
+    case "$rc:$st" in
+      0:R) echo "$(ts) job $JOB running"; return 0 ;;
+      0:Q|0:H) sleep 120 ;;
+      1:*) echo "$(ts) cluster unreachable, retrying in 5 min"; sleep 300 ;;
+      *)  # ssh fine but job finished or unknown -> serve died or was purged
+        if [ "$RESUBMITS" -ge "$MAX_RESUBMITS" ]; then
+          echo "$(ts) job $JOB gone and resubmit budget spent -- aborting"
+          return 1
+        fi
+        RESUBMITS=$((RESUBMITS + 1))
+        echo "$(ts) job $JOB gone (state='$st'); resubmitting ($RESUBMITS/$MAX_RESUBMITS)"
+        JOB=$(timeout 60 ssh sophia "qsub $SERVE_PBS" | cut -d. -f1) || {
+          echo "$(ts) resubmit failed, retrying in 5 min"; sleep 300; }
+        [ -n "$JOB" ] && echo "$(ts) new serve job $JOB"
+        sleep 120 ;;
+    esac
+  done
+}
+
+serve_ok() { curl -sf --max-time 15 "http://localhost:$PORT/v1/models" >/dev/null; }
+
+# The connection test Eric asked for: cheap check first; on failure walk the
+# whole chain back up -- job state, host file, mux forward, vLLM readiness.
+ensure_serve() {
+  serve_ok && return 0
+  echo "$(ts) serve check FAILED -- reconnecting"
+  wait_for_job || return 1
+  local host
+  host=$(timeout 40 ssh sophia "cat $HOSTFILE") || {
+    echo "$(ts) cannot read host file"; return 1; }
+  # The mux (ControlMaster) holds forwards; cancel any stale one for this port
+  # regardless of which node it pointed at, then add the current one.
+  ssh -O cancel -L "$PORT:$host:$PORT" sophia 2>/dev/null || true
+  ssh -O cancel -L "$PORT:$LAST_HOST:$PORT" sophia 2>/dev/null || true
+  ssh -fN -L "$PORT:$host:$PORT" sophia || return 1
+  LAST_HOST=$host
+  echo "$(ts) tunnel -> $host; waiting for vLLM"
+  local i
+  for i in $(seq 1 60); do
+    serve_ok && { echo "$(ts) serve healthy"; return 0; }
+    # If the job died while we waited, go back around the whole loop.
+    if [ $((i % 10)) -eq 0 ]; then
+      st=$(job_state "$JOB") || st=""
+      [ "$st" = "R" ] || { echo "$(ts) job left R while waiting"; ensure_serve; return $?; }
+    fi
+    sleep 60
+  done
+  echo "$(ts) vLLM never answered"; return 1
+}
+
+LAST_HOST=none
 export OPENAI_BASE_URL="http://localhost:$PORT/v1"
 export OPENAI_API_KEY=dummy
 
-for i in $(seq 1 90); do
-  curl -sf "$OPENAI_BASE_URL/models" >/dev/null && break
-  sleep 60
-done
+echo "$(ts) waiting for job $JOB"
+wait_for_job || exit 1
+ensure_serve || { echo "$(ts) no serve -- aborting"; exit 1; }
 
 echo "$(ts) serve_preflight"
-python3 tools/smoke/serve_preflight.py --model "$MODEL" || { echo "$(ts) PREFLIGHT FAILED -- not launching"; exit 1; }
+python3 tools/smoke/serve_preflight.py --model "$MODEL" || {
+  echo "$(ts) PREFLIGHT FAILED -- not launching"; exit 1; }
 
 # Two-request enforcement check. A server that ignores the parameter returns
 # free-form prose; one that enforces it returns exactly one of the choices.
 echo "$(ts) structured-outputs enforcement check"
 probe() {
-  curl -s "$OPENAI_BASE_URL/chat/completions" -H 'content-type: application/json' \
+  curl -s --max-time 120 "$OPENAI_BASE_URL/chat/completions" -H 'content-type: application/json' \
     -d "{\"model\":\"$MODEL\",\"max_tokens\":24,\"messages\":[{\"role\":\"user\",\"content\":\"The sky is clear and the temperature is\"}]$1}" \
-    | python3 -c 'import json,sys; print(json.load(sys.stdin)["choices"][0]["message"]["content"].strip())'
+    | python3 -c 'import json,sys; print(json.load(sys.stdin)["choices"][0]["message"]["content"].strip())' 2>/dev/null
 }
 LEGACY=$(probe ',"guided_choice":["alpha","beta"]')
 CURRENT=$(probe ',"structured_outputs":{"choice":["alpha","beta"]}')
@@ -64,11 +131,21 @@ GRAMMAR_OK=0
 case "$CURRENT" in alpha|beta) GRAMMAR_OK=1;; esac
 echo "$(ts) structured outputs enforced: $GRAMMAR_OK"
 
-run() {  # run <arm-label> <run-id> <cmd...>
+# run <label> <run-id> <cmd...>: health-check, run, gate-check; on any failure
+# reconnect and re-run ONCE (resume redoes only missing/api_error pairs).
+run() {
   local label=$1 rid=$2; shift 2
-  echo "$(ts) ==== $label : $rid ===="
-  "$@" && python3 -m harness gate-check "results/runs/$rid" \
-    || echo "$(ts) $label FAILED (continuing to next arm)"
+  local attempt
+  for attempt in 1 2; do
+    ensure_serve || { echo "$(ts) $label: no serve, skipping"; return 1; }
+    echo "$(ts) ==== $label : $rid (attempt $attempt) ===="
+    if "$@" && python3 -m harness gate-check "results/runs/$rid"; then
+      return 0
+    fi
+    echo "$(ts) $label attempt $attempt FAILED"
+  done
+  echo "$(ts) $label FAILED twice (continuing to next arm)"
+  return 1
 }
 
 run "A1 loop seed2" loop-w4dgm-120b-seed2 \

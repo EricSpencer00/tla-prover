@@ -944,3 +944,40 @@ def test_seq_substitution_is_treated_as_builtin():
     sig = gen_eval.required_signature("CONSTANT Seq <- LimitedSeq\n")
     assert sig["constants"] == []
     assert sig["builtin_overrides"] == [("Seq", "LimitedSeq", "Sequences")]
+
+
+def test_load_existing_rows_api_error_is_not_done(tmp_path):
+    """A dropped connection writes verdict=api_error rows; resume must retry
+    those (spec, sample) pairs instead of freezing the failure into the run."""
+    p = tmp_path / "rows.jsonl"
+    p.write_text(
+        json.dumps({"spec": "2", "sample": "greedy", "verdict": "pass"}) + "\n"
+        + json.dumps({"spec": "2", "sample": 1, "verdict": "api_error"}) + "\n"
+        + json.dumps({"spec": "5", "sample": 1, "verdict": "api_error"}) + "\n"
+        + json.dumps({"spec": "5", "sample": 1, "verdict": "fail:tlc=fail"}) + "\n"
+    )
+    done = gen_eval.load_existing_rows(p)
+    # ("2", 1) was api_error with no retry -> not done. ("5", 1) has a scored
+    # retry appended later -> done.
+    assert done == {("2", "greedy"), ("5", 1)}
+
+
+def test_gate_check_prefers_scored_retry_over_api_error(tmp_path):
+    """Keep-first dedup stands for scored rows (Amendment-16), but an api_error
+    first occurrence yields to a later scored retry of the same (spec, sample)."""
+    from .gate_check import gate_check
+
+    d = tmp_path / "run"
+    d.mkdir()
+    rows = [
+        {"spec": "1", "sample": "greedy", "verdict": "api_error"},
+        {"spec": "1", "sample": "greedy", "verdict": "pass"},        # retry wins
+        {"spec": "1", "sample": 1, "verdict": "pass"},
+        {"spec": "1", "sample": 1, "verdict": "fail:tlc=fail"},       # first scored wins
+        {"spec": "3", "sample": "greedy", "verdict": "api_error"},    # no retry: stays
+    ]
+    (d / "rows.jsonl").write_text("".join(json.dumps(r) + "\n" for r in rows))
+    rep = gate_check(d)
+    assert rep["pass_set"] == ["1"]
+    assert rep["pass_at_1"] == 1          # greedy retry scored as pass
+    assert rep["api_error_rows"] == 1     # only spec 3's unhealed row remains

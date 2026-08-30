@@ -39,15 +39,22 @@ def gate_check(run_dir, max_api_error_rate=0.05, max_unextracted_rate=0.90) -> d
     dict with report["ok"] False if any health threshold trips."""
     rows = load_rows(Path(run_dir))
     # keep-FIRST dedup per (spec, sample): overlapping writers (Amendment-16
-    # reconciliation; run-id lockfile is the prevention, this is the cure)
-    seen: set = set()
-    deduped = []
+    # reconciliation; run-id lockfile is the prevention, this is the cure).
+    # One exception: an api_error first occurrence yields to a later scored row
+    # of the same key -- resume retries dropped-connection samples (see
+    # gen_eval.load_existing_rows), and the retry is the row that counts.
+    seen: dict = {}
+    order = []
     for r in rows:
         key = (str(r.get("spec")), str(r.get("sample")))
-        if key in seen:
-            continue
-        seen.add(key)
-        deduped.append(r)
+        cur = seen.get(key)
+        if cur is None:
+            seen[key] = r
+            order.append(key)
+        elif (cur.get("verdict") == "api_error"
+              and r.get("verdict") != "api_error"):
+            seen[key] = r
+    deduped = [seen[k] for k in order]
     scored = [r for r in deduped if r.get("sample") != "corruption"]
     n = len(scored)
     by_spec: dict = defaultdict(list)

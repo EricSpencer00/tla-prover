@@ -33,7 +33,11 @@ def rows(run):
         r = json.loads(line)
         if str(r.get("sample")) == "corruption":
             continue
-        seen.setdefault((r.get("spec"), str(r.get("sample"))), r)
+        key = (r.get("spec"), str(r.get("sample")))
+        cur = seen.get(key)
+        if cur is None or (cur.get("verdict") == "api_error"
+                           and r.get("verdict") != "api_error"):
+            seen[key] = r
     return list(seen.values())
 
 

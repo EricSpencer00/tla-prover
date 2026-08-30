@@ -485,13 +485,19 @@ def row_key(row):
 
 
 def load_existing_rows(rows_path: Path):
-    """(spec, sample) pairs already present in a prior rows.jsonl, for --resume."""
+    """(spec, sample) pairs already present in a prior rows.jsonl, for --resume.
+
+    A pair whose only rows are verdict=api_error is NOT done: those rows are a
+    dropped connection, not a scored sample, and resume must retry them. The
+    api_error rows stay in the append-only ledger; gate_check's dedup prefers
+    the scored retry over them."""
     done = set()
     if rows_path.exists():
         for line in rows_path.read_text().splitlines():
             if line:
                 r = json.loads(line)
-                done.add((r["spec"], r["sample"]))
+                if r.get("verdict") != "api_error":
+                    done.add((r["spec"], r["sample"]))
     return done
 
 
