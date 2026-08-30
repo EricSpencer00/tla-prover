@@ -97,6 +97,19 @@ notify-eric-discord-otp and keep working on whatever does not block.
   arms start ~now; resume + the runner's resubmit cover the second window.
   A1-A4 then A5 run unattended once 177494 goes R.
 
+- 2026-08-30 it3: spec-121 feasibility SETTLED by positive control — the
+  canonical LeastCircularSubstring under the harness draft cfg passes TLC
+  clean (218 distinct states, <1s, scratchpad/spec121). The cfg is fine; the
+  failures are the model's. Root pattern found and it spans 121/135/141:
+  canonical specs guard postconditions with `pc = "Done" => ...`
+  (121.tla:161, 141.tla:194); models write them UNGUARDED, so TLC rejects at
+  the initial state. Designed arm A6: in loop_eval.diagnose, when TLC reports
+  "violated by the initial state", append one guidance line (invariant must
+  hold in EVERY state incl. init; guard postconditions on termination).
+  NOT implemented yet — the running 2x2 must finish under the current prompt
+  or the seeds stop being comparable. A6 runs after A5. Serve 177494 still Q.
+  Usage 1647/2600.
+
 ## Roadblocks
 
 - (cleared it2) 177470's "No available resources": prod pool full + M177243
