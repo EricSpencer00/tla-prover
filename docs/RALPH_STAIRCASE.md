@@ -110,6 +110,16 @@ notify-eric-discord-otp and keep working on whatever does not block.
   or the seeds stop being comparable. A6 runs after A5. Serve 177494 still Q.
   Usage 1647/2600.
 
+- 2026-08-30 it4: 177494 blocked on topology, not tags — PBS rewrites
+  ngpus=4 chunks to require ngpu_quads=1, and gpu-08's 4 free GPUs do not
+  form a free NVLink quad. tp=2 cannot hold 234GB of bf16 weights, so no
+  smaller shape exists; the job places when a quad drains (earliest ~4h,
+  177378's two nodes). Implemented A6 behind TLA_LOOP_INIT_HINT=1
+  (commit 1d48c161, TDD: hint appends to frozen evidence, only on
+  initial-state violations, byte-identical without the flag). Run order once
+  the serve lands: A1-A4 (unchanged prompt), A5 grammar, then A6 with the
+  hint flag vs the freshest loop control.
+
 ## Roadblocks
 
 - (cleared it2) 177470's "No available resources": prod pool full + M177243
