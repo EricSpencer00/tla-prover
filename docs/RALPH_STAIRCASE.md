@@ -89,8 +89,15 @@ notify-eric-discord-otp and keep working on whatever does not block.
   the queued grammar arm (A5) is the highest-leverage pending measurement.**
   Usage guard: 1641.6 wMtok / 2600 — ok.
 
+- 2026-08-30 it2: diagnosed the 31h queue stall — all schedulable prod nodes
+  full, the three free nodes are inside standing reservation M177243, soonest
+  full-node drain ~6h (177378). Moved the serve to 4 free GPUs on gpu-08:
+  qdel 177470, new tp=4 by-gpu job 177494 (12h), runner repointed
+  (SERVE_PBS/HOSTFILE tp4 variants, commit 2e5e4451). Half throughput, but
+  arms start ~now; resume + the runner's resubmit cover the second window.
+  A1-A4 then A5 run unattended once 177494 goes R.
+
 ## Roadblocks
 
-- Job 177470 has sat in Q since 2026-08-29 ("No available resources"). The
-  runner rides it out; if it is still Q at next iteration, consider the
-  Sophia debug queue or a shorter walltime request as alternates.
+- (cleared it2) 177470's "No available resources": prod pool full + M177243
+  reservation. Bypassed with the tp=4 serve on partial-node free GPUs.
