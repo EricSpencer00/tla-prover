@@ -171,6 +171,18 @@ def missing_signature(module_text, cfg_text, wrapper_text=None):
     return [n for n in signature_requirements(cfg_text) if n not in have]
 
 
+def ledger_solved_specs(rows_path):
+    """Specs whose existing ledger already holds a verdict=pass row."""
+    solved = set()
+    if rows_path.exists():
+        for line in rows_path.read_text().splitlines():
+            if line:
+                r = json.loads(line)
+                if r.get("verdict") == "pass":
+                    solved.add(str(r.get("spec")))
+    return solved
+
+
 # ------------------------------------------------------------------ diagnosis
 
 def diagnose(row, module_text, cfg_text, mod, log_text, wrapper_text=None):
@@ -433,6 +445,7 @@ def run_loop_eval(corpus: Path, run_id: str, model_name: str, chains=CHAINS,
 
     rows_path = rundir / "rows.jsonl"
     done = load_existing_rows(rows_path) if resume else set()
+    already_solved = ledger_solved_specs(rows_path) if resume else set()
     budget = chains * rounds
     (rundir / "config.json").write_text(json.dumps({
         "run_id": run_id, "framing": "L", "model": model.id, "corpus": str(corpus),
@@ -457,6 +470,13 @@ def run_loop_eval(corpus: Path, run_id: str, model_name: str, chains=CHAINS,
             mod = num2mod.get(num)
             if mod is None or cfg_text is None or not desc_path.exists():
                 print(f"[{i}/{len(todo)}] spec {num}: skipped (no module/cfg/desc)")
+                continue
+            if num in already_solved:
+                # Stop-on-first-pass only fires on passes THIS process sees; a
+                # resumed run would otherwise spend up to chains*rounds-1 calls
+                # re-sampling a spec its own ledger already solved.
+                print(f"[{i}/{len(todo)}] spec {num}: SOLVED in prior session "
+                      f"(resume skip)")
                 continue
             n_written = 0
             for row in loop_eval_spec(

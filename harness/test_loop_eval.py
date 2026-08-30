@@ -282,3 +282,18 @@ def test_init_violation_hint_is_flag_gated(monkeypatch):
     log2 = "Error: Invariant TypeOK is violated.\nState 7:"
     _, ev3 = loop_eval.diagnose(row, MODULE, CFG, "Counter", log2)
     assert "every state" not in ev3
+
+
+def test_resumed_run_skips_ledger_solved_specs(tmp_path):
+    """A restarted loop run must not spend calls on a spec whose ledger already
+    holds a pass: stop-on-first-pass only fires on passes the live process
+    sees, so without this a restart re-runs up to chains*rounds-1 samples of an
+    already-solved spec (measured: specs 2/5/13 after the 2026-08-30 restart)."""
+    p = tmp_path / "rows.jsonl"
+    p.write_text(
+        json.dumps({"spec": "2", "sample": "c0r0", "verdict": "pass"}) + "\n"
+        + json.dumps({"spec": "5", "sample": "c0r0", "verdict": "fail:tlc=error"}) + "\n"
+        + json.dumps({"spec": "13", "sample": "c1r2", "verdict": "api_error"}) + "\n"
+    )
+    assert loop_eval.ledger_solved_specs(p) == {"2"}
+    assert loop_eval.ledger_solved_specs(tmp_path / "nope.jsonl") == set()
