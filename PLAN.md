@@ -893,3 +893,27 @@ counted raw lines (would have accepted api_error rows as complete) — fixed in 
 session chain; gen-eval proper still carries the api_error-resume defect, now
 bitten three times (2026-07-15, 2026-08-05, 2026-08-12), and should be fixed in
 the harness before the next serve-dependent run.
+
+### W4 ledger note (2026-08-30) — the mutation-operator recall gate closes the TODO at line 480
+
+The known weak gate now has a measurement. `python3 -m harness mutation-recall
+<ledger>...` runs a localized reference probe set (guard_relax, conj_to_disj,
+cmp_relax, bound_shift; one mutant per site) through the same SANY + TLC +
+verdict path as the deployed battery, and fails below `--min-recall` (default
+0.5). Per spec it reports `covered` (both sets score a non-TypeOK safety kill),
+`recall_miss` (only the probes do), or `no_evidence` (neither; excluded from the
+denominator). Probes never touch a cfg-checked definition, so the numbers are an
+upper bound on battery recall.
+
+First measurement, 12 specs per arm, seed 0: W4 Opus wave 1 (shards 0-3) 0.82;
+W4 Opus audit region (shards 60-75) 0.12; organic gpt-oss funnel 0.12. Wave 1 is
+high because shards 0 and 3 planted guaranteed-catch sites against the battery's
+regex quirks (caveat (a) above) — that number measures the planting. Both arms
+that were not engineered against the battery read 0.12: the battery finds 1 of 8
+corruptions that the specs' own invariants demonstrably catch. So a `no_kill` or
+`no_site` verdict in those ledgers is a battery artifact first, and cannot be
+read as spec weakness. Full report: `results/analysis/mutation_recall_gate_2026-08-30.md`.
+
+NOT done, and it is a corpus decision rather than a harness fix: promoting the
+probe operators into `mutation.MUTATIONS` re-scores the `mutation_evidence` of
+every ledgered survivor. Eric calls that one.
