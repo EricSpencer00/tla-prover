@@ -28,8 +28,8 @@ cd "$(dirname "$0")/.."
 JOB=${JOB:?set JOB to the qsub id, e.g. JOB=177470}
 PORT=${PORT:-8321}
 MODEL=chattla-w4dgm-120b
-SERVE_PBS='~/serve_vllm_w4dgm_tp4.pbs'
-HOSTFILE='~/vllm_serve_host_w4dgm_tp4.txt'
+SERVE_PBS='~/serve_vllm_w4dgm_sn.pbs'
+HOSTFILE='~/vllm_serve_host_w4dgm_sn.txt'
 LOG=results/runs/autorun_tuned_seeds.log
 RESUBMITS=0
 MAX_RESUBMITS=2
