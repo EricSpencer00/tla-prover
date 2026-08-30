@@ -120,6 +120,16 @@ notify-eric-discord-otp and keep working on whatever does not block.
   the serve lands: A1-A4 (unchanged prompt), A5 grammar, then A6 with the
   hint flag vs the freshest loop control.
 
+- 2026-08-30 it5: 148 (Nano) autopsy over 386 candidates: 0 truncated (all
+  close their ==== bar; p50 7.5k chars vs canonical 17.9k), so max_tokens is
+  NOT the constraint. SANY classes: 75 unknown-operator + pure parse tail
+  (Encountered LET/,/|->/...). Conclusion: 148 needs no bespoke fix — its
+  parse tail is the grammar arm's target class, and its under-modeling
+  (candidates half canonical size) is the loop's. Frontier autopsies now
+  complete for all 5 specs; every remaining intervention needs the serve.
+  Iterations while 177494 sits in Q should be minimal status checks — do not
+  spend budget re-deriving what this ledger already records.
+
 ## Roadblocks
 
 - (cleared it2) 177470's "No available resources": prod pool full + M177243
