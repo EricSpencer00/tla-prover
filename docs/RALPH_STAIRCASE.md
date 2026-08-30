@@ -130,6 +130,16 @@ notify-eric-discord-otp and keep working on whatever does not block.
   Iterations while 177494 sits in Q should be minimal status checks — do not
   spend budget re-deriving what this ledger already records.
 
+- 2026-08-30 serve saga, resolved: tp=4 on shared nodes died deterministically
+  twice (~9 min into worker init, gpu-06 then gpu-03, no worker traceback in
+  the log) — burned jobs 177494/177523/177528 and ~12h of queue position;
+  lesson recorded: this model serves ONLY on an exclusive 8-GPU node. 177524
+  (SN config) came up clean. 12:09 preflight OK, and the enforcement probe
+  PROVED structured outputs enforced (literal "alpha"; legacy guided_choice
+  ignored) — A5 grammar-gated decoding is reachable for the first time.
+  A1 launched 12:09. Expected: A1-A4 ~8.6h, A5 spills into a resubmitted
+  window if the walltime ends (resume + runner handle it).
+
 ## Roadblocks
 
 - (cleared it2) 177470's "No available resources": prod pool full + M177243
