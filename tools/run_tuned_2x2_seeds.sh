@@ -106,6 +106,7 @@ ensure_serve() {
 LAST_HOST=none
 export OPENAI_BASE_URL="http://localhost:$PORT/v1"
 export OPENAI_API_KEY=dummy
+export GEN_EVAL_CONCURRENCY=16
 
 echo "$(ts) waiting for job $JOB"
 wait_for_job || exit 1
