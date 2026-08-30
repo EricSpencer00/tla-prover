@@ -235,9 +235,14 @@ def _local_dep_closure(top_text: str, mod2path: dict, top_module: str) -> set:
     return seen
 
 
-def run_mutation_on_module(tla_path: Path, cfg_text: str, module: str, timeout: int) -> dict:
-    """W1 adequacy battery entry point (design doc Workstream 1): the deterministic
-    MUTATIONS battery keyed to an arbitrary FILE PATH (tier1/tier3 scraped specs).
+def run_mutants_on_module(tla_path: Path, cfg_text: str, module: str, timeout: int,
+                          mutants_for, workroot=Path("/tmp/prove-tla-mutation-adequacy")) -> dict:
+    """Shared SANY+TLC driver for one spec's mutants, keyed to an arbitrary FILE
+    PATH (tier1/tier3 scraped specs). `mutants_for(target_text)` returns
+    [(label, mutant_text | None), ...] -- the deployed battery passes
+    _battery_mutants, the recall gate (harness.mutation_recall) passes its
+    localized probe set. Everything else (dep closure, workdir, verdict,
+    aggregation) is identical for both so a "kill" means the same thing.
 
     FIX 2 -- mutate the EXTENDS'd parent, not just the harness. 210/779 specs on
     the full sweep had ZERO mutation sites because they are thin *_MC / Test1
@@ -264,12 +269,11 @@ def run_mutation_on_module(tla_path: Path, cfg_text: str, module: str, timeout: 
 
     # Mutation targets, top module first (stable ordering for reproducibility).
     targets = [module] + sorted(deps)
-    workroot = Path("/tmp/prove-tla-mutation-adequacy") / module
+    workroot = Path(workroot) / module
     results = []
     for target in targets:
         target_text = mod2path[target].read_text(errors="replace")
-        for label, regex, repl in MUTATIONS:
-            mutant_text, _ = apply_mutation(target_text, regex, repl)
+        for label, mutant_text in mutants_for(target_text):
             row = {"mutation": label, "target": target}
             if mutant_text is None:
                 row["applied"] = False
@@ -304,6 +308,19 @@ def run_mutation_on_module(tla_path: Path, cfg_text: str, module: str, timeout: 
     shutil.rmtree(workroot, ignore_errors=True)
 
     return {"module": module, "mutants": results, **summarize_mutants(results)}
+
+
+def _battery_mutants(target_text: str):
+    """The deployed battery: one whole-module mutant per MUTATIONS operator."""
+    return [(label, apply_mutation(target_text, regex, repl)[0])
+            for label, regex, repl in MUTATIONS]
+
+
+def run_mutation_on_module(tla_path: Path, cfg_text: str, module: str, timeout: int) -> dict:
+    """W1 adequacy battery entry point (design doc Workstream 1): the deterministic
+    MUTATIONS battery over the spec and its local EXTENDS parents. Known to be
+    low-recall; harness.mutation_recall measures by how much."""
+    return run_mutants_on_module(tla_path, cfg_text, module, timeout, _battery_mutants)
 
 
 def main():

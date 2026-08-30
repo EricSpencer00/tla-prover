@@ -153,6 +153,7 @@ python3 -m harness repair --model openai:<id> --run-id <id>
 python3 -m harness semaudit --run-id <id>
 python3 -m harness gen-eval --framing {A,B} --model openai:<id> --run-id <id> --k 32
 python3 -m harness gate-check results/runs/<run-id>   # ALWAYS: re-score from rows.jsonl, fail on api_error/extraction defects
+python3 -m harness mutation-recall results/runs/<run-id>/w2_survivors.jsonl  # what the mutation battery misses
 ```
 
 Inference is reached through any OpenAI-compatible endpoint: set `OPENAI_BASE_URL`,

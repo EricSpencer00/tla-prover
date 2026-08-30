@@ -63,6 +63,15 @@ def main():
     gc.add_argument("run_dirs", nargs="+", help="run dir(s) containing rows.jsonl")
     gc.add_argument("--max-api-error-rate", type=float, default=0.05)
     gc.add_argument("--max-unextracted-rate", type=float, default=0.90)
+    mr = sub.add_parser("mutation-recall",
+                        help="measure the mutation battery's operator recall against a "
+                             "localized reference probe set; fail below the floor")
+    mr.add_argument("ledgers", nargs="+", help="w2_survivors.jsonl ledger(s)")
+    mr.add_argument("--limit", type=int, default=12, help="specs sampled (reproducible)")
+    mr.add_argument("--min-recall", type=float, default=0.5)
+    mr.add_argument("--timeout", type=int, default=60)
+    mr.add_argument("--seed", type=int, default=0)
+    mr.add_argument("--out", default=None, help="write the report as JSON")
     rp = sub.add_parser("replay", help="re-run one ledgered sample at its recorded "
                                        "decoder seed and diff against the stored candidate")
     rp.add_argument("run_dir", help="results/runs/<run-id> containing rows.jsonl")
@@ -107,6 +116,10 @@ def main():
         from .gate_check import main as gate_check_main
         raise SystemExit(gate_check_main(a.run_dirs, a.max_api_error_rate,
                                          a.max_unextracted_rate))
+    elif a.cmd == "mutation-recall":
+        from .mutation_recall import main as mutation_recall_main
+        raise SystemExit(mutation_recall_main(a.ledgers, a.limit, a.min_recall,
+                                              a.timeout, a.seed, a.out))
     elif a.cmd == "proof-traces":
         from .proof_traces_cli import run_proof_traces_cli
         run_proof_traces_cli(a.source, Path(a.out), Path(a.corpus), Path(a.examples_dir),
