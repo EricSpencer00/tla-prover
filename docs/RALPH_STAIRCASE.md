@@ -196,3 +196,28 @@ notify-eric-discord-otp and keep working on whatever does not block.
   control, placed last so no frozen arm ever sees the hint). The runner now
   covers A1-A6 end to end; when the cluster returns nothing needs a human.
   Usage guard 1623/2600 wMtok -- ok.
+
+- 2026-08-31 it9 (offline): spec-135 autopsy CORRECTS how the staircase reads.
+  135 sits at rung 3 (tlc_vacuous), which makes it look one step from the
+  summit. It is not. Over 465 model-generation rows (41 oracle/corruption rows
+  excluded): sany fails 348, TLC is reached and accepts exactly 1 = 0.22%.
+  Six other tlc=pass rows for 135 are sample=None oracle/scorability runs on
+  the GOLD spec -- they prove the task is scorable, and must never be counted
+  as model progress.
+  The single accepting candidate (loop-base-120b-seed2 c5r3) earns rung 3 by
+  writing `TypeOK == TRUE`, `Inv1 == TRUE`, `Inv2 == TRUE`, `Inv3 == TRUE`,
+  `PartialCorrectness == TRUE` -- every invariant stubbed to literal TRUE.
+  So the rung-3 label rests on one gaming candidate, and the vacuity gate is
+  doing exactly its job by refusing it.
+  Consequence: 135's real frontier is the SANY rung, same as 55/121/141/148.
+  This CONFIRMS it1 (per-sample SANY yield is the shared bottleneck) and
+  removes 135 as a special case. Nothing here supports treating 135 as a
+  vacuity problem.
+  Hypothesis raised and NOT supported by this evidence, recorded so it is not
+  silently assumed: A6's hint tells the model to guard postconditions with
+  `pc = "Done" => ...`, and a guarded property is vacuously true if the spec
+  never reaches Done, so A6 could in principle trade init-violations for
+  vacuity failures. The one vacuous 135 candidate is a literal-TRUE stub, NOT
+  a guard-induced vacuity, so it is no evidence either way. A6 already reports
+  vacuity per row, so the check when it runs is: does A6 raise tlc_vacuous
+  relative to its A1/A2 control.
