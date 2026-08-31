@@ -632,3 +632,16 @@ Read this block first; the decision ledger below is the evidence for it.
   it7. Both halves are covered, by different means.
   Verification of the 9-arm runner is now as complete as it can be without a
   model: config, byte-identity, prompt content, both eval paths, timing budget.
+- 2026-08-31 it27 (offline): sharpened it15's wording after reading the
+  addendum, which reports "9 of 18 solves came from a repair round" -- a split
+  WITHIN framing L, not the A/L-vs-B split it15 made. Calling A/L "generation"
+  was loose, because L includes its own repair rounds.
+  Re-checked with rung_in broken out. All 2,373 frontier A/L rows produce 0
+  passing verdicts: A 1,701, L:sany 256, L:generate 192, L:signature 161,
+  L:tlc_error 57, L:tlc_violation 6. So the claim SURVIVES and is in fact
+  stronger than stated -- the loop's repair rounds are included and win nothing
+  on these five specs, while framing B wins 35-73%. Both the addendum's
+  statement and it15's are true; they cut the data differently and neither
+  contradicts the other.
+  Memory generation-vs-repair-framing corrected to say so, since as written it
+  could have been read as "the loop never repairs anything", which is false.
