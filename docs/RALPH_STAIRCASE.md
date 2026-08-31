@@ -221,3 +221,38 @@ notify-eric-discord-otp and keep working on whatever does not block.
   a guard-induced vacuity, so it is no evidence either way. A6 already reports
   vacuity per row, so the check when it runs is: does A6 raise tlc_vacuous
   relative to its A1/A2 control.
+
+- 2026-08-31 it10 (offline): frontier SANY failure mix measured per spec, and
+  it both VALIDATES A5 and finds a class A5 cannot touch. Over the 2,324
+  frontier SANY-fail rows (deduped, generation rows only): parse 48.0%,
+  unknown_operator 35.0%, redefinition 10.7% (first-match classes), other 6.3%.
+  Per spec the mix differs enough to change what helps:
+    148  parse 74%  -> the grammar arm is exactly right for it
+    121  parse 58%
+    141  parse 46% / unknown-op 45%
+    135  parse 36% / unknown-op 34%
+    55   unknown-op 51%, parse 26%  -> the grammar helps 55 LEAST
+  So A5 stays the right next measurement (parse is the plurality), but it is
+  not the answer for 55.
+  NEW CLASS, measured: counting rows that contain ANY redefinition error (not
+  first-match), 630/2324 = 27.1% of frontier SANY failures, and 281 = 12.1%
+  carry NO parse and NO unknown-operator error, so redefinition alone is what
+  kills them. Spec 55 is 54% redefinition -- the very spec the grammar misses.
+  Cause split over the top-18 redefined symbols (1,306 messages):
+    cfg-constant declared AND defined            44%  (NoNode, R, Node,
+                                                       initiator, Succ, ...)
+    duplicate definition of a required operator  33%  (TypeOK, Init, Next,
+                                                       Spec, AncestorProperties)
+    standard-module clash                        17%  (Seq, Nat -- the module
+                                                       EXTENDS the module that
+                                                       already provides them)
+    local/bound name                              6%
+  IMPORTANT, so nobody "fixes" this redundantly: the prompt ALREADY says
+  "the CONSTANTS as declared constants", and required_signature already drops
+  standard-module names from the CONSTANTS list. So the gap is NOT a missing
+  instruction in general; it is that nothing forbids (a) declaring and then
+  also defining the same constant, (b) defining a name the EXTENDS'd standard
+  module already provides, (c) emitting the same operator twice. Any A7 must
+  target those three specifically and be flag-gated like A6, and it must be
+  measured against a control -- a prompt line is not free, it can displace
+  attention and cost accuracy elsewhere.
