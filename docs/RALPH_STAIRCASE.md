@@ -923,3 +923,23 @@ Read this block first; the decision ledger below is the evidence.
   the frontier. That was already implied by it15 (generation has never once
   solved these specs) and it29-it30 (55 and 135 are MC wrappers whose task is
   under-determined); this quantifies it for the TLC rung specifically.
+
+- 2026-08-31 it41 (offline): verified the RECOVERY PROBE itself, because a
+  monitor designed to stay silent while broken cannot be distinguished from a
+  monitor that has died -- its silence is not evidence of anything until
+  checked.
+  It is genuinely working: 3 probe jobs really were submitted (177693, 177757,
+  177773). Each reached Hold_Types=s with run_count=21 -- the same instant
+  system hold as everything else -- and the probe deleted it, so the cluster is
+  still broken and the silence is correct.
+  Also checked that it WOULD fire: its awk classifier returns HELD (silent)
+  only for job_state=H with a system hold, and reports for R, Q and F.
+  Nuance, recorded rather than "fixed": firing on Q means "the instant-hold bug
+  is gone", not "the job ran". That is the right trigger anyway -- the runner
+  handles Q by waiting, and if a job is held later the it19 SHOLD path deletes
+  and resubmits within budget. So an early fire degrades gracefully.
+  Caveat on coverage: the probe process shows ~72 min elapsed, not the ~6h
+  since I armed it, and 3 submissions at INTERVAL=1800 matches ~72 min. So it
+  restarted at some point and there is a gap where nothing was watching. It is
+  watching now; if the cluster recovered during that gap, the next probe within
+  30 min catches it.
