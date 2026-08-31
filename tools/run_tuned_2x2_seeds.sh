@@ -32,7 +32,12 @@ SERVE_PBS='~/serve_vllm_w4dgm_sn.pbs'
 HOSTFILE='~/vllm_serve_host_w4dgm_sn.txt'
 LOG=results/runs/autorun_tuned_seeds.log
 RESUBMITS=0
-MAX_RESUBMITS=2
+# The nine arms need ~20.5h of serve at measured rates (loop ~1.3h, gen ~2.9h,
+# 2026-08-31 it23) and a window is 12h walltime, so the sequence spans at least
+# two windows. A budget of 2 leaves no slack once a resubmit is also spent
+# clearing a system-hold, and the arms that would be starved are A7-A9, the
+# newest and most informative ones. 4 covers the sequence plus two losses.
+MAX_RESUBMITS=4
 exec > >(tee -a "$LOG") 2>&1
 ts() { date +"[%H:%M:%S]"; }
 

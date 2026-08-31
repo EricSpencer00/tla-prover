@@ -539,3 +539,21 @@ notify-eric-discord-otp and keep working on whatever does not block.
   the demanded list and move to the do-not-define line. 4 new tests, full suite
   516 passed.
   The runner now carries A1-A9.
+
+- 2026-08-31 it23 (offline): verified the runner as a whole, not just its parts.
+  Config check: all 5 env flags (TLA_LOOP_INIT_HINT, TLA_PROMPT_NO_REDEF,
+  TLA_PROMPT_ARITY, TLA_PROMPT_WRAPPER_AWARE, TLA_GUIDED_GRAMMAR) appear in BOTH
+  the runner and the code that reads them -- no silent typo, which is the way
+  this project has lost runs before. All 9 run-ids are fresh except A1's
+  deliberate 400-row resume, so no arm will silently resume someone else's dir.
+  Timing, measured from ledger timestamps rather than guessed: a healthy loop
+  arm is ~1.3h (loop-w4dgm-120b: 621 rows in 1.3h) and a gen arm ~2.9h
+  (open-...-samesession: 960 rows in 2.9h). A1's own 10h for 400 rows and
+  gate2-A's 20.4h are the SERIALIZED era before GEN_EVAL_CONCURRENCY=16, so
+  they must not be used as the estimate.
+  Consequence: the 9 arms need ~20.5h against a 12h window, crossing it at A7.
+  The arms that would be starved are exactly A7/A8/A9 -- the newest ones,
+  carrying the it16-it21 findings. Raised MAX_RESUBMITS 2 -> 4: the sequence
+  needs 2 windows, and a resubmit can also be spent clearing a system hold, so
+  2 left no slack. No reordering -- A1-A4 are the experiment Eric committed to
+  and A1 is already 400 rows in.
