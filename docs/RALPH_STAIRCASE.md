@@ -1325,3 +1325,22 @@ Read this block first; the decision ledger below is the evidence.
   Caveat: job 177866 was submitted BEFORE this change, so it still writes the
   shared g4 log. The it62 monitor's line-count baseline covers that case, and
   jobs submitted from now on do not need it.
+
+- 2026-08-31 it64: the REAL root cause, and it is neither OOM (it50) nor slow
+  imports (it59). Reading only the fresh output of job 177866 -- the
+  baseline-guarded read it62 set up -- the worker's own error is:
+    OpenBLAS blas_thread_init: pthread_create failed for thread 63 of 64:
+    Resource temporarily unavailable
+  OpenBLAS starts one thread PER CORE (64) in EVERY worker. With tp=4 that is
+  ~256 threads, on a node already running three other jobs, and thread creation
+  fails. The worker dies mid-import, which is why the visible symptom was a
+  KeyboardInterrupt inside `import cv2` -- that was where the process happened
+  to be, not the cause. RLIMIT_NPROC is 4.1M, so this is a cgroup/thread
+  ceiling on a shared node, not a user limit.
+  Fix applied to BOTH serve scripts: OMP_NUM_THREADS=8, OPENBLAS/MKL/NUMEXPR/
+  VECLIB _NUM_THREADS=1. vLLM does its arithmetic on the GPU, so these CPU
+  pools buy nothing and cost thread slots. Retest submitted as job 177873,
+  which writes its own per-job log thanks to it63.
+  Three diagnoses, each corrected by evidence: OOM -> import timeout -> thread
+  exhaustion. The first two were plausible and wrong; only reading the worker's
+  own stderr, from a guaranteed-fresh log, gave the actual line.
