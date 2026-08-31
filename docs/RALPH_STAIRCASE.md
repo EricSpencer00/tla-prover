@@ -1037,3 +1037,24 @@ Read this block first; the decision ledger below is the evidence.
   TO RESUME when Sophia accepts jobs: qsub ~/serve_vllm_w4dgm_sn.pbs, then
   `JOB=<id> PORT=8321 nohup bash tools/run_tuned_2x2_seeds.sh &`. A1 resumes at
   its 400 rows; nothing else needs a human.
+
+- 2026-08-31 it48: REORDERED the optional arms by measured target size, because
+  the order was by arm number and the serve window starves whatever runs late.
+  The nine arms need ~20.5h against a 12h window (it23), so position matters.
+  A6 -- the SMALLEST target of all, 11 init-violation rows on the frontier --
+  was running 6th, ahead of A7, A8 and A9, each of which targets a class an
+  order of magnitude larger.
+  New order after the frozen A1-A4: A8 (51% of the 246 TLC failures), A7 (27%
+  of SANY-fail rows), A5 (48% parse at 78.2% catch), A9 (13% of TLC failures
+  plus the 190-row wrapper bug), A6 last.
+  Verified after the move: script parses, all nine arms present in the new
+  order, and A5's `if [ "$GRAMMAR_OK" = 1 ]` guard moved intact with its else
+  branch -- if/else/fi still pair 1/1/1. That guard is the one that must not be
+  lost: it exists because vLLM accepts the legacy guided_* names with HTTP 200
+  and silently ignores them, so an unguarded A5 would look like it ran.
+  A1-A4 deliberately unmoved: they are the experiment Eric committed to and A1
+  already holds 400 rows.
+  A10 NOT added, and the scheduling is the reason rather than the evidence --
+  its derivation is validated 5/5 (it44), but a tenth arm makes the sequence
+  ~23.4h and would itself be the starved one. It belongs in a second batch, or
+  in place of A6.

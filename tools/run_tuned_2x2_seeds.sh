@@ -177,23 +177,19 @@ run "A3 open seed2" open-w4dgm-120b-seed2 \
 run "A4 open seed3" open-w4dgm-120b-seed3 \
   python3 -m harness gen-eval --framing A --model "openai:$MODEL" --run-id open-w4dgm-120b-seed3 --k 31
 
-if [ "$GRAMMAR_OK" = 1 ]; then
-  export TLA_GUIDED_GRAMMAR=harness/grammars/tla_module_v1.ebnf
-  run "A5 grammar" grammar-w4dgm-120b \
-    python3 -m harness gen-eval --framing A --model "openai:$MODEL" --run-id grammar-w4dgm-120b --k 31
-  unset TLA_GUIDED_GRAMMAR
-else
-  echo "$(ts) A5 SKIPPED -- endpoint does not enforce structured outputs"
-fi
-
-# A6: the init-violation hint (docs/RALPH_STAIRCASE.md it3/it7). Validated
-# offline on the 13 recorded init-violation rows -- fires 13/13 with the flag,
-# 0/13 without, and the unflagged evidence stays a prefix of the flagged one,
-# so A1/A2 above remain the honest control. Runs LAST so no frozen arm sees it.
-export TLA_LOOP_INIT_HINT=1
-run "A6 init-hint loop" loop-w4dgm-120b-hint \
-  python3 -m harness loop-eval --model "openai:$MODEL" --run-id loop-w4dgm-120b-hint --chains 8 --rounds 4
-unset TLA_LOOP_INIT_HINT
+# Arm ORDER is by measured target size, not arm number (it48). The nine
+# arms need ~20.5h against a 12h window, so whatever runs late may be
+# starved; the largest targets go first. A8 51% of TLC failures, A7 27%
+# of SANY-fail rows, A5 48% parse at 78% catch, A9 13% + the 190-row
+# wrapper bug, A6 last with the smallest target (11 init-violation rows).
+# A8: the .cfg interface contract (docs/RALPH_STAIRCASE.md it16). 55% of the
+# TLC failures on SANY-clean generations are arity mismatches, undefined
+# substitution targets, or a module the cfg names and the output lacks. Same
+# gen-eval shape, so A3/A4 are its control and it is comparable to A5 and A7.
+export TLA_PROMPT_ARITY=1
+run "A8 arity contract" arity-w4dgm-120b \
+  python3 -m harness gen-eval --framing A --model "openai:$MODEL" --run-id arity-w4dgm-120b --k 31
+unset TLA_PROMPT_ARITY
 
 # A7: the no-redefinition prompt block (docs/RALPH_STAIRCASE.md it10). A
 # gen-eval arm with the same shape as A3/A4/A5, so A3/A4 are its control and it
@@ -205,14 +201,14 @@ run "A7 no-redef prompt" norediff-w4dgm-120b \
   python3 -m harness gen-eval --framing A --model "openai:$MODEL" --run-id norediff-w4dgm-120b --k 31
 unset TLA_PROMPT_NO_REDEF
 
-# A8: the .cfg interface contract (docs/RALPH_STAIRCASE.md it16). 55% of the
-# TLC failures on SANY-clean generations are arity mismatches, undefined
-# substitution targets, or a module the cfg names and the output lacks. Same
-# gen-eval shape, so A3/A4 are its control and it is comparable to A5 and A7.
-export TLA_PROMPT_ARITY=1
-run "A8 arity contract" arity-w4dgm-120b \
-  python3 -m harness gen-eval --framing A --model "openai:$MODEL" --run-id arity-w4dgm-120b --k 31
-unset TLA_PROMPT_ARITY
+if [ "$GRAMMAR_OK" = 1 ]; then
+  export TLA_GUIDED_GRAMMAR=harness/grammars/tla_module_v1.ebnf
+  run "A5 grammar" grammar-w4dgm-120b \
+    python3 -m harness gen-eval --framing A --model "openai:$MODEL" --run-id grammar-w4dgm-120b --k 31
+  unset TLA_GUIDED_GRAMMAR
+else
+  echo "$(ts) A5 SKIPPED -- endpoint does not enforce structured outputs"
+fi
 
 # A9: wrapper-aware signature (docs/RALPH_STAIRCASE.md it20/it21). The prompt
 # demands 17 names across the 5 wrapper specs that the wrapper already
@@ -222,6 +218,15 @@ export TLA_PROMPT_WRAPPER_AWARE=1
 run "A9 wrapper-aware" wrapaware-w4dgm-120b \
   python3 -m harness gen-eval --framing A --model "openai:$MODEL" --run-id wrapaware-w4dgm-120b --k 31
 unset TLA_PROMPT_WRAPPER_AWARE
+
+# A6: the init-violation hint (docs/RALPH_STAIRCASE.md it3/it7). Validated
+# offline on the 13 recorded init-violation rows -- fires 13/13 with the flag,
+# 0/13 without, and the unflagged evidence stays a prefix of the flagged one,
+# so A1/A2 above remain the honest control. Runs LAST so no frozen arm sees it.
+export TLA_LOOP_INIT_HINT=1
+run "A6 init-hint loop" loop-w4dgm-120b-hint \
+  python3 -m harness loop-eval --model "openai:$MODEL" --run-id loop-w4dgm-120b-hint --chains 8 --rounds 4
+unset TLA_LOOP_INIT_HINT
 
 echo "$(ts) ==== pooled 2x2 ===="
 python3 tools/loop_multiseed.py \
