@@ -901,3 +901,25 @@ Read this block first; the decision ledger below is the evidence for it.
   while a sentence of advice does not, so its correctness has to be imported
   from data deliberately.
   All five arms are now verified as far as they can be without a model.
+
+- 2026-08-31 it40 (offline): the CEILING for the TLC-rung arms, the analogue of
+  it14's SANY-rung ceiling, so A8/A9 have an honest expectation before they run.
+  Of the 246 TLC failures on SANY-clean frontier generations:
+    interface mismatch (A8's target)      126  51%
+    wrapper duplicate  (A9's target)       31  13%
+    state explosion (StackOverflow/OOM)    29  12%
+    parse recheck, independent of dup      25  10%
+    assumption failed or false             13   5%
+  Rows whose ONLY problem is interface or duplicate, and are therefore
+  reachable by A8+A9: 157/246 = 64%.
+  So even if both arms worked perfectly, about a third of this wall remains --
+  state explosion, failed assumptions and TLC-side parse failures need
+  something else. And 64% of the wall is not 64% of specs: clearing a row's
+  first error can simply expose its next one, which is why it16 flagged that
+  these are FIRST error lines.
+  Put beside it14 (A5+A7 reach at most 60% of frontier SANY failures), the
+  honest summary of all five arms is: they address the majority of both walls
+  and neither one completely, and no combination of them is a route to 30/30 on
+  the frontier. That was already implied by it15 (generation has never once
+  solved these specs) and it29-it30 (55 and 135 are MC wrappers whose task is
+  under-determined); this quantifies it for the TLC rung specifically.
