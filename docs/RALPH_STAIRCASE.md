@@ -1077,3 +1077,24 @@ Read this block first; the decision ledger below is the evidence.
   case worth insuring against. But "ordered by value" overstated it -- the
   honest claim is "the largest target is no longer behind two smaller ones if
   the run is interrupted".
+
+- 2026-08-31 it50: ROOT CAUSE ISOLATED by bisection, no ticket needed to find it.
+  **8-GPU (whole-node) allocations fail to start for our account; 4-GPU
+  allocations run fine.** Verified: `select=1:ngpus=4:ncpus=128:mem=480gb -q
+  by-gpu` reached state R in 20s with run_count=1 on sophia-gpu-07 and produced
+  output. Every ngpus=8 request holds at run_count=21.
+  Ruled out one variable at a time: queue (single-node, by-node, by-gpu all fail
+  at 8), placement (scatter:excl, shared, free), filesystems (home, eagle,
+  grand, home:eagle:grand), the `system=sophia` select tag another user's
+  working job carries, resource shape (ncpus/mem make no difference -- the
+  submit hook rewrites everything to a whole node anyway), project allocation
+  (EVITA healthy, 1857 node-hours), home permissions, login shell, and output
+  paths. A full attribute diff against a RUNNING 8-GPU job (177582, user
+  xiaolongm) shows no configuration difference at all -- only runtime fields.
+  Two doors that are shut: the submit hook rejects multi-chunk GPU requests
+  ("ambiguous select request"), so 2x4 GPUs across nodes is not expressible;
+  and the infer-svc queue is ACL'd to openinference_svc.
+  HARDWARE CORRECTION, and it matters: the nodes are **A100-SXM4-40GB**, not
+  80GB as alcf-sophia-native-training memory says. So a node is 320GB of GPU
+  memory and 4 GPUs is 160GB. The merged bf16 120b (~234GB) genuinely needs 8,
+  which is why tp=4 died before -- that was not a serving bug, it was OOM.
