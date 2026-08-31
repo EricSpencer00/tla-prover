@@ -1289,3 +1289,13 @@ Read this block first; the decision ledger below is the evidence.
   exclusive node where imports were fast enough anyway, so this only matters if
   the next serve lands somewhere contended. Script parses; the change is two
   guarded lines that cannot fail the job.
+- 2026-08-31 it61: TESTING the it60 warm-up rather than shipping it untested.
+  Added the same two guarded import lines to ~/serve_vllm_w4dgm_g4.pbs and
+  resubmitted the 4-GPU fp8 serve as job 177866. This is a real experiment: the
+  previous attempt (177845) died in worker init on the SAME shared node, so if
+  177866 reaches "Application startup complete" the warm-up is the difference,
+  and if it dies the same way the warm-up is not sufficient and shared nodes
+  stay unusable. Either outcome is worth having before the 8-GPU serve depends
+  on it. Monitor befp7lev3.
+  Note the fp8 result would still not be comparable to the frozen bf16 arms --
+  this run is about whether vLLM STARTS on a contended node, not about numbers.
