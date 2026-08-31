@@ -1249,3 +1249,26 @@ Read this block first; the decision ledger below is the evidence.
   vllm_serve_host_w4dgm_sn.txt while this writes _g4.txt, so nothing picks it
   up by accident. Using it is a deliberate act and needs Eric's call, since it
   spends the 2h window on quantized numbers.
+
+- 2026-08-31 it59: the fp8 fallback FAILED, and the root cause corrects my own
+  it50 claim.
+  Job 177845 ran on sophia-gpu-07 and vLLM died in worker init: EngineCore
+  "WorkerProc initialization failed", and the first traceback is a
+  KeyboardInterrupt inside `import cv2` (pulled in by mistral_common's
+  is_opencv_installed) -- i.e. vLLM killed workers that exceeded their startup
+  deadline while importing from the shared conda at
+  /soft/applications/conda/2026-06-08. vLLM forces SPAWN whenever CUDA is
+  already initialised in the parent, so every worker re-imports the whole stack
+  from that shared filesystem rather than inheriting it.
+  CORRECTION: it50 said the historical tp=4 deaths were OOM ("4x40GB cannot
+  hold 234GB"). The arithmetic was right but the diagnosis was wrong -- this is
+  the same failure the memory records as "tp=4 on shared nodes dies
+  deterministically ~9 min into worker init", and it is a startup TIMEOUT under
+  filesystem contention, not memory. gpu-07 is shared with three other jobs,
+  which is exactly the contended case.
+  So the fp8-on-4-GPUs fallback is not viable for the reason the 8-GPU serve is
+  needed anyway: it lands on a shared node, and shared nodes cannot get vLLM
+  workers up. The one configuration this project has ever served successfully
+  is an EXCLUSIVE whole node (177524). That is precisely what the watcher waits
+  for, so the plan does not change -- but the fallback should not be counted as
+  a second path.
