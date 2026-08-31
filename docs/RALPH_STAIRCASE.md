@@ -524,3 +524,18 @@ notify-eric-discord-otp and keep working on whatever does not block.
   to the substitutions block. Doing it properly means _format_signature
   filtering constants, invariants and substitution targets against the wrapper,
   and it changes prompt_sha256 for every spec that has a wrapper.
+
+- 2026-08-31 it22: A9 BUILT so Eric's it20 decision costs one line either way.
+  _format_signature now takes wrapper_text and, behind TLA_PROMPT_WRAPPER_AWARE,
+  filters wrapper-provided names out of constants, invariants, properties and
+  substitution targets, then names them: "These names come from the
+  model-checking wrapper and are already defined for you -- do NOT define or
+  declare them". If Eric wants it as the default, drop the env check; if he
+  wants it kept as an arm, it already is one (run-id wrapaware-w4dgm-120b,
+  gen-eval shape so A3/A4 are its control).
+  Byte-identity PROVEN, not assumed: with the flag off, passing the wrapper
+  changes the prompt for 0/30 holdout specs. Verified on 148 with the flag on
+  -- CalculateHash/CalculateHashImpl/TypeInvariant/SafetyInvariant drop out of
+  the demanded list and move to the do-not-define line. 4 new tests, full suite
+  516 passed.
+  The runner now carries A1-A9.

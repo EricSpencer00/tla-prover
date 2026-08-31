@@ -1105,3 +1105,56 @@ def test_arity_block_unchanged_when_no_wrapper(monkeypatch):
     b = gen_eval.build_generation_prompt({"system_overview": "x"}, _a8_cfg(), "M",
                                          wrapper_text=None)
     assert a == b and "Define `LimitedSeq`" in a
+
+
+# --- A9: wrapper-aware signature (docs/RALPH_STAIRCASE.md it20/it21) ---------
+# The prompt asks for 17 names across the 5 wrapper specs that the wrapper
+# already provides -- constants, invariants AND substitution targets -- costing
+# 190 rows. Flag-gated because fixing the DEFAULT changes prompt_sha256 for
+# every wrapper spec and breaks byte-identity with all frozen arms.
+
+_A9_CFG = (
+    "CONSTANTS\n  Nodes = {n1}\n  MaxSeqLen = 3\n"
+    "  Succ <- ConnectedToSomeButNotAll\n"
+    "SPECIFICATION Spec\nINVARIANT TypeInvariant SafetyInvariant\n"
+)
+_A9_WRAPPER = (
+    "---- MODULE W ----\nCONSTANT MaxSeqLen\n"
+    "ConnectedToSomeButNotAll == {}\nTypeInvariant == TRUE\n====\n"
+)
+
+
+def test_wrapper_aware_off_by_default_is_byte_identical(monkeypatch):
+    monkeypatch.delenv("TLA_PROMPT_WRAPPER_AWARE", raising=False)
+    a = gen_eval.build_generation_prompt({"system_overview": "x"}, _A9_CFG, "M")
+    b = gen_eval.build_generation_prompt({"system_overview": "x"}, _A9_CFG, "M",
+                                         wrapper_text=_A9_WRAPPER)
+    assert a == b, "without the flag a wrapper must not change the prompt"
+
+
+def test_wrapper_aware_drops_names_the_wrapper_provides(monkeypatch):
+    monkeypatch.setenv("TLA_PROMPT_WRAPPER_AWARE", "1")
+    p = gen_eval.build_generation_prompt({"system_overview": "x"}, _A9_CFG, "M",
+                                         wrapper_text=_A9_WRAPPER)
+    sig_part = p.split("=== TASK ===")[0]
+    # provided by the wrapper -> must not be demanded
+    assert "MaxSeqLen" not in sig_part.split("CONSTANTS:")[1].split("\n")[0]
+    assert "TypeInvariant" not in sig_part.split("INVARIANTS:")[1].split("\n")[0]
+    # not provided -> still demanded
+    assert "Nodes" in sig_part and "SafetyInvariant" in sig_part
+
+
+def test_wrapper_aware_says_where_those_names_come_from(monkeypatch):
+    monkeypatch.setenv("TLA_PROMPT_WRAPPER_AWARE", "1")
+    p = gen_eval.build_generation_prompt({"system_overview": "x"}, _A9_CFG, "M",
+                                         wrapper_text=_A9_WRAPPER)
+    assert "model-checking wrapper" in p
+    assert "MaxSeqLen" in p and "TypeInvariant" in p
+
+
+def test_wrapper_aware_noop_without_a_wrapper(monkeypatch):
+    monkeypatch.delenv("TLA_PROMPT_WRAPPER_AWARE", raising=False)
+    off = gen_eval.build_generation_prompt({"system_overview": "x"}, _A9_CFG, "M")
+    monkeypatch.setenv("TLA_PROMPT_WRAPPER_AWARE", "1")
+    on = gen_eval.build_generation_prompt({"system_overview": "x"}, _A9_CFG, "M")
+    assert on == off, "no wrapper means nothing to filter"

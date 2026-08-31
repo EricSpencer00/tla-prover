@@ -209,6 +209,15 @@ run "A8 arity contract" arity-w4dgm-120b \
   python3 -m harness gen-eval --framing A --model "openai:$MODEL" --run-id arity-w4dgm-120b --k 31
 unset TLA_PROMPT_ARITY
 
+# A9: wrapper-aware signature (docs/RALPH_STAIRCASE.md it20/it21). The prompt
+# demands 17 names across the 5 wrapper specs that the wrapper already
+# provides, costing 190 rows to duplicate definitions. Flag-gated because
+# fixing the default would change prompt_sha256 for every wrapper spec.
+export TLA_PROMPT_WRAPPER_AWARE=1
+run "A9 wrapper-aware" wrapaware-w4dgm-120b \
+  python3 -m harness gen-eval --framing A --model "openai:$MODEL" --run-id wrapaware-w4dgm-120b --k 31
+unset TLA_PROMPT_WRAPPER_AWARE
+
 echo "$(ts) ==== pooled 2x2 ===="
 python3 tools/loop_multiseed.py \
   --loop results/runs/loop-w4dgm-120b results/runs/loop-w4dgm-120b-seed2 results/runs/loop-w4dgm-120b-seed3 \

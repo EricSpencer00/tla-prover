@@ -329,7 +329,22 @@ def _format_description(description_json):
     return "\n\n".join(parts)
 
 
-def _format_signature(sig):
+def _format_signature(sig, wrapper_text=None):
+    """Arm A9 (docs/RALPH_STAIRCASE.md it20/it21), flag-gated behind
+    TLA_PROMPT_WRAPPER_AWARE. 5 holdout specs are checked through an MC wrapper
+    that already provides some of the names this block demands -- 17 of them,
+    spanning constants, invariants and substitution targets -- and demanding
+    them again costs 190 rows to duplicate-definition errors. Off by default
+    because filtering changes prompt_sha256 for every wrapper spec and so
+    breaks byte-identity with every frozen arm."""
+    provided = (_wrapper_provides(wrapper_text)
+                if os.environ.get("TLA_PROMPT_WRAPPER_AWARE") == "1" else set())
+    if provided:
+        sig = dict(sig)
+        for key in ("constants", "invariants", "properties"):
+            sig[key] = [n for n in sig.get(key) or [] if n not in provided]
+        sig["substitutions"] = [(l, r) for l, r in sig.get("substitutions") or []
+                                if r not in provided]
     lines = []
     if sig["constants"]:
         lines.append("  CONSTANTS: " + ", ".join(sig["constants"]))
@@ -350,6 +365,10 @@ def _format_signature(sig):
     # matter how well it models the system (TLC: "substitutes for X with the
     # undefined identifier Y"). Spelled out separately from CONSTANTS because the
     # RHS is an OPERATOR DEFINITION, not a declared constant.
+    if provided:
+        lines.append("  These names come from the model-checking wrapper and are "
+                     "already defined for you -- do NOT define or declare them: "
+                     + ", ".join(sorted(provided)))
     if sig.get("substitutions"):
         lines.append("  ALSO define these operators, which the .cfg substitutes in "
                      "(the left name is overridden by the right operator):")
@@ -418,6 +437,17 @@ def _no_redef_block():
         "pick a different name.")
 
 
+def _wrapper_provides(wrapper_text):
+    """Every name the wrapper supplies: operators it DEFINES and constants or
+    variables it DECLARES. Broader than _wrapper_defines, which only covers
+    definitions, because the clash also spans declared constants (168's `n`,
+    128's MaxSeqLen) and invariants (148's TypeInvariant)."""
+    names = set(_wrapper_defines(wrapper_text))
+    for m in re.finditer(r"^\s*(?:CONSTANTS?|VARIABLES?)\s+(.+)$", wrapper_text or "", re.M):
+        names |= set(re.findall(r"[A-Za-z_]\w*", m.group(1)))
+    return names
+
+
 def _wrapper_defines(wrapper_text):
     """Operator names the MC wrapper already provides. 5 holdout specs (128,
     141, 148, 158, 168) are checked through a wrapper, and 141's defines both
@@ -479,7 +509,7 @@ def build_generation_prompt(description_json, cfg_text, module_name,
     sig = required_signature(cfg_text)
     prompt = GENERATION_PROMPT_TEMPLATE.format(
         description=_format_description(description_json),
-        signature=_format_signature(sig),
+        signature=_format_signature(sig, wrapper_text),
         module_name=module_name)
     return prompt + _no_redef_block() + _arity_block(sig, wrapper_text)
 
