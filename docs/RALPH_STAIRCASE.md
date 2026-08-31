@@ -979,3 +979,31 @@ Read this block first; the decision ledger below is the evidence.
   intersect with the standard modules. Recorded rather than built, because
   four of my five arms were mis-aimed on first writing and this one deserves
   the same evidence-first treatment rather than being added late and untested.
+
+- 2026-08-31 it44 (offline): did the EVIDENCE for A10 before writing any prompt
+  text, which is the discipline it32-it36 taught. It took three tries to get
+  the derivation right, and every error was mine.
+  Goal: derive, per wrapper spec, which standard-module operators the WRAPPER
+  uses that the CANDIDATE must supply -- the it43 cause, where the wrapper
+  fails on `Unknown operator: Cardinality` although the candidate never used it.
+  Validation rule: the derivation is only trustworthy if the GOLD candidate
+  already provides what it claims is needed.
+    attempt 1  4/5 -- claimed 148 needs FiniteSets. FALSE: wrapper 147 EXTENDS
+               FiniteSets itself, on a MULTI-LINE clause my single-line regex
+               truncated to ['', 'Naturals'].
+    attempt 2  3/5 -- the multi-line regex used `\s+` for continuations, which
+               crosses blank lines and swallowed `CONSTANT Root` into the last
+               token, so 141's FiniteSets stopped matching.
+    attempt 3  5/5 -- continuation only while a line ends with a comma, stopping
+               at a blank or unindented line. Unit-tested on four EXTENDS shapes
+               BEFORE being trusted.
+  Result, validated 5/5 against gold: 128 needs Sequences (wrapper uses Seq),
+  141 and 168 need FiniteSets (Cardinality), 148 and 158 need nothing -- their
+  wrappers extend what they use.
+  So an A10 is now derivable correctly. NOT built: the cluster is still down, no
+  arm can be measured, and a tenth untested arm adds risk without information.
+  The derivation and its validation are recorded so it can be built with
+  evidence rather than belief when there is something to measure.
+  Note: it30's wrapper-shaped scan used the same single-line EXTENDS regex. Its
+  conclusion is unaffected -- those six specs have single-line clauses -- but
+  the helper there is the flawed one.
