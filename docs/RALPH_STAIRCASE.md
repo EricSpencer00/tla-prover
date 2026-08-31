@@ -1272,3 +1272,20 @@ Read this block first; the decision ledger below is the evidence.
   is an EXCLUSIVE whole node (177524). That is precisely what the watcher waits
   for, so the plan does not change -- but the fallback should not be counted as
   a second path.
+- 2026-08-31 it60: added a page-cache warm-up to ~/serve_vllm_w4dgm_sn.pbs
+  (backup at .bak), addressing it59's mechanism directly. Before `vllm serve`
+  it now runs `python -c "import vllm, torch, transformers"` and
+  `python -c "import cv2"`, both non-fatal. vLLM forces SPAWN when CUDA is
+  already initialised, so its workers re-import the whole stack from the shared
+  conda; importing once first pulls those .so files into the node's page cache
+  so the workers hit cache instead of the filesystem, which is what blows the
+  startup deadline on a contended node.
+  Rejected the other candidate: forcing VLLM_WORKER_MULTIPROC_METHOD=fork.
+  Reading _maybe_force_spawn shows it returns early only when the value is
+  already "spawn"; otherwise it still forces spawn for its own reasons, so an
+  explicit fork is not honoured reliably. Warming the cache does not fight the
+  framework.
+  Untested against a real serve -- the last successful run (177524) was on an
+  exclusive node where imports were fast enough anyway, so this only matters if
+  the next serve lands somewhere contended. Script parses; the change is two
+  guarded lines that cannot fail the job.
