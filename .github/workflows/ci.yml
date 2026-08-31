@@ -96,10 +96,11 @@ jobs:
         with:
           python-version: "3.11"
 
-      # These files are the anti-self-certification backbone: the hash-pinned
-      # oracle closure, the decontaminated G2 holdout, the frozen baseline Gate 2
-      # is scored against, and the exclusions ledger. A malformed one silently
-      # invalidates any number computed against it.
+      # These files pin the numbers: the hash-pinned oracle closure, the frozen
+      # baseline Gate 2 is scored against, and the exclusions ledger. A malformed
+      # one silently invalidates any number computed against it. The G2 holdout
+      # manifest is checked by the answer-key job below -- it is not in the repo
+      # (ticket #11).
       - name: Validate frozen JSON artifacts
         run: |
           python3 - <<'PY'
@@ -107,7 +108,6 @@ jobs:
           from pathlib import Path
           required = [
               "corpus/gate0_closed.json",
-              "corpus/holdout_30.json",
               "corpus/e2c_baseline.json",
               "results/analysis/w4_exclusions.json",
           ]
@@ -148,3 +148,19 @@ jobs:
               print(f"::error::{line}")
           sys.exit(1 if bad else 0)
           PY
+
+  answer-key:
+    name: Gate-2 answer key stays out of the repo
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # The holdout manifest and the hand-authored corpus configs reconstruct
+      # what a correct Gate-2 output looks like. Re-adding one to the tracked
+      # tree contaminates every future holdout number, so it fails the build.
+      - name: No answer-key artifact is tracked
+        run: python3 tools/check_holdout_leak.py

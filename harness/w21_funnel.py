@@ -52,6 +52,7 @@ import sys
 import tempfile
 from pathlib import Path
 
+from . import private_data
 from .corpora import (
     NEAR_DUP_THRESHOLD,
     SHINGLE_K,
@@ -64,7 +65,7 @@ from .corpora import (
 
 BENCH = Path("/Users/eric/GitHub/tla_benchmark/data/tla_files")
 EXAMPLES = Path("/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples")
-HOLDOUT = json.load(open(Path(__file__).parent.parent / "corpus" / "holdout_30.json"))["holdout_specs"]
+HOLDOUT = private_data.holdout_specs()
 
 
 def _read(p: Path) -> str:
