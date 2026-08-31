@@ -289,3 +289,30 @@ notify-eric-discord-otp and keep working on whatever does not block.
   frozen arms are provably unchanged and any prompt_sha256 difference is
   attributable to this alone. Full suite 505 passed.
   The runner now carries A1-A7 unattended.
+
+- 2026-08-31 it13 (offline): the unknown-operator class -- 35% of frontier
+  SANY failures and 51% of spec 55 -- is NOT cheaply fixable, and that bounds
+  what A5+A7 can do. 5,335 messages over the frontier split as:
+    short local/bound name, i.e. a scope error   50%  (j 442, n 405, b 348,
+                                                       i 303, k 234, pc 380)
+    domain operator invented or omitted          40%  (Ledger, ReachableFrom,
+                                                       Reachable, TC, ...)
+    required operator referenced, never defined   7%  (TypeOK, Init, Next,
+                                                       AncestorProperties)
+    standard-module operator, EXTENDS missing     4%  (Cardinality etc.)
+  Half of it is the model using a name outside the quantifier/LET that binds
+  it, or using `pc` without declaring it. A context-free grammar cannot
+  enforce scope, so A5 cannot touch this by construction, and a prompt line is
+  unlikely to fix invented domain operators (another 40%) -- that is modeling
+  competence, not instruction-following. Only the last 11% (omitted required
+  definitions + missing EXTENDS) looks mechanically addressable, and it is
+  small.
+  CONSEQUENCE for the ladder: the tractable levers on the SANY rung are the
+  grammar (parse, 48%) and A7 (redefinition, 27% of rows). The unknown-operator
+  35% is a capability limit for this model, not a harness defect. Do not
+  expect A5+A7 to reach 100% SANY; the honest ceiling is well short of it, and
+  the remaining gap argues for the structural direction
+  (structural-representation-direction memory) rather than more prompt work.
+  Method note: the SANY message is "Unknown operator: `X'." -- backtick then
+  apostrophe. A quote-agnostic regex silently matches nothing and reports an
+  empty table, which is what my first pass did.
