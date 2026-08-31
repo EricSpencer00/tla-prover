@@ -9,9 +9,17 @@
 #
 # A held job never runs, so a probe costs no node hours. Each probe is deleted
 # after it is read, to keep the queue clean.
+#
+# Every cycle appends a timestamped line to LOG. Without it, silence from a
+# silent-while-broken monitor is indistinguishable from the monitor having died,
+# and coverage can only be guessed from process elapsed time (2026-08-31 it41
+# found a gap that way).
 set -uo pipefail
 INTERVAL=${INTERVAL:-1800}
 PBS=probe_can_start.pbs
+LOG=${LOG:-results/runs/sophia_probe.log}
+mkdir -p "$(dirname "$LOG")"
+echo "[$(date +%F_%H:%M:%S)] probe start (interval ${INTERVAL}s)" >> "$LOG"
 last=""
 
 ssh -o BatchMode=yes sophia "cat > ~/$PBS" <<'EOF'
@@ -35,6 +43,7 @@ while :; do
         END{ if (s==\"H\" && h ~ /s/) print \"HELD\"; else print s }'
       qdel \$J 2>/dev/null" 2>/dev/null) || out="SSH-FAIL"
   state=$(echo "$out" | tail -1 | tr -d '[:space:]')
+  echo "[$(date +%F_%H:%M:%S)] state=${state:-<empty>}" >> "$LOG"
   case "$state" in
     HELD|SSH-FAIL|SUBMIT-FAIL|"") ;;                 # still broken; stay quiet
     *) echo "SOPHIA CAN START JOBS AGAIN (probe state=$state)"; exit 0 ;;
