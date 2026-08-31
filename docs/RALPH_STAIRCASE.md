@@ -1212,3 +1212,18 @@ Read this block first; the decision ledger below is the evidence.
   the jobs holding them are 18-24h walltimes only 2-4h in.
   Nothing further to try from our side; the watcher and the queued job both
   fire by themselves when the fragmentation clears.
+- 2026-08-31 it57: CORRECTING it56's evidence, though not its conclusion.
+  it56 said gpu-07 has no free NVLink quad and cited
+  resources_available.ngpu_quads = 0. That citation is worthless: ngpu_quads
+  reads 0 on EVERY node, including the completely idle gpu-12, so it
+  distinguishes nothing and I should not have leaned on it.
+  The real evidence is assigned_gpus. gpu-07 holds
+  {"177571":"4,5", "177797":"0", "177697":"1"} -- GPUs 0,1,4,5 taken, leaving
+  {2,3,6,7} free. A quad is {0,1,2,3} or {4,5,6,7}; the free set straddles both,
+  so neither is available. Four free GPUs, zero usable quads. Idle gpu-12 shows
+  assigned_gpus = {} -- both quads free -- which also confirms the watcher's
+  "0 assigned" criterion is the right test for the 8-GPU case.
+  So the conclusion stands and is now properly supported. Recording the
+  correction because a right answer resting on a wrong measurement is one
+  re-check away from becoming a wrong answer, and this is the sixth time this
+  session my own check, not the system, was the faulty part.
