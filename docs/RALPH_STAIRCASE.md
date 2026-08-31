@@ -715,3 +715,29 @@ Read this block first; the decision ledger below is the evidence for it.
   spec from its description", and it is worth separating in any reporting.
   NOT acted on: reclassifying or re-scoping these 6 specs changes the frozen
   holdout, which is Eric's call. Recorded and pinged.
+
+- 2026-08-31 it31 (offline): tested it30's claim as a POPULATION, with the
+  non-wrapper specs as the control, rather than asserting it from two cases.
+  Over TLC-graded specs (6 SANY-terminal excluded):
+    WRAPPER (n=6)   A/L rows 2825, passes 89 = 3.2%, redefinition is 49% of
+                    its SANY failures, 4/6 specs ever solved by A/L
+    OTHERS  (n=18)  A/L rows 7796, passes 460 = 5.9%, redefinition 10%,
+                    15/18 ever solved
+  The redefinition signature is the strong result: 49% vs 10%, a 5x gap, and it
+  is mechanistic rather than merely correlational -- it30 identified the actual
+  clashing names (TypeOK, AncestorProperties, R, NoNode for 55) as the ones the
+  EXTENDS'd module supplies. The pass-rate gap (3.2% vs 5.9%) points the same
+  way but rows within a spec are correlated, so specs are the honest unit and
+  n=6 is small; do not quote a p-value on it.
+  IMPORTANT nuance that stops this being over-claimed: being a wrapper is NOT
+  fatal. Per spec, A/L passes and identifiers the .cfg demands:
+    181  8 lines,  1 demanded  -> 61/403 passes
+     13  7 lines,  6 demanded  -> 26/477
+     14  8 lines,  6 demanded  ->  1/513
+    133 14 lines,  7 demanded  ->  1/454
+     55 36 lines,  7 demanded  ->  0/513
+    135 14 lines, 10 demanded  ->  0/465
+  The gradient tracks HOW MUCH the .cfg demands from the unseen module, not
+  wrapper-ness itself: 181 demands one identifier and passes often; 135 demands
+  ten and never passes. So the real predictor is "identifiers the task requires
+  that live in a module the model cannot see".
