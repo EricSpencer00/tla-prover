@@ -1015,3 +1015,10 @@ Read this block first; the decision ledger below is the evidence.
   it was checked, not because I said so.
   Worth keeping as a habit note: "the bug does not affect this other result" is
   itself a claim, and it costs one command to test.
+- 2026-08-31 it46 (offline): wrote the session's transferable lesson to memory
+  (prompt-arms-need-mechanism-checks) so the next arm is not built the same way:
+  all four prompt-side arms passed their tests and were still mis-aimed; only
+  reading real failing candidates caught it; A5, the one mechanical arm, needed
+  nothing. Includes the four-step check to run before any prompt arm, and the
+  warning that my own verification scripts were wrong three times this session.
+  Probe healthy: heartbeat at 14:44 state=HELD, next cycle due 15:14.
