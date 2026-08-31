@@ -692,3 +692,26 @@ Read this block first; the decision ledger below is the evidence for it.
   either giving the model Reachable (changing the task) or extending the
   mutation catalogue (changing framing B). Both are holdout-affecting decisions
   and therefore Eric's, not mine. Recorded, not acted on.
+
+- 2026-08-31 it30 (offline): 135 is NOT a special case. SIX of the 30 holdout
+  specs are MC wrappers -- short modules that EXTEND a non-standard module
+  holding the real content:
+    13 (7 lines, EXTENDS Bakery)      14 (8, Boulanger)
+   181 (8, sums_even)                133 (14, ParReach)
+   135 (14, Reachable = spec 141)     55 (36, Echo)
+  55 is `MODULE MCEcho EXTENDS Echo` and defines only the test fixtures N1, I1,
+  R1. It does NOT define TypeOK or AncestorProperties -- its .cfg demands them
+  and Echo supplies them.
+  This UNIFIES two findings that looked unrelated. it10 measured 55 as 54%
+  redefinition, the highest on the frontier, with top symbols NoNode 228,
+  R 172, TypeOK 118, AncestorProperties 113. Those are precisely the names the
+  wrapper's own .cfg names and Echo already provides. So 55's redefinition rate
+  is not model sloppiness; it is the task demanding names that the module it
+  must EXTEND already defines -- the same shape as the it19 wrapper bug, one
+  level up.
+  So the two frontier specs generation never solves, 55 and 135, are BOTH MC
+  wrappers, and the task for them is really "write a test harness for a spec
+  you cannot see". That is a different and arguably unfair task from "write a
+  spec from its description", and it is worth separating in any reporting.
+  NOT acted on: reclassifying or re-scoping these 6 specs changes the frozen
+  holdout, which is Eric's call. Recorded and pinged.
