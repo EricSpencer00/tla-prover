@@ -151,3 +151,7 @@ notify-eric-discord-otp and keep working on whatever does not block.
   ping sent. Runner treats it as "cluster unreachable" and retries forever,
   so nothing aborts. 177570 was still Q at last good poll. On re-auth the
   loop resumes with zero manual steps.
+- Update: root cause is ALCF scheduled maintenance 2026-08-31 (all machines;
+  Sophia 09:00-14:30 CT). Auth outage is facility-side; Eric's OTP is fine.
+  Sophia queue drained to 0, so 177570 is likely purged -- runner resubmits.
+  Resume polling after 14:30 CT.
