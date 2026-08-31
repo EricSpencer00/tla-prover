@@ -498,3 +498,29 @@ notify-eric-discord-otp and keep working on whatever does not block.
   190 rows keep being lost in any run without TLA_PROMPT_ARITY=1. Fixing the
   default changes every frozen arm's prompt_sha256, so it is Eric's call, not
   mine. Discord pinged.
+
+- 2026-08-31 it21 (offline): the wrapper/prompt overlap is NOT limited to
+  substitution targets, which matters for how big the default fix in it20 is.
+  Names the prompt asks for that the wrapper already provides:
+    158  10  MCAcceptor, MCBallot, MCQuorum, MCValue, ConsensusSpecBar,
+             a1, a2, a3, v1, v2      <- model values and MC constants
+    148   4  CalculateHash, CalculateHashImpl, SafetyInvariant, TypeInvariant
+    128   1  MaxSeqLen
+    141   1  ConnectedToSomeButNotAll
+    168   1  n
+  So the clash spans three categories, not one: substitution targets (what A8
+  fixed), plain CONSTANTS, and INVARIANTS. 148 is the sharp case -- the prompt
+  tells the model to define TypeInvariant and SafetyInvariant although the
+  wrapper defines both, which is the "Error: The invariant TypeInvariant
+  specified in the configuration file" line seen 6 times in it16.
+  Caveat on reading these two iterations together: it20 counted OBSERVED
+  failures (190 rows), this counts the SURFACE (17 name-clashes) -- a clash
+  only costs rows when the model actually acts on it. 168's single clash on
+  `n` produced 94 failures while 148's four produced 1, so surface size does
+  not predict damage.
+  158 is SANY-terminal (PROOF_MODULES), so TLC never runs on it and its 10
+  clashes cost little; the damage concentrates where TLC does run.
+  This sizes Eric's pending decision: the default fix is not a one-line change
+  to the substitutions block. Doing it properly means _format_signature
+  filtering constants, invariants and substitution targets against the wrapper,
+  and it changes prompt_sha256 for every spec that has a wrapper.
