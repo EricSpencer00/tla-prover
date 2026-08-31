@@ -181,6 +181,15 @@ else
   echo "$(ts) A5 SKIPPED -- endpoint does not enforce structured outputs"
 fi
 
+# A6: the init-violation hint (docs/RALPH_STAIRCASE.md it3/it7). Validated
+# offline on the 13 recorded init-violation rows -- fires 13/13 with the flag,
+# 0/13 without, and the unflagged evidence stays a prefix of the flagged one,
+# so A1/A2 above remain the honest control. Runs LAST so no frozen arm sees it.
+export TLA_LOOP_INIT_HINT=1
+run "A6 init-hint loop" loop-w4dgm-120b-hint \
+  python3 -m harness loop-eval --model "openai:$MODEL" --run-id loop-w4dgm-120b-hint --chains 8 --rounds 4
+unset TLA_LOOP_INIT_HINT
+
 echo "$(ts) ==== pooled 2x2 ===="
 python3 tools/loop_multiseed.py \
   --loop results/runs/loop-w4dgm-120b results/runs/loop-w4dgm-120b-seed2 results/runs/loop-w4dgm-120b-seed3 \
