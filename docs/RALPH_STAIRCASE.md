@@ -373,3 +373,41 @@ notify-eric-discord-otp and keep working on whatever does not block.
   attack generation's TLC wall, not its SANY yield -- the loop's repair rungs
   are what convert, and framing L already has them. Measure WHY 271 SANY-clean
   generations all die at TLC before spending more on decode-time constraints.
+
+- 2026-08-31 it16 (offline): WHY the 271 SANY-clean generations all die at TLC
+  -- and it is far more tractable than it15 feared. Of the 246 that reach
+  tlc=error, the first TLC error line classifies as:
+    cfg/module INTERFACE mismatch            136  55%
+      arity mismatch                          64   "substitutes for Succ with
+                                                    ConnectedToSomeButNotAll of
+                                                    different number of
+                                                    arguments" (and Seq/
+                                                    LimitedSeq, 28)
+      substitution target undefined           37   "substitutes for Node with
+                                                    the undefined identifier NN"
+      missing module or unassigned constant   26   "module name ZSequences is
+                                                    not a module in the
+                                                    specification" (spec 121),
+                                                    "constant MaxChar is not
+                                                    assigned a value"
+    parsing/semantic failure on TLC's recheck  56  23%
+    Java StackOverflowError (state explosion)  29  12%
+    assumption evaluation failed or false      13   5%
+  So the majority of generation's TLC wall is NOT bad modeling. It is the
+  module failing to match the .cfg's interface contract: the model declares
+  `CONSTANT Succ(_)` and then defines the substituting operator with no
+  argument, or never defines it, or omits the module the cfg names.
+  This REVISES it15's read. it15 was right that raising SANY yield alone will
+  not turn a spec green, but wrong to imply the TLC wall is a capability
+  limit. 55% of it is a mechanical interface bug of exactly the same family as
+  A7 -- the model controls BOTH sides (it writes the CONSTANT declaration and
+  the operator) and simply makes them inconsistent.
+  PROPOSED A8 (not implemented; needs the same flag-gated + control treatment
+  as A6/A7): state the arity contract in the prompt -- an operator substituted
+  for a constant must take exactly as many arguments as that constant is
+  declared with, the substitution target must actually be defined, and any
+  module the .cfg names (ZSequences) must exist in the output. required_
+  signature already parses the substitution pairs, so the data is in hand.
+  Caveat before anyone counts this as 55%: these are FIRST error lines. Fixing
+  the interface may just expose the next error in the same run, and 23% of the
+  bucket is TLC's own parse recheck, which A5 addresses instead.
