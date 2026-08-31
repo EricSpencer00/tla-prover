@@ -58,6 +58,31 @@ job_state() {
   echo "$out"
 }
 
+# True once a schedulable node (gpu-01..09) has all 8 GPUs free. gpu-10..22 are
+# idle but the scheduler will not place on them, so they must not count.
+free_node() {
+  timeout 60 ssh -o ConnectTimeout=20 -o BatchMode=yes sophia '
+    pbsnodes -av 2>/dev/null | awk "
+      /^sophia-gpu-/{ if (n && ok && tag && asg==0 && sched) print n
+                      n=\$1; ok=0; tag=0; asg=-1
+                      sched=(n ~ /gpu-0[1-9]\$/) }
+      /resources_available.queue_tags = prod/{tag=1}
+      /resources_available.ngpus = 8/{ok=1}
+      /resources_assigned.ngpus = /{asg=\$3+0}
+      END{ if (n && ok && tag && asg==0 && sched) print n }
+    "' 2>/dev/null | head -1
+}
+
+wait_for_capacity() {
+  local n
+  while :; do
+    n=$(free_node)
+    [ -n "$n" ] && { echo "$(ts) capacity: $n has 8 free GPUs"; return 0; }
+    echo "$(ts) no schedulable node with 8 free GPUs; waiting 10 min"
+    sleep 600
+  done
+}
+
 # Block until $JOB is running, riding out unreachable-cluster stretches.
 # A finished/vanished job is resubmitted (bounded), updating $JOB.
 wait_for_job() {
@@ -83,6 +108,11 @@ wait_for_job() {
         fi
         RESUBMITS=$((RESUBMITS + 1))
         echo "$(ts) job $JOB gone (state='$st'); resubmitting ($RESUBMITS/$MAX_RESUBMITS)"
+        # Wait for a SCHEDULABLE node with 8 free GPUs first. Submitting while
+        # gpu-01..09 are full lands the job on an idle-but-unschedulable node,
+        # where it fails to launch 21 times and is system-held -- which would
+        # spend the whole resubmit budget in minutes (2026-08-31 it50/it54).
+        wait_for_capacity
         JOB=$(timeout 60 ssh sophia "qsub $SERVE_PBS" | cut -d. -f1) || {
           echo "$(ts) resubmit failed, retrying in 5 min"; sleep 300; }
         [ -n "$JOB" ] && echo "$(ts) new serve job $JOB"
