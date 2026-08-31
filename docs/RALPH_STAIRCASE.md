@@ -1404,3 +1404,20 @@ Read this block first; the decision ledger below is the evidence.
   Lustre, and the thread caps are unproven at tp=8 (they were validated at
   tp=4). Both are guarded, neither can fail the job, and the worst case is the
   serve behaving exactly as it did before these changes.
+
+- 2026-08-31 it69: Sophia SSH dropped again (ControlMaster expired ~4h after the
+  13:10 login). Needs one `ssh sophia` from Eric; Discord pinged with that and
+  a summary of the thread-cap fix.
+  DEFECT FOUND IN MY OWN WATCHER, and it is the dangerous kind: free_node
+  returns empty when ssh fails, which is indistinguishable from "no node has 8
+  free GPUs". So an expired login made the watcher log "no schedulable node"
+  every 10 minutes forever -- looking healthy while doing nothing. Now it
+  probes ssh first and says "cannot reach sophia (OTP login needed?)", once,
+  rather than silently conflating the two. Restarted as b273trzdv.
+  Also retired tools/sophia_start_probe.sh: it submitted an 8-GPU job every 30
+  min to learn what the watcher determines from node state without submitting
+  anything, so it was pure queue noise once the diagnosis was known.
+  This is the ninth self-inflicted check failure this session and the second
+  where the check would have looked FINE while being useless -- the first being
+  the stale log. Both share a shape: an error path that returns the same value
+  as a legitimate negative result.
