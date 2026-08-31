@@ -599,3 +599,20 @@ Read this block first; the decision ledger below is the evidence for it.
   decisions. Two memories written so the findings outlive this context:
   generation-vs-repair-framing (the 29/30 is framing B, generation has solved
   none) and mc-wrapper-prompt-bug (190 rows, default still broken).
+
+- 2026-08-31 it25 (offline): the new arms EXERCISED end to end, not just
+  unit-tested. Everything before this called build_generation_prompt directly;
+  that never touched the real generator, and my it19 change put
+  `from .loop_eval import wrapper_text_for` INSIDE gen_eval while loop_eval
+  imports gen_eval at module level -- a circular-import hazard that unit tests
+  on the prompt builder cannot catch.
+  Checked: importing gen_eval first and loop_eval first both succeed. Then ran
+  the real generator gen_eval_spec_framing_a("141", ..., k=0) against a fake
+  model with all three flags on: 1 row produced, sany=pass, and the LIVE prompt
+  the generator handed the model carries A7, A8 and A9, with A8 correctly
+  inverted to "do NOT define it yourself" for 141's wrapper-provided operator.
+  So the wiring works in the path the runner will actually take.
+  Three of my own harness errors on the way, none in the shipped code: the fake
+  model must return list[str] not list[tuple] and needs an `id`; cfg_dirs is
+  [(label, path)] not [path]; and workroot/logdir must exist beforehand. Worth
+  recording because the next person writing a dry-run will hit all three.
