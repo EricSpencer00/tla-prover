@@ -28,54 +28,54 @@ correct this number here). Also stop on: goal reached, or a roadblock only Eric
 can clear (OTP, spend, outward-facing action) — ping Discord per
 notify-eric-discord-otp and keep working on whatever does not block.
 
-## Current state (2026-08-31, after iteration 23)
+## Current state (2026-08-31, after iteration 40)
 
-Read this block first; the decision ledger below is the evidence for it.
+Read this block first; the decision ledger below is the evidence.
 
-- BLOCKED on ALCF, not on work. Sophia places our jobs, the launch fails 21
-  times in seconds, and PBS system-holds them (Hold_Types=s). A minimal 6-line
-  PBS job reproduces it, the allocation is healthy and nodes are free, so it is
-  facility-side and needs a ticket only Eric can file (it6). A probe
-  (tools/sophia_start_probe.sh) submits one short job every 30 min and stays
-  silent until one actually starts.
-- The runner tools/run_tuned_2x2_seeds.sh now carries NINE arms unattended,
-  A1-A9, and needs ~20.5h of serve against a 12h window (it23). It is stopped;
-  relaunch with JOB=<new qsub id> once jobs can start.
-    A1-A4  the tuned 2x2 seeds Eric committed to (A1 resumes at 400 rows)
-    A5     decode-time grammar          A6  init-violation hint
-    A7     no-redefinition prompt        A8  cfg interface/arity contract
-    A9     wrapper-aware signature
-  A6-A9 are all flag-gated and PROVEN append-only, so every frozen arm stays
-  byte-identical. None of them has evidence it helps -- that needs a serve.
-- What the frontier actually is. Rung 1 (>=1 SANY pass ever) is already 30/30;
-  pooled over ALL framings 29/30 reach the summit, 135 alone stuck (it1, it9).
-  But split by framing (it15), generation has NEVER solved a frontier spec:
-  271 SANY-passing generations produced ZERO passing verdicts. The 29/30 comes
-  from framing B, which repairs a corrupted GOLD spec -- an easier task. Any
-  "29/30" claim must name its framing.
-- Why generation dies. At SANY: parse 48%, unknown-operator 35%, redefinition
-  27% of rows (it10). Half the unknown-operator class is scope errors a
-  context-free grammar cannot see, so A5+A7 can reach at most 60% of frontier
-  SANY failures even if perfect (it13, it14). At TLC: 55% of the 246 failures
-  on SANY-clean generations are cfg INTERFACE mismatches -- wrong arity,
-  undefined substitution target, a module the cfg names and the output lacks
-  (it16). That is what A8 targets.
-- A REAL HARNESS BUG, half-fixed. 5 specs (128, 141, 148, 158, 168) are checked
-  through an MC wrapper that already provides names the prompt demands -- 17 of
-  them, spanning constants, invariants and substitution targets. Demanding them
-  again costs 190 rows to duplicate definitions (it19-it21). A8/A9 fix it
-  behind flags; the DEFAULT prompt still has it, and fixing that changes
-  prompt_sha256 for every wrapper spec, so it is Eric's call (asked, pending).
-- Holdout facts that bound the ceiling: 86 and 183 are byte-identical (the
-  TLAPS module); 105 is a 428-byte stub; 4 library specs are SANY-only; 2
-  proof modules are TLAPS-graded. So "30/30 TLC" is really 24/24 TLC-graded.
-- Grammar, measured exactly (it17): it rejects 722/923 = 78.2% of frontier
-  parse-failing candidates. Projected cut in frontier SANY failures 38% -- but
-  that counts rejection of text the model DID emit; under constrained decoding
-  it emits something else, so it is not a promised gain.
-- RL staircase design exists (docs/designs/2026-08-12-sany-tlc-grpo.md) with
-  the vacuous-pass rung amendment proposed (tier 2.5 at 0.85) -- an option, not
-  a commitment; the loop measures cheaper levers first.
+- BLOCKED on ALCF since ~13:00. Sophia places our jobs, the launch fails 21
+  times in seconds, and PBS system-holds them. A minimal 6-line PBS job
+  reproduces it; allocation and nodes are fine. Facility-side, needs a ticket
+  only Eric can file (it6). tools/sophia_start_probe.sh watches for recovery.
+- The runner carries NINE arms unattended (A1-A9) and needs ~20.5h of serve
+  against a 12h window, so MAX_RESUBMITS is 4 (it23). It is STOPPED; relaunch
+  with JOB=<new qsub id> once jobs start. A1 resumes at its 400 rows.
+- ALL FIVE new arms are verified as far as possible without a model: config
+  flags, byte-identity with the flags off (0/30 specs differ), prompt content,
+  both eval paths end-to-end, A8's arity guidance checked exhaustively against
+  gold (20/20), A9 cross-checked against missing_signature (0 contradictions),
+  and A5 shown to accept every frontier gold spec so it cannot make a target
+  unreachable. Full suite 521 passing.
+- FOUR OF THE FIVE NEEDED CORRECTING, and every correction came from reading
+  real candidate text, not from tests: A6 hardcoded `pc = "Done"` when
+  candidates spell it "done"/"terminated", which could have MANUFACTURED the
+  vacuity it was meant to avoid (it34); A7 said "standard module" when 82 of
+  55's 132 redefinition failures EXTEND Echo (it32); A8 pointed at the wrong
+  side of the arity mismatch (it33) and then my own fix regressed the builtin
+  case, telling the model to define LimitedSeq 0-ary and leaving the unbounded
+  Seq that TLC cannot enumerate (it36); A9 contradicted missing_signature by
+  filtering on declarations as well as definitions (it35). A5, the only arm
+  derived mechanically rather than from belief, needed nothing.
+- WHAT THE ARMS CAN AND CANNOT DO, measured before running them:
+  A5+A7 reach at most 60% of frontier SANY failures (it14); A8+A9 at most 64%
+  of the frontier TLC wall (it40). Neither closes its rung. No combination is a
+  route to 30/30, which it15 already implied: across 2,373 frontier A/L rows --
+  including framing L's own repair rounds -- generation has produced ZERO
+  passing verdicts. The 29/30 summit is carried by framing B, which repairs a
+  corrupted GOLD spec. Always name the framing.
+- WHY 55 AND 135 RESIST, and it is structural. SIX of the 30 holdout specs are
+  MC wrappers whose real content lives in a module the model never sees (13,
+  14, 181, 133, 135, 55). 135 IS spec 141's wrapper. The per-spec solve rate
+  tracks how many identifiers the .cfg demands from that unseen module: 181
+  demands 1 and passes often, 135 demands 10 and never passes (it31). So
+  "100% TLC on the frozen holdout" is partly ill-posed -- 135 cannot be earned
+  honestly without changing the task or the mutation catalogue (it29-it30).
+- A REAL HARNESS BUG, half-fixed: the prompt demands 17 names across the 5
+  wrapper specs that the wrapper already provides, costing 190 rows to
+  duplicate definitions (it19-it21). A8/A9 fix it behind flags; the DEFAULT
+  prompt still has it.
+- Holdout facts bounding the ceiling: 86 and 183 are byte-identical; 105 is a
+  428-byte stub; 4 library specs are SANY-only; 2 proof modules are
+  TLAPS-graded. "30/30 TLC" is really 24/24 TLC-graded.
 
 ## Waiting on Eric
 
