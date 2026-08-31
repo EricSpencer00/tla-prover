@@ -1007,3 +1007,11 @@ Read this block first; the decision ledger below is the evidence.
   Note: it30's wrapper-shaped scan used the same single-line EXTENDS regex. Its
   conclusion is unaffected -- those six specs have single-line clauses -- but
   the helper there is the flawed one.
+- 2026-08-31 it45 (offline): verified the it30 claim I had only ASSERTED. it44
+  noted that it30's wrapper scan used the flawed single-line EXTENDS regex and
+  I stated its conclusion was unaffected -- without checking. Re-ran the scan
+  with the corrected, unit-tested parser: the six wrapper-shaped specs are
+  IDENTICAL (13, 14, 55, 133, 135, 181). The claim holds, but it holds because
+  it was checked, not because I said so.
+  Worth keeping as a habit note: "the bug does not affect this other result" is
+  itself a claim, and it costs one command to test.
