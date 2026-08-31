@@ -663,3 +663,32 @@ Read this block first; the decision ledger below is the evidence for it.
   So: no published number needs restating on this basis. What the addendum
   could fairly add is that generation results on the 5 wrapper specs are
   depressed by a harness defect, with it20's row count as the support.
+
+- 2026-08-31 it29 (offline): WHY 135 is the lone unsolved spec -- it is not a
+  system spec at all, and the task as posed is close to ill-formed.
+  135.tla is 14 lines: `MODULE MCReachable EXTENDS Reachable`, defining exactly
+  two helpers, ConnectedToSomeButNotAll and LimitedSeq(S). Reachable IS spec
+  141 (243 lines), which defines all 7 identifiers 135's .cfg demands (TypeOK,
+  Inv1, Inv2, Inv3, PartialCorrectness, Spec, Termination). So 135 is 141's
+  MODEL-CHECKING WRAPPER, and 135/141 are two halves of one system.
+  Consequences, all of which were previously separate puzzles:
+  * The task for 135 is "write a module that provides TypeOK, Inv1, Inv2, Inv3,
+    PartialCorrectness, Spec, Termination" -- but honestly those come from
+    EXTENDS Reachable, which the model does not have. So the model either
+    reproduces 243 lines of Reachable or stubs the invariants. it9 found the one
+    TLC-accepted candidate did exactly the latter: every invariant `== TRUE`.
+    That is the rational response to the prompt as given, not mere gaming.
+  * Framing B can never run on 135: only 4 mutations exist (and_to_or,
+    plus_to_minus, in_to_notin, cup_to_cap) and 135 has ZERO sites for three of
+    them. Its only 3 `\in` are all BINDING positions -- `CHOOSE succ \in ...`,
+    `\A n \in Nodes`, `CHOOSE len \in ...` -- where `\notin` is a syntax error,
+    not a semantic corruption. Hence all 3 candidates rejected sany_fail, hence
+    "no_valid_corruption" in every B run.
+  * So 135 fails both routes for structural reasons: generation because the
+    task under-determines a 243-line dependency, repair because the mutation
+    catalogue cannot corrupt a 14-line wrapper.
+  IMPLICATION for the goal ladder: "100% TLC on the frozen holdout" is not
+  merely hard, it is partly ill-posed. 135 cannot be earned honestly without
+  either giving the model Reachable (changing the task) or extending the
+  mutation catalogue (changing framing B). Both are holdout-affecting decisions
+  and therefore Eric's, not mine. Recorded, not acted on.
