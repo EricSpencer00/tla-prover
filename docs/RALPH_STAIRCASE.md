@@ -645,3 +645,21 @@ Read this block first; the decision ledger below is the evidence for it.
   contradicts the other.
   Memory generation-vs-repair-framing corrected to say so, since as written it
   could have been read as "the loop never repairs anything", which is false.
+- 2026-08-31 it28 (offline): does the wrapper bug depress a PUBLISHED number?
+  Suggestive, and deliberately not claimed as more.
+  Raw look: 4 of the 5 wrapper specs are among the 7 that never got a TLC pass
+  under framing A/L (80% vs a 23% base rate). That is misleading -- 41, 128 and
+  158 are SANY-terminal (a LIBRARY and two PROOF_MODULES), so they are not
+  TLC-graded at all and cannot have a TLC pass by design.
+  With those removed, over the 24 TLC-graded specs: wrapper specs without a TLC
+  pass 2/3 (141, 148), non-wrapper 2/21 (55, 121). Fisher exact one-sided
+  p = 0.061.
+  CONCLUSION: n=3 wrapper specs is far too few. 2-of-3 is one spec away from
+  1-of-3, and p=0.061 on that base is not evidence. The honest statement is
+  that the two TLC-graded wrapper specs that carry a substitution the prompt
+  demands (141, 148) are both unsolved under A/L, which is CONSISTENT with the
+  190-row duplicate-definition cost measured directly in it20 -- but the direct
+  row count is the evidence, not this spec-level association.
+  So: no published number needs restating on this basis. What the addendum
+  could fairly add is that generation results on the 5 wrapper specs are
+  depressed by a harness defect, with it20's row count as the support.
