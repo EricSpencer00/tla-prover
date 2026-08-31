@@ -981,3 +981,46 @@ def test_gate_check_prefers_scored_retry_over_api_error(tmp_path):
     assert rep["pass_set"] == ["1"]
     assert rep["pass_at_1"] == 1          # greedy retry scored as pass
     assert rep["api_error_rows"] == 1     # only spec 3's unhealed row remains
+
+
+# --- A7: the no-redefinition block (docs/RALPH_STAIRCASE.md it10) ------------
+# 27.1% of the frontier's SANY failures carry a redefinition error and 12.1%
+# carry ONLY that. Flag-gated like A6 so every frozen arm stays byte-identical.
+
+def _a7_cfg():
+    return (
+        "CONSTANTS\n"
+        "  Node <- N1\n"
+        "  NoNode = NoNode\n"
+        "  Seq <- LimitedSeq\n"
+        "SPECIFICATION\n  Spec\n"
+        "INVARIANT\n  TypeOK\n"
+    )
+
+
+def test_no_redef_block_absent_without_the_flag(monkeypatch):
+    monkeypatch.delenv("TLA_PROMPT_NO_REDEF", raising=False)
+    p = gen_eval.build_generation_prompt({"system_overview": "x"}, _a7_cfg(), "M")
+    assert "DO NOT REDEFINE" not in p
+
+
+def test_no_redef_block_present_with_the_flag(monkeypatch):
+    monkeypatch.setenv("TLA_PROMPT_NO_REDEF", "1")
+    p = gen_eval.build_generation_prompt({"system_overview": "x"}, _a7_cfg(), "M")
+    assert "DO NOT REDEFINE" in p
+    # names the three measured causes
+    assert "declare" in p.lower() and "define" in p.lower()
+    assert "EXTENDS" in p
+    assert "exactly once" in p.lower()
+
+
+def test_no_redef_block_only_appends(monkeypatch):
+    """The flagged prompt must be the unflagged prompt plus the block, so the
+    A1/A2-style controls stay comparable and prompt_sha256 differences are
+    attributable to this one change."""
+    monkeypatch.delenv("TLA_PROMPT_NO_REDEF", raising=False)
+    off = gen_eval.build_generation_prompt({"system_overview": "x"}, _a7_cfg(), "M")
+    monkeypatch.setenv("TLA_PROMPT_NO_REDEF", "1")
+    on = gen_eval.build_generation_prompt({"system_overview": "x"}, _a7_cfg(), "M")
+    assert on.startswith(off)
+    assert len(on) > len(off)

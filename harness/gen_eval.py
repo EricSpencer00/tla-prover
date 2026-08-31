@@ -391,14 +391,42 @@ Output ONLY the module, nothing else -- no prose before or after -- starting wit
 `---- MODULE {module_name} ----` and ending with `====`."""
 
 
+def _no_redef_block():
+    """Arm A7 (docs/RALPH_STAIRCASE.md it10), flag-gated so frozen arms are
+    byte-identical without it. 27.1% of the frontier's SANY failures carry a
+    redefinition error and 12.1% carry only that; spec 55 is 54% redefinition
+    and is exactly the spec the decode-time grammar helps least.
+
+    The template already says "the CONSTANTS as declared constants", so this is
+    not a missing instruction in general. It names the three causes the top-18
+    redefined symbols actually split into: declaring a constant and then also
+    defining it (44%), defining a required operator twice (33%), and defining a
+    name the EXTENDS'd standard module already provides such as Seq or Nat
+    (17%)."""
+    if os.environ.get("TLA_PROMPT_NO_REDEF") != "1":
+        return ""
+    return (
+        "\n\nDO NOT REDEFINE anything. SANY rejects the whole module for this, so:\n"
+        "- A CONSTANT is DECLARED, never defined. Write `CONSTANTS Node, NoNode`; "
+        "do NOT also write `Node == ...`. Where the .cfg substitutes an operator "
+        "(`Node <- N1`), declare the left name as a CONSTANT and define ONLY the "
+        "right one.\n"
+        "- Define each required operator EXACTLY ONCE. Do not restate TypeOK, "
+        "Init, Next or Spec later in the module.\n"
+        "- Never define a name an EXTENDS'd standard module already provides "
+        "(for example Seq from Sequences, or Nat from Naturals). Use it, or "
+        "pick a different name.")
+
+
 def build_generation_prompt(description_json, cfg_text, module_name):
     """Framing A prompt: FormaLLM description + required identifier signature
     (from required_signature(cfg_text)) -> instructions to emit exactly one
     TLA+ module named module_name, wrapped so extract_module can recover it."""
-    return GENERATION_PROMPT_TEMPLATE.format(
+    prompt = GENERATION_PROMPT_TEMPLATE.format(
         description=_format_description(description_json),
         signature=_format_signature(required_signature(cfg_text)),
         module_name=module_name)
+    return prompt + _no_redef_block()
 
 
 REPAIR_PROMPT_TEMPLATE = """You are repairing a TLA+ specification so that it passes \

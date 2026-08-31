@@ -190,6 +190,16 @@ run "A6 init-hint loop" loop-w4dgm-120b-hint \
   python3 -m harness loop-eval --model "openai:$MODEL" --run-id loop-w4dgm-120b-hint --chains 8 --rounds 4
 unset TLA_LOOP_INIT_HINT
 
+# A7: the no-redefinition prompt block (docs/RALPH_STAIRCASE.md it10). A
+# gen-eval arm with the same shape as A3/A4/A5, so A3/A4 are its control and it
+# is directly comparable to the grammar arm. Redefinition is 27% of frontier
+# SANY failures and 12% carry only that; it targets spec 55, which the grammar
+# helps least.
+export TLA_PROMPT_NO_REDEF=1
+run "A7 no-redef prompt" norediff-w4dgm-120b \
+  python3 -m harness gen-eval --framing A --model "openai:$MODEL" --run-id norediff-w4dgm-120b --k 31
+unset TLA_PROMPT_NO_REDEF
+
 echo "$(ts) ==== pooled 2x2 ===="
 python3 tools/loop_multiseed.py \
   --loop results/runs/loop-w4dgm-120b results/runs/loop-w4dgm-120b-seed2 results/runs/loop-w4dgm-120b-seed3 \
