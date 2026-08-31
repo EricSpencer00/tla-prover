@@ -340,3 +340,36 @@ notify-eric-discord-otp and keep working on whatever does not block.
   yield increase, and the ladder's rung 1 only needs ONE passing sample per
   spec. It says they will not close the rung alone, and the residual is the
   case for the structural direction rather than more instruction tuning.
+
+- 2026-08-31 it15 (offline): THE FINDING OF THIS BLOCKED STRETCH, and it
+  re-prioritises A5/A7. Splitting every frontier row by framing:
+    framing A/L (generation)      framing B (repair from corrupted gold)
+      spec  sanyOK  tlcOK  pass     spec  sanyOK  tlcOK  pass
+        55      43      0     0       55      62     22    22
+       121      34      0     0      121     150    109   109
+       135     107      1     0      135   -- no rows at all --
+       141      76      0     0      141     107     65     65
+       148      11      0     0      148     123     71     71
+  Generation produced 271 SANY-PASSING candidates across the five specs and
+  ZERO passing verdicts. The single TLC accept is 135's invariant-stub (it9).
+  Repair converts 35-73% of its SANY-passing rows into passes.
+  What this corrects: it1 concluded "per-sample SANY yield is the shared
+  bottleneck". For generation that is now falsified in the sense that matters
+  -- when generation DOES clear SANY, TLC still rejects it every time, 271/271.
+  Raising SANY yield buys more attempts at a wall generation has never once
+  passed. A5 and A7 both raise SANY yield. They are still worth running (they
+  are cheap, already built, and rung 1 needs only one passing sample), but on
+  this evidence NEITHER should be expected to turn a frontier spec green, and
+  the ladder must not be planned as if they will.
+  Second consequence, about the 29/30 headline: the summit for 55/121/141/148
+  is reached ONLY through framing B, which repairs a corrupted GOLD spec. That
+  is a different and easier task than writing the spec from the description.
+  Any claim of "29/30" has to say which framing produced it.
+  Third: 135 is the lone unsolved spec partly because framing B was never
+  applied to it -- the corruption step emits "skipped:no_valid_corruption" for
+  135 in every B run (7 per run). So 135 is not measurably harder than the
+  others under repair; it was never given the treatment that solves them.
+  Next intervention this implies (needs a serve, so it is queued not run):
+  attack generation's TLC wall, not its SANY yield -- the loop's repair rungs
+  are what convert, and framing L already has them. Measure WHY 271 SANY-clean
+  generations all die at TLC before spending more on decode-time constraints.
