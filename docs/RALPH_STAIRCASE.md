@@ -144,3 +144,10 @@ notify-eric-discord-otp and keep working on whatever does not block.
 
 - (cleared it2) 177470's "No available resources": prod pool full + M177243
   reservation. Bypassed with the tp=4 serve on partial-node free GPUs.
+
+## Roadblock 2026-08-31
+
+- Sophia ControlMaster expired (~afternoon); all ssh now needs OTP. Discord
+  ping sent. Runner treats it as "cluster unreachable" and retries forever,
+  so nothing aborts. 177570 was still Q at last good poll. On re-auth the
+  loop resumes with zero manual steps.
