@@ -946,7 +946,7 @@ strength and should not be run on the current tiers. Full report:
 Still Eric's call, now with a price: promoting the three operators into
 `mutation.MUTATIONS` re-tiers roughly 2,530 rows.
 
-### W4 ledger note (2026-08-31) — board ticket #193 is outdated; the seed-1 replication confirms it
+### W4 ledger note (2026-08-31) — board ticket #193 is outdated; two replications confirm it
 
 Ticket #193 says the mutation gate catches 1 of 8 operators and the 5,010-row W4
 corpus is unaudited against that number. The first half is right and already
@@ -954,14 +954,18 @@ ledgered (2026-08-30, `mutation_recall_gate_2026-08-30.md`). The second half is
 wrong: commit ac3a7847 re-audited the corpus the same day and the report is
 `results/analysis/w4_recall_audit_2026-08-30.md`.
 
-Confirmed by re-running rather than by reading. `tools/w4_recall_audit.py --seed 1`
-draws a second 90-spec sample that shares 2 of 180 specs with the seed-0 sample:
-corpus-weighted operator recall **0.14** (95% CI [0.11, 0.18]) against the seed-0
-**0.19** ([0.15, 0.23]); pooled over 180 specs **0.16** ([0.14, 0.19]), floor 0.50.
-Both controls repeat: safety_catch reads 1.00, and 180/180 specs re-run to their
-own ledger label. Missing operators keep the same order, `bound_shift` first.
+Confirmed by re-running rather than by reading. `tools/w4_recall_audit.py` at
+seed 1 and seed 2 draws two more 90-spec samples; the three samples share 2 specs
+per pair and cover 265 distinct specs. Corpus-weighted operator recall reads
+**0.19** ([0.15, 0.23]) at seed 0, **0.14** ([0.11, 0.18]) at seed 1, **0.15**
+([0.12, 0.19]) at seed 2, and **0.16** ([0.14, 0.18]) pooled over 270 specs,
+against the 0.50 floor. Both controls repeat on every seed: safety_catch reads
+1.00, and 270/270 specs re-run to their own ledger label. Missing operators keep
+the same order, `bound_shift` first (78 pooled, then guard_relax 41, cmp_relax 32).
 
-Nothing moves. Floors-MET stands, the DIAMOND tier still under-counts strong rows
-about 4x, and promoting the three operators into `mutation.MUTATIONS` is still
-Eric's call. Full report: `results/analysis/w4_recall_audit_2026-08-31_replication.md`.
+Nothing moves. Floors-MET stands — `tools/w4_audit.py` gates on `FLOOR_TOTAL` and
+`FLOOR_LIVENESS` and never reads `mutation_evidence`. The DIAMOND tier still
+under-counts strong rows about 4x, and promoting the three operators into
+`mutation.MUTATIONS` is still Eric's call. Full report:
+`results/analysis/w4_recall_audit_2026-08-31_replication.md`.
 Verified: 502 harness tests pass.
