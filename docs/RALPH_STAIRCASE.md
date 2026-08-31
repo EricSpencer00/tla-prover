@@ -1161,3 +1161,12 @@ Read this block first; the decision ledger below is the evidence.
   reservations. We would be behind that backlog, we cannot log in without a
   separate OTP, and its environment is the one recorded as dead after the
   platform refresh. Sophia at 81% usage with 9 queued is the better wait.
+- 2026-08-31 it53: closed the last manual step. The watcher now LAUNCHES the
+  runner itself once the serve job is accepted, instead of printing a command
+  for someone to type -- the runner already waits for R, opens the tunnel, runs
+  preflight and the enforcement probe, and resumes A1 from its 400 rows. A
+  lockfile plus a pgrep guard stop a second watcher starting a duplicate
+  runner; both branches dry-tested. Restarted as monitor bo4trz2rk (exit 144 on
+  the old one is my own pkill, not a failure).
+  The chain is now hands-off end to end: capacity appears -> serve submitted ->
+  held-job check -> runner launched -> A1..A9 run in measured-target order.
