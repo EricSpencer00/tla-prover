@@ -850,3 +850,20 @@ Read this block first; the decision ledger below is the evidence for it.
   regression for the Seq/builtin case. A fix aimed by one example can break the
   case it did not look at -- the two kinds of substitution needed separate rules
   from the start.
+
+- 2026-08-31 it37 (offline): stopped finding A8's aiming errors one at a time
+  and checked ALL of them at once. For every substitution target A8 names
+  across the 30 holdout cfgs, compared the arity A8 demands against the arity
+  the corpus ACTUALLY defines that operator with.
+  20 targets checked. On the production path -- wrapper_text passed, as
+  gen_eval does -- MISMATCHES: 0.
+  One apparent mismatch, spec 148's CalculateHashImpl (gold arity 3 in 147.tla),
+  came from my own check calling _arity_block WITHOUT the wrapper. With the
+  wrapper, 148 correctly emits "the wrapper ALREADY defines
+  CalculateHashImpl: do NOT define it yourself" and never states an arity at
+  all. So the finding was a flaw in the verification, not the code -- worth
+  recording because it is the third time this session a check has been wrong in
+  a way that looked like a bug (see it7's synthetic rows and it13's regex).
+  A8's arity guidance is now verified complete against gold rather than
+  spot-checked, which is what should have been done at it17 instead of three
+  successive single-example fixes.
