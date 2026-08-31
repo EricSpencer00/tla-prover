@@ -411,3 +411,18 @@ notify-eric-discord-otp and keep working on whatever does not block.
   Caveat before anyone counts this as 55%: these are FIRST error lines. Fixing
   the interface may just expose the next error in the same run, and 23% of the
   bucket is TLC's own parse recheck, which A5 addresses instead.
+
+- 2026-08-31 it17: grammar census FINISHED (exact, no sampling) and A8 built.
+  Census over all 923 frontier parse-failing candidates: 148 83%, 141 81%,
+  55 80%, 135 77%, 121 69%; overall 722/923 = 78.2% (the n=25 sample said
+  80.0%, so it was close). Re-projecting with exact rates: 148 62%, 121 40%,
+  141 37%, 135 28%, 55 21%; weighted 38% of frontier SANY failures, versus
+  39% on the sample. The it11 projection stands.
+  A8 IMPLEMENTED behind TLA_PROMPT_ARITY, wired as a gen-eval arm with the
+  A3/A4 shape (so those are its control, and it is comparable to A5 and A7).
+  It names each substitution pair from the cfg and demands equal arity, that
+  the target actually be defined, and that any module the cfg names exists.
+  TDD: 5 tests including append-only and a silent-when-no-substitutions case;
+  full suite 510 passed. Verified against spec 141's real cfg -- it emits the
+  ConnectedToSomeButNotAll/Succ and LimitedSeq/Seq pairs by name.
+  The runner now carries A1-A8 unattended.

@@ -418,15 +418,50 @@ def _no_redef_block():
         "pick a different name.")
 
 
+def _arity_block(sig):
+    """Arm A8 (docs/RALPH_STAIRCASE.md it16), flag-gated. Of the 246 SANY-clean
+    generations that die at TLC, 55% are interface mismatches with the .cfg:
+    64 arity ("substitutes for Succ with ConnectedToSomeButNotAll of different
+    number of arguments"), 37 undefined substitution targets, 26 a module or
+    constant the cfg names and the module never provides. The model writes both
+    the CONSTANT declaration and the substituting operator, so this is a
+    consistency bug it can fix, not a modeling limit."""
+    if os.environ.get("TLA_PROMPT_ARITY") != "1":
+        return ""
+    pairs = list(sig.get("substitutions") or [])
+    modules = []
+    for name, rhs, _mod in (sig.get("builtin_overrides") or []):
+        m = re.match(r"\[(\w+)\](\w+)", rhs or "")
+        if m:
+            modules.append(m.group(1))
+            pairs.append((name, m.group(2)))
+        else:
+            pairs.append((name, rhs))
+    if not pairs and not modules:
+        return ""
+    out = ["\n\nThe .cfg substitutes operators in. Each substitute must take the "
+           "SAME NUMBER OF ARGUMENTS as the name it replaces, and must actually "
+           "be defined, or TLC refuses to run the module:"]
+    for lhs, rhs in pairs:
+        out.append(f"  - `{rhs}` replaces `{lhs}`. Define `{rhs}` and give it "
+                   f"exactly the arity you declare `{lhs}` with; if you write "
+                   f"`CONSTANT {lhs}(_)` then `{rhs}` takes one argument.")
+    for mod in modules:
+        out.append(f"  - The .cfg names the module `{mod}`, so your output must "
+                   f"contain or INSTANCE a module called `{mod}`.")
+    return "\n".join(out)
+
+
 def build_generation_prompt(description_json, cfg_text, module_name):
     """Framing A prompt: FormaLLM description + required identifier signature
     (from required_signature(cfg_text)) -> instructions to emit exactly one
     TLA+ module named module_name, wrapped so extract_module can recover it."""
+    sig = required_signature(cfg_text)
     prompt = GENERATION_PROMPT_TEMPLATE.format(
         description=_format_description(description_json),
-        signature=_format_signature(required_signature(cfg_text)),
+        signature=_format_signature(sig),
         module_name=module_name)
-    return prompt + _no_redef_block()
+    return prompt + _no_redef_block() + _arity_block(sig)
 
 
 REPAIR_PROMPT_TEMPLATE = """You are repairing a TLA+ specification so that it passes \

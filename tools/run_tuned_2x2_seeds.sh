@@ -200,6 +200,15 @@ run "A7 no-redef prompt" norediff-w4dgm-120b \
   python3 -m harness gen-eval --framing A --model "openai:$MODEL" --run-id norediff-w4dgm-120b --k 31
 unset TLA_PROMPT_NO_REDEF
 
+# A8: the .cfg interface contract (docs/RALPH_STAIRCASE.md it16). 55% of the
+# TLC failures on SANY-clean generations are arity mismatches, undefined
+# substitution targets, or a module the cfg names and the output lacks. Same
+# gen-eval shape, so A3/A4 are its control and it is comparable to A5 and A7.
+export TLA_PROMPT_ARITY=1
+run "A8 arity contract" arity-w4dgm-120b \
+  python3 -m harness gen-eval --framing A --model "openai:$MODEL" --run-id arity-w4dgm-120b --k 31
+unset TLA_PROMPT_ARITY
+
 echo "$(ts) ==== pooled 2x2 ===="
 python3 tools/loop_multiseed.py \
   --loop results/runs/loop-w4dgm-120b results/runs/loop-w4dgm-120b-seed2 results/runs/loop-w4dgm-120b-seed3 \

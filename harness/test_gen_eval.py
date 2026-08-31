@@ -1024,3 +1024,56 @@ def test_no_redef_block_only_appends(monkeypatch):
     on = gen_eval.build_generation_prompt({"system_overview": "x"}, _a7_cfg(), "M")
     assert on.startswith(off)
     assert len(on) > len(off)
+
+
+# --- A8: the cfg interface contract (docs/RALPH_STAIRCASE.md it16) -----------
+# 55% of TLC failures on SANY-clean generations are interface mismatches:
+# arity (64), undefined substitution target (37), missing module/constant (26).
+
+def _a8_cfg():
+    return (
+        "CONSTANTS\n"
+        "  Nodes = {n1, n2}\n"
+        "  Succ <- ConnectedToSomeButNotAll\n"
+        "  Seq <- LimitedSeq\n"
+        "  Nat <- [ZSequences]CharacterSet\n"
+        "SPECIFICATION Spec\nINVARIANT TypeOK\n"
+    )
+
+
+def test_arity_block_absent_without_the_flag(monkeypatch):
+    monkeypatch.delenv("TLA_PROMPT_ARITY", raising=False)
+    p = gen_eval.build_generation_prompt({"system_overview": "x"}, _a8_cfg(), "M")
+    assert "SAME NUMBER OF ARGUMENTS" not in p
+
+
+def test_arity_block_names_each_substitution_pair(monkeypatch):
+    monkeypatch.setenv("TLA_PROMPT_ARITY", "1")
+    p = gen_eval.build_generation_prompt({"system_overview": "x"}, _a8_cfg(), "M")
+    assert "SAME NUMBER OF ARGUMENTS" in p
+    # the plain substitution and both builtin overrides are all named
+    assert "ConnectedToSomeButNotAll" in p and "Succ" in p
+    assert "LimitedSeq" in p and "CharacterSet" in p
+
+
+def test_arity_block_demands_the_module_the_cfg_names(monkeypatch):
+    """121 dies with 'module name ZSequences is not a module in the
+    specification' -- the cfg's [ZSequences]Op form requires that module."""
+    monkeypatch.setenv("TLA_PROMPT_ARITY", "1")
+    p = gen_eval.build_generation_prompt({"system_overview": "x"}, _a8_cfg(), "M")
+    assert "ZSequences" in p
+
+
+def test_arity_block_only_appends(monkeypatch):
+    monkeypatch.delenv("TLA_PROMPT_ARITY", raising=False)
+    off = gen_eval.build_generation_prompt({"system_overview": "x"}, _a8_cfg(), "M")
+    monkeypatch.setenv("TLA_PROMPT_ARITY", "1")
+    on = gen_eval.build_generation_prompt({"system_overview": "x"}, _a8_cfg(), "M")
+    assert on.startswith(off) and len(on) > len(off)
+
+
+def test_arity_block_silent_when_cfg_has_no_substitutions(monkeypatch):
+    monkeypatch.setenv("TLA_PROMPT_ARITY", "1")
+    cfg = "CONSTANTS\n  Nodes = {n1}\nSPECIFICATION Spec\nINVARIANT TypeOK\n"
+    p = gen_eval.build_generation_prompt({"system_overview": "x"}, cfg, "M")
+    assert "SAME NUMBER OF ARGUMENTS" not in p
