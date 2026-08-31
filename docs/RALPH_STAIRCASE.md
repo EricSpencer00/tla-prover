@@ -1058,3 +1058,22 @@ Read this block first; the decision ledger below is the evidence.
   its derivation is validated 5/5 (it44), but a tenth arm makes the sequence
   ~23.4h and would itself be the starved one. It belongs in a second batch, or
   in place of A6.
+- 2026-08-31 it49 (offline): checked what it48's reorder actually buys, and it
+  is narrower than "the arms are better ordered now".
+  Arms completing inside a single 12h window:
+    old order  A1 A2 A3 A4 A5 A6   (6 arms, 11.8h)
+    new order  A1 A2 A3 A4 A8      (5 arms, 10.5h)
+  So the reorder moves A8 -- the largest measured target, 51% of the TLC
+  failures -- into the first window, at the cost of A5 and A6 moving out, and
+  fits one FEWER arm there.
+  Whether that is an improvement depends entirely on something I should state
+  rather than assume: with MAX_RESUBMITS=4 the sequence spans ~2 windows and
+  ALL nine arms run regardless, so order only matters if the run is cut short
+  -- a failed resubmit, a re-broken cluster, or Eric stopping it. The reorder
+  is insurance against early termination, not a throughput gain, and it is a
+  mild net loss in arms-per-window if nothing goes wrong.
+  Keeping it: this stretch has already seen the cluster break mid-sequence
+  twice (the tp=4 deaths, then the system hold), so early termination is the
+  case worth insuring against. But "ordered by value" overstated it -- the
+  honest claim is "the largest target is no longer behind two smaller ones if
+  the run is interrupted".
