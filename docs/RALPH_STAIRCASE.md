@@ -191,3 +191,8 @@ notify-eric-discord-otp and keep working on whatever does not block.
   with the ledgers' own row dicts. Do not diagnose() with hand-built rows.
   Staircase re-run this iteration is unchanged: 29/30 pooled, 135 alone at
   tlc_vacuous.
+- 2026-08-31 it8 (offline): A6 wired into the unattended sequence
+  (run-id loop-w4dgm-120b-hint, same chains/rounds as A1/A2 so those are its
+  control, placed last so no frozen arm ever sees the hint). The runner now
+  covers A1-A6 end to end; when the cluster returns nothing needs a human.
+  Usage guard 1623/2600 wMtok -- ok.
