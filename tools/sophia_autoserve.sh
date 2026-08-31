@@ -17,6 +17,7 @@ set -uo pipefail
 INTERVAL=${INTERVAL:-600}
 PBS=${PBS:-'~/serve_vllm_w4dgm_sn.pbs'}
 LOG=${LOG:-results/runs/sophia_autoserve.log}
+LOCK=${LOCK:-results/runs/.runner.lock}
 mkdir -p "$(dirname "$LOG")"
 say() { echo "[$(date +%F_%H:%M:%S)] $*" >> "$LOG"; }
 say "autoserve start (interval ${INTERVAL}s, pbs $PBS)"
@@ -55,7 +56,20 @@ while :; do
       timeout 40 ssh -o BatchMode=yes sophia "qdel $J" 2>/dev/null
       say "deleted held $J; continuing to watch"
     else
-      echo "job $J is $st -- launch the runner with JOB=$J PORT=8321"
+      # Hand straight off to the runner rather than printing instructions: the
+      # runner already waits for the job to reach R, opens the tunnel, runs
+      # preflight and the enforcement probe, and resumes A1 from its 400 rows.
+      # A lockfile stops a second watcher (or a re-run) starting a duplicate.
+      if [ -e "$LOCK" ] || pgrep -f run_tuned_2x2_seeds.sh >/dev/null; then
+        say "runner already active; not starting another"
+        echo "job $J is $st, but a runner is already active -- not starting a second"
+      else
+        : > "$LOCK"
+        say "launching runner with JOB=$J"
+        JOB="$J" PORT=8321 nohup bash tools/run_tuned_2x2_seeds.sh \
+             >> results/runs/autorun_tuned_seeds.log 2>&1 &
+        echo "job $J is $st -- runner launched (JOB=$J, PORT=8321)"
+      fi
       exit 0
     fi
   else
