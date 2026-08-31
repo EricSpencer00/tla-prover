@@ -155,3 +155,10 @@ notify-eric-discord-otp and keep working on whatever does not block.
   Sophia 09:00-14:30 CT). Auth outage is facility-side; Eric's OTP is fine.
   Sophia queue drained to 0, so 177570 is likely purged -- runner resubmits.
   Resume polling after 14:30 CT.
+- 2026-08-31 post-maintenance: auth restored ~15:0x. 177570 came back HELD
+  (Hold_Types=s, "too many failed attempts to run") -- PBS tried to start it
+  into the maintenance drain. qrls -h s is admin-only, so the job was qdel'd
+  to trigger the runner's own bounded resubmit path. Lesson for the runner:
+  job_state H with a system hold is terminal, not a wait state; the current
+  script sleeps on H forever. Patch after the run (editing a live bash script
+  is unsafe).
