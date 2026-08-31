@@ -42,6 +42,19 @@ while :; do
       END{ if (n && ok && tag && asg==0 && sched) print n }
     "' 2>/dev/null | head -1)
 
+  # Distinguish "cannot reach the cluster" from "no capacity". Without this an
+  # expired ControlMaster looks identical to a busy cluster and the watcher
+  # waits forever in silence (2026-08-31 it69).
+  if ! timeout 40 ssh -o BatchMode=yes -o ConnectTimeout=20 sophia true 2>/dev/null; then
+    say "SSH FAILED -- cannot reach sophia (OTP login needed?)"
+    if [ "${SSH_WARNED:-0}" = "0" ]; then
+      echo "autoserve: cannot reach sophia -- ssh is failing, needs a fresh OTP login"
+      SSH_WARNED=1
+    fi
+    sleep "$INTERVAL"; continue
+  fi
+  SSH_WARNED=0
+
   if [ -n "$free" ]; then
     say "schedulable node with 8 free GPUs: $free -- submitting"
     J=$(timeout 60 ssh -o BatchMode=yes sophia "qsub $PBS" 2>&1 | tail -1)
