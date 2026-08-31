@@ -76,6 +76,13 @@ free_node() {
 wait_for_capacity() {
   local n
   while :; do
+    # free_node returns empty BOTH when no node is free and when ssh fails, so
+    # check reachability first. Otherwise an expired ControlMaster stalls the
+    # run behind a message that reads like ordinary waiting (2026-08-31 it70).
+    if ! timeout 40 ssh -o ConnectTimeout=20 -o BatchMode=yes sophia true 2>/dev/null; then
+      echo "$(ts) cannot reach sophia (OTP login needed?); retrying in 5 min"
+      sleep 300; continue
+    fi
     n=$(free_node)
     [ -n "$n" ] && { echo "$(ts) capacity: $n has 8 free GPUs"; return 0; }
     echo "$(ts) no schedulable node with 8 free GPUs; waiting 10 min"
