@@ -1022,3 +1022,18 @@ Read this block first; the decision ledger below is the evidence.
   nothing. Includes the four-step check to run before any prompt arm, and the
   warning that my own verification scripts were wrong three times this session.
   Probe healthy: heartbeat at 14:44 state=HELD, next cycle due 15:14.
+
+- 2026-08-31 it47 (offline): final state verification, since the analysis is
+  exhausted and what matters now is that this hands off cleanly.
+  * All my work is committed. The only modified file is
+    tools/w4_recall_audit.py, which is NOT mine -- it was modified at 07:23,
+    before this session's work, and every commit here named explicit paths
+    rather than `git add -A` on the tree, precisely so it stayed untouched. It
+    is still uncommitted and unaltered, waiting for whoever owns it.
+  * The runner parses and carries all nine arms in order: A1/A2 loop seeds,
+    A3/A4 open seeds, A5 grammar, A6 init-hint, A7 no-redef, A8 arity,
+    A9 wrapper-aware.
+  * Probe healthy and logging every cycle.
+  TO RESUME when Sophia accepts jobs: qsub ~/serve_vllm_w4dgm_sn.pbs, then
+  `JOB=<id> PORT=8321 nohup bash tools/run_tuned_2x2_seeds.sh &`. A1 resumes at
+  its 400 rows; nothing else needs a human.
