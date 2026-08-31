@@ -1390,3 +1390,17 @@ Read this block first; the decision ledger below is the evidence.
   recorded in memory as "dies deterministically ~9 min into worker init". The
   bf16 8-GPU serve is now more robust on a contended node than it has ever
   been, and it remains the only path.
+- 2026-08-31 it68: reviewed the 8-GPU serve script end to end, since I edited
+  it four times today and it gets one shot when capacity appears. Order is
+  correct: per-job log redirect, hostfile written early (the runner reads it
+  only after the job is R, then health-checks), conda activated BEFORE the
+  warm-up imports so they use the right python, thread caps set before vllm,
+  and every added line guarded with `|| true` so none can fail the job.
+  Handoff contract verified on both sides: runner expects PORT 8321, model
+  chattla-w4dgm-120b, hostfile vllm_serve_host_w4dgm_sn.txt; the script serves
+  --port 8321, --served-model-name chattla-w4dgm-120b, and writes that exact
+  hostfile. They agree.
+  Remaining risk, stated plainly: the warm-up imports add minutes to startup on
+  Lustre, and the thread caps are unproven at tp=8 (they were validated at
+  tp=4). Both are guarded, neither can fail the job, and the worst case is the
+  serve behaving exactly as it did before these changes.
