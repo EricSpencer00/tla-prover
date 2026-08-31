@@ -426,3 +426,20 @@ notify-eric-discord-otp and keep working on whatever does not block.
   full suite 510 passed. Verified against spec 141's real cfg -- it emits the
   ConnectedToSomeButNotAll/Succ and LimitedSeq/Seq pairs by name.
   The runner now carries A1-A8 unattended.
+
+- 2026-08-31 it18 (offline): A7 and A8 VALIDATED across all 30 holdout cfgs
+  before any serve time is spent on them, since cfg handling is where this
+  harness has broken before.
+  Result: 30/30 build without exception; both blocks are append-only on every
+  spec (so every frozen control stays byte-identical); A7 fires on all 30 (it
+  is unconditional) and A8 on exactly 13, the specs whose cfg actually
+  substitutes. Every backticked identifier A8 emits appears in that spec's own
+  cfg -- 0 invented names, which was the specific risk of generating prompt
+  text from parsed config.
+  That 13/30 matches the gen-eval-cfg-substitution-bug memory exactly ("framing
+  A under-specifies 13/30 holdout specs"), which is an independent check that
+  the substitution parser sees the same population it did.
+  A8 fires for ALL FIVE frontier specs, including 148 -- 148 has no builtin
+  override but does carry `CalculateHash <- CalculateHashImpl`. So A5 (best on
+  148, 83% catch) and A8 overlap there rather than dividing cleanly; the pair
+  is complementary across the frontier, not disjoint.
