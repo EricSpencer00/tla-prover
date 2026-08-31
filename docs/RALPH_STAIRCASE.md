@@ -592,3 +592,10 @@ Read this block first; the decision ledger below is the evidence for it.
   needs 2 windows, and a resubmit can also be spent clearing a system hold, so
   2 left no slack. No reordering -- A1-A4 are the experiment Eric committed to
   and A1 is already 400 rows in.
+- 2026-08-31 it24 (offline): consolidation, not new analysis. The ledger's
+  "Current state" block still described iteration 0 (stale job 177470, a
+  two-arm plan), which is the first thing the next session reads -- rewritten
+  to the real state, with a "Waiting on Eric" section naming the two open
+  decisions. Two memories written so the findings outlive this context:
+  generation-vs-repair-framing (the 29/30 is framing B, generation has solved
+  none) and mc-wrapper-prompt-bug (190 rows, default still broken).
