@@ -278,3 +278,14 @@ notify-eric-discord-otp and keep working on whatever does not block.
   char-by-char and very slow. The frontier-targeted script (/tmp, 68s) is the
   version worth keeping. My first attempt at it also wasted a run by piping
   through `tail` (buffered) under a 900s timeout, so it could never print.
+- 2026-08-31 it12 (offline): A7 IMPLEMENTED, flag-gated behind
+  TLA_PROMPT_NO_REDEF, and wired into the runner as a gen-eval arm with the
+  A3/A4 shape so those are its control and it is directly comparable to A5.
+  The block names only the three causes it10 measured (declare-then-also-define
+  a constant 44%, a required operator defined twice 33%, clashing with a name
+  the EXTENDS'd standard module provides 17%) rather than repeating the
+  "declare constants" line the template already has. TDD: 3 tests, including
+  one asserting the flagged prompt STARTS WITH the unflagged prompt, so the
+  frozen arms are provably unchanged and any prompt_sha256 difference is
+  attributable to this alone. Full suite 505 passed.
+  The runner now carries A1-A7 unattended.
