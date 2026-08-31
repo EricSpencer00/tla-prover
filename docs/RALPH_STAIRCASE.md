@@ -952,3 +952,30 @@ Read this block first; the decision ledger below is the evidence.
   9-arm sequence restarts. A silent-while-broken monitor with no heartbeat can
   fail closed and nobody notices; with the log, a gap is visible after the fact
   instead of inferred.
+
+- 2026-08-31 it43 (offline): opened the last unexamined bucket and found BOTH a
+  new failure cause and an error in my own it40 classification.
+  (a) CLASSIFICATION ERROR: it40 detected wrapper duplicates with "Multiple
+  declarations"/"duplicates the one at". SANY also words it "Multiply-defined
+  symbol" and "already defined or declared", which it40 missed -- 4 of the 56
+  parse-fail rows were mis-bucketed as independent parse failures when they are
+  duplicates. Small (it does not move the 64% ceiling materially) but it is the
+  second time a text-matching filter of mine has under-counted (see it13's
+  quote-agnostic regex). Recorded so the number is not re-quoted as exact.
+  (b) NEW CAUSE, and it is another invisible wrapper contract: 28 of the 56
+  parse-fail rows show "Unknown operator: `Cardinality'" raised INSIDE the
+  wrapper module, not the candidate. Gold 135/MCReachable calls Cardinality,
+  and it only resolves because gold 141/Reachable EXTENDS FiniteSets and the
+  wrapper inherits it. When the model's Reachable omits EXTENDS FiniteSets, the
+  CANDIDATE still passes SANY on its own -- and the WRAPPER fails to compile.
+  So the candidate is penalised for an operator it never used, required by a
+  module it never sees. Nothing in the prompt says the wrapper needs it.
+  This is the same family as it19-it21 (the prompt is blind to the wrapper) but
+  the opposite direction: there the prompt demanded names the wrapper SUPPLIES,
+  here it stays silent about names the wrapper REQUIRES. A complete fix has to
+  handle both directions.
+  NOT implemented: an A10 would state the operators the wrapper needs from the
+  candidate. It is derivable -- parse the wrapper for free identifiers and
+  intersect with the standard modules. Recorded rather than built, because
+  four of my five arms were mis-aimed on first writing and this one deserves
+  the same evidence-first treatment rather than being added late and untested.
