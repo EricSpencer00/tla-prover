@@ -1361,3 +1361,11 @@ Read this block first; the decision ledger below is the evidence.
   the old shared log, but the next job collides with it, so the it63 claim of
   per-job logs is false as written and needs redoing inside the script body
   (where $PBS_JOBID does expand) rather than in the directive.
+- 2026-08-31 it66: redid the per-job log properly, since it63's version was
+  wrong. The `#PBS -o` directive is back to a fixed path, and the redirect now
+  happens INSIDE the script where the shell expands the variable:
+    exec > "/home/eric-spencer/vllm_serve_w4dgm_{sn,g4}.${PBS_JOBID%%.*}.log" 2>&1
+  Verified the expansion produces ...sn.999999.log for a synthetic job id, and
+  both scripts parse. Applied to both.
+  Job 177873 is unaffected -- it was submitted under the broken version and
+  keeps writing its literal-\$PBS_JOBID file, which is still unique to it.
