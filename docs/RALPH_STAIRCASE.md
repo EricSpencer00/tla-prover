@@ -175,3 +175,19 @@ notify-eric-discord-otp and keep working on whatever does not block.
   wait state and would have hung forever on a job that can never start.
   Nothing about the staircase changed: A1 still holds 400 scored rows and the
   frontier is still the 5 specs from it1.
+
+- 2026-08-31 it7 (offline, cluster still blocked): A6 VALIDATED against real
+  data, not just unit tests. Pulled every ledger row whose recorded TLC log
+  contains "violated by the initial state" for the frontier specs: 13 rows
+  (121, 135, 141, 148), all tlc=fail_invariant, sany=pass. Ran the real
+  diagnose() on the real rows: with TLA_LOOP_INIT_HINT=1 the hint fires 13/13
+  and the rung is tlc_violation; with the flag off it fires 0/13, and the
+  unflagged evidence is a strict PREFIX of the flagged evidence in 13/13, so
+  the frozen arms are provably unchanged. A6 is ready to run the moment a
+  serve exists.
+  Correction worth recording: the first attempt reported 0/13 and looked like
+  an A6 defect. It was the test's fault -- the synthetic row omitted the `tlc`
+  key that the branch gates on, so every log fell through to tlc_error. Re-run
+  with the ledgers' own row dicts. Do not diagnose() with hand-built rows.
+  Staircase re-run this iteration is unchanged: 29/30 pooled, 135 alone at
+  tlc_vacuous.
