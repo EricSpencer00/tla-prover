@@ -337,7 +337,12 @@ def _format_signature(sig, wrapper_text=None):
     them again costs 190 rows to duplicate-definition errors. Off by default
     because filtering changes prompt_sha256 for every wrapper spec and so
     breaks byte-identity with every frozen arm."""
-    provided = (_wrapper_provides(wrapper_text)
+    # Only what the wrapper DEFINES (==). A constant the wrapper merely DECLARES
+    # does not relieve the candidate of declaring its own: missing_signature --
+    # the harness's own criterion -- still requires it (148's CalculateHash), so
+    # dropping it here would make the loop demand back what this told the model
+    # to omit (it35).
+    provided = (_wrapper_defines(wrapper_text)
                 if os.environ.get("TLA_PROMPT_WRAPPER_AWARE") == "1" else set())
     if provided:
         sig = dict(sig)

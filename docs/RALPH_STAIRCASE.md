@@ -802,3 +802,25 @@ Read this block first; the decision ledger below is the evidence for it.
   wrong in a way only reading real candidate text exposed. The rate
   measurements chose the targets correctly; none of them could say what to
   write.
+
+- 2026-08-31 it35 (offline): A9 checked too, and it had a DIFFERENT defect --
+  it contradicted the harness's own criterion.
+  A9 filtered on _wrapper_provides, which counted names the wrapper merely
+  DECLARES as well as those it DEFINES. On spec 148 that made A9 tell the model
+  to omit CalculateHash, while missing_signature -- which is wrapper-aware and
+  is the harness's own pass criterion -- still requires the candidate to supply
+  it. An obedient model would have been marked signature-incomplete and the
+  loop would have demanded back exactly what A9 told it to drop.
+  Narrowed A9 to _wrapper_defines (== definitions only): a constant the wrapper
+  declares does not relieve the candidate of declaring its own. Re-checked
+  across all 5 wrapper specs by simulating an A9-obedient candidate and running
+  missing_signature on it: contradictions 0, was 1. 148 now correctly omits
+  only SafetyInvariant and TypeInvariant, which the wrapper really defines.
+  One earlier test asserted the old, wrong behaviour (that a declared-only
+  constant is dropped); updated to the corrected rule rather than deleted, so
+  the distinction stays pinned. Full suite 520 passed.
+  All four new arms have now been mechanism-checked against real data, and ALL
+  FOUR needed correction: A6 hardcoded a terminal literal, A7 said "standard
+  module" when the real case was any module, A8 pointed at the wrong side of
+  the arity mismatch, A9 contradicted missing_signature. Unit tests passed for
+  every one of them beforehand.

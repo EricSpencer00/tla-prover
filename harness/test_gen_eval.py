@@ -1137,10 +1137,12 @@ def test_wrapper_aware_drops_names_the_wrapper_provides(monkeypatch):
     p = gen_eval.build_generation_prompt({"system_overview": "x"}, _A9_CFG, "M",
                                          wrapper_text=_A9_WRAPPER)
     sig_part = p.split("=== TASK ===")[0]
-    # provided by the wrapper -> must not be demanded
-    assert "MaxSeqLen" not in sig_part.split("CONSTANTS:")[1].split("\n")[0]
+    # DEFINED by the wrapper (==) -> must not be demanded
     assert "TypeInvariant" not in sig_part.split("INVARIANTS:")[1].split("\n")[0]
-    # not provided -> still demanded
+    # only DECLARED by the wrapper -> the candidate still owes it, because
+    # missing_signature still requires it (it35). MaxSeqLen stays demanded.
+    assert "MaxSeqLen" in sig_part.split("CONSTANTS:")[1].split("\n")[0]
+    # not provided at all -> still demanded
     assert "Nodes" in sig_part and "SafetyInvariant" in sig_part
 
 
@@ -1183,3 +1185,26 @@ def test_arity_block_warns_about_function_valued_constants(monkeypatch):
     blk = p[p.index("SAME NUMBER OF ARGUMENTS"):]
     assert "[" in blk and "no arguments" in blk, \
         "must explain that a function-valued constant is 0-ary (applied with [])"
+
+
+def test_wrapper_aware_only_drops_what_the_wrapper_DEFINES(monkeypatch):
+    """A9 must stay consistent with missing_signature, the harness's own
+    criterion (it35). Spec 148's wrapper DEFINES TypeInvariant/SafetyInvariant
+    but only DECLARES the constant CalculateHash; missing_signature still
+    requires the candidate to supply CalculateHash. Dropping it from the
+    demanded list would make the loop demand back what A9 told the model to
+    omit."""
+    monkeypatch.setenv("TLA_PROMPT_WRAPPER_AWARE", "1")
+    cfg = ("CONSTANTS\n  CalculateHash <- CalculateHashImpl\n"
+           "SPECIFICATION Spec\nINVARIANT TypeInvariant\n")
+    wrapper = ("---- MODULE W ----\nCONSTANT CalculateHash\n"
+               "CalculateHashImpl(a) == TRUE\nTypeInvariant == TRUE\n====\n")
+    p = gen_eval.build_generation_prompt({"system_overview": "x"}, cfg, "M",
+                                         wrapper_text=wrapper)
+    head = p.split("=== TASK ===")[0]
+    # defined by the wrapper -> dropped
+    assert "do NOT define or declare them: " in head
+    dropped = head.split("do NOT define or declare them: ")[1].split("\n")[0]
+    assert "TypeInvariant" in dropped
+    # only DECLARED by the wrapper -> the candidate still owes it
+    assert "CalculateHash" not in dropped.replace("CalculateHashImpl", "")
