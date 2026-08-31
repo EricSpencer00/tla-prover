@@ -1098,3 +1098,23 @@ Read this block first; the decision ledger below is the evidence.
   80GB as alcf-sophia-native-training memory says. So a node is 320GB of GPU
   memory and 4 GPUs is 160GB. The merged bf16 120b (~234GB) genuinely needs 8,
   which is why tp=4 died before -- that was not a serving bug, it was OOM.
+  MECHANISM, traced the rest of the way (it50 cont.): the idle nodes are the
+  problem. gpu-10..22 show state=free, queue_tags=prod, ngpus=8, 0 assigned --
+  and are NOT schedulable: a job pinned to gpu-12 sits queued with "Insufficient
+  amount of resource: queue_tags" while the identical job pinned to gpu-07 runs.
+  A full pbsnodes diff of the two shows no difference beyond identity fields.
+  So something invisible to us holds those nodes (the standing reservation from
+  it2 is the obvious candidate; pbs_rstat returns nothing for our account).
+  That explains the whole symptom: an 8-GPU job can only be placed on a fully
+  idle node, every fully idle node is unavailable, so PBS tries, fails 21 times
+  and system-holds. It is not our script, our project, or our request.
+  What still works: BACKFILL onto partially-used nodes, and only for very short
+  jobs -- a 5-minute 4-GPU job ran instantly on gpu-07 (run_count=1), while the
+  same job at 15 minutes and at 1 hour just queues. The running jobs are 24h
+  jobs about 3h in, so ordinary capacity returns in roughly 21h.
+  CONSEQUENCE: no serve is possible right now, and this is not fixable from the
+  user side. Left queued: 177829, a 4-GPU fp8 serve (tp=4, --quantization fp8,
+  8192 ctx) which starts by itself when capacity appears. It is a FALLBACK, not
+  a substitute -- fp8 changes the weights, so its numbers are not comparable to
+  the frozen bf16 arms; it would need its own matched control, and A1/A2 in
+  particular must stay bf16 to be comparable to seed 1.
