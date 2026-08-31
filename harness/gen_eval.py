@@ -418,7 +418,19 @@ def _no_redef_block():
         "pick a different name.")
 
 
-def _arity_block(sig):
+def _wrapper_defines(wrapper_text):
+    """Operator names the MC wrapper already provides. 5 holdout specs (128,
+    141, 148, 158, 168) are checked through a wrapper, and 141's defines both
+    LimitedSeq and ConnectedToSomeButNotAll -- the very substitution targets the
+    .cfg names. Asking the candidate to define them too is what produces
+    "Multiple declarations or definitions for symbol LimitedSeq"."""
+    if not wrapper_text:
+        return set()
+    return set(re.findall(r"^\s*([A-Za-z_]\w*)\s*(?:\([^)]*\))?\s*==",
+                          wrapper_text, re.M))
+
+
+def _arity_block(sig, wrapper_text=None):
     """Arm A8 (docs/RALPH_STAIRCASE.md it16), flag-gated. Of the 246 SANY-clean
     generations that die at TLC, 55% are interface mismatches with the .cfg:
     64 arity ("substitutes for Succ with ConnectedToSomeButNotAll of different
@@ -437,12 +449,19 @@ def _arity_block(sig):
             pairs.append((name, m.group(2)))
         else:
             pairs.append((name, rhs))
+    provided = _wrapper_defines(wrapper_text)
+    mine = [(l, r) for l, r in pairs if r not in provided]
+    theirs = [(l, r) for l, r in pairs if r in provided]
     if not pairs and not modules:
         return ""
     out = ["\n\nThe .cfg substitutes operators in. Each substitute must take the "
            "SAME NUMBER OF ARGUMENTS as the name it replaces, and must actually "
            "be defined, or TLC refuses to run the module:"]
-    for lhs, rhs in pairs:
+    for lhs, rhs in theirs:
+        out.append(f"  - `{rhs}` replaces `{lhs}`, and the model-checking "
+                   f"wrapper ALREADY defines `{rhs}`: do NOT define it yourself, "
+                   f"or the module is rejected for a duplicate definition.")
+    for lhs, rhs in mine:
         out.append(f"  - `{rhs}` replaces `{lhs}`. Define `{rhs}` and give it "
                    f"exactly the arity you declare `{lhs}` with; if you write "
                    f"`CONSTANT {lhs}(_)` then `{rhs}` takes one argument.")
@@ -452,7 +471,8 @@ def _arity_block(sig):
     return "\n".join(out)
 
 
-def build_generation_prompt(description_json, cfg_text, module_name):
+def build_generation_prompt(description_json, cfg_text, module_name,
+                           wrapper_text=None):
     """Framing A prompt: FormaLLM description + required identifier signature
     (from required_signature(cfg_text)) -> instructions to emit exactly one
     TLA+ module named module_name, wrapped so extract_module can recover it."""
@@ -461,7 +481,7 @@ def build_generation_prompt(description_json, cfg_text, module_name):
         description=_format_description(description_json),
         signature=_format_signature(sig),
         module_name=module_name)
-    return prompt + _no_redef_block() + _arity_block(sig)
+    return prompt + _no_redef_block() + _arity_block(sig, wrapper_text)
 
 
 REPAIR_PROMPT_TEMPLATE = """You are repairing a TLA+ specification so that it passes \
@@ -674,7 +694,13 @@ def gen_eval_spec_framing_a(num, description_json, cfg_text, module_name_for_spe
     candidates_dir, if given, persists every candidate (or, on extraction
     failure, the raw reply) via _persist_candidate, and the returned row
     carries candidate_path/candidate_sha256 (see _persist_candidate)."""
-    prompt = build_generation_prompt(description_json, cfg_text, module_name_for_spec)
+    # 5 holdout specs are checked through an MC wrapper that already defines the
+    # cfg's substitution targets; without it A8 would tell the model to define
+    # them again and TLC rejects the duplicate (it19).
+    from .loop_eval import wrapper_text_for
+    prompt = build_generation_prompt(
+        description_json, cfg_text, module_name_for_spec,
+        wrapper_text=wrapper_text_for(num, num2mod, mod2path))
     prompt_sha = hashlib.sha256(prompt.encode()).hexdigest()
     samples = [("greedy", 0.0)] + [(i, TEMPERATURE) for i in range(1, k + 1)]
     replies = _prefetch_replies(model, prompt, samples, done, num, run_id, "A")

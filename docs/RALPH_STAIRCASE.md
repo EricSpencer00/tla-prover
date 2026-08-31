@@ -443,3 +443,32 @@ notify-eric-discord-otp and keep working on whatever does not block.
   override but does carry `CalculateHash <- CalculateHashImpl`. So A5 (best on
   148, 83% catch) and A8 overlap there rather than dividing cleanly; the pair
   is complementary across the frontier, not disjoint.
+
+- 2026-08-31 it19: found a REAL BUG by chasing it16's odd 23% bucket, and it
+  would have made A8 actively harmful.
+  The bucket was "Parsing or semantic analysis failed" on candidates SANY had
+  already accepted -- 56 rows, all on 141 (45) and 148 (11). The lines before
+  it read "Multiple declarations or definitions for symbol LimitedSeq ...
+  duplicates the one in module Reachable". Cause: 5 holdout specs (128, 141,
+  148, 158, 168) are checked through an MC wrapper, and 141's wrapper defines
+  BOTH LimitedSeq and ConnectedToSomeButNotAll while 148's defines
+  CalculateHashImpl -- exactly the substitution targets the .cfg names. SANY
+  sees the candidate alone and passes; TLC parses candidate+wrapper together
+  and rejects the duplicate.
+  The existing prompt ALREADY tells the model to "ALSO define these operators,
+  which the .cfg substitutes in", with no wrapper awareness -- build_generation_
+  prompt never took a wrapper argument, though loop_eval.wrapper_text_for has
+  existed for exactly this hazard and its own docstring warns it "would tell the
+  model to define a name it must not define". So this is a pre-existing harness
+  bug worth ~23% of the frontier's TLC failures, and my A8 as written in it17
+  would have amplified it by demanding the same wrong thing more forcefully.
+  FIXED for A8: _wrapper_defines() reads the wrapper's operator names, and the
+  block now INVERTS for those -- "the wrapper ALREADY defines X: do NOT define
+  it yourself". build_generation_prompt takes wrapper_text (default None, so
+  nothing changes for callers that pass nothing), and both call sites now pass
+  it. 2 new tests; full suite 512 passed. Verified on the real specs: 141 and
+  148 now say do-NOT-define, 121 (no wrapper) still says define.
+  NOT fixed, deliberately: the pre-existing "ALSO define these operators" line
+  in _format_signature still ignores the wrapper. Correcting it changes the
+  DEFAULT prompt and would break byte-identity with every frozen arm, so it
+  needs its own flag-gated arm and Eric's call, not a silent edit.

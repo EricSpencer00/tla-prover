@@ -320,7 +320,8 @@ def loop_eval_spec(num, description_json, cfg_text, mod, model, run_id, corpus,
     an A row are comparable and the ledger's prompt_sha256 proves it. That also
     means a chain never stalls: it either repairs its candidate or regenerates."""
     wrapper_text = wrapper_text_for(num, num2mod, mod2path)
-    gen_prompt = build_generation_prompt(description_json, cfg_text, mod)
+    gen_prompt = build_generation_prompt(description_json, cfg_text, mod,
+                                         wrapper_text=wrapper_text)
     gen_prompt_sha = hashlib.sha256(gen_prompt.encode()).hexdigest()
     description_block = _format_description(description_json)
     signature_block = _format_signature(required_signature(cfg_text))

@@ -1077,3 +1077,31 @@ def test_arity_block_silent_when_cfg_has_no_substitutions(monkeypatch):
     cfg = "CONSTANTS\n  Nodes = {n1}\nSPECIFICATION Spec\nINVARIANT TypeOK\n"
     p = gen_eval.build_generation_prompt({"system_overview": "x"}, cfg, "M")
     assert "SAME NUMBER OF ARGUMENTS" not in p
+
+
+def test_arity_block_does_not_ask_for_wrapper_provided_operators(monkeypatch):
+    """Specs 141/148 are checked through a wrapper that ALREADY defines the
+    substitution target (141's wrapper defines LimitedSeq and
+    ConnectedToSomeButNotAll). Telling the model to define it too produces
+    "Multiple declarations or definitions for symbol LimitedSeq" and TLC
+    refuses the module -- 56 of the 246 frontier TLC failures (it19)."""
+    monkeypatch.setenv("TLA_PROMPT_ARITY", "1")
+    wrapper = ("---- MODULE Reachable ----\n"
+               "ConnectedToSomeButNotAll == {}\n"
+               "LimitedSeq(S) == {}\n====\n")
+    p = gen_eval.build_generation_prompt(
+        {"system_overview": "x"}, _a8_cfg(), "M", wrapper_text=wrapper)
+    assert "SAME NUMBER OF ARGUMENTS" in p
+    blk = p[p.index("SAME NUMBER OF ARGUMENTS"):]
+    # LimitedSeq comes from the wrapper: the model must be told NOT to define it
+    assert "do NOT define" in blk and "LimitedSeq" in blk
+    # and it must not also be listed as one to define
+    assert "Define `LimitedSeq`" not in blk
+
+
+def test_arity_block_unchanged_when_no_wrapper(monkeypatch):
+    monkeypatch.setenv("TLA_PROMPT_ARITY", "1")
+    a = gen_eval.build_generation_prompt({"system_overview": "x"}, _a8_cfg(), "M")
+    b = gen_eval.build_generation_prompt({"system_overview": "x"}, _a8_cfg(), "M",
+                                         wrapper_text=None)
+    assert a == b and "Define `LimitedSeq`" in a
