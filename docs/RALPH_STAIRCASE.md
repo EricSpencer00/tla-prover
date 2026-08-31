@@ -778,3 +778,27 @@ Read this block first; the decision ledger below is the evidence for it.
   Two of my three prompt arms were aimed slightly wrong and only reading the
   actual candidates caught it. Rate measurements said WHICH class to attack;
   they could not say what to say about it.
+
+- 2026-08-31 it34 (offline): checked A6 the same way, and it had a subtler
+  version of the same defect -- one that could have CAUSED the failure it9 went
+  looking for.
+  Of the 13 candidates behind real init violations, 12 do have a `pc` variable,
+  so A6's framing is applicable. But their terminal state names vary: "done"
+  12, "Done" 9, "terminated" 4. A6 hardcoded the literal `pc = "Done"`.
+  A model whose own terminal value is "done" can copy the literal, producing a
+  guard that NEVER holds -- and an invariant guarded by an impossible antecedent
+  is vacuously true, which the Rule-5 gate rejects. So the hint could have
+  manufactured exactly the vacuity failure it9 hypothesised and found no
+  evidence for. it9 recorded that hypothesis as unsupported; this is the
+  mechanism by which it could have become true.
+  Rewritten to point at "the value your control variable actually takes when
+  the algorithm has finished, written exactly as you spell it in this module",
+  with an explicit warning not to copy a terminal-state name from elsewhere and
+  a note that an unsatisfiable guard is rejected as vacuous. Test added that
+  fails on any hardcoded literal.
+  Re-verified on the 13 real rows after the rewrite: still fires 13/13 with the
+  flag and 0/13 without. Full suite 519 passed.
+  Tally for this stretch: ALL THREE prompt-side arms (A6, A7, A8) were aimed
+  wrong in a way only reading real candidate text exposed. The rate
+  measurements chose the targets correctly; none of them could say what to
+  write.

@@ -297,3 +297,20 @@ def test_resumed_run_skips_ledger_solved_specs(tmp_path):
     )
     assert loop_eval.ledger_solved_specs(p) == {"2"}
     assert loop_eval.ledger_solved_specs(tmp_path / "nope.jsonl") == set()
+
+
+def test_init_hint_does_not_hardcode_a_terminal_state_literal(monkeypatch):
+    """The candidates behind real init violations name their terminal pc state
+    "done" (12), "Done" (9) or "terminated" (4) (it34). A hint hardcoding
+    `pc = "Done"` invites a model whose state is "done" to copy the literal,
+    producing a guard that never fires -- vacuously true, which the Rule-5 gate
+    then rejects. The hint must point at the model's OWN terminal value."""
+    monkeypatch.setenv("TLA_LOOP_INIT_HINT", "1")
+    import importlib
+    from harness import loop_eval as le
+    importlib.reload(le)
+    row = {"verdict": "fail", "sany": "pass", "tlc": "fail_invariant"}
+    _, ev = le.diagnose(row, "", "", "M", "Invariant Foo is violated by the initial state.")
+    assert "HINT:" in ev
+    assert '"Done"' not in ev, "must not hardcode a terminal-state literal"
+    assert "your" in ev.lower() or "whatever" in ev.lower()

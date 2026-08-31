@@ -211,8 +211,13 @@ def diagnose(row, module_text, cfg_text, mod, log_text, wrapper_text=None):
             evidence += (
                 "\nHINT: an INVARIANT must hold in every state, including the "
                 "initial state. A property about the final result must be "
-                "guarded by the termination condition, e.g. "
-                '`Correctness == pc = "Done" => <result property>`.')
+                "guarded by YOUR OWN termination condition -- the value your "
+                "control variable actually takes when the algorithm has "
+                "finished, written exactly as you spell it in this module. "
+                "The shape is `Correctness == <finished> => <result property>`. "
+                "Do not copy a terminal-state name from anywhere else: if the "
+                "guard can never hold, the invariant is vacuously true and is "
+                "rejected as vacuous.")
         return "tlc_violation", evidence
     return "tlc_error", _clip(log_text, EVIDENCE_MAX_CHARS)
 
