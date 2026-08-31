@@ -1158,3 +1158,15 @@ def test_wrapper_aware_noop_without_a_wrapper(monkeypatch):
     monkeypatch.setenv("TLA_PROMPT_WRAPPER_AWARE", "1")
     on = gen_eval.build_generation_prompt({"system_overview": "x"}, _A9_CFG, "M")
     assert on == off, "no wrapper means nothing to filter"
+
+
+def test_no_redef_block_covers_non_standard_extends(monkeypatch):
+    """55 is MCEcho EXTENDS Echo, and 82 of its 132 redefinition failures
+    EXTEND Echo then redefine what Echo provides (it32). Echo is not a STANDARD
+    module, so wording limited to Sequences/Naturals misses the real case."""
+    monkeypatch.setenv("TLA_PROMPT_NO_REDEF", "1")
+    p = gen_eval.build_generation_prompt({"system_overview": "x"}, _a7_cfg(), "M")
+    blk = p[p.index("DO NOT REDEFINE"):]
+    assert "standard" not in blk.split("EXTENDS")[1][:120].lower(), \
+        "the rule must not be limited to standard modules"
+    assert "any module you EXTEND" in blk

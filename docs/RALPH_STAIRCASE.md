@@ -741,3 +741,19 @@ Read this block first; the decision ledger below is the evidence for it.
   wrapper-ness itself: 181 demands one identifier and passes often; 135 demands
   ten and never passes. So the real predictor is "identifiers the task requires
   that live in a module the model cannot see".
+
+- 2026-08-31 it32 (offline): traced it31's predictor to the exact model
+  behaviour, and it exposed a gap in MY OWN A7.
+  Of 55's 132 candidates carrying a redefinition error, 82 write `EXTENDS Echo`
+  (47 bare, 31 with TLC, 4 with Naturals) and then define names Echo already
+  supplies. So the model correctly infers it should extend the system module,
+  and the clash follows -- it is not failing to understand the task, it is
+  hitting a contradiction inside it.
+  A7 as written in it12 said "never define a name an EXTENDS'd STANDARD module
+  already provides (for example Seq from Sequences, or Nat from Naturals)".
+  Echo is not a standard module, so the rule as phrased missed the dominant
+  real case -- the one it10 measured at 54% for this spec. Broadened to "any
+  module you EXTEND", naming the Echo case explicitly. Test added that fails on
+  the old wording; full suite 517 passed.
+  This is why measuring the mechanism matters and not just the rate: A7 looked
+  finished at it12 and was aimed slightly off the thing it was built for.

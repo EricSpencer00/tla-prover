@@ -432,9 +432,11 @@ def _no_redef_block():
         "right one.\n"
         "- Define each required operator EXACTLY ONCE. Do not restate TypeOK, "
         "Init, Next or Spec later in the module.\n"
-        "- Never define a name an EXTENDS'd standard module already provides "
-        "(for example Seq from Sequences, or Nat from Naturals). Use it, or "
-        "pick a different name.")
+        "- Never define a name that any module you EXTEND already provides. "
+        "That covers the standard ones (Seq from Sequences, Nat from Naturals) "
+        "AND the spec's own modules: if you write `EXTENDS Echo`, then Echo "
+        "supplies TypeOK and the rest, so defining them again is a duplicate. "
+        "Use the inherited name, or do not EXTEND that module.")
 
 
 def _wrapper_provides(wrapper_text):
