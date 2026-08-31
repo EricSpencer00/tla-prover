@@ -867,3 +867,19 @@ Read this block first; the decision ledger below is the evidence for it.
   A8's arity guidance is now verified complete against gold rather than
   spot-checked, which is what should have been done at it17 instead of three
   successive single-example fixes.
+
+- 2026-08-31 it38 (offline): re-ran the 30-spec validation as a REGRESSION
+  check, because it18's version predates every correction from it32-it36 and
+  those touched the code paths it was validating.
+  All 30 holdout specs, all 3 prompt flags, with wrapper_text passed as
+  production does. Problems: 0. Specifically: no exceptions, A7 and A8 remain
+  strictly append-only, and no emitted block names an identifier that appears
+  in neither the spec's .cfg nor its wrapper -- the invented-name check that
+  matters when prompt text is generated from parsed config.
+  Coverage is now visible and matches intent: A7 fires for all 30 (it is
+  unconditional), A8 for 13 (the specs whose .cfg substitutes), A9 for 5 (the
+  wrapper specs). Those are exactly the populations each arm was built for, and
+  the 13 again matches the gen-eval-cfg-substitution-bug memory.
+  A9's change is not append-only by design -- it FILTERS the signature block --
+  so it is checked differently, by prompt-head stability plus the it35
+  missing_signature consistency test, not by a startswith assertion.
