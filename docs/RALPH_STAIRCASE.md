@@ -616,3 +616,19 @@ Read this block first; the decision ledger below is the evidence for it.
   model must return list[str] not list[tuple] and needs an `id`; cfg_dirs is
   [(label, path)] not [path]; and workroot/logdir must exist beforehand. Worth
   recording because the next person writing a dry-run will hit all three.
+- 2026-08-31 it26 (offline): the LOOP path exercised end to end too, closing
+  the symmetric gap to it25. it19 changed loop_eval's call site as well
+  (wrapper_text is now passed there), and A6 is a loop arm, so verifying only
+  the generation path left half the change unexercised.
+  Ran loop_eval_spec("141", chains=1, rounds=2) against a fake model: 2 rows,
+  2 model calls (generate then repair), first row sany=pass rung_in=generate,
+  so the generate->diagnose->repair cycle completes. With the flags OFF the
+  loop's generation prompt is unchanged even though wrapper_text is now passed
+  -- byte-identity holds in the loop path, not just the gen path. With
+  TLA_PROMPT_WRAPPER_AWARE and TLA_PROMPT_ARITY ON, the same prompt carries
+  both blocks and A8 is correctly inverted for 141's wrapper operator.
+  A6's hint branch was NOT hit here (the fake produces tlc=error, not
+  fail_invariant); it was verified separately on 13 real init-violation rows in
+  it7. Both halves are covered, by different means.
+  Verification of the 9-arm runner is now as complete as it can be without a
+  model: config, byte-identity, prompt content, both eval paths, timing budget.
