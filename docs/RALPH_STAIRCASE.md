@@ -883,3 +883,21 @@ Read this block first; the decision ledger below is the evidence for it.
   A9's change is not append-only by design -- it FILTERS the signature block --
   so it is checked differently, by prompt-head stability plus the it35
   missing_signature consistency test, not by a startswith assertion.
+
+- 2026-08-31 it39 (offline): A5 mechanism-checked too, and it is the ONE arm
+  that needed no correction.
+  The decisive safety question for a decode-time grammar is not its catch rate
+  but whether it can still express the target. Checked directly: tla_module_v1
+  ACCEPTS the gold spec of all five frontier specs (55, 121, 135, 141, 148) and
+  both wrapper dependencies (135/MCReachable, 147). So constraining decoding to
+  this grammar does not make any frontier target unreachable. A rejection here
+  would have made A5 actively harmful on exactly the specs it targets.
+  Contrast worth keeping: A5 is derived MECHANICALLY -- an EBNF validated
+  against real specs, with a measured false-reject rate -- and it was aimed
+  correctly from the start. A6-A9 encode my beliefs about what to TELL the
+  model, and all four were mis-aimed until checked against real candidate text.
+  The failure mode is not "prompts are unreliable"; it is that a mechanical
+  artefact carries its own falsification (does the grammar accept the gold?)
+  while a sentence of advice does not, so its correctness has to be imported
+  from data deliberately.
+  All five arms are now verified as far as they can be without a model.
