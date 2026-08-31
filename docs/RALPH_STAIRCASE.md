@@ -943,3 +943,12 @@ Read this block first; the decision ledger below is the evidence.
   restarted at some point and there is a gap where nothing was watching. It is
   watching now; if the cluster recovered during that gap, the next probe within
   30 min catches it.
+- 2026-08-31 it42 (offline): fixed the weakness it41 exposed in my own
+  monitoring. The probe now appends a timestamped line every cycle to
+  results/runs/sophia_probe.log, so coverage is READ rather than guessed from
+  process elapsed time. Restarted it (the running instance predated the change)
+  and confirmed the log is being written.
+  This matters because the probe is the thing that decides when the whole
+  9-arm sequence restarts. A silent-while-broken monitor with no heartbeat can
+  fail closed and nobody notices; with the log, a gap is visible after the fact
+  instead of inferred.
