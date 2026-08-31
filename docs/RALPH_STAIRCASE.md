@@ -1299,3 +1299,16 @@ Read this block first; the decision ledger below is the evidence.
   on it. Monitor befp7lev3.
   Note the fp8 result would still not be comparable to the frozen bf16 arms --
   this run is about whether vLLM STARTS on a contended node, not about numbers.
+- 2026-08-31 it62: NEAR-MISS worth recording. The it61 monitor reported
+  "WorkerProc initialization failed" and I almost recorded that the warm-up
+  does not work. It was STALE: job 177866 is still queued and never ran; the
+  log path ~/vllm_serve_w4dgm_g4.log is reused across jobs, and the monitor was
+  reading the previous job's traceback. Its freshness guard was a `date -d`
+  construct that silently did nothing.
+  Re-armed (b16jikaa2) with a real guard: capture the log length first (722
+  lines) and match ONLY lines written after that point. A reused log file makes
+  every "did it work" check a stale-data trap by default, so the baseline has
+  to be explicit.
+  This is the eighth time this session a check of mine, not the system, was the
+  faulty part -- and the first where the wrong answer would have been a
+  PLAUSIBLE one that closed off a working fix.
