@@ -1139,3 +1139,25 @@ Read this block first; the decision ledger below is the evidence.
   still needs 8 GPUs. The intervention arms could run fp8 IF their control
   (A3/A4) is re-run fp8 too -- internally valid, not comparable to the frozen
   baselines.
+
+- 2026-08-31 it52: built and STARTED tools/sophia_autoserve.sh, which is the
+  actual fix available to us. It polls every 10 min for a SCHEDULABLE node
+  (gpu-01..09) with all 8 GPUs free and submits the bf16 serve only then.
+  Submitting into the current state is what produces the unrecoverable system
+  hold; waiting for real capacity turns that into an ordinary queue wait. If a
+  submitted job holds anyway it deletes it and keeps watching, so a wrong
+  capacity read costs nothing. Running as monitor b4p4hu3x1, logging each poll
+  to results/runs/sophia_autoserve.log.
+  Its detection was WRONG on first writing and I caught it with a positive
+  control: the node-header pattern matched only gpu-0[1-9], so the records of
+  gpu-10..22 were attributed to the previous node and gpu-09 was reported free
+  while it was job-exclusive with 8 GPUs assigned. Fixed to reset on every
+  node header and filter at print time. Verified twice: empty against the live
+  cluster (correct, all schedulable nodes busy) and, with the 01-09 filter
+  removed, correctly finding gpu-12. That is the fifth self-check this session
+  that caught my own bug rather than a real one.
+  POLARIS checked and rejected as an alternative: it is out of maintenance but
+  running NOTHING -- 0 jobs, 0 nodes, 0% usage, with 146 jobs queued and 2
+  reservations. We would be behind that backlog, we cannot log in without a
+  separate OTP, and its environment is the one recorded as dead after the
+  platform refresh. Sophia at 81% usage with 9 queued is the better wait.
