@@ -256,3 +256,25 @@ notify-eric-discord-otp and keep working on whatever does not block.
   target those three specifically and be flag-gated like A6, and it must be
   measured against a control -- a prompt line is not free, it can displace
   attention and cost accuracy elsewhere.
+
+- 2026-08-31 it11 (offline): measured what the grammar would do ON THE
+  FRONTIER, which is the number that predicts A5 -- the global 86.7% from it0
+  is over the whole corpus and does not speak for these 5 specs.
+  Method: for each frontier spec take a random sample (seed 0, n=25) of its
+  parse-failing candidates and ask whether tla_module_v1 rejects the module
+  region. Catch rate on parse failures: 141 92%, 55 84%, 148 80%, 121 76%,
+  135 68%; overall 100/125 = 80.0%.
+  Combined with it10's per-spec parse share, projected reduction in each
+  spec's SANY failures: 148 59%, 121 44%, 141 42%, 135 24%, 55 22%; weighted
+  over the five, 39%.
+  CAVEAT that limits this claim: it measures whether the grammar would have
+  REJECTED the text the model actually produced. Under constrained decoding
+  those tokens are unreachable, so the model emits something else, which may
+  or may not parse. This is the share of observed bad output the constraint
+  blocks -- NOT a promised 39% improvement. A5 measures the real effect.
+  Superseded work, recorded so it is not repeated: the full-corpus
+  grammar_falsereject re-run was abandoned after ~40 min with no output. It
+  re-derives a baseline it0 already has, and its per-reject diagnosis is
+  char-by-char and very slow. The frontier-targeted script (/tmp, 68s) is the
+  version worth keeping. My first attempt at it also wasted a run by piping
+  through `tail` (buffered) under a 900s timeout, so it could never print.
