@@ -1227,3 +1227,25 @@ Read this block first; the decision ledger below is the evidence.
   correction because a right answer resting on a wrong measurement is one
   re-check away from becoming a wrong answer, and this is the sixth time this
   session my own check, not the system, was the faulty part.
+
+- 2026-08-31 it58: the fp8 FALLBACK IS RUNNING. Job 177845 started on
+  sophia-gpu-07 at 17:37 once a free NVLink quad appeared -- which is exactly
+  the constraint it57 identified, so the diagnosis predicted the event.
+  vLLM is loading: architecture resolved as GptOssForCausalLM, max_model_len
+  8192, enforce-eager, tp=4, on-the-fly fp8. Monitor b8esey4te watches for
+  "Application startup complete" or for an OOM/traceback, since quantizing a
+  218GB bf16 checkpoint into 4x40GB is the part that can still fail.
+  WHAT THIS IS AND IS NOT. It is a live serve, which lets the whole pipeline be
+  exercised end to end for the first time since the maintenance. It is NOT a
+  substitute for the bf16 serve: fp8 changes the weights, so nothing measured
+  on it is comparable to the frozen seed-1 arms. Concretely:
+    * A1/A2 (tuned loop seeds 2,3) MUST NOT run here -- they only mean anything
+      against seed 1's bf16 numbers.
+    * A5-A9 could run here IF their control A3/A4 is re-run here too. That
+      yields an internally valid comparison of the interventions against their
+      own baseline, on a quantized model. Worth having, clearly labelled, not
+      merged with the frozen ledger.
+  The runner is NOT pointed at this serve: it reads
+  vllm_serve_host_w4dgm_sn.txt while this writes _g4.txt, so nothing picks it
+  up by accident. Using it is a deliberate act and needs Eric's call, since it
+  spends the 2h window on quantized numbers.
