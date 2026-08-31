@@ -1192,3 +1192,23 @@ Read this block first; the decision ledger below is the evidence.
   goes in and the arms start. RESUME BY HAND only if the watcher is lost:
   qsub ~/serve_vllm_w4dgm_sn.pbs, then
   `JOB=<id> PORT=8321 nohup bash tools/run_tuned_2x2_seeds.sh &`.
+
+- 2026-08-31 it56: chased the last unexplained message and it resolves to a
+  constraint this ledger already recorded at it4. Sophia's submit hook rewrites
+  every GPU request into NVLink groups -- our 4-GPU select comes back as
+  `ngpus=4:...:ngpu_pairs=2:ngpu_quads=1` -- and placement needs a FREE QUAD,
+  not merely four free GPUs. gpu-07 has 4 GPUs free but its free GPUs are
+  scattered (assigned_gpus shows one job on 4,5 and others on 0,...), so
+  ngpu_quads = 0 there, and on gpu-05 as well. That is what the scheduler
+  reports, misleadingly, as "Insufficient amount of resource: queue_tags".
+  Things I tried and can now rule out for the 4-GPU fallback: a smaller
+  CPU/memory footprint (the hook rewrites it back to 128/480 anyway) and the
+  `system=sophia` select tag that running jobs carry (added it, still queued).
+  Neither is the constraint; free quads are.
+  CONSEQUENCE: both paths now wait on the same thing -- a node with a free
+  NVLink quad for the fp8 fallback, or a fully free node for the bf16 serve.
+  Fragmentation is the real blocker: gpu-01/02/03/04/08/09 are fully assigned,
+  gpu-05 and 06 have 1 GPU free, gpu-07 has 4 free but split across quads, and
+  the jobs holding them are 18-24h walltimes only 2-4h in.
+  Nothing further to try from our side; the watcher and the queued job both
+  fire by themselves when the fragmentation clears.
