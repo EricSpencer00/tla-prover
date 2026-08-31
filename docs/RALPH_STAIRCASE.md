@@ -1344,3 +1344,20 @@ Read this block first; the decision ledger below is the evidence.
   Three diagnoses, each corrected by evidence: OOM -> import timeout -> thread
   exhaustion. The first two were plausible and wrong; only reading the worker's
   own stderr, from a guaranteed-fresh log, gave the actual line.
+
+- 2026-08-31 it65: THE THREAD CAP WORKS. Job 177873 got past worker init on a
+  SHARED node with tp=4 -- no pthread_create failure, no WorkerProc failure --
+  and is loading the checkpoint (3 of 5 shards, ~3 min/shard). That is the
+  failure this project has hit on every tp=4 attempt it ever made, recorded in
+  memory as "dies deterministically ~9 min into worker init". The cause was
+  OpenBLAS spawning 64 threads per worker; the cure is five env vars.
+  Consequence beyond this run: shared nodes may be usable after all, which
+  reopens serving on partial nodes and removes the exclusive-whole-node
+  requirement that has shaped the last two days of scheduling. That needs
+  confirming when a serve actually answers, not before.
+  BUG in my own it63 fix, found here: PBS does NOT expand $PBS_JOBID inside a
+  `#PBS -o` path -- it created a file literally named
+  vllm_serve_w4dgm_g4.$PBS_JOBID.log. Accidentally still isolates THIS job from
+  the old shared log, but the next job collides with it, so the it63 claim of
+  per-job logs is false as written and needs redoing inside the script body
+  (where $PBS_JOBID does expand) rather than in the directive.
