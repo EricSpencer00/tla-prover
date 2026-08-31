@@ -472,3 +472,29 @@ notify-eric-discord-otp and keep working on whatever does not block.
   in _format_signature still ignores the wrapper. Correcting it changes the
   DEFAULT prompt and would break byte-identity with every frozen arm, so it
   needs its own flag-gated arm and Eric's call, not a silent edit.
+
+- 2026-08-31 it20 (offline): scope of the it19 wrapper bug, measured across all
+  5 wrapper specs rather than just the two frontier ones.
+    spec  rows   wrapper-duplicate failures   wrapper defines
+     168   706        94 (13%)                 1 operator
+     158   706        44 (6%)                 10
+     141   706        31 (4%)                  2
+     128   706        20 (3%)                  1
+     148   706         1 (0%)                 14
+    TOTAL             190 rows
+  A row counts here when its log shows a duplicate-definition error naming an
+  operator its own wrapper defines. 168 is the worst hit and is not even a
+  frontier spec, so the loss is spread across the holdout, not concentrated
+  where it would have been noticed.
+  Note the count differs from it19's 56: it19 filtered to sany=pass AND
+  tlc=error on the 5 frontier specs; this counts any row on the 5 WRAPPER
+  specs. Different populations, both correct for their question.
+  Interesting non-correlation: 148's wrapper defines 14 operators but loses 1
+  row, while 168's defines 1 and loses 94. The count of wrapper operators does
+  not predict the damage -- what matters is whether the .cfg names that
+  operator as a substitution target, which is what the prompt then demands.
+  STATE: A8's path is fixed (it19). The DEFAULT path is not -- _format_signature
+  still says "ALSO define these operators" with no wrapper awareness, so these
+  190 rows keep being lost in any run without TLA_PROMPT_ARITY=1. Fixing the
+  default changes every frozen arm's prompt_sha256, so it is Eric's call, not
+  mine. Discord pinged.
