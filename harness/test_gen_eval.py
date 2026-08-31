@@ -1170,3 +1170,16 @@ def test_no_redef_block_covers_non_standard_extends(monkeypatch):
     assert "standard" not in blk.split("EXTENDS")[1][:120].lower(), \
         "the rule must not be limited to standard modules"
     assert "any module you EXTEND" in blk
+
+
+def test_arity_block_warns_about_function_valued_constants(monkeypatch):
+    """The dominant real arity error (it33): the model declares `CONSTANT Succ`
+    correctly 0-ary, then defines `ConnectedToSomeButNotAll(n)` WITH a
+    parameter. Succ is used as Succ[n] -- a 0-ary constant holding a function --
+    so the substitute must take no arguments. The block must say so instead of
+    implying the operator should take one."""
+    monkeypatch.setenv("TLA_PROMPT_ARITY", "1")
+    p = gen_eval.build_generation_prompt({"system_overview": "x"}, _a8_cfg(), "M")
+    blk = p[p.index("SAME NUMBER OF ARGUMENTS"):]
+    assert "[" in blk and "no arguments" in blk, \
+        "must explain that a function-valued constant is 0-ary (applied with [])"

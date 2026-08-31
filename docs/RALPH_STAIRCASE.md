@@ -757,3 +757,24 @@ Read this block first; the decision ledger below is the evidence for it.
   the old wording; full suite 517 passed.
   This is why measuring the mechanism matters and not just the rate: A7 looked
   finished at it12 and was aimed slightly off the thing it was built for.
+
+- 2026-08-31 it33 (offline): applied it32's lesson to A8 and found the SAME
+  class of error -- my instruction was aimed at the wrong side of the mismatch.
+  What the 57 arity-mismatch candidates actually wrote: `CONSTANT Succ` with no
+  arity 55 times, while defining `ConnectedToSomeButNotAll(n)` WITH a parameter
+  35 times (and 0-ary 14 times). So the constant declaration is usually RIGHT
+  and the operator definition is wrong.
+  Which is correct: 141 uses `Succ[n]` -- square brackets -- so Succ is a 0-ary
+  constant HOLDING A FUNCTION, and gold 135 defines `ConnectedToSomeButNotAll
+  ==` with no parameter. The model's error is confusing "holds a function" with
+  "takes an argument".
+  A8 as written in it17 said "if you write `CONSTANT Succ(_)` then
+  `ConnectedToSomeButNotAll` takes one argument" -- which points at the 1-ary
+  reading, the wrong one for the dominant case, and could have pushed models
+  toward the error it was built to prevent.
+  Rewritten: a plainly declared constant is 0-ary EVEN IF it holds a function
+  applied with square brackets, so write `X == ...` not `X(x) == ...`; only
+  `CONSTANT L(_)` takes an argument. Test added; full suite 518 passed.
+  Two of my three prompt arms were aimed slightly wrong and only reading the
+  actual candidates caught it. Rate measurements said WHICH class to attack;
+  they could not say what to say about it.

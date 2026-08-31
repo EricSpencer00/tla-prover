@@ -494,9 +494,13 @@ def _arity_block(sig, wrapper_text=None):
                    f"wrapper ALREADY defines `{rhs}`: do NOT define it yourself, "
                    f"or the module is rejected for a duplicate definition.")
     for lhs, rhs in mine:
-        out.append(f"  - `{rhs}` replaces `{lhs}`. Define `{rhs}` and give it "
-                   f"exactly the arity you declare `{lhs}` with; if you write "
-                   f"`CONSTANT {lhs}(_)` then `{rhs}` takes one argument.")
+        out.append(f"  - `{rhs}` replaces `{lhs}`. Define `{rhs}` with exactly "
+                   f"the arity you declare `{lhs}` with. A constant declared "
+                   f"plainly (`CONSTANT {lhs}`) is 0-ary EVEN IF it holds a "
+                   f"function you apply with square brackets (`{lhs}[x]`), so "
+                   f"`{rhs}` then takes no arguments -- write `{rhs} == ...`, "
+                   f"NOT `{rhs}(x) == ...`. Only a constant declared "
+                   f"`CONSTANT {lhs}(_)` takes an argument.")
     for mod in modules:
         out.append(f"  - The .cfg names the module `{mod}`, so your output must "
                    f"contain or INSTANCE a module called `{mod}`.")
