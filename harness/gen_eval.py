@@ -467,6 +467,17 @@ def _wrapper_defines(wrapper_text):
                           wrapper_text, re.M))
 
 
+# Arity of the standard-module operators a .cfg can override. A builtin
+# override (`Seq <- LimitedSeq`) is NOT a declared constant: Seq comes from
+# Sequences and is 1-ary, so the substitute must be 1-ary too. Telling the model
+# otherwise breaks the substitution and leaves the unbounded Seq(S) that TLC
+# cannot enumerate (it36).
+_STANDARD_ARITY = {"Nat": 0, "Int": 0, "Real": 0,
+                   "Seq": 1, "Len": 1, "Head": 1, "Tail": 1, "SelectSeq": 2,
+                   "Append": 2, "SubSeq": 3,
+                   "Cardinality": 1, "IsFiniteSet": 1}
+
+
 def _arity_block(sig, wrapper_text=None):
     """Arm A8 (docs/RALPH_STAIRCASE.md it16), flag-gated. Of the 246 SANY-clean
     generations that die at TLC, 55% are interface mismatches with the .cfg:
@@ -479,17 +490,18 @@ def _arity_block(sig, wrapper_text=None):
         return ""
     pairs = list(sig.get("substitutions") or [])
     modules = []
-    for name, rhs, _mod in (sig.get("builtin_overrides") or []):
+    builtins = []
+    for name, rhs, mod in (sig.get("builtin_overrides") or []):
         m = re.match(r"\[(\w+)\](\w+)", rhs or "")
+        target = m.group(2) if m else rhs
         if m:
             modules.append(m.group(1))
-            pairs.append((name, m.group(2)))
-        else:
-            pairs.append((name, rhs))
+        builtins.append((name, target, mod))
+    builtins = [(l, r, m) for l, r, m in builtins]
     provided = _wrapper_defines(wrapper_text)
     mine = [(l, r) for l, r in pairs if r not in provided]
     theirs = [(l, r) for l, r in pairs if r in provided]
-    if not pairs and not modules:
+    if not pairs and not modules and not builtins:
         return ""
     out = ["\n\nThe .cfg substitutes operators in. Each substitute must take the "
            "SAME NUMBER OF ARGUMENTS as the name it replaces, and must actually "
@@ -506,6 +518,27 @@ def _arity_block(sig, wrapper_text=None):
                    f"`{rhs}` then takes no arguments -- write `{rhs} == ...`, "
                    f"NOT `{rhs}(x) == ...`. Only a constant declared "
                    f"`CONSTANT {lhs}(_)` takes an argument.")
+    for lhs, rhs, mod in builtins:
+        if rhs in provided:
+            out.append(f"  - `{rhs}` replaces `{lhs}`, and the model-checking "
+                       f"wrapper ALREADY defines `{rhs}`: do NOT define it "
+                       f"yourself.")
+            continue
+        n = _STANDARD_ARITY.get(lhs)
+        if n is None:
+            out.append(f"  - `{rhs}` replaces `{lhs}`. Define `{rhs}` with the "
+                       f"same arity `{lhs}` has.")
+        elif n == 0:
+            out.append(f"  - `{rhs}` replaces `{lhs}` from {mod}, which takes "
+                       f"no arguments, so write `{rhs} == ...`.")
+        else:
+            arg = "one argument" if n == 1 else f"{n} arguments"
+            params = "S" if n == 1 else ", ".join("abc"[:n])
+            out.append(f"  - `{rhs}` replaces `{lhs}` from {mod}, which takes "
+                       f"{arg}, so write `{rhs}({params}) == ...` with exactly "
+                       f"{arg}. Do NOT define it 0-ary: the substitution then "
+                       f"fails and the unbounded `{lhs}` remains, which TLC "
+                       f"cannot enumerate.")
     for mod in modules:
         out.append(f"  - The .cfg names the module `{mod}`, so your output must "
                    f"contain or INSTANCE a module called `{mod}`.")

@@ -824,3 +824,29 @@ Read this block first; the decision ledger below is the evidence for it.
   module" when the real case was any module, A8 pointed at the wrong side of
   the arity mismatch, A9 contradicted missing_signature. Unit tests passed for
   every one of them beforehand.
+
+- 2026-08-31 it36 (offline): opened the last unexamined bucket from it16 -- the
+  29 Java StackOverflowError rows -- and it exposed a THIRD aiming error in A8,
+  this one introduced by my own it33 fix.
+  The 29 rows are 100% in the two wrapper specs (135: 20, 55: 9), and 18 of the
+  29 candidates use `Seq(`. `Seq(S)` from Sequences is the set of ALL finite
+  sequences -- infinite, so TLC cannot enumerate it. That is exactly why gold
+  135 defines the BOUNDED `LimitedSeq(S)` and the .cfg substitutes
+  `Seq <- LimitedSeq`.
+  But `Seq <- LimitedSeq` is a BUILTIN override, not a declared constant, and
+  it33's correction applied constant-declaration logic to it: A8 was emitting
+  "a constant declared plainly (`CONSTANT Seq`) is 0-ary ... so write
+  `LimitedSeq == ...`, NOT `LimitedSeq(x) == ...`". Gold defines
+  `LimitedSeq(S)` -- ONE argument, matching Sequences' own Seq(S). So A8 was
+  telling the model to break the substitution, which leaves the unbounded Seq
+  in place: the very StackOverflow this bucket is made of.
+  Fixed by splitting builtin overrides from constant substitutions and stating
+  the STANDARD operator's own arity (_STANDARD_ARITY: Seq 1, Nat 0, Cardinality
+  1, ...). 141 now reads "`LimitedSeq` replaces `Seq` from Sequences, which
+  takes one argument, so write `LimitedSeq(S) == ...`"; 121 reads "`CharacterSet`
+  replaces `Nat` from Naturals, which takes no arguments". Test added; one older
+  test pinned the superseded wording and was updated. Full suite 521 passed.
+  Note against myself: it33 was a correct fix for the Succ/constant case and a
+  regression for the Seq/builtin case. A fix aimed by one example can break the
+  case it did not look at -- the two kinds of substitution needed separate rules
+  from the start.

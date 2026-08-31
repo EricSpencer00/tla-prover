@@ -1104,7 +1104,9 @@ def test_arity_block_unchanged_when_no_wrapper(monkeypatch):
     a = gen_eval.build_generation_prompt({"system_overview": "x"}, _a8_cfg(), "M")
     b = gen_eval.build_generation_prompt({"system_overview": "x"}, _a8_cfg(), "M",
                                          wrapper_text=None)
-    assert a == b and "Define `LimitedSeq`" in a
+    # LimitedSeq now comes through the builtin-override branch, which states
+    # Sequences' own arity instead of constant-declaration logic (it36).
+    assert a == b and "`LimitedSeq(S) == ...`" in a
 
 
 # --- A9: wrapper-aware signature (docs/RALPH_STAIRCASE.md it20/it21) ---------
@@ -1208,3 +1210,21 @@ def test_wrapper_aware_only_drops_what_the_wrapper_DEFINES(monkeypatch):
     assert "TypeInvariant" in dropped
     # only DECLARED by the wrapper -> the candidate still owes it
     assert "CalculateHash" not in dropped.replace("CalculateHashImpl", "")
+
+
+def test_arity_block_uses_the_standard_operators_own_arity(monkeypatch):
+    """`Seq <- LimitedSeq` is a BUILTIN override, not a declared constant: Seq
+    comes from Sequences and is 1-ary, and gold 135 defines `LimitedSeq(S)`.
+    Constant-declaration logic does not apply, and telling the model to write a
+    0-ary LimitedSeq breaks the substitution -- leaving the unbounded Seq(S)
+    that TLC cannot enumerate (18 of 29 StackOverflow candidates, it36)."""
+    monkeypatch.setenv("TLA_PROMPT_ARITY", "1")
+    cfg = ("CONSTANTS\n  Seq <- LimitedSeq\n  Nat <- MyNat\n"
+           "SPECIFICATION Spec\nINVARIANT TypeOK\n")
+    p = gen_eval.build_generation_prompt({"system_overview": "x"}, cfg, "M")
+    blk = p[p.index("SAME NUMBER OF ARGUMENTS"):]
+    seq_line = [l for l in blk.splitlines() if "LimitedSeq" in l][0]
+    assert "Sequences" in seq_line and "one argument" in seq_line
+    assert "CONSTANT Seq" not in seq_line, "Seq is not a declared constant"
+    nat_line = [l for l in blk.splitlines() if "MyNat" in l][0]
+    assert "no arguments" in nat_line, "Nat is a 0-ary set from Naturals"
