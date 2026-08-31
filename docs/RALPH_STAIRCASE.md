@@ -1369,3 +1369,24 @@ Read this block first; the decision ledger below is the evidence.
   both scripts parse. Applied to both.
   Job 177873 is unaffected -- it was submitted under the broken version and
   keeps writing its literal-\$PBS_JOBID file, which is still unique to it.
+
+- 2026-08-31 it67: the fp8 fallback is DEFINITIVELY dead, and for a reason no
+  amount of scheduling patience would fix. Job 177873 cleared worker init
+  (thread caps worked), loaded the checkpoint, and then a worker raised:
+    RuntimeError: size_n = 1440 is not divisible by tile_n_size = 64
+  A100s have no native fp8, so vLLM falls back to the Marlin kernel, which
+  requires weight dimensions divisible by 64. This model's dimension is 5760;
+  at tp=4 each shard is 1440 and 1440/64 = 22.5. tp=8 gives 720, which also
+  fails; tp=2 divides cleanly but 2x40GB cannot hold the weights. So fp8 on
+  these GPUs is an arithmetic impossibility for this model, not a resource
+  shortage. Do not retry it.
+  THREE failures, three distinct causes, each hidden behind the previous one:
+  OpenBLAS thread exhaustion at worker init -> checkpoint loading -> the Marlin
+  tile constraint. it50's OOM theory would have "explained" all of it and been
+  wrong; stopping there would have left the thread-cap fix undiscovered.
+  WHAT SURVIVES: the thread caps (OMP=8, OPENBLAS/MKL/NUMEXPR/VECLIB=1) are in
+  BOTH serve scripts and are the session's one new capability -- they clear the
+  worker-init failure that killed every tp=4 attempt this project ever made,
+  recorded in memory as "dies deterministically ~9 min into worker init". The
+  bf16 8-GPU serve is now more robust on a contended node than it has ever
+  been, and it remains the only path.
