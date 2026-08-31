@@ -155,10 +155,23 @@ notify-eric-discord-otp and keep working on whatever does not block.
   Sophia 09:00-14:30 CT). Auth outage is facility-side; Eric's OTP is fine.
   Sophia queue drained to 0, so 177570 is likely purged -- runner resubmits.
   Resume polling after 14:30 CT.
-- 2026-08-31 post-maintenance: auth restored ~15:0x. 177570 came back HELD
-  (Hold_Types=s, "too many failed attempts to run") -- PBS tried to start it
-  into the maintenance drain. qrls -h s is admin-only, so the job was qdel'd
-  to trigger the runner's own bounded resubmit path. Lesson for the runner:
-  job_state H with a system hold is terminal, not a wait state; the current
-  script sleeps on H forever. Patch after the run (editing a live bash script
-  is unsafe).
+- 2026-08-31 it6 -- BLOCKED, facility-side. Auth returned ~13:10 and Sophia
+  left maintenance (19 jobs running, 45% usage, 11 nodes fully idle), but no
+  job of ours can start. Evidence, in the order it was gathered:
+  177570 came back Hold_Types=s "too many failed attempts to run"; qrls -h s
+  is admin-only, so it was deleted and the runner resubmitted 177667, which
+  was held the same way within one second, run_count=21. A minimal 6-line PBS
+  script with the same resources (177669) held identically, which clears our
+  serve script. Dropping filesystems=grand (177675) held identically, which
+  clears the /lus/grand re-point onto an eagle clone. Allocation is healthy
+  (EVITA 1,857.7 node-hours, expires 2026-09-20) and home is 28G/45G, so the
+  "home over quota" note in memory is stale. Other users' jobs run fine on
+  gpu-01..09. So: PBS places our job, the launch fails 21 times, PBS holds it.
+  This needs an ALCF ticket -- Eric-only. Discord pinged.
+  Runner stopped deliberately so it would not spend its last resubmit on a
+  doomed job; all four held jobs and the probe scripts were cleaned up.
+  Runner patched (this commit): job_state now reports a system hold as SHOLD
+  and wait_for_job deletes it so the resubmit branch runs, because H was a
+  wait state and would have hung forever on a job that can never start.
+  Nothing about the staircase changed: A1 still holds 400 scored rows and the
+  frontier is still the 5 specs from it1.

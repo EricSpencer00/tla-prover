@@ -39,10 +39,16 @@ ts() { date +"[%H:%M:%S]"; }
 # job_state <id> -> R/Q/F/H/... on stdout, rc 0. rc 1 = ssh itself failed
 # (cluster unreachable -- NOT the same as the job being gone). rc 2 = ssh ok,
 # job unknown to PBS.
+#
+# A system hold (Hold_Types=s, "too many failed attempts to run") is reported
+# as SHOLD, not H. PBS sets it after 21 failed launches and only an admin can
+# qrls it, so the job will never run: it is terminal, not a wait state. Waiting
+# on one costs a whole night (2026-08-31).
 job_state() {
   local out
   out=$(timeout 40 ssh -o ConnectTimeout=20 -o BatchMode=yes sophia \
-        "qstat -xf $1 2>/dev/null | awk '/job_state/{print \$3}'") || return 1
+        "qstat -xf $1 2>/dev/null | awk '/job_state/{s=\$3} /Hold_Types/{h=\$3} \
+         END{if (s==\"H\" && h ~ /s/) print \"SHOLD\"; else print s}'") || return 1
   [ -n "$out" ] || return 2
   echo "$out"
 }
@@ -57,6 +63,14 @@ wait_for_job() {
       0:R) echo "$(ts) job $JOB running"; return 0 ;;
       0:Q|0:H) sleep 120 ;;
       1:*) echo "$(ts) cluster unreachable, retrying in 5 min"; sleep 300 ;;
+      0:SHOLD)
+        # Held by the scheduler after repeated launch failures. Delete it; the
+        # next pass reads the job as gone and takes the resubmit branch. If the
+        # cause is facility-side the new job holds too, and the resubmit budget
+        # ends the run instead of hanging on a job that can never start.
+        echo "$(ts) job $JOB system-held (launch failures); deleting"
+        timeout 60 ssh sophia "qdel $JOB" 2>/dev/null
+        sleep 10 ;;
       *)  # ssh fine but job finished or unknown -> serve died or was purged
         if [ "$RESUBMITS" -ge "$MAX_RESUBMITS" ]; then
           echo "$(ts) job $JOB gone and resubmit budget spent -- aborting"
