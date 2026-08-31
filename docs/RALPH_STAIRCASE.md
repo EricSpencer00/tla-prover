@@ -1118,3 +1118,24 @@ Read this block first; the decision ledger below is the evidence.
   a substitute -- fp8 changes the weights, so its numbers are not comparable to
   the frozen bf16 arms; it would need its own matched control, and A1/A2 in
   particular must stay bf16 to be comparable to seed 1.
+
+- 2026-08-31 it51: the capacity picture completes the diagnosis, and the job is
+  now "fixed" in the only sense available to us -- a valid configuration is
+  queued and will start by itself.
+  Sophia is split in two: gpu-01..09 are schedulable and now FULL (gpu-05/06/07
+  went from 4 free GPUs to 0/0 while I was testing, which is why a 5-minute job
+  that ran instantly an hour ago now queues), and gpu-10..22 are idle but NOT
+  schedulable. Nothing of ours can start until the running 24h jobs end -- they
+  were ~3h in, so roughly 21h -- or the idle nodes are released.
+  So the earlier "8-GPU is broken" framing was half right: 8-GPU jobs fail
+  because the only nodes that could host them are the unschedulable ones. It is
+  a capacity/reservation problem wearing a launch-failure costume.
+  Left queued: 177829, 4 GPUs, fp8, tp=4, 8192 ctx, 2h walltime. It starts
+  automatically when gpu-01..09 free up. Its host lands in
+  ~/vllm_serve_host_w4dgm_g4.txt (NOT the _sn.txt the runner reads), so pointing
+  the runner at it is a deliberate act, not an accident.
+  The comparability caveat stands and is the reason this is a fallback: fp8
+  changes the weights. A1/A2 must stay bf16 to compare with seed 1, so the 2x2
+  still needs 8 GPUs. The intervention arms could run fp8 IF their control
+  (A3/A4) is re-run fp8 too -- internally valid, not comparable to the frozen
+  baselines.
