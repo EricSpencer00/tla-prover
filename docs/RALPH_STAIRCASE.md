@@ -316,3 +316,27 @@ notify-eric-discord-otp and keep working on whatever does not block.
   Method note: the SANY message is "Unknown operator: `X'." -- backtick then
   apostrophe. A quote-agnostic regex silently matches nothing and reports an
   empty table, which is what my first pass did.
+
+- 2026-08-31 it14 (offline): the CEILING on the SANY rung, computed per row.
+  A row is reachable by A5+A7 only if every error it carries is parse and/or
+  redefinition; one unknown-operator error puts it out of reach (it13: half of
+  those are scope errors a context-free grammar cannot see).
+    spec  sany-fail   A5+A7-reachable   blocked by unknown-op
+     148        494        376 (76%)           104 (21%)
+     121        461        341 (74%)           101 (22%)
+     135        354        203 (57%)           120 (34%)
+     141        459        224 (49%)           207 (45%)
+      55        556        253 (46%)           281 (51%)
+    frontier   2324       1397 (60%)           813 (35%)
+  So even if A5 and A7 both worked PERFECTLY -- every parse error blocked and
+  every redefinition prevented -- at most 60% of frontier SANY failures could
+  become passes, and the real figure is lower because it11 measured the
+  grammar rejecting only 69-80% of parse failures.
+  This is the answer to "can prompt+grammar work reach 100% SANY on the
+  frontier": no. It cannot, and the arithmetic says so before any serve time
+  is spent. 55 and 141, the two hardest, are also the two least reachable
+  (46% and 49%).
+  It does NOT say A5/A7 are not worth running -- 60% of 2,324 rows is a large
+  yield increase, and the ladder's rung 1 only needs ONE passing sample per
+  spec. It says they will not close the rung alone, and the residual is the
+  case for the structural direction rather than more instruction tuning.
