@@ -1170,3 +1170,15 @@ Read this block first; the decision ledger below is the evidence.
   the old one is my own pkill, not a failure).
   The chain is now hands-off end to end: capacity appears -> serve submitted ->
   held-job check -> runner launched -> A1..A9 run in measured-target order.
+- 2026-08-31 it54: closed the last failure mode in the chain. The runner's
+  resubmit branch fired `qsub` immediately when a serve died; with gpu-01..09
+  full that lands on an idle-but-unschedulable node, system-holds, and the
+  SHOLD path then deletes and resubmits -- spending all 4 resubmits in minutes
+  and aborting the run. It now calls wait_for_capacity first, the same
+  schedulable-node check the watcher uses, so a dead serve costs a wait instead
+  of the budget. Helper tested against the live cluster in isolation (correctly
+  empty) and the script still parses.
+  The three pieces now share one rule -- never submit an 8-GPU job unless a
+  gpu-01..09 node has all 8 GPUs free: the watcher before submitting, the
+  runner before resubmitting, and the SHOLD path as the backstop if one slips
+  through anyway.
