@@ -47,7 +47,7 @@ for run in Path("results/runs").iterdir():
         cands[s].append(c)
 random.seed(0)
 N=int(sys.argv[1]) if len(sys.argv)>1 else 25
-print(f"parse-failing candidates available: {{k:len(v) for k,v in sorted(cands.items())}}", flush=True)
+print("parse-failing candidates available:", {k: len(v) for k, v in sorted(cands.items())}, flush=True)
 tot=Counter(); rej=Counter()
 t0=time.time()
 for s in sorted(cands,key=int):
