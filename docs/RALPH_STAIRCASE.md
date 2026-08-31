@@ -1182,3 +1182,13 @@ Read this block first; the decision ledger below is the evidence.
   gpu-01..09 node has all 8 GPUs free: the watcher before submitting, the
   runner before resubmitting, and the SHOLD path as the backstop if one slips
   through anyway.
+- 2026-08-31 it55: end-to-end verification after the it48-it54 edits, since
+  several of them touched the same files. All three scripts parse; the runner
+  carries nine arms in measured-target order (A1-A4 frozen, then A8 A7 A5 A9
+  A6); the capacity rule appears in both the resubmit path and the SHOLD
+  backstop; both background tasks are alive; the 4-GPU fp8 fallback is still
+  queued; harness suite 521 passed.
+  Nothing here needs a human. When Sophia frees a schedulable node the serve
+  goes in and the arms start. RESUME BY HAND only if the watcher is lost:
+  qsub ~/serve_vllm_w4dgm_sn.pbs, then
+  `JOB=<id> PORT=8321 nohup bash tools/run_tuned_2x2_seeds.sh &`.
