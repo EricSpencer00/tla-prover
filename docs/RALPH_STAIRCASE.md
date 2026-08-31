@@ -1312,3 +1312,16 @@ Read this block first; the decision ledger below is the evidence.
   This is the eighth time this session a check of mine, not the system, was the
   faulty part -- and the first where the wrong answer would have been a
   PLAUSIBLE one that closed off a working fix.
+- 2026-08-31 it63: fixed the CAUSE of it62's near-miss rather than just working
+  around it. Both serve scripts now write a per-job log --
+  `#PBS -o .../vllm_serve_w4dgm_{sn,g4}.$PBS_JOBID.log` -- so a job's output can
+  never be confused with a previous job's. Reusing one path is what let a dead
+  job's traceback be read as a live result.
+  Deliberately NOT changed: the hostfile paths. The runner reads
+  vllm_serve_host_w4dgm_sn.txt by name, so making it per-job would break the
+  handoff for no benefit -- and the runner only reads it after confirming the
+  job is R, then health-checks the tunnel and retries, so a stale read
+  self-heals.
+  Caveat: job 177866 was submitted BEFORE this change, so it still writes the
+  shared g4 log. The it62 monitor's line-count baseline covers that case, and
+  jobs submitted from now on do not need it.
