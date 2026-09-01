@@ -1795,3 +1795,22 @@ Read this block first; the decision ledger below is the evidence.
   Cardinality' "although the candidate never used it". In every case I opened
   the candidate HAD used it. it43's cause claim is not supported for the specs
   where the candidate authors the MC module; it survives only for 141.
+- 2026-09-01 it125: the serve is not merely queued, it is SCHEDULED. `qstat -xf
+  178424` carries
+      estimated.start_time = Tue Sep  1 20:00:04 2026
+      estimated.exec_vnode = (sophia-gpu-09:ngpus=8:ncpus=256:mem=1006632960kb)
+  so PBS has committed our job to gpu-09 and is draining the node for it.
+  The arithmetic checks out: the job holding gpu-09 (177748, another user) has
+  walltime 24:00:00 and started Mon 20:00:04, so it must end Tue 20:00:04 --
+  exactly our estimated start.
+  This retires a doubt that has cost several iterations. The comment field still
+  reads "Not Running: Insufficient amount of resource: queue_tags", which reads
+  like a misconfiguration and is not one: it is the same generic message it56
+  already caught, meaning only "cannot place right now". Believe
+  estimated.start_time, not the comment.
+  Note for later: 177748 shows resources_used.ngpus = 0 -- it has held all 8
+  GPUs for 22h49m without using them. Nothing to do about it, but it explains
+  why the cluster looks busier than its GPU utilisation suggests.
+  ETA 20:00 UTC (15:00 Chicago), about 70 minutes out. Runner is attached with
+  PIN_HOST=sophia-gpu-09 and will open the tunnel, run preflight and the
+  enforcement probe, then start the arms.
