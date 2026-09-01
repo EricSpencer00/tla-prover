@@ -126,7 +126,11 @@ wait_for_job() {
         # where it fails to launch 21 times and is system-held -- which would
         # spend the whole resubmit budget in minutes (2026-08-31 it50/it54).
         wait_for_capacity
-        JOB=$(timeout 60 ssh sophia "qsub $SERVE_PBS" | cut -d. -f1) || {
+        # Pin the resubmit. An unpinned 8-GPU job is placed wherever PBS
+        # likes -- including nodes it cannot actually launch on -- and is
+        # system-held after 21 failures. Pinned, PBS QUEUES it and drains that
+        # node instead (2026-09-01 it119/it121). PIN_HOST is set at launch.
+        JOB=$(timeout 60 ssh sophia "qsub ${PIN_HOST:+-l select=1:ngpus=8:ncpus=256:mem=960gb:host=$PIN_HOST} $SERVE_PBS" | cut -d. -f1) || {
           echo "$(ts) resubmit failed, retrying in 5 min"; sleep 300; }
         [ -n "$JOB" ] && echo "$(ts) new serve job $JOB"
         sleep 120 ;;
