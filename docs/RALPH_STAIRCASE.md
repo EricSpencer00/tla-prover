@@ -1618,3 +1618,16 @@ Read this block first; the decision ledger below is the evidence.
   Aggregate capacity right now: 9 GPUs free across the schedulable nodes, but
   scattered, and the bf16 serve needs 8 on ONE node. Enough hardware, wrong
   shape.
+
+- 2026-09-01 it115: CAPACITY FREED and the automation fired. At 08:00 the
+  watcher found sophia-gpu-02 with all 8 GPUs free and submitted the bf16 serve
+  as job 178261. It is QUEUED with Hold_Types=n -- the FIRST 8-GPU job of this
+  whole episode not to be system-held, which confirms the it50/it51 diagnosis:
+  the holds were never our script, our project or our request shape, they were
+  PBS repeatedly placing whole-node jobs onto nodes it could not actually use.
+  Wait for a genuinely free node and the same submission is accepted normally.
+  The watcher now waits 90s, re-checks for a hold, and launches the runner
+  itself. Monitor bihptoi1z watches for that. The chain from here is unattended:
+  runner -> wait for R -> tunnel -> preflight -> enforcement probe (with the
+  it73 fix, so A5 will not be silently skipped) -> A1 resumes at its 400 rows
+  -> A2, A3, A4, then A8 A7 A5 A9 A6 in measured-target order.
