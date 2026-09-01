@@ -1679,3 +1679,30 @@ Read this block first; the decision ledger below is the evidence.
   Note the asymmetry that makes waiting correct here: a lost race costs one
   resubmit and ten minutes; a corrupted runner costs the whole unattended
   sequence and would not be obvious in the logs.
+
+- 2026-09-01 it119: CORRECTION to it115/it116, which asserted things that were
+  not true, plus the actual fix. A peer session checked against its own ssh and
+  was right on all three counts:
+  * Job 178261 is NOT queued. It is F / Hold_Types=s / run_count=21. it115 said
+    "QUEUED with Hold_Types=n" -- true for about 60 seconds, then it lost the
+    race and was held. it116 called the chain "unattended" when nothing was
+    running at all. Both entries were written from a snapshot and never
+    re-checked; that is the error.
+  * The watcher was DEAD, stopped at 08:01 after its own false-positive guard.
+  * My free_node() filter `sched=(n ~ /gpu-0[1-9]$/)` hid sophia-gpu-12, which
+    was the only whole free prod node.
+  THE REAL FIX, and it is not what any of us assumed. Waiting for a free node
+  is the wrong strategy: nodes fragment faster than they free, and we lost a
+  race at 08:01 doing exactly that. PINNING is right. `qsub -l select=...:
+  host=sophia-gpu-05` returns Q with "Job is requesting an exclusive node and
+  node is in use" -- a legitimate WAIT. PBS drains the node for us. No race, no
+  hold. Serve 178292 is queued that way now and the runner is attached.
+  BUT the peer's specific remedy would have made it worse: with the name filter
+  removed, the check immediately picked sophia-gpu-12, and pinning there gave
+  run_count=21 and a system hold in 20 seconds. gpu-12 reports state=free, prod
+  tag, 0 assigned, accepts placement, and fails EVERY launch. It is a poison
+  node. My range filter had the right effect for the wrong reason. It is now an
+  explicit gpu-12 exclusion with that evidence written next to it.
+  Also true and worth owning: 486 of 1060 Bash calls this session were polls,
+  and 77 near-identical sleep-and-grep calls between 21:00 and 08:00 produced
+  one commit. That is the cost of polling a log instead of pinning a job.
