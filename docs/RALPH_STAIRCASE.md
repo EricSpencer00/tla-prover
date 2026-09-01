@@ -1482,3 +1482,19 @@ Read this block first; the decision ledger below is the evidence.
   return content=null with the text in `reasoning`. A fake model can never
   surface that. Restarted the smoke serve at --max-model-len 32768 (job 177910)
   to run a real drytest gen-eval and find out.
+
+- 2026-08-31 it74: FULL PIPELINE VALIDATED against a live model for the first
+  time. Serve 177910 (20b, tp=4, 32768 ctx) -> preflight OK -> tunnel ->
+  gen-eval with all three prompt flags on spec 141, run-id drytest-live-20b
+  (drytest* is excluded from every analysis by tools/staircase.py).
+  Result: 2 rows written, decode provenance present, one prompt sha for both
+  samples. Sample 1 extracted a real 1,359-char TLA+ module which SANY then
+  failed -- correct behaviour for a 20b, and proof that extraction handles this
+  model family's `reasoning`/`content` split rather than reading null.
+  That was the specific risk it73 flagged and a fake model could never test.
+  OBSERVED RISK, not a harness bug: the greedy sample produced a 67,594-char
+  reply that is ENTIRELY reasoning with no module -- it spent all 16,384 tokens
+  thinking, so the row is no_module_extracted and the raw reply was persisted
+  as designed. If the 120b does the same at temperature 0, greedy samples are
+  wasted. Worth watching in A3/A4's greedy rows when the real run happens;
+  nothing to change now, since the 20b is far more prone to this.
