@@ -1642,3 +1642,24 @@ Read this block first; the decision ledger below is the evidence.
   A8 A7 A5 A9 A6. ~20.5h of serve against a 12h window, MAX_RESUBMITS=4, and
   the resubmit path now waits for real capacity rather than burning the budget
   on a doomed placement.
+
+- 2026-09-01 it117: the automation FIRED but did not finish the handoff, and
+  the reason is a false positive of exactly the kind this session keeps
+  producing. The watcher submitted the serve, then its own guard
+  `pgrep -f run_tuned_2x2_seeds.sh` matched a shell that merely MENTIONED the
+  script -- its own launch line, and my ad-hoc check -- so it logged "a runner
+  is already active" and declined to start one. No lockfile, no process, no log
+  lines: nothing was running. A freed node with nobody to use it.
+  Caught it by checking for a process whose command actually STARTS the script
+  rather than trusting the guard's own claim. Launched the runner by hand and
+  tightened the guard to `pgrep -f "^bash tools/run_tuned_2x2_seeds.sh"`, which
+  finds the real runner and ignores mentions. Also dropped the launch-time
+  `>> log` redirect: the runner already tees to that file, so every line was
+  written twice.
+  SEPARATE FINDING, a real race: job 178261 was accepted at 08:01 with
+  Hold_Types=n, then system-held by 08:02. sophia-gpu-02 now shows 4 GPUs
+  assigned -- another job took half the node between our capacity check and
+  PBS's placement. So "a node is free" is only true until someone else acts on
+  it. The runner handled this correctly: SHOLD -> delete -> resubmit (1/4) ->
+  wait_for_capacity. The it54 fix is what stopped that from spending the whole
+  budget in seconds.
