@@ -73,14 +73,20 @@ while :; do
       # runner already waits for the job to reach R, opens the tunnel, runs
       # preflight and the enforcement probe, and resumes A1 from its 400 rows.
       # A lockfile stops a second watcher (or a re-run) starting a duplicate.
-      if [ -e "$LOCK" ] || pgrep -f run_tuned_2x2_seeds.sh >/dev/null; then
+      # Match only a process whose command STARTS a bash running the script.
+      # `pgrep -f run_tuned_2x2_seeds.sh` also matches any shell whose command
+      # line merely mentions it -- including this watcher's own launch line and
+      # any ad-hoc check -- so it reported a runner that did not exist and
+      # declined to start one (2026-09-01 it117).
+      if [ -e "$LOCK" ] || pgrep -f "^bash tools/run_tuned_2x2_seeds.sh" >/dev/null; then
         say "runner already active; not starting another"
         echo "job $J is $st, but a runner is already active -- not starting a second"
       else
         : > "$LOCK"
         say "launching runner with JOB=$J"
-        JOB="$J" PORT=8321 nohup bash tools/run_tuned_2x2_seeds.sh \
-             >> results/runs/autorun_tuned_seeds.log 2>&1 &
+        # No redirect: the runner already tees to that same log, and adding
+        # one here writes every line twice.
+        JOB="$J" PORT=8321 nohup bash tools/run_tuned_2x2_seeds.sh >/dev/null 2>&1 &
         echo "job $J is $st -- runner launched (JOB=$J, PORT=8321)"
       fi
       exit 0
