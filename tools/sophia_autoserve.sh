@@ -33,13 +33,19 @@ while :; do
       # Reset on EVERY node header. Matching only 0[1-9] left nodes 10-22
       # attributed to the previous node, so their idle records reported
       # gpu-09 as free while it was job-exclusive.
-      /^sophia-gpu-/{ if (n && ok && tag && asg==0 && sched) print n
+      # POISON NODE: sophia-gpu-12 reports state=free with the prod tag and 0
+      # GPUs assigned, PBS happily PLACES jobs on it, and every launch fails --
+      # 21 retries then a system hold. Verified twice by pinning to it directly
+      # (2026-08-31 it86, 2026-09-01 it119). Excluding it by NAME is right here;
+      # the earlier gpu-0[1-9] range filter had the correct effect for the wrong
+      # reason and hid gpu-12 rather than naming it.
+      /^sophia-gpu-/{ if (n && ok && tag && asg==0 && !bad) print n
                       n=\$1; ok=0; tag=0; asg=-1
-                      sched=(n ~ /gpu-0[1-9]\$/) }
+                      bad=(n ~ /gpu-12\$/) }
       /resources_available.queue_tags = prod/{tag=1}
       /resources_available.ngpus = 8/{ok=1}
       /resources_assigned.ngpus = /{asg=\$3+0}
-      END{ if (n && ok && tag && asg==0 && sched) print n }
+      END{ if (n && ok && tag && asg==0 && !bad) print n }
     "' 2>/dev/null | head -1)
 
   # Distinguish "cannot reach the cluster" from "no capacity". Without this an
