@@ -1706,3 +1706,15 @@ Read this block first; the decision ledger below is the evidence.
   Also true and worth owning: 486 of 1060 Bash calls this session were polls,
   and 77 near-identical sleep-and-grep calls between 21:00 and 08:00 produced
   one commit. That is the cost of polling a log instead of pinning a job.
+- 2026-09-01 it120: made pinning the documented strategy. tools/sophia_autoserve.sh
+  is marked SUPERSEDED at the top with the one-line replacement:
+    qsub -l select=1:ngpus=8:ncpus=256:mem=960gb:host=<prod node except gpu-12> \
+         ~/serve_vllm_w4dgm_sn.pbs
+  PBS drains the node for the job. No race, no hold, and no watcher or polling
+  loop at all -- which also removes the reason for the 77 overnight sleep-and-
+  grep calls the peer audit counted.
+  NOT edited: the runner's own resubmit path still submits UNPINNED, so if
+  serve 178292 dies the resubmit could race again. The runner is executing that
+  file right now (pid 30734) and bash reads scripts by byte offset, so it stays
+  untouched until no runner is alive -- same rule as it118. Noted as the next
+  edit whenever the runner is next down.
