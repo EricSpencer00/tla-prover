@@ -1607,3 +1607,14 @@ Read this block first; the decision ledger below is the evidence.
   Worth noting the shape: writing a drytest is only safe if EVERY consumer
   knows to skip it, and that is a property of the consumers, not of the
   run-id convention. One of four did not.
+- 2026-08-31 it86: re-tested whether the idle nodes became schedulable, since
+  the first measurement was taken mid-recovery and conditions change. They did
+  not: a job pinned to gpu-12 still queues with "Insufficient amount of
+  resource: queue_tags" ~6 hours later. So gpu-10..22 are held by something
+  stable -- a reservation is the only explanation consistent with the node
+  being free, correctly tagged, and still refused -- not by a transient
+  post-maintenance state. Not retrying this again; the watcher already covers
+  the case where they return.
+  Aggregate capacity right now: 9 GPUs free across the schedulable nodes, but
+  scattered, and the bf16 serve needs 8 on ONE node. Enough hardware, wrong
+  shape.
