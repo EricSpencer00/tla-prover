@@ -1518,3 +1518,16 @@ Read this block first; the decision ledger below is the evidence.
   whether constraining the 120b improves its specs -- the it11/it17 caveat
   stands, since the grammar blocks bad output the model DID emit and the model
   then emits something else.
+- 2026-08-31 it76: loop path partially validated live. loop-eval ran against
+  the 20b serve (run-id drytest-live-loop), made its call, scored, and wrote a
+  row with rung_in=generate -- so the loop's call/score/ledger path works
+  against a real model.
+  NOT validated: the repair leg. The 20b hit the same reasoning overrun and
+  returned no_module_extracted, so there was no candidate to diagnose or repair
+  and the loop had nothing to feed round 2. A6's hint fires on a tlc_violation
+  rung, which this never reached. So A6 remains verified only against the 13
+  recorded init-violation rows (it7) and the fake-model loop (it26), not
+  against a live repair.
+  Saying so explicitly because "the loop ran" could be read as "the loop was
+  tested"; the interesting half of the loop is the repair, and a 20b that
+  cannot emit a module cannot exercise it.
