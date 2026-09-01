@@ -1631,3 +1631,14 @@ Read this block first; the decision ledger below is the evidence.
   runner -> wait for R -> tunnel -> preflight -> enforcement probe (with the
   it73 fix, so A5 will not be silently skipped) -> A1 resumes at its 400 rows
   -> A2, A3, A4, then A8 A7 A5 A9 A6 in measured-target order.
+- 2026-09-01 it116: RUNNER LAUNCHED automatically. The watcher's hold-check
+  passed and it started tools/run_tuned_2x2_seeds.sh with JOB=178261, exactly
+  as designed in it53 -- no human step between capacity appearing and the arms
+  starting. Serve 178261 is queued normally on sophia-gpu-02.
+  Monitor b00fcsmj7 now tails the autorun log for the whole chain: the job
+  reaching R, the tunnel, preflight, the structured-outputs probe (the it73 fix
+  decides whether A5 runs), and each arm's start.
+  From here the sequence is A1 (resumes at 400 rows), A2, A3, A4, then
+  A8 A7 A5 A9 A6. ~20.5h of serve against a 12h window, MAX_RESUBMITS=4, and
+  the resubmit path now waits for real capacity rather than burning the budget
+  on a doomed placement.
