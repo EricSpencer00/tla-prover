@@ -1760,3 +1760,38 @@ Read this block first; the decision ledger below is the evidence.
   This was safe to edit now: the PBS file is read by qsub at submit time, not
   by the running runner, so the it118 don't-edit-a-live-script rule does not
   apply to it.
+- 2026-09-01 it124 (offline, while the serve is queued): settled whether A10 is
+  worth building, by measuring its target instead of arguing from scheduling.
+  it57 left A10 out because a tenth arm starves the sequence. That reason was
+  about cost, never about value, so the value was still unknown.
+  It took three passes, and the first two were both wrong in my favour:
+    pass 1  0 hits. I scanned rows.jsonl for the error text. Rows carry only a
+            status string (`tlc: "timeout"`); the error text lives in the file
+            named by log_path. The check could not have found anything.
+    pass 2  340 hits across 11 specs, 3 of them frontier -- which would have
+            made A10 the best available arm. WRONG. I attributed any error in a
+            module named MC* to the wrapper. For specs 55, 132, 135, 133, 13
+            and 14 the CANDIDATE IS the MC module: the model is asked to write
+            MCEcho itself, so `Unknown operator: Cardinality' in MCEcho is the
+            candidate's own missing EXTENDS. Caught by noticing the error sat
+            at line 66 of a wrapper that is 35 lines long, and confirmed
+            against the candidate: 119 lines, `EXTENDS Naturals, Sequences,
+            TLC', uses Cardinality, never defines it.
+    pass 3  discriminate properly -- compare the module named in the error with
+            the candidate's own MODULE name. Different module => the candidate
+            did not write it => genuine A10.
+  RESULT: the genuine A10 case is 34 occurrences, all on spec 141, all
+  `Cardinality' in MCReachable. The other 807 are the candidate failing to
+  EXTENDS a module whose operator it used.
+  DECISION: A10 stays unbuilt, now for a measured reason. It targets one spec
+  and a class ~24x smaller than the one it is confused with. it57's call was
+  right; its stated reason was not the strongest one available.
+  SECONDARY: the candidate's own missing EXTENDS is worth 181 rows that would
+  parse if the EXTENDS were corrected -- 2.1% of the 8,817 SANY failures whose
+  log and candidate are both on disk (FiniteSets 150, Sequences 30, TLC 3).
+  Real, mechanical, and still too small to displace any of the nine queued
+  arms. Recorded, not built.
+  CAVEAT on it43: it described the wrapper failing on `Unknown operator:
+  Cardinality' "although the candidate never used it". In every case I opened
+  the candidate HAD used it. it43's cause claim is not supported for the specs
+  where the candidate authors the MC module; it survives only for 141.
