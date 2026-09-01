@@ -1552,3 +1552,21 @@ Read this block first; the decision ledger below is the evidence.
   condition -- if a future run starts showing no_module_extracted rows,
   reasoning_effort=low is the fix, and it must then be applied to a control arm
   too.
+
+- 2026-08-31 it78: A6's REPAIR LEG VALIDATED LIVE, closing the gap it76 left
+  open. Built the repair prompt from a real recorded init-violation row (the
+  same 13-row set as it7), with TLA_LOOP_INIT_HINT=1 so it carried the hint,
+  and sent it to the live 20b with reasoning_effort=low -- the it77 lever, used
+  here ONLY to make a 20b able to answer at all, never for a scored run.
+  Result: finish=stop, 1,240 chars of content, and extract_module recovered a
+  1,239-char module. The repaired module GUARDS ON A TERMINAL STATE, which is
+  exactly what the hint asks for. So the chain diagnose -> repair prompt ->
+  hint -> model -> extractable module works against a real model, not just the
+  fake one from it26.
+  Caveat, and it matters: this is ONE sample from a 20b. It is an existence
+  proof that the hint reaches the model and the model acts on it. It says
+  nothing about how often the 120b will comply, or whether complying helps --
+  A6 against its A1/A2 control is still the only thing that answers that.
+  Every arm's mechanism is now confirmed against a live serve: A5 grammar
+  (it75), A7/A8/A9 prompt blocks in a live gen-eval (it74), A6 hint through a
+  live repair (here).
