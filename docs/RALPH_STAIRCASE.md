@@ -1733,3 +1733,21 @@ Read this block first; the decision ledger below is the evidence.
   that gets system-held. That was the gap flagged in it120, and the only safe
   moment to close it was while no runner was reading the file.
   Runner (pid 32789) attached to 178293 with PIN_HOST set.
+
+- 2026-09-01 it122: pinning queues the job but does NOT reserve the node --
+  gpu-04 freed and another user's job (177767) took all 8 GPUs while ours
+  waited. Learned three things from the jobs that DO win whole nodes:
+  * 177767 waited eligible_time 22:44 -- ~23 HOURS. Multi-hour waits for an
+    exclusive node are normal on this cluster, so our 4h wait was not anomalous
+    and no amount of cleverness shortcuts it.
+  * Running 8-GPU jobs live in by-gpu, infer-svc and infer-bigmem. NONE are in
+    `single-node`, which is where our serve script has been submitting all
+    along and which has shown 0 jobs total every time I have looked.
+  * by-node accepts multi-host selects (`1:host=A+1:host=B`), which is how
+    users grab specific nodes.
+  ACTION: moved the serve to the by-gpu queue (job 178424), pinned to
+  sophia-gpu-09, which drains in ~89 min -- the soonest of all nine, versus
+  751+ for the next. Runner relaunched with PIN_HOST=sophia-gpu-09.
+  Honest status: still QUEUED, not running. Nothing here guarantees we win the
+  node; it improves the odds by being in a queue that demonstrably runs this
+  shape and behind the shortest remaining walltime.
