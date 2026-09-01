@@ -1570,3 +1570,26 @@ Read this block first; the decision ledger below is the evidence.
   Every arm's mechanism is now confirmed against a live serve: A5 grammar
   (it75), A7/A8/A9 prompt blocks in a live gen-eval (it74), A6 hint through a
   live repair (here).
+
+- 2026-08-31 it79: released the smoke serve (qdel 177910) once its work was
+  done rather than holding 4 GPUs to walltime. All validation it aimed at is
+  complete, and on a cluster this contended it is wrong to sit on resources we
+  are not using.
+  WHAT THE 20b MECHANICS SMOKE PRODUCED, in one place:
+    * BUG: the enforcement probe used max_tokens=24; this model family fills
+      `reasoning` before `content`, so content was null, GRAMMAR_OK stayed 0,
+      and A5 would have been SILENTLY SKIPPED. Fixed to 300 tokens + a
+      short-answer prompt; enforcement then reads "alpha" correctly.
+    * serve_preflight validated as a guard -- it correctly refused an
+      8192-context serve for a 13,167-token worst case.
+    * extraction handles the reasoning/content split (a fake model cannot test
+      this); gen-eval wrote real rows with the A7/A8/A9 blocks live.
+    * A5's grammar accepted by vLLM and producing a conforming module, with
+      reasoning left unconstrained.
+    * A6's hint carried through a live repair, and the repaired module guarded
+      on termination.
+    * the it64 thread caps confirmed at a real serve (tp=4 came up).
+    * reasoning_effort measured as a lever, and measured as UNNEEDED for the
+      120b (0 no_module_extracted in 2,571 rows) -- so deliberately not set.
+  Six of those could not have been found without a live model, and one of them
+  would have silently disabled the arm this whole plan was built around.
