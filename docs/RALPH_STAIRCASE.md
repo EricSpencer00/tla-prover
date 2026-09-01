@@ -1663,3 +1663,19 @@ Read this block first; the decision ledger below is the evidence.
   it. The runner handled this correctly: SHOLD -> delete -> resubmit (1/4) ->
   wait_for_capacity. The it54 fix is what stopped that from spending the whole
   budget in seconds.
+- 2026-09-01 it118: assessed the race's cost and deliberately did NOT act.
+  Each lost race (node free at check time, taken by placement time) costs one
+  resubmit via the SHOLD path, and MAX_RESUBMITS is 4. If races are common the
+  run aborts having never served. The obvious mitigations are a larger budget
+  and a shorter watcher interval so a freed node is claimed sooner.
+  NOT DOING EITHER RIGHT NOW: the runner is currently executing that script,
+  and bash reads a script incrementally by byte offset, so editing it mid-run
+  can misalign execution inside the function it is sleeping in. That is the
+  same hazard respected at it19, and a corrupted runner is worse than a
+  suboptimal budget.
+  PLAN INSTEAD: let it run. If it exhausts the 4 resubmits and aborts, restart
+  it with a larger budget then -- the ledgers are per-row so nothing is lost by
+  a restart. Only edit the script while no runner is alive.
+  Note the asymmetry that makes waiting correct here: a lost race costs one
+  resubmit and ten minutes; a corrupted runner costs the whole unattended
+  sequence and would not be obvious in the logs.
