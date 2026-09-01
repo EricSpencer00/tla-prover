@@ -1,4 +1,23 @@
 #!/usr/bin/env bash
+# SUPERSEDED 2026-09-01 (it119/it120) -- prefer PINNING over waiting.
+#
+# This script waits for a node with 8 free GPUs and then submits. That loses
+# races (a node seen free at check time is taken by placement time -- job 178261
+# died exactly that way) and it cannot help when nodes fragment faster than they
+# free, which is the normal state of this cluster.
+#
+# The better move needs no watcher at all:
+#
+#     qsub -l select=1:ngpus=8:ncpus=256:mem=960gb:host=<a working prod node> \
+#          ~/serve_vllm_w4dgm_sn.pbs
+#
+# That returns Q with "Job is requesting an exclusive node and node is in use".
+# PBS then DRAINS that node for the job. No race, no system hold, no polling.
+# Pick any prod node EXCEPT sophia-gpu-12 (poison: reports free, accepts
+# placement, fails every launch).
+#
+# Kept for the case where you want a serve only if capacity already exists.
+#
 # Submit the 8-GPU bf16 serve the moment Sophia can actually run it.
 #
 # Why this exists (2026-08-31, it50/it51): Sophia is split in two. gpu-01..09
