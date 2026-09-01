@@ -1421,3 +1421,18 @@ Read this block first; the decision ledger below is the evidence.
   where the check would have looked FINE while being useless -- the first being
   the stale log. Both share a shape: an error path that returns the same value
   as a legitimate negative result.
+- 2026-08-31 it70: audited the same defect class across the runner and found it
+  in wait_for_capacity, which I wrote at it54 by copying the watcher's helper --
+  and copied its blind spot too. free_node returns empty when ssh fails AND
+  when no node is free, so an expired login would have stalled a part-finished
+  run behind "no schedulable node ... waiting 10 min", which reads like normal
+  operation. Fixed the same way: probe reachability first and say so.
+  This mattered more in the runner than in the watcher: the watcher idles
+  harmlessly, whereas the runner would sit between arms with results half
+  collected and no signal that anything was wrong.
+  The rest of the audit is clean. job_state already separates the cases
+  properly -- rc1 for "ssh itself failed" versus rc2 for "job unknown to PBS" --
+  with a comment saying why, and that distinction is what the SHOLD and
+  resubmit branches key off. The remaining ssh calls are `ssh -O cancel`
+  (already `|| true`), the tunnel (checked by the health probe that follows),
+  and the qdel in the SHOLD path (failure just means the next pass retries).
