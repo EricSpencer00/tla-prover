@@ -1851,3 +1851,36 @@ Read this block first; the decision ledger below is the evidence.
   is a different, easier task than writing from a description. B alone carries
   55, 121, 132, 141, 148, 158, 174. A pooled 21/30 must never be quoted without
   saying that.
+- 2026-09-01 it128: reordered the arms so A5 runs FIRST of the new five, ahead
+  of A8 and A7. Evidence, not preference.
+  it127 identified the nine specs no arm solves. Their failure profile is
+  SANY-bound, not TLC-bound -- SANY:fail is the largest bucket on 8 of the 9:
+      15  SANY 81 / TLC-err 39      41  SANY 42 / 26     105 SANY 57 / 12
+     106  SANY 95 /  2             128  SANY 99 / inv 24 131 SANY 67 / 38
+     133  SANY 72 / 20             135  SANY 85 / 12     142 SANY 109 / 21
+  Then measured the grammar against THESE specs rather than the old frontier,
+  by re-pointing tools/grammar_frontier_catch.py at the new nine (25 sampled
+  parse-failing candidates each, seed 0):
+      15  88%   41 100%  105 64%  106 88%  128 84%
+     131  76%  133  84%  135 84%  142 76%      total 186/225 = 82.7%
+  Better than the 78.2% it measured on the old frontier five. A5 is the
+  best-aimed arm we have at the list that actually blocks the staircase.
+  A8 was first because 55% of TLC failures on SANY-CLEAN generations are cfg
+  interface errors. That statistic is still true and still irrelevant to these
+  nine: they mostly never reach a SANY-clean generation.
+  The same CAVEAT as when the 78.2% was first quoted, and it is not optional:
+  this measures rejection of text the model DID emit. Under constrained
+  decoding those tokens are unreachable, so the model emits something else,
+  which may or may not parse. It is the share of observed bad output the
+  constraint blocks -- NOT a predicted gain.
+  Safe to edit because the runner was idle-waiting on a queued job, so it was
+  killed BEFORE the edit and relaunched after (bash reads a running script by
+  byte offset; it118's rule stands). Verified after: bash -n passes, if/fi/else
+  counts unchanged at 5/5/1, all nine arms present, and the A5 guard moved
+  intact with its else branch -- that guard must survive, because vLLM accepts
+  the legacy guided_* names with HTTP 200 and ignores them, so an unguarded A5
+  would look like it ran.
+  A1-A4 deliberately not moved: they are the frozen comparison Eric committed
+  to, and A1 already holds 400 rows.
+  Order is now A1 A2 A3 A4 | A5 A8 A7 A9 A6. Runner relaunched (pid 59225),
+  still attached to 178424, still pinned to gpu-09.

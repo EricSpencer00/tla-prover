@@ -235,6 +235,20 @@ run "A4 open seed3" open-w4dgm-120b-seed3 \
 # starved; the largest targets go first. A8 51% of TLC failures, A7 27%
 # of SANY-fail rows, A5 48% parse at 78% catch, A9 13% + the 190-row
 # wrapper bug, A6 last with the smallest target (11 init-violation rows).
+# A5 RUNS FIRST of the new arms (reordered 2026-09-01 it128). The staircase
+# rebuild showed the nine specs no arm solves are SANY-bound, not TLC-bound:
+# SANY:fail is the top failure on 8 of the 9, and the grammar rejects 82.7%
+# of their parse-failing candidates (186/225 sampled). A8 targets TLC
+# failures on SANY-CLEAN generations, which is not what blocks these specs.
+if [ "$GRAMMAR_OK" = 1 ]; then
+  export TLA_GUIDED_GRAMMAR=harness/grammars/tla_module_v1.ebnf
+  run "A5 grammar" grammar-w4dgm-120b \
+    python3 -m harness gen-eval --framing A --model "openai:$MODEL" --run-id grammar-w4dgm-120b --k 31
+  unset TLA_GUIDED_GRAMMAR
+else
+  echo "$(ts) A5 SKIPPED -- endpoint does not enforce structured outputs"
+fi
+
 # A8: the .cfg interface contract (docs/RALPH_STAIRCASE.md it16). 55% of the
 # TLC failures on SANY-clean generations are arity mismatches, undefined
 # substitution targets, or a module the cfg names and the output lacks. Same
@@ -253,15 +267,6 @@ export TLA_PROMPT_NO_REDEF=1
 run "A7 no-redef prompt" norediff-w4dgm-120b \
   python3 -m harness gen-eval --framing A --model "openai:$MODEL" --run-id norediff-w4dgm-120b --k 31
 unset TLA_PROMPT_NO_REDEF
-
-if [ "$GRAMMAR_OK" = 1 ]; then
-  export TLA_GUIDED_GRAMMAR=harness/grammars/tla_module_v1.ebnf
-  run "A5 grammar" grammar-w4dgm-120b \
-    python3 -m harness gen-eval --framing A --model "openai:$MODEL" --run-id grammar-w4dgm-120b --k 31
-  unset TLA_GUIDED_GRAMMAR
-else
-  echo "$(ts) A5 SKIPPED -- endpoint does not enforce structured outputs"
-fi
 
 # A9: wrapper-aware signature (docs/RALPH_STAIRCASE.md it20/it21). The prompt
 # demands 17 names across the 5 wrapper specs that the wrapper already
