@@ -1884,3 +1884,17 @@ Read this block first; the decision ledger below is the evidence.
   to, and A1 already holds 400 rows.
   Order is now A1 A2 A3 A4 | A5 A8 A7 A9 A6. Runner relaunched (pid 59225),
   still attached to 178424, still pinned to gpu-09.
+- 2026-09-01 it129: safety gate for the it128 reorder. A5 now runs FIRST, so a
+  grammar that rejected a gold spec would make that spec UNREACHABLE for the
+  whole arm -- worse than not running A5 at all. Checked the grammar against
+  the gold text of each of the nine unsolved specs (patch file where one
+  exists, else corpus tla_files/{n}.tla, module region only):
+      15 ACCEPT (1140 lines)   41 ACCEPT (150)   105 ACCEPT (19)
+     106 ACCEPT (42)          128 ACCEPT (498)   131 ACCEPT (99)
+     133 ACCEPT (15)          135 ACCEPT (15)    142 ACCEPT (212)
+  FALSE REJECTS: 0 of 9. The reorder is safe on the specs it is aimed at.
+  This is the narrow gate, not the global one -- it says nothing about the
+  other 21 holdout specs or the examples repo. The full
+  tools/grammar_falsereject.py sweep over tools/tlaplus-examples plus all 30
+  gold specs is running separately; it is slow because its per-reject diagnosis
+  walks one character at a time.
