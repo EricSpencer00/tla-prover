@@ -1461,3 +1461,24 @@ Read this block first; the decision ledger below is the evidence.
   cannot write good TLA+ and its verdicts are meaningless; the run-id will be a
   drytest one, which tools/staircase.py already excludes from every analysis.
   It also gives the it64 thread caps a second confirmation at a real serve.
+
+- 2026-08-31 it73: the 20b smoke serve came UP (tp=4, 4 GPUs, thread caps) --
+  first live serve since maintenance -- and immediately earned its keep twice.
+  (1) BUG FOUND AND FIXED in the runner's structured-outputs probe. It used
+  max_tokens=24. This model family is harmony/reasoning: it fills a `reasoning`
+  field first and only then `content`. At 24 tokens everything went to
+  reasoning, content came back null, the probe read empty, GRAMMAR_OK stayed 0
+  and A5 -- the grammar arm, the original highest-leverage measurement -- would
+  have been SKIPPED with a log line claiming the endpoint does not enforce
+  structured outputs. Measured both ways on the live serve: 24 tokens ->
+  content null; 300 tokens with "Reply with exactly one word." -> content
+  exactly "alpha". So enforcement IS real and A5 is viable; the probe just
+  could not see it. Probe now uses 300 tokens and that prompt.
+  (2) serve_preflight VALIDATED as a guard: it correctly rejected the smoke
+  serve because --max-model-len 8192 cannot fit the eval's worst case
+  (13,167-token input). That is the ctx-4096 failure class that invalidated
+  Gate-2 framing B, and the check catches it.
+  Next risk this exposes: gen_eval extracts `content`, and this model can
+  return content=null with the text in `reasoning`. A fake model can never
+  surface that. Restarted the smoke serve at --max-model-len 32768 (job 177910)
+  to run a real drytest gen-eval and find out.
