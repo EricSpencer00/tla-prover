@@ -28,54 +28,44 @@ correct this number here). Also stop on: goal reached, or a roadblock only Eric
 can clear (OTP, spend, outward-facing action) — ping Discord per
 notify-eric-discord-otp and keep working on whatever does not block.
 
-## Current state (2026-08-31, after iteration 40)
+## Current state (2026-09-01, after iteration 127)
 
 Read this block first; the decision ledger below is the evidence.
 
-- BLOCKED on ALCF since ~13:00. Sophia places our jobs, the launch fails 21
-  times in seconds, and PBS system-holds them. A minimal 6-line PBS job
-  reproduces it; allocation and nodes are fine. Facility-side, needs a ticket
-  only Eric can file (it6). tools/sophia_start_probe.sh watches for recovery.
-- The runner carries NINE arms unattended (A1-A9) and needs ~20.5h of serve
-  against a 12h window, so MAX_RESUBMITS is 4 (it23). It is STOPPED; relaunch
-  with JOB=<new qsub id> once jobs start. A1 resumes at its 400 rows.
-- ALL FIVE new arms are verified as far as possible without a model: config
-  flags, byte-identity with the flags off (0/30 specs differ), prompt content,
-  both eval paths end-to-end, A8's arity guidance checked exhaustively against
-  gold (20/20), A9 cross-checked against missing_signature (0 contradictions),
-  and A5 shown to accept every frontier gold spec so it cannot make a target
-  unreachable. Full suite 521 passing.
-- FOUR OF THE FIVE NEEDED CORRECTING, and every correction came from reading
-  real candidate text, not from tests: A6 hardcoded `pc = "Done"` when
-  candidates spell it "done"/"terminated", which could have MANUFACTURED the
-  vacuity it was meant to avoid (it34); A7 said "standard module" when 82 of
-  55's 132 redefinition failures EXTEND Echo (it32); A8 pointed at the wrong
-  side of the arity mismatch (it33) and then my own fix regressed the builtin
-  case, telling the model to define LimitedSeq 0-ary and leaving the unbounded
-  Seq that TLC cannot enumerate (it36); A9 contradicted missing_signature by
-  filtering on declarations as well as definitions (it35). A5, the only arm
-  derived mechanically rather than from belief, needed nothing.
-- WHAT THE ARMS CAN AND CANNOT DO, measured before running them:
-  A5+A7 reach at most 60% of frontier SANY failures (it14); A8+A9 at most 64%
-  of the frontier TLC wall (it40). Neither closes its rung. No combination is a
-  route to 30/30, which it15 already implied: across 2,373 frontier A/L rows --
-  including framing L's own repair rounds -- generation has produced ZERO
-  passing verdicts. The 29/30 summit is carried by framing B, which repairs a
-  corrupted GOLD spec. Always name the framing.
-- WHY 55 AND 135 RESIST, and it is structural. SIX of the 30 holdout specs are
-  MC wrappers whose real content lives in a module the model never sees (13,
-  14, 181, 133, 135, 55). 135 IS spec 141's wrapper. The per-spec solve rate
-  tracks how many identifiers the .cfg demands from that unseen module: 181
-  demands 1 and passes often, 135 demands 10 and never passes (it31). So
-  "100% TLC on the frozen holdout" is partly ill-posed -- 135 cannot be earned
-  honestly without changing the task or the mutation catalogue (it29-it30).
-- A REAL HARNESS BUG, half-fixed: the prompt demands 17 names across the 5
-  wrapper specs that the wrapper already provides, costing 190 rows to
-  duplicate definitions (it19-it21). A8/A9 fix it behind flags; the DEFAULT
-  prompt still has it.
-- Holdout facts bounding the ceiling: 86 and 183 are byte-identical; 105 is a
-  428-byte stub; 4 library specs are SANY-only; 2 proof modules are
-  TLAPS-graded. "30/30 TLC" is really 24/24 TLC-graded.
+- **Staircase rebuilt from rows** (it127), union of the four measured w4dgm arms
+  on the frozen holdout (hash ecfc205...), scored from rows.jsonl and NOT from
+  summary.json, counting a spec solved only on verdict `pass*` AND
+  `tlc_vacuity == clean`:
+    * **SANY: 30/30.** Every holdout spec has at least one parsing candidate.
+      Rung 1 of the goal ladder is met in union terms.
+    * **TLC + non-vacuous: 21/30.**
+    * **Never solved by any arm (9): 15, 41, 105, 106, 128, 131, 133, 135, 142.**
+  This replaces the old "frontier five" (55, 121, 135, 141, 148) as the target
+  list. Framing B now solves 55, 121, 141 and 148; only 135 of that five is
+  still open, which matches generation-vs-repair-framing. Eight of the nine
+  hard specs were never on the frontier list at all.
+- Per-arm, deduplicated: B 17/30, open-samesession 12/30, A 12/30, loop 7/30.
+  B carries 55, 121, 132, 141, 148, 158 and 174 alone -- it is still the only
+  arm that reaches them, and it is the easier task (it repairs a corrupted gold
+  spec rather than writing from a description). Do not quote a pooled number
+  without naming the framing.
+- **Serve 178424 is SCHEDULED, not running**: PBS reports
+  `estimated.start_time = Tue Sep 1 20:00:04` on sophia-gpu-09 and is draining
+  the node. The `queue_tags` comment is the generic "cannot place now" message,
+  not a misconfiguration (it56, it125). The runner (pid 44738) is attached with
+  PIN_HOST=sophia-gpu-09 and will tunnel, preflight, probe, then run A1-A9.
+- Launch path preflighted it126: model 218G present, dry-import of vllm/torch/
+  cv2 under the exact job env passes, CLI select overrides the script's, and
+  the harness suite is 521/521 green.
+- The serve script now submits to **by-gpu** (it123). `single-node`, where it
+  submitted for a day, has never shown a single job.
+- Budget: trailing-7d weighted_mtok 1501 of the 2600 guard.
+
+### Open, Eric-only
+- Whether the wrapper-aware prompt fix becomes the DEFAULT (changes
+  prompt_sha256 for every wrapper spec, breaks byte-identity with frozen arms).
+- Whether wrapper specs are reported as a separate population.
+- Removal of the public answer key.
 
 ## Waiting on Eric
 
@@ -1836,3 +1826,28 @@ Read this block first; the decision ledger below is the evidence.
   /usr/bin/python3. Ran the suite to settle it: 521 passed in 104s. The old note
   said 502 tests and 16 phantom errors; both numbers were wrong. Memory fixed.
   Nothing here is a result. It is the check that the 20:00 slot is not wasted.
+- 2026-09-01 it127: did the protocol step that had been skipped for a while --
+  INTEGRATE FINISHED ARMS and REBUILD THE STAIRCASE. Two completed runs were
+  never recorded anywhere in this file: gate2-w4dgm-120b-B (766 rows, 30 specs)
+  and open-w4dgm-120b-samesession (960 rows, 30 specs). Both carry the frozen
+  holdout hash ecfc205..., so both count.
+  Scored from rows.jsonl per gate2-v2-120b-results-autopsy (never summary.json),
+  deduplicated on (spec, framing, sample), and counting a spec solved only when
+  a row has verdict `pass*` AND tlc_vacuity == clean.
+    per arm   B 17/30   open-samesession 12/30   A 12/30   loop 7/30
+    union     SANY 30/30   TLC+non-vacuous 21/30
+  Two findings that change what to aim at:
+  1. **SANY is already 30/30 in union terms.** Every holdout spec has at least
+     one parsing candidate somewhere in these four arms. Goal rung 1 is met at
+     the union level. What is NOT met is per-configuration SANY, and that is
+     the honest way to state it -- no single arm reaches 30/30.
+  2. **The hard list is not the frontier list.** Nine specs are unsolved by
+     every arm: 15, 41, 105, 106, 128, 131, 133, 135, 142. Only 135 of these is
+     among the five specs this loop has been calling the frontier. B has since
+     taken 55, 121, 141 and 148. So eight of the nine genuinely hard specs were
+     never being targeted, and work aimed at "the frontier five" was aimed at
+     four specs that framing B already solves.
+  Caveat, and it is the same one as always: B repairs a corrupted gold spec and
+  is a different, easier task than writing from a description. B alone carries
+  55, 121, 132, 141, 148, 158, 174. A pooled 21/30 must never be quoted without
+  saying that.
