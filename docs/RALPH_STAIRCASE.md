@@ -1814,3 +1814,25 @@ Read this block first; the decision ledger below is the evidence.
   ETA 20:00 UTC (15:00 Chicago), about 70 minutes out. Runner is attached with
   PIN_HOST=sophia-gpu-09 and will open the tunnel, run preflight and the
   enforcement probe, then start the arms.
+- 2026-09-01 it126 (offline, 70 min before the scheduled start): preflighted the
+  whole launch path, because a failure at 20:00 costs another node-drain and the
+  next one is 12+ hours out. Everything needed at 20:00 is verified present:
+    * model  /grand/EVITA/.../merged_w4dg_mech_120b  218G, 11 files.
+      218G on 8x40G at gpu-memory-utilization 0.95 = 304G available. Fits at
+      tp=8; it never could at tp=4 (it64, and fp8 is impossible on A100 anyway).
+    * dry-import on the login node under the EXACT job env (conda 2026-06-08,
+      PYTHONPATH, HF_HUB_OFFLINE, all five thread caps): vllm 0.22.2.dev0,
+      torch 2.12.0, cv2 all import; `vllm` resolves. This is the mandatory
+      HPC preflight, and it passes.
+    * the submitted select overrides the script's smaller one -- the script
+      asks ngpus=8:ncpus=128:mem=480gb, our qsub line asks 256/960gb pinned to
+      gpu-09, and qstat confirms the CLI won. No conflict.
+    * runner alive (pid 44738), post-R path intact: tunnel -> serve_preflight
+      -> enforcement probe -> arms.
+    * serve_preflight.py imports stdlib only and parses under the interpreter
+      the runner actually calls, so the `|| exit 1` on it cannot misfire.
+  Corrected a stale note while checking that last point: bare `python3` here is
+  the pyenv shim at 3.11.14 WITH pytest 8.3.4, not 3.9 without it -- that is
+  /usr/bin/python3. Ran the suite to settle it: 521 passed in 104s. The old note
+  said 502 tests and 16 phantom errors; both numbers were wrong. Memory fixed.
+  Nothing here is a result. It is the check that the 20:00 slot is not wasted.
