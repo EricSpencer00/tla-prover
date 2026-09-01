@@ -1718,3 +1718,18 @@ Read this block first; the decision ledger below is the evidence.
   file right now (pid 30734) and bash reads scripts by byte offset, so it stays
   untouched until no runner is alive -- same rule as it118. Noted as the next
   edit whenever the runner is next down.
+
+- 2026-09-01 it121: picked the node by DRAIN TIME instead of accepting the
+  first one, which is worth about seven hours. Computed remaining walltime for
+  every prod node's jobs:
+    gpu-04 ~204 min   gpu-03 ~205   gpu-09 ~322   gpu-05 ~621
+    gpu-02 ~985   gpu-01/08 ~1341   gpu-06 ~1407   gpu-07 ~1432
+  The serve had been pinned to gpu-05 (~10.4h). Repinned to gpu-04 (~3.4h) as
+  job 178293, Q with "node is in use" -- PBS is draining it. These are walltime
+  UPPER bounds, so it may come sooner; nothing here depends on the estimate
+  being tight, it just picks the best bet.
+  Used the runner's downtime to fix its resubmit: it now pins to $PIN_HOST
+  (set at launch, gpu-04 here) instead of submitting unpinned into a placement
+  that gets system-held. That was the gap flagged in it120, and the only safe
+  moment to close it was while no runner was reading the file.
+  Runner (pid 32789) attached to 178293 with PIN_HOST set.
