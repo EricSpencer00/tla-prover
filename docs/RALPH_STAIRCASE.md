@@ -1751,3 +1751,12 @@ Read this block first; the decision ledger below is the evidence.
   Honest status: still QUEUED, not running. Nothing here guarantees we win the
   node; it improves the odds by being in a queue that demonstrably runs this
   shape and behind the shortest remaining walltime.
+- 2026-09-01 it123: fixed the queue in the serve script itself. It carried
+  `#PBS -q single-node` (backup at .bak3); now `#PBS -q by-gpu`. That matters
+  because the runner's resubmit path uses the script's own directive, so
+  without this every resubmit would go back to the queue nobody uses. Evidence
+  for by-gpu: job 177748 is a RUNNING 8-GPU job there, and `single-node` has
+  reported 0 jobs total on every check since 2026-08-31.
+  This was safe to edit now: the PBS file is read by qsub at submit time, not
+  by the running runner, so the it118 don't-edit-a-live-script rule does not
+  apply to it.
