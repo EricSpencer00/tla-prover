@@ -1498,3 +1498,23 @@ Read this block first; the decision ledger below is the evidence.
   as designed. If the 120b does the same at temperature 0, greedy samples are
   wasted. Worth watching in A3/A4's greedy rows when the real run happens;
   nothing to change now, since the 20b is far more prone to this.
+
+- 2026-08-31 it75: A5's MECHANISM VALIDATED AGAINST A LIVE SERVE -- the first
+  time the decode-time grammar has actually been exercised, rather than
+  measured offline. Sent harness/grammars/tla_module_v1.ebnf as
+  structured_outputs.grammar to the 20b serve:
+    * vLLM ACCEPTS the EBNF (HTTP 200, no error, no silent ignore)
+    * the `reasoning` channel is NOT constrained -- it came back as free prose,
+      so the grammar does not strangle the model's thinking preamble, which was
+      the live risk for a harmony-format model
+    * the `content` channel IS constrained and produced a well-formed module:
+      "MODULE M / VARIABLE x / Init == x = 0 / Next == x' = x + 1 /
+      Spec == Init /\\ [][Next]_<<x>> / ===="
+    * finish_reason=stop, not length -- it terminates on the grammar rather
+      than running out of budget
+  Everything about A5 up to now was inference: an offline catch rate (78.2%)
+  and a two-request choice probe. This is the arm working.
+  Caveat kept: this says the MECHANISM works on a 20b. It says nothing about
+  whether constraining the 120b improves its specs -- the it11/it17 caveat
+  stands, since the grammar blocks bad output the model DID emit and the model
+  then emits something else.
