@@ -1445,3 +1445,19 @@ Read this block first; the decision ledger below is the evidence.
   Our queue is empty: the fp8 jobs are finished/deleted and nothing of ours is
   pending, which is correct since fp8 is ruled out (it67) and the watcher
   submits the bf16 serve only when a whole node frees.
+
+- 2026-08-31 it72: while the 120b waits for a whole node, using the free GPUs
+  for a MECHANICS SMOKE on the 20b -- which is exactly the role the
+  drop-20b-decision memory assigns it ("20b just for mechanics smoke"), so this
+  does not violate the capability-experiments-on-120b-only rule.
+  Job 177909: chattla-20b (39GB, fits 4x40GB in bf16 with no Marlin constraint
+  since it is not quantized), tp=4, port 8322 so it cannot collide with the
+  120b serve on 8321, own hostfile smoke20b_host.txt, own per-job log, and the
+  it64 thread caps.
+  What it is for: everything about the pipeline that I have so far only
+  exercised against a FAKE model -- the tunnel, serve_preflight, the
+  structured-outputs enforcement probe that A5 depends on, and gen-eval writing
+  real rows with the A7/A8/A9 prompt blocks in the live prompt. A 20b model
+  cannot write good TLA+ and its verdicts are meaningless; the run-id will be a
+  drytest one, which tools/staircase.py already excludes from every analysis.
+  It also gives the it64 thread caps a second confirmation at a real serve.
