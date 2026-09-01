@@ -1898,3 +1898,33 @@ Read this block first; the decision ledger below is the evidence.
   tools/grammar_falsereject.py sweep over tools/tlaplus-examples plus all 30
   gold specs is running separately; it is slow because its per-reject diagnosis
   walks one character at a time.
+- 2026-09-01 it130: rung 1 is defined PER CONFIGURATION ("the best honest system
+  configuration"), not as a union, so it127's 30/30 does not meet it. Measured
+  the per-arm number and, more usefully, exactly which specs block it:
+      A                28/30  missing 142, 148
+      open-samesession 28/30  missing 106, 142
+      loop             27/30  missing 106, 142, 148
+      B                23/30  missing 41, 86, 105, 106, 133, 135, 183
+  B's seven are NOT comparable: each has exactly ONE candidate, because its
+  corruption step emits skipped:no_valid_corruption. B attempted 23 specs, it
+  did not fail 7. Do not read B's 23/30 as a SANY result.
+  So across the generation arms rung 1 is blocked by THREE specs: 106, 142, 148.
+  Diagnosed each from its own SANY logs rather than assuming:
+   * 106 -- parse failures (61) plus operators from COMMUNITY modules the run
+     does not provide: FoldSeq 19, Permutations 17, RemoveAll 16. A5's grammar
+     rejects 88% of this spec's parse-failing candidates, so A5 is the arm
+     aimed at it.
+   * 142 -- "Multiple declarations or definitions" for Nodes 19, Root 15,
+     marked 15, pc 15. Cause confirmed by opening a candidate: it writes
+     `EXTENDS Reachable, ReachableLemmas, Integers` and then RE-DECLARES the
+     constants and variables that Reachable already declares. This is exactly
+     A7's target, and exactly the shape it32 corrected A7 to handle -- a
+     spec's OWN sibling module, not a standard one. 142 is NOT a wrapper spec.
+   * 148 -- no single cause. Parse failures (51) plus undefined operators that
+     differ per candidate (NodeKey 49, ledger 39, Ledger 31, PublicKeyOf 30).
+     I checked one candidate expecting the wrapper-provides pattern and it did
+     not use those names at all, so the counts are spread across candidates
+     that each invent different undefined names. No queued arm clearly targets
+     this; A9 is the closest and I am not claiming it will help.
+  PREDICTION to check after the run, recorded now so it cannot be fitted later:
+  A5 should move 106, A7 should move 142, and 148 should stay put.
