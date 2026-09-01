@@ -175,10 +175,16 @@ python3 tools/smoke/serve_preflight.py --model "$MODEL" || {
 # Two-request enforcement check. A server that ignores the parameter returns
 # free-form prose; one that enforces it returns exactly one of the choices.
 echo "$(ts) structured-outputs enforcement check"
+# max_tokens must be generous and the prompt must invite a SHORT answer. This
+# is a harmony/reasoning model: it emits a `reasoning` field first and only then
+# `content`. With the old 24-token budget every token went to reasoning, content
+# came back null, the probe read empty, GRAMMAR_OK stayed 0 and A5 -- the
+# grammar arm -- was silently skipped. Verified on a live 20b serve, 2026-08-31
+# it73: 24 tokens -> content null; 300 tokens -> content exactly "alpha".
 probe() {
-  curl -s --max-time 120 "$OPENAI_BASE_URL/chat/completions" -H 'content-type: application/json' \
-    -d "{\"model\":\"$MODEL\",\"max_tokens\":24,\"messages\":[{\"role\":\"user\",\"content\":\"The sky is clear and the temperature is\"}]$1}" \
-    | python3 -c 'import json,sys; print(json.load(sys.stdin)["choices"][0]["message"]["content"].strip())' 2>/dev/null
+  curl -s --max-time 180 "$OPENAI_BASE_URL/chat/completions" -H 'content-type: application/json' \
+    -d "{\"model\":\"$MODEL\",\"max_tokens\":300,\"messages\":[{\"role\":\"user\",\"content\":\"Reply with exactly one word.\"}]$1}" \
+    | python3 -c 'import json,sys; m=json.load(sys.stdin)["choices"][0]["message"]; print((m.get("content") or "").strip())' 2>/dev/null
 }
 LEGACY=$(probe ',"guided_choice":["alpha","beta"]')
 CURRENT=$(probe ',"structured_outputs":{"choice":["alpha","beta"]}')
