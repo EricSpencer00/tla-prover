@@ -1593,3 +1593,17 @@ Read this block first; the decision ledger below is the evidence.
       120b (0 no_module_extracted in 2,571 rows) -- so deliberately not set.
   Six of those could not have been found without a live model, and one of them
   would have silently disabled the arm this whole plan was built around.
+
+- 2026-08-31 it80: audited whether today's drytest runs can contaminate any
+  analysis, since I created two real run directories in results/runs.
+  * tools/staircase.py -- already excludes drytest*. Safe.
+  * docs/addendum/collect_data.py and tools/brief_figures.py -- take NAMED
+    runs, never scan the directory. Safe.
+  * tools/extractor_divergence.py -- SCANNED EVERYTHING via iterdir(), so the
+    20b smoke's stored replies would have been folded into the extractor
+    divergence rate, a number that exists to decide whether the two extractors
+    disagree on real model output. Added the same exclusion tuple the staircase
+    uses. Now scans 41 dirs and reports 1,683 stored replies, none divergent.
+  Worth noting the shape: writing a drytest is only safe if EVERY consumer
+  knows to skip it, and that is a property of the consumers, not of the
+  run-id convention. One of four did not.

@@ -64,9 +64,15 @@ def scan(run_dirs):
 
 
 def main(argv):
+    # Same exclusions as tools/staircase.py: QUARANTINE/smoke/drytest/lewm are
+    # not measurements of the system. A 20b mechanics smoke stores raw replies
+    # like any other run, so without this its extraction behaviour would be
+    # folded into the divergence rate (2026-08-31 it80).
+    skip = ("QUARANTINE", "smoke", "drytest", "lewm")
     run_dirs = argv[1:] or sorted(
         p for p in (REPO / "results" / "runs").iterdir()
-        if p.is_dir() and (p / "candidates").is_dir())
+        if p.is_dir() and (p / "candidates").is_dir()
+        and not p.name.startswith(skip))
     counts, recoverable = scan(run_dirs)
 
     n = counts["replies_examined"]
