@@ -1436,3 +1436,12 @@ Read this block first; the decision ledger below is the evidence.
   resubmit branches key off. The remaining ssh calls are `ssh -O cancel`
   (already `|| true`), the tunnel (checked by the health probe that follows),
   and the qdel in the SHOLD path (failure just means the next pass retries).
+- 2026-08-31 it71: SSH restored (Eric logged in); the watcher's 19:08 poll
+  reached Sophia and reported capacity rather than an ssh failure, which is
+  exactly the distinction it69 added. It is polling normally again.
+  Capacity is still short: gpu-05 has 2 free, gpu-07 has 4 free, every other
+  schedulable node 0. An 8-GPU serve needs one node entirely free, so the wait
+  continues -- but it is now a real wait rather than a silent stall.
+  Our queue is empty: the fp8 jobs are finished/deleted and nothing of ours is
+  pending, which is correct since fp8 is ruled out (it67) and the watcher
+  submits the bf16 serve only when a whole node frees.
