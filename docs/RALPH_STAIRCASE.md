@@ -1531,3 +1531,24 @@ Read this block first; the decision ledger below is the evidence.
   Saying so explicitly because "the loop ran" could be read as "the loop was
   tested"; the interesting half of the loop is the repair, and a 20b that
   cannot emit a module cannot exercise it.
+
+- 2026-08-31 it77: found the lever behind the reasoning overrun, and then
+  measured that we do NOT currently need it.
+  On the live 20b, `reasoning_effort` controls the overrun decisively:
+    default : reasoning 16,984 chars, content 0,   finish=length
+    medium  : reasoning    410,       content 48,  finish=stop
+    low     : reasoning     37,       content 209, finish=stop
+  So the no_module_extracted rows in the 20b drytests are a reasoning overrun,
+  not an extraction bug, and one env knob fixes it. The harness already supports
+  it: repair.py merges OPENAI_EXTRA_BODY into the request body, and
+  decoding.py hashes the POST-MERGE body so the change would be visible in
+  provenance rather than silent.
+  BUT the measurement that matters: across 2,571 real 120b rows
+  (loop-w4dgm-120b, open-...-samesession, gate2-w4dgm-120b-A) there are ZERO
+  no_module_extracted verdicts. The 120b does not overrun. So this is a 20b
+  artefact, and setting reasoning_effort for the real run would change
+  generation for no benefit while breaking comparability with seed 1.
+  DECISION: do not set it. Recorded as a known lever with a measured trigger
+  condition -- if a future run starts showing no_module_extracted rows,
+  reasoning_effort=low is the fix, and it must then be applied to a control arm
+  too.
