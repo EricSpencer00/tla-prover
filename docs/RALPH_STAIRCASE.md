@@ -1943,3 +1943,5 @@ Read this block first; the decision ledger below is the evidence.
   = all stages A-G passed, including the expected context-window rejection.
   Raw resumed artifacts and the audit-interval change are committed in
   `84cee029`. The runner is intentionally left active while the queue waits.
+  Usage guard at this checkpoint: 1129.78 weighted-Mtok over the trailing
+  seven days, below the 2600 stop threshold.
