@@ -31,6 +31,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import random
 import sys
 import tempfile
 from collections import Counter
@@ -105,6 +106,40 @@ def score(row: dict, timeout: int) -> dict:
     return out
 
 
+def weighted_recall(rows_by_stratum: dict, sizes: dict):
+    """Corpus-weighted operator recall, or None when no stratum has evidence."""
+    cov = miss = 0.0
+    for name, n in sizes.items():
+        rows = rows_by_stratum.get(name, [])
+        if not rows:
+            continue
+        share = n / len(rows)
+        cov += share * sum(1 for r in rows if r["verdict"] == "covered")
+        miss += share * sum(1 for r in rows if r["verdict"] == "recall_miss")
+    if not cov + miss:
+        return None, cov, miss
+    return cov / (cov + miss), cov, miss
+
+
+def recall_ci(rows_by_stratum: dict, sizes: dict, draws=5000, seed=0):
+    """Percentile bootstrap over specs, resampled within each stratum.
+
+    The stratum is the sampling unit the audit drew on, so the resample has to
+    respect it or the interval reads narrower than the design earns."""
+    rng = random.Random(seed)
+    est = []
+    for _ in range(draws):
+        boot = {n: [rng.choice(rs) for _ in rs]
+                for n, rs in rows_by_stratum.items() if rs}
+        r, _, _ = weighted_recall(boot, sizes)
+        if r is not None:
+            est.append(r)
+    if not est:
+        return None, None
+    est.sort()
+    return est[int(0.025 * len(est))], est[int(0.975 * len(est))]
+
+
 def report(rows_by_stratum: dict, sizes: dict) -> None:
     """Per-stratum recall plus the corpus-weighted estimate the floors turn on.
 
@@ -133,19 +168,19 @@ def report(rows_by_stratum: dict, sizes: dict) -> None:
         print(f"\nweak-labelled rows (no_kill + no_site) with a demonstrable catch: "
               f"{real}/{len(weak)} = {real / len(weak):.0%}")
 
-    cov = miss = catch = 0.0
+    catch = 0.0
     for name, n in sizes.items():
         rows = rows_by_stratum.get(name, [])
         if not rows:
             continue
-        share = n / len(rows)
-        cov += share * sum(1 for r in rows if r["verdict"] == "covered")
-        miss += share * sum(1 for r in rows if r["verdict"] == "recall_miss")
-        catch += share * sum(1 for r in rows if r["real_catch"])
+        catch += (n / len(rows)) * sum(1 for r in rows if r["real_catch"])
     total = sum(sizes.values())
-    if cov + miss:
+    recall, cov, miss = weighted_recall(rows_by_stratum, sizes)
+    if recall is not None:
+        lo, hi = recall_ci(rows_by_stratum, sizes)
         print(f"corpus-weighted operator recall = {cov:.0f}/{cov + miss:.0f} = "
-              f"{cov / (cov + miss):.2f} (floor {MIN_RECALL})")
+              f"{recall:.2f} (bootstrap 95% CI [{lo:.2f}, {hi:.2f}], "
+              f"floor {MIN_RECALL})")
     print(f"corpus rows with a demonstrable catch ~= {catch:.0f}/{total} = "
           f"{catch / total:.0%}; ledgered safety_catch = {sizes.get('safety_catch', 0)} "
           f"= {sizes.get('safety_catch', 0) / total:.0%}")
