@@ -1928,3 +1928,18 @@ Read this block first; the decision ledger below is the evidence.
      this; A9 is the closest and I am not claiming it will help.
   PREDICTION to check after the run, recorded now so it cannot be fitted later:
   A5 should move 106, A7 should move 142, and 148 should stay put.
+- 2026-09-03 it131: resumed the actual 120B evaluation after the prior ChatTLA
+  detour was identified as the wrong experiment. The existing Sophia job
+  178712 is the intended `chattla-w4dgm-120b` merged checkpoint (the
+  gpt-oss-120b base, 8-GPU bf16 serve, 32K context), pinned to sophia-gpu-09;
+  PBS currently estimates start Sat Sep 5 08:57 (scheduler time). No duplicate
+  serve was submitted. The persistent runner is attached to that job and will
+  resume `loop-w4dgm-120b-seed2` from its existing rows, then execute the
+  remaining A2-A4 and the new A5/A8/A7/A9/A6 arms with gate-check after every
+  arm. The old seed-2 snapshot has 963 rows, 860
+  scored and 463 transport errors from the dead prior serve, so it is not a
+  valid result and is not quoted as one. Mandatory preflight evidence this
+  iteration: `python3 -m pytest -q` = 521 passed; `tools/smoke/run_e2e.sh`
+  = all stages A-G passed, including the expected context-window rejection.
+  Raw resumed artifacts and the audit-interval change are committed in
+  `84cee029`. The runner is intentionally left active while the queue waits.
