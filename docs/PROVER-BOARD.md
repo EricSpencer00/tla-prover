@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 163
-- Verified UTC: 2026-09-11T07:20:48Z
+- Revision: 164
+- Verified UTC: 2026-09-11T07:21:54Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: local_work
 - Active job: none
-- Observation evidence: Prepared checkpoint-preflight-payload-v1 and sent one deduplicated Discord review alert after the initial sandbox DNS failure; escalated delivery succeeded as message 1547869448310886523. No upload, scheduler claim, or submission occurred.
-- Latest completed result: checkpoint-preflight-payload-v1 is ready for review. It would upload protected_checkpoint_preflight.py and its PBS launcher to a new Polaris stage and submit one same-node preflight. The payload remains diagnostic-only and preserves the frozen acceptance gates.
-- Local work: The direct checkpoint preflight payload is committed and awaiting exact external review. Delivery receipt is preserved; this does not constitute approval. Local work remains complete through payload staging/checksum validation.
+- Observation evidence: Trusted user authorization now covers checkpoint-preflight-payload-v1. Immediately before submission, escalated Polaris qstat returned no owned jobs. The exact local two-file stage still matches its recorded source hashes and SHA256SUMS; no remote upload or qsub has occurred yet.
+- Latest completed result: Polaris ownership is freshly verified empty for this observation. The authorized payload remains one debug Polaris node/GPU for 15 minutes, with no generation, training, checkpoint mutation, or promotion.
+- Local work: Ready to execute the exact authorized preflight payload through normal review: upload the verified two-file stage, validate remote checksums, claim the stable identity, and submit one job.
 - External blocker: none verified
-- Next action: Await an exact approval for checkpoint-preflight-payload-v1, then recheck Polaris ownership, upload the two-file stage, validate remote checksums, claim the submission identity, and submit the single bounded preflight.
+- Next action: Upload checkpoint-preflight-payload-v1 to its recorded Polaris destination, verify remote SHA256SUMS, claim the submission identity, and submit its single bounded preflight; publish the resulting handle or any review rejection immediately.
 
 ## Objective and evidence rules
 
@@ -128,16 +128,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 163,
-  "verified_utc": "2026-09-11T07:20:48Z",
+  "revision": 164,
+  "verified_utc": "2026-09-11T07:21:54Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "local_work",
   "active_job": null,
-  "observation_evidence": "Prepared checkpoint-preflight-payload-v1 and sent one deduplicated Discord review alert after the initial sandbox DNS failure; escalated delivery succeeded as message 1547869448310886523. No upload, scheduler claim, or submission occurred.",
-  "last_result": "checkpoint-preflight-payload-v1 is ready for review. It would upload protected_checkpoint_preflight.py and its PBS launcher to a new Polaris stage and submit one same-node preflight. The payload remains diagnostic-only and preserves the frozen acceptance gates.",
-  "local_work": "The direct checkpoint preflight payload is committed and awaiting exact external review. Delivery receipt is preserved; this does not constitute approval. Local work remains complete through payload staging/checksum validation.",
+  "observation_evidence": "Trusted user authorization now covers checkpoint-preflight-payload-v1. Immediately before submission, escalated Polaris qstat returned no owned jobs. The exact local two-file stage still matches its recorded source hashes and SHA256SUMS; no remote upload or qsub has occurred yet.",
+  "last_result": "Polaris ownership is freshly verified empty for this observation. The authorized payload remains one debug Polaris node/GPU for 15 minutes, with no generation, training, checkpoint mutation, or promotion.",
+  "local_work": "Ready to execute the exact authorized preflight payload through normal review: upload the verified two-file stage, validate remote checksums, claim the stable identity, and submit one job.",
   "external_blocker": null,
-  "next_action": "Await an exact approval for checkpoint-preflight-payload-v1, then recheck Polaris ownership, upload the two-file stage, validate remote checksums, claim the submission identity, and submit the single bounded preflight.",
+  "next_action": "Upload checkpoint-preflight-payload-v1 to its recorded Polaris destination, verify remote SHA256SUMS, claim the submission identity, and submit its single bounded preflight; publish the resulting handle or any review rejection immediately.",
   "tasks": [
     {
       "id": "TLA-01",
