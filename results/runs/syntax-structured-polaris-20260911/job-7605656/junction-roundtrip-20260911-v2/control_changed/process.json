@@ -1,0 +1,32 @@
+{
+  "command": [
+    "/usr/bin/java",
+    "-cp",
+    "/Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/syntax-inventory-20260911-v3/classes:/Users/eric/GitHub/prove-TLA/tools/tla2tools.jar",
+    "ProverSyntaxTree",
+    "Control.tla",
+    "tree.json"
+  ],
+  "cwd": "/Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/junction-roundtrip-20260911-v2/control_changed",
+  "root_pid": 95282,
+  "root_reaped": true,
+  "returncode": 0,
+  "output": "Parsing file /Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/junction-roundtrip-20260911-v2/control_changed/Control.tla\nSemantic processing of module Control\nPROVER_TREE_COMPLETE\n",
+  "seconds": 0.25741283301613294,
+  "timed_out": false,
+  "output_complete": true,
+  "output_limit": false,
+  "cleanup_complete": true,
+  "surviving_owned_processes": [],
+  "owned_processes": [
+    {
+      "pid": 95282,
+      "created": 1789165574.835983,
+      "pgid": 95282
+    }
+  ],
+  "signals": [],
+  "errors": [],
+  "execution_complete": true,
+  "containment": "Best-effort ancestry polling; instantaneous unobserved reparenting is not excluded"
+}

@@ -1,0 +1,25 @@
+{
+  "status": "pass",
+  "source_sha256": "7e7f93d851fff011bf75e70f378ade4cbece9d9a04db72f9911443c49216506b",
+  "tree_sha256": "8d9c7db5847f488386bda43d7f75492866534591f42b25e3710d2ae4994f09eb",
+  "syntax_nodes": {
+    "N_Module": 1,
+    "N_BeginModule": 1,
+    "N_Extends": 1,
+    "N_Body": 1,
+    "N_ParamDeclaration": 1,
+    "N_ConsDecl": 1,
+    "N_IdentDecl": 2,
+    "N_OperatorDefinition": 1,
+    "N_IdentLHS": 1,
+    "N_InfixExpr": 1,
+    "N_GeneralId": 2,
+    "N_IdPrefix": 3,
+    "N_GenInfixOp": 1,
+    "N_InfixOp": 1,
+    "N_EndModule": 1
+  },
+  "operators": {
+    "/\\": 1
+  }
+}

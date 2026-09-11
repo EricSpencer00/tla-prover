@@ -1,0 +1,21 @@
+{
+  "packet_sha256": "a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c",
+  "jar_sha256": "936a262061c914694dfd669a543be24573c45d5aa0ff20a8b96b23d01e050e88",
+  "source_sha256": "886a4d16f6fbb5c8813230ffc5eef7c46dd8626fb0cac07d66668079d6d33e30",
+  "inventory_summary_sha256": "4908eb4dd3b3f9368879bf2c5928d5183190fa3de9464c73f8d7c1648d3491f2",
+  "requested": 84,
+  "observed": 84,
+  "counts": {
+    "pass": 56,
+    "unsupported": 28
+  },
+  "changed": 52,
+  "same_structure": 56,
+  "removed_all_lists": 56,
+  "negative_structure_control_ok": true,
+  "model_improvement_claim": false,
+  "tlc_claim": false,
+  "tlaps_claim": false,
+  "gate_claim": false,
+  "scope": "Reference-format round-trip; same concrete syntax modulo parentheses and associative Boolean notation only"
+}
