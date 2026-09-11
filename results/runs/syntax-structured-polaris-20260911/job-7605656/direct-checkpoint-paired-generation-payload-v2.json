@@ -1,0 +1,28 @@
+{
+  "kind": "direct_checkpoint_paired_generation_stage_v2",
+  "stage": "/grand/EVITA/eric-spencer/tla-checkpoint-paired-generation-20260911-v1",
+  "runner": {
+    "path": "tools/protected_checkpoint_paired_generation.py",
+    "sha256": "1283faab8310edbb1ebf0d6683d654177d4c7e35768f3b9a69f2e00e91d7d509"
+  },
+  "preflight_helper": {
+    "path": "tools/protected_checkpoint_preflight.py",
+    "sha256": "4c569421946fcd207028f16f12f90b24182817b7f89975c988277197195f15e8"
+  },
+  "launcher": {
+    "path": "tools/protected_checkpoint_paired_generation_polaris.pbs",
+    "sha256": "cfe57a3a175fc53959ca1d2b12a16991658f9658f9d9b275a35bc55520b45aa3",
+    "allocation": "one EVITA Polaris debug GPU for at most 15 minutes"
+  },
+  "xgrammar_site": "/grand/EVITA/eric-spencer/tla-checkpoint-preflight-deps/xgrammar-0.2.2-cp312",
+  "contract": {
+    "rows": [47, 107],
+    "arms": ["existing_decoder", "grammar_enforced"],
+    "generations_per_row": 2,
+    "max_new_tokens": 1024,
+    "sampling": "greedy deterministic repeats"
+  },
+  "scope": "The job only produces raw checkpoint-restored paired generations and their provenance. It does not claim SANY, TLC, non-vacuity, TLAPS, or a model improvement.",
+  "remote_action_authorized": false,
+  "gate_claim": false
+}
