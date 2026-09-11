@@ -1,0 +1,11 @@
+{
+  "observed_utc": "2026-09-11T23:07:06Z",
+  "kind": "staging-copy-correction",
+  "original_grammar_sha256": "1f4124cd20bdfdfd41ba406703bb2d123ebb26190fd3834cbb3df32dcb1cc000",
+  "truncated_copy_sha256": "b78b2768364600f86e755721daac9a5f434f2285118ccd0c58546149a8596c6d",
+  "cause": "Reconstructing staged artifact through text patch lost one trailing newline:11092 vs11093 bytes.",
+  "workflow_error": "Upload and the payload local-check claim proceeded despite failed local assertion; the earlier payload claim is corrected by this receipt.",
+  "repair": "Copied exact artifact bytes and re-uploaded only canonical.ebnf to the same never-executed stage. All three remote SHA checks and exact-stage CLI now pass.",
+  "runtime_executed_before_correction": false,
+  "frozen_hash_weakened": false
+}
