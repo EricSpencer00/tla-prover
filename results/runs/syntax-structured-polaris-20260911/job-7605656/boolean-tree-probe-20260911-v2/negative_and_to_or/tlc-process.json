@@ -1,0 +1,35 @@
+{
+  "command": [
+    "/usr/bin/java",
+    "-cp",
+    "/Users/eric/GitHub/prove-TLA/tools/tla2tools.jar",
+    "tlc2.TLC",
+    "-workers",
+    "1",
+    "-config",
+    "BooleanTreeProbe.cfg",
+    "BooleanTreeProbe"
+  ],
+  "cwd": "/Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/boolean-tree-probe-20260911-v2/negative_and_to_or",
+  "root_pid": 78310,
+  "root_reaped": true,
+  "returncode": 12,
+  "output": "TLC2 Version 2.19 of 08 August 2024 (rev: 5a47802)\nWarning: Please run the Java VM which executes TLC with a throughput optimized garbage collector by passing the \"-XX:+UseParallelGC\" property.\n(Use the -nowarning option to disable this warning.)\nRunning breadth-first search Model-Checking with fp 94 and seed -2079805305863656726 with 1 worker on 10 cores with 16384MB heap and 64MB offheap memory [pid: 78310] (Mac OS X 26.6.2 aarch64, Eclipse Adoptium 25 x86_64, MSBDiskFPSet, DiskStateQueue).\nParsing file /Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/boolean-tree-probe-20260911-v2/negative_and_to_or/BooleanTreeProbe.tla\nSemantic processing of module BooleanTreeProbe\nStarting... (2026-09-11 16:57:55)\nComputing initial states...\nError: Invariant Correct is violated by the initial state:\ntick = FALSE\n\nFinished in 00s at (2026-09-11 16:57:55)\n",
+  "seconds": 0.7674652920104563,
+  "timed_out": false,
+  "output_complete": true,
+  "output_limit": false,
+  "cleanup_complete": true,
+  "surviving_owned_processes": [],
+  "owned_processes": [
+    {
+      "pid": 78310,
+      "created": 1789163875.131925,
+      "pgid": 78310
+    }
+  ],
+  "signals": [],
+  "errors": [],
+  "execution_complete": true,
+  "containment": "Best-effort ancestry polling; instantaneous unobserved reparenting is not excluded"
+}

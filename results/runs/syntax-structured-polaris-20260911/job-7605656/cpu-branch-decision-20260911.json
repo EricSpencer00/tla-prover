@@ -1,0 +1,34 @@
+{
+  "observed_utc": "2026-09-11T21:58:33Z",
+  "authority": "standing-evidence-supported-run-approval.json",
+  "decision": "Do not upload or run either simplified grammar on GPU. Explore explicit expression representation with broader coverage checks before considering a model experiment.",
+  "precedence_diagnostic": {
+    "summary": "precedence-probe-20260911-v3/summary.json",
+    "requested": 104,
+    "observed": 104,
+    "controls_ok": true,
+    "recursive_variant": "84/84 valid references accepted, but all four duplicate row47 model failures still accepted",
+    "restricted_variant": "2/84 valid references and one valid nested-list control rejected; still accepts the same four model failures",
+    "corrections": "Three hand-written expected-negative labels proved wrong under actual SANY. Original failed-control summaries, full inputs and source snapshots preserved in v1/v2. No checker, frozen reference or model output changed."
+  },
+  "boolean_tree_diagnostic": {
+    "summary": "boolean-tree-probe-20260911-v2/summary.json",
+    "trees": 103,
+    "truth_assignments_per_tree": 8,
+    "positive": "SANY passes; TLC checks all824 Boolean equivalences in a two-state model with no error",
+    "negative": "SANY passes; deliberately changing AND to OR violates Correct in the initial state",
+    "correction": "v1 negative was rejected as constant-FALSE configuration before state exploration. v2 adds a state-dependent conjunct to obtain an actual invariant counterexample. Original source and receipts preserved.",
+    "scope": "Hand-written Boolean renderer only, not complete TLA+ or model-generated output"
+  },
+  "quality": {
+    "existing_grammars_and_inference_source_unchanged": true,
+    "model_or_checkpoint_changed": false,
+    "new_gpu_runs": 0,
+    "model_improvement_claim": false,
+    "full_module_coverage": false,
+    "decode_mask_performance_measured": false,
+    "frozen_gates_passed": false,
+    "previous_model_comparison": "6/8 records produced, all6 rejected,2 unknown; unchanged"
+  },
+  "next_discriminator": "Inventory the full-module constructs in all84 frozen references using SANY syntax/semantic structure. Measure representation coverage and round-trip behavior before extending the Boolean prototype or preparing training. Never supply reference answers to evaluation prompts or call renderer controls model gains."
+}

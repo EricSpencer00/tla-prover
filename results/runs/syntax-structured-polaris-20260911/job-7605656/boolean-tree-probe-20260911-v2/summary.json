@@ -1,0 +1,26 @@
+{
+  "trees": 103,
+  "valuations_per_tree": 8,
+  "jar_sha256": "936a262061c914694dfd669a543be24573c45d5aa0ff20a8b96b23d01e050e88",
+  "source_sha256": "794d66fee1eb315459fcd11f035a9587160a4a9e7e72e32d6780256da1973632",
+  "results": {
+    "positive": {
+      "sany": "pass",
+      "tlc_pass": true,
+      "invariant_violation": false,
+      "process_complete": true
+    },
+    "negative_and_to_or": {
+      "sany": "pass",
+      "tlc_pass": false,
+      "invariant_violation": true,
+      "process_complete": true
+    }
+  },
+  "controls_ok": true,
+  "model_improvement_claim": false,
+  "full_module_coverage": false,
+  "gate_claim": false,
+  "mask_performance_measured": false,
+  "scope": "Hand-written Boolean representation diagnostic only; no model run"
+}

@@ -1,0 +1,12 @@
+TLC2 Version 2.19 of 08 August 2024 (rev: 5a47802)
+Warning: Please run the Java VM which executes TLC with a throughput optimized garbage collector by passing the "-XX:+UseParallelGC" property.
+(Use the -nowarning option to disable this warning.)
+Running breadth-first search Model-Checking with fp 94 and seed -2079805305863656726 with 1 worker on 10 cores with 16384MB heap and 64MB offheap memory [pid: 78310] (Mac OS X 26.6.2 aarch64, Eclipse Adoptium 25 x86_64, MSBDiskFPSet, DiskStateQueue).
+Parsing file /Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/boolean-tree-probe-20260911-v2/negative_and_to_or/BooleanTreeProbe.tla
+Semantic processing of module BooleanTreeProbe
+Starting... (2026-09-11 16:57:55)
+Computing initial states...
+Error: Invariant Correct is violated by the initial state:
+tick = FALSE
+
+Finished in 00s at (2026-09-11 16:57:55)

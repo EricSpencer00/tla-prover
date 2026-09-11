@@ -1,0 +1,31 @@
+{
+  "command": [
+    "/usr/bin/java",
+    "-cp",
+    "/Users/eric/GitHub/prove-TLA/tools/tla2tools.jar",
+    "tla2sany.SANY",
+    "BooleanTreeProbe.tla"
+  ],
+  "cwd": "/Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/boolean-tree-probe-20260911-v1/negative_and_to_or",
+  "root_pid": 77850,
+  "root_reaped": true,
+  "returncode": 0,
+  "output": "\n****** SANY2 Version 2.1 created 24 February 2014\n\nParsing file /Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/boolean-tree-probe-20260911-v1/negative_and_to_or/BooleanTreeProbe.tla\nSemantic processing of module BooleanTreeProbe\n",
+  "seconds": 0.24805366701912135,
+  "timed_out": false,
+  "output_complete": true,
+  "output_limit": false,
+  "cleanup_complete": true,
+  "surviving_owned_processes": [],
+  "owned_processes": [
+    {
+      "pid": 77850,
+      "created": 1789163828.241849,
+      "pgid": 77850
+    }
+  ],
+  "signals": [],
+  "errors": [],
+  "execution_complete": true,
+  "containment": "Best-effort ancestry polling; instantaneous unobserved reparenting is not excluded"
+}

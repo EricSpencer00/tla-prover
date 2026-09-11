@@ -1,0 +1,7 @@
+{
+  "status": "pass",
+  "candidate_sha256": "c7d408839dcdb8227fe196a379af458f270ba6255194a53f1642bae0db5fac0a",
+  "module_name": "BooleanTreeProbe",
+  "returncode": 0,
+  "log": "/Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/boolean-tree-probe-20260911-v1/negative_and_to_or/sany.log"
+}
