@@ -1,0 +1,15 @@
+{
+  "approved_utc": "2026-09-11T17:59:21Z",
+  "authority": "Eric direct 'i approve' reply in this interactive Codex conversation, applied to the only pending exact XGrammar provisioning request",
+  "approved_files": {
+    "protected_checkpoint_preflight.py": "4c569421946fcd207028f16f12f90b24182817b7f89975c988277197195f15e8",
+    "protected_checkpoint_xgrammar_requirements.txt": "f6f69f376bb238074af5646d88500d5bbdaf456e41b73223b6c2bb0a1cfdf8c7",
+    "protected_checkpoint_xgrammar_setup.sh": "495d6f401a34373e0cb318321eb8aea8db565ddbf473e150bf4987cda994d7b6"
+  },
+  "stage_destination": "/grand/EVITA/eric-spencer/tla-checkpoint-preflight-deps-v1",
+  "isolated_dependency_destination": "/grand/EVITA/eric-spencer/tla-checkpoint-preflight-deps/xgrammar-0.2.2-cp312",
+  "authorized_action": "transfer the exact files, install the hash-pinned isolated closure, and run the CPU-only grammar probe",
+  "excluded_actions": ["shared environment modification", "GPU allocation", "scheduler submission"],
+  "destination_precheck": "both approved destinations were absent immediately before action",
+  "gate_claim": false
+}
