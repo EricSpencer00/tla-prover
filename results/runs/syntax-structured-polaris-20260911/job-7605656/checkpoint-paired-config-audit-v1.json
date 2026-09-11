@@ -1,0 +1,18 @@
+{
+  "kind": "protected_checkpoint_pairing_configuration_audit_v1",
+  "legacy_runner_sha256": "e34a6179f756a46b32a47be3b5627f4234c1e08dbd4365d7b3ae723d40acda83",
+  "legacy_launcher_sha256": "b0eb7a8034f41879c2d3358a9d61b891879ff27a52e49e1423c5cc894ed0f9da",
+  "terminal_receipt_sha256": "07e1fbbd9504d4d62b6e12b5735369290741b688f0c451101d7ab5b422b0e6f1",
+  "checks": {
+    "endpoint_transport": true,
+    "checkpoint_restore_absent": true,
+    "legacy_prompt_suffixes_present": true,
+    "launcher_starts_base_model_server": true,
+    "launcher_does_not_supply_checkpoint": true
+  },
+  "terminal_checkpoint_created": true,
+  "terminal_checkpoint_remote_path": "/grand/EVITA/eric-spencer/tla-structured-polaris-20260911/result.7605656/policy_optimizer.pt",
+  "conclusion": "The legacy paired runner cannot certify trained-checkpoint inference: it transports requests to a base-model endpoint, never loads/restores the checkpoint, and retains forbidden prompt-intervention paths. It is excluded from the corrected paired evaluation.",
+  "required_replacement": "A direct process must load the frozen base model, restore the recorded trainable tensors from the checkpoint, verify prompt-token identity, and record parameter/tensor evidence before each arm. Grammar enforcement must be independently recorded without endpoint-only base-model serving.",
+  "gate_claim": false
+}

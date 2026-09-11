@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 157
-- Verified UTC: 2026-09-11T06:59:43Z
+- Revision: 158
+- Verified UTC: 2026-09-11T07:03:19Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: local_work
 - Active job: none
-- Observation evidence: Executed an isolated exact-layout packaging smoke after repairing the patch prompt runner. A stage containing only proof_syntax_patch_prompt.py and its two required sibling modules imported via direct-file execution with exit 0; hashes and receipt are saved. This confirms the local package boundary only. Polaris ownership was last observed empty; Sophia ownership remains unverified after authentication denial.
-- Latest completed result: patch-prompt-stage-smoke-v1 passed: direct execution from an isolated staged tools/ layout returned 0 with all three required module hashes recorded. No model, checkpoint, remote upload, submission, SANY, or acceptance-gate claim is attached.
-- Local work: Completed the exact staged-layout import smoke for the repaired patch runner and saved a compact receipt. The next unresolved branch is a new checkpoint-faithful paired inference runner; legacy base-model serving and prompt suffix variants remain disallowed.
+- Observation evidence: Completed a source-and-receipt configuration audit of the legacy protected paired path. It uses endpoint transport, starts a base-model vLLM server, never loads or restores policy_optimizer.pt, and retains prompt-intervention branches; it is therefore excluded from corrected trained-checkpoint evaluation. The recorded Polaris 7605656 checkpoint exists remotely, but no new remote action occurred.
+- Latest completed result: checkpoint-paired-config-audit-v1 verified five structural facts that disqualify the legacy paired runner from checkpoint-faithful measurement. The next branch is a direct checkpoint process with explicit tensor restore and tokenizer/prompt evidence; no gate result changed.
+- Local work: Produced a reproducible configuration diagnosis that prevents accidental reuse of the base-model endpoint path. The needed replacement has explicit criteria: direct model loading, tensor restore, frozen prompt-token verification, and separately recorded grammar enforcement.
 - External blocker: none verified
-- Next action: Design and locally test a checkpoint-faithful paired-inference runner that restores the recorded trainable tensors and validates the frozen tokenizer/prompt before generation, with no legacy prompt suffix or endpoint-only base-model path.
+- Next action: Implement and locally unit-test the direct checkpoint-paired preflight contract against synthetic model/checkpoint adapters, then prepare its exact Polaris stage and bounded same-node preflight payload for review without submitting it.
 
 ## Objective and evidence rules
 
@@ -25,7 +25,7 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 | --- | --- | --- | --- |
 | TLA-01 | Done | Recover frozen experiment inputs | Input recovery receipt and immutable packet/checkpoint hashes preserved. |
 | TLA-02 | Needs correction | Provide checkpoint-faithful paired inference | Old endpoint launcher did not restore trained weights; new direct trainer restores them but is not the paired grammar runner. |
-| TLA-03 | Needs correction | Verify checkpoint and grammar in the same inference path | Exact direct checkpoint/tokenizer restore is verified. Old grammar controls used base-model serving; combined trained-checkpoint grammar control still missing. |
+| TLA-03 | Needs correction | Verify checkpoint and grammar in the same inference path | Legacy paired inference is now formally excluded: audit v1 proves it served a base-model endpoint, lacked tensor restore, and retained prompt suffix paths. The remote structured child checkpoint exists, but a combined direct-checkpoint grammar evaluation remains missing. |
 | TLA-04 | Not ready | Execute the frozen paired experiment | Historical 8-record endpoint receipts are base-model diagnostics, not the required trained-checkpoint comparison. Preserve saved 2-row x 2-arm x 2-generation contract and clarify legacy four-generation prose from source receipts. |
 | TLA-05 | Not ready | Score the valid checkpoint comparison | Old SANY logs remain genuine diagnostics, but cannot certify trained-checkpoint performance. Depends on corrected TLA-04. |
 | TLA-06 | In progress | Find a new intervention that improves protected SANY | User-directed diagnostic branch continues independently of paired-run repairs; no observed model gain yet. |
@@ -128,16 +128,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 157,
-  "verified_utc": "2026-09-11T06:59:43Z",
+  "revision": 158,
+  "verified_utc": "2026-09-11T07:03:19Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "local_work",
   "active_job": null,
-  "observation_evidence": "Executed an isolated exact-layout packaging smoke after repairing the patch prompt runner. A stage containing only proof_syntax_patch_prompt.py and its two required sibling modules imported via direct-file execution with exit 0; hashes and receipt are saved. This confirms the local package boundary only. Polaris ownership was last observed empty; Sophia ownership remains unverified after authentication denial.",
-  "last_result": "patch-prompt-stage-smoke-v1 passed: direct execution from an isolated staged tools/ layout returned 0 with all three required module hashes recorded. No model, checkpoint, remote upload, submission, SANY, or acceptance-gate claim is attached.",
-  "local_work": "Completed the exact staged-layout import smoke for the repaired patch runner and saved a compact receipt. The next unresolved branch is a new checkpoint-faithful paired inference runner; legacy base-model serving and prompt suffix variants remain disallowed.",
+  "observation_evidence": "Completed a source-and-receipt configuration audit of the legacy protected paired path. It uses endpoint transport, starts a base-model vLLM server, never loads or restores policy_optimizer.pt, and retains prompt-intervention branches; it is therefore excluded from corrected trained-checkpoint evaluation. The recorded Polaris 7605656 checkpoint exists remotely, but no new remote action occurred.",
+  "last_result": "checkpoint-paired-config-audit-v1 verified five structural facts that disqualify the legacy paired runner from checkpoint-faithful measurement. The next branch is a direct checkpoint process with explicit tensor restore and tokenizer/prompt evidence; no gate result changed.",
+  "local_work": "Produced a reproducible configuration diagnosis that prevents accidental reuse of the base-model endpoint path. The needed replacement has explicit criteria: direct model loading, tensor restore, frozen prompt-token verification, and separately recorded grammar enforcement.",
   "external_blocker": null,
-  "next_action": "Design and locally test a checkpoint-faithful paired-inference runner that restores the recorded trainable tensors and validates the frozen tokenizer/prompt before generation, with no legacy prompt suffix or endpoint-only base-model path.",
+  "next_action": "Implement and locally unit-test the direct checkpoint-paired preflight contract against synthetic model/checkpoint adapters, then prepare its exact Polaris stage and bounded same-node preflight payload for review without submitting it.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -155,7 +155,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
       "id": "TLA-03",
       "state": "Needs correction",
       "task": "Verify checkpoint and grammar in the same inference path",
-      "evidence": "Exact direct checkpoint/tokenizer restore is verified. Old grammar controls used base-model serving; combined trained-checkpoint grammar control still missing."
+      "evidence": "Legacy paired inference is now formally excluded: audit v1 proves it served a base-model endpoint, lacked tensor restore, and retained prompt suffix paths. The remote structured child checkpoint exists, but a combined direct-checkpoint grammar evaluation remains missing."
     },
     {
       "id": "TLA-04",
@@ -348,7 +348,8 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "tools/proof_syntax_patch_assembler.py",
     "harness/test_proof_syntax_patch_assembler.py",
     "results/runs/syntax-structured-polaris-20260911/job-7605656/patch-only-protected-sany-eval-v8/summary.json",
-    "results/runs/syntax-structured-polaris-20260911/job-7605656/patch-prompt-stage-smoke-v1/receipt.json"
+    "results/runs/syntax-structured-polaris-20260911/job-7605656/patch-prompt-stage-smoke-v1/receipt.json",
+    "results/runs/syntax-structured-polaris-20260911/job-7605656/checkpoint-paired-config-audit-v1.json"
   ]
 }
 -->
