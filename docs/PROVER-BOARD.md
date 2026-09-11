@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 158
-- Verified UTC: 2026-09-11T07:03:19Z
+- Revision: 159
+- Verified UTC: 2026-09-11T07:05:34Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: local_work
 - Active job: none
-- Observation evidence: Completed a source-and-receipt configuration audit of the legacy protected paired path. It uses endpoint transport, starts a base-model vLLM server, never loads or restores policy_optimizer.pt, and retains prompt-intervention branches; it is therefore excluded from corrected trained-checkpoint evaluation. The recorded Polaris 7605656 checkpoint exists remotely, but no new remote action occurred.
-- Latest completed result: checkpoint-paired-config-audit-v1 verified five structural facts that disqualify the legacy paired runner from checkpoint-faithful measurement. The next branch is a direct checkpoint process with explicit tensor restore and tokenizer/prompt evidence; no gate result changed.
-- Local work: Produced a reproducible configuration diagnosis that prevents accidental reuse of the base-model endpoint path. The needed replacement has explicit criteria: direct model loading, tensor restore, frozen prompt-token verification, and separately recorded grammar enforcement.
+- Observation evidence: Applied the committed quality pillars to the patch-runner staging evidence. The prior v1 import-only smoke is insufficient for remote readiness and remains limited to import evidence. Replacement v2 staged the prompt, assembler, preference helper, and pinned SANY jar; it executed an anchored row-107 assembly and actual SANY pass. Its producer is explicitly hand_authored_assembly_control, not model inference. The legacy endpoint path remains excluded from checkpoint-faithful evaluation.
+- Latest completed result: patch-prompt-stage-substantive-smoke-v2 passed the staged direct-import, anchored-assembly, and actual SANY checker path with all stage hashes recorded. This is a hand-authored control only; the frozen full denominator, paired non-regression, model/checkpoint provenance, TLC, non-vacuity, and TLAPS gates remain unverified.
+- Local work: Quality correction: import-only v1 is no longer treated as a substantive stage check. v2 replaces it for the narrow patch path and preserves producer provenance. No candidate is promoted; the last verified model baseline remains parent/child protected SANY 0/2 from the direct structured training run.
 - External blocker: none verified
-- Next action: Implement and locally unit-test the direct checkpoint-paired preflight contract against synthetic model/checkpoint adapters, then prepare its exact Polaris stage and bounded same-node preflight payload for review without submitting it.
+- Next action: Implement and unit-test the direct checkpoint-paired preflight contract: frozen packet/tokenizer validation plus explicit trainable-tensor restore and parameter-equality evidence before generation. Any later two-arm comparison must retain the full paired 2-row denominator, controls, and model provenance.
 
 ## Objective and evidence rules
 
@@ -25,7 +25,7 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 | --- | --- | --- | --- |
 | TLA-01 | Done | Recover frozen experiment inputs | Input recovery receipt and immutable packet/checkpoint hashes preserved. |
 | TLA-02 | Needs correction | Provide checkpoint-faithful paired inference | Old endpoint launcher did not restore trained weights; new direct trainer restores them but is not the paired grammar runner. |
-| TLA-03 | Needs correction | Verify checkpoint and grammar in the same inference path | Legacy paired inference is now formally excluded: audit v1 proves it served a base-model endpoint, lacked tensor restore, and retained prompt suffix paths. The remote structured child checkpoint exists, but a combined direct-checkpoint grammar evaluation remains missing. |
+| TLA-03 | Needs correction | Verify checkpoint and grammar in the same inference path | Quality contract applied: legacy endpoint runner is excluded. Patch stage v2 is a hand-authored assembly/SANY control with pinned dependency hashes, not checkpoint inference. Corrected paired evaluation still requires direct tensor restore, frozen tokenizer/prompt proof, paired two-row comparison, and separately attested grammar enforcement. |
 | TLA-04 | Not ready | Execute the frozen paired experiment | Historical 8-record endpoint receipts are base-model diagnostics, not the required trained-checkpoint comparison. Preserve saved 2-row x 2-arm x 2-generation contract and clarify legacy four-generation prose from source receipts. |
 | TLA-05 | Not ready | Score the valid checkpoint comparison | Old SANY logs remain genuine diagnostics, but cannot certify trained-checkpoint performance. Depends on corrected TLA-04. |
 | TLA-06 | In progress | Find a new intervention that improves protected SANY | User-directed diagnostic branch continues independently of paired-run repairs; no observed model gain yet. |
@@ -128,16 +128,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 158,
-  "verified_utc": "2026-09-11T07:03:19Z",
+  "revision": 159,
+  "verified_utc": "2026-09-11T07:05:34Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "local_work",
   "active_job": null,
-  "observation_evidence": "Completed a source-and-receipt configuration audit of the legacy protected paired path. It uses endpoint transport, starts a base-model vLLM server, never loads or restores policy_optimizer.pt, and retains prompt-intervention branches; it is therefore excluded from corrected trained-checkpoint evaluation. The recorded Polaris 7605656 checkpoint exists remotely, but no new remote action occurred.",
-  "last_result": "checkpoint-paired-config-audit-v1 verified five structural facts that disqualify the legacy paired runner from checkpoint-faithful measurement. The next branch is a direct checkpoint process with explicit tensor restore and tokenizer/prompt evidence; no gate result changed.",
-  "local_work": "Produced a reproducible configuration diagnosis that prevents accidental reuse of the base-model endpoint path. The needed replacement has explicit criteria: direct model loading, tensor restore, frozen prompt-token verification, and separately recorded grammar enforcement.",
+  "observation_evidence": "Applied the committed quality pillars to the patch-runner staging evidence. The prior v1 import-only smoke is insufficient for remote readiness and remains limited to import evidence. Replacement v2 staged the prompt, assembler, preference helper, and pinned SANY jar; it executed an anchored row-107 assembly and actual SANY pass. Its producer is explicitly hand_authored_assembly_control, not model inference. The legacy endpoint path remains excluded from checkpoint-faithful evaluation.",
+  "last_result": "patch-prompt-stage-substantive-smoke-v2 passed the staged direct-import, anchored-assembly, and actual SANY checker path with all stage hashes recorded. This is a hand-authored control only; the frozen full denominator, paired non-regression, model/checkpoint provenance, TLC, non-vacuity, and TLAPS gates remain unverified.",
+  "local_work": "Quality correction: import-only v1 is no longer treated as a substantive stage check. v2 replaces it for the narrow patch path and preserves producer provenance. No candidate is promoted; the last verified model baseline remains parent/child protected SANY 0/2 from the direct structured training run.",
   "external_blocker": null,
-  "next_action": "Implement and locally unit-test the direct checkpoint-paired preflight contract against synthetic model/checkpoint adapters, then prepare its exact Polaris stage and bounded same-node preflight payload for review without submitting it.",
+  "next_action": "Implement and unit-test the direct checkpoint-paired preflight contract: frozen packet/tokenizer validation plus explicit trainable-tensor restore and parameter-equality evidence before generation. Any later two-arm comparison must retain the full paired 2-row denominator, controls, and model provenance.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -155,7 +155,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
       "id": "TLA-03",
       "state": "Needs correction",
       "task": "Verify checkpoint and grammar in the same inference path",
-      "evidence": "Legacy paired inference is now formally excluded: audit v1 proves it served a base-model endpoint, lacked tensor restore, and retained prompt suffix paths. The remote structured child checkpoint exists, but a combined direct-checkpoint grammar evaluation remains missing."
+      "evidence": "Quality contract applied: legacy endpoint runner is excluded. Patch stage v2 is a hand-authored assembly/SANY control with pinned dependency hashes, not checkpoint inference. Corrected paired evaluation still requires direct tensor restore, frozen tokenizer/prompt proof, paired two-row comparison, and separately attested grammar enforcement."
     },
     {
       "id": "TLA-04",
@@ -349,7 +349,8 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "harness/test_proof_syntax_patch_assembler.py",
     "results/runs/syntax-structured-polaris-20260911/job-7605656/patch-only-protected-sany-eval-v8/summary.json",
     "results/runs/syntax-structured-polaris-20260911/job-7605656/patch-prompt-stage-smoke-v1/receipt.json",
-    "results/runs/syntax-structured-polaris-20260911/job-7605656/checkpoint-paired-config-audit-v1.json"
+    "results/runs/syntax-structured-polaris-20260911/job-7605656/checkpoint-paired-config-audit-v1.json",
+    "results/runs/syntax-structured-polaris-20260911/job-7605656/patch-prompt-stage-substantive-smoke-v2/receipt.json"
   ]
 }
 -->

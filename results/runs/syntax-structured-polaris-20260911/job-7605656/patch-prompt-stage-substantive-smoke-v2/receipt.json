@@ -1,0 +1,35 @@
+{
+  "kind": "isolated_patch_prompt_substantive_stage_smoke_v2",
+  "producer": "hand_authored_assembly_control",
+  "stage_files": {
+    "proof_syntax_patch_prompt.py": "dbae3f9202b758dff45d3fb952fba11d84ad0b4f6b6ff6e835740b82a09ee9b5",
+    "proof_syntax_patch_assembler.py": "801a759d26eb45afbfde74e1a5e4c7d035feaeece04deca701f7ad8f5986be8b",
+    "proof_syntax_preference_train.py": "28af55610ada358119929c8cb49177298ffc241755a187c9d00feee296d78691",
+    "tla2tools.jar": "936a262061c914694dfd669a543be24573c45d5aa0ff20a8b96b23d01e050e88"
+  },
+  "source_sha256": "5f6b169dc010369d4e6f65b7766b7961e44a4df15790988c5763861a06e3e853",
+  "candidate": {
+    "op": "replace",
+    "anchor": "TypeOK ==",
+    "replacement": "TypeOK ==\n    /\\ lock \\in Banks \\cup {NONE}"
+  },
+  "returncode": 0,
+  "stdout": "{\"assembled_sha256\": \"1a31ad782016d304c32e600cdeede07b8cf9401a9fca803fcf448b7c101bdfc9\", \"candidate\": {\"anchor\": \"TypeOK ==\", \"op\": \"replace\", \"replacement\": \"TypeOK ==\\n    /\\\\ lock \\\\in Banks \\\\cup {NONE}\"}, \"candidate_sha256\": \"c0cc7e3e3386073e1919ecdb55251efc7b58b45cd009abe7743ff6309b93921d\", \"sany\": {\"passed\": true, \"returncode\": 0, \"status\": \"pass\"}}\n",
+  "stderr": "",
+  "result": {
+    "assembled_sha256": "1a31ad782016d304c32e600cdeede07b8cf9401a9fca803fcf448b7c101bdfc9",
+    "candidate": {
+      "anchor": "TypeOK ==",
+      "op": "replace",
+      "replacement": "TypeOK ==\n    /\\ lock \\in Banks \\cup {NONE}"
+    },
+    "candidate_sha256": "c0cc7e3e3386073e1919ecdb55251efc7b58b45cd009abe7743ff6309b93921d",
+    "sany": {
+      "passed": true,
+      "returncode": 0,
+      "status": "pass"
+    }
+  },
+  "passed": true,
+  "scope": "staged direct import, anchored assembly, and actual SANY control; hand-authored only, not checkpoint/model inference or frozen-gate evidence"
+}
