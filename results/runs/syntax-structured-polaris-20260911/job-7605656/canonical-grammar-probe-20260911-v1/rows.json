@@ -1,0 +1,674 @@
+[
+  {
+    "id": "w4-fullmodule:w4opus::d14-m4-p0-t4",
+    "original_sha256": "39d35a34deda13d950e72efaf0641e1d6c0ef980a9d75bd8260a57290be1c910",
+    "canonical_sha256": "39d35a34deda13d950e72efaf0641e1d6c0ef980a9d75bd8260a57290be1c910",
+    "raw_spelling_accepted": true,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d18-m9-p1-t2",
+    "original_sha256": "bad6c0dff5965a7363ecf1abf1a6a3faab714ad81cceff6c88b223cd62dac9fb",
+    "canonical_sha256": "98c036dadc776122836348c5ec8bcfc901519a72fbf115d1a3f299bd4c02c12f",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d13-m1-p5-t1",
+    "original_sha256": "9f436f4463f97528db6c948e1d0befd03bd20d18cdb14065d53af6d40827872c",
+    "canonical_sha256": "68b6fd113a41bb91458342a9bb6926b67239a25d8f6635e55a7d0c843bacfd2b",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d2-m7-p4-t2",
+    "original_sha256": "36c548d2a475c0d086ddf0340f927b36002699ce86e955d702e061324ad2f07c",
+    "canonical_sha256": "36c548d2a475c0d086ddf0340f927b36002699ce86e955d702e061324ad2f07c",
+    "raw_spelling_accepted": true,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d10-m0-p4-t2",
+    "original_sha256": "6c6c0796360ee046b8b1151ebd5beab54cb51e367b2ecba3fff48cdd7dc66c7a",
+    "canonical_sha256": "6c6c0796360ee046b8b1151ebd5beab54cb51e367b2ecba3fff48cdd7dc66c7a",
+    "raw_spelling_accepted": true,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d1-m0-p0-t5",
+    "original_sha256": "2167983adbb1e282fd81f4aeb4f6572acba44fa1db9abdb2e783c449cbd0c23c",
+    "canonical_sha256": "2167983adbb1e282fd81f4aeb4f6572acba44fa1db9abdb2e783c449cbd0c23c",
+    "raw_spelling_accepted": true,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d10-m2-p0-t3",
+    "original_sha256": "4eb9d23b701851e2039a5d2c00696cd9b618d68204778295ba38187c3ed30378",
+    "canonical_sha256": "d185016669b35ac3e489c619827eca5eed6ad5a65510af21b5193cbf72465e3f",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d19-m7-p2-t1",
+    "original_sha256": "769f844aaa3a81ab2a77b59922b84824d678c071468f8ab3b96bd5be021e7132",
+    "canonical_sha256": "64d5bf4a31857c59458ccc7a3edbe950c4378a66c1ec0f30f25a29ae5ccc2145",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d17-m2-p2-t4",
+    "original_sha256": "cb2e00379b73e285cd76a024755c357e9947aec239d4b14a74388eb89776c107",
+    "canonical_sha256": "22e4a290f5f968220ecce487c90c2c11e3003ec24e36df3608048e4a19867c9d",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d14-m8-p3-t1",
+    "original_sha256": "8be5178f8ac92665e3ec72ab2e71d7252a97ac4bfe0cb54e3e558600fcfce314",
+    "canonical_sha256": "f04d115574454e03f0576981dc6ee6cda3467b79c485408f5dc33caede82bb0c",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d12-m1-p6-t5",
+    "original_sha256": "cc4e338038b796251b2e1a98e7482a75b910e6cbfceb953beb9d0ca24796e686",
+    "canonical_sha256": "296d1468f23049e7b78be48efd70ab8117ea11db63175b48bb53cf7445a40825",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d18-m8-p6-t4",
+    "original_sha256": "c3706eff466c602ba477bfb7b53c83ded57353df7aa2daa17d6af0f69c9a02e6",
+    "canonical_sha256": "32ae1978d8c06ff2b422b47655a5089ffef3261f62dbb542bd5c2e1a3f590f94",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d6-m2-p2-t3",
+    "original_sha256": "a7026cc81181b89417536a350a1066cfe041bccdfef129aff30fab675457b697",
+    "canonical_sha256": "44181f3feeea12c20778af2bd97848dc28f37206bee44345de2a7d17d3a08783",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d0-m9-p0-t2",
+    "original_sha256": "8d49269fb7805d0a70e66b646449dfc254aabfc5e51bd388179bd64202e566d1",
+    "canonical_sha256": "10af0b76bcbc4cc7a677ae2747b3783f9bdf636fe79d2c0fed6a24801db5d646",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d9-m6-p0-t1",
+    "original_sha256": "35824b20277972e83aa35c7bfa95d12f36911071545c9ec85733cf1633a26d88",
+    "canonical_sha256": "3b8d461cbac653e0d8d6432ef32af8e85f172ff98b5c1baf62a54f313dddc9cc",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d17-m6-p1-t1",
+    "original_sha256": "6f95efa5cf2aee0ef9f24c2c0a6fc2cbcc784541f0dce20fccd8f0424665c1cd",
+    "canonical_sha256": "58b726fe4dd82daed13207eec1d7914c645a0f865c7fcc870462ab12e837bd09",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d6-m8-p1-t5",
+    "original_sha256": "6ad2589a39652e75028af1b3cfe0cce2c177a0dc6965629aa1d47770bc0440a7",
+    "canonical_sha256": "ecc867e7e6817f8cadfa55b7870f3baf4537500604c0a3a95aeeb3af545cf21f",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d11-m4-p4-t0",
+    "original_sha256": "047e959ad53cc27d8ea69ae432096b2e933b225b9b23a126775744824c9f4b7b",
+    "canonical_sha256": "48ff92f202075ac91b8f9d3b4531feb5b8171ce4c95c07fc968231023770550c",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d1-m9-p0-t3",
+    "original_sha256": "b2b7b77ce106a5e9e9dd026b7b5512299da6df6cc8b38704c396b78720bcb5ec",
+    "canonical_sha256": "c5ff8e03d15ad4dcc15137b59a2c0e6e51e2de836813df0d54ba0fe597cc7657",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d17-m3-p0-t5",
+    "original_sha256": "374fc2bf064c7331471910d29d3a079dea995887cfcab357216ba1d7ff316e5c",
+    "canonical_sha256": "2c248afaaee6e29df70df08741aa4b91704876e6afdde27707e361af9115488c",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d15m3",
+    "original_sha256": "bb73d5acfb3ac258d45a88ad5dc40b0c4c4a841ee9322a889cf0bdc09c5eec47",
+    "canonical_sha256": "0a55f94f0e170e582da74cbf0b5be59c2e1863b093e3ab4b72d2416a525bd95e",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d15-m0-p6-t2",
+    "original_sha256": "d42d62d4c95718887e28c69a3e51f057a8660010f7d1f73a0d3fb464a3ea8c07",
+    "canonical_sha256": "44e1bc3af6859d4712526d286995d28f54eff62d3b8ef7bcad6f99fd73950125",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d5-m1-p1-t5",
+    "original_sha256": "dfecbe344bcdd2393f3846e3dc870ab6bac9294b3bc9b3217a1e97067be4a066",
+    "canonical_sha256": "a78dd701a116e04cd22512eda86e0856273fe574ee8b84c7c1f07b62f3126572",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d15-m5-p5-t3",
+    "original_sha256": "2ad27b29dc74c6b251c4bbdce88d289f8e11087d64f7e8057bf5143383e98eb7",
+    "canonical_sha256": "69c8e4be0e239607b823db046d889e73a38616b50e7b20271f472075d674ce8c",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d7-m1-p4-t5",
+    "original_sha256": "f3da0378dba8454d90784e5e605ce57050be45a8c9aca14a33934173c5538cf7",
+    "canonical_sha256": "b9edf315661711949f0153ad0f682130bd21762e52e32c1e679c993ad64b95a5",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d6-m5-p4-t3",
+    "original_sha256": "6467b35faab683d782174b947b333f17bea5960499cdb4daf0e15e35b72ba255",
+    "canonical_sha256": "373087cfa895e250328e7d8d0da0a94418c12f8d59196514ccee4c15e59ee741",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d19-m9-p1-t0",
+    "original_sha256": "25d71b47ac40155968710197ff9f6c36174b75bede188b195e076e56b28a9e93",
+    "canonical_sha256": "d693dc70498bd3fe7ed243e12e6f4fefb0adbe88dbb281f07d224134cc54e40c",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d1-m7-p3-t2",
+    "original_sha256": "c58edf37e107a1a9e798d2cef537fac64e9aa5ea16627b6d3dc87f88154f4ca5",
+    "canonical_sha256": "716d9de8200930b1638d56a96dbc9b213429a4b36aaf226eedeed1181132bca9",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d15-m2-p4-t4",
+    "original_sha256": "2a2fc30eb8701d0fdef9104aa1a2b5defddb160fd7919c36e1860add55802a17",
+    "canonical_sha256": "617685a13f1473f28cd152af0b0072f3317ae892134530bc6ccf3958cff3795c",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d10-m0-p3-t5",
+    "original_sha256": "fd819ded3bb266e923193dd06683552fa94fa11344cb6508eddfcf70b483b267",
+    "canonical_sha256": "31ed7d771cde15b8dfa3a302d1c51d6ad34eb385d3ff19e6673dbd526378d5a0",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d6-m7-p1-t2",
+    "original_sha256": "35faee4e7b61d3462e6edbf9c589cc5dc84798bd29e6d2531f8f34408605429c",
+    "canonical_sha256": "0b72559c0a6bc9dad63538ce50264300ee41ded81b98df7e847ae2117b143dc1",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d10-m8-p4-t4",
+    "original_sha256": "ebab3186603edbc666d528d780752d91a4c7de6392ab00768959c241d2daa9fb",
+    "canonical_sha256": "c8b4e42bc976b3547e81b1ff0dcdfad9de0eb4404952d3be375227c474101ee0",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d8-m6-p0-t3",
+    "original_sha256": "3ef36f0b707611573a585e2f9f393daa95f458b93b975f0e5d0cddac1f8e2f84",
+    "canonical_sha256": "380f9b06da3730b6222bb07293fba500e2e4ac84fe7c87f9ee167bb2c48c1f53",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d2-m0-p1-t1",
+    "original_sha256": "050a3823d9f0d04214eca3eb40644997de5d4a36ed85bd19aef8a61ac0c16e55",
+    "canonical_sha256": "44fa176d0c870a7fd93c362028f2d0ef428ff05542fd1b593ef16abed881a599",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d13-m4-p0-t3",
+    "original_sha256": "c4e6aa23b0772157672fb09da6131cdb49c93a7c834a4f65d6ca1557846d7d2c",
+    "canonical_sha256": "26f4ea8c46c21475dbfe99f5f976b2a1e571f0942516d298809c5bb2ca0ec624",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d15-m2-p1-t5",
+    "original_sha256": "30a68e2b6792bada53a784ca194eaed19b7d0ae9d4d85a857bad6a6513fab41f",
+    "canonical_sha256": "2352f6b588a220a8e12bcbd3992c157ce9278060b0ab60c558c1f6225253e188",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d11-m8-p1-t1",
+    "original_sha256": "f8cf09649be8b9b9d67c36cd1cc3b350919ea5de498a2bc275858bef90bbbd48",
+    "canonical_sha256": "503415aacfe68fc6f3a1e33141d36401ad43b238ea10e7cceef07bfc6b114434",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d19-m3-p1-t3",
+    "original_sha256": "c9b8789bad0e0600b93491ae8a372fea28f78d1bde977ad56f118357c385434b",
+    "canonical_sha256": "e9bb5acbbc49e5936881ee2b8691d6db94727b0e399ee2d40a8c77c337c099ab",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d10-m4-p5-t5",
+    "original_sha256": "fd296574d3c712943d3fc8df0d02ff6f4f6539733cbab3cfdb6686a253ba899c",
+    "canonical_sha256": "5cc29a3b91c91268811005f71a115f5e94890ff013bcc70f7e428384d934885f",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d2-m7-p0-t0",
+    "original_sha256": "05965b5b20658261d74ba510df9967fc0464db26d6c9a5cab62ee0513150ff63",
+    "canonical_sha256": "6cb81fe15f81cab069a097500809f484e1e5247e3e9016e7fc4c96ece64c9c5f",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d3-m5-p5-t2",
+    "original_sha256": "e33882aca502d95c7dddb4a3a6f9cb0fe43cfed338b596bb5f8ea095dbc7da1a",
+    "canonical_sha256": "06a4d04c00b1a50e9a6910b1c57acfbdcd0baabbe1986d9b1e77ccf65ea5aecb",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d13-m2-p0-t3",
+    "original_sha256": "e0c5e8a712d9bc933e2529a13c0dca81ce9677ecdb1b6f2f554ca0356fcae74f",
+    "canonical_sha256": "937b7347660f84a90929e2280a562817ddf8c3d5dfa61b086df400485481f415",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d16-m2-p3-t3",
+    "original_sha256": "c4575636af154191e0a697b85067995231d1cb88da989a1e8b0464edb34495ae",
+    "canonical_sha256": "b3948b2ce6d9dd42cb91b4120aabebb4e43c2b809984dabbb04c574bd3ffd4c6",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d4-m1-p1-t5",
+    "original_sha256": "0d8be6a63677825570d0b40eaac1c19541a9339cf228ed228e871ced6a9eb4b8",
+    "canonical_sha256": "4164743fcedeb2a93b3721f573ca594161c39a591f1d0352af2fc38534aa844d",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d8-m1-p1-t4",
+    "original_sha256": "7fc5e165ac089f5488a0316671d714153c4f2fccd702c3f781f27ed82087d317",
+    "canonical_sha256": "28d5d37f8748abaa1d3433719dd6532e8c8961419e24006d53519f8e83a7c47b",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d3-m0-p0-t0",
+    "original_sha256": "5f6b169dc010369d4e6f65b7766b7961e44a4df15790988c5763861a06e3e853",
+    "canonical_sha256": "4ed6e849af37ac7083fa7aaf33344f226eba1955a504f3a1d4bfba93d4a0437f",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d5-m2-p4-t5",
+    "original_sha256": "9a8990bc87c46f660b9bc9d7c7f462e87a63105f0532e05082763a7c45bb4a48",
+    "canonical_sha256": "afb2ffa288cf4ec13978e2aecbc49cdd2970570d35b1690d8441206f9f39cd83",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d14-m4-p5-t1",
+    "original_sha256": "caa49acd287a913f995ee59c0d6f949744b2576e51a8d47c556da06ea14e3c2f",
+    "canonical_sha256": "778c1d0351cabadaba59e8a76a595732e6e4f2da30f749e846d79e47ad83013b",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d0-m8-p4-t0",
+    "original_sha256": "cc7e0eaad5b9af487aa1dc38f84a727de40d1469283dc4b27fc82cc073a68d85",
+    "canonical_sha256": "d2855cc5298eb873650c52abb0883c11486b70943a6ae97bfa04ae1edcbb3029",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d11-m6-p3-t0",
+    "original_sha256": "c330ae763f9fbaa1bdbca8198e54b551096a65d9ce6d74b565011c4a5d72c5e4",
+    "canonical_sha256": "b232d6630f9882b5ce296fc3b96b99269a1b10212357d3e753a77027cd4e08e2",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d5-m6-p5-t3",
+    "original_sha256": "e17b342669ad048161bfb9546e1db8c342443810d319ce29400cfbe6a83308c8",
+    "canonical_sha256": "7f6ce92c0d92c410f886227a2e325c3505e7f8d22a32f9c9a6444a0c247bfeb5",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d10-m0-p2-t1",
+    "original_sha256": "ac17e0d046d0e1fafa3bd3d8ba55cfa6087dde0561fd5b8db359b7ab2207a2b1",
+    "canonical_sha256": "cb04cf3f694d70130c9039d398b1455a7c93aa5aa67884b288221bda16a45e70",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d3-m9-p5-t5",
+    "original_sha256": "616ab72f00fda278fa9172079b22842a8aed5d0433ec49f1573e4209e577b5fe",
+    "canonical_sha256": "9f38acccb05b19e679ba464c0d8ea3ebc927257e776bfa18f1855dc1d151a975",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d3-m3-p0-t2",
+    "original_sha256": "39753cbb856f1ef14354f4c2a671b1b82c8c0e53d930413011ec173b903c4a21",
+    "canonical_sha256": "3abf0bd8ef5191a9926fa8062a7ce729c8a18e74f2ce1993d8b1376fcaf2165e",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d6-m8-p4-t1",
+    "original_sha256": "fa351dd4144a4ff6dcbe78dac42a617884702003120c77429b8974abc0a954f9",
+    "canonical_sha256": "a506e85214355c976c122b9266cc8f5e70e85e4b21bcb902ce48403b3ad83491",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d15-m6-p5-t4",
+    "original_sha256": "90ee33c038d89dbdfe370f441e526f009f4fb10d3d0da31bc9d5d215cadc4c82",
+    "canonical_sha256": "51f58419feba36ab148a76a2d9867eaa6b26243e55f21f73228c0f1032f18ac5",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d8-m2-p5-t0",
+    "original_sha256": "2dac4b562753c6f30ab7a060c457ffb5bd9e7ed397eb66b5ef8ab950647130f7",
+    "canonical_sha256": "132c0d35bb13ac79dc7e1ce23aa9d6aae439bbff1df17972932b61824e760fc1",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d11-m4-p5-t1",
+    "original_sha256": "c12695b5e81a48e7003ec8b17e6ee00cbca27f742bb4188142a40e33c4a1b7cf",
+    "canonical_sha256": "cd50e2ac5df5331b3dbd5e5a76a74aa9989aaa96c31cdff73b3f07b071ec7d5c",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d2-m5-p1-t3",
+    "original_sha256": "bf5cacafc1578c139275845bf97277313db41f0fb4754aab345c685cd04d6ac1",
+    "canonical_sha256": "4cf8cd75d36f39fb6969bfb84ebfb617b94d5724224f721ad3f8dd028e701855",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d12-m4-p3-t4",
+    "original_sha256": "018d28c196432e63eb90d5448d93ab9e2f8d4fead75e76ecc596ab423cbc2536",
+    "canonical_sha256": "fe1c349a03f00cbae8e27570b9b425c9ef15f1b7b1043e76e6cb516ced555de1",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d12-m5-p1-t1",
+    "original_sha256": "950a887e66506dc5d85b202b4d19e2997ff390f1fcad4a5c5ff78bf1de8fa6f1",
+    "canonical_sha256": "dcbd31675e1e1646a88e42cebb93cfd81329c32ce2d93364eadf40e11a6f6ef1",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d0-m1-p0-t5",
+    "original_sha256": "9b9ca2f11567450d63362464cb71d2103da8e5aea0ce85c91267273670578045",
+    "canonical_sha256": "f0c5c76541c6a8ecfd3aa6af764155acccf3634c8599abdb2d20c492fa563282",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d14-m4-p0-t5",
+    "original_sha256": "c0bdebb06622dc7790c2153036717f21a7c7b0f7a9bc201e843f3cc36b008ad1",
+    "canonical_sha256": "d2d2a1946e40a744b2218eda383a9381a6c90d09b03f82764a066f8a426a1f36",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d1-m6-p6-t0",
+    "original_sha256": "ae587445570e5e1ef9443407b00597c473c4831f4f3666633dee168bc7526a22",
+    "canonical_sha256": "81d331a237a0363f9ceff748132099c8e58c455c4b29bbfdf2c144aedac2ba05",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d14-m7-p2-t1",
+    "original_sha256": "97b1ad7f615a958e3b04cf87d98c67ba41ee685bd9f386a29718becc9ed1687e",
+    "canonical_sha256": "e505962afc1b61bf21aa473c4a56a5e6a8b0f158b3b74951d0fe4cb5213e2daa",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d10-m6-p4-t4",
+    "original_sha256": "a657bbeb336dbdb2a14f843293646fcc885950413f089211b7a746c4fc55d2d8",
+    "canonical_sha256": "49a20bdd4613f6b9b7868b919e6cf391cb0554a016d683540a22ccf40998aa2e",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d17-m1-p0-t3",
+    "original_sha256": "4fc9c147a4d4128e3178b74475fb7061753d0011f00afbb35c391d298e55946b",
+    "canonical_sha256": "cc56916cb72c84ceb030932a886544263d06658bd0dbb3ba469e483aa8857db5",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d10-m7-p4-t2",
+    "original_sha256": "ae3d18215383f09cad03ba319fd9802b313e28a70ab812c8f19df48fe9bf1608",
+    "canonical_sha256": "c32c8da605f383b617fe90981006227e2edbd08dd6371e9a16ce9e0c774e006d",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d16-m6-p0-t1",
+    "original_sha256": "dd1923befa1f9539bcb4d16351e35a80714712acdfea1789b3693fcf87b0000b",
+    "canonical_sha256": "e5f9ac2bd4bca5592fb47860d6febd64e2bbac00e5faeed43e350fce38a426f9",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d18-m0-p4-t0",
+    "original_sha256": "29a894d6540d14332a7adf2f14176f1477bf7fc4f4cfbe8cf7190fcbdb6ff2f3",
+    "canonical_sha256": "bb330ab769800cb36c4632dcd61ac15aa6419b6eae12cee3a31cfca246311042",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d9-m0-p2-t0",
+    "original_sha256": "7e9f9e449be5b81faf5421bea051d50300e4d71d0c9781d055b5e8d45d8f1cc3",
+    "canonical_sha256": "b031319b6a042473e4126d7952d644185187b7bb73b997bd77aa4c405f3b83bb",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d5-m8-p6-t3",
+    "original_sha256": "ed9c277fa06c460789ab958265527912d4d3b8b7dcf5418a14c74e968f225fa0",
+    "canonical_sha256": "606c9a3f2cf5d833ddfba7379e1ef782ec492998b9094a6dfc21326edaa48a7a",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d19-m6-p5-t0",
+    "original_sha256": "fa07a937b11978a2931d231ba409f4198492ea31744b171b9d0e59dcaa77385a",
+    "canonical_sha256": "1600b46fa536ba5251689efd263b967a679051f428e6837f4077e3c9222ffcea",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d15-m8-p3-t2",
+    "original_sha256": "a707655932b30bc6f5915fd63bfa30c05db3ed5d020af12e83f37375674116e9",
+    "canonical_sha256": "4ae0046916c5525dee9e8eb8278f0621e6929b5f39385d8aaa0f6edebb7ebde6",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d13-m8-p5-t5",
+    "original_sha256": "462761487cc8822f9b76494d0b22a6ecbdd02b8c14859ae95dc0085dfeae655f",
+    "canonical_sha256": "e336ad17fad104ff00c270fd6fa006b872bb0fb75186449a2878b87142068ad5",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d7-m7-p5-t3",
+    "original_sha256": "13a91136b2eb1026aa83aa39129e3f5bb8e369d1cc271f01549eca814b0a1f6d",
+    "canonical_sha256": "a3b4d836e7000fb82c1bce52a4d16d242fa76f815041d6e8a7cd574a9893cb77",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d13-m5-p5-t1",
+    "original_sha256": "028ecbae19d2981ad58175cc82af204545f49daa04605908c90007b892d2b277",
+    "canonical_sha256": "b8d44f73971f04aa970bbc4359e5ddf979a5e6aef57a0d063a343d1646461949",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d4-m0-p4-t3",
+    "original_sha256": "a139afc35d07188f122119184370cadd4820f3468c971adc280bc2e1aed791d5",
+    "canonical_sha256": "799766850b579875cf68565978503d2de01e507137273ec4d0dd4201ff82bd38",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d2-m0-p4-t3",
+    "original_sha256": "3ec721757c5bdc2fc512e5e35a9305adf7d204ee229ba32a302499b4710ee6d2",
+    "canonical_sha256": "bc6497c70e2cc308dfb06818af3df08e394a4824e0b2564a21a07f545b4b5f65",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d13-m1-p5-t5",
+    "original_sha256": "4dd920b2ee5fd573a71be7b823673d35d9e5866cdfda5473698817f72785e464",
+    "canonical_sha256": "ec8af2c789196270c5cb38d6c9013c46d86b95263e96d6a0d3ffe9a45637816f",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d10-m4-p4-t1",
+    "original_sha256": "43dc72faf00cbe84b38f65fbb684f6f94417f79e667abd92b6713b1446235726",
+    "canonical_sha256": "8e130474bb795343ff77dc8c9f539af3843177a36c1b16ab035b9b3f21fb0d13",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d19-m9-p4-t5",
+    "original_sha256": "c5eed40d7e8dff794b241315f1cfc0a7480a4d39a8110b670e987a657d318187",
+    "canonical_sha256": "ab6b27cc0b422b2938cfc9938127244b24914def0e5bf3b19f2fdcf5c426d949",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d15-m7-p6-t3",
+    "original_sha256": "9b5a969b30e0080cdb5d55271ff9c18ada62e99d1e5784060fd6a48e76d068fc",
+    "canonical_sha256": "43a3b7d7f4230b4db72888d8af8f025168fc17a5cdcdf89a3b0f6140e9f54558",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  },
+  {
+    "id": "w4-fullmodule:w4opus::d9-m8-p4-t4",
+    "original_sha256": "955c338b6d5574865e43a362f242832035d94faf9c8c2ea563cf2cfe9e95b947",
+    "canonical_sha256": "84213106ba368a92760f292f609ccaf75fd1620fa328b0172357364b0795bf1a",
+    "raw_spelling_accepted": false,
+    "equivalent_form_accepted": true,
+    "structure_preservation_verified": true
+  }
+]

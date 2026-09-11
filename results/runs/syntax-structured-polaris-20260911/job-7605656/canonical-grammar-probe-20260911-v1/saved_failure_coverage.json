@@ -1,0 +1,32 @@
+[
+  {
+    "file": "row-107-existing_decoder-0.json",
+    "source_sha256": "787c45c486d83f21a3529a1148b16967e8be449cce95726bc7dfa367d8f1b1d7",
+    "accepted": false
+  },
+  {
+    "file": "row-107-existing_decoder-1.json",
+    "source_sha256": "3d6923a6122f518e64a7e515f798d66f8edcb8e8fd223fbf7b027d77d1fc5ffe",
+    "accepted": false
+  },
+  {
+    "file": "row-47-existing_decoder-0.json",
+    "source_sha256": "8ce3b3e6e261b7de28146c6b44581bc40eb8ba36954cd5076e86ee1b6409c320",
+    "accepted": false
+  },
+  {
+    "file": "row-47-existing_decoder-1.json",
+    "source_sha256": "7235290992771a9ad85e29aca0a1dcfe31f536324bd2e8af67570a22fc7bdf91",
+    "accepted": false
+  },
+  {
+    "file": "row-47-grammar_enforced-0.json",
+    "source_sha256": "55a522f80eb70f53021824c7981d76a5c37331c02a58dbd3e23739de684cf3f7",
+    "accepted": false
+  },
+  {
+    "file": "row-47-grammar_enforced-1.json",
+    "source_sha256": "97b7ac56ccd3f6f1e69acefe830ec590f8f5cac6cd9700455ad3cd994265598f",
+    "accepted": false
+  }
+]

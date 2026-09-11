@@ -1,0 +1,58 @@
+{
+  "authority": "standing-evidence-supported-run-approval.json",
+  "decision": "Continue canonical-output branch to exact-runtime preflight; no model promotion or GPU run yet.",
+  "inventory": {
+    "requested": 84,
+    "actual_sany_exports": 84,
+    "unknown": 0,
+    "controls_ok": true,
+    "summary": "syntax-inventory-20260911-v3/summary.json",
+    "lesson": "Boolean-only IR is too narrow; use parser-derived grouping without reimplementing the rest of TLA+.",
+    "corrections": "Initial operator labels included empty N_IdPrefix nodes; a first fix also dropped named operator leaves. Both sources/results retained. Final handling was checked against actual SANY tree shape, and structural comparison retains operator images."
+  },
+  "normalization": {
+    "summary": "junction-roundtrip-20260911-v2/summary.json",
+    "requested": 84,
+    "sany_pass": 84,
+    "same_full_structure_modulo_grouping": 84,
+    "changed_modules": 80,
+    "comments_preserved": true,
+    "negative_operator_change_detected": true,
+    "prior_v1": "56 passed and28 explicitly unsupported because comment preservation was not implemented; retained unchanged."
+  },
+  "cpu_profile": {
+    "runtime": "Exact Polaris XGrammar0.2.2 and frozen Llama tokenizer",
+    "v1_log": "grouping-mask-cpu-profile-20260911-v1.log",
+    "v1_exit_code": 0,
+    "v1_limitation": "All four128-token plans incomplete; none reached changed tokens.47 formats identical;107 common prefix65 and only64/65 measured.",
+    "v2_log": "grouping-mask-cpu-profile-20260911-v2.log",
+    "v2_exit_code": 0,
+    "v2_primed_tokens": 65,
+    "v2_measured_tokens_each": 32,
+    "v2_original_seconds": 27.583542556967586,
+    "v2_grouped_seconds": 9.421953795012087,
+    "v2_original_max_step_seconds": 3.570895747980103,
+    "v2_grouped_max_step_seconds": 0.5600121601019055,
+    "limitations": "One changed reference, fixed original-first order, different semantic progression in32 textual tokens, common-prefix mask cost omitted in v2. No whole-generation speed, broad performance or model-quality claim."
+  },
+  "canonical_grammar": {
+    "summary": "canonical-grammar-probe-20260911-v1/summary.json",
+    "equivalent_reference_forms_accepted": 84,
+    "raw_reference_spellings_rejected": 80,
+    "saved_sany_failures_rejected": 6,
+    "local_xgrammar": "0.2.3",
+    "exact_remote_runtime_verified": false,
+    "scope": "A separate canonical-output language; not a replacement claiming unchanged raw TLA+ spelling coverage. Equivalent required forms were checked independently by full syntax round-trip."
+  },
+  "quality": {
+    "new_gpu_runs": 0,
+    "checkpoint_changed": false,
+    "frozen_packet_changed": false,
+    "production_grammar_changed": false,
+    "reference_answers_in_generation_prompts": false,
+    "model_improvement_claim": false,
+    "frozen_gate_claim": false,
+    "previous_model_comparison": "Six saved outputs all rejected; two missing outputs remain unknown."
+  },
+  "next_discriminator": "Verify canonical grammar on exact XGrammar0.2.2, all84 canonical forms and saved failures, then bounded full-prefix mask cost with the frozen tokenizer. Only after that prepare a distinct bounded paired-generation trial; retain raw-spelling coverage loss explicitly and do not change the frozen evaluator or inject reference answers."
+}
