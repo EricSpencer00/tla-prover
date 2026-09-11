@@ -1,0 +1,7 @@
+protected_checkpoint_paired_generation.py: OK
+protected_checkpoint_preflight.py: OK
+protected_checkpoint_paired_generation_polaris.pbs: OK
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/291 [00:00<?, ?it/s]Loading weights: 100%|██████████| 291/291 [00:00<00:00, 9683.69it/s]
+[transformers] The following generation flags are not valid and may be ignored: ['temperature', 'top_p']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+{"gate_claim": false, "grammar_compiled": true, "kind": "protected_checkpoint_paired_generation_v1", "records": 8, "restored_tensors_exact": true}

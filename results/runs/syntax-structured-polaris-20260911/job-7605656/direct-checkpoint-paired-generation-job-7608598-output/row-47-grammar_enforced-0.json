@@ -1,0 +1,14 @@
+{
+  "row": 47,
+  "arm": "grammar_enforced",
+  "generation": 0,
+  "generation_role": "deterministic_replicate",
+  "sampling_mode": "greedy",
+  "independent_sample": false,
+  "generation_seed": 20261481,
+  "base_prompt_sha256": "32eb750d7db375df72e8e93d929ac3e5c7a365d50a915202c62db6e3d675877f",
+  "raw_reply": "---- MODULE W4Od2m7p4t2 ----\nEXTENDS Naturals\nCONSTANTS Dispatchers, Cap\nVARIABLES active, readSnapshots\nvars == <<active, readSnapshots>>\n\nInit ==\n  active = 0\n  readSnapshots = [d \\in Dispatchers |-> 0]\n\nNext ==\n  /\\ \\E d \\in Dispatchers : readSnapshots[d] < Cap\n    /\\ readSnapshots' = [d \\in Dispatchers |-> IF d = d'\n      THEN readSnapshots[d] + 1\n      ELSE readSnapshots[d]\n    ]\n    /\\ UNCHANGED <<active, readSnapshots>> \\* dispatcher failed to admit robot\n  \\/ \\E d \\in Dispatchers : readSnapshots[d] > 0\n    /\\ active < Cap\n    /\\ readSnapshots' = [d \\in Dispatchers |-> IF d = d'\n      THEN readSnapshots[d] - 1\n      ELSE readSnapshots[d]\n    ]\n    /\\ active' = active + 1\n    /\\ UNCHANGED <<readSnapshots>>\n\nSpec == Init /\\ [][Next]_vars\n\nActiveWithinCapacity == active <= Cap\n====",
+  "raw_reply_sha256": "6ebdcb44a56c907edb1a641895dae468847b43b7f6be85183183de6fcc8d4805",
+  "output_token_count": 255,
+  "grammar_enforced": true
+}

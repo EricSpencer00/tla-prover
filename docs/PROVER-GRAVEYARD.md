@@ -11,6 +11,29 @@ The first checkpoint-faithful paired run restored the model and wrote two ordina
 
 ## Diagnosis checkpoint
 
+### Structural grammar v0: closed 2026-09-11 with parser evidence
+
+Corrected GCC run 7608598 finished all eight checkpoint-restored candidates.
+Actual controlled SANY measured 0/4 ordinary and 0/4 grammar; both arms emitted
+identical text for each protected row. Row 47 omits a conjunction in Init, and
+row 107 omits conjunctions in NextBank. v0 explicitly permits arbitrary line
+content, so it accepts both parser-rejected modules. Repeating unchanged v0
+decoding is retired. The existing expression grammar v1 accepts both reference
+controls and rejects both failures under local XGrammar 0.2.3. This is a causal
+discriminator, not a model gain or proof of full valid-syntax coverage. Reopening
+requires a syntax constraint that excludes the error class without false-rejecting
+required valid constructs, exact runtime tests, and controlled generated results.
+Evidence: `results/runs/syntax-structured-polaris-20260911/job-7605656/direct-checkpoint-paired-generation-job-7608598-diagnosis.json`.
+
+### Board persistence correction, 2026-09-11
+
+The assistant reported submission and completion of 7608598 in chat but failed
+to publish them, leaving board250 at an already-resolved upload approval wait.
+This was a missed workflow step, not a publisher malfunction or missing user
+permission. Revisions 251 onward reconcile retrieved raw receipts and scoring.
+Persist each transition before the next side effect; verify the published state
+matches the final handoff. Never infer lack of authorization from stale board prose.
+
 Before a new experiment, record the failure signature, hypothesis, cheapest
 discriminator, expected result that would change the decision, and bounded
 resources on the board. Check this record for the same failure first.

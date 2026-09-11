@@ -1,0 +1,40 @@
+{
+  "observed_utc": "2026-09-11 20:54:13 UTC",
+  "kind": "paired_sany_and_grammar_diagnostic",
+  "job": "7608598",
+  "sany": {
+    "ordinary": {
+      "pass": 0,
+      "total": 4
+    },
+    "grammar": {
+      "pass": 0,
+      "total": 4
+    },
+    "positive_controls": 2,
+    "negative_controls": 2,
+    "controls_ok": true,
+    "unknowns": 0
+  },
+  "first_failures": {
+    "47": "Missing conjunction between active = 0 and readSnapshots assignment; parse stops at line 9",
+    "107": "Missing conjunction between Lock = b and snapshot assignment; parse stops at line 24"
+  },
+  "grammar_cpu_probe": {
+    "xgrammar_version": "0.2.3",
+    "runtime_caveat": "Polaris generation used 0.2.2; this is a local text-language discriminator, not exact remote token-mask readiness",
+    "v0": {
+      "sha256": "42b4b292cb9972ae08c27113b21932a993b48c8a51937ac46c34fb0befb07f6f",
+      "accepts_both_references": true,
+      "accepts_both_failed_candidates": true
+    },
+    "v1": {
+      "sha256": "2bcc86946f0a858628f455a3d0648c7117e2b780743e1f25dff82cebd0fb4d67",
+      "accepts_both_references": true,
+      "accepts_both_failed_candidates": false
+    }
+  },
+  "decision": "Retire unchanged v0 for this failure class. Existing v1 merits independent valid-syntax coverage and exact runtime testing before any generation claim.",
+  "gate_claim": false,
+  "model_improvement_claim": false
+}

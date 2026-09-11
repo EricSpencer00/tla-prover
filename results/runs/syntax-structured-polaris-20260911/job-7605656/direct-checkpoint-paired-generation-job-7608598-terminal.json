@@ -1,0 +1,16 @@
+{
+  "observed_utc": "2026-09-11T20:49:41Z",
+  "job_id": "7608598.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "state": "F",
+  "exit_status": 0,
+  "walltime": "00:03:06",
+  "allocation": "x3002c0s37b1n0:ngpus=1:ncpus=64",
+  "receipt": "results/runs/syntax-structured-polaris-20260911/job-7605656/direct-checkpoint-paired-generation-job-7608598-output/receipt.json",
+  "runner_sha256": "3883aa82bf78836bfb9a3a50f4ee1dbd46295e572361830db94f29ec626d2795",
+  "pbs_sha256": "8a53c5d98808e36bb11b2df14161b23287759ce804de9b1b31626143e5b5479e",
+  "records": 8,
+  "restored_tensors_exact": true,
+  "mask_smoke": "Executed before model load in verified runner; completion inferred from successful downstream generation",
+  "comparison": "Raw replies identical across arms and repeats for each row",
+  "gate_claim": false
+}
