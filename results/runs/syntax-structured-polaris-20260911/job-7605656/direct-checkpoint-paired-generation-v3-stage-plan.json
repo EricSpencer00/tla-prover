@@ -1,0 +1,15 @@
+{
+  "kind": "direct_checkpoint_paired_generation_v3_stage_plan",
+  "destination": "/grand/EVITA/eric-spencer/tla-checkpoint-paired-generation-20260911-v3",
+  "files": {
+    "protected_checkpoint_paired_generation.py": "3883aa82bf78836bfb9a3a50f4ee1dbd46295e572361830db94f29ec626d2795",
+    "protected_checkpoint_preflight.py": "4c569421946fcd207028f16f12f90b24182817b7f89975c988277197195f15e8",
+    "protected_checkpoint_paired_generation_polaris.pbs": "99aa3c2729799effee1122070efe5b1b00aa1efc3c3b8f6e2f8b79de34d535fc"
+  },
+  "entrypoint": "protected_checkpoint_paired_generation.py imports the staged protected_checkpoint_preflight.py",
+  "dependency_closure": "fixed isolated XGrammar 0.2.2 site; project ChatTLA interpreter; frozen external model, checkpoint, packet, and grammar paths",
+  "resource_request": "one EVITA Polaris debug GPU for at most 15 minutes",
+  "pre_model_discriminator": "real CUDA XGrammar grammar-mask kernel smoke under CC=/usr/bin/gcc",
+  "submission_authorized": false,
+  "gate_claim": false
+}
