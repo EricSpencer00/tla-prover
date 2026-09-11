@@ -33,6 +33,15 @@ def plan():
             for generation in range(GENERATIONS_PER_ROW)]
 
 
+def generation_metadata(row, arm, generation):
+    # The frozen temperature-zero contract deliberately yields deterministic
+    # repeats.  Seeds remain provenance fields, not independent-sample claims.
+    return dict(row=row, arm=arm, generation=generation,
+                generation_role="deterministic_replicate",
+                sampling_mode="greedy", independent_sample=False,
+                generation_seed=SEED + row * 10 + generation)
+
+
 def build_processor(xgrammar, tokenizer, model, grammar):
     info = xgrammar.TokenizerInfo.from_huggingface(tokenizer, vocab_size=model.config.vocab_size)
     compiled = xgrammar.GrammarCompiler(info).compile_grammar(grammar)
@@ -78,7 +87,6 @@ def main():
                 if id(parameter) in trainable_ids}
     preflight.restore_exact(selected, saved)
     grammar = args.grammar.read_text()
-    grammar_processor = build_processor(xgrammar, tokenizer, model, grammar)
 
     args.output.mkdir(parents=True)
     records = []
@@ -88,26 +96,30 @@ def main():
             rendered = tokenizer.apply_chat_template(
                 [{"role": "user", "content": prompt}], tokenize=False, add_generation_prompt=True)
             inputs = tokenizer(rendered, return_tensors="pt").to("cuda")
-            torch.manual_seed(SEED + row * 10 + generation)
+            metadata = generation_metadata(row, arm, generation)
+            torch.manual_seed(metadata["generation_seed"])
             kwargs = dict(max_new_tokens=MAX_NEW_TOKENS, do_sample=False,
                           pad_token_id=tokenizer.eos_token_id)
             if arm == "grammar_enforced":
-                kwargs["logits_processor"] = [grammar_processor]
-            generated = model.generate(**inputs, **kwargs)
+                # A new processor per candidate prevents cross-candidate
+                # matcher state from contaminating the paired measurement.
+                kwargs["logits_processor"] = [build_processor(xgrammar, tokenizer, model, grammar)]
+            with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
+                generated = model.generate(**inputs, **kwargs)
             new_ids = generated[0][inputs.input_ids.shape[1]:]
             text = tokenizer.decode(new_ids, skip_special_tokens=True)
-            record = dict(row=row, arm=arm, generation=generation,
-                          base_prompt_sha256=sha(prompt), raw_reply=text,
+            record = dict(**metadata, base_prompt_sha256=sha(prompt), raw_reply=text,
                           raw_reply_sha256=sha(text), output_token_count=len(new_ids),
-                          grammar_enforced=(arm == "grammar_enforced"),
-                          generation_seed=SEED + row * 10 + generation)
+                          grammar_enforced=(arm == "grammar_enforced"))
             records.append(record)
             (args.output / f"row-{row}-{arm}-{generation}.json").write_text(
                 json.dumps(record, indent=2) + "\n")
     receipt = dict(kind="protected_checkpoint_paired_generation_v1", complete=True,
                    contract=dict(rows=list(ROWS), arms=list(ARMS),
                                  generations_per_row=GENERATIONS_PER_ROW,
-                                 max_new_tokens=MAX_NEW_TOKENS, seed=SEED),
+                                 max_new_tokens=MAX_NEW_TOKENS, seed=SEED,
+                                 sampling_mode="greedy deterministic repeats",
+                                 independent_samples=False),
                    packet_sha256=preflight.PACKET_SHA,
                    checkpoint_sha256=preflight.file_sha(args.checkpoint),
                    model_files=files, restored_parameter_count=len(selected),

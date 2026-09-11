@@ -1,0 +1,14 @@
+{
+  "observed_utc": "2026-09-11T18:51:00Z",
+  "environment": "Polaris login CPU process using the isolated xgrammar 0.2.2 target and frozen Llama tokenizer/config",
+  "verified_calls": [
+    "xgrammar.TokenizerInfo.from_huggingface",
+    "xgrammar.GrammarCompiler(...).compile_grammar",
+    "xgrammar.contrib.hf.LogitsProcessor(compiled_grammar)"
+  ],
+  "processor_constructed": true,
+  "cuda_touched": false,
+  "trailing_probe_error": "xgrammar module has no __version__ attribute",
+  "production_impact": "none; production obtains xgrammar version with importlib.metadata through protected_checkpoint_preflight.load_xgrammar",
+  "gate_claim": false
+}

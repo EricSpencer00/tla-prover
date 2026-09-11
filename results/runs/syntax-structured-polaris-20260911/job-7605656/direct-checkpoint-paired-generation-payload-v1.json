@@ -1,7 +1,7 @@
 {
   "kind": "direct_checkpoint_paired_generation_preparation_v1",
   "runner": "tools/protected_checkpoint_paired_generation.py",
-  "runner_sha256": "f62d41c4a92713b41812760d5dc667ea390cff5e781152a07174aa439dcb15c3",
+  "runner_sha256": "1283faab8310edbb1ebf0d6683d654177d4c7e35768f3b9a69f2e00e91d7d509",
   "contract": {
     "rows": [47, 107],
     "arms": ["existing_decoder", "grammar_enforced"],
@@ -9,7 +9,8 @@
     "max_new_tokens": 1024,
     "seed": 20261011
   },
-  "provenance": "loads the frozen model, validates frozen prompts, directly restores the checkpoint tensors, and applies XGrammar through the Hugging Face logits processor only in the grammar_enforced arm",
+  "provenance": "loads the frozen model, validates frozen prompts, directly restores the checkpoint tensors, applies bf16 CUDA autocast for generation, and applies a new XGrammar Hugging Face logits processor per grammar_enforced candidate",
+  "replicate_labeling": "temperature-zero greedy deterministic repeats; different seeds are provenance fields, not independent samples",
   "scope": "raw generation receipt only; SANY scoring and all acceptance gates remain separate",
   "remote_action_authorized": false,
   "gate_claim": false

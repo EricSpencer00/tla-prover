@@ -13,3 +13,11 @@ def test_generation_contract_is_bounded_and_provenanced():
     assert paired.MAX_NEW_TOKENS == 1024
     assert paired.SEED == 20261011
     assert paired.sha("frozen") == paired.sha(b"frozen")
+
+
+def test_repeats_are_labeled_deterministic_not_independent_samples():
+    metadata = paired.generation_metadata(47, "existing_decoder", 1)
+    assert metadata["sampling_mode"] == "greedy"
+    assert metadata["generation_role"] == "deterministic_replicate"
+    assert metadata["independent_sample"] is False
+    assert metadata["generation_seed"] == 20261482
