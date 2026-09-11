@@ -4,14 +4,14 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 170
-- Verified UTC: 2026-09-11T07:36:33Z
+- Revision: 171
+- Verified UTC: 2026-09-11T07:37:09Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: external_wait
 - Active job: none
-- Observation evidence: The repaired v2 upload was rejected by automatic review before execution because its payload and destination changed from v1. Preserve the exact rejection; no v2 upload, remote checksum, guard claim, qsub, model load, or acceptance result occurred.
+- Observation evidence: Automatic review rejected the changed v2 upload before execution. Sent one v2-specific Discord attention alert after preserving that rejection; delivery succeeded as message 1547873568686084147. No v2 upload, checksum, claim, or job exists.
 - Latest completed result: checkpoint-preflight-v2-upload-review-rejection records the pre-execution authorization rejection. The v2 launcher repair remains locally verified, but remote staging is blocked pending exact approval.
-- Local work: All authorized local v2 preparation is complete. The remaining necessary action is an externally rejected upload; no workaround or alternate submission path will be used.
+- Local work: The v2 launcher repair and payload are committed; required exact approval is now externally awaited. The v2 Discord delivery receipt is preserved and will not be duplicated for this unchanged action.
 - External blocker: Automatic review rejected upload of the changed v2 payload/destination before execution; exact user approval is required for that revised remote action.
 - Next action: Obtain exact approval for uploading checkpoint-preflight-payload-v2 to its recorded Polaris destination and submitting its one-GPU/15-minute preflight, then repeat the ownership check and normal staged submission flow.
 
@@ -128,14 +128,14 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 170,
-  "verified_utc": "2026-09-11T07:36:33Z",
+  "revision": 171,
+  "verified_utc": "2026-09-11T07:37:09Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "external_wait",
   "active_job": null,
-  "observation_evidence": "The repaired v2 upload was rejected by automatic review before execution because its payload and destination changed from v1. Preserve the exact rejection; no v2 upload, remote checksum, guard claim, qsub, model load, or acceptance result occurred.",
+  "observation_evidence": "Automatic review rejected the changed v2 upload before execution. Sent one v2-specific Discord attention alert after preserving that rejection; delivery succeeded as message 1547873568686084147. No v2 upload, checksum, claim, or job exists.",
   "last_result": "checkpoint-preflight-v2-upload-review-rejection records the pre-execution authorization rejection. The v2 launcher repair remains locally verified, but remote staging is blocked pending exact approval.",
-  "local_work": "All authorized local v2 preparation is complete. The remaining necessary action is an externally rejected upload; no workaround or alternate submission path will be used.",
+  "local_work": "The v2 launcher repair and payload are committed; required exact approval is now externally awaited. The v2 Discord delivery receipt is preserved and will not be duplicated for this unchanged action.",
   "external_blocker": "Automatic review rejected upload of the changed v2 payload/destination before execution; exact user approval is required for that revised remote action.",
   "next_action": "Obtain exact approval for uploading checkpoint-preflight-payload-v2 to its recorded Polaris destination and submitting its one-GPU/15-minute preflight, then repeat the ownership check and normal staged submission flow.",
   "tasks": [
@@ -362,7 +362,8 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "results/prover-submit-claims/b19f7d52e2fde8aaa4889a4f3aeb613c771435744857ba05df9701e9330a5375.json",
     "results/runs/syntax-structured-polaris-20260911/job-7605656/checkpoint-preflight-job-7606064-terminal.json",
     "results/runs/syntax-structured-polaris-20260911/job-7605656/checkpoint-preflight-payload-v2.json",
-    "results/runs/syntax-structured-polaris-20260911/job-7605656/checkpoint-preflight-v2-upload-review-rejection.json"
+    "results/runs/syntax-structured-polaris-20260911/job-7605656/checkpoint-preflight-v2-upload-review-rejection.json",
+    "results/runs/syntax-structured-polaris-20260911/job-7605656/checkpoint-preflight-v2-permission-discord-delivery.json"
   ]
 }
 -->
