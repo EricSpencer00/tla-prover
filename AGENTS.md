@@ -24,3 +24,11 @@
 - Keep secrets, model checkpoints, locks, temporary drafts and bulky generated outputs out of commits. Preserve large artifacts at their recorded locations and commit small manifests or receipts when needed.
 - Record what changed and the verification in the commit message. A commit does not establish model improvement or gate completion; retain the actual measured result and unknowns.
 - Do not make empty, unchanged-poll or timestamp-only commits. Commit locally; push only when requested.
+
+## Stop unproductive loops
+
+- Follow docs/PROVER-GRAVEYARD.md before choosing or retrying an intervention. A renamed run, new task or heartbeat does not reset the failure signature, attempt count or diagnosis time.
+- After two failed corrective attempts or 20 minutes of active diagnosis without new discriminating evidence, stop retrying that approach. Record what was learned, compare materially different explanations, and escalate a bounded diagnosis or switch to a useful independent branch. This is a review trigger, not a deadline for the goal or permission to abandon it.
+- Retire unsupported branches with evidence and a specific reopening condition. Do not retry a retired branch without recording the new evidence satisfying that condition on the board.
+- Every completed experiment must change a decision: continue for a stated measured reason, retire, or mark inconclusive and name the missing discriminator. More steps, tokens or compute alone are not a new hypothesis.
+- At each handoff, link the latest coherent commit and the actual evidence gain separately. If completed verified work remains uncommitted, checkpoint it before continuing; never manufacture commits to appear productive.

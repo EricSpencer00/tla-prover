@@ -71,6 +71,12 @@ unchanged passing tests, fixture edits or retries are not progress toward model
 quality. When scores flatten, failures repeat or fixes merely move the error,
 reopen materially different hypotheses and choose a discriminating check.
 
+Apply the diagnosis checkpoint and reopening rules in `PROVER-GRAVEYARD.md`.
+Track active diagnosis time and corrective attempts across heartbeats on the
+existing board. Two failed fixes or 20 minutes without discriminating evidence
+requires an explicit branch decision, not another unchanged retry. A commit,
+passing fixture, configuration repair or accepted job is not a capability gain.
+
 Required evidence: the observed failure, causal intervention and resulting decision.
 Only a verified external dependency justifies an external wait; a failed experiment
 does not block useful local work. Preserve one execution owner and reconcile live
