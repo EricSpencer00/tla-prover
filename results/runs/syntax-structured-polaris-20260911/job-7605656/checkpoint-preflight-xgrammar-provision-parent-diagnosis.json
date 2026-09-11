@@ -1,0 +1,10 @@
+{
+  "observed_utc": "2026-09-11T18:00:39Z",
+  "observed_failure": "mktemp could not create the staging directory because /grand/EVITA/eric-spencer/tla-checkpoint-preflight-deps did not exist",
+  "earliest_boundary": "isolated target-parent creation before pip invocation",
+  "staged_file_hashes_verified": true,
+  "isolated_dependency_target_created": false,
+  "package_install_started": false,
+  "causal_repair": "create only the missing parent of the explicitly approved isolated dependency destination, then resume the unchanged approved setup script",
+  "gate_claim": false
+}
