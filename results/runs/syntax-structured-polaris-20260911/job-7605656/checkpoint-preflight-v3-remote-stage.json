@@ -1,0 +1,11 @@
+{
+  "observed_utc": "2026-09-11T18:26:28Z",
+  "stage": "/grand/EVITA/eric-spencer/tla-checkpoint-preflight-20260911-v3",
+  "files": {
+    "protected_checkpoint_preflight.py": "4c569421946fcd207028f16f12f90b24182817b7f89975c988277197195f15e8",
+    "protected_checkpoint_preflight_polaris_v3.pbs": "09bec5e28497c1cd8a5b06e169812c88cf26d1eb04ce09618643e8f46d46aa84"
+  },
+  "remote_sha256sum_check": "passed",
+  "isolated_xgrammar_target": "/grand/EVITA/eric-spencer/tla-checkpoint-preflight-deps/xgrammar-0.2.2-cp312",
+  "gate_claim": false
+}
