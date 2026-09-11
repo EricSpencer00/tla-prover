@@ -1,0 +1,14 @@
+{
+  "candidate": {
+    "op": "replace",
+    "anchor": "Leave == active > 0 /\\ active' = active - 1 /\\ UNCHANGED snap",
+    "replacement": "Leave == active > 0 /\\ active' = active - 1"
+  },
+  "candidate_sha256": "6fb36e04bd240193e25402a7878ad98f253cde1c6c1cc8895458459d8ef5f204",
+  "assembled_sha256": "71d55595d62d03023e77ee29202d0b925f22b6dc6c7332d88afae1206f70de1b",
+  "sany": {
+    "status": "pass",
+    "passed": true,
+    "returncode": 0
+  }
+}

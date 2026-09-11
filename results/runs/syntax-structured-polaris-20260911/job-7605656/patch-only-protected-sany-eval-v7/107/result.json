@@ -1,0 +1,14 @@
+{
+  "candidate": {
+    "op": "replace",
+    "anchor": "TypeOK ==",
+    "replacement": "TypeOK ==\\n    /\\ lock \\in Banks \\cup {NONE}"
+  },
+  "candidate_sha256": "e6052592235f3bda0dc6474b9445cf0f3dfe05a2aadc8bf86867d9c6de64cf96",
+  "assembled_sha256": "a7f999ab9d6878ff33c88bcc8b27616912e6add41c36741ac21b031c4469dd90",
+  "sany": {
+    "status": "model_reject",
+    "passed": false,
+    "returncode": 255
+  }
+}

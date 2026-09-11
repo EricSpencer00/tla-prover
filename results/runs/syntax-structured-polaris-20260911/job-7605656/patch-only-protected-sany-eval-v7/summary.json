@@ -1,0 +1,48 @@
+{
+  "run_id": "patch-only-protected-sany-eval-v7",
+  "bounded_seconds": 30,
+  "jar": "/Users/eric/GitHub/prove-TLA/tools/tla2tools.jar",
+  "java": "java",
+  "rows": {
+    "47": {
+      "row": 47,
+      "candidate_raw": "{\"op\": \"replace\", \"anchor\": \"Leave == active > 0 /\\\\ active' = active - 1 /\\\\ UNCHANGED snap\", \"replacement\": \"Leave == active > 0 /\\\\ active' = active - 1\"}",
+      "source_file": "/private/tmp/tla-protected-diagnostic/47-reference.tla",
+      "parser": "pass",
+      "candidate_sha256": "6fb36e04bd240193e25402a7878ad98f253cde1c6c1cc8895458459d8ef5f204",
+      "source_sha256": "36c548d2a475c0d086ddf0340f927b36002699ce86e955d702e061324ad2f07c",
+      "assembled_sha256": "71d55595d62d03023e77ee29202d0b925f22b6dc6c7332d88afae1206f70de1b",
+      "sany": {
+        "status": "pass",
+        "passed": true,
+        "returncode": 0
+      },
+      "sany_output_file": "results/runs/syntax-structured-polaris-20260911/job-7605656/patch-only-protected-sany-eval-v7/47/sany.log"
+    },
+    "107": {
+      "row": 107,
+      "candidate_raw": "{\"op\": \"replace\", \"anchor\": \"TypeOK ==\", \"replacement\": \"TypeOK ==\\\\n    /\\\\ lock \\\\in Banks \\\\cup {NONE}\"}",
+      "source_file": "/private/tmp/tla-protected-diagnostic/107-reference.tla",
+      "parser": "pass",
+      "candidate_sha256": "e6052592235f3bda0dc6474b9445cf0f3dfe05a2aadc8bf86867d9c6de64cf96",
+      "source_sha256": "5f6b169dc010369d4e6f65b7766b7961e44a4df15790988c5763861a06e3e853",
+      "assembled_sha256": "a7f999ab9d6878ff33c88bcc8b27616912e6add41c36741ac21b031c4469dd90",
+      "sany": {
+        "status": "model_reject",
+        "passed": false,
+        "returncode": 255
+      },
+      "sany_output_file": "results/runs/syntax-structured-polaris-20260911/job-7605656/patch-only-protected-sany-eval-v7/107/sany.log"
+    }
+  },
+  "summary": {
+    "rows_count": 2,
+    "rows_with_parser_fail": 0,
+    "passed": [
+      "47"
+    ],
+    "rejected": [
+      "107"
+    ]
+  }
+}
