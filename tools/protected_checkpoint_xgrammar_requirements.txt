@@ -1,0 +1,3 @@
+# Isolated Polaris CPU preflight closure. Do not install into ChatTLA/.venv.
+apache-tvm-ffi @ https://files.pythonhosted.org/packages/50/6f/23740f06829030704e6f8f1f7093a06b7a68f904baa40053a5f594705bae/apache_tvm_ffi-0.1.10-cp312-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl --hash=sha256:73d478395a8625dd92fde7b7fd92b4719f18f480b78336e422cb66cc7985213d
+xgrammar @ https://files.pythonhosted.org/packages/b1/40/eb28b7343b019350a83cde47fe876a79f3ee19e412c1af451200b6351fe8/xgrammar-0.2.2-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl --hash=sha256:d3f0195ffc978bc2b44e4d5b682ff3a5ee86c378e8934b0f8582ddd0b00c24f0

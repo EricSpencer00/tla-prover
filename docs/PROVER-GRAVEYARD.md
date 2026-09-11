@@ -77,6 +77,13 @@ An inconclusive measurement requires fixing the measurement before interpreting 
 - Reopen only after stage resolution is explicit and checked in the staged launch
   path. No model conclusion follows from this launcher failure.
 
+### Polaris grammar dependency absent from the approved runtime
+
+- Evidence: `results/runs/syntax-structured-polaris-20260911/job-7605656/checkpoint-preflight-job-7607519-terminal.json` and `checkpoint-preflight-xgrammar-inventory.json`.
+- Lesson: package absence is an environment-closure defect, not proof that provisioning is unavailable. The v2 job loaded base weights and restored the checkpoint before the xgrammar import failed.
+- Retired: unchanged v2 preflight submission and treating the missing import as an external wait without attempting an isolated closure.
+- Reopen only with a hash-pinned isolated CPython 3.12 x86_64 dependency closure that passes CPU-only import and grammar parsing before any GPU allocation. A failure during provision must retain its exact package, resolver, and platform evidence.
+
 ## Adding or reopening an entry
 
 Record: signature, attempted intervention, immutable evidence path, observed result,

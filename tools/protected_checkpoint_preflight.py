@@ -7,8 +7,12 @@ any generation arm may be run.  It never changes a checkpoint or claims a gate.
 """
 import argparse
 import hashlib
+import importlib
+import importlib.metadata
 import json
 from pathlib import Path
+import site
+import sys
 
 
 PACKET_SHA = "a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c"
@@ -80,14 +84,50 @@ def restore_exact(selected, saved):
         raise ValueError("checkpoint tensor restore was not exact")
 
 
+def load_xgrammar(site_path, grammar_path):
+    """Load and exercise the isolated grammar dependency before CUDA/model work."""
+    if site_path is not None:
+        if not site_path.is_dir():
+            raise ValueError(f"xgrammar site path is not a directory: {site_path}")
+        site.addsitedir(str(site_path))
+    try:
+        xgrammar = importlib.import_module("xgrammar")
+    except ModuleNotFoundError as error:
+        raise ValueError("xgrammar is unavailable before model loading") from error
+    try:
+        compiled = xgrammar.Grammar.from_ebnf(grammar_path.read_text())
+    except Exception as error:
+        raise ValueError("xgrammar grammar compilation failed before model loading") from error
+    if compiled is None:
+        raise ValueError("xgrammar grammar compilation returned no grammar")
+    try:
+        version = importlib.metadata.version("xgrammar")
+    except importlib.metadata.PackageNotFoundError:
+        version = getattr(xgrammar, "__version__", "unknown")
+    return xgrammar, version
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--packet", type=Path, required=True)
-    parser.add_argument("--model", type=Path, required=True)
-    parser.add_argument("--checkpoint", type=Path, required=True)
+    parser.add_argument("--packet", type=Path)
+    parser.add_argument("--model", type=Path)
+    parser.add_argument("--checkpoint", type=Path)
     parser.add_argument("--grammar", type=Path, required=True)
-    parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--xgrammar-site", type=Path)
+    parser.add_argument("--output", type=Path)
+    parser.add_argument("--dependency-only", action="store_true",
+                        help="compile grammar without importing torch or allocating CUDA")
     args = parser.parse_args()
+    _, xgrammar_version = load_xgrammar(args.xgrammar_site, args.grammar)
+    if args.dependency_only:
+        print(json.dumps(dict(kind="xgrammar_dependency_preflight_v1",
+                              grammar_sha256=file_sha(args.grammar),
+                              xgrammar_version=xgrammar_version,
+                              xgrammar_site=None if args.xgrammar_site is None else str(args.xgrammar_site),
+                              cuda_touched=False, gate_claim=False), sort_keys=True))
+        return
+    if None in (args.packet, args.model, args.checkpoint, args.output):
+        raise ValueError("packet, model, checkpoint, and output are required unless dependency-only")
     if args.output.exists():
         raise ValueError("append-only output already exists")
     if file_sha(args.packet) != PACKET_SHA:
@@ -113,17 +153,15 @@ def main():
     selected = {name: parameter for name, parameter in net.named_parameters()
                 if id(parameter) in trainable_ids}
     restore_exact(selected, saved)
-    grammar = args.grammar.read_text()
-    import xgrammar
-    if xgrammar.Grammar.from_ebnf(grammar) is None:
-        raise ValueError("grammar compilation failed")
     args.output.mkdir(parents=True)
     receipt = dict(kind="protected_checkpoint_preflight_v1", complete=True,
                    packet_sha256=PACKET_SHA, checkpoint_sha256=file_sha(args.checkpoint),
                    model_files=files, restored_parameter_count=len(selected),
                    restored_tensors_exact=True, protected_prompt_tokens=prompt_evidence,
-                   grammar_sha256=hashlib.sha256(grammar.encode()).hexdigest(),
+                   grammar_sha256=file_sha(args.grammar),
                    grammar_compiled=True, producer="preflight_only", gate_claim=False)
+    receipt["xgrammar_version"] = xgrammar_version
+    receipt["xgrammar_site"] = None if args.xgrammar_site is None else str(args.xgrammar_site)
     (args.output / "receipt.json").write_text(json.dumps(receipt, indent=2) + "\n")
     print(json.dumps(receipt, sort_keys=True))
 

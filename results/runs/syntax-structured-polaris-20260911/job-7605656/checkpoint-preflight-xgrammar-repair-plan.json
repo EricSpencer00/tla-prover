@@ -1,0 +1,39 @@
+{
+  "observed_utc": "2026-09-11T16:42:06Z",
+  "kind": "polaris_xgrammar_dependency_closure_plan_v1",
+  "platform": {
+    "python": "CPython 3.12.11",
+    "soabi": "cpython-312-x86_64-linux-gnu",
+    "system": "Linux glibc 2.38 x86_64"
+  },
+  "shared_runtime_preserved": "/home/eric-spencer/ChatTLA/.venv",
+  "existing_dependencies": {
+    "torch": "2.11.0+cu128",
+    "transformers": "5.6.2",
+    "pydantic": "2.13.4",
+    "numpy": "2.4.4",
+    "triton": "3.6.0"
+  },
+  "isolated_closure": [
+    {
+      "package": "apache-tvm-ffi",
+      "version": "0.1.10",
+      "wheel": "apache_tvm_ffi-0.1.10-cp312-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "sha256": "73d478395a8625dd92fde7b7fd92b4719f18f480b78336e422cb66cc7985213d"
+    },
+    {
+      "package": "xgrammar",
+      "version": "0.2.2",
+      "wheel": "xgrammar-0.2.2-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "sha256": "d3f0195ffc978bc2b44e4d5b682ff3a5ee86c378e8934b0f8582ddd0b00c24f0"
+    }
+  ],
+  "verification_order": [
+    "install only into a new user-owned staging directory with --no-deps --require-hashes",
+    "run protected_checkpoint_preflight.py --dependency-only against the frozen grammar",
+    "atomically retain the tested closure under its immutable target path",
+    "only then prepare a new reviewed GPU payload"
+  ],
+  "remote_change_attempted": false,
+  "gate_claim": false
+}
