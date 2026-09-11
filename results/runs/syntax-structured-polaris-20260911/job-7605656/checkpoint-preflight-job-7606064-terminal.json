@@ -1,0 +1,16 @@
+{
+  "job_id": "7606064.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "observed_utc": "2026-09-11T07:23:58Z",
+  "state": "F",
+  "exit_status": 1,
+  "allocation": {
+    "node": "x3011c0s7b1n0",
+    "ngpus": 1,
+    "walltime": "00:15:00"
+  },
+  "failure": "PBS did not propagate TLA_CHECKPOINT_PREFLIGHT_STAGE; shell exited at required variable guard before runner execution",
+  "runner_started": false,
+  "checkpoint_loaded": false,
+  "grammar_compiled": false,
+  "gate_claim": false
+}

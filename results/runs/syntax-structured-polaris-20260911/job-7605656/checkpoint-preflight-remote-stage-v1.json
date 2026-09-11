@@ -1,0 +1,11 @@
+{
+  "observed_utc": "2026-09-11T07:22:40Z",
+  "destination": "polaris:/grand/EVITA/eric-spencer/tla-checkpoint-preflight-20260911-v1",
+  "files": [
+    "protected_checkpoint_preflight.py",
+    "protected_checkpoint_preflight_polaris.pbs",
+    "SHA256SUMS"
+  ],
+  "remote_sha256sum_check": "pass",
+  "gate_claim": false
+}

@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 164
-- Verified UTC: 2026-09-11T07:21:54Z
+- Revision: 167
+- Verified UTC: 2026-09-11T07:23:58Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: local_work
 - Active job: none
-- Observation evidence: Trusted user authorization now covers checkpoint-preflight-payload-v1. Immediately before submission, escalated Polaris qstat returned no owned jobs. The exact local two-file stage still matches its recorded source hashes and SHA256SUMS; no remote upload or qsub has occurred yet.
-- Latest completed result: Polaris ownership is freshly verified empty for this observation. The authorized payload remains one debug Polaris node/GPU for 15 minutes, with no generation, training, checkpoint mutation, or promotion.
-- Local work: Ready to execute the exact authorized preflight payload through normal review: upload the verified two-file stage, validate remote checksums, claim the stable identity, and submit one job.
+- Observation evidence: Authorized Polaris preflight 7606064 was accepted, allocated one GPU node, and terminally failed with exit 1 before runner startup. Terminal stdout shows the PBS shell did not receive TLA_CHECKPOINT_PREFLIGHT_STAGE; no checkpoint load, tokenizer validation, grammar compilation, generation, or checker result occurred.
+- Latest completed result: Job 7606064 is an infrastructure/launcher configuration failure only. It cannot be used as model, checkpoint, grammar, SANY, or acceptance evidence.
+- Local work: Diagnosed the concrete PBS environment-propagation defect. Repair the launcher to derive its fixed verified stage path or supply the variable through qsub -v, then exercise the repaired exact stage before any retry.
 - External blocker: none verified
-- Next action: Upload checkpoint-preflight-payload-v1 to its recorded Polaris destination, verify remote SHA256SUMS, claim the submission identity, and submit its single bounded preflight; publish the resulting handle or any review rejection immediately.
+- Next action: Patch the preflight launcher to eliminate the non-propagated stage-variable dependency, test its exact staged invocation, prepare a new payload identity, and route its bounded retry through normal review.
 
 ## Objective and evidence rules
 
@@ -128,16 +128,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 164,
-  "verified_utc": "2026-09-11T07:21:54Z",
+  "revision": 167,
+  "verified_utc": "2026-09-11T07:23:58Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "local_work",
   "active_job": null,
-  "observation_evidence": "Trusted user authorization now covers checkpoint-preflight-payload-v1. Immediately before submission, escalated Polaris qstat returned no owned jobs. The exact local two-file stage still matches its recorded source hashes and SHA256SUMS; no remote upload or qsub has occurred yet.",
-  "last_result": "Polaris ownership is freshly verified empty for this observation. The authorized payload remains one debug Polaris node/GPU for 15 minutes, with no generation, training, checkpoint mutation, or promotion.",
-  "local_work": "Ready to execute the exact authorized preflight payload through normal review: upload the verified two-file stage, validate remote checksums, claim the stable identity, and submit one job.",
+  "observation_evidence": "Authorized Polaris preflight 7606064 was accepted, allocated one GPU node, and terminally failed with exit 1 before runner startup. Terminal stdout shows the PBS shell did not receive TLA_CHECKPOINT_PREFLIGHT_STAGE; no checkpoint load, tokenizer validation, grammar compilation, generation, or checker result occurred.",
+  "last_result": "Job 7606064 is an infrastructure/launcher configuration failure only. It cannot be used as model, checkpoint, grammar, SANY, or acceptance evidence.",
+  "local_work": "Diagnosed the concrete PBS environment-propagation defect. Repair the launcher to derive its fixed verified stage path or supply the variable through qsub -v, then exercise the repaired exact stage before any retry.",
   "external_blocker": null,
-  "next_action": "Upload checkpoint-preflight-payload-v1 to its recorded Polaris destination, verify remote SHA256SUMS, claim the submission identity, and submit its single bounded preflight; publish the resulting handle or any review rejection immediately.",
+  "next_action": "Patch the preflight launcher to eliminate the non-propagated stage-variable dependency, test its exact staged invocation, prepare a new payload identity, and route its bounded retry through normal review.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -357,7 +357,10 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "results/runs/syntax-structured-polaris-20260911/job-7605656/checkpoint-preflight-stage-adapter-smoke-v2/receipt.json",
     "tools/protected_checkpoint_preflight_polaris.pbs",
     "results/runs/syntax-structured-polaris-20260911/job-7605656/checkpoint-preflight-payload-v1.json",
-    "results/runs/syntax-structured-polaris-20260911/job-7605656/checkpoint-preflight-permission-discord-delivery.json"
+    "results/runs/syntax-structured-polaris-20260911/job-7605656/checkpoint-preflight-permission-discord-delivery.json",
+    "results/runs/syntax-structured-polaris-20260911/job-7605656/checkpoint-preflight-remote-stage-v1.json",
+    "results/prover-submit-claims/b19f7d52e2fde8aaa4889a4f3aeb613c771435744857ba05df9701e9330a5375.json",
+    "results/runs/syntax-structured-polaris-20260911/job-7605656/checkpoint-preflight-job-7606064-terminal.json"
   ]
 }
 -->
