@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 159
-- Verified UTC: 2026-09-11T07:05:34Z
+- Revision: 160
+- Verified UTC: 2026-09-11T07:13:09Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: local_work
 - Active job: none
-- Observation evidence: Applied the committed quality pillars to the patch-runner staging evidence. The prior v1 import-only smoke is insufficient for remote readiness and remains limited to import evidence. Replacement v2 staged the prompt, assembler, preference helper, and pinned SANY jar; it executed an anchored row-107 assembly and actual SANY pass. Its producer is explicitly hand_authored_assembly_control, not model inference. The legacy endpoint path remains excluded from checkpoint-faithful evaluation.
-- Latest completed result: patch-prompt-stage-substantive-smoke-v2 passed the staged direct-import, anchored-assembly, and actual SANY checker path with all stage hashes recorded. This is a hand-authored control only; the frozen full denominator, paired non-regression, model/checkpoint provenance, TLC, non-vacuity, and TLAPS gates remain unverified.
-- Local work: Quality correction: import-only v1 is no longer treated as a substantive stage check. v2 replaces it for the narrow patch path and preserves producer provenance. No candidate is promoted; the last verified model baseline remains parent/child protected SANY 0/2 from the direct structured training run.
+- Observation evidence: Implemented the direct checkpoint preflight contract and exercised its core behavior from an isolated staged copy. The first synthetic adapter control (v1) failed before runner execution because its inline harness had invalid Python syntax; its receipt is retained. Corrected v2 executed frozen protected-row selection, prompt-token equality, and exact tensor restoration successfully. It is synthetic-adapter evidence only; no 8B model, real checkpoint, grammar, remote stage, or generation was run.
+- Latest completed result: protected_checkpoint_preflight.py now requires the frozen packet hash, protected prompt-token identity, matching model-file/dtype configuration, exact trainable-tensor restoration, and grammar compilation before it writes a preflight receipt. Focused tests pass 3/3; staged adapter smoke v2 passed after preserving v1 harness failure.
+- Local work: Added a direct checkpoint preflight runner with explicit provenance boundaries. It advances staging readiness but is unpromoted until the real same-node model/checkpoint/grammar preflight and complete paired evaluation run under the frozen denominator.
 - External blocker: none verified
-- Next action: Implement and unit-test the direct checkpoint-paired preflight contract: frozen packet/tokenizer validation plus explicit trainable-tensor restore and parameter-equality evidence before generation. Any later two-arm comparison must retain the full paired 2-row denominator, controls, and model provenance.
+- Next action: Prepare an exact Polaris same-node preflight payload for protected_checkpoint_preflight.py using the recorded child checkpoint and frozen stage assets; include only its bounded resource request and output receipt, then request review before any upload/submission.
 
 ## Objective and evidence rules
 
@@ -128,16 +128,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 159,
-  "verified_utc": "2026-09-11T07:05:34Z",
+  "revision": 160,
+  "verified_utc": "2026-09-11T07:13:09Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "local_work",
   "active_job": null,
-  "observation_evidence": "Applied the committed quality pillars to the patch-runner staging evidence. The prior v1 import-only smoke is insufficient for remote readiness and remains limited to import evidence. Replacement v2 staged the prompt, assembler, preference helper, and pinned SANY jar; it executed an anchored row-107 assembly and actual SANY pass. Its producer is explicitly hand_authored_assembly_control, not model inference. The legacy endpoint path remains excluded from checkpoint-faithful evaluation.",
-  "last_result": "patch-prompt-stage-substantive-smoke-v2 passed the staged direct-import, anchored-assembly, and actual SANY checker path with all stage hashes recorded. This is a hand-authored control only; the frozen full denominator, paired non-regression, model/checkpoint provenance, TLC, non-vacuity, and TLAPS gates remain unverified.",
-  "local_work": "Quality correction: import-only v1 is no longer treated as a substantive stage check. v2 replaces it for the narrow patch path and preserves producer provenance. No candidate is promoted; the last verified model baseline remains parent/child protected SANY 0/2 from the direct structured training run.",
+  "observation_evidence": "Implemented the direct checkpoint preflight contract and exercised its core behavior from an isolated staged copy. The first synthetic adapter control (v1) failed before runner execution because its inline harness had invalid Python syntax; its receipt is retained. Corrected v2 executed frozen protected-row selection, prompt-token equality, and exact tensor restoration successfully. It is synthetic-adapter evidence only; no 8B model, real checkpoint, grammar, remote stage, or generation was run.",
+  "last_result": "protected_checkpoint_preflight.py now requires the frozen packet hash, protected prompt-token identity, matching model-file/dtype configuration, exact trainable-tensor restoration, and grammar compilation before it writes a preflight receipt. Focused tests pass 3/3; staged adapter smoke v2 passed after preserving v1 harness failure.",
+  "local_work": "Added a direct checkpoint preflight runner with explicit provenance boundaries. It advances staging readiness but is unpromoted until the real same-node model/checkpoint/grammar preflight and complete paired evaluation run under the frozen denominator.",
   "external_blocker": null,
-  "next_action": "Implement and unit-test the direct checkpoint-paired preflight contract: frozen packet/tokenizer validation plus explicit trainable-tensor restore and parameter-equality evidence before generation. Any later two-arm comparison must retain the full paired 2-row denominator, controls, and model provenance.",
+  "next_action": "Prepare an exact Polaris same-node preflight payload for protected_checkpoint_preflight.py using the recorded child checkpoint and frozen stage assets; include only its bounded resource request and output receipt, then request review before any upload/submission.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -350,7 +350,11 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "results/runs/syntax-structured-polaris-20260911/job-7605656/patch-only-protected-sany-eval-v8/summary.json",
     "results/runs/syntax-structured-polaris-20260911/job-7605656/patch-prompt-stage-smoke-v1/receipt.json",
     "results/runs/syntax-structured-polaris-20260911/job-7605656/checkpoint-paired-config-audit-v1.json",
-    "results/runs/syntax-structured-polaris-20260911/job-7605656/patch-prompt-stage-substantive-smoke-v2/receipt.json"
+    "results/runs/syntax-structured-polaris-20260911/job-7605656/patch-prompt-stage-substantive-smoke-v2/receipt.json",
+    "tools/protected_checkpoint_preflight.py",
+    "harness/test_protected_checkpoint_preflight.py",
+    "results/runs/syntax-structured-polaris-20260911/job-7605656/checkpoint-preflight-stage-adapter-smoke-v1/receipt.json",
+    "results/runs/syntax-structured-polaris-20260911/job-7605656/checkpoint-preflight-stage-adapter-smoke-v2/receipt.json"
   ]
 }
 -->

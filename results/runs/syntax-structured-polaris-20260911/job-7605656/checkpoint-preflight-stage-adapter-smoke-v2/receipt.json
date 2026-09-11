@@ -1,0 +1,11 @@
+{
+  "kind": "checkpoint_preflight_staged_adapter_smoke_v2",
+  "producer": "synthetic_adapter_control",
+  "prior_control_receipt": "results/runs/syntax-structured-polaris-20260911/job-7605656/checkpoint-preflight-stage-adapter-smoke-v1/receipt.json",
+  "runner_sha256": "dc75ef2e911fe6b7791d1e30d21a4775945b61f263303a44d106a5037e9be4cf",
+  "returncode": 0,
+  "stdout": "{'prompts': {'47': {'prompt_sha256': '1d9787fe4a164b35ebd8c6d79d2c79adcb574e549219bf95bc44437f4c7f0940', 'prompt_tokens': 9}, '107': {'prompt_sha256': '93edb802691b859787c9340121eb14d67554818cfaead65d8acd1127c77be00e', 'prompt_tokens': 10}}, 'restore': True}\n",
+  "stderr": "",
+  "passed": true,
+  "scope": "exact staged runner executes frozen-row selection, prompt-token equality and tensor restore using synthetic adapters; it does not load the 8B model, checkpoint, grammar, or remote stage"
+}

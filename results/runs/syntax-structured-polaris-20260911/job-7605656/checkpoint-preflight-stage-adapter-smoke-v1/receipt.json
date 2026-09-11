@@ -1,0 +1,10 @@
+{
+  "kind": "checkpoint_preflight_staged_adapter_smoke_v1",
+  "producer": "synthetic_adapter_control",
+  "runner_sha256": "dc75ef2e911fe6b7791d1e30d21a4775945b61f263303a44d106a5037e9be4cf",
+  "returncode": 1,
+  "stdout": "",
+  "stderr": "  File \"<string>\", line 1\n    import importlib.util,torch; p=\"protected_checkpoint_preflight.py\"; s=importlib.util.spec_from_file_location(\"preflight\",p); m=importlib.util.module_from_spec(s); s.loader.exec_module(m); class T:\n                                                                                                                                                                                                ^^^^^\nSyntaxError: invalid syntax\n",
+  "passed": false,
+  "scope": "exact staged runner executes frozen-row selection, prompt-token equality and tensor restore using synthetic adapters; it does not load the 8B model, checkpoint, grammar, or remote stage"
+}

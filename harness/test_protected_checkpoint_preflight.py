@@ -1,0 +1,42 @@
+import pytest
+
+from tools import protected_checkpoint_preflight as preflight
+
+
+class Tokenizer:
+    def apply_chat_template(self, messages, **kwargs):
+        return messages[0]["content"]
+
+    def encode(self, text, **kwargs):
+        return [ord(char) for char in text]
+
+
+def packet():
+    rows, encodings = [], []
+    for index in range(108):
+        ident = preflight.WANTED_IDS.get(index, f"other-{index}")
+        prompt = f"prompt-{index}"
+        rows.append({"id": ident, "prompt": prompt})
+        encodings.append({"input_ids": [ord(char) for char in prompt], "prompt_tokens": len(prompt)})
+    return {"rows": rows, "encodings": encodings}
+
+
+def test_protected_rows_and_prompt_tokens_are_exact():
+    selected = preflight.protected_rows(packet())
+    assert set(selected) == {47, 107}
+    assert preflight.verify_prompt_tokens(Tokenizer(), selected)["47"]["prompt_tokens"] == 9
+
+
+def test_protected_rows_reject_missing_or_mismatched_prompt_tokens():
+    bad = packet()
+    bad["encodings"][47]["input_ids"] = [1]
+    with pytest.raises(ValueError, match="tokenizer/prompt mismatch"):
+        preflight.verify_prompt_tokens(Tokenizer(), preflight.protected_rows(bad))
+
+
+def test_restore_exact_reloads_tensor_state():
+    torch = pytest.importorskip("torch")
+    parameter = torch.nn.Parameter(torch.zeros(2))
+    saved = {"trainable_state": {"weight": torch.tensor([1.0, 2.0])}}
+    preflight.restore_exact({"weight": parameter}, saved)
+    assert torch.equal(parameter, saved["trainable_state"]["weight"])
