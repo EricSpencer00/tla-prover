@@ -1,0 +1,11 @@
+{
+  "observed_utc": "2026-09-11T17:12:18Z",
+  "action": "transfer protected_checkpoint_preflight.py, protected_checkpoint_xgrammar_requirements.txt, and protected_checkpoint_xgrammar_setup.sh to Polaris; install a hash-pinned isolated dependency closure and run a CPU-only grammar probe",
+  "destination": "/grand/EVITA/eric-spencer/tla-checkpoint-preflight-deps-v1 and /grand/EVITA/eric-spencer/tla-checkpoint-preflight-deps/xgrammar-0.2.2-cp312",
+  "resources": "no scheduler submission and no GPU allocation",
+  "review_result": "rejected before execution",
+  "reason": "generic approval did not specifically authorize this payload and remote destination; transfer and remote installation require explicit authorization",
+  "remote_change_attempted": false,
+  "reopening_condition": "explicit user authorization naming the three-file payload, both Polaris destinations, isolated install, and CPU-only grammar probe",
+  "gate_claim": false
+}
