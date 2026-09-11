@@ -1,0 +1,14 @@
+{
+  "observed_utc": "2026-09-11T20:01:50Z",
+  "authority": "Eric direct approval for upload of the changed bundle in this Codex conversation",
+  "stage": "/grand/EVITA/eric-spencer/tla-checkpoint-paired-generation-20260911-v3",
+  "files": {
+    "protected_checkpoint_paired_generation.py": "3883aa82bf78836bfb9a3a50f4ee1dbd46295e572361830db94f29ec626d2795",
+    "protected_checkpoint_preflight.py": "4c569421946fcd207028f16f12f90b24182817b7f89975c988277197195f15e8",
+    "protected_checkpoint_paired_generation_polaris.pbs": "99aa3c2729799effee1122070efe5b1b00aa1efc3c3b8f6e2f8b79de34d535fc"
+  },
+  "remote_sha256sum_check": "passed",
+  "quality_integrity": "frozen checkpoint, rows, prompts, ordinary-versus-grammar comparison, generation count, and token cap are unchanged; no reward metric or acceptance gate is modified",
+  "execution_authorized": false,
+  "gate_claim": false
+}
