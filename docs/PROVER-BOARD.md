@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 168
-- Verified UTC: 2026-09-11T07:30:02Z
+- Revision: 169
+- Verified UTC: 2026-09-11T07:35:59Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: local_work
 - Active job: none
-- Observation evidence: Repaired the exact terminal defect from 7606064: the launcher no longer requires a non-propagated PBS environment variable and instead binds its reviewed v2 stage path internally. Shell syntax passed and focused direct-preflight tests passed 3/3. No retry has been staged or submitted.
-- Latest completed result: The v2 launcher changes only stage-path binding, eliminating the pre-run environment failure. The prior job remains a preserved terminal infrastructure result; no checkpoint/model/grammar result exists yet.
-- Local work: Completed and tested the minimal PBS propagation repair. A new exact stage/payload identity is required because the launcher bytes and destination changed; this is a new bounded preflight configuration, not a repeat of 7606064.
+- Observation evidence: Fresh Polaris ownership check returned no owned jobs. Prepared checkpoint-preflight-payload-v2 from the launcher repair: the two stage files and SHA256SUMS pass local verification, the launcher binds the v2 stage path internally, and no remote upload/submission has occurred.
+- Latest completed result: Payload v2 is a distinct bounded retry after the 7606064 environment-propagation failure. Its source hashes, destination, resources, repair rationale, and non-model side effects are recorded; no acceptance claim exists.
+- Local work: The repaired v2 stage is locally verified and ready for its exact authorized remote upload/submission review. The earlier Discord alert is not duplicated because authority is already recorded for this bounded goal and this retry remains within it.
 - External blocker: none verified
-- Next action: Create a fresh v2 two-file stage and payload receipt with the repaired launcher, then route its exact one-GPU/15-minute Polaris retry through normal review before upload/submission.
+- Next action: Upload checkpoint-preflight-payload-v2 to its recorded new Polaris destination, validate remote SHA256SUMS, claim its new submission identity, and submit one bounded preflight; publish the handle or review rejection immediately.
 
 ## Objective and evidence rules
 
@@ -128,16 +128,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 168,
-  "verified_utc": "2026-09-11T07:30:02Z",
+  "revision": 169,
+  "verified_utc": "2026-09-11T07:35:59Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "local_work",
   "active_job": null,
-  "observation_evidence": "Repaired the exact terminal defect from 7606064: the launcher no longer requires a non-propagated PBS environment variable and instead binds its reviewed v2 stage path internally. Shell syntax passed and focused direct-preflight tests passed 3/3. No retry has been staged or submitted.",
-  "last_result": "The v2 launcher changes only stage-path binding, eliminating the pre-run environment failure. The prior job remains a preserved terminal infrastructure result; no checkpoint/model/grammar result exists yet.",
-  "local_work": "Completed and tested the minimal PBS propagation repair. A new exact stage/payload identity is required because the launcher bytes and destination changed; this is a new bounded preflight configuration, not a repeat of 7606064.",
+  "observation_evidence": "Fresh Polaris ownership check returned no owned jobs. Prepared checkpoint-preflight-payload-v2 from the launcher repair: the two stage files and SHA256SUMS pass local verification, the launcher binds the v2 stage path internally, and no remote upload/submission has occurred.",
+  "last_result": "Payload v2 is a distinct bounded retry after the 7606064 environment-propagation failure. Its source hashes, destination, resources, repair rationale, and non-model side effects are recorded; no acceptance claim exists.",
+  "local_work": "The repaired v2 stage is locally verified and ready for its exact authorized remote upload/submission review. The earlier Discord alert is not duplicated because authority is already recorded for this bounded goal and this retry remains within it.",
   "external_blocker": null,
-  "next_action": "Create a fresh v2 two-file stage and payload receipt with the repaired launcher, then route its exact one-GPU/15-minute Polaris retry through normal review before upload/submission.",
+  "next_action": "Upload checkpoint-preflight-payload-v2 to its recorded new Polaris destination, validate remote SHA256SUMS, claim its new submission identity, and submit one bounded preflight; publish the handle or review rejection immediately.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -360,7 +360,8 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "results/runs/syntax-structured-polaris-20260911/job-7605656/checkpoint-preflight-permission-discord-delivery.json",
     "results/runs/syntax-structured-polaris-20260911/job-7605656/checkpoint-preflight-remote-stage-v1.json",
     "results/prover-submit-claims/b19f7d52e2fde8aaa4889a4f3aeb613c771435744857ba05df9701e9330a5375.json",
-    "results/runs/syntax-structured-polaris-20260911/job-7605656/checkpoint-preflight-job-7606064-terminal.json"
+    "results/runs/syntax-structured-polaris-20260911/job-7605656/checkpoint-preflight-job-7606064-terminal.json",
+    "results/runs/syntax-structured-polaris-20260911/job-7605656/checkpoint-preflight-payload-v2.json"
   ]
 }
 -->
