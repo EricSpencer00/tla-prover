@@ -1,0 +1,14 @@
+{
+  "kind": "checkpoint_preflight_gpu_payload_v3",
+  "stage_destination": "/grand/EVITA/eric-spencer/tla-checkpoint-preflight-20260911-v3",
+  "files": {
+    "protected_checkpoint_preflight.py": "4c569421946fcd207028f16f12f90b24182817b7f89975c988277197195f15e8",
+    "protected_checkpoint_preflight_polaris_v3.pbs": "09bec5e28497c1cd8a5b06e169812c88cf26d1eb04ce09618643e8f46d46aa84"
+  },
+  "isolated_xgrammar_target": "/grand/EVITA/eric-spencer/tla-checkpoint-preflight-deps/xgrammar-0.2.2-cp312",
+  "resources": "one Polaris debug GPU node, 15 minutes, EVITA",
+  "preflight_guarantee": "xgrammar import and grammar compilation occur before torch import, model loading, or CUDA allocation",
+  "local_verification": "7 focused tests passed; one local torch-dependent test skipped in the base interpreter",
+  "gate_claim": false,
+  "remote_action_authorized": false
+}
