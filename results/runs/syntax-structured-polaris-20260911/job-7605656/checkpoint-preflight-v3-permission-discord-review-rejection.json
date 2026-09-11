@@ -1,0 +1,10 @@
+{
+  "observed_utc": "2026-09-11T18:05:57Z",
+  "action": "send one Discord approval request for the exact v3 Polaris checkpoint preflight payload and one-GPU 15-minute allocation",
+  "review_result": "rejected before delivery",
+  "reason": "recipient was not accepted for project paths, hashes, and task-link details without trusted authorization",
+  "delivery_attempted": false,
+  "remote_transfer_or_submission_attempted": false,
+  "reopening_condition": "trusted authorization for the exact recipient and notification contents, or direct user authorization in this conversation for the prepared v3 remote action",
+  "gate_claim": false
+}
