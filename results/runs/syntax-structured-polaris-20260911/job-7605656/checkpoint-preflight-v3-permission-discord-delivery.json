@@ -1,0 +1,12 @@
+{
+  "observed_utc": "2026-09-11T18:17:22Z",
+  "kind": "macclaw_discord_minimal_attention_alert",
+  "destination": "discord:1522350803216629851",
+  "mention": "<@1224477278273146903>",
+  "message_id": "1548034703464865836",
+  "content_scope": "TLA Prover needs your approval in the existing Codex conversation.",
+  "excluded_content": ["project paths", "hashes", "task links", "payload details", "secrets"],
+  "delivery_verified": true,
+  "approval_granted": false,
+  "gate_claim": false
+}

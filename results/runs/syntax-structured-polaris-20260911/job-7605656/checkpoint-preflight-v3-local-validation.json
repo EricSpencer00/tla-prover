@@ -1,0 +1,8 @@
+{
+  "observed_utc": "2026-09-11T18:17:22Z",
+  "launcher_change_scope": "only the PBS launcher was added; protected checkpoint restore code is unchanged",
+  "launcher_tests": "harness/test_protected_checkpoint_preflight.py plus harness/test_protected_checkpoint_preflight_polaris.py: 7 passed, 1 expected base-interpreter torch skip",
+  "torch_restore_evidence": "checkpoint-preflight-torch-restore-local.json: tools/smoke/e2e/.venv/bin/python ran the exact restore helper test with 1 passed, 5 deselected",
+  "conclusion": "v3 retains the previously verified local tensor-restore helper; no unrelated rerun was needed",
+  "gate_claim": false
+}
