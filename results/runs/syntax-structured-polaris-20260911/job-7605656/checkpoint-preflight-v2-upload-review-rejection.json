@@ -1,0 +1,8 @@
+{
+  "observed_utc": "2026-09-11T07:36:33Z",
+  "payload": "checkpoint-preflight-payload-v2",
+  "action": "upload repaired two-file stage to polaris:/grand/EVITA/eric-spencer/tla-checkpoint-preflight-20260911-v2",
+  "result": "rejected_before_execution",
+  "reason": "automatic review rejected changed v2 payload/destination as not specifically authorized; no upload, remote checksum, claim, or qsub occurred",
+  "gate_claim": false
+}

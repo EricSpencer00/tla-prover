@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 169
-- Verified UTC: 2026-09-11T07:35:59Z
+- Revision: 170
+- Verified UTC: 2026-09-11T07:36:33Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
-- Phase: local_work
+- Phase: external_wait
 - Active job: none
-- Observation evidence: Fresh Polaris ownership check returned no owned jobs. Prepared checkpoint-preflight-payload-v2 from the launcher repair: the two stage files and SHA256SUMS pass local verification, the launcher binds the v2 stage path internally, and no remote upload/submission has occurred.
-- Latest completed result: Payload v2 is a distinct bounded retry after the 7606064 environment-propagation failure. Its source hashes, destination, resources, repair rationale, and non-model side effects are recorded; no acceptance claim exists.
-- Local work: The repaired v2 stage is locally verified and ready for its exact authorized remote upload/submission review. The earlier Discord alert is not duplicated because authority is already recorded for this bounded goal and this retry remains within it.
-- External blocker: none verified
-- Next action: Upload checkpoint-preflight-payload-v2 to its recorded new Polaris destination, validate remote SHA256SUMS, claim its new submission identity, and submit one bounded preflight; publish the handle or review rejection immediately.
+- Observation evidence: The repaired v2 upload was rejected by automatic review before execution because its payload and destination changed from v1. Preserve the exact rejection; no v2 upload, remote checksum, guard claim, qsub, model load, or acceptance result occurred.
+- Latest completed result: checkpoint-preflight-v2-upload-review-rejection records the pre-execution authorization rejection. The v2 launcher repair remains locally verified, but remote staging is blocked pending exact approval.
+- Local work: All authorized local v2 preparation is complete. The remaining necessary action is an externally rejected upload; no workaround or alternate submission path will be used.
+- External blocker: Automatic review rejected upload of the changed v2 payload/destination before execution; exact user approval is required for that revised remote action.
+- Next action: Obtain exact approval for uploading checkpoint-preflight-payload-v2 to its recorded Polaris destination and submitting its one-GPU/15-minute preflight, then repeat the ownership check and normal staged submission flow.
 
 ## Objective and evidence rules
 
@@ -128,16 +128,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 169,
-  "verified_utc": "2026-09-11T07:35:59Z",
+  "revision": 170,
+  "verified_utc": "2026-09-11T07:36:33Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
-  "phase": "local_work",
+  "phase": "external_wait",
   "active_job": null,
-  "observation_evidence": "Fresh Polaris ownership check returned no owned jobs. Prepared checkpoint-preflight-payload-v2 from the launcher repair: the two stage files and SHA256SUMS pass local verification, the launcher binds the v2 stage path internally, and no remote upload/submission has occurred.",
-  "last_result": "Payload v2 is a distinct bounded retry after the 7606064 environment-propagation failure. Its source hashes, destination, resources, repair rationale, and non-model side effects are recorded; no acceptance claim exists.",
-  "local_work": "The repaired v2 stage is locally verified and ready for its exact authorized remote upload/submission review. The earlier Discord alert is not duplicated because authority is already recorded for this bounded goal and this retry remains within it.",
-  "external_blocker": null,
-  "next_action": "Upload checkpoint-preflight-payload-v2 to its recorded new Polaris destination, validate remote SHA256SUMS, claim its new submission identity, and submit one bounded preflight; publish the handle or review rejection immediately.",
+  "observation_evidence": "The repaired v2 upload was rejected by automatic review before execution because its payload and destination changed from v1. Preserve the exact rejection; no v2 upload, remote checksum, guard claim, qsub, model load, or acceptance result occurred.",
+  "last_result": "checkpoint-preflight-v2-upload-review-rejection records the pre-execution authorization rejection. The v2 launcher repair remains locally verified, but remote staging is blocked pending exact approval.",
+  "local_work": "All authorized local v2 preparation is complete. The remaining necessary action is an externally rejected upload; no workaround or alternate submission path will be used.",
+  "external_blocker": "Automatic review rejected upload of the changed v2 payload/destination before execution; exact user approval is required for that revised remote action.",
+  "next_action": "Obtain exact approval for uploading checkpoint-preflight-payload-v2 to its recorded Polaris destination and submitting its one-GPU/15-minute preflight, then repeat the ownership check and normal staged submission flow.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -361,7 +361,8 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "results/runs/syntax-structured-polaris-20260911/job-7605656/checkpoint-preflight-remote-stage-v1.json",
     "results/prover-submit-claims/b19f7d52e2fde8aaa4889a4f3aeb613c771435744857ba05df9701e9330a5375.json",
     "results/runs/syntax-structured-polaris-20260911/job-7605656/checkpoint-preflight-job-7606064-terminal.json",
-    "results/runs/syntax-structured-polaris-20260911/job-7605656/checkpoint-preflight-payload-v2.json"
+    "results/runs/syntax-structured-polaris-20260911/job-7605656/checkpoint-preflight-payload-v2.json",
+    "results/runs/syntax-structured-polaris-20260911/job-7605656/checkpoint-preflight-v2-upload-review-rejection.json"
   ]
 }
 -->
