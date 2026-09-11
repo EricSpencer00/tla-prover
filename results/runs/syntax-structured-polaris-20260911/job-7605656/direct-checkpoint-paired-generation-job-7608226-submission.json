@@ -1,0 +1,17 @@
+{
+  "observed_utc": "2026-09-11T19:16:20Z",
+  "job_id": "7608226.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "state": "R",
+  "owner": "eric-spencer@polaris-login-02.hsn.cm.polaris.alcf.anl.gov",
+  "queue": "debug",
+  "account": "EVITA",
+  "allocation": {
+    "node": "x3001c0s13b1n0",
+    "ngpus": 1,
+    "walltime": "00:15:00"
+  },
+  "submission_claim": "results/prover-submit-claims/9cf27a17af4cef75e04a579f87f461381b90c5fe43b79963ecd1777e59ca5ee0.json",
+  "payload": "direct-checkpoint-paired-generation-payload-v2.json",
+  "scope": "raw checkpoint-restored paired generation only",
+  "gate_claim": false
+}

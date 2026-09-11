@@ -1,0 +1,11 @@
+{
+  "observed_utc": "2026-09-11T19:16:20Z",
+  "stage": "/grand/EVITA/eric-spencer/tla-checkpoint-paired-generation-20260911-v1",
+  "files": {
+    "protected_checkpoint_paired_generation.py": "1283faab8310edbb1ebf0d6683d654177d4c7e35768f3b9a69f2e00e91d7d509",
+    "protected_checkpoint_preflight.py": "4c569421946fcd207028f16f12f90b24182817b7f89975c988277197195f15e8",
+    "protected_checkpoint_paired_generation_polaris.pbs": "cfe57a3a175fc53959ca1d2b12a16991658f9658f9d9b275a35bc55520b45aa3"
+  },
+  "remote_sha256sum_check": "passed before qsub",
+  "gate_claim": false
+}

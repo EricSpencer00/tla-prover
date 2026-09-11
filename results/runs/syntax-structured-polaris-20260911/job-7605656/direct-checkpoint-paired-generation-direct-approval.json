@@ -1,0 +1,14 @@
+{
+  "approved_utc": "2026-09-11T19:12:08Z",
+  "authority": "Eric direct approval in this interactive Codex conversation",
+  "stage_destination": "/grand/EVITA/eric-spencer/tla-checkpoint-paired-generation-20260911-v1",
+  "files": {
+    "protected_checkpoint_paired_generation.py": "1283faab8310edbb1ebf0d6683d654177d4c7e35768f3b9a69f2e00e91d7d509",
+    "protected_checkpoint_preflight.py": "4c569421946fcd207028f16f12f90b24182817b7f89975c988277197195f15e8",
+    "protected_checkpoint_paired_generation_polaris.pbs": "cfe57a3a175fc53959ca1d2b12a16991658f9658f9d9b275a35bc55520b45aa3"
+  },
+  "resources": "one EVITA Polaris debug GPU for at most 15 minutes",
+  "purpose": "raw checkpoint-restored paired generation over frozen rows 47 and 107, ordinary and grammar-constrained arms, two deterministic repeats, and 1024 output tokens",
+  "excluded_actions": ["training", "checkpoint mutation", "promotion", "acceptance-gate claims"],
+  "gate_claim": false
+}
