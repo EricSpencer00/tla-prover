@@ -1,0 +1,16 @@
+{
+  "kind": "direct_checkpoint_paired_generation_preparation_v1",
+  "runner": "tools/protected_checkpoint_paired_generation.py",
+  "runner_sha256": "f62d41c4a92713b41812760d5dc667ea390cff5e781152a07174aa439dcb15c3",
+  "contract": {
+    "rows": [47, 107],
+    "arms": ["existing_decoder", "grammar_enforced"],
+    "generations_per_row": 2,
+    "max_new_tokens": 1024,
+    "seed": 20261011
+  },
+  "provenance": "loads the frozen model, validates frozen prompts, directly restores the checkpoint tensors, and applies XGrammar through the Hugging Face logits processor only in the grammar_enforced arm",
+  "scope": "raw generation receipt only; SANY scoring and all acceptance gates remain separate",
+  "remote_action_authorized": false,
+  "gate_claim": false
+}
