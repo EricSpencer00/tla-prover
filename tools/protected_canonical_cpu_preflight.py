@@ -61,10 +61,12 @@ def check(args):
     site.addsitedir(str(args.xgrammar_site))
     import xgrammar as xgr
     from transformers import AutoTokenizer
+    print(json.dumps(dict(event='imports_complete', xgrammar_version=version('xgrammar'))), flush=True)
     if version('xgrammar') != '0.2.2':
         raise ValueError('Expected exact XGrammar0.2.2')
     grammar = xgr.Grammar.from_ebnf(args.grammar.read_text())
     compiled_chars = xgr.GrammarCompiler(xgr.TokenizerInfo([], vocab_size=0), max_threads=1).compile_grammar(grammar)
+    print(json.dumps(dict(event='character_grammar_compiled')), flush=True)
 
     def accepts(text):
         matcher = xgr.GrammarMatcher(compiled_chars)
@@ -75,11 +77,13 @@ def check(args):
     print(json.dumps(dict(event='coverage', accepted=sum(r['accepted'] for r in coverage),
                           rejected_failures=sum(not r['accepted'] for r in failures))), flush=True)
     tokenizer = AutoTokenizer.from_pretrained(args.model, local_files_only=True)
+    print(json.dumps(dict(event='tokenizer_loaded')), flush=True)
     vocab_size = json.loads((args.model / 'config.json').read_text())['vocab_size']
     info = xgr.TokenizerInfo.from_huggingface(tokenizer, vocab_size=vocab_size)
     started = time.monotonic()
     compiled = xgr.GrammarCompiler(info, max_threads=1).compile_grammar(grammar)
     compilation = time.monotonic() - started
+    print(json.dumps(dict(event='token_grammar_compiled', seconds=compilation)), flush=True)
     masks = []
     selected = sorted((r for r in refs if r['row'] is not None), key=lambda r: r['row'])
     if [r['row'] for r in selected] != [47, 107]:
@@ -131,4 +135,10 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except BaseException as exc:
+        # Preserve failures even if a dependency changes Python's stderr.
+        if not (isinstance(exc, SystemExit) and exc.code in (None, 0)):
+            print(json.dumps(dict(event='exception', type=type(exc).__name__, message=str(exc))), flush=True)
+        raise

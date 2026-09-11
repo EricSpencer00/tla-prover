@@ -1,0 +1,27 @@
+{
+  "observed_utc": "2026-09-11T23:12:57Z",
+  "first_stage_exit_code": 1,
+  "first_log": "{\"event\": \"import_start\"}\n",
+  "boundary_diagnostic": {
+    "exit_code": 0,
+    "imports": true,
+    "grammar_parse": true,
+    "zero_vocabulary_compilation": true,
+    "first_reference": true
+  },
+  "coverage_trace": {
+    "exit_code": 0,
+    "xgrammar": "0.2.2",
+    "accepted_completed": 84,
+    "rejected_incomplete_failures": 6
+  },
+  "cause": "Unexplained initial exit; direct boundaries and all coverage controls pass, so no dependency repair is claimed.",
+  "intervention": "Add phase/exception output and run a separate instrumented stage; preserve original script/log. Still requires actual mask performance before GPU.",
+  "source_sha256": "29a156db11268385731ba98b4a4e2472996aec52c7ce5eacbefce37b53c1a477",
+  "remote_stage": "/grand/EVITA/eric-spencer/tla-canonical-preflight-20260911-v2",
+  "side_effects": "Copy unchanged corpus and grammar from v1, upload instrumented script and checksum manifest, run CPU-only for180s maximum. No GPU/weights.",
+  "other_hashes": {
+    "corpus": "fb76468f6a3217a359d54da92a2e3fa25396aad0547e6b5eb35129193a0e812a",
+    "grammar": "1f4124cd20bdfdfd41ba406703bb2d123ebb26190fd3834cbb3df32dcb1cc000"
+  }
+}
