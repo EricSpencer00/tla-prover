@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 160
-- Verified UTC: 2026-09-11T07:13:09Z
+- Revision: 161
+- Verified UTC: 2026-09-11T07:19:24Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: local_work
 - Active job: none
-- Observation evidence: Implemented the direct checkpoint preflight contract and exercised its core behavior from an isolated staged copy. The first synthetic adapter control (v1) failed before runner execution because its inline harness had invalid Python syntax; its receipt is retained. Corrected v2 executed frozen protected-row selection, prompt-token equality, and exact tensor restoration successfully. It is synthetic-adapter evidence only; no 8B model, real checkpoint, grammar, remote stage, or generation was run.
-- Latest completed result: protected_checkpoint_preflight.py now requires the frozen packet hash, protected prompt-token identity, matching model-file/dtype configuration, exact trainable-tensor restoration, and grammar compilation before it writes a preflight receipt. Focused tests pass 3/3; staged adapter smoke v2 passed after preserving v1 harness failure.
-- Local work: Added a direct checkpoint preflight runner with explicit provenance boundaries. It advances staging readiness but is unpromoted until the real same-node model/checkpoint/grammar preflight and complete paired evaluation run under the frozen denominator.
+- Observation evidence: Prepared the exact bounded Polaris preflight launcher for the new direct checkpoint contract. It requests one debug Polaris node/GPU for 15 minutes, invokes only protected_checkpoint_preflight.py, pins the recorded 7605656 child checkpoint path, frozen packet/model/grammar paths, validates stage checksums, and writes an append-only receipt. Local shell syntax and focused contract tests pass; no stage upload or qsub occurred.
+- Latest completed result: protected_checkpoint_preflight_polaris.pbs is a reviewable preflight payload, not an authorized submission. It has no generation, parameter update, prompt suffix, or acceptance claim; it only prepares real same-node checkpoint/tokenizer/grammar validation.
+- Local work: Prepared a bounded, direct-checkpoint preflight payload after quality controls. The local payload validation passed; remote availability, staged dependency closure, real model/checkpoint restoration, and grammar compilation remain unverified until the approved same-node run.
 - External blocker: none verified
-- Next action: Prepare an exact Polaris same-node preflight payload for protected_checkpoint_preflight.py using the recorded child checkpoint and frozen stage assets; include only its bounded resource request and output receipt, then request review before any upload/submission.
+- Next action: Create a fresh local stage manifest containing only protected_checkpoint_preflight.py and its PBS launcher, exercise the staged CLI, then send the exact reviewable Polaris upload/submission request before any remote side effect.
 
 ## Objective and evidence rules
 
@@ -128,16 +128,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 160,
-  "verified_utc": "2026-09-11T07:13:09Z",
+  "revision": 161,
+  "verified_utc": "2026-09-11T07:19:24Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "local_work",
   "active_job": null,
-  "observation_evidence": "Implemented the direct checkpoint preflight contract and exercised its core behavior from an isolated staged copy. The first synthetic adapter control (v1) failed before runner execution because its inline harness had invalid Python syntax; its receipt is retained. Corrected v2 executed frozen protected-row selection, prompt-token equality, and exact tensor restoration successfully. It is synthetic-adapter evidence only; no 8B model, real checkpoint, grammar, remote stage, or generation was run.",
-  "last_result": "protected_checkpoint_preflight.py now requires the frozen packet hash, protected prompt-token identity, matching model-file/dtype configuration, exact trainable-tensor restoration, and grammar compilation before it writes a preflight receipt. Focused tests pass 3/3; staged adapter smoke v2 passed after preserving v1 harness failure.",
-  "local_work": "Added a direct checkpoint preflight runner with explicit provenance boundaries. It advances staging readiness but is unpromoted until the real same-node model/checkpoint/grammar preflight and complete paired evaluation run under the frozen denominator.",
+  "observation_evidence": "Prepared the exact bounded Polaris preflight launcher for the new direct checkpoint contract. It requests one debug Polaris node/GPU for 15 minutes, invokes only protected_checkpoint_preflight.py, pins the recorded 7605656 child checkpoint path, frozen packet/model/grammar paths, validates stage checksums, and writes an append-only receipt. Local shell syntax and focused contract tests pass; no stage upload or qsub occurred.",
+  "last_result": "protected_checkpoint_preflight_polaris.pbs is a reviewable preflight payload, not an authorized submission. It has no generation, parameter update, prompt suffix, or acceptance claim; it only prepares real same-node checkpoint/tokenizer/grammar validation.",
+  "local_work": "Prepared a bounded, direct-checkpoint preflight payload after quality controls. The local payload validation passed; remote availability, staged dependency closure, real model/checkpoint restoration, and grammar compilation remain unverified until the approved same-node run.",
   "external_blocker": null,
-  "next_action": "Prepare an exact Polaris same-node preflight payload for protected_checkpoint_preflight.py using the recorded child checkpoint and frozen stage assets; include only its bounded resource request and output receipt, then request review before any upload/submission.",
+  "next_action": "Create a fresh local stage manifest containing only protected_checkpoint_preflight.py and its PBS launcher, exercise the staged CLI, then send the exact reviewable Polaris upload/submission request before any remote side effect.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -354,7 +354,8 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "tools/protected_checkpoint_preflight.py",
     "harness/test_protected_checkpoint_preflight.py",
     "results/runs/syntax-structured-polaris-20260911/job-7605656/checkpoint-preflight-stage-adapter-smoke-v1/receipt.json",
-    "results/runs/syntax-structured-polaris-20260911/job-7605656/checkpoint-preflight-stage-adapter-smoke-v2/receipt.json"
+    "results/runs/syntax-structured-polaris-20260911/job-7605656/checkpoint-preflight-stage-adapter-smoke-v2/receipt.json",
+    "tools/protected_checkpoint_preflight_polaris.pbs"
   ]
 }
 -->
