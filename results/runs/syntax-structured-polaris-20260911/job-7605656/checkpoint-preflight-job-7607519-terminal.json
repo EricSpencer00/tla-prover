@@ -1,0 +1,25 @@
+{
+  "job_id": "7607519.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "observed_utc": "2026-09-11T16:40:44Z",
+  "state": "F",
+  "exit_status": 1,
+  "allocation": {
+    "node": "x3003c0s37b0n0",
+    "ngpus": 1,
+    "walltime_requested": "00:15:00",
+    "walltime_used": "00:01:24"
+  },
+  "stage_integrity": {
+    "protected_checkpoint_preflight.py": "OK",
+    "protected_checkpoint_preflight_polaris.pbs": "OK"
+  },
+  "observed_execution": {
+    "base_weights_loaded": true,
+    "checkpoint_restore_completed": true,
+    "grammar_compiled": false,
+    "earliest_failure": "ModuleNotFoundError: No module named 'xgrammar'"
+  },
+  "classification": "remote dependency-closure failure after successful direct model load and checkpoint tensor restore; not a model, tokenizer, grammar, SANY, TLC, or TLAPS result",
+  "gate_claim": false,
+  "next_discriminator": "inspect the approved Polaris runtime environment for the exact xgrammar package location or a compatible installed interpreter before proposing any new staged payload or submission"
+}
