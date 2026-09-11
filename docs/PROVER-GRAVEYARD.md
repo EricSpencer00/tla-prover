@@ -5,6 +5,10 @@ ownership, attempt counts, active diagnosis time and next actions belong on
 `PROVER-BOARD.md`. Preserve original receipts, including incorrect claims, and
 link corrections. Retiring an approach does not retire the goal.
 
+## 2026-09-11 — Direct paired generation v1: Triton inherited Polaris nvc
+
+The first checkpoint-faithful paired run restored the model and wrote two ordinary row-47 records, but the first grammar-constrained candidate failed. XGrammar's Triton mask kernel inherited `CC=nvc`; its launcher compiler command includes GCC-specific `-Wno-psabi`, which Polaris nvc rejects. Do not retry this payload unchanged or remove the flag blindly. The launcher now pins GCC and includes a real mask-kernel smoke before the 8B model loads; a new authorized GPU run must verify that boundary before the paired contract is claimed.
+
 ## Diagnosis checkpoint
 
 Before a new experiment, record the failure signature, hypothesis, cheapest

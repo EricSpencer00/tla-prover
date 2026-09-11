@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from tools import protected_checkpoint_paired_generation as paired
 
 
@@ -21,3 +23,9 @@ def test_repeats_are_labeled_deterministic_not_independent_samples():
     assert metadata["generation_role"] == "deterministic_replicate"
     assert metadata["independent_sample"] is False
     assert metadata["generation_seed"] == 20261482
+
+
+def test_real_grammar_mask_smoke_precedes_large_model_loading():
+    source = Path("tools/protected_checkpoint_paired_generation.py").read_text()
+    assert "def smoke_grammar_mask_kernel(" in source
+    assert source.index("smoke_grammar_mask_kernel(") < source.index("AutoModelForCausalLM.from_pretrained")

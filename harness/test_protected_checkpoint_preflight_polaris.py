@@ -22,5 +22,6 @@ def test_direct_paired_launcher_is_bounded_and_binds_the_isolated_closure():
     assert "#PBS -l walltime=00:15:00" in paired
     assert "XGRAMMAR_SITE=/grand/EVITA/eric-spencer/tla-checkpoint-preflight-deps/xgrammar-0.2.2-cp312" in paired
     assert "export CC=/usr/bin/gcc" in paired
+    assert "export CXX=/usr/bin/g++" in paired
     assert "protected_checkpoint_paired_generation.py" in paired
     assert '--xgrammar-site "$XGRAMMAR_SITE"' in paired

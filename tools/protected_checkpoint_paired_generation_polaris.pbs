@@ -18,6 +18,7 @@ export HF_HOME=/grand/EVITA/eric-spencer/hf-cache PYTHONUNBUFFERED=1
 # Triton builds XGrammar's token-mask launcher with CC. Polaris defaults CC to
 # nvc, which rejects Triton's GCC-specific -Wno-psabi compiler flag.
 export CC=/usr/bin/gcc
+export CXX=/usr/bin/g++
 BASE=/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-learning-20260906-v1
 MODEL=/grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659
 CHECKPOINT=/grand/EVITA/eric-spencer/tla-structured-polaris-20260911/result.7605656/policy_optimizer.pt

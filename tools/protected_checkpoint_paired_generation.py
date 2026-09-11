@@ -42,10 +42,18 @@ def generation_metadata(row, arm, generation):
                 generation_seed=SEED + row * 10 + generation)
 
 
-def build_processor(xgrammar, tokenizer, model, grammar):
-    info = xgrammar.TokenizerInfo.from_huggingface(tokenizer, vocab_size=model.config.vocab_size)
+def build_processor(xgrammar, tokenizer, vocab_size, grammar):
+    info = xgrammar.TokenizerInfo.from_huggingface(tokenizer, vocab_size=vocab_size)
     compiled = xgrammar.GrammarCompiler(info).compile_grammar(grammar)
     return xgrammar.contrib.hf.LogitsProcessor(compiled)
+
+
+def smoke_grammar_mask_kernel(torch, processor, tokenizer, vocab_size):
+    """Exercise XGrammar's real CUDA mask kernel before loading the 8B model."""
+    token_id = tokenizer.eos_token_id if tokenizer.eos_token_id is not None else 0
+    input_ids = torch.tensor([[token_id]], device="cuda", dtype=torch.long)
+    scores = torch.zeros((1, vocab_size), device="cuda", dtype=torch.float32)
+    processor(input_ids, scores)
 
 
 def main():
@@ -73,6 +81,9 @@ def main():
     selected_rows = preflight.protected_rows(packet)
     files = preflight.model_files(args.model)
     tokenizer = transformers.AutoTokenizer.from_pretrained(args.model, local_files_only=True)
+    vocab_size = tokenizer.vocab_size
+    smoke_processor = build_processor(xgrammar, tokenizer, vocab_size, args.grammar.read_text())
+    smoke_grammar_mask_kernel(torch, smoke_processor, tokenizer, vocab_size)
     prompt_evidence = preflight.verify_prompt_tokens(tokenizer, selected_rows)
     saved = torch.load(args.checkpoint, map_location="cpu", weights_only=False)
     if saved.get("config", {}).get("model_files") != files or saved["config"].get("dtype_profile") != preflight.PROFILE:
@@ -103,7 +114,7 @@ def main():
             if arm == "grammar_enforced":
                 # A new processor per candidate prevents cross-candidate
                 # matcher state from contaminating the paired measurement.
-                kwargs["logits_processor"] = [build_processor(xgrammar, tokenizer, model, grammar)]
+                kwargs["logits_processor"] = [build_processor(xgrammar, tokenizer, model.config.vocab_size, grammar)]
             with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
                 generated = model.generate(**inputs, **kwargs)
             new_ids = generated[0][inputs.input_ids.shape[1]:]
