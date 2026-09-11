@@ -1,0 +1,19 @@
+{
+  "observed_utc": "2026-09-11T23:51:27Z",
+  "hypothesis": "Canonical slow mask fill comes from many uncertain token continuations or parser states rather than token acceptance. Inspect exact compiled states/cache at22-token prefixes.",
+  "source_sha256": "84b2fa616c9d836bce36ce16bbb73b6bc907da3f85ee0977ca1e3bd2a16e5ca9",
+  "source": "tools/protected_mask_cost_boundary.py",
+  "stage": "/home/eric-spencer/tla-mask-cost-boundary-20260911-v2",
+  "rows": [
+    47,
+    107
+  ],
+  "primed_tokens": 22,
+  "mask_calls": 2,
+  "timeout_seconds": 90,
+  "output": "home-stage debug.log streamed/retrieved; no Grand writes",
+  "quality_claim": false,
+  "model_weights_loaded": false,
+  "priming_cost_measured": false,
+  "validation": "Two payload/control regression tests pass; exact installed0.2.2 debug API and upstream tagged source inspected."
+}

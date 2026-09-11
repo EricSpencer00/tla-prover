@@ -25,6 +25,8 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     for name in ('grammar', 'corpus', 'model', 'xgrammar-site'):
         p.add_argument('--' + name, type=Path, required=True)
+    p.add_argument('--debug-prefix', type=int, choices=range(1, 129),
+                   help='Inspect one mask per row after priming this many tokens; not a speed comparison')
     args = p.parse_args()
     if digest(args.grammar) != GRAMMAR_SHA or digest(args.corpus) != CORPUS_SHA:
         raise ValueError('Exact prior grammar/corpus required')
@@ -46,6 +48,21 @@ def main():
         interop_threads=torch.get_num_interop_threads(), xgrammar=version('xgrammar'),
         source_sha256=digest(Path(__file__)), grammar_sha256=GRAMMAR_SHA, corpus_sha256=CORPUS_SHA,
         tokenizer_sha256=digest(args.model / 'tokenizer.json'))), flush=True)
+    if args.debug_prefix is not None:
+        compiled = compiler.compile_grammar(args.grammar.read_text())
+        print(json.dumps(dict(event='compiled_grammar', memory_size_bytes=compiled.memory_size_bytes,
+                              grammar=str(compiled.grammar))), flush=True)
+        for r in refs:
+            ids = tok.encode(r['text'], add_special_tokens=False)[:args.debug_prefix]
+            matcher = xgr.GrammarMatcher(compiled)
+            if not all(matcher.accept_token(token) for token in ids):
+                raise ValueError('Debug prefix rejected')
+            print(json.dumps(dict(event='debug_prefix', row=r['row'], tokens=len(ids),
+                                  pieces=[tok.decode([token]) for token in ids])), flush=True)
+            mask = xgr.allocate_token_bitmask(1, vocab)
+            matcher.fill_next_token_bitmask(mask, debug_print=True)
+        print(json.dumps(dict(event='debug_complete', model_weights_loaded=False, quality_claim=False)), flush=True)
+        return
     for label, grammar in [('ascii_timing_control', CONTROL), ('canonical', args.grammar.read_text())]:
         compiled = compiler.compile_grammar(grammar)
         for r in refs:
