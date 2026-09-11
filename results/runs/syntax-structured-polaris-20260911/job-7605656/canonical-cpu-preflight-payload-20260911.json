@@ -1,0 +1,17 @@
+{
+  "authority": "standing-evidence-supported-run-approval.json",
+  "local_stage": "/private/tmp/tla-canonical-preflight.SYuAuy",
+  "remote_stage": "/grand/EVITA/eric-spencer/tla-canonical-preflight-20260911-v1",
+  "files": {
+    "protected_canonical_cpu_preflight.py": "71d35c480b22737e79005acb953552eb40eb4a44609a1543f52865eb8ee522f1",
+    "corpus.json": "fb76468f6a3217a359d54da92a2e3fa25396aad0547e6b5eb35129193a0e812a",
+    "canonical.ebnf": "1f4124cd20bdfdfd41ba406703bb2d123ebb26190fd3834cbb3df32dcb1cc000"
+  },
+  "side_effects": "Create isolated stage; upload these three files plus checksums; run CPU-only preflight and write log/receipt. No qsub, GPU, model weights or shared-runtime changes.",
+  "resources": {"cpu_threads": 1, "outer_seconds": 180, "gpu": 0, "per_mask_case_seconds": 30},
+  "hypothesis": "Canonical-output grammar retains all84 verified equivalent forms, rejects six saved failures and avoids the old mask bottleneck.",
+  "readiness_rule": "Exact XGrammar0.2.2 accepts84/84 canonical forms, rejects6/6 saved failures and measures128 masks for each protected reference within12.8s per case. This allows only a bounded model experiment, not promotion.",
+  "local_checks": "Exact staged CLI and all corpus/grammar hashes pass; an initial staging copy dropped a trailing grammar newline and was corrected before upload without changing its pinned hash.",
+  "quality_scope": "Canonical output excludes80 original list spellings; all84 equivalent forms were independently re-parsed and structure-compared. Corpus is checker-only and must never enter generation prompts.",
+  "gate_claim": false
+}
