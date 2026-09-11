@@ -1,0 +1,36 @@
+{
+  "positive": {
+    "status": "pass",
+    "source_sha256": "48d15a39db7a01a24f2e0559da6af03db19f5e963c4331d1dc38c496e77b3e06",
+    "tree_sha256": "8c9768ee73c748cd3397e6aa1a7f07510a7482f8160321170a5a8267c0e53323",
+    "syntax_nodes": {
+      "N_Module": 1,
+      "N_BeginModule": 1,
+      "N_Extends": 1,
+      "N_Body": 1,
+      "N_VariableDeclaration": 1,
+      "N_OperatorDefinition": 1,
+      "N_IdentLHS": 1,
+      "N_InfixExpr": 1,
+      "N_GeneralId": 1,
+      "N_IdPrefix": 2,
+      "N_GenInfixOp": 1,
+      "N_InfixOp": 1,
+      "N_Number": 1,
+      "N_EndModule": 1
+    },
+    "operators": {
+      "N_IdPrefix=": 1
+    }
+  },
+  "negative_parse": {
+    "status": "sany_reject",
+    "source_sha256": "444ec753bfc7a336f5531eb795de661a92e9c0e80ac8dd4b1ae7bd7c704b1c8e",
+    "tree_sha256": null
+  },
+  "negative_semantic": {
+    "status": "sany_reject",
+    "source_sha256": "2eb1459eaa8648d0fa07e373262505a0a1ca119b24fd41e94e93d8c38ac36cde",
+    "tree_sha256": null
+  }
+}

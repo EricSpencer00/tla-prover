@@ -1,0 +1,32 @@
+{
+  "command": [
+    "/usr/bin/java",
+    "-cp",
+    "/Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/syntax-inventory-20260911-v3/classes:/Users/eric/GitHub/prove-TLA/tools/tla2tools.jar",
+    "ProverSyntaxTree",
+    "Control.tla",
+    "tree.json"
+  ],
+  "cwd": "/Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/syntax-inventory-20260911-v3/positive",
+  "root_pid": 92557,
+  "root_reaped": true,
+  "returncode": 0,
+  "output": "Parsing file /Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/syntax-inventory-20260911-v3/positive/Control.tla\nParsing file /private/var/folders/2q/79m85_bj1qlbkz3sts_bdfl00000gn/T/Naturals.tla\nSemantic processing of module Naturals\nSemantic processing of module Control\nPROVER_TREE_COMPLETE\n",
+  "seconds": 0.23591108300024644,
+  "timed_out": false,
+  "output_complete": true,
+  "output_limit": false,
+  "cleanup_complete": true,
+  "surviving_owned_processes": [],
+  "owned_processes": [
+    {
+      "pid": 92557,
+      "created": 1789165367.443437,
+      "pgid": 92557
+    }
+  ],
+  "signals": [],
+  "errors": [],
+  "execution_complete": true,
+  "containment": "Best-effort ancestry polling; instantaneous unobserved reparenting is not excluded"
+}

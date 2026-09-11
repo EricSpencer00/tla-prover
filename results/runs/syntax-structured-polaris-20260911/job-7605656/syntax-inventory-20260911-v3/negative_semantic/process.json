@@ -1,0 +1,32 @@
+{
+  "command": [
+    "/usr/bin/java",
+    "-cp",
+    "/Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/syntax-inventory-20260911-v3/classes:/Users/eric/GitHub/prove-TLA/tools/tla2tools.jar",
+    "ProverSyntaxTree",
+    "Control.tla",
+    "tree.json"
+  ],
+  "cwd": "/Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/syntax-inventory-20260911-v3/negative_semantic",
+  "root_pid": 92559,
+  "root_reaped": true,
+  "returncode": 2,
+  "output": "Parsing file /Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/syntax-inventory-20260911-v3/negative_semantic/Control.tla\nSemantic processing of module Control\nSemantic errors:\n\n*** Errors: 1\n\nline 2, col 6 to line 2, col 15 of module Control\n\nUnknown operator: `undeclared'.\n\n\n\nPROVER_TREE_REJECTED\n",
+  "seconds": 0.22390804201131687,
+  "timed_out": false,
+  "output_complete": true,
+  "output_limit": false,
+  "cleanup_complete": true,
+  "surviving_owned_processes": [],
+  "owned_processes": [
+    {
+      "pid": 92559,
+      "created": 1789165367.861853,
+      "pgid": 92559
+    }
+  ],
+  "signals": [],
+  "errors": [],
+  "execution_complete": true,
+  "containment": "Best-effort ancestry polling; instantaneous unobserved reparenting is not excluded"
+}

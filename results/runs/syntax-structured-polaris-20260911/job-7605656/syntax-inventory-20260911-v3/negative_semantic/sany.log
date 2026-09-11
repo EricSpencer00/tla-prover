@@ -1,0 +1,13 @@
+Parsing file /Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/syntax-inventory-20260911-v3/negative_semantic/Control.tla
+Semantic processing of module Control
+Semantic errors:
+
+*** Errors: 1
+
+line 2, col 6 to line 2, col 15 of module Control
+
+Unknown operator: `undeclared'.
+
+
+
+PROVER_TREE_REJECTED

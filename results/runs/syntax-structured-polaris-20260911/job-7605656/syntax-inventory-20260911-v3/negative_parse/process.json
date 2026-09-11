@@ -1,0 +1,32 @@
+{
+  "command": [
+    "/usr/bin/java",
+    "-cp",
+    "/Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/syntax-inventory-20260911-v3/classes:/Users/eric/GitHub/prove-TLA/tools/tla2tools.jar",
+    "ProverSyntaxTree",
+    "Control.tla",
+    "tree.json"
+  ],
+  "cwd": "/Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/syntax-inventory-20260911-v3/negative_parse",
+  "root_pid": 92558,
+  "root_reaped": true,
+  "returncode": 2,
+  "output": "Parsing file /Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/syntax-inventory-20260911-v3/negative_parse/Control.tla\n***Parse Error***\nWas expecting \"Expression or Instance\"\nEncountered \")\" at line 2, column 6 and token \"==\" \n\nResidual stack trace follows:\nDefinition starting at line 2, column 1.\nModule body starting at line 2, column 1.\nModule definition starting at line 1, column 1.\n\n\nFatal errors while parsing TLA+ spec in file Control.tla\n\ntla2sany.semantic.AbortException\n*** Abort messages: 1\n\nIn module Control\n\nCould not parse module Control from file Control.tla\n\n\nPROVER_TREE_REJECTED\n",
+  "seconds": 0.17960295898956247,
+  "timed_out": false,
+  "output_complete": true,
+  "output_limit": false,
+  "cleanup_complete": true,
+  "surviving_owned_processes": [],
+  "owned_processes": [
+    {
+      "pid": 92558,
+      "created": 1789165367.680641,
+      "pgid": 92558
+    }
+  ],
+  "signals": [],
+  "errors": [],
+  "execution_complete": true,
+  "containment": "Best-effort ancestry polling; instantaneous unobserved reparenting is not excluded"
+}
