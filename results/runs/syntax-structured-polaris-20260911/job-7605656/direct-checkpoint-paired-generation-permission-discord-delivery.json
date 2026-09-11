@@ -1,0 +1,9 @@
+{
+  "kind": "minimal_permission_notification_delivery",
+  "delivered_utc": "2026-09-11T18:54:00Z",
+  "platform": "discord",
+  "chat_id": "1522350803216629851",
+  "message_id": "1548044166179721227",
+  "content_scope": "mention-only request to approve in the existing Codex conversation; no paths, hashes, task links, payload details, or secrets",
+  "authorization_effect": "none; a direct, exact approval is still required before transfer or GPU submission"
+}
