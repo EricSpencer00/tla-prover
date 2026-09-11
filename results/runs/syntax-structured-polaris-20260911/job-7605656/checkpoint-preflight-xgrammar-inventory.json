@@ -1,0 +1,13 @@
+{
+  "observed_utc": "2026-09-11T16:42:06Z",
+  "kind": "read_only_polaris_dependency_inventory",
+  "interpreter": "/home/eric-spencer/ChatTLA/.venv/bin/python",
+  "python_version": "3.12.11",
+  "xgrammar_import_spec": null,
+  "xgrammar_pip_metadata": "Package(s) not found",
+  "user_virtual_environment_search": "no xgrammar package directories within /home/eric-spencer at depth 4",
+  "module_inventory": "no xgrammar module matches",
+  "decision": "the exact approved runtime has no compatible discoverable xgrammar provider; unchanged resubmission is retired",
+  "reopening_condition": "an explicitly provisioned, compatible xgrammar package or approved interpreter path must be identified and staged with an updated manifest before another remote preflight can be proposed",
+  "gate_claim": false
+}
