@@ -1,0 +1,14 @@
+{
+  "observed_utc": "2026-09-11T17:46:32Z",
+  "action": "transfer the approved three-file payload to the approved Polaris stage; install the hash-pinned isolated closure and run the CPU-only grammar probe",
+  "destinations": [
+    "/grand/EVITA/eric-spencer/tla-checkpoint-preflight-deps-v1",
+    "/grand/EVITA/eric-spencer/tla-checkpoint-preflight-deps/xgrammar-0.2.2-cp312"
+  ],
+  "review_result": "rejected before execution",
+  "reason": "execution review did not accept the relayed approval as trusted authorization for the exact remote mutation",
+  "remote_change_attempted": false,
+  "scheduler_submission": false,
+  "reopening_condition": "authorization accepted in the execution-review context for the exact payload, destinations, isolated install, and CPU-only probe",
+  "gate_claim": false
+}
