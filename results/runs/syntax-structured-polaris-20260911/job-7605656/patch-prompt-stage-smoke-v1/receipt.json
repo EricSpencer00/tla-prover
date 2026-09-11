@@ -1,0 +1,13 @@
+{
+  "kind": "isolated_patch_prompt_import_smoke_v1",
+  "stage_files": {
+    "proof_syntax_patch_prompt.py": "dbae3f9202b758dff45d3fb952fba11d84ad0b4f6b6ff6e835740b82a09ee9b5",
+    "proof_syntax_patch_assembler.py": "801a759d26eb45afbfde74e1a5e4c7d035feaeece04deca701f7ad8f5986be8b",
+    "proof_syntax_preference_train.py": "28af55610ada358119929c8cb49177298ffc241755a187c9d00feee296d78691"
+  },
+  "returncode": 0,
+  "stdout": "",
+  "stderr": "",
+  "passed": true,
+  "scope": "direct-file import smoke only; no model, checkpoint, remote stage, or SANY gate claim"
+}

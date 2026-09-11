@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 156
-- Verified UTC: 2026-09-11T06:59:04Z
+- Revision: 157
+- Verified UTC: 2026-09-11T06:59:43Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: local_work
 - Active job: none
-- Observation evidence: Reconciled the board and repaired a stage-level import defect. Direct execution of proof_syntax_patch_prompt.py initially failed on relative imports; its isolated direct-execution path now resolves sibling modules from the repository root. Focused parser/assembler tests pass 11/11 and direct --help import smoke exits 0. Polaris was last verified empty at the preceding read-only check; Sophia ownership remains unverified after authentication denial.
-- Latest completed result: Patch ingestion is now guarded against literal escaped line breaks (v8 row 107 SANY pass), and the exact patch prompt runner now imports when executed directly, matching the isolated stage invocation mode. No remote bundle or model execution occurred.
-- Local work: Repaired and tested direct-file import behavior in the patch prompt runner (11 focused tests plus direct execution smoke). This closes a local staging-interface defect; it does not certify remote staging, checkpoint restore, inference, or acceptance gates.
+- Observation evidence: Executed an isolated exact-layout packaging smoke after repairing the patch prompt runner. A stage containing only proof_syntax_patch_prompt.py and its two required sibling modules imported via direct-file execution with exit 0; hashes and receipt are saved. This confirms the local package boundary only. Polaris ownership was last observed empty; Sophia ownership remains unverified after authentication denial.
+- Latest completed result: patch-prompt-stage-smoke-v1 passed: direct execution from an isolated staged tools/ layout returned 0 with all three required module hashes recorded. No model, checkpoint, remote upload, submission, SANY, or acceptance-gate claim is attached.
+- Local work: Completed the exact staged-layout import smoke for the repaired patch runner and saved a compact receipt. The next unresolved branch is a new checkpoint-faithful paired inference runner; legacy base-model serving and prompt suffix variants remain disallowed.
 - External blocker: none verified
-- Next action: Run a clean exact-stage packaging smoke that invokes the patched runner from its staged layout and verifies its sibling dependencies are included, then prepare a checkpoint-faithful paired-inference payload without legacy base-model serving or prompt suffixes.
+- Next action: Design and locally test a checkpoint-faithful paired-inference runner that restores the recorded trainable tensors and validates the frozen tokenizer/prompt before generation, with no legacy prompt suffix or endpoint-only base-model path.
 
 ## Objective and evidence rules
 
@@ -128,16 +128,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 156,
-  "verified_utc": "2026-09-11T06:59:04Z",
+  "revision": 157,
+  "verified_utc": "2026-09-11T06:59:43Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "local_work",
   "active_job": null,
-  "observation_evidence": "Reconciled the board and repaired a stage-level import defect. Direct execution of proof_syntax_patch_prompt.py initially failed on relative imports; its isolated direct-execution path now resolves sibling modules from the repository root. Focused parser/assembler tests pass 11/11 and direct --help import smoke exits 0. Polaris was last verified empty at the preceding read-only check; Sophia ownership remains unverified after authentication denial.",
-  "last_result": "Patch ingestion is now guarded against literal escaped line breaks (v8 row 107 SANY pass), and the exact patch prompt runner now imports when executed directly, matching the isolated stage invocation mode. No remote bundle or model execution occurred.",
-  "local_work": "Repaired and tested direct-file import behavior in the patch prompt runner (11 focused tests plus direct execution smoke). This closes a local staging-interface defect; it does not certify remote staging, checkpoint restore, inference, or acceptance gates.",
+  "observation_evidence": "Executed an isolated exact-layout packaging smoke after repairing the patch prompt runner. A stage containing only proof_syntax_patch_prompt.py and its two required sibling modules imported via direct-file execution with exit 0; hashes and receipt are saved. This confirms the local package boundary only. Polaris ownership was last observed empty; Sophia ownership remains unverified after authentication denial.",
+  "last_result": "patch-prompt-stage-smoke-v1 passed: direct execution from an isolated staged tools/ layout returned 0 with all three required module hashes recorded. No model, checkpoint, remote upload, submission, SANY, or acceptance-gate claim is attached.",
+  "local_work": "Completed the exact staged-layout import smoke for the repaired patch runner and saved a compact receipt. The next unresolved branch is a new checkpoint-faithful paired inference runner; legacy base-model serving and prompt suffix variants remain disallowed.",
   "external_blocker": null,
-  "next_action": "Run a clean exact-stage packaging smoke that invokes the patched runner from its staged layout and verifies its sibling dependencies are included, then prepare a checkpoint-faithful paired-inference payload without legacy base-model serving or prompt suffixes.",
+  "next_action": "Design and locally test a checkpoint-faithful paired-inference runner that restores the recorded trainable tensors and validates the frozen tokenizer/prompt before generation, with no legacy prompt suffix or endpoint-only base-model path.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -347,7 +347,8 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "results/runs/syntax-structured-polaris-20260911/job-7605656/sany-rejection-analysis.json",
     "tools/proof_syntax_patch_assembler.py",
     "harness/test_proof_syntax_patch_assembler.py",
-    "results/runs/syntax-structured-polaris-20260911/job-7605656/patch-only-protected-sany-eval-v8/summary.json"
+    "results/runs/syntax-structured-polaris-20260911/job-7605656/patch-only-protected-sany-eval-v8/summary.json",
+    "results/runs/syntax-structured-polaris-20260911/job-7605656/patch-prompt-stage-smoke-v1/receipt.json"
   ]
 }
 -->
