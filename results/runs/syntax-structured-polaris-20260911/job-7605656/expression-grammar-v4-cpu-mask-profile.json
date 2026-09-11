@@ -1,0 +1,105 @@
+{
+  "observed_utc": "2026-09-11T21:29:10Z",
+  "kind": "cpu_grammar_mask_prefix_profile",
+  "runtime": "Polaris ChatTLA Python; isolated XGrammar0.2.2; model tokenizer/config only, no weights",
+  "grammar_sha256": "2bcc86946f0a858628f455a3d0648c7117e2b780743e1f25dff82cebd0fb4d67",
+  "input": "expression-v4 row107 ordinary candidate0, recorded1024-token output",
+  "limits": {
+    "external_timeout_seconds": 90,
+    "compiler_threads": 1,
+    "max_prefix_tokens": 256,
+    "cuda_touched": false
+  },
+  "exit_status": 124,
+  "complete": false,
+  "compilation_seconds": 4.111394365900196,
+  "reported_steps": [
+    {
+      "tokens": 1,
+      "seconds": 0.009640437085181475,
+      "total_seconds": 4.342402721988037
+    },
+    {
+      "tokens": 17,
+      "seconds": 1.567684512003325,
+      "total_seconds": 6.829754232894629
+    },
+    {
+      "tokens": 22,
+      "seconds": 1.7855941689340398,
+      "total_seconds": 9.223986289929599
+    },
+    {
+      "tokens": 24,
+      "seconds": 1.6191008550813422,
+      "total_seconds": 11.042613091995008
+    },
+    {
+      "tokens": 26,
+      "seconds": 1.5891140250023454,
+      "total_seconds": 12.832206562976353
+    },
+    {
+      "tokens": 30,
+      "seconds": 1.5625673539470881,
+      "total_seconds": 14.776223236927763
+    },
+    {
+      "tokens": 31,
+      "seconds": 1.7720050029456615,
+      "total_seconds": 16.548310402897187
+    },
+    {
+      "tokens": 33,
+      "seconds": 1.5799620799953118,
+      "total_seconds": 18.336338412947953
+    },
+    {
+      "tokens": 38,
+      "seconds": 2.197345915948972,
+      "total_seconds": 21.135380016989075
+    },
+    {
+      "tokens": 39,
+      "seconds": 2.3117514949990436,
+      "total_seconds": 23.44721244298853
+    },
+    {
+      "tokens": 49,
+      "seconds": 0.09174159204121679,
+      "total_seconds": 26.282867308938876
+    },
+    {
+      "tokens": 53,
+      "seconds": 2.2140687280334532,
+      "total_seconds": 28.934902256005444
+    },
+    {
+      "tokens": 54,
+      "seconds": 2.20654377900064,
+      "total_seconds": 31.14152468100656
+    },
+    {
+      "tokens": 55,
+      "seconds": 2.588655632920563,
+      "total_seconds": 33.73026083491277
+    },
+    {
+      "tokens": 57,
+      "seconds": 2.81053022807464,
+      "total_seconds": 36.905339549994096
+    },
+    {
+      "tokens": 62,
+      "seconds": 2.7799942940473557,
+      "total_seconds": 40.402741906931624
+    },
+    {
+      "tokens": 65,
+      "seconds": 3.0203834950225428,
+      "total_seconds": 44.157751499908045
+    }
+  ],
+  "interpretation": "Per-token CPU grammar matching/mask fill is measurably expensive even without model generation. Compilation completed in4.1s. The90s external budget includes import/startup; last reported loop elapsed44.2s. Remaining prefixes are unmeasured. This does not prove the only slowdown in the GPU job.",
+  "gate_claim": false
+}

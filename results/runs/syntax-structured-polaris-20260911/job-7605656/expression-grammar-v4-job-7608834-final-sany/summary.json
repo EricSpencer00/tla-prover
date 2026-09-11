@@ -1,0 +1,23 @@
+{
+  "complete": false,
+  "controls_ok": true,
+  "requested": 8,
+  "observed": 6,
+  "counts": {
+    "existing_decoder": {
+      "model_sany_reject": 4
+    },
+    "grammar_enforced": {
+      "model_sany_reject": 2,
+      "unmeasured_missing": 2
+    }
+  },
+  "generation_receipt_complete": false,
+  "input_transform": "none; raw UTF-8 bytes written under canonical module name",
+  "planned_unique_rows": 2,
+  "complete_paired_unique_rows": 1,
+  "independent_repeats": false,
+  "scope": "protected diagnostic; rows are labeled train in the frozen packet",
+  "gate_claim": false,
+  "model_improvement_claim": false
+}

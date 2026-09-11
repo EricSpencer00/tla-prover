@@ -53,18 +53,28 @@ def score(text, output, java, jar):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--receipt', type=Path, required=True)
+    source = parser.add_mutually_exclusive_group(required=True)
+    source.add_argument('--receipt', type=Path)
+    source.add_argument('--records', type=Path, help='Partial raw-record directory; missing planned candidates remain unknown')
     parser.add_argument('--packet', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
     if preflight.file_sha(args.packet) != preflight.PACKET_SHA:
         raise ValueError('Frozen packet mismatch')
-    receipt = json.loads(args.receipt.read_bytes())
-    if not receipt.get('complete') or not receipt.get('restored_tensors_exact'):
-        raise ValueError('Complete restored-checkpoint receipt required')
-    records = receipt['records']
-    if [(r['row'], r['arm'], r['generation']) for r in records] != plan():
-        raise ValueError('Exactly the frozen eight ordered candidates required')
+    if args.receipt:
+        receipt = json.loads(args.receipt.read_bytes())
+        if not receipt.get('complete') or not receipt.get('restored_tensors_exact'):
+            raise ValueError('Complete restored-checkpoint receipt required')
+        records = receipt['records']
+        if [(r['row'], r['arm'], r['generation']) for r in records] != plan():
+            raise ValueError('Exactly the frozen eight ordered candidates required')
+        record_dir = args.receipt.parent
+    else:
+        record_dir = args.records
+        records = [json.loads(p.read_bytes()) for p in sorted(record_dir.glob('row-*.json'))]
+    by_key = {(r['row'], r['arm'], r['generation']): r for r in records}
+    if len(by_key) != len(records) or not set(by_key).issubset(plan()):
+        raise ValueError('Duplicate or unexpected candidate keys')
     selected = preflight.protected_rows(json.loads(args.packet.read_bytes()))
     for record in records:
         if sha(record['raw_reply']) != record['raw_reply_sha256']:
@@ -72,7 +82,7 @@ def main():
         if record['base_prompt_sha256'] != sha(selected[record['row']][0]['prompt']):
             raise ValueError('Prompt digest mismatch')
         filename = f"row-{record['row']}-{record['arm']}-{record['generation']}.json"
-        if json.loads((args.receipt.parent / filename).read_bytes()) != record:
+        if json.loads((record_dir / filename).read_bytes()) != record:
             raise ValueError('Individual raw record differs from receipt')
     jar = ROOT / 'tools/tla2tools.jar'
     if preflight.file_sha(jar) != JAR_SHA:
@@ -82,7 +92,8 @@ def main():
         raise ValueError('Java unavailable')
     output = args.output.resolve()
     output.mkdir(parents=True, exist_ok=False)
-    dump(output / 'identity.json', dict(receipt_sha256=preflight.file_sha(args.receipt),
+    dump(output / 'identity.json', dict(receipt_sha256=preflight.file_sha(args.receipt) if args.receipt else None,
+         raw_record_sha256={p.name: preflight.file_sha(p) for p in sorted(record_dir.glob('row-*.json'))},
          packet_sha256=preflight.PACKET_SHA, jar_sha256=JAR_SHA,
          scorer_sha256=preflight.file_sha(__file__),
          classifier_sha256=preflight.file_sha(ROOT / 'harness/proof_ladder_check.py'),
@@ -103,7 +114,12 @@ def main():
     controls_ok = all(c['status'] == ('pass' if c['label'] == 'reference'
                                     else 'model_sany_reject') for c in controls)
     results = []
-    for record in records:
+    for row, arm, generation in plan():
+        record = by_key.get((row, arm, generation))
+        if record is None:
+            results.append(dict(row=row, arm=arm, generation=generation,
+                                independent_sample=False, status='unmeasured_missing'))
+            continue
         key = f"{record['row']}-{record['arm']}-{record['generation']}"
         result = score(record['raw_reply'], output / 'candidates' / key, java, jar)
         results.append(dict(row=record['row'], arm=record['arm'], generation=record['generation'],
@@ -112,9 +128,13 @@ def main():
     counts = {arm: dict(Counter(r['status'] for r in results if r['arm'] == arm))
               for arm in ('existing_decoder', 'grammar_enforced')}
     summary = dict(complete=controls_ok and all(r['status'] in ('pass', 'model_sany_reject') for r in results),
-                   controls_ok=controls_ok, requested=8, observed=len(results), counts=counts,
+                   controls_ok=controls_ok, requested=8, observed=len(records), counts=counts,
+                   generation_receipt_complete=bool(args.receipt),
                    input_transform='none; raw UTF-8 bytes written under canonical module name',
-                   paired_unique_rows=2, independent_repeats=False,
+                   planned_unique_rows=2,
+                   complete_paired_unique_rows=sum(all((row, arm, generation) in by_key
+                       for arm in ('existing_decoder', 'grammar_enforced') for generation in (0, 1))
+                       for row in (47, 107)), independent_repeats=False,
                    scope='protected diagnostic; rows are labeled train in the frozen packet',
                    gate_claim=False, model_improvement_claim=False)
     dump(output / 'summary.json', summary)

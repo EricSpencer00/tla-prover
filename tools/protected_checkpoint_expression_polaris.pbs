@@ -19,7 +19,9 @@ BASE=/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-learning-202609
 MODEL=/grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659
 CHECKPOINT=/grand/EVITA/eric-spencer/tla-structured-polaris-20260911/result.7605656/policy_optimizer.pt
 sha256sum -c SHA256SUMS
-/home/eric-spencer/ChatTLA/.venv/bin/python -u protected_checkpoint_paired_generation.py \
+# PBS accounting exceeded the requested15min on7608834. Keep an inner bound
+# with cleanup reserve; this is a launch safeguard, not permission to retry.
+timeout --signal=TERM --kill-after=10s 840s /home/eric-spencer/ChatTLA/.venv/bin/python -u protected_checkpoint_paired_generation.py \
   --packet "$BASE/train.json" --model "$MODEL" --checkpoint "$CHECKPOINT" \
   --grammar "$STAGE/tla_module_v1.ebnf" --xgrammar-site "$XGRAMMAR_SITE" \
   --output "result.${PBS_JOBID%%.*}"

@@ -75,6 +75,27 @@ An inconclusive measurement requires fixing the measurement before interpreting 
 
 ## Recorded lessons
 
+### Expression grammar v1: precedence gaps and mask cost
+
+- Run7608834 used corrected actual401/457-token prompts and the frozen checkpoint.
+  Six of eight candidates were saved: SANY rejected all six, with four correct
+  positive/negative controls. Two row107 grammar candidates remain unknown.
+- On row47 both arms produced the same conjunction/disjunction precedence
+  conflict. v1 explicitly flattens precedence; accepting84/84 valid reference
+  modules did not mean it enforces every syntax rule.
+- Row107 ordinary output repeated to the1024-token cap. A90-second CPU replay
+  compiled the grammar in4.1s but measured individual mask steps of1.5-3.0s;
+  this cost exists without loading or running model weights.
+- Retire unchanged v1 decoding and larger token-budget retries. Reopen only
+  with a measured syntax-coverage/performance correction, or choose a distinct
+  parser-aware representation that preserves the intended behavior. Do not
+  call renderer/handwritten repairs learned-model successes.
+- Requested PBS limit was15min; accounting reached16:42 before termination
+  with exit-29. qdel issued after live16:31 observation returned job-finished.
+  Future launcher source adds an inner840s timeout plus10s kill grace.
+- Evidence: `results/runs/syntax-structured-polaris-20260911/job-7605656/expression-grammar-v4-job-7608834-terminal.json`
+  and `expression-grammar-v4-cpu-mask-profile.json` beside it.
+
 ### Wrong tokenizer/model selection
 
 - Evidence: `results/runs/syntax-structured-polaris-20260911/job-7605175/tokenizer-mismatch-diagnosis.json`.

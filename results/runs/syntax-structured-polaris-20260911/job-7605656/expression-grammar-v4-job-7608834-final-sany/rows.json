@@ -1,0 +1,82 @@
+[
+  {
+    "row": 47,
+    "arm": "existing_decoder",
+    "generation": 0,
+    "independent_sample": false,
+    "status": "model_sany_reject",
+    "candidate_sha256": "bf57bae55d2d2621d6d514a0234387cb58b9073b849db061409f6f5b59df2ad0",
+    "module_name": "W4Od2m7p4t2",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/expression-grammar-v4-job-7608834-final-sany/candidates/47-existing_decoder-0/sany.log"
+  },
+  {
+    "row": 47,
+    "arm": "existing_decoder",
+    "generation": 1,
+    "independent_sample": false,
+    "status": "model_sany_reject",
+    "candidate_sha256": "bf57bae55d2d2621d6d514a0234387cb58b9073b849db061409f6f5b59df2ad0",
+    "module_name": "W4Od2m7p4t2",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/expression-grammar-v4-job-7608834-final-sany/candidates/47-existing_decoder-1/sany.log"
+  },
+  {
+    "row": 47,
+    "arm": "grammar_enforced",
+    "generation": 0,
+    "independent_sample": false,
+    "status": "model_sany_reject",
+    "candidate_sha256": "bf57bae55d2d2621d6d514a0234387cb58b9073b849db061409f6f5b59df2ad0",
+    "module_name": "W4Od2m7p4t2",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/expression-grammar-v4-job-7608834-final-sany/candidates/47-grammar_enforced-0/sany.log"
+  },
+  {
+    "row": 47,
+    "arm": "grammar_enforced",
+    "generation": 1,
+    "independent_sample": false,
+    "status": "model_sany_reject",
+    "candidate_sha256": "bf57bae55d2d2621d6d514a0234387cb58b9073b849db061409f6f5b59df2ad0",
+    "module_name": "W4Od2m7p4t2",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/expression-grammar-v4-job-7608834-final-sany/candidates/47-grammar_enforced-1/sany.log"
+  },
+  {
+    "row": 107,
+    "arm": "existing_decoder",
+    "generation": 0,
+    "independent_sample": false,
+    "status": "model_sany_reject",
+    "candidate_sha256": "a929d1ba1c48b2c2d6f741c8f3a7948a5787aec94a8fbc328736d4456e530902",
+    "module_name": "W4Od3m0p0t0",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/expression-grammar-v4-job-7608834-final-sany/candidates/107-existing_decoder-0/sany.log"
+  },
+  {
+    "row": 107,
+    "arm": "existing_decoder",
+    "generation": 1,
+    "independent_sample": false,
+    "status": "model_sany_reject",
+    "candidate_sha256": "a929d1ba1c48b2c2d6f741c8f3a7948a5787aec94a8fbc328736d4456e530902",
+    "module_name": "W4Od3m0p0t0",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/expression-grammar-v4-job-7608834-final-sany/candidates/107-existing_decoder-1/sany.log"
+  },
+  {
+    "row": 107,
+    "arm": "grammar_enforced",
+    "generation": 0,
+    "independent_sample": false,
+    "status": "unmeasured_missing"
+  },
+  {
+    "row": 107,
+    "arm": "grammar_enforced",
+    "generation": 1,
+    "independent_sample": false,
+    "status": "unmeasured_missing"
+  }
+]

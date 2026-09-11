@@ -1,0 +1,37 @@
+{
+  "observed_utc": "2026-09-11T21:28:08Z",
+  "job_id": "7608834.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "pbs_state": "F",
+  "exit_status": -29,
+  "requested_walltime": "00:15:00",
+  "accounted_walltime": "00:16:42",
+  "finished_at_scheduler": "2026-09-11T21:26:11",
+  "allocation": "x3103c0s7b1n0:ngpus=1:ncpus=64",
+  "requested": 8,
+  "produced": 6,
+  "missing": [
+    "row-107-grammar_enforced-0",
+    "row-107-grammar_enforced-1"
+  ],
+  "complete_receipt": false,
+  "stop_attempt": "After fresh scheduler evidence showed R at16:31, issued qdel for this exact job; command returned35 'Job has finished'. No artifact deletion occurred.",
+  "sany": {
+    "ordinary": {
+      "pass": 0,
+      "reject": 4,
+      "unknown": 0
+    },
+    "grammar": {
+      "pass": 0,
+      "reject": 2,
+      "unknown": 2
+    },
+    "controls": "two references passed; two malformed controls rejected"
+  },
+  "actual_prompt_counts": {
+    "47": 401,
+    "107": 457
+  },
+  "decision": "Retire unchanged v1 grammar decoding: no measured SANY benefit, precedence holes, repetition and excessive CPU mask cost. No increased-token or larger-GPU-budget retry.",
+  "gate_claim": false
+}
