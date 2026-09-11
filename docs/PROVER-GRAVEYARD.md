@@ -96,6 +96,28 @@ An inconclusive measurement requires fixing the measurement before interpreting 
 - Evidence: `results/runs/syntax-structured-polaris-20260911/job-7605656/expression-grammar-v4-job-7608834-terminal.json`
   and `expression-grammar-v4-cpu-mask-profile.json` beside it.
 
+### Boolean-chain grammar simplifications: retired on CPU
+
+- `precedence-probe-20260911-v3` scored all104 items with real SANY:14
+  hand-written syntax controls,84 frozen training references,6 saved model
+  outputs. Both variants still admit all4 row47 failed outputs. The recursive
+  variant preserves84/84 references; the restricted-list variant loses2/84
+  plus a valid nested-list control. Neither justifies GPU evaluation.
+- A homogeneous infix chain is insufficient while quantified expressions and
+  list bodies can re-enter permissive expression rules. Restricting recursive
+  lists also loses valid syntax. Do not promote a variant just because it rejects
+  small inline counterexamples.
+- Three fixture expectations were corrected to match actual SANY. A bullet-list
+  tail may contain an infix operator; mixed symbols alone do not prove a parse
+  error. v1/v2 source snapshots, rows and failed-control summaries are preserved.
+  Final controls pass without changing any checker or frozen reference/output.
+- TLA+ uses partial operator precedence and layout-sensitive lists; see the
+  [primary parsing explanation](https://lamport.azurewebsites.net/tla/tutorial/parsing.html).
+  Reopen only with measured valid coverage AND rejection of actual errors,
+  followed by bounded mask profiling. An explicit expression tree is a distinct
+  representation hypothesis, not a complete-module solution or model gain.
+- Evidence directory: `results/runs/syntax-structured-polaris-20260911/job-7605656/`.
+
 ### Wrong tokenizer/model selection
 
 - Evidence: `results/runs/syntax-structured-polaris-20260911/job-7605175/tokenizer-mismatch-diagnosis.json`.

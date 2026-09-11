@@ -1,0 +1,81 @@
+{
+  "packet_sha256": "a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c",
+  "jar_sha256": "936a262061c914694dfd669a543be24573c45d5aa0ff20a8b96b23d01e050e88",
+  "source_sha256": "2bcc86946f0a858628f455a3d0648c7117e2b780743e1f25dff82cebd0fb4d67",
+  "probe_sha256": "5e42a277b86ebd1c34112982324cfd78851de0a7782e314403ecb97f3b594e19",
+  "xgrammar_version": "0.2.3",
+  "grammar_sha256": {
+    "v1": "2bcc86946f0a858628f455a3d0648c7117e2b780743e1f25dff82cebd0fb4d67",
+    "recursive_lists": "034941694295479c06d737b61949c0609824e7afc08b504ad2bf8357932a7ef4",
+    "restricted_lists": "76edb611cbd1859f61b3b52f0022fddde9bb613672b4e762e2a51a2f5294e492"
+  },
+  "requested": 104,
+  "observed": 104,
+  "controls_ok": false,
+  "counts": {
+    "v1": {
+      "handwritten_syntax_control": {
+        "requested": 14,
+        "false_rejects": 0,
+        "invalid_accepted": 2,
+        "sany_unknown": 0
+      },
+      "frozen_training_reference": {
+        "requested": 84,
+        "false_rejects": 0,
+        "invalid_accepted": 0,
+        "sany_unknown": 0
+      },
+      "saved_model_candidate": {
+        "requested": 6,
+        "false_rejects": 0,
+        "invalid_accepted": 4,
+        "sany_unknown": 0
+      }
+    },
+    "recursive_lists": {
+      "handwritten_syntax_control": {
+        "requested": 14,
+        "false_rejects": 0,
+        "invalid_accepted": 0,
+        "sany_unknown": 0
+      },
+      "frozen_training_reference": {
+        "requested": 84,
+        "false_rejects": 0,
+        "invalid_accepted": 0,
+        "sany_unknown": 0
+      },
+      "saved_model_candidate": {
+        "requested": 6,
+        "false_rejects": 0,
+        "invalid_accepted": 4,
+        "sany_unknown": 0
+      }
+    },
+    "restricted_lists": {
+      "handwritten_syntax_control": {
+        "requested": 14,
+        "false_rejects": 1,
+        "invalid_accepted": 0,
+        "sany_unknown": 0
+      },
+      "frozen_training_reference": {
+        "requested": 84,
+        "false_rejects": 2,
+        "invalid_accepted": 0,
+        "sany_unknown": 0
+      },
+      "saved_model_candidate": {
+        "requested": 6,
+        "false_rejects": 0,
+        "invalid_accepted": 4,
+        "sany_unknown": 0
+      }
+    }
+  },
+  "mask_performance_measured": false,
+  "gate_claim": false,
+  "model_improvement_claim": false,
+  "scope": "CPU grammar falsification only; all references are existing training data"
+}

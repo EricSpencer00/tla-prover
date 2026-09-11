@@ -1,0 +1,256 @@
+# EXPERIMENTAL CPU discriminator; NOT production-ready.
+# Only a Boolean split; other precedences remain permissive.
+# Source: tla_module_v1.ebnf, SHA256 2bcc86946f0a858628f455a3d0648c7117e2b780743e1f25dff82cebd0fb4d67
+root ::= _ module _
+
+module ::= dash4 _ "MODULE" _ ident _ dash4 sep unit_list _ eq4
+
+dash4 ::= "-" "-" "-" "-" "-"*
+eq4 ::= "=" "=" "=" "=" "="*
+
+unit_list ::= (unit sep)*
+
+unit ::= module
+       | extends
+       | var_decl
+       | const_decl
+       | recursive_decl
+       | use_or_hide
+       | assume
+       | theorem
+       | mod_def
+       | instance
+       | local_unit
+       | definition
+       | dash4
+
+local_unit ::= "LOCAL" _ (definition | instance | mod_def)
+
+extends ::= "EXTENDS" _ ident (_ "," _ ident)*
+var_decl ::= ("VARIABLES" | "VARIABLE") _ ident (_ "," _ ident)*
+const_decl ::= ("CONSTANTS" | "CONSTANT") _ opdecl (_ "," _ opdecl)*
+recursive_decl ::= "RECURSIVE" _ opdecl (_ "," _ opdecl)*
+
+opdecl ::= ident _ "(" _ "_" _ ("," _ "_" _)* ")"
+         | prefix_op _ "_"
+         | "_" _ infix_op _ "_"
+         | "_" _ postfix_op
+         | ident
+
+use_or_hide ::= ("USE" | "HIDE") _ ("ONLY" _)? fact_list? (_ def_clause)?
+def_clause ::= ("DEFS" | "DEF") _ fact_list
+fact_list ::= fact (_ "," _ fact)*
+fact ::= ("MODULE" _ ident) | new_fact | assume_prove | step_ref | op_name | expr
+op_name ::= prefix_op | infix_op | postfix_op
+step_ref ::= "<" (digits | "*" | "+") ">" (ident | digits)?
+# TLAPS writes both `ASSUME NEW STATE P` and, in the TLAPS module itself,
+# `ASSUME STATE P'` -- NEW is optional when a declaration keyword is present,
+# and the declared name may carry a prime.
+new_fact ::= "NEW" _ (decl_kw _)? decl_target (_ "\\in" _ expr)?
+           | decl_kw _ decl_target (_ "\\in" _ expr)?
+decl_kw ::= "CONSTANT" | "VARIABLE" | "STATE" | "ACTION" | "TEMPORAL"
+decl_target ::= opdecl postfix_op?
+assume_prove ::= "ASSUME" _ fact_list _ "PROVE" _ expr
+
+assume ::= ("ASSUME" | "ASSUMPTION" | "AXIOM") _ (ident _ "==" _)? expr
+theorem ::= ("THEOREM" | "PROPOSITION" | "LEMMA" | "COROLLARY") _ (ident _ "==" _)? (assume_prove | expr) (_ proof)?
+
+# TLAPS proofs are covered permissively and on purpose. They are not where
+# generation fails -- measured proof-module generation is ~0 -- so every rule
+# here exists to avoid FALSE-rejecting the proof-bearing specs in the examples
+# corpus, not to constrain anything the generator emits.
+proof ::= "OBVIOUS" | "OMITTED" | by_stmt
+        | ("PROOF" _)? (proof_step _)+
+        | "PROOF" _ (by_stmt | expr)
+
+proof_step ::= step_marker (_ step_body)?
+step_marker ::= "<" (digits | "*" | "+") ">" (ident | digits)? "."?
+step_body ::= "QED" (_ proof)?
+            | "OBVIOUS" | "OMITTED"
+            | by_stmt
+            | use_or_hide
+            | ("SUFFICES" _)? (assume_prove | expr) (_ proof)?
+            | "PICK" _ quant_head _ ":" _ expr (_ proof)?
+            | ("TAKE" | "WITNESS" | "HAVE") _ fact_list (_ proof)?
+            | "CASE" _ expr (_ proof)?
+            | "DEFINE" _ (definition _)+
+            | definition
+            | instance
+
+by_stmt ::= "BY" _ ("ONLY" _)? fact_list? (_ def_clause)?
+          | def_clause
+
+# ---- definitions -------------------------------------------------------
+
+definition ::= op_def | fn_def
+op_def ::= def_lhs _ "==" _ (instance_body | expr)
+fn_def ::= ident _ "[" _ quant_bound (_ "," _ quant_bound)* _ "]" _ "==" _ expr
+
+def_lhs ::= ident _ "(" _ opdecl_arg (_ "," _ opdecl_arg)* _ ")"
+          | prefix_op _ ident
+          | ident _ infix_op _ ident
+          | ident _ postfix_op
+          | ident
+opdecl_arg ::= opdecl
+
+mod_def ::= ident _ ("(" _ opdecl_arg (_ "," _ opdecl_arg)* _ ")" _)? "==" _ instance_body
+instance ::= instance_body
+instance_body ::= "INSTANCE" _ ident (_ "WITH" _ substitution (_ "," _ substitution)*)?
+substitution ::= (ident | prefix_op | infix_op | postfix_op) _ "<-" _ expr
+
+# ---- expressions -------------------------------------------------------
+# Precedence is flattened on purpose (rule 1): one infix level, any mix.
+
+
+expr ::= junct_list | logical_expr
+junct_list ::= and_list | or_list
+and_list ::= ("/\\" _ expr _)+
+or_list ::= ("\\/" _ expr _)+
+logical_expr ::= nonlogical (_ and_op _ nonlogical)* (_ low_op _ expr)?
+               | nonlogical (_ or_op _ nonlogical)+ (_ low_op _ expr)?
+and_op ::= "/\\" | "\\land"
+or_op ::= "\\/" | "\\lor"
+low_op ::= "=>" | "<=>" | "\\equiv" | "~>" | "-+->"
+nonlogical ::= prefixed (_ nonlogical_op _ prefixed)*
+prefixed ::= prefix_op _ prefixed | postfixed
+postfixed ::= primary (_ postfix_suffix)*
+postfix_suffix ::= postfix_op
+                 | "!" qual_step
+                 | "[" _ expr (_ "," _ expr)* _ "]"
+                 | "(" _ expr (_ "," _ expr)* _ ")"
+                 | "." _ ident
+
+primary ::= number
+          | string
+          | "TRUE" | "FALSE" | "BOOLEAN" | "STRING"
+          | at_ref
+          | quantified
+          | choose
+          | let_in
+          | if_then_else
+          | case_expr
+          | temporal_op
+          | except_or_record_or_fn
+          | set_form
+          | tuple_form
+          | paren_or_action
+          | labelled
+          | lambda_expr
+          | applied_ident
+
+at_ref ::= "@"
+lambda_expr ::= "LAMBDA" _ ident_list _ ":" _ expr
+labelled ::= ident ("(" _ ident_list _ ")")? _ "::" _ expr
+applied_ident ::= qualified
+qualified ::= ident ("!" qual_step)*
+qual_step ::= ident_or_num arg_group? | arg_group | op_name | ":"
+arg_group ::= "(" _ expr (_ "," _ expr)* _ ")"
+ident_or_num ::= ident | digits
+
+# The comma in `LET a == 1, b == 2 IN` -- an ML/Haskell habit, the single most
+# common parse failure in the ledger -- is unreachable here: LET holds a
+# whitespace-separated sequence of definitions and nothing else.
+let_in ::= "LET" _ (let_item _)+ "IN" _ expr
+let_item ::= definition | recursive_decl | mod_def | instance
+
+if_then_else ::= "IF" _ expr _ "THEN" _ expr _ "ELSE" _ expr
+case_expr ::= "CASE" _ case_arm (_ "[]" _ case_arm)* (_ "[]" _ "OTHER" _ "->" _ expr)?
+case_arm ::= expr _ "->" _ expr
+
+choose ::= "CHOOSE" _ quant_head _ ":" _ expr
+
+# `\E x \subseteq S : P` is unreachable: after the bound identifiers only
+# `\in` may introduce the domain.
+quantified ::= quant_kw _ quant_head _ ":" _ expr
+quant_kw ::= "\\AA" | "\\EE" | "\\A" | "\\E" | "\\forall" | "\\exists"
+quant_head ::= quant_bound (_ "," _ quant_bound)* | ident_list
+quant_bound ::= ident_list _ "\\in" _ expr | tuple_bound _ "\\in" _ expr
+tuple_bound ::= "<<" _ ident_list _ ">>"
+ident_list ::= ident (_ "," _ ident)*
+
+temporal_op ::= ("WF_" | "SF_") subscript _ "(" _ expr _ ")"
+subscript ::= qualified | "<" "<" _ expr (_ "," _ expr)* _ ">" ">" | "(" _ expr _ ")"
+
+set_form ::= "{" _ "}"
+           | "{" _ quant_bound _ ":" _ expr _ "}"
+           | "{" _ expr _ ":" _ quant_head _ "}"
+           | "{" _ expr (_ "," _ expr)* _ "}"
+
+tuple_form ::= "<" "<" _ ">" ">"
+             | "<" "<" _ expr (_ "," _ expr)* _ ">" ">" (_ "_" _ subscript)?
+
+paren_or_action ::= "(" _ expr _ ")"
+                  | "[" _ expr _ "]" _ "_" _ subscript
+
+except_or_record_or_fn ::= "[" _ expr _ "EXCEPT" _ except_spec (_ "," _ except_spec)* _ "]"
+                         | "[" _ quant_bound (_ "," _ quant_bound)* _ "|->" _ expr _ "]"
+                         | "[" _ rec_field (_ "," _ rec_field)* _ "]"
+                         | "[" _ expr _ "->" _ expr _ "]"
+                         | "[" _ expr _ "]" _ "_" _ subscript
+                         | "[" _ expr _ "]"
+rec_field ::= ident _ ("|->" | ":") _ expr
+except_spec ::= "!" except_path _ "=" _ expr
+except_path ::= (("." ident) | ("[" _ expr (_ "," _ expr)* _ "]"))+
+
+# ---- junction lists ----------------------------------------------------
+# accepted at any indentation; see the header note on alignment.
+
+# ---- lexical -----------------------------------------------------------
+
+ident ::= [0-9_]* [A-Za-z] [A-Za-z0-9_]*
+digits ::= [0-9]+
+number ::= [0-9]+ ("." [0-9]+)? | "\\b" [01]+ | "\\B" [01]+ | "\\o" [0-7]+ | "\\O" [0-7]+ | "\\h" [0-9a-fA-F]+ | "\\H" [0-9a-fA-F]+
+string ::= "\"" str_char* "\""
+str_char ::= [^"\\\n] | "\\" [^\n]
+
+prefix_op ::= "~" | "\\lnot" | "\\neg" | "[]" | "<>" | "SUBSET" | "UNION"
+            | "DOMAIN" | "ENABLED" | "UNCHANGED" | "-." | "-"
+
+postfix_op ::= "'" | "^+" | "^*" | "^#"
+
+infix_op ::= "=>" | "<=>" | "\\equiv" | "~>" | "-+->"
+           | "/\\" | "\\land" | "\\/" | "\\lor"
+           | "=<" | "<=" | ">=" | "/=" | "#" | "<" | ">" | "="
+           | "\\notin" | "\\in" | "\\subseteq" | "\\subset" | "\\supseteq" | "\\supset"
+           | "\\cup" | "\\union" | "\\cap" | "\\intersect" | "\\setminus"
+           | "\\X" | "\\times" | "\\div" | "\\mod" | "\\o" | "\\circ" | "\\bullet"
+           | "\\star" | "\\sqcap" | "\\sqcup" | "\\uplus" | "\\wr" | "\\propto"
+           | "\\prec" | "\\preceq" | "\\succ" | "\\succeq" | "\\sim" | "\\simeq"
+           | "\\leq" | "\\geq" | "\\neq" | "\\ll" | "\\gg" | "\\asymp" | "\\approx" | "\\cong" | "\\doteq"
+           | "\\sqsubseteq" | "\\sqsubset" | "\\sqsupseteq" | "\\sqsupset"
+           | "\\oplus" | "\\ominus" | "\\otimes" | "\\oslash" | "\\odot"
+           | "\\cdot" | "@@" | ":>" | ":=" | "::=" | "..." | ".."
+           | "(+)" | "(-)" | "(.)" | "(/)" | "(\\X)"
+           | "-+->" | "-|" | "=|" | "|-" | "|=" | "::=" | ":=" | "<:" | ":>"
+           | "^^" | "**" | "++" | "--" | "//" | "%%" | "##" | "$$" | "??" | "!!"
+           | "&&" | "||" | "@@" | "?"
+           | "^" | "+" | "-" | "*" | "/" | "%" | "&" | "|" | "$"
+           | "\\"
+
+# whitespace and comments, allowed to separate anything
+_ ::= ws*
+sep ::= ws*
+ws ::= " " | "\t" | "\n" | "\r" | line_comment | block_comment
+line_comment ::= "\\*" [^\n]* "\n"
+block_comment ::= "(*" bc_body "*)"
+# TLA+ block comments NEST -- PlusCal lives inside one, and its own
+# (* ... *) sections nest within it.
+bc_body ::= ( block_comment | [^*(] | "*"+ [^*)] | "(" )* "*"*
+
+nonlogical_op ::= "=<" | "<=" | ">=" | "/=" | "#" | "<" | ">" | "="
+           | "\\notin" | "\\in" | "\\subseteq" | "\\subset" | "\\supseteq" | "\\supset"
+           | "\\cup" | "\\union" | "\\cap" | "\\intersect" | "\\setminus"
+           | "\\X" | "\\times" | "\\div" | "\\mod" | "\\o" | "\\circ" | "\\bullet"
+           | "\\star" | "\\sqcap" | "\\sqcup" | "\\uplus" | "\\wr" | "\\propto"
+           | "\\prec" | "\\preceq" | "\\succ" | "\\succeq" | "\\sim" | "\\simeq"
+           | "\\leq" | "\\geq" | "\\neq" | "\\ll" | "\\gg" | "\\asymp" | "\\approx" | "\\cong" | "\\doteq"
+           | "\\sqsubseteq" | "\\sqsubset" | "\\sqsupseteq" | "\\sqsupset"
+           | "\\oplus" | "\\ominus" | "\\otimes" | "\\oslash" | "\\odot"
+           | "\\cdot" | "@@" | ":>" | ":=" | "::=" | "..." | ".."
+           | "(+)" | "(-)" | "(.)" | "(/)" | "(\\X)"
+           | "-|" | "=|" | "|-" | "|=" | "::=" | ":=" | "<:" | ":>"
+           | "^^" | "**" | "++" | "--" | "//" | "%%" | "##" | "$$" | "??" | "!!"
+           | "&&" | "||" | "@@" | "?"
+           | "^" | "+" | "-" | "*" | "/" | "%" | "&" | "|" | "$"
+           | "\\"
+
