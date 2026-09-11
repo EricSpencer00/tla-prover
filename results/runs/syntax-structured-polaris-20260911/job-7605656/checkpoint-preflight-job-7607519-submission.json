@@ -1,0 +1,8 @@
+{
+  "observed_utc": "2026-09-11T16:35:50Z",
+  "job_id": "7607519.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "stage": "/grand/EVITA/eric-spencer/tla-checkpoint-preflight-20260911-v2",
+  "payload": "checkpoint-preflight-payload-v2.json",
+  "resources": "one Polaris debug node, one GPU, walltime 00:15:00",
+  "gate_claim": false
+}
