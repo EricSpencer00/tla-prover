@@ -1,0 +1,32 @@
+{
+  "authority": "standing-evidence-supported-run-approval.json",
+  "local_stage": "/private/tmp/tla-grouping-mask-region.FoJde5",
+  "remote_stage": "/grand/EVITA/eric-spencer/tla-grouping-mask-cpu-20260911-v2",
+  "sha256sums": "e96c226f3bb097c2602531a008c4cc95a68acd382d860cdf077762e4c3a9c07d  protected_grouping_mask_profile.py\nefda96657dfc9aafcc5a6992e711cc213bfcf8e666795910d5042f8b3dbc1354  cases.json\n",
+  "hypothesis": "Measure grouping cost after the first changed token, which v1 failed to reach.",
+  "mode": "--changed-region",
+  "resources": {
+    "cpu_threads": 1,
+    "gpu": 0,
+    "outer_timeout_seconds": 180,
+    "per_case_seconds": 30,
+    "maximum_timed_tokens": 32
+  },
+  "reference_rows": {
+    "47": "identical formats; explicitly skip",
+    "107": "prime65 common tokens without mask timing; compare changed region"
+  },
+  "scope": "Two changed-region cases on one training reference, not full generation or model quality",
+  "prior_result": {
+    "exit_code": 0,
+    "case_completion_counts": [
+      50,
+      47,
+      64,
+      65
+    ],
+    "planned_each": 128,
+    "changed_tokens_measured": 0
+  },
+  "side_effects": "Create isolated v2 stage; upload script, same four reference cases and checksums; CPU-only log. No qsub, CUDA, weights or shared-runtime changes."
+}

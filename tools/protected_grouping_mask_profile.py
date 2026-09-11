@@ -21,6 +21,8 @@ def main():
     parser.add_argument('--grammar', type=Path, required=True)
     parser.add_argument('--cases', type=Path, required=True)
     parser.add_argument('--xgrammar-site', type=Path, required=True)
+    parser.add_argument('--changed-region', action='store_true',
+                        help='Separate diagnostic: prime common prefix, time at most32 changed-region tokens')
     args = parser.parse_args()
     if sha(args.grammar) != GRAMMAR_SHA:
         raise ValueError('Grammar identity mismatch')
@@ -36,6 +38,11 @@ def main():
     if version('xgrammar') != '0.2.2':
         raise ValueError('Expected exact Polaris XGrammar0.2.2')
     tokenizer = AutoTokenizer.from_pretrained(args.model, local_files_only=True)
+    encoded = [tokenizer.encode(c['text'], add_special_tokens=False) for c in cases]
+    common = {}
+    for index in (0, 2):
+        a, b = encoded[index:index+2]
+        common[cases[index]['row']] = next((i for i, (x, y) in enumerate(zip(a, b)) if x != y), min(len(a), len(b)))
     vocab_size = json.loads((args.model / 'config.json').read_text())['vocab_size']
     info = xgr.TokenizerInfo.from_huggingface(tokenizer, vocab_size=vocab_size)
     started = time.monotonic()
@@ -43,14 +50,22 @@ def main():
     print(json.dumps(dict(event='identity', grammar_sha256=GRAMMAR_SHA,
         cases_sha256=sha(args.cases), source_sha256=sha(__file__), xgrammar_version=version('xgrammar'),
         tokenizer_sha256=sha(args.model / 'tokenizer.json'), compile_seconds=time.monotonic()-started,
+        changed_region=args.changed_region, common_prefix_tokens=common,
         scope='Four reference-prefix CPU diagnostics, no model weights or CUDA operations')), flush=True)
-    for case in cases:
-        ids = tokenizer.encode(case['text'], add_special_tokens=False)
+    for case, ids in zip(cases, encoded):
+        begin = common[case['row']] if args.changed_region else 0
+        if begin == len(ids):
+            print(json.dumps(dict(event='case_skipped_identical_reference', row=case['row'],
+                format=case['format'], text_sha256=case['text_sha256'], common_prefix_tokens=begin)), flush=True)
+            continue
+        planned = min(32 if args.changed_region else 128, len(ids)-begin)
         matcher = xgr.GrammarMatcher(compiled)
+        if not all(matcher.accept_token(token) for token in ids[:begin]):
+            raise ValueError('Grammar rejected primed reference prefix')
         mask = xgr.allocate_token_bitmask(1, vocab_size)
         durations, rejected = [], False
         started = time.monotonic()
-        for index, token in enumerate(ids[:128]):
+        for index, token in enumerate(ids[begin:begin+planned], start=begin):
             if time.monotonic() - started >= 30:
                 break
             step = time.monotonic()
@@ -62,8 +77,9 @@ def main():
             print(json.dumps(dict(event='prefix', row=case['row'], format=case['format'],
                 tokens=index+1, seconds=durations[-1])), flush=True)
         print(json.dumps(dict(event='case_complete', row=case['row'], format=case['format'],
-            text_sha256=case['text_sha256'], full_reference_tokens=len(ids), planned_prefix_tokens=min(128, len(ids)),
-            measured_prefix_tokens=len(durations), all_planned_prefixes_measured=len(durations)==min(128,len(ids)),
+            text_sha256=case['text_sha256'], full_reference_tokens=len(ids), planned_prefix_tokens=planned,
+            primed_prefix_tokens=begin, priming_mask_cost_measured=False,
+            measured_prefix_tokens=len(durations), all_planned_prefixes_measured=len(durations)==planned,
             token_rejected=rejected, elapsed_seconds=time.monotonic()-started,
             median_step_seconds=statistics.median(durations) if durations else None,
             max_step_seconds=max(durations, default=None),
