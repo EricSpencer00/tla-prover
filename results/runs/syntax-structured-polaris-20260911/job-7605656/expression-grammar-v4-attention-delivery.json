@@ -1,0 +1,10 @@
+{
+  "observed_utc": "2026-09-11T21:00:01Z",
+  "platform": "discord",
+  "chat_id": "1522350803216629851",
+  "message_id": "1548075724341116959",
+  "action_key": "expression-grammar-v4-four-file-stage-one-gpu-15min",
+  "payload": "expression-grammar-paired-v4-payload.json",
+  "content": "Minimal mention-only attention request; no code, paths, logs or secrets.",
+  "authorization_effect": "none; notification is not approval"
+}
