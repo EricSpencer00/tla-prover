@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 161
-- Verified UTC: 2026-09-11T07:19:24Z
+- Revision: 162
+- Verified UTC: 2026-09-11T07:20:07Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: local_work
 - Active job: none
-- Observation evidence: Prepared the exact bounded Polaris preflight launcher for the new direct checkpoint contract. It requests one debug Polaris node/GPU for 15 minutes, invokes only protected_checkpoint_preflight.py, pins the recorded 7605656 child checkpoint path, frozen packet/model/grammar paths, validates stage checksums, and writes an append-only receipt. Local shell syntax and focused contract tests pass; no stage upload or qsub occurred.
-- Latest completed result: protected_checkpoint_preflight_polaris.pbs is a reviewable preflight payload, not an authorized submission. It has no generation, parameter update, prompt suffix, or acceptance claim; it only prepares real same-node checkpoint/tokenizer/grammar validation.
-- Local work: Prepared a bounded, direct-checkpoint preflight payload after quality controls. The local payload validation passed; remote availability, staged dependency closure, real model/checkpoint restoration, and grammar compilation remain unverified until the approved same-node run.
+- Observation evidence: Prepared an exact reviewable Polaris upload/submission payload for the direct checkpoint preflight. The fresh two-file local stage checksum and CLI smoke passed; the payload pins source hashes, destination, one-GPU/15-minute debug allocation, and no-generation/no-training side effects. No upload or submission occurred; exact authorization is pending.
+- Latest completed result: checkpoint-preflight-payload-v1 is ready for review. It would upload protected_checkpoint_preflight.py and its PBS launcher to a new Polaris stage and submit one same-node preflight. The payload remains diagnostic-only and preserves the frozen acceptance gates.
+- Local work: Completed local payload preparation and checksum verification for the direct checkpoint preflight. Pending external work is a new explicit Polaris upload/submission authorization; no remote state is claimed from stale observations.
 - External blocker: none verified
-- Next action: Create a fresh local stage manifest containing only protected_checkpoint_preflight.py and its PBS launcher, exercise the staged CLI, then send the exact reviewable Polaris upload/submission request before any remote side effect.
+- Next action: Await an exact approval for checkpoint-preflight-payload-v1, then recheck Polaris ownership, upload the two-file stage, validate remote checksums, claim the submission identity, and submit the single bounded preflight.
 
 ## Objective and evidence rules
 
@@ -128,16 +128,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 161,
-  "verified_utc": "2026-09-11T07:19:24Z",
+  "revision": 162,
+  "verified_utc": "2026-09-11T07:20:07Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "local_work",
   "active_job": null,
-  "observation_evidence": "Prepared the exact bounded Polaris preflight launcher for the new direct checkpoint contract. It requests one debug Polaris node/GPU for 15 minutes, invokes only protected_checkpoint_preflight.py, pins the recorded 7605656 child checkpoint path, frozen packet/model/grammar paths, validates stage checksums, and writes an append-only receipt. Local shell syntax and focused contract tests pass; no stage upload or qsub occurred.",
-  "last_result": "protected_checkpoint_preflight_polaris.pbs is a reviewable preflight payload, not an authorized submission. It has no generation, parameter update, prompt suffix, or acceptance claim; it only prepares real same-node checkpoint/tokenizer/grammar validation.",
-  "local_work": "Prepared a bounded, direct-checkpoint preflight payload after quality controls. The local payload validation passed; remote availability, staged dependency closure, real model/checkpoint restoration, and grammar compilation remain unverified until the approved same-node run.",
+  "observation_evidence": "Prepared an exact reviewable Polaris upload/submission payload for the direct checkpoint preflight. The fresh two-file local stage checksum and CLI smoke passed; the payload pins source hashes, destination, one-GPU/15-minute debug allocation, and no-generation/no-training side effects. No upload or submission occurred; exact authorization is pending.",
+  "last_result": "checkpoint-preflight-payload-v1 is ready for review. It would upload protected_checkpoint_preflight.py and its PBS launcher to a new Polaris stage and submit one same-node preflight. The payload remains diagnostic-only and preserves the frozen acceptance gates.",
+  "local_work": "Completed local payload preparation and checksum verification for the direct checkpoint preflight. Pending external work is a new explicit Polaris upload/submission authorization; no remote state is claimed from stale observations.",
   "external_blocker": null,
-  "next_action": "Create a fresh local stage manifest containing only protected_checkpoint_preflight.py and its PBS launcher, exercise the staged CLI, then send the exact reviewable Polaris upload/submission request before any remote side effect.",
+  "next_action": "Await an exact approval for checkpoint-preflight-payload-v1, then recheck Polaris ownership, upload the two-file stage, validate remote checksums, claim the submission identity, and submit the single bounded preflight.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -355,7 +355,8 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "harness/test_protected_checkpoint_preflight.py",
     "results/runs/syntax-structured-polaris-20260911/job-7605656/checkpoint-preflight-stage-adapter-smoke-v1/receipt.json",
     "results/runs/syntax-structured-polaris-20260911/job-7605656/checkpoint-preflight-stage-adapter-smoke-v2/receipt.json",
-    "tools/protected_checkpoint_preflight_polaris.pbs"
+    "tools/protected_checkpoint_preflight_polaris.pbs",
+    "results/runs/syntax-structured-polaris-20260911/job-7605656/checkpoint-preflight-payload-v1.json"
   ]
 }
 -->

@@ -1,0 +1,14 @@
+{
+  "kind": "protected_checkpoint_preflight_payload_v1",
+  "destination": "polaris:/grand/EVITA/eric-spencer/tla-checkpoint-preflight-20260911-v1",
+  "stage_files": {
+    "protected_checkpoint_preflight.py": "dc75ef2e911fe6b7791d1e30d21a4775945b61f263303a44d106a5037e9be4cf",
+    "protected_checkpoint_preflight_polaris.pbs": "a4d27065617b1d69125010fec6145e54a9f8c7283fdaf535178d2ea884741b63"
+  },
+  "expected_stage_manifest": "SHA256SUMS generated from exactly the two stage files",
+  "resources": "one Polaris debug node, one GPU, EVITA, walltime 00:15:00",
+  "side_effects": "upload the two-file stage and submit one bounded same-node preflight; no training, generation, checkpoint mutation, or promotion",
+  "checks": "local stage checksum and runner CLI smoke passed; synthetic staged adapter control passed separately",
+  "authorization": "pending exact upload/submission review",
+  "gate_claim": false
+}
