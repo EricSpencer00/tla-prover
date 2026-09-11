@@ -1,0 +1,25 @@
+{
+  "job_id": "7607990.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "observed_utc": "2026-09-11T18:33:25Z",
+  "state": "F",
+  "exit_status": 0,
+  "allocation": {
+    "node": "x3202c0s7b1n0",
+    "ngpus": 1,
+    "walltime_used": "00:01:26",
+    "ngpus_requested": 1
+  },
+  "preflight_receipt": "checkpoint-preflight-v3-job-7607990-receipt.json",
+  "verified": {
+    "staged_checksums": true,
+    "frozen_packet_sha256": "a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c",
+    "protected_prompt_tokens": {"47": 401, "107": 457},
+    "checkpoint_sha256": "b0399b51aed001051fe200751b3087fc008482ca9dfeb64eb12884f71eee3bb6",
+    "restored_parameter_count": 9,
+    "restored_tensors_exact": true,
+    "xgrammar_version": "0.2.2",
+    "grammar_compiled": true
+  },
+  "classification": "successful checkpoint/tokenizer/grammar preflight; not paired generation, SANY, TLC, non-vacuity, or TLAPS evidence",
+  "gate_claim": false
+}
