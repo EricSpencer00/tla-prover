@@ -18,6 +18,7 @@ def test_v3_keeps_the_preflight_bounded_and_checkpoint_faithful():
 
 def test_direct_paired_launcher_is_bounded_and_binds_the_isolated_closure():
     paired = Path("tools/protected_checkpoint_paired_generation_polaris.pbs").read_text()
+    assert "STAGE=/grand/EVITA/eric-spencer/tla-checkpoint-paired-generation-20260911-v3" in paired
     assert "#PBS -l select=1:system=polaris:ngpus=1" in paired
     assert "#PBS -l walltime=00:15:00" in paired
     assert "XGRAMMAR_SITE=/grand/EVITA/eric-spencer/tla-checkpoint-preflight-deps/xgrammar-0.2.2-cp312" in paired

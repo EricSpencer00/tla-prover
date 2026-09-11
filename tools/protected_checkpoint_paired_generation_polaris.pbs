@@ -9,7 +9,7 @@
 #PBS -j oe
 set -euo pipefail
 
-STAGE=/grand/EVITA/eric-spencer/tla-checkpoint-paired-generation-20260911-v1
+STAGE=/grand/EVITA/eric-spencer/tla-checkpoint-paired-generation-20260911-v3
 XGRAMMAR_SITE=/grand/EVITA/eric-spencer/tla-checkpoint-preflight-deps/xgrammar-0.2.2-cp312
 cd "$STAGE"
 exec > "job.${PBS_JOBID%%.*}.log" 2>&1
