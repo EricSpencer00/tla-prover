@@ -1,0 +1,19 @@
+{
+  "kind": "direct_checkpoint_paired_generation_retry_v3",
+  "supersedes": "direct-checkpoint-paired-generation-payload-v2.json",
+  "failure_addressed": "XGrammar Triton inherited Polaris CC=nvc and nvc rejected -Wno-psabi during the first grammar candidate",
+  "runner": {
+    "path": "tools/protected_checkpoint_paired_generation.py",
+    "sha256": "3883aa82bf78836bfb9a3a50f4ee1dbd46295e572361830db94f29ec626d2795",
+    "new_pre_model_check": "real CUDA XGrammar grammar-mask kernel smoke"
+  },
+  "launcher": {
+    "path": "tools/protected_checkpoint_paired_generation_polaris.pbs",
+    "sha256": "99aa3c2729799effee1122070efe5b1b00aa1efc3c3b8f6e2f8b79de34d535fc",
+    "compiler": "/usr/bin/gcc",
+    "allocation": "one EVITA Polaris debug GPU for at most 15 minutes"
+  },
+  "contract": "unchanged frozen rows 47/107, two arms, two deterministic repeats, 1024 output tokens",
+  "authorization_required": true,
+  "gate_claim": false
+}
