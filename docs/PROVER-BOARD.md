@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 167
-- Verified UTC: 2026-09-11T07:23:58Z
+- Revision: 168
+- Verified UTC: 2026-09-11T07:30:02Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: local_work
 - Active job: none
-- Observation evidence: Authorized Polaris preflight 7606064 was accepted, allocated one GPU node, and terminally failed with exit 1 before runner startup. Terminal stdout shows the PBS shell did not receive TLA_CHECKPOINT_PREFLIGHT_STAGE; no checkpoint load, tokenizer validation, grammar compilation, generation, or checker result occurred.
-- Latest completed result: Job 7606064 is an infrastructure/launcher configuration failure only. It cannot be used as model, checkpoint, grammar, SANY, or acceptance evidence.
-- Local work: Diagnosed the concrete PBS environment-propagation defect. Repair the launcher to derive its fixed verified stage path or supply the variable through qsub -v, then exercise the repaired exact stage before any retry.
+- Observation evidence: Repaired the exact terminal defect from 7606064: the launcher no longer requires a non-propagated PBS environment variable and instead binds its reviewed v2 stage path internally. Shell syntax passed and focused direct-preflight tests passed 3/3. No retry has been staged or submitted.
+- Latest completed result: The v2 launcher changes only stage-path binding, eliminating the pre-run environment failure. The prior job remains a preserved terminal infrastructure result; no checkpoint/model/grammar result exists yet.
+- Local work: Completed and tested the minimal PBS propagation repair. A new exact stage/payload identity is required because the launcher bytes and destination changed; this is a new bounded preflight configuration, not a repeat of 7606064.
 - External blocker: none verified
-- Next action: Patch the preflight launcher to eliminate the non-propagated stage-variable dependency, test its exact staged invocation, prepare a new payload identity, and route its bounded retry through normal review.
+- Next action: Create a fresh v2 two-file stage and payload receipt with the repaired launcher, then route its exact one-GPU/15-minute Polaris retry through normal review before upload/submission.
 
 ## Objective and evidence rules
 
@@ -128,16 +128,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 167,
-  "verified_utc": "2026-09-11T07:23:58Z",
+  "revision": 168,
+  "verified_utc": "2026-09-11T07:30:02Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "local_work",
   "active_job": null,
-  "observation_evidence": "Authorized Polaris preflight 7606064 was accepted, allocated one GPU node, and terminally failed with exit 1 before runner startup. Terminal stdout shows the PBS shell did not receive TLA_CHECKPOINT_PREFLIGHT_STAGE; no checkpoint load, tokenizer validation, grammar compilation, generation, or checker result occurred.",
-  "last_result": "Job 7606064 is an infrastructure/launcher configuration failure only. It cannot be used as model, checkpoint, grammar, SANY, or acceptance evidence.",
-  "local_work": "Diagnosed the concrete PBS environment-propagation defect. Repair the launcher to derive its fixed verified stage path or supply the variable through qsub -v, then exercise the repaired exact stage before any retry.",
+  "observation_evidence": "Repaired the exact terminal defect from 7606064: the launcher no longer requires a non-propagated PBS environment variable and instead binds its reviewed v2 stage path internally. Shell syntax passed and focused direct-preflight tests passed 3/3. No retry has been staged or submitted.",
+  "last_result": "The v2 launcher changes only stage-path binding, eliminating the pre-run environment failure. The prior job remains a preserved terminal infrastructure result; no checkpoint/model/grammar result exists yet.",
+  "local_work": "Completed and tested the minimal PBS propagation repair. A new exact stage/payload identity is required because the launcher bytes and destination changed; this is a new bounded preflight configuration, not a repeat of 7606064.",
   "external_blocker": null,
-  "next_action": "Patch the preflight launcher to eliminate the non-propagated stage-variable dependency, test its exact staged invocation, prepare a new payload identity, and route its bounded retry through normal review.",
+  "next_action": "Create a fresh v2 two-file stage and payload receipt with the repaired launcher, then route its exact one-GPU/15-minute Polaris retry through normal review before upload/submission.",
   "tasks": [
     {
       "id": "TLA-01",

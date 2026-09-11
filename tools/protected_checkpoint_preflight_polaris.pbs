@@ -8,8 +8,11 @@
 #PBS -l filesystems=home:grand
 #PBS -j oe
 set -euo pipefail
-: "${TLA_CHECKPOINT_PREFLIGHT_STAGE:?absolute verified staging directory required}"
-cd "$TLA_CHECKPOINT_PREFLIGHT_STAGE"
+# PBS does not inherit arbitrary submit-shell variables unless qsub is given
+# an explicit export list.  This payload has one immutable reviewed stage, so
+# bind that path in the launcher rather than relying on ambient propagation.
+STAGE=/grand/EVITA/eric-spencer/tla-checkpoint-preflight-20260911-v2
+cd "$STAGE"
 exec > "job.${PBS_JOBID%%.*}.log" 2>&1
 export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false
 export HF_HOME=/grand/EVITA/eric-spencer/hf-cache PYTHONUNBUFFERED=1
