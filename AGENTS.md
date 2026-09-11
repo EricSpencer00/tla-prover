@@ -1,5 +1,6 @@
 # prove-TLA local agent directive
 
+- Apply [the quality pillars](docs/PROVER-QUALITY.md) before implementation acceptance, model promotion, remote experiment preparation and completion claims. They supplement the frozen goal; historical experiment notes cannot weaken them.
 - Keep the native objective active: 100% SANY pass, then 100% applicable TLC, then non-vacuous intended behavior on unseen specs.
 - Do not downgrade or narrow the objective. Preserve append-only evidence and explicit unknown/infra failure accounting.
 - Run a bounded local loop on each branch: reproduce quickly, patch minimally, run targeted verification, then advance only with measured gain.
