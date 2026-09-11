@@ -1,0 +1,26 @@
+{
+  "observed_utc": "2026-09-11T23:22:41Z",
+  "second_stage": "/grand/EVITA/eric-spencer/tla-canonical-preflight-20260911-v2",
+  "second_exit": 1,
+  "second_log": "{\"event\": \"import_start\"}\n",
+  "minimal_same_environment_imports": {
+    "xgrammar": true,
+    "transformers": true,
+    "AutoTokenizer": true
+  },
+  "full_verbose_trace": {
+    "timeout_seconds": 60,
+    "exit_code": 124,
+    "coverage": {
+      "accepted": 84,
+      "rejected": 6
+    },
+    "tokenizer_loaded": true,
+    "token_grammar_compile_seconds": 1.2602480299538001,
+    "mask_cases_completed": 0
+  },
+  "decision": "Unchanged import retry retired. Verbose exact full path passed imports/coverage/compile, so the earlier native exit remains intermittent/unexplained. Next diagnostic adds per-token start/end to identify expensive mask boundary under original180s cap. No claim of repair, readiness or model improvement.",
+  "next_source_sha256": "e9c2798fb0c18a91d1e9ff4d8b9ccb824f7e5c796c7b826b30d624eb9bb77965",
+  "validation": "8 targeted tests passed; grammar/corpus/frozen inputs unchanged",
+  "polaris_queue": "qstat -u eric-spencer returned no jobs"
+}

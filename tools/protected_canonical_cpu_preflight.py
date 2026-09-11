@@ -97,12 +97,15 @@ def check(args):
         for index, token in enumerate(ids[:128]):
             if time.monotonic() - started >= 30:
                 break
+            print(json.dumps(dict(event='mask_step_start', row=r['row'], index=index)), flush=True)
             step = time.monotonic()
             if not matcher.accept_token(token):
                 rejected = True
                 break
             matcher.fill_next_token_bitmask(mask)
             times.append(time.monotonic() - step)
+            print(json.dumps(dict(event='mask_step_complete', row=r['row'], index=index,
+                                  seconds=times[-1])), flush=True)
         masks.append(dict(row=r['row'], planned=min(128, len(ids)), measured=len(times),
                           rejected=rejected, elapsed_seconds=time.monotonic()-started,
                           max_step_seconds=max(times, default=0), step_seconds=times))
