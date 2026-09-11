@@ -25,8 +25,6 @@ requires a syntax constraint that excludes the error class without false-rejecti
 required valid constructs, exact runtime tests, and controlled generated results.
 Evidence: `results/runs/syntax-structured-polaris-20260911/job-7605656/direct-checkpoint-paired-generation-job-7608598-diagnosis.json`.
 
-### Board persistence correction, 2026-09-11
-
 ### Parallel prompt preflight did not attest actual model tensors
 
 Post-run replay of the exact tokenizer used in 7608598 found 402/458 actual

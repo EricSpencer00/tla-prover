@@ -1,0 +1,16 @@
+{
+  "packet_sha256": "a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c",
+  "jar_sha256": "936a262061c914694dfd669a543be24573c45d5aa0ff20a8b96b23d01e050e88",
+  "grammar_sha256": "2bcc86946f0a858628f455a3d0648c7117e2b780743e1f25dff82cebd0fb4d67",
+  "xgrammar_version": "0.2.3",
+  "scorer_sha256": "d059fd6d49662b8cb6e9e566663a3a4b9f37b8a3b0be38b2713461fe5a5b5da6",
+  "requested": 84,
+  "observed": 84,
+  "sany_pass": 84,
+  "sany_reject": 0,
+  "sany_unknown": 0,
+  "false_rejects": 0,
+  "complete": true,
+  "scope": "CPU syntax coverage over existing training packet references; no generation or held-out claim",
+  "gate_claim": false
+}

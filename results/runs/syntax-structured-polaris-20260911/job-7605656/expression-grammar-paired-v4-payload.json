@@ -1,0 +1,49 @@
+{
+  "kind": "expression_grammar_paired_v4_preparation",
+  "observed_utc": "2026-09-11 20:59:23 UTC",
+  "local_stage": "/private/tmp/tla-expression-stage.vMUTk6",
+  "remote_destination": "/grand/EVITA/eric-spencer/tla-checkpoint-expression-generation-20260911-v4",
+  "files": {
+    "protected_checkpoint_paired_generation.py": "89d9b80cec20cf63cf49bc37830f3873ed97bd7db19befdb94f4b6da134d97aa",
+    "protected_checkpoint_preflight.py": "4c569421946fcd207028f16f12f90b24182817b7f89975c988277197195f15e8",
+    "protected_checkpoint_expression_polaris.pbs": "04e4a6da3b6fbb64eb7c7957f68b63aea7d818e416fd7f38673472b142864049",
+    "tla_module_v1.ebnf": "2bcc86946f0a858628f455a3d0648c7117e2b780743e1f25dff82cebd0fb4d67"
+  },
+  "side_effects": "Create new experiment directory and four-file bundle plus checksum manifest, then one EVITA Polaris debug GPU for at most 15 minutes; write append-only raw outputs. No shared runtime/checkpoint changes.",
+  "resources": {
+    "gpu": 1,
+    "walltime": "00:15:00",
+    "queue": "debug",
+    "account": "EVITA"
+  },
+  "hypothesis": "Expression grammar prevents missing-conjunction syntax rejected by SANY; ordinary comparison uses identical corrected frozen model inputs.",
+  "contract": {
+    "rows": [
+      47,
+      107
+    ],
+    "arms": [
+      "existing_decoder",
+      "grammar_enforced"
+    ],
+    "generations_per_row": 2,
+    "max_new_tokens": 1024,
+    "seed": 20261011,
+    "deterministic_repeats": true,
+    "checkpoint_sha256": "b0399b51aed001051fe200751b3087fc008482ca9dfeb64eb12884f71eee3bb6",
+    "packet_sha256": "a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c"
+  },
+  "checks": {
+    "local_stage_cli": "passed with all sibling modules present",
+    "launcher_syntax": "passed",
+    "input_token_regression": "five focused tests passed; exact Polaris CPU replay matches frozen IDs only with add_special_tokens=False",
+    "grammar_reference_coverage": "84/84 full packet reference modules pass actual local SANY and are accepted by v1; zero false rejects on this set",
+    "failure_discriminator": "v1 rejects both saved failed candidates; v0 accepts both",
+    "local_xgrammar": "0.2.3",
+    "remote_xgrammar": "0.2.2, v1 not yet exercised there",
+    "remote_mask_smoke": "pending new run; executes before model loading"
+  },
+  "quality_limits": "84 training-packet references establish only tested syntax coverage. No unseen-quality, TLC, non-vacuity or TLAPS result. Score every candidate and retain failures. Compare v4 arms directly; do not claim frozen-contract gains against token-mismatched7608598.",
+  "submission_authorized": false,
+  "gate_claim": false
+}
