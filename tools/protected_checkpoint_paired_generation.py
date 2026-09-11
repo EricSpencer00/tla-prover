@@ -48,6 +48,18 @@ def build_processor(xgrammar, tokenizer, vocab_size, grammar):
     return xgrammar.contrib.hf.LogitsProcessor(compiled)
 
 
+def frozen_inputs(tokenizer, prompt, encoding):
+    """Validate the very tensors used by generate, not a parallel encoding path."""
+    rendered = tokenizer.apply_chat_template(
+        [{"role": "user", "content": prompt}], tokenize=False, add_generation_prompt=True)
+    inputs = tokenizer(rendered, return_tensors="pt", add_special_tokens=False)
+    actual = inputs["input_ids"][0].tolist()
+    expected = encoding["input_ids"][:encoding["prompt_tokens"]]
+    if actual != expected:
+        raise ValueError("generation input token IDs differ from frozen packet")
+    return inputs
+
+
 def smoke_grammar_mask_kernel(torch, processor, tokenizer, vocab_size):
     """Exercise XGrammar's real CUDA mask kernel before loading the 8B model."""
     token_id = tokenizer.eos_token_id if tokenizer.eos_token_id is not None else 0
@@ -103,10 +115,9 @@ def main():
     records = []
     with torch.inference_mode():
         for row, arm, generation in plan():
-            prompt = selected_rows[row][0]["prompt"]
-            rendered = tokenizer.apply_chat_template(
-                [{"role": "user", "content": prompt}], tokenize=False, add_generation_prompt=True)
-            inputs = tokenizer(rendered, return_tensors="pt").to("cuda")
+            packet_row, encoding = selected_rows[row]
+            prompt = packet_row["prompt"]
+            inputs = frozen_inputs(tokenizer, prompt, encoding).to("cuda")
             metadata = generation_metadata(row, arm, generation)
             torch.manual_seed(metadata["generation_seed"])
             kwargs = dict(max_new_tokens=MAX_NEW_TOKENS, do_sample=False,
@@ -120,6 +131,8 @@ def main():
             new_ids = generated[0][inputs.input_ids.shape[1]:]
             text = tokenizer.decode(new_ids, skip_special_tokens=True)
             record = dict(**metadata, base_prompt_sha256=sha(prompt), raw_reply=text,
+                          actual_prompt_token_count=inputs.input_ids.shape[1],
+                          actual_prompt_tokens_match_frozen=True,
                           raw_reply_sha256=sha(text), output_token_count=len(new_ids),
                           grammar_enforced=(arm == "grammar_enforced"))
             records.append(record)

@@ -27,6 +27,20 @@ Evidence: `results/runs/syntax-structured-polaris-20260911/job-7605656/direct-ch
 
 ### Board persistence correction, 2026-09-11
 
+### Parallel prompt preflight did not attest actual model tensors
+
+Post-run replay of the exact tokenizer used in 7608598 found 402/458 actual
+input tokens against frozen 401/457: default tokenization added a second BOS.
+The separate preflight used `add_special_tokens=False` and therefore passed.
+The raw SANY 0/4 per arm remains a valid diagnostic, but the earlier claim that
+the generation honored frozen input tokens is withdrawn. `frozen_inputs` now
+disables special-token addition and compares the actual generation tensor with
+the packet before every candidate. Both exact-runtime CPU replays match after
+this correction; no new GPU comparison is implied. Never use a parallel
+preflight encoding as evidence for unchecked generation tensors.
+
+### Board persistence correction, 2026-09-11
+
 The assistant reported submission and completion of 7608598 in chat but failed
 to publish them, leaving board250 at an already-resolved upload approval wait.
 This was a missed workflow step, not a publisher malfunction or missing user

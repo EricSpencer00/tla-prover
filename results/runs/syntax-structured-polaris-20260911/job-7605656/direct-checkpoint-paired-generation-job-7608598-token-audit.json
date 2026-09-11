@@ -1,0 +1,40 @@
+{
+  "observed_utc": "2026-09-11 20:55:12 UTC",
+  "kind": "post_run_exact_tokenization_audit",
+  "job": "7608598",
+  "runtime": "Exact Polaris ChatTLA tokenizer and frozen model snapshot; CPU only",
+  "rows": [
+    {
+      "row": 47,
+      "frozen_count": 401,
+      "actual_count": 402,
+      "actual_matches_frozen": false,
+      "explicit_no_special_matches_frozen": true
+    },
+    {
+      "row": 107,
+      "frozen_count": 457,
+      "actual_count": 458,
+      "actual_matches_frozen": false,
+      "explicit_no_special_matches_frozen": true
+    }
+  ],
+  "actual_prefix": [
+    128000,
+    128000,
+    128006,
+    9125,
+    128007
+  ],
+  "frozen_prefix": [
+    128000,
+    128006,
+    9125,
+    128007,
+    271
+  ],
+  "cause": "verify_prompt_tokens used add_special_tokens=False but model.generate input construction used the tokenizer default True",
+  "correction": "frozen_inputs disables special-token addition and compares actual tensor IDs with frozen packet before device transfer and every generation",
+  "impact": "Restored checkpoint and raw SANY failures remain evidenced; receipt's separate prompt preflight did not establish actual model input equality. Frozen paired-comparison claim is reopened. No new model result or quality improvement claimed.",
+  "gate_claim": false
+}

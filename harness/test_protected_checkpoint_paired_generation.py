@@ -1,4 +1,5 @@
 from pathlib import Path
+import pytest
 
 from tools import protected_checkpoint_paired_generation as paired
 
@@ -29,3 +30,29 @@ def test_real_grammar_mask_smoke_precedes_large_model_loading():
     source = Path("tools/protected_checkpoint_paired_generation.py").read_text()
     assert "def smoke_grammar_mask_kernel(" in source
     assert source.index("smoke_grammar_mask_kernel(") < source.index("AutoModelForCausalLM.from_pretrained")
+
+
+def test_generation_tokens_disable_extra_bos_and_validate_actual_tensor():
+    class TokenIds:
+        def __init__(self, ids):
+            self.ids = ids
+
+        def tolist(self):
+            return self.ids
+
+    class Tokenizer:
+        def apply_chat_template(self, *args, **kwargs):
+            return "<bos>already-rendered-chat"
+
+        def __call__(self, text, *, return_tensors, add_special_tokens=True):
+            assert text == "<bos>already-rendered-chat"
+            ids = [128000, 123, 456]
+            if add_special_tokens:
+                ids.insert(0, 128000)
+            return {"input_ids": [TokenIds(ids)]}
+
+    encoding = {"input_ids": [128000, 123, 456, 999], "prompt_tokens": 3}
+    actual = paired.frozen_inputs(Tokenizer(), "prompt", encoding)
+    assert actual["input_ids"][0].tolist() == encoding["input_ids"][:3]
+    with pytest.raises(ValueError, match="generation input token IDs differ"):
+        paired.frozen_inputs(Tokenizer(), "prompt", {"input_ids": [1], "prompt_tokens": 1})
