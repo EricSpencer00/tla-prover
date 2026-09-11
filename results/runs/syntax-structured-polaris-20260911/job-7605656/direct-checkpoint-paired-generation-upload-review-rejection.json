@@ -1,0 +1,8 @@
+{
+  "observed_utc": "2026-09-11T18:54:00Z",
+  "action": "upload the approved three-file paired-generation bundle to /grand/EVITA/eric-spencer/tla-checkpoint-paired-generation-20260911-v1",
+  "result": "rejected before execution",
+  "reason": "The external-action safety review did not accept delegated authorization as direct user authorization for upload of repository code to the remote Polaris destination.",
+  "confirmed_non_actions": ["no remote directory created", "no files transferred", "no checksum manifest created", "no submission claim acquired", "no qsub submitted"],
+  "reopening_condition": "A direct user message explicitly authorizing this exact upload destination, the three named files, and the one-GPU up-to-15-minute paired-generation job."
+}
