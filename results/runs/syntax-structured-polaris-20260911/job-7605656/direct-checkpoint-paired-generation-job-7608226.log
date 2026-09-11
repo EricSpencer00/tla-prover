@@ -1,0 +1,53 @@
+protected_checkpoint_paired_generation.py: OK
+protected_checkpoint_preflight.py: OK
+protected_checkpoint_paired_generation_polaris.pbs: OK
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/291 [00:00<?, ?it/s]Loading weights: 100%|██████████| 291/291 [00:00<00:00, 9722.42it/s]
+[transformers] The following generation flags are not valid and may be ignored: ['temperature', 'top_p']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+nvc-Error-Unknown switch: -Wno-psabi
+Traceback (most recent call last):
+  File "/lus/grand/projects/EVITA/eric-spencer/tla-checkpoint-paired-generation-20260911-v1/protected_checkpoint_paired_generation.py", line 138, in <module>
+    main()
+  File "/lus/grand/projects/EVITA/eric-spencer/tla-checkpoint-paired-generation-20260911-v1/protected_checkpoint_paired_generation.py", line 108, in main
+    generated = model.generate(**inputs, **kwargs)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/transformers/generation/utils.py", line 2543, in generate
+    result = decoding_method(
+             ^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/transformers/generation/utils.py", line 2765, in _sample
+    next_token_scores = logits_processor(input_ids, next_token_logits)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/transformers/generation/logits_process.py", line 96, in __call__
+    scores = processor(input_ids, scores)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/grand/EVITA/eric-spencer/tla-checkpoint-preflight-deps/xgrammar-0.2.2-cp312/xgrammar/contrib/hf.py", line 106, in __call__
+    xgr.apply_token_bitmask_inplace(scores, self.token_bitmask.to(scores.device))
+  File "/grand/EVITA/eric-spencer/tla-checkpoint-preflight-deps/xgrammar-0.2.2-cp312/xgrammar/matcher.py", line 171, in apply_token_bitmask_inplace
+    apply_token_bitmask_inplace_triton(logits, bitmask, vocab_size, indices)
+  File "/grand/EVITA/eric-spencer/tla-checkpoint-preflight-deps/xgrammar-0.2.2-cp312/xgrammar/kernels/apply_token_bitmask_inplace_triton.py", line 117, in apply_token_bitmask_inplace_triton
+    apply_token_bitmask_inplace_kernel[grid](
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/triton/runtime/jit.py", line 370, in <lambda>
+    return lambda *args, **kwargs: self.run(grid=grid, warmup=False, *args, **kwargs)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/triton/runtime/jit.py", line 743, in run
+    launch_metadata = kernel.launch_metadata(grid, stream, *bound_args.values())
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/triton/compiler/compiler.py", line 482, in launch_metadata
+    self._init_handles()
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/triton/compiler/compiler.py", line 452, in _init_handles
+    self._run = driver.active.launcher_cls(self.src, self.metadata)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/triton/backends/nvidia/driver.py", line 683, in __init__
+    mod = compile_module_from_src(
+          ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/triton/runtime/build.py", line 93, in compile_module_from_src
+    so = _build(name, src_path, tmpdir, library_dirs or [], include_dirs or [], libraries or [], ccflags or [])
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/triton/runtime/build.py", line 48, in _build
+    subprocess.check_call(cc_cmd, stdout=subprocess.DEVNULL)
+  File "/soft/applications/conda/2025-09-25/mconda3/lib/python3.12/subprocess.py", line 413, in check_call
+    raise CalledProcessError(retcode, cmd)
+subprocess.CalledProcessError: Command '['/opt/nvidia/hpc_sdk/Linux_x86_64/25.9/compilers/bin/nvc', '/var/tmp/pbs.7608226.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov/tmp61d8h76s/__triton_launcher.c', '-O3', '-shared', '-fPIC', '-Wno-psabi', '-o', '/var/tmp/pbs.7608226.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov/tmp61d8h76s/__triton_launcher.cpython-312-x86_64-linux-gnu.so', '-l:libcuda.so.1', '-L/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/triton/backends/nvidia/lib', '-L/usr/lib64', '-I/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/triton/backends/nvidia/include', '-I/var/tmp/pbs.7608226.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov/tmp61d8h76s', '-I/soft/applications/conda/2025-09-25/mconda3/include/python3.12']' returned non-zero exit status 1.

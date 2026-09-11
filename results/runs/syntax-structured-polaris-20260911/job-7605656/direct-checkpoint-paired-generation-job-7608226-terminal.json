@@ -1,0 +1,15 @@
+{
+  "observed_utc": "2026-09-11T19:18:53Z",
+  "job_id": "7608226.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "pbs_state": "F",
+  "exit_status": 1,
+  "walltime": "00:01:37",
+  "allocation": "x3001c0s13b1n0:ngpus=1:ncpus=64",
+  "result": "incomplete; two ordinary-decoder deterministic records were written for row 47, then the first grammar-constrained candidate failed before a receipt could be emitted",
+  "failure_signature": "XGrammar's Triton token-bitmask kernel attempted to compile with the Polaris nvc compiler, which rejected -Wno-psabi; subprocess returned non-zero",
+  "partial_output_files": [
+    "direct-checkpoint-paired-generation-job-7608226-output/row-47-existing_decoder-0.json",
+    "direct-checkpoint-paired-generation-job-7608226-output/row-47-existing_decoder-1.json"
+  ],
+  "gate_claim": false
+}
