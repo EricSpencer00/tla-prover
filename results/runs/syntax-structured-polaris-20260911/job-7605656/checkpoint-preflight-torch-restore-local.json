@@ -1,0 +1,8 @@
+{
+  "observed_utc": "2026-09-11T17:11:23Z",
+  "interpreter": "tools/smoke/e2e/.venv/bin/python",
+  "command": "python -m pytest -q harness/test_protected_checkpoint_preflight.py -k restore_exact",
+  "result": "1 passed, 5 deselected",
+  "claim": "the exact protected checkpoint tensor-restore helper passes under a local torch-enabled interpreter",
+  "gate_claim": false
+}
