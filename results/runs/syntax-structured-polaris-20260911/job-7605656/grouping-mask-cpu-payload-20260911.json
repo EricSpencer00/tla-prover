@@ -1,0 +1,32 @@
+{
+  "authority": "standing-evidence-supported-run-approval.json",
+  "hypothesis": "Explicitly grouped reference syntax reduces XGrammar mask cost without changing parsed structure.",
+  "local_stage": "/private/tmp/tla-grouping-mask.H58vlc",
+  "remote_stage": "/grand/EVITA/eric-spencer/tla-grouping-mask-cpu-20260911-v1",
+  "files": {
+    "protected_grouping_mask_profile.py": "e2d6564ebaee9437da631508ff9b3452181f0e87d1626ce06911fbc6322af6d3",
+    "cases.json": "efda96657dfc9aafcc5a6992e711cc213bfcf8e666795910d5042f8b3dbc1354"
+  },
+  "additional_file": "SHA256SUMS authenticates both files",
+  "side_effects": "Create one new isolated Polaris stage, upload script and four reference cases plus hashes, write profile log. No shared runtime/model/checkpoint changes, no qsub, no model loading and no GPU allocation.",
+  "resources": {
+    "cpu_threads": 1,
+    "gpu": 0,
+    "model_weights": false,
+    "outer_timeout_seconds": 180,
+    "per_case_budget_seconds": 30,
+    "maximum_prefix_tokens_per_case": 128,
+    "cases": 4
+  },
+  "runtime": {
+    "python": "/home/eric-spencer/ChatTLA/.venv/bin/python",
+    "xgrammar": "0.2.2",
+    "xgrammar_site": "/grand/EVITA/eric-spencer/tla-checkpoint-preflight-deps/xgrammar-0.2.2-cp312",
+    "grammar": "/grand/EVITA/eric-spencer/tla-checkpoint-expression-generation-20260911-v4/tla_module_v1.ebnf",
+    "grammar_sha256": "2bcc86946f0a858628f455a3d0648c7117e2b780743e1f25dff82cebd0fb4d67"
+  },
+  "prechecks": "Destination absent and owned Polaris queue empty in fresh authenticated check; remote grammar hash exact. Complete local two-file stage --help succeeded.",
+  "decision_rule": "Compare actual measured prefix times and completion counts. Timeout or rejected prefix remains explicit; this cannot certify full decoding speed or model quality.",
+  "model_improvement_claim": false,
+  "gate_claim": false
+}

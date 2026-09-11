@@ -1,0 +1,33 @@
+{
+  "cases": [
+    {
+      "row": 47,
+      "format": "original",
+      "text": "---- MODULE W4Od2m7p4t2 ----\nEXTENDS Integers\nCONSTANTS Dispatchers, Cap\nVARIABLES active, snap\nvars == <<active, snap>>\n\nInit == active = 0 /\\ snap = [d \\in Dispatchers |-> -1]\n\nRead(d) == snap' = [snap EXCEPT ![d] = active] /\\ UNCHANGED active\nAdmit(d) == snap[d] = active /\\ active < Cap\n    /\\ active' = active + 1 /\\ snap' = [snap EXCEPT ![d] = -1]\nAbort(d) == snap[d] # -1 /\\ snap[d] # active\n    /\\ snap' = [snap EXCEPT ![d] = -1] /\\ UNCHANGED active\nLeave == active > 0 /\\ active' = active - 1 /\\ UNCHANGED snap\n\nNext == Leave \\/ (\\E d \\in Dispatchers : Read(d) \\/ Admit(d) \\/ Abort(d))\nSpec == Init /\\ [][Next]_vars\n\nActiveWithinCapacity == active <= Cap\n====",
+      "text_sha256": "36c548d2a475c0d086ddf0340f927b36002699ce86e955d702e061324ad2f07c",
+      "producer": "frozen_reference_format_diagnostic"
+    },
+    {
+      "row": 47,
+      "format": "grouped",
+      "text": "---- MODULE W4Od2m7p4t2 ----\nEXTENDS Integers\nCONSTANTS Dispatchers, Cap\nVARIABLES active, snap\nvars == <<active, snap>>\n\nInit == active = 0 /\\ snap = [d \\in Dispatchers |-> -1]\n\nRead(d) == snap' = [snap EXCEPT ![d] = active] /\\ UNCHANGED active\nAdmit(d) == snap[d] = active /\\ active < Cap\n    /\\ active' = active + 1 /\\ snap' = [snap EXCEPT ![d] = -1]\nAbort(d) == snap[d] # -1 /\\ snap[d] # active\n    /\\ snap' = [snap EXCEPT ![d] = -1] /\\ UNCHANGED active\nLeave == active > 0 /\\ active' = active - 1 /\\ UNCHANGED snap\n\nNext == Leave \\/ (\\E d \\in Dispatchers : Read(d) \\/ Admit(d) \\/ Abort(d))\nSpec == Init /\\ [][Next]_vars\n\nActiveWithinCapacity == active <= Cap\n====",
+      "text_sha256": "36c548d2a475c0d086ddf0340f927b36002699ce86e955d702e061324ad2f07c",
+      "producer": "frozen_reference_format_diagnostic"
+    },
+    {
+      "row": 107,
+      "format": "original",
+      "text": "---- MODULE W4Od3m0p0t0 ----\nEXTENDS Integers\n\nBanks == {\"b1\", \"b2\", \"b3\"}\nNONE == \"none\"\n\nVARIABLES lock, status, snap, ledger\nvars == <<lock, status, snap, ledger>>\n\nInit ==\n    /\\ lock = NONE\n    /\\ status = [b \\in Banks |-> \"idle\"]\n    /\\ snap = [b \\in Banks |-> NONE]\n    /\\ ledger = NONE\n\nRead(b) ==\n    /\\ status[b] = \"idle\"\n    /\\ status' = [status EXCEPT ![b] = \"trying\"]\n    /\\ snap' = [snap EXCEPT ![b] = lock]\n    /\\ UNCHANGED <<lock, ledger>>\n\nAcquire(b) ==\n    /\\ status[b] = \"trying\"\n    /\\ snap[b] = NONE\n    /\\ lock = NONE\n    /\\ lock' = b\n    /\\ status' = [status EXCEPT ![b] = \"cs\"]\n    /\\ UNCHANGED <<snap, ledger>>\n\nRetry(b) ==\n    /\\ status[b] = \"trying\"\n    /\\ snap[b] # lock\n    /\\ snap' = [snap EXCEPT ![b] = lock]\n    /\\ UNCHANGED <<lock, status, ledger>>\n\nExit(b) ==\n    /\\ status[b] = \"cs\"\n    /\\ lock = b\n    /\\ lock' = NONE\n    /\\ status' = [status EXCEPT ![b] = \"idle\"]\n    /\\ ledger' = b\n    /\\ UNCHANGED snap\n\nCrash(b) ==\n    /\\ status[b] # \"crashed\"\n    /\\ status' = [status EXCEPT ![b] = \"crashed\"]\n    /\\ UNCHANGED <<lock, snap, ledger>>\n\nRecover(b) ==\n    /\\ status[b] = \"crashed\"\n    /\\ status' = [status EXCEPT ![b] = \"idle\"]\n    /\\ lock' = IF lock = b THEN NONE ELSE lock\n    /\\ snap' = [snap EXCEPT ![b] = NONE]\n    /\\ UNCHANGED ledger\n\nNext ==\n    \\/ \\E b \\in Banks : Read(b)\n    \\/ \\E b \\in Banks : Acquire(b)\n    \\/ \\E b \\in Banks : Retry(b)\n    \\/ \\E b \\in Banks : Exit(b)\n    \\/ \\E b \\in Banks : Crash(b)\n    \\/ \\E b \\in Banks : Recover(b)\n\nSpec == Init /\\ [][Next]_vars\n\nTypeOK ==\n    /\\ lock \\in Banks \\cup {NONE}\n    /\\ status \\in [Banks -> {\"idle\",\"trying\",\"cs\",\"crashed\"}]\n    /\\ snap \\in [Banks -> Banks \\cup {NONE}]\n    /\\ ledger \\in Banks \\cup {NONE}\n\nMutEx ==\n    \\A b \\in Banks : (status[b] = \"cs\") => (lock = b)\n\n====",
+      "text_sha256": "5f6b169dc010369d4e6f65b7766b7961e44a4df15790988c5763861a06e3e853",
+      "producer": "frozen_reference_format_diagnostic"
+    },
+    {
+      "row": 107,
+      "format": "grouped",
+      "text": "---- MODULE W4Od3m0p0t0 ----\nEXTENDS Integers\n\nBanks == {\"b1\", \"b2\", \"b3\"}\nNONE == \"none\"\n\nVARIABLES lock, status, snap, ledger\nvars == <<lock, status, snap, ledger>>\n\nInit ==\n    ( (lock = NONE)\n     /\\  (status = [b \\in Banks |-> \"idle\"])\n     /\\  (snap = [b \\in Banks |-> NONE])\n     /\\  (ledger = NONE))\n\nRead(b) ==\n    ( (status[b] = \"idle\")\n     /\\  (status' = [status EXCEPT ![b] = \"trying\"])\n     /\\  (snap' = [snap EXCEPT ![b] = lock])\n     /\\  (UNCHANGED <<lock, ledger>>))\n\nAcquire(b) ==\n    ( (status[b] = \"trying\")\n     /\\  (snap[b] = NONE)\n     /\\  (lock = NONE)\n     /\\  (lock' = b)\n     /\\  (status' = [status EXCEPT ![b] = \"cs\"])\n     /\\  (UNCHANGED <<snap, ledger>>))\n\nRetry(b) ==\n    ( (status[b] = \"trying\")\n     /\\  (snap[b] # lock)\n     /\\  (snap' = [snap EXCEPT ![b] = lock])\n     /\\  (UNCHANGED <<lock, status, ledger>>))\n\nExit(b) ==\n    ( (status[b] = \"cs\")\n     /\\  (lock = b)\n     /\\  (lock' = NONE)\n     /\\  (status' = [status EXCEPT ![b] = \"idle\"])\n     /\\  (ledger' = b)\n     /\\  (UNCHANGED snap))\n\nCrash(b) ==\n    ( (status[b] # \"crashed\")\n     /\\  (status' = [status EXCEPT ![b] = \"crashed\"])\n     /\\  (UNCHANGED <<lock, snap, ledger>>))\n\nRecover(b) ==\n    ( (status[b] = \"crashed\")\n     /\\  (status' = [status EXCEPT ![b] = \"idle\"])\n     /\\  (lock' = IF lock = b THEN NONE ELSE lock)\n     /\\  (snap' = [snap EXCEPT ![b] = NONE])\n     /\\  (UNCHANGED ledger))\n\nNext ==\n    ( (\\E b \\in Banks : Read(b))\n     \\/  (\\E b \\in Banks : Acquire(b))\n     \\/  (\\E b \\in Banks : Retry(b))\n     \\/  (\\E b \\in Banks : Exit(b))\n     \\/  (\\E b \\in Banks : Crash(b))\n     \\/  (\\E b \\in Banks : Recover(b)))\n\nSpec == Init /\\ [][Next]_vars\n\nTypeOK ==\n    ( (lock \\in Banks \\cup {NONE})\n     /\\  (status \\in [Banks -> {\"idle\",\"trying\",\"cs\",\"crashed\"}])\n     /\\  (snap \\in [Banks -> Banks \\cup {NONE}])\n     /\\  (ledger \\in Banks \\cup {NONE}))\n\nMutEx ==\n    \\A b \\in Banks : (status[b] = \"cs\") => (lock = b)\n\n====",
+      "text_sha256": "4ed6e849af37ac7083fa7aaf33344f226eba1955a504f3a1d4bfba93d4a0437f",
+      "producer": "frozen_reference_format_diagnostic"
+    }
+  ],
+  "model_improvement_claim": false
+}
