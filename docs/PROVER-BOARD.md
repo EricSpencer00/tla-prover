@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 155
-- Verified UTC: 2026-09-11T06:52:43Z
+- Revision: 156
+- Verified UTC: 2026-09-11T06:59:04Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: local_work
 - Active job: none
-- Observation evidence: Reconciled remote ownership and completed the bounded patch-serialization repair. Escalated Polaris qstat returned no owned jobs; Sophia authentication was denied, so Sophia ownership is unverified. v8 confirmed row 107 passes SANY with a real newline, and the ingestion guard now rejects literal escaped line-break text before SANY.
-- Latest completed result: patch-only-protected-sany-eval-v8: the anchored row-107 TypeOK replacement with an actual newline parsed and passed SANY (return code 0). Together with v7 row 47, both protected rows have a hand-authored syntax-safe patch pass, but this is a patch-assembly diagnostic, not model or frozen-gate evidence. Artifacts are at results/runs/syntax-structured-polaris-20260911/job-7605656/patch-only-protected-sany-eval-v8/107.
-- Local work: Diagnosed and repaired the v7 false rejection at the patch serialization boundary. v8 got a row-107 SANY pass with an actual newline; focused parser/assembler tests pass 10/10 after adding a guard against literal escaped line-break text. This is local syntax-contract evidence only, not generated inference or trained-checkpoint gain.
+- Observation evidence: Reconciled the board and repaired a stage-level import defect. Direct execution of proof_syntax_patch_prompt.py initially failed on relative imports; its isolated direct-execution path now resolves sibling modules from the repository root. Focused parser/assembler tests pass 11/11 and direct --help import smoke exits 0. Polaris was last verified empty at the preceding read-only check; Sophia ownership remains unverified after authentication denial.
+- Latest completed result: Patch ingestion is now guarded against literal escaped line breaks (v8 row 107 SANY pass), and the exact patch prompt runner now imports when executed directly, matching the isolated stage invocation mode. No remote bundle or model execution occurred.
+- Local work: Repaired and tested direct-file import behavior in the patch prompt runner (11 focused tests plus direct execution smoke). This closes a local staging-interface defect; it does not certify remote staging, checkpoint restore, inference, or acceptance gates.
 - External blocker: none verified
-- Next action: Run the corrected candidate-ingestion path in a checkpoint-faithful paired inference evaluation with frozen prompts and denominators; retain hand-authored patch passes solely as assembly controls.
+- Next action: Run a clean exact-stage packaging smoke that invokes the patched runner from its staged layout and verifies its sibling dependencies are included, then prepare a checkpoint-faithful paired-inference payload without legacy base-model serving or prompt suffixes.
 
 ## Objective and evidence rules
 
@@ -128,16 +128,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 155,
-  "verified_utc": "2026-09-11T06:52:43Z",
+  "revision": 156,
+  "verified_utc": "2026-09-11T06:59:04Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "local_work",
   "active_job": null,
-  "observation_evidence": "Reconciled remote ownership and completed the bounded patch-serialization repair. Escalated Polaris qstat returned no owned jobs; Sophia authentication was denied, so Sophia ownership is unverified. v8 confirmed row 107 passes SANY with a real newline, and the ingestion guard now rejects literal escaped line-break text before SANY.",
-  "last_result": "patch-only-protected-sany-eval-v8: the anchored row-107 TypeOK replacement with an actual newline parsed and passed SANY (return code 0). Together with v7 row 47, both protected rows have a hand-authored syntax-safe patch pass, but this is a patch-assembly diagnostic, not model or frozen-gate evidence. Artifacts are at results/runs/syntax-structured-polaris-20260911/job-7605656/patch-only-protected-sany-eval-v8/107.",
-  "local_work": "Diagnosed and repaired the v7 false rejection at the patch serialization boundary. v8 got a row-107 SANY pass with an actual newline; focused parser/assembler tests pass 10/10 after adding a guard against literal escaped line-break text. This is local syntax-contract evidence only, not generated inference or trained-checkpoint gain.",
+  "observation_evidence": "Reconciled the board and repaired a stage-level import defect. Direct execution of proof_syntax_patch_prompt.py initially failed on relative imports; its isolated direct-execution path now resolves sibling modules from the repository root. Focused parser/assembler tests pass 11/11 and direct --help import smoke exits 0. Polaris was last verified empty at the preceding read-only check; Sophia ownership remains unverified after authentication denial.",
+  "last_result": "Patch ingestion is now guarded against literal escaped line breaks (v8 row 107 SANY pass), and the exact patch prompt runner now imports when executed directly, matching the isolated stage invocation mode. No remote bundle or model execution occurred.",
+  "local_work": "Repaired and tested direct-file import behavior in the patch prompt runner (11 focused tests plus direct execution smoke). This closes a local staging-interface defect; it does not certify remote staging, checkpoint restore, inference, or acceptance gates.",
   "external_blocker": null,
-  "next_action": "Run the corrected candidate-ingestion path in a checkpoint-faithful paired inference evaluation with frozen prompts and denominators; retain hand-authored patch passes solely as assembly controls.",
+  "next_action": "Run a clean exact-stage packaging smoke that invokes the patched runner from its staged layout and verifies its sibling dependencies are included, then prepare a checkpoint-faithful paired-inference payload without legacy base-model serving or prompt suffixes.",
   "tasks": [
     {
       "id": "TLA-01",

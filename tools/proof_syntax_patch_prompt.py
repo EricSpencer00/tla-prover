@@ -8,9 +8,19 @@ patch assembler. It does not change any existing training/evaluation pipeline.
 import hashlib
 import json
 import re
+import sys
+from pathlib import Path
 
-from .proof_syntax_patch_assembler import apply_patch
-from . import proof_syntax_preference_train as syntax_train
+if __package__ in (None, ""):
+    # The isolated PBS stage invokes this file directly.  Resolve the sibling
+    # modules from the repository root in that mode instead of requiring an
+    # ambient ``tools`` package on the worker.
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+    from tools.proof_syntax_patch_assembler import apply_patch
+    from tools import proof_syntax_preference_train as syntax_train
+else:
+    from .proof_syntax_patch_assembler import apply_patch
+    from . import proof_syntax_preference_train as syntax_train
 
 CONTRACT = "proof_syntax_patch_prompt_v1"
 

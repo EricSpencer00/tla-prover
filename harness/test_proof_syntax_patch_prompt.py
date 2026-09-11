@@ -1,4 +1,6 @@
 import json
+import subprocess
+import sys
 
 from pathlib import Path
 
@@ -76,3 +78,12 @@ def test_preflight_sany_is_unsupported_without_checkpoint(tmp_path, monkeypatch)
     })
     result = prompt.preflight_sany(SOURCE, reply, tmp_path, jar=jar)
     assert result["sany"]["status"] == "infrastructure_error"
+
+
+def test_direct_cli_import_smoke():
+    runner = Path(prompt.__file__)
+    completed = subprocess.run(
+        [sys.executable, str(runner), "--help"],
+        cwd=runner.parents[1], text=True, capture_output=True,
+    )
+    assert completed.returncode == 0, completed.stderr
