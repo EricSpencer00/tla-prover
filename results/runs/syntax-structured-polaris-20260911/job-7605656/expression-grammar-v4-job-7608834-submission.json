@@ -1,0 +1,14 @@
+{
+  "observed_utc": "2026-09-11T21:10:02Z",
+  "id": "7608834.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "pbs_state": "R",
+  "owner": "eric-spencer@polaris-login-02.hsn.cm.polaris.alcf.anl.gov",
+  "host": "polaris",
+  "allocation": "x3103c0s7b1n0:ngpus=1:ncpus=64",
+  "walltime": "00:15:00",
+  "queue": "debug",
+  "account": "EVITA",
+  "payload": "expression-grammar-paired-v4-payload.json",
+  "claim": "results/prover-submit-claims/45287d10fe380f6d000f04663edc14865946ca7da0a1323ad1de950a72ca7d2b.json",
+  "gate_claim": false
+}
