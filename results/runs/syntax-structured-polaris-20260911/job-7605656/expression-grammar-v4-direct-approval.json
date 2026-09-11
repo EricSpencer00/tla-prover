@@ -1,0 +1,7 @@
+{
+  "observed_utc": "2026-09-11T21:07:52Z",
+  "authority": "Eric direct 'yes i approve' reply to the prepared four-file upload and new one-GPU15-minute request",
+  "payload": "expression-grammar-paired-v4-payload.json",
+  "scope": "Upload four named files plus SHA256SUMS to /grand/EVITA/eric-spencer/tla-checkpoint-expression-generation-20260911-v4; one EVITA Polaris debug GPU for at most15minutes; collect and score all output.",
+  "precheck": "No owned jobs listed; destination absent; all four local staged hashes match."
+}

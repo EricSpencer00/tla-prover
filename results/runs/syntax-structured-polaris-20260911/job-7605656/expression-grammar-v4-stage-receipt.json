@@ -1,0 +1,14 @@
+{
+  "observed_utc": "2026-09-11T21:08:59Z",
+  "payload": "expression-grammar-paired-v4-payload.json",
+  "destination": "/grand/EVITA/eric-spencer/tla-checkpoint-expression-generation-20260911-v4",
+  "remote_manifest": "All four approved hashes passed",
+  "staged_entry_point": "CLI --help exited0; sibling preflight import resolved",
+  "dependency_probe": {
+    "exit_status": 0,
+    "xgrammar_version": "0.2.2",
+    "grammar_sha256": "2bcc86946f0a858628f455a3d0648c7117e2b780743e1f25dff82cebd0fb4d67",
+    "cuda_touched": false
+  },
+  "gate_claim": false
+}
