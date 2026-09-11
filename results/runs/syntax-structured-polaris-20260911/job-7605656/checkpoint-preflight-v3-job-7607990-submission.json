@@ -1,0 +1,15 @@
+{
+  "observed_utc": "2026-09-11T18:27:26Z",
+  "job_id": "7607990.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "state": "R",
+  "owner": "eric-spencer@polaris-login-02.hsn.cm.polaris.alcf.anl.gov",
+  "queue": "debug",
+  "account": "EVITA",
+  "allocation": {
+    "node": "x3202c0s7b1n0",
+    "ngpus": 1,
+    "walltime": "00:15:00"
+  },
+  "payload": "checkpoint-preflight-payload-v3.json",
+  "gate_claim": false
+}
