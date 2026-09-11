@@ -1,0 +1,9 @@
+{
+  "observed_utc": "2026-09-11T17:27:21Z",
+  "requested_delivery": "one deduplicated MacClaw alert for the exact isolated XGrammar provisioning request",
+  "dedup_check": "no provisioning-specific delivery receipt exists in the job evidence or board evidence list",
+  "available_capability_check": "no MacClaw connector and no macclaw executable are available in this session",
+  "delivery_status": "not_sent",
+  "reason": "no configured or callable MacClaw delivery path; no alternate alert route used",
+  "gate_claim": false
+}
