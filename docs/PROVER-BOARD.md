@@ -4,14 +4,14 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 162
-- Verified UTC: 2026-09-11T07:20:07Z
+- Revision: 163
+- Verified UTC: 2026-09-11T07:20:48Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: local_work
 - Active job: none
-- Observation evidence: Prepared an exact reviewable Polaris upload/submission payload for the direct checkpoint preflight. The fresh two-file local stage checksum and CLI smoke passed; the payload pins source hashes, destination, one-GPU/15-minute debug allocation, and no-generation/no-training side effects. No upload or submission occurred; exact authorization is pending.
+- Observation evidence: Prepared checkpoint-preflight-payload-v1 and sent one deduplicated Discord review alert after the initial sandbox DNS failure; escalated delivery succeeded as message 1547869448310886523. No upload, scheduler claim, or submission occurred.
 - Latest completed result: checkpoint-preflight-payload-v1 is ready for review. It would upload protected_checkpoint_preflight.py and its PBS launcher to a new Polaris stage and submit one same-node preflight. The payload remains diagnostic-only and preserves the frozen acceptance gates.
-- Local work: Completed local payload preparation and checksum verification for the direct checkpoint preflight. Pending external work is a new explicit Polaris upload/submission authorization; no remote state is claimed from stale observations.
+- Local work: The direct checkpoint preflight payload is committed and awaiting exact external review. Delivery receipt is preserved; this does not constitute approval. Local work remains complete through payload staging/checksum validation.
 - External blocker: none verified
 - Next action: Await an exact approval for checkpoint-preflight-payload-v1, then recheck Polaris ownership, upload the two-file stage, validate remote checksums, claim the submission identity, and submit the single bounded preflight.
 
@@ -128,14 +128,14 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 162,
-  "verified_utc": "2026-09-11T07:20:07Z",
+  "revision": 163,
+  "verified_utc": "2026-09-11T07:20:48Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "local_work",
   "active_job": null,
-  "observation_evidence": "Prepared an exact reviewable Polaris upload/submission payload for the direct checkpoint preflight. The fresh two-file local stage checksum and CLI smoke passed; the payload pins source hashes, destination, one-GPU/15-minute debug allocation, and no-generation/no-training side effects. No upload or submission occurred; exact authorization is pending.",
+  "observation_evidence": "Prepared checkpoint-preflight-payload-v1 and sent one deduplicated Discord review alert after the initial sandbox DNS failure; escalated delivery succeeded as message 1547869448310886523. No upload, scheduler claim, or submission occurred.",
   "last_result": "checkpoint-preflight-payload-v1 is ready for review. It would upload protected_checkpoint_preflight.py and its PBS launcher to a new Polaris stage and submit one same-node preflight. The payload remains diagnostic-only and preserves the frozen acceptance gates.",
-  "local_work": "Completed local payload preparation and checksum verification for the direct checkpoint preflight. Pending external work is a new explicit Polaris upload/submission authorization; no remote state is claimed from stale observations.",
+  "local_work": "The direct checkpoint preflight payload is committed and awaiting exact external review. Delivery receipt is preserved; this does not constitute approval. Local work remains complete through payload staging/checksum validation.",
   "external_blocker": null,
   "next_action": "Await an exact approval for checkpoint-preflight-payload-v1, then recheck Polaris ownership, upload the two-file stage, validate remote checksums, claim the submission identity, and submit the single bounded preflight.",
   "tasks": [
@@ -356,7 +356,8 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "results/runs/syntax-structured-polaris-20260911/job-7605656/checkpoint-preflight-stage-adapter-smoke-v1/receipt.json",
     "results/runs/syntax-structured-polaris-20260911/job-7605656/checkpoint-preflight-stage-adapter-smoke-v2/receipt.json",
     "tools/protected_checkpoint_preflight_polaris.pbs",
-    "results/runs/syntax-structured-polaris-20260911/job-7605656/checkpoint-preflight-payload-v1.json"
+    "results/runs/syntax-structured-polaris-20260911/job-7605656/checkpoint-preflight-payload-v1.json",
+    "results/runs/syntax-structured-polaris-20260911/job-7605656/checkpoint-preflight-permission-discord-delivery.json"
   ]
 }
 -->
