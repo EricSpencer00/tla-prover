@@ -1,0 +1,54 @@
+{
+  "observed_utc": "2026-09-11T23:30:47Z",
+  "preflight_receipt": "canonical-cpu-preflight-20260911-v3-receipt.json",
+  "exit_code": 0,
+  "readiness_pass": false,
+  "coverage": {
+    "canonical_equivalents_accepted": 84,
+    "saved_failures_rejected": 6
+  },
+  "masks": [
+    {
+      "row": 47,
+      "measured": 57,
+      "planned": 128,
+      "elapsed_seconds": 30.51944528904278
+    },
+    {
+      "row": 107,
+      "measured": 69,
+      "planned": 128,
+      "elapsed_seconds": 30.27683109010104
+    }
+  ],
+  "quality": "No new model generation, no promotion, no relaxed gates. Raw-spelling subset limitation retained. Checkpoint and baseline untouched.",
+  "storage": {
+    "grand_available_bytes": 0,
+    "home_available": "158T",
+    "tmp_available": "245G",
+    "workaround": "CPU results in/tmp and stdout streamed locally; same source now completed",
+    "causality": "Consistent with storage failures, but no captured ENOSPC proves original exit cause."
+  },
+  "decision": "Retire unchanged canonical GPU proposal: empirical full-prefix overhead fails predeclared readiness. Distinguish grammar nondeterminism from common runtime overhead before further grammar edits.",
+  "frontier": [
+    {
+      "hypothesis": "grammar ambiguity makes fill expensive",
+      "discriminator": "same32-token prefixes under canonical and ASCII timing control; separate accept/fill times"
+    },
+    {
+      "hypothesis": "common runtime/torch overhead",
+      "discriminator": "ASCII control also slow or unexpected torch thread count"
+    },
+    {
+      "hypothesis": "new XGrammar release fixes it",
+      "decision": "Not assumed.0.2.5 XML fix changes XML converter; our custom EBNF is not that converter."
+    }
+  ],
+  "sources": [
+    "https://github.com/mlc-ai/xgrammar/issues/127",
+    "https://github.com/mlc-ai/xgrammar/pull/704"
+  ],
+  "next_budget": "CPU only180s outer,20s percase between steps;4cases32tokens. No weights/GPU. Store new source under available home and stream logs.",
+  "next_source_sha256": "b1a92f3ecc01d38e2f56c9579123c4865dfb761596c74bfb42162e77c7cbf03d",
+  "validation": "10 targeted tests passed"
+}

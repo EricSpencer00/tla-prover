@@ -75,6 +75,22 @@ An inconclusive measurement requires fixing the measurement before interpreting 
 
 ## Recorded lessons
 
+### Canonical Boolean output: coverage alone does not establish practical decoding
+
+- Exact XGrammar0.2.2 accepts84/84 verified equivalent reference forms and
+  rejects6/6 saved model failures, but the full-prefix CPU check measures only
+  57/128 and69/128 tokens within30s each. It fails the predeclared readiness rule.
+- Do not launch unchanged canonical GPU decoding or claim a model gain. The
+  canonical language also deliberately excludes80 raw list spellings; retain
+  that limitation. All actual model failures/unknowns remain in the denominator.
+- Grand reported100% full during unexplained exit1 failures with truncated logs.
+  The exact script completed with temporary output and streamed logs. Preserve
+  the failed logs; storage is a plausible cause, not a proven ENOSPC diagnosis.
+- Reopen with a measured performance correction and unchanged quality controls.
+  First distinguish grammar cost from runtime overhead on identical prefixes;
+  a permissive ASCII timing control is never a model candidate or quality score.
+- Evidence: `results/runs/syntax-structured-polaris-20260911/job-7605656/canonical-cpu-decision-20260911.json`.
+
 ### Expression grammar v1: precedence gaps and mask cost
 
 - Run7608834 used corrected actual401/457-token prompts and the frozen checkpoint.
