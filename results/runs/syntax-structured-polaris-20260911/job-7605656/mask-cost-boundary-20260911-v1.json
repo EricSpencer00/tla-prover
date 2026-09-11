@@ -1,0 +1,75 @@
+{
+  "observed_utc": "2026-09-11T23:33:15Z",
+  "runtime": {
+    "event": "runtime",
+    "host": "polaris-login-02",
+    "threads": 1,
+    "interop_threads": 128,
+    "xgrammar": "0.2.2",
+    "source_sha256": "b1a92f3ecc01d38e2f56c9579123c4865dfb761596c74bfb42162e77c7cbf03d",
+    "grammar_sha256": "1f4124cd20bdfdfd41ba406703bb2d123ebb26190fd3834cbb3df32dcb1cc000",
+    "corpus_sha256": "fb76468f6a3217a359d54da92a2e3fa25396aad0547e6b5eb35129193a0e812a",
+    "tokenizer_sha256": "79e3e522635f3171300913bb421464a87de6222182a0570b9b2ccba2a964b2b4"
+  },
+  "cases": [
+    {
+      "event": "case",
+      "arm": "ascii_timing_control",
+      "row": 47,
+      "planned": 32,
+      "measured": 32,
+      "elapsed_seconds": 0.0006738679949194193,
+      "accept_seconds": 0.0001343018375337124,
+      "fill_seconds": 0.0005108648911118507
+    },
+    {
+      "event": "case",
+      "arm": "ascii_timing_control",
+      "row": 107,
+      "planned": 32,
+      "measured": 32,
+      "elapsed_seconds": 0.00018641806673258543,
+      "accept_seconds": 0.0000404139282181859,
+      "fill_seconds": 0.0001231400528922677
+    },
+    {
+      "event": "case",
+      "arm": "canonical",
+      "row": 47,
+      "planned": 32,
+      "measured": 32,
+      "elapsed_seconds": 13.257396384957246,
+      "accept_seconds": 0.0010041780769824982,
+      "fill_seconds": 13.256186474114656
+    },
+    {
+      "event": "case",
+      "arm": "canonical",
+      "row": 107,
+      "planned": 32,
+      "measured": 32,
+      "elapsed_seconds": 7.190141491009854,
+      "accept_seconds": 0.000677339849062264,
+      "fill_seconds": 7.1892544272122905
+    }
+  ],
+  "exit_code": 0,
+  "complete": true,
+  "model_weights_loaded": false,
+  "gpu_jobs_launched": 0,
+  "quality_claim": false,
+  "interpretation": "On identical32-token reference prefixes, canonical mask fill dominates while token acceptance and ASCII-control masks are cheap. This isolates grammar-specific mask work, not general tokenizer or PyTorch operation overhead. It does not identify the precise grammar rule or prove a particular optimization.",
+  "limitations": [
+    "Fixed control-first order and two reference prefixes, not an end-to-end generation benchmark.",
+    "The ASCII grammar is timing instrumentation only; it is deliberately invalid as a quality constraint.",
+    "Grand remains full. The completed streamed run supports the storage workaround, but original exit1 causes remain unproven.",
+    "84/84 equivalent reference coverage and6/6 saved-failure rejection are controls, not learned-model capability or full valid-TLA syntax coverage."
+  ],
+  "judgment": "Do not run or promote the unchanged canonical bundle. Preserve the last verified baseline and frozen gates. No model quality improvement has been demonstrated.",
+  "next_frontier": [
+    "Inspect exact-runtime context-dependent token-mask cache/state behavior before another grammar edit.",
+    "Compare a language-preserving reduction in grammar ambiguity against a structurally distinct output representation; require measured speed plus unchanged controls.",
+    "Do not assume an upstream XML-specific fix applies to custom TLA EBNF, or allocate a GPU merely to retry."
+  ],
+  "verification": "28 targeted regression tests passed. Fresh qstat lists no owned jobs and pgrep lists no running diagnostic. No checkpoints, frozen packet, scoring rules or production grammar changed."
+}
