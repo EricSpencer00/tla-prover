@@ -1,0 +1,31 @@
+{
+  "run_id": "patch-only-protected-sany-eval-v8",
+  "bounded_seconds": 30,
+  "jar": "/Users/eric/GitHub/prove-TLA/tools/tla2tools.jar",
+  "java": "java",
+  "rows": {
+    "107": {
+      "row": 107,
+      "candidate_raw": "{\"op\": \"replace\", \"anchor\": \"TypeOK ==\", \"replacement\": \"TypeOK ==\\n    /\\\\ lock \\\\in Banks \\\\cup {NONE}\"}",
+      "source_file": "/private/tmp/tla-protected-diagnostic/107-reference.tla",
+      "parser": "pass",
+      "candidate_sha256": "c0cc7e3e3386073e1919ecdb55251efc7b58b45cd009abe7743ff6309b93921d",
+      "source_sha256": "5f6b169dc010369d4e6f65b7766b7961e44a4df15790988c5763861a06e3e853",
+      "assembled_sha256": "1a31ad782016d304c32e600cdeede07b8cf9401a9fca803fcf448b7c101bdfc9",
+      "sany": {
+        "status": "pass",
+        "passed": true,
+        "returncode": 0
+      },
+      "sany_output_file": "results/runs/syntax-structured-polaris-20260911/job-7605656/patch-only-protected-sany-eval-v8/107/sany.log"
+    }
+  },
+  "summary": {
+    "rows_count": 1,
+    "rows_with_parser_fail": 0,
+    "passed": [
+      "107"
+    ],
+    "rejected": []
+  }
+}

@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 153
-- Verified UTC: 2026-09-11T06:44:56Z
+- Revision: 155
+- Verified UTC: 2026-09-11T06:52:43Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: local_work
 - Active job: none
-- Observation evidence: Re-ran bounded patch-only SANY-only evaluator on rows 47 and 107 with anchored, escape-safe replacements from the frozen patch contract. Parser passed both candidates; row 47 now has a SANY pass while row 107 remains rejected.
-- Latest completed result: patch-only-protected-sany-eval-v7 run: both candidates parsed; row 47 passed SANY after removing UNCHANGED snap from Leave; row 107 remained model_reject. Artifacts are at results/runs/syntax-structured-polaris-20260911/job-7605656/patch-only-protected-sany-eval-v7/{47,107}.
-- Local work: Executed a deterministic second bounded patch-only SANY pilot with syntax-safe replacements. One row (47) now passes SANY and one row (107) still rejects; artifacts and logs were saved in v7 for next-candidate design.
+- Observation evidence: Reconciled remote ownership and completed the bounded patch-serialization repair. Escalated Polaris qstat returned no owned jobs; Sophia authentication was denied, so Sophia ownership is unverified. v8 confirmed row 107 passes SANY with a real newline, and the ingestion guard now rejects literal escaped line-break text before SANY.
+- Latest completed result: patch-only-protected-sany-eval-v8: the anchored row-107 TypeOK replacement with an actual newline parsed and passed SANY (return code 0). Together with v7 row 47, both protected rows have a hand-authored syntax-safe patch pass, but this is a patch-assembly diagnostic, not model or frozen-gate evidence. Artifacts are at results/runs/syntax-structured-polaris-20260911/job-7605656/patch-only-protected-sany-eval-v8/107.
+- Local work: Diagnosed and repaired the v7 false rejection at the patch serialization boundary. v8 got a row-107 SANY pass with an actual newline; focused parser/assembler tests pass 10/10 after adding a guard against literal escaped line-break text. This is local syntax-contract evidence only, not generated inference or trained-checkpoint gain.
 - External blocker: none verified
-- Next action: Run a bounded follow-up patch-only SANY pilot that keeps frozen gates and syntax-safe patching, using alternative anchored replacements for row 107 or another protected row.
+- Next action: Run the corrected candidate-ingestion path in a checkpoint-faithful paired inference evaluation with frozen prompts and denominators; retain hand-authored patch passes solely as assembly controls.
 
 ## Objective and evidence rules
 
@@ -30,7 +30,7 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 | TLA-05 | Not ready | Score the valid checkpoint comparison | Old SANY logs remain genuine diagnostics, but cannot certify trained-checkpoint performance. Depends on corrected TLA-04. |
 | TLA-06 | In progress | Find a new intervention that improves protected SANY | User-directed diagnostic branch continues independently of paired-run repairs; no observed model gain yet. |
 | TLA-06A | Done | Measure syntax-token preference training | 185259 completed 24 updates and exact reload; parent 0/2 and child 0/2 protected SANY. Negative result; do not repeat unchanged. |
-| TLA-06B | In progress | Establish a genuinely different structured training objective | Patch-only follow-up executed with syntax-safe replacements (v7): row 47 SANY pass (removed UNCHANGED clause), row 107 model_reject. Update informs next candidate set. |
+| TLA-06B | In progress | Establish a genuinely different structured training objective | Patch-only syntax diagnostics now pass individually for rows 47 (v7) and 107 (v8); v8 establishes v7 row-107 rejection was literal newline serialization, not semantic rejection. No generated-checkpoint gain or full frozen denominator result yet. |
 | TLA-07 | Not ready | Verify complete frozen SANY gate | Full frozen denominator has not passed 100%; no diagnostic promotion. |
 | TLA-08 | Not ready | Verify applicable TLC and non-vacuity | Prerequisite SANY gate and intended-behavior evidence incomplete. |
 | TLA-09 | Not ready | Verify genuine TLAPS model performance | Acceptance gates incomplete; same-node positive/negative TLAPS controls and bounded dry run required before retry. |
@@ -128,16 +128,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 153,
-  "verified_utc": "2026-09-11T06:44:56Z",
+  "revision": 155,
+  "verified_utc": "2026-09-11T06:52:43Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "local_work",
   "active_job": null,
-  "observation_evidence": "Re-ran bounded patch-only SANY-only evaluator on rows 47 and 107 with anchored, escape-safe replacements from the frozen patch contract. Parser passed both candidates; row 47 now has a SANY pass while row 107 remains rejected.",
-  "last_result": "patch-only-protected-sany-eval-v7 run: both candidates parsed; row 47 passed SANY after removing UNCHANGED snap from Leave; row 107 remained model_reject. Artifacts are at results/runs/syntax-structured-polaris-20260911/job-7605656/patch-only-protected-sany-eval-v7/{47,107}.",
-  "local_work": "Executed a deterministic second bounded patch-only SANY pilot with syntax-safe replacements. One row (47) now passes SANY and one row (107) still rejects; artifacts and logs were saved in v7 for next-candidate design.",
+  "observation_evidence": "Reconciled remote ownership and completed the bounded patch-serialization repair. Escalated Polaris qstat returned no owned jobs; Sophia authentication was denied, so Sophia ownership is unverified. v8 confirmed row 107 passes SANY with a real newline, and the ingestion guard now rejects literal escaped line-break text before SANY.",
+  "last_result": "patch-only-protected-sany-eval-v8: the anchored row-107 TypeOK replacement with an actual newline parsed and passed SANY (return code 0). Together with v7 row 47, both protected rows have a hand-authored syntax-safe patch pass, but this is a patch-assembly diagnostic, not model or frozen-gate evidence. Artifacts are at results/runs/syntax-structured-polaris-20260911/job-7605656/patch-only-protected-sany-eval-v8/107.",
+  "local_work": "Diagnosed and repaired the v7 false rejection at the patch serialization boundary. v8 got a row-107 SANY pass with an actual newline; focused parser/assembler tests pass 10/10 after adding a guard against literal escaped line-break text. This is local syntax-contract evidence only, not generated inference or trained-checkpoint gain.",
   "external_blocker": null,
-  "next_action": "Run a bounded follow-up patch-only SANY pilot that keeps frozen gates and syntax-safe patching, using alternative anchored replacements for row 107 or another protected row.",
+  "next_action": "Run the corrected candidate-ingestion path in a checkpoint-faithful paired inference evaluation with frozen prompts and denominators; retain hand-authored patch passes solely as assembly controls.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -185,7 +185,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
       "id": "TLA-06B",
       "state": "In progress",
       "task": "Establish a genuinely different structured training objective",
-      "evidence": "Patch-only follow-up executed with syntax-safe replacements (v7): row 47 SANY pass (removed UNCHANGED clause), row 107 model_reject. Update informs next candidate set."
+      "evidence": "Patch-only syntax diagnostics now pass individually for rows 47 (v7) and 107 (v8); v8 establishes v7 row-107 rejection was literal newline serialization, not semantic rejection. No generated-checkpoint gain or full frozen denominator result yet."
     },
     {
       "id": "TLA-07",
@@ -346,7 +346,8 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "AGENTS.md",
     "results/runs/syntax-structured-polaris-20260911/job-7605656/sany-rejection-analysis.json",
     "tools/proof_syntax_patch_assembler.py",
-    "harness/test_proof_syntax_patch_assembler.py"
+    "harness/test_proof_syntax_patch_assembler.py",
+    "results/runs/syntax-structured-polaris-20260911/job-7605656/patch-only-protected-sany-eval-v8/summary.json"
   ]
 }
 -->
