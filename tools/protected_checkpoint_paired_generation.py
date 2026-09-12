@@ -76,6 +76,27 @@ def smoke_grammar_mask_kernel(torch, processor, tokenizer, vocab_size):
     processor(input_ids, scores)
 
 
+def smoke_ranked_selector_cuda(torch, xgrammar):
+    """Close the local CUDA-test gap before loading weights; no model answers."""
+    try:
+        from protected_greedy_grammar_selector import GreedyGrammarSelector
+    except ModuleNotFoundError:
+        from tools.protected_greedy_grammar_selector import GreedyGrammarSelector
+    info = xgrammar.TokenizerInfo(['ax', 'a', 'b', 'ab', 'x', '<eos>'], stop_token_ids=[5])
+    compiled = xgrammar.GrammarCompiler(info).compile_grammar('root ::= "ab"')
+    selector = GreedyGrammarSelector(xgrammar, compiled, audit_steps=3)
+    inputs = torch.tensor([[4, 4]], device='cuda', dtype=torch.long)
+    scores = torch.tensor([[10., 9., 8., 7., 6., 11.]], device='cuda')
+    for expected in (1, 2, 5):
+        actual = int(selector(inputs, scores).argmax())
+        if actual != expected:
+            raise ValueError('ranked CUDA control differs from expected dense selection')
+        inputs = torch.cat([inputs, torch.tensor([[actual]], device='cuda')], dim=1)
+    selector.validate_generated([1, 2, 5])
+    if not selector.matcher.is_terminated() or selector.audit_count != 3:
+        raise ValueError('ranked CUDA termination/audit control failed')
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--packet", type=Path, required=True)
@@ -108,6 +129,8 @@ def main():
     vocab_size = tokenizer.vocab_size
     smoke_processor = build_processor(xgrammar, tokenizer, vocab_size, args.grammar.read_text())
     smoke_grammar_mask_kernel(torch, smoke_processor, tokenizer, vocab_size)
+    if args.grammar_selector == "greedy":
+        smoke_ranked_selector_cuda(torch, xgrammar)
     prompt_evidence = preflight.verify_prompt_tokens(tokenizer, selected_rows)
     saved = torch.load(args.checkpoint, map_location="cpu", weights_only=False)
     if saved.get("config", {}).get("model_files") != files or saved["config"].get("dtype_profile") != preflight.PROFILE:
@@ -175,6 +198,7 @@ def main():
                    restored_tensors_exact=True, protected_prompt_tokens=prompt_evidence,
                    grammar_sha256=sha(grammar), grammar_compiled=True,
                    grammar_selector=args.grammar_selector,
+                   ranked_cuda_control_passed=args.grammar_selector == "greedy",
                    xgrammar_version=xgrammar_version, xgrammar_site=str(args.xgrammar_site),
                    records=records, producer="direct_checkpoint_generation",
                    gate_claim=False)

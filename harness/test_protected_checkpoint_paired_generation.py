@@ -34,6 +34,12 @@ def test_real_grammar_mask_smoke_precedes_large_model_loading():
     assert source.index("smoke_grammar_mask_kernel(") < source.index("AutoModelForCausalLM.from_pretrained")
 
 
+def test_ranked_cuda_control_executes_before_weights():
+    source = Path('tools/protected_checkpoint_paired_generation.py').read_text()
+    main = source[source.index('def main():'):]
+    assert main.index('smoke_ranked_selector_cuda(torch, xgrammar)') < main.index('AutoModelForCausalLM.from_pretrained')
+
+
 def test_generation_tokens_disable_extra_bos_and_validate_actual_tensor():
     class TokenIds:
         def __init__(self, ids):
