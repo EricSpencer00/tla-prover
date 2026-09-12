@@ -1,3 +1,4 @@
+import json
 from pathlib import Path
 import shutil
 import subprocess
@@ -32,6 +33,33 @@ class Tokenizer:
         assert return_tensors == "pt" and add_special_tokens is False
         ids = self.base + (self.prefix if text.endswith("PREFIX") else [])
         return {"input_ids": Vector([ids]), "attention_mask": Vector([[1] * len(ids)])}
+
+
+class VocabularyTokenizer:
+    vocab_size = 128000
+    eos_token_id = 128009
+
+    def __len__(self):
+        return 128256
+
+
+def test_grammar_uses_full_model_vocabulary_for_added_eos(tmp_path):
+    (tmp_path / "config.json").write_text(json.dumps({"vocab_size": 128256}))
+    assert continuation.grammar_vocab_size(tmp_path, VocabularyTokenizer()) == 128256
+
+
+def test_grammar_rejects_eos_outside_model_vocabulary(tmp_path):
+    (tmp_path / "config.json").write_text(json.dumps({"vocab_size": 128000}))
+    with pytest.raises(ValueError, match="EOS token is outside"):
+        continuation.grammar_vocab_size(tmp_path, VocabularyTokenizer())
+
+
+def test_grammar_rejects_tokenizer_larger_than_model(tmp_path):
+    (tmp_path / "config.json").write_text(json.dumps({"vocab_size": 128255}))
+    tokenizer = VocabularyTokenizer()
+    tokenizer.eos_token_id = 128001
+    with pytest.raises(ValueError, match="tokenizer vocabulary exceeds"):
+        continuation.grammar_vocab_size(tmp_path, tokenizer)
 
 
 def test_frozen_plan_and_diagnostic_budget():
@@ -127,7 +155,7 @@ def test_pbs_syntax_and_frozen_resource_contract():
     assert "#PBS -q debug" in source and "ngpus=1" in source
     assert "walltime=00:15:00" in source and "840s" in source
     assert "--kill-after=10s" in source
-    assert "STAGE=/home/eric-spencer/tla-prefix-continuation-20260912-v2" in source
+    assert "STAGE=/home/eric-spencer/tla-prefix-continuation-20260912-v3" in source
     assert 'exec > "job.${PBS_JOBID%%.*}.log"' in source
     assert '--output "$STAGE/result.${PBS_JOBID%%.*}"' in source
     assert "qsub" not in source

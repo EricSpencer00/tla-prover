@@ -1,0 +1,27 @@
+{
+  "observed_utc": "2026-09-12T04:45:51Z",
+  "kind": "protected_prefix_continuation_v2_preflight_diagnosis_v1",
+  "stage": "/home/eric-spencer/tla-prefix-continuation-20260912-v2",
+  "manifest_sha256": "aff35bd1c2035cdc022700fe9cda7202cbccfaa6e1371c61954cd9747eef2e50",
+  "remote_hashes_verified": true,
+  "cpu_preflight_exit_code": 1,
+  "failure": "XGrammar 0.2.2 rejected EOS token id 128009 as outside configured range [0, 128000), causing reference completion/EOS preflight failure.",
+  "boundary": "tokenizer/XGrammar vocabulary and EOS termination interface",
+  "model_weights_loaded": false,
+  "cuda_touched": false,
+  "gpu_submission_occurred": false,
+  "quality_effect": "No candidates were generated and no model, gate, or supplied-reference credit is awarded.",
+  "next_discriminator": "Reproduce the exact TokenizerInfo vocabulary/EOS behavior and compare the standalone replay path with the staged runner before changing the termination guard.",
+  "discriminator_result": {
+    "standalone_replay_exit_code": 0,
+    "standalone_eos_accepted": true,
+    "standalone_terminated_after_eos": true,
+    "model_config_vocab_size": 128256,
+    "staged_runner_vocab_size_source": "tokenizer.vocab_size",
+    "staged_runner_vocab_size": 128000,
+    "eos_token_id": 128009
+  },
+  "cause": "The staged runner compiled XGrammar with the tokenizer base-piece count instead of the hashed model-config vocabulary used by the standalone replay and model logits.",
+  "local_correction": "Compile the grammar against config.json vocab_size and fail closed if EOS or tokenizer size exceeds that model vocabulary.",
+  "local_verification": "136 tests passed, 2 CUDA-only tests skipped; no grammar, reference, budget, scoring, or denominator change."
+}

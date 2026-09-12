@@ -56,6 +56,19 @@ def write_new(path, value):
         stream.write(json.dumps(value, indent=2) + "\n")
 
 
+def grammar_vocab_size(model, tokenizer):
+    config = json.loads((Path(model) / "config.json").read_text())
+    vocab_size = config.get("vocab_size")
+    eos = tokenizer.eos_token_id
+    if type(vocab_size) is not int or vocab_size <= 0:
+        raise ValueError("positive integer model vocabulary size required")
+    if not isinstance(eos, int) or not 0 <= eos < vocab_size:
+        raise ValueError("EOS token is outside model vocabulary")
+    if len(tokenizer) > vocab_size or tokenizer.vocab_size > vocab_size:
+        raise ValueError("tokenizer vocabulary exceeds model vocabulary")
+    return vocab_size
+
+
 def conditioned_inputs(tokenizer, prompt, frozen_encoding, prefix_text):
     """Append exact supplied bytes after the frozen assistant-generation header."""
     rendered = tokenizer.apply_chat_template(
@@ -152,7 +165,8 @@ def main():
     model_files = preflight.model_files(args.model)
     tokenizer = transformers.AutoTokenizer.from_pretrained(args.model, local_files_only=True)
     prompt_evidence = preflight.verify_prompt_tokens(tokenizer, selected_rows)
-    info = xgrammar.TokenizerInfo.from_huggingface(tokenizer, vocab_size=tokenizer.vocab_size)
+    vocab_size = grammar_vocab_size(args.model, tokenizer)
+    info = xgrammar.TokenizerInfo.from_huggingface(tokenizer, vocab_size=vocab_size)
     compiled = xgrammar.GrammarCompiler(info, max_threads=1).compile_grammar(args.grammar.read_text())
     refs = prepare_references(tokenizer, xgrammar, compiled, json.loads(args.corpus.read_text()))
     for row in ROWS:

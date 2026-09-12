@@ -1,0 +1,30 @@
+{
+  "observed_utc": "2026-09-12T04:51:54Z",
+  "kind": "protected_prefix_continuation_v3_stage_receipt_v1",
+  "local_stage": "/tmp/tla-prefix-continuation-20260912-v3",
+  "proposed_destination": "/home/eric-spencer/tla-prefix-continuation-20260912-v3",
+  "manifest_sha256": "de26aa8c1be27df2be390c2d8c009118502b5972a292e0732550cdb69358ac04",
+  "payload": {
+    "protected_prefix_continuation.py": "855c9312acb53871fbc7941eb052c103f6b9f239a8d2e027b0cb971c5429c3ab",
+    "protected_prefix_continuation_polaris.pbs": "d942a2927f60e6aa655bf7939beabe42fb572e8e42f22c9321d3251aa968d4b0",
+    "protected_checkpoint_preflight.py": "4c569421946fcd207028f16f12f90b24182817b7f89975c988277197195f15e8",
+    "protected_checkpoint_paired_generation.py": "b8b024665cb28c9873be26b3e89c4e26132d1e73e8bc1d69a98a60877f0c9380",
+    "protected_reference_eos_replay.py": "e601a00eb8a2a4524a7e9f1c649bf14d7e425835c447dbbc91fb39f1ca5ce2fc",
+    "protected_greedy_grammar_selector.py": "ac02d2dab9620161347879ba77809e3d68b23dade3ba9dd0269323868f26e1bd",
+    "canonical-preflight-corpus-20260911.json": "fb76468f6a3217a359d54da92a2e3fa25396aad0547e6b5eb35129193a0e812a",
+    "canonical.ebnf": "1f4124cd20bdfdfd41ba406703bb2d123ebb26190fd3834cbb3df32dcb1cc000"
+  },
+  "delta_from_v2": [
+    "protected_prefix_continuation.py uses hashed model-config vocabulary for XGrammar and adds fail-closed EOS/tokenizer bounds",
+    "protected_prefix_continuation_polaris.pbs points to append-only v3 destination"
+  ],
+  "verification": {
+    "manifest_check": "8/8 files passed",
+    "focused_tests": "136 passed, 2 CUDA-only skipped",
+    "stage_cli_smoke": "passed from exact staged directory",
+    "pbs_syntax": "passed"
+  },
+  "remote_upload_occurred": false,
+  "gpu_submission_occurred": false,
+  "quality_contract": "No grammar, reference, checkpoint, prompt, budget, scoring, candidate count, or denominator change. Supplied reference bytes remain zero-credit and the experiment remains diagnostic-only."
+}
