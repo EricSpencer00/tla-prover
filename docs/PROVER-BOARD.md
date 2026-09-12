@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 367
-- Verified UTC: 2026-09-12T10:52:58Z
+- Revision: 368
+- Verified UTC: 2026-09-12T11:10:03Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: local_work
 - Active job: none
-- Observation evidence: At 2026-09-12T10:52:58Z, configured-alias qstat again succeeded on both Polaris and Sophia with no owned jobs listed. No remote side effect or submission occurred; this board retains active_job null.
+- Observation evidence: At 2026-09-12T11:10:03Z, configured-alias qstat again succeeded on both Polaris and Sophia with no owned jobs listed. No remote side effect or submission occurred; this board retains active_job null.
 - Latest completed result: Supplied-prefix diagnostic is terminal and decision-bearing: parent can complete both heavily supplied rows; child retains row47 but loses row107; base passes neither. Grammar completion alone does not guarantee SANY because base107 and child107 completed/EOS yet parse-reject. Do not promote child or repeat unchanged.
-- Local work: Bound the objective implementation to packet cb137c52 and exact parent b0399b51. Added complete prompt+response forwards and a two-forward pair objective suitable for zero-update preflight. Tiny differentiable runtime test proves finite loss/gap, nonzero gradients and byte-identical parameters without optimizer step; objective/contract tests17/17 plus py_compile. This is mathematical/runtime plumbing only, not 8B checkpoint or CUDA evidence.
+- Local work: Implemented exact 8B/CUDA zero-update preflight path: packet cb137c52 and checkpoint b0399b51 hashes, checkpoint model-file/profile lineage, bf16 CUDA, exact nine float32 final-layer tensor restore, longest-pair two-forward objective under saved-tensor CPU offload, finite nonzero gradient census, peak memory receipt and byte-identical parameter guard. Exact direct-script CLI/import smoke, py_compile and17 tests pass. No actual8B/CUDA run yet.
 - External blocker: none verified
-- Next action: Add the exact 8B CUDA admission path: verify packet/checkpoint/model hashes, restore b0399b51 into exactly nine float32 final-layer tensors, run the longest2875-token positive/negative objective under saved-tensor CPU offload, persist zero-update gradient and peak-memory evidence, and reject any parameter drift. Then prepare matched retention/unsupplied evaluation and an exact stage; no remote submission before review.
+- Next action: Prepare an exact checksum-pinned Polaris stage and bounded one-GPU preflight-only launcher for the zero-update path. Exercise import/CLI from the copied stage and verify packet/checkpoint/model destinations read-only. The action must stop after the longest-pair backward with optimizer_updates=0; upload and allocation require separate exact review.
 
 ## Objective and evidence rules
 
@@ -30,7 +30,7 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 | TLA-05 | Done | Score the valid checkpoint comparison | 7609486 all8scored with0passes. Job7611118 exact supplied-prefix comparison scored all6 with4/4 controls: base0/2,parent2/2,child1/2; zero gate credit and no child promotion. |
 | TLA-06 | In progress | Find a new intervention that improves protected SANY | 7611118 establishes parent2/2 versus child1/2 only after72-81% canonical prefix; base0/2 and zero exact suffix matches. Completion capacity exists but child regresses row107. No full-prompt gain or quality promotion. |
 | TLA-06A | Done | Measure syntax-token preference training | 185259 completed 24 updates and exact reload; parent 0/2 and child 0/2 protected SANY. Negative result; do not repeat unchanged. |
-| TLA-06B | In progress | Establish a genuinely different structured training objective | Prompt-bound packet v2 cb137c52 admits20/20 exact TRAIN pairs. Objective code is pinned to exact parent b0399b51 and executes two complete forwards; tiny zero-update test proves finite pairwise loss/gap, nonzero gradients and unchanged parameters. Tests17/17 plus py_compile. No actual8B/CUDA training or model gain yet. |
+| TLA-06B | In progress | Establish a genuinely different structured training objective | Exact CUDA preflight implementation binds packet cb137c52, parent b0399b51, model lineage, nine restored float32 tensors, longest-pair full forwards, saved-tensor offload, nonzero gradient census, peak memory and zero parameter drift. Direct CLI/import smoke, pycompile and17 tests pass. No actual8B/CUDA execution, training or model gain yet. |
 | TLA-07 | Not ready | Verify complete frozen SANY gate | Full frozen denominator has not passed 100%; no diagnostic promotion. |
 | TLA-08 | Not ready | Verify applicable TLC and non-vacuity | Prerequisite SANY gate and intended-behavior evidence incomplete. |
 | TLA-09 | Not ready | Verify genuine TLAPS model performance | Acceptance gates incomplete; same-node positive/negative TLAPS controls and bounded dry run required before retry. |
@@ -231,16 +231,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 367,
-  "verified_utc": "2026-09-12T10:52:58Z",
+  "revision": 368,
+  "verified_utc": "2026-09-12T11:10:03Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "local_work",
   "active_job": null,
-  "observation_evidence": "At 2026-09-12T10:52:58Z, configured-alias qstat again succeeded on both Polaris and Sophia with no owned jobs listed. No remote side effect or submission occurred; this board retains active_job null.",
+  "observation_evidence": "At 2026-09-12T11:10:03Z, configured-alias qstat again succeeded on both Polaris and Sophia with no owned jobs listed. No remote side effect or submission occurred; this board retains active_job null.",
   "last_result": "Supplied-prefix diagnostic is terminal and decision-bearing: parent can complete both heavily supplied rows; child retains row47 but loses row107; base passes neither. Grammar completion alone does not guarantee SANY because base107 and child107 completed/EOS yet parse-reject. Do not promote child or repeat unchanged.",
-  "local_work": "Bound the objective implementation to packet cb137c52 and exact parent b0399b51. Added complete prompt+response forwards and a two-forward pair objective suitable for zero-update preflight. Tiny differentiable runtime test proves finite loss/gap, nonzero gradients and byte-identical parameters without optimizer step; objective/contract tests17/17 plus py_compile. This is mathematical/runtime plumbing only, not 8B checkpoint or CUDA evidence.",
+  "local_work": "Implemented exact 8B/CUDA zero-update preflight path: packet cb137c52 and checkpoint b0399b51 hashes, checkpoint model-file/profile lineage, bf16 CUDA, exact nine float32 final-layer tensor restore, longest-pair two-forward objective under saved-tensor CPU offload, finite nonzero gradient census, peak memory receipt and byte-identical parameter guard. Exact direct-script CLI/import smoke, py_compile and17 tests pass. No actual8B/CUDA run yet.",
   "external_blocker": "",
-  "next_action": "Add the exact 8B CUDA admission path: verify packet/checkpoint/model hashes, restore b0399b51 into exactly nine float32 final-layer tensors, run the longest2875-token positive/negative objective under saved-tensor CPU offload, persist zero-update gradient and peak-memory evidence, and reject any parameter drift. Then prepare matched retention/unsupplied evaluation and an exact stage; no remote submission before review.",
+  "next_action": "Prepare an exact checksum-pinned Polaris stage and bounded one-GPU preflight-only launcher for the zero-update path. Exercise import/CLI from the copied stage and verify packet/checkpoint/model destinations read-only. The action must stop after the longest-pair backward with optimizer_updates=0; upload and allocation require separate exact review.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -288,7 +288,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
       "id": "TLA-06B",
       "state": "In progress",
       "task": "Establish a genuinely different structured training objective",
-      "evidence": "Prompt-bound packet v2 cb137c52 admits20/20 exact TRAIN pairs. Objective code is pinned to exact parent b0399b51 and executes two complete forwards; tiny zero-update test proves finite pairwise loss/gap, nonzero gradients and unchanged parameters. Tests17/17 plus py_compile. No actual8B/CUDA training or model gain yet."
+      "evidence": "Exact CUDA preflight implementation binds packet cb137c52, parent b0399b51, model lineage, nine restored float32 tensors, longest-pair full forwards, saved-tensor offload, nonzero gradient census, peak memory and zero parameter drift. Direct CLI/import smoke, pycompile and17 tests pass. No actual8B/CUDA execution, training or model gain yet."
     },
     {
       "id": "TLA-07",
