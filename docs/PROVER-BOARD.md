@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 368
-- Verified UTC: 2026-09-12T11:10:03Z
+- Revision: 369
+- Verified UTC: 2026-09-12T11:28:45Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: local_work
 - Active job: none
-- Observation evidence: At 2026-09-12T11:10:03Z, configured-alias qstat again succeeded on both Polaris and Sophia with no owned jobs listed. No remote side effect or submission occurred; this board retains active_job null.
+- Observation evidence: At 2026-09-12T11:27:50Z, configured-alias qstat succeeded on both Polaris and Sophia with no owned jobs listed. Polaris read-only checks verified destination /home/eric-spencer/tla-sequence-preflight-20260912-v1 absent, pinned model present, and checkpoint exact SHA b0399b51. No remote side effect or submission occurred; active_job remains null.
 - Latest completed result: Supplied-prefix diagnostic is terminal and decision-bearing: parent can complete both heavily supplied rows; child retains row47 but loses row107; base passes neither. Grammar completion alone does not guarantee SANY because base107 and child107 completed/EOS yet parse-reject. Do not promote child or repeat unchanged.
-- Local work: Implemented exact 8B/CUDA zero-update preflight path: packet cb137c52 and checkpoint b0399b51 hashes, checkpoint model-file/profile lineage, bf16 CUDA, exact nine float32 final-layer tensor restore, longest-pair two-forward objective under saved-tensor CPU offload, finite nonzero gradient census, peak memory receipt and byte-identical parameter guard. Exact direct-script CLI/import smoke, py_compile and17 tests pass. No actual8B/CUDA run yet.
+- Local work: Prepared exact six-file Polaris preflight-only stage, manifest SHA7e5ce81e. All5 payload hashes pass, stage inventory is exact, PBS syntax passes, and direct CLI/import smoke succeeds from the copied stage. Launcher requests one EVITA debug GPU for15m and stops after zero-update longest-pair backward; it has no optimizer or generation path. No upload/allocation yet.
 - External blocker: none verified
-- Next action: Prepare an exact checksum-pinned Polaris stage and bounded one-GPU preflight-only launcher for the zero-update path. Exercise import/CLI from the copied stage and verify packet/checkpoint/model destinations read-only. The action must stop after the longest-pair backward with optimizer_updates=0; upload and allocation require separate exact review.
+- Next action: Await exact approval to upload manifest7e5ce81e to /home/eric-spencer/tla-sequence-preflight-20260912-v1, run its CPU checksum/CLI preflight, and if all guards pass submit one Polaris EVITA debug GPU for at most15 minutes. The job performs zero optimizer updates and no generation. Do not upload or submit without that approval.
 
 ## Objective and evidence rules
 
@@ -231,16 +231,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 368,
-  "verified_utc": "2026-09-12T11:10:03Z",
+  "revision": 369,
+  "verified_utc": "2026-09-12T11:28:45Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "local_work",
   "active_job": null,
-  "observation_evidence": "At 2026-09-12T11:10:03Z, configured-alias qstat again succeeded on both Polaris and Sophia with no owned jobs listed. No remote side effect or submission occurred; this board retains active_job null.",
+  "observation_evidence": "At 2026-09-12T11:27:50Z, configured-alias qstat succeeded on both Polaris and Sophia with no owned jobs listed. Polaris read-only checks verified destination /home/eric-spencer/tla-sequence-preflight-20260912-v1 absent, pinned model present, and checkpoint exact SHA b0399b51. No remote side effect or submission occurred; active_job remains null.",
   "last_result": "Supplied-prefix diagnostic is terminal and decision-bearing: parent can complete both heavily supplied rows; child retains row47 but loses row107; base passes neither. Grammar completion alone does not guarantee SANY because base107 and child107 completed/EOS yet parse-reject. Do not promote child or repeat unchanged.",
-  "local_work": "Implemented exact 8B/CUDA zero-update preflight path: packet cb137c52 and checkpoint b0399b51 hashes, checkpoint model-file/profile lineage, bf16 CUDA, exact nine float32 final-layer tensor restore, longest-pair two-forward objective under saved-tensor CPU offload, finite nonzero gradient census, peak memory receipt and byte-identical parameter guard. Exact direct-script CLI/import smoke, py_compile and17 tests pass. No actual8B/CUDA run yet.",
+  "local_work": "Prepared exact six-file Polaris preflight-only stage, manifest SHA7e5ce81e. All5 payload hashes pass, stage inventory is exact, PBS syntax passes, and direct CLI/import smoke succeeds from the copied stage. Launcher requests one EVITA debug GPU for15m and stops after zero-update longest-pair backward; it has no optimizer or generation path. No upload/allocation yet.",
   "external_blocker": "",
-  "next_action": "Prepare an exact checksum-pinned Polaris stage and bounded one-GPU preflight-only launcher for the zero-update path. Exercise import/CLI from the copied stage and verify packet/checkpoint/model destinations read-only. The action must stop after the longest-pair backward with optimizer_updates=0; upload and allocation require separate exact review.",
+  "next_action": "Await exact approval to upload manifest7e5ce81e to /home/eric-spencer/tla-sequence-preflight-20260912-v1, run its CPU checksum/CLI preflight, and if all guards pass submit one Polaris EVITA debug GPU for at most15 minutes. The job performs zero optimizer updates and no generation. Do not upload or submit without that approval.",
   "tasks": [
     {
       "id": "TLA-01",
