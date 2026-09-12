@@ -1,0 +1,21 @@
+{
+  "controls_ok": true,
+  "requested": 6,
+  "observed": 0,
+  "generation_receipt_complete": false,
+  "counts": {
+    "base": {
+      "unmeasured_missing": 2
+    },
+    "parent": {
+      "unmeasured_missing": 2
+    },
+    "child": {
+      "unmeasured_missing": 2
+    }
+  },
+  "input_transform": "none; no extraction, repair or reference conditioning",
+  "scope": "two TRAIN-row checkpoint lineage diagnostic; not unseen quality gate",
+  "gate_claim": false,
+  "model_improvement_claim": false
+}

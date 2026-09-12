@@ -1,0 +1,32 @@
+[
+  {
+    "phase": "base",
+    "row": 47,
+    "status": "unmeasured_missing"
+  },
+  {
+    "phase": "base",
+    "row": 107,
+    "status": "unmeasured_missing"
+  },
+  {
+    "phase": "parent",
+    "row": 47,
+    "status": "unmeasured_missing"
+  },
+  {
+    "phase": "parent",
+    "row": 107,
+    "status": "unmeasured_missing"
+  },
+  {
+    "phase": "child",
+    "row": 47,
+    "status": "unmeasured_missing"
+  },
+  {
+    "phase": "child",
+    "row": 107,
+    "status": "unmeasured_missing"
+  }
+]
