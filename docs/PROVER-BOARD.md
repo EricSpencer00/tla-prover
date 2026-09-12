@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 398
-- Verified UTC: 2026-09-12T19:40:37Z
+- Revision: 403
+- Verified UTC: 2026-09-12T22:53:54Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: local_work
 - Active job: none
-- Observation evidence: At 2026-09-12T19:40:37Z, exact eight-update trainer/stage is locally ready.21 focused tests, direct staged CLI/pycompile and PBS syntax pass. Manifest c7d93570 contains exactly SHA256SUMS plus packet, plan, launcher and3 imported tools. It has no remote side effect yet. Polaris/Sophia ownership was last verified empty at18:36:51Z and must be rechecked before any submission.
+- Observation evidence: At 2026-09-12T22:53:54Z, exact authority was applied: manifestc7d93570 uploaded to /home/eric-spencer/tla-sequence-train-20260912-v1; all6 payload checks pass, staged CPU CLI/pycompile passed, and generated remote pycache was removed before final exact inventory/hash recheck. GPU guard does not pass: foreign queued Polaris tla-sweep7613610 remains, and Sophia foreign sweep jobs remain active/queued. No GPU job was submitted.
 - Latest completed result: Zero-update CUDA preflight succeeded on the exact longest pair: loss1.2650, gap-0.5953, gradients nonzero for all9 final-layer tensors, peak CUDA allocated20.50GB/reserved23.12GB, exact checkpoint/packet lineage, and zero parameter drift. The negative gap means the parent currently prefers the genuine invalid rollout over the valid target; this validates trainability and direction, not quality gain.
-- Local work: Exact true-update trainer/stage c7d93570 is ready: fixed8 non-protected updates,12-pair diagnostic-only holdout scored before/after, parent/child delta and exact child reload guards, append-only output, no protected training/model selection/gate claim.21 focused tests, direct staged CLI/pycompile and PBS syntax pass.
-- External blocker: Await exact authority to upload private manifestc7d93570 to /home/eric-spencer/tla-sequence-train-20260912-v1, run checksum/CLI guards, and if all pass submit one Polaris debug GPU for at most15minutes. This creates an append-only child checkpoint after8 bounded updates; it does not run protected generation or claim gate credit.
-- Next action: After exact authority, remotely recheck queues/destination/checkpoint, upload manifestc7d93570, verify its hashes and staged CPU guards, then conditionally submit exactly one bounded Polaris GPU job. Retrieve/validate child and diagnostic receipt; do not claim quality until separate unchanged unsupplied protected evaluation.
+- Local work: Exact true-update stagec7d93570 is uploaded and remotely checksum/CLI verified with final exact six-file inventory. It performs fixed8 non-protected updates,12-pair diagnostic-only holdout scores before/after, parent/child delta and exact child reload guards, append-only output, no protected training/model selection/gate claim. No GPU allocation yet.
+- External blocker: Conditional GPU guard is blocked by foreign queued Polaris tla-sweep7613610 and foreign Sophia sweep jobs185579,185580,185584-185589. Exact authority covers one Polaris GPU, but one-experiment ownership forbids competing submission. Do not alter or attribute foreign jobs; await a fresh empty Polaris ownership guard, then submit exactly once without seeking new authority.
+- Next action: Monitor foreign owned queues read-only. When Polaris ownership is empty, recheck exact stage/hash/checkpoint and submit the already authorized launcher exactly once. Retrieve/validate child and diagnostic receipt; do not claim quality until separate unchanged unsupplied protected evaluation.
 
 ## Objective and evidence rules
 
@@ -37,6 +37,10 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 
 ## Decisions
 
+- 2026-09-12T22:53:54Z: Eric directly authorized exact manifestc7d93570 upload, CPU guards and conditional oneGPU15m. Upload, all checksums, staged CPU smoke and final exact inventory pass. Generated remote pycache was removed without source changes. Existing foreign Polaris sweep7613610 makes the conditional GPU guard fail; no qsub issued, no duplicate/race.
+- 2026-09-12T21:43:58Z: Fresh reconciliation found external tla-sweep7613610 queued on Polaris and two running/seven queued separate tla-sweep jobs on Sophia. Stage destination remains absent. Preserve the one-experiment ownership rule: do not submit, alter or claim any foreign job while exact true-update authority remains pending.
+- 2026-09-12T20:43:08Z: Fresh reconciliation found Polaris empty/stage absent, but Sophia has externally-owned active/queued tla-sweep jobs185579-185589. They are not this owner's work and must not be claimed, altered or raced. No true-update upload/submission without exact authority and fresh Polaris-only guard.
+- 2026-09-12T19:41:45Z: Required one-time Discord attention alert for exact true-update permission was rejected before delivery because it would disclose external experiment metadata. No fallback route was used. Stage c7d93570 remains local-only; require Eric's direct exact authority in this task.
 - 2026-09-12T19:40:37Z: True-update stage manifestc7d93570 is a distinct, bounded continuation of actual CUDA preflight: eight frozen non-protected pair updates,12-pair internal diagnostic holdout, positive-NLL anchor, exact child reload and no protected model selection. Local stage inventory/syntax/CLI and21 focused tests pass. Upload/allocation require exact authority; success cannot yield gate credit without separate unchanged unsupplied protected evaluation.
 - 2026-09-12T17:32:46Z: Froze deterministic8-train/12-internal-holdout plan ae1c5bb5 after actual CUDA feasibility. Protected47/107 cannot train or select; internal holdout is diagnostic only and unchanged unsupplied protected SANY remains the acceptance gate. Direct CLI packaging defect was caught and repaired;13 focused tests pass.
 - 2026-09-12T17:15:19Z: Polaris7613214 terminal Exit0 validates the materially distinct full-sequence objective on actual8B/CUDA without an optimizer step. Exact receipt shows negative target-vs-rollout gap, all9 trainable tensors receive gradients, memory fits and parameters are unchanged. Promote only to bounded true-update experiment design; this is zero gate/model credit and no checkpoint promotion.
@@ -239,16 +243,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 398,
-  "verified_utc": "2026-09-12T19:40:37Z",
+  "revision": 403,
+  "verified_utc": "2026-09-12T22:53:54Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "local_work",
   "active_job": null,
-  "observation_evidence": "At 2026-09-12T19:40:37Z, exact eight-update trainer/stage is locally ready.21 focused tests, direct staged CLI/pycompile and PBS syntax pass. Manifest c7d93570 contains exactly SHA256SUMS plus packet, plan, launcher and3 imported tools. It has no remote side effect yet. Polaris/Sophia ownership was last verified empty at18:36:51Z and must be rechecked before any submission.",
+  "observation_evidence": "At 2026-09-12T22:53:54Z, exact authority was applied: manifestc7d93570 uploaded to /home/eric-spencer/tla-sequence-train-20260912-v1; all6 payload checks pass, staged CPU CLI/pycompile passed, and generated remote pycache was removed before final exact inventory/hash recheck. GPU guard does not pass: foreign queued Polaris tla-sweep7613610 remains, and Sophia foreign sweep jobs remain active/queued. No GPU job was submitted.",
   "last_result": "Zero-update CUDA preflight succeeded on the exact longest pair: loss1.2650, gap-0.5953, gradients nonzero for all9 final-layer tensors, peak CUDA allocated20.50GB/reserved23.12GB, exact checkpoint/packet lineage, and zero parameter drift. The negative gap means the parent currently prefers the genuine invalid rollout over the valid target; this validates trainability and direction, not quality gain.",
-  "local_work": "Exact true-update trainer/stage c7d93570 is ready: fixed8 non-protected updates,12-pair diagnostic-only holdout scored before/after, parent/child delta and exact child reload guards, append-only output, no protected training/model selection/gate claim.21 focused tests, direct staged CLI/pycompile and PBS syntax pass.",
-  "external_blocker": "Await exact authority to upload private manifestc7d93570 to /home/eric-spencer/tla-sequence-train-20260912-v1, run checksum/CLI guards, and if all pass submit one Polaris debug GPU for at most15minutes. This creates an append-only child checkpoint after8 bounded updates; it does not run protected generation or claim gate credit.",
-  "next_action": "After exact authority, remotely recheck queues/destination/checkpoint, upload manifestc7d93570, verify its hashes and staged CPU guards, then conditionally submit exactly one bounded Polaris GPU job. Retrieve/validate child and diagnostic receipt; do not claim quality until separate unchanged unsupplied protected evaluation.",
+  "local_work": "Exact true-update stagec7d93570 is uploaded and remotely checksum/CLI verified with final exact six-file inventory. It performs fixed8 non-protected updates,12-pair diagnostic-only holdout scores before/after, parent/child delta and exact child reload guards, append-only output, no protected training/model selection/gate claim. No GPU allocation yet.",
+  "external_blocker": "Conditional GPU guard is blocked by foreign queued Polaris tla-sweep7613610 and foreign Sophia sweep jobs185579,185580,185584-185589. Exact authority covers one Polaris GPU, but one-experiment ownership forbids competing submission. Do not alter or attribute foreign jobs; await a fresh empty Polaris ownership guard, then submit exactly once without seeking new authority.",
+  "next_action": "Monitor foreign owned queues read-only. When Polaris ownership is empty, recheck exact stage/hash/checkpoint and submit the already authorized launcher exactly once. Retrieve/validate child and diagnostic receipt; do not claim quality until separate unchanged unsupplied protected evaluation.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -318,6 +322,10 @@ These snapshots preserve old statements, including mistakes. They are not curren
     }
   ],
   "decisions": [
+    "2026-09-12T22:53:54Z: Eric directly authorized exact manifestc7d93570 upload, CPU guards and conditional oneGPU15m. Upload, all checksums, staged CPU smoke and final exact inventory pass. Generated remote pycache was removed without source changes. Existing foreign Polaris sweep7613610 makes the conditional GPU guard fail; no qsub issued, no duplicate/race.",
+    "2026-09-12T21:43:58Z: Fresh reconciliation found external tla-sweep7613610 queued on Polaris and two running/seven queued separate tla-sweep jobs on Sophia. Stage destination remains absent. Preserve the one-experiment ownership rule: do not submit, alter or claim any foreign job while exact true-update authority remains pending.",
+    "2026-09-12T20:43:08Z: Fresh reconciliation found Polaris empty/stage absent, but Sophia has externally-owned active/queued tla-sweep jobs185579-185589. They are not this owner's work and must not be claimed, altered or raced. No true-update upload/submission without exact authority and fresh Polaris-only guard.",
+    "2026-09-12T19:41:45Z: Required one-time Discord attention alert for exact true-update permission was rejected before delivery because it would disclose external experiment metadata. No fallback route was used. Stage c7d93570 remains local-only; require Eric's direct exact authority in this task.",
     "2026-09-12T19:40:37Z: True-update stage manifestc7d93570 is a distinct, bounded continuation of actual CUDA preflight: eight frozen non-protected pair updates,12-pair internal diagnostic holdout, positive-NLL anchor, exact child reload and no protected model selection. Local stage inventory/syntax/CLI and21 focused tests pass. Upload/allocation require exact authority; success cannot yield gate credit without separate unchanged unsupplied protected evaluation.",
     "2026-09-12T17:32:46Z: Froze deterministic8-train/12-internal-holdout plan ae1c5bb5 after actual CUDA feasibility. Protected47/107 cannot train or select; internal holdout is diagnostic only and unchanged unsupplied protected SANY remains the acceptance gate. Direct CLI packaging defect was caught and repaired;13 focused tests pass.",
     "2026-09-12T17:15:19Z: Polaris7613214 terminal Exit0 validates the materially distinct full-sequence objective on actual8B/CUDA without an optimizer step. Exact receipt shows negative target-vs-rollout gap, all9 trainable tensors receive gradients, memory fits and parameters are unchanged. Promote only to bounded true-update experiment design; this is zero gate/model credit and no checkpoint promotion.",
