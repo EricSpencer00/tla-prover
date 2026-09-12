@@ -1,0 +1,14 @@
+{
+  "complete": true,
+  "requested": 20,
+  "admitted": 20,
+  "rejected_or_unknown": 0,
+  "packet_sha256": "cb137c525117ff42010514dad9ce16de0d793acc21fb5a583ae0902824bf8530",
+  "max_prompt_tokens": 729,
+  "max_positive_full_tokens": 1802,
+  "max_negative_full_tokens": 2875,
+  "min_positive_response_tokens": 215,
+  "min_negative_response_tokens": 239,
+  "training_authorized": false,
+  "gate_claim": false
+}

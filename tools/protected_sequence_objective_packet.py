@@ -104,8 +104,15 @@ def build(output, java):
     value = compose(json.loads(ACCOUNTING.read_text()), json.loads(ADMISSION.read_text()),
                     json.loads(TARGETS.read_text()), score)
     (output / "packet.json").write_text(json.dumps(value, indent=2) + "\n")
+    lengths = [(len(pair["prompt_tokens"]), len(pair["positive_tokens"]), len(pair["negative_tokens"]))
+               for pair in value["pairs"]]
     summary = {"complete": True, "requested": 20, "admitted": len(value["pairs"]),
                "rejected_or_unknown": 20 - len(value["pairs"]), "packet_sha256": file_sha(output / "packet.json"),
+               "max_prompt_tokens": max(x[0] for x in lengths),
+               "max_positive_full_tokens": max(x[0] + x[1] for x in lengths),
+               "max_negative_full_tokens": max(x[0] + x[2] for x in lengths),
+               "min_positive_response_tokens": min(x[1] for x in lengths),
+               "min_negative_response_tokens": min(x[2] for x in lengths),
                "training_authorized": False, "gate_claim": False}
     (output / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
     return summary

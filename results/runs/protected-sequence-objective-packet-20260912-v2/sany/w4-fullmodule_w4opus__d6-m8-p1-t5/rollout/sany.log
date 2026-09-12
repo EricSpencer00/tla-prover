@@ -1,0 +1,22 @@
+
+****** SANY2 Version 2.1 created 24 February 2014
+
+Parsing file /Users/eric/GitHub/prove-TLA/results/runs/protected-sequence-objective-packet-20260912-v2/sany/w4-fullmodule_w4opus__d6-m8-p1-t5/rollout/W4Od6m8p1t5.tla
+***Parse Error***
+Was expecting "==== or more Module body"
+Encountered "->" at line 10, column 28 and token "]" 
+
+Residual stack trace follows:
+Module definition starting at line 1, column 1.
+
+
+Fatal errors while parsing TLA+ spec in file W4Od6m8p1t5.tla
+
+tla2sany.semantic.AbortException
+*** Abort messages: 1
+
+In module W4Od6m8p1t5
+
+Could not parse module W4Od6m8p1t5 from file W4Od6m8p1t5.tla
+
+
