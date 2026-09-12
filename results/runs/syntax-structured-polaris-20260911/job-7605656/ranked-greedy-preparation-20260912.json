@@ -1,0 +1,37 @@
+{
+  "observed_utc": "2026-09-12T00:02:47Z",
+  "source_hashes": {
+    "preflight": "a41b544a15ec5981b9dbdb53e6a36d472cdcda1a62dae834b0500bf6a325d50c",
+    "selector": "ac02d2dab9620161347879ba77809e3d68b23dade3ba9dd0269323868f26e1bd",
+    "paired_runner": "f822c4d19076687bbf337c72f84d10c5599098c2443b01df6ceaa00419adba29",
+    "pbs": "c8776860feb5dc08e0fe30cf8be7ccf8c20576cc5d90d794d17dd367f93afb29"
+  },
+  "debug_evidence": {
+    "log": "mask-cache-debug-20260911-v2.log",
+    "sha256": "108aaaec2cfd496eb5ea021e69f62fc67d7141fa3f24e8edf75a974ac1e3600b",
+    "states": [
+      41,
+      15
+    ],
+    "max_uncertain_per_state": 59243,
+    "rule": "ws"
+  },
+  "hypothesis": "For frozen greedy single-beam decoding, descending-score token legality search yields the same argmax as a full grammar mask without examining every uncertain vocabulary continuation.",
+  "invariants": [
+    "Same exact grammar, checkpoint, prompts, budgets and scorer",
+    "No rank cutoff or grammar fallback",
+    "Stable token-index tie handling",
+    "Failures on nonfinite invalid score sets or dense-audit mismatches",
+    "Exact generated response IDs validated"
+  ],
+  "local_tests": {
+    "passed": 71,
+    "skipped": 2,
+    "skips": "CUDA-only tests unavailable on local Mac"
+  },
+  "cpu_stage": "/home/eric-spencer/tla-greedy-selector-preflight-20260912-v1",
+  "cpu_budget_seconds": 180,
+  "cpu_contract": "24 dense-versus-ranked synthetic score cases over2 rows x4 primed states, plus3 audited micro-control steps testing rejection rollback and EOS. No model weights or GPU.",
+  "cpu_pass_rule": "24/24 identical selections, EOS/rollback/audits pass, max synthetic selector call<0.2s. Not a model speed/quality claim.",
+  "conditional_gpu": "Only after successful CPU check: one GPU15min, inner840s timeout, all8 frozen paired raw outputs, canonical grammar unchanged,4 full-mask actual-logit audits per grammar candidate, output on home; no reference corpus in GPU stage."
+}

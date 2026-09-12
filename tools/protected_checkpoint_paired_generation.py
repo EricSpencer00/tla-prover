@@ -42,9 +42,17 @@ def generation_metadata(row, arm, generation):
                 generation_seed=SEED + row * 10 + generation)
 
 
-def build_processor(xgrammar, tokenizer, vocab_size, grammar):
+def build_processor(xgrammar, tokenizer, vocab_size, grammar, *, selector="dense", audit_steps=4):
     info = xgrammar.TokenizerInfo.from_huggingface(tokenizer, vocab_size=vocab_size)
     compiled = xgrammar.GrammarCompiler(info).compile_grammar(grammar)
+    if selector == "greedy":
+        try:
+            from protected_greedy_grammar_selector import GreedyGrammarSelector
+        except ModuleNotFoundError:
+            from tools.protected_greedy_grammar_selector import GreedyGrammarSelector
+        return GreedyGrammarSelector(xgrammar, compiled, audit_steps=audit_steps)
+    if selector != "dense":
+        raise ValueError("unknown grammar selector")
     return xgrammar.contrib.hf.LogitsProcessor(compiled)
 
 
@@ -76,7 +84,11 @@ def main():
     parser.add_argument("--grammar", type=Path, required=True)
     parser.add_argument("--xgrammar-site", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--grammar-selector", choices=("dense", "greedy"), default="dense")
+    parser.add_argument("--greedy-audit-steps", type=int, default=4)
     args = parser.parse_args()
+    if args.greedy_audit_steps < 0:
+        raise ValueError("negative audit step count")
     if args.output.exists():
         raise ValueError("append-only output already exists")
     if preflight.file_sha(args.packet) != preflight.PACKET_SHA:
@@ -122,19 +134,32 @@ def main():
             torch.manual_seed(metadata["generation_seed"])
             kwargs = dict(max_new_tokens=MAX_NEW_TOKENS, do_sample=False,
                           pad_token_id=tokenizer.eos_token_id)
+            processor = None
             if arm == "grammar_enforced":
                 # A new processor per candidate prevents cross-candidate
                 # matcher state from contaminating the paired measurement.
-                kwargs["logits_processor"] = [build_processor(xgrammar, tokenizer, model.config.vocab_size, grammar)]
+                processor = build_processor(xgrammar, tokenizer, model.config.vocab_size, grammar,
+                                            selector=args.grammar_selector, audit_steps=args.greedy_audit_steps)
+                if args.grammar_selector == "greedy":
+                    if model.generation_config.num_beams != 1:
+                        raise ValueError("ranked grammar selector requires the frozen single-beam greedy contract")
+                kwargs["logits_processor"] = [processor]
             with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
                 generated = model.generate(**inputs, **kwargs)
             new_ids = generated[0][inputs.input_ids.shape[1]:]
+            selector_evidence = None
+            if processor is not None and args.grammar_selector == "greedy":
+                processor.validate_generated(new_ids.tolist())
+                selector_evidence = dict(method="ranked_greedy_same_grammar", full_mask_audits=processor.audit_count,
+                                         candidates_checked=processor.candidates_checked,
+                                         actual_generated_ids_match=True)
             text = tokenizer.decode(new_ids, skip_special_tokens=True)
             record = dict(**metadata, base_prompt_sha256=sha(prompt), raw_reply=text,
                           actual_prompt_token_count=inputs.input_ids.shape[1],
                           actual_prompt_tokens_match_frozen=True,
                           raw_reply_sha256=sha(text), output_token_count=len(new_ids),
-                          grammar_enforced=(arm == "grammar_enforced"))
+                          grammar_enforced=(arm == "grammar_enforced"),
+                          selector_evidence=selector_evidence)
             records.append(record)
             (args.output / f"row-{row}-{arm}-{generation}.json").write_text(
                 json.dumps(record, indent=2) + "\n")
@@ -149,6 +174,7 @@ def main():
                    model_files=files, restored_parameter_count=len(selected),
                    restored_tensors_exact=True, protected_prompt_tokens=prompt_evidence,
                    grammar_sha256=sha(grammar), grammar_compiled=True,
+                   grammar_selector=args.grammar_selector,
                    xgrammar_version=xgrammar_version, xgrammar_site=str(args.xgrammar_site),
                    records=records, producer="direct_checkpoint_generation",
                    gate_claim=False)

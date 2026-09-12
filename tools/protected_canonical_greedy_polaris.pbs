@@ -1,0 +1,28 @@
+#!/bin/bash
+# Frozen paired inference, canonical grammar, exact ranked greedy selection.
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-canonical-greedy
+#PBS -l select=1:system=polaris:ngpus=1
+#PBS -l walltime=00:15:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+set -euo pipefail
+# Grand is read-only for this experiment: it was full during CPU diagnostics.
+STAGE=/home/eric-spencer/tla-canonical-greedy-generation-20260911-v1
+cd "$STAGE"
+exec > "job.${PBS_JOBID%%.*}.log" 2>&1
+export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false
+export HF_HOME=/grand/EVITA/eric-spencer/hf-cache PYTHONUNBUFFERED=1
+export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1
+export CC=/usr/bin/gcc CXX=/usr/bin/g++
+XGRAMMAR_SITE=/grand/EVITA/eric-spencer/tla-checkpoint-preflight-deps/xgrammar-0.2.2-cp312
+BASE=/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-learning-20260906-v1
+MODEL=/grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659
+CHECKPOINT=/grand/EVITA/eric-spencer/tla-structured-polaris-20260911/result.7605656/policy_optimizer.pt
+sha256sum -c SHA256SUMS
+timeout --signal=TERM --kill-after=10s 840s /home/eric-spencer/ChatTLA/.venv/bin/python -u -B protected_checkpoint_paired_generation.py \
+  --packet "$BASE/train.json" --model "$MODEL" --checkpoint "$CHECKPOINT" \
+  --grammar "$STAGE/canonical.ebnf" --xgrammar-site "$XGRAMMAR_SITE" \
+  --grammar-selector greedy --greedy-audit-steps 4 \
+  --output "result.${PBS_JOBID%%.*}"

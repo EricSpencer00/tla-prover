@@ -1,4 +1,6 @@
 from pathlib import Path
+from types import SimpleNamespace
+import sys
 import pytest
 
 from tools import protected_checkpoint_paired_generation as paired
@@ -56,3 +58,26 @@ def test_generation_tokens_disable_extra_bos_and_validate_actual_tensor():
     assert actual["input_ids"][0].tolist() == encoding["input_ids"][:3]
     with pytest.raises(ValueError, match="generation input token IDs differ"):
         paired.frozen_inputs(Tokenizer(), "prompt", {"input_ids": [1], "prompt_tokens": 1})
+
+
+def test_greedy_selector_is_opt_in_and_receives_exact_compiled_grammar(monkeypatch):
+    class Compiler:
+        def __init__(self, info):
+            assert info == ('tokenizer', 128256)
+
+        def compile_grammar(self, grammar):
+            assert grammar == 'frozen grammar'
+            return 'compiled'
+
+    xgr = SimpleNamespace(
+        TokenizerInfo=SimpleNamespace(from_huggingface=lambda tokenizer, vocab_size: (tokenizer, vocab_size)),
+        GrammarCompiler=Compiler,
+        contrib=SimpleNamespace(hf=SimpleNamespace(LogitsProcessor=lambda compiled: ('dense', compiled))))
+    fake = SimpleNamespace(GreedyGrammarSelector=lambda xgrammar, compiled, audit_steps:
+                           ('greedy', compiled, audit_steps))
+    monkeypatch.setitem(sys.modules, 'protected_greedy_grammar_selector', fake)
+    assert paired.build_processor(xgr, 'tokenizer', 128256, 'frozen grammar') == ('dense', 'compiled')
+    assert paired.build_processor(xgr, 'tokenizer', 128256, 'frozen grammar', selector='greedy', audit_steps=4) == (
+        'greedy', 'compiled', 4)
+    with pytest.raises(ValueError, match='unknown grammar selector'):
+        paired.build_processor(xgr, 'tokenizer', 128256, 'frozen grammar', selector='unsafe')
