@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 362
-- Verified UTC: 2026-09-12T09:25:03Z
+- Revision: 363
+- Verified UTC: 2026-09-12T09:43:10Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: local_work
 - Active job: none
-- Observation evidence: At 2026-09-12T09:08:16Z, configured-alias qstat succeeded on both Polaris and Sophia with no owned jobs listed. The previously separate Polaris benchmark is terminal and no prover submission was attempted. This board retains active_job null.
+- Observation evidence: At 2026-09-12T09:43:10Z, configured-alias qstat again succeeded on both Polaris and Sophia with no owned jobs listed. No remote side effect or submission occurred; this board retains active_job null.
 - Latest completed result: Supplied-prefix diagnostic is terminal and decision-bearing: parent can complete both heavily supplied rows; child retains row47 but loses row107; base passes neither. Grammar completion alone does not guarantee SANY because base107 and child107 completed/EOS yet parse-reject. Do not promote child or repeat unchanged.
-- Local work: Added CPU-only sequence-objective admission contract. It rejects protected-row training, synthetic negatives, non-SANY evidence, one-token/incomplete targets, missing preferred EOS, altered zero-credit retention, supplied-prefix evaluation, and objective identity drift. Focused contract suite passes 9/9; no model, checkpoint, CUDA or remote action occurred.
+- Local work: Real rollout inventory exposed that genuine full-module training examples use immutable string source IDs, not integer corpus rows. Corrected the CPU-only contract to bind unique source IDs while keeping protected row47/107 exclusion separate and fail-closed. Focused suite now passes 10/10; no model, checkpoint, CUDA or remote action occurred.
 - External blocker: none verified
-- Next action: Build a hash-pinned packet from non-protected actual model rollouts and SANY-valid complete targets, then exercise the new CPU-only admission contract against every pair. Do not train until all rollout receipts, sequence/EOS identities, protected exclusions, parent retention, and unchanged unsupplied evaluation bindings pass.
+- Next action: Construct the packet from the frozen full-module TRAIN20 paired accounting and its exact TRAIN169 targets. Locally SANY-score every actual rollout, admit only target-pass/rollout-reject pairs, tokenize complete responses with EOS, and bind the accounting/admission/target hashes. Do not use official holdouts or protected rows and do not train until the packet passes the contract.
 
 ## Objective and evidence rules
 
@@ -30,7 +30,7 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 | TLA-05 | Done | Score the valid checkpoint comparison | 7609486 all8scored with0passes. Job7611118 exact supplied-prefix comparison scored all6 with4/4 controls: base0/2,parent2/2,child1/2; zero gate credit and no child promotion. |
 | TLA-06 | In progress | Find a new intervention that improves protected SANY | 7611118 establishes parent2/2 versus child1/2 only after72-81% canonical prefix; base0/2 and zero exact suffix matches. Completion capacity exists but child regresses row107. No full-prompt gain or quality promotion. |
 | TLA-06A | Done | Measure syntax-token preference training | 185259 completed 24 updates and exact reload; parent 0/2 and child 0/2 protected SANY. Negative result; do not repeat unchanged. |
-| TLA-06B | In progress | Establish a genuinely different structured training objective | CPU-only admission contract now makes the objective materially distinct: full-response pairwise preference over actual model rollouts, not token/span margins or response-only SFT. It fail-closes protected leakage, synthetic negatives, missing SANY evidence, incomplete sequences/EOS, altered retention/evaluation modes, and identity drift; 9/9 focused tests pass. No training or model gain yet. |
+| TLA-06B | In progress | Establish a genuinely different structured training objective | CPU-only admission contract now makes the objective materially distinct: full-response pairwise preference over actual model rollouts, not token/span margins or response-only SFT. Real TRAIN20 inventory found and the contract interface corrected to immutable string source IDs with separate row47/107 exclusion; 10/10 focused tests pass. No training or model gain yet. |
 | TLA-07 | Not ready | Verify complete frozen SANY gate | Full frozen denominator has not passed 100%; no diagnostic promotion. |
 | TLA-08 | Not ready | Verify applicable TLC and non-vacuity | Prerequisite SANY gate and intended-behavior evidence incomplete. |
 | TLA-09 | Not ready | Verify genuine TLAPS model performance | Acceptance gates incomplete; same-node positive/negative TLAPS controls and bounded dry run required before retry. |
@@ -231,16 +231,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 362,
-  "verified_utc": "2026-09-12T09:25:03Z",
+  "revision": 363,
+  "verified_utc": "2026-09-12T09:43:10Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "local_work",
   "active_job": null,
-  "observation_evidence": "At 2026-09-12T09:08:16Z, configured-alias qstat succeeded on both Polaris and Sophia with no owned jobs listed. The previously separate Polaris benchmark is terminal and no prover submission was attempted. This board retains active_job null.",
+  "observation_evidence": "At 2026-09-12T09:43:10Z, configured-alias qstat again succeeded on both Polaris and Sophia with no owned jobs listed. No remote side effect or submission occurred; this board retains active_job null.",
   "last_result": "Supplied-prefix diagnostic is terminal and decision-bearing: parent can complete both heavily supplied rows; child retains row47 but loses row107; base passes neither. Grammar completion alone does not guarantee SANY because base107 and child107 completed/EOS yet parse-reject. Do not promote child or repeat unchanged.",
-  "local_work": "Added CPU-only sequence-objective admission contract. It rejects protected-row training, synthetic negatives, non-SANY evidence, one-token/incomplete targets, missing preferred EOS, altered zero-credit retention, supplied-prefix evaluation, and objective identity drift. Focused contract suite passes 9/9; no model, checkpoint, CUDA or remote action occurred.",
+  "local_work": "Real rollout inventory exposed that genuine full-module training examples use immutable string source IDs, not integer corpus rows. Corrected the CPU-only contract to bind unique source IDs while keeping protected row47/107 exclusion separate and fail-closed. Focused suite now passes 10/10; no model, checkpoint, CUDA or remote action occurred.",
   "external_blocker": "",
-  "next_action": "Build a hash-pinned packet from non-protected actual model rollouts and SANY-valid complete targets, then exercise the new CPU-only admission contract against every pair. Do not train until all rollout receipts, sequence/EOS identities, protected exclusions, parent retention, and unchanged unsupplied evaluation bindings pass.",
+  "next_action": "Construct the packet from the frozen full-module TRAIN20 paired accounting and its exact TRAIN169 targets. Locally SANY-score every actual rollout, admit only target-pass/rollout-reject pairs, tokenize complete responses with EOS, and bind the accounting/admission/target hashes. Do not use official holdouts or protected rows and do not train until the packet passes the contract.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -288,7 +288,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
       "id": "TLA-06B",
       "state": "In progress",
       "task": "Establish a genuinely different structured training objective",
-      "evidence": "CPU-only admission contract now makes the objective materially distinct: full-response pairwise preference over actual model rollouts, not token/span margins or response-only SFT. It fail-closes protected leakage, synthetic negatives, missing SANY evidence, incomplete sequences/EOS, altered retention/evaluation modes, and identity drift; 9/9 focused tests pass. No training or model gain yet."
+      "evidence": "CPU-only admission contract now makes the objective materially distinct: full-response pairwise preference over actual model rollouts, not token/span margins or response-only SFT. Real TRAIN20 inventory found and the contract interface corrected to immutable string source IDs with separate row47/107 exclusion; 10/10 focused tests pass. No training or model gain yet."
     },
     {
       "id": "TLA-07",

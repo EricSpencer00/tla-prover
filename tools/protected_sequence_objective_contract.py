@@ -50,10 +50,12 @@ def validate(value):
         raise ValueError("nonempty sequence pairs required")
     seen = set()
     for pair in pairs:
-        row = pair.get("row")
-        if type(row) is not int or row in PROTECTED or row in seen:
-            raise ValueError("training rows must be unique and non-protected")
-        seen.add(row)
+        source_id = pair.get("source_id")
+        if not isinstance(source_id, str) or not source_id or source_id in seen:
+            raise ValueError("training source IDs must be nonempty and unique")
+        if pair.get("protected_row") in PROTECTED:
+            raise ValueError("protected rows cannot enter training pairs")
+        seen.add(source_id)
         if pair.get("negative_origin") != "actual_model_rollout":
             raise ValueError("synthetic or reference-derived negatives are not admitted")
         if pair.get("positive_sany") is not True or pair.get("negative_sany") is not False:
@@ -77,4 +79,3 @@ def validate(value):
 
 def load(path):
     return validate(json.loads(Path(path).read_text()))
-

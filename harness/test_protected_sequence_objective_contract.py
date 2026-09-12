@@ -6,7 +6,8 @@ from tools import protected_sequence_objective_contract as contract
 
 def valid():
     pairs = [{
-        "row": 45,
+        "source_id": "w4-fullmodule:w4opus::d14-m4-p0-t4",
+        "protected_row": None,
         "negative_origin": "actual_model_rollout",
         "positive_sany": True,
         "negative_sany": False,
@@ -37,7 +38,8 @@ def test_accepts_distinct_sequence_contract():
 
 @pytest.mark.parametrize("mutation", [
     lambda v: v.update(kind="syntax_token_preference_v1"),
-    lambda v: v["pairs"][0].update(row=47),
+    lambda v: v["pairs"][0].update(protected_row=47),
+    lambda v: v["pairs"][0].update(source_id=""),
     lambda v: v["pairs"][0].update(negative_origin="synthetic_corruption"),
     lambda v: v["pairs"][0].update(negative_sany=True),
     lambda v: v["pairs"][0].update(positive_tokens=[11]),
