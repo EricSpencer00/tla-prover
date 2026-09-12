@@ -39,9 +39,24 @@ def _sha256(value):
     return isinstance(value, str) and re.fullmatch(r"[0-9a-f]{64}", value) is not None
 
 
+def canonical_references(corpus):
+    references = {}
+    for item in corpus.get("references", []):
+        row = item.get("row") if isinstance(item, dict) else None
+        if row not in ROWS:
+            continue
+        reference = item.get("text")
+        if row in references or not isinstance(reference, str) or sha(reference) != item.get("sha256"):
+            raise ValueError("Canonical corpus reference identity mismatch")
+        references[row] = item
+    if set(references) != set(ROWS):
+        raise ValueError("Canonical corpus must contain both protected rows")
+    return references
+
+
 def _reference_parts(item):
-    reference = item["response"]
-    if sha(reference) != item["response_sha256"]:
+    reference = item["text"]
+    if sha(reference) != item["sha256"]:
         raise ValueError("Reference control digest mismatch")
     try:
         marker = reference.index("Next ==")
@@ -87,7 +102,7 @@ def _validate_weights(receipt):
     return weights
 
 
-def validate_receipt(receipt, selected):
+def validate_receipt(receipt, selected, references):
     """Validate the complete generation contract before invoking any checker."""
     contract = receipt.get("contract")
     expected_plan = [dict(phase=phase, row=row) for phase, row in PLAN]
@@ -120,7 +135,7 @@ def validate_receipt(receipt, selected):
     by_key = {}
     for record, (phase, row) in zip(records, PLAN):
         item, encoding = selected[row]
-        reference, prefix, suffix = _reference_parts(item)
+        reference, prefix, suffix = _reference_parts(references[row])
         prefix_sha, prefix_tokens, reference_tokens = PREFIX[row]
         continuation_ids = record.get("continuation_token_ids")
         conditioned_ids = record.get("conditioned_input_token_ids")
@@ -212,13 +227,17 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--receipt", type=Path, required=True)
     parser.add_argument("--packet", type=Path, required=True)
+    parser.add_argument("--corpus", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     if preflight.file_sha(args.packet) != preflight.PACKET_SHA:
         raise ValueError("Frozen packet mismatch")
+    if preflight.file_sha(args.corpus) != replay.CORPUS_SHA:
+        raise ValueError("Frozen canonical corpus mismatch")
     receipt = json.loads(args.receipt.read_bytes())
     selected = preflight.protected_rows(json.loads(args.packet.read_bytes()))
-    by_key = validate_receipt(receipt, selected)
+    references = canonical_references(json.loads(args.corpus.read_bytes()))
+    by_key = validate_receipt(receipt, selected, references)
 
     jar = ROOT / "tools/tla2tools.jar"
     java = shutil.which("java")
@@ -228,6 +247,7 @@ def main():
     output.mkdir(parents=True, exist_ok=False)
     dump(output / "identity.json", dict(
         receipt_sha256=preflight.file_sha(args.receipt), packet_sha256=preflight.PACKET_SHA,
+        corpus_sha256=replay.CORPUS_SHA,
         jar_sha256=JAR_SHA, scorer_sha256=preflight.file_sha(__file__),
         classifier_sha256=preflight.file_sha(ROOT / "harness/proof_ladder_check.py"),
         process_runner_sha256=preflight.file_sha(ROOT / "harness/proof_owned_process.py"),
@@ -236,7 +256,7 @@ def main():
 
     controls = []
     for row in ROWS:
-        reference, _, _ = _reference_parts(selected[row][0])
+        reference, _, _ = _reference_parts(references[row])
         negative = re.sub(r"(?m)^={4,}\s*$", "SyntaxNegativeControl == )\n====", reference)
         if negative == reference:
             raise ValueError("Negative control injection failed")

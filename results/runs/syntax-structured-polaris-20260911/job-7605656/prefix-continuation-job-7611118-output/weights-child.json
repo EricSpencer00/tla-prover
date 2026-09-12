@@ -1,0 +1,49 @@
+{
+  "phase": "child",
+  "model_files": {
+    "config.json": "29e4c210b0d6ac178b16b2a255a568bdb23b581e50ca1ef6a6d071dd85704e6e",
+    "generation_config.json": "189fb0c0d7fd8a527db217c0a60a0e013f0394cd8800f9697a666a9e75e5f7fd",
+    "model-00001-of-00004.safetensors": "2b1879f356aed350030bb40eb45ad362c89d9891096f79a3ab323d3ba5607668",
+    "model-00002-of-00004.safetensors": "09d433f650646834a83c580877bd60c6d1f88f7755305c12576b5c7058f9af15",
+    "model-00003-of-00004.safetensors": "fc1cdddd6bfa91128d6e94ee73d0ce62bfcdb7af29e978ddcab30c66ae9ea7fa",
+    "model-00004-of-00004.safetensors": "92ecfe1a2414458b4821ac8c13cf8cb70aed66b5eea8dc5ad9eeb4ff309d6d7b",
+    "model.safetensors.index.json": "146776fce3f6db1103aa6f249e65ee5544c5923ce6f971b092eee79aa6e5d37b",
+    "special_tokens_map.json": "6f38c73729248f6c127296386e3cdde96e254636cc58b4169d3fd32328d9a8ec",
+    "tokenizer.json": "79e3e522635f3171300913bb421464a87de6222182a0570b9b2ccba2a964b2b4",
+    "tokenizer_config.json": "177c7b61e616fecb84c17ce0591acb92c6c4d60e9ac5ababfb940ff23bbcd424"
+  },
+  "dtype_profile": "frozen bf16 base with float32 final transformer layer; bf16 autocast",
+  "checkpoint_sha256": "b0399b51aed001051fe200751b3087fc008482ca9dfeb64eb12884f71eee3bb6",
+  "checkpoint_config": {
+    "dtype_profile": "frozen bf16 base with float32 final transformer layer; bf16 autocast",
+    "model_files": {
+      "config.json": "29e4c210b0d6ac178b16b2a255a568bdb23b581e50ca1ef6a6d071dd85704e6e",
+      "generation_config.json": "189fb0c0d7fd8a527db217c0a60a0e013f0394cd8800f9697a666a9e75e5f7fd",
+      "model-00001-of-00004.safetensors": "2b1879f356aed350030bb40eb45ad362c89d9891096f79a3ab323d3ba5607668",
+      "model-00002-of-00004.safetensors": "09d433f650646834a83c580877bd60c6d1f88f7755305c12576b5c7058f9af15",
+      "model-00003-of-00004.safetensors": "fc1cdddd6bfa91128d6e94ee73d0ce62bfcdb7af29e978ddcab30c66ae9ea7fa",
+      "model-00004-of-00004.safetensors": "92ecfe1a2414458b4821ac8c13cf8cb70aed66b5eea8dc5ad9eeb4ff309d6d7b",
+      "model.safetensors.index.json": "146776fce3f6db1103aa6f249e65ee5544c5923ce6f971b092eee79aa6e5d37b",
+      "special_tokens_map.json": "6f38c73729248f6c127296386e3cdde96e254636cc58b4169d3fd32328d9a8ec",
+      "tokenizer.json": "79e3e522635f3171300913bb421464a87de6222182a0570b9b2ccba2a964b2b4",
+      "tokenizer_config.json": "177c7b61e616fecb84c17ce0591acb92c6c4d60e9ac5ababfb940ff23bbcd424"
+    },
+    "parent_sha256": "fba2768ed9a8f629f6496dc1ef72763b32fc339c74ba9075d1ffc53acd6c2d1d",
+    "kind": "syntax_structured_span_preference_v1"
+  },
+  "final_layer_tensor_count": 9,
+  "restored_parameter_count": 9,
+  "restored_tensors_exact": true,
+  "actual_tensors_exact": true,
+  "final_layer_sha256": {
+    "model.layers.31.self_attn.q_proj.weight": "14c5aaf6a7153cd42d8901b5ddde6c9ba2d5c95475debb65908920dfc02f31d8",
+    "model.layers.31.self_attn.k_proj.weight": "693689646139ca1f07e245aa0077c378fa1add3d3d833e442a1c02ac202cc819",
+    "model.layers.31.self_attn.v_proj.weight": "e5f4ed26b46f5ba200838ff3f646421d0ace87265aa174faeaade986c0c330bf",
+    "model.layers.31.self_attn.o_proj.weight": "7c9819979044d33d093e8290da9b17508c53a9b274f932a89926de515151713e",
+    "model.layers.31.mlp.gate_proj.weight": "d02d1ab9692dc330d8419ab3c97033d515c2e62e1e5db20345fff26fff0759de",
+    "model.layers.31.mlp.up_proj.weight": "57309085ec46a2183251b97761e8ebee046704f1a39bc0988b8d9e5588cf49df",
+    "model.layers.31.mlp.down_proj.weight": "d73f1fffc7c26cc26480d3f1571b46f3934bd2020ec582d087e88dbfacc3beee",
+    "model.layers.31.input_layernorm.weight": "9c94f7de135d24c1b96ffc7641ff78b639e0904f2944d21b50ba01d474dc4889",
+    "model.layers.31.post_attention_layernorm.weight": "bc8f05a7f889bf1007a09f8b4693a85eb91b9f65c0daf381ca13bff83511a0a2"
+  }
+}

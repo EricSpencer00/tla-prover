@@ -1,0 +1,24 @@
+{
+  "observed_utc": "2026-09-12T06:18:56Z",
+  "kind": "protected_prefix_score_preflight_diagnosis_v1",
+  "job_id": "7611118",
+  "generation_receipt_sha256": "1819e8c7b644e2b9ae1d81c4802efa0c6b04e50db2e372e678a33e09096f926d",
+  "scorer_exit_code": 1,
+  "sany_invoked": false,
+  "failure": "Raw output or supplied-reference identity differs",
+  "affected_records": [
+    {"phase": "base", "row": 107},
+    {"phase": "parent", "row": 107},
+    {"phase": "child", "row": 107}
+  ],
+  "discriminator": {
+    "packet_row107_prefix_sha256": "940932d72f1ec547b1326b7ca999a15124988095f338fc1d587198eb8955adf2",
+    "frozen_corpus_row107_prefix_sha256": "2c70fbec2364b35a803dffb1b17b40b58abbc0c7ce34569cf015dbc6e9eb5326",
+    "receipt_row107_prefix_sha256": "2c70fbec2364b35a803dffb1b17b40b58abbc0c7ce34569cf015dbc6e9eb5326"
+  },
+  "cause": "Generation correctly used the manifest-pinned canonical corpus, while the scorer incorrectly derived reference prefix/suffix controls from the packet response. Row47 happens to match; row107 intentionally differs.",
+  "required_correction": "Make the scorer require and hash-check the frozen corpus, derive reference controls from its exact row text, and continue using the packet only for frozen prompt identities.",
+  "candidate_bytes_changed": false,
+  "gpu_retry_required": false,
+  "quality_effect": "No SANY or model outcome exists yet; do not reclassify the fail-closed scorer error as a model result."
+}

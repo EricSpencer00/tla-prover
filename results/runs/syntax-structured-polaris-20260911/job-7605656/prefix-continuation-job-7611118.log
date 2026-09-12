@@ -1,0 +1,17 @@
+protected_prefix_continuation.py: OK
+protected_prefix_continuation_polaris.pbs: OK
+protected_checkpoint_preflight.py: OK
+protected_checkpoint_paired_generation.py: OK
+protected_reference_eos_replay.py: OK
+protected_greedy_grammar_selector.py: OK
+canonical-preflight-corpus-20260911.json: OK
+canonical.ebnf: OK
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/291 [00:00<?, ?it/s]Loading weights: 100%|██████████| 291/291 [00:00<00:00, 9846.42it/s]
+[transformers] The following generation flags are not valid and may be ignored: ['temperature', 'top_p']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+{"phase": "base", "row": 47, "continuation_tokens": 256, "eos_ended": false, "grammar_completed": false}
+{"phase": "base", "row": 107, "continuation_tokens": 115, "eos_ended": true, "grammar_completed": true}
+{"phase": "parent", "row": 47, "continuation_tokens": 40, "eos_ended": true, "grammar_completed": true}
+{"phase": "parent", "row": 107, "continuation_tokens": 108, "eos_ended": true, "grammar_completed": true}
+{"phase": "child", "row": 47, "continuation_tokens": 35, "eos_ended": true, "grammar_completed": true}
+{"phase": "child", "row": 107, "continuation_tokens": 74, "eos_ended": true, "grammar_completed": true}

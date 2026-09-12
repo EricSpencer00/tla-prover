@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 339
-- Verified UTC: 2026-09-12T04:54:52Z
+- Revision: 351
+- Verified UTC: 2026-09-12T06:23:15Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
-- Phase: external_wait
+- Phase: local_work
 - Active job: none
-- Observation evidence: At 2026-09-12T04:54:52Z v3 remains local-only and committed; its one-time Discord permission alert was rejected before delivery. No retry or workaround attempted. V2 remote stage remains preserved after its EOS preflight failure; no GPU was submitted. Last Polaris ownership check was empty at04:41:39Z; Sophia queue is unverified after authentication denial.
-- Latest completed result: Causal EOS mismatch fixed and committed as15d71648 without relaxing grammar. V3 manifest de26aa8c passes8/8 hashes, exact-stage CLI/PBS smoke and136 tests,2CUDA skips. Discord alert failed before delivery; no model result or quality promotion.
-- Local work: Commit15d71648 contains the strict vocabulary-interface repair, regression tests, failed-v2 diagnosis and exact v3 stage receipt. /tmp/tla-prefix-continuation-20260912-v3 remains immutable pending approval; remote exact-runtime CPU preflight remains required.
-- External blocker: Changed bundle requires explicit approval: manifest de26aa8c1be27df2be390c2d8c009118502b5972a292e0732550cdb69358ac04 to /home/eric-spencer/tla-prefix-continuation-20260912-v3, then CPU preflight and conditional at-most-one Polaris GPU for15minutes.
-- Next action: After exact v3 approval, upload manifest de26aa8c bundle, verify remote hashes, run exact CPU preflight, recheck Polaris ownership, acquire unique submission claim, and submit at most one15-minute GPU only if every guard passes.
+- Observation evidence: At 2026-09-12T06:23:15Z unchanged corpus-aware scorer completed all4 controls and6 candidates outside the sandbox. Controls:2 reference pass,2 negative reject. Paired SANY: base0/2,parent2/2,child1/2; child regresses parent on row107. Zero continuations match reference suffix;72-81% of each module was supplied. No gate/model credit.
+- Latest completed result: Supplied-prefix diagnostic is terminal and decision-bearing: parent can complete both heavily supplied rows; child retains row47 but loses row107; base passes neither. Grammar completion alone does not guarantee SANY because base107 and child107 completed/EOS yet parse-reject. Do not promote child or repeat unchanged.
+- Local work: Scorer now hash-checks the canonical corpus for generated reference bytes while retaining packet prompt identity; wrong-source regression and corpus tamper tests pass. Full focused suite138pass,2CUDA skips. Failed sandbox output preserved; exact candidates scored verbatim with no repair/reclassification.
+- External blocker: none verified
+- Next action: Use the paired regression to define the smallest materially new structured objective: preserve both parent conditioned passes as retention gates, then test whether the intervention improves unchanged unsupplied frozen prompts. Do not deepen supplied-prefix, sampling, budget or unchanged syntax-preference branches.
 
 ## Objective and evidence rules
 
@@ -27,10 +27,10 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 | TLA-02 | Done | Provide checkpoint-faithful paired inference | Direct generation implementation exists with frozen_inputs actual tensor-ID guard and focused tests.7608598 exact restore is historical evidence, but its402/458-token prompts did not match frozen401/457; v4 attests401/457 on6 saved outputs. Complete paired execution remains open under TLA03/04. |
 | TLA-03 | Done | Verify checkpoint and grammar in the same inference path | 7609486 finalreceipt attests exactrestore9,frozenprompts,CUDActrl,grammar4denseaudits/allgeneratedIDchecks. |
 | TLA-04 | Done | Execute the frozen paired experiment | 7609486 terminal exit0,all8rawoutputs and finalreceipt retrieved; measured3:56wall. |
-| TLA-05 | In progress | Score the valid checkpoint comparison | 7609486 all8scored;4ordinaryreject,4grammarlexicalEOF conservativelyclassifiedinfra;all4controls pass.0certifiedpass;no qualitypromotion. |
-| TLA-06 | In progress | Find a new intervention that improves protected SANY | 7609486rankedcanonicalcomplete8but0passes;7609556lineageall0/2. V2 preflight failure causally isolated to grammar mask width128000 versus hashed model vocabulary128256/EOS128009. Minimal strict correction passes136 tests,2CUDA skips; no new model result or GPU submission. |
+| TLA-05 | Done | Score the valid checkpoint comparison | 7609486 all8scored with0passes. Job7611118 exact supplied-prefix comparison scored all6 with4/4 controls: base0/2,parent2/2,child1/2; zero gate credit and no child promotion. |
+| TLA-06 | In progress | Find a new intervention that improves protected SANY | 7611118 establishes parent2/2 versus child1/2 only after72-81% canonical prefix; base0/2 and zero exact suffix matches. Completion capacity exists but child regresses row107. No full-prompt gain or quality promotion. |
 | TLA-06A | Done | Measure syntax-token preference training | 185259 completed 24 updates and exact reload; parent 0/2 and child 0/2 protected SANY. Negative result; do not repeat unchanged. |
-| TLA-06B | In progress | Establish a genuinely different structured training objective | Prior span-training/checkpoint and hand-written patch diagnostics retained without model gain. New grouped references establish only a potential output representation; no new training objective or policy update has been implemented or measured. |
+| TLA-06B | In progress | Establish a genuinely different structured training objective | Supplied-prefix result identifies a retention requirement: any new objective must preserve parent conditioned passes on rows47/107 and improve unchanged unsupplied prompts. Child syntax-preference checkpoint fails that retention gate on row107. |
 | TLA-07 | Not ready | Verify complete frozen SANY gate | Full frozen denominator has not passed 100%; no diagnostic promotion. |
 | TLA-08 | Not ready | Verify applicable TLC and non-vacuity | Prerequisite SANY gate and intended-behavior evidence incomplete. |
 | TLA-09 | Not ready | Verify genuine TLAPS model performance | Acceptance gates incomplete; same-node positive/negative TLAPS controls and bounded dry run required before retry. |
@@ -206,6 +206,14 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 - 2026-09-12T04:49:33Z: Exact standalone replay passes under model-config vocabulary128256; v2 runner used tokenizer base count128000. Correct mask width to hashed model config with EOS/tokenizer bounds, preserving strict EOS termination and all diagnostic quality guards.
 - 2026-09-12T04:51:54Z: V3 append-only stage is ready under manifest de26aa8c; only corrected runner and stage-path bytes differ from v2. Require exact changed-bundle approval before upload. No GPU submission and no quality promotion.
 - 2026-09-12T04:54:52Z: Coherent repair committed as15d71648. One-time exact-v3 Discord attention alert was rejected before delivery for external metadata disclosure risk; do not retry unchanged or route around review. Await trusted approval in the executing task.
+- 2026-09-12T06:06:29Z: Eric directly approved the exact pending v3 upload/preflight/conditional oneGPU15min action in this task. Local manifest de26aa8c reverified8/8 and Polaris v3 stage/owned queue are absent/empty; proceed through all quality and uniqueness guards.
+- 2026-09-12T06:10:37Z: V3 remote hashes and exact CPU preflight passed for all frozen rows/phases under XGrammar0.2.2 with no weights/CUDA/gate credit. Proceed only through fresh ownership and unique-claim guards.
+- 2026-09-12T06:12:12Z: Fresh Polaris owned queue empty; submission guard returned newly claimed identity aad9e8ed for exact v3 payload and bounded contract. One qsub is now authorized; an existing/colliding claim would have stopped submission.
+- 2026-09-12T06:13:03Z: Submitted exactly one job7611118; scheduler attests stateR, debug queue, oneGPU, 15-minute walltime and node x3002c0s37b0n0. No duplicate submission.
+- 2026-09-12T06:15:47Z: Job7611118 terminal Exit0 in2:08 scheduler wall; complete6-record receipt hash1819e8c7 present. Execution completion is not quality success; retrieve and independently verify/score before any model claim.
+- 2026-09-12T06:18:56Z: Retrieved hashes match remote. Scorer stopped before SANY because row107 canonical corpus reference differs from packet response and scorer read the latter. Fix only reference-source plumbing; preserve exact candidate bytes and no-GPU-retry decision.
+- 2026-09-12T06:21:16Z: Corpus-aware scorer passes62 tests, then unchanged run hit macOS psutil/sysctl sandbox denial during first control. Preserve partial output and rerun through approved escalation; do not classify candidates from infrastructure failure.
+- 2026-09-12T06:23:15Z: Final scoring controls4/4; base0/2,parent2/2,child1/2 on supplied-prefix diagnostic. Child regresses parent row107; grammar completion is not SANY. Retire unchanged prefix probe, preserve parent baseline, and require retention plus unsupplied-prompt gain from any new objective.
 
 ## Board maintenance
 
@@ -223,16 +231,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 339,
-  "verified_utc": "2026-09-12T04:54:52Z",
+  "revision": 351,
+  "verified_utc": "2026-09-12T06:23:15Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
-  "phase": "external_wait",
+  "phase": "local_work",
   "active_job": null,
-  "observation_evidence": "At 2026-09-12T04:54:52Z v3 remains local-only and committed; its one-time Discord permission alert was rejected before delivery. No retry or workaround attempted. V2 remote stage remains preserved after its EOS preflight failure; no GPU was submitted. Last Polaris ownership check was empty at04:41:39Z; Sophia queue is unverified after authentication denial.",
-  "last_result": "Causal EOS mismatch fixed and committed as15d71648 without relaxing grammar. V3 manifest de26aa8c passes8/8 hashes, exact-stage CLI/PBS smoke and136 tests,2CUDA skips. Discord alert failed before delivery; no model result or quality promotion.",
-  "local_work": "Commit15d71648 contains the strict vocabulary-interface repair, regression tests, failed-v2 diagnosis and exact v3 stage receipt. /tmp/tla-prefix-continuation-20260912-v3 remains immutable pending approval; remote exact-runtime CPU preflight remains required.",
-  "external_blocker": "Changed bundle requires explicit approval: manifest de26aa8c1be27df2be390c2d8c009118502b5972a292e0732550cdb69358ac04 to /home/eric-spencer/tla-prefix-continuation-20260912-v3, then CPU preflight and conditional at-most-one Polaris GPU for15minutes.",
-  "next_action": "After exact v3 approval, upload manifest de26aa8c bundle, verify remote hashes, run exact CPU preflight, recheck Polaris ownership, acquire unique submission claim, and submit at most one15-minute GPU only if every guard passes.",
+  "observation_evidence": "At 2026-09-12T06:23:15Z unchanged corpus-aware scorer completed all4 controls and6 candidates outside the sandbox. Controls:2 reference pass,2 negative reject. Paired SANY: base0/2,parent2/2,child1/2; child regresses parent on row107. Zero continuations match reference suffix;72-81% of each module was supplied. No gate/model credit.",
+  "last_result": "Supplied-prefix diagnostic is terminal and decision-bearing: parent can complete both heavily supplied rows; child retains row47 but loses row107; base passes neither. Grammar completion alone does not guarantee SANY because base107 and child107 completed/EOS yet parse-reject. Do not promote child or repeat unchanged.",
+  "local_work": "Scorer now hash-checks the canonical corpus for generated reference bytes while retaining packet prompt identity; wrong-source regression and corpus tamper tests pass. Full focused suite138pass,2CUDA skips. Failed sandbox output preserved; exact candidates scored verbatim with no repair/reclassification.",
+  "external_blocker": "",
+  "next_action": "Use the paired regression to define the smallest materially new structured objective: preserve both parent conditioned passes as retention gates, then test whether the intervention improves unchanged unsupplied frozen prompts. Do not deepen supplied-prefix, sampling, budget or unchanged syntax-preference branches.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -260,15 +268,15 @@ These snapshots preserve old statements, including mistakes. They are not curren
     },
     {
       "id": "TLA-05",
-      "state": "In progress",
+      "state": "Done",
       "task": "Score the valid checkpoint comparison",
-      "evidence": "7609486 all8scored;4ordinaryreject,4grammarlexicalEOF conservativelyclassifiedinfra;all4controls pass.0certifiedpass;no qualitypromotion."
+      "evidence": "7609486 all8scored with0passes. Job7611118 exact supplied-prefix comparison scored all6 with4/4 controls: base0/2,parent2/2,child1/2; zero gate credit and no child promotion."
     },
     {
       "id": "TLA-06",
       "state": "In progress",
       "task": "Find a new intervention that improves protected SANY",
-      "evidence": "7609486rankedcanonicalcomplete8but0passes;7609556lineageall0/2. V2 preflight failure causally isolated to grammar mask width128000 versus hashed model vocabulary128256/EOS128009. Minimal strict correction passes136 tests,2CUDA skips; no new model result or GPU submission."
+      "evidence": "7611118 establishes parent2/2 versus child1/2 only after72-81% canonical prefix; base0/2 and zero exact suffix matches. Completion capacity exists but child regresses row107. No full-prompt gain or quality promotion."
     },
     {
       "id": "TLA-06A",
@@ -280,7 +288,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
       "id": "TLA-06B",
       "state": "In progress",
       "task": "Establish a genuinely different structured training objective",
-      "evidence": "Prior span-training/checkpoint and hand-written patch diagnostics retained without model gain. New grouped references establish only a potential output representation; no new training objective or policy update has been implemented or measured."
+      "evidence": "Supplied-prefix result identifies a retention requirement: any new objective must preserve parent conditioned passes on rows47/107 and improve unchanged unsupplied prompts. Child syntax-preference checkpoint fails that retention gate on row107."
     },
     {
       "id": "TLA-07",
@@ -470,7 +478,15 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "2026-09-12T04:45:51Z: Remote manifest aff35bd1 hashes passed; CPU preflight stopped before weights/CUDA because XGrammar0.2.2 rejected EOS128009 outside its configured vocabulary. No GPU submitted. Invalidate staged-path EOS clearance and diagnose without weakening completion.",
     "2026-09-12T04:49:33Z: Exact standalone replay passes under model-config vocabulary128256; v2 runner used tokenizer base count128000. Correct mask width to hashed model config with EOS/tokenizer bounds, preserving strict EOS termination and all diagnostic quality guards.",
     "2026-09-12T04:51:54Z: V3 append-only stage is ready under manifest de26aa8c; only corrected runner and stage-path bytes differ from v2. Require exact changed-bundle approval before upload. No GPU submission and no quality promotion.",
-    "2026-09-12T04:54:52Z: Coherent repair committed as15d71648. One-time exact-v3 Discord attention alert was rejected before delivery for external metadata disclosure risk; do not retry unchanged or route around review. Await trusted approval in the executing task."
+    "2026-09-12T04:54:52Z: Coherent repair committed as15d71648. One-time exact-v3 Discord attention alert was rejected before delivery for external metadata disclosure risk; do not retry unchanged or route around review. Await trusted approval in the executing task.",
+    "2026-09-12T06:06:29Z: Eric directly approved the exact pending v3 upload/preflight/conditional oneGPU15min action in this task. Local manifest de26aa8c reverified8/8 and Polaris v3 stage/owned queue are absent/empty; proceed through all quality and uniqueness guards.",
+    "2026-09-12T06:10:37Z: V3 remote hashes and exact CPU preflight passed for all frozen rows/phases under XGrammar0.2.2 with no weights/CUDA/gate credit. Proceed only through fresh ownership and unique-claim guards.",
+    "2026-09-12T06:12:12Z: Fresh Polaris owned queue empty; submission guard returned newly claimed identity aad9e8ed for exact v3 payload and bounded contract. One qsub is now authorized; an existing/colliding claim would have stopped submission.",
+    "2026-09-12T06:13:03Z: Submitted exactly one job7611118; scheduler attests stateR, debug queue, oneGPU, 15-minute walltime and node x3002c0s37b0n0. No duplicate submission.",
+    "2026-09-12T06:15:47Z: Job7611118 terminal Exit0 in2:08 scheduler wall; complete6-record receipt hash1819e8c7 present. Execution completion is not quality success; retrieve and independently verify/score before any model claim.",
+    "2026-09-12T06:18:56Z: Retrieved hashes match remote. Scorer stopped before SANY because row107 canonical corpus reference differs from packet response and scorer read the latter. Fix only reference-source plumbing; preserve exact candidate bytes and no-GPU-retry decision.",
+    "2026-09-12T06:21:16Z: Corpus-aware scorer passes62 tests, then unchanged run hit macOS psutil/sysctl sandbox denial during first control. Preserve partial output and rerun through approved escalation; do not classify candidates from infrastructure failure.",
+    "2026-09-12T06:23:15Z: Final scoring controls4/4; base0/2,parent2/2,child1/2 on supplied-prefix diagnostic. Child regresses parent row107; grammar completion is not SANY. Retire unchanged prefix probe, preserve parent baseline, and require retention plus unsupplied-prompt gain from any new objective."
   ],
   "history": [
     "[Pre-reconciliation board; contains superseded claims](../results/board-history/board-686630068adb988bfde97c9bf5c8b18644721f0cd14ef92d438e03a76aa03886.md)"
@@ -725,7 +741,14 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "results/runs/syntax-structured-polaris-20260911/job-7605656/prefix-continuation-v1-preflight-diagnosis-20260912.json",
     "results/runs/syntax-structured-polaris-20260911/job-7605656/prefix-continuation-v2-preflight-diagnosis-20260912.json",
     "results/runs/syntax-structured-polaris-20260911/job-7605656/prefix-continuation-v3-stage-receipt-20260912.json",
-    "results/runs/syntax-structured-polaris-20260911/job-7605656/prefix-continuation-v3-permission-discord-rejection-20260912.json"
+    "results/runs/syntax-structured-polaris-20260911/job-7605656/prefix-continuation-v3-permission-discord-rejection-20260912.json",
+    "results/runs/syntax-structured-polaris-20260911/job-7605656/prefix-continuation-v3-preflight-success-20260912.json",
+    "results/prover-submit-claims/aad9e8eddcb3f6b26fef4961cc80e275fd6d0406272faa7d83005e1f443a7605.json",
+    "results/runs/syntax-structured-polaris-20260911/job-7605656/prefix-continuation-job-7611118-output/receipt.json",
+    "results/runs/syntax-structured-polaris-20260911/job-7605656/prefix-continuation-job-7611118-score-preflight-diagnosis.json",
+    "results/runs/syntax-structured-polaris-20260911/job-7605656/prefix-continuation-job-7611118-sany-sandbox-failure.json",
+    "results/runs/syntax-structured-polaris-20260911/job-7605656/prefix-continuation-job-7611118-sany/summary.json",
+    "results/runs/syntax-structured-polaris-20260911/job-7605656/prefix-continuation-job-7611118-decision.json"
   ]
 }
 -->

@@ -1,0 +1,22 @@
+{
+  "observed_utc": "2026-09-12T06:10:37Z",
+  "kind": "protected_prefix_continuation_v3_preflight_success_v1",
+  "stage": "/home/eric-spencer/tla-prefix-continuation-20260912-v3",
+  "manifest_sha256": "de26aa8c1be27df2be390c2d8c009118502b5972a292e0732550cdb69358ac04",
+  "remote_hashes_verified": true,
+  "cpu_preflight_exit_code": 0,
+  "preflight": {
+    "complete": true,
+    "rows": [47, 107],
+    "phases": ["base", "parent", "child"],
+    "prefix_tokens": {"47": 182, "107": 488},
+    "reference_tokens": {"47": 226, "107": 673},
+    "xgrammar_version": "0.2.2",
+    "checkpoint_loader": "weights_only=True",
+    "model_weights_loaded": false,
+    "cuda_touched": false,
+    "gate_claim": false
+  },
+  "gpu_submission_occurred_at_receipt": false,
+  "quality_effect": "Preflight readiness only; no generated candidates, model credit, gate credit, or supplied-reference credit."
+}

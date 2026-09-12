@@ -1,0 +1,44 @@
+{
+  "observed_utc": "2026-09-12T06:23:15Z",
+  "kind": "protected_prefix_continuation_decision_v1",
+  "job_id": "7611118",
+  "generation_receipt_sha256": "1819e8c7b644e2b9ae1d81c4802efa0c6b04e50db2e372e678a33e09096f926d",
+  "score_identity_sha256": "b44491f68bfb74ee3904ca14d960cf5ca3bd6ca69d920bd24d6329988f20efe7",
+  "score_rows_sha256": "07cb9d5b5fa9c267d7d7bbad71cd3a2f3740b7d7efbb5ab888cbcabaa59a9fa5",
+  "score_summary_sha256": "7815f03ea60ee47592662d6b6d8cdcdafc40f2409f83574ed9c4cbd2b2870e55",
+  "controls": {
+    "reference_pass": 2,
+    "negative_reject": 2,
+    "controls_ok": true
+  },
+  "denominator": 6,
+  "observed": 6,
+  "counts": {
+    "base": {"pass": 0, "model_sany_reject": 2},
+    "parent": {"pass": 2, "model_sany_reject": 0},
+    "child": {"pass": 1, "model_sany_reject": 1}
+  },
+  "paired_outcomes": [
+    {"row": 47, "base": "model_sany_reject", "parent": "pass", "child": "pass"},
+    {"row": 107, "base": "model_sany_reject", "parent": "pass", "child": "model_sany_reject"}
+  ],
+  "termination": {
+    "base_row47": "token_limit_without_grammar_completion",
+    "other_five": "EOS with grammar completion"
+  },
+  "continuation_matches_reference_suffix": 0,
+  "supplied_fractions": {"47": 0.8053097345132744, "107": 0.725111441307578},
+  "input_transform": "none; raw replies scored verbatim; no extraction, repair, or reclassification",
+  "interpretation": [
+    "The parent checkpoint can produce SANY-valid endings on both heavily supplied canonical prefixes.",
+    "The child checkpoint retains row47 but regresses row107 relative to its exact parent.",
+    "Grammar completion and EOS are insufficient for SANY: base row107 and child row107 terminate under the grammar but fail the parser.",
+    "The supplied prefix dominates each module, so these outcomes do not establish full-prompt generation or unseen-spec generalization."
+  ],
+  "decision": "Do not promote the child and do not repeat this supplied-prefix diagnostic unchanged. Preserve the parent as the stronger conditioned-completion baseline. Any new structured training objective must include paired parent-retention checks and then improve unsupplied frozen prompts.",
+  "reopening_condition": "A materially new objective or representation that preserves both parent conditioned passes and is evaluated on unchanged unsupplied held-out prompts.",
+  "sany_pass_gate_credit": false,
+  "gate_claim": false,
+  "model_improvement_claim": false,
+  "supplied_reference_credit": false
+}

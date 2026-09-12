@@ -1,0 +1,56 @@
+[
+  {
+    "phase": "base",
+    "row": 47,
+    "status": "model_sany_reject",
+    "candidate_sha256": "85bc3deb54571343c2fbc741efdd76f3ba00b5208b4dd6f417dd5691a0ce5ef3",
+    "module_name": "W4Od2m7p4t2",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/prefix-continuation-job-7611118-sany/candidates/47-base/sany.log"
+  },
+  {
+    "phase": "base",
+    "row": 107,
+    "status": "model_sany_reject",
+    "candidate_sha256": "b96093f88281bb0eb3972386c50657b0d4a5d38026fdf47a557ff8a095006ca4",
+    "module_name": "W4Od3m0p0t0",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/prefix-continuation-job-7611118-sany/candidates/107-base/sany.log"
+  },
+  {
+    "phase": "parent",
+    "row": 47,
+    "status": "pass",
+    "candidate_sha256": "75c5d7b0cd4be20f5e6e0f81932a2a74f7e3842e4a2727b352128af97496aac7",
+    "module_name": "W4Od2m7p4t2",
+    "returncode": 0,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/prefix-continuation-job-7611118-sany/candidates/47-parent/sany.log"
+  },
+  {
+    "phase": "parent",
+    "row": 107,
+    "status": "pass",
+    "candidate_sha256": "0b504038f7bbed56779a8b8c9dd1f848e159c3f1890641e6e6ef6b1dc754f24a",
+    "module_name": "W4Od3m0p0t0",
+    "returncode": 0,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/prefix-continuation-job-7611118-sany/candidates/107-parent/sany.log"
+  },
+  {
+    "phase": "child",
+    "row": 47,
+    "status": "pass",
+    "candidate_sha256": "80d9fe6e1c044628771c2c537cf721f6e7ddf4bce86fb4ecaa3253473288e152",
+    "module_name": "W4Od2m7p4t2",
+    "returncode": 0,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/prefix-continuation-job-7611118-sany/candidates/47-child/sany.log"
+  },
+  {
+    "phase": "child",
+    "row": 107,
+    "status": "model_sany_reject",
+    "candidate_sha256": "deb45bbe95a84ed16736690b01e02fd4fb31b3689d0e42d486bd0d0bb087544c",
+    "module_name": "W4Od3m0p0t0",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/prefix-continuation-job-7611118-sany/candidates/107-child/sany.log"
+  }
+]

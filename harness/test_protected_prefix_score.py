@@ -36,6 +36,11 @@ def _identity(phase, model_files, parent_sha, child_sha):
 @pytest.fixture
 def valid(monkeypatch):
     packet, prefixes = _packet_and_prefixes()
+    corpus = {"references": [
+        dict(row=row, text=prefixes[row][0] + prefixes[row][1],
+             sha256=scoring.sha(prefixes[row][0] + prefixes[row][1]))
+        for row in scoring.ROWS
+    ]}
     monkeypatch.setattr(scoring, "PREFIX", {
         row: (scoring.sha(prefixes[row][0]), supplied, reference)
         for row, (_, supplied, reference) in scoring.PREFIX.items()
@@ -85,13 +90,14 @@ def valid(monkeypatch):
         corpus_sha256=scoring.replay.CORPUS_SHA, grammar_sha256=scoring.replay.GRAMMAR_SHA,
         model_files=model_files, phase_weights=phase_weights, records=records,
         gate_claim=False, model_improvement_claim=False)
-    return packet, receipt
+    return packet, receipt, corpus
 
 
 def test_complete_receipt_validates_exact_order_and_denominator(valid):
-    packet, receipt = valid
+    packet, receipt, corpus = valid
     selected = preflight.protected_rows(packet)
-    assert list(scoring.validate_receipt(receipt, selected)) == list(scoring.PLAN)
+    references = scoring.canonical_references(corpus)
+    assert list(scoring.validate_receipt(receipt, selected, references)) == list(scoring.PLAN)
 
 
 @pytest.mark.parametrize("mutation", [
@@ -109,10 +115,11 @@ def test_complete_receipt_validates_exact_order_and_denominator(valid):
     lambda r: r["records"].append(deepcopy(r["records"][0])),
 ])
 def test_receipt_and_contract_tampering_fail_closed(valid, mutation):
-    packet, receipt = valid
+    packet, receipt, corpus = valid
     mutation(receipt)
     with pytest.raises(ValueError):
-        scoring.validate_receipt(receipt, preflight.protected_rows(packet))
+        scoring.validate_receipt(
+            receipt, preflight.protected_rows(packet), scoring.canonical_references(corpus))
 
 
 @pytest.mark.parametrize("mutation", [
@@ -139,10 +146,11 @@ def test_receipt_and_contract_tampering_fail_closed(valid, mutation):
     lambda x: x.update(supplied_reference_credit=True),
 ])
 def test_record_tampering_fails_closed(valid, mutation):
-    packet, receipt = valid
+    packet, receipt, corpus = valid
     mutation(receipt["records"][0])
     with pytest.raises(ValueError):
-        scoring.validate_receipt(receipt, preflight.protected_rows(packet))
+        scoring.validate_receipt(
+            receipt, preflight.protected_rows(packet), scoring.canonical_references(corpus))
 
 
 @pytest.mark.parametrize("mutation", [
@@ -154,14 +162,15 @@ def test_record_tampering_fails_closed(valid, mutation):
     lambda r: r["phase_weights"].update(extra={}),
 ])
 def test_phase_weight_marker_tampering_fails_closed(valid, mutation):
-    packet, receipt = valid
+    packet, receipt, corpus = valid
     mutation(receipt)
     with pytest.raises(ValueError):
-        scoring.validate_receipt(receipt, preflight.protected_rows(packet))
+        scoring.validate_receipt(
+            receipt, preflight.protected_rows(packet), scoring.canonical_references(corpus))
 
 
 def test_only_specified_record_fields_are_required(valid):
-    packet, receipt = valid
+    packet, receipt, corpus = valid
     specified = {"phase", "row", "base_prompt_sha256", "raw_reply", "raw_reply_sha256",
         "actual_user_prompt_tokens_match_frozen", "supplied_prefix_sha256",
         "supplied_prefix_tokens", "reference_tokens", "supplied_fraction",
@@ -174,7 +183,25 @@ def test_only_specified_record_fields_are_required(valid):
         "continuation_matches_reference_suffix"}
     receipt["records"] = [{key: value for key, value in record.items() if key in specified}
                           for record in receipt["records"]]
-    assert list(scoring.validate_receipt(receipt, preflight.protected_rows(packet))) == list(scoring.PLAN)
+    assert list(scoring.validate_receipt(
+        receipt, preflight.protected_rows(packet),
+        scoring.canonical_references(corpus))) == list(scoring.PLAN)
+
+
+def test_packet_response_cannot_override_canonical_corpus(valid):
+    packet, receipt, corpus = valid
+    packet["rows"][107]["response"] = "different packet response"
+    packet["rows"][107]["response_sha256"] = scoring.sha("different packet response")
+    assert list(scoring.validate_receipt(
+        receipt, preflight.protected_rows(packet),
+        scoring.canonical_references(corpus))) == list(scoring.PLAN)
+
+
+def test_canonical_corpus_tampering_fails_closed(valid):
+    _, _, corpus = valid
+    corpus["references"][0]["text"] += "changed"
+    with pytest.raises(ValueError, match="corpus reference identity"):
+        scoring.canonical_references(corpus)
 
 
 def test_malformed_header_is_explicit_raw_contract_rejection(tmp_path, monkeypatch):
@@ -199,9 +226,12 @@ def test_canonical_candidate_delegates_verbatim_and_preserves_infra_status(tmp_p
 
 def test_cli_scores_all_six_with_four_controls_and_no_gate_credit(
         valid, tmp_path, monkeypatch, capsys):
-    packet, receipt = valid
-    packet_path, receipt_path = tmp_path / "packet.json", tmp_path / "receipt.json"
+    packet, receipt, corpus = valid
+    packet_path = tmp_path / "packet.json"
+    corpus_path = tmp_path / "corpus.json"
+    receipt_path = tmp_path / "receipt.json"
     packet_path.write_text(json.dumps(packet))
+    corpus_path.write_text(json.dumps(corpus))
     receipt_path.write_text(json.dumps(receipt))
     output = tmp_path / "score"
 
@@ -209,6 +239,8 @@ def test_cli_scores_all_six_with_four_controls_and_no_gate_credit(
         path = Path(path)
         if path == packet_path:
             return preflight.PACKET_SHA
+        if path == corpus_path:
+            return scoring.replay.CORPUS_SHA
         if path.name == "tla2tools.jar":
             return scoring.JAR_SHA
         return "f" * 64
@@ -229,7 +261,7 @@ def test_cli_scores_all_six_with_four_controls_and_no_gate_credit(
     monkeypatch.setattr(scoring.shutil, "which", lambda name: "/fake/java")
     monkeypatch.setattr(scoring, "score", oracle)
     monkeypatch.setattr(sys, "argv", ["protected_prefix_score", "--receipt", str(receipt_path),
-        "--packet", str(packet_path), "--output", str(output)])
+        "--packet", str(packet_path), "--corpus", str(corpus_path), "--output", str(output)])
     scoring.main()
 
     summary = json.loads((output / "summary.json").read_text())
@@ -251,5 +283,6 @@ def test_cli_help_exposes_only_final_receipt_packet_and_output():
     source = script.read_text()
     assert 'parser.add_argument("--receipt"' in source
     assert 'parser.add_argument("--packet"' in source
+    assert 'parser.add_argument("--corpus"' in source
     assert 'parser.add_argument("--output"' in source
     assert "--records" not in source

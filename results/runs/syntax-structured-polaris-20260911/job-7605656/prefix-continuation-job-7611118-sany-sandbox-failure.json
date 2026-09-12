@@ -1,0 +1,15 @@
+{
+  "observed_utc": "2026-09-12T06:21:16Z",
+  "kind": "protected_prefix_score_sandbox_failure_v1",
+  "job_id": "7611118",
+  "scorer_exit_code": 1,
+  "failure": "psutil process-tree scan failed with PermissionError from macOS sysctl under the filesystem/process sandbox.",
+  "boundary": "local process ownership monitor",
+  "sany_completed": false,
+  "candidate_outcome": "unmeasured",
+  "partial_output": "prefix-continuation-job-7611118-sany",
+  "preservation": "Keep the identity and first control input; move the partial directory to an explicitly labelled sandbox-failure path before append-only rerun.",
+  "retry": "Run the same scorer, receipt, packet, corpus and candidate bytes with approved unsandboxed process inspection.",
+  "gpu_retry_required": false,
+  "quality_effect": "No model pass or rejection is inferred."
+}

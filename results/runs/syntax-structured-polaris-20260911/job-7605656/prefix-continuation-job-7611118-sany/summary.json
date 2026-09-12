@@ -1,0 +1,38 @@
+{
+  "complete": true,
+  "controls_ok": true,
+  "requested": 6,
+  "observed": 6,
+  "denominator": 6,
+  "generation_receipt_complete": true,
+  "counts": {
+    "base": {
+      "model_sany_reject": 2
+    },
+    "parent": {
+      "pass": 2
+    },
+    "child": {
+      "pass": 1,
+      "model_sany_reject": 1
+    }
+  },
+  "supplied_fractions": {
+    "47": 0.8053097345132744,
+    "107": 0.725111441307578
+  },
+  "supplied_tokens": {
+    "47": 182,
+    "107": 488
+  },
+  "reference_tokens": {
+    "47": 226,
+    "107": 673
+  },
+  "continuation_matches_reference_suffix": 0,
+  "input_transform": "none; raw_reply scored verbatim; no extraction, repair, or reclassification",
+  "scope": "two TRAIN rows; 72-81% supplied canonical reference; diagnostic only",
+  "sany_pass_gate_credit": false,
+  "gate_claim": false,
+  "model_improvement_claim": false
+}
