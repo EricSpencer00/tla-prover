@@ -29,7 +29,7 @@ PHASES = ("base", "parent", "child")
 ROWS = (47, 107)
 PROMPT_TOKENS = {47: 401, 107: 457}
 PREFIX = {
-    47: ("85691e1dd47493dbe2afd894e781bdaf6b77d3a8d43e9cae4fa26b8c0edbd5d", 182, 226),
+    47: ("85691e1dd47493d3be2afd894e781bdaf6b77d3a8d43e9cae4fa26b8c0edbd5d", 182, 226),
     107: ("2c70fbec2364b35a803dffb1b17b40b58abbc0c7ce34569cf015dbc6e9eb5326", 488, 673),
 }
 MAX_NEW_TOKENS = 256
