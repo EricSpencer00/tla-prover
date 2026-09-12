@@ -1,0 +1,24 @@
+{
+  "observed_utc": "2026-09-12T01:54:45Z",
+  "remote_stage": "/home/eric-spencer/tla-reference-eos-replay-20260912-v1",
+  "uploaded_hashes": {
+    "script": "611580f325b89898ad7ab0a95dbab00212fb41c85c292d2abeac1cc2eaefc81d",
+    "corpus": "fb76468f6a3217a359d54da92a2e3fa25396aad0547e6b5eb35129193a0e812a",
+    "grammar": "1f4124cd20bdfdfd41ba406703bb2d123ebb26190fd3834cbb3df32dcb1cc000"
+  },
+  "stage_hashes_match": true,
+  "cli_exit": 0,
+  "execution_exit": 1,
+  "earliest_failure": "split_reference: tokenizer.decode(prefix_ids) != exact prefix text",
+  "model_weights_loaded": false,
+  "grammar_result": "not_reached",
+  "diagnosis": "Byte-exact decode inversion is not a tokenizer contract and is not required by model continuation. The actual invariant is that exact literal prefix text re-encodes to the identical prefix token IDs.",
+  "correction": {
+    "script_sha256": "e601a00eb8a2a4524a7e9f1c649bf14d7e425835c447dbbc91fb39f1ca5ce2fc",
+    "tests": "5 passed",
+    "change": "Replace decoder byte-inversion assertion with exact literal-prefix re-encoding equality."
+  },
+  "metadata_diagnostic_rejection": "A proposed diagnostic that would print reference excerpts was rejected before execution. No reference text was disclosed; correction uses metadata-free interface reasoning and fail-closed re-encoding.",
+  "attempt": 1,
+  "gate_claim": false
+}

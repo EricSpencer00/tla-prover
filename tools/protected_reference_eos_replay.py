@@ -24,8 +24,12 @@ def split_reference(tokenizer, text):
         raise ValueError("Next marker is not an exact tokenizer boundary")
     prefix_ids = ids[:split]
     prefix_text = text[:marker]
-    if tokenizer.decode(prefix_ids) != prefix_text:
-        raise ValueError("token-boundary prefix does not decode exactly")
+    # Llama's decoder does not promise byte-for-byte inversion of whitespace.
+    # The operational invariant is stronger for continuation: re-encoding the
+    # exact literal prefix must recover the exact prefix token IDs.
+    reencoded = tokenizer(prefix_text, add_special_tokens=False)["input_ids"]
+    if reencoded != prefix_ids:
+        raise ValueError("exact prefix text does not re-encode to its frozen token IDs")
     return ids, prefix_ids, prefix_text, split
 
 

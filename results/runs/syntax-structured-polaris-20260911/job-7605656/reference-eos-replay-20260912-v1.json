@@ -1,0 +1,47 @@
+{
+  "complete": true,
+  "corpus_sha256": "fb76468f6a3217a359d54da92a2e3fa25396aad0547e6b5eb35129193a0e812a",
+  "gate_claim": false,
+  "grammar_sha256": "1f4124cd20bdfdfd41ba406703bb2d123ebb26190fd3834cbb3df32dcb1cc000",
+  "kind": "protected_reference_eos_replay_v1",
+  "model_improvement_claim": false,
+  "model_weights_loaded": false,
+  "records": [
+    {
+      "completed_before_eos": true,
+      "eos_accepted": true,
+      "eos_token_id": 128009,
+      "first_withheld_token_id": 5971,
+      "prefix_sha256": "85691e1dd47493dbe2afd894e781bdaf6b77d3a8d43e9cae4fa26b8c0edbd5d",
+      "prefix_tokens": 182,
+      "reference_sha256": "36c548d2a475c0d086ddf0340f927b36002699ce86e955d702e061324ad2f07c",
+      "reference_tokens": 226,
+      "row": 47,
+      "split_marker": "Next ==",
+      "terminated_after_eos": true,
+      "withheld_tokens": 44
+    },
+    {
+      "completed_before_eos": true,
+      "eos_accepted": true,
+      "eos_token_id": 128009,
+      "first_withheld_token_id": 5971,
+      "prefix_sha256": "2c70fbec2364b35a803dffb1b17b40b58abbc0c7ce34569cf015dbc6e9eb5326",
+      "prefix_tokens": 488,
+      "reference_sha256": "4ed6e849af37ac7083fa7aaf33344f226eba1955a504f3a1d4bfba93d4a0437f",
+      "reference_tokens": 673,
+      "row": 107,
+      "split_marker": "Next ==",
+      "terminated_after_eos": true,
+      "withheld_tokens": 185
+    }
+  ],
+  "scope": "Reference/EOS and token-boundary preflight only; no model or gate credit",
+  "tokenizer_sha256": "79e3e522635f3171300913bb421464a87de6222182a0570b9b2ccba2a964b2b4",
+  "xgrammar_version": "0.2.2",
+  "observed_utc": "2026-09-12T01:56:41Z",
+  "remote_stage": "/home/eric-spencer/tla-reference-eos-replay-20260912-v1",
+  "runner_sha256": "e601a00eb8a2a4524a7e9f1c649bf14d7e425835c447dbbc91fb39f1ca5ce2fc",
+  "initial_failed_runner_sha256": "611580f325b89898ad7ab0a95dbab00212fb41c85c292d2abeac1cc2eaefc81d",
+  "initial_failure_preserved": "reference-eos-replay-first-failure-20260912.json"
+}
