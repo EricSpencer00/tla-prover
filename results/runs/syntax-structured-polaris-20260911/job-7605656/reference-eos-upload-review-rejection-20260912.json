@@ -1,0 +1,18 @@
+{
+  "observed_utc": "2026-09-12T01:12:51Z",
+  "action": "Upload the exact CPU-only reference/EOS preflight files protected_reference_eos_replay.py, canonical-preflight-corpus-20260911.json, and canonical.ebnf to /home/eric-spencer/tla-reference-eos-replay-20260912-v1 on Polaris.",
+  "purpose": "Validate canonical reference completion, EOS acceptance, and token-boundary-safe continuation prefixes under exact XGrammar 0.2.2 before any reference-assisted model run.",
+  "result": "Rejected before upload by automatic review because the new payload contains internal canonical reference text and uses a new remote destination.",
+  "uploaded": false,
+  "executed": false,
+  "gpu_requested": false,
+  "required_authority": "Explicit user approval for this exact three-file upload and destination.",
+  "prepared_file_sha256": {
+    "protected_reference_eos_replay.py": "611580f325b89898ad7ab0a95dbab00212fb41c85c292d2abeac1cc2eaefc81d",
+    "canonical-preflight-corpus-20260911.json": "fb76468f6a3217a359d54da92a2e3fa25396aad0547e6b5eb35129193a0e812a",
+    "canonical.ebnf": "1f4124cd20bdfdfd41ba406703bb2d123ebb26190fd3834cbb3df32dcb1cc000"
+  },
+  "local_verification": "5 focused tests passed; CLI/bytecode check passed; script imports no model or torch and loads no model weights.",
+  "no_workaround": true,
+  "gate_claim": false
+}

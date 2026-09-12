@@ -1,0 +1,11 @@
+{
+  "observed_utc": "2026-09-12T01:15:19Z",
+  "platform": "discord",
+  "chat_id": "1522350803216629851",
+  "message_id": "1548139355426521110",
+  "action_key": "reference-eos-three-file-cpu-preflight-upload-v1",
+  "content": "Minimal attention request for explicit approval in the existing Codex task; no file contents, paths, hashes, logs or secrets.",
+  "delivery_verified": true,
+  "authorization_effect": "none; notification is not approval",
+  "deduplicate_until_action_changes": true
+}
