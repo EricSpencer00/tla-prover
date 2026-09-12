@@ -1,0 +1,25 @@
+
+****** SANY2 Version 2.1 created 24 February 2014
+
+Parsing file /Users/eric/GitHub/prove-TLA/results/runs/protected-sequence-objective-packet-20260912-v1/sany/w4-fullmodule_w4opus__d9-m8-p4-t4/rollout/W4Od9m8p4t4.tla
+***Parse Error***
+Encountered "i" at line 48, column 85 and token "EX" 
+
+Residual stack trace follows:
+ExtendableExpr starting at line 48, column 81.
+ExtendableExpr starting at line 48, column 63.
+ExtendableExpr starting at line 48, column 20.
+Expression starting at line 48, column 20.
+Definition starting at line 48, column 1.
+
+
+Fatal errors while parsing TLA+ spec in file W4Od9m8p4t4.tla
+
+tla2sany.semantic.AbortException
+*** Abort messages: 1
+
+In module W4Od9m8p4t4
+
+Could not parse module W4Od9m8p4t4 from file W4Od9m8p4t4.tla
+
+
