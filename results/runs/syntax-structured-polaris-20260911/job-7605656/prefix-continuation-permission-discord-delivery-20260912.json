@@ -1,0 +1,17 @@
+{
+  "observed_utc": "2026-09-12T02:13:04Z",
+  "kind": "macclaw_discord_minimal_attention_alert",
+  "platform": "discord",
+  "chat_id": "1522350803216629851",
+  "message_id": "1548154428354338878",
+  "action_key": "prefix-continuation-expanded8-file-upload-and-conditional-one-gpu-v1",
+  "manifest_sha256": "081509343a26c948ff43eba659115c88837f0787c432961b9e550e7dc5f8d2a1",
+  "destination": "/home/eric-spencer/tla-prefix-continuation-20260912-v1",
+  "requested_scope": "Exact upload, then conditional one-GPU run capped at 15 minutes only after remote hashes, CPU preflight, empty owned queue, and unique claim pass.",
+  "content_policy": "Alert names the exact manifest and destination and states that the bundle includes internal canonical corpus data; it does not disclose file contents, logs, credentials, or reference text.",
+  "delivery_verified": true,
+  "authorization_effect": "none; notification is not approval",
+  "deduplicate_until_action_changes": true,
+  "upload_occurred": false,
+  "gpu_submission_occurred": false
+}
