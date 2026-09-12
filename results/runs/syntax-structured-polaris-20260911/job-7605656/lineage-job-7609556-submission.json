@@ -1,0 +1,32 @@
+{
+  "observed_utc": "2026-09-12T00:44:59Z",
+  "job_id": "7609556.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "submission_exit": 0,
+  "claim": {
+    "claim": {
+      "claimed_unix": 1789173856.455379,
+      "host": "Eric-MB64.local",
+      "identity": "{\"experiment\":\"fixed-prompt-base-parent-child-lineage\",\"packet\":\"a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c\",\"parent\":\"fba2768ed9a8f629f6496dc1ef72763b32fc339c74ba9075d1ffc53acd6c2d1d\",\"child\":\"b0399b51aed001051fe200751b3087fc008482ca9dfeb64eb12884f71eee3bb6\",\"files\":{\"protected_checkpoint_paired_generation.py\":\"b8b024665cb28c9873be26b3e89c4e26132d1e73e8bc1d69a98a60877f0c9380\",\"protected_checkpoint_preflight.py\":\"4c569421946fcd207028f16f12f90b24182817b7f89975c988277197195f15e8\",\"protected_lineage_generation.py\":\"975102a2b8117f9b02446b1a6109fbdcc1e506e398fc5d294dc27fe28f9b5d42\",\"protected_lineage_polaris.pbs\":\"6c5a6dd5cddb0b5b4cc16dc30acf99b3b7890c086f89a015025c550d3dac1fe0\"}}",
+      "identity_sha256": "d634c6802bd6fa3a0b580a03847d64d79cab2515324d741c3d252562d60cca8e",
+      "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001"
+    },
+    "path": "results/prover-submit-claims/d634c6802bd6fa3a0b580a03847d64d79cab2515324d741c3d252562d60cca8e.json",
+    "status": "claimed"
+  },
+  "stage": "/home/eric-spencer/tla-lineage-generation-20260912-v1",
+  "queue_before": "empty",
+  "files": {
+    "protected_checkpoint_paired_generation.py": "b8b024665cb28c9873be26b3e89c4e26132d1e73e8bc1d69a98a60877f0c9380",
+    "protected_checkpoint_preflight.py": "4c569421946fcd207028f16f12f90b24182817b7f89975c988277197195f15e8",
+    "protected_lineage_generation.py": "975102a2b8117f9b02446b1a6109fbdcc1e506e398fc5d294dc27fe28f9b5d42",
+    "protected_lineage_polaris.pbs": "6c5a6dd5cddb0b5b4cc16dc30acf99b3b7890c086f89a015025c550d3dac1fe0"
+  },
+  "planned_outputs": 6,
+  "resources": {
+    "gpu": 1,
+    "walltime": "00:15:00",
+    "inner_timeout_seconds": 840
+  },
+  "state": "unverified",
+  "gate_claim": false
+}
