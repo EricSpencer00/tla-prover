@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 371
-- Verified UTC: 2026-09-12T11:48:55Z
+- Revision: 395
+- Verified UTC: 2026-09-12T17:15:19Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: local_work
 - Active job: none
-- Observation evidence: At 2026-09-12T11:48:55Z, configured-alias qstat succeeded on Polaris and Sophia with no owned jobs listed, and Polaris verified /home/eric-spencer/tla-sequence-preflight-20260912-v1 remains absent. The prior scp rejection remains terminal before transfer; no files were uploaded and no GPU job was submitted.
-- Latest completed result: Supplied-prefix diagnostic is terminal and decision-bearing: parent can complete both heavily supplied rows; child retains row47 but loses row107; base passes neither. Grammar completion alone does not guarantee SANY because base107 and child107 completed/EOS yet parse-reject. Do not promote child or repeat unchanged.
-- Local work: Prepared exact six-file Polaris preflight-only stage, manifest SHA7e5ce81e. All5 payload hashes pass, stage inventory is exact, PBS syntax passes, and direct CLI/import smoke succeeds from the copied stage. Launcher requests one EVITA debug GPU for15m and stops after zero-update longest-pair backward; it has no optimizer or generation path. No upload/allocation yet.
-- External blocker: External safety review rejected the upload as private packet and implementation-file egress to a new Polaris destination, despite the concise approval reply. It requires a new explicit approval after disclosure of that risk. No workaround is permitted.
-- Next action: Await explicit post-disclosure approval to upload the six files in manifest7e5ce81e to /home/eric-spencer/tla-sequence-preflight-20260912-v1 despite private packet/code egress, run its CPU checksum/CLI preflight, and only if all guards pass submit one Polaris EVITA debug GPU for at most15 minutes. Zero optimizer updates and no generation remain mandatory.
+- Observation evidence: At 2026-09-12T17:15:19Z, Polaris7613214 is terminal Exit0 after00:01:27. Remote/local log SHA3be45130 and receipt SHA8edc57bc match. Independent receipt checks pass: exact checkpoint b0399b51, packet cb137c52, finite loss/gap, nine positive finite gradient norms, optimizer_updates0, parameters_unchanged true and gate_claim false.
+- Latest completed result: Zero-update CUDA preflight succeeded on the exact longest pair: loss1.2650, gap-0.5953, gradients nonzero for all9 final-layer tensors, peak CUDA allocated20.50GB/reserved23.12GB, exact checkpoint/packet lineage, and zero parameter drift. The negative gap means the parent currently prefers the genuine invalid rollout over the valid target; this validates trainability and direction, not quality gain.
+- Local work: Exact six-file Polaris preflight-only stage manifest7e5ce81e is uploaded and remotely verified. All5 payload hashes pass, inventory is exact, and staged CPU-only CLI/py_compile smoke passes. Launcher requests one EVITA debug GPU for15m and stops after zero-update longest-pair backward; it has no optimizer or generation path.
+- External blocker: none verified
+- Next action: Use the validated objective and measured23.12GB reserved peak to design the smallest bounded true-update training stage with explicit holdout evaluation and rollback. Preserve exact packet/checkpoint lineage, positive-NLL anchor, no protected training, no supplied-prefix credit, and frozen SANY denominator; do not claim gain until unchanged unsupplied prompts improve.
 
 ## Objective and evidence rules
 
@@ -30,13 +30,18 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 | TLA-05 | Done | Score the valid checkpoint comparison | 7609486 all8scored with0passes. Job7611118 exact supplied-prefix comparison scored all6 with4/4 controls: base0/2,parent2/2,child1/2; zero gate credit and no child promotion. |
 | TLA-06 | In progress | Find a new intervention that improves protected SANY | 7611118 establishes parent2/2 versus child1/2 only after72-81% canonical prefix; base0/2 and zero exact suffix matches. Completion capacity exists but child regresses row107. No full-prompt gain or quality promotion. |
 | TLA-06A | Done | Measure syntax-token preference training | 185259 completed 24 updates and exact reload; parent 0/2 and child 0/2 protected SANY. Negative result; do not repeat unchanged. |
-| TLA-06B | In progress | Establish a genuinely different structured training objective | Exact CUDA preflight implementation binds packet cb137c52, parent b0399b51, model lineage, nine restored float32 tensors, longest-pair full forwards, saved-tensor offload, nonzero gradient census, peak memory and zero parameter drift. Direct CLI/import smoke, pycompile and17 tests pass. No actual8B/CUDA execution, training or model gain yet. |
+| TLA-06B | In progress | Establish a genuinely different structured training objective | Polaris7613214 actual8B/CUDA zero-update preflight Exit0: exact packet cb137c52/checkpoint b0399b51, longest-pair full forwards, loss1.2650, gap-0.5953, all9 gradient norms positive, peak reserved23.12GB and exact zero parameter drift. Objective is executable; no optimizer update or model gain yet. |
 | TLA-07 | Not ready | Verify complete frozen SANY gate | Full frozen denominator has not passed 100%; no diagnostic promotion. |
 | TLA-08 | Not ready | Verify applicable TLC and non-vacuity | Prerequisite SANY gate and intended-behavior evidence incomplete. |
 | TLA-09 | Not ready | Verify genuine TLAPS model performance | Acceptance gates incomplete; same-node positive/negative TLAPS controls and bounded dry run required before retry. |
 
 ## Decisions
 
+- 2026-09-12T17:15:19Z: Polaris7613214 terminal Exit0 validates the materially distinct full-sequence objective on actual8B/CUDA without an optimizer step. Exact receipt shows negative target-vs-rollout gap, all9 trainable tensors receive gradients, memory fits and parameters are unchanged. Promote only to bounded true-update experiment design; this is zero gate/model credit and no checkpoint promotion.
+- 2026-09-12T17:13:10Z: After remote hash/inventory and CPU CLI guards passed, fresh empty ownership guard permitted exactly one qsub. Polaris7613214 is scheduler-attested running on one debug GPU with15m walltime. Await zero-update/no-generation receipt; do not submit a duplicate or claim quality gain.
+- 2026-09-12T17:12:22Z: Eric supplied the exact literal private-manifest and destination approval. Upload succeeded; remote hashes and exact inventory pass, followed by staged CPU-only CLI/py_compile success. The prior transfer blocker is resolved. Proceed only with the previously authorized bounded zero-update/no-generation GPU preflight after a fresh empty-queue check.
+- 2026-09-12T17:08:57Z: Eric directly approved the immediately preceding exact request, but external review still rejected scp before transfer because his own message omitted the literal manifest hash and destination. Fresh queues were empty, destination guarded absent and checkpoint matched. Require a trusted user message containing both exact identifiers; do not retry or route around review.
+- 2026-09-12T15:13:02Z: One-time Polaris authentication succeeded and live guards showed empty owned queue, absent exact destination and matching checkpoint. External review still rejected the subsequent scp before transfer because the latest approval did not name manifest7e5ce81e and the exact destination. Session closed; require those exact identifiers in a trusted user message and do not bypass review.
 - 2026-09-12T11:32:04Z: Direct concise approval was received, but external execution review rejected scp before transfer because the six-file bundle contains private packet/code data moving to a new Polaris path. Destination remains absent, both owned queues are empty, and no GPU job exists. Do not retry or route around review; require explicit post-disclosure approval.
 - The recurring prompt contains stable policy only. Current jobs, phase and artifact paths come from this board after verification.
 - The original vLLM launcher used base-model weights. Historical endpoint SANY failures do not demonstrate failure of the trained checkpoint. Input metadata is not proof of loaded weights.
@@ -232,16 +237,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 371,
-  "verified_utc": "2026-09-12T11:48:55Z",
+  "revision": 395,
+  "verified_utc": "2026-09-12T17:15:19Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "local_work",
   "active_job": null,
-  "observation_evidence": "At 2026-09-12T11:48:55Z, configured-alias qstat succeeded on Polaris and Sophia with no owned jobs listed, and Polaris verified /home/eric-spencer/tla-sequence-preflight-20260912-v1 remains absent. The prior scp rejection remains terminal before transfer; no files were uploaded and no GPU job was submitted.",
-  "last_result": "Supplied-prefix diagnostic is terminal and decision-bearing: parent can complete both heavily supplied rows; child retains row47 but loses row107; base passes neither. Grammar completion alone does not guarantee SANY because base107 and child107 completed/EOS yet parse-reject. Do not promote child or repeat unchanged.",
-  "local_work": "Prepared exact six-file Polaris preflight-only stage, manifest SHA7e5ce81e. All5 payload hashes pass, stage inventory is exact, PBS syntax passes, and direct CLI/import smoke succeeds from the copied stage. Launcher requests one EVITA debug GPU for15m and stops after zero-update longest-pair backward; it has no optimizer or generation path. No upload/allocation yet.",
-  "external_blocker": "External safety review rejected the upload as private packet and implementation-file egress to a new Polaris destination, despite the concise approval reply. It requires a new explicit approval after disclosure of that risk. No workaround is permitted.",
-  "next_action": "Await explicit post-disclosure approval to upload the six files in manifest7e5ce81e to /home/eric-spencer/tla-sequence-preflight-20260912-v1 despite private packet/code egress, run its CPU checksum/CLI preflight, and only if all guards pass submit one Polaris EVITA debug GPU for at most15 minutes. Zero optimizer updates and no generation remain mandatory.",
+  "observation_evidence": "At 2026-09-12T17:15:19Z, Polaris7613214 is terminal Exit0 after00:01:27. Remote/local log SHA3be45130 and receipt SHA8edc57bc match. Independent receipt checks pass: exact checkpoint b0399b51, packet cb137c52, finite loss/gap, nine positive finite gradient norms, optimizer_updates0, parameters_unchanged true and gate_claim false.",
+  "last_result": "Zero-update CUDA preflight succeeded on the exact longest pair: loss1.2650, gap-0.5953, gradients nonzero for all9 final-layer tensors, peak CUDA allocated20.50GB/reserved23.12GB, exact checkpoint/packet lineage, and zero parameter drift. The negative gap means the parent currently prefers the genuine invalid rollout over the valid target; this validates trainability and direction, not quality gain.",
+  "local_work": "Exact six-file Polaris preflight-only stage manifest7e5ce81e is uploaded and remotely verified. All5 payload hashes pass, inventory is exact, and staged CPU-only CLI/py_compile smoke passes. Launcher requests one EVITA debug GPU for15m and stops after zero-update longest-pair backward; it has no optimizer or generation path.",
+  "external_blocker": "",
+  "next_action": "Use the validated objective and measured23.12GB reserved peak to design the smallest bounded true-update training stage with explicit holdout evaluation and rollback. Preserve exact packet/checkpoint lineage, positive-NLL anchor, no protected training, no supplied-prefix credit, and frozen SANY denominator; do not claim gain until unchanged unsupplied prompts improve.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -289,7 +294,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
       "id": "TLA-06B",
       "state": "In progress",
       "task": "Establish a genuinely different structured training objective",
-      "evidence": "Exact CUDA preflight implementation binds packet cb137c52, parent b0399b51, model lineage, nine restored float32 tensors, longest-pair full forwards, saved-tensor offload, nonzero gradient census, peak memory and zero parameter drift. Direct CLI/import smoke, pycompile and17 tests pass. No actual8B/CUDA execution, training or model gain yet."
+      "evidence": "Polaris7613214 actual8B/CUDA zero-update preflight Exit0: exact packet cb137c52/checkpoint b0399b51, longest-pair full forwards, loss1.2650, gap-0.5953, all9 gradient norms positive, peak reserved23.12GB and exact zero parameter drift. Objective is executable; no optimizer update or model gain yet."
     },
     {
       "id": "TLA-07",
@@ -311,6 +316,11 @@ These snapshots preserve old statements, including mistakes. They are not curren
     }
   ],
   "decisions": [
+    "2026-09-12T17:15:19Z: Polaris7613214 terminal Exit0 validates the materially distinct full-sequence objective on actual8B/CUDA without an optimizer step. Exact receipt shows negative target-vs-rollout gap, all9 trainable tensors receive gradients, memory fits and parameters are unchanged. Promote only to bounded true-update experiment design; this is zero gate/model credit and no checkpoint promotion.",
+    "2026-09-12T17:13:10Z: After remote hash/inventory and CPU CLI guards passed, fresh empty ownership guard permitted exactly one qsub. Polaris7613214 is scheduler-attested running on one debug GPU with15m walltime. Await zero-update/no-generation receipt; do not submit a duplicate or claim quality gain.",
+    "2026-09-12T17:12:22Z: Eric supplied the exact literal private-manifest and destination approval. Upload succeeded; remote hashes and exact inventory pass, followed by staged CPU-only CLI/py_compile success. The prior transfer blocker is resolved. Proceed only with the previously authorized bounded zero-update/no-generation GPU preflight after a fresh empty-queue check.",
+    "2026-09-12T17:08:57Z: Eric directly approved the immediately preceding exact request, but external review still rejected scp before transfer because his own message omitted the literal manifest hash and destination. Fresh queues were empty, destination guarded absent and checkpoint matched. Require a trusted user message containing both exact identifiers; do not retry or route around review.",
+    "2026-09-12T15:13:02Z: One-time Polaris authentication succeeded and live guards showed empty owned queue, absent exact destination and matching checkpoint. External review still rejected the subsequent scp before transfer because the latest approval did not name manifest7e5ce81e and the exact destination. Session closed; require those exact identifiers in a trusted user message and do not bypass review.",
     "2026-09-12T11:32:04Z: Direct concise approval was received, but external execution review rejected scp before transfer because the six-file bundle contains private packet/code data moving to a new Polaris path. Destination remains absent, both owned queues are empty, and no GPU job exists. Do not retry or route around review; require explicit post-disclosure approval.",
     "The recurring prompt contains stable policy only. Current jobs, phase and artifact paths come from this board after verification.",
     "The original vLLM launcher used base-model weights. Historical endpoint SANY failures do not demonstrate failure of the trained checkpoint. Input metadata is not proof of loaded weights.",

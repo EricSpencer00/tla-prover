@@ -1,0 +1,39 @@
+{
+  "kind": "sequence_pairwise_zero_update_cuda_preflight_v1",
+  "complete": true,
+  "packet_sha256": "cb137c525117ff42010514dad9ce16de0d793acc21fb5a583ae0902824bf8530",
+  "checkpoint_sha256": "b0399b51aed001051fe200751b3087fc008482ca9dfeb64eb12884f71eee3bb6",
+  "source_id": "w4-fullmodule:w4opus::d9-m8-p2-t5",
+  "positive_full_tokens": 1802,
+  "negative_full_tokens": 2875,
+  "loss": 1.2650057077407837,
+  "gap": -0.5952838063240051,
+  "gradient_norms": {
+    "model.layers.31.self_attn.q_proj.weight": 0.24903041124343872,
+    "model.layers.31.self_attn.k_proj.weight": 0.17052263021469116,
+    "model.layers.31.self_attn.v_proj.weight": 0.3661048412322998,
+    "model.layers.31.self_attn.o_proj.weight": 0.4587637186050415,
+    "model.layers.31.mlp.gate_proj.weight": 0.4139847457408905,
+    "model.layers.31.mlp.up_proj.weight": 0.9050009846687317,
+    "model.layers.31.mlp.down_proj.weight": 1.3006137609481812,
+    "model.layers.31.input_layernorm.weight": 0.09218727797269821,
+    "model.layers.31.post_attention_layernorm.weight": 0.06483790278434753
+  },
+  "peak_cuda_allocated": 20503427584,
+  "peak_cuda_reserved": 23121100800,
+  "parameters_unchanged": true,
+  "optimizer_updates": 0,
+  "model_files": {
+    "config.json": "29e4c210b0d6ac178b16b2a255a568bdb23b581e50ca1ef6a6d071dd85704e6e",
+    "generation_config.json": "189fb0c0d7fd8a527db217c0a60a0e013f0394cd8800f9697a666a9e75e5f7fd",
+    "model-00001-of-00004.safetensors": "2b1879f356aed350030bb40eb45ad362c89d9891096f79a3ab323d3ba5607668",
+    "model-00002-of-00004.safetensors": "09d433f650646834a83c580877bd60c6d1f88f7755305c12576b5c7058f9af15",
+    "model-00003-of-00004.safetensors": "fc1cdddd6bfa91128d6e94ee73d0ce62bfcdb7af29e978ddcab30c66ae9ea7fa",
+    "model-00004-of-00004.safetensors": "92ecfe1a2414458b4821ac8c13cf8cb70aed66b5eea8dc5ad9eeb4ff309d6d7b",
+    "model.safetensors.index.json": "146776fce3f6db1103aa6f249e65ee5544c5923ce6f971b092eee79aa6e5d37b",
+    "special_tokens_map.json": "6f38c73729248f6c127296386e3cdde96e254636cc58b4169d3fd32328d9a8ec",
+    "tokenizer.json": "79e3e522635f3171300913bb421464a87de6222182a0570b9b2ccba2a964b2b4",
+    "tokenizer_config.json": "177c7b61e616fecb84c17ce0591acb92c6c4d60e9ac5ababfb940ff23bbcd424"
+  },
+  "gate_claim": false
+}
