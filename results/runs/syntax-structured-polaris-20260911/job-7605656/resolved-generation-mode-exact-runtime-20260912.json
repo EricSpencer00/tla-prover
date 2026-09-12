@@ -1,0 +1,59 @@
+{
+  "observed_utc": "2026-09-12T00:21:57Z",
+  "exit_code": 0,
+  "positive": {
+    "stored_num_beams": null,
+    "effective_num_beams": 1,
+    "effective_do_sample": false,
+    "effective_mode": "greedy_search"
+  },
+  "negative_controls": [
+    {
+      "change": {
+        "num_beams": 2
+      },
+      "rejected": true
+    },
+    {
+      "change": {
+        "do_sample": true
+      },
+      "rejected": true
+    },
+    {
+      "change": {
+        "top_k": 4,
+        "penalty_alpha": 0.6
+      },
+      "rejected": true
+    }
+  ],
+  "model_weights_loaded": false,
+  "cuda_touched": false,
+  "runner_sha256": "b8b024665cb28c9873be26b3e89c4e26132d1e73e8bc1d69a98a60877f0c9380",
+  "probe_source": "import json\nfrom types import SimpleNamespace, MethodType\nfrom transformers import AutoConfig, GenerationConfig\nfrom transformers.generation.utils import GenerationMixin\nimport protected_checkpoint_paired_generation as paired\npath='/grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659'\nproxy=SimpleNamespace(config=AutoConfig.from_pretrained(path,local_files_only=True),generation_config=GenerationConfig.from_pretrained(path,local_files_only=True))\nproxy._prepare_generation_config=MethodType(GenerationMixin._prepare_generation_config,proxy)\nkwargs=dict(max_new_tokens=1024,do_sample=False,pad_token_id=128009)\npositive=paired.validate_greedy_configuration(proxy,kwargs)\nnegatives=[]\nfor change in [dict(num_beams=2),dict(do_sample=True),dict(top_k=4,penalty_alpha=0.6)]:\n    try:\n        paired.validate_greedy_configuration(proxy,{**kwargs,**change})\n    except ValueError:\n        negatives.append(dict(change=change,rejected=True))\n    else:\n        raise AssertionError('Non-greedy config accepted')\nprint(json.dumps(dict(positive=positive,negative_controls=negatives,model_weights_loaded=False,cuda_touched=False,runner_sha256=paired.preflight.file_sha('protected_checkpoint_paired_generation.py'))))\n",
+  "ordinary_byte_comparison": [
+    {
+      "run": "expression-grammar-v4-job-7608834-output",
+      "sha": "bf57bae55d2d2621d6d514a0234387cb58b9073b849db061409f6f5b59df2ad0",
+      "prompt_tokens": 401,
+      "seed": 20261481
+    },
+    {
+      "run": "canonical-greedy-job-7609386-output",
+      "sha": "bf57bae55d2d2621d6d514a0234387cb58b9073b849db061409f6f5b59df2ad0",
+      "prompt_tokens": 401,
+      "seed": 20261481
+    }
+  ],
+  "scope": "Causal guard correction and one ordinary output byte comparison, not new model quality evidence.",
+  "files": {
+    "canonical.ebnf": "1f4124cd20bdfdfd41ba406703bb2d123ebb26190fd3834cbb3df32dcb1cc000",
+    "protected_canonical_greedy_polaris.pbs": "884c02651da0e2aa0d3d0c1db5ce76466add53ec72868eaf670301d8d839041d",
+    "protected_checkpoint_paired_generation.py": "b8b024665cb28c9873be26b3e89c4e26132d1e73e8bc1d69a98a60877f0c9380",
+    "protected_checkpoint_preflight.py": "4c569421946fcd207028f16f12f90b24182817b7f89975c988277197195f15e8",
+    "protected_greedy_grammar_selector.py": "ac02d2dab9620161347879ba77809e3d68b23dade3ba9dd0269323868f26e1bd"
+  },
+  "stage": "/home/eric-spencer/tla-canonical-greedy-generation-20260912-v2",
+  "decision": "Exact correction validated. Retry oneGPU15min, inner840s bound, same frozen paired contract/selector/grammar, newpayload claim required."
+}
