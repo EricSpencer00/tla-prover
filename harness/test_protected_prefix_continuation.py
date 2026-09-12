@@ -127,7 +127,7 @@ def test_pbs_syntax_and_frozen_resource_contract():
     assert "#PBS -q debug" in source and "ngpus=1" in source
     assert "walltime=00:15:00" in source and "840s" in source
     assert "--kill-after=10s" in source
-    assert "STAGE=/home/eric-spencer/tla-prefix-continuation-20260912-v1" in source
+    assert "STAGE=/home/eric-spencer/tla-prefix-continuation-20260912-v2" in source
     assert 'exec > "job.${PBS_JOBID%%.*}.log"' in source
     assert '--output "$STAGE/result.${PBS_JOBID%%.*}"' in source
     assert "qsub" not in source
