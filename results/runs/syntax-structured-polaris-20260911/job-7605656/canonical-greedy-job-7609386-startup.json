@@ -1,0 +1,14 @@
+{
+  "observed_utc": "2026-09-12T00:12:13Z",
+  "job_id": "7609386",
+  "pbs_state": "R",
+  "queue": "debug",
+  "owner": "eric-spencer",
+  "host": "polaris",
+  "exec_host": "x3002c0s37b0n0/0*64",
+  "requested_select": "1:system=polaris:ngpus=1",
+  "requested_walltime": "00:15:00",
+  "observed_used_walltime": "00:00:39",
+  "stage_checks": "all5 pass",
+  "cuda_and_model_result": "not yet observed"
+}

@@ -1,0 +1,16 @@
+{
+  "observed_utc": "2026-09-12T00:10:35Z",
+  "job_id": "7609386.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "submission_exit_code": 0,
+  "pre_submit_owned_queue_empty": true,
+  "stage_hash_checks_passed": true,
+  "claim": "results/prover-submit-claims/e6d846e3cff7113cef8e5c5c058098de797ff0cfdac0a115d909e11f510cf221.json",
+  "payload": "canonical-greedy-gpu-payload-20260912-v1.json",
+  "host": "polaris",
+  "stage": "/home/eric-spencer/tla-canonical-greedy-generation-20260911-v1",
+  "requested_gpus": 1,
+  "requested_walltime_seconds": 900,
+  "inner_timeout_seconds": 840,
+  "scheduler_state": "not yet queried",
+  "model_result": "unmeasured"
+}
