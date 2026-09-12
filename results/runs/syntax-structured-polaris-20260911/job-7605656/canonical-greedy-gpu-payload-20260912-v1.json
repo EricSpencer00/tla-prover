@@ -1,0 +1,46 @@
+{
+  "observed_utc": "2026-09-12T00:07:49Z",
+  "authority": "standing-evidence-supported-run-approval.json",
+  "hypothesis": "Same canonical grammar with exact ranked greedy selection can complete the frozen paired comparison within its existing budget, without changing legal argmax decisions.",
+  "cpu_evidence": "ranked-greedy-cpu-20260912-v1-receipt.json",
+  "cpu_result": "24/24 selections identical to dense masks, EOS/rollback controls and3 audits passed, maximum synthetic selector call105.837ms; no model quality/throughput claim.",
+  "files": {
+    "canonical.ebnf": "1f4124cd20bdfdfd41ba406703bb2d123ebb26190fd3834cbb3df32dcb1cc000",
+    "protected_canonical_greedy_polaris.pbs": "c8776860feb5dc08e0fe30cf8be7ccf8c20576cc5d90d794d17dd367f93afb29",
+    "protected_checkpoint_paired_generation.py": "03fb9e88c0226991d235966767637eef53eb22d34dad17d7b3012ea8737cfe0d",
+    "protected_checkpoint_preflight.py": "4c569421946fcd207028f16f12f90b24182817b7f89975c988277197195f15e8",
+    "protected_greedy_grammar_selector.py": "ac02d2dab9620161347879ba77809e3d68b23dade3ba9dd0269323868f26e1bd"
+  },
+  "local_stage": "/private/tmp/tla-canonical-greedy.V3zps5",
+  "remote_stage": "/home/eric-spencer/tla-canonical-greedy-generation-20260911-v1",
+  "local_validation": "All5 exact staged hashes, runner CLI and PBS syntax passed.71tests passed/2CUDA skips before additional CUDA-before-weights control; updated runner tests7pass.",
+  "cuda_gap": "Commit9d6f8c5b adds3-step actual CUDA ranked-selection control before loading8B weights. CUDA still unverified until allocation. Original dense CUDA mask-kernel smoke retained.",
+  "budget": {
+    "gpus": 1,
+    "walltime_seconds": 900,
+    "inner_timeout_seconds": 840,
+    "kill_grace_seconds": 10
+  },
+  "contract": {
+    "rows": [
+      47,
+      107
+    ],
+    "arms": [
+      "existing_decoder",
+      "grammar_enforced"
+    ],
+    "repeats": 2,
+    "max_new_tokens": 1024,
+    "seed": 20261011,
+    "prompt_tokens": [
+      401,
+      457
+    ],
+    "packet_sha256": "a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c",
+    "checkpoint_sha256": "b0399b51aed001051fe200751b3087fc008482ca9dfeb64eb12884f71eee3bb6",
+    "greedy_audit_steps_per_grammar_candidate": 4
+  },
+  "quality": "No training/checkpoint mutation or promotion. Reference control corpus NOT in GPU stage. Canonical-only grammar still excludes80 raw list spellings with verified equivalents. Score all8 raw outputs with unchanged controlled SANY; missing outputs remain unknown. Any selection audit mismatch aborts.",
+  "decision": "Proceed with exact stage verification, fresh ownership/queue check and mandatory stable submission guard, then one bounded paired GPU trial. Grand is full; stage/log/results on home."
+}
