@@ -3,6 +3,8 @@ import math
 
 BUDGET = {"steps": 8, "pairs": 20, "lr": 1e-7, "margin": 0.25,
           "anchor_weight": 0.1, "max_seconds": 600, "trainable_tensors": 9}
+PACKET_SHA = "cb137c525117ff42010514dad9ce16de0d793acc21fb5a583ae0902824bf8530"
+PARENT_SHA = "b0399b51aed001051fe200751b3087fc008482ca9dfeb64eb12884f71eee3bb6"
 
 
 def response_mean_logprob(logits, tokens, prompt_length):
@@ -40,3 +42,24 @@ def pairwise_loss(positive_logprob, negative_logprob, margin=0.25, anchor_weight
     if not bool(torch.isfinite(loss).all()):
         raise ValueError("finite pairwise loss required")
     return loss.mean(), gap.mean()
+
+
+def score_sequence(net, prompt, response, *, device="cpu", context=None):
+    """Run one complete prompt+response sequence without mutating parameters."""
+    import torch
+    if not prompt or not response:
+        raise ValueError("complete prompt and response required")
+    ids = torch.tensor([prompt + response], dtype=torch.long, device=device)
+    context = context or torch.enable_grad
+    with context():
+        output = net(input_ids=ids, attention_mask=torch.ones_like(ids), use_cache=False)
+    return response_mean_logprob(output.logits, ids, len(prompt))
+
+
+def objective(net, pair, *, device="cpu", context=None):
+    """Two complete forwards; suitable for a zero-update gradient preflight."""
+    positive = score_sequence(net, pair["prompt_tokens"], pair["positive_tokens"],
+                              device=device, context=context)
+    negative = score_sequence(net, pair["prompt_tokens"], pair["negative_tokens"],
+                              device=device, context=context)
+    return pairwise_loss(positive, negative, BUDGET["margin"], BUDGET["anchor_weight"])

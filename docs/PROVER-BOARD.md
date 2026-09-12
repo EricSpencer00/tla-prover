@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 366
-- Verified UTC: 2026-09-12T10:35:32Z
+- Revision: 367
+- Verified UTC: 2026-09-12T10:52:58Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: local_work
 - Active job: none
-- Observation evidence: At 2026-09-12T10:35:32Z, configured-alias qstat again succeeded on both Polaris and Sophia with no owned jobs listed. No remote side effect or submission occurred; this board retains active_job null.
+- Observation evidence: At 2026-09-12T10:52:58Z, configured-alias qstat again succeeded on both Polaris and Sophia with no owned jobs listed. No remote side effect or submission occurred; this board retains active_job null.
 - Latest completed result: Supplied-prefix diagnostic is terminal and decision-bearing: parent can complete both heavily supplied rows; child retains row47 but loses row107; base passes neither. Grammar completion alone does not guarantee SANY because base107 and child107 completed/EOS yet parse-reject. Do not promote child or repeat unchanged.
-- Local work: Regenerated prompt-bound packet v2 SHA cb137c52. Fresh SANY again admits20/20 exact TRAIN pairs; contract verifies every prompt prefix and complete response. Measured max full lengths: positive1802 and negative2875 tokens, max prompt729; minimum response lengths215/239. Objective/contract tests16/16. Training remains unauthorized; no model/CUDA/remote action.
+- Local work: Bound the objective implementation to packet cb137c52 and exact parent b0399b51. Added complete prompt+response forwards and a two-forward pair objective suitable for zero-update preflight. Tiny differentiable runtime test proves finite loss/gap, nonzero gradients and byte-identical parameters without optimizer step; objective/contract tests17/17 plus py_compile. This is mathematical/runtime plumbing only, not 8B checkpoint or CUDA evidence.
 - External blocker: none verified
-- Next action: Wire the bounded8-step trainer to prompt-bound packet cb137c52, exact child checkpoint restore and nine-tensor-only updates. Add chunked/full-sequence forward handling sized for the measured2875-token maximum, then require a real zero-update objective-gradient and memory preflight. No submission before exact staged import/CLI smoke and separately reviewed allocation.
+- Next action: Add the exact 8B CUDA admission path: verify packet/checkpoint/model hashes, restore b0399b51 into exactly nine float32 final-layer tensors, run the longest2875-token positive/negative objective under saved-tensor CPU offload, persist zero-update gradient and peak-memory evidence, and reject any parameter drift. Then prepare matched retention/unsupplied evaluation and an exact stage; no remote submission before review.
 
 ## Objective and evidence rules
 
@@ -30,7 +30,7 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 | TLA-05 | Done | Score the valid checkpoint comparison | 7609486 all8scored with0passes. Job7611118 exact supplied-prefix comparison scored all6 with4/4 controls: base0/2,parent2/2,child1/2; zero gate credit and no child promotion. |
 | TLA-06 | In progress | Find a new intervention that improves protected SANY | 7611118 establishes parent2/2 versus child1/2 only after72-81% canonical prefix; base0/2 and zero exact suffix matches. Completion capacity exists but child regresses row107. No full-prompt gain or quality promotion. |
 | TLA-06A | Done | Measure syntax-token preference training | 185259 completed 24 updates and exact reload; parent 0/2 and child 0/2 protected SANY. Negative result; do not repeat unchanged. |
-| TLA-06B | In progress | Establish a genuinely different structured training objective | Prompt-bound packet v2 cb137c52 admits20/20 exact TRAIN pairs under fresh SANY and the strengthened contract. Max full positive/negative lengths1802/2875, max prompt729, minimum responses215/239. Full-sequence loss includes EOS and positive NLL anti-hacking anchor; tests16/16. Packet v1 remains superseded. No training or model gain yet. |
+| TLA-06B | In progress | Establish a genuinely different structured training objective | Prompt-bound packet v2 cb137c52 admits20/20 exact TRAIN pairs. Objective code is pinned to exact parent b0399b51 and executes two complete forwards; tiny zero-update test proves finite pairwise loss/gap, nonzero gradients and unchanged parameters. Tests17/17 plus py_compile. No actual8B/CUDA training or model gain yet. |
 | TLA-07 | Not ready | Verify complete frozen SANY gate | Full frozen denominator has not passed 100%; no diagnostic promotion. |
 | TLA-08 | Not ready | Verify applicable TLC and non-vacuity | Prerequisite SANY gate and intended-behavior evidence incomplete. |
 | TLA-09 | Not ready | Verify genuine TLAPS model performance | Acceptance gates incomplete; same-node positive/negative TLAPS controls and bounded dry run required before retry. |
@@ -231,16 +231,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 366,
-  "verified_utc": "2026-09-12T10:35:32Z",
+  "revision": 367,
+  "verified_utc": "2026-09-12T10:52:58Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "local_work",
   "active_job": null,
-  "observation_evidence": "At 2026-09-12T10:35:32Z, configured-alias qstat again succeeded on both Polaris and Sophia with no owned jobs listed. No remote side effect or submission occurred; this board retains active_job null.",
+  "observation_evidence": "At 2026-09-12T10:52:58Z, configured-alias qstat again succeeded on both Polaris and Sophia with no owned jobs listed. No remote side effect or submission occurred; this board retains active_job null.",
   "last_result": "Supplied-prefix diagnostic is terminal and decision-bearing: parent can complete both heavily supplied rows; child retains row47 but loses row107; base passes neither. Grammar completion alone does not guarantee SANY because base107 and child107 completed/EOS yet parse-reject. Do not promote child or repeat unchanged.",
-  "local_work": "Regenerated prompt-bound packet v2 SHA cb137c52. Fresh SANY again admits20/20 exact TRAIN pairs; contract verifies every prompt prefix and complete response. Measured max full lengths: positive1802 and negative2875 tokens, max prompt729; minimum response lengths215/239. Objective/contract tests16/16. Training remains unauthorized; no model/CUDA/remote action.",
+  "local_work": "Bound the objective implementation to packet cb137c52 and exact parent b0399b51. Added complete prompt+response forwards and a two-forward pair objective suitable for zero-update preflight. Tiny differentiable runtime test proves finite loss/gap, nonzero gradients and byte-identical parameters without optimizer step; objective/contract tests17/17 plus py_compile. This is mathematical/runtime plumbing only, not 8B checkpoint or CUDA evidence.",
   "external_blocker": "",
-  "next_action": "Wire the bounded8-step trainer to prompt-bound packet cb137c52, exact child checkpoint restore and nine-tensor-only updates. Add chunked/full-sequence forward handling sized for the measured2875-token maximum, then require a real zero-update objective-gradient and memory preflight. No submission before exact staged import/CLI smoke and separately reviewed allocation.",
+  "next_action": "Add the exact 8B CUDA admission path: verify packet/checkpoint/model hashes, restore b0399b51 into exactly nine float32 final-layer tensors, run the longest2875-token positive/negative objective under saved-tensor CPU offload, persist zero-update gradient and peak-memory evidence, and reject any parameter drift. Then prepare matched retention/unsupplied evaluation and an exact stage; no remote submission before review.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -288,7 +288,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
       "id": "TLA-06B",
       "state": "In progress",
       "task": "Establish a genuinely different structured training objective",
-      "evidence": "Prompt-bound packet v2 cb137c52 admits20/20 exact TRAIN pairs under fresh SANY and the strengthened contract. Max full positive/negative lengths1802/2875, max prompt729, minimum responses215/239. Full-sequence loss includes EOS and positive NLL anti-hacking anchor; tests16/16. Packet v1 remains superseded. No training or model gain yet."
+      "evidence": "Prompt-bound packet v2 cb137c52 admits20/20 exact TRAIN pairs. Objective code is pinned to exact parent b0399b51 and executes two complete forwards; tiny zero-update test proves finite pairwise loss/gap, nonzero gradients and unchanged parameters. Tests17/17 plus py_compile. No actual8B/CUDA training or model gain yet."
     },
     {
       "id": "TLA-07",

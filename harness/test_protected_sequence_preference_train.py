@@ -31,6 +31,25 @@ def test_anchor_prevents_lowering_both_scores_as_solution():
     assert low > high
 
 
+def test_complete_pair_objective_backpropagates_without_update():
+    class Tiny(torch.nn.Module):
+        def __init__(self):
+            super().__init__()
+            self.embed = torch.nn.Embedding(16, 6)
+            self.head = torch.nn.Linear(6, 16)
+        def forward(self, input_ids, **_):
+            return type("Output", (), {"logits": self.head(self.embed(input_ids))})
+    net = Tiny()
+    before = {name: value.detach().clone() for name, value in net.named_parameters()}
+    pair = {"prompt_tokens": [1, 2], "positive_tokens": [3, 4, 5],
+            "negative_tokens": [6, 7, 8, 9]}
+    loss, gap = train.objective(net, pair)
+    loss.backward()
+    assert torch.isfinite(loss) and torch.isfinite(gap)
+    assert any(value.grad is not None and value.grad.norm() > 0 for value in net.parameters())
+    assert all(torch.equal(value, before[name]) for name, value in net.named_parameters())
+
+
 @pytest.mark.parametrize("prompt", [0, 4])
 def test_response_score_rejects_empty_side(prompt):
     with pytest.raises(ValueError):
