@@ -1,7 +1,11 @@
+import json
+
 import torch
 import pytest
 
 from tools import protected_sequence_preference_train as train
+from tools import protected_sequence_training_plan as training_plan
+from harness.test_protected_sequence_training_plan import packet20
 
 
 def test_response_score_includes_all_response_tokens_and_eos():
@@ -48,6 +52,30 @@ def test_complete_pair_objective_backpropagates_without_update():
     assert torch.isfinite(loss) and torch.isfinite(gap)
     assert any(value.grad is not None and value.grad.norm() > 0 for value in net.parameters())
     assert all(torch.equal(value, before[name]) for name, value in net.named_parameters())
+
+
+def test_training_plan_admits_exact_disjoint_nonprotected_split(tmp_path):
+    packet = packet20()
+    path = tmp_path / "plan.json"
+    path.write_text(json.dumps(training_plan.build(packet)))
+    plan, selected, holdout = train.load_training_plan(path, packet)
+    assert len(selected) == train.BUDGET["steps"]
+    assert len(holdout) == train.BUDGET["pairs"] - train.BUDGET["steps"]
+    assert {pair["source_id"] for pair in selected}.isdisjoint({pair["source_id"] for pair in holdout})
+    assert plan["protected_training"] is False
+    assert plan["protected_model_selection"] is False
+
+
+def test_training_plan_rejects_protected_model_selection(tmp_path):
+    packet = packet20()
+    value = training_plan.build(packet)
+    value["protected_model_selection"] = True
+    value["plan_sha256"] = train.contract.digest({key: item for key, item in value.items()
+                                                   if key != "plan_sha256"})
+    path = tmp_path / "plan.json"
+    path.write_text(json.dumps(value))
+    with pytest.raises(ValueError):
+        train.load_training_plan(path, packet)
 
 
 @pytest.mark.parametrize("prompt", [0, 4])

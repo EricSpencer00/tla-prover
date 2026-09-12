@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 396
-- Verified UTC: 2026-09-12T17:32:46Z
+- Revision: 398
+- Verified UTC: 2026-09-12T19:40:37Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: local_work
 - Active job: none
-- Observation evidence: At 2026-09-12T17:15:19Z, Polaris7613214 is terminal Exit0 after00:01:27. Remote/local log SHA3be45130 and receipt SHA8edc57bc match. Independent receipt checks pass: exact checkpoint b0399b51, packet cb137c52, finite loss/gap, nine positive finite gradient norms, optimizer_updates0, parameters_unchanged true and gate_claim false.
+- Observation evidence: At 2026-09-12T19:40:37Z, exact eight-update trainer/stage is locally ready.21 focused tests, direct staged CLI/pycompile and PBS syntax pass. Manifest c7d93570 contains exactly SHA256SUMS plus packet, plan, launcher and3 imported tools. It has no remote side effect yet. Polaris/Sophia ownership was last verified empty at18:36:51Z and must be rechecked before any submission.
 - Latest completed result: Zero-update CUDA preflight succeeded on the exact longest pair: loss1.2650, gap-0.5953, gradients nonzero for all9 final-layer tensors, peak CUDA allocated20.50GB/reserved23.12GB, exact checkpoint/packet lineage, and zero parameter drift. The negative gap means the parent currently prefers the genuine invalid rollout over the valid target; this validates trainability and direction, not quality gain.
-- Local work: Frozen leakage-resistant true-update plan ae1c5bb5 deterministically splits the20 genuine rollout pairs into8 train and12 internal holdout pairs. Protected rows47/107 remain excluded from training and model selection; only unchanged unsupplied prompts can satisfy acceptance. Budget remains8 updates, lr1e-7, positive-NLL anchor, nine tensors and600s. Planner direct CLI/pycompile and13 focused tests pass.
-- External blocker: none verified
-- Next action: Implement the trainer against frozen plan ae1c5bb5: exactly8 unique train-pair updates, before/after scores on the12 internal holdout pairs, append-only child checkpoint, exact save/reload verification and rollback metadata. Then build an unsupplied protected evaluator; no remote allocation or quality claim until exact staged tests pass.
+- Local work: Exact true-update trainer/stage c7d93570 is ready: fixed8 non-protected updates,12-pair diagnostic-only holdout scored before/after, parent/child delta and exact child reload guards, append-only output, no protected training/model selection/gate claim.21 focused tests, direct staged CLI/pycompile and PBS syntax pass.
+- External blocker: Await exact authority to upload private manifestc7d93570 to /home/eric-spencer/tla-sequence-train-20260912-v1, run checksum/CLI guards, and if all pass submit one Polaris debug GPU for at most15minutes. This creates an append-only child checkpoint after8 bounded updates; it does not run protected generation or claim gate credit.
+- Next action: After exact authority, remotely recheck queues/destination/checkpoint, upload manifestc7d93570, verify its hashes and staged CPU guards, then conditionally submit exactly one bounded Polaris GPU job. Retrieve/validate child and diagnostic receipt; do not claim quality until separate unchanged unsupplied protected evaluation.
 
 ## Objective and evidence rules
 
@@ -30,13 +30,14 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 | TLA-05 | Done | Score the valid checkpoint comparison | 7609486 all8scored with0passes. Job7611118 exact supplied-prefix comparison scored all6 with4/4 controls: base0/2,parent2/2,child1/2; zero gate credit and no child promotion. |
 | TLA-06 | In progress | Find a new intervention that improves protected SANY | 7611118 establishes parent2/2 versus child1/2 only after72-81% canonical prefix; base0/2 and zero exact suffix matches. Completion capacity exists but child regresses row107. No full-prompt gain or quality promotion. |
 | TLA-06A | Done | Measure syntax-token preference training | 185259 completed 24 updates and exact reload; parent 0/2 and child 0/2 protected SANY. Negative result; do not repeat unchanged. |
-| TLA-06B | In progress | Establish a genuinely different structured training objective | Polaris7613214 actual8B/CUDA zero-update preflight Exit0: exact packet cb137c52/checkpoint b0399b51, longest-pair full forwards, loss1.2650, gap-0.5953, all9 gradient norms positive, peak reserved23.12GB and exact zero parameter drift. Objective is executable; no optimizer update or model gain yet. |
+| TLA-06B | In progress | Establish a genuinely different structured training objective | Polaris7613214 actual8B/CUDA zero-update preflight Exit0: exact packet cb137c52/checkpoint b0399b51, longest-pair full forwards, loss1.2650, gap-0.5953, all9 gradient norms positive, peak reserved23.12GB and exact zero parameter drift. True-update stage manifestc7d93570 adds exactly8 non-protected updates plus12-pair diagnostic holdout, child reload and no-gate guards; local tests/smoke pass, no true update or model gain yet. |
 | TLA-07 | Not ready | Verify complete frozen SANY gate | Full frozen denominator has not passed 100%; no diagnostic promotion. |
 | TLA-08 | Not ready | Verify applicable TLC and non-vacuity | Prerequisite SANY gate and intended-behavior evidence incomplete. |
 | TLA-09 | Not ready | Verify genuine TLAPS model performance | Acceptance gates incomplete; same-node positive/negative TLAPS controls and bounded dry run required before retry. |
 
 ## Decisions
 
+- 2026-09-12T19:40:37Z: True-update stage manifestc7d93570 is a distinct, bounded continuation of actual CUDA preflight: eight frozen non-protected pair updates,12-pair internal diagnostic holdout, positive-NLL anchor, exact child reload and no protected model selection. Local stage inventory/syntax/CLI and21 focused tests pass. Upload/allocation require exact authority; success cannot yield gate credit without separate unchanged unsupplied protected evaluation.
 - 2026-09-12T17:32:46Z: Froze deterministic8-train/12-internal-holdout plan ae1c5bb5 after actual CUDA feasibility. Protected47/107 cannot train or select; internal holdout is diagnostic only and unchanged unsupplied protected SANY remains the acceptance gate. Direct CLI packaging defect was caught and repaired;13 focused tests pass.
 - 2026-09-12T17:15:19Z: Polaris7613214 terminal Exit0 validates the materially distinct full-sequence objective on actual8B/CUDA without an optimizer step. Exact receipt shows negative target-vs-rollout gap, all9 trainable tensors receive gradients, memory fits and parameters are unchanged. Promote only to bounded true-update experiment design; this is zero gate/model credit and no checkpoint promotion.
 - 2026-09-12T17:13:10Z: After remote hash/inventory and CPU CLI guards passed, fresh empty ownership guard permitted exactly one qsub. Polaris7613214 is scheduler-attested running on one debug GPU with15m walltime. Await zero-update/no-generation receipt; do not submit a duplicate or claim quality gain.
@@ -238,16 +239,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 396,
-  "verified_utc": "2026-09-12T17:32:46Z",
+  "revision": 398,
+  "verified_utc": "2026-09-12T19:40:37Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "local_work",
   "active_job": null,
-  "observation_evidence": "At 2026-09-12T17:15:19Z, Polaris7613214 is terminal Exit0 after00:01:27. Remote/local log SHA3be45130 and receipt SHA8edc57bc match. Independent receipt checks pass: exact checkpoint b0399b51, packet cb137c52, finite loss/gap, nine positive finite gradient norms, optimizer_updates0, parameters_unchanged true and gate_claim false.",
+  "observation_evidence": "At 2026-09-12T19:40:37Z, exact eight-update trainer/stage is locally ready.21 focused tests, direct staged CLI/pycompile and PBS syntax pass. Manifest c7d93570 contains exactly SHA256SUMS plus packet, plan, launcher and3 imported tools. It has no remote side effect yet. Polaris/Sophia ownership was last verified empty at18:36:51Z and must be rechecked before any submission.",
   "last_result": "Zero-update CUDA preflight succeeded on the exact longest pair: loss1.2650, gap-0.5953, gradients nonzero for all9 final-layer tensors, peak CUDA allocated20.50GB/reserved23.12GB, exact checkpoint/packet lineage, and zero parameter drift. The negative gap means the parent currently prefers the genuine invalid rollout over the valid target; this validates trainability and direction, not quality gain.",
-  "local_work": "Frozen leakage-resistant true-update plan ae1c5bb5 deterministically splits the20 genuine rollout pairs into8 train and12 internal holdout pairs. Protected rows47/107 remain excluded from training and model selection; only unchanged unsupplied prompts can satisfy acceptance. Budget remains8 updates, lr1e-7, positive-NLL anchor, nine tensors and600s. Planner direct CLI/pycompile and13 focused tests pass.",
-  "external_blocker": "",
-  "next_action": "Implement the trainer against frozen plan ae1c5bb5: exactly8 unique train-pair updates, before/after scores on the12 internal holdout pairs, append-only child checkpoint, exact save/reload verification and rollback metadata. Then build an unsupplied protected evaluator; no remote allocation or quality claim until exact staged tests pass.",
+  "local_work": "Exact true-update trainer/stage c7d93570 is ready: fixed8 non-protected updates,12-pair diagnostic-only holdout scored before/after, parent/child delta and exact child reload guards, append-only output, no protected training/model selection/gate claim.21 focused tests, direct staged CLI/pycompile and PBS syntax pass.",
+  "external_blocker": "Await exact authority to upload private manifestc7d93570 to /home/eric-spencer/tla-sequence-train-20260912-v1, run checksum/CLI guards, and if all pass submit one Polaris debug GPU for at most15minutes. This creates an append-only child checkpoint after8 bounded updates; it does not run protected generation or claim gate credit.",
+  "next_action": "After exact authority, remotely recheck queues/destination/checkpoint, upload manifestc7d93570, verify its hashes and staged CPU guards, then conditionally submit exactly one bounded Polaris GPU job. Retrieve/validate child and diagnostic receipt; do not claim quality until separate unchanged unsupplied protected evaluation.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -295,7 +296,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
       "id": "TLA-06B",
       "state": "In progress",
       "task": "Establish a genuinely different structured training objective",
-      "evidence": "Polaris7613214 actual8B/CUDA zero-update preflight Exit0: exact packet cb137c52/checkpoint b0399b51, longest-pair full forwards, loss1.2650, gap-0.5953, all9 gradient norms positive, peak reserved23.12GB and exact zero parameter drift. Objective is executable; no optimizer update or model gain yet."
+      "evidence": "Polaris7613214 actual8B/CUDA zero-update preflight Exit0: exact packet cb137c52/checkpoint b0399b51, longest-pair full forwards, loss1.2650, gap-0.5953, all9 gradient norms positive, peak reserved23.12GB and exact zero parameter drift. True-update stage manifestc7d93570 adds exactly8 non-protected updates plus12-pair diagnostic holdout, child reload and no-gate guards; local tests/smoke pass, no true update or model gain yet."
     },
     {
       "id": "TLA-07",
@@ -317,6 +318,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
     }
   ],
   "decisions": [
+    "2026-09-12T19:40:37Z: True-update stage manifestc7d93570 is a distinct, bounded continuation of actual CUDA preflight: eight frozen non-protected pair updates,12-pair internal diagnostic holdout, positive-NLL anchor, exact child reload and no protected model selection. Local stage inventory/syntax/CLI and21 focused tests pass. Upload/allocation require exact authority; success cannot yield gate credit without separate unchanged unsupplied protected evaluation.",
     "2026-09-12T17:32:46Z: Froze deterministic8-train/12-internal-holdout plan ae1c5bb5 after actual CUDA feasibility. Protected47/107 cannot train or select; internal holdout is diagnostic only and unchanged unsupplied protected SANY remains the acceptance gate. Direct CLI packaging defect was caught and repaired;13 focused tests pass.",
     "2026-09-12T17:15:19Z: Polaris7613214 terminal Exit0 validates the materially distinct full-sequence objective on actual8B/CUDA without an optimizer step. Exact receipt shows negative target-vs-rollout gap, all9 trainable tensors receive gradients, memory fits and parameters are unchanged. Promote only to bounded true-update experiment design; this is zero gate/model credit and no checkpoint promotion.",
     "2026-09-12T17:13:10Z: After remote hash/inventory and CPU CLI guards passed, fresh empty ownership guard permitted exactly one qsub. Polaris7613214 is scheduler-attested running on one debug GPU with15m walltime. Await zero-update/no-generation receipt; do not submit a duplicate or claim quality gain.",
