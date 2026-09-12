@@ -1,0 +1,87 @@
+{
+  "observed_utc": "2026-09-12T00:49:48Z",
+  "job_id": "7609556",
+  "terminal": {
+    "pbs_state": "F",
+    "exit_status": 0,
+    "walltime": "00:02:54",
+    "owned_queue_after": "empty"
+  },
+  "scope": "Six fixed-prompt diagnostic generations: two TRAIN rows for each of base,parent,child. No grammar, training or reference conditioning; not a generalization gate.",
+  "verified": {
+    "planned": 6,
+    "observed": 6,
+    "sany_controls_correct": 4,
+    "actual_prompt_token_ids_match_frozen": true,
+    "prompt_counts": [
+      401,
+      457
+    ],
+    "model_files_match_previous_paired_receipt": true,
+    "parent_and_child_each_restore_exactly9_tensors": true,
+    "restricted_checkpoint_loader": true,
+    "changed_final_layer_tensors": {
+      "base_to_parent": 9,
+      "parent_to_child": 9
+    },
+    "child_baseline_comparison": [
+      {
+        "row": 47,
+        "baseline_sha": "bf57bae55d2d2621d6d514a0234387cb58b9073b849db061409f6f5b59df2ad0",
+        "current_sha": "bf57bae55d2d2621d6d514a0234387cb58b9073b849db061409f6f5b59df2ad0",
+        "identical": true
+      },
+      {
+        "row": 107,
+        "baseline_sha": "a929d1ba1c48b2c2d6f741c8f3a7948a5787aec94a8fbc328736d4456e530902",
+        "current_sha": "a929d1ba1c48b2c2d6f741c8f3a7948a5787aec94a8fbc328736d4456e530902",
+        "identical": true
+      }
+    ]
+  },
+  "results": [
+    {
+      "phase": "base",
+      "sany_pass": 0,
+      "sany_reject": 2,
+      "eos_ended": 2,
+      "output_tokens": [
+        177,
+        392
+      ]
+    },
+    {
+      "phase": "parent",
+      "sany_pass": 0,
+      "sany_reject": 2,
+      "eos_ended": 0,
+      "output_tokens": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "phase": "child",
+      "sany_pass": 0,
+      "sany_reject": 2,
+      "eos_ended": 1,
+      "output_tokens": [
+        207,
+        1024
+      ]
+    }
+  ],
+  "judgment": "Do not promote any tested lineage checkpoint or claim canonical grammar improves model quality. The base has syntax failures before fine-tuning; the parent adds a completion regression on these two inputs; the child recovers termination for row47 without a SANY gain. Latest-child-only degradation is not the full explanation.",
+  "confidence": "High for these exact two prompts/greedy outputs because phase weights, actual inputs, positive/negative checkers and child replay match. No claim of universal model quality or unseen transfer.",
+  "branch_decision": "Retire unchanged full-module greedy, syntax-only grammar refinement and larger-budget retries for this failure signature. A future branch must address completion/task representation and be measured against the preserved base,parent,child outputs.",
+  "next_discriminator": "Separately labeled reference-prefix continuation can isolate continuation competence from whole-module planning; first verify exact grammar/EOS legality, freeze prefix identity and denominators, and award no model/gate credit for supplied reference content. Alternatively train a genuinely new structured completion representation only after its semantics and data alignment are validated. Neither is executed or claimed by this receipt.",
+  "accounting_note": "The earlier7609486 original scorer's four lexical-EOF classifications remain unmeasured_infrastructure, with raw SANY errors preserved; no hidden reclassification or score inflation.",
+  "quality_gates": {
+    "sany_unseen": "unverified",
+    "tlc": "not_reached",
+    "nonvacuity": "not_reached",
+    "tlaps": "not_reached"
+  },
+  "model_promotion": false,
+  "gate_claim": false
+}

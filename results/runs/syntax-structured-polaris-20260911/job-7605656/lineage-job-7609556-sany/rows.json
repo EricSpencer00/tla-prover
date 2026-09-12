@@ -1,0 +1,56 @@
+[
+  {
+    "phase": "base",
+    "row": 47,
+    "status": "model_sany_reject",
+    "candidate_sha256": "22e7f2f8bcd6b40556988828cbabc83d018398304c8722002f7ebe8186d9afda",
+    "module_name": "W4Od2m7p4t2",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/lineage-job-7609556-sany/candidates/47-base/sany.log"
+  },
+  {
+    "phase": "base",
+    "row": 107,
+    "status": "model_sany_reject",
+    "candidate_sha256": "aa8d38b20f4eca62b937d492336f788a92533c731eacb2daa98726e732a9cbb5",
+    "module_name": "W4Od3m0p0t0",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/lineage-job-7609556-sany/candidates/107-base/sany.log"
+  },
+  {
+    "phase": "parent",
+    "row": 47,
+    "status": "model_sany_reject",
+    "candidate_sha256": "6c9ed227db5d596dc847c341984be131b21177030f280c250aac08fb2636b99c",
+    "module_name": "W4Od2m7p4t2",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/lineage-job-7609556-sany/candidates/47-parent/sany.log"
+  },
+  {
+    "phase": "parent",
+    "row": 107,
+    "status": "model_sany_reject",
+    "candidate_sha256": "78b63d7ec4654083c46c171f090358822892db11350d87a15f917586c6210a29",
+    "module_name": "W4Od3m0p0t0",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/lineage-job-7609556-sany/candidates/107-parent/sany.log"
+  },
+  {
+    "phase": "child",
+    "row": 47,
+    "status": "model_sany_reject",
+    "candidate_sha256": "bf57bae55d2d2621d6d514a0234387cb58b9073b849db061409f6f5b59df2ad0",
+    "module_name": "W4Od2m7p4t2",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/lineage-job-7609556-sany/candidates/47-child/sany.log"
+  },
+  {
+    "phase": "child",
+    "row": 107,
+    "status": "model_sany_reject",
+    "candidate_sha256": "a929d1ba1c48b2c2d6f741c8f3a7948a5787aec94a8fbc328736d4456e530902",
+    "module_name": "W4Od3m0p0t0",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/lineage-job-7609556-sany/candidates/107-child/sany.log"
+  }
+]

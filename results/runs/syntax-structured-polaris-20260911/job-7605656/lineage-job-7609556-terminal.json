@@ -1,0 +1,14 @@
+{
+  "observed_utc": "2026-09-12T00:48:29Z",
+  "job_id": "7609556",
+  "pbs_state": "F",
+  "exit_status": 0,
+  "resources_used_walltime": "00:02:54",
+  "resources_requested": {
+    "gpu": 1,
+    "walltime": "00:15:00"
+  },
+  "saved_candidates": 6,
+  "final_receipt_present": true,
+  "gate_claim": false
+}

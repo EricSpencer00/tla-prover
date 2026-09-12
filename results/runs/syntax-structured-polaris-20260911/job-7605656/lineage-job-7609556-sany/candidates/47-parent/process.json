@@ -1,0 +1,31 @@
+{
+  "command": [
+    "/usr/bin/java",
+    "-cp",
+    "/Users/eric/GitHub/prove-TLA/tools/tla2tools.jar",
+    "tla2sany.SANY",
+    "W4Od2m7p4t2.tla"
+  ],
+  "cwd": "/Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/lineage-job-7609556-sany/candidates/47-parent",
+  "root_pid": 75769,
+  "root_reaped": true,
+  "returncode": 255,
+  "output": "\n****** SANY2 Version 2.1 created 24 February 2014\n\nParsing file /Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/lineage-job-7609556-sany/candidates/47-parent/W4Od2m7p4t2.tla\n***Parse Error***\nEncountered \"<EOF>\" at line 43, column 6 and token \"\\\\/\" \n\nResidual stack trace follows:\nExtendableExpr starting at line 43, column 6.\nExtendableExpr starting at line 42, column 50.\nExpression starting at line 42, column 50.\nQuantified form starting at line 42, column 8.\nExtendableExpr starting at line 41, column 31.\n\n\nFatal errors while parsing TLA+ spec in file W4Od2m7p4t2.tla\n\ntla2sany.semantic.AbortException\n*** Abort messages: 1\n\nIn module W4Od2m7p4t2\n\nCould not parse module W4Od2m7p4t2 from file W4Od2m7p4t2.tla\n\n\n",
+  "seconds": 0.20492845901753753,
+  "timed_out": false,
+  "output_complete": true,
+  "output_limit": false,
+  "cleanup_complete": true,
+  "surviving_owned_processes": [],
+  "owned_processes": [
+    {
+      "pid": 75769,
+      "created": 1789174140.801573,
+      "pgid": 75769
+    }
+  ],
+  "signals": [],
+  "errors": [],
+  "execution_complete": true,
+  "containment": "Best-effort ancestry polling; instantaneous unobserved reparenting is not excluded"
+}

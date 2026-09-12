@@ -75,6 +75,22 @@ An inconclusive measurement requires fixing the measurement before interpreting 
 
 ## Recorded lessons
 
+### Fixed-prompt lineage: base syntax failure and trained completion regression
+
+- Job7609556 completed6/6 base/parent/child generations, exit0,2:54, with the
+  same actual401/457 prompts and greedy1024 limit. Restricted checkpoint loading,
+  exact9-tensor restores and child byte-for-byte baseline replay all passed.
+- Actual controlled SANY: base0/2,parent0/2,child0/2;4controls correct. Base ends
+  both responses, parent reaches1024 on both, child ends row47 only. This is a
+  completion regression after upstream training, partly recovered by the child,
+  not evidence that the base was a valid prover or that the latest child alone
+  caused the syntax failures. Preserve all six raw outputs and the prior baseline.
+- Do not promote or repeat unchanged full-module greedy/larger-budget runs.
+  Reopening needs a concrete completion/representation intervention. A supplied
+  reference-prefix continuation test is only a causal diagnostic, never gate or
+  learned-model credit for the provided text; validate reference/EOS legality first.
+- Evidence: `results/runs/syntax-structured-polaris-20260911/job-7605656/lineage-job-7609556-decision.json`.
+
 ### Canonical ranked greedy: execution succeeds, completion does not
 
 - Job7609486 completed all8 candidates in3:56, exit0, with exact restored9

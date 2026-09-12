@@ -1,0 +1,24 @@
+
+****** SANY2 Version 2.1 created 24 February 2014
+
+Parsing file /Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/lineage-job-7609556-sany/controls/47-negative/W4Od2m7p4t2.tla
+***Parse Error***
+Was expecting "Expression or Instance"
+Encountered ")" at line 20, column 26 and token "==" 
+
+Residual stack trace follows:
+Definition starting at line 20, column 1.
+Module body starting at line 3, column 1.
+Module definition starting at line 1, column 1.
+
+
+Fatal errors while parsing TLA+ spec in file W4Od2m7p4t2.tla
+
+tla2sany.semantic.AbortException
+*** Abort messages: 1
+
+In module W4Od2m7p4t2
+
+Could not parse module W4Od2m7p4t2 from file W4Od2m7p4t2.tla
+
+
