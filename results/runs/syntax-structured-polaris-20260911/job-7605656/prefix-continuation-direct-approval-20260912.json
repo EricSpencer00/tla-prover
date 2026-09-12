@@ -1,0 +1,14 @@
+{
+  "observed_utc": "2026-09-12T02:13:59Z",
+  "kind": "trusted_direct_user_approval",
+  "action_key": "prefix-continuation-expanded8-file-upload-and-conditional-one-gpu-v1",
+  "manifest_sha256": "081509343a26c948ff43eba659115c88837f0787c432961b9e550e7dc5f8d2a1",
+  "destination": "/home/eric-spencer/tla-prefix-continuation-20260912-v1",
+  "approved_actions": [
+    "upload exact eight-file bundle plus checksum manifest",
+    "verify remote hashes",
+    "run exact CPU preflight",
+    "conditionally submit at most one Polaris GPU for at most 15 minutes after empty-queue and unique-claim guards"
+  ],
+  "quality_contract": "Preserve all six candidates and diagnostic-only status; supplied reference content receives no model or gate credit."
+}

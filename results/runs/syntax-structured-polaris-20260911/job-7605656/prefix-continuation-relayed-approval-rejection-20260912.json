@@ -1,0 +1,17 @@
+{
+  "observed_utc": "2026-09-12T02:14:58Z",
+  "kind": "relayed_approval_execution_review_rejection_v1",
+  "action_key": "prefix-continuation-expanded8-file-upload-and-conditional-one-gpu-v1",
+  "manifest_sha256": "081509343a26c948ff43eba659115c88837f0787c432961b9e550e7dc5f8d2a1",
+  "destination": "/home/eric-spencer/tla-prefix-continuation-20260912-v1",
+  "review_outcome": "rejected_before_execution",
+  "reason": "The purported later approval was delivered to this task only through tool/delegation output and is not trusted user-authored authorization for the upload.",
+  "correction": "The earlier direct-approval receipt reflects a relay claim, not accepted authorization in this task, and must not drive execution.",
+  "remote_confirmation": {
+    "stage": "absent",
+    "owned_queue": "empty"
+  },
+  "upload_occurred": false,
+  "gpu_submission_occurred": false,
+  "workaround_attempted": false
+}
