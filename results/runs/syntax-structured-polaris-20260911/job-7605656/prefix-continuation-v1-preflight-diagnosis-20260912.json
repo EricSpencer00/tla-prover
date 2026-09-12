@@ -1,0 +1,29 @@
+{
+  "observed_utc": "2026-09-12T02:28:18Z",
+  "kind": "protected_prefix_continuation_preflight_diagnosis_v1",
+  "stage": "/home/eric-spencer/tla-prefix-continuation-20260912-v1",
+  "manifest_sha256": "081509343a26c948ff43eba659115c88837f0787c432961b9e550e7dc5f8d2a1",
+  "remote_hashes_verified": true,
+  "cpu_preflight_exit_code": 1,
+  "failure": "ValueError: frozen supplied-prefix identity differs",
+  "failure_phase": "reference identity validation before checkpoint loading and before CUDA/model loading",
+  "cause": {
+    "field": "row 47 expected prefix SHA-256 constant",
+    "staged_expected": "85691e1dd47493dbe2afd894e781bdaf6b77d3a8d43e9cae4fa26b8c0edbd5d",
+    "exact_runtime_actual": "85691e1dd47493d3be2afd894e781bdaf6b77d3a8d43e9cae4fa26b8c0edbd5d",
+    "prefix_tokens": 182,
+    "reference_tokens": 226,
+    "classification": "one-character local expected-hash transcription error"
+  },
+  "correction": {
+    "commit": "a28bc6bf",
+    "runner_sha256": "2cdc7d40d58032c00ea39c5d42e207f4c1a164c8a9e54ec9e9f2edcc5b7fc638",
+    "new_stage": "/home/eric-spencer/tla-prefix-continuation-20260912-v2",
+    "new_manifest_sha256": "aff35bd1c2035cdc022700fe9cda7202cbccfaa6e1371c61954cd9747eef2e50",
+    "tests": "116 passed, 2 CUDA-only skipped"
+  },
+  "gpu_submission_occurred": false,
+  "model_result": null,
+  "gate_claim": false,
+  "model_improvement_claim": false
+}
