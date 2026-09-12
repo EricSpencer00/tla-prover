@@ -4,14 +4,14 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 338
-- Verified UTC: 2026-09-12T04:51:54Z
+- Revision: 339
+- Verified UTC: 2026-09-12T04:54:52Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: external_wait
 - Active job: none
-- Observation evidence: At 2026-09-12T04:51:54Z append-only local v3 stage verifies8/8 files under manifest de26aa8c and passes exact-stage CLI/PBS smoke plus136 tests,2CUDA-only skips. V2 remote stage remains preserved after its EOS preflight failure; no GPU was submitted. Last Polaris ownership check was empty at04:41:39Z; Sophia queue is unverified after authentication denial.
-- Latest completed result: Causal EOS mismatch fixed locally without relaxing grammar: v3 compiles XGrammar against hashed model vocabulary128256 and rejects out-of-range EOS/tokenizer configurations. Only runner and append-only stage path changed from v2; diagnostic and zero-credit contracts are unchanged.
-- Local work: Prepared /tmp/tla-prefix-continuation-20260912-v3 with eight exact files and manifest de26aa8c1be27df2be390c2d8c009118502b5972a292e0732550cdb69358ac04. All static quality guards pass; remote exact-runtime CPU preflight remains required.
+- Observation evidence: At 2026-09-12T04:54:52Z v3 remains local-only and committed; its one-time Discord permission alert was rejected before delivery. No retry or workaround attempted. V2 remote stage remains preserved after its EOS preflight failure; no GPU was submitted. Last Polaris ownership check was empty at04:41:39Z; Sophia queue is unverified after authentication denial.
+- Latest completed result: Causal EOS mismatch fixed and committed as15d71648 without relaxing grammar. V3 manifest de26aa8c passes8/8 hashes, exact-stage CLI/PBS smoke and136 tests,2CUDA skips. Discord alert failed before delivery; no model result or quality promotion.
+- Local work: Commit15d71648 contains the strict vocabulary-interface repair, regression tests, failed-v2 diagnosis and exact v3 stage receipt. /tmp/tla-prefix-continuation-20260912-v3 remains immutable pending approval; remote exact-runtime CPU preflight remains required.
 - External blocker: Changed bundle requires explicit approval: manifest de26aa8c1be27df2be390c2d8c009118502b5972a292e0732550cdb69358ac04 to /home/eric-spencer/tla-prefix-continuation-20260912-v3, then CPU preflight and conditional at-most-one Polaris GPU for15minutes.
 - Next action: After exact v3 approval, upload manifest de26aa8c bundle, verify remote hashes, run exact CPU preflight, recheck Polaris ownership, acquire unique submission claim, and submit at most one15-minute GPU only if every guard passes.
 
@@ -205,6 +205,7 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 - 2026-09-12T04:45:51Z: Remote manifest aff35bd1 hashes passed; CPU preflight stopped before weights/CUDA because XGrammar0.2.2 rejected EOS128009 outside its configured vocabulary. No GPU submitted. Invalidate staged-path EOS clearance and diagnose without weakening completion.
 - 2026-09-12T04:49:33Z: Exact standalone replay passes under model-config vocabulary128256; v2 runner used tokenizer base count128000. Correct mask width to hashed model config with EOS/tokenizer bounds, preserving strict EOS termination and all diagnostic quality guards.
 - 2026-09-12T04:51:54Z: V3 append-only stage is ready under manifest de26aa8c; only corrected runner and stage-path bytes differ from v2. Require exact changed-bundle approval before upload. No GPU submission and no quality promotion.
+- 2026-09-12T04:54:52Z: Coherent repair committed as15d71648. One-time exact-v3 Discord attention alert was rejected before delivery for external metadata disclosure risk; do not retry unchanged or route around review. Await trusted approval in the executing task.
 
 ## Board maintenance
 
@@ -222,14 +223,14 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 338,
-  "verified_utc": "2026-09-12T04:51:54Z",
+  "revision": 339,
+  "verified_utc": "2026-09-12T04:54:52Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "external_wait",
   "active_job": null,
-  "observation_evidence": "At 2026-09-12T04:51:54Z append-only local v3 stage verifies8/8 files under manifest de26aa8c and passes exact-stage CLI/PBS smoke plus136 tests,2CUDA-only skips. V2 remote stage remains preserved after its EOS preflight failure; no GPU was submitted. Last Polaris ownership check was empty at04:41:39Z; Sophia queue is unverified after authentication denial.",
-  "last_result": "Causal EOS mismatch fixed locally without relaxing grammar: v3 compiles XGrammar against hashed model vocabulary128256 and rejects out-of-range EOS/tokenizer configurations. Only runner and append-only stage path changed from v2; diagnostic and zero-credit contracts are unchanged.",
-  "local_work": "Prepared /tmp/tla-prefix-continuation-20260912-v3 with eight exact files and manifest de26aa8c1be27df2be390c2d8c009118502b5972a292e0732550cdb69358ac04. All static quality guards pass; remote exact-runtime CPU preflight remains required.",
+  "observation_evidence": "At 2026-09-12T04:54:52Z v3 remains local-only and committed; its one-time Discord permission alert was rejected before delivery. No retry or workaround attempted. V2 remote stage remains preserved after its EOS preflight failure; no GPU was submitted. Last Polaris ownership check was empty at04:41:39Z; Sophia queue is unverified after authentication denial.",
+  "last_result": "Causal EOS mismatch fixed and committed as15d71648 without relaxing grammar. V3 manifest de26aa8c passes8/8 hashes, exact-stage CLI/PBS smoke and136 tests,2CUDA skips. Discord alert failed before delivery; no model result or quality promotion.",
+  "local_work": "Commit15d71648 contains the strict vocabulary-interface repair, regression tests, failed-v2 diagnosis and exact v3 stage receipt. /tmp/tla-prefix-continuation-20260912-v3 remains immutable pending approval; remote exact-runtime CPU preflight remains required.",
   "external_blocker": "Changed bundle requires explicit approval: manifest de26aa8c1be27df2be390c2d8c009118502b5972a292e0732550cdb69358ac04 to /home/eric-spencer/tla-prefix-continuation-20260912-v3, then CPU preflight and conditional at-most-one Polaris GPU for15minutes.",
   "next_action": "After exact v3 approval, upload manifest de26aa8c bundle, verify remote hashes, run exact CPU preflight, recheck Polaris ownership, acquire unique submission claim, and submit at most one15-minute GPU only if every guard passes.",
   "tasks": [
@@ -468,7 +469,8 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "2026-09-12T04:41:39Z: Trusted steering relayed Eric's exact approval for corrected manifest aff35bd1 at /home/eric-spencer/tla-prefix-continuation-20260912-v2, its CPU preflight, and conditional at-most-one Polaris GPU for 15 minutes. Proceed with all guards; diagnostic-only and zero supplied-reference credit remain binding.",
     "2026-09-12T04:45:51Z: Remote manifest aff35bd1 hashes passed; CPU preflight stopped before weights/CUDA because XGrammar0.2.2 rejected EOS128009 outside its configured vocabulary. No GPU submitted. Invalidate staged-path EOS clearance and diagnose without weakening completion.",
     "2026-09-12T04:49:33Z: Exact standalone replay passes under model-config vocabulary128256; v2 runner used tokenizer base count128000. Correct mask width to hashed model config with EOS/tokenizer bounds, preserving strict EOS termination and all diagnostic quality guards.",
-    "2026-09-12T04:51:54Z: V3 append-only stage is ready under manifest de26aa8c; only corrected runner and stage-path bytes differ from v2. Require exact changed-bundle approval before upload. No GPU submission and no quality promotion."
+    "2026-09-12T04:51:54Z: V3 append-only stage is ready under manifest de26aa8c; only corrected runner and stage-path bytes differ from v2. Require exact changed-bundle approval before upload. No GPU submission and no quality promotion.",
+    "2026-09-12T04:54:52Z: Coherent repair committed as15d71648. One-time exact-v3 Discord attention alert was rejected before delivery for external metadata disclosure risk; do not retry unchanged or route around review. Await trusted approval in the executing task."
   ],
   "history": [
     "[Pre-reconciliation board; contains superseded claims](../results/board-history/board-686630068adb988bfde97c9bf5c8b18644721f0cd14ef92d438e03a76aa03886.md)"
@@ -722,7 +724,8 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "results/runs/syntax-structured-polaris-20260911/job-7605656/prefix-continuation-direct-approval-v2-20260912.json",
     "results/runs/syntax-structured-polaris-20260911/job-7605656/prefix-continuation-v1-preflight-diagnosis-20260912.json",
     "results/runs/syntax-structured-polaris-20260911/job-7605656/prefix-continuation-v2-preflight-diagnosis-20260912.json",
-    "results/runs/syntax-structured-polaris-20260911/job-7605656/prefix-continuation-v3-stage-receipt-20260912.json"
+    "results/runs/syntax-structured-polaris-20260911/job-7605656/prefix-continuation-v3-stage-receipt-20260912.json",
+    "results/runs/syntax-structured-polaris-20260911/job-7605656/prefix-continuation-v3-permission-discord-rejection-20260912.json"
   ]
 }
 -->

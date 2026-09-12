@@ -1,0 +1,15 @@
+{
+  "observed_utc": "2026-09-12T04:54:52Z",
+  "kind": "permission_attention_delivery_rejection_v1",
+  "action_key": "prefix-continuation-v3-upload-preflight-conditional-gpu",
+  "manifest_sha256": "de26aa8c1be27df2be390c2d8c009118502b5972a292e0732550cdb69358ac04",
+  "destination": "/home/eric-spencer/tla-prefix-continuation-20260912-v3",
+  "requested_scope": "Upload exact eight-file bundle, run CPU preflight, and conditionally submit at most one Polaris GPU for 15 minutes.",
+  "delivery_outcome": "rejected_before_delivery",
+  "reason": "Automatic review rejected sending internal experiment metadata, filesystem paths, and a task link to the external Discord recipient without separate trusted authorization for that message payload.",
+  "message_delivered": false,
+  "authorization_effect": "none",
+  "retry_policy": "Do not retry the unchanged alert or route around review.",
+  "remote_upload_occurred": false,
+  "gpu_submission_occurred": false
+}
