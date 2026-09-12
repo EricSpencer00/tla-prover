@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 395
-- Verified UTC: 2026-09-12T17:15:19Z
+- Revision: 396
+- Verified UTC: 2026-09-12T17:32:46Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: local_work
 - Active job: none
 - Observation evidence: At 2026-09-12T17:15:19Z, Polaris7613214 is terminal Exit0 after00:01:27. Remote/local log SHA3be45130 and receipt SHA8edc57bc match. Independent receipt checks pass: exact checkpoint b0399b51, packet cb137c52, finite loss/gap, nine positive finite gradient norms, optimizer_updates0, parameters_unchanged true and gate_claim false.
 - Latest completed result: Zero-update CUDA preflight succeeded on the exact longest pair: loss1.2650, gap-0.5953, gradients nonzero for all9 final-layer tensors, peak CUDA allocated20.50GB/reserved23.12GB, exact checkpoint/packet lineage, and zero parameter drift. The negative gap means the parent currently prefers the genuine invalid rollout over the valid target; this validates trainability and direction, not quality gain.
-- Local work: Exact six-file Polaris preflight-only stage manifest7e5ce81e is uploaded and remotely verified. All5 payload hashes pass, inventory is exact, and staged CPU-only CLI/py_compile smoke passes. Launcher requests one EVITA debug GPU for15m and stops after zero-update longest-pair backward; it has no optimizer or generation path.
+- Local work: Frozen leakage-resistant true-update plan ae1c5bb5 deterministically splits the20 genuine rollout pairs into8 train and12 internal holdout pairs. Protected rows47/107 remain excluded from training and model selection; only unchanged unsupplied prompts can satisfy acceptance. Budget remains8 updates, lr1e-7, positive-NLL anchor, nine tensors and600s. Planner direct CLI/pycompile and13 focused tests pass.
 - External blocker: none verified
-- Next action: Use the validated objective and measured23.12GB reserved peak to design the smallest bounded true-update training stage with explicit holdout evaluation and rollback. Preserve exact packet/checkpoint lineage, positive-NLL anchor, no protected training, no supplied-prefix credit, and frozen SANY denominator; do not claim gain until unchanged unsupplied prompts improve.
+- Next action: Implement the trainer against frozen plan ae1c5bb5: exactly8 unique train-pair updates, before/after scores on the12 internal holdout pairs, append-only child checkpoint, exact save/reload verification and rollback metadata. Then build an unsupplied protected evaluator; no remote allocation or quality claim until exact staged tests pass.
 
 ## Objective and evidence rules
 
@@ -37,6 +37,7 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 
 ## Decisions
 
+- 2026-09-12T17:32:46Z: Froze deterministic8-train/12-internal-holdout plan ae1c5bb5 after actual CUDA feasibility. Protected47/107 cannot train or select; internal holdout is diagnostic only and unchanged unsupplied protected SANY remains the acceptance gate. Direct CLI packaging defect was caught and repaired;13 focused tests pass.
 - 2026-09-12T17:15:19Z: Polaris7613214 terminal Exit0 validates the materially distinct full-sequence objective on actual8B/CUDA without an optimizer step. Exact receipt shows negative target-vs-rollout gap, all9 trainable tensors receive gradients, memory fits and parameters are unchanged. Promote only to bounded true-update experiment design; this is zero gate/model credit and no checkpoint promotion.
 - 2026-09-12T17:13:10Z: After remote hash/inventory and CPU CLI guards passed, fresh empty ownership guard permitted exactly one qsub. Polaris7613214 is scheduler-attested running on one debug GPU with15m walltime. Await zero-update/no-generation receipt; do not submit a duplicate or claim quality gain.
 - 2026-09-12T17:12:22Z: Eric supplied the exact literal private-manifest and destination approval. Upload succeeded; remote hashes and exact inventory pass, followed by staged CPU-only CLI/py_compile success. The prior transfer blocker is resolved. Proceed only with the previously authorized bounded zero-update/no-generation GPU preflight after a fresh empty-queue check.
@@ -237,16 +238,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 395,
-  "verified_utc": "2026-09-12T17:15:19Z",
+  "revision": 396,
+  "verified_utc": "2026-09-12T17:32:46Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "local_work",
   "active_job": null,
   "observation_evidence": "At 2026-09-12T17:15:19Z, Polaris7613214 is terminal Exit0 after00:01:27. Remote/local log SHA3be45130 and receipt SHA8edc57bc match. Independent receipt checks pass: exact checkpoint b0399b51, packet cb137c52, finite loss/gap, nine positive finite gradient norms, optimizer_updates0, parameters_unchanged true and gate_claim false.",
   "last_result": "Zero-update CUDA preflight succeeded on the exact longest pair: loss1.2650, gap-0.5953, gradients nonzero for all9 final-layer tensors, peak CUDA allocated20.50GB/reserved23.12GB, exact checkpoint/packet lineage, and zero parameter drift. The negative gap means the parent currently prefers the genuine invalid rollout over the valid target; this validates trainability and direction, not quality gain.",
-  "local_work": "Exact six-file Polaris preflight-only stage manifest7e5ce81e is uploaded and remotely verified. All5 payload hashes pass, inventory is exact, and staged CPU-only CLI/py_compile smoke passes. Launcher requests one EVITA debug GPU for15m and stops after zero-update longest-pair backward; it has no optimizer or generation path.",
+  "local_work": "Frozen leakage-resistant true-update plan ae1c5bb5 deterministically splits the20 genuine rollout pairs into8 train and12 internal holdout pairs. Protected rows47/107 remain excluded from training and model selection; only unchanged unsupplied prompts can satisfy acceptance. Budget remains8 updates, lr1e-7, positive-NLL anchor, nine tensors and600s. Planner direct CLI/pycompile and13 focused tests pass.",
   "external_blocker": "",
-  "next_action": "Use the validated objective and measured23.12GB reserved peak to design the smallest bounded true-update training stage with explicit holdout evaluation and rollback. Preserve exact packet/checkpoint lineage, positive-NLL anchor, no protected training, no supplied-prefix credit, and frozen SANY denominator; do not claim gain until unchanged unsupplied prompts improve.",
+  "next_action": "Implement the trainer against frozen plan ae1c5bb5: exactly8 unique train-pair updates, before/after scores on the12 internal holdout pairs, append-only child checkpoint, exact save/reload verification and rollback metadata. Then build an unsupplied protected evaluator; no remote allocation or quality claim until exact staged tests pass.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -316,6 +317,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
     }
   ],
   "decisions": [
+    "2026-09-12T17:32:46Z: Froze deterministic8-train/12-internal-holdout plan ae1c5bb5 after actual CUDA feasibility. Protected47/107 cannot train or select; internal holdout is diagnostic only and unchanged unsupplied protected SANY remains the acceptance gate. Direct CLI packaging defect was caught and repaired;13 focused tests pass.",
     "2026-09-12T17:15:19Z: Polaris7613214 terminal Exit0 validates the materially distinct full-sequence objective on actual8B/CUDA without an optimizer step. Exact receipt shows negative target-vs-rollout gap, all9 trainable tensors receive gradients, memory fits and parameters are unchanged. Promote only to bounded true-update experiment design; this is zero gate/model credit and no checkpoint promotion.",
     "2026-09-12T17:13:10Z: After remote hash/inventory and CPU CLI guards passed, fresh empty ownership guard permitted exactly one qsub. Polaris7613214 is scheduler-attested running on one debug GPU with15m walltime. Await zero-update/no-generation receipt; do not submit a duplicate or claim quality gain.",
     "2026-09-12T17:12:22Z: Eric supplied the exact literal private-manifest and destination approval. Upload succeeded; remote hashes and exact inventory pass, followed by staged CPU-only CLI/py_compile success. The prior transfer blocker is resolved. Proceed only with the previously authorized bounded zero-update/no-generation GPU preflight after a fresh empty-queue check.",
