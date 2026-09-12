@@ -1,0 +1,16 @@
+{
+  "observed_utc": "2026-09-12T00:40:28Z",
+  "initial_action": "Read-only CPU metadata inspection using torch.load weights_only=False",
+  "initial_result": "Rejected before execution by safety review because unrestricted pickle loading can execute arbitrary code",
+  "safe_alternative": "torch.load weights_only=True; no fallback or extra allowed globals",
+  "safe_result": "Passed for both exact parent and child checkpoints, exit 0",
+  "parent_sha256": "fba2768ed9a8f629f6496dc1ef72763b32fc339c74ba9075d1ffc53acd6c2d1d",
+  "child_sha256": "b0399b51aed001051fe200751b3087fc008482ca9dfeb64eb12884f71eee3bb6",
+  "parent_hash_freshly_verified": true,
+  "child_metadata_parent_hash_matches": true,
+  "tensor_counts": {"parent": 9, "child": 9},
+  "both_dtype_profiles": "frozen bf16 base with float32 final transformer layer; bf16 autocast",
+  "new_runner_requirement": "Restricted weights_only=True checkpoint loading; preserve standard tensor/name/shape/dtype/hash guards",
+  "cuda_touched": false,
+  "model_quality_claim": false
+}
