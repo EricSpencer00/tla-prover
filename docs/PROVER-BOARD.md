@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 369
-- Verified UTC: 2026-09-12T11:28:45Z
+- Revision: 371
+- Verified UTC: 2026-09-12T11:48:55Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: local_work
 - Active job: none
-- Observation evidence: At 2026-09-12T11:27:50Z, configured-alias qstat succeeded on both Polaris and Sophia with no owned jobs listed. Polaris read-only checks verified destination /home/eric-spencer/tla-sequence-preflight-20260912-v1 absent, pinned model present, and checkpoint exact SHA b0399b51. No remote side effect or submission occurred; active_job remains null.
+- Observation evidence: At 2026-09-12T11:48:55Z, configured-alias qstat succeeded on Polaris and Sophia with no owned jobs listed, and Polaris verified /home/eric-spencer/tla-sequence-preflight-20260912-v1 remains absent. The prior scp rejection remains terminal before transfer; no files were uploaded and no GPU job was submitted.
 - Latest completed result: Supplied-prefix diagnostic is terminal and decision-bearing: parent can complete both heavily supplied rows; child retains row47 but loses row107; base passes neither. Grammar completion alone does not guarantee SANY because base107 and child107 completed/EOS yet parse-reject. Do not promote child or repeat unchanged.
 - Local work: Prepared exact six-file Polaris preflight-only stage, manifest SHA7e5ce81e. All5 payload hashes pass, stage inventory is exact, PBS syntax passes, and direct CLI/import smoke succeeds from the copied stage. Launcher requests one EVITA debug GPU for15m and stops after zero-update longest-pair backward; it has no optimizer or generation path. No upload/allocation yet.
-- External blocker: none verified
-- Next action: Await exact approval to upload manifest7e5ce81e to /home/eric-spencer/tla-sequence-preflight-20260912-v1, run its CPU checksum/CLI preflight, and if all guards pass submit one Polaris EVITA debug GPU for at most15 minutes. The job performs zero optimizer updates and no generation. Do not upload or submit without that approval.
+- External blocker: External safety review rejected the upload as private packet and implementation-file egress to a new Polaris destination, despite the concise approval reply. It requires a new explicit approval after disclosure of that risk. No workaround is permitted.
+- Next action: Await explicit post-disclosure approval to upload the six files in manifest7e5ce81e to /home/eric-spencer/tla-sequence-preflight-20260912-v1 despite private packet/code egress, run its CPU checksum/CLI preflight, and only if all guards pass submit one Polaris EVITA debug GPU for at most15 minutes. Zero optimizer updates and no generation remain mandatory.
 
 ## Objective and evidence rules
 
@@ -37,6 +37,7 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 
 ## Decisions
 
+- 2026-09-12T11:32:04Z: Direct concise approval was received, but external execution review rejected scp before transfer because the six-file bundle contains private packet/code data moving to a new Polaris path. Destination remains absent, both owned queues are empty, and no GPU job exists. Do not retry or route around review; require explicit post-disclosure approval.
 - The recurring prompt contains stable policy only. Current jobs, phase and artifact paths come from this board after verification.
 - The original vLLM launcher used base-model weights. Historical endpoint SANY failures do not demonstrate failure of the trained checkpoint. Input metadata is not proof of loaded weights.
 - Syntax-token preference improved all 24 measured token margins without protected SANY gain; retain it as a negative diagnostic. Do not cycle among old prompt suffixes or mislabel the same objective as span training.
@@ -231,16 +232,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 369,
-  "verified_utc": "2026-09-12T11:28:45Z",
+  "revision": 371,
+  "verified_utc": "2026-09-12T11:48:55Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "local_work",
   "active_job": null,
-  "observation_evidence": "At 2026-09-12T11:27:50Z, configured-alias qstat succeeded on both Polaris and Sophia with no owned jobs listed. Polaris read-only checks verified destination /home/eric-spencer/tla-sequence-preflight-20260912-v1 absent, pinned model present, and checkpoint exact SHA b0399b51. No remote side effect or submission occurred; active_job remains null.",
+  "observation_evidence": "At 2026-09-12T11:48:55Z, configured-alias qstat succeeded on Polaris and Sophia with no owned jobs listed, and Polaris verified /home/eric-spencer/tla-sequence-preflight-20260912-v1 remains absent. The prior scp rejection remains terminal before transfer; no files were uploaded and no GPU job was submitted.",
   "last_result": "Supplied-prefix diagnostic is terminal and decision-bearing: parent can complete both heavily supplied rows; child retains row47 but loses row107; base passes neither. Grammar completion alone does not guarantee SANY because base107 and child107 completed/EOS yet parse-reject. Do not promote child or repeat unchanged.",
   "local_work": "Prepared exact six-file Polaris preflight-only stage, manifest SHA7e5ce81e. All5 payload hashes pass, stage inventory is exact, PBS syntax passes, and direct CLI/import smoke succeeds from the copied stage. Launcher requests one EVITA debug GPU for15m and stops after zero-update longest-pair backward; it has no optimizer or generation path. No upload/allocation yet.",
-  "external_blocker": "",
-  "next_action": "Await exact approval to upload manifest7e5ce81e to /home/eric-spencer/tla-sequence-preflight-20260912-v1, run its CPU checksum/CLI preflight, and if all guards pass submit one Polaris EVITA debug GPU for at most15 minutes. The job performs zero optimizer updates and no generation. Do not upload or submit without that approval.",
+  "external_blocker": "External safety review rejected the upload as private packet and implementation-file egress to a new Polaris destination, despite the concise approval reply. It requires a new explicit approval after disclosure of that risk. No workaround is permitted.",
+  "next_action": "Await explicit post-disclosure approval to upload the six files in manifest7e5ce81e to /home/eric-spencer/tla-sequence-preflight-20260912-v1 despite private packet/code egress, run its CPU checksum/CLI preflight, and only if all guards pass submit one Polaris EVITA debug GPU for at most15 minutes. Zero optimizer updates and no generation remain mandatory.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -310,6 +311,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
     }
   ],
   "decisions": [
+    "2026-09-12T11:32:04Z: Direct concise approval was received, but external execution review rejected scp before transfer because the six-file bundle contains private packet/code data moving to a new Polaris path. Destination remains absent, both owned queues are empty, and no GPU job exists. Do not retry or route around review; require explicit post-disclosure approval.",
     "The recurring prompt contains stable policy only. Current jobs, phase and artifact paths come from this board after verification.",
     "The original vLLM launcher used base-model weights. Historical endpoint SANY failures do not demonstrate failure of the trained checkpoint. Input metadata is not proof of loaded weights.",
     "Syntax-token preference improved all 24 measured token margins without protected SANY gain; retain it as a negative diagnostic. Do not cycle among old prompt suffixes or mislabel the same objective as span training.",
