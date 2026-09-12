@@ -1,0 +1,16 @@
+{
+  "observed_utc": "2026-09-12T00:13:33Z",
+  "job_id": "7609386",
+  "pbs_state": "F",
+  "exit_status": 1,
+  "used_walltime": "00:01:35",
+  "produced": 2,
+  "planned": 8,
+  "missing": 6,
+  "failure": "ValueError: ranked grammar selector requires the frozen single-beam greedy contract",
+  "boundary": "New guard reads unresolved model.generation_config.num_beams; exact installed source resolves unspecified(None) to global default before generation.",
+  "evidence": "Cached generation_config.json has no num_beams entry. Installed _prepare_generation_config merges model config and global defaults then call kwargs; get_generation_mode treats None/1 as single beam.",
+  "controls": "Reaching post-load generation and saved ordinary outputs establishes earlier CUDA controls completed through the hash-verified launch path; final receipt missing. No ranked model selection occurred.",
+  "decision": "One causal interface correction: validate resolved generation mode with the runtime's actual resolver, not raw optional model config. Test on exact CPU runtime before another bounded GPU run. No relaxation of greedy/single-beam requirement.",
+  "quality": "No new model improvement;2ordinary outputs and6unknown candidates must be retained. Earlier results unchanged."
+}

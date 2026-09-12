@@ -75,6 +75,19 @@ An inconclusive measurement requires fixing the measurement before interpreting 
 
 ## Recorded lessons
 
+### Stored generation configuration is not the effective decoding mode
+
+- Job7609386 passed its CUDA controls and saved2ordinary outputs, then our new
+  guard rejected stored `num_beams=None`. The cached generation config omits
+  that field; the installed runtime fills defaults and applies call kwargs.
+- Do not weaken the greedy-only requirement or force a new decoding strategy
+  to hide the failure. Validate the actual runtime-resolved mode instead and
+  retain per-call effective configuration evidence.
+- Reopen the ranked-selector GPU trial only after exact-runtime CPU resolution
+  confirms the intended greedy mode and rejects beam/sampling controls. The
+ 2saved outputs are SANY rejects;6missing candidates remain unknown.
+- Evidence: `results/runs/syntax-structured-polaris-20260911/job-7605656/resolved-generation-mode-fix-20260912.json`.
+
 ### Canonical Boolean output: coverage alone does not establish practical decoding
 
 - Exact XGrammar0.2.2 accepts84/84 verified equivalent reference forms and

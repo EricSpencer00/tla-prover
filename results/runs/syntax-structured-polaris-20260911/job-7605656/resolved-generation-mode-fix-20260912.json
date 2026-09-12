@@ -1,0 +1,24 @@
+{
+  "observed_utc": "2026-09-12T00:19:34Z",
+  "failed_job": "7609386",
+  "failure_signature": "raw_optional_num_beams_guard",
+  "corrective_attempt": 1,
+  "code_commit": "d8b976a0",
+  "change": "Validate runtime _prepare_generation_config(None, **actual_kwargs) result and get_generation_mode, not unresolved stored num_beams. Require effective beams1, do_sampleFalse and greedy_search; record effective fields per candidate. No decoding kwargs changed.",
+  "local_validation": {
+    "passed": 67,
+    "skipped": 2,
+    "skips": "CUDA tests unavailable on Mac",
+    "stage": "all5 hashes, runnerCLI andPBS syntax passed"
+  },
+  "partial_sany": "2ordinary model rejects,6unmeasured_missing;4controls correct; no complete paired row",
+  "remote_stage": "/home/eric-spencer/tla-canonical-greedy-generation-20260912-v2",
+  "files": {
+    "canonical.ebnf": "1f4124cd20bdfdfd41ba406703bb2d123ebb26190fd3834cbb3df32dcb1cc000",
+    "protected_canonical_greedy_polaris.pbs": "884c02651da0e2aa0d3d0c1db5ce76466add53ec72868eaf670301d8d839041d",
+    "protected_checkpoint_paired_generation.py": "b8b024665cb28c9873be26b3e89c4e26132d1e73e8bc1d69a98a60877f0c9380",
+    "protected_checkpoint_preflight.py": "4c569421946fcd207028f16f12f90b24182817b7f89975c988277197195f15e8",
+    "protected_greedy_grammar_selector.py": "ac02d2dab9620161347879ba77809e3d68b23dade3ba9dd0269323868f26e1bd"
+  },
+  "next": "Upload exact new stage, run actual resolver CPU-only withcached AutoConfig/GenerationConfig and samekwargs; confirm storedNone/effective1/greedy and negative beam/sampling rejection. Only then acquire newpayload claim and retry oneGPU15min."
+}

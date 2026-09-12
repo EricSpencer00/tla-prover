@@ -1,0 +1,14 @@
+canonical.ebnf: OK
+protected_canonical_greedy_polaris.pbs: OK
+protected_checkpoint_paired_generation.py: OK
+protected_checkpoint_preflight.py: OK
+protected_greedy_grammar_selector.py: OK
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/291 [00:00<?, ?it/s]Loading weights: 100%|██████████| 291/291 [00:00<00:00, 10236.79it/s]
+[transformers] The following generation flags are not valid and may be ignored: ['temperature', 'top_p']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+Traceback (most recent call last):
+  File "/home/eric-spencer/tla-canonical-greedy-generation-20260911-v1/protected_checkpoint_paired_generation.py", line 212, in <module>
+    main()
+  File "/home/eric-spencer/tla-canonical-greedy-generation-20260911-v1/protected_checkpoint_paired_generation.py", line 168, in main
+    raise ValueError("ranked grammar selector requires the frozen single-beam greedy contract")
+ValueError: ranked grammar selector requires the frozen single-beam greedy contract
