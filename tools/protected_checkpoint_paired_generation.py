@@ -68,6 +68,22 @@ def frozen_inputs(tokenizer, prompt, encoding):
     return inputs
 
 
+def validate_greedy_configuration(model, kwargs):
+    """Check the same resolved configuration that generate() actually uses.
+
+    Stored fields may be None; the runtime merges model/global defaults before
+    applying per-call options. Never mistake that unresolved None for beams.
+    """
+    resolved, _ = model._prepare_generation_config(None, **kwargs)
+    mode = resolved.get_generation_mode()
+    mode = getattr(mode, 'value', mode)
+    if resolved.num_beams != 1 or resolved.do_sample is not False or mode != 'greedy_search':
+        raise ValueError('ranked grammar selector requires resolved single-beam greedy generation')
+    return dict(stored_num_beams=model.generation_config.num_beams,
+                effective_num_beams=resolved.num_beams, effective_do_sample=resolved.do_sample,
+                effective_mode=mode)
+
+
 def smoke_grammar_mask_kernel(torch, processor, tokenizer, vocab_size):
     """Exercise XGrammar's real CUDA mask kernel before loading the 8B model."""
     token_id = tokenizer.eos_token_id if tokenizer.eos_token_id is not None else 0
@@ -157,15 +173,14 @@ def main():
             torch.manual_seed(metadata["generation_seed"])
             kwargs = dict(max_new_tokens=MAX_NEW_TOKENS, do_sample=False,
                           pad_token_id=tokenizer.eos_token_id)
+            resolved_decode = (validate_greedy_configuration(model, kwargs)
+                               if args.grammar_selector == "greedy" else None)
             processor = None
             if arm == "grammar_enforced":
                 # A new processor per candidate prevents cross-candidate
                 # matcher state from contaminating the paired measurement.
                 processor = build_processor(xgrammar, tokenizer, model.config.vocab_size, grammar,
                                             selector=args.grammar_selector, audit_steps=args.greedy_audit_steps)
-                if args.grammar_selector == "greedy":
-                    if model.generation_config.num_beams != 1:
-                        raise ValueError("ranked grammar selector requires the frozen single-beam greedy contract")
                 kwargs["logits_processor"] = [processor]
             with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
                 generated = model.generate(**inputs, **kwargs)
@@ -182,6 +197,7 @@ def main():
                           actual_prompt_tokens_match_frozen=True,
                           raw_reply_sha256=sha(text), output_token_count=len(new_ids),
                           grammar_enforced=(arm == "grammar_enforced"),
+                          resolved_decode=resolved_decode,
                           selector_evidence=selector_evidence)
             records.append(record)
             (args.output / f"row-{row}-{arm}-{generation}.json").write_text(

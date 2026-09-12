@@ -87,3 +87,29 @@ def test_greedy_selector_is_opt_in_and_receives_exact_compiled_grammar(monkeypat
         'greedy', 'compiled', 4)
     with pytest.raises(ValueError, match='unknown grammar selector'):
         paired.build_processor(xgr, 'tokenizer', 128256, 'frozen grammar', selector='unsafe')
+
+
+def test_greedy_guard_checks_runtime_resolved_configuration():
+    kwargs = dict(max_new_tokens=1024, do_sample=False, pad_token_id=128009)
+    calls = []
+    resolved = SimpleNamespace(num_beams=1, do_sample=False, get_generation_mode=lambda: 'greedy_search')
+    def resolve(config, **actual):
+        assert config is None and actual == kwargs
+        calls.append(actual)
+        return resolved, {}
+    model = SimpleNamespace(generation_config=SimpleNamespace(num_beams=None),
+                            _prepare_generation_config=resolve)
+    assert paired.validate_greedy_configuration(model, kwargs) == dict(
+        stored_num_beams=None, effective_num_beams=1, effective_do_sample=False, effective_mode='greedy_search')
+    assert len(calls) == 1
+    resolved.num_beams = 2
+    with pytest.raises(ValueError, match='resolved single-beam'):
+        paired.validate_greedy_configuration(model, kwargs)
+    resolved.num_beams = 1
+    resolved.do_sample = True
+    with pytest.raises(ValueError, match='resolved single-beam'):
+        paired.validate_greedy_configuration(model, kwargs)
+    resolved.do_sample = False
+    resolved.get_generation_mode = lambda: 'contrastive_search'
+    with pytest.raises(ValueError, match='resolved single-beam'):
+        paired.validate_greedy_configuration(model, kwargs)

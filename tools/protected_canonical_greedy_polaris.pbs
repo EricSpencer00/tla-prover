@@ -9,7 +9,7 @@
 #PBS -j oe
 set -euo pipefail
 # Grand is read-only for this experiment: it was full during CPU diagnostics.
-STAGE=/home/eric-spencer/tla-canonical-greedy-generation-20260911-v1
+STAGE=/home/eric-spencer/tla-canonical-greedy-generation-20260912-v2
 cd "$STAGE"
 exec > "job.${PBS_JOBID%%.*}.log" 2>&1
 export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false
