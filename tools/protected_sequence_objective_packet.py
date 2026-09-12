@@ -67,6 +67,7 @@ def compose(accounting, admission, targets, score):
             "negative_origin": "actual_model_rollout",
             "positive_sany": True,
             "negative_sany": False,
+            "prompt_tokens": encoding["input_ids"][:encoding["prompt_tokens"]],
             "positive_tokens": positive_tokens,
             "negative_tokens": rollout["token_ids"],
             "eos_token_id": targets["eos_token_id"],

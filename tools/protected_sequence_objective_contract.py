@@ -61,6 +61,9 @@ def validate(value):
         if pair.get("positive_sany") is not True or pair.get("negative_sany") is not False:
             raise ValueError("positive-pass and rollout-reject SANY evidence required")
         positive, negative = pair.get("positive_tokens"), pair.get("negative_tokens")
+        prompt = pair.get("prompt_tokens")
+        if not isinstance(prompt, list) or not prompt or not all(type(t) is int and t >= 0 for t in prompt):
+            raise ValueError("exact nonempty prompt-token prefix required")
         if not all(isinstance(x, list) and len(x) > 1 and all(type(t) is int and t >= 0 for t in x)
                    for x in (positive, negative)):
             raise ValueError("complete multi-token response sequences required")

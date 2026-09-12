@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 364
-- Verified UTC: 2026-09-12T10:00:59Z
+- Revision: 365
+- Verified UTC: 2026-09-12T10:18:43Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: local_work
 - Active job: none
-- Observation evidence: At 2026-09-12T10:00:59Z, configured-alias qstat again succeeded on both Polaris and Sophia with no owned jobs listed. No remote side effect or submission occurred; this board retains active_job null.
+- Observation evidence: At 2026-09-12T10:18:43Z, configured-alias qstat again succeeded on both Polaris and Sophia with no owned jobs listed. No remote side effect or submission occurred; this board retains active_job null.
 - Latest completed result: Supplied-prefix diagnostic is terminal and decision-bearing: parent can complete both heavily supplied rows; child retains row47 but loses row107; base passes neither. Grammar completion alone does not guarantee SANY because base107 and child107 completed/EOS yet parse-reject. Do not promote child or repeat unchanged.
-- Local work: Built hash-pinned CPU-only sequence packet from exact TRAIN20 child accounting and frozen TRAIN169 targets. Fresh local SANY controls admit 20/20 pairs: targets pass20/20 and actual child rollouts reject20/20. Complete token sequences, preferred EOS, rollout-row receipt hashes and source identities pass the contract; focused tests10/10. Training remains unauthorized and no CUDA/remote action occurred.
+- Local work: Trainer design found packet v1 lacked exact prompt-token binding, so v1 is retained as superseded evidence and no longer train-admissible. Contract and builder now require the nonempty frozen prompt prefix. Added full-sequence mean-logprob and pairwise loss with positive NLL anchor; tests prove all response tokens including EOS are scored, gradients raise positive/lower negative scores, and lowering both cannot game the objective. Combined focused tests16/16; no model/CUDA/remote action.
 - External blocker: none verified
-- Next action: Implement the smallest bounded full-sequence pairwise trainer against packet9737b27c, restoring the exact child checkpoint and updating only the frozen nine tensors. Prepare matched parent/child retention on both supplied-prefix rows plus unchanged unsupplied frozen evaluation. Do not submit until exact stage smoke, objective-gradient evidence, memory bound, and a separately reviewed allocation are ready.
+- Next action: Regenerate packet v2 with exact prompt-token prefixes and verify all20 pairs under the strengthened contract, then wire the bounded8-step trainer to exact child restore and nine-tensor-only updates. Packet v1 SHA9737b27c is superseded and must not train. No submission before staged import/CLI smoke, real objective-gradient preflight, memory bound and reviewed allocation.
 
 ## Objective and evidence rules
 
@@ -30,7 +30,7 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 | TLA-05 | Done | Score the valid checkpoint comparison | 7609486 all8scored with0passes. Job7611118 exact supplied-prefix comparison scored all6 with4/4 controls: base0/2,parent2/2,child1/2; zero gate credit and no child promotion. |
 | TLA-06 | In progress | Find a new intervention that improves protected SANY | 7611118 establishes parent2/2 versus child1/2 only after72-81% canonical prefix; base0/2 and zero exact suffix matches. Completion capacity exists but child regresses row107. No full-prompt gain or quality promotion. |
 | TLA-06A | Done | Measure syntax-token preference training | 185259 completed 24 updates and exact reload; parent 0/2 and child 0/2 protected SANY. Negative result; do not repeat unchanged. |
-| TLA-06B | In progress | Establish a genuinely different structured training objective | Hash-pinned packet9737b27c admits20/20 genuine TRAIN child rollouts against complete SANY-valid targets: fresh target controls20/20 pass and rollout controls20/20 reject. All pairs carry full token sequences, preferred EOS and rollout receipt identity; protected and official rows excluded. Contract tests10/10. No training or model gain yet. |
+| TLA-06B | In progress | Establish a genuinely different structured training objective | Packet v1 established20/20 target-pass/actual-rollout-reject pairs but is superseded because it omitted exact prompt-token binding. Strengthened contract requires prompt prefixes; full-sequence length-normalized pairwise loss includes EOS and a positive NLL anti-hacking anchor. Combined focused tests16/16. No training or model gain yet. |
 | TLA-07 | Not ready | Verify complete frozen SANY gate | Full frozen denominator has not passed 100%; no diagnostic promotion. |
 | TLA-08 | Not ready | Verify applicable TLC and non-vacuity | Prerequisite SANY gate and intended-behavior evidence incomplete. |
 | TLA-09 | Not ready | Verify genuine TLAPS model performance | Acceptance gates incomplete; same-node positive/negative TLAPS controls and bounded dry run required before retry. |
@@ -231,16 +231,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 364,
-  "verified_utc": "2026-09-12T10:00:59Z",
+  "revision": 365,
+  "verified_utc": "2026-09-12T10:18:43Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "local_work",
   "active_job": null,
-  "observation_evidence": "At 2026-09-12T10:00:59Z, configured-alias qstat again succeeded on both Polaris and Sophia with no owned jobs listed. No remote side effect or submission occurred; this board retains active_job null.",
+  "observation_evidence": "At 2026-09-12T10:18:43Z, configured-alias qstat again succeeded on both Polaris and Sophia with no owned jobs listed. No remote side effect or submission occurred; this board retains active_job null.",
   "last_result": "Supplied-prefix diagnostic is terminal and decision-bearing: parent can complete both heavily supplied rows; child retains row47 but loses row107; base passes neither. Grammar completion alone does not guarantee SANY because base107 and child107 completed/EOS yet parse-reject. Do not promote child or repeat unchanged.",
-  "local_work": "Built hash-pinned CPU-only sequence packet from exact TRAIN20 child accounting and frozen TRAIN169 targets. Fresh local SANY controls admit 20/20 pairs: targets pass20/20 and actual child rollouts reject20/20. Complete token sequences, preferred EOS, rollout-row receipt hashes and source identities pass the contract; focused tests10/10. Training remains unauthorized and no CUDA/remote action occurred.",
+  "local_work": "Trainer design found packet v1 lacked exact prompt-token binding, so v1 is retained as superseded evidence and no longer train-admissible. Contract and builder now require the nonempty frozen prompt prefix. Added full-sequence mean-logprob and pairwise loss with positive NLL anchor; tests prove all response tokens including EOS are scored, gradients raise positive/lower negative scores, and lowering both cannot game the objective. Combined focused tests16/16; no model/CUDA/remote action.",
   "external_blocker": "",
-  "next_action": "Implement the smallest bounded full-sequence pairwise trainer against packet9737b27c, restoring the exact child checkpoint and updating only the frozen nine tensors. Prepare matched parent/child retention on both supplied-prefix rows plus unchanged unsupplied frozen evaluation. Do not submit until exact stage smoke, objective-gradient evidence, memory bound, and a separately reviewed allocation are ready.",
+  "next_action": "Regenerate packet v2 with exact prompt-token prefixes and verify all20 pairs under the strengthened contract, then wire the bounded8-step trainer to exact child restore and nine-tensor-only updates. Packet v1 SHA9737b27c is superseded and must not train. No submission before staged import/CLI smoke, real objective-gradient preflight, memory bound and reviewed allocation.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -288,7 +288,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
       "id": "TLA-06B",
       "state": "In progress",
       "task": "Establish a genuinely different structured training objective",
-      "evidence": "Hash-pinned packet9737b27c admits20/20 genuine TRAIN child rollouts against complete SANY-valid targets: fresh target controls20/20 pass and rollout controls20/20 reject. All pairs carry full token sequences, preferred EOS and rollout receipt identity; protected and official rows excluded. Contract tests10/10. No training or model gain yet."
+      "evidence": "Packet v1 established20/20 target-pass/actual-rollout-reject pairs but is superseded because it omitted exact prompt-token binding. Strengthened contract requires prompt prefixes; full-sequence length-normalized pairwise loss includes EOS and a positive NLL anti-hacking anchor. Combined focused tests16/16. No training or model gain yet."
     },
     {
       "id": "TLA-07",
