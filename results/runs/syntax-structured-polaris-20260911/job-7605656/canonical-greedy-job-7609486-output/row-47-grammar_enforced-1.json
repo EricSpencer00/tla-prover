@@ -1,0 +1,28 @@
+{
+  "row": 47,
+  "arm": "grammar_enforced",
+  "generation": 1,
+  "generation_role": "deterministic_replicate",
+  "sampling_mode": "greedy",
+  "independent_sample": false,
+  "generation_seed": 20261482,
+  "base_prompt_sha256": "32eb750d7db375df72e8e93d929ac3e5c7a365d50a915202c62db6e3d675877f",
+  "raw_reply": "---- MODULE W4Od2m7p4t2 ----\nEXTENDS Naturals\nCONSTANTS Dispatchers, Cap\nVARIABLES active, readSnapshots\nvars == <<active, readSnapshots>>\n\nInit ==\n  active = 0\n  readSnapshots = 0s\n\n\\* A dispatcher attempts to admit a robot\n\\* The compare-and-swap succeeds only if the snapshot still equals the live count\n\\* and the count is below the zone capacity\n\\* If another dispatcher changed the count in between, the snapshot is stale\n\\* and the dispatcher aborts and re-reads\n\\* An active robot may leave, decrementing the count\n\\* The model tracks the active count and each dispatcher's read snapshot\n\\* The safety property: the number of active robots in the zone never exceeds\n\\* the zone capacity\n\\* A dispatcher attempts to admit a robot\n\\* The compare-and-swap succeeds only if the snapshot still equals the live count\n\\* and the count is below the zone capacity\n\\* If another dispatcher changed the count in between, the snapshot is stale\n\\* and the dispatcher aborts and re-reads\n\\* An active robot may leave, decrementing the count\n\\* The model tracks the active count and each dispatcher's read snapshot\n\\* The safety property: the number of active robots in the zone never exceeds\n\\* the zone capacity\n\\* A dispatcher attempts to admit a robot\n\\* The compare-and-swap succeeds only if the snapshot still equals the live count\n\\* and the count is below the zone capacity\n\\* If another dispatcher changed the count in between, the snapshot is stale\n\\* and the dispatcher aborts and re-reads\n\\* An active robot may leave, decrementing the count\n\\* The model tracks the active count and each dispatcher's read snapshot\n\\* The safety property: the number of active robots in the zone never exceeds\n\\* the zone capacity\n\\* A dispatcher attempts to admit a robot\n\\* The compare-and-swap succeeds only if the snapshot still equals the live count\n\\* and the count is below the zone capacity\n\\* If another dispatcher changed the count in between, the snapshot is stale\n\\* and the dispatcher aborts and re-reads\n\\* An active robot may leave, decrementing the count\n\\* The model tracks the active count and each dispatcher's read snapshot\n\\* The safety property: the number of active robots in the zone never exceeds\n\\* the zone capacity\n\\* A dispatcher attempts to admit a robot\n\\* The compare-and-swap succeeds only if the snapshot still equals the live count\n\\* and the count is below the zone capacity\n\\* If another dispatcher changed the count in between, the snapshot is stale\n\\* and the dispatcher aborts and re-reads\n\\* An active robot may leave, decrementing the count\n\\* The model tracks the active count and each dispatcher's read snapshot\n\\* The safety property: the number of active robots in the zone never exceeds\n\\* the zone capacity\n\\* A dispatcher attempts to admit a robot\n\\* The compare-and-swap succeeds only if the snapshot still equals the live count\n\\* and the count is below the zone capacity\n\\* If another dispatcher changed the count in between, the snapshot is stale\n\\* and the dispatcher aborts and re-reads\n\\* An active robot may leave, decrementing the count\n\\* The model tracks the active count and each dispatcher's read snapshot\n\\* The safety property: the number of active robots in the zone never exceeds\n\\* the zone capacity\n\\* A dispatcher attempts to admit a robot\n\\* The compare-and-swap succeeds only if the snapshot still equals the live count\n\\* and the count is below the zone capacity\n\\* If another dispatcher changed the count in between, the snapshot is stale\n\\* and the dispatcher aborts and re-reads\n\\* An active robot may leave, decrementing the count\n\\* The model tracks the active count and each dispatcher's read snapshot\n\\* The safety property: the number of active robots in the zone never exceeds\n\\* the zone capacity\n\\* A dispatcher attempts to admit a robot\n\\* The compare-and-swap succeeds only if the snapshot still equals the live count\n\\* and the count is below the zone capacity\n\\* If another dispatcher changed the count in between, the snapshot is stale\n\\* and the dispatcher aborts and re-reads\n\\* An active robot may leave, decrementing the count\n\\* The model tracks the active count and each dispatcher's read snapshot\n\\* The safety property: the number of active robots in the zone never exceeds\n\\* the zone capacity\n\\* A dispatcher attempts to admit a robot\n\\* The compare-and-swap succeeds",
+  "actual_prompt_token_count": 401,
+  "actual_prompt_tokens_match_frozen": true,
+  "raw_reply_sha256": "2bcaed9cadeb662c1ecd933fe554cf529b2efd65cc8e4205cc09adac431cbcac",
+  "output_token_count": 1024,
+  "grammar_enforced": true,
+  "resolved_decode": {
+    "stored_num_beams": null,
+    "effective_num_beams": 1,
+    "effective_do_sample": false,
+    "effective_mode": "greedy_search"
+  },
+  "selector_evidence": {
+    "method": "ranked_greedy_same_grammar",
+    "full_mask_audits": 4,
+    "candidates_checked": 1050,
+    "actual_generated_ids_match": true
+  }
+}

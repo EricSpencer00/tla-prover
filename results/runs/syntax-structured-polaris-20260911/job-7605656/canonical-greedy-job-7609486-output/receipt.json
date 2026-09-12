@@ -1,0 +1,259 @@
+{
+  "kind": "protected_checkpoint_paired_generation_v1",
+  "complete": true,
+  "contract": {
+    "rows": [
+      47,
+      107
+    ],
+    "arms": [
+      "existing_decoder",
+      "grammar_enforced"
+    ],
+    "generations_per_row": 2,
+    "max_new_tokens": 1024,
+    "seed": 20261011,
+    "sampling_mode": "greedy deterministic repeats",
+    "independent_samples": false
+  },
+  "packet_sha256": "a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c",
+  "checkpoint_sha256": "b0399b51aed001051fe200751b3087fc008482ca9dfeb64eb12884f71eee3bb6",
+  "model_files": {
+    "config.json": "29e4c210b0d6ac178b16b2a255a568bdb23b581e50ca1ef6a6d071dd85704e6e",
+    "generation_config.json": "189fb0c0d7fd8a527db217c0a60a0e013f0394cd8800f9697a666a9e75e5f7fd",
+    "model-00001-of-00004.safetensors": "2b1879f356aed350030bb40eb45ad362c89d9891096f79a3ab323d3ba5607668",
+    "model-00002-of-00004.safetensors": "09d433f650646834a83c580877bd60c6d1f88f7755305c12576b5c7058f9af15",
+    "model-00003-of-00004.safetensors": "fc1cdddd6bfa91128d6e94ee73d0ce62bfcdb7af29e978ddcab30c66ae9ea7fa",
+    "model-00004-of-00004.safetensors": "92ecfe1a2414458b4821ac8c13cf8cb70aed66b5eea8dc5ad9eeb4ff309d6d7b",
+    "model.safetensors.index.json": "146776fce3f6db1103aa6f249e65ee5544c5923ce6f971b092eee79aa6e5d37b",
+    "special_tokens_map.json": "6f38c73729248f6c127296386e3cdde96e254636cc58b4169d3fd32328d9a8ec",
+    "tokenizer.json": "79e3e522635f3171300913bb421464a87de6222182a0570b9b2ccba2a964b2b4",
+    "tokenizer_config.json": "177c7b61e616fecb84c17ce0591acb92c6c4d60e9ac5ababfb940ff23bbcd424"
+  },
+  "restored_parameter_count": 9,
+  "restored_tensors_exact": true,
+  "protected_prompt_tokens": {
+    "47": {
+      "prompt_sha256": "32eb750d7db375df72e8e93d929ac3e5c7a365d50a915202c62db6e3d675877f",
+      "prompt_tokens": 401
+    },
+    "107": {
+      "prompt_sha256": "388d75fc27a48d38ccb3fd0258a72ddfd1b9dbb0852b0b058057521e8eaafb51",
+      "prompt_tokens": 457
+    }
+  },
+  "grammar_sha256": "1f4124cd20bdfdfd41ba406703bb2d123ebb26190fd3834cbb3df32dcb1cc000",
+  "grammar_compiled": true,
+  "grammar_selector": "greedy",
+  "ranked_cuda_control_passed": true,
+  "xgrammar_version": "0.2.2",
+  "xgrammar_site": "/grand/EVITA/eric-spencer/tla-checkpoint-preflight-deps/xgrammar-0.2.2-cp312",
+  "records": [
+    {
+      "row": 47,
+      "arm": "existing_decoder",
+      "generation": 0,
+      "generation_role": "deterministic_replicate",
+      "sampling_mode": "greedy",
+      "independent_sample": false,
+      "generation_seed": 20261481,
+      "base_prompt_sha256": "32eb750d7db375df72e8e93d929ac3e5c7a365d50a915202c62db6e3d675877f",
+      "raw_reply": "---- MODULE W4Od2m7p4t2 ----\nEXTENDS Naturals\nCONSTANTS Dispatchers, Cap\nVARIABLES active, readSnapshots\nvars == <<active, readSnapshots>>\n\nInit ==\n  /\\ active = 0\n  /\\ readSnapshots = [d \\in Dispatchers |-> 0]\n\nActiveWithinCapacity == active <= Cap\n\nNext ==\n  /\\ active' = active\n  /\\ UNCHANGED readSnapshots\n  \\/ \\E d \\in Dispatchers : readSnapshots[d] < Cap\n    /\\ readSnapshots' = [d \\in Dispatchers |-> IF d = d' THEN readSnapshots[d] + 1 ELSE readSnapshots[d]]\n    /\\ UNCHANGED <<active>>\n  \\/ \\E r \\in Dispatchers, d \\in Dispatchers : readSnapshots[r] < Cap\n    /\\ UNCHANGED <<active, readSnapshots>>\n\nSpec == Init /\\ [][Next]_vars\n\n====",
+      "actual_prompt_token_count": 401,
+      "actual_prompt_tokens_match_frozen": true,
+      "raw_reply_sha256": "bf57bae55d2d2621d6d514a0234387cb58b9073b849db061409f6f5b59df2ad0",
+      "output_token_count": 207,
+      "grammar_enforced": false,
+      "resolved_decode": {
+        "stored_num_beams": null,
+        "effective_num_beams": 1,
+        "effective_do_sample": false,
+        "effective_mode": "greedy_search"
+      },
+      "selector_evidence": null
+    },
+    {
+      "row": 47,
+      "arm": "existing_decoder",
+      "generation": 1,
+      "generation_role": "deterministic_replicate",
+      "sampling_mode": "greedy",
+      "independent_sample": false,
+      "generation_seed": 20261482,
+      "base_prompt_sha256": "32eb750d7db375df72e8e93d929ac3e5c7a365d50a915202c62db6e3d675877f",
+      "raw_reply": "---- MODULE W4Od2m7p4t2 ----\nEXTENDS Naturals\nCONSTANTS Dispatchers, Cap\nVARIABLES active, readSnapshots\nvars == <<active, readSnapshots>>\n\nInit ==\n  /\\ active = 0\n  /\\ readSnapshots = [d \\in Dispatchers |-> 0]\n\nActiveWithinCapacity == active <= Cap\n\nNext ==\n  /\\ active' = active\n  /\\ UNCHANGED readSnapshots\n  \\/ \\E d \\in Dispatchers : readSnapshots[d] < Cap\n    /\\ readSnapshots' = [d \\in Dispatchers |-> IF d = d' THEN readSnapshots[d] + 1 ELSE readSnapshots[d]]\n    /\\ UNCHANGED <<active>>\n  \\/ \\E r \\in Dispatchers, d \\in Dispatchers : readSnapshots[r] < Cap\n    /\\ UNCHANGED <<active, readSnapshots>>\n\nSpec == Init /\\ [][Next]_vars\n\n====",
+      "actual_prompt_token_count": 401,
+      "actual_prompt_tokens_match_frozen": true,
+      "raw_reply_sha256": "bf57bae55d2d2621d6d514a0234387cb58b9073b849db061409f6f5b59df2ad0",
+      "output_token_count": 207,
+      "grammar_enforced": false,
+      "resolved_decode": {
+        "stored_num_beams": null,
+        "effective_num_beams": 1,
+        "effective_do_sample": false,
+        "effective_mode": "greedy_search"
+      },
+      "selector_evidence": null
+    },
+    {
+      "row": 47,
+      "arm": "grammar_enforced",
+      "generation": 0,
+      "generation_role": "deterministic_replicate",
+      "sampling_mode": "greedy",
+      "independent_sample": false,
+      "generation_seed": 20261481,
+      "base_prompt_sha256": "32eb750d7db375df72e8e93d929ac3e5c7a365d50a915202c62db6e3d675877f",
+      "raw_reply": "---- MODULE W4Od2m7p4t2 ----\nEXTENDS Naturals\nCONSTANTS Dispatchers, Cap\nVARIABLES active, readSnapshots\nvars == <<active, readSnapshots>>\n\nInit ==\n  active = 0\n  readSnapshots = 0s\n\n\\* A dispatcher attempts to admit a robot\n\\* The compare-and-swap succeeds only if the snapshot still equals the live count\n\\* and the count is below the zone capacity\n\\* If another dispatcher changed the count in between, the snapshot is stale\n\\* and the dispatcher aborts and re-reads\n\\* An active robot may leave, decrementing the count\n\\* The model tracks the active count and each dispatcher's read snapshot\n\\* The safety property: the number of active robots in the zone never exceeds\n\\* the zone capacity\n\\* A dispatcher attempts to admit a robot\n\\* The compare-and-swap succeeds only if the snapshot still equals the live count\n\\* and the count is below the zone capacity\n\\* If another dispatcher changed the count in between, the snapshot is stale\n\\* and the dispatcher aborts and re-reads\n\\* An active robot may leave, decrementing the count\n\\* The model tracks the active count and each dispatcher's read snapshot\n\\* The safety property: the number of active robots in the zone never exceeds\n\\* the zone capacity\n\\* A dispatcher attempts to admit a robot\n\\* The compare-and-swap succeeds only if the snapshot still equals the live count\n\\* and the count is below the zone capacity\n\\* If another dispatcher changed the count in between, the snapshot is stale\n\\* and the dispatcher aborts and re-reads\n\\* An active robot may leave, decrementing the count\n\\* The model tracks the active count and each dispatcher's read snapshot\n\\* The safety property: the number of active robots in the zone never exceeds\n\\* the zone capacity\n\\* A dispatcher attempts to admit a robot\n\\* The compare-and-swap succeeds only if the snapshot still equals the live count\n\\* and the count is below the zone capacity\n\\* If another dispatcher changed the count in between, the snapshot is stale\n\\* and the dispatcher aborts and re-reads\n\\* An active robot may leave, decrementing the count\n\\* The model tracks the active count and each dispatcher's read snapshot\n\\* The safety property: the number of active robots in the zone never exceeds\n\\* the zone capacity\n\\* A dispatcher attempts to admit a robot\n\\* The compare-and-swap succeeds only if the snapshot still equals the live count\n\\* and the count is below the zone capacity\n\\* If another dispatcher changed the count in between, the snapshot is stale\n\\* and the dispatcher aborts and re-reads\n\\* An active robot may leave, decrementing the count\n\\* The model tracks the active count and each dispatcher's read snapshot\n\\* The safety property: the number of active robots in the zone never exceeds\n\\* the zone capacity\n\\* A dispatcher attempts to admit a robot\n\\* The compare-and-swap succeeds only if the snapshot still equals the live count\n\\* and the count is below the zone capacity\n\\* If another dispatcher changed the count in between, the snapshot is stale\n\\* and the dispatcher aborts and re-reads\n\\* An active robot may leave, decrementing the count\n\\* The model tracks the active count and each dispatcher's read snapshot\n\\* The safety property: the number of active robots in the zone never exceeds\n\\* the zone capacity\n\\* A dispatcher attempts to admit a robot\n\\* The compare-and-swap succeeds only if the snapshot still equals the live count\n\\* and the count is below the zone capacity\n\\* If another dispatcher changed the count in between, the snapshot is stale\n\\* and the dispatcher aborts and re-reads\n\\* An active robot may leave, decrementing the count\n\\* The model tracks the active count and each dispatcher's read snapshot\n\\* The safety property: the number of active robots in the zone never exceeds\n\\* the zone capacity\n\\* A dispatcher attempts to admit a robot\n\\* The compare-and-swap succeeds only if the snapshot still equals the live count\n\\* and the count is below the zone capacity\n\\* If another dispatcher changed the count in between, the snapshot is stale\n\\* and the dispatcher aborts and re-reads\n\\* An active robot may leave, decrementing the count\n\\* The model tracks the active count and each dispatcher's read snapshot\n\\* The safety property: the number of active robots in the zone never exceeds\n\\* the zone capacity\n\\* A dispatcher attempts to admit a robot\n\\* The compare-and-swap succeeds",
+      "actual_prompt_token_count": 401,
+      "actual_prompt_tokens_match_frozen": true,
+      "raw_reply_sha256": "2bcaed9cadeb662c1ecd933fe554cf529b2efd65cc8e4205cc09adac431cbcac",
+      "output_token_count": 1024,
+      "grammar_enforced": true,
+      "resolved_decode": {
+        "stored_num_beams": null,
+        "effective_num_beams": 1,
+        "effective_do_sample": false,
+        "effective_mode": "greedy_search"
+      },
+      "selector_evidence": {
+        "method": "ranked_greedy_same_grammar",
+        "full_mask_audits": 4,
+        "candidates_checked": 1050,
+        "actual_generated_ids_match": true
+      }
+    },
+    {
+      "row": 47,
+      "arm": "grammar_enforced",
+      "generation": 1,
+      "generation_role": "deterministic_replicate",
+      "sampling_mode": "greedy",
+      "independent_sample": false,
+      "generation_seed": 20261482,
+      "base_prompt_sha256": "32eb750d7db375df72e8e93d929ac3e5c7a365d50a915202c62db6e3d675877f",
+      "raw_reply": "---- MODULE W4Od2m7p4t2 ----\nEXTENDS Naturals\nCONSTANTS Dispatchers, Cap\nVARIABLES active, readSnapshots\nvars == <<active, readSnapshots>>\n\nInit ==\n  active = 0\n  readSnapshots = 0s\n\n\\* A dispatcher attempts to admit a robot\n\\* The compare-and-swap succeeds only if the snapshot still equals the live count\n\\* and the count is below the zone capacity\n\\* If another dispatcher changed the count in between, the snapshot is stale\n\\* and the dispatcher aborts and re-reads\n\\* An active robot may leave, decrementing the count\n\\* The model tracks the active count and each dispatcher's read snapshot\n\\* The safety property: the number of active robots in the zone never exceeds\n\\* the zone capacity\n\\* A dispatcher attempts to admit a robot\n\\* The compare-and-swap succeeds only if the snapshot still equals the live count\n\\* and the count is below the zone capacity\n\\* If another dispatcher changed the count in between, the snapshot is stale\n\\* and the dispatcher aborts and re-reads\n\\* An active robot may leave, decrementing the count\n\\* The model tracks the active count and each dispatcher's read snapshot\n\\* The safety property: the number of active robots in the zone never exceeds\n\\* the zone capacity\n\\* A dispatcher attempts to admit a robot\n\\* The compare-and-swap succeeds only if the snapshot still equals the live count\n\\* and the count is below the zone capacity\n\\* If another dispatcher changed the count in between, the snapshot is stale\n\\* and the dispatcher aborts and re-reads\n\\* An active robot may leave, decrementing the count\n\\* The model tracks the active count and each dispatcher's read snapshot\n\\* The safety property: the number of active robots in the zone never exceeds\n\\* the zone capacity\n\\* A dispatcher attempts to admit a robot\n\\* The compare-and-swap succeeds only if the snapshot still equals the live count\n\\* and the count is below the zone capacity\n\\* If another dispatcher changed the count in between, the snapshot is stale\n\\* and the dispatcher aborts and re-reads\n\\* An active robot may leave, decrementing the count\n\\* The model tracks the active count and each dispatcher's read snapshot\n\\* The safety property: the number of active robots in the zone never exceeds\n\\* the zone capacity\n\\* A dispatcher attempts to admit a robot\n\\* The compare-and-swap succeeds only if the snapshot still equals the live count\n\\* and the count is below the zone capacity\n\\* If another dispatcher changed the count in between, the snapshot is stale\n\\* and the dispatcher aborts and re-reads\n\\* An active robot may leave, decrementing the count\n\\* The model tracks the active count and each dispatcher's read snapshot\n\\* The safety property: the number of active robots in the zone never exceeds\n\\* the zone capacity\n\\* A dispatcher attempts to admit a robot\n\\* The compare-and-swap succeeds only if the snapshot still equals the live count\n\\* and the count is below the zone capacity\n\\* If another dispatcher changed the count in between, the snapshot is stale\n\\* and the dispatcher aborts and re-reads\n\\* An active robot may leave, decrementing the count\n\\* The model tracks the active count and each dispatcher's read snapshot\n\\* The safety property: the number of active robots in the zone never exceeds\n\\* the zone capacity\n\\* A dispatcher attempts to admit a robot\n\\* The compare-and-swap succeeds only if the snapshot still equals the live count\n\\* and the count is below the zone capacity\n\\* If another dispatcher changed the count in between, the snapshot is stale\n\\* and the dispatcher aborts and re-reads\n\\* An active robot may leave, decrementing the count\n\\* The model tracks the active count and each dispatcher's read snapshot\n\\* The safety property: the number of active robots in the zone never exceeds\n\\* the zone capacity\n\\* A dispatcher attempts to admit a robot\n\\* The compare-and-swap succeeds only if the snapshot still equals the live count\n\\* and the count is below the zone capacity\n\\* If another dispatcher changed the count in between, the snapshot is stale\n\\* and the dispatcher aborts and re-reads\n\\* An active robot may leave, decrementing the count\n\\* The model tracks the active count and each dispatcher's read snapshot\n\\* The safety property: the number of active robots in the zone never exceeds\n\\* the zone capacity\n\\* A dispatcher attempts to admit a robot\n\\* The compare-and-swap succeeds",
+      "actual_prompt_token_count": 401,
+      "actual_prompt_tokens_match_frozen": true,
+      "raw_reply_sha256": "2bcaed9cadeb662c1ecd933fe554cf529b2efd65cc8e4205cc09adac431cbcac",
+      "output_token_count": 1024,
+      "grammar_enforced": true,
+      "resolved_decode": {
+        "stored_num_beams": null,
+        "effective_num_beams": 1,
+        "effective_do_sample": false,
+        "effective_mode": "greedy_search"
+      },
+      "selector_evidence": {
+        "method": "ranked_greedy_same_grammar",
+        "full_mask_audits": 4,
+        "candidates_checked": 1050,
+        "actual_generated_ids_match": true
+      }
+    },
+    {
+      "row": 107,
+      "arm": "existing_decoder",
+      "generation": 0,
+      "generation_role": "deterministic_replicate",
+      "sampling_mode": "greedy",
+      "independent_sample": false,
+      "generation_seed": 20262081,
+      "base_prompt_sha256": "388d75fc27a48d38ccb3fd0258a72ddfd1b9dbb0852b0b058057521e8eaafb51",
+      "raw_reply": "---- MODULE W4Od3m0p0t0 ----\nEXTENDS Naturals\nCONSTANTS Banks, Ledger, Lock\nVARIABLES snapshot, lastBank\nvars == <<Banks, Ledger, Lock, snapshot, lastBank>>\n\nInit ==\n    /\\ snapshot = \"none\"\n    /\\ lastBank = \"none\"\n    /\\ Lock = \"none\"\n    /\\ \\A b \\in Banks : b = \"idle\"\n\nNext ==\n    /\\ snapshot' = snapshot\n    \\/ snapshot' = \"none\"\n    /\\ UNCHANGED <<Banks, Ledger, lastBank>>\n\nSpec == Init /\\ [][Next]_vars\n\nMutEx == Init /\\ [][Next]_vars\n    /\\ \\A b \\in Banks : snapshot = \"none\" => Lock = \"none\"\n    /\\ \\A b \\in Banks : snapshot = \"none\" => snapshot' = \"none\"\n    /\\ \\A b \\in Banks : snapshot # \"none\" => snapshot' # \"none\"\n    /\\ \\A b \\in Banks : snapshot # \"none\" => Lock # \"none\"\n    /\\ \\A b \\in Banks : snapshot # \"none\" => snapshot' # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => Lock # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => snapshot' # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => Lock # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => snapshot' # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => Lock # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => snapshot' # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => Lock # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => snapshot' # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => Lock # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => snapshot' # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => Lock # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => snapshot' # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => Lock # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => snapshot' # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => Lock # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => snapshot' # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => Lock # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => snapshot' # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => Lock # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => snapshot' # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => Lock # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => snapshot' # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => Lock # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => snapshot' # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => Lock # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => snapshot' # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => Lock # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => snapshot' # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => Lock # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => snapshot' # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => Lock # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => snapshot' # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => Lock # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => snapshot' # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => Lock # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => snapshot' # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => Lock # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => snapshot' # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => Lock # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => snapshot' # snapshot",
+      "actual_prompt_token_count": 457,
+      "actual_prompt_tokens_match_frozen": true,
+      "raw_reply_sha256": "a929d1ba1c48b2c2d6f741c8f3a7948a5787aec94a8fbc328736d4456e530902",
+      "output_token_count": 1024,
+      "grammar_enforced": false,
+      "resolved_decode": {
+        "stored_num_beams": null,
+        "effective_num_beams": 1,
+        "effective_do_sample": false,
+        "effective_mode": "greedy_search"
+      },
+      "selector_evidence": null
+    },
+    {
+      "row": 107,
+      "arm": "existing_decoder",
+      "generation": 1,
+      "generation_role": "deterministic_replicate",
+      "sampling_mode": "greedy",
+      "independent_sample": false,
+      "generation_seed": 20262082,
+      "base_prompt_sha256": "388d75fc27a48d38ccb3fd0258a72ddfd1b9dbb0852b0b058057521e8eaafb51",
+      "raw_reply": "---- MODULE W4Od3m0p0t0 ----\nEXTENDS Naturals\nCONSTANTS Banks, Ledger, Lock\nVARIABLES snapshot, lastBank\nvars == <<Banks, Ledger, Lock, snapshot, lastBank>>\n\nInit ==\n    /\\ snapshot = \"none\"\n    /\\ lastBank = \"none\"\n    /\\ Lock = \"none\"\n    /\\ \\A b \\in Banks : b = \"idle\"\n\nNext ==\n    /\\ snapshot' = snapshot\n    \\/ snapshot' = \"none\"\n    /\\ UNCHANGED <<Banks, Ledger, lastBank>>\n\nSpec == Init /\\ [][Next]_vars\n\nMutEx == Init /\\ [][Next]_vars\n    /\\ \\A b \\in Banks : snapshot = \"none\" => Lock = \"none\"\n    /\\ \\A b \\in Banks : snapshot = \"none\" => snapshot' = \"none\"\n    /\\ \\A b \\in Banks : snapshot # \"none\" => snapshot' # \"none\"\n    /\\ \\A b \\in Banks : snapshot # \"none\" => Lock # \"none\"\n    /\\ \\A b \\in Banks : snapshot # \"none\" => snapshot' # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => Lock # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => snapshot' # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => Lock # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => snapshot' # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => Lock # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => snapshot' # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => Lock # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => snapshot' # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => Lock # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => snapshot' # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => Lock # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => snapshot' # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => Lock # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => snapshot' # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => Lock # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => snapshot' # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => Lock # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => snapshot' # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => Lock # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => snapshot' # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => Lock # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => snapshot' # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => Lock # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => snapshot' # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => Lock # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => snapshot' # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => Lock # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => snapshot' # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => Lock # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => snapshot' # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => Lock # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => snapshot' # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => Lock # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => snapshot' # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => Lock # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => snapshot' # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => Lock # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => snapshot' # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => Lock # snapshot\n    /\\ \\A b \\in Banks : snapshot # \"none\" => snapshot' # snapshot",
+      "actual_prompt_token_count": 457,
+      "actual_prompt_tokens_match_frozen": true,
+      "raw_reply_sha256": "a929d1ba1c48b2c2d6f741c8f3a7948a5787aec94a8fbc328736d4456e530902",
+      "output_token_count": 1024,
+      "grammar_enforced": false,
+      "resolved_decode": {
+        "stored_num_beams": null,
+        "effective_num_beams": 1,
+        "effective_do_sample": false,
+        "effective_mode": "greedy_search"
+      },
+      "selector_evidence": null
+    },
+    {
+      "row": 107,
+      "arm": "grammar_enforced",
+      "generation": 0,
+      "generation_role": "deterministic_replicate",
+      "sampling_mode": "greedy",
+      "independent_sample": false,
+      "generation_seed": 20262081,
+      "base_prompt_sha256": "388d75fc27a48d38ccb3fd0258a72ddfd1b9dbb0852b0b058057521e8eaafb51",
+      "raw_reply": "---- MODULE W4Od3m0p0t0 ----\nEXTENDS Naturals\nCONSTANTS Banks, Ledger, Lock\nVARIABLES snapshot, lastBank\nvars == <<Banks, Ledger, Lock, snapshot, lastBank>>\n\nInit ==\n    snapshot = \"none\"\n    lastBank = NONE\n    \\* Initialize the lock to none\n    \\* Initialize the last bank to none\n    \\* Initialize the snapshot to none\n    \\* Initialize the banks to idle\n    \\* Initialize the ledger to none\n    \\* Initialize the lock to none\n\n\\* A bank is in the critical section if it holds the lock\n\\* A bank is idle if it does not hold the lock\n\\* A bank is crashed if it is not idle\n\\* A bank is rebooting if it is crashed and it held the lock before crashing\n\\* A bank is posting if it is in the critical section\n\\* A bank is not posting if it is not in the critical section\n\\* A bank is the last bank to post if it is in the critical section\n\\* A bank is not the last bank to post if it is not in the critical section\n\\* The lock is held by a bank if it is not none\n\\* The lock is not held by a bank if it is none\n\\* The ledger is posted by a bank if it is in the critical section\n\\* The ledger is not posted by a bank if it is not in the critical section\n\\* The snapshot is up to date if it is the current state of the lock\n\\* The snapshot is stale if it is not the current state of the lock\n\\* A bank is posting to the ledger if it is in the critical section\n\\* A bank is not posting to the ledger if it is not in the critical section\n\\* The ledger is posted by a bank if it is in the critical section\n\\* The ledger is not posted by a bank if it is not in the critical section\n\\* A bank is the last bank to post to the ledger if it is in the critical section\n\\* A bank is not the last bank to post to the ledger if it is not in the critical section\n\\* The lock is held by a bank if it is not none\n\\* The lock is not held by a bank if it is none\n\\* A bank is in the critical section if it holds the lock\n\\* A bank is not in the critical section if it does not hold the lock\n\\* A bank is posting to the ledger if it is in the critical section\n\\* A bank is not posting to the ledger if it is not in the critical section\n\\* A bank is the last bank to post to the ledger if it is in the critical section\n\\* A bank is not the last bank to post to the ledger if it is not in the critical section\n\\* The ledger is posted by a bank if it is in the critical section\n\\* The ledger is not posted by a bank if it is not in the critical section\n\\* A bank is posting to the ledger if it is in the critical section\n\\* A bank is not posting to the ledger if it is not in the critical section\n\\* A bank is the last bank to post to the ledger if it is in the critical section\n\\* A bank is not the last bank to post to the ledger if it is not in the critical section\n\\* The lock is held by a bank if it is not none\n\\* The lock is not held by a bank if it is none\n\\* A bank is in the critical section if it holds the lock\n\\* A bank is not in the critical section if it does not hold the lock\n\\* A bank is posting to the ledger if it is in the critical section\n\\* A bank is not posting to the ledger if it is not in the critical section\n\\* A bank is the last bank to post to the ledger if it is in the critical section\n\\* A bank is not the last bank to post to the ledger if it is not in the critical section\n\\* The ledger is posted by a bank if it is in the critical section\n\\* The ledger is not posted by a bank if it is not in the critical section\n\\* A bank is posting to the ledger if it is in the critical section\n\\* A bank is not posting to the ledger if it is not in the critical section\n\\* A bank is the last bank to post to the ledger if it is in the critical section\n\\* A bank is not the last bank to post to the ledger if it is not in the critical section\n\\* The lock is held by a bank if it is not none\n\\* The lock is not held by a bank if it is none\n\\* A bank is in the critical section if it",
+      "actual_prompt_token_count": 457,
+      "actual_prompt_tokens_match_frozen": true,
+      "raw_reply_sha256": "b1d9ab803bcba65f0749b8eab2b8e2de88f51e354e96bbab0491bf11b07c0530",
+      "output_token_count": 1024,
+      "grammar_enforced": true,
+      "resolved_decode": {
+        "stored_num_beams": null,
+        "effective_num_beams": 1,
+        "effective_do_sample": false,
+        "effective_mode": "greedy_search"
+      },
+      "selector_evidence": {
+        "method": "ranked_greedy_same_grammar",
+        "full_mask_audits": 4,
+        "candidates_checked": 1036,
+        "actual_generated_ids_match": true
+      }
+    },
+    {
+      "row": 107,
+      "arm": "grammar_enforced",
+      "generation": 1,
+      "generation_role": "deterministic_replicate",
+      "sampling_mode": "greedy",
+      "independent_sample": false,
+      "generation_seed": 20262082,
+      "base_prompt_sha256": "388d75fc27a48d38ccb3fd0258a72ddfd1b9dbb0852b0b058057521e8eaafb51",
+      "raw_reply": "---- MODULE W4Od3m0p0t0 ----\nEXTENDS Naturals\nCONSTANTS Banks, Ledger, Lock\nVARIABLES snapshot, lastBank\nvars == <<Banks, Ledger, Lock, snapshot, lastBank>>\n\nInit ==\n    snapshot = \"none\"\n    lastBank = NONE\n    \\* Initialize the lock to none\n    \\* Initialize the last bank to none\n    \\* Initialize the snapshot to none\n    \\* Initialize the banks to idle\n    \\* Initialize the ledger to none\n    \\* Initialize the lock to none\n\n\\* A bank is in the critical section if it holds the lock\n\\* A bank is idle if it does not hold the lock\n\\* A bank is crashed if it is not idle\n\\* A bank is rebooting if it is crashed and it held the lock before crashing\n\\* A bank is posting if it is in the critical section\n\\* A bank is not posting if it is not in the critical section\n\\* A bank is the last bank to post if it is in the critical section\n\\* A bank is not the last bank to post if it is not in the critical section\n\\* The lock is held by a bank if it is not none\n\\* The lock is not held by a bank if it is none\n\\* The ledger is posted by a bank if it is in the critical section\n\\* The ledger is not posted by a bank if it is not in the critical section\n\\* The snapshot is up to date if it is the current state of the lock\n\\* The snapshot is stale if it is not the current state of the lock\n\\* A bank is posting to the ledger if it is in the critical section\n\\* A bank is not posting to the ledger if it is not in the critical section\n\\* The ledger is posted by a bank if it is in the critical section\n\\* The ledger is not posted by a bank if it is not in the critical section\n\\* A bank is the last bank to post to the ledger if it is in the critical section\n\\* A bank is not the last bank to post to the ledger if it is not in the critical section\n\\* The lock is held by a bank if it is not none\n\\* The lock is not held by a bank if it is none\n\\* A bank is in the critical section if it holds the lock\n\\* A bank is not in the critical section if it does not hold the lock\n\\* A bank is posting to the ledger if it is in the critical section\n\\* A bank is not posting to the ledger if it is not in the critical section\n\\* A bank is the last bank to post to the ledger if it is in the critical section\n\\* A bank is not the last bank to post to the ledger if it is not in the critical section\n\\* The ledger is posted by a bank if it is in the critical section\n\\* The ledger is not posted by a bank if it is not in the critical section\n\\* A bank is posting to the ledger if it is in the critical section\n\\* A bank is not posting to the ledger if it is not in the critical section\n\\* A bank is the last bank to post to the ledger if it is in the critical section\n\\* A bank is not the last bank to post to the ledger if it is not in the critical section\n\\* The lock is held by a bank if it is not none\n\\* The lock is not held by a bank if it is none\n\\* A bank is in the critical section if it holds the lock\n\\* A bank is not in the critical section if it does not hold the lock\n\\* A bank is posting to the ledger if it is in the critical section\n\\* A bank is not posting to the ledger if it is not in the critical section\n\\* A bank is the last bank to post to the ledger if it is in the critical section\n\\* A bank is not the last bank to post to the ledger if it is not in the critical section\n\\* The ledger is posted by a bank if it is in the critical section\n\\* The ledger is not posted by a bank if it is not in the critical section\n\\* A bank is posting to the ledger if it is in the critical section\n\\* A bank is not posting to the ledger if it is not in the critical section\n\\* A bank is the last bank to post to the ledger if it is in the critical section\n\\* A bank is not the last bank to post to the ledger if it is not in the critical section\n\\* The lock is held by a bank if it is not none\n\\* The lock is not held by a bank if it is none\n\\* A bank is in the critical section if it",
+      "actual_prompt_token_count": 457,
+      "actual_prompt_tokens_match_frozen": true,
+      "raw_reply_sha256": "b1d9ab803bcba65f0749b8eab2b8e2de88f51e354e96bbab0491bf11b07c0530",
+      "output_token_count": 1024,
+      "grammar_enforced": true,
+      "resolved_decode": {
+        "stored_num_beams": null,
+        "effective_num_beams": 1,
+        "effective_do_sample": false,
+        "effective_mode": "greedy_search"
+      },
+      "selector_evidence": {
+        "method": "ranked_greedy_same_grammar",
+        "full_mask_audits": 4,
+        "candidates_checked": 1036,
+        "actual_generated_ids_match": true
+      }
+    }
+  ],
+  "producer": "direct_checkpoint_generation",
+  "gate_claim": false
+}

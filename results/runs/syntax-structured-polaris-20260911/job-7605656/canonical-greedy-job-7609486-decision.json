@@ -1,0 +1,81 @@
+{
+  "observed_utc": "2026-09-12T00:34:30Z",
+  "job_id": "7609486",
+  "generation_complete": true,
+  "terminal": {
+    "pbs_state": "F",
+    "exit_status": 0,
+    "walltime": "00:03:56"
+  },
+  "contract": "Frozen two TRAIN rows47/107, armsordinary/canonicalgreedy, two deterministic repeats;8planned,8observed.",
+  "provenance": {
+    "checkpoint_sha256": "b0399b51aed001051fe200751b3087fc008482ca9dfeb64eb12884f71eee3bb6",
+    "restored_tensors_exact": true,
+    "restored_parameter_count": 9,
+    "prompt_tokens": [
+      401,
+      457
+    ],
+    "all_actual_prompt_ids_match_frozen": true,
+    "ranked_cuda_control_passed": true,
+    "full_mask_audits_per_grammar_candidate": 4,
+    "all_generated_ids_match_selector": true
+  },
+  "unchanged_score": {
+    "controls_ok": true,
+    "ordinary": {
+      "model_sany_reject": 4
+    },
+    "grammar": {
+      "unmeasured_infrastructure": 4
+    },
+    "certified_passes": 0,
+    "denominator": 8
+  },
+  "raw_diagnostic": "All4 grammar records reach1024tokens repeating comments with no module terminator. SANY prints Lexical error ... EOF, Fatal errors while parsing, matching-module Could not parse and standard AbortException. Existing wrapper recognizes Parse Error abort but not lexical abort; original unknown classifications preserved. This is not a successful model result.",
+  "ordinary_baseline_comparison": [
+    {
+      "row": 47,
+      "generation": 0,
+      "old_sha": "bf57bae55d2d2621d6d514a0234387cb58b9073b849db061409f6f5b59df2ad0",
+      "current_sha": "bf57bae55d2d2621d6d514a0234387cb58b9073b849db061409f6f5b59df2ad0",
+      "identical": true,
+      "prompt_count": 401,
+      "seed_unchanged": true
+    },
+    {
+      "row": 47,
+      "generation": 1,
+      "old_sha": "bf57bae55d2d2621d6d514a0234387cb58b9073b849db061409f6f5b59df2ad0",
+      "current_sha": "bf57bae55d2d2621d6d514a0234387cb58b9073b849db061409f6f5b59df2ad0",
+      "identical": true,
+      "prompt_count": 401,
+      "seed_unchanged": true
+    },
+    {
+      "row": 107,
+      "generation": 0,
+      "old_sha": "a929d1ba1c48b2c2d6f741c8f3a7948a5787aec94a8fbc328736d4456e530902",
+      "current_sha": "a929d1ba1c48b2c2d6f741c8f3a7948a5787aec94a8fbc328736d4456e530902",
+      "identical": true,
+      "prompt_count": 457,
+      "seed_unchanged": true
+    },
+    {
+      "row": 107,
+      "generation": 1,
+      "old_sha": "a929d1ba1c48b2c2d6f741c8f3a7948a5787aec94a8fbc328736d4456e530902",
+      "current_sha": "a929d1ba1c48b2c2d6f741c8f3a7948a5787aec94a8fbc328736d4456e530902",
+      "identical": true,
+      "prompt_count": 457,
+      "seed_unchanged": true
+    }
+  ],
+  "decision": "No quality gain or promotion. Retire unchanged canonical-greedy model runs and larger-budget retries. Preserve verified ranked selector mechanism and all raw failures.",
+  "next_discriminator": "Compare untrainedbase, exactrestoredparent, finalchild with identicalfrozenprompts/greedy1024 and no grammar,no training,no references added. Base generation missing from current lineage evidence;6planned diagnostic outputs ononeGPU15min max.",
+  "limitations": [
+    "Two TRAIN rows cannot establish unseen generalization.",
+    "Canonicalgrammar intentionally excludes80rawreference spellings.",
+    "No complete grammar,SANY,TLC,nonvacuity orTLAPS qualityclaim."
+  ]
+}

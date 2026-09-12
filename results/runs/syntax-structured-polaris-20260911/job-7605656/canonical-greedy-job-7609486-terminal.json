@@ -1,0 +1,14 @@
+{
+  "observed_utc": "2026-09-12T00:32:45Z",
+  "job_id": "7609486",
+  "pbs_state": "F",
+  "exit_status": 0,
+  "resources_used_walltime": "00:03:56",
+  "requested_gpus": 1,
+  "requested_walltime": "00:15:00",
+  "owned_queue_after": "empty",
+  "saved_candidates": 8,
+  "generation_receipt_complete": true,
+  "score": "in_progress",
+  "gate_claim": false
+}

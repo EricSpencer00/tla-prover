@@ -75,6 +75,22 @@ An inconclusive measurement requires fixing the measurement before interpreting 
 
 ## Recorded lessons
 
+### Canonical ranked greedy: execution succeeds, completion does not
+
+- Job7609486 completed all8 candidates in3:56, exit0, with exact restored9
+  tensors, actual frozen401/457 prompts, CUDA controls and4 dense audits per
+  grammar candidate. All4 ordinary replies match7608834 byte-for-byte.
+- No candidate passed. Ordinary4 are SANY rejects; constrained4 repeat comments
+  to1024 tokens without closing the module. Raw SANY reports lexical EOF;
+  the unchanged wrapper labels its standard AbortException as infrastructure.
+  Preserve that accounting distinction and all8 planned outcomes.
+- Retire unchanged canonical-greedy model runs and larger-token retries. The
+  ranked mechanism is operational evidence, not model quality improvement.
+  Reopen only with a concrete completion/capability intervention. First compare
+  untrained base versus exact parent/child under unchanged prompts to distinguish
+  inherited limitations from checkpoint degradation; no reference answers added.
+- Evidence: `results/runs/syntax-structured-polaris-20260911/job-7605656/canonical-greedy-job-7609486-decision.json`.
+
 ### Stored generation configuration is not the effective decoding mode
 
 - Job7609386 passed its CUDA controls and saved2ordinary outputs, then our new

@@ -1,0 +1,47 @@
+{
+  "receipt_sha256": "b69d89aac051931397a8d0d888b49df677034fa069c23b95e76fe455eebb759a",
+  "raw_record_sha256": {
+    "row-107-existing_decoder-0.json": "a89915f4b7d3ef75be9b45f09a5314d56b12743c9a8b93345a341f25e3d59a0e",
+    "row-107-existing_decoder-1.json": "6b8a14641d7199e49bcf15eec6147750cc6efacc1b60400c6a087224476969e2",
+    "row-107-grammar_enforced-0.json": "ac4df5e311afdd5d581dc1c2bc646f60bfd74f3a4b341b77f8ef653c35c047fc",
+    "row-107-grammar_enforced-1.json": "9bc185179dd4ec1e04000d32d86bf2b61a04fc426cedd1d516526a0ac12c3d78",
+    "row-47-existing_decoder-0.json": "0334db9cdd078d1b7b1ec9d834f039060b920c57c3d3fd4fc3ee41d9fd433e58",
+    "row-47-existing_decoder-1.json": "91384715cc0fa3a00340f99fbd8f832487a7f401b79595ec5f44f61c48e2646c",
+    "row-47-grammar_enforced-0.json": "e3693d24912cccffe43c6cdf9784ebf0e9eff0a37e9ea6b359f59b8bb7b93f38",
+    "row-47-grammar_enforced-1.json": "3ac87dbacef811944c7a925dbefcfcc9e2c55bb60d3e9a9155393012e3513224"
+  },
+  "packet_sha256": "a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c",
+  "jar_sha256": "936a262061c914694dfd669a543be24573c45d5aa0ff20a8b96b23d01e050e88",
+  "scorer_sha256": "e684b2f776bee62cbec4aa86e2312aa12238b7adfafe91b903a1cdab8df507b5",
+  "classifier_sha256": "e197f5ee0037b71d039962b33318ee103c22f22585dc3172beb21cfa78f14013",
+  "process_runner_sha256": "761a1c0907289a992ca4f7a49196c6843d3b93ee75defea652119684a3cae79d",
+  "java": "/usr/bin/java",
+  "java_version": {
+    "command": [
+      "/usr/bin/java",
+      "-version"
+    ],
+    "cwd": "/Users/eric/GitHub/prove-TLA",
+    "root_pid": 65265,
+    "root_reaped": true,
+    "returncode": 0,
+    "output": "openjdk version \"25\" 2025-09-16 LTS\nOpenJDK Runtime Environment Temurin-25+36 (build 25+36-LTS)\nOpenJDK 64-Bit Server VM Temurin-25+36 (build 25+36-LTS, mixed mode, sharing)\n",
+    "seconds": 0.04326320899417624,
+    "timed_out": false,
+    "output_complete": true,
+    "output_limit": false,
+    "cleanup_complete": true,
+    "surviving_owned_processes": [],
+    "owned_processes": [
+      {
+        "pid": 65265,
+        "created": 1789173170.517465,
+        "pgid": 65265
+      }
+    ],
+    "signals": [],
+    "errors": [],
+    "execution_complete": true,
+    "containment": "Best-effort ancestry polling; instantaneous unobserved reparenting is not excluded"
+  }
+}

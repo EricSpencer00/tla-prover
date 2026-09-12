@@ -1,0 +1,90 @@
+[
+  {
+    "row": 47,
+    "arm": "existing_decoder",
+    "generation": 0,
+    "independent_sample": false,
+    "status": "model_sany_reject",
+    "candidate_sha256": "bf57bae55d2d2621d6d514a0234387cb58b9073b849db061409f6f5b59df2ad0",
+    "module_name": "W4Od2m7p4t2",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/canonical-greedy-job-7609486-sany/candidates/47-existing_decoder-0/sany.log"
+  },
+  {
+    "row": 47,
+    "arm": "existing_decoder",
+    "generation": 1,
+    "independent_sample": false,
+    "status": "model_sany_reject",
+    "candidate_sha256": "bf57bae55d2d2621d6d514a0234387cb58b9073b849db061409f6f5b59df2ad0",
+    "module_name": "W4Od2m7p4t2",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/canonical-greedy-job-7609486-sany/candidates/47-existing_decoder-1/sany.log"
+  },
+  {
+    "row": 47,
+    "arm": "grammar_enforced",
+    "generation": 0,
+    "independent_sample": false,
+    "status": "unmeasured_infrastructure",
+    "candidate_sha256": "2bcaed9cadeb662c1ecd933fe554cf529b2efd65cc8e4205cc09adac431cbcac",
+    "module_name": "W4Od2m7p4t2",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/canonical-greedy-job-7609486-sany/candidates/47-grammar_enforced-0/sany.log"
+  },
+  {
+    "row": 47,
+    "arm": "grammar_enforced",
+    "generation": 1,
+    "independent_sample": false,
+    "status": "unmeasured_infrastructure",
+    "candidate_sha256": "2bcaed9cadeb662c1ecd933fe554cf529b2efd65cc8e4205cc09adac431cbcac",
+    "module_name": "W4Od2m7p4t2",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/canonical-greedy-job-7609486-sany/candidates/47-grammar_enforced-1/sany.log"
+  },
+  {
+    "row": 107,
+    "arm": "existing_decoder",
+    "generation": 0,
+    "independent_sample": false,
+    "status": "model_sany_reject",
+    "candidate_sha256": "a929d1ba1c48b2c2d6f741c8f3a7948a5787aec94a8fbc328736d4456e530902",
+    "module_name": "W4Od3m0p0t0",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/canonical-greedy-job-7609486-sany/candidates/107-existing_decoder-0/sany.log"
+  },
+  {
+    "row": 107,
+    "arm": "existing_decoder",
+    "generation": 1,
+    "independent_sample": false,
+    "status": "model_sany_reject",
+    "candidate_sha256": "a929d1ba1c48b2c2d6f741c8f3a7948a5787aec94a8fbc328736d4456e530902",
+    "module_name": "W4Od3m0p0t0",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/canonical-greedy-job-7609486-sany/candidates/107-existing_decoder-1/sany.log"
+  },
+  {
+    "row": 107,
+    "arm": "grammar_enforced",
+    "generation": 0,
+    "independent_sample": false,
+    "status": "unmeasured_infrastructure",
+    "candidate_sha256": "b1d9ab803bcba65f0749b8eab2b8e2de88f51e354e96bbab0491bf11b07c0530",
+    "module_name": "W4Od3m0p0t0",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/canonical-greedy-job-7609486-sany/candidates/107-grammar_enforced-0/sany.log"
+  },
+  {
+    "row": 107,
+    "arm": "grammar_enforced",
+    "generation": 1,
+    "independent_sample": false,
+    "status": "unmeasured_infrastructure",
+    "candidate_sha256": "b1d9ab803bcba65f0749b8eab2b8e2de88f51e354e96bbab0491bf11b07c0530",
+    "module_name": "W4Od3m0p0t0",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/syntax-structured-polaris-20260911/job-7605656/canonical-greedy-job-7609486-sany/candidates/107-grammar_enforced-1/sany.log"
+  }
+]

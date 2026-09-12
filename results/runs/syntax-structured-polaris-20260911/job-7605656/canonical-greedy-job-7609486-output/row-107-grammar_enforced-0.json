@@ -1,0 +1,28 @@
+{
+  "row": 107,
+  "arm": "grammar_enforced",
+  "generation": 0,
+  "generation_role": "deterministic_replicate",
+  "sampling_mode": "greedy",
+  "independent_sample": false,
+  "generation_seed": 20262081,
+  "base_prompt_sha256": "388d75fc27a48d38ccb3fd0258a72ddfd1b9dbb0852b0b058057521e8eaafb51",
+  "raw_reply": "---- MODULE W4Od3m0p0t0 ----\nEXTENDS Naturals\nCONSTANTS Banks, Ledger, Lock\nVARIABLES snapshot, lastBank\nvars == <<Banks, Ledger, Lock, snapshot, lastBank>>\n\nInit ==\n    snapshot = \"none\"\n    lastBank = NONE\n    \\* Initialize the lock to none\n    \\* Initialize the last bank to none\n    \\* Initialize the snapshot to none\n    \\* Initialize the banks to idle\n    \\* Initialize the ledger to none\n    \\* Initialize the lock to none\n\n\\* A bank is in the critical section if it holds the lock\n\\* A bank is idle if it does not hold the lock\n\\* A bank is crashed if it is not idle\n\\* A bank is rebooting if it is crashed and it held the lock before crashing\n\\* A bank is posting if it is in the critical section\n\\* A bank is not posting if it is not in the critical section\n\\* A bank is the last bank to post if it is in the critical section\n\\* A bank is not the last bank to post if it is not in the critical section\n\\* The lock is held by a bank if it is not none\n\\* The lock is not held by a bank if it is none\n\\* The ledger is posted by a bank if it is in the critical section\n\\* The ledger is not posted by a bank if it is not in the critical section\n\\* The snapshot is up to date if it is the current state of the lock\n\\* The snapshot is stale if it is not the current state of the lock\n\\* A bank is posting to the ledger if it is in the critical section\n\\* A bank is not posting to the ledger if it is not in the critical section\n\\* The ledger is posted by a bank if it is in the critical section\n\\* The ledger is not posted by a bank if it is not in the critical section\n\\* A bank is the last bank to post to the ledger if it is in the critical section\n\\* A bank is not the last bank to post to the ledger if it is not in the critical section\n\\* The lock is held by a bank if it is not none\n\\* The lock is not held by a bank if it is none\n\\* A bank is in the critical section if it holds the lock\n\\* A bank is not in the critical section if it does not hold the lock\n\\* A bank is posting to the ledger if it is in the critical section\n\\* A bank is not posting to the ledger if it is not in the critical section\n\\* A bank is the last bank to post to the ledger if it is in the critical section\n\\* A bank is not the last bank to post to the ledger if it is not in the critical section\n\\* The ledger is posted by a bank if it is in the critical section\n\\* The ledger is not posted by a bank if it is not in the critical section\n\\* A bank is posting to the ledger if it is in the critical section\n\\* A bank is not posting to the ledger if it is not in the critical section\n\\* A bank is the last bank to post to the ledger if it is in the critical section\n\\* A bank is not the last bank to post to the ledger if it is not in the critical section\n\\* The lock is held by a bank if it is not none\n\\* The lock is not held by a bank if it is none\n\\* A bank is in the critical section if it holds the lock\n\\* A bank is not in the critical section if it does not hold the lock\n\\* A bank is posting to the ledger if it is in the critical section\n\\* A bank is not posting to the ledger if it is not in the critical section\n\\* A bank is the last bank to post to the ledger if it is in the critical section\n\\* A bank is not the last bank to post to the ledger if it is not in the critical section\n\\* The ledger is posted by a bank if it is in the critical section\n\\* The ledger is not posted by a bank if it is not in the critical section\n\\* A bank is posting to the ledger if it is in the critical section\n\\* A bank is not posting to the ledger if it is not in the critical section\n\\* A bank is the last bank to post to the ledger if it is in the critical section\n\\* A bank is not the last bank to post to the ledger if it is not in the critical section\n\\* The lock is held by a bank if it is not none\n\\* The lock is not held by a bank if it is none\n\\* A bank is in the critical section if it",
+  "actual_prompt_token_count": 457,
+  "actual_prompt_tokens_match_frozen": true,
+  "raw_reply_sha256": "b1d9ab803bcba65f0749b8eab2b8e2de88f51e354e96bbab0491bf11b07c0530",
+  "output_token_count": 1024,
+  "grammar_enforced": true,
+  "resolved_decode": {
+    "stored_num_beams": null,
+    "effective_num_beams": 1,
+    "effective_do_sample": false,
+    "effective_mode": "greedy_search"
+  },
+  "selector_evidence": {
+    "method": "ranked_greedy_same_grammar",
+    "full_mask_audits": 4,
+    "candidates_checked": 1036,
+    "actual_generated_ids_match": true
+  }
+}
