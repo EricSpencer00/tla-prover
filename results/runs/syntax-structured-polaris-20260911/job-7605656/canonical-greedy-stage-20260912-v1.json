@@ -1,0 +1,20 @@
+{
+  "observed_utc": "2026-09-12T00:09:05Z",
+  "remote_stage": "/home/eric-spencer/tla-canonical-greedy-generation-20260911-v1",
+  "files": {
+    "canonical.ebnf": "1f4124cd20bdfdfd41ba406703bb2d123ebb26190fd3834cbb3df32dcb1cc000",
+    "protected_canonical_greedy_polaris.pbs": "c8776860feb5dc08e0fe30cf8be7ccf8c20576cc5d90d794d17dd367f93afb29",
+    "protected_checkpoint_paired_generation.py": "03fb9e88c0226991d235966767637eef53eb22d34dad17d7b3012ea8737cfe0d",
+    "protected_checkpoint_preflight.py": "4c569421946fcd207028f16f12f90b24182817b7f89975c988277197195f15e8",
+    "protected_greedy_grammar_selector.py": "ac02d2dab9620161347879ba77809e3d68b23dade3ba9dd0269323868f26e1bd"
+  },
+  "stage_hashes_all_passed": true,
+  "runner_cli_passed": true,
+  "pbs_syntax_passed": true,
+  "frozen_packet_checkpoint_hashes_match": true,
+  "polaris_owned_queue_precheck": "empty",
+  "cpu_evidence": "ranked-greedy-cpu-20260912-v1-receipt.json",
+  "cuda_control": "not yet executed; required before weights",
+  "submission_identity": "{\"experiment\":\"direct-checkpoint-canonical-ranked-greedy-paired\",\"packet\":\"a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c\",\"checkpoint\":\"b0399b51aed001051fe200751b3087fc008482ca9dfeb64eb12884f71eee3bb6\",\"files\":{\"canonical.ebnf\":\"1f4124cd20bdfdfd41ba406703bb2d123ebb26190fd3834cbb3df32dcb1cc000\",\"protected_canonical_greedy_polaris.pbs\":\"c8776860feb5dc08e0fe30cf8be7ccf8c20576cc5d90d794d17dd367f93afb29\",\"protected_checkpoint_paired_generation.py\":\"03fb9e88c0226991d235966767637eef53eb22d34dad17d7b3012ea8737cfe0d\",\"protected_checkpoint_preflight.py\":\"4c569421946fcd207028f16f12f90b24182817b7f89975c988277197195f15e8\",\"protected_greedy_grammar_selector.py\":\"ac02d2dab9620161347879ba77809e3d68b23dade3ba9dd0269323868f26e1bd\"}}",
+  "submitted": false
+}
