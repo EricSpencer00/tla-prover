@@ -1,0 +1,20 @@
+{
+  "observed_utc": "2026-09-13T16:16:02Z",
+  "kind": "sequence_train_stage_upload_v2",
+  "manifest_sha256": "c052014d036c589c871769842bc7561c0c318cda83b4c6c53277baea6a0ff381",
+  "destination": "/home/eric-spencer/tla-sequence-train-20260913-v2",
+  "payload_files": [
+    "packet.json",
+    "plan.json",
+    "protected_sequence_train_polaris.pbs",
+    "tools/protected_checkpoint_preflight.py",
+    "tools/protected_sequence_objective_contract.py",
+    "tools/protected_sequence_preference_train.py"
+  ],
+  "remote_checksum_guard": "passed",
+  "remote_pbs_syntax_guard": "passed",
+  "remote_train_cli_guard": "passed",
+  "remote_pycache": "absent",
+  "gpu_submission_occurred": false,
+  "quality_or_gate_claim": false
+}

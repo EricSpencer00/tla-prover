@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 413
-- Verified UTC: 2026-09-13T16:06:22Z
+- Revision: 415
+- Verified UTC: 2026-09-13T16:16:02Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: local_work
 - Active job: none
-- Observation evidence: At 2026-09-13T16:06:22Z, the exact c052014d transfer was rejected by execution review before any remote directory, files, guards or GPU job were created because the latest direct broad approval did not name the new manifest and destination. Local stage checks remain valid. Polaris foreign tla-sweep7614217 remains queued; Sophia has no owned jobs.
+- Observation evidence: At 2026-09-13T16:16:02Z, exact stagec052014d was uploaded to the approved Polaris path. All six remote checksums, PBS syntax, train CLI and pycache-absence guards pass. Foreign Polaris tla-sweep7614217 remains queued, so the conditional GPU guard is not clear; no qsub was issued. Sophia has no owned jobs.
 - Latest completed result: Polaris7613858 failed before its first update (Exit_status1, scheduler walltime00:01:24) at diagnostic holdout-before scoring: RuntimeError float input versus bfloat16 lm_head. It is a mixed-precision evaluation-path defect, not model evidence; no child exists and no protected/gate claim is made.
-- Local work: The narrow mixed-precision repair is locally verified: holdout forwards now enter bf16 autocast while retaining fp32 final-layer updates. New append-only stage manifestc052014d has all six checksum-pinned files and preserves exactly8 non-protected updates, diagnostic-only12-pair holdout, child/reload guards and no protected/gate claim.
-- External blocker: Awaiting direct exact approval for manifestc052014d036c589c871769842bc7561c0c318cda83b4c6c53277baea6a0ff381 at /home/eric-spencer/tla-sequence-train-20260913-v2. The available runtime has no AgentClaw/Twilio caller; do not replace the rejected transfer with another egress route.
-- Next action: After direct exact approval, upload manifestc052014d036c589c871769842bc7561c0c318cda83b4c6c53277baea6a0ff381 to /home/eric-spencer/tla-sequence-train-20260913-v2 and run remote checksum/CLI guards. Then wait for fresh empty Polaris ownership before exactly one conditional 15-minute GPU retry; do not reuse the failed output path or claim quality from training.
+- Local work: Exact true-update stagec052014d is uploaded and remotely checksum/CLI verified with a final seven-file inventory. It retains exactly8 non-protected updates, diagnostic-only12-pair holdout, parent-child/reload guards and no protected generation, model-selection or gate claim.
+- External blocker: Polaris GPU submission is temporarily blocked by externally owned queued job7614217; do not race, alter, or claim it.
+- Next action: Monitor only foreign Polaris job7614217 to terminal/clear state. Immediately recheck ownership; if empty, submit exactly one approved15-minute GPU training job from the validated stage. Do not reuse the failed output path or claim quality from training completion.
 
 ## Objective and evidence rules
 
@@ -37,6 +37,8 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 
 ## Decisions
 
+- 2026-09-13T16:16:02Z: Exact c052014d stage uploaded; all six remote SHA256 checks, PBS syntax, CPU train CLI and pycache-absence guards pass. Existing Polaris job7614217 is foreign and queued, so retain the one-experiment no-race rule. No GPU was submitted and no quality/gate claim follows from staging.
+- 2026-09-13T16:14:53Z: Eric directly approved the exact c052014d manifest/destination, remote guards and one conditional15-minute Polaris GPU; he also granted standing authorization for goal-directed work. This clears the earlier transfer rejection for this prepared action. Retain the existing no-race guard for foreign Polaris job7614217 and preserve all frozen quality gates.
 - 2026-09-13T16:06:22Z: Execution review rejected c052014d transfer before remote execution because Eric's latest broad approval did not explicitly name the new manifest and destination. Preserve the rejection receipt; no directory/file/GPU side effect occurred. The AgentClaw/Twilio caller is not available in this runtime, and the rejected egress must not be retried or routed around. Require direct exact approval.
 - 2026-09-13T16:05:19Z: Eric directly authorized continuing the prepared bounded retry after the exact c052014d stage was disclosed. Fresh checks show the destination absent and local six-file manifest guards pass. Upload and remote CPU guards may proceed; foreign Polaris queue entry7614217 blocks the conditional GPU submission until a fresh empty ownership check.
 - 2026-09-13T04:50:37Z: The smallest repair wraps both no-grad holdout passes in bf16 autocast, matching the established training/preflight forwards while retaining fp32 final-layer state. The mixed-dtype regression test,11 focused tests, CLI/compile, shell syntax and six-file stage checks pass. New manifestc052014d at append-only destination /home/eric-spencer/tla-sequence-train-20260913-v2 needs exact approval before upload/retry.
@@ -249,16 +251,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 413,
-  "verified_utc": "2026-09-13T16:06:22Z",
+  "revision": 415,
+  "verified_utc": "2026-09-13T16:16:02Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "local_work",
   "active_job": null,
-  "observation_evidence": "At 2026-09-13T16:06:22Z, the exact c052014d transfer was rejected by execution review before any remote directory, files, guards or GPU job were created because the latest direct broad approval did not name the new manifest and destination. Local stage checks remain valid. Polaris foreign tla-sweep7614217 remains queued; Sophia has no owned jobs.",
+  "observation_evidence": "At 2026-09-13T16:16:02Z, exact stagec052014d was uploaded to the approved Polaris path. All six remote checksums, PBS syntax, train CLI and pycache-absence guards pass. Foreign Polaris tla-sweep7614217 remains queued, so the conditional GPU guard is not clear; no qsub was issued. Sophia has no owned jobs.",
   "last_result": "Polaris7613858 failed before its first update (Exit_status1, scheduler walltime00:01:24) at diagnostic holdout-before scoring: RuntimeError float input versus bfloat16 lm_head. It is a mixed-precision evaluation-path defect, not model evidence; no child exists and no protected/gate claim is made.",
-  "local_work": "The narrow mixed-precision repair is locally verified: holdout forwards now enter bf16 autocast while retaining fp32 final-layer updates. New append-only stage manifestc052014d has all six checksum-pinned files and preserves exactly8 non-protected updates, diagnostic-only12-pair holdout, child/reload guards and no protected/gate claim.",
-  "external_blocker": "Awaiting direct exact approval for manifestc052014d036c589c871769842bc7561c0c318cda83b4c6c53277baea6a0ff381 at /home/eric-spencer/tla-sequence-train-20260913-v2. The available runtime has no AgentClaw/Twilio caller; do not replace the rejected transfer with another egress route.",
-  "next_action": "After direct exact approval, upload manifestc052014d036c589c871769842bc7561c0c318cda83b4c6c53277baea6a0ff381 to /home/eric-spencer/tla-sequence-train-20260913-v2 and run remote checksum/CLI guards. Then wait for fresh empty Polaris ownership before exactly one conditional 15-minute GPU retry; do not reuse the failed output path or claim quality from training.",
+  "local_work": "Exact true-update stagec052014d is uploaded and remotely checksum/CLI verified with a final seven-file inventory. It retains exactly8 non-protected updates, diagnostic-only12-pair holdout, parent-child/reload guards and no protected generation, model-selection or gate claim.",
+  "external_blocker": "Polaris GPU submission is temporarily blocked by externally owned queued job7614217; do not race, alter, or claim it.",
+  "next_action": "Monitor only foreign Polaris job7614217 to terminal/clear state. Immediately recheck ownership; if empty, submit exactly one approved15-minute GPU training job from the validated stage. Do not reuse the failed output path or claim quality from training completion.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -328,6 +330,8 @@ These snapshots preserve old statements, including mistakes. They are not curren
     }
   ],
   "decisions": [
+    "2026-09-13T16:16:02Z: Exact c052014d stage uploaded; all six remote SHA256 checks, PBS syntax, CPU train CLI and pycache-absence guards pass. Existing Polaris job7614217 is foreign and queued, so retain the one-experiment no-race rule. No GPU was submitted and no quality/gate claim follows from staging.",
+    "2026-09-13T16:14:53Z: Eric directly approved the exact c052014d manifest/destination, remote guards and one conditional15-minute Polaris GPU; he also granted standing authorization for goal-directed work. This clears the earlier transfer rejection for this prepared action. Retain the existing no-race guard for foreign Polaris job7614217 and preserve all frozen quality gates.",
     "2026-09-13T16:06:22Z: Execution review rejected c052014d transfer before remote execution because Eric's latest broad approval did not explicitly name the new manifest and destination. Preserve the rejection receipt; no directory/file/GPU side effect occurred. The AgentClaw/Twilio caller is not available in this runtime, and the rejected egress must not be retried or routed around. Require direct exact approval.",
     "2026-09-13T16:05:19Z: Eric directly authorized continuing the prepared bounded retry after the exact c052014d stage was disclosed. Fresh checks show the destination absent and local six-file manifest guards pass. Upload and remote CPU guards may proceed; foreign Polaris queue entry7614217 blocks the conditional GPU submission until a fresh empty ownership check.",
     "2026-09-13T04:50:37Z: The smallest repair wraps both no-grad holdout passes in bf16 autocast, matching the established training/preflight forwards while retaining fp32 final-layer state. The mixed-dtype regression test,11 focused tests, CLI/compile, shell syntax and six-file stage checks pass. New manifestc052014d at append-only destination /home/eric-spencer/tla-sequence-train-20260913-v2 needs exact approval before upload/retry.",
@@ -789,7 +793,8 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "results/stages/tla-sequence-train-20260913-v2/SHA256SUMS",
     "tools/protected_sequence_preference_train.py",
     "harness/test_protected_sequence_preference_train.py",
-    "results/runs/sequence-train-20260913-v2/upload-authorization-rejection.json"
+    "results/runs/sequence-train-20260913-v2/upload-authorization-rejection.json",
+    "results/runs/sequence-train-20260913-v2/stage-upload-receipt.json"
   ]
 }
 -->
