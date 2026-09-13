@@ -1,0 +1,47 @@
+packet.json: OK
+plan.json: OK
+protected_sequence_train_polaris.pbs: OK
+tools/protected_checkpoint_preflight.py: OK
+tools/protected_sequence_objective_contract.py: OK
+tools/protected_sequence_preference_train.py: OK
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/291 [00:00<?, ?it/s]Loading weights: 100%|██████████| 291/291 [00:00<00:00, 9975.66it/s]
+Traceback (most recent call last):
+  File "/home/eric-spencer/tla-sequence-train-20260912-v1/tools/protected_sequence_preference_train.py", line 301, in <module>
+    main()
+  File "/home/eric-spencer/tla-sequence-train-20260912-v1/tools/protected_sequence_preference_train.py", line 297, in main
+    runtime_train(args.packet, args.plan, args.model, args.checkpoint, args.output)
+  File "/home/eric-spencer/tla-sequence-train-20260912-v1/tools/protected_sequence_preference_train.py", line 228, in runtime_train
+    holdout_before = mean_gap(net, holdout_pairs, device="cuda", context=no_grad)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/tla-sequence-train-20260912-v1/tools/protected_sequence_preference_train.py", line 115, in mean_gap
+    _, gap = objective(net, pair, device=device, context=context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/tla-sequence-train-20260912-v1/tools/protected_sequence_preference_train.py", line 74, in objective
+    positive = score_sequence(net, pair["prompt_tokens"], pair["positive_tokens"],
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/tla-sequence-train-20260912-v1/tools/protected_sequence_preference_train.py", line 68, in score_sequence
+    output = net(input_ids=ids, attention_mask=torch.ones_like(ids), use_cache=False)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1779, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1790, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/transformers/utils/generic.py", line 887, in wrapper
+    output = func(self, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/transformers/models/llama/modeling_llama.py", line 487, in forward
+    logits = self.lm_head(hidden_states[:, slice_indices, :])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1779, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1790, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/torch/nn/modules/linear.py", line 134, in forward
+    return F.linear(input, self.weight, self.bias)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: expected mat1 and mat2 to have the same dtype, but got: float != c10::BFloat16

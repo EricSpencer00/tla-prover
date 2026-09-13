@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 403
-- Verified UTC: 2026-09-12T22:53:54Z
+- Revision: 407
+- Verified UTC: 2026-09-13T04:50:37Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: local_work
 - Active job: none
-- Observation evidence: At 2026-09-12T22:53:54Z, exact authority was applied: manifestc7d93570 uploaded to /home/eric-spencer/tla-sequence-train-20260912-v1; all6 payload checks pass, staged CPU CLI/pycompile passed, and generated remote pycache was removed before final exact inventory/hash recheck. GPU guard does not pass: foreign queued Polaris tla-sweep7613610 remains, and Sophia foreign sweep jobs remain active/queued. No GPU job was submitted.
-- Latest completed result: Zero-update CUDA preflight succeeded on the exact longest pair: loss1.2650, gap-0.5953, gradients nonzero for all9 final-layer tensors, peak CUDA allocated20.50GB/reserved23.12GB, exact checkpoint/packet lineage, and zero parameter drift. The negative gap means the parent currently prefers the genuine invalid rollout over the valid target; this validates trainability and direction, not quality gain.
-- Local work: Exact true-update stagec7d93570 is uploaded and remotely checksum/CLI verified with final exact six-file inventory. It performs fixed8 non-protected updates,12-pair diagnostic-only holdout scores before/after, parent/child delta and exact child reload guards, append-only output, no protected training/model selection/gate claim. No GPU allocation yet.
-- External blocker: Conditional GPU guard is blocked by foreign queued Polaris tla-sweep7613610 and foreign Sophia sweep jobs185579,185580,185584-185589. Exact authority covers one Polaris GPU, but one-experiment ownership forbids competing submission. Do not alter or attribute foreign jobs; await a fresh empty Polaris ownership guard, then submit exactly once without seeking new authority.
-- Next action: Monitor foreign owned queues read-only. When Polaris ownership is empty, recheck exact stage/hash/checkpoint and submit the already authorized launcher exactly once. Retrieve/validate child and diagnostic receipt; do not claim quality until separate unchanged unsupplied protected evaluation.
+- Observation evidence: At 2026-09-13T04:47:10Z, Polaris7613858 terminally failed Exit_status1 after1:24, while remote checksums had passed and weights loaded. Before any optimizer update, non-autocast diagnostic holdout scoring fed fp32 final-layer output to the bf16 lm_head, raising an explicit dtype mismatch. No child checkpoint, step record, receipt, protected generation, or gate result exists.
+- Latest completed result: Polaris7613858 failed before its first update (Exit_status1, scheduler walltime00:01:24) at diagnostic holdout-before scoring: RuntimeError float input versus bfloat16 lm_head. It is a mixed-precision evaluation-path defect, not model evidence; no child exists and no protected/gate claim is made.
+- Local work: The narrow mixed-precision repair is locally verified: holdout forwards now enter bf16 autocast while retaining fp32 final-layer updates. New append-only stage manifestc052014d has all six checksum-pinned files and preserves exactly8 non-protected updates, diagnostic-only12-pair holdout, child/reload guards and no protected/gate claim.
+- External blocker: none verified
+- Next action: Await exact approval to upload manifestc052014d036c589c871769842bc7561c0c318cda83b4c6c53277baea6a0ff381 to /home/eric-spencer/tla-sequence-train-20260913-v2, run checksum/CLI guards and, only if they pass and fresh Polaris ownership is empty, submit exactly one 15-minute GPU retry. Do not reuse the failed output path or claim quality from training.
 
 ## Objective and evidence rules
 
@@ -30,13 +30,17 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 | TLA-05 | Done | Score the valid checkpoint comparison | 7609486 all8scored with0passes. Job7611118 exact supplied-prefix comparison scored all6 with4/4 controls: base0/2,parent2/2,child1/2; zero gate credit and no child promotion. |
 | TLA-06 | In progress | Find a new intervention that improves protected SANY | 7611118 establishes parent2/2 versus child1/2 only after72-81% canonical prefix; base0/2 and zero exact suffix matches. Completion capacity exists but child regresses row107. No full-prompt gain or quality promotion. |
 | TLA-06A | Done | Measure syntax-token preference training | 185259 completed 24 updates and exact reload; parent 0/2 and child 0/2 protected SANY. Negative result; do not repeat unchanged. |
-| TLA-06B | In progress | Establish a genuinely different structured training objective | Polaris7613214 actual8B/CUDA zero-update preflight Exit0: exact packet cb137c52/checkpoint b0399b51, longest-pair full forwards, loss1.2650, gap-0.5953, all9 gradient norms positive, peak reserved23.12GB and exact zero parameter drift. True-update stage manifestc7d93570 adds exactly8 non-protected updates plus12-pair diagnostic holdout, child reload and no-gate guards; local tests/smoke pass, no true update or model gain yet. |
+| TLA-06B | In progress | Establish a genuinely different structured training objective | Polaris7613214 actual8B/CUDA zero-update preflight Exit0: exact packet cb137c52/checkpoint b0399b51, longest-pair full forwards, loss1.2650, gap-0.5953, all9 gradient norms positive, peak reserved23.12GB and exact zero parameter drift. True-update job7613858 terminally failed before step1 because no-grad holdout forwards omitted bf16 autocast after the final layer was restored fp32. New stagec052014d locally tests the narrow precision repair. No child/quality result; a changed-bundle retry needs exact approval. |
 | TLA-07 | Not ready | Verify complete frozen SANY gate | Full frozen denominator has not passed 100%; no diagnostic promotion. |
 | TLA-08 | Not ready | Verify applicable TLC and non-vacuity | Prerequisite SANY gate and intended-behavior evidence incomplete. |
 | TLA-09 | Not ready | Verify genuine TLAPS model performance | Acceptance gates incomplete; same-node positive/negative TLAPS controls and bounded dry run required before retry. |
 
 ## Decisions
 
+- 2026-09-13T04:50:37Z: The smallest repair wraps both no-grad holdout passes in bf16 autocast, matching the established training/preflight forwards while retaining fp32 final-layer state. The mixed-dtype regression test,11 focused tests, CLI/compile, shell syntax and six-file stage checks pass. New manifestc052014d at append-only destination /home/eric-spencer/tla-sequence-train-20260913-v2 needs exact approval before upload/retry.
+- 2026-09-13T04:47:10Z: Polaris7613858 terminally failed Exit1 in1:24 before its first optimizer update because no-grad diagnostic holdout forwards ran outside bf16 autocast after the trainable final layer was fp32. Preserve the failed log; no child, protected generation, quality or gate result exists. Repair and locally test only the missing precision context; any changed-bundle upload/retry needs exact approval.
+- 2026-09-13T04:45:03Z: Fresh Polaris ownership guard cleared while exact staged hashes passed. Submitted exactly one already-authorized job7613858; scheduler attests running debug, oneGPU,15m. Do not submit a duplicate or infer model quality from training completion.
+- 2026-09-13T02:43:30Z: Fresh reconciliation confirms exact stage hashes still pass, but external Polaris sweep7613610 is now running and Sophia sweep work persists. Retain authorized true-update stage; no qsub until Polaris ownership is empty, no foreign-job intervention.
 - 2026-09-12T22:53:54Z: Eric directly authorized exact manifestc7d93570 upload, CPU guards and conditional oneGPU15m. Upload, all checksums, staged CPU smoke and final exact inventory pass. Generated remote pycache was removed without source changes. Existing foreign Polaris sweep7613610 makes the conditional GPU guard fail; no qsub issued, no duplicate/race.
 - 2026-09-12T21:43:58Z: Fresh reconciliation found external tla-sweep7613610 queued on Polaris and two running/seven queued separate tla-sweep jobs on Sophia. Stage destination remains absent. Preserve the one-experiment ownership rule: do not submit, alter or claim any foreign job while exact true-update authority remains pending.
 - 2026-09-12T20:43:08Z: Fresh reconciliation found Polaris empty/stage absent, but Sophia has externally-owned active/queued tla-sweep jobs185579-185589. They are not this owner's work and must not be claimed, altered or raced. No true-update upload/submission without exact authority and fresh Polaris-only guard.
@@ -243,16 +247,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 403,
-  "verified_utc": "2026-09-12T22:53:54Z",
+  "revision": 407,
+  "verified_utc": "2026-09-13T04:50:37Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "local_work",
   "active_job": null,
-  "observation_evidence": "At 2026-09-12T22:53:54Z, exact authority was applied: manifestc7d93570 uploaded to /home/eric-spencer/tla-sequence-train-20260912-v1; all6 payload checks pass, staged CPU CLI/pycompile passed, and generated remote pycache was removed before final exact inventory/hash recheck. GPU guard does not pass: foreign queued Polaris tla-sweep7613610 remains, and Sophia foreign sweep jobs remain active/queued. No GPU job was submitted.",
-  "last_result": "Zero-update CUDA preflight succeeded on the exact longest pair: loss1.2650, gap-0.5953, gradients nonzero for all9 final-layer tensors, peak CUDA allocated20.50GB/reserved23.12GB, exact checkpoint/packet lineage, and zero parameter drift. The negative gap means the parent currently prefers the genuine invalid rollout over the valid target; this validates trainability and direction, not quality gain.",
-  "local_work": "Exact true-update stagec7d93570 is uploaded and remotely checksum/CLI verified with final exact six-file inventory. It performs fixed8 non-protected updates,12-pair diagnostic-only holdout scores before/after, parent/child delta and exact child reload guards, append-only output, no protected training/model selection/gate claim. No GPU allocation yet.",
-  "external_blocker": "Conditional GPU guard is blocked by foreign queued Polaris tla-sweep7613610 and foreign Sophia sweep jobs185579,185580,185584-185589. Exact authority covers one Polaris GPU, but one-experiment ownership forbids competing submission. Do not alter or attribute foreign jobs; await a fresh empty Polaris ownership guard, then submit exactly once without seeking new authority.",
-  "next_action": "Monitor foreign owned queues read-only. When Polaris ownership is empty, recheck exact stage/hash/checkpoint and submit the already authorized launcher exactly once. Retrieve/validate child and diagnostic receipt; do not claim quality until separate unchanged unsupplied protected evaluation.",
+  "observation_evidence": "At 2026-09-13T04:47:10Z, Polaris7613858 terminally failed Exit_status1 after1:24, while remote checksums had passed and weights loaded. Before any optimizer update, non-autocast diagnostic holdout scoring fed fp32 final-layer output to the bf16 lm_head, raising an explicit dtype mismatch. No child checkpoint, step record, receipt, protected generation, or gate result exists.",
+  "last_result": "Polaris7613858 failed before its first update (Exit_status1, scheduler walltime00:01:24) at diagnostic holdout-before scoring: RuntimeError float input versus bfloat16 lm_head. It is a mixed-precision evaluation-path defect, not model evidence; no child exists and no protected/gate claim is made.",
+  "local_work": "The narrow mixed-precision repair is locally verified: holdout forwards now enter bf16 autocast while retaining fp32 final-layer updates. New append-only stage manifestc052014d has all six checksum-pinned files and preserves exactly8 non-protected updates, diagnostic-only12-pair holdout, child/reload guards and no protected/gate claim.",
+  "external_blocker": "",
+  "next_action": "Await exact approval to upload manifestc052014d036c589c871769842bc7561c0c318cda83b4c6c53277baea6a0ff381 to /home/eric-spencer/tla-sequence-train-20260913-v2, run checksum/CLI guards and, only if they pass and fresh Polaris ownership is empty, submit exactly one 15-minute GPU retry. Do not reuse the failed output path or claim quality from training.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -300,7 +304,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
       "id": "TLA-06B",
       "state": "In progress",
       "task": "Establish a genuinely different structured training objective",
-      "evidence": "Polaris7613214 actual8B/CUDA zero-update preflight Exit0: exact packet cb137c52/checkpoint b0399b51, longest-pair full forwards, loss1.2650, gap-0.5953, all9 gradient norms positive, peak reserved23.12GB and exact zero parameter drift. True-update stage manifestc7d93570 adds exactly8 non-protected updates plus12-pair diagnostic holdout, child reload and no-gate guards; local tests/smoke pass, no true update or model gain yet."
+      "evidence": "Polaris7613214 actual8B/CUDA zero-update preflight Exit0: exact packet cb137c52/checkpoint b0399b51, longest-pair full forwards, loss1.2650, gap-0.5953, all9 gradient norms positive, peak reserved23.12GB and exact zero parameter drift. True-update job7613858 terminally failed before step1 because no-grad holdout forwards omitted bf16 autocast after the final layer was restored fp32. New stagec052014d locally tests the narrow precision repair. No child/quality result; a changed-bundle retry needs exact approval."
     },
     {
       "id": "TLA-07",
@@ -322,6 +326,10 @@ These snapshots preserve old statements, including mistakes. They are not curren
     }
   ],
   "decisions": [
+    "2026-09-13T04:50:37Z: The smallest repair wraps both no-grad holdout passes in bf16 autocast, matching the established training/preflight forwards while retaining fp32 final-layer state. The mixed-dtype regression test,11 focused tests, CLI/compile, shell syntax and six-file stage checks pass. New manifestc052014d at append-only destination /home/eric-spencer/tla-sequence-train-20260913-v2 needs exact approval before upload/retry.",
+    "2026-09-13T04:47:10Z: Polaris7613858 terminally failed Exit1 in1:24 before its first optimizer update because no-grad diagnostic holdout forwards ran outside bf16 autocast after the trainable final layer was fp32. Preserve the failed log; no child, protected generation, quality or gate result exists. Repair and locally test only the missing precision context; any changed-bundle upload/retry needs exact approval.",
+    "2026-09-13T04:45:03Z: Fresh Polaris ownership guard cleared while exact staged hashes passed. Submitted exactly one already-authorized job7613858; scheduler attests running debug, oneGPU,15m. Do not submit a duplicate or infer model quality from training completion.",
+    "2026-09-13T02:43:30Z: Fresh reconciliation confirms exact stage hashes still pass, but external Polaris sweep7613610 is now running and Sophia sweep work persists. Retain authorized true-update stage; no qsub until Polaris ownership is empty, no foreign-job intervention.",
     "2026-09-12T22:53:54Z: Eric directly authorized exact manifestc7d93570 upload, CPU guards and conditional oneGPU15m. Upload, all checksums, staged CPU smoke and final exact inventory pass. Generated remote pycache was removed without source changes. Existing foreign Polaris sweep7613610 makes the conditional GPU guard fail; no qsub issued, no duplicate/race.",
     "2026-09-12T21:43:58Z: Fresh reconciliation found external tla-sweep7613610 queued on Polaris and two running/seven queued separate tla-sweep jobs on Sophia. Stage destination remains absent. Preserve the one-experiment ownership rule: do not submit, alter or claim any foreign job while exact true-update authority remains pending.",
     "2026-09-12T20:43:08Z: Fresh reconciliation found Polaris empty/stage absent, but Sophia has externally-owned active/queued tla-sweep jobs185579-185589. They are not this owner's work and must not be claimed, altered or raced. No true-update upload/submission without exact authority and fresh Polaris-only guard.",
@@ -772,7 +780,11 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "results/runs/syntax-structured-polaris-20260911/job-7605656/prefix-continuation-job-7611118-score-preflight-diagnosis.json",
     "results/runs/syntax-structured-polaris-20260911/job-7605656/prefix-continuation-job-7611118-sany-sandbox-failure.json",
     "results/runs/syntax-structured-polaris-20260911/job-7605656/prefix-continuation-job-7611118-sany/summary.json",
-    "results/runs/syntax-structured-polaris-20260911/job-7605656/prefix-continuation-job-7611118-decision.json"
+    "results/runs/syntax-structured-polaris-20260911/job-7605656/prefix-continuation-job-7611118-decision.json",
+    "results/runs/sequence-train-20260912-v1/job-7613858/job.7613858.log",
+    "results/stages/tla-sequence-train-20260913-v2/SHA256SUMS",
+    "tools/protected_sequence_preference_train.py",
+    "harness/test_protected_sequence_preference_train.py"
   ]
 }
 -->

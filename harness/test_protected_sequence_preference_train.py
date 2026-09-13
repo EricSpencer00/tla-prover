@@ -54,6 +54,25 @@ def test_complete_pair_objective_backpropagates_without_update():
     assert all(torch.equal(value, before[name]) for name, value in net.named_parameters())
 
 
+def test_holdout_scoring_uses_precision_context_for_mixed_dtype_forward():
+    class Tiny(torch.nn.Module):
+        def __init__(self):
+            super().__init__()
+            self.embed = torch.nn.Embedding(16, 6)
+            self.head = torch.nn.Linear(6, 16).to(torch.bfloat16)
+
+        def forward(self, input_ids, **_):
+            return type("Output", (), {"logits": self.head(self.embed(input_ids))})
+
+    pairs = [
+        {"prompt_tokens": [1, 2], "positive_tokens": [3], "negative_tokens": [4]},
+        {"prompt_tokens": [5, 6], "positive_tokens": [7], "negative_tokens": [8]},
+    ]
+    score = train.mean_gap(Tiny(), pairs, device="cpu", context=torch.no_grad,
+                           forward_context=lambda: torch.autocast("cpu", dtype=torch.bfloat16))
+    assert torch.isfinite(torch.tensor(score))
+
+
 def test_training_plan_admits_exact_disjoint_nonprotected_split(tmp_path):
     packet = packet20()
     path = tmp_path / "plan.json"
