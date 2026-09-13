@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 407
-- Verified UTC: 2026-09-13T04:50:37Z
+- Revision: 413
+- Verified UTC: 2026-09-13T16:06:22Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: local_work
 - Active job: none
-- Observation evidence: At 2026-09-13T04:47:10Z, Polaris7613858 terminally failed Exit_status1 after1:24, while remote checksums had passed and weights loaded. Before any optimizer update, non-autocast diagnostic holdout scoring fed fp32 final-layer output to the bf16 lm_head, raising an explicit dtype mismatch. No child checkpoint, step record, receipt, protected generation, or gate result exists.
+- Observation evidence: At 2026-09-13T16:06:22Z, the exact c052014d transfer was rejected by execution review before any remote directory, files, guards or GPU job were created because the latest direct broad approval did not name the new manifest and destination. Local stage checks remain valid. Polaris foreign tla-sweep7614217 remains queued; Sophia has no owned jobs.
 - Latest completed result: Polaris7613858 failed before its first update (Exit_status1, scheduler walltime00:01:24) at diagnostic holdout-before scoring: RuntimeError float input versus bfloat16 lm_head. It is a mixed-precision evaluation-path defect, not model evidence; no child exists and no protected/gate claim is made.
 - Local work: The narrow mixed-precision repair is locally verified: holdout forwards now enter bf16 autocast while retaining fp32 final-layer updates. New append-only stage manifestc052014d has all six checksum-pinned files and preserves exactly8 non-protected updates, diagnostic-only12-pair holdout, child/reload guards and no protected/gate claim.
-- External blocker: none verified
-- Next action: Await exact approval to upload manifestc052014d036c589c871769842bc7561c0c318cda83b4c6c53277baea6a0ff381 to /home/eric-spencer/tla-sequence-train-20260913-v2, run checksum/CLI guards and, only if they pass and fresh Polaris ownership is empty, submit exactly one 15-minute GPU retry. Do not reuse the failed output path or claim quality from training.
+- External blocker: Awaiting direct exact approval for manifestc052014d036c589c871769842bc7561c0c318cda83b4c6c53277baea6a0ff381 at /home/eric-spencer/tla-sequence-train-20260913-v2. The available runtime has no AgentClaw/Twilio caller; do not replace the rejected transfer with another egress route.
+- Next action: After direct exact approval, upload manifestc052014d036c589c871769842bc7561c0c318cda83b4c6c53277baea6a0ff381 to /home/eric-spencer/tla-sequence-train-20260913-v2 and run remote checksum/CLI guards. Then wait for fresh empty Polaris ownership before exactly one conditional 15-minute GPU retry; do not reuse the failed output path or claim quality from training.
 
 ## Objective and evidence rules
 
@@ -30,13 +30,15 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 | TLA-05 | Done | Score the valid checkpoint comparison | 7609486 all8scored with0passes. Job7611118 exact supplied-prefix comparison scored all6 with4/4 controls: base0/2,parent2/2,child1/2; zero gate credit and no child promotion. |
 | TLA-06 | In progress | Find a new intervention that improves protected SANY | 7611118 establishes parent2/2 versus child1/2 only after72-81% canonical prefix; base0/2 and zero exact suffix matches. Completion capacity exists but child regresses row107. No full-prompt gain or quality promotion. |
 | TLA-06A | Done | Measure syntax-token preference training | 185259 completed 24 updates and exact reload; parent 0/2 and child 0/2 protected SANY. Negative result; do not repeat unchanged. |
-| TLA-06B | In progress | Establish a genuinely different structured training objective | Polaris7613214 actual8B/CUDA zero-update preflight Exit0: exact packet cb137c52/checkpoint b0399b51, longest-pair full forwards, loss1.2650, gap-0.5953, all9 gradient norms positive, peak reserved23.12GB and exact zero parameter drift. True-update job7613858 terminally failed before step1 because no-grad holdout forwards omitted bf16 autocast after the final layer was restored fp32. New stagec052014d locally tests the narrow precision repair. No child/quality result; a changed-bundle retry needs exact approval. |
+| TLA-06B | In progress | Establish a genuinely different structured training objective | Polaris7613214 actual8B/CUDA zero-update preflight Exit0: exact packet cb137c52/checkpoint b0399b51, longest-pair full forwards, loss1.2650, gap-0.5953, all9 gradient norms positive, peak reserved23.12GB and exact zero parameter drift. True-update job7613858 terminally failed before step1 because no-grad holdout forwards omitted bf16 autocast after the final layer was restored fp32. New stagec052014d locally tests the narrow precision repair; its upload was rejected before transfer because the latest authorization lacked exact identifiers. No child/quality result; direct exact approval is required. |
 | TLA-07 | Not ready | Verify complete frozen SANY gate | Full frozen denominator has not passed 100%; no diagnostic promotion. |
 | TLA-08 | Not ready | Verify applicable TLC and non-vacuity | Prerequisite SANY gate and intended-behavior evidence incomplete. |
 | TLA-09 | Not ready | Verify genuine TLAPS model performance | Acceptance gates incomplete; same-node positive/negative TLAPS controls and bounded dry run required before retry. |
 
 ## Decisions
 
+- 2026-09-13T16:06:22Z: Execution review rejected c052014d transfer before remote execution because Eric's latest broad approval did not explicitly name the new manifest and destination. Preserve the rejection receipt; no directory/file/GPU side effect occurred. The AgentClaw/Twilio caller is not available in this runtime, and the rejected egress must not be retried or routed around. Require direct exact approval.
+- 2026-09-13T16:05:19Z: Eric directly authorized continuing the prepared bounded retry after the exact c052014d stage was disclosed. Fresh checks show the destination absent and local six-file manifest guards pass. Upload and remote CPU guards may proceed; foreign Polaris queue entry7614217 blocks the conditional GPU submission until a fresh empty ownership check.
 - 2026-09-13T04:50:37Z: The smallest repair wraps both no-grad holdout passes in bf16 autocast, matching the established training/preflight forwards while retaining fp32 final-layer state. The mixed-dtype regression test,11 focused tests, CLI/compile, shell syntax and six-file stage checks pass. New manifestc052014d at append-only destination /home/eric-spencer/tla-sequence-train-20260913-v2 needs exact approval before upload/retry.
 - 2026-09-13T04:47:10Z: Polaris7613858 terminally failed Exit1 in1:24 before its first optimizer update because no-grad diagnostic holdout forwards ran outside bf16 autocast after the trainable final layer was fp32. Preserve the failed log; no child, protected generation, quality or gate result exists. Repair and locally test only the missing precision context; any changed-bundle upload/retry needs exact approval.
 - 2026-09-13T04:45:03Z: Fresh Polaris ownership guard cleared while exact staged hashes passed. Submitted exactly one already-authorized job7613858; scheduler attests running debug, oneGPU,15m. Do not submit a duplicate or infer model quality from training completion.
@@ -247,16 +249,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 407,
-  "verified_utc": "2026-09-13T04:50:37Z",
+  "revision": 413,
+  "verified_utc": "2026-09-13T16:06:22Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "local_work",
   "active_job": null,
-  "observation_evidence": "At 2026-09-13T04:47:10Z, Polaris7613858 terminally failed Exit_status1 after1:24, while remote checksums had passed and weights loaded. Before any optimizer update, non-autocast diagnostic holdout scoring fed fp32 final-layer output to the bf16 lm_head, raising an explicit dtype mismatch. No child checkpoint, step record, receipt, protected generation, or gate result exists.",
+  "observation_evidence": "At 2026-09-13T16:06:22Z, the exact c052014d transfer was rejected by execution review before any remote directory, files, guards or GPU job were created because the latest direct broad approval did not name the new manifest and destination. Local stage checks remain valid. Polaris foreign tla-sweep7614217 remains queued; Sophia has no owned jobs.",
   "last_result": "Polaris7613858 failed before its first update (Exit_status1, scheduler walltime00:01:24) at diagnostic holdout-before scoring: RuntimeError float input versus bfloat16 lm_head. It is a mixed-precision evaluation-path defect, not model evidence; no child exists and no protected/gate claim is made.",
   "local_work": "The narrow mixed-precision repair is locally verified: holdout forwards now enter bf16 autocast while retaining fp32 final-layer updates. New append-only stage manifestc052014d has all six checksum-pinned files and preserves exactly8 non-protected updates, diagnostic-only12-pair holdout, child/reload guards and no protected/gate claim.",
-  "external_blocker": "",
-  "next_action": "Await exact approval to upload manifestc052014d036c589c871769842bc7561c0c318cda83b4c6c53277baea6a0ff381 to /home/eric-spencer/tla-sequence-train-20260913-v2, run checksum/CLI guards and, only if they pass and fresh Polaris ownership is empty, submit exactly one 15-minute GPU retry. Do not reuse the failed output path or claim quality from training.",
+  "external_blocker": "Awaiting direct exact approval for manifestc052014d036c589c871769842bc7561c0c318cda83b4c6c53277baea6a0ff381 at /home/eric-spencer/tla-sequence-train-20260913-v2. The available runtime has no AgentClaw/Twilio caller; do not replace the rejected transfer with another egress route.",
+  "next_action": "After direct exact approval, upload manifestc052014d036c589c871769842bc7561c0c318cda83b4c6c53277baea6a0ff381 to /home/eric-spencer/tla-sequence-train-20260913-v2 and run remote checksum/CLI guards. Then wait for fresh empty Polaris ownership before exactly one conditional 15-minute GPU retry; do not reuse the failed output path or claim quality from training.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -304,7 +306,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
       "id": "TLA-06B",
       "state": "In progress",
       "task": "Establish a genuinely different structured training objective",
-      "evidence": "Polaris7613214 actual8B/CUDA zero-update preflight Exit0: exact packet cb137c52/checkpoint b0399b51, longest-pair full forwards, loss1.2650, gap-0.5953, all9 gradient norms positive, peak reserved23.12GB and exact zero parameter drift. True-update job7613858 terminally failed before step1 because no-grad holdout forwards omitted bf16 autocast after the final layer was restored fp32. New stagec052014d locally tests the narrow precision repair. No child/quality result; a changed-bundle retry needs exact approval."
+      "evidence": "Polaris7613214 actual8B/CUDA zero-update preflight Exit0: exact packet cb137c52/checkpoint b0399b51, longest-pair full forwards, loss1.2650, gap-0.5953, all9 gradient norms positive, peak reserved23.12GB and exact zero parameter drift. True-update job7613858 terminally failed before step1 because no-grad holdout forwards omitted bf16 autocast after the final layer was restored fp32. New stagec052014d locally tests the narrow precision repair; its upload was rejected before transfer because the latest authorization lacked exact identifiers. No child/quality result; direct exact approval is required."
     },
     {
       "id": "TLA-07",
@@ -326,6 +328,8 @@ These snapshots preserve old statements, including mistakes. They are not curren
     }
   ],
   "decisions": [
+    "2026-09-13T16:06:22Z: Execution review rejected c052014d transfer before remote execution because Eric's latest broad approval did not explicitly name the new manifest and destination. Preserve the rejection receipt; no directory/file/GPU side effect occurred. The AgentClaw/Twilio caller is not available in this runtime, and the rejected egress must not be retried or routed around. Require direct exact approval.",
+    "2026-09-13T16:05:19Z: Eric directly authorized continuing the prepared bounded retry after the exact c052014d stage was disclosed. Fresh checks show the destination absent and local six-file manifest guards pass. Upload and remote CPU guards may proceed; foreign Polaris queue entry7614217 blocks the conditional GPU submission until a fresh empty ownership check.",
     "2026-09-13T04:50:37Z: The smallest repair wraps both no-grad holdout passes in bf16 autocast, matching the established training/preflight forwards while retaining fp32 final-layer state. The mixed-dtype regression test,11 focused tests, CLI/compile, shell syntax and six-file stage checks pass. New manifestc052014d at append-only destination /home/eric-spencer/tla-sequence-train-20260913-v2 needs exact approval before upload/retry.",
     "2026-09-13T04:47:10Z: Polaris7613858 terminally failed Exit1 in1:24 before its first optimizer update because no-grad diagnostic holdout forwards ran outside bf16 autocast after the trainable final layer was fp32. Preserve the failed log; no child, protected generation, quality or gate result exists. Repair and locally test only the missing precision context; any changed-bundle upload/retry needs exact approval.",
     "2026-09-13T04:45:03Z: Fresh Polaris ownership guard cleared while exact staged hashes passed. Submitted exactly one already-authorized job7613858; scheduler attests running debug, oneGPU,15m. Do not submit a duplicate or infer model quality from training completion.",
@@ -784,7 +788,8 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "results/runs/sequence-train-20260912-v1/job-7613858/job.7613858.log",
     "results/stages/tla-sequence-train-20260913-v2/SHA256SUMS",
     "tools/protected_sequence_preference_train.py",
-    "harness/test_protected_sequence_preference_train.py"
+    "harness/test_protected_sequence_preference_train.py",
+    "results/runs/sequence-train-20260913-v2/upload-authorization-rejection.json"
   ]
 }
 -->

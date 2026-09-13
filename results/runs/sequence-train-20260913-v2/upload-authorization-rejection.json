@@ -1,0 +1,13 @@
+{
+  "observed_utc": "2026-09-13T16:06:22Z",
+  "kind": "exact_upload_authorization_rejection_v1",
+  "manifest_sha256": "c052014d036c589c871769842bc7561c0c318cda83b4c6c53277baea6a0ff381",
+  "destination": "/home/eric-spencer/tla-sequence-train-20260913-v2",
+  "requested_scope": "Upload the checksum-pinned seven-file stage, run remote checksum and CLI guards, then conditionally submit one Polaris GPU for at most 15 minutes only after a fresh empty ownership check.",
+  "review_outcome": "rejected_before_execution",
+  "reason": "The current direct broad approval did not explicitly identify this new manifest and destination, so sensitive egress was not authorized by execution review.",
+  "remote_directory_created": false,
+  "files_transferred": false,
+  "gpu_submission_occurred": false,
+  "retry_policy": "Do not retry the same transfer. A direct user message naming this manifest and destination is required."
+}
