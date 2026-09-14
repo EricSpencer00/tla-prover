@@ -1,0 +1,16 @@
+{
+  "observed_utc": "2026-09-14T14:44:00Z",
+  "kind": "sequence_train_remote_precheck_v1",
+  "stage_manifest_sha256": "00d6e5f417d2e4a6400e7014c20bf48adb5ab76c0b0dca4869d13efc45205186",
+  "polaris_destination": "/home/eric-spencer/tla-sequence-train-20260914-v7",
+  "polaris_destination_state": "absent",
+  "polaris_owned_queue": "empty",
+  "sophia_owned_queue": "empty",
+  "authentication": "verified",
+  "home_quota_used_kib": 50609552,
+  "home_quota_hard_limit_kib": 52428800,
+  "home_quota_remaining_to_hard_limit_kib": 1819248,
+  "files_transferred": false,
+  "scheduler_submission": false,
+  "quality_or_gate_claim": false
+}

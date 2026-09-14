@@ -1,0 +1,59 @@
+{
+  "kind": "protected_sequence_training_plan_v1",
+  "split_seed": "tla-sequence-preference-split-20260912-v1",
+  "train_source_ids": [
+    "w4-fullmodule:w4opus::d9-m8-p4-t4",
+    "w4-fullmodule:w4opus::d10-m7-p4-t2",
+    "w4-fullmodule:w4opus::d12-m5-p1-t1",
+    "w4-fullmodule:w4opus::d13-m4-p0-t3",
+    "w4-fullmodule:w4opus::d7-m5-p4-t5",
+    "w4-fullmodule:w4opus::d11-m8-p4-t2",
+    "w4-fullmodule:w4opus::d18-m8-p6-t4",
+    "w4-fullmodule:w4opus::d18-m5-p6-t3"
+  ],
+  "holdout_source_ids": [
+    "w4-fullmodule:w4opus::d15-m0-p6-t2",
+    "w4-fullmodule:w4opus::d5-m2-p4-t5",
+    "w4-fullmodule:w4opus::d6-m8-p1-t5",
+    "w4-fullmodule:w4opus::d3-m5-p5-t2",
+    "w4-fullmodule:w4opus::d9-m3-p6-t0",
+    "w4-fullmodule:w4opus::d8-m0-p3-t2",
+    "w4-fullmodule:w4opus::d14-m4-p0-t4",
+    "w4-fullmodule:w4opus::d9-m8-p2-t5",
+    "w4-fullmodule:w4opus::d15-m8-p0-t5",
+    "w4-fullmodule:w4opus::d14-m8-p3-t1",
+    "w4-fullmodule:w4opus::d10-m0-p4-t2",
+    "w4-fullmodule:w4opus::d1-m7-p3-t2"
+  ],
+  "budget": {
+    "optimizer_updates": 8,
+    "learning_rate": 1e-07,
+    "margin": 0.25,
+    "positive_nll_anchor_weight": 0.1,
+    "max_seconds": 600,
+    "trainable_tensors": 9
+  },
+  "protected_training": false,
+  "protected_model_selection": false,
+  "internal_holdout_use": "diagnostic_only_no_gate_credit",
+  "acceptance_evaluation": {
+    "rows": [
+      47,
+      107
+    ],
+    "mode": "unchanged_unsupplied_frozen_prompts",
+    "denominator": 2,
+    "required_sany_passes": 2
+  },
+  "retention": {
+    "rows": [
+      47,
+      107
+    ],
+    "mode": "supplied_prefix_parent_replay",
+    "required_sany_passes": 2,
+    "credit": "zero"
+  },
+  "gate_claim": false,
+  "plan_sha256": "b314b22c1dad4852a4625d32b8fe432a3dd8373f10eb100c4c28df0e967863c8"
+}

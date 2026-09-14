@@ -1,0 +1,27 @@
+{
+  "observed_utc": "2026-09-14T14:42:41Z",
+  "kind": "sequence_train_stage_local_validation_v1",
+  "stage_manifest_sha256": "00d6e5f417d2e4a6400e7014c20bf48adb5ab76c0b0dca4869d13efc45205186",
+  "inventory": [
+    "SHA256SUMS",
+    "packet.json",
+    "plan.json",
+    "protected_sequence_train_polaris.pbs",
+    "tools/protected_checkpoint_preflight.py",
+    "tools/protected_sequence_objective_contract.py",
+    "tools/protected_sequence_preference_train.py"
+  ],
+  "payload_sha256_checks": true,
+  "pbs_syntax": true,
+  "train_cli_compile": true,
+  "pycache_absent": true,
+  "remote_exact_weight_probe": {
+    "status": true,
+    "bytes": 872451254,
+    "exact_reload": true,
+    "path_filesystem": "/home"
+  },
+  "optimizer_state_stored": false,
+  "optimizer_resume_supported": false,
+  "quality_or_gate_claim": false
+}

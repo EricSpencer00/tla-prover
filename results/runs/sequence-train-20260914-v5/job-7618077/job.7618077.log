@@ -1,0 +1,34 @@
+./packet.json: OK
+./plan.json: OK
+./protected_sequence_train_polaris.pbs: OK
+./tools/protected_checkpoint_preflight.py: OK
+./tools/protected_sequence_objective_contract.py: OK
+./tools/protected_sequence_preference_train.py: OK
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/291 [00:00<?, ?it/s]Loading weights: 100%|██████████| 291/291 [00:00<00:00, 9474.50it/s]
+Traceback (most recent call last):
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/torch/serialization.py", line 1004, in save
+    _save(
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/torch/serialization.py", line 1313, in _save
+    zip_file.write_record(name, storage, num_bytes)
+RuntimeError: basic_ios::clear: iostream error
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/eric-spencer/tla-sequence-train-20260914-v5/tools/protected_sequence_preference_train.py", line 331, in <module>
+    main()
+  File "/home/eric-spencer/tla-sequence-train-20260914-v5/tools/protected_sequence_preference_train.py", line 327, in main
+    runtime_train(args.packet, args.plan, args.model, args.checkpoint, args.output)
+  File "/home/eric-spencer/tla-sequence-train-20260914-v5/tools/protected_sequence_preference_train.py", line 309, in runtime_train
+    atomic_publish(output, write_result)
+  File "/home/eric-spencer/tla-sequence-train-20260914-v5/tools/protected_sequence_preference_train.py", line 144, in atomic_publish
+    writer(staging)
+  File "/home/eric-spencer/tla-sequence-train-20260914-v5/tools/protected_sequence_preference_train.py", line 295, in write_result
+    torch.save(child, child_path)
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/torch/serialization.py", line 1003, in save
+    with _open_zipfile_writer(f) as opened_zipfile:
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/torch/serialization.py", line 835, in __exit__
+    self.file_like.write_end_of_file()
+RuntimeError: [enforce fail at inline_container.cc:672] . unexpected pos 11712 vs 11606

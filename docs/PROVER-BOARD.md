@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 425
-- Verified UTC: 2026-09-14T12:51:42Z
+- Revision: 449
+- Verified UTC: 2026-09-14T14:50:00Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
-- Phase: unverified
+- Phase: local_work
 - Active job: none
-- Observation evidence: At 2026-09-14T12:51:42Z, fresh SSH attempts to both Polaris and Sophia failed at authentication with Permission denied (keyboard-interactive,hostbased), before destination or scheduler queries. Remote destination and owned-queue state are therefore unverified. No v4 transfer or scheduler submission occurred. Polaris7616283 remains terminal F with Exit_status1 after1:40 at result assembly, with no child checkpoint, steps, receipt, protected generation or gate claim.
-- Latest completed result: Polaris7616283 failed during result assembly after the scheduled true-update path, not during model scoring. The narrow repair restores the validated plan_sha256 in the returned plan, and result publication is now transactional so incomplete child/receipt directories cannot appear as completed outputs. This is infrastructure/workflow evidence only; no protected or gate claim is made.
-- Local work: Prepared append-only stage tla-sequence-train-20260914-v4 with the result-assembly repair, transactional result publication and regression coverage. Its seven-file SHA256 manifest is 82818d44; checksum, PBS syntax, train CLI, pycache and 12 focused sequence/plan tests pass. The persistent submission guard also fails closed on malformed or incomplete existing claims. The stage retains exactly8 non-protected updates, diagnostic-only12-pair holdout, parent-child/reload guards and no protected generation, model-selection or gate claim.
-- External blocker: Configured SSH authentication to Polaris and Sophia is failing before read-only destination/queue checks; remote ownership and destination state are unverified.
-- Next action: Restore the configured SSH authentication path, then repeat read-only destination and owned-queue checks. Only if those checks pass, upload v4 and run all remote guards; if no owned job is present, acquire one unique claim and submit at most one bounded15-minute Polaris GPU run. Do not duplicate7616283 or infer quality from training completion.
+- Observation evidence: At 2026-09-14T14:50:00Z, v7 job7618156 completed Exit_status0 after00:01:39 on one Polaris GPU. Independent remote validation confirms an872462359-byte exact fp32 9-tensor child, positive parent-child delta0.00544296, 8 updates, 12 disjoint diagnostic holdout pairs, exact reload and matching child hash. No protected or gate claim.
+- Latest completed result: Polaris7618156 successfully executed the unchanged 8-update sequence objective and published an exact-weight child. The child is finite fp32, differs from the parent, reloads exactly, and has no optimizer slots by explicit contract. Diagnostic holdout gap moved from-0.30565278 to-0.30429899; this is internal diagnostic evidence only, not protected SANY or quality promotion.
+- Local work: Prepared append-only v7 with manifest00d6e5f4. It stores the exact fp32 trainable tensors and explicitly records optimizer_state_stored=false and optimizer_resume_supported=false, omitting only the 1.745GB Adam slots that cannot fit the home hard quota. It retains exact reload validation, atomic publication, packet/plan, 8 updates, 12-pair diagnostic holdout, protected-row exclusion and all gate rules. Local payload checks, PBS syntax, trainer compile and pycache guards pass; the remote exact-weight probe passes reload=true.
+- External blocker: none verified
+- Next action: Run unchanged protected paired generation/score on base, parent and v7 child using the frozen prompts and denominator; use it only to measure the child and preserve zero credit unless the full frozen SANY/TLC/non-vacuity/TLAPS gates pass.
 
 ## Objective and evidence rules
 
@@ -30,13 +30,37 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 | TLA-05 | Done | Score the valid checkpoint comparison | 7609486 all8scored with0passes. Job7611118 exact supplied-prefix comparison scored all6 with4/4 controls: base0/2,parent2/2,child1/2; zero gate credit and no child promotion. |
 | TLA-06 | In progress | Find a new intervention that improves protected SANY | 7611118 establishes parent2/2 versus child1/2 only after72-81% canonical prefix; base0/2 and zero exact suffix matches. Completion capacity exists but child regresses row107. No full-prompt gain or quality promotion. |
 | TLA-06A | Done | Measure syntax-token preference training | 185259 completed 24 updates and exact reload; parent 0/2 and child 0/2 protected SANY. Negative result; do not repeat unchanged. |
-| TLA-06B | In progress | Establish a genuinely different structured training objective | Polaris7613214 actual8B/CUDA zero-update preflight Exit0: exact packet cb137c52/checkpoint b0399b51, longest-pair full forwards, loss1.2650, gap-0.5953, all9 gradient norms positive, peak reserved23.12GB and exact zero parameter drift. True-update job7613858 terminally failed before step1 because no-grad holdout forwards omitted bf16 autocast after the final layer was restored fp32. Repaired job7616283 reached the training schedule but failed at result assembly on missing plan_sha256; no child, receipt, protected generation or gate claim exists. New append-only v3 stage b57735df restores the validated plan identity and passes11 focused tests plus CLI/compile/stage guards. |
+| TLA-06B | In progress | Establish a genuinely different structured training objective | Polaris7613214 actual8B/CUDA zero-update preflight Exit0: exact packet cb137c52/checkpoint b0399b51, longest-pair full forwards, loss1.2650, gap-0.5953, all9 gradient norms positive, peak reserved23.12GB and exact zero parameter drift. True-update jobs7613858 and7616283 exposed and repaired precision/assembly defects;7618046 and7618116 exposed /home and EVITA-project /grand storage failures. v7 job7618156 completed Exit0: exact packet cb137c52, plan ae1c5bb5, parent b0399b51, 8 updates, 12 disjoint diagnostic holdout pairs, positive delta0.00544296, exact reload, finite fp32 state and no optimizer-resume claim. The internal holdout remains diagnostic only; no protected/gate claim exists. |
 | TLA-07 | Not ready | Verify complete frozen SANY gate | Full frozen denominator has not passed 100%; no diagnostic promotion. |
 | TLA-08 | Not ready | Verify applicable TLC and non-vacuity | Prerequisite SANY gate and intended-behavior evidence incomplete. |
 | TLA-09 | Not ready | Verify genuine TLAPS model performance | Acceptance gates incomplete; same-node positive/negative TLAPS controls and bounded dry run required before retry. |
 
 ## Decisions
 
+- 2026-09-14T14:50:00Z: Validated v7 job7618156: exact child hash7859aabd,872462359 bytes, 9 finite fp32 tensors, positive delta0.00544296, 8 updates, 12 disjoint diagnostic holdout pairs, exact reload and no protected/gate claim. Holdout gap moved-0.30565278 to-0.30429899; diagnostic only. Next unchanged protected measurement must preserve zero gate credit unless all gates pass.
+- 2026-09-14T14:50:00Z: Polaris v7 job7618156 terminally finished F Exit_status0 after00:01:39. Retrieve and validate the append-only exact-weight child before any judgment; no quality/gate claim.
+- 2026-09-14T14:47:47Z: Submitted exactly one v7 job7618156 under claimcfcf436 after fresh empty Polaris/Sophia owned queues. Scheduler attests running in debug on one GPU atx3005c0s25b0n0/0*64 with00:15:00 walltime. Monitor only; no quality/gate claim.
+- 2026-09-14T14:46:30Z: Corrected unique v7 claimcfcf436 acquired after fresh empty Polaris/Sophia owned queues. It binds manifest00d6e5f4, destination, /home output, exact packet/plan/parent and PBS/runner hashes, plus exact-weight-only/no-optimizer-resume contract. Submit one job only; no quality/gate claim.
+- 2026-09-14T14:45:21Z: Uploaded v7 manifest00d6e5f4; remote manifest,6 payload hashes, PBS/CLI, exact inventory, pycache, /home output and optimizer metadata guards pass. No qsub or quality/gate claim. Proceed only through a fresh final ownership check and one exact claim.
+- 2026-09-14T14:44:00Z: Fresh authenticated precheck cleared v7 destination absent and both Polaris/Sophia owned queues empty; home hard-quota headroom is sufficient for the exact-weight probe. Proceed with v7 transfer and remote guards only; no qsub or quality/gate claim.
+- 2026-09-14T14:42:41Z: Diagnosed v6 job7618116: legacy serialization reached the write but hit EDQUOT because EVITA project11196 on /grand is2445488 KiB over hard limit. Exact872MB fp32 trainable weights write/reload on /home; optimizer slots are omitted in v7 with explicit non-resumability metadata. No objective/data/schedule/gate change and no quality claim.
+- 2026-09-14T14:34:21Z: Polaris v6 job7618116 terminally finished F after00:01:36 with Exit_status1. Preserve terminal state, retrieve log/result and diagnose before any next action; no quality/gate claim.
+- 2026-09-14T14:32:10Z: Submitted exactly one v6 job7618116 under claim519644bc after fresh empty Polaris/Sophia owned queues. Scheduler attests running in debug on one GPU atx3112c0s7b1n0/0*64 with00:15:00 walltime. Monitor only; no quality/gate claim.
+- 2026-09-14T14:31:22Z: Corrected unique v6 claim519644bc acquired after fresh empty Polaris/Sophia owned queues. It binds manifestb642fe96, destination, /grand output, exact packet/plan/parent and PBS/runner hashes. Submit one job only; no quality/gate claim.
+- 2026-09-14T14:29:30Z: Uploaded v6 manifestb642fe96; remote manifest,6 payload hashes, PBS/CLI, exact inventory, pycache and /grand output guards pass. No qsub or quality/gate claim. Proceed only through a fresh final ownership check and one exact claim.
+- 2026-09-14T14:27:13Z: Fresh authenticated precheck cleared v6 destination absent and both Polaris/Sophia owned queues empty. Proceed with v6 transfer and remote guards only; no qsub or quality/gate claim.
+- 2026-09-14T14:24:30Z: Diagnosed v5 job7618077: standard PyTorch zip serialization fails on Polaris Lustre /grand even for a tiny tensor, while legacy serialization writes/reloads and /tmp standard serialization passes. Prepared v6 with only the legacy serializer repair; no objective, data, schedule or gate change and no quality/gate claim.
+- 2026-09-14T14:18:08Z: Polaris job7618077 terminally finished F after00:01:37 with Exit_status1. Preserve terminal state, retrieve log/result and diagnose before any next action; no quality/gate claim.
+- 2026-09-14T14:17:13Z: Submitted exactly one v5 job7618077 under claim8c358e4e after fresh empty Polaris/Sophia owned queues. Scheduler attests running in debug on one GPU atx3004c0s7b0n0/0*64 with00:15:00 walltime. Monitor only; no quality/gate claim.
+- 2026-09-14T14:14:12Z: Corrected v5 claim8c358e4e acquired after fresh empty Polaris/Sophia owned queues. It binds the board owner to manifest0adc3e92, /home stage destination, /grand output path, exact packet/plan/parent and PBS/runner hashes. Submit one job only; no quality/gate claim.
+- 2026-09-14T14:12:14Z: Uploaded v5 manifest0adc3e92 to the approved Polaris destination. Remote SHA256, PBS syntax, train CLI, exact inventory, pycache and /grand output-path guards passed; no qsub or quality/gate claim yet. Proceed only through a final ownership check and one unique submission claim.
+- 2026-09-14T14:09:44Z: Fresh Polaris/Sophia authentication and ownership checks succeeded; v5 destination is absent and both owned queues are empty. The storage-only v5 repair may proceed through remote transfer and guards under the existing bounded retry authorization; no remote side effect has occurred yet.
+- 2026-09-14T14:08:05Z: Prepared v5 manifest0adc3e92 with only the storage-location repair: remote stage remains under /home, but output artifacts move to /grand/EVITA/eric-spencer/tla-sequence-train-20260914-v5/results. Local checksum/PBS/CLI/pycache guards and12 focused tests pass. No model, prompt, denominator or gate rule changed.
+- 2026-09-14T14:05:11Z: Reconciled Polaris7618046 as terminal Exit1 after1:42. torch.save failed with an iostream/zip-position error while /home was over the user soft quota and near its hard limit; /grand has default quota and ample capacity. The atomic writer left no result or temporary directory. Do not duplicate the run; prepare v5 with output on /grand and preserve all frozen quality guards.
+- 2026-09-14T14:02:42Z: Submitted exactly one v4 job7618046 under corrected claim10237afc after fresh empty owned-queue checks. Scheduler attests running on one Polaris debug GPU for00:15:00. No duplicate, protected generation or quality/gate claim.
+- 2026-09-14T14:01:47Z: Corrected the local claim bookkeeping before qsub: malformed claim7d3f8e5b was not used; claim10237afc binds the board owner to v4 manifest82818d44, destination, packet/plan/parent, PBS8932f31e8 and runner1c6f86d0. Fresh Polaris/Sophia owned queues were empty. Submit one job only.
+- 2026-09-14T13:59:22Z: Uploaded v4 manifest82818d44 to the approved Polaris destination. Remote SHA256, PBS syntax, train CLI, exact inventory and pycache guards passed; no qsub or quality/gate claim yet. Proceed only through a fresh ownership check and one unique submission claim.
+- 2026-09-14T13:57:51Z: SSH authentication recovered. Fresh checks show the exact v4 destination absent and both Polaris/Sophia owned queues empty. The previously approved v4 upload and conditional single-GPU retry may proceed through remote checksum/CLI guards; no transfer or submission has occurred yet.
 - 2026-09-14T12:51:42Z: Approval was received for the prepared v4 retry, but both fresh SSH prechecks failed at authentication before destination or qstat state could be observed. Mark remote state unverified, preserve the auth-failure receipt, and do not transfer, claim or submit through an unverified connection.
 - 2026-09-14T12:50:45Z: Eric approved proceeding with the prepared v4 upload, remote guards and conditional one-GPU retry. Treat this as authorization to attempt the scoped action, while retaining fresh destination/ownership checks, exact-review enforcement, one-claim/one-job limits and zero quality/gate credit.
 - 2026-09-14T04:00:25Z: Added transactional result publication around child checkpoint, reload, receipt and step writes. A writer failure now cleans the temporary sibling and leaves the append-only result path absent;12 focused sequence/plan tests pass. Prepared v4 with manifest82818d44; it remains local-only and does not alter frozen quality or gate criteria.
@@ -260,16 +284,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 425,
-  "verified_utc": "2026-09-14T12:51:42Z",
+  "revision": 449,
+  "verified_utc": "2026-09-14T14:50:00Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
-  "phase": "unverified",
+  "phase": "local_work",
   "active_job": null,
-  "observation_evidence": "At 2026-09-14T12:51:42Z, fresh SSH attempts to both Polaris and Sophia failed at authentication with Permission denied (keyboard-interactive,hostbased), before destination or scheduler queries. Remote destination and owned-queue state are therefore unverified. No v4 transfer or scheduler submission occurred. Polaris7616283 remains terminal F with Exit_status1 after1:40 at result assembly, with no child checkpoint, steps, receipt, protected generation or gate claim.",
-  "last_result": "Polaris7616283 failed during result assembly after the scheduled true-update path, not during model scoring. The narrow repair restores the validated plan_sha256 in the returned plan, and result publication is now transactional so incomplete child/receipt directories cannot appear as completed outputs. This is infrastructure/workflow evidence only; no protected or gate claim is made.",
-  "local_work": "Prepared append-only stage tla-sequence-train-20260914-v4 with the result-assembly repair, transactional result publication and regression coverage. Its seven-file SHA256 manifest is 82818d44; checksum, PBS syntax, train CLI, pycache and 12 focused sequence/plan tests pass. The persistent submission guard also fails closed on malformed or incomplete existing claims. The stage retains exactly8 non-protected updates, diagnostic-only12-pair holdout, parent-child/reload guards and no protected generation, model-selection or gate claim.",
-  "external_blocker": "Configured SSH authentication to Polaris and Sophia is failing before read-only destination/queue checks; remote ownership and destination state are unverified.",
-  "next_action": "Restore the configured SSH authentication path, then repeat read-only destination and owned-queue checks. Only if those checks pass, upload v4 and run all remote guards; if no owned job is present, acquire one unique claim and submit at most one bounded15-minute Polaris GPU run. Do not duplicate7616283 or infer quality from training completion.",
+  "observation_evidence": "At 2026-09-14T14:50:00Z, v7 job7618156 completed Exit_status0 after00:01:39 on one Polaris GPU. Independent remote validation confirms an872462359-byte exact fp32 9-tensor child, positive parent-child delta0.00544296, 8 updates, 12 disjoint diagnostic holdout pairs, exact reload and matching child hash. No protected or gate claim.",
+  "last_result": "Polaris7618156 successfully executed the unchanged 8-update sequence objective and published an exact-weight child. The child is finite fp32, differs from the parent, reloads exactly, and has no optimizer slots by explicit contract. Diagnostic holdout gap moved from-0.30565278 to-0.30429899; this is internal diagnostic evidence only, not protected SANY or quality promotion.",
+  "local_work": "Prepared append-only v7 with manifest00d6e5f4. It stores the exact fp32 trainable tensors and explicitly records optimizer_state_stored=false and optimizer_resume_supported=false, omitting only the 1.745GB Adam slots that cannot fit the home hard quota. It retains exact reload validation, atomic publication, packet/plan, 8 updates, 12-pair diagnostic holdout, protected-row exclusion and all gate rules. Local payload checks, PBS syntax, trainer compile and pycache guards pass; the remote exact-weight probe passes reload=true.",
+  "external_blocker": "",
+  "next_action": "Run unchanged protected paired generation/score on base, parent and v7 child using the frozen prompts and denominator; use it only to measure the child and preserve zero credit unless the full frozen SANY/TLC/non-vacuity/TLAPS gates pass.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -317,7 +341,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
       "id": "TLA-06B",
       "state": "In progress",
       "task": "Establish a genuinely different structured training objective",
-      "evidence": "Polaris7613214 actual8B/CUDA zero-update preflight Exit0: exact packet cb137c52/checkpoint b0399b51, longest-pair full forwards, loss1.2650, gap-0.5953, all9 gradient norms positive, peak reserved23.12GB and exact zero parameter drift. True-update job7613858 terminally failed before step1 because no-grad holdout forwards omitted bf16 autocast after the final layer was restored fp32. Repaired job7616283 reached the training schedule but failed at result assembly on missing plan_sha256; no child, receipt, protected generation or gate claim exists. New append-only v3 stage b57735df restores the validated plan identity and passes11 focused tests plus CLI/compile/stage guards."
+      "evidence": "Polaris7613214 actual8B/CUDA zero-update preflight Exit0: exact packet cb137c52/checkpoint b0399b51, longest-pair full forwards, loss1.2650, gap-0.5953, all9 gradient norms positive, peak reserved23.12GB and exact zero parameter drift. True-update jobs7613858 and7616283 exposed and repaired precision/assembly defects;7618046 and7618116 exposed /home and EVITA-project /grand storage failures. v7 job7618156 completed Exit0: exact packet cb137c52, plan ae1c5bb5, parent b0399b51, 8 updates, 12 disjoint diagnostic holdout pairs, positive delta0.00544296, exact reload, finite fp32 state and no optimizer-resume claim. The internal holdout remains diagnostic only; no protected/gate claim exists."
     },
     {
       "id": "TLA-07",
@@ -339,6 +363,30 @@ These snapshots preserve old statements, including mistakes. They are not curren
     }
   ],
   "decisions": [
+    "2026-09-14T14:50:00Z: Validated v7 job7618156: exact child hash7859aabd,872462359 bytes, 9 finite fp32 tensors, positive delta0.00544296, 8 updates, 12 disjoint diagnostic holdout pairs, exact reload and no protected/gate claim. Holdout gap moved-0.30565278 to-0.30429899; diagnostic only. Next unchanged protected measurement must preserve zero gate credit unless all gates pass.",
+    "2026-09-14T14:50:00Z: Polaris v7 job7618156 terminally finished F Exit_status0 after00:01:39. Retrieve and validate the append-only exact-weight child before any judgment; no quality/gate claim.",
+    "2026-09-14T14:47:47Z: Submitted exactly one v7 job7618156 under claimcfcf436 after fresh empty Polaris/Sophia owned queues. Scheduler attests running in debug on one GPU atx3005c0s25b0n0/0*64 with00:15:00 walltime. Monitor only; no quality/gate claim.",
+    "2026-09-14T14:46:30Z: Corrected unique v7 claimcfcf436 acquired after fresh empty Polaris/Sophia owned queues. It binds manifest00d6e5f4, destination, /home output, exact packet/plan/parent and PBS/runner hashes, plus exact-weight-only/no-optimizer-resume contract. Submit one job only; no quality/gate claim.",
+    "2026-09-14T14:45:21Z: Uploaded v7 manifest00d6e5f4; remote manifest,6 payload hashes, PBS/CLI, exact inventory, pycache, /home output and optimizer metadata guards pass. No qsub or quality/gate claim. Proceed only through a fresh final ownership check and one exact claim.",
+    "2026-09-14T14:44:00Z: Fresh authenticated precheck cleared v7 destination absent and both Polaris/Sophia owned queues empty; home hard-quota headroom is sufficient for the exact-weight probe. Proceed with v7 transfer and remote guards only; no qsub or quality/gate claim.",
+    "2026-09-14T14:42:41Z: Diagnosed v6 job7618116: legacy serialization reached the write but hit EDQUOT because EVITA project11196 on /grand is2445488 KiB over hard limit. Exact872MB fp32 trainable weights write/reload on /home; optimizer slots are omitted in v7 with explicit non-resumability metadata. No objective/data/schedule/gate change and no quality claim.",
+    "2026-09-14T14:34:21Z: Polaris v6 job7618116 terminally finished F after00:01:36 with Exit_status1. Preserve terminal state, retrieve log/result and diagnose before any next action; no quality/gate claim.",
+    "2026-09-14T14:32:10Z: Submitted exactly one v6 job7618116 under claim519644bc after fresh empty Polaris/Sophia owned queues. Scheduler attests running in debug on one GPU atx3112c0s7b1n0/0*64 with00:15:00 walltime. Monitor only; no quality/gate claim.",
+    "2026-09-14T14:31:22Z: Corrected unique v6 claim519644bc acquired after fresh empty Polaris/Sophia owned queues. It binds manifestb642fe96, destination, /grand output, exact packet/plan/parent and PBS/runner hashes. Submit one job only; no quality/gate claim.",
+    "2026-09-14T14:29:30Z: Uploaded v6 manifestb642fe96; remote manifest,6 payload hashes, PBS/CLI, exact inventory, pycache and /grand output guards pass. No qsub or quality/gate claim. Proceed only through a fresh final ownership check and one exact claim.",
+    "2026-09-14T14:27:13Z: Fresh authenticated precheck cleared v6 destination absent and both Polaris/Sophia owned queues empty. Proceed with v6 transfer and remote guards only; no qsub or quality/gate claim.",
+    "2026-09-14T14:24:30Z: Diagnosed v5 job7618077: standard PyTorch zip serialization fails on Polaris Lustre /grand even for a tiny tensor, while legacy serialization writes/reloads and /tmp standard serialization passes. Prepared v6 with only the legacy serializer repair; no objective, data, schedule or gate change and no quality/gate claim.",
+    "2026-09-14T14:18:08Z: Polaris job7618077 terminally finished F after00:01:37 with Exit_status1. Preserve terminal state, retrieve log/result and diagnose before any next action; no quality/gate claim.",
+    "2026-09-14T14:17:13Z: Submitted exactly one v5 job7618077 under claim8c358e4e after fresh empty Polaris/Sophia owned queues. Scheduler attests running in debug on one GPU atx3004c0s7b0n0/0*64 with00:15:00 walltime. Monitor only; no quality/gate claim.",
+    "2026-09-14T14:14:12Z: Corrected v5 claim8c358e4e acquired after fresh empty Polaris/Sophia owned queues. It binds the board owner to manifest0adc3e92, /home stage destination, /grand output path, exact packet/plan/parent and PBS/runner hashes. Submit one job only; no quality/gate claim.",
+    "2026-09-14T14:12:14Z: Uploaded v5 manifest0adc3e92 to the approved Polaris destination. Remote SHA256, PBS syntax, train CLI, exact inventory, pycache and /grand output-path guards passed; no qsub or quality/gate claim yet. Proceed only through a final ownership check and one unique submission claim.",
+    "2026-09-14T14:09:44Z: Fresh Polaris/Sophia authentication and ownership checks succeeded; v5 destination is absent and both owned queues are empty. The storage-only v5 repair may proceed through remote transfer and guards under the existing bounded retry authorization; no remote side effect has occurred yet.",
+    "2026-09-14T14:08:05Z: Prepared v5 manifest0adc3e92 with only the storage-location repair: remote stage remains under /home, but output artifacts move to /grand/EVITA/eric-spencer/tla-sequence-train-20260914-v5/results. Local checksum/PBS/CLI/pycache guards and12 focused tests pass. No model, prompt, denominator or gate rule changed.",
+    "2026-09-14T14:05:11Z: Reconciled Polaris7618046 as terminal Exit1 after1:42. torch.save failed with an iostream/zip-position error while /home was over the user soft quota and near its hard limit; /grand has default quota and ample capacity. The atomic writer left no result or temporary directory. Do not duplicate the run; prepare v5 with output on /grand and preserve all frozen quality guards.",
+    "2026-09-14T14:02:42Z: Submitted exactly one v4 job7618046 under corrected claim10237afc after fresh empty owned-queue checks. Scheduler attests running on one Polaris debug GPU for00:15:00. No duplicate, protected generation or quality/gate claim.",
+    "2026-09-14T14:01:47Z: Corrected the local claim bookkeeping before qsub: malformed claim7d3f8e5b was not used; claim10237afc binds the board owner to v4 manifest82818d44, destination, packet/plan/parent, PBS8932f31e8 and runner1c6f86d0. Fresh Polaris/Sophia owned queues were empty. Submit one job only.",
+    "2026-09-14T13:59:22Z: Uploaded v4 manifest82818d44 to the approved Polaris destination. Remote SHA256, PBS syntax, train CLI, exact inventory and pycache guards passed; no qsub or quality/gate claim yet. Proceed only through a fresh ownership check and one unique submission claim.",
+    "2026-09-14T13:57:51Z: SSH authentication recovered. Fresh checks show the exact v4 destination absent and both Polaris/Sophia owned queues empty. The previously approved v4 upload and conditional single-GPU retry may proceed through remote checksum/CLI guards; no transfer or submission has occurred yet.",
     "2026-09-14T12:51:42Z: Approval was received for the prepared v4 retry, but both fresh SSH prechecks failed at authentication before destination or qstat state could be observed. Mark remote state unverified, preserve the auth-failure receipt, and do not transfer, claim or submit through an unverified connection.",
     "2026-09-14T12:50:45Z: Eric approved proceeding with the prepared v4 upload, remote guards and conditional one-GPU retry. Treat this as authorization to attempt the scoped action, while retaining fresh destination/ownership checks, exact-review enforcement, one-claim/one-job limits and zero quality/gate credit.",
     "2026-09-14T04:00:25Z: Added transactional result publication around child checkpoint, reload, receipt and step writes. A writer failure now cleans the temporary sibling and leaves the append-only result path absent;12 focused sequence/plan tests pass. Prepared v4 with manifest82818d44; it remains local-only and does not alter frozen quality or gate criteria.",
@@ -821,7 +869,42 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "tools/prover_submit_guard.py",
     "harness/test_prover_submit_guard_integrity.py",
     "results/stages/tla-sequence-train-20260914-v4/SHA256SUMS",
-    "results/runs/sequence-train-20260914-v4/remote-precheck-auth-failure.json"
+    "results/runs/sequence-train-20260914-v4/remote-precheck-auth-failure.json",
+    "results/runs/sequence-train-20260914-v4/remote-precheck-clear.json",
+    "results/runs/sequence-train-20260914-v4/stage-upload-receipt.json",
+    "results/runs/sequence-train-20260914-v4/superseded-claim-correction.json",
+    "results/prover-submit-claims/10237afc760e163e51b4265a0c76c9ccb3513df9de0de7f0ad2656598476f6de.json",
+    "results/runs/sequence-train-20260914-v4/job-7618046-submission.json",
+    "results/runs/sequence-train-20260914-v4/job-7618046/job.7618046.log",
+    "results/runs/sequence-train-20260914-v4/job-7618046/failure-receipt.json",
+    "results/stages/tla-sequence-train-20260914-v5/SHA256SUMS",
+    "results/runs/sequence-train-20260914-v5/remote-precheck-clear.json",
+    "results/runs/sequence-train-20260914-v5/stage-upload-receipt.json",
+    "results/prover-submit-claims/8c358e4e65ee42081e1560d56f29b3c504297077bf7c75a3dd646a97425c6b2d.json",
+    "results/runs/sequence-train-20260914-v5/job-7618077-submission.json",
+    "results/runs/sequence-train-20260914-v5/job-7618077-terminal.json",
+    "results/runs/sequence-train-20260914-v5/job-7618077/job.7618077.log",
+    "results/runs/sequence-train-20260914-v5/job-7618077-serialization-diagnosis.json",
+    "results/stages/tla-sequence-train-20260914-v6/SHA256SUMS",
+    "results/runs/sequence-train-20260914-v6/local-validation.json",
+    "results/runs/sequence-train-20260914-v6/remote-precheck.json",
+    "results/runs/sequence-train-20260914-v6/stage-upload-receipt.json",
+    "results/prover-submit-claims/519644bca1af2ea4108ee3b625c5c76051d876f16f086f0ba7fa0679aea66966.json",
+    "results/runs/sequence-train-20260914-v6/job-7618116-submission.json",
+    "results/runs/sequence-train-20260914-v6/job-7618116-terminal.json",
+    "results/runs/sequence-train-20260914-v6/job-7618116/job.7618116.log",
+    "results/runs/sequence-train-20260914-v6/job-7618116-quota-diagnosis.json",
+    "results/stages/tla-sequence-train-20260914-v7/SHA256SUMS",
+    "results/runs/sequence-train-20260914-v7/local-validation.json",
+    "results/runs/sequence-train-20260914-v7/remote-precheck.json",
+    "results/runs/sequence-train-20260914-v7/stage-upload-receipt.json",
+    "results/prover-submit-claims/cfcf4360172327ef0f4a80d245ae9fb84c97cb4b8f03043e6d760ce07355a6a8.json",
+    "results/runs/sequence-train-20260914-v7/job-7618156-submission.json",
+    "results/runs/sequence-train-20260914-v7/job-7618156-terminal.json",
+    "results/runs/sequence-train-20260914-v7/job-7618156/job.7618156.log",
+    "results/runs/sequence-train-20260914-v7/job-7618156/train_receipt.json",
+    "results/runs/sequence-train-20260914-v7/job-7618156/steps.json",
+    "results/runs/sequence-train-20260914-v7/job-7618156-validation.json"
   ]
 }
 -->

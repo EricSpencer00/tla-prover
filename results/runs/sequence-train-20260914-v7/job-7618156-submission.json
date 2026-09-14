@@ -1,0 +1,18 @@
+{
+  "observed_utc": "2026-09-14T14:47:47Z",
+  "job_id": "7618156",
+  "scheduler_id": "7618156.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "host": "polaris",
+  "stage_manifest_sha256": "00d6e5f417d2e4a6400e7014c20bf48adb5ab76c0b0dca4869d13efc45205186",
+  "claim_identity_sha256": "cfcf4360172327ef0f4a80d245ae9fb84c97cb4b8f03043e6d760ce07355a6a8",
+  "pbs_state": "R",
+  "queue": "debug",
+  "exec_host": "x3005c0s25b0n0/0*64",
+  "ngpus": 1,
+  "walltime": "00:15:00",
+  "output_root": "/home/eric-spencer/tla-sequence-train-20260914-v7/results",
+  "contract": "8-updates-diagnostic-holdout-no-gate-exact-weight-only",
+  "optimizer_state_stored": false,
+  "optimizer_resume_supported": false,
+  "quality_or_gate_claim": false
+}

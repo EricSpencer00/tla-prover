@@ -1,0 +1,16 @@
+{
+  "observed_utc": "2026-09-14T14:32:10Z",
+  "job_id": "7618116",
+  "scheduler_id": "7618116.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "host": "polaris",
+  "stage_manifest_sha256": "b642fe96255fd60ecb03481b486a70b90b1a1ac2f9a7c19f0a42a111e230468b",
+  "claim_identity_sha256": "519644bca1af2ea4108ee3b625c5c76051d876f16f086f0ba7fa0679aea66966",
+  "pbs_state": "R",
+  "queue": "debug",
+  "exec_host": "x3112c0s7b1n0/0*64",
+  "ngpus": 1,
+  "walltime": "00:15:00",
+  "output_root": "/grand/EVITA/eric-spencer/tla-sequence-train-20260914-v6/results",
+  "contract": "8-updates-diagnostic-holdout-no-gate",
+  "quality_or_gate_claim": false
+}

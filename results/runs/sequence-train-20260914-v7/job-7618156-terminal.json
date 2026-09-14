@@ -1,0 +1,16 @@
+{
+  "observed_utc": "2026-09-14T14:50:00Z",
+  "job_id": "7618156",
+  "scheduler_id": "7618156.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "host": "polaris",
+  "pbs_state": "F",
+  "queue": "debug",
+  "exec_host": "x3005c0s25b0n0/0*64",
+  "ngpus": 1,
+  "requested_walltime": "00:15:00",
+  "resources_used_walltime": "00:01:39",
+  "exit_status": 0,
+  "output_root": "/home/eric-spencer/tla-sequence-train-20260914-v7/results",
+  "result_status": "pending_validation",
+  "quality_or_gate_claim": false
+}

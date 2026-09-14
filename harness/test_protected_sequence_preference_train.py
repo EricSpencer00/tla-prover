@@ -87,6 +87,31 @@ def test_atomic_publish_removes_partial_result_on_writer_failure(tmp_path):
     assert list(tmp_path.glob(".result.tmp-*")) == []
 
 
+def test_child_checkpoint_uses_lustre_compatible_serializer(tmp_path, monkeypatch):
+    path = tmp_path / "policy_optimizer.pt"
+    calls = {}
+    real_save = torch.save
+
+    def save(payload, destination, **kwargs):
+        calls.update(kwargs)
+        return real_save(payload, destination, **kwargs)
+
+    monkeypatch.setattr(torch, "save", save)
+    train.save_child_checkpoint(torch, {"state": torch.arange(8)}, path)
+    restored = torch.load(path, weights_only=False)
+    assert torch.equal(restored["state"], torch.arange(8))
+    assert calls == {"_use_new_zipfile_serialization": False}
+
+
+def test_child_checkpoint_does_not_claim_optimizer_resumability():
+    source = train.runtime_train.__doc__
+    assert source == "Run exactly eight non-protected updates and write an append-only child."
+    text = train.Path(train.__file__).read_text()
+    assert 'config["optimizer_state_stored"] = False' in text
+    assert 'config["optimizer_resume_supported"] = False' in text
+    assert '"optimizer": optimizer.state_dict()' not in text
+
+
 def test_training_plan_admits_exact_disjoint_nonprotected_split(tmp_path):
     packet = packet20()
     path = tmp_path / "plan.json"

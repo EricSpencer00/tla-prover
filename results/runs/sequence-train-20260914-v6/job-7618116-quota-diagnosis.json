@@ -1,0 +1,35 @@
+{
+  "observed_utc": "2026-09-14T14:40:30Z",
+  "job_id": "7618116",
+  "failure_log_sha256": "16af065604e9cc3465c4865f149dcf36b56a938fffc5938d788edd2841cf07bb",
+  "failure_site": "torch.serialization._legacy_save child checkpoint storage write",
+  "error": "write(): fd 67 failed with Disk quota exceeded",
+  "grand_project": {
+    "project_id": 11196,
+    "project_name": "EVITA",
+    "used_kib": 177169846448,
+    "soft_limit_kib": 161061273600,
+    "hard_limit_kib": 177167400960,
+    "over_hard_limit_kib": 2445488
+  },
+  "home_user_quota": {
+    "used_kib": 50609552,
+    "soft_limit_kib": 47185920,
+    "hard_limit_kib": 52428800,
+    "remaining_to_hard_limit_kib": 1819248
+  },
+  "parent_checkpoint_components": {
+    "file_bytes": 2617372239,
+    "exact_trainable_state_bytes": 872448000,
+    "optimizer_state_bytes": 1744896036
+  },
+  "home_exact_weight_probe": {
+    "status": true,
+    "bytes": 872451254,
+    "exact_reload": true,
+    "optimizer_state_saved": false
+  },
+  "diagnosis": "EVITA project hard quota blocks a full child payload on /grand. Exact fp32 trainable weights fit on /home; optimizer slots do not fit alongside them.",
+  "repair": "Store exact trainable weights and explicit non-resumability metadata on /home; omit only optimizer slots, with exact reload validation retained.",
+  "quality_or_gate_claim": false
+}

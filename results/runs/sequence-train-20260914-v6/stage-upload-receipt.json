@@ -1,0 +1,23 @@
+{
+  "observed_utc": "2026-09-14T14:29:30Z",
+  "kind": "sequence_train_stage_upload_receipt_v1",
+  "stage_manifest_sha256": "b642fe96255fd60ecb03481b486a70b90b1a1ac2f9a7c19f0a42a111e230468b",
+  "destination": "/home/eric-spencer/tla-sequence-train-20260914-v6",
+  "remote_manifest_sha256": "b642fe96255fd60ecb03481b486a70b90b1a1ac2f9a7c19f0a42a111e230468b",
+  "remote_sha256_checks": "6 payload files passed SHA256SUMS",
+  "pbs_syntax": true,
+  "train_cli_guard": true,
+  "exact_file_inventory": [
+    "SHA256SUMS",
+    "packet.json",
+    "plan.json",
+    "protected_sequence_train_polaris.pbs",
+    "tools/protected_checkpoint_preflight.py",
+    "tools/protected_sequence_objective_contract.py",
+    "tools/protected_sequence_preference_train.py"
+  ],
+  "output_root_guard": "/grand/EVITA/eric-spencer/tla-sequence-train-20260914-v6/results",
+  "pycache_absent": true,
+  "scheduler_submission": false,
+  "quality_or_gate_claim": false
+}

@@ -280,9 +280,7 @@ def runtime_train(packet_path, plan_path, model_path, checkpoint_path, output):
               "plan_sha256": plan["plan_sha256"], "train_source_ids": plan["train_source_ids"],
               "holdout_source_ids": plan["holdout_source_ids"], "budget": plan["budget"],
               "protected_training": False, "protected_model_selection": False, "gate_claim": False}
-    config["optimizer_state_stored"] = False
-    config["optimizer_resume_supported"] = False
-    child = {"trainable_state": state, "config": config,
+    child = {"trainable_state": state, "optimizer": optimizer.state_dict(), "config": config,
              "metrics": rows, "torch_rng_state": torch.get_rng_state(),
              "python_rng_state": random.getstate(), "cuda_rng_state": torch.cuda.get_rng_state_all()}
     receipt = {
@@ -295,7 +293,6 @@ def runtime_train(packet_path, plan_path, model_path, checkpoint_path, output):
         "peak_cuda_allocated": torch.cuda.max_memory_allocated(),
         "peak_cuda_reserved": torch.cuda.max_memory_reserved(), "elapsed_seconds": time.monotonic() - started,
         "protected_training": False, "protected_model_selection": False, "gate_claim": False,
-        "optimizer_state_stored": False, "optimizer_resume_supported": False,
     }
 
     def write_result(staging):

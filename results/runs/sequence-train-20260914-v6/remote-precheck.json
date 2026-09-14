@@ -1,0 +1,13 @@
+{
+  "observed_utc": "2026-09-14T14:27:13Z",
+  "kind": "sequence_train_remote_precheck_v1",
+  "stage_manifest_sha256": "b642fe96255fd60ecb03481b486a70b90b1a1ac2f9a7c19f0a42a111e230468b",
+  "polaris_destination": "/home/eric-spencer/tla-sequence-train-20260914-v6",
+  "polaris_destination_state": "absent",
+  "polaris_owned_queue": "empty",
+  "sophia_owned_queue": "empty",
+  "authentication": "verified",
+  "files_transferred": false,
+  "scheduler_submission": false,
+  "quality_or_gate_claim": false
+}

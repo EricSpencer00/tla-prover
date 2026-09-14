@@ -1,0 +1,58 @@
+[
+  {
+    "step": 1,
+    "source_id": "w4-fullmodule:w4opus::d9-m8-p4-t4",
+    "loss": 1.401134729385376,
+    "gap": -0.7483829259872437,
+    "gradient_norm": 2.9287869930267334
+  },
+  {
+    "step": 2,
+    "source_id": "w4-fullmodule:w4opus::d10-m7-p4-t2",
+    "loss": 1.2687159776687622,
+    "gap": -0.5962339639663696,
+    "gradient_norm": 2.139798641204834
+  },
+  {
+    "step": 3,
+    "source_id": "w4-fullmodule:w4opus::d12-m5-p1-t1",
+    "loss": 1.0506582260131836,
+    "gap": -0.3064221739768982,
+    "gradient_norm": 1.7198975086212158
+  },
+  {
+    "step": 4,
+    "source_id": "w4-fullmodule:w4opus::d13-m4-p0-t3",
+    "loss": 0.8976379036903381,
+    "gap": -0.059214383363723755,
+    "gradient_norm": 3.487447500228882
+  },
+  {
+    "step": 5,
+    "source_id": "w4-fullmodule:w4opus::d7-m5-p4-t5",
+    "loss": 1.0372625589370728,
+    "gap": -0.2932364344596863,
+    "gradient_norm": 2.0013391971588135
+  },
+  {
+    "step": 6,
+    "source_id": "w4-fullmodule:w4opus::d11-m8-p4-t2",
+    "loss": 1.0365852117538452,
+    "gap": -0.28150469064712524,
+    "gradient_norm": 2.186479091644287
+  },
+  {
+    "step": 7,
+    "source_id": "w4-fullmodule:w4opus::d18-m8-p6-t4",
+    "loss": 1.0341719388961792,
+    "gap": -0.29137957096099854,
+    "gradient_norm": 1.7809474468231201
+  },
+  {
+    "step": 8,
+    "source_id": "w4-fullmodule:w4opus::d18-m5-p6-t3",
+    "loss": 1.06833815574646,
+    "gap": -0.3251544237136841,
+    "gradient_norm": 2.009248733520508
+  }
+]
