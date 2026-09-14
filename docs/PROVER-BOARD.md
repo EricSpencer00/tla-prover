@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 500
-- Verified UTC: 2026-09-14T20:09:02Z
+- Revision: 501
+- Verified UTC: 2026-09-14T20:16:00Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
-- Phase: complete
+- Phase: local_work
 - Active job: none
-- Observation evidence: At 2026-09-14T20:09:02Z, Polaris job 7618996 is terminal F with Exit_status 0 after 00:02:42 walltime, 00:02:46 CPU and 8535856kb memory on x3207c0s19b0n0/0*64 using one GPU under the 00:15:00 bound. The exact 872452132-byte child has SHA 1b9841344a58c7df721effb5332ea03ec8ffa5007872f8c21ccbe2b8aade7f3b; receipt and 16-step ledger hashes are recorded. Remote receipt reports validation loss 0.3724444657564163 to 0.3713971823453903, protected SANY 0/2 before and 0/2 after, and no gate/quality claim. Local retrieval and independent verification remain pending.
+- Observation evidence: At 2026-09-14T20:16:00Z, Polaris job 7618996 is independently verified locally and remotely: terminal F with Exit_status 0 after 00:02:42 walltime, 00:02:46 CPU and 8535856kb memory on x3207c0s19b0n0/0*64 using one GPU under the 00:15:00 bound. The exact 872452132-byte child has SHA 1b9841344a58c7df721effb5332ea03ec8ffa5007872f8c21ccbe2b8aade7f3b; local and remote hashes match, with 9 finite FP32 tensors, exact reload, no optimizer state and 16 sequential updates. Validation loss moved 0.3724444657564163 to 0.3713971823453903, but protected rows 47 and 107 remained model_reject under SANY before and after. This is a complete negative diagnostic with no protected-training, protected-selection, gate, quality or model-improvement claim. The programmatic roadblock watchdog is active.
 - Latest completed result: Prefix-conditioned response-SFT job 7618996 completed all 16 updates with finite gradients and exact child reload. Validation loss improved diagnostically by 0.00104728, but both protected rows remained SANY rejects; this is not a model-improvement or gate result.
-- Local work: Structural-span v3 remains verified locally. Prefix-SFT v3 is complete on Polaris but its child, receipt, steps and log still need retrieval and independent local hash/torch verification. The v2 hash-invalid transfer evidence remains preserved; unrelated pre-existing worktree changes remain unstaged.
+- Local work: Structural-span v3 and prefix-SFT v3 are verified locally with terminal, receipt, steps, child, SANY diagnostics and independent verification records under results/runs. The v2 hash-invalid transfer evidence remains preserved; exact large binaries remain outside Git; unrelated pre-existing worktree changes remain unstaged. The watchdog source and active tmux session are verified.
 - External blocker: none verified
-- Next action: Retrieve the exact prefix-SFT child, receipt, step ledger, terminal record and log; independently verify local/remote hashes, finite FP32 tensors and exact reload, then classify protected SANY outcomes without promoting the child.
+- Next action: Reset the frontier around the unchanged full-prompt failure. Run the cheapest local data/coverage audit comparing the broader non-protected corpus against grammar-aware constrained training/search, then prepare only a distinct branch whose acceptance test is protected SANY movement; preserve the fixed denominator and reject proxy-only promotion.
 
 ## Objective and evidence rules
 
@@ -37,6 +37,7 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 
 ## Decisions
 
+- 2026-09-14T20:16:00Z: Prefix-conditioned response-SFT v3 is a complete negative diagnostic: job 7618996 produced 16 updates with exact 9-tensor reload and validation-loss proxy improvement of 0.00104728, but protected SANY remained 0/2 before and after. Local/remote hashes, finite FP32 tensors, exact reload, receipt and steps all verify. Prune this exact objective and reopen the frontier; no quality or gate claim.
 - 2026-09-14T20:09:02Z: Job 7618996 terminally finished F Exit_status0 after00:02:42 walltime. It completed16 prefix-conditioned response-SFT updates and wrote an exact child; validation loss moved0.37244446 to0.37139718, while protected SANY remained0/2 before and after. Retrieve and independently verify before judgment; no gate/quality claim.
 - 2026-09-14T20:06:10Z: Job 7618996 transitioned Q to R on x3207c0s19b0n0/0*64 with one GPU; no duplicate is permitted. Monitor and collect complete artifact before any quality or gate judgment.
 - 2026-09-14T20:05:23Z: Submitted exactly one claimed prefix-SFT v3 job 7618996 after a fresh empty-owned-queue check. Scheduler state is Q on Polaris debug with one GPU and 15-minute walltime; no result or quality/gate claim yet.
@@ -315,16 +316,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 500,
-  "verified_utc": "2026-09-14T20:09:02Z",
+  "revision": 501,
+  "verified_utc": "2026-09-14T20:16:00Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
-  "phase": "complete",
+  "phase": "local_work",
   "active_job": null,
-  "observation_evidence": "At 2026-09-14T20:09:02Z, Polaris job 7618996 is terminal F with Exit_status 0 after 00:02:42 walltime, 00:02:46 CPU and 8535856kb memory on x3207c0s19b0n0/0*64 using one GPU under the 00:15:00 bound. The exact 872452132-byte child has SHA 1b9841344a58c7df721effb5332ea03ec8ffa5007872f8c21ccbe2b8aade7f3b; receipt and 16-step ledger hashes are recorded. Remote receipt reports validation loss 0.3724444657564163 to 0.3713971823453903, protected SANY 0/2 before and 0/2 after, and no gate/quality claim. Local retrieval and independent verification remain pending.",
+  "observation_evidence": "At 2026-09-14T20:16:00Z, Polaris job 7618996 is independently verified locally and remotely: terminal F with Exit_status 0 after 00:02:42 walltime, 00:02:46 CPU and 8535856kb memory on x3207c0s19b0n0/0*64 using one GPU under the 00:15:00 bound. The exact 872452132-byte child has SHA 1b9841344a58c7df721effb5332ea03ec8ffa5007872f8c21ccbe2b8aade7f3b; local and remote hashes match, with 9 finite FP32 tensors, exact reload, no optimizer state and 16 sequential updates. Validation loss moved 0.3724444657564163 to 0.3713971823453903, but protected rows 47 and 107 remained model_reject under SANY before and after. This is a complete negative diagnostic with no protected-training, protected-selection, gate, quality or model-improvement claim. The programmatic roadblock watchdog is active.",
   "last_result": "Prefix-conditioned response-SFT job 7618996 completed all 16 updates with finite gradients and exact child reload. Validation loss improved diagnostically by 0.00104728, but both protected rows remained SANY rejects; this is not a model-improvement or gate result.",
-  "local_work": "Structural-span v3 remains verified locally. Prefix-SFT v3 is complete on Polaris but its child, receipt, steps and log still need retrieval and independent local hash/torch verification. The v2 hash-invalid transfer evidence remains preserved; unrelated pre-existing worktree changes remain unstaged.",
+  "local_work": "Structural-span v3 and prefix-SFT v3 are verified locally with terminal, receipt, steps, child, SANY diagnostics and independent verification records under results/runs. The v2 hash-invalid transfer evidence remains preserved; exact large binaries remain outside Git; unrelated pre-existing worktree changes remain unstaged. The watchdog source and active tmux session are verified.",
   "external_blocker": "",
-  "next_action": "Retrieve the exact prefix-SFT child, receipt, step ledger, terminal record and log; independently verify local/remote hashes, finite FP32 tensors and exact reload, then classify protected SANY outcomes without promoting the child.",
+  "next_action": "Reset the frontier around the unchanged full-prompt failure. Run the cheapest local data/coverage audit comparing the broader non-protected corpus against grammar-aware constrained training/search, then prepare only a distinct branch whose acceptance test is protected SANY movement; preserve the fixed denominator and reject proxy-only promotion.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -394,6 +395,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
     }
   ],
   "decisions": [
+    "2026-09-14T20:16:00Z: Prefix-conditioned response-SFT v3 is a complete negative diagnostic: job 7618996 produced 16 updates with exact 9-tensor reload and validation-loss proxy improvement of 0.00104728, but protected SANY remained 0/2 before and after. Local/remote hashes, finite FP32 tensors, exact reload, receipt and steps all verify. Prune this exact objective and reopen the frontier; no quality or gate claim.",
     "2026-09-14T20:09:02Z: Job 7618996 terminally finished F Exit_status0 after00:02:42 walltime. It completed16 prefix-conditioned response-SFT updates and wrote an exact child; validation loss moved0.37244446 to0.37139718, while protected SANY remained0/2 before and after. Retrieve and independently verify before judgment; no gate/quality claim.",
     "2026-09-14T20:06:10Z: Job 7618996 transitioned Q to R on x3207c0s19b0n0/0*64 with one GPU; no duplicate is permitted. Monitor and collect complete artifact before any quality or gate judgment.",
     "2026-09-14T20:05:23Z: Submitted exactly one claimed prefix-SFT v3 job 7618996 after a fresh empty-owned-queue check. Scheduler state is Q on Polaris debug with one GPU and 15-minute walltime; no result or quality/gate claim yet.",
