@@ -103,7 +103,7 @@ def verify(args):
     hashes = model_files(args.model_path)
     if config.get('model_files') != hashes:
         raise ValueError('Child model-file identity mismatch')
-    if not torch.cuda.is_available() or not torch.is_bf16_supported():
+    if not torch.cuda.is_available() or not torch.cuda.is_bf16_supported():
         raise ValueError('CUDA bf16 is required for model-level reload verification')
     net = transformers.AutoModelForCausalLM.from_pretrained(
         args.model_path, local_files_only=True, torch_dtype=torch.bfloat16,
