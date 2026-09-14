@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 419
-- Verified UTC: 2026-09-14T03:40:02Z
+- Revision: 421
+- Verified UTC: 2026-09-14T03:44:55Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
-- Phase: local_work
+- Phase: external_wait
 - Active job: none
 - Observation evidence: At 2026-09-14T03:40:02Z, Polaris7616283 is terminal F with Exit_status1 and scheduler walltime00:01:40. The run reached result assembly after the training schedule, then failed on KeyError plan_sha256 because plan loading removed the validated identity before config serialization. No child checkpoint, steps, receipt, protected generation or gate claim was written; the raw log and failure receipt are preserved.
 - Latest completed result: Polaris7616283 failed during result assembly after the scheduled true-update path, not during model scoring. The narrow local repair restores the validated plan_sha256 in the returned plan; focused local tests pass. This is an infrastructure/result-assembly defect, not model evidence, and no protected/gate claim is made.
 - Local work: Prepared append-only stage tla-sequence-train-20260914-v3 with the one-line result-assembly repair and regression assertion. Its seven-file SHA256 manifest is b57735df; local checksum, PBS syntax, train CLI and pycache guards pass. It retains exactly8 non-protected updates, diagnostic-only12-pair holdout, parent-child/reload guards and no protected generation, model-selection or gate claim.
-- External blocker: none verified
-- Next action: Commit the narrow repair and preserved failure evidence, then perform fresh exact destination and owned-queue checks before the append-only v3 upload. If remote guards pass and no owned job is present, acquire one unique claim and submit at most one bounded15-minute Polaris GPU run; do not duplicate7616283 or infer quality from training completion.
+- External blocker: Execution review rejected the new private v3 upload before execution because broad standing approval did not explicitly name manifest b57735df and destination /home/eric-spencer/tla-sequence-train-20260914-v3; no remote directory, transfer, guard or qsub side effect occurred.
+- Next action: Obtain direct exact approval naming manifest b57735df and destination /home/eric-spencer/tla-sequence-train-20260914-v3. Then repeat fresh absence/queue checks, upload and all remote guards; if they pass and no owned job is present, acquire one unique claim and submit at most one bounded15-minute Polaris GPU run. Do not duplicate7616283 or infer quality from training completion.
 
 ## Objective and evidence rules
 
@@ -37,6 +37,8 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 
 ## Decisions
 
+- 2026-09-14T03:44:55Z: Execution review rejected the new private v3 upload before execution because the latest broad authorization did not name exact manifest b57735df and destination /home/eric-spencer/tla-sequence-train-20260914-v3. Fresh prechecks had shown the destination absent and both owned queues empty; no remote write, transfer, guard or qsub occurred. Preserve the rejection and require direct exact approval; do not route around review.
+- 2026-09-14T03:43:40Z: Focused repair, regression test, exact v3 stage guards and preserved failure evidence are committed as6b231434. Begin fresh remote destination and ownership checks; no remote side effect or duplicate submission is implied by this bookkeeping update.
 - 2026-09-14T03:40:02Z: Reconciled Polaris7616283 as terminal failure Exit1 after1:40. The training schedule reached result assembly, where a popped plan_sha256 caused KeyError; preserved the raw log and failure receipt. No child/checkpoint/receipt/protected generation/gate claim exists. Applied only the narrow plan-identity repair, added a regression assertion, and prepared append-only v3 with local11-test plus checksum/PBS/CLI/pycache guards passing.
 - 2026-09-14T03:29:21Z: Submitted exactly one authorized job7616283 after fresh empty owned-queue checks; scheduler attests running debug, oneGPU, node x3207c0s7b1n0 and15-minute walltime. No duplicate and no quality/gate claim.
 - 2026-09-14T03:28:28Z: Fresh Polaris/Sophia owned queues are empty, the approved c052014d stage is present with matching manifest SHA, and persistent claimf39882bd was acquired exactly once for this payload. Submit one bounded GPU job; no quality/gate result exists yet.
@@ -254,16 +256,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 419,
-  "verified_utc": "2026-09-14T03:40:02Z",
+  "revision": 421,
+  "verified_utc": "2026-09-14T03:44:55Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
-  "phase": "local_work",
+  "phase": "external_wait",
   "active_job": null,
   "observation_evidence": "At 2026-09-14T03:40:02Z, Polaris7616283 is terminal F with Exit_status1 and scheduler walltime00:01:40. The run reached result assembly after the training schedule, then failed on KeyError plan_sha256 because plan loading removed the validated identity before config serialization. No child checkpoint, steps, receipt, protected generation or gate claim was written; the raw log and failure receipt are preserved.",
   "last_result": "Polaris7616283 failed during result assembly after the scheduled true-update path, not during model scoring. The narrow local repair restores the validated plan_sha256 in the returned plan; focused local tests pass. This is an infrastructure/result-assembly defect, not model evidence, and no protected/gate claim is made.",
   "local_work": "Prepared append-only stage tla-sequence-train-20260914-v3 with the one-line result-assembly repair and regression assertion. Its seven-file SHA256 manifest is b57735df; local checksum, PBS syntax, train CLI and pycache guards pass. It retains exactly8 non-protected updates, diagnostic-only12-pair holdout, parent-child/reload guards and no protected generation, model-selection or gate claim.",
-  "external_blocker": "",
-  "next_action": "Commit the narrow repair and preserved failure evidence, then perform fresh exact destination and owned-queue checks before the append-only v3 upload. If remote guards pass and no owned job is present, acquire one unique claim and submit at most one bounded15-minute Polaris GPU run; do not duplicate7616283 or infer quality from training completion.",
+  "external_blocker": "Execution review rejected the new private v3 upload before execution because broad standing approval did not explicitly name manifest b57735df and destination /home/eric-spencer/tla-sequence-train-20260914-v3; no remote directory, transfer, guard or qsub side effect occurred.",
+  "next_action": "Obtain direct exact approval naming manifest b57735df and destination /home/eric-spencer/tla-sequence-train-20260914-v3. Then repeat fresh absence/queue checks, upload and all remote guards; if they pass and no owned job is present, acquire one unique claim and submit at most one bounded15-minute Polaris GPU run. Do not duplicate7616283 or infer quality from training completion.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -333,6 +335,8 @@ These snapshots preserve old statements, including mistakes. They are not curren
     }
   ],
   "decisions": [
+    "2026-09-14T03:44:55Z: Execution review rejected the new private v3 upload before execution because the latest broad authorization did not name exact manifest b57735df and destination /home/eric-spencer/tla-sequence-train-20260914-v3. Fresh prechecks had shown the destination absent and both owned queues empty; no remote write, transfer, guard or qsub occurred. Preserve the rejection and require direct exact approval; do not route around review.",
+    "2026-09-14T03:43:40Z: Focused repair, regression test, exact v3 stage guards and preserved failure evidence are committed as6b231434. Begin fresh remote destination and ownership checks; no remote side effect or duplicate submission is implied by this bookkeeping update.",
     "2026-09-14T03:40:02Z: Reconciled Polaris7616283 as terminal failure Exit1 after1:40. The training schedule reached result assembly, where a popped plan_sha256 caused KeyError; preserved the raw log and failure receipt. No child/checkpoint/receipt/protected generation/gate claim exists. Applied only the narrow plan-identity repair, added a regression assertion, and prepared append-only v3 with local11-test plus checksum/PBS/CLI/pycache guards passing.",
     "2026-09-14T03:29:21Z: Submitted exactly one authorized job7616283 after fresh empty owned-queue checks; scheduler attests running debug, oneGPU, node x3207c0s7b1n0 and15-minute walltime. No duplicate and no quality/gate claim.",
     "2026-09-14T03:28:28Z: Fresh Polaris/Sophia owned queues are empty, the approved c052014d stage is present with matching manifest SHA, and persistent claimf39882bd was acquired exactly once for this payload. Submit one bounded GPU job; no quality/gate result exists yet.",
@@ -804,7 +808,8 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "results/prover-submit-claims/f39882bd932cacdb81206bae861de1893660d2001cd5c9fb56669ea3b7deea50.json",
     "results/runs/sequence-train-20260913-v2/job-7616283/job.7616283.log",
     "results/runs/sequence-train-20260914-v3/failure-receipt.json",
-    "results/stages/tla-sequence-train-20260914-v3/SHA256SUMS"
+    "results/stages/tla-sequence-train-20260914-v3/SHA256SUMS",
+    "results/runs/sequence-train-20260914-v3/upload-authorization-rejection.json"
   ]
 }
 -->

@@ -1,0 +1,13 @@
+{
+  "observed_utc": "2026-09-14T03:44:55Z",
+  "kind": "private_bundle_upload_review_rejection_v1",
+  "stage_manifest_sha256": "b57735dfd7b4bbadbff29bb70118678f687f3d9447030f4c9c503fe891027805",
+  "destination": "/home/eric-spencer/tla-sequence-train-20260914-v3",
+  "review_outcome": "rejected_before_execution",
+  "reason": "Execution review requires direct approval naming this exact new private manifest/payload and destination; earlier bundle approvals and broad standing authorization were not accepted for this transfer.",
+  "remote_directory_created": false,
+  "files_transferred": false,
+  "remote_guards_run": false,
+  "scheduler_submission": false,
+  "workaround_attempted": false
+}
