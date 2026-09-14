@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 496
-- Verified UTC: 2026-09-14T20:03:44Z
+- Revision: 497
+- Verified UTC: 2026-09-14T20:04:24Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: local_work
 - Active job: none
-- Observation evidence: At 2026-09-14T20:03:44Z, the exact transferred v3 stage passes all independent remote guards: five SHA256SUMS entries, both source compilation checks, no pycache residue, exact parent presence, and available quota. Remote stage manifest is 86f9f40000c4d69bcd1cd77f40adc5f7bed21ddc755b58728b8379f30c18b92c at /home/eric-spencer/tla-prefix-sft-train-20260914-v3. No GPU submission has occurred; the active non-inference watchdog remains running in persistent session prover-roadblock-watch.
+- Observation evidence: At 2026-09-14T20:04:24Z, the exact transferred v3 stage passes all independent remote guards: five SHA256SUMS entries, both source compilation checks, no pycache residue, exact parent presence, and available quota. Persistent identity claim f51406fdfbef04c40fd5d51a2ed1046b78e0a0e1fa880e27a39765d332d1bc92 binds manifest 86f9f400, destination /home/eric-spencer/tla-prefix-sft-train-20260914-v3, packet a125a0d5, parent fba2768e, PBS 88b87645 and runner 1801257a. No GPU submission has occurred; the active non-inference watchdog remains running in persistent session prover-roadblock-watch.
 - Latest completed result: Structural-span training is now a complete, reproducible artifact and the serialization/runtime bottlenecks are resolved. Validation preference margin moved from 14.341142475605011 to 14.750914980064739, but the protected SANY denominator stayed 0/2. No model-improvement, TLC, non-vacuity, TLAPS, or gate claim is made.
 - Local work: Retrieved v3 receipt, child, diagnostics, terminal record and log under results/runs/tla-structured-span-train-20260914-v3. Independent remote torch.load plus local hash/size/receipt/ledger checks passed. The exact child is retained without optimizer state; it is not resumable. V1 timeout, v2 standard-serializer failure and v3 successful legacy serialization remain separate append-only evidence. The focused commit is complete; unrelated pre-existing worktree changes remain unstaged.
 - External blocker: none verified
-- Next action: Acquire one persistent claim binding the exact v3 manifest, destination, PBS and runner hashes, perform one final empty-queue check, then submit exactly one debug GPU for 15 minutes. Preserve zero protected/gate credit.
+- Next action: Perform one final empty-owned-queue check, then submit exactly the claimed v3 PBS job for one debug GPU and 15 minutes. Record the scheduler handle immediately; preserve zero protected/gate credit.
 
 ## Objective and evidence rules
 
@@ -37,6 +37,7 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 
 ## Decisions
 
+- 2026-09-14T20:04:24Z: Persistent claim f51406fdfbef04c40fd5d51a2ed1046b78e0a0e1fa880e27a39765d332d1bc92 acquired exactly once for the fully guarded v3 stage. One final queue check remains before qsub; no duplicate or quality/gate claim.
 - 2026-09-14T20:03:44Z: Clean remote v3 guards pass after exact pycache cleanup. The stage is execution-ready with no source/packet drift; next side effect is one persistent identity claim followed by at most one qsub, no duplicate and no quality/gate claim.
 - 2026-09-14T20:02:13Z: Remote guard diagnosis is complete: source compilation, CLI help and parent existence pass; only a generated __pycache__ directory from local stage validation caused the no-pycache guard to fail. Remove that exact generated residue and rerun, preserving all source and packet hashes.
 - 2026-09-14T19:59:27Z: Atomic v3 transfer succeeded and all five remote hashes passed. The first remote compile/CLI guard failed from a missing closing parenthesis in the inline Python check before model load; the transferred stage and scheduler state are unchanged. Rerun only the corrected guard.
@@ -311,16 +312,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 496,
-  "verified_utc": "2026-09-14T20:03:44Z",
+  "revision": 497,
+  "verified_utc": "2026-09-14T20:04:24Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "local_work",
   "active_job": null,
-  "observation_evidence": "At 2026-09-14T20:03:44Z, the exact transferred v3 stage passes all independent remote guards: five SHA256SUMS entries, both source compilation checks, no pycache residue, exact parent presence, and available quota. Remote stage manifest is 86f9f40000c4d69bcd1cd77f40adc5f7bed21ddc755b58728b8379f30c18b92c at /home/eric-spencer/tla-prefix-sft-train-20260914-v3. No GPU submission has occurred; the active non-inference watchdog remains running in persistent session prover-roadblock-watch.",
+  "observation_evidence": "At 2026-09-14T20:04:24Z, the exact transferred v3 stage passes all independent remote guards: five SHA256SUMS entries, both source compilation checks, no pycache residue, exact parent presence, and available quota. Persistent identity claim f51406fdfbef04c40fd5d51a2ed1046b78e0a0e1fa880e27a39765d332d1bc92 binds manifest 86f9f400, destination /home/eric-spencer/tla-prefix-sft-train-20260914-v3, packet a125a0d5, parent fba2768e, PBS 88b87645 and runner 1801257a. No GPU submission has occurred; the active non-inference watchdog remains running in persistent session prover-roadblock-watch.",
   "last_result": "Structural-span training is now a complete, reproducible artifact and the serialization/runtime bottlenecks are resolved. Validation preference margin moved from 14.341142475605011 to 14.750914980064739, but the protected SANY denominator stayed 0/2. No model-improvement, TLC, non-vacuity, TLAPS, or gate claim is made.",
   "local_work": "Retrieved v3 receipt, child, diagnostics, terminal record and log under results/runs/tla-structured-span-train-20260914-v3. Independent remote torch.load plus local hash/size/receipt/ledger checks passed. The exact child is retained without optimizer state; it is not resumable. V1 timeout, v2 standard-serializer failure and v3 successful legacy serialization remain separate append-only evidence. The focused commit is complete; unrelated pre-existing worktree changes remain unstaged.",
   "external_blocker": "",
-  "next_action": "Acquire one persistent claim binding the exact v3 manifest, destination, PBS and runner hashes, perform one final empty-queue check, then submit exactly one debug GPU for 15 minutes. Preserve zero protected/gate credit.",
+  "next_action": "Perform one final empty-owned-queue check, then submit exactly the claimed v3 PBS job for one debug GPU and 15 minutes. Record the scheduler handle immediately; preserve zero protected/gate credit.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -390,6 +391,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
     }
   ],
   "decisions": [
+    "2026-09-14T20:04:24Z: Persistent claim f51406fdfbef04c40fd5d51a2ed1046b78e0a0e1fa880e27a39765d332d1bc92 acquired exactly once for the fully guarded v3 stage. One final queue check remains before qsub; no duplicate or quality/gate claim.",
     "2026-09-14T20:03:44Z: Clean remote v3 guards pass after exact pycache cleanup. The stage is execution-ready with no source/packet drift; next side effect is one persistent identity claim followed by at most one qsub, no duplicate and no quality/gate claim.",
     "2026-09-14T20:02:13Z: Remote guard diagnosis is complete: source compilation, CLI help and parent existence pass; only a generated __pycache__ directory from local stage validation caused the no-pycache guard to fail. Remove that exact generated residue and rerun, preserving all source and packet hashes.",
     "2026-09-14T19:59:27Z: Atomic v3 transfer succeeded and all five remote hashes passed. The first remote compile/CLI guard failed from a missing closing parenthesis in the inline Python check before model load; the transferred stage and scheduler state are unchanged. Rerun only the corrected guard.",
