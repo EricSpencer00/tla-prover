@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 462
-- Verified UTC: 2026-09-14T15:22:23Z
+- Revision: 467
+- Verified UTC: 2026-09-14T18:27:37Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: local_work
 - Active job: none
-- Observation evidence: At 2026-09-14T15:22:23Z, Polaris lineage-generation v3 job7618251 finished F Exit_status0 after00:02:15 on one GPU atx3005c0s25b1n0/0*64. The complete receipt and six raw generations were retrieved. Unchanged scoring controls pass, but base/parent/child each have0/2 SANY passes (six model rejects); no extraction, repair or reference conditioning occurred. No quality or gate claim.
+- Observation evidence: At 2026-09-14T18:27:37Z, Polaris lineage-generation v3 job7618251 finished F Exit_status0 after00:02:15 on one GPU atx3005c0s25b1n0/0*64. The complete receipt and six raw generations were retrieved. Unchanged scoring controls pass, but base/parent/child each have0/2 SANY passes (six model rejects); no extraction, repair or reference conditioning occurred. Polaris durable storage was then checked: /home has under1GiB user-quota headroom and EVITA Eagle/Grand is at its hard project limit. The private HF archive remains complete after local cleanup: exactly22 checkpoint files and57,634,279,939 bytes match the SHA256/size manifest; all22 local sources are absent. No research or gate claim.
 - Latest completed result: The corrected frozen base/parent/v7-child generation completed and the unchanged scorer validated all six outputs. Every candidate is a model_sany_reject: base0/2, parent0/2, child0/2. This is a genuine negative protected-row diagnostic with controls_ok=true, not a protected-quality or gate result.
-- Local work: Prepared append-only lineage-generation v3 with manifest5ad0eb28, ran the bounded job7618251, retrieved all six raw outputs and receipt, and preserved score-retry summary/rows/controls plus validation receipts. The only evaluator change is optional dtype_profile acceptance: model_files must still match and actual child tensors must be finite fp32; the protected packet, phases, rows47/107, greedy decode, grammar-off mode, scorer no-repair rule and no-gate rule remain unchanged. The v2 failure and permission-limited first local scoring attempt are preserved.
+- Local work: Prepared append-only lineage-generation v3 with manifest5ad0eb28, ran the bounded job7618251, retrieved all six raw outputs and receipt, and preserved score-retry summary/rows/controls plus validation receipts. The only evaluator change is optional dtype_profile acceptance: model_files must still match and actual child tensors must be finite fp32; the protected packet, phases, rows47/107, greedy decode, grammar-off mode, scorer no-repair rule and no-gate rule remain unchanged. The v2 failure and permission-limited first local scoring attempt are preserved. The22 untracked policy_optimizer.pt artifacts were archived privately at Hugging Face repository EricSpencer00/tla-prover-optimizer-checkpoints-20260914-v1; remote file count, total bytes and every LFS SHA256 match the generated manifest, and all22 local sources were then deleted by exact manifest path.
 - External blocker: none verified
-- Next action: Do not repeat unchanged full-prompt lineage. Treat the six SANY rejects as a negative/local-minimum diagnostic and design a materially different intervention—such as grammar-constrained or prefix-conditioned training/evaluation—with a fresh hypothesis, while preserving the frozen acceptance gates and keeping diagnostic rows out of gate/model-selection credit.
+- Next action: Resume local research design from the negative protected-lineage diagnostic with a materially different intervention—grammar-constrained or prefix-conditioned training/evaluation—while preserving frozen gates and keeping the private HF checkpoint archive as the durable recovery record. Do not repeat unchanged full-prompt lineage.
 
 ## Objective and evidence rules
 
@@ -37,6 +37,8 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 
 ## Decisions
 
+- 2026-09-14T18:27:37Z: Private HF archive EricSpencer00/tla-prover-optimizer-checkpoints-20260914-v1 remains complete after cleanup:22/22 checkpoint files,57,634,279,939 remote bytes, and every remote LFS SHA256 matches the manifest. All22 exact local policy_optimizer.pt paths were deleted; local disk recovered to62GiB free. Retain the remote manifest/repository as recovery evidence.
+- 2026-09-14T16:02:05Z: Polaris durable storage cannot accept the22 local policy_optimizer.pt artifacts: /home has under1GiB user-quota headroom and EVITA Eagle/Grand is at its hard limit. Hugging Face auth is available; before any transfer, archive privately with a complete per-file SHA256/size manifest and delete local copies only after verification. No research/gate claim.
 - 2026-09-14T15:22:23Z: Validated v3 lineage job7618251 and the unchanged scorer: controls_ok=true; base/parent/child each have0/2 SANY passes (6/6 model rejects). No extraction, repair or reference conditioning; this is a genuine negative two-TRAIN-row diagnostic and earns zero protected/gate credit. Do not repeat unchanged.
 - 2026-09-14T15:16:46Z: Polaris lineage-generation v3 job7618251 terminally finished F Exit_status0 after00:02:15. Retrieve and score the complete six-output artifact before any judgment; no quality/gate claim.
 - 2026-09-14T15:13:53Z: Submitted exactly one lineage-generation v3 job7618251 under claimb4c4d706 after fresh empty Polaris/Sophia owned queues. Scheduler attests running in debug on one GPU atx3005c0s25b1n0/0*64 with00:15:00 walltime. Monitor only; no scoring or quality/gate claim.
@@ -297,16 +299,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 462,
-  "verified_utc": "2026-09-14T15:22:23Z",
+  "revision": 467,
+  "verified_utc": "2026-09-14T18:27:37Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "local_work",
   "active_job": null,
-  "observation_evidence": "At 2026-09-14T15:22:23Z, Polaris lineage-generation v3 job7618251 finished F Exit_status0 after00:02:15 on one GPU atx3005c0s25b1n0/0*64. The complete receipt and six raw generations were retrieved. Unchanged scoring controls pass, but base/parent/child each have0/2 SANY passes (six model rejects); no extraction, repair or reference conditioning occurred. No quality or gate claim.",
+  "observation_evidence": "At 2026-09-14T18:27:37Z, Polaris lineage-generation v3 job7618251 finished F Exit_status0 after00:02:15 on one GPU atx3005c0s25b1n0/0*64. The complete receipt and six raw generations were retrieved. Unchanged scoring controls pass, but base/parent/child each have0/2 SANY passes (six model rejects); no extraction, repair or reference conditioning occurred. Polaris durable storage was then checked: /home has under1GiB user-quota headroom and EVITA Eagle/Grand is at its hard project limit. The private HF archive remains complete after local cleanup: exactly22 checkpoint files and57,634,279,939 bytes match the SHA256/size manifest; all22 local sources are absent. No research or gate claim.",
   "last_result": "The corrected frozen base/parent/v7-child generation completed and the unchanged scorer validated all six outputs. Every candidate is a model_sany_reject: base0/2, parent0/2, child0/2. This is a genuine negative protected-row diagnostic with controls_ok=true, not a protected-quality or gate result.",
-  "local_work": "Prepared append-only lineage-generation v3 with manifest5ad0eb28, ran the bounded job7618251, retrieved all six raw outputs and receipt, and preserved score-retry summary/rows/controls plus validation receipts. The only evaluator change is optional dtype_profile acceptance: model_files must still match and actual child tensors must be finite fp32; the protected packet, phases, rows47/107, greedy decode, grammar-off mode, scorer no-repair rule and no-gate rule remain unchanged. The v2 failure and permission-limited first local scoring attempt are preserved.",
+  "local_work": "Prepared append-only lineage-generation v3 with manifest5ad0eb28, ran the bounded job7618251, retrieved all six raw outputs and receipt, and preserved score-retry summary/rows/controls plus validation receipts. The only evaluator change is optional dtype_profile acceptance: model_files must still match and actual child tensors must be finite fp32; the protected packet, phases, rows47/107, greedy decode, grammar-off mode, scorer no-repair rule and no-gate rule remain unchanged. The v2 failure and permission-limited first local scoring attempt are preserved. The22 untracked policy_optimizer.pt artifacts were archived privately at Hugging Face repository EricSpencer00/tla-prover-optimizer-checkpoints-20260914-v1; remote file count, total bytes and every LFS SHA256 match the generated manifest, and all22 local sources were then deleted by exact manifest path.",
   "external_blocker": "",
-  "next_action": "Do not repeat unchanged full-prompt lineage. Treat the six SANY rejects as a negative/local-minimum diagnostic and design a materially different intervention\u2014such as grammar-constrained or prefix-conditioned training/evaluation\u2014with a fresh hypothesis, while preserving the frozen acceptance gates and keeping diagnostic rows out of gate/model-selection credit.",
+  "next_action": "Resume local research design from the negative protected-lineage diagnostic with a materially different intervention\u2014grammar-constrained or prefix-conditioned training/evaluation\u2014while preserving frozen gates and keeping the private HF checkpoint archive as the durable recovery record. Do not repeat unchanged full-prompt lineage.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -376,6 +378,8 @@ These snapshots preserve old statements, including mistakes. They are not curren
     }
   ],
   "decisions": [
+    "2026-09-14T18:27:37Z: Private HF archive EricSpencer00/tla-prover-optimizer-checkpoints-20260914-v1 remains complete after cleanup:22/22 checkpoint files,57,634,279,939 remote bytes, and every remote LFS SHA256 matches the manifest. All22 exact local policy_optimizer.pt paths were deleted; local disk recovered to62GiB free. Retain the remote manifest/repository as recovery evidence.",
+    "2026-09-14T16:02:05Z: Polaris durable storage cannot accept the22 local policy_optimizer.pt artifacts: /home has under1GiB user-quota headroom and EVITA Eagle/Grand is at its hard limit. Hugging Face auth is available; before any transfer, archive privately with a complete per-file SHA256/size manifest and delete local copies only after verification. No research/gate claim.",
     "2026-09-14T15:22:23Z: Validated v3 lineage job7618251 and the unchanged scorer: controls_ok=true; base/parent/child each have0/2 SANY passes (6/6 model rejects). No extraction, repair or reference conditioning; this is a genuine negative two-TRAIN-row diagnostic and earns zero protected/gate credit. Do not repeat unchanged.",
     "2026-09-14T15:16:46Z: Polaris lineage-generation v3 job7618251 terminally finished F Exit_status0 after00:02:15. Retrieve and score the complete six-output artifact before any judgment; no quality/gate claim.",
     "2026-09-14T15:13:53Z: Submitted exactly one lineage-generation v3 job7618251 under claimb4c4d706 after fresh empty Polaris/Sophia owned queues. Scheduler attests running in debug on one GPU atx3005c0s25b1n0/0*64 with00:15:00 walltime. Monitor only; no scoring or quality/gate claim.",
