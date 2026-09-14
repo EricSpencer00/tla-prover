@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 493
-- Verified UTC: 2026-09-14T19:58:12Z
+- Revision: 494
+- Verified UTC: 2026-09-14T19:59:27Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: local_work
 - Active job: none
-- Observation evidence: At 2026-09-14T19:58:12Z, the final fresh v3 precheck passed: Polaris host polaris-login-01, owned jobs 0, exact final and temp destinations absent, lfs quota 49864784/52428800 KiB. The local v3 stage remains SHA-valid with manifest 86f9f40000c4d69bcd1cd77f40adc5f7bed21ddc755b58728b8379f30c18b92c. The v2 hash-invalid destination remains preserved separately. No GPU submission occurred; the active non-inference watchdog remains running in persistent session prover-roadblock-watch.
+- Observation evidence: At 2026-09-14T19:59:27Z, atomic transfer completed to /home/eric-spencer/tla-prefix-sft-train-20260914-v3 and all five remote SHA256SUMS entries passed. The first independent compile/CLI guard then failed only because the shell's inline Python expression had a missing closing parenthesis; no model load, write, or GPU submission occurred and the stage is unchanged. The v2 hash-invalid destination remains preserved separately. The active non-inference watchdog remains running in persistent session prover-roadblock-watch.
 - Latest completed result: Structural-span training is now a complete, reproducible artifact and the serialization/runtime bottlenecks are resolved. Validation preference margin moved from 14.341142475605011 to 14.750914980064739, but the protected SANY denominator stayed 0/2. No model-improvement, TLC, non-vacuity, TLAPS, or gate claim is made.
 - Local work: Retrieved v3 receipt, child, diagnostics, terminal record and log under results/runs/tla-structured-span-train-20260914-v3. Independent remote torch.load plus local hash/size/receipt/ledger checks passed. The exact child is retained without optimizer state; it is not resumable. V1 timeout, v2 standard-serializer failure and v3 successful legacy serialization remain separate append-only evidence. The focused commit is complete; unrelated pre-existing worktree changes remain unstaged.
 - External blocker: none verified
-- Next action: Atomically stream the exact v3 stage to /home/eric-spencer/tla-prefix-sft-train-20260914-v3, rerun remote hashes/CLI guards, then submit at most one debug GPU for 15 minutes only after exact verification.
+- Next action: Rerun the corrected remote compile/CLI/pycache/parent guards on the exact transferred v3 stage; if they pass and a fresh queue check is clear, submit at most one debug GPU for 15 minutes.
 
 ## Objective and evidence rules
 
@@ -37,6 +37,7 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 
 ## Decisions
 
+- 2026-09-14T19:59:27Z: Atomic v3 transfer succeeded and all five remote hashes passed. The first remote compile/CLI guard failed from a missing closing parenthesis in the inline Python check before model load; the transferred stage and scheduler state are unchanged. Rerun only the corrected guard.
 - 2026-09-14T19:58:12Z: Final fresh v3 precheck passed with zero owned jobs, both destinations absent, and quota headroom restored. Atomic transfer is the sole next side effect; no quality/gate claim.
 - 2026-09-14T19:57:30Z: Exact cleanup succeeded and lfs quota recovered to 49864784/52428800 KiB. The current structural child remains retained; the v2 corrupt packet remains preserved for failure evidence. Proceed with a fresh v3 destination/queue check before transfer.
 - 2026-09-14T19:56:16Z: Quota is the concrete transport blocker. The 185259 syntax-preference artifact is a preserved negative result with exact local/remote identity and no current lineage; removing only its 2617373501-byte policy_optimizer.pt plus the failed v3 temp directory is authorized cleanup needed for the new exact-weight child. The current structural v3 child remains protected from deletion.
@@ -308,16 +309,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 493,
-  "verified_utc": "2026-09-14T19:58:12Z",
+  "revision": 494,
+  "verified_utc": "2026-09-14T19:59:27Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "local_work",
   "active_job": null,
-  "observation_evidence": "At 2026-09-14T19:58:12Z, the final fresh v3 precheck passed: Polaris host polaris-login-01, owned jobs 0, exact final and temp destinations absent, lfs quota 49864784/52428800 KiB. The local v3 stage remains SHA-valid with manifest 86f9f40000c4d69bcd1cd77f40adc5f7bed21ddc755b58728b8379f30c18b92c. The v2 hash-invalid destination remains preserved separately. No GPU submission occurred; the active non-inference watchdog remains running in persistent session prover-roadblock-watch.",
+  "observation_evidence": "At 2026-09-14T19:59:27Z, atomic transfer completed to /home/eric-spencer/tla-prefix-sft-train-20260914-v3 and all five remote SHA256SUMS entries passed. The first independent compile/CLI guard then failed only because the shell's inline Python expression had a missing closing parenthesis; no model load, write, or GPU submission occurred and the stage is unchanged. The v2 hash-invalid destination remains preserved separately. The active non-inference watchdog remains running in persistent session prover-roadblock-watch.",
   "last_result": "Structural-span training is now a complete, reproducible artifact and the serialization/runtime bottlenecks are resolved. Validation preference margin moved from 14.341142475605011 to 14.750914980064739, but the protected SANY denominator stayed 0/2. No model-improvement, TLC, non-vacuity, TLAPS, or gate claim is made.",
   "local_work": "Retrieved v3 receipt, child, diagnostics, terminal record and log under results/runs/tla-structured-span-train-20260914-v3. Independent remote torch.load plus local hash/size/receipt/ledger checks passed. The exact child is retained without optimizer state; it is not resumable. V1 timeout, v2 standard-serializer failure and v3 successful legacy serialization remain separate append-only evidence. The focused commit is complete; unrelated pre-existing worktree changes remain unstaged.",
   "external_blocker": "",
-  "next_action": "Atomically stream the exact v3 stage to /home/eric-spencer/tla-prefix-sft-train-20260914-v3, rerun remote hashes/CLI guards, then submit at most one debug GPU for 15 minutes only after exact verification.",
+  "next_action": "Rerun the corrected remote compile/CLI/pycache/parent guards on the exact transferred v3 stage; if they pass and a fresh queue check is clear, submit at most one debug GPU for 15 minutes.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -387,6 +388,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
     }
   ],
   "decisions": [
+    "2026-09-14T19:59:27Z: Atomic v3 transfer succeeded and all five remote hashes passed. The first remote compile/CLI guard failed from a missing closing parenthesis in the inline Python check before model load; the transferred stage and scheduler state are unchanged. Rerun only the corrected guard.",
     "2026-09-14T19:58:12Z: Final fresh v3 precheck passed with zero owned jobs, both destinations absent, and quota headroom restored. Atomic transfer is the sole next side effect; no quality/gate claim.",
     "2026-09-14T19:57:30Z: Exact cleanup succeeded and lfs quota recovered to 49864784/52428800 KiB. The current structural child remains retained; the v2 corrupt packet remains preserved for failure evidence. Proceed with a fresh v3 destination/queue check before transfer.",
     "2026-09-14T19:56:16Z: Quota is the concrete transport blocker. The 185259 syntax-preference artifact is a preserved negative result with exact local/remote identity and no current lineage; removing only its 2617373501-byte policy_optimizer.pt plus the failed v3 temp directory is authorized cleanup needed for the new exact-weight child. The current structural v3 child remains protected from deletion.",
