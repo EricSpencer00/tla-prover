@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 503
-- Verified UTC: 2026-09-14T20:26:48Z
+- Revision: 504
+- Verified UTC: 2026-09-14T20:28:57Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: local_work
 - Active job: none
-- Observation evidence: At 2026-09-14T20:26:48Z, Polaris stage /home/eric-spencer/tla-broader-child-protected-diag-20260914-v1 contains the exact protected packet SHA a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c, preflight SHA 4c569421946fcd207028f16f12f90b24182817b7f89975c988277197195f15e8, paired-generation SHA b8b024665cb28c9873be26b3e89c4e26132d1e73e8bc1d69a98a60877f0c9380 and canonical grammar SHA 1f4124cd20bdfdfd41ba406703bb2d123ebb26190fd3834cbb3df32dcb1cc000. Independent remote SHA checks pass and the CPU-only XGrammar 0.2.2 dependency preflight passes before model/CUDA work. The previously trained broader 32-target child remains present with exact hash cd554adea8ee1095408d4502ce61230e198faddbcacae3f89e34808ed057c955, 100 updates and exact tensor/logit reload. No GPU job has been submitted for this diagnostic. The earlier prefix-SFT result remains verified negative; the programmatic roadblock watchdog is active.
+- Observation evidence: At 2026-09-14T20:28:57Z, Polaris stage /home/eric-spencer/tla-broader-child-protected-diag-20260914-v1 contains the exact protected packet SHA a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c, preflight SHA 4c569421946fcd207028f16f12f90b24182817b7f89975c988277197195f15e8, paired-generation SHA b8b024665cb28c9873be26b3e89c4e26132d1e73e8bc1d69a98a60877f0c9380, canonical grammar SHA 1f4124cd20bdfdfd41ba406703bb2d123ebb26190fd3834cbb3df32dcb1cc000, and launcher SHA 1cab97169a67f0318e67fe3d7214ab4ecf819518def263f8be89c77267083111. Independent remote SHA checks and the CPU-only XGrammar 0.2.2 dependency preflight pass before model/CUDA work. The persistent unique claim SHA is 4852227256266f4368c562fe21ccc7ec0c46706454768ca9bccb12dbb6ec2e44. The previously trained broader 32-target child remains present with exact hash cd554adea8ee1095408d4502ce61230e198faddbcacae3f89e34808ed057c955, 100 updates and exact tensor/logit reload. No GPU job has been submitted for this diagnostic. The earlier prefix-SFT result remains verified negative; the programmatic roadblock watchdog is active.
 - Latest completed result: Prefix-conditioned response-SFT job 7618996 completed all 16 updates with finite gradients and exact child reload. Validation loss improved diagnostically by 0.00104728, but both protected rows remained SANY rejects; this is not a model-improvement or gate result.
 - Local work: Structural-span v3 and prefix-SFT v3 are verified locally with terminal, receipt, steps, child, SANY diagnostics and independent verification records under results/runs. The v2 hash-invalid transfer evidence remains preserved; exact large binaries remain outside Git; unrelated pre-existing worktree changes remain unstaged. The watchdog source and active tmux session are verified.
 - External blocker: none verified
-- Next action: Acquire one unique claim for the prepared broader-child protected diagnostic, submit exactly one Polaris GPU job under the 00:15:00 bound, then retrieve and independently SANY-score all eight raw outputs with reference/negative controls. Treat any result as diagnostic unless protected SANY changes under the frozen denominator; do not repeat the already-pruned prefix-SFT objective.
+- Next action: Submit exactly the claimed broader-child protected diagnostic job to Polaris under the 00:15:00 bound, then retrieve and independently SANY-score all eight raw outputs with reference/negative controls. Treat any result as diagnostic unless protected SANY changes under the frozen denominator; do not repeat the already-pruned prefix-SFT objective.
 
 ## Objective and evidence rules
 
@@ -37,6 +37,7 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 
 ## Decisions
 
+- 2026-09-14T20:28:57Z: Unique claim 4852227256266f4368c562fe21ccc7ec0c46706454768ca9bccb12dbb6ec2e44 acquired after the Polaris owned-queue/output check passed. It binds the exact packet, broader child, generation helpers, canonical grammar, launcher, one GPU and 15-minute walltime. Submit exactly once; no gate or quality claim.
 - 2026-09-14T20:26:48Z: The fresh append-only protected-diagnostic stage transferred successfully and its four immutable payload hashes plus CPU-only XGrammar preflight pass. The PBS launcher hash is 1cab97169a67f0318e67fe3d7214ab4ecf819518def263f8be89c77267083111. No qsub yet; submit only after the unique identity claim and final empty-owned-queue check.
 - 2026-09-14T20:23:19Z: Existing broader child cd554adea8ee1095408d4502ce61230e198faddbcacae3f89e34808ed057c955 is available on Polaris. Its metadata verifies fresh 32-target whole-module SFT, 100 updates, positive finite training health and exact tensor/logit reload, but its historical cycle stopped before strict protected SANY evaluation. Reuse it only for a new read-only protected diagnostic; no gate or quality credit until raw outputs and SANY controls are independently verified.
 - 2026-09-14T20:16:00Z: Prefix-conditioned response-SFT v3 is a complete negative diagnostic: job 7618996 produced 16 updates with exact 9-tensor reload and validation-loss proxy improvement of 0.00104728, but protected SANY remained 0/2 before and after. Local/remote hashes, finite FP32 tensors, exact reload, receipt and steps all verify. Prune this exact objective and reopen the frontier; no quality or gate claim.
@@ -318,16 +319,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 503,
-  "verified_utc": "2026-09-14T20:26:48Z",
+  "revision": 504,
+  "verified_utc": "2026-09-14T20:28:57Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "local_work",
   "active_job": null,
-  "observation_evidence": "At 2026-09-14T20:26:48Z, Polaris stage /home/eric-spencer/tla-broader-child-protected-diag-20260914-v1 contains the exact protected packet SHA a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c, preflight SHA 4c569421946fcd207028f16f12f90b24182817b7f89975c988277197195f15e8, paired-generation SHA b8b024665cb28c9873be26b3e89c4e26132d1e73e8bc1d69a98a60877f0c9380 and canonical grammar SHA 1f4124cd20bdfdfd41ba406703bb2d123ebb26190fd3834cbb3df32dcb1cc000. Independent remote SHA checks pass and the CPU-only XGrammar 0.2.2 dependency preflight passes before model/CUDA work. The previously trained broader 32-target child remains present with exact hash cd554adea8ee1095408d4502ce61230e198faddbcacae3f89e34808ed057c955, 100 updates and exact tensor/logit reload. No GPU job has been submitted for this diagnostic. The earlier prefix-SFT result remains verified negative; the programmatic roadblock watchdog is active.",
+  "observation_evidence": "At 2026-09-14T20:28:57Z, Polaris stage /home/eric-spencer/tla-broader-child-protected-diag-20260914-v1 contains the exact protected packet SHA a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c, preflight SHA 4c569421946fcd207028f16f12f90b24182817b7f89975c988277197195f15e8, paired-generation SHA b8b024665cb28c9873be26b3e89c4e26132d1e73e8bc1d69a98a60877f0c9380, canonical grammar SHA 1f4124cd20bdfdfd41ba406703bb2d123ebb26190fd3834cbb3df32dcb1cc000, and launcher SHA 1cab97169a67f0318e67fe3d7214ab4ecf819518def263f8be89c77267083111. Independent remote SHA checks and the CPU-only XGrammar 0.2.2 dependency preflight pass before model/CUDA work. The persistent unique claim SHA is 4852227256266f4368c562fe21ccc7ec0c46706454768ca9bccb12dbb6ec2e44. The previously trained broader 32-target child remains present with exact hash cd554adea8ee1095408d4502ce61230e198faddbcacae3f89e34808ed057c955, 100 updates and exact tensor/logit reload. No GPU job has been submitted for this diagnostic. The earlier prefix-SFT result remains verified negative; the programmatic roadblock watchdog is active.",
   "last_result": "Prefix-conditioned response-SFT job 7618996 completed all 16 updates with finite gradients and exact child reload. Validation loss improved diagnostically by 0.00104728, but both protected rows remained SANY rejects; this is not a model-improvement or gate result.",
   "local_work": "Structural-span v3 and prefix-SFT v3 are verified locally with terminal, receipt, steps, child, SANY diagnostics and independent verification records under results/runs. The v2 hash-invalid transfer evidence remains preserved; exact large binaries remain outside Git; unrelated pre-existing worktree changes remain unstaged. The watchdog source and active tmux session are verified.",
   "external_blocker": "",
-  "next_action": "Acquire one unique claim for the prepared broader-child protected diagnostic, submit exactly one Polaris GPU job under the 00:15:00 bound, then retrieve and independently SANY-score all eight raw outputs with reference/negative controls. Treat any result as diagnostic unless protected SANY changes under the frozen denominator; do not repeat the already-pruned prefix-SFT objective.",
+  "next_action": "Submit exactly the claimed broader-child protected diagnostic job to Polaris under the 00:15:00 bound, then retrieve and independently SANY-score all eight raw outputs with reference/negative controls. Treat any result as diagnostic unless protected SANY changes under the frozen denominator; do not repeat the already-pruned prefix-SFT objective.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -397,6 +398,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
     }
   ],
   "decisions": [
+    "2026-09-14T20:28:57Z: Unique claim 4852227256266f4368c562fe21ccc7ec0c46706454768ca9bccb12dbb6ec2e44 acquired after the Polaris owned-queue/output check passed. It binds the exact packet, broader child, generation helpers, canonical grammar, launcher, one GPU and 15-minute walltime. Submit exactly once; no gate or quality claim.",
     "2026-09-14T20:26:48Z: The fresh append-only protected-diagnostic stage transferred successfully and its four immutable payload hashes plus CPU-only XGrammar preflight pass. The PBS launcher hash is 1cab97169a67f0318e67fe3d7214ab4ecf819518def263f8be89c77267083111. No qsub yet; submit only after the unique identity claim and final empty-owned-queue check.",
     "2026-09-14T20:23:19Z: Existing broader child cd554adea8ee1095408d4502ce61230e198faddbcacae3f89e34808ed057c955 is available on Polaris. Its metadata verifies fresh 32-target whole-module SFT, 100 updates, positive finite training health and exact tensor/logit reload, but its historical cycle stopped before strict protected SANY evaluation. Reuse it only for a new read-only protected diagnostic; no gate or quality credit until raw outputs and SANY controls are independently verified.",
     "2026-09-14T20:16:00Z: Prefix-conditioned response-SFT v3 is a complete negative diagnostic: job 7618996 produced 16 updates with exact 9-tensor reload and validation-loss proxy improvement of 0.00104728, but protected SANY remained 0/2 before and after. Local/remote hashes, finite FP32 tensors, exact reload, receipt and steps all verify. Prune this exact objective and reopen the frontier; no quality or gate claim.",
