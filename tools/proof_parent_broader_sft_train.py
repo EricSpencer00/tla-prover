@@ -326,10 +326,12 @@ def main():
         p.add_argument('--lr', type=float, default=LR)
     args = parser.parse_args()
     if args.mode == 'preflight':
-        return preflight(args)
+        preflight(args)
+        return 0
     if args.output is None:
         parser.error('train requires --output')
-    return train(args)
+    train(args)
+    return 0
 
 
 if __name__ == '__main__':
