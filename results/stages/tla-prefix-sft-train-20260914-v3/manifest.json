@@ -1,0 +1,43 @@
+{
+  "budget": {
+    "clip": 1.0,
+    "generation_seconds": 45,
+    "lr": 2e-07,
+    "max_new_tokens": 1024,
+    "seed": 20260914,
+    "training_seconds": 600,
+    "updates": 16,
+    "weight_decay": 0.0
+  },
+  "gate_claim": false,
+  "kind": "prefix_conditioned_response_sft_v1",
+  "model_improvement_claim": false,
+  "no_protected_model_selection": true,
+  "no_protected_training": true,
+  "packet_sha256": "a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c",
+  "parent_checkpoint_sha256": "fba2768ed9a8f629f6496dc1ef72763b32fc339c74ba9075d1ffc53acd6c2d1d",
+  "protected_rows": [
+    47,
+    107
+  ],
+  "train_response_sha256": {
+    "45": "bad6c0dff5965a7363ecf1abf1a6a3faab714ad81cceff6c88b223cd62dac9fb",
+    "46": "9f436f4463f97528db6c948e1d0befd03bd20d18cdb14065d53af6d40827872c",
+    "50": "4eb9d23b701851e2039a5d2c00696cd9b618d68204778295ba38187c3ed30378",
+    "51": "ae56c12d774b6daa7440e132fc988e8d057c3a10590a97cec75898baab7e2a22"
+  },
+  "train_rows": [
+    45,
+    46,
+    50,
+    51
+  ],
+  "validation_response_sha256": {
+    "52": "769f844aaa3a81ab2a77b59922b84824d678c071468f8ab3b96bd5be021e7132",
+    "53": "53db414f719adaeb58a9890f7164294c44d16721963b31b855ad648be147d66c"
+  },
+  "validation_rows": [
+    52,
+    53
+  ]
+}
