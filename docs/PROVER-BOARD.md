@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 483
-- Verified UTC: 2026-09-14T19:23:15Z
+- Revision: 484
+- Verified UTC: 2026-09-14T19:27:36Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: local_work
 - Active job: none
-- Observation evidence: At 2026-09-14T19:23:15Z, the exact v3 child remains verified locally and on Polaris with matching SHA256/size. The attempted private HF upload was rejected by the action reviewer because this exact external payload/destination lacked explicit authorization; no HF mutation occurred. The child is therefore retained on Polaris and locally, and the binary will remain outside Git.
+- Observation evidence: At 2026-09-14T19:27:36Z, commit 51525c62 recorded the optimized structural-span trainer, append-only v3 stage, and verification metadata without the 872 MB binary. The exact v3 child remains verified locally and on Polaris with matching SHA256/size. The attempted private HF upload was rejected by the action reviewer because this exact external payload/destination lacked explicit authorization; no HF mutation occurred. The child is therefore retained on Polaris and locally, and the binary remains outside Git.
 - Latest completed result: Structural-span training is now a complete, reproducible artifact and the serialization/runtime bottlenecks are resolved. Validation preference margin moved from 14.341142475605011 to 14.750914980064739, but the protected SANY denominator stayed 0/2. No model-improvement, TLC, non-vacuity, TLAPS, or gate claim is made.
-- Local work: Retrieved v3 receipt, child, diagnostics, terminal record and log under results/runs/tla-structured-span-train-20260914-v3. Independent remote torch.load plus local hash/size/receipt/ledger checks passed. The exact child is retained without optimizer state; it is not resumable. V1 timeout, v2 standard-serializer failure and v3 successful legacy serialization remain separate append-only evidence.
+- Local work: Retrieved v3 receipt, child, diagnostics, terminal record and log under results/runs/tla-structured-span-train-20260914-v3. Independent remote torch.load plus local hash/size/receipt/ledger checks passed. The exact child is retained without optimizer state; it is not resumable. V1 timeout, v2 standard-serializer failure and v3 successful legacy serialization remain separate append-only evidence. The focused commit is complete; unrelated pre-existing worktree changes remain unstaged.
 - External blocker: none verified
-- Next action: Commit the optimized trainer, append-only v3 stage specification, receipts, terminal record and verification metadata without the 872 MB binary. Keep the verified binary on Polaris/local and do not attempt another external archive action in this run.
+- Next action: Continue broader autoresearch with a fresh grammar-constrained or prefix-conditioned hypothesis. Do not repeat this unconditioned structural-span objective; first build and locally guard the new stage, then consider at most one bounded GPU side effect. Keep the verified binary out of Git and do not attempt another external archive action in this run.
 
 ## Objective and evidence rules
 
@@ -299,16 +299,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 483,
-  "verified_utc": "2026-09-14T19:23:15Z",
+  "revision": 484,
+  "verified_utc": "2026-09-14T19:27:36Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "local_work",
   "active_job": null,
-  "observation_evidence": "At 2026-09-14T19:23:15Z, the exact v3 child remains verified locally and on Polaris with matching SHA256/size. The attempted private HF upload was rejected by the action reviewer because this exact external payload/destination lacked explicit authorization; no HF mutation occurred. The child is therefore retained on Polaris and locally, and the binary will remain outside Git.",
+  "observation_evidence": "At 2026-09-14T19:27:36Z, commit 51525c62 recorded the optimized structural-span trainer, append-only v3 stage, and verification metadata without the 872 MB binary. The exact v3 child remains verified locally and on Polaris with matching SHA256/size. The attempted private HF upload was rejected by the action reviewer because this exact external payload/destination lacked explicit authorization; no HF mutation occurred. The child is therefore retained on Polaris and locally, and the binary remains outside Git.",
   "last_result": "Structural-span training is now a complete, reproducible artifact and the serialization/runtime bottlenecks are resolved. Validation preference margin moved from 14.341142475605011 to 14.750914980064739, but the protected SANY denominator stayed 0/2. No model-improvement, TLC, non-vacuity, TLAPS, or gate claim is made.",
-  "local_work": "Retrieved v3 receipt, child, diagnostics, terminal record and log under results/runs/tla-structured-span-train-20260914-v3. Independent remote torch.load plus local hash/size/receipt/ledger checks passed. The exact child is retained without optimizer state; it is not resumable. V1 timeout, v2 standard-serializer failure and v3 successful legacy serialization remain separate append-only evidence.",
+  "local_work": "Retrieved v3 receipt, child, diagnostics, terminal record and log under results/runs/tla-structured-span-train-20260914-v3. Independent remote torch.load plus local hash/size/receipt/ledger checks passed. The exact child is retained without optimizer state; it is not resumable. V1 timeout, v2 standard-serializer failure and v3 successful legacy serialization remain separate append-only evidence. The focused commit is complete; unrelated pre-existing worktree changes remain unstaged.",
   "external_blocker": "",
-  "next_action": "Commit the optimized trainer, append-only v3 stage specification, receipts, terminal record and verification metadata without the 872 MB binary. Keep the verified binary on Polaris/local and do not attempt another external archive action in this run.",
+  "next_action": "Continue broader autoresearch with a fresh grammar-constrained or prefix-conditioned hypothesis. Do not repeat this unconditioned structural-span objective; first build and locally guard the new stage, then consider at most one bounded GPU side effect. Keep the verified binary out of Git and do not attempt another external archive action in this run.",
   "tasks": [
     {
       "id": "TLA-01",
