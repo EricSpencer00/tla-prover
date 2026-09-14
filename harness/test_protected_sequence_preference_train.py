@@ -73,6 +73,20 @@ def test_holdout_scoring_uses_precision_context_for_mixed_dtype_forward():
     assert torch.isfinite(torch.tensor(score))
 
 
+def test_atomic_publish_removes_partial_result_on_writer_failure(tmp_path):
+    output = tmp_path / "result"
+
+    def fail_after_partial_write(staging):
+        (staging / "policy_optimizer.pt").write_bytes(b"partial")
+        raise RuntimeError("receipt assembly failed")
+
+    with pytest.raises(RuntimeError, match="receipt assembly failed"):
+        train.atomic_publish(output, fail_after_partial_write)
+
+    assert not output.exists()
+    assert list(tmp_path.glob(".result.tmp-*")) == []
+
+
 def test_training_plan_admits_exact_disjoint_nonprotected_split(tmp_path):
     packet = packet20()
     path = tmp_path / "plan.json"
