@@ -1,0 +1,21 @@
+{
+  "kind": "polaris_job_terminal_v1",
+  "job_id": "7618905",
+  "job_state": "F",
+  "exec_host": "x3204c0s7b0n0/0*64",
+  "resource_list": {
+    "ngpus": 1,
+    "ncpus": 64,
+    "walltime": "00:15:00"
+  },
+  "resources_used": {
+    "cput": "00:02:50",
+    "mem_kb": 8513336,
+    "walltime": "00:03:07"
+  },
+  "stageout_status": 1,
+  "exit_status": 0,
+  "comment": "Job run at Mon Sep 14 at 19:12 on (x3204c0s7b0n0:ngpus=1:ncpus=64)",
+  "obit_time": "Mon Sep 14 19:15:32 2026",
+  "source": "qstat -xf 7618905.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov"
+}

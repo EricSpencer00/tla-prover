@@ -1,0 +1,678 @@
+{
+  "kind": "syntax_structured_span_preference_v1",
+  "packet_sha256": "a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c",
+  "parent_checkpoint_sha256": "fba2768ed9a8f629f6496dc1ef72763b32fc339c74ba9075d1ffc53acd6c2d1d",
+  "train_rows": [
+    45,
+    46,
+    50,
+    51
+  ],
+  "validation_rows": [
+    52,
+    53
+  ],
+  "protected_rows": [
+    47,
+    107
+  ],
+  "budget": {
+    "steps": 24,
+    "accumulation": 4,
+    "lr": 1e-06,
+    "margin": 1.0,
+    "anchor_weight": 0.1,
+    "seed": 20260910,
+    "training_seconds": 600,
+    "max_prefix_tokens": 2048,
+    "max_new_tokens": 1024,
+    "generation_seconds": 45,
+    "sany_seconds": 30,
+    "objective": "multi_token_structural_span"
+  },
+  "sany_jar_sha256": "936a262061c914694dfd669a543be24573c45d5aa0ff20a8b96b23d01e050e88",
+  "pairs": [
+    {
+      "row": 45,
+      "id": "w4-fullmodule:w4opus::d18-m9-p1-t2",
+      "split": "train",
+      "kind": "EXTENDS_span",
+      "positive_sha256": "bad6c0dff5965a7363ecf1abf1a6a3faab714ad81cceff6c88b223cd62dac9fb",
+      "span_text": "EXTENDS Naturals\n",
+      "negative": "---- MODULE W4Od18m9p1t2 ----\n@XTENDS Naturals\nHubs == {\"h1\", \"h2\"}\nPolicies == {\"day\", \"night\"}\nVARIABLES config, highWater\nvars == <<config, highWater>>\n\nInit ==\n  /\\ config = [policy |-> \"day\", epoch |-> 0]\n  /\\ highWater = 0\n\nReconfigure ==\n  /\\ config.epoch < 3\n  /\\ \\E h \\in Hubs, p \\in Policies :\n       /\\ config' = [policy |-> p, epoch |-> config.epoch + 1]\n  /\\ highWater' = config.epoch + 1\n\nHubHeartbeat ==\n  /\\ config' = config\n  /\\ highWater' = config.epoch\n\nNext == Reconfigure \\/ HubHeartbeat\nSpec == Init /\\ [][Next]_vars\nNoStaleOverwrite == config.epoch >= highWater\n====",
+      "negative_sha256": "3ecf60ed51a68c71d6e4da48122834fc1ea2ff7feeecccc1c1fa934210264418"
+    },
+    {
+      "row": 45,
+      "id": "w4-fullmodule:w4opus::d18-m9-p1-t2",
+      "split": "train",
+      "kind": "Hubs_span",
+      "positive_sha256": "bad6c0dff5965a7363ecf1abf1a6a3faab714ad81cceff6c88b223cd62dac9fb",
+      "span_text": "Hubs == {\"h1\", \"h2\"}\n",
+      "negative": "---- MODULE W4Od18m9p1t2 ----\nEXTENDS Naturals\n@ubs == {\"h1\", \"h2\"}\nPolicies == {\"day\", \"night\"}\nVARIABLES config, highWater\nvars == <<config, highWater>>\n\nInit ==\n  /\\ config = [policy |-> \"day\", epoch |-> 0]\n  /\\ highWater = 0\n\nReconfigure ==\n  /\\ config.epoch < 3\n  /\\ \\E h \\in Hubs, p \\in Policies :\n       /\\ config' = [policy |-> p, epoch |-> config.epoch + 1]\n  /\\ highWater' = config.epoch + 1\n\nHubHeartbeat ==\n  /\\ config' = config\n  /\\ highWater' = config.epoch\n\nNext == Reconfigure \\/ HubHeartbeat\nSpec == Init /\\ [][Next]_vars\nNoStaleOverwrite == config.epoch >= highWater\n====",
+      "negative_sha256": "099d80fbf5c5521928e36c1fd62827243c4d1a7ac98a6ea7e02f54154e7a9e20"
+    },
+    {
+      "row": 45,
+      "id": "w4-fullmodule:w4opus::d18-m9-p1-t2",
+      "split": "train",
+      "kind": "Policies_span",
+      "positive_sha256": "bad6c0dff5965a7363ecf1abf1a6a3faab714ad81cceff6c88b223cd62dac9fb",
+      "span_text": "Policies == {\"day\", \"night\"}\n",
+      "negative": "---- MODULE W4Od18m9p1t2 ----\nEXTENDS Naturals\nHubs == {\"h1\", \"h2\"}\n@olicies == {\"day\", \"night\"}\nVARIABLES config, highWater\nvars == <<config, highWater>>\n\nInit ==\n  /\\ config = [policy |-> \"day\", epoch |-> 0]\n  /\\ highWater = 0\n\nReconfigure ==\n  /\\ config.epoch < 3\n  /\\ \\E h \\in Hubs, p \\in Policies :\n       /\\ config' = [policy |-> p, epoch |-> config.epoch + 1]\n  /\\ highWater' = config.epoch + 1\n\nHubHeartbeat ==\n  /\\ config' = config\n  /\\ highWater' = config.epoch\n\nNext == Reconfigure \\/ HubHeartbeat\nSpec == Init /\\ [][Next]_vars\nNoStaleOverwrite == config.epoch >= highWater\n====",
+      "negative_sha256": "ca4d749cc72df9179781a918899f7b94d450a9da5cfd75142c478edd7c1b6753"
+    },
+    {
+      "row": 45,
+      "id": "w4-fullmodule:w4opus::d18-m9-p1-t2",
+      "split": "train",
+      "kind": "VARIABLES_span",
+      "positive_sha256": "bad6c0dff5965a7363ecf1abf1a6a3faab714ad81cceff6c88b223cd62dac9fb",
+      "span_text": "VARIABLES config, highWater\n",
+      "negative": "---- MODULE W4Od18m9p1t2 ----\nEXTENDS Naturals\nHubs == {\"h1\", \"h2\"}\nPolicies == {\"day\", \"night\"}\n@ARIABLES config, highWater\nvars == <<config, highWater>>\n\nInit ==\n  /\\ config = [policy |-> \"day\", epoch |-> 0]\n  /\\ highWater = 0\n\nReconfigure ==\n  /\\ config.epoch < 3\n  /\\ \\E h \\in Hubs, p \\in Policies :\n       /\\ config' = [policy |-> p, epoch |-> config.epoch + 1]\n  /\\ highWater' = config.epoch + 1\n\nHubHeartbeat ==\n  /\\ config' = config\n  /\\ highWater' = config.epoch\n\nNext == Reconfigure \\/ HubHeartbeat\nSpec == Init /\\ [][Next]_vars\nNoStaleOverwrite == config.epoch >= highWater\n====",
+      "negative_sha256": "289faeec051e4aed967ea530f02ff21bacb31401be974835dc365638820435de"
+    },
+    {
+      "row": 45,
+      "id": "w4-fullmodule:w4opus::d18-m9-p1-t2",
+      "split": "train",
+      "kind": "vars_span",
+      "positive_sha256": "bad6c0dff5965a7363ecf1abf1a6a3faab714ad81cceff6c88b223cd62dac9fb",
+      "span_text": "vars == <<config, highWater>>\n\n",
+      "negative": "---- MODULE W4Od18m9p1t2 ----\nEXTENDS Naturals\nHubs == {\"h1\", \"h2\"}\nPolicies == {\"day\", \"night\"}\nVARIABLES config, highWater\n@ars == <<config, highWater>>\n\nInit ==\n  /\\ config = [policy |-> \"day\", epoch |-> 0]\n  /\\ highWater = 0\n\nReconfigure ==\n  /\\ config.epoch < 3\n  /\\ \\E h \\in Hubs, p \\in Policies :\n       /\\ config' = [policy |-> p, epoch |-> config.epoch + 1]\n  /\\ highWater' = config.epoch + 1\n\nHubHeartbeat ==\n  /\\ config' = config\n  /\\ highWater' = config.epoch\n\nNext == Reconfigure \\/ HubHeartbeat\nSpec == Init /\\ [][Next]_vars\nNoStaleOverwrite == config.epoch >= highWater\n====",
+      "negative_sha256": "eeaf5e8eeeda61495c05084b11d4920c3cd16e8c808ef7cf64aa2ebbd48a7cb1"
+    },
+    {
+      "row": 45,
+      "id": "w4-fullmodule:w4opus::d18-m9-p1-t2",
+      "split": "train",
+      "kind": "Init_span",
+      "positive_sha256": "bad6c0dff5965a7363ecf1abf1a6a3faab714ad81cceff6c88b223cd62dac9fb",
+      "span_text": "Init ==\n  /\\ config = [policy |-> \"day\", epoch |-> 0]\n  /\\ highWater = 0\n\n",
+      "negative": "---- MODULE W4Od18m9p1t2 ----\nEXTENDS Naturals\nHubs == {\"h1\", \"h2\"}\nPolicies == {\"day\", \"night\"}\nVARIABLES config, highWater\nvars == <<config, highWater>>\n\n@nit ==\n  /\\ config = [policy |-> \"day\", epoch |-> 0]\n  /\\ highWater = 0\n\nReconfigure ==\n  /\\ config.epoch < 3\n  /\\ \\E h \\in Hubs, p \\in Policies :\n       /\\ config' = [policy |-> p, epoch |-> config.epoch + 1]\n  /\\ highWater' = config.epoch + 1\n\nHubHeartbeat ==\n  /\\ config' = config\n  /\\ highWater' = config.epoch\n\nNext == Reconfigure \\/ HubHeartbeat\nSpec == Init /\\ [][Next]_vars\nNoStaleOverwrite == config.epoch >= highWater\n====",
+      "negative_sha256": "9bf102563609d6b8a90a5ef9d2105a790ed6ef46afb6acb9176069488b4d3e67"
+    },
+    {
+      "row": 45,
+      "id": "w4-fullmodule:w4opus::d18-m9-p1-t2",
+      "split": "train",
+      "kind": "Reconfigure_span",
+      "positive_sha256": "bad6c0dff5965a7363ecf1abf1a6a3faab714ad81cceff6c88b223cd62dac9fb",
+      "span_text": "Reconfigure ==\n  /\\ config.epoch < 3\n  /\\ \\E h \\in Hubs, p \\in Policies :\n       /\\ config' = [policy |-> p, epoch |-> config.epoch + 1]\n  /\\ highWater' = config.epoch + 1\n\n",
+      "negative": "---- MODULE W4Od18m9p1t2 ----\nEXTENDS Naturals\nHubs == {\"h1\", \"h2\"}\nPolicies == {\"day\", \"night\"}\nVARIABLES config, highWater\nvars == <<config, highWater>>\n\nInit ==\n  /\\ config = [policy |-> \"day\", epoch |-> 0]\n  /\\ highWater = 0\n\n@econfigure ==\n  /\\ config.epoch < 3\n  /\\ \\E h \\in Hubs, p \\in Policies :\n       /\\ config' = [policy |-> p, epoch |-> config.epoch + 1]\n  /\\ highWater' = config.epoch + 1\n\nHubHeartbeat ==\n  /\\ config' = config\n  /\\ highWater' = config.epoch\n\nNext == Reconfigure \\/ HubHeartbeat\nSpec == Init /\\ [][Next]_vars\nNoStaleOverwrite == config.epoch >= highWater\n====",
+      "negative_sha256": "a9fec7b5edf931d1ca64341ddf04d06a59fdcf40bda83bdc3104eaf228f9e1a9"
+    },
+    {
+      "row": 45,
+      "id": "w4-fullmodule:w4opus::d18-m9-p1-t2",
+      "split": "train",
+      "kind": "HubHeartbeat_span",
+      "positive_sha256": "bad6c0dff5965a7363ecf1abf1a6a3faab714ad81cceff6c88b223cd62dac9fb",
+      "span_text": "HubHeartbeat ==\n  /\\ config' = config\n  /\\ highWater' = config.epoch\n\n",
+      "negative": "---- MODULE W4Od18m9p1t2 ----\nEXTENDS Naturals\nHubs == {\"h1\", \"h2\"}\nPolicies == {\"day\", \"night\"}\nVARIABLES config, highWater\nvars == <<config, highWater>>\n\nInit ==\n  /\\ config = [policy |-> \"day\", epoch |-> 0]\n  /\\ highWater = 0\n\nReconfigure ==\n  /\\ config.epoch < 3\n  /\\ \\E h \\in Hubs, p \\in Policies :\n       /\\ config' = [policy |-> p, epoch |-> config.epoch + 1]\n  /\\ highWater' = config.epoch + 1\n\n@ubHeartbeat ==\n  /\\ config' = config\n  /\\ highWater' = config.epoch\n\nNext == Reconfigure \\/ HubHeartbeat\nSpec == Init /\\ [][Next]_vars\nNoStaleOverwrite == config.epoch >= highWater\n====",
+      "negative_sha256": "07c8dda79b9ba1926fd01f9e581bb735c1cfdfd38a9ceecbee179582f89bdbc9"
+    },
+    {
+      "row": 45,
+      "id": "w4-fullmodule:w4opus::d18-m9-p1-t2",
+      "split": "train",
+      "kind": "Next_span",
+      "positive_sha256": "bad6c0dff5965a7363ecf1abf1a6a3faab714ad81cceff6c88b223cd62dac9fb",
+      "span_text": "Next == Reconfigure \\/ HubHeartbeat\n",
+      "negative": "---- MODULE W4Od18m9p1t2 ----\nEXTENDS Naturals\nHubs == {\"h1\", \"h2\"}\nPolicies == {\"day\", \"night\"}\nVARIABLES config, highWater\nvars == <<config, highWater>>\n\nInit ==\n  /\\ config = [policy |-> \"day\", epoch |-> 0]\n  /\\ highWater = 0\n\nReconfigure ==\n  /\\ config.epoch < 3\n  /\\ \\E h \\in Hubs, p \\in Policies :\n       /\\ config' = [policy |-> p, epoch |-> config.epoch + 1]\n  /\\ highWater' = config.epoch + 1\n\nHubHeartbeat ==\n  /\\ config' = config\n  /\\ highWater' = config.epoch\n\n@ext == Reconfigure \\/ HubHeartbeat\nSpec == Init /\\ [][Next]_vars\nNoStaleOverwrite == config.epoch >= highWater\n====",
+      "negative_sha256": "2958cf9f8b2e5d5bfc0c731696d935ddf4359786432047785d231b20ef4dd2d2"
+    },
+    {
+      "row": 45,
+      "id": "w4-fullmodule:w4opus::d18-m9-p1-t2",
+      "split": "train",
+      "kind": "Spec_span",
+      "positive_sha256": "bad6c0dff5965a7363ecf1abf1a6a3faab714ad81cceff6c88b223cd62dac9fb",
+      "span_text": "Spec == Init /\\ [][Next]_vars\n",
+      "negative": "---- MODULE W4Od18m9p1t2 ----\nEXTENDS Naturals\nHubs == {\"h1\", \"h2\"}\nPolicies == {\"day\", \"night\"}\nVARIABLES config, highWater\nvars == <<config, highWater>>\n\nInit ==\n  /\\ config = [policy |-> \"day\", epoch |-> 0]\n  /\\ highWater = 0\n\nReconfigure ==\n  /\\ config.epoch < 3\n  /\\ \\E h \\in Hubs, p \\in Policies :\n       /\\ config' = [policy |-> p, epoch |-> config.epoch + 1]\n  /\\ highWater' = config.epoch + 1\n\nHubHeartbeat ==\n  /\\ config' = config\n  /\\ highWater' = config.epoch\n\nNext == Reconfigure \\/ HubHeartbeat\n@pec == Init /\\ [][Next]_vars\nNoStaleOverwrite == config.epoch >= highWater\n====",
+      "negative_sha256": "efb5a82d275862c6ac26ab9ac1b266f3eb0332a59b41877391574f49ec75b0d3"
+    },
+    {
+      "row": 45,
+      "id": "w4-fullmodule:w4opus::d18-m9-p1-t2",
+      "split": "train",
+      "kind": "NoStaleOverwrite_span",
+      "positive_sha256": "bad6c0dff5965a7363ecf1abf1a6a3faab714ad81cceff6c88b223cd62dac9fb",
+      "span_text": "NoStaleOverwrite == config.epoch >= highWater\n",
+      "negative": "---- MODULE W4Od18m9p1t2 ----\nEXTENDS Naturals\nHubs == {\"h1\", \"h2\"}\nPolicies == {\"day\", \"night\"}\nVARIABLES config, highWater\nvars == <<config, highWater>>\n\nInit ==\n  /\\ config = [policy |-> \"day\", epoch |-> 0]\n  /\\ highWater = 0\n\nReconfigure ==\n  /\\ config.epoch < 3\n  /\\ \\E h \\in Hubs, p \\in Policies :\n       /\\ config' = [policy |-> p, epoch |-> config.epoch + 1]\n  /\\ highWater' = config.epoch + 1\n\nHubHeartbeat ==\n  /\\ config' = config\n  /\\ highWater' = config.epoch\n\nNext == Reconfigure \\/ HubHeartbeat\nSpec == Init /\\ [][Next]_vars\n@oStaleOverwrite == config.epoch >= highWater\n====",
+      "negative_sha256": "eb4a449e2e6607de2a9451180b6f71ffb034c701e6106d4982341016d95d4c4b"
+    },
+    {
+      "row": 45,
+      "id": "w4-fullmodule:w4opus::d18-m9-p1-t2",
+      "split": "train",
+      "kind": "====_span",
+      "positive_sha256": "bad6c0dff5965a7363ecf1abf1a6a3faab714ad81cceff6c88b223cd62dac9fb",
+      "span_text": "====",
+      "negative": "---- MODULE W4Od18m9p1t2 ----\nEXTENDS Naturals\nHubs == {\"h1\", \"h2\"}\nPolicies == {\"day\", \"night\"}\nVARIABLES config, highWater\nvars == <<config, highWater>>\n\nInit ==\n  /\\ config = [policy |-> \"day\", epoch |-> 0]\n  /\\ highWater = 0\n\nReconfigure ==\n  /\\ config.epoch < 3\n  /\\ \\E h \\in Hubs, p \\in Policies :\n       /\\ config' = [policy |-> p, epoch |-> config.epoch + 1]\n  /\\ highWater' = config.epoch + 1\n\nHubHeartbeat ==\n  /\\ config' = config\n  /\\ highWater' = config.epoch\n\nNext == Reconfigure \\/ HubHeartbeat\nSpec == Init /\\ [][Next]_vars\nNoStaleOverwrite == config.epoch >= highWater\n@===",
+      "negative_sha256": "a1295e5d42c10a839b993c884953b372456e9fc74c1d5967628f70954d0291a7"
+    },
+    {
+      "row": 46,
+      "id": "w4-fullmodule:w4opus::d13-m1-p5-t1",
+      "split": "train",
+      "kind": "EXTENDS_span",
+      "positive_sha256": "9f436f4463f97528db6c948e1d0befd03bd20d18cdb14065d53af6d40827872c",
+      "span_text": "EXTENDS Naturals\nCONSTANT Machines\n",
+      "negative": "---- MODULE W4Od13m1p5t1 ----\n@XTENDS Naturals\nCONSTANT Machines\nVARIABLES grant, dispensed\nvars == <<grant, dispensed>>\n\nInit ==\n  /\\ grant = (CHOOSE m \\in Machines : TRUE)\n  /\\ dispensed = [m \\in Machines |-> 0]\n\nPassToRing(m) ==\n  /\\ grant = m\n  /\\ grant' = \"ring\"\n  /\\ UNCHANGED dispensed\n\nDeliver(m) ==\n  /\\ grant = \"ring\"\n  /\\ grant' = m\n  /\\ UNCHANGED dispensed\n\nDispense(m) ==\n  /\\ grant = m\n  /\\ dispensed[m] = 0\n  /\\ dispensed' = [dispensed EXCEPT ![m] = dispensed[m] + 1]\n  /\\ grant' = \"ring\"\n\nNext == \\E m \\in Machines : PassToRing(m) \\/ Deliver(m) \\/ Dispense(m)\nSpec == Init /\\ [][Next]_vars\n\nDispensedAtMostOnce == \\A m \\in Machines : dispensed[m] <= 1\n====",
+      "negative_sha256": "aa6c148cc247a7f445dbc7ac2d582664d811b1318f53f312e3fce47c98d632a2"
+    },
+    {
+      "row": 46,
+      "id": "w4-fullmodule:w4opus::d13-m1-p5-t1",
+      "split": "train",
+      "kind": "VARIABLES_span",
+      "positive_sha256": "9f436f4463f97528db6c948e1d0befd03bd20d18cdb14065d53af6d40827872c",
+      "span_text": "VARIABLES grant, dispensed\n",
+      "negative": "---- MODULE W4Od13m1p5t1 ----\nEXTENDS Naturals\nCONSTANT Machines\n@ARIABLES grant, dispensed\nvars == <<grant, dispensed>>\n\nInit ==\n  /\\ grant = (CHOOSE m \\in Machines : TRUE)\n  /\\ dispensed = [m \\in Machines |-> 0]\n\nPassToRing(m) ==\n  /\\ grant = m\n  /\\ grant' = \"ring\"\n  /\\ UNCHANGED dispensed\n\nDeliver(m) ==\n  /\\ grant = \"ring\"\n  /\\ grant' = m\n  /\\ UNCHANGED dispensed\n\nDispense(m) ==\n  /\\ grant = m\n  /\\ dispensed[m] = 0\n  /\\ dispensed' = [dispensed EXCEPT ![m] = dispensed[m] + 1]\n  /\\ grant' = \"ring\"\n\nNext == \\E m \\in Machines : PassToRing(m) \\/ Deliver(m) \\/ Dispense(m)\nSpec == Init /\\ [][Next]_vars\n\nDispensedAtMostOnce == \\A m \\in Machines : dispensed[m] <= 1\n====",
+      "negative_sha256": "c02e4f48c100836d464fa3ed02bddc65b8781081a5aa88c9a5b94a49232ed1ac"
+    },
+    {
+      "row": 46,
+      "id": "w4-fullmodule:w4opus::d13-m1-p5-t1",
+      "split": "train",
+      "kind": "vars_span",
+      "positive_sha256": "9f436f4463f97528db6c948e1d0befd03bd20d18cdb14065d53af6d40827872c",
+      "span_text": "vars == <<grant, dispensed>>\n\n",
+      "negative": "---- MODULE W4Od13m1p5t1 ----\nEXTENDS Naturals\nCONSTANT Machines\nVARIABLES grant, dispensed\n@ars == <<grant, dispensed>>\n\nInit ==\n  /\\ grant = (CHOOSE m \\in Machines : TRUE)\n  /\\ dispensed = [m \\in Machines |-> 0]\n\nPassToRing(m) ==\n  /\\ grant = m\n  /\\ grant' = \"ring\"\n  /\\ UNCHANGED dispensed\n\nDeliver(m) ==\n  /\\ grant = \"ring\"\n  /\\ grant' = m\n  /\\ UNCHANGED dispensed\n\nDispense(m) ==\n  /\\ grant = m\n  /\\ dispensed[m] = 0\n  /\\ dispensed' = [dispensed EXCEPT ![m] = dispensed[m] + 1]\n  /\\ grant' = \"ring\"\n\nNext == \\E m \\in Machines : PassToRing(m) \\/ Deliver(m) \\/ Dispense(m)\nSpec == Init /\\ [][Next]_vars\n\nDispensedAtMostOnce == \\A m \\in Machines : dispensed[m] <= 1\n====",
+      "negative_sha256": "27019561bb1e40bb1b18fcc771efda9e009646893eee3724d3dfcd61b68d9040"
+    },
+    {
+      "row": 46,
+      "id": "w4-fullmodule:w4opus::d13-m1-p5-t1",
+      "split": "train",
+      "kind": "Init_span",
+      "positive_sha256": "9f436f4463f97528db6c948e1d0befd03bd20d18cdb14065d53af6d40827872c",
+      "span_text": "Init ==\n  /\\ grant = (CHOOSE m \\in Machines : TRUE)\n  /\\ dispensed = [m \\in Machines |-> 0]\n\nPassToRing(m) ==\n  /\\ grant = m\n  /\\ grant' = \"ring\"\n  /\\ UNCHANGED dispensed\n\nDeliver(m) ==\n  /\\ grant = \"ring\"\n  /\\ grant' = m\n  /\\ UNCHANGED dispensed\n\nDispense(m) ==\n  /\\ grant = m\n  /\\ dispensed[m] = 0\n  /\\ dispensed' = [dispensed EXCEPT ![m] = dispensed[m] + 1]\n  /\\ grant' = \"ring\"\n\n",
+      "negative": "---- MODULE W4Od13m1p5t1 ----\nEXTENDS Naturals\nCONSTANT Machines\nVARIABLES grant, dispensed\nvars == <<grant, dispensed>>\n\n@nit ==\n  /\\ grant = (CHOOSE m \\in Machines : TRUE)\n  /\\ dispensed = [m \\in Machines |-> 0]\n\nPassToRing(m) ==\n  /\\ grant = m\n  /\\ grant' = \"ring\"\n  /\\ UNCHANGED dispensed\n\nDeliver(m) ==\n  /\\ grant = \"ring\"\n  /\\ grant' = m\n  /\\ UNCHANGED dispensed\n\nDispense(m) ==\n  /\\ grant = m\n  /\\ dispensed[m] = 0\n  /\\ dispensed' = [dispensed EXCEPT ![m] = dispensed[m] + 1]\n  /\\ grant' = \"ring\"\n\nNext == \\E m \\in Machines : PassToRing(m) \\/ Deliver(m) \\/ Dispense(m)\nSpec == Init /\\ [][Next]_vars\n\nDispensedAtMostOnce == \\A m \\in Machines : dispensed[m] <= 1\n====",
+      "negative_sha256": "2535a4ab3bef93579d40307208ac0cb1d8cfc4e28240534a1f74a03565361035"
+    },
+    {
+      "row": 46,
+      "id": "w4-fullmodule:w4opus::d13-m1-p5-t1",
+      "split": "train",
+      "kind": "Next_span",
+      "positive_sha256": "9f436f4463f97528db6c948e1d0befd03bd20d18cdb14065d53af6d40827872c",
+      "span_text": "Next == \\E m \\in Machines : PassToRing(m) \\/ Deliver(m) \\/ Dispense(m)\n",
+      "negative": "---- MODULE W4Od13m1p5t1 ----\nEXTENDS Naturals\nCONSTANT Machines\nVARIABLES grant, dispensed\nvars == <<grant, dispensed>>\n\nInit ==\n  /\\ grant = (CHOOSE m \\in Machines : TRUE)\n  /\\ dispensed = [m \\in Machines |-> 0]\n\nPassToRing(m) ==\n  /\\ grant = m\n  /\\ grant' = \"ring\"\n  /\\ UNCHANGED dispensed\n\nDeliver(m) ==\n  /\\ grant = \"ring\"\n  /\\ grant' = m\n  /\\ UNCHANGED dispensed\n\nDispense(m) ==\n  /\\ grant = m\n  /\\ dispensed[m] = 0\n  /\\ dispensed' = [dispensed EXCEPT ![m] = dispensed[m] + 1]\n  /\\ grant' = \"ring\"\n\n@ext == \\E m \\in Machines : PassToRing(m) \\/ Deliver(m) \\/ Dispense(m)\nSpec == Init /\\ [][Next]_vars\n\nDispensedAtMostOnce == \\A m \\in Machines : dispensed[m] <= 1\n====",
+      "negative_sha256": "01ed6a83b28963103e792d57ea505732efa3bd965195b86f0f3cbf538852e23a"
+    },
+    {
+      "row": 46,
+      "id": "w4-fullmodule:w4opus::d13-m1-p5-t1",
+      "split": "train",
+      "kind": "Spec_span",
+      "positive_sha256": "9f436f4463f97528db6c948e1d0befd03bd20d18cdb14065d53af6d40827872c",
+      "span_text": "Spec == Init /\\ [][Next]_vars\n\n",
+      "negative": "---- MODULE W4Od13m1p5t1 ----\nEXTENDS Naturals\nCONSTANT Machines\nVARIABLES grant, dispensed\nvars == <<grant, dispensed>>\n\nInit ==\n  /\\ grant = (CHOOSE m \\in Machines : TRUE)\n  /\\ dispensed = [m \\in Machines |-> 0]\n\nPassToRing(m) ==\n  /\\ grant = m\n  /\\ grant' = \"ring\"\n  /\\ UNCHANGED dispensed\n\nDeliver(m) ==\n  /\\ grant = \"ring\"\n  /\\ grant' = m\n  /\\ UNCHANGED dispensed\n\nDispense(m) ==\n  /\\ grant = m\n  /\\ dispensed[m] = 0\n  /\\ dispensed' = [dispensed EXCEPT ![m] = dispensed[m] + 1]\n  /\\ grant' = \"ring\"\n\nNext == \\E m \\in Machines : PassToRing(m) \\/ Deliver(m) \\/ Dispense(m)\n@pec == Init /\\ [][Next]_vars\n\nDispensedAtMostOnce == \\A m \\in Machines : dispensed[m] <= 1\n====",
+      "negative_sha256": "b500f8b390d9f569beb7b7c5f984f41c2a01ea0193813292405dede634a751ae"
+    },
+    {
+      "row": 46,
+      "id": "w4-fullmodule:w4opus::d13-m1-p5-t1",
+      "split": "train",
+      "kind": "DispensedAtMostOnce_span",
+      "positive_sha256": "9f436f4463f97528db6c948e1d0befd03bd20d18cdb14065d53af6d40827872c",
+      "span_text": "DispensedAtMostOnce == \\A m \\in Machines : dispensed[m] <= 1\n",
+      "negative": "---- MODULE W4Od13m1p5t1 ----\nEXTENDS Naturals\nCONSTANT Machines\nVARIABLES grant, dispensed\nvars == <<grant, dispensed>>\n\nInit ==\n  /\\ grant = (CHOOSE m \\in Machines : TRUE)\n  /\\ dispensed = [m \\in Machines |-> 0]\n\nPassToRing(m) ==\n  /\\ grant = m\n  /\\ grant' = \"ring\"\n  /\\ UNCHANGED dispensed\n\nDeliver(m) ==\n  /\\ grant = \"ring\"\n  /\\ grant' = m\n  /\\ UNCHANGED dispensed\n\nDispense(m) ==\n  /\\ grant = m\n  /\\ dispensed[m] = 0\n  /\\ dispensed' = [dispensed EXCEPT ![m] = dispensed[m] + 1]\n  /\\ grant' = \"ring\"\n\nNext == \\E m \\in Machines : PassToRing(m) \\/ Deliver(m) \\/ Dispense(m)\nSpec == Init /\\ [][Next]_vars\n\n@ispensedAtMostOnce == \\A m \\in Machines : dispensed[m] <= 1\n====",
+      "negative_sha256": "725f0e7477ea9cf453105ecb745994f40a4d2944efa807b18bbbfb398ac05f08"
+    },
+    {
+      "row": 46,
+      "id": "w4-fullmodule:w4opus::d13-m1-p5-t1",
+      "split": "train",
+      "kind": "====_span",
+      "positive_sha256": "9f436f4463f97528db6c948e1d0befd03bd20d18cdb14065d53af6d40827872c",
+      "span_text": "====",
+      "negative": "---- MODULE W4Od13m1p5t1 ----\nEXTENDS Naturals\nCONSTANT Machines\nVARIABLES grant, dispensed\nvars == <<grant, dispensed>>\n\nInit ==\n  /\\ grant = (CHOOSE m \\in Machines : TRUE)\n  /\\ dispensed = [m \\in Machines |-> 0]\n\nPassToRing(m) ==\n  /\\ grant = m\n  /\\ grant' = \"ring\"\n  /\\ UNCHANGED dispensed\n\nDeliver(m) ==\n  /\\ grant = \"ring\"\n  /\\ grant' = m\n  /\\ UNCHANGED dispensed\n\nDispense(m) ==\n  /\\ grant = m\n  /\\ dispensed[m] = 0\n  /\\ dispensed' = [dispensed EXCEPT ![m] = dispensed[m] + 1]\n  /\\ grant' = \"ring\"\n\nNext == \\E m \\in Machines : PassToRing(m) \\/ Deliver(m) \\/ Dispense(m)\nSpec == Init /\\ [][Next]_vars\n\nDispensedAtMostOnce == \\A m \\in Machines : dispensed[m] <= 1\n@===",
+      "negative_sha256": "745a78d4b8bcb7a0f11d387bd095a36d98e0251c65590501d4a278fc2d485ea4"
+    },
+    {
+      "row": 50,
+      "id": "w4-fullmodule:w4opus::d10-m2-p0-t3",
+      "split": "train",
+      "kind": "EXTENDS_span",
+      "positive_sha256": "4eb9d23b701851e2039a5d2c00696cd9b618d68204778295ba38187c3ed30378",
+      "span_text": "EXTENDS Naturals\n\n",
+      "negative": "---- MODULE W4Od10m2p0t3 ----\n@XTENDS Naturals\n\nCONSTANTS Trains, Interlockings\n\nVARIABLES holders, phase, candidate, prepared\nvars == <<holders, phase, candidate, prepared>>\n\nInit ==\n    /\\ holders = {}\n    /\\ phase = \"idle\"\n    /\\ candidate = \"none\"\n    /\\ prepared = {}\n\nRequest(t) ==\n    /\\ phase = \"idle\"\n    /\\ holders = {}\n    /\\ phase' = \"voting\"\n    /\\ candidate' = t\n    /\\ prepared' = {}\n    /\\ UNCHANGED holders\n\nPrepare(i) ==\n    /\\ phase = \"voting\"\n    /\\ i \\in Interlockings\n    /\\ i \\notin prepared\n    /\\ prepared' = prepared \\cup {i}\n    /\\ UNCHANGED <<holders, phase, candidate>>\n\nCommit ==\n    /\\ phase = \"voting\"\n    /\\ prepared = Interlockings\n    /\\ holders' = {candidate}\n    /\\ phase' = \"idle\"\n    /\\ UNCHANGED <<candidate, prepared>>\n\nAbort ==\n    /\\ phase = \"voting\"\n    /\\ phase' = \"idle\"\n    /\\ UNCHANGED <<holders, candidate, prepared>>\n\nRelease(t) ==\n    /\\ t \\in holders\n    /\\ holders' = holders \\ {t}\n    /\\ UNCHANGED <<phase, candidate, prepared>>\n\nNext ==\n    \\/ \\E t \\in Trains : Request(t)\n    \\/ \\E i \\in Interlockings : Prepare(i)\n    \\/ Commit\n    \\/ Abort\n    \\/ \\E t \\in Trains : Release(t)\n\nSpec == Init /\\ [][Next]_vars\n\nBlockExclusive == holders = {} \\/ \\E t \\in Trains : holders = {t}\n====",
+      "negative_sha256": "480756d0334705327e5b1bed07e535f5764c649cf2dd7f88ab5a9823ef5f9ce2"
+    },
+    {
+      "row": 50,
+      "id": "w4-fullmodule:w4opus::d10-m2-p0-t3",
+      "split": "train",
+      "kind": "CONSTANTS_span",
+      "positive_sha256": "4eb9d23b701851e2039a5d2c00696cd9b618d68204778295ba38187c3ed30378",
+      "span_text": "CONSTANTS Trains, Interlockings\n\n",
+      "negative": "---- MODULE W4Od10m2p0t3 ----\nEXTENDS Naturals\n\n@ONSTANTS Trains, Interlockings\n\nVARIABLES holders, phase, candidate, prepared\nvars == <<holders, phase, candidate, prepared>>\n\nInit ==\n    /\\ holders = {}\n    /\\ phase = \"idle\"\n    /\\ candidate = \"none\"\n    /\\ prepared = {}\n\nRequest(t) ==\n    /\\ phase = \"idle\"\n    /\\ holders = {}\n    /\\ phase' = \"voting\"\n    /\\ candidate' = t\n    /\\ prepared' = {}\n    /\\ UNCHANGED holders\n\nPrepare(i) ==\n    /\\ phase = \"voting\"\n    /\\ i \\in Interlockings\n    /\\ i \\notin prepared\n    /\\ prepared' = prepared \\cup {i}\n    /\\ UNCHANGED <<holders, phase, candidate>>\n\nCommit ==\n    /\\ phase = \"voting\"\n    /\\ prepared = Interlockings\n    /\\ holders' = {candidate}\n    /\\ phase' = \"idle\"\n    /\\ UNCHANGED <<candidate, prepared>>\n\nAbort ==\n    /\\ phase = \"voting\"\n    /\\ phase' = \"idle\"\n    /\\ UNCHANGED <<holders, candidate, prepared>>\n\nRelease(t) ==\n    /\\ t \\in holders\n    /\\ holders' = holders \\ {t}\n    /\\ UNCHANGED <<phase, candidate, prepared>>\n\nNext ==\n    \\/ \\E t \\in Trains : Request(t)\n    \\/ \\E i \\in Interlockings : Prepare(i)\n    \\/ Commit\n    \\/ Abort\n    \\/ \\E t \\in Trains : Release(t)\n\nSpec == Init /\\ [][Next]_vars\n\nBlockExclusive == holders = {} \\/ \\E t \\in Trains : holders = {t}\n====",
+      "negative_sha256": "2ffe8c4bf81b88056b60cef80790163580acc1d7d69ccb553b1effd3cb4fc155"
+    },
+    {
+      "row": 50,
+      "id": "w4-fullmodule:w4opus::d10-m2-p0-t3",
+      "split": "train",
+      "kind": "VARIABLES_span",
+      "positive_sha256": "4eb9d23b701851e2039a5d2c00696cd9b618d68204778295ba38187c3ed30378",
+      "span_text": "VARIABLES holders, phase, candidate, prepared\n",
+      "negative": "---- MODULE W4Od10m2p0t3 ----\nEXTENDS Naturals\n\nCONSTANTS Trains, Interlockings\n\n@ARIABLES holders, phase, candidate, prepared\nvars == <<holders, phase, candidate, prepared>>\n\nInit ==\n    /\\ holders = {}\n    /\\ phase = \"idle\"\n    /\\ candidate = \"none\"\n    /\\ prepared = {}\n\nRequest(t) ==\n    /\\ phase = \"idle\"\n    /\\ holders = {}\n    /\\ phase' = \"voting\"\n    /\\ candidate' = t\n    /\\ prepared' = {}\n    /\\ UNCHANGED holders\n\nPrepare(i) ==\n    /\\ phase = \"voting\"\n    /\\ i \\in Interlockings\n    /\\ i \\notin prepared\n    /\\ prepared' = prepared \\cup {i}\n    /\\ UNCHANGED <<holders, phase, candidate>>\n\nCommit ==\n    /\\ phase = \"voting\"\n    /\\ prepared = Interlockings\n    /\\ holders' = {candidate}\n    /\\ phase' = \"idle\"\n    /\\ UNCHANGED <<candidate, prepared>>\n\nAbort ==\n    /\\ phase = \"voting\"\n    /\\ phase' = \"idle\"\n    /\\ UNCHANGED <<holders, candidate, prepared>>\n\nRelease(t) ==\n    /\\ t \\in holders\n    /\\ holders' = holders \\ {t}\n    /\\ UNCHANGED <<phase, candidate, prepared>>\n\nNext ==\n    \\/ \\E t \\in Trains : Request(t)\n    \\/ \\E i \\in Interlockings : Prepare(i)\n    \\/ Commit\n    \\/ Abort\n    \\/ \\E t \\in Trains : Release(t)\n\nSpec == Init /\\ [][Next]_vars\n\nBlockExclusive == holders = {} \\/ \\E t \\in Trains : holders = {t}\n====",
+      "negative_sha256": "3884a66e2b9e80b300d129b581ba1787591ecaa3179c33ae3a7321f8104d933b"
+    },
+    {
+      "row": 50,
+      "id": "w4-fullmodule:w4opus::d10-m2-p0-t3",
+      "split": "train",
+      "kind": "vars_span",
+      "positive_sha256": "4eb9d23b701851e2039a5d2c00696cd9b618d68204778295ba38187c3ed30378",
+      "span_text": "vars == <<holders, phase, candidate, prepared>>\n\n",
+      "negative": "---- MODULE W4Od10m2p0t3 ----\nEXTENDS Naturals\n\nCONSTANTS Trains, Interlockings\n\nVARIABLES holders, phase, candidate, prepared\n@ars == <<holders, phase, candidate, prepared>>\n\nInit ==\n    /\\ holders = {}\n    /\\ phase = \"idle\"\n    /\\ candidate = \"none\"\n    /\\ prepared = {}\n\nRequest(t) ==\n    /\\ phase = \"idle\"\n    /\\ holders = {}\n    /\\ phase' = \"voting\"\n    /\\ candidate' = t\n    /\\ prepared' = {}\n    /\\ UNCHANGED holders\n\nPrepare(i) ==\n    /\\ phase = \"voting\"\n    /\\ i \\in Interlockings\n    /\\ i \\notin prepared\n    /\\ prepared' = prepared \\cup {i}\n    /\\ UNCHANGED <<holders, phase, candidate>>\n\nCommit ==\n    /\\ phase = \"voting\"\n    /\\ prepared = Interlockings\n    /\\ holders' = {candidate}\n    /\\ phase' = \"idle\"\n    /\\ UNCHANGED <<candidate, prepared>>\n\nAbort ==\n    /\\ phase = \"voting\"\n    /\\ phase' = \"idle\"\n    /\\ UNCHANGED <<holders, candidate, prepared>>\n\nRelease(t) ==\n    /\\ t \\in holders\n    /\\ holders' = holders \\ {t}\n    /\\ UNCHANGED <<phase, candidate, prepared>>\n\nNext ==\n    \\/ \\E t \\in Trains : Request(t)\n    \\/ \\E i \\in Interlockings : Prepare(i)\n    \\/ Commit\n    \\/ Abort\n    \\/ \\E t \\in Trains : Release(t)\n\nSpec == Init /\\ [][Next]_vars\n\nBlockExclusive == holders = {} \\/ \\E t \\in Trains : holders = {t}\n====",
+      "negative_sha256": "e364efd1c38f64357a6b920c3ace3b1a1476cb9d42cef4ee987bf2b8761ada98"
+    },
+    {
+      "row": 50,
+      "id": "w4-fullmodule:w4opus::d10-m2-p0-t3",
+      "split": "train",
+      "kind": "Init_span",
+      "positive_sha256": "4eb9d23b701851e2039a5d2c00696cd9b618d68204778295ba38187c3ed30378",
+      "span_text": "Init ==\n    /\\ holders = {}\n    /\\ phase = \"idle\"\n    /\\ candidate = \"none\"\n    /\\ prepared = {}\n\nRequest(t) ==\n    /\\ phase = \"idle\"\n    /\\ holders = {}\n    /\\ phase' = \"voting\"\n    /\\ candidate' = t\n    /\\ prepared' = {}\n    /\\ UNCHANGED holders\n\nPrepare(i) ==\n    /\\ phase = \"voting\"\n    /\\ i \\in Interlockings\n    /\\ i \\notin prepared\n    /\\ prepared' = prepared \\cup {i}\n    /\\ UNCHANGED <<holders, phase, candidate>>\n\n",
+      "negative": "---- MODULE W4Od10m2p0t3 ----\nEXTENDS Naturals\n\nCONSTANTS Trains, Interlockings\n\nVARIABLES holders, phase, candidate, prepared\nvars == <<holders, phase, candidate, prepared>>\n\n@nit ==\n    /\\ holders = {}\n    /\\ phase = \"idle\"\n    /\\ candidate = \"none\"\n    /\\ prepared = {}\n\nRequest(t) ==\n    /\\ phase = \"idle\"\n    /\\ holders = {}\n    /\\ phase' = \"voting\"\n    /\\ candidate' = t\n    /\\ prepared' = {}\n    /\\ UNCHANGED holders\n\nPrepare(i) ==\n    /\\ phase = \"voting\"\n    /\\ i \\in Interlockings\n    /\\ i \\notin prepared\n    /\\ prepared' = prepared \\cup {i}\n    /\\ UNCHANGED <<holders, phase, candidate>>\n\nCommit ==\n    /\\ phase = \"voting\"\n    /\\ prepared = Interlockings\n    /\\ holders' = {candidate}\n    /\\ phase' = \"idle\"\n    /\\ UNCHANGED <<candidate, prepared>>\n\nAbort ==\n    /\\ phase = \"voting\"\n    /\\ phase' = \"idle\"\n    /\\ UNCHANGED <<holders, candidate, prepared>>\n\nRelease(t) ==\n    /\\ t \\in holders\n    /\\ holders' = holders \\ {t}\n    /\\ UNCHANGED <<phase, candidate, prepared>>\n\nNext ==\n    \\/ \\E t \\in Trains : Request(t)\n    \\/ \\E i \\in Interlockings : Prepare(i)\n    \\/ Commit\n    \\/ Abort\n    \\/ \\E t \\in Trains : Release(t)\n\nSpec == Init /\\ [][Next]_vars\n\nBlockExclusive == holders = {} \\/ \\E t \\in Trains : holders = {t}\n====",
+      "negative_sha256": "54926f6710fe67b77cdd77eba9d6bb63cfa363d4c885f292bb07fbfffc5136fd"
+    },
+    {
+      "row": 50,
+      "id": "w4-fullmodule:w4opus::d10-m2-p0-t3",
+      "split": "train",
+      "kind": "Commit_span",
+      "positive_sha256": "4eb9d23b701851e2039a5d2c00696cd9b618d68204778295ba38187c3ed30378",
+      "span_text": "Commit ==\n    /\\ phase = \"voting\"\n    /\\ prepared = Interlockings\n    /\\ holders' = {candidate}\n    /\\ phase' = \"idle\"\n    /\\ UNCHANGED <<candidate, prepared>>\n\n",
+      "negative": "---- MODULE W4Od10m2p0t3 ----\nEXTENDS Naturals\n\nCONSTANTS Trains, Interlockings\n\nVARIABLES holders, phase, candidate, prepared\nvars == <<holders, phase, candidate, prepared>>\n\nInit ==\n    /\\ holders = {}\n    /\\ phase = \"idle\"\n    /\\ candidate = \"none\"\n    /\\ prepared = {}\n\nRequest(t) ==\n    /\\ phase = \"idle\"\n    /\\ holders = {}\n    /\\ phase' = \"voting\"\n    /\\ candidate' = t\n    /\\ prepared' = {}\n    /\\ UNCHANGED holders\n\nPrepare(i) ==\n    /\\ phase = \"voting\"\n    /\\ i \\in Interlockings\n    /\\ i \\notin prepared\n    /\\ prepared' = prepared \\cup {i}\n    /\\ UNCHANGED <<holders, phase, candidate>>\n\n@ommit ==\n    /\\ phase = \"voting\"\n    /\\ prepared = Interlockings\n    /\\ holders' = {candidate}\n    /\\ phase' = \"idle\"\n    /\\ UNCHANGED <<candidate, prepared>>\n\nAbort ==\n    /\\ phase = \"voting\"\n    /\\ phase' = \"idle\"\n    /\\ UNCHANGED <<holders, candidate, prepared>>\n\nRelease(t) ==\n    /\\ t \\in holders\n    /\\ holders' = holders \\ {t}\n    /\\ UNCHANGED <<phase, candidate, prepared>>\n\nNext ==\n    \\/ \\E t \\in Trains : Request(t)\n    \\/ \\E i \\in Interlockings : Prepare(i)\n    \\/ Commit\n    \\/ Abort\n    \\/ \\E t \\in Trains : Release(t)\n\nSpec == Init /\\ [][Next]_vars\n\nBlockExclusive == holders = {} \\/ \\E t \\in Trains : holders = {t}\n====",
+      "negative_sha256": "23e381292dc13d04efd1a2516fdd50627b41dbf208776dd52cd792f4e393a847"
+    },
+    {
+      "row": 50,
+      "id": "w4-fullmodule:w4opus::d10-m2-p0-t3",
+      "split": "train",
+      "kind": "Abort_span",
+      "positive_sha256": "4eb9d23b701851e2039a5d2c00696cd9b618d68204778295ba38187c3ed30378",
+      "span_text": "Abort ==\n    /\\ phase = \"voting\"\n    /\\ phase' = \"idle\"\n    /\\ UNCHANGED <<holders, candidate, prepared>>\n\nRelease(t) ==\n    /\\ t \\in holders\n    /\\ holders' = holders \\ {t}\n    /\\ UNCHANGED <<phase, candidate, prepared>>\n\n",
+      "negative": "---- MODULE W4Od10m2p0t3 ----\nEXTENDS Naturals\n\nCONSTANTS Trains, Interlockings\n\nVARIABLES holders, phase, candidate, prepared\nvars == <<holders, phase, candidate, prepared>>\n\nInit ==\n    /\\ holders = {}\n    /\\ phase = \"idle\"\n    /\\ candidate = \"none\"\n    /\\ prepared = {}\n\nRequest(t) ==\n    /\\ phase = \"idle\"\n    /\\ holders = {}\n    /\\ phase' = \"voting\"\n    /\\ candidate' = t\n    /\\ prepared' = {}\n    /\\ UNCHANGED holders\n\nPrepare(i) ==\n    /\\ phase = \"voting\"\n    /\\ i \\in Interlockings\n    /\\ i \\notin prepared\n    /\\ prepared' = prepared \\cup {i}\n    /\\ UNCHANGED <<holders, phase, candidate>>\n\nCommit ==\n    /\\ phase = \"voting\"\n    /\\ prepared = Interlockings\n    /\\ holders' = {candidate}\n    /\\ phase' = \"idle\"\n    /\\ UNCHANGED <<candidate, prepared>>\n\n@bort ==\n    /\\ phase = \"voting\"\n    /\\ phase' = \"idle\"\n    /\\ UNCHANGED <<holders, candidate, prepared>>\n\nRelease(t) ==\n    /\\ t \\in holders\n    /\\ holders' = holders \\ {t}\n    /\\ UNCHANGED <<phase, candidate, prepared>>\n\nNext ==\n    \\/ \\E t \\in Trains : Request(t)\n    \\/ \\E i \\in Interlockings : Prepare(i)\n    \\/ Commit\n    \\/ Abort\n    \\/ \\E t \\in Trains : Release(t)\n\nSpec == Init /\\ [][Next]_vars\n\nBlockExclusive == holders = {} \\/ \\E t \\in Trains : holders = {t}\n====",
+      "negative_sha256": "353652fe1c44749d3225fba42a94cd959eb6a740f76d66c007f910186ade017a"
+    },
+    {
+      "row": 50,
+      "id": "w4-fullmodule:w4opus::d10-m2-p0-t3",
+      "split": "train",
+      "kind": "Next_span",
+      "positive_sha256": "4eb9d23b701851e2039a5d2c00696cd9b618d68204778295ba38187c3ed30378",
+      "span_text": "Next ==\n    \\/ \\E t \\in Trains : Request(t)\n    \\/ \\E i \\in Interlockings : Prepare(i)\n    \\/ Commit\n    \\/ Abort\n    \\/ \\E t \\in Trains : Release(t)\n\n",
+      "negative": "---- MODULE W4Od10m2p0t3 ----\nEXTENDS Naturals\n\nCONSTANTS Trains, Interlockings\n\nVARIABLES holders, phase, candidate, prepared\nvars == <<holders, phase, candidate, prepared>>\n\nInit ==\n    /\\ holders = {}\n    /\\ phase = \"idle\"\n    /\\ candidate = \"none\"\n    /\\ prepared = {}\n\nRequest(t) ==\n    /\\ phase = \"idle\"\n    /\\ holders = {}\n    /\\ phase' = \"voting\"\n    /\\ candidate' = t\n    /\\ prepared' = {}\n    /\\ UNCHANGED holders\n\nPrepare(i) ==\n    /\\ phase = \"voting\"\n    /\\ i \\in Interlockings\n    /\\ i \\notin prepared\n    /\\ prepared' = prepared \\cup {i}\n    /\\ UNCHANGED <<holders, phase, candidate>>\n\nCommit ==\n    /\\ phase = \"voting\"\n    /\\ prepared = Interlockings\n    /\\ holders' = {candidate}\n    /\\ phase' = \"idle\"\n    /\\ UNCHANGED <<candidate, prepared>>\n\nAbort ==\n    /\\ phase = \"voting\"\n    /\\ phase' = \"idle\"\n    /\\ UNCHANGED <<holders, candidate, prepared>>\n\nRelease(t) ==\n    /\\ t \\in holders\n    /\\ holders' = holders \\ {t}\n    /\\ UNCHANGED <<phase, candidate, prepared>>\n\n@ext ==\n    \\/ \\E t \\in Trains : Request(t)\n    \\/ \\E i \\in Interlockings : Prepare(i)\n    \\/ Commit\n    \\/ Abort\n    \\/ \\E t \\in Trains : Release(t)\n\nSpec == Init /\\ [][Next]_vars\n\nBlockExclusive == holders = {} \\/ \\E t \\in Trains : holders = {t}\n====",
+      "negative_sha256": "cebc23341e208bf3fec704bf502196b42a4a368f769d814ecfc03302021449a9"
+    },
+    {
+      "row": 50,
+      "id": "w4-fullmodule:w4opus::d10-m2-p0-t3",
+      "split": "train",
+      "kind": "Spec_span",
+      "positive_sha256": "4eb9d23b701851e2039a5d2c00696cd9b618d68204778295ba38187c3ed30378",
+      "span_text": "Spec == Init /\\ [][Next]_vars\n\n",
+      "negative": "---- MODULE W4Od10m2p0t3 ----\nEXTENDS Naturals\n\nCONSTANTS Trains, Interlockings\n\nVARIABLES holders, phase, candidate, prepared\nvars == <<holders, phase, candidate, prepared>>\n\nInit ==\n    /\\ holders = {}\n    /\\ phase = \"idle\"\n    /\\ candidate = \"none\"\n    /\\ prepared = {}\n\nRequest(t) ==\n    /\\ phase = \"idle\"\n    /\\ holders = {}\n    /\\ phase' = \"voting\"\n    /\\ candidate' = t\n    /\\ prepared' = {}\n    /\\ UNCHANGED holders\n\nPrepare(i) ==\n    /\\ phase = \"voting\"\n    /\\ i \\in Interlockings\n    /\\ i \\notin prepared\n    /\\ prepared' = prepared \\cup {i}\n    /\\ UNCHANGED <<holders, phase, candidate>>\n\nCommit ==\n    /\\ phase = \"voting\"\n    /\\ prepared = Interlockings\n    /\\ holders' = {candidate}\n    /\\ phase' = \"idle\"\n    /\\ UNCHANGED <<candidate, prepared>>\n\nAbort ==\n    /\\ phase = \"voting\"\n    /\\ phase' = \"idle\"\n    /\\ UNCHANGED <<holders, candidate, prepared>>\n\nRelease(t) ==\n    /\\ t \\in holders\n    /\\ holders' = holders \\ {t}\n    /\\ UNCHANGED <<phase, candidate, prepared>>\n\nNext ==\n    \\/ \\E t \\in Trains : Request(t)\n    \\/ \\E i \\in Interlockings : Prepare(i)\n    \\/ Commit\n    \\/ Abort\n    \\/ \\E t \\in Trains : Release(t)\n\n@pec == Init /\\ [][Next]_vars\n\nBlockExclusive == holders = {} \\/ \\E t \\in Trains : holders = {t}\n====",
+      "negative_sha256": "bd0912d384f13da42681116edbdae6fa0493b11e5777a2e45373dab2c482e575"
+    },
+    {
+      "row": 50,
+      "id": "w4-fullmodule:w4opus::d10-m2-p0-t3",
+      "split": "train",
+      "kind": "BlockExclusive_span",
+      "positive_sha256": "4eb9d23b701851e2039a5d2c00696cd9b618d68204778295ba38187c3ed30378",
+      "span_text": "BlockExclusive == holders = {} \\/ \\E t \\in Trains : holders = {t}\n",
+      "negative": "---- MODULE W4Od10m2p0t3 ----\nEXTENDS Naturals\n\nCONSTANTS Trains, Interlockings\n\nVARIABLES holders, phase, candidate, prepared\nvars == <<holders, phase, candidate, prepared>>\n\nInit ==\n    /\\ holders = {}\n    /\\ phase = \"idle\"\n    /\\ candidate = \"none\"\n    /\\ prepared = {}\n\nRequest(t) ==\n    /\\ phase = \"idle\"\n    /\\ holders = {}\n    /\\ phase' = \"voting\"\n    /\\ candidate' = t\n    /\\ prepared' = {}\n    /\\ UNCHANGED holders\n\nPrepare(i) ==\n    /\\ phase = \"voting\"\n    /\\ i \\in Interlockings\n    /\\ i \\notin prepared\n    /\\ prepared' = prepared \\cup {i}\n    /\\ UNCHANGED <<holders, phase, candidate>>\n\nCommit ==\n    /\\ phase = \"voting\"\n    /\\ prepared = Interlockings\n    /\\ holders' = {candidate}\n    /\\ phase' = \"idle\"\n    /\\ UNCHANGED <<candidate, prepared>>\n\nAbort ==\n    /\\ phase = \"voting\"\n    /\\ phase' = \"idle\"\n    /\\ UNCHANGED <<holders, candidate, prepared>>\n\nRelease(t) ==\n    /\\ t \\in holders\n    /\\ holders' = holders \\ {t}\n    /\\ UNCHANGED <<phase, candidate, prepared>>\n\nNext ==\n    \\/ \\E t \\in Trains : Request(t)\n    \\/ \\E i \\in Interlockings : Prepare(i)\n    \\/ Commit\n    \\/ Abort\n    \\/ \\E t \\in Trains : Release(t)\n\nSpec == Init /\\ [][Next]_vars\n\n@lockExclusive == holders = {} \\/ \\E t \\in Trains : holders = {t}\n====",
+      "negative_sha256": "551e300905a0896b78d1064b61b6bef0bcca1f121dcd99fe59ac547bc6afb696"
+    },
+    {
+      "row": 50,
+      "id": "w4-fullmodule:w4opus::d10-m2-p0-t3",
+      "split": "train",
+      "kind": "====_span",
+      "positive_sha256": "4eb9d23b701851e2039a5d2c00696cd9b618d68204778295ba38187c3ed30378",
+      "span_text": "====",
+      "negative": "---- MODULE W4Od10m2p0t3 ----\nEXTENDS Naturals\n\nCONSTANTS Trains, Interlockings\n\nVARIABLES holders, phase, candidate, prepared\nvars == <<holders, phase, candidate, prepared>>\n\nInit ==\n    /\\ holders = {}\n    /\\ phase = \"idle\"\n    /\\ candidate = \"none\"\n    /\\ prepared = {}\n\nRequest(t) ==\n    /\\ phase = \"idle\"\n    /\\ holders = {}\n    /\\ phase' = \"voting\"\n    /\\ candidate' = t\n    /\\ prepared' = {}\n    /\\ UNCHANGED holders\n\nPrepare(i) ==\n    /\\ phase = \"voting\"\n    /\\ i \\in Interlockings\n    /\\ i \\notin prepared\n    /\\ prepared' = prepared \\cup {i}\n    /\\ UNCHANGED <<holders, phase, candidate>>\n\nCommit ==\n    /\\ phase = \"voting\"\n    /\\ prepared = Interlockings\n    /\\ holders' = {candidate}\n    /\\ phase' = \"idle\"\n    /\\ UNCHANGED <<candidate, prepared>>\n\nAbort ==\n    /\\ phase = \"voting\"\n    /\\ phase' = \"idle\"\n    /\\ UNCHANGED <<holders, candidate, prepared>>\n\nRelease(t) ==\n    /\\ t \\in holders\n    /\\ holders' = holders \\ {t}\n    /\\ UNCHANGED <<phase, candidate, prepared>>\n\nNext ==\n    \\/ \\E t \\in Trains : Request(t)\n    \\/ \\E i \\in Interlockings : Prepare(i)\n    \\/ Commit\n    \\/ Abort\n    \\/ \\E t \\in Trains : Release(t)\n\nSpec == Init /\\ [][Next]_vars\n\nBlockExclusive == holders = {} \\/ \\E t \\in Trains : holders = {t}\n@===",
+      "negative_sha256": "d16e85919951c31fba7edc18787e3fc36360862344efc63bc96aae9f6e92d72e"
+    },
+    {
+      "row": 51,
+      "id": "w4-fullmodule:w4opus::d4-m2-p0-t1",
+      "split": "train",
+      "kind": "EXTENDS_span",
+      "positive_sha256": "ae56c12d774b6daa7440e132fc988e8d057c3a10590a97cec75898baab7e2a22",
+      "span_text": "EXTENDS Naturals\n",
+      "negative": "--------------------------- MODULE W4Od4m2p0t1 ---------------------------\n@XTENDS Naturals\nCONSTANTS Cars, Stations, NoCar\nVARIABLES phase, proposed, votes, washing\n\nvars == <<phase, proposed, votes, washing>>\n\nInit ==\n    /\\ phase = \"idle\"\n    /\\ proposed = NoCar\n    /\\ votes = [s \\in Stations |-> \"none\"]\n    /\\ washing = {}\n\nPropose(c) ==\n    /\\ phase = \"idle\"\n    /\\ washing = {}\n    /\\ c \\in Cars\n    /\\ phase' = \"voting\"\n    /\\ proposed' = c\n    /\\ votes' = [s \\in Stations |-> \"none\"]\n    /\\ UNCHANGED washing\n\nVote(s, v) ==\n    /\\ phase = \"voting\"\n    /\\ votes[s] = \"none\"\n    /\\ v \\in {\"yes\", \"no\"}\n    /\\ votes' = [votes EXCEPT ![s] = v]\n    /\\ UNCHANGED <<phase, proposed, washing>>\n\nCommit ==\n    /\\ phase = \"voting\"\n    /\\ \\A s \\in Stations : votes[s] = \"yes\"\n    /\\ washing' = {proposed}\n    /\\ phase' = \"committed\"\n    /\\ UNCHANGED <<proposed, votes>>\n\nAbort ==\n    /\\ phase = \"voting\"\n    /\\ \\E s \\in Stations : votes[s] = \"no\"\n    /\\ phase' = \"idle\"\n    /\\ proposed' = NoCar\n    /\\ UNCHANGED <<votes, washing>>\n\nExit ==\n    /\\ phase = \"committed\"\n    /\\ washing' = {}\n    /\\ phase' = \"idle\"\n    /\\ proposed' = NoCar\n    /\\ UNCHANGED votes\n\nNext ==\n    \\/ \\E c \\in Cars : Propose(c)\n    \\/ \\E s \\in Stations : \\E v \\in {\"yes\", \"no\"} : Vote(s, v)\n    \\/ Commit\n    \\/ Abort\n    \\/ Exit\n\nSpec == Init /\\ [][Next]_vars\n\nAtMostOneCarWashing == washing = {} \\/ \\E c \\in Cars : washing = {c}\n=========================================================================",
+      "negative_sha256": "04e6737c9403d47dec2954ef2a32e8845502ca57478b7f298796c9c744f5dc7f"
+    },
+    {
+      "row": 51,
+      "id": "w4-fullmodule:w4opus::d4-m2-p0-t1",
+      "split": "train",
+      "kind": "CONSTANTS_span",
+      "positive_sha256": "ae56c12d774b6daa7440e132fc988e8d057c3a10590a97cec75898baab7e2a22",
+      "span_text": "CONSTANTS Cars, Stations, NoCar\n",
+      "negative": "--------------------------- MODULE W4Od4m2p0t1 ---------------------------\nEXTENDS Naturals\n@ONSTANTS Cars, Stations, NoCar\nVARIABLES phase, proposed, votes, washing\n\nvars == <<phase, proposed, votes, washing>>\n\nInit ==\n    /\\ phase = \"idle\"\n    /\\ proposed = NoCar\n    /\\ votes = [s \\in Stations |-> \"none\"]\n    /\\ washing = {}\n\nPropose(c) ==\n    /\\ phase = \"idle\"\n    /\\ washing = {}\n    /\\ c \\in Cars\n    /\\ phase' = \"voting\"\n    /\\ proposed' = c\n    /\\ votes' = [s \\in Stations |-> \"none\"]\n    /\\ UNCHANGED washing\n\nVote(s, v) ==\n    /\\ phase = \"voting\"\n    /\\ votes[s] = \"none\"\n    /\\ v \\in {\"yes\", \"no\"}\n    /\\ votes' = [votes EXCEPT ![s] = v]\n    /\\ UNCHANGED <<phase, proposed, washing>>\n\nCommit ==\n    /\\ phase = \"voting\"\n    /\\ \\A s \\in Stations : votes[s] = \"yes\"\n    /\\ washing' = {proposed}\n    /\\ phase' = \"committed\"\n    /\\ UNCHANGED <<proposed, votes>>\n\nAbort ==\n    /\\ phase = \"voting\"\n    /\\ \\E s \\in Stations : votes[s] = \"no\"\n    /\\ phase' = \"idle\"\n    /\\ proposed' = NoCar\n    /\\ UNCHANGED <<votes, washing>>\n\nExit ==\n    /\\ phase = \"committed\"\n    /\\ washing' = {}\n    /\\ phase' = \"idle\"\n    /\\ proposed' = NoCar\n    /\\ UNCHANGED votes\n\nNext ==\n    \\/ \\E c \\in Cars : Propose(c)\n    \\/ \\E s \\in Stations : \\E v \\in {\"yes\", \"no\"} : Vote(s, v)\n    \\/ Commit\n    \\/ Abort\n    \\/ Exit\n\nSpec == Init /\\ [][Next]_vars\n\nAtMostOneCarWashing == washing = {} \\/ \\E c \\in Cars : washing = {c}\n=========================================================================",
+      "negative_sha256": "0937b189145f97ba4d3a47de8b037e22d43363798268d25a5d651543eef891a3"
+    },
+    {
+      "row": 51,
+      "id": "w4-fullmodule:w4opus::d4-m2-p0-t1",
+      "split": "train",
+      "kind": "VARIABLES_span",
+      "positive_sha256": "ae56c12d774b6daa7440e132fc988e8d057c3a10590a97cec75898baab7e2a22",
+      "span_text": "VARIABLES phase, proposed, votes, washing\n\n",
+      "negative": "--------------------------- MODULE W4Od4m2p0t1 ---------------------------\nEXTENDS Naturals\nCONSTANTS Cars, Stations, NoCar\n@ARIABLES phase, proposed, votes, washing\n\nvars == <<phase, proposed, votes, washing>>\n\nInit ==\n    /\\ phase = \"idle\"\n    /\\ proposed = NoCar\n    /\\ votes = [s \\in Stations |-> \"none\"]\n    /\\ washing = {}\n\nPropose(c) ==\n    /\\ phase = \"idle\"\n    /\\ washing = {}\n    /\\ c \\in Cars\n    /\\ phase' = \"voting\"\n    /\\ proposed' = c\n    /\\ votes' = [s \\in Stations |-> \"none\"]\n    /\\ UNCHANGED washing\n\nVote(s, v) ==\n    /\\ phase = \"voting\"\n    /\\ votes[s] = \"none\"\n    /\\ v \\in {\"yes\", \"no\"}\n    /\\ votes' = [votes EXCEPT ![s] = v]\n    /\\ UNCHANGED <<phase, proposed, washing>>\n\nCommit ==\n    /\\ phase = \"voting\"\n    /\\ \\A s \\in Stations : votes[s] = \"yes\"\n    /\\ washing' = {proposed}\n    /\\ phase' = \"committed\"\n    /\\ UNCHANGED <<proposed, votes>>\n\nAbort ==\n    /\\ phase = \"voting\"\n    /\\ \\E s \\in Stations : votes[s] = \"no\"\n    /\\ phase' = \"idle\"\n    /\\ proposed' = NoCar\n    /\\ UNCHANGED <<votes, washing>>\n\nExit ==\n    /\\ phase = \"committed\"\n    /\\ washing' = {}\n    /\\ phase' = \"idle\"\n    /\\ proposed' = NoCar\n    /\\ UNCHANGED votes\n\nNext ==\n    \\/ \\E c \\in Cars : Propose(c)\n    \\/ \\E s \\in Stations : \\E v \\in {\"yes\", \"no\"} : Vote(s, v)\n    \\/ Commit\n    \\/ Abort\n    \\/ Exit\n\nSpec == Init /\\ [][Next]_vars\n\nAtMostOneCarWashing == washing = {} \\/ \\E c \\in Cars : washing = {c}\n=========================================================================",
+      "negative_sha256": "21c5a75b1ce5c240d806b980d2631e59e15a53761430096d6ce266bf79e68e1b"
+    },
+    {
+      "row": 51,
+      "id": "w4-fullmodule:w4opus::d4-m2-p0-t1",
+      "split": "train",
+      "kind": "vars_span",
+      "positive_sha256": "ae56c12d774b6daa7440e132fc988e8d057c3a10590a97cec75898baab7e2a22",
+      "span_text": "vars == <<phase, proposed, votes, washing>>\n\n",
+      "negative": "--------------------------- MODULE W4Od4m2p0t1 ---------------------------\nEXTENDS Naturals\nCONSTANTS Cars, Stations, NoCar\nVARIABLES phase, proposed, votes, washing\n\n@ars == <<phase, proposed, votes, washing>>\n\nInit ==\n    /\\ phase = \"idle\"\n    /\\ proposed = NoCar\n    /\\ votes = [s \\in Stations |-> \"none\"]\n    /\\ washing = {}\n\nPropose(c) ==\n    /\\ phase = \"idle\"\n    /\\ washing = {}\n    /\\ c \\in Cars\n    /\\ phase' = \"voting\"\n    /\\ proposed' = c\n    /\\ votes' = [s \\in Stations |-> \"none\"]\n    /\\ UNCHANGED washing\n\nVote(s, v) ==\n    /\\ phase = \"voting\"\n    /\\ votes[s] = \"none\"\n    /\\ v \\in {\"yes\", \"no\"}\n    /\\ votes' = [votes EXCEPT ![s] = v]\n    /\\ UNCHANGED <<phase, proposed, washing>>\n\nCommit ==\n    /\\ phase = \"voting\"\n    /\\ \\A s \\in Stations : votes[s] = \"yes\"\n    /\\ washing' = {proposed}\n    /\\ phase' = \"committed\"\n    /\\ UNCHANGED <<proposed, votes>>\n\nAbort ==\n    /\\ phase = \"voting\"\n    /\\ \\E s \\in Stations : votes[s] = \"no\"\n    /\\ phase' = \"idle\"\n    /\\ proposed' = NoCar\n    /\\ UNCHANGED <<votes, washing>>\n\nExit ==\n    /\\ phase = \"committed\"\n    /\\ washing' = {}\n    /\\ phase' = \"idle\"\n    /\\ proposed' = NoCar\n    /\\ UNCHANGED votes\n\nNext ==\n    \\/ \\E c \\in Cars : Propose(c)\n    \\/ \\E s \\in Stations : \\E v \\in {\"yes\", \"no\"} : Vote(s, v)\n    \\/ Commit\n    \\/ Abort\n    \\/ Exit\n\nSpec == Init /\\ [][Next]_vars\n\nAtMostOneCarWashing == washing = {} \\/ \\E c \\in Cars : washing = {c}\n=========================================================================",
+      "negative_sha256": "cdb26379d513f6f35c2b53a59f51025f235edb74c47f4ed7c9caa4cbd9231ed7"
+    },
+    {
+      "row": 51,
+      "id": "w4-fullmodule:w4opus::d4-m2-p0-t1",
+      "split": "train",
+      "kind": "Init_span",
+      "positive_sha256": "ae56c12d774b6daa7440e132fc988e8d057c3a10590a97cec75898baab7e2a22",
+      "span_text": "Init ==\n    /\\ phase = \"idle\"\n    /\\ proposed = NoCar\n    /\\ votes = [s \\in Stations |-> \"none\"]\n    /\\ washing = {}\n\nPropose(c) ==\n    /\\ phase = \"idle\"\n    /\\ washing = {}\n    /\\ c \\in Cars\n    /\\ phase' = \"voting\"\n    /\\ proposed' = c\n    /\\ votes' = [s \\in Stations |-> \"none\"]\n    /\\ UNCHANGED washing\n\nVote(s, v) ==\n    /\\ phase = \"voting\"\n    /\\ votes[s] = \"none\"\n    /\\ v \\in {\"yes\", \"no\"}\n    /\\ votes' = [votes EXCEPT ![s] = v]\n    /\\ UNCHANGED <<phase, proposed, washing>>\n\n",
+      "negative": "--------------------------- MODULE W4Od4m2p0t1 ---------------------------\nEXTENDS Naturals\nCONSTANTS Cars, Stations, NoCar\nVARIABLES phase, proposed, votes, washing\n\nvars == <<phase, proposed, votes, washing>>\n\n@nit ==\n    /\\ phase = \"idle\"\n    /\\ proposed = NoCar\n    /\\ votes = [s \\in Stations |-> \"none\"]\n    /\\ washing = {}\n\nPropose(c) ==\n    /\\ phase = \"idle\"\n    /\\ washing = {}\n    /\\ c \\in Cars\n    /\\ phase' = \"voting\"\n    /\\ proposed' = c\n    /\\ votes' = [s \\in Stations |-> \"none\"]\n    /\\ UNCHANGED washing\n\nVote(s, v) ==\n    /\\ phase = \"voting\"\n    /\\ votes[s] = \"none\"\n    /\\ v \\in {\"yes\", \"no\"}\n    /\\ votes' = [votes EXCEPT ![s] = v]\n    /\\ UNCHANGED <<phase, proposed, washing>>\n\nCommit ==\n    /\\ phase = \"voting\"\n    /\\ \\A s \\in Stations : votes[s] = \"yes\"\n    /\\ washing' = {proposed}\n    /\\ phase' = \"committed\"\n    /\\ UNCHANGED <<proposed, votes>>\n\nAbort ==\n    /\\ phase = \"voting\"\n    /\\ \\E s \\in Stations : votes[s] = \"no\"\n    /\\ phase' = \"idle\"\n    /\\ proposed' = NoCar\n    /\\ UNCHANGED <<votes, washing>>\n\nExit ==\n    /\\ phase = \"committed\"\n    /\\ washing' = {}\n    /\\ phase' = \"idle\"\n    /\\ proposed' = NoCar\n    /\\ UNCHANGED votes\n\nNext ==\n    \\/ \\E c \\in Cars : Propose(c)\n    \\/ \\E s \\in Stations : \\E v \\in {\"yes\", \"no\"} : Vote(s, v)\n    \\/ Commit\n    \\/ Abort\n    \\/ Exit\n\nSpec == Init /\\ [][Next]_vars\n\nAtMostOneCarWashing == washing = {} \\/ \\E c \\in Cars : washing = {c}\n=========================================================================",
+      "negative_sha256": "cf7fcaa86695577b69832b17a57347133b79cc19d429fd5e175081c3fdade068"
+    },
+    {
+      "row": 51,
+      "id": "w4-fullmodule:w4opus::d4-m2-p0-t1",
+      "split": "train",
+      "kind": "Commit_span",
+      "positive_sha256": "ae56c12d774b6daa7440e132fc988e8d057c3a10590a97cec75898baab7e2a22",
+      "span_text": "Commit ==\n    /\\ phase = \"voting\"\n    /\\ \\A s \\in Stations : votes[s] = \"yes\"\n    /\\ washing' = {proposed}\n    /\\ phase' = \"committed\"\n    /\\ UNCHANGED <<proposed, votes>>\n\n",
+      "negative": "--------------------------- MODULE W4Od4m2p0t1 ---------------------------\nEXTENDS Naturals\nCONSTANTS Cars, Stations, NoCar\nVARIABLES phase, proposed, votes, washing\n\nvars == <<phase, proposed, votes, washing>>\n\nInit ==\n    /\\ phase = \"idle\"\n    /\\ proposed = NoCar\n    /\\ votes = [s \\in Stations |-> \"none\"]\n    /\\ washing = {}\n\nPropose(c) ==\n    /\\ phase = \"idle\"\n    /\\ washing = {}\n    /\\ c \\in Cars\n    /\\ phase' = \"voting\"\n    /\\ proposed' = c\n    /\\ votes' = [s \\in Stations |-> \"none\"]\n    /\\ UNCHANGED washing\n\nVote(s, v) ==\n    /\\ phase = \"voting\"\n    /\\ votes[s] = \"none\"\n    /\\ v \\in {\"yes\", \"no\"}\n    /\\ votes' = [votes EXCEPT ![s] = v]\n    /\\ UNCHANGED <<phase, proposed, washing>>\n\n@ommit ==\n    /\\ phase = \"voting\"\n    /\\ \\A s \\in Stations : votes[s] = \"yes\"\n    /\\ washing' = {proposed}\n    /\\ phase' = \"committed\"\n    /\\ UNCHANGED <<proposed, votes>>\n\nAbort ==\n    /\\ phase = \"voting\"\n    /\\ \\E s \\in Stations : votes[s] = \"no\"\n    /\\ phase' = \"idle\"\n    /\\ proposed' = NoCar\n    /\\ UNCHANGED <<votes, washing>>\n\nExit ==\n    /\\ phase = \"committed\"\n    /\\ washing' = {}\n    /\\ phase' = \"idle\"\n    /\\ proposed' = NoCar\n    /\\ UNCHANGED votes\n\nNext ==\n    \\/ \\E c \\in Cars : Propose(c)\n    \\/ \\E s \\in Stations : \\E v \\in {\"yes\", \"no\"} : Vote(s, v)\n    \\/ Commit\n    \\/ Abort\n    \\/ Exit\n\nSpec == Init /\\ [][Next]_vars\n\nAtMostOneCarWashing == washing = {} \\/ \\E c \\in Cars : washing = {c}\n=========================================================================",
+      "negative_sha256": "972249d95f9fdb03a11a7dc548f52848d31e6fbeedea5eeedb064662b0478771"
+    },
+    {
+      "row": 51,
+      "id": "w4-fullmodule:w4opus::d4-m2-p0-t1",
+      "split": "train",
+      "kind": "Abort_span",
+      "positive_sha256": "ae56c12d774b6daa7440e132fc988e8d057c3a10590a97cec75898baab7e2a22",
+      "span_text": "Abort ==\n    /\\ phase = \"voting\"\n    /\\ \\E s \\in Stations : votes[s] = \"no\"\n    /\\ phase' = \"idle\"\n    /\\ proposed' = NoCar\n    /\\ UNCHANGED <<votes, washing>>\n\n",
+      "negative": "--------------------------- MODULE W4Od4m2p0t1 ---------------------------\nEXTENDS Naturals\nCONSTANTS Cars, Stations, NoCar\nVARIABLES phase, proposed, votes, washing\n\nvars == <<phase, proposed, votes, washing>>\n\nInit ==\n    /\\ phase = \"idle\"\n    /\\ proposed = NoCar\n    /\\ votes = [s \\in Stations |-> \"none\"]\n    /\\ washing = {}\n\nPropose(c) ==\n    /\\ phase = \"idle\"\n    /\\ washing = {}\n    /\\ c \\in Cars\n    /\\ phase' = \"voting\"\n    /\\ proposed' = c\n    /\\ votes' = [s \\in Stations |-> \"none\"]\n    /\\ UNCHANGED washing\n\nVote(s, v) ==\n    /\\ phase = \"voting\"\n    /\\ votes[s] = \"none\"\n    /\\ v \\in {\"yes\", \"no\"}\n    /\\ votes' = [votes EXCEPT ![s] = v]\n    /\\ UNCHANGED <<phase, proposed, washing>>\n\nCommit ==\n    /\\ phase = \"voting\"\n    /\\ \\A s \\in Stations : votes[s] = \"yes\"\n    /\\ washing' = {proposed}\n    /\\ phase' = \"committed\"\n    /\\ UNCHANGED <<proposed, votes>>\n\n@bort ==\n    /\\ phase = \"voting\"\n    /\\ \\E s \\in Stations : votes[s] = \"no\"\n    /\\ phase' = \"idle\"\n    /\\ proposed' = NoCar\n    /\\ UNCHANGED <<votes, washing>>\n\nExit ==\n    /\\ phase = \"committed\"\n    /\\ washing' = {}\n    /\\ phase' = \"idle\"\n    /\\ proposed' = NoCar\n    /\\ UNCHANGED votes\n\nNext ==\n    \\/ \\E c \\in Cars : Propose(c)\n    \\/ \\E s \\in Stations : \\E v \\in {\"yes\", \"no\"} : Vote(s, v)\n    \\/ Commit\n    \\/ Abort\n    \\/ Exit\n\nSpec == Init /\\ [][Next]_vars\n\nAtMostOneCarWashing == washing = {} \\/ \\E c \\in Cars : washing = {c}\n=========================================================================",
+      "negative_sha256": "8a46be82be3c675ab50fdf4a9c0192b5a60f7d1fbc80b589676f1cade88ea6c7"
+    },
+    {
+      "row": 51,
+      "id": "w4-fullmodule:w4opus::d4-m2-p0-t1",
+      "split": "train",
+      "kind": "Exit_span",
+      "positive_sha256": "ae56c12d774b6daa7440e132fc988e8d057c3a10590a97cec75898baab7e2a22",
+      "span_text": "Exit ==\n    /\\ phase = \"committed\"\n    /\\ washing' = {}\n    /\\ phase' = \"idle\"\n    /\\ proposed' = NoCar\n    /\\ UNCHANGED votes\n\n",
+      "negative": "--------------------------- MODULE W4Od4m2p0t1 ---------------------------\nEXTENDS Naturals\nCONSTANTS Cars, Stations, NoCar\nVARIABLES phase, proposed, votes, washing\n\nvars == <<phase, proposed, votes, washing>>\n\nInit ==\n    /\\ phase = \"idle\"\n    /\\ proposed = NoCar\n    /\\ votes = [s \\in Stations |-> \"none\"]\n    /\\ washing = {}\n\nPropose(c) ==\n    /\\ phase = \"idle\"\n    /\\ washing = {}\n    /\\ c \\in Cars\n    /\\ phase' = \"voting\"\n    /\\ proposed' = c\n    /\\ votes' = [s \\in Stations |-> \"none\"]\n    /\\ UNCHANGED washing\n\nVote(s, v) ==\n    /\\ phase = \"voting\"\n    /\\ votes[s] = \"none\"\n    /\\ v \\in {\"yes\", \"no\"}\n    /\\ votes' = [votes EXCEPT ![s] = v]\n    /\\ UNCHANGED <<phase, proposed, washing>>\n\nCommit ==\n    /\\ phase = \"voting\"\n    /\\ \\A s \\in Stations : votes[s] = \"yes\"\n    /\\ washing' = {proposed}\n    /\\ phase' = \"committed\"\n    /\\ UNCHANGED <<proposed, votes>>\n\nAbort ==\n    /\\ phase = \"voting\"\n    /\\ \\E s \\in Stations : votes[s] = \"no\"\n    /\\ phase' = \"idle\"\n    /\\ proposed' = NoCar\n    /\\ UNCHANGED <<votes, washing>>\n\n@xit ==\n    /\\ phase = \"committed\"\n    /\\ washing' = {}\n    /\\ phase' = \"idle\"\n    /\\ proposed' = NoCar\n    /\\ UNCHANGED votes\n\nNext ==\n    \\/ \\E c \\in Cars : Propose(c)\n    \\/ \\E s \\in Stations : \\E v \\in {\"yes\", \"no\"} : Vote(s, v)\n    \\/ Commit\n    \\/ Abort\n    \\/ Exit\n\nSpec == Init /\\ [][Next]_vars\n\nAtMostOneCarWashing == washing = {} \\/ \\E c \\in Cars : washing = {c}\n=========================================================================",
+      "negative_sha256": "be2d42435eeb3bce6f25c71d1491be6afd0e37fbeec3eaade24a2f11c822ced1"
+    },
+    {
+      "row": 51,
+      "id": "w4-fullmodule:w4opus::d4-m2-p0-t1",
+      "split": "train",
+      "kind": "Next_span",
+      "positive_sha256": "ae56c12d774b6daa7440e132fc988e8d057c3a10590a97cec75898baab7e2a22",
+      "span_text": "Next ==\n    \\/ \\E c \\in Cars : Propose(c)\n    \\/ \\E s \\in Stations : \\E v \\in {\"yes\", \"no\"} : Vote(s, v)\n    \\/ Commit\n    \\/ Abort\n    \\/ Exit\n\n",
+      "negative": "--------------------------- MODULE W4Od4m2p0t1 ---------------------------\nEXTENDS Naturals\nCONSTANTS Cars, Stations, NoCar\nVARIABLES phase, proposed, votes, washing\n\nvars == <<phase, proposed, votes, washing>>\n\nInit ==\n    /\\ phase = \"idle\"\n    /\\ proposed = NoCar\n    /\\ votes = [s \\in Stations |-> \"none\"]\n    /\\ washing = {}\n\nPropose(c) ==\n    /\\ phase = \"idle\"\n    /\\ washing = {}\n    /\\ c \\in Cars\n    /\\ phase' = \"voting\"\n    /\\ proposed' = c\n    /\\ votes' = [s \\in Stations |-> \"none\"]\n    /\\ UNCHANGED washing\n\nVote(s, v) ==\n    /\\ phase = \"voting\"\n    /\\ votes[s] = \"none\"\n    /\\ v \\in {\"yes\", \"no\"}\n    /\\ votes' = [votes EXCEPT ![s] = v]\n    /\\ UNCHANGED <<phase, proposed, washing>>\n\nCommit ==\n    /\\ phase = \"voting\"\n    /\\ \\A s \\in Stations : votes[s] = \"yes\"\n    /\\ washing' = {proposed}\n    /\\ phase' = \"committed\"\n    /\\ UNCHANGED <<proposed, votes>>\n\nAbort ==\n    /\\ phase = \"voting\"\n    /\\ \\E s \\in Stations : votes[s] = \"no\"\n    /\\ phase' = \"idle\"\n    /\\ proposed' = NoCar\n    /\\ UNCHANGED <<votes, washing>>\n\nExit ==\n    /\\ phase = \"committed\"\n    /\\ washing' = {}\n    /\\ phase' = \"idle\"\n    /\\ proposed' = NoCar\n    /\\ UNCHANGED votes\n\n@ext ==\n    \\/ \\E c \\in Cars : Propose(c)\n    \\/ \\E s \\in Stations : \\E v \\in {\"yes\", \"no\"} : Vote(s, v)\n    \\/ Commit\n    \\/ Abort\n    \\/ Exit\n\nSpec == Init /\\ [][Next]_vars\n\nAtMostOneCarWashing == washing = {} \\/ \\E c \\in Cars : washing = {c}\n=========================================================================",
+      "negative_sha256": "cbed7d9b5fafdd3276b895ef1adddf6e6af2b4658293f8d7250f3980227d4113"
+    },
+    {
+      "row": 51,
+      "id": "w4-fullmodule:w4opus::d4-m2-p0-t1",
+      "split": "train",
+      "kind": "Spec_span",
+      "positive_sha256": "ae56c12d774b6daa7440e132fc988e8d057c3a10590a97cec75898baab7e2a22",
+      "span_text": "Spec == Init /\\ [][Next]_vars\n\n",
+      "negative": "--------------------------- MODULE W4Od4m2p0t1 ---------------------------\nEXTENDS Naturals\nCONSTANTS Cars, Stations, NoCar\nVARIABLES phase, proposed, votes, washing\n\nvars == <<phase, proposed, votes, washing>>\n\nInit ==\n    /\\ phase = \"idle\"\n    /\\ proposed = NoCar\n    /\\ votes = [s \\in Stations |-> \"none\"]\n    /\\ washing = {}\n\nPropose(c) ==\n    /\\ phase = \"idle\"\n    /\\ washing = {}\n    /\\ c \\in Cars\n    /\\ phase' = \"voting\"\n    /\\ proposed' = c\n    /\\ votes' = [s \\in Stations |-> \"none\"]\n    /\\ UNCHANGED washing\n\nVote(s, v) ==\n    /\\ phase = \"voting\"\n    /\\ votes[s] = \"none\"\n    /\\ v \\in {\"yes\", \"no\"}\n    /\\ votes' = [votes EXCEPT ![s] = v]\n    /\\ UNCHANGED <<phase, proposed, washing>>\n\nCommit ==\n    /\\ phase = \"voting\"\n    /\\ \\A s \\in Stations : votes[s] = \"yes\"\n    /\\ washing' = {proposed}\n    /\\ phase' = \"committed\"\n    /\\ UNCHANGED <<proposed, votes>>\n\nAbort ==\n    /\\ phase = \"voting\"\n    /\\ \\E s \\in Stations : votes[s] = \"no\"\n    /\\ phase' = \"idle\"\n    /\\ proposed' = NoCar\n    /\\ UNCHANGED <<votes, washing>>\n\nExit ==\n    /\\ phase = \"committed\"\n    /\\ washing' = {}\n    /\\ phase' = \"idle\"\n    /\\ proposed' = NoCar\n    /\\ UNCHANGED votes\n\nNext ==\n    \\/ \\E c \\in Cars : Propose(c)\n    \\/ \\E s \\in Stations : \\E v \\in {\"yes\", \"no\"} : Vote(s, v)\n    \\/ Commit\n    \\/ Abort\n    \\/ Exit\n\n@pec == Init /\\ [][Next]_vars\n\nAtMostOneCarWashing == washing = {} \\/ \\E c \\in Cars : washing = {c}\n=========================================================================",
+      "negative_sha256": "99c7f69ab8f22ecd4d70ff2be3a40c2f0d59ae7a0cfc7bca5d82833927ecd00a"
+    },
+    {
+      "row": 51,
+      "id": "w4-fullmodule:w4opus::d4-m2-p0-t1",
+      "split": "train",
+      "kind": "AtMostOneCarWashing_span",
+      "positive_sha256": "ae56c12d774b6daa7440e132fc988e8d057c3a10590a97cec75898baab7e2a22",
+      "span_text": "AtMostOneCarWashing == washing = {} \\/ \\E c \\in Cars : washing = {c}\n=========================================================================",
+      "negative": "--------------------------- MODULE W4Od4m2p0t1 ---------------------------\nEXTENDS Naturals\nCONSTANTS Cars, Stations, NoCar\nVARIABLES phase, proposed, votes, washing\n\nvars == <<phase, proposed, votes, washing>>\n\nInit ==\n    /\\ phase = \"idle\"\n    /\\ proposed = NoCar\n    /\\ votes = [s \\in Stations |-> \"none\"]\n    /\\ washing = {}\n\nPropose(c) ==\n    /\\ phase = \"idle\"\n    /\\ washing = {}\n    /\\ c \\in Cars\n    /\\ phase' = \"voting\"\n    /\\ proposed' = c\n    /\\ votes' = [s \\in Stations |-> \"none\"]\n    /\\ UNCHANGED washing\n\nVote(s, v) ==\n    /\\ phase = \"voting\"\n    /\\ votes[s] = \"none\"\n    /\\ v \\in {\"yes\", \"no\"}\n    /\\ votes' = [votes EXCEPT ![s] = v]\n    /\\ UNCHANGED <<phase, proposed, washing>>\n\nCommit ==\n    /\\ phase = \"voting\"\n    /\\ \\A s \\in Stations : votes[s] = \"yes\"\n    /\\ washing' = {proposed}\n    /\\ phase' = \"committed\"\n    /\\ UNCHANGED <<proposed, votes>>\n\nAbort ==\n    /\\ phase = \"voting\"\n    /\\ \\E s \\in Stations : votes[s] = \"no\"\n    /\\ phase' = \"idle\"\n    /\\ proposed' = NoCar\n    /\\ UNCHANGED <<votes, washing>>\n\nExit ==\n    /\\ phase = \"committed\"\n    /\\ washing' = {}\n    /\\ phase' = \"idle\"\n    /\\ proposed' = NoCar\n    /\\ UNCHANGED votes\n\nNext ==\n    \\/ \\E c \\in Cars : Propose(c)\n    \\/ \\E s \\in Stations : \\E v \\in {\"yes\", \"no\"} : Vote(s, v)\n    \\/ Commit\n    \\/ Abort\n    \\/ Exit\n\nSpec == Init /\\ [][Next]_vars\n\n@tMostOneCarWashing == washing = {} \\/ \\E c \\in Cars : washing = {c}\n=========================================================================",
+      "negative_sha256": "aace175b41da2bca31de9812749398ce4ccf3f26664a2dbec8139529abd71168"
+    },
+    {
+      "row": 52,
+      "id": "w4-fullmodule:w4opus::d19-m7-p2-t1",
+      "split": "validation",
+      "kind": "EXTENDS_span",
+      "positive_sha256": "769f844aaa3a81ab2a77b59922b84824d678c071468f8ab3b96bd5be021e7132",
+      "span_text": "EXTENDS Naturals\n",
+      "negative": "---- MODULE W4Od19m7p2t1 ----\n@XTENDS Naturals\nCONSTANTS Patrons, Total\n\nNone == \"none\"\n\nVARIABLES reg, shelf, loaned, inbox\nvars == <<reg, shelf, loaned, inbox>>\n\nMsgs == [patron : Patrons, act : {\"borrow\", \"return\"}]\n\nInit ==\n  /\\ reg = None\n  /\\ shelf = Total\n  /\\ loaned = 0\n  /\\ inbox = {}\n\nRequest(p, a) ==\n  /\\ [patron |-> p, act |-> a] \\notin inbox\n  /\\ inbox' = inbox \\cup {[patron |-> p, act |-> a]}\n  /\\ UNCHANGED <<reg, shelf, loaned>>\n\nAcquire(p) ==\n  /\\ reg = None\n  /\\ reg' = p\n  /\\ UNCHANGED <<shelf, loaned, inbox>>\n\nBorrow(p) ==\n  /\\ reg = p\n  /\\ shelf > 0\n  /\\ [patron |-> p, act |-> \"borrow\"] \\in inbox\n  /\\ shelf' = shelf - 1\n  /\\ loaned' = loaned + 1\n  /\\ inbox' = inbox \\ {[patron |-> p, act |-> \"borrow\"]}\n  /\\ reg' = None\n\nReturn(p) ==\n  /\\ reg = p\n  /\\ loaned > 0\n  /\\ [patron |-> p, act |-> \"return\"] \\in inbox\n  /\\ loaned' = loaned - 1\n  /\\ shelf' = shelf + 1\n  /\\ inbox' = inbox \\ {[patron |-> p, act |-> \"return\"]}\n  /\\ reg' = None\n\nRelease(p) ==\n  /\\ reg = p\n  /\\ reg' = None\n  /\\ UNCHANGED <<shelf, loaned, inbox>>\n\nNext ==\n  \\/ \\E p \\in Patrons, a \\in {\"borrow\", \"return\"} : Request(p, a)\n  \\/ \\E p \\in Patrons : Acquire(p) \\/ Borrow(p) \\/ Return(p) \\/ Release(p)\n\nSpec == Init /\\ [][Next]_vars\n\nCopiesConserved == shelf + loaned = Total\n====",
+      "negative_sha256": "2710930e5cca31fe38900ed969d19870435dc61a30c064e815fa8059a3296533"
+    },
+    {
+      "row": 52,
+      "id": "w4-fullmodule:w4opus::d19-m7-p2-t1",
+      "split": "validation",
+      "kind": "CONSTANTS_span",
+      "positive_sha256": "769f844aaa3a81ab2a77b59922b84824d678c071468f8ab3b96bd5be021e7132",
+      "span_text": "CONSTANTS Patrons, Total\n\n",
+      "negative": "---- MODULE W4Od19m7p2t1 ----\nEXTENDS Naturals\n@ONSTANTS Patrons, Total\n\nNone == \"none\"\n\nVARIABLES reg, shelf, loaned, inbox\nvars == <<reg, shelf, loaned, inbox>>\n\nMsgs == [patron : Patrons, act : {\"borrow\", \"return\"}]\n\nInit ==\n  /\\ reg = None\n  /\\ shelf = Total\n  /\\ loaned = 0\n  /\\ inbox = {}\n\nRequest(p, a) ==\n  /\\ [patron |-> p, act |-> a] \\notin inbox\n  /\\ inbox' = inbox \\cup {[patron |-> p, act |-> a]}\n  /\\ UNCHANGED <<reg, shelf, loaned>>\n\nAcquire(p) ==\n  /\\ reg = None\n  /\\ reg' = p\n  /\\ UNCHANGED <<shelf, loaned, inbox>>\n\nBorrow(p) ==\n  /\\ reg = p\n  /\\ shelf > 0\n  /\\ [patron |-> p, act |-> \"borrow\"] \\in inbox\n  /\\ shelf' = shelf - 1\n  /\\ loaned' = loaned + 1\n  /\\ inbox' = inbox \\ {[patron |-> p, act |-> \"borrow\"]}\n  /\\ reg' = None\n\nReturn(p) ==\n  /\\ reg = p\n  /\\ loaned > 0\n  /\\ [patron |-> p, act |-> \"return\"] \\in inbox\n  /\\ loaned' = loaned - 1\n  /\\ shelf' = shelf + 1\n  /\\ inbox' = inbox \\ {[patron |-> p, act |-> \"return\"]}\n  /\\ reg' = None\n\nRelease(p) ==\n  /\\ reg = p\n  /\\ reg' = None\n  /\\ UNCHANGED <<shelf, loaned, inbox>>\n\nNext ==\n  \\/ \\E p \\in Patrons, a \\in {\"borrow\", \"return\"} : Request(p, a)\n  \\/ \\E p \\in Patrons : Acquire(p) \\/ Borrow(p) \\/ Return(p) \\/ Release(p)\n\nSpec == Init /\\ [][Next]_vars\n\nCopiesConserved == shelf + loaned = Total\n====",
+      "negative_sha256": "12b331bea7b246766dba9a7f1f70a3e58d8d4e3b57bba2d412a2b2d34f9001cc"
+    },
+    {
+      "row": 52,
+      "id": "w4-fullmodule:w4opus::d19-m7-p2-t1",
+      "split": "validation",
+      "kind": "None_span",
+      "positive_sha256": "769f844aaa3a81ab2a77b59922b84824d678c071468f8ab3b96bd5be021e7132",
+      "span_text": "None == \"none\"\n\n",
+      "negative": "---- MODULE W4Od19m7p2t1 ----\nEXTENDS Naturals\nCONSTANTS Patrons, Total\n\n@one == \"none\"\n\nVARIABLES reg, shelf, loaned, inbox\nvars == <<reg, shelf, loaned, inbox>>\n\nMsgs == [patron : Patrons, act : {\"borrow\", \"return\"}]\n\nInit ==\n  /\\ reg = None\n  /\\ shelf = Total\n  /\\ loaned = 0\n  /\\ inbox = {}\n\nRequest(p, a) ==\n  /\\ [patron |-> p, act |-> a] \\notin inbox\n  /\\ inbox' = inbox \\cup {[patron |-> p, act |-> a]}\n  /\\ UNCHANGED <<reg, shelf, loaned>>\n\nAcquire(p) ==\n  /\\ reg = None\n  /\\ reg' = p\n  /\\ UNCHANGED <<shelf, loaned, inbox>>\n\nBorrow(p) ==\n  /\\ reg = p\n  /\\ shelf > 0\n  /\\ [patron |-> p, act |-> \"borrow\"] \\in inbox\n  /\\ shelf' = shelf - 1\n  /\\ loaned' = loaned + 1\n  /\\ inbox' = inbox \\ {[patron |-> p, act |-> \"borrow\"]}\n  /\\ reg' = None\n\nReturn(p) ==\n  /\\ reg = p\n  /\\ loaned > 0\n  /\\ [patron |-> p, act |-> \"return\"] \\in inbox\n  /\\ loaned' = loaned - 1\n  /\\ shelf' = shelf + 1\n  /\\ inbox' = inbox \\ {[patron |-> p, act |-> \"return\"]}\n  /\\ reg' = None\n\nRelease(p) ==\n  /\\ reg = p\n  /\\ reg' = None\n  /\\ UNCHANGED <<shelf, loaned, inbox>>\n\nNext ==\n  \\/ \\E p \\in Patrons, a \\in {\"borrow\", \"return\"} : Request(p, a)\n  \\/ \\E p \\in Patrons : Acquire(p) \\/ Borrow(p) \\/ Return(p) \\/ Release(p)\n\nSpec == Init /\\ [][Next]_vars\n\nCopiesConserved == shelf + loaned = Total\n====",
+      "negative_sha256": "64a03b7d7b84d06ab678e6272f11961f6d8d82d9bbc6c5a68e858843fc5c76c7"
+    },
+    {
+      "row": 52,
+      "id": "w4-fullmodule:w4opus::d19-m7-p2-t1",
+      "split": "validation",
+      "kind": "VARIABLES_span",
+      "positive_sha256": "769f844aaa3a81ab2a77b59922b84824d678c071468f8ab3b96bd5be021e7132",
+      "span_text": "VARIABLES reg, shelf, loaned, inbox\n",
+      "negative": "---- MODULE W4Od19m7p2t1 ----\nEXTENDS Naturals\nCONSTANTS Patrons, Total\n\nNone == \"none\"\n\n@ARIABLES reg, shelf, loaned, inbox\nvars == <<reg, shelf, loaned, inbox>>\n\nMsgs == [patron : Patrons, act : {\"borrow\", \"return\"}]\n\nInit ==\n  /\\ reg = None\n  /\\ shelf = Total\n  /\\ loaned = 0\n  /\\ inbox = {}\n\nRequest(p, a) ==\n  /\\ [patron |-> p, act |-> a] \\notin inbox\n  /\\ inbox' = inbox \\cup {[patron |-> p, act |-> a]}\n  /\\ UNCHANGED <<reg, shelf, loaned>>\n\nAcquire(p) ==\n  /\\ reg = None\n  /\\ reg' = p\n  /\\ UNCHANGED <<shelf, loaned, inbox>>\n\nBorrow(p) ==\n  /\\ reg = p\n  /\\ shelf > 0\n  /\\ [patron |-> p, act |-> \"borrow\"] \\in inbox\n  /\\ shelf' = shelf - 1\n  /\\ loaned' = loaned + 1\n  /\\ inbox' = inbox \\ {[patron |-> p, act |-> \"borrow\"]}\n  /\\ reg' = None\n\nReturn(p) ==\n  /\\ reg = p\n  /\\ loaned > 0\n  /\\ [patron |-> p, act |-> \"return\"] \\in inbox\n  /\\ loaned' = loaned - 1\n  /\\ shelf' = shelf + 1\n  /\\ inbox' = inbox \\ {[patron |-> p, act |-> \"return\"]}\n  /\\ reg' = None\n\nRelease(p) ==\n  /\\ reg = p\n  /\\ reg' = None\n  /\\ UNCHANGED <<shelf, loaned, inbox>>\n\nNext ==\n  \\/ \\E p \\in Patrons, a \\in {\"borrow\", \"return\"} : Request(p, a)\n  \\/ \\E p \\in Patrons : Acquire(p) \\/ Borrow(p) \\/ Return(p) \\/ Release(p)\n\nSpec == Init /\\ [][Next]_vars\n\nCopiesConserved == shelf + loaned = Total\n====",
+      "negative_sha256": "c061449dcecd03c12a921ae9a1f0828b36de8fe73a1025ef66e94feed94929fa"
+    },
+    {
+      "row": 52,
+      "id": "w4-fullmodule:w4opus::d19-m7-p2-t1",
+      "split": "validation",
+      "kind": "vars_span",
+      "positive_sha256": "769f844aaa3a81ab2a77b59922b84824d678c071468f8ab3b96bd5be021e7132",
+      "span_text": "vars == <<reg, shelf, loaned, inbox>>\n\n",
+      "negative": "---- MODULE W4Od19m7p2t1 ----\nEXTENDS Naturals\nCONSTANTS Patrons, Total\n\nNone == \"none\"\n\nVARIABLES reg, shelf, loaned, inbox\n@ars == <<reg, shelf, loaned, inbox>>\n\nMsgs == [patron : Patrons, act : {\"borrow\", \"return\"}]\n\nInit ==\n  /\\ reg = None\n  /\\ shelf = Total\n  /\\ loaned = 0\n  /\\ inbox = {}\n\nRequest(p, a) ==\n  /\\ [patron |-> p, act |-> a] \\notin inbox\n  /\\ inbox' = inbox \\cup {[patron |-> p, act |-> a]}\n  /\\ UNCHANGED <<reg, shelf, loaned>>\n\nAcquire(p) ==\n  /\\ reg = None\n  /\\ reg' = p\n  /\\ UNCHANGED <<shelf, loaned, inbox>>\n\nBorrow(p) ==\n  /\\ reg = p\n  /\\ shelf > 0\n  /\\ [patron |-> p, act |-> \"borrow\"] \\in inbox\n  /\\ shelf' = shelf - 1\n  /\\ loaned' = loaned + 1\n  /\\ inbox' = inbox \\ {[patron |-> p, act |-> \"borrow\"]}\n  /\\ reg' = None\n\nReturn(p) ==\n  /\\ reg = p\n  /\\ loaned > 0\n  /\\ [patron |-> p, act |-> \"return\"] \\in inbox\n  /\\ loaned' = loaned - 1\n  /\\ shelf' = shelf + 1\n  /\\ inbox' = inbox \\ {[patron |-> p, act |-> \"return\"]}\n  /\\ reg' = None\n\nRelease(p) ==\n  /\\ reg = p\n  /\\ reg' = None\n  /\\ UNCHANGED <<shelf, loaned, inbox>>\n\nNext ==\n  \\/ \\E p \\in Patrons, a \\in {\"borrow\", \"return\"} : Request(p, a)\n  \\/ \\E p \\in Patrons : Acquire(p) \\/ Borrow(p) \\/ Return(p) \\/ Release(p)\n\nSpec == Init /\\ [][Next]_vars\n\nCopiesConserved == shelf + loaned = Total\n====",
+      "negative_sha256": "4b7dad463ac79fb9914496f06b1d22452d7692ebf7e98126643f1c799251c659"
+    },
+    {
+      "row": 52,
+      "id": "w4-fullmodule:w4opus::d19-m7-p2-t1",
+      "split": "validation",
+      "kind": "Msgs_span",
+      "positive_sha256": "769f844aaa3a81ab2a77b59922b84824d678c071468f8ab3b96bd5be021e7132",
+      "span_text": "Msgs == [patron : Patrons, act : {\"borrow\", \"return\"}]\n\n",
+      "negative": "---- MODULE W4Od19m7p2t1 ----\nEXTENDS Naturals\nCONSTANTS Patrons, Total\n\nNone == \"none\"\n\nVARIABLES reg, shelf, loaned, inbox\nvars == <<reg, shelf, loaned, inbox>>\n\n@sgs == [patron : Patrons, act : {\"borrow\", \"return\"}]\n\nInit ==\n  /\\ reg = None\n  /\\ shelf = Total\n  /\\ loaned = 0\n  /\\ inbox = {}\n\nRequest(p, a) ==\n  /\\ [patron |-> p, act |-> a] \\notin inbox\n  /\\ inbox' = inbox \\cup {[patron |-> p, act |-> a]}\n  /\\ UNCHANGED <<reg, shelf, loaned>>\n\nAcquire(p) ==\n  /\\ reg = None\n  /\\ reg' = p\n  /\\ UNCHANGED <<shelf, loaned, inbox>>\n\nBorrow(p) ==\n  /\\ reg = p\n  /\\ shelf > 0\n  /\\ [patron |-> p, act |-> \"borrow\"] \\in inbox\n  /\\ shelf' = shelf - 1\n  /\\ loaned' = loaned + 1\n  /\\ inbox' = inbox \\ {[patron |-> p, act |-> \"borrow\"]}\n  /\\ reg' = None\n\nReturn(p) ==\n  /\\ reg = p\n  /\\ loaned > 0\n  /\\ [patron |-> p, act |-> \"return\"] \\in inbox\n  /\\ loaned' = loaned - 1\n  /\\ shelf' = shelf + 1\n  /\\ inbox' = inbox \\ {[patron |-> p, act |-> \"return\"]}\n  /\\ reg' = None\n\nRelease(p) ==\n  /\\ reg = p\n  /\\ reg' = None\n  /\\ UNCHANGED <<shelf, loaned, inbox>>\n\nNext ==\n  \\/ \\E p \\in Patrons, a \\in {\"borrow\", \"return\"} : Request(p, a)\n  \\/ \\E p \\in Patrons : Acquire(p) \\/ Borrow(p) \\/ Return(p) \\/ Release(p)\n\nSpec == Init /\\ [][Next]_vars\n\nCopiesConserved == shelf + loaned = Total\n====",
+      "negative_sha256": "942a6db1fcfb7f043205989698134c2d4ed33907fbb6971fa4f9575eec696d45"
+    },
+    {
+      "row": 52,
+      "id": "w4-fullmodule:w4opus::d19-m7-p2-t1",
+      "split": "validation",
+      "kind": "Init_span",
+      "positive_sha256": "769f844aaa3a81ab2a77b59922b84824d678c071468f8ab3b96bd5be021e7132",
+      "span_text": "Init ==\n  /\\ reg = None\n  /\\ shelf = Total\n  /\\ loaned = 0\n  /\\ inbox = {}\n\nRequest(p, a) ==\n  /\\ [patron |-> p, act |-> a] \\notin inbox\n  /\\ inbox' = inbox \\cup {[patron |-> p, act |-> a]}\n  /\\ UNCHANGED <<reg, shelf, loaned>>\n\nAcquire(p) ==\n  /\\ reg = None\n  /\\ reg' = p\n  /\\ UNCHANGED <<shelf, loaned, inbox>>\n\nBorrow(p) ==\n  /\\ reg = p\n  /\\ shelf > 0\n  /\\ [patron |-> p, act |-> \"borrow\"] \\in inbox\n  /\\ shelf' = shelf - 1\n  /\\ loaned' = loaned + 1\n  /\\ inbox' = inbox \\ {[patron |-> p, act |-> \"borrow\"]}\n  /\\ reg' = None\n\nReturn(p) ==\n  /\\ reg = p\n  /\\ loaned > 0\n  /\\ [patron |-> p, act |-> \"return\"] \\in inbox\n  /\\ loaned' = loaned - 1\n  /\\ shelf' = shelf + 1\n  /\\ inbox' = inbox \\ {[patron |-> p, act |-> \"return\"]}\n  /\\ reg' = None\n\nRelease(p) ==\n  /\\ reg = p\n  /\\ reg' = None\n  /\\ UNCHANGED <<shelf, loaned, inbox>>\n\n",
+      "negative": "---- MODULE W4Od19m7p2t1 ----\nEXTENDS Naturals\nCONSTANTS Patrons, Total\n\nNone == \"none\"\n\nVARIABLES reg, shelf, loaned, inbox\nvars == <<reg, shelf, loaned, inbox>>\n\nMsgs == [patron : Patrons, act : {\"borrow\", \"return\"}]\n\n@nit ==\n  /\\ reg = None\n  /\\ shelf = Total\n  /\\ loaned = 0\n  /\\ inbox = {}\n\nRequest(p, a) ==\n  /\\ [patron |-> p, act |-> a] \\notin inbox\n  /\\ inbox' = inbox \\cup {[patron |-> p, act |-> a]}\n  /\\ UNCHANGED <<reg, shelf, loaned>>\n\nAcquire(p) ==\n  /\\ reg = None\n  /\\ reg' = p\n  /\\ UNCHANGED <<shelf, loaned, inbox>>\n\nBorrow(p) ==\n  /\\ reg = p\n  /\\ shelf > 0\n  /\\ [patron |-> p, act |-> \"borrow\"] \\in inbox\n  /\\ shelf' = shelf - 1\n  /\\ loaned' = loaned + 1\n  /\\ inbox' = inbox \\ {[patron |-> p, act |-> \"borrow\"]}\n  /\\ reg' = None\n\nReturn(p) ==\n  /\\ reg = p\n  /\\ loaned > 0\n  /\\ [patron |-> p, act |-> \"return\"] \\in inbox\n  /\\ loaned' = loaned - 1\n  /\\ shelf' = shelf + 1\n  /\\ inbox' = inbox \\ {[patron |-> p, act |-> \"return\"]}\n  /\\ reg' = None\n\nRelease(p) ==\n  /\\ reg = p\n  /\\ reg' = None\n  /\\ UNCHANGED <<shelf, loaned, inbox>>\n\nNext ==\n  \\/ \\E p \\in Patrons, a \\in {\"borrow\", \"return\"} : Request(p, a)\n  \\/ \\E p \\in Patrons : Acquire(p) \\/ Borrow(p) \\/ Return(p) \\/ Release(p)\n\nSpec == Init /\\ [][Next]_vars\n\nCopiesConserved == shelf + loaned = Total\n====",
+      "negative_sha256": "6b9f99f6f9aaa937bd94eb2b828b62c74823357e24f504672b077283c355db6b"
+    },
+    {
+      "row": 52,
+      "id": "w4-fullmodule:w4opus::d19-m7-p2-t1",
+      "split": "validation",
+      "kind": "Next_span",
+      "positive_sha256": "769f844aaa3a81ab2a77b59922b84824d678c071468f8ab3b96bd5be021e7132",
+      "span_text": "Next ==\n  \\/ \\E p \\in Patrons, a \\in {\"borrow\", \"return\"} : Request(p, a)\n  \\/ \\E p \\in Patrons : Acquire(p) \\/ Borrow(p) \\/ Return(p) \\/ Release(p)\n\n",
+      "negative": "---- MODULE W4Od19m7p2t1 ----\nEXTENDS Naturals\nCONSTANTS Patrons, Total\n\nNone == \"none\"\n\nVARIABLES reg, shelf, loaned, inbox\nvars == <<reg, shelf, loaned, inbox>>\n\nMsgs == [patron : Patrons, act : {\"borrow\", \"return\"}]\n\nInit ==\n  /\\ reg = None\n  /\\ shelf = Total\n  /\\ loaned = 0\n  /\\ inbox = {}\n\nRequest(p, a) ==\n  /\\ [patron |-> p, act |-> a] \\notin inbox\n  /\\ inbox' = inbox \\cup {[patron |-> p, act |-> a]}\n  /\\ UNCHANGED <<reg, shelf, loaned>>\n\nAcquire(p) ==\n  /\\ reg = None\n  /\\ reg' = p\n  /\\ UNCHANGED <<shelf, loaned, inbox>>\n\nBorrow(p) ==\n  /\\ reg = p\n  /\\ shelf > 0\n  /\\ [patron |-> p, act |-> \"borrow\"] \\in inbox\n  /\\ shelf' = shelf - 1\n  /\\ loaned' = loaned + 1\n  /\\ inbox' = inbox \\ {[patron |-> p, act |-> \"borrow\"]}\n  /\\ reg' = None\n\nReturn(p) ==\n  /\\ reg = p\n  /\\ loaned > 0\n  /\\ [patron |-> p, act |-> \"return\"] \\in inbox\n  /\\ loaned' = loaned - 1\n  /\\ shelf' = shelf + 1\n  /\\ inbox' = inbox \\ {[patron |-> p, act |-> \"return\"]}\n  /\\ reg' = None\n\nRelease(p) ==\n  /\\ reg = p\n  /\\ reg' = None\n  /\\ UNCHANGED <<shelf, loaned, inbox>>\n\n@ext ==\n  \\/ \\E p \\in Patrons, a \\in {\"borrow\", \"return\"} : Request(p, a)\n  \\/ \\E p \\in Patrons : Acquire(p) \\/ Borrow(p) \\/ Return(p) \\/ Release(p)\n\nSpec == Init /\\ [][Next]_vars\n\nCopiesConserved == shelf + loaned = Total\n====",
+      "negative_sha256": "800a634cc257ffe28a5d340a53c8c511e65e289dd994464061981d21a566ebcc"
+    },
+    {
+      "row": 52,
+      "id": "w4-fullmodule:w4opus::d19-m7-p2-t1",
+      "split": "validation",
+      "kind": "Spec_span",
+      "positive_sha256": "769f844aaa3a81ab2a77b59922b84824d678c071468f8ab3b96bd5be021e7132",
+      "span_text": "Spec == Init /\\ [][Next]_vars\n\n",
+      "negative": "---- MODULE W4Od19m7p2t1 ----\nEXTENDS Naturals\nCONSTANTS Patrons, Total\n\nNone == \"none\"\n\nVARIABLES reg, shelf, loaned, inbox\nvars == <<reg, shelf, loaned, inbox>>\n\nMsgs == [patron : Patrons, act : {\"borrow\", \"return\"}]\n\nInit ==\n  /\\ reg = None\n  /\\ shelf = Total\n  /\\ loaned = 0\n  /\\ inbox = {}\n\nRequest(p, a) ==\n  /\\ [patron |-> p, act |-> a] \\notin inbox\n  /\\ inbox' = inbox \\cup {[patron |-> p, act |-> a]}\n  /\\ UNCHANGED <<reg, shelf, loaned>>\n\nAcquire(p) ==\n  /\\ reg = None\n  /\\ reg' = p\n  /\\ UNCHANGED <<shelf, loaned, inbox>>\n\nBorrow(p) ==\n  /\\ reg = p\n  /\\ shelf > 0\n  /\\ [patron |-> p, act |-> \"borrow\"] \\in inbox\n  /\\ shelf' = shelf - 1\n  /\\ loaned' = loaned + 1\n  /\\ inbox' = inbox \\ {[patron |-> p, act |-> \"borrow\"]}\n  /\\ reg' = None\n\nReturn(p) ==\n  /\\ reg = p\n  /\\ loaned > 0\n  /\\ [patron |-> p, act |-> \"return\"] \\in inbox\n  /\\ loaned' = loaned - 1\n  /\\ shelf' = shelf + 1\n  /\\ inbox' = inbox \\ {[patron |-> p, act |-> \"return\"]}\n  /\\ reg' = None\n\nRelease(p) ==\n  /\\ reg = p\n  /\\ reg' = None\n  /\\ UNCHANGED <<shelf, loaned, inbox>>\n\nNext ==\n  \\/ \\E p \\in Patrons, a \\in {\"borrow\", \"return\"} : Request(p, a)\n  \\/ \\E p \\in Patrons : Acquire(p) \\/ Borrow(p) \\/ Return(p) \\/ Release(p)\n\n@pec == Init /\\ [][Next]_vars\n\nCopiesConserved == shelf + loaned = Total\n====",
+      "negative_sha256": "4412a529ae029e9d7f0173f04120322b2c7c9c7782303ec0acfec9439c335f2a"
+    },
+    {
+      "row": 52,
+      "id": "w4-fullmodule:w4opus::d19-m7-p2-t1",
+      "split": "validation",
+      "kind": "CopiesConserved_span",
+      "positive_sha256": "769f844aaa3a81ab2a77b59922b84824d678c071468f8ab3b96bd5be021e7132",
+      "span_text": "CopiesConserved == shelf + loaned = Total\n",
+      "negative": "---- MODULE W4Od19m7p2t1 ----\nEXTENDS Naturals\nCONSTANTS Patrons, Total\n\nNone == \"none\"\n\nVARIABLES reg, shelf, loaned, inbox\nvars == <<reg, shelf, loaned, inbox>>\n\nMsgs == [patron : Patrons, act : {\"borrow\", \"return\"}]\n\nInit ==\n  /\\ reg = None\n  /\\ shelf = Total\n  /\\ loaned = 0\n  /\\ inbox = {}\n\nRequest(p, a) ==\n  /\\ [patron |-> p, act |-> a] \\notin inbox\n  /\\ inbox' = inbox \\cup {[patron |-> p, act |-> a]}\n  /\\ UNCHANGED <<reg, shelf, loaned>>\n\nAcquire(p) ==\n  /\\ reg = None\n  /\\ reg' = p\n  /\\ UNCHANGED <<shelf, loaned, inbox>>\n\nBorrow(p) ==\n  /\\ reg = p\n  /\\ shelf > 0\n  /\\ [patron |-> p, act |-> \"borrow\"] \\in inbox\n  /\\ shelf' = shelf - 1\n  /\\ loaned' = loaned + 1\n  /\\ inbox' = inbox \\ {[patron |-> p, act |-> \"borrow\"]}\n  /\\ reg' = None\n\nReturn(p) ==\n  /\\ reg = p\n  /\\ loaned > 0\n  /\\ [patron |-> p, act |-> \"return\"] \\in inbox\n  /\\ loaned' = loaned - 1\n  /\\ shelf' = shelf + 1\n  /\\ inbox' = inbox \\ {[patron |-> p, act |-> \"return\"]}\n  /\\ reg' = None\n\nRelease(p) ==\n  /\\ reg = p\n  /\\ reg' = None\n  /\\ UNCHANGED <<shelf, loaned, inbox>>\n\nNext ==\n  \\/ \\E p \\in Patrons, a \\in {\"borrow\", \"return\"} : Request(p, a)\n  \\/ \\E p \\in Patrons : Acquire(p) \\/ Borrow(p) \\/ Return(p) \\/ Release(p)\n\nSpec == Init /\\ [][Next]_vars\n\n@opiesConserved == shelf + loaned = Total\n====",
+      "negative_sha256": "3a5725c063ef21c4d5fc4830ddba8c2a94afc2570e0b8c428cc795a5fdc217d0"
+    },
+    {
+      "row": 52,
+      "id": "w4-fullmodule:w4opus::d19-m7-p2-t1",
+      "split": "validation",
+      "kind": "====_span",
+      "positive_sha256": "769f844aaa3a81ab2a77b59922b84824d678c071468f8ab3b96bd5be021e7132",
+      "span_text": "====",
+      "negative": "---- MODULE W4Od19m7p2t1 ----\nEXTENDS Naturals\nCONSTANTS Patrons, Total\n\nNone == \"none\"\n\nVARIABLES reg, shelf, loaned, inbox\nvars == <<reg, shelf, loaned, inbox>>\n\nMsgs == [patron : Patrons, act : {\"borrow\", \"return\"}]\n\nInit ==\n  /\\ reg = None\n  /\\ shelf = Total\n  /\\ loaned = 0\n  /\\ inbox = {}\n\nRequest(p, a) ==\n  /\\ [patron |-> p, act |-> a] \\notin inbox\n  /\\ inbox' = inbox \\cup {[patron |-> p, act |-> a]}\n  /\\ UNCHANGED <<reg, shelf, loaned>>\n\nAcquire(p) ==\n  /\\ reg = None\n  /\\ reg' = p\n  /\\ UNCHANGED <<shelf, loaned, inbox>>\n\nBorrow(p) ==\n  /\\ reg = p\n  /\\ shelf > 0\n  /\\ [patron |-> p, act |-> \"borrow\"] \\in inbox\n  /\\ shelf' = shelf - 1\n  /\\ loaned' = loaned + 1\n  /\\ inbox' = inbox \\ {[patron |-> p, act |-> \"borrow\"]}\n  /\\ reg' = None\n\nReturn(p) ==\n  /\\ reg = p\n  /\\ loaned > 0\n  /\\ [patron |-> p, act |-> \"return\"] \\in inbox\n  /\\ loaned' = loaned - 1\n  /\\ shelf' = shelf + 1\n  /\\ inbox' = inbox \\ {[patron |-> p, act |-> \"return\"]}\n  /\\ reg' = None\n\nRelease(p) ==\n  /\\ reg = p\n  /\\ reg' = None\n  /\\ UNCHANGED <<shelf, loaned, inbox>>\n\nNext ==\n  \\/ \\E p \\in Patrons, a \\in {\"borrow\", \"return\"} : Request(p, a)\n  \\/ \\E p \\in Patrons : Acquire(p) \\/ Borrow(p) \\/ Return(p) \\/ Release(p)\n\nSpec == Init /\\ [][Next]_vars\n\nCopiesConserved == shelf + loaned = Total\n@===",
+      "negative_sha256": "80a818de79eaee62b4fff0c3258a361e68606869d3c676331cc50b55c30361c4"
+    },
+    {
+      "row": 53,
+      "id": "w4-fullmodule:w4opus::d12-m7-p3-t1",
+      "split": "validation",
+      "kind": "EXTENDS_span",
+      "positive_sha256": "53db414f719adaeb58a9890f7164294c44d16721963b31b855ad648be147d66c",
+      "span_text": "EXTENDS Naturals, FiniteSets\n\n",
+      "negative": "------------------------------ MODULE W4Od12m7p3t1 ------------------------------\n@XTENDS Naturals, FiniteSets\n\nCONSTANTS Slots, Units, MaxInbox, MaxVersion\n\nAllRequests == [slot : Slots, unit : Units]\n\nVARIABLES inbox, grants, done, version\nvars == <<inbox, grants, done, version>>\n\nInit ==\n    /\\ inbox = {}\n    /\\ grants = {}\n    /\\ done = {}\n    /\\ version = 0\n\nArrive(r) ==\n    /\\ r \\in AllRequests\n    /\\ r \\notin inbox\n    /\\ r \\notin grants\n    /\\ r \\notin done\n    /\\ Cardinality(inbox) < MaxInbox\n    /\\ inbox' = inbox \\cup {r}\n    /\\ UNCHANGED <<grants, done, version>>\n\nCommitCAS(r) ==\n    /\\ r \\in inbox\n    /\\ version < MaxVersion\n    /\\ \\A g \\in grants : g.slot # r.slot\n    /\\ grants' = grants \\cup {r}\n    /\\ inbox' = inbox \\ {r}\n    /\\ version' = version + 1\n    /\\ UNCHANGED done\n\nReject(r) ==\n    /\\ r \\in inbox\n    /\\ \\E g \\in grants : g.slot = r.slot\n    /\\ inbox' = inbox \\ {r}\n    /\\ UNCHANGED <<grants, done, version>>\n\nRelease(r) ==\n    /\\ r \\in grants\n    /\\ grants' = grants \\ {r}\n    /\\ done' = done \\cup {r}\n    /\\ UNCHANGED <<inbox, version>>\n\nRecycle ==\n    /\\ inbox = {}\n    /\\ grants = {}\n    /\\ done # {}\n    /\\ done' = {}\n    /\\ version' = 0\n    /\\ UNCHANGED <<inbox, grants>>\n\nNext ==\n    \\/ Recycle\n    \\/ \\E r \\in AllRequests :\n         Arrive(r) \\/ CommitCAS(r) \\/ Reject(r) \\/ Release(r)\n\nSpec == Init /\\ [][Next]_vars\n\nNoDoubleGrant ==\n    \\A g1, g2 \\in grants : (g1.slot = g2.slot) => (g1 = g2)\n\nGrantsArchiveDisjoint ==\n    grants \\cap done = {}\n\n================================================================================",
+      "negative_sha256": "f8bfb07bfc6515ce960a755d36a6bb52db32a85599f57e556b762c68b473aa27"
+    },
+    {
+      "row": 53,
+      "id": "w4-fullmodule:w4opus::d12-m7-p3-t1",
+      "split": "validation",
+      "kind": "CONSTANTS_span",
+      "positive_sha256": "53db414f719adaeb58a9890f7164294c44d16721963b31b855ad648be147d66c",
+      "span_text": "CONSTANTS Slots, Units, MaxInbox, MaxVersion\n\n",
+      "negative": "------------------------------ MODULE W4Od12m7p3t1 ------------------------------\nEXTENDS Naturals, FiniteSets\n\n@ONSTANTS Slots, Units, MaxInbox, MaxVersion\n\nAllRequests == [slot : Slots, unit : Units]\n\nVARIABLES inbox, grants, done, version\nvars == <<inbox, grants, done, version>>\n\nInit ==\n    /\\ inbox = {}\n    /\\ grants = {}\n    /\\ done = {}\n    /\\ version = 0\n\nArrive(r) ==\n    /\\ r \\in AllRequests\n    /\\ r \\notin inbox\n    /\\ r \\notin grants\n    /\\ r \\notin done\n    /\\ Cardinality(inbox) < MaxInbox\n    /\\ inbox' = inbox \\cup {r}\n    /\\ UNCHANGED <<grants, done, version>>\n\nCommitCAS(r) ==\n    /\\ r \\in inbox\n    /\\ version < MaxVersion\n    /\\ \\A g \\in grants : g.slot # r.slot\n    /\\ grants' = grants \\cup {r}\n    /\\ inbox' = inbox \\ {r}\n    /\\ version' = version + 1\n    /\\ UNCHANGED done\n\nReject(r) ==\n    /\\ r \\in inbox\n    /\\ \\E g \\in grants : g.slot = r.slot\n    /\\ inbox' = inbox \\ {r}\n    /\\ UNCHANGED <<grants, done, version>>\n\nRelease(r) ==\n    /\\ r \\in grants\n    /\\ grants' = grants \\ {r}\n    /\\ done' = done \\cup {r}\n    /\\ UNCHANGED <<inbox, version>>\n\nRecycle ==\n    /\\ inbox = {}\n    /\\ grants = {}\n    /\\ done # {}\n    /\\ done' = {}\n    /\\ version' = 0\n    /\\ UNCHANGED <<inbox, grants>>\n\nNext ==\n    \\/ Recycle\n    \\/ \\E r \\in AllRequests :\n         Arrive(r) \\/ CommitCAS(r) \\/ Reject(r) \\/ Release(r)\n\nSpec == Init /\\ [][Next]_vars\n\nNoDoubleGrant ==\n    \\A g1, g2 \\in grants : (g1.slot = g2.slot) => (g1 = g2)\n\nGrantsArchiveDisjoint ==\n    grants \\cap done = {}\n\n================================================================================",
+      "negative_sha256": "f832c07f86e4f48005cbca4c8a9e302782e4ef405f03beaf4e773206fa6a98b3"
+    },
+    {
+      "row": 53,
+      "id": "w4-fullmodule:w4opus::d12-m7-p3-t1",
+      "split": "validation",
+      "kind": "AllRequests_span",
+      "positive_sha256": "53db414f719adaeb58a9890f7164294c44d16721963b31b855ad648be147d66c",
+      "span_text": "AllRequests == [slot : Slots, unit : Units]\n\n",
+      "negative": "------------------------------ MODULE W4Od12m7p3t1 ------------------------------\nEXTENDS Naturals, FiniteSets\n\nCONSTANTS Slots, Units, MaxInbox, MaxVersion\n\n@llRequests == [slot : Slots, unit : Units]\n\nVARIABLES inbox, grants, done, version\nvars == <<inbox, grants, done, version>>\n\nInit ==\n    /\\ inbox = {}\n    /\\ grants = {}\n    /\\ done = {}\n    /\\ version = 0\n\nArrive(r) ==\n    /\\ r \\in AllRequests\n    /\\ r \\notin inbox\n    /\\ r \\notin grants\n    /\\ r \\notin done\n    /\\ Cardinality(inbox) < MaxInbox\n    /\\ inbox' = inbox \\cup {r}\n    /\\ UNCHANGED <<grants, done, version>>\n\nCommitCAS(r) ==\n    /\\ r \\in inbox\n    /\\ version < MaxVersion\n    /\\ \\A g \\in grants : g.slot # r.slot\n    /\\ grants' = grants \\cup {r}\n    /\\ inbox' = inbox \\ {r}\n    /\\ version' = version + 1\n    /\\ UNCHANGED done\n\nReject(r) ==\n    /\\ r \\in inbox\n    /\\ \\E g \\in grants : g.slot = r.slot\n    /\\ inbox' = inbox \\ {r}\n    /\\ UNCHANGED <<grants, done, version>>\n\nRelease(r) ==\n    /\\ r \\in grants\n    /\\ grants' = grants \\ {r}\n    /\\ done' = done \\cup {r}\n    /\\ UNCHANGED <<inbox, version>>\n\nRecycle ==\n    /\\ inbox = {}\n    /\\ grants = {}\n    /\\ done # {}\n    /\\ done' = {}\n    /\\ version' = 0\n    /\\ UNCHANGED <<inbox, grants>>\n\nNext ==\n    \\/ Recycle\n    \\/ \\E r \\in AllRequests :\n         Arrive(r) \\/ CommitCAS(r) \\/ Reject(r) \\/ Release(r)\n\nSpec == Init /\\ [][Next]_vars\n\nNoDoubleGrant ==\n    \\A g1, g2 \\in grants : (g1.slot = g2.slot) => (g1 = g2)\n\nGrantsArchiveDisjoint ==\n    grants \\cap done = {}\n\n================================================================================",
+      "negative_sha256": "f6547bf26b8d5afa6504d964b836dd0840d8a6d2284842a22d7a11b17f2d3a26"
+    },
+    {
+      "row": 53,
+      "id": "w4-fullmodule:w4opus::d12-m7-p3-t1",
+      "split": "validation",
+      "kind": "VARIABLES_span",
+      "positive_sha256": "53db414f719adaeb58a9890f7164294c44d16721963b31b855ad648be147d66c",
+      "span_text": "VARIABLES inbox, grants, done, version\n",
+      "negative": "------------------------------ MODULE W4Od12m7p3t1 ------------------------------\nEXTENDS Naturals, FiniteSets\n\nCONSTANTS Slots, Units, MaxInbox, MaxVersion\n\nAllRequests == [slot : Slots, unit : Units]\n\n@ARIABLES inbox, grants, done, version\nvars == <<inbox, grants, done, version>>\n\nInit ==\n    /\\ inbox = {}\n    /\\ grants = {}\n    /\\ done = {}\n    /\\ version = 0\n\nArrive(r) ==\n    /\\ r \\in AllRequests\n    /\\ r \\notin inbox\n    /\\ r \\notin grants\n    /\\ r \\notin done\n    /\\ Cardinality(inbox) < MaxInbox\n    /\\ inbox' = inbox \\cup {r}\n    /\\ UNCHANGED <<grants, done, version>>\n\nCommitCAS(r) ==\n    /\\ r \\in inbox\n    /\\ version < MaxVersion\n    /\\ \\A g \\in grants : g.slot # r.slot\n    /\\ grants' = grants \\cup {r}\n    /\\ inbox' = inbox \\ {r}\n    /\\ version' = version + 1\n    /\\ UNCHANGED done\n\nReject(r) ==\n    /\\ r \\in inbox\n    /\\ \\E g \\in grants : g.slot = r.slot\n    /\\ inbox' = inbox \\ {r}\n    /\\ UNCHANGED <<grants, done, version>>\n\nRelease(r) ==\n    /\\ r \\in grants\n    /\\ grants' = grants \\ {r}\n    /\\ done' = done \\cup {r}\n    /\\ UNCHANGED <<inbox, version>>\n\nRecycle ==\n    /\\ inbox = {}\n    /\\ grants = {}\n    /\\ done # {}\n    /\\ done' = {}\n    /\\ version' = 0\n    /\\ UNCHANGED <<inbox, grants>>\n\nNext ==\n    \\/ Recycle\n    \\/ \\E r \\in AllRequests :\n         Arrive(r) \\/ CommitCAS(r) \\/ Reject(r) \\/ Release(r)\n\nSpec == Init /\\ [][Next]_vars\n\nNoDoubleGrant ==\n    \\A g1, g2 \\in grants : (g1.slot = g2.slot) => (g1 = g2)\n\nGrantsArchiveDisjoint ==\n    grants \\cap done = {}\n\n================================================================================",
+      "negative_sha256": "20377f4b44a3eabea3ac4835f1b8b096147de1430cacedc0a16efd313f28c132"
+    },
+    {
+      "row": 53,
+      "id": "w4-fullmodule:w4opus::d12-m7-p3-t1",
+      "split": "validation",
+      "kind": "vars_span",
+      "positive_sha256": "53db414f719adaeb58a9890f7164294c44d16721963b31b855ad648be147d66c",
+      "span_text": "vars == <<inbox, grants, done, version>>\n\n",
+      "negative": "------------------------------ MODULE W4Od12m7p3t1 ------------------------------\nEXTENDS Naturals, FiniteSets\n\nCONSTANTS Slots, Units, MaxInbox, MaxVersion\n\nAllRequests == [slot : Slots, unit : Units]\n\nVARIABLES inbox, grants, done, version\n@ars == <<inbox, grants, done, version>>\n\nInit ==\n    /\\ inbox = {}\n    /\\ grants = {}\n    /\\ done = {}\n    /\\ version = 0\n\nArrive(r) ==\n    /\\ r \\in AllRequests\n    /\\ r \\notin inbox\n    /\\ r \\notin grants\n    /\\ r \\notin done\n    /\\ Cardinality(inbox) < MaxInbox\n    /\\ inbox' = inbox \\cup {r}\n    /\\ UNCHANGED <<grants, done, version>>\n\nCommitCAS(r) ==\n    /\\ r \\in inbox\n    /\\ version < MaxVersion\n    /\\ \\A g \\in grants : g.slot # r.slot\n    /\\ grants' = grants \\cup {r}\n    /\\ inbox' = inbox \\ {r}\n    /\\ version' = version + 1\n    /\\ UNCHANGED done\n\nReject(r) ==\n    /\\ r \\in inbox\n    /\\ \\E g \\in grants : g.slot = r.slot\n    /\\ inbox' = inbox \\ {r}\n    /\\ UNCHANGED <<grants, done, version>>\n\nRelease(r) ==\n    /\\ r \\in grants\n    /\\ grants' = grants \\ {r}\n    /\\ done' = done \\cup {r}\n    /\\ UNCHANGED <<inbox, version>>\n\nRecycle ==\n    /\\ inbox = {}\n    /\\ grants = {}\n    /\\ done # {}\n    /\\ done' = {}\n    /\\ version' = 0\n    /\\ UNCHANGED <<inbox, grants>>\n\nNext ==\n    \\/ Recycle\n    \\/ \\E r \\in AllRequests :\n         Arrive(r) \\/ CommitCAS(r) \\/ Reject(r) \\/ Release(r)\n\nSpec == Init /\\ [][Next]_vars\n\nNoDoubleGrant ==\n    \\A g1, g2 \\in grants : (g1.slot = g2.slot) => (g1 = g2)\n\nGrantsArchiveDisjoint ==\n    grants \\cap done = {}\n\n================================================================================",
+      "negative_sha256": "ec3bb466a3fa7a6863fe980c47268a199a8ee451047d6cd16c1b2ff7a16cf5a7"
+    },
+    {
+      "row": 53,
+      "id": "w4-fullmodule:w4opus::d12-m7-p3-t1",
+      "split": "validation",
+      "kind": "Init_span",
+      "positive_sha256": "53db414f719adaeb58a9890f7164294c44d16721963b31b855ad648be147d66c",
+      "span_text": "Init ==\n    /\\ inbox = {}\n    /\\ grants = {}\n    /\\ done = {}\n    /\\ version = 0\n\nArrive(r) ==\n    /\\ r \\in AllRequests\n    /\\ r \\notin inbox\n    /\\ r \\notin grants\n    /\\ r \\notin done\n    /\\ Cardinality(inbox) < MaxInbox\n    /\\ inbox' = inbox \\cup {r}\n    /\\ UNCHANGED <<grants, done, version>>\n\nCommitCAS(r) ==\n    /\\ r \\in inbox\n    /\\ version < MaxVersion\n    /\\ \\A g \\in grants : g.slot # r.slot\n    /\\ grants' = grants \\cup {r}\n    /\\ inbox' = inbox \\ {r}\n    /\\ version' = version + 1\n    /\\ UNCHANGED done\n\nReject(r) ==\n    /\\ r \\in inbox\n    /\\ \\E g \\in grants : g.slot = r.slot\n    /\\ inbox' = inbox \\ {r}\n    /\\ UNCHANGED <<grants, done, version>>\n\nRelease(r) ==\n    /\\ r \\in grants\n    /\\ grants' = grants \\ {r}\n    /\\ done' = done \\cup {r}\n    /\\ UNCHANGED <<inbox, version>>\n\n",
+      "negative": "------------------------------ MODULE W4Od12m7p3t1 ------------------------------\nEXTENDS Naturals, FiniteSets\n\nCONSTANTS Slots, Units, MaxInbox, MaxVersion\n\nAllRequests == [slot : Slots, unit : Units]\n\nVARIABLES inbox, grants, done, version\nvars == <<inbox, grants, done, version>>\n\n@nit ==\n    /\\ inbox = {}\n    /\\ grants = {}\n    /\\ done = {}\n    /\\ version = 0\n\nArrive(r) ==\n    /\\ r \\in AllRequests\n    /\\ r \\notin inbox\n    /\\ r \\notin grants\n    /\\ r \\notin done\n    /\\ Cardinality(inbox) < MaxInbox\n    /\\ inbox' = inbox \\cup {r}\n    /\\ UNCHANGED <<grants, done, version>>\n\nCommitCAS(r) ==\n    /\\ r \\in inbox\n    /\\ version < MaxVersion\n    /\\ \\A g \\in grants : g.slot # r.slot\n    /\\ grants' = grants \\cup {r}\n    /\\ inbox' = inbox \\ {r}\n    /\\ version' = version + 1\n    /\\ UNCHANGED done\n\nReject(r) ==\n    /\\ r \\in inbox\n    /\\ \\E g \\in grants : g.slot = r.slot\n    /\\ inbox' = inbox \\ {r}\n    /\\ UNCHANGED <<grants, done, version>>\n\nRelease(r) ==\n    /\\ r \\in grants\n    /\\ grants' = grants \\ {r}\n    /\\ done' = done \\cup {r}\n    /\\ UNCHANGED <<inbox, version>>\n\nRecycle ==\n    /\\ inbox = {}\n    /\\ grants = {}\n    /\\ done # {}\n    /\\ done' = {}\n    /\\ version' = 0\n    /\\ UNCHANGED <<inbox, grants>>\n\nNext ==\n    \\/ Recycle\n    \\/ \\E r \\in AllRequests :\n         Arrive(r) \\/ CommitCAS(r) \\/ Reject(r) \\/ Release(r)\n\nSpec == Init /\\ [][Next]_vars\n\nNoDoubleGrant ==\n    \\A g1, g2 \\in grants : (g1.slot = g2.slot) => (g1 = g2)\n\nGrantsArchiveDisjoint ==\n    grants \\cap done = {}\n\n================================================================================",
+      "negative_sha256": "634eb8604cb75e2af46370433eb297862ecc080170f78346a6effd257b626f51"
+    },
+    {
+      "row": 53,
+      "id": "w4-fullmodule:w4opus::d12-m7-p3-t1",
+      "split": "validation",
+      "kind": "Recycle_span",
+      "positive_sha256": "53db414f719adaeb58a9890f7164294c44d16721963b31b855ad648be147d66c",
+      "span_text": "Recycle ==\n    /\\ inbox = {}\n    /\\ grants = {}\n    /\\ done # {}\n    /\\ done' = {}\n    /\\ version' = 0\n    /\\ UNCHANGED <<inbox, grants>>\n\n",
+      "negative": "------------------------------ MODULE W4Od12m7p3t1 ------------------------------\nEXTENDS Naturals, FiniteSets\n\nCONSTANTS Slots, Units, MaxInbox, MaxVersion\n\nAllRequests == [slot : Slots, unit : Units]\n\nVARIABLES inbox, grants, done, version\nvars == <<inbox, grants, done, version>>\n\nInit ==\n    /\\ inbox = {}\n    /\\ grants = {}\n    /\\ done = {}\n    /\\ version = 0\n\nArrive(r) ==\n    /\\ r \\in AllRequests\n    /\\ r \\notin inbox\n    /\\ r \\notin grants\n    /\\ r \\notin done\n    /\\ Cardinality(inbox) < MaxInbox\n    /\\ inbox' = inbox \\cup {r}\n    /\\ UNCHANGED <<grants, done, version>>\n\nCommitCAS(r) ==\n    /\\ r \\in inbox\n    /\\ version < MaxVersion\n    /\\ \\A g \\in grants : g.slot # r.slot\n    /\\ grants' = grants \\cup {r}\n    /\\ inbox' = inbox \\ {r}\n    /\\ version' = version + 1\n    /\\ UNCHANGED done\n\nReject(r) ==\n    /\\ r \\in inbox\n    /\\ \\E g \\in grants : g.slot = r.slot\n    /\\ inbox' = inbox \\ {r}\n    /\\ UNCHANGED <<grants, done, version>>\n\nRelease(r) ==\n    /\\ r \\in grants\n    /\\ grants' = grants \\ {r}\n    /\\ done' = done \\cup {r}\n    /\\ UNCHANGED <<inbox, version>>\n\n@ecycle ==\n    /\\ inbox = {}\n    /\\ grants = {}\n    /\\ done # {}\n    /\\ done' = {}\n    /\\ version' = 0\n    /\\ UNCHANGED <<inbox, grants>>\n\nNext ==\n    \\/ Recycle\n    \\/ \\E r \\in AllRequests :\n         Arrive(r) \\/ CommitCAS(r) \\/ Reject(r) \\/ Release(r)\n\nSpec == Init /\\ [][Next]_vars\n\nNoDoubleGrant ==\n    \\A g1, g2 \\in grants : (g1.slot = g2.slot) => (g1 = g2)\n\nGrantsArchiveDisjoint ==\n    grants \\cap done = {}\n\n================================================================================",
+      "negative_sha256": "c28167c22f8be3d6499fa100b1c267f1f46bd03e66772e5c97b18db528d2f582"
+    },
+    {
+      "row": 53,
+      "id": "w4-fullmodule:w4opus::d12-m7-p3-t1",
+      "split": "validation",
+      "kind": "Next_span",
+      "positive_sha256": "53db414f719adaeb58a9890f7164294c44d16721963b31b855ad648be147d66c",
+      "span_text": "Next ==\n    \\/ Recycle\n    \\/ \\E r \\in AllRequests :\n         Arrive(r) \\/ CommitCAS(r) \\/ Reject(r) \\/ Release(r)\n\n",
+      "negative": "------------------------------ MODULE W4Od12m7p3t1 ------------------------------\nEXTENDS Naturals, FiniteSets\n\nCONSTANTS Slots, Units, MaxInbox, MaxVersion\n\nAllRequests == [slot : Slots, unit : Units]\n\nVARIABLES inbox, grants, done, version\nvars == <<inbox, grants, done, version>>\n\nInit ==\n    /\\ inbox = {}\n    /\\ grants = {}\n    /\\ done = {}\n    /\\ version = 0\n\nArrive(r) ==\n    /\\ r \\in AllRequests\n    /\\ r \\notin inbox\n    /\\ r \\notin grants\n    /\\ r \\notin done\n    /\\ Cardinality(inbox) < MaxInbox\n    /\\ inbox' = inbox \\cup {r}\n    /\\ UNCHANGED <<grants, done, version>>\n\nCommitCAS(r) ==\n    /\\ r \\in inbox\n    /\\ version < MaxVersion\n    /\\ \\A g \\in grants : g.slot # r.slot\n    /\\ grants' = grants \\cup {r}\n    /\\ inbox' = inbox \\ {r}\n    /\\ version' = version + 1\n    /\\ UNCHANGED done\n\nReject(r) ==\n    /\\ r \\in inbox\n    /\\ \\E g \\in grants : g.slot = r.slot\n    /\\ inbox' = inbox \\ {r}\n    /\\ UNCHANGED <<grants, done, version>>\n\nRelease(r) ==\n    /\\ r \\in grants\n    /\\ grants' = grants \\ {r}\n    /\\ done' = done \\cup {r}\n    /\\ UNCHANGED <<inbox, version>>\n\nRecycle ==\n    /\\ inbox = {}\n    /\\ grants = {}\n    /\\ done # {}\n    /\\ done' = {}\n    /\\ version' = 0\n    /\\ UNCHANGED <<inbox, grants>>\n\n@ext ==\n    \\/ Recycle\n    \\/ \\E r \\in AllRequests :\n         Arrive(r) \\/ CommitCAS(r) \\/ Reject(r) \\/ Release(r)\n\nSpec == Init /\\ [][Next]_vars\n\nNoDoubleGrant ==\n    \\A g1, g2 \\in grants : (g1.slot = g2.slot) => (g1 = g2)\n\nGrantsArchiveDisjoint ==\n    grants \\cap done = {}\n\n================================================================================",
+      "negative_sha256": "ab1ecb5b5a5a5f32f74b3ac3179dbfa65aa665133e45134c288ccaa5eb940cdb"
+    },
+    {
+      "row": 53,
+      "id": "w4-fullmodule:w4opus::d12-m7-p3-t1",
+      "split": "validation",
+      "kind": "Spec_span",
+      "positive_sha256": "53db414f719adaeb58a9890f7164294c44d16721963b31b855ad648be147d66c",
+      "span_text": "Spec == Init /\\ [][Next]_vars\n\n",
+      "negative": "------------------------------ MODULE W4Od12m7p3t1 ------------------------------\nEXTENDS Naturals, FiniteSets\n\nCONSTANTS Slots, Units, MaxInbox, MaxVersion\n\nAllRequests == [slot : Slots, unit : Units]\n\nVARIABLES inbox, grants, done, version\nvars == <<inbox, grants, done, version>>\n\nInit ==\n    /\\ inbox = {}\n    /\\ grants = {}\n    /\\ done = {}\n    /\\ version = 0\n\nArrive(r) ==\n    /\\ r \\in AllRequests\n    /\\ r \\notin inbox\n    /\\ r \\notin grants\n    /\\ r \\notin done\n    /\\ Cardinality(inbox) < MaxInbox\n    /\\ inbox' = inbox \\cup {r}\n    /\\ UNCHANGED <<grants, done, version>>\n\nCommitCAS(r) ==\n    /\\ r \\in inbox\n    /\\ version < MaxVersion\n    /\\ \\A g \\in grants : g.slot # r.slot\n    /\\ grants' = grants \\cup {r}\n    /\\ inbox' = inbox \\ {r}\n    /\\ version' = version + 1\n    /\\ UNCHANGED done\n\nReject(r) ==\n    /\\ r \\in inbox\n    /\\ \\E g \\in grants : g.slot = r.slot\n    /\\ inbox' = inbox \\ {r}\n    /\\ UNCHANGED <<grants, done, version>>\n\nRelease(r) ==\n    /\\ r \\in grants\n    /\\ grants' = grants \\ {r}\n    /\\ done' = done \\cup {r}\n    /\\ UNCHANGED <<inbox, version>>\n\nRecycle ==\n    /\\ inbox = {}\n    /\\ grants = {}\n    /\\ done # {}\n    /\\ done' = {}\n    /\\ version' = 0\n    /\\ UNCHANGED <<inbox, grants>>\n\nNext ==\n    \\/ Recycle\n    \\/ \\E r \\in AllRequests :\n         Arrive(r) \\/ CommitCAS(r) \\/ Reject(r) \\/ Release(r)\n\n@pec == Init /\\ [][Next]_vars\n\nNoDoubleGrant ==\n    \\A g1, g2 \\in grants : (g1.slot = g2.slot) => (g1 = g2)\n\nGrantsArchiveDisjoint ==\n    grants \\cap done = {}\n\n================================================================================",
+      "negative_sha256": "95a13f6c9d6c85a8d1ada538080a134b2ae5c326bb9195adf5762eaa373c5f52"
+    },
+    {
+      "row": 53,
+      "id": "w4-fullmodule:w4opus::d12-m7-p3-t1",
+      "split": "validation",
+      "kind": "NoDoubleGrant_span",
+      "positive_sha256": "53db414f719adaeb58a9890f7164294c44d16721963b31b855ad648be147d66c",
+      "span_text": "NoDoubleGrant ==\n    \\A g1, g2 \\in grants : (g1.slot = g2.slot) => (g1 = g2)\n\n",
+      "negative": "------------------------------ MODULE W4Od12m7p3t1 ------------------------------\nEXTENDS Naturals, FiniteSets\n\nCONSTANTS Slots, Units, MaxInbox, MaxVersion\n\nAllRequests == [slot : Slots, unit : Units]\n\nVARIABLES inbox, grants, done, version\nvars == <<inbox, grants, done, version>>\n\nInit ==\n    /\\ inbox = {}\n    /\\ grants = {}\n    /\\ done = {}\n    /\\ version = 0\n\nArrive(r) ==\n    /\\ r \\in AllRequests\n    /\\ r \\notin inbox\n    /\\ r \\notin grants\n    /\\ r \\notin done\n    /\\ Cardinality(inbox) < MaxInbox\n    /\\ inbox' = inbox \\cup {r}\n    /\\ UNCHANGED <<grants, done, version>>\n\nCommitCAS(r) ==\n    /\\ r \\in inbox\n    /\\ version < MaxVersion\n    /\\ \\A g \\in grants : g.slot # r.slot\n    /\\ grants' = grants \\cup {r}\n    /\\ inbox' = inbox \\ {r}\n    /\\ version' = version + 1\n    /\\ UNCHANGED done\n\nReject(r) ==\n    /\\ r \\in inbox\n    /\\ \\E g \\in grants : g.slot = r.slot\n    /\\ inbox' = inbox \\ {r}\n    /\\ UNCHANGED <<grants, done, version>>\n\nRelease(r) ==\n    /\\ r \\in grants\n    /\\ grants' = grants \\ {r}\n    /\\ done' = done \\cup {r}\n    /\\ UNCHANGED <<inbox, version>>\n\nRecycle ==\n    /\\ inbox = {}\n    /\\ grants = {}\n    /\\ done # {}\n    /\\ done' = {}\n    /\\ version' = 0\n    /\\ UNCHANGED <<inbox, grants>>\n\nNext ==\n    \\/ Recycle\n    \\/ \\E r \\in AllRequests :\n         Arrive(r) \\/ CommitCAS(r) \\/ Reject(r) \\/ Release(r)\n\nSpec == Init /\\ [][Next]_vars\n\n@oDoubleGrant ==\n    \\A g1, g2 \\in grants : (g1.slot = g2.slot) => (g1 = g2)\n\nGrantsArchiveDisjoint ==\n    grants \\cap done = {}\n\n================================================================================",
+      "negative_sha256": "5e16e891cb4006e888a4701dd5775b667d0c7ae495a41019efbe4442924732c9"
+    },
+    {
+      "row": 53,
+      "id": "w4-fullmodule:w4opus::d12-m7-p3-t1",
+      "split": "validation",
+      "kind": "GrantsArchiveDisjoint_span",
+      "positive_sha256": "53db414f719adaeb58a9890f7164294c44d16721963b31b855ad648be147d66c",
+      "span_text": "GrantsArchiveDisjoint ==\n    grants \\cap done = {}\n\n================================================================================",
+      "negative": "------------------------------ MODULE W4Od12m7p3t1 ------------------------------\nEXTENDS Naturals, FiniteSets\n\nCONSTANTS Slots, Units, MaxInbox, MaxVersion\n\nAllRequests == [slot : Slots, unit : Units]\n\nVARIABLES inbox, grants, done, version\nvars == <<inbox, grants, done, version>>\n\nInit ==\n    /\\ inbox = {}\n    /\\ grants = {}\n    /\\ done = {}\n    /\\ version = 0\n\nArrive(r) ==\n    /\\ r \\in AllRequests\n    /\\ r \\notin inbox\n    /\\ r \\notin grants\n    /\\ r \\notin done\n    /\\ Cardinality(inbox) < MaxInbox\n    /\\ inbox' = inbox \\cup {r}\n    /\\ UNCHANGED <<grants, done, version>>\n\nCommitCAS(r) ==\n    /\\ r \\in inbox\n    /\\ version < MaxVersion\n    /\\ \\A g \\in grants : g.slot # r.slot\n    /\\ grants' = grants \\cup {r}\n    /\\ inbox' = inbox \\ {r}\n    /\\ version' = version + 1\n    /\\ UNCHANGED done\n\nReject(r) ==\n    /\\ r \\in inbox\n    /\\ \\E g \\in grants : g.slot = r.slot\n    /\\ inbox' = inbox \\ {r}\n    /\\ UNCHANGED <<grants, done, version>>\n\nRelease(r) ==\n    /\\ r \\in grants\n    /\\ grants' = grants \\ {r}\n    /\\ done' = done \\cup {r}\n    /\\ UNCHANGED <<inbox, version>>\n\nRecycle ==\n    /\\ inbox = {}\n    /\\ grants = {}\n    /\\ done # {}\n    /\\ done' = {}\n    /\\ version' = 0\n    /\\ UNCHANGED <<inbox, grants>>\n\nNext ==\n    \\/ Recycle\n    \\/ \\E r \\in AllRequests :\n         Arrive(r) \\/ CommitCAS(r) \\/ Reject(r) \\/ Release(r)\n\nSpec == Init /\\ [][Next]_vars\n\nNoDoubleGrant ==\n    \\A g1, g2 \\in grants : (g1.slot = g2.slot) => (g1 = g2)\n\n@rantsArchiveDisjoint ==\n    grants \\cap done = {}\n\n================================================================================",
+      "negative_sha256": "c4238ce6bb051ffd4ad5645ded529132c0cf76a64d1dfcaaff9a470f00f9bd7c"
+    }
+  ],
+  "no_protected_training": true,
+  "gate_claim": false
+}

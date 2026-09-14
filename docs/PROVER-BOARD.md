@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 467
-- Verified UTC: 2026-09-14T18:27:37Z
+- Revision: 483
+- Verified UTC: 2026-09-14T19:23:15Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: local_work
 - Active job: none
-- Observation evidence: At 2026-09-14T18:27:37Z, Polaris lineage-generation v3 job7618251 finished F Exit_status0 after00:02:15 on one GPU atx3005c0s25b1n0/0*64. The complete receipt and six raw generations were retrieved. Unchanged scoring controls pass, but base/parent/child each have0/2 SANY passes (six model rejects); no extraction, repair or reference conditioning occurred. Polaris durable storage was then checked: /home has under1GiB user-quota headroom and EVITA Eagle/Grand is at its hard project limit. The private HF archive remains complete after local cleanup: exactly22 checkpoint files and57,634,279,939 bytes match the SHA256/size manifest; all22 local sources are absent. No research or gate claim.
-- Latest completed result: The corrected frozen base/parent/v7-child generation completed and the unchanged scorer validated all six outputs. Every candidate is a model_sany_reject: base0/2, parent0/2, child0/2. This is a genuine negative protected-row diagnostic with controls_ok=true, not a protected-quality or gate result.
-- Local work: Prepared append-only lineage-generation v3 with manifest5ad0eb28, ran the bounded job7618251, retrieved all six raw outputs and receipt, and preserved score-retry summary/rows/controls plus validation receipts. The only evaluator change is optional dtype_profile acceptance: model_files must still match and actual child tensors must be finite fp32; the protected packet, phases, rows47/107, greedy decode, grammar-off mode, scorer no-repair rule and no-gate rule remain unchanged. The v2 failure and permission-limited first local scoring attempt are preserved. The22 untracked policy_optimizer.pt artifacts were archived privately at Hugging Face repository EricSpencer00/tla-prover-optimizer-checkpoints-20260914-v1; remote file count, total bytes and every LFS SHA256 match the generated manifest, and all22 local sources were then deleted by exact manifest path.
+- Observation evidence: At 2026-09-14T19:23:15Z, the exact v3 child remains verified locally and on Polaris with matching SHA256/size. The attempted private HF upload was rejected by the action reviewer because this exact external payload/destination lacked explicit authorization; no HF mutation occurred. The child is therefore retained on Polaris and locally, and the binary will remain outside Git.
+- Latest completed result: Structural-span training is now a complete, reproducible artifact and the serialization/runtime bottlenecks are resolved. Validation preference margin moved from 14.341142475605011 to 14.750914980064739, but the protected SANY denominator stayed 0/2. No model-improvement, TLC, non-vacuity, TLAPS, or gate claim is made.
+- Local work: Retrieved v3 receipt, child, diagnostics, terminal record and log under results/runs/tla-structured-span-train-20260914-v3. Independent remote torch.load plus local hash/size/receipt/ledger checks passed. The exact child is retained without optimizer state; it is not resumable. V1 timeout, v2 standard-serializer failure and v3 successful legacy serialization remain separate append-only evidence.
 - External blocker: none verified
-- Next action: Resume local research design from the negative protected-lineage diagnostic with a materially different intervention—grammar-constrained or prefix-conditioned training/evaluation—while preserving frozen gates and keeping the private HF checkpoint archive as the durable recovery record. Do not repeat unchanged full-prompt lineage.
+- Next action: Commit the optimized trainer, append-only v3 stage specification, receipts, terminal record and verification metadata without the 872 MB binary. Keep the verified binary on Polaris/local and do not attempt another external archive action in this run.
 
 ## Objective and evidence rules
 
@@ -299,16 +299,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 467,
-  "verified_utc": "2026-09-14T18:27:37Z",
+  "revision": 483,
+  "verified_utc": "2026-09-14T19:23:15Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "local_work",
   "active_job": null,
-  "observation_evidence": "At 2026-09-14T18:27:37Z, Polaris lineage-generation v3 job7618251 finished F Exit_status0 after00:02:15 on one GPU atx3005c0s25b1n0/0*64. The complete receipt and six raw generations were retrieved. Unchanged scoring controls pass, but base/parent/child each have0/2 SANY passes (six model rejects); no extraction, repair or reference conditioning occurred. Polaris durable storage was then checked: /home has under1GiB user-quota headroom and EVITA Eagle/Grand is at its hard project limit. The private HF archive remains complete after local cleanup: exactly22 checkpoint files and57,634,279,939 bytes match the SHA256/size manifest; all22 local sources are absent. No research or gate claim.",
-  "last_result": "The corrected frozen base/parent/v7-child generation completed and the unchanged scorer validated all six outputs. Every candidate is a model_sany_reject: base0/2, parent0/2, child0/2. This is a genuine negative protected-row diagnostic with controls_ok=true, not a protected-quality or gate result.",
-  "local_work": "Prepared append-only lineage-generation v3 with manifest5ad0eb28, ran the bounded job7618251, retrieved all six raw outputs and receipt, and preserved score-retry summary/rows/controls plus validation receipts. The only evaluator change is optional dtype_profile acceptance: model_files must still match and actual child tensors must be finite fp32; the protected packet, phases, rows47/107, greedy decode, grammar-off mode, scorer no-repair rule and no-gate rule remain unchanged. The v2 failure and permission-limited first local scoring attempt are preserved. The22 untracked policy_optimizer.pt artifacts were archived privately at Hugging Face repository EricSpencer00/tla-prover-optimizer-checkpoints-20260914-v1; remote file count, total bytes and every LFS SHA256 match the generated manifest, and all22 local sources were then deleted by exact manifest path.",
+  "observation_evidence": "At 2026-09-14T19:23:15Z, the exact v3 child remains verified locally and on Polaris with matching SHA256/size. The attempted private HF upload was rejected by the action reviewer because this exact external payload/destination lacked explicit authorization; no HF mutation occurred. The child is therefore retained on Polaris and locally, and the binary will remain outside Git.",
+  "last_result": "Structural-span training is now a complete, reproducible artifact and the serialization/runtime bottlenecks are resolved. Validation preference margin moved from 14.341142475605011 to 14.750914980064739, but the protected SANY denominator stayed 0/2. No model-improvement, TLC, non-vacuity, TLAPS, or gate claim is made.",
+  "local_work": "Retrieved v3 receipt, child, diagnostics, terminal record and log under results/runs/tla-structured-span-train-20260914-v3. Independent remote torch.load plus local hash/size/receipt/ledger checks passed. The exact child is retained without optimizer state; it is not resumable. V1 timeout, v2 standard-serializer failure and v3 successful legacy serialization remain separate append-only evidence.",
   "external_blocker": "",
-  "next_action": "Resume local research design from the negative protected-lineage diagnostic with a materially different intervention\u2014grammar-constrained or prefix-conditioned training/evaluation\u2014while preserving frozen gates and keeping the private HF checkpoint archive as the durable recovery record. Do not repeat unchanged full-prompt lineage.",
+  "next_action": "Commit the optimized trainer, append-only v3 stage specification, receipts, terminal record and verification metadata without the 872 MB binary. Keep the verified binary on Polaris/local and do not attempt another external archive action in this run.",
   "tasks": [
     {
       "id": "TLA-01",

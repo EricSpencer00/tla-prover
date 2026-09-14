@@ -1,0 +1,28 @@
+#!/bin/bash
+# Repaired multi-token structural-span objective; restore the actual parent checkpoint.
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-structured-span
+#PBS -l select=1:system=polaris:ngpus=1
+#PBS -l walltime=00:15:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+set -euo pipefail
+STAGE=/home/eric-spencer/tla-structured-span-train-20260914-v3
+cd "$STAGE"
+exec > "job.${PBS_JOBID%%.*}.log" 2>&1
+export PATH="/grand/EVITA/eric-spencer/tools/jre21/bin:$PATH"
+export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false
+export HF_HOME=/grand/EVITA/eric-spencer/hf-cache
+# PBS supplies the assigned device visibility; do not hardcode a physical GPU.
+export PYTHONUNBUFFERED=1 PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+BASE=/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-learning-20260906-v1
+MODEL=/grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659
+JAVA=/grand/EVITA/eric-spencer/tools/jre21/bin/java
+JAR=/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1/tools/tla2tools.jar
+sha256sum -c SHA256SUMS
+python=/home/eric-spencer/ChatTLA/.venv/bin/python
+"$python" -u tools/proof_syntax_structured_train.py train \
+  --packet packet.json --checkpoint "$BASE/results/training/policy_optimizer.pt" \
+  --manifest manifest.json --manifest-sha256 "$(awk '$2=="manifest.json"{print $1}' SHA256SUMS)" \
+  --model "$MODEL" --java "$JAVA" --jar "$JAR" --output "result.${PBS_JOBID%%.*}"

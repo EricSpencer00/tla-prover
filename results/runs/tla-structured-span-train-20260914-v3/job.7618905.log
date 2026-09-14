@@ -1,0 +1,34 @@
+packet.json: OK
+manifest.json: OK
+proof_syntax_structured_train_polaris.pbs: OK
+tools/proof_syntax_structured_train.py: OK
+tools/proof_syntax_preference_train.py: OK
+tools/proof_syntax_structure_diagnostic.py: OK
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/291 [00:00<?, ?it/s]Loading weights: 100%|██████████| 291/291 [00:00<00:00, 9822.33it/s]
+[transformers] The following generation flags are not valid and may be ignored: ['temperature', 'top_p']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+{"step": 1, "loss": 0.06531380349770188}
+{"step": 2, "loss": 0.3675908427685499}
+{"step": 3, "loss": 0.06808485556393862}
+{"step": 4, "loss": 0.017271296121180058}
+{"step": 5, "loss": 0.3654017960652709}
+{"step": 6, "loss": 0.02890627202577889}
+{"step": 7, "loss": 0.37413359712809324}
+{"step": 8, "loss": 0.3245315211825073}
+{"step": 9, "loss": 0.049913241527974606}
+{"step": 10, "loss": 0.01640864065848291}
+{"step": 11, "loss": 0.3831257459241897}
+{"step": 12, "loss": 0.3191468329168856}
+{"step": 13, "loss": 0.06652717874385417}
+{"step": 14, "loss": 0.3530638993252069}
+{"step": 15, "loss": 0.060951346764341}
+{"step": 16, "loss": 0.3604956893250346}
+{"step": 17, "loss": 0.04950826824642718}
+{"step": 18, "loss": 0.04690723470412195}
+{"step": 19, "loss": 0.3432606535498053}
+{"step": 20, "loss": 0.32622706168331206}
+{"step": 21, "loss": 0.6495798830874264}
+{"step": 22, "loss": 0.019188511534594}
+{"step": 23, "loss": 0.016825111699290574}
+{"step": 24, "loss": 0.3712794426828623}
+{"complete": true, "updates": 24, "parameter_delta_l2": 0.11973392034415999}
