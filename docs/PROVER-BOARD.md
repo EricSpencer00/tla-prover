@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 484
-- Verified UTC: 2026-09-14T19:27:36Z
+- Revision: 485
+- Verified UTC: 2026-09-14T19:39:15Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: local_work
 - Active job: none
-- Observation evidence: At 2026-09-14T19:27:36Z, commit 51525c62 recorded the optimized structural-span trainer, append-only v3 stage, and verification metadata without the 872 MB binary. The exact v3 child remains verified locally and on Polaris with matching SHA256/size. The attempted private HF upload was rejected by the action reviewer because this exact external payload/destination lacked explicit authorization; no HF mutation occurred. The child is therefore retained on Polaris and locally, and the binary remains outside Git.
+- Observation evidence: At 2026-09-14T19:39:15Z, the sustained prover-building goal is active. A local non-inference watchdog is running in persistent session prover-roadblock-watch, polling this board every 60 seconds and sending only changed or undelivered external blockers through Hermes Discord. No blocker is currently verified. Commit 51525c62 recorded the optimized structural-span trainer, append-only v3 stage, and verification metadata without the 872 MB binary. The exact v3 child remains verified locally and on Polaris with matching SHA256/size. The attempted private HF upload was rejected by the action reviewer because this exact external payload/destination lacked explicit authorization; no HF mutation occurred. The child is therefore retained on Polaris and locally, and the binary remains outside Git.
 - Latest completed result: Structural-span training is now a complete, reproducible artifact and the serialization/runtime bottlenecks are resolved. Validation preference margin moved from 14.341142475605011 to 14.750914980064739, but the protected SANY denominator stayed 0/2. No model-improvement, TLC, non-vacuity, TLAPS, or gate claim is made.
 - Local work: Retrieved v3 receipt, child, diagnostics, terminal record and log under results/runs/tla-structured-span-train-20260914-v3. Independent remote torch.load plus local hash/size/receipt/ledger checks passed. The exact child is retained without optimizer state; it is not resumable. V1 timeout, v2 standard-serializer failure and v3 successful legacy serialization remain separate append-only evidence. The focused commit is complete; unrelated pre-existing worktree changes remain unstaged.
 - External blocker: none verified
-- Next action: Continue broader autoresearch with a fresh grammar-constrained or prefix-conditioned hypothesis. Do not repeat this unconditioned structural-span objective; first build and locally guard the new stage, then consider at most one bounded GPU side effect. Keep the verified binary out of Git and do not attempt another external archive action in this run.
+- Next action: Continue the active goal with a fresh grammar-constrained or prefix-conditioned hypothesis. Do not repeat this unconditioned structural-span objective; first build and locally guard the new stage, then consider at most one bounded GPU side effect. Keep the verified binary out of Git and do not attempt another external archive action in this run.
 
 ## Objective and evidence rules
 
@@ -37,6 +37,7 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 
 ## Decisions
 
+- 2026-09-14T19:39:15Z: Sustained prover-building goal activated. A local non-inference watchdog now polls the board every60s and uses Hermes Discord only for a changed or previously undelivered external blocker; no blocker is currently verified. Continue breadth-first, evidence-gated research until the frozen prover gate passes or no meaningful authorized path remains.
 - 2026-09-14T18:27:37Z: Private HF archive EricSpencer00/tla-prover-optimizer-checkpoints-20260914-v1 remains complete after cleanup:22/22 checkpoint files,57,634,279,939 remote bytes, and every remote LFS SHA256 matches the manifest. All22 exact local policy_optimizer.pt paths were deleted; local disk recovered to62GiB free. Retain the remote manifest/repository as recovery evidence.
 - 2026-09-14T16:02:05Z: Polaris durable storage cannot accept the22 local policy_optimizer.pt artifacts: /home has under1GiB user-quota headroom and EVITA Eagle/Grand is at its hard limit. Hugging Face auth is available; before any transfer, archive privately with a complete per-file SHA256/size manifest and delete local copies only after verification. No research/gate claim.
 - 2026-09-14T15:22:23Z: Validated v3 lineage job7618251 and the unchanged scorer: controls_ok=true; base/parent/child each have0/2 SANY passes (6/6 model rejects). No extraction, repair or reference conditioning; this is a genuine negative two-TRAIN-row diagnostic and earns zero protected/gate credit. Do not repeat unchanged.
@@ -299,16 +300,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 484,
-  "verified_utc": "2026-09-14T19:27:36Z",
+  "revision": 485,
+  "verified_utc": "2026-09-14T19:39:15Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "local_work",
   "active_job": null,
-  "observation_evidence": "At 2026-09-14T19:27:36Z, commit 51525c62 recorded the optimized structural-span trainer, append-only v3 stage, and verification metadata without the 872 MB binary. The exact v3 child remains verified locally and on Polaris with matching SHA256/size. The attempted private HF upload was rejected by the action reviewer because this exact external payload/destination lacked explicit authorization; no HF mutation occurred. The child is therefore retained on Polaris and locally, and the binary remains outside Git.",
+  "observation_evidence": "At 2026-09-14T19:39:15Z, the sustained prover-building goal is active. A local non-inference watchdog is running in persistent session prover-roadblock-watch, polling this board every 60 seconds and sending only changed or undelivered external blockers through Hermes Discord. No blocker is currently verified. Commit 51525c62 recorded the optimized structural-span trainer, append-only v3 stage, and verification metadata without the 872 MB binary. The exact v3 child remains verified locally and on Polaris with matching SHA256/size. The attempted private HF upload was rejected by the action reviewer because this exact external payload/destination lacked explicit authorization; no HF mutation occurred. The child is therefore retained on Polaris and locally, and the binary remains outside Git.",
   "last_result": "Structural-span training is now a complete, reproducible artifact and the serialization/runtime bottlenecks are resolved. Validation preference margin moved from 14.341142475605011 to 14.750914980064739, but the protected SANY denominator stayed 0/2. No model-improvement, TLC, non-vacuity, TLAPS, or gate claim is made.",
   "local_work": "Retrieved v3 receipt, child, diagnostics, terminal record and log under results/runs/tla-structured-span-train-20260914-v3. Independent remote torch.load plus local hash/size/receipt/ledger checks passed. The exact child is retained without optimizer state; it is not resumable. V1 timeout, v2 standard-serializer failure and v3 successful legacy serialization remain separate append-only evidence. The focused commit is complete; unrelated pre-existing worktree changes remain unstaged.",
   "external_blocker": "",
-  "next_action": "Continue broader autoresearch with a fresh grammar-constrained or prefix-conditioned hypothesis. Do not repeat this unconditioned structural-span objective; first build and locally guard the new stage, then consider at most one bounded GPU side effect. Keep the verified binary out of Git and do not attempt another external archive action in this run.",
+  "next_action": "Continue the active goal with a fresh grammar-constrained or prefix-conditioned hypothesis. Do not repeat this unconditioned structural-span objective; first build and locally guard the new stage, then consider at most one bounded GPU side effect. Keep the verified binary out of Git and do not attempt another external archive action in this run.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -378,6 +379,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
     }
   ],
   "decisions": [
+    "2026-09-14T19:39:15Z: Sustained prover-building goal activated. A local non-inference watchdog now polls the board every60s and uses Hermes Discord only for a changed or previously undelivered external blocker; no blocker is currently verified. Continue breadth-first, evidence-gated research until the frozen prover gate passes or no meaningful authorized path remains.",
     "2026-09-14T18:27:37Z: Private HF archive EricSpencer00/tla-prover-optimizer-checkpoints-20260914-v1 remains complete after cleanup:22/22 checkpoint files,57,634,279,939 remote bytes, and every remote LFS SHA256 matches the manifest. All22 exact local policy_optimizer.pt paths were deleted; local disk recovered to62GiB free. Retain the remote manifest/repository as recovery evidence.",
     "2026-09-14T16:02:05Z: Polaris durable storage cannot accept the22 local policy_optimizer.pt artifacts: /home has under1GiB user-quota headroom and EVITA Eagle/Grand is at its hard limit. Hugging Face auth is available; before any transfer, archive privately with a complete per-file SHA256/size manifest and delete local copies only after verification. No research/gate claim.",
     "2026-09-14T15:22:23Z: Validated v3 lineage job7618251 and the unchanged scorer: controls_ok=true; base/parent/child each have0/2 SANY passes (6/6 model rejects). No extraction, repair or reference conditioning; this is a genuine negative two-TRAIN-row diagnostic and earns zero protected/gate credit. Do not repeat unchanged.",
