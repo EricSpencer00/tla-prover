@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 415
-- Verified UTC: 2026-09-13T16:16:02Z
+- Revision: 419
+- Verified UTC: 2026-09-14T03:40:02Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: local_work
 - Active job: none
-- Observation evidence: At 2026-09-13T16:16:02Z, exact stagec052014d was uploaded to the approved Polaris path. All six remote checksums, PBS syntax, train CLI and pycache-absence guards pass. Foreign Polaris tla-sweep7614217 remains queued, so the conditional GPU guard is not clear; no qsub was issued. Sophia has no owned jobs.
-- Latest completed result: Polaris7613858 failed before its first update (Exit_status1, scheduler walltime00:01:24) at diagnostic holdout-before scoring: RuntimeError float input versus bfloat16 lm_head. It is a mixed-precision evaluation-path defect, not model evidence; no child exists and no protected/gate claim is made.
-- Local work: Exact true-update stagec052014d is uploaded and remotely checksum/CLI verified with a final seven-file inventory. It retains exactly8 non-protected updates, diagnostic-only12-pair holdout, parent-child/reload guards and no protected generation, model-selection or gate claim.
-- External blocker: Polaris GPU submission is temporarily blocked by externally owned queued job7614217; do not race, alter, or claim it.
-- Next action: Monitor only foreign Polaris job7614217 to terminal/clear state. Immediately recheck ownership; if empty, submit exactly one approved15-minute GPU training job from the validated stage. Do not reuse the failed output path or claim quality from training completion.
+- Observation evidence: At 2026-09-14T03:40:02Z, Polaris7616283 is terminal F with Exit_status1 and scheduler walltime00:01:40. The run reached result assembly after the training schedule, then failed on KeyError plan_sha256 because plan loading removed the validated identity before config serialization. No child checkpoint, steps, receipt, protected generation or gate claim was written; the raw log and failure receipt are preserved.
+- Latest completed result: Polaris7616283 failed during result assembly after the scheduled true-update path, not during model scoring. The narrow local repair restores the validated plan_sha256 in the returned plan; focused local tests pass. This is an infrastructure/result-assembly defect, not model evidence, and no protected/gate claim is made.
+- Local work: Prepared append-only stage tla-sequence-train-20260914-v3 with the one-line result-assembly repair and regression assertion. Its seven-file SHA256 manifest is b57735df; local checksum, PBS syntax, train CLI and pycache guards pass. It retains exactly8 non-protected updates, diagnostic-only12-pair holdout, parent-child/reload guards and no protected generation, model-selection or gate claim.
+- External blocker: none verified
+- Next action: Commit the narrow repair and preserved failure evidence, then perform fresh exact destination and owned-queue checks before the append-only v3 upload. If remote guards pass and no owned job is present, acquire one unique claim and submit at most one bounded15-minute Polaris GPU run; do not duplicate7616283 or infer quality from training completion.
 
 ## Objective and evidence rules
 
@@ -30,13 +30,16 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 | TLA-05 | Done | Score the valid checkpoint comparison | 7609486 all8scored with0passes. Job7611118 exact supplied-prefix comparison scored all6 with4/4 controls: base0/2,parent2/2,child1/2; zero gate credit and no child promotion. |
 | TLA-06 | In progress | Find a new intervention that improves protected SANY | 7611118 establishes parent2/2 versus child1/2 only after72-81% canonical prefix; base0/2 and zero exact suffix matches. Completion capacity exists but child regresses row107. No full-prompt gain or quality promotion. |
 | TLA-06A | Done | Measure syntax-token preference training | 185259 completed 24 updates and exact reload; parent 0/2 and child 0/2 protected SANY. Negative result; do not repeat unchanged. |
-| TLA-06B | In progress | Establish a genuinely different structured training objective | Polaris7613214 actual8B/CUDA zero-update preflight Exit0: exact packet cb137c52/checkpoint b0399b51, longest-pair full forwards, loss1.2650, gap-0.5953, all9 gradient norms positive, peak reserved23.12GB and exact zero parameter drift. True-update job7613858 terminally failed before step1 because no-grad holdout forwards omitted bf16 autocast after the final layer was restored fp32. New stagec052014d locally tests the narrow precision repair; its upload was rejected before transfer because the latest authorization lacked exact identifiers. No child/quality result; direct exact approval is required. |
+| TLA-06B | In progress | Establish a genuinely different structured training objective | Polaris7613214 actual8B/CUDA zero-update preflight Exit0: exact packet cb137c52/checkpoint b0399b51, longest-pair full forwards, loss1.2650, gap-0.5953, all9 gradient norms positive, peak reserved23.12GB and exact zero parameter drift. True-update job7613858 terminally failed before step1 because no-grad holdout forwards omitted bf16 autocast after the final layer was restored fp32. Repaired job7616283 reached the training schedule but failed at result assembly on missing plan_sha256; no child, receipt, protected generation or gate claim exists. New append-only v3 stage b57735df restores the validated plan identity and passes11 focused tests plus CLI/compile/stage guards. |
 | TLA-07 | Not ready | Verify complete frozen SANY gate | Full frozen denominator has not passed 100%; no diagnostic promotion. |
 | TLA-08 | Not ready | Verify applicable TLC and non-vacuity | Prerequisite SANY gate and intended-behavior evidence incomplete. |
 | TLA-09 | Not ready | Verify genuine TLAPS model performance | Acceptance gates incomplete; same-node positive/negative TLAPS controls and bounded dry run required before retry. |
 
 ## Decisions
 
+- 2026-09-14T03:40:02Z: Reconciled Polaris7616283 as terminal failure Exit1 after1:40. The training schedule reached result assembly, where a popped plan_sha256 caused KeyError; preserved the raw log and failure receipt. No child/checkpoint/receipt/protected generation/gate claim exists. Applied only the narrow plan-identity repair, added a regression assertion, and prepared append-only v3 with local11-test plus checksum/PBS/CLI/pycache guards passing.
+- 2026-09-14T03:29:21Z: Submitted exactly one authorized job7616283 after fresh empty owned-queue checks; scheduler attests running debug, oneGPU, node x3207c0s7b1n0 and15-minute walltime. No duplicate and no quality/gate claim.
+- 2026-09-14T03:28:28Z: Fresh Polaris/Sophia owned queues are empty, the approved c052014d stage is present with matching manifest SHA, and persistent claimf39882bd was acquired exactly once for this payload. Submit one bounded GPU job; no quality/gate result exists yet.
 - 2026-09-13T16:16:02Z: Exact c052014d stage uploaded; all six remote SHA256 checks, PBS syntax, CPU train CLI and pycache-absence guards pass. Existing Polaris job7614217 is foreign and queued, so retain the one-experiment no-race rule. No GPU was submitted and no quality/gate claim follows from staging.
 - 2026-09-13T16:14:53Z: Eric directly approved the exact c052014d manifest/destination, remote guards and one conditional15-minute Polaris GPU; he also granted standing authorization for goal-directed work. This clears the earlier transfer rejection for this prepared action. Retain the existing no-race guard for foreign Polaris job7614217 and preserve all frozen quality gates.
 - 2026-09-13T16:06:22Z: Execution review rejected c052014d transfer before remote execution because Eric's latest broad approval did not explicitly name the new manifest and destination. Preserve the rejection receipt; no directory/file/GPU side effect occurred. The AgentClaw/Twilio caller is not available in this runtime, and the rejected egress must not be retried or routed around. Require direct exact approval.
@@ -251,16 +254,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 415,
-  "verified_utc": "2026-09-13T16:16:02Z",
+  "revision": 419,
+  "verified_utc": "2026-09-14T03:40:02Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "local_work",
   "active_job": null,
-  "observation_evidence": "At 2026-09-13T16:16:02Z, exact stagec052014d was uploaded to the approved Polaris path. All six remote checksums, PBS syntax, train CLI and pycache-absence guards pass. Foreign Polaris tla-sweep7614217 remains queued, so the conditional GPU guard is not clear; no qsub was issued. Sophia has no owned jobs.",
-  "last_result": "Polaris7613858 failed before its first update (Exit_status1, scheduler walltime00:01:24) at diagnostic holdout-before scoring: RuntimeError float input versus bfloat16 lm_head. It is a mixed-precision evaluation-path defect, not model evidence; no child exists and no protected/gate claim is made.",
-  "local_work": "Exact true-update stagec052014d is uploaded and remotely checksum/CLI verified with a final seven-file inventory. It retains exactly8 non-protected updates, diagnostic-only12-pair holdout, parent-child/reload guards and no protected generation, model-selection or gate claim.",
-  "external_blocker": "Polaris GPU submission is temporarily blocked by externally owned queued job7614217; do not race, alter, or claim it.",
-  "next_action": "Monitor only foreign Polaris job7614217 to terminal/clear state. Immediately recheck ownership; if empty, submit exactly one approved15-minute GPU training job from the validated stage. Do not reuse the failed output path or claim quality from training completion.",
+  "observation_evidence": "At 2026-09-14T03:40:02Z, Polaris7616283 is terminal F with Exit_status1 and scheduler walltime00:01:40. The run reached result assembly after the training schedule, then failed on KeyError plan_sha256 because plan loading removed the validated identity before config serialization. No child checkpoint, steps, receipt, protected generation or gate claim was written; the raw log and failure receipt are preserved.",
+  "last_result": "Polaris7616283 failed during result assembly after the scheduled true-update path, not during model scoring. The narrow local repair restores the validated plan_sha256 in the returned plan; focused local tests pass. This is an infrastructure/result-assembly defect, not model evidence, and no protected/gate claim is made.",
+  "local_work": "Prepared append-only stage tla-sequence-train-20260914-v3 with the one-line result-assembly repair and regression assertion. Its seven-file SHA256 manifest is b57735df; local checksum, PBS syntax, train CLI and pycache guards pass. It retains exactly8 non-protected updates, diagnostic-only12-pair holdout, parent-child/reload guards and no protected generation, model-selection or gate claim.",
+  "external_blocker": "",
+  "next_action": "Commit the narrow repair and preserved failure evidence, then perform fresh exact destination and owned-queue checks before the append-only v3 upload. If remote guards pass and no owned job is present, acquire one unique claim and submit at most one bounded15-minute Polaris GPU run; do not duplicate7616283 or infer quality from training completion.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -308,7 +311,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
       "id": "TLA-06B",
       "state": "In progress",
       "task": "Establish a genuinely different structured training objective",
-      "evidence": "Polaris7613214 actual8B/CUDA zero-update preflight Exit0: exact packet cb137c52/checkpoint b0399b51, longest-pair full forwards, loss1.2650, gap-0.5953, all9 gradient norms positive, peak reserved23.12GB and exact zero parameter drift. True-update job7613858 terminally failed before step1 because no-grad holdout forwards omitted bf16 autocast after the final layer was restored fp32. New stagec052014d locally tests the narrow precision repair; its upload was rejected before transfer because the latest authorization lacked exact identifiers. No child/quality result; direct exact approval is required."
+      "evidence": "Polaris7613214 actual8B/CUDA zero-update preflight Exit0: exact packet cb137c52/checkpoint b0399b51, longest-pair full forwards, loss1.2650, gap-0.5953, all9 gradient norms positive, peak reserved23.12GB and exact zero parameter drift. True-update job7613858 terminally failed before step1 because no-grad holdout forwards omitted bf16 autocast after the final layer was restored fp32. Repaired job7616283 reached the training schedule but failed at result assembly on missing plan_sha256; no child, receipt, protected generation or gate claim exists. New append-only v3 stage b57735df restores the validated plan identity and passes11 focused tests plus CLI/compile/stage guards."
     },
     {
       "id": "TLA-07",
@@ -330,6 +333,9 @@ These snapshots preserve old statements, including mistakes. They are not curren
     }
   ],
   "decisions": [
+    "2026-09-14T03:40:02Z: Reconciled Polaris7616283 as terminal failure Exit1 after1:40. The training schedule reached result assembly, where a popped plan_sha256 caused KeyError; preserved the raw log and failure receipt. No child/checkpoint/receipt/protected generation/gate claim exists. Applied only the narrow plan-identity repair, added a regression assertion, and prepared append-only v3 with local11-test plus checksum/PBS/CLI/pycache guards passing.",
+    "2026-09-14T03:29:21Z: Submitted exactly one authorized job7616283 after fresh empty owned-queue checks; scheduler attests running debug, oneGPU, node x3207c0s7b1n0 and15-minute walltime. No duplicate and no quality/gate claim.",
+    "2026-09-14T03:28:28Z: Fresh Polaris/Sophia owned queues are empty, the approved c052014d stage is present with matching manifest SHA, and persistent claimf39882bd was acquired exactly once for this payload. Submit one bounded GPU job; no quality/gate result exists yet.",
     "2026-09-13T16:16:02Z: Exact c052014d stage uploaded; all six remote SHA256 checks, PBS syntax, CPU train CLI and pycache-absence guards pass. Existing Polaris job7614217 is foreign and queued, so retain the one-experiment no-race rule. No GPU was submitted and no quality/gate claim follows from staging.",
     "2026-09-13T16:14:53Z: Eric directly approved the exact c052014d manifest/destination, remote guards and one conditional15-minute Polaris GPU; he also granted standing authorization for goal-directed work. This clears the earlier transfer rejection for this prepared action. Retain the existing no-race guard for foreign Polaris job7614217 and preserve all frozen quality gates.",
     "2026-09-13T16:06:22Z: Execution review rejected c052014d transfer before remote execution because Eric's latest broad approval did not explicitly name the new manifest and destination. Preserve the rejection receipt; no directory/file/GPU side effect occurred. The AgentClaw/Twilio caller is not available in this runtime, and the rejected egress must not be retried or routed around. Require direct exact approval.",
@@ -794,7 +800,11 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "tools/protected_sequence_preference_train.py",
     "harness/test_protected_sequence_preference_train.py",
     "results/runs/sequence-train-20260913-v2/upload-authorization-rejection.json",
-    "results/runs/sequence-train-20260913-v2/stage-upload-receipt.json"
+    "results/runs/sequence-train-20260913-v2/stage-upload-receipt.json",
+    "results/prover-submit-claims/f39882bd932cacdb81206bae861de1893660d2001cd5c9fb56669ea3b7deea50.json",
+    "results/runs/sequence-train-20260913-v2/job-7616283/job.7616283.log",
+    "results/runs/sequence-train-20260914-v3/failure-receipt.json",
+    "results/stages/tla-sequence-train-20260914-v3/SHA256SUMS"
   ]
 }
 -->

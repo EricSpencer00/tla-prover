@@ -1,0 +1,14 @@
+{
+  "observed_utc": "2026-09-14T03:40:02Z",
+  "kind": "sequence_train_result_assembly_failure_v1",
+  "job_id": "7616283",
+  "exit_status": 1,
+  "scheduler_walltime": "00:01:40",
+  "stage_manifest_sha256": "c052014d036c589c871769842bc7561c0c318cda83b4c6c53277baea6a0ff381",
+  "log_sha256": "b653f131618ba8f62d3729ebb0adf4b7b726a818bb50a247c37ab1553bd6f645",
+  "failure": "KeyError: plan_sha256 during result assembly after the training schedule",
+  "child_written": false,
+  "receipt_written": false,
+  "protected_generation": false,
+  "gate_claim": false
+}

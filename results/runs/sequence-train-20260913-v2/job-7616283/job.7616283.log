@@ -1,0 +1,17 @@
+packet.json: OK
+plan.json: OK
+protected_sequence_train_polaris.pbs: OK
+tools/protected_checkpoint_preflight.py: OK
+tools/protected_sequence_objective_contract.py: OK
+tools/protected_sequence_preference_train.py: OK
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/291 [00:00<?, ?it/s]Loading weights: 100%|██████████| 291/291 [00:00<00:00, 9882.85it/s]
+Traceback (most recent call last):
+  File "/home/eric-spencer/tla-sequence-train-20260913-v2/tools/protected_sequence_preference_train.py", line 307, in <module>
+    main()
+  File "/home/eric-spencer/tla-sequence-train-20260913-v2/tools/protected_sequence_preference_train.py", line 303, in main
+    runtime_train(args.packet, args.plan, args.model, args.checkpoint, args.output)
+  File "/home/eric-spencer/tla-sequence-train-20260913-v2/tools/protected_sequence_preference_train.py", line 258, in runtime_train
+    "plan_sha256": plan["plan_sha256"], "train_source_ids": plan["train_source_ids"],
+                   ~~~~^^^^^^^^^^^^^^^
+KeyError: 'plan_sha256'

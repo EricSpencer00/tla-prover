@@ -81,6 +81,7 @@ def test_training_plan_admits_exact_disjoint_nonprotected_split(tmp_path):
     assert len(selected) == train.BUDGET["steps"]
     assert len(holdout) == train.BUDGET["pairs"] - train.BUDGET["steps"]
     assert {pair["source_id"] for pair in selected}.isdisjoint({pair["source_id"] for pair in holdout})
+    assert plan["plan_sha256"] == json.loads(path.read_text())["plan_sha256"]
     assert plan["protected_training"] is False
     assert plan["protected_model_selection"] is False
 
