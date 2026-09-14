@@ -1,0 +1,12 @@
+{
+  "observed_utc": "2026-09-14T12:51:42Z",
+  "kind": "remote_precheck_authentication_failure_v1",
+  "hosts": ["polaris", "sophia"],
+  "polaris_result": "Permission denied (keyboard-interactive,hostbased) before destination or qstat check",
+  "sophia_result": "Permission denied (keyboard-interactive,hostbased) before qstat check",
+  "destination_state": "unverified",
+  "owned_queue_state": "unverified",
+  "files_transferred": false,
+  "scheduler_submission": false,
+  "workaround_attempted": false
+}

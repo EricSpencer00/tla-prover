@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 423
-- Verified UTC: 2026-09-14T04:00:25Z
+- Revision: 425
+- Verified UTC: 2026-09-14T12:51:42Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
-- Phase: external_wait
+- Phase: unverified
 - Active job: none
-- Observation evidence: At 2026-09-14T03:40:02Z, Polaris7616283 is terminal F with Exit_status1 and scheduler walltime00:01:40. The run reached result assembly after the training schedule, then failed on KeyError plan_sha256 because plan loading removed the validated identity before config serialization. No child checkpoint, steps, receipt, protected generation or gate claim was written; the raw log and failure receipt are preserved. Local repair work has not changed that negative execution result.
+- Observation evidence: At 2026-09-14T12:51:42Z, fresh SSH attempts to both Polaris and Sophia failed at authentication with Permission denied (keyboard-interactive,hostbased), before destination or scheduler queries. Remote destination and owned-queue state are therefore unverified. No v4 transfer or scheduler submission occurred. Polaris7616283 remains terminal F with Exit_status1 after1:40 at result assembly, with no child checkpoint, steps, receipt, protected generation or gate claim.
 - Latest completed result: Polaris7616283 failed during result assembly after the scheduled true-update path, not during model scoring. The narrow repair restores the validated plan_sha256 in the returned plan, and result publication is now transactional so incomplete child/receipt directories cannot appear as completed outputs. This is infrastructure/workflow evidence only; no protected or gate claim is made.
 - Local work: Prepared append-only stage tla-sequence-train-20260914-v4 with the result-assembly repair, transactional result publication and regression coverage. Its seven-file SHA256 manifest is 82818d44; checksum, PBS syntax, train CLI, pycache and 12 focused sequence/plan tests pass. The persistent submission guard also fails closed on malformed or incomplete existing claims. The stage retains exactly8 non-protected updates, diagnostic-only12-pair holdout, parent-child/reload guards and no protected generation, model-selection or gate claim.
-- External blocker: Execution review rejected the prior new private upload before execution because broad standing approval did not explicitly name its exact manifest and destination; the corrected v4 bundle is local-only and requires direct exact approval naming manifest 82818d44 and destination /home/eric-spencer/tla-sequence-train-20260914-v4. No remote directory, transfer, guard or qsub side effect occurred.
-- Next action: Obtain direct exact approval naming manifest 82818d44 and destination /home/eric-spencer/tla-sequence-train-20260914-v4. Then repeat fresh absence/queue checks, upload and all remote guards; if they pass and no owned job is present, acquire one unique claim and submit at most one bounded15-minute Polaris GPU run. Do not duplicate7616283 or infer quality from training completion.
+- External blocker: Configured SSH authentication to Polaris and Sophia is failing before read-only destination/queue checks; remote ownership and destination state are unverified.
+- Next action: Restore the configured SSH authentication path, then repeat read-only destination and owned-queue checks. Only if those checks pass, upload v4 and run all remote guards; if no owned job is present, acquire one unique claim and submit at most one bounded15-minute Polaris GPU run. Do not duplicate7616283 or infer quality from training completion.
 
 ## Objective and evidence rules
 
@@ -37,6 +37,8 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 
 ## Decisions
 
+- 2026-09-14T12:51:42Z: Approval was received for the prepared v4 retry, but both fresh SSH prechecks failed at authentication before destination or qstat state could be observed. Mark remote state unverified, preserve the auth-failure receipt, and do not transfer, claim or submit through an unverified connection.
+- 2026-09-14T12:50:45Z: Eric approved proceeding with the prepared v4 upload, remote guards and conditional one-GPU retry. Treat this as authorization to attempt the scoped action, while retaining fresh destination/ownership checks, exact-review enforcement, one-claim/one-job limits and zero quality/gate credit.
 - 2026-09-14T04:00:25Z: Added transactional result publication around child checkpoint, reload, receipt and step writes. A writer failure now cleans the temporary sibling and leaves the append-only result path absent;12 focused sequence/plan tests pass. Prepared v4 with manifest82818d44; it remains local-only and does not alter frozen quality or gate criteria.
 - 2026-09-14T03:54:37Z: Hardened the persistent requeue claim guard to reject malformed or incomplete existing claim records instead of crashing or treating ambiguous state as reusable. Existing concurrency semantics remain unchanged;4 focused tests pass. This is workflow safety evidence only and does not change model quality or gate criteria.
 - 2026-09-14T03:44:55Z: Execution review rejected the new private v3 upload before execution because the latest broad authorization did not name exact manifest b57735df and destination /home/eric-spencer/tla-sequence-train-20260914-v3. Fresh prechecks had shown the destination absent and both owned queues empty; no remote write, transfer, guard or qsub occurred. Preserve the rejection and require direct exact approval; do not route around review.
@@ -258,16 +260,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 423,
-  "verified_utc": "2026-09-14T04:00:25Z",
+  "revision": 425,
+  "verified_utc": "2026-09-14T12:51:42Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
-  "phase": "external_wait",
+  "phase": "unverified",
   "active_job": null,
-  "observation_evidence": "At 2026-09-14T03:40:02Z, Polaris7616283 is terminal F with Exit_status1 and scheduler walltime00:01:40. The run reached result assembly after the training schedule, then failed on KeyError plan_sha256 because plan loading removed the validated identity before config serialization. No child checkpoint, steps, receipt, protected generation or gate claim was written; the raw log and failure receipt are preserved. Local repair work has not changed that negative execution result.",
+  "observation_evidence": "At 2026-09-14T12:51:42Z, fresh SSH attempts to both Polaris and Sophia failed at authentication with Permission denied (keyboard-interactive,hostbased), before destination or scheduler queries. Remote destination and owned-queue state are therefore unverified. No v4 transfer or scheduler submission occurred. Polaris7616283 remains terminal F with Exit_status1 after1:40 at result assembly, with no child checkpoint, steps, receipt, protected generation or gate claim.",
   "last_result": "Polaris7616283 failed during result assembly after the scheduled true-update path, not during model scoring. The narrow repair restores the validated plan_sha256 in the returned plan, and result publication is now transactional so incomplete child/receipt directories cannot appear as completed outputs. This is infrastructure/workflow evidence only; no protected or gate claim is made.",
   "local_work": "Prepared append-only stage tla-sequence-train-20260914-v4 with the result-assembly repair, transactional result publication and regression coverage. Its seven-file SHA256 manifest is 82818d44; checksum, PBS syntax, train CLI, pycache and 12 focused sequence/plan tests pass. The persistent submission guard also fails closed on malformed or incomplete existing claims. The stage retains exactly8 non-protected updates, diagnostic-only12-pair holdout, parent-child/reload guards and no protected generation, model-selection or gate claim.",
-  "external_blocker": "Execution review rejected the prior new private upload before execution because broad standing approval did not explicitly name its exact manifest and destination; the corrected v4 bundle is local-only and requires direct exact approval naming manifest 82818d44 and destination /home/eric-spencer/tla-sequence-train-20260914-v4. No remote directory, transfer, guard or qsub side effect occurred.",
-  "next_action": "Obtain direct exact approval naming manifest 82818d44 and destination /home/eric-spencer/tla-sequence-train-20260914-v4. Then repeat fresh absence/queue checks, upload and all remote guards; if they pass and no owned job is present, acquire one unique claim and submit at most one bounded15-minute Polaris GPU run. Do not duplicate7616283 or infer quality from training completion.",
+  "external_blocker": "Configured SSH authentication to Polaris and Sophia is failing before read-only destination/queue checks; remote ownership and destination state are unverified.",
+  "next_action": "Restore the configured SSH authentication path, then repeat read-only destination and owned-queue checks. Only if those checks pass, upload v4 and run all remote guards; if no owned job is present, acquire one unique claim and submit at most one bounded15-minute Polaris GPU run. Do not duplicate7616283 or infer quality from training completion.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -337,6 +339,8 @@ These snapshots preserve old statements, including mistakes. They are not curren
     }
   ],
   "decisions": [
+    "2026-09-14T12:51:42Z: Approval was received for the prepared v4 retry, but both fresh SSH prechecks failed at authentication before destination or qstat state could be observed. Mark remote state unverified, preserve the auth-failure receipt, and do not transfer, claim or submit through an unverified connection.",
+    "2026-09-14T12:50:45Z: Eric approved proceeding with the prepared v4 upload, remote guards and conditional one-GPU retry. Treat this as authorization to attempt the scoped action, while retaining fresh destination/ownership checks, exact-review enforcement, one-claim/one-job limits and zero quality/gate credit.",
     "2026-09-14T04:00:25Z: Added transactional result publication around child checkpoint, reload, receipt and step writes. A writer failure now cleans the temporary sibling and leaves the append-only result path absent;12 focused sequence/plan tests pass. Prepared v4 with manifest82818d44; it remains local-only and does not alter frozen quality or gate criteria.",
     "2026-09-14T03:54:37Z: Hardened the persistent requeue claim guard to reject malformed or incomplete existing claim records instead of crashing or treating ambiguous state as reusable. Existing concurrency semantics remain unchanged;4 focused tests pass. This is workflow safety evidence only and does not change model quality or gate criteria.",
     "2026-09-14T03:44:55Z: Execution review rejected the new private v3 upload before execution because the latest broad authorization did not name exact manifest b57735df and destination /home/eric-spencer/tla-sequence-train-20260914-v3. Fresh prechecks had shown the destination absent and both owned queues empty; no remote write, transfer, guard or qsub occurred. Preserve the rejection and require direct exact approval; do not route around review.",
@@ -816,7 +820,8 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "results/runs/sequence-train-20260914-v3/upload-authorization-rejection.json",
     "tools/prover_submit_guard.py",
     "harness/test_prover_submit_guard_integrity.py",
-    "results/stages/tla-sequence-train-20260914-v4/SHA256SUMS"
+    "results/stages/tla-sequence-train-20260914-v4/SHA256SUMS",
+    "results/runs/sequence-train-20260914-v4/remote-precheck-auth-failure.json"
   ]
 }
 -->
