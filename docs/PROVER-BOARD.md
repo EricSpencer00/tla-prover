@@ -4,14 +4,14 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 421
-- Verified UTC: 2026-09-14T03:44:55Z
+- Revision: 422
+- Verified UTC: 2026-09-14T03:54:37Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: external_wait
 - Active job: none
 - Observation evidence: At 2026-09-14T03:40:02Z, Polaris7616283 is terminal F with Exit_status1 and scheduler walltime00:01:40. The run reached result assembly after the training schedule, then failed on KeyError plan_sha256 because plan loading removed the validated identity before config serialization. No child checkpoint, steps, receipt, protected generation or gate claim was written; the raw log and failure receipt are preserved.
 - Latest completed result: Polaris7616283 failed during result assembly after the scheduled true-update path, not during model scoring. The narrow local repair restores the validated plan_sha256 in the returned plan; focused local tests pass. This is an infrastructure/result-assembly defect, not model evidence, and no protected/gate claim is made.
-- Local work: Prepared append-only stage tla-sequence-train-20260914-v3 with the one-line result-assembly repair and regression assertion. Its seven-file SHA256 manifest is b57735df; local checksum, PBS syntax, train CLI and pycache guards pass. It retains exactly8 non-protected updates, diagnostic-only12-pair holdout, parent-child/reload guards and no protected generation, model-selection or gate claim.
+- Local work: Prepared append-only stage tla-sequence-train-20260914-v3 with the one-line result-assembly repair and regression assertion. Its seven-file SHA256 manifest is b57735df; local checksum, PBS syntax, train CLI and pycache guards pass. The persistent submission guard now fails closed on malformed or incomplete existing claims; its four focused concurrency/integrity tests pass. It retains exactly8 non-protected updates, diagnostic-only12-pair holdout, parent-child/reload guards and no protected generation, model-selection or gate claim.
 - External blocker: Execution review rejected the new private v3 upload before execution because broad standing approval did not explicitly name manifest b57735df and destination /home/eric-spencer/tla-sequence-train-20260914-v3; no remote directory, transfer, guard or qsub side effect occurred.
 - Next action: Obtain direct exact approval naming manifest b57735df and destination /home/eric-spencer/tla-sequence-train-20260914-v3. Then repeat fresh absence/queue checks, upload and all remote guards; if they pass and no owned job is present, acquire one unique claim and submit at most one bounded15-minute Polaris GPU run. Do not duplicate7616283 or infer quality from training completion.
 
@@ -37,6 +37,7 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 
 ## Decisions
 
+- 2026-09-14T03:54:37Z: Hardened the persistent requeue claim guard to reject malformed or incomplete existing claim records instead of crashing or treating ambiguous state as reusable. Existing concurrency semantics remain unchanged;4 focused tests pass. This is workflow safety evidence only and does not change model quality or gate criteria.
 - 2026-09-14T03:44:55Z: Execution review rejected the new private v3 upload before execution because the latest broad authorization did not name exact manifest b57735df and destination /home/eric-spencer/tla-sequence-train-20260914-v3. Fresh prechecks had shown the destination absent and both owned queues empty; no remote write, transfer, guard or qsub occurred. Preserve the rejection and require direct exact approval; do not route around review.
 - 2026-09-14T03:43:40Z: Focused repair, regression test, exact v3 stage guards and preserved failure evidence are committed as6b231434. Begin fresh remote destination and ownership checks; no remote side effect or duplicate submission is implied by this bookkeeping update.
 - 2026-09-14T03:40:02Z: Reconciled Polaris7616283 as terminal failure Exit1 after1:40. The training schedule reached result assembly, where a popped plan_sha256 caused KeyError; preserved the raw log and failure receipt. No child/checkpoint/receipt/protected generation/gate claim exists. Applied only the narrow plan-identity repair, added a regression assertion, and prepared append-only v3 with local11-test plus checksum/PBS/CLI/pycache guards passing.
@@ -256,14 +257,14 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 421,
-  "verified_utc": "2026-09-14T03:44:55Z",
+  "revision": 422,
+  "verified_utc": "2026-09-14T03:54:37Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "external_wait",
   "active_job": null,
   "observation_evidence": "At 2026-09-14T03:40:02Z, Polaris7616283 is terminal F with Exit_status1 and scheduler walltime00:01:40. The run reached result assembly after the training schedule, then failed on KeyError plan_sha256 because plan loading removed the validated identity before config serialization. No child checkpoint, steps, receipt, protected generation or gate claim was written; the raw log and failure receipt are preserved.",
   "last_result": "Polaris7616283 failed during result assembly after the scheduled true-update path, not during model scoring. The narrow local repair restores the validated plan_sha256 in the returned plan; focused local tests pass. This is an infrastructure/result-assembly defect, not model evidence, and no protected/gate claim is made.",
-  "local_work": "Prepared append-only stage tla-sequence-train-20260914-v3 with the one-line result-assembly repair and regression assertion. Its seven-file SHA256 manifest is b57735df; local checksum, PBS syntax, train CLI and pycache guards pass. It retains exactly8 non-protected updates, diagnostic-only12-pair holdout, parent-child/reload guards and no protected generation, model-selection or gate claim.",
+  "local_work": "Prepared append-only stage tla-sequence-train-20260914-v3 with the one-line result-assembly repair and regression assertion. Its seven-file SHA256 manifest is b57735df; local checksum, PBS syntax, train CLI and pycache guards pass. The persistent submission guard now fails closed on malformed or incomplete existing claims; its four focused concurrency/integrity tests pass. It retains exactly8 non-protected updates, diagnostic-only12-pair holdout, parent-child/reload guards and no protected generation, model-selection or gate claim.",
   "external_blocker": "Execution review rejected the new private v3 upload before execution because broad standing approval did not explicitly name manifest b57735df and destination /home/eric-spencer/tla-sequence-train-20260914-v3; no remote directory, transfer, guard or qsub side effect occurred.",
   "next_action": "Obtain direct exact approval naming manifest b57735df and destination /home/eric-spencer/tla-sequence-train-20260914-v3. Then repeat fresh absence/queue checks, upload and all remote guards; if they pass and no owned job is present, acquire one unique claim and submit at most one bounded15-minute Polaris GPU run. Do not duplicate7616283 or infer quality from training completion.",
   "tasks": [
@@ -335,6 +336,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
     }
   ],
   "decisions": [
+    "2026-09-14T03:54:37Z: Hardened the persistent requeue claim guard to reject malformed or incomplete existing claim records instead of crashing or treating ambiguous state as reusable. Existing concurrency semantics remain unchanged;4 focused tests pass. This is workflow safety evidence only and does not change model quality or gate criteria.",
     "2026-09-14T03:44:55Z: Execution review rejected the new private v3 upload before execution because the latest broad authorization did not name exact manifest b57735df and destination /home/eric-spencer/tla-sequence-train-20260914-v3. Fresh prechecks had shown the destination absent and both owned queues empty; no remote write, transfer, guard or qsub occurred. Preserve the rejection and require direct exact approval; do not route around review.",
     "2026-09-14T03:43:40Z: Focused repair, regression test, exact v3 stage guards and preserved failure evidence are committed as6b231434. Begin fresh remote destination and ownership checks; no remote side effect or duplicate submission is implied by this bookkeeping update.",
     "2026-09-14T03:40:02Z: Reconciled Polaris7616283 as terminal failure Exit1 after1:40. The training schedule reached result assembly, where a popped plan_sha256 caused KeyError; preserved the raw log and failure receipt. No child/checkpoint/receipt/protected generation/gate claim exists. Applied only the narrow plan-identity repair, added a regression assertion, and prepared append-only v3 with local11-test plus checksum/PBS/CLI/pycache guards passing.",
@@ -809,7 +811,9 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "results/runs/sequence-train-20260913-v2/job-7616283/job.7616283.log",
     "results/runs/sequence-train-20260914-v3/failure-receipt.json",
     "results/stages/tla-sequence-train-20260914-v3/SHA256SUMS",
-    "results/runs/sequence-train-20260914-v3/upload-authorization-rejection.json"
+    "results/runs/sequence-train-20260914-v3/upload-authorization-rejection.json",
+    "tools/prover_submit_guard.py",
+    "harness/test_prover_submit_guard_integrity.py"
   ]
 }
 -->

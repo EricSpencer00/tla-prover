@@ -34,8 +34,15 @@ def claim(state_dir, identity, owner=None):
             existing = json.loads(path.read_text())
         except (OSError, json.JSONDecodeError) as exc:
             raise RuntimeError(f'claim exists but is unreadable: {path}') from exc
+        if not isinstance(existing, dict):
+            raise RuntimeError(f'claim exists but is malformed: {path}')
         if existing.get('identity') != identity or existing.get('identity_sha256') != key:
             raise RuntimeError(f'identity collision: {path}')
+        required = ('owner', 'host', 'claimed_unix')
+        if (any(field not in existing for field in required) or
+                not all(isinstance(existing[field], str) for field in ('owner', 'host')) or
+                not isinstance(existing['claimed_unix'], (int, float))):
+            raise RuntimeError(f'claim exists but is incomplete: {path}')
         return {'status': 'existing', 'path': str(path), 'claim': existing}
     with os.fdopen(fd, 'wb') as stream:
         stream.write(payload)
