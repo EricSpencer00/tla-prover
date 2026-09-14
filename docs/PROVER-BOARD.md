@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 505
-- Verified UTC: 2026-09-14T20:30:26Z
+- Revision: 506
+- Verified UTC: 2026-09-14T20:46:02Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
-- Phase: running
-- Active job: `7619041` (R, x3204c0s7b0n0/0*64, owner eric-spencer)
-- Observation evidence: At 2026-09-14T20:30:26Z, Polaris job 7619041 is running on x3204c0s7b0n0/0*64 in debug with one GPU and a 00:15:00 walltime cap. The fresh stage /home/eric-spencer/tla-broader-child-protected-diag-20260914-v1 passed exact packet/helper/grammar/launcher hashes, CPU-only XGrammar 0.2.2 preflight, unique claim 4852227256266f4368c562fe21ccc7ec0c46706454768ca9bccb12dbb6ec2e44, and no-output-before-submit checks. It restores the existing broader child SHA cd554adea8ee1095408d4502ce61230e198faddbcacae3f89e34808ed057c955 for a read-only protected paired generation. No result or SANY claim exists yet. The earlier prefix-SFT result remains verified negative; the programmatic roadblock watchdog is active.
-- Latest completed result: Prefix-conditioned response-SFT job 7618996 completed all 16 updates with finite gradients and exact child reload. Validation loss improved diagnostically by 0.00104728, but both protected rows remained SANY rejects; this is not a model-improvement or gate result.
-- Local work: Structural-span v3 and prefix-SFT v3 are verified locally with terminal, receipt, steps, child, SANY diagnostics and independent verification records under results/runs. The v2 hash-invalid transfer evidence remains preserved; exact large binaries remain outside Git; unrelated pre-existing worktree changes remain unstaged. The watchdog source and active tmux session are verified.
+- Phase: local_work
+- Active job: none
+- Observation evidence: At 2026-09-14T20:46:02Z, Polaris job 7619041 is terminal F with Exit_status 124 after 00:14:02 walltime, 00:13:52 CPU and 8562568kb memory on x3204c0s7b0n0/0*64 under the 00:15:00 request. The fresh stage and all four immutable payload hashes passed; CPU-only XGrammar 0.2.2 preflight passed before model/CUDA work. The launcher produced only row 47 ordinary-decoder generations 0 and 1; both raw records match local/remote hashes and both are independent SANY model_reject results. The reference and syntax-negative controls pass, while the remaining six planned outputs are unmeasured_missing because the grammar arm stalled before beginning. This is partial infrastructure evidence, not a model, quality or gate result. The earlier prefix-SFT result remains verified negative; the programmatic roadblock watchdog is active.
+- Latest completed result: Broader-child protected diagnostic job 7619041 timed out at the inner 840-second safety bound before the grammar arm. The two completed ordinary-decoder row-47 outputs were both SANY rejects; controls passed and no positive protected evidence was obtained. Do not repeat this stalled launcher unchanged.
+- Local work: Structural-span v3 and prefix-SFT v3 remain verified locally. The broader-child partial terminal, raw records, independent SANY score, and verification metadata are preserved under results/runs; exact large binaries remain outside Git. The v2 hash-invalid transfer evidence remains preserved; unrelated pre-existing worktree changes remain unstaged. The watchdog source and active tmux session are verified.
 - External blocker: none verified
-- Next action: Wait for job 7619041 to terminate, then retrieve the complete paired receipt and independently SANY-score all eight raw outputs with reference/negative controls. Treat any result as diagnostic unless protected SANY changes under the frozen denominator; do not repeat the already-pruned prefix-SFT objective.
+- Next action: Prepare a distinct broader whole-target SFT child initialized from the current structural parent fba2768ed9a8f629f6496dc1ef72763b32fc339c74ba9075d1ffc53acd6c2d1d, using the frozen 32 non-protected rows and fresh optimizer state. Add an explicit faster grammar-off protected diagnostic path after training; preserve the fixed denominator and promote only on independently verified protected SANY movement.
 
 ## Objective and evidence rules
 
@@ -37,6 +37,7 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 
 ## Decisions
 
+- 2026-09-14T20:46:02Z: Job 7619041 is classified as a bounded infrastructure timeout: inner timeout exit 124 at 00:14:02, two ordinary row-47 outputs, grammar arm unstarted, controls 4/4 and available outputs 2/2 SANY rejects. No gate or quality credit. The unchanged launcher is pruned; the next branch is parent-initialized broader whole-target SFT with a separate grammar-off protected check.
 - 2026-09-14T20:30:26Z: Submitted exactly one claimed broader-child protected diagnostic job 7619041; qstat attests R on x3204c0s7b0n0/0*64 with one GPU and a 00:15:00 walltime cap. No duplicate submission, training, scoring or gate claim.
 - 2026-09-14T20:28:57Z: Unique claim 4852227256266f4368c562fe21ccc7ec0c46706454768ca9bccb12dbb6ec2e44 acquired after the Polaris owned-queue/output check passed. It binds the exact packet, broader child, generation helpers, canonical grammar, launcher, one GPU and 15-minute walltime. Submit exactly once; no gate or quality claim.
 - 2026-09-14T20:26:48Z: The fresh append-only protected-diagnostic stage transferred successfully and its four immutable payload hashes plus CPU-only XGrammar preflight pass. The PBS launcher hash is 1cab97169a67f0318e67fe3d7214ab4ecf819518def263f8be89c77267083111. No qsub yet; submit only after the unique identity claim and final empty-owned-queue check.
@@ -320,21 +321,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 505,
-  "verified_utc": "2026-09-14T20:30:26Z",
+  "revision": 506,
+  "verified_utc": "2026-09-14T20:46:02Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
-  "phase": "running",
-  "active_job": {
-    "id": "7619041",
-    "pbs_state": "R",
-    "owner": "eric-spencer",
-    "host": "x3204c0s7b0n0/0*64"
-  },
-  "observation_evidence": "At 2026-09-14T20:30:26Z, Polaris job 7619041 is running on x3204c0s7b0n0/0*64 in debug with one GPU and a 00:15:00 walltime cap. The fresh stage /home/eric-spencer/tla-broader-child-protected-diag-20260914-v1 passed exact packet/helper/grammar/launcher hashes, CPU-only XGrammar 0.2.2 preflight, unique claim 4852227256266f4368c562fe21ccc7ec0c46706454768ca9bccb12dbb6ec2e44, and no-output-before-submit checks. It restores the existing broader child SHA cd554adea8ee1095408d4502ce61230e198faddbcacae3f89e34808ed057c955 for a read-only protected paired generation. No result or SANY claim exists yet. The earlier prefix-SFT result remains verified negative; the programmatic roadblock watchdog is active.",
-  "last_result": "Prefix-conditioned response-SFT job 7618996 completed all 16 updates with finite gradients and exact child reload. Validation loss improved diagnostically by 0.00104728, but both protected rows remained SANY rejects; this is not a model-improvement or gate result.",
-  "local_work": "Structural-span v3 and prefix-SFT v3 are verified locally with terminal, receipt, steps, child, SANY diagnostics and independent verification records under results/runs. The v2 hash-invalid transfer evidence remains preserved; exact large binaries remain outside Git; unrelated pre-existing worktree changes remain unstaged. The watchdog source and active tmux session are verified.",
+  "phase": "local_work",
+  "active_job": null,
+  "observation_evidence": "At 2026-09-14T20:46:02Z, Polaris job 7619041 is terminal F with Exit_status 124 after 00:14:02 walltime, 00:13:52 CPU and 8562568kb memory on x3204c0s7b0n0/0*64 under the 00:15:00 request. The fresh stage and all four immutable payload hashes passed; CPU-only XGrammar 0.2.2 preflight passed before model/CUDA work. The launcher produced only row 47 ordinary-decoder generations 0 and 1; both raw records match local/remote hashes and both are independent SANY model_reject results. The reference and syntax-negative controls pass, while the remaining six planned outputs are unmeasured_missing because the grammar arm stalled before beginning. This is partial infrastructure evidence, not a model, quality or gate result. The earlier prefix-SFT result remains verified negative; the programmatic roadblock watchdog is active.",
+  "last_result": "Broader-child protected diagnostic job 7619041 timed out at the inner 840-second safety bound before the grammar arm. The two completed ordinary-decoder row-47 outputs were both SANY rejects; controls passed and no positive protected evidence was obtained. Do not repeat this stalled launcher unchanged.",
+  "local_work": "Structural-span v3 and prefix-SFT v3 remain verified locally. The broader-child partial terminal, raw records, independent SANY score, and verification metadata are preserved under results/runs; exact large binaries remain outside Git. The v2 hash-invalid transfer evidence remains preserved; unrelated pre-existing worktree changes remain unstaged. The watchdog source and active tmux session are verified.",
   "external_blocker": "",
-  "next_action": "Wait for job 7619041 to terminate, then retrieve the complete paired receipt and independently SANY-score all eight raw outputs with reference/negative controls. Treat any result as diagnostic unless protected SANY changes under the frozen denominator; do not repeat the already-pruned prefix-SFT objective.",
+  "next_action": "Prepare a distinct broader whole-target SFT child initialized from the current structural parent fba2768ed9a8f629f6496dc1ef72763b32fc339c74ba9075d1ffc53acd6c2d1d, using the frozen 32 non-protected rows and fresh optimizer state. Add an explicit faster grammar-off protected diagnostic path after training; preserve the fixed denominator and promote only on independently verified protected SANY movement.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -404,6 +400,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
     }
   ],
   "decisions": [
+    "2026-09-14T20:46:02Z: Job 7619041 is classified as a bounded infrastructure timeout: inner timeout exit 124 at 00:14:02, two ordinary row-47 outputs, grammar arm unstarted, controls 4/4 and available outputs 2/2 SANY rejects. No gate or quality credit. The unchanged launcher is pruned; the next branch is parent-initialized broader whole-target SFT with a separate grammar-off protected check.",
     "2026-09-14T20:30:26Z: Submitted exactly one claimed broader-child protected diagnostic job 7619041; qstat attests R on x3204c0s7b0n0/0*64 with one GPU and a 00:15:00 walltime cap. No duplicate submission, training, scoring or gate claim.",
     "2026-09-14T20:28:57Z: Unique claim 4852227256266f4368c562fe21ccc7ec0c46706454768ca9bccb12dbb6ec2e44 acquired after the Polaris owned-queue/output check passed. It binds the exact packet, broader child, generation helpers, canonical grammar, launcher, one GPU and 15-minute walltime. Submit exactly once; no gate or quality claim.",
     "2026-09-14T20:26:48Z: The fresh append-only protected-diagnostic stage transferred successfully and its four immutable payload hashes plus CPU-only XGrammar preflight pass. The PBS launcher hash is 1cab97169a67f0318e67fe3d7214ab4ecf819518def263f8be89c77267083111. No qsub yet; submit only after the unique identity claim and final empty-owned-queue check.",
@@ -1005,7 +1002,12 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "results/runs/sequence-lineage-20260914-v3-job-7618251/score-retry/controls.json",
     "results/runs/sequence-lineage-20260914-v3-job-7618251/score-retry/identity.json",
     "results/runs/sequence-lineage-20260914-v3-job-7618251/score-validation.json",
-    "results/runs/sequence-lineage-20260914-v3-job-7618251/score-first-attempt-permission.json"
+    "results/runs/sequence-lineage-20260914-v3-job-7618251/score-first-attempt-permission.json",
+    "results/runs/tla-broader-child-protected-diag-20260914-v1/terminal.json",
+    "results/runs/tla-broader-child-protected-diag-20260914-v1/verification.json",
+    "results/runs/tla-broader-child-protected-diag-20260914-v1/job.7619041.log",
+    "results/runs/tla-broader-child-protected-diag-20260914-v1/sany-score-7619041/summary.json",
+    "results/runs/tla-broader-child-protected-diag-20260914-v1/sany-score-7619041/controls.json"
   ]
 }
 -->
