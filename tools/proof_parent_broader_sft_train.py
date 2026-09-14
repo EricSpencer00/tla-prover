@@ -14,7 +14,12 @@ import math
 import os
 from pathlib import Path
 import random
+import sys
 import time
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 PACKET_SHA = '5adb8315e8d9563fbf42a40fa5055d4e4b3b7f3e3c6e4ec7fe889b05ca030860'
 PARENT_SHA = 'fba2768ed9a8f629f6496dc1ef72763b32fc339c74ba9075d1ffc53acd6c2d1d'
