@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 491
-- Verified UTC: 2026-09-14T19:56:16Z
+- Revision: 492
+- Verified UTC: 2026-09-14T19:57:30Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: local_work
 - Active job: none
-- Observation evidence: At 2026-09-14T19:56:16Z, lfs quota reports Polaris /home at 52421668 KiB against a 52428800 KiB hard limit, leaving 7132 KiB. The exact obsolete negative syntax-preference child /home/eric-spencer/tla-syntax-preference-20260910T161320Z/result.185259/policy_optimizer.pt is 2617373501 bytes with remote SHA 55ae4d3a6bf80df54871bb3605ade8088e9456578430120ca1ce62c768b46864, matching the preserved local receipt; it is not the current parent or structural child. The failed v3 temp tree is also exact and disposable. No GPU submission occurred; the active non-inference watchdog remains running in persistent session prover-roadblock-watch.
+- Observation evidence: At 2026-09-14T19:57:30Z, exact cleanup completed: the verified obsolete 185259 negative checkpoint and failed v3 temp tree are absent, while the current structural child was not targeted. Fresh lfs quota now reports 49864784 KiB used against a 52428800 KiB hard limit, restoring headroom for the 872 MB exact-weight child. The v2 hash-invalid destination remains preserved separately. No GPU submission occurred; the active non-inference watchdog remains running in persistent session prover-roadblock-watch.
 - Latest completed result: Structural-span training is now a complete, reproducible artifact and the serialization/runtime bottlenecks are resolved. Validation preference margin moved from 14.341142475605011 to 14.750914980064739, but the protected SANY denominator stayed 0/2. No model-improvement, TLC, non-vacuity, TLAPS, or gate claim is made.
 - Local work: Retrieved v3 receipt, child, diagnostics, terminal record and log under results/runs/tla-structured-span-train-20260914-v3. Independent remote torch.load plus local hash/size/receipt/ledger checks passed. The exact child is retained without optimizer state; it is not resumable. V1 timeout, v2 standard-serializer failure and v3 successful legacy serialization remain separate append-only evidence. The focused commit is complete; unrelated pre-existing worktree changes remain unstaged.
 - External blocker: none verified
-- Next action: Delete only the verified obsolete 185259 negative checkpoint and failed v3 temp tree, confirm quota recovery, then atomically stream the exact v3 stage to /home/eric-spencer/tla-prefix-sft-train-20260914-v3 and submit at most one debug GPU only after remote hashes/CLI guards pass.
+- Next action: Fresh-check the absent v3 destination and empty owned queue, atomically stream the exact v3 stage to /home/eric-spencer/tla-prefix-sft-train-20260914-v3, rerun remote hashes/CLI guards, then submit at most one debug GPU for 15 minutes only after exact verification.
 
 ## Objective and evidence rules
 
@@ -37,6 +37,7 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 
 ## Decisions
 
+- 2026-09-14T19:57:30Z: Exact cleanup succeeded and lfs quota recovered to 49864784/52428800 KiB. The current structural child remains retained; the v2 corrupt packet remains preserved for failure evidence. Proceed with a fresh v3 destination/queue check before transfer.
 - 2026-09-14T19:56:16Z: Quota is the concrete transport blocker. The 185259 syntax-preference artifact is a preserved negative result with exact local/remote identity and no current lineage; removing only its 2617373501-byte policy_optimizer.pt plus the failed v3 temp directory is authorized cleanup needed for the new exact-weight child. The current structural v3 child remains protected from deletion.
 - 2026-09-14T19:53:13Z: Fresh v3 ownership check passed with zero owned jobs and both final/temp destinations absent; /home df reports 169416948272 KiB available. The atomic compressed transfer may proceed for this exact stage; no quality/gate claim.
 - 2026-09-14T19:52:28Z: Append-only prefix-SFT v3 is now locally guarded and committed as 0396556b. It keeps manifest 86f9f400 and the frozen 4/2/2 split unchanged, but uses a new destination and atomic compressed transfer to test the v2 transport corruption. No remote write or GPU submission yet; zero quality/gate credit remains.
@@ -306,16 +307,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 491,
-  "verified_utc": "2026-09-14T19:56:16Z",
+  "revision": 492,
+  "verified_utc": "2026-09-14T19:57:30Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "local_work",
   "active_job": null,
-  "observation_evidence": "At 2026-09-14T19:56:16Z, lfs quota reports Polaris /home at 52421668 KiB against a 52428800 KiB hard limit, leaving 7132 KiB. The exact obsolete negative syntax-preference child /home/eric-spencer/tla-syntax-preference-20260910T161320Z/result.185259/policy_optimizer.pt is 2617373501 bytes with remote SHA 55ae4d3a6bf80df54871bb3605ade8088e9456578430120ca1ce62c768b46864, matching the preserved local receipt; it is not the current parent or structural child. The failed v3 temp tree is also exact and disposable. No GPU submission occurred; the active non-inference watchdog remains running in persistent session prover-roadblock-watch.",
+  "observation_evidence": "At 2026-09-14T19:57:30Z, exact cleanup completed: the verified obsolete 185259 negative checkpoint and failed v3 temp tree are absent, while the current structural child was not targeted. Fresh lfs quota now reports 49864784 KiB used against a 52428800 KiB hard limit, restoring headroom for the 872 MB exact-weight child. The v2 hash-invalid destination remains preserved separately. No GPU submission occurred; the active non-inference watchdog remains running in persistent session prover-roadblock-watch.",
   "last_result": "Structural-span training is now a complete, reproducible artifact and the serialization/runtime bottlenecks are resolved. Validation preference margin moved from 14.341142475605011 to 14.750914980064739, but the protected SANY denominator stayed 0/2. No model-improvement, TLC, non-vacuity, TLAPS, or gate claim is made.",
   "local_work": "Retrieved v3 receipt, child, diagnostics, terminal record and log under results/runs/tla-structured-span-train-20260914-v3. Independent remote torch.load plus local hash/size/receipt/ledger checks passed. The exact child is retained without optimizer state; it is not resumable. V1 timeout, v2 standard-serializer failure and v3 successful legacy serialization remain separate append-only evidence. The focused commit is complete; unrelated pre-existing worktree changes remain unstaged.",
   "external_blocker": "",
-  "next_action": "Delete only the verified obsolete 185259 negative checkpoint and failed v3 temp tree, confirm quota recovery, then atomically stream the exact v3 stage to /home/eric-spencer/tla-prefix-sft-train-20260914-v3 and submit at most one debug GPU only after remote hashes/CLI guards pass.",
+  "next_action": "Fresh-check the absent v3 destination and empty owned queue, atomically stream the exact v3 stage to /home/eric-spencer/tla-prefix-sft-train-20260914-v3, rerun remote hashes/CLI guards, then submit at most one debug GPU for 15 minutes only after exact verification.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -385,6 +386,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
     }
   ],
   "decisions": [
+    "2026-09-14T19:57:30Z: Exact cleanup succeeded and lfs quota recovered to 49864784/52428800 KiB. The current structural child remains retained; the v2 corrupt packet remains preserved for failure evidence. Proceed with a fresh v3 destination/queue check before transfer.",
     "2026-09-14T19:56:16Z: Quota is the concrete transport blocker. The 185259 syntax-preference artifact is a preserved negative result with exact local/remote identity and no current lineage; removing only its 2617373501-byte policy_optimizer.pt plus the failed v3 temp directory is authorized cleanup needed for the new exact-weight child. The current structural v3 child remains protected from deletion.",
     "2026-09-14T19:53:13Z: Fresh v3 ownership check passed with zero owned jobs and both final/temp destinations absent; /home df reports 169416948272 KiB available. The atomic compressed transfer may proceed for this exact stage; no quality/gate claim.",
     "2026-09-14T19:52:28Z: Append-only prefix-SFT v3 is now locally guarded and committed as 0396556b. It keeps manifest 86f9f400 and the frozen 4/2/2 split unchanged, but uses a new destination and atomic compressed transfer to test the v2 transport corruption. No remote write or GPU submission yet; zero quality/gate credit remains.",
