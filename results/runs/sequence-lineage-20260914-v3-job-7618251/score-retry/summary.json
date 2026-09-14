@@ -1,0 +1,21 @@
+{
+  "controls_ok": true,
+  "requested": 6,
+  "observed": 6,
+  "generation_receipt_complete": true,
+  "counts": {
+    "base": {
+      "model_sany_reject": 2
+    },
+    "parent": {
+      "model_sany_reject": 2
+    },
+    "child": {
+      "model_sany_reject": 2
+    }
+  },
+  "input_transform": "none; no extraction, repair or reference conditioning",
+  "scope": "two TRAIN-row checkpoint lineage diagnostic; not unseen quality gate",
+  "gate_claim": false,
+  "model_improvement_claim": false
+}

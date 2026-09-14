@@ -1,0 +1,26 @@
+#!/bin/bash
+# Six frozen generations, no grammar, training, or scoring.
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-lineage
+#PBS -l select=1:system=polaris:ngpus=1
+#PBS -l walltime=00:15:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+set -euo pipefail
+STAGE=/home/eric-spencer/tla-lineage-generation-20260914-v3
+cd "$STAGE"
+set -o noclobber
+exec > "job.${PBS_JOBID%%.*}.log" 2>&1
+export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false
+export HF_HOME=/grand/EVITA/eric-spencer/hf-cache PYTHONUNBUFFERED=1
+export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1
+BASE=/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-learning-20260906-v1
+MODEL=/grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659
+PARENT=/grand/EVITA/eric-spencer/tla-structured-polaris-20260911/result.7605656/policy_optimizer.pt
+CHILD=/home/eric-spencer/tla-sequence-train-20260914-v7/results/result.7618156/policy_optimizer.pt
+# Stage dependencies: this launcher, lineage runner, preflight, and paired runner.
+sha256sum -c SHA256SUMS
+timeout --signal=TERM --kill-after=10s 840s /home/eric-spencer/ChatTLA/.venv/bin/python -u -B protected_lineage_generation_v2.py \
+  --packet "$BASE/train.json" --model "$MODEL" --parent "$PARENT" --child "$CHILD" \
+  --output "$STAGE/result.${PBS_JOBID%%.*}"

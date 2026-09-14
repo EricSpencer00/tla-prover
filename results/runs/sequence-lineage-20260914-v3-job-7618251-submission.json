@@ -1,0 +1,18 @@
+{
+  "observed_utc": "2026-09-14T15:13:53Z",
+  "job_id": "7618251",
+  "scheduler_id": "7618251.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "host": "polaris",
+  "stage_manifest_sha256": "5ad0eb28ab25834efeeaa494d47dcb63e62e7b351ec3db50d585733f1b2e488c",
+  "claim_identity_sha256": "b4c4d7061bd8a4a605715122cdf1c0f1699c7be25d84da07840263843abe8711",
+  "pbs_state": "R",
+  "queue": "debug",
+  "exec_host": "x3005c0s25b1n0/0*64",
+  "ngpus": 1,
+  "walltime": "00:15:00",
+  "protected_packet_sha256": "a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c",
+  "parent_checkpoint_sha256": "b0399b51aed001051fe200751b3087fc008482ca9dfeb64eb12884f71eee3bb6",
+  "child_checkpoint_sha256": "7859aabdcc3bcc73b853c3527be88327e3c9f2cdb4b71a7005331525293d50ee",
+  "contract": "base-parent-child; rows47,107; greedy; grammar-off; no-training; no-scoring; no-gate",
+  "quality_or_gate_claim": false
+}

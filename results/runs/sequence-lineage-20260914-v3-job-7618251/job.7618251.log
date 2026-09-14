@@ -1,0 +1,13 @@
+./protected_checkpoint_paired_generation.py: OK
+./protected_checkpoint_preflight.py: OK
+./protected_lineage_generation_v2.py: OK
+./protected_lineage_polaris_v2.pbs: OK
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/291 [00:00<?, ?it/s]Loading weights: 100%|██████████| 291/291 [00:00<00:00, 8871.83it/s]
+[transformers] The following generation flags are not valid and may be ignored: ['temperature', 'top_p']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+{"phase": "base", "row": 47, "output_tokens": 177, "eos_ended": true}
+{"phase": "base", "row": 107, "output_tokens": 392, "eos_ended": true}
+{"phase": "parent", "row": 47, "output_tokens": 207, "eos_ended": true}
+{"phase": "parent", "row": 107, "output_tokens": 1024, "eos_ended": false}
+{"phase": "child", "row": 47, "output_tokens": 207, "eos_ended": true}
+{"phase": "child", "row": 107, "output_tokens": 231, "eos_ended": true}

@@ -1,0 +1,14 @@
+{
+  "observed_utc": "2026-09-14T15:09:40Z",
+  "kind": "protected_lineage_generation_stage_local_validation_v3",
+  "stage_manifest_sha256": "5ad0eb28ab25834efeeaa494d47dcb63e62e7b351ec3db50d585733f1b2e488c",
+  "packet_sha256": "a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c",
+  "parent_checkpoint_sha256": "b0399b51aed001051fe200751b3087fc008482ca9dfeb64eb12884f71eee3bb6",
+  "child_checkpoint_sha256": "7859aabdcc3bcc73b853c3527be88327e3c9f2cdb4b71a7005331525293d50ee",
+  "repair": "Accept absent dtype_profile only for the exact-weight-only child contract; require matching model_files and actual finite fp32 tensors.",
+  "contract_unchanged": true,
+  "pbs_syntax": true,
+  "python_compile": true,
+  "generation": "greedy, grammar-off, one output per phase/row, no training, no scoring, no reference conditioning",
+  "quality_or_gate_claim": false
+}

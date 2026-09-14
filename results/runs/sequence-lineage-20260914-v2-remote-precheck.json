@@ -1,0 +1,13 @@
+{
+  "observed_utc": "2026-09-14T14:59:46Z",
+  "kind": "protected_lineage_generation_remote_precheck_v1",
+  "stage_manifest_sha256": "8f1cc374c560d8b6ca877ab7b8537976f38d2bf2a1ddc34b6cffa332f8227cd2",
+  "polaris_destination": "/home/eric-spencer/tla-lineage-generation-20260914-v2",
+  "polaris_destination_state": "absent",
+  "polaris_owned_queue": "empty",
+  "sophia_owned_queue": "empty",
+  "authentication": "verified",
+  "files_transferred": false,
+  "scheduler_submission": false,
+  "quality_or_gate_claim": false
+}

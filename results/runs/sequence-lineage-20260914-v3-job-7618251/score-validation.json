@@ -1,0 +1,29 @@
+{
+  "observed_utc": "2026-09-14T15:18:50Z",
+  "kind": "protected_lineage_score_validation_v1",
+  "job_id": "7618251",
+  "generation_receipt_complete": true,
+  "scorer": "tools/protected_lineage_score.py",
+  "packet_sha256": "a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c",
+  "requested": 6,
+  "observed": 6,
+  "controls_ok": true,
+  "control_count": 4,
+  "outcomes": {
+    "base": {"sany_passes": 0, "sany_rejects": 2},
+    "parent": {"sany_passes": 0, "sany_rejects": 2},
+    "child": {"sany_passes": 0, "sany_rejects": 2}
+  },
+  "failure_modes": {
+    "row_47": "SANY parse rejection in generated module",
+    "row_107": "SANY parse rejection in generated module"
+  },
+  "input_transform": "none; no extraction, repair or reference conditioning",
+  "scope": "two TRAIN-row checkpoint lineage diagnostic; not unseen quality gate",
+  "gate_claim": false,
+  "model_improvement_claim": false,
+  "score_summary_sha256": "611b98436b39a1ac4496ef16223cdb4147a16cb653263f5be48d3c56e165703b",
+  "score_rows_sha256": "4eafd44cc802140688b1dd24f3202f95bd6cbe4f4708cd371a0366822ad1ef3a",
+  "score_controls_sha256": "764a2e0081ccd6f2462b7d5c2f512e26cc46d80702e8fddb585dd25064246bc8",
+  "score_identity_sha256": "61b89052007219e6f6aaeb1566c90206b39a0edddc77811447831cbf61acf6ab"
+}

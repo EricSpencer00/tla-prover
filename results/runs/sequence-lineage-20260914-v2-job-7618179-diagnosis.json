@@ -1,0 +1,17 @@
+{
+  "observed_utc": "2026-09-14T15:05:47Z",
+  "job_id": "7618179",
+  "log_sha256": "20912369b9522035c11e0832c19b8a8f76d963459830f3b3831ac6bc8a6d64b5",
+  "failure_site": "protected_lineage_generation_v2.py child checkpoint metadata guard",
+  "error": "child checkpoint base model/dtype profile mismatch",
+  "child_checkpoint": {
+    "sha256": "7859aabdcc3bcc73b853c3527be88327e3c9f2cdb4b71a7005331525293d50ee",
+    "model_files_present_and_matching": true,
+    "dtype_profile_metadata_present": false,
+    "actual_trainable_state_dtype": "torch.float32",
+    "exact_reload": true
+  },
+  "diagnosis": "The v7 compact child deliberately omitted dtype_profile metadata while retaining model_files and exact fp32 trainable tensors. The legacy evaluator required the optional metadata field and rejected before model loading; no protected generation or score was produced.",
+  "repair": "Require matching model_files and actual finite fp32 child tensors; accept absent dtype_profile only for the explicit exact-weight-only child contract.",
+  "quality_or_gate_claim": false
+}

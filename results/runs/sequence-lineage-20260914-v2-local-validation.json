@@ -1,0 +1,29 @@
+{
+  "observed_utc": "2026-09-14T14:55:30Z",
+  "kind": "protected_lineage_generation_stage_local_validation_v2",
+  "stage_manifest_sha256": "8f1cc374c560d8b6ca877ab7b8537976f38d2bf2a1ddc34b6cffa332f8227cd2",
+  "packet_sha256": "a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c",
+  "parent_checkpoint_sha256": "b0399b51aed001051fe200751b3087fc008482ca9dfeb64eb12884f71eee3bb6",
+  "child_checkpoint_sha256": "7859aabdcc3bcc73b853c3527be88327e3c9f2cdb4b71a7005331525293d50ee",
+  "contract": {
+    "phases": ["base", "parent", "child"],
+    "rows": [47, 107],
+    "generations_per_phase_row": 1,
+    "max_new_tokens": 1024,
+    "sampling_mode": "greedy",
+    "grammar_enforced": false,
+    "reference_conditioning": false,
+    "training": false
+  },
+  "files": [
+    "SHA256SUMS",
+    "protected_checkpoint_paired_generation.py",
+    "protected_checkpoint_preflight.py",
+    "protected_lineage_generation_v2.py",
+    "protected_lineage_polaris_v2.pbs"
+  ],
+  "payload_sha256_checks": true,
+  "pbs_syntax": true,
+  "python_compile": true,
+  "quality_or_gate_claim": false
+}

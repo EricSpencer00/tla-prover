@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 449
-- Verified UTC: 2026-09-14T14:50:00Z
+- Revision: 462
+- Verified UTC: 2026-09-14T15:22:23Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: local_work
 - Active job: none
-- Observation evidence: At 2026-09-14T14:50:00Z, v7 job7618156 completed Exit_status0 after00:01:39 on one Polaris GPU. Independent remote validation confirms an872462359-byte exact fp32 9-tensor child, positive parent-child delta0.00544296, 8 updates, 12 disjoint diagnostic holdout pairs, exact reload and matching child hash. No protected or gate claim.
-- Latest completed result: Polaris7618156 successfully executed the unchanged 8-update sequence objective and published an exact-weight child. The child is finite fp32, differs from the parent, reloads exactly, and has no optimizer slots by explicit contract. Diagnostic holdout gap moved from-0.30565278 to-0.30429899; this is internal diagnostic evidence only, not protected SANY or quality promotion.
-- Local work: Prepared append-only v7 with manifest00d6e5f4. It stores the exact fp32 trainable tensors and explicitly records optimizer_state_stored=false and optimizer_resume_supported=false, omitting only the 1.745GB Adam slots that cannot fit the home hard quota. It retains exact reload validation, atomic publication, packet/plan, 8 updates, 12-pair diagnostic holdout, protected-row exclusion and all gate rules. Local payload checks, PBS syntax, trainer compile and pycache guards pass; the remote exact-weight probe passes reload=true.
+- Observation evidence: At 2026-09-14T15:22:23Z, Polaris lineage-generation v3 job7618251 finished F Exit_status0 after00:02:15 on one GPU atx3005c0s25b1n0/0*64. The complete receipt and six raw generations were retrieved. Unchanged scoring controls pass, but base/parent/child each have0/2 SANY passes (six model rejects); no extraction, repair or reference conditioning occurred. No quality or gate claim.
+- Latest completed result: The corrected frozen base/parent/v7-child generation completed and the unchanged scorer validated all six outputs. Every candidate is a model_sany_reject: base0/2, parent0/2, child0/2. This is a genuine negative protected-row diagnostic with controls_ok=true, not a protected-quality or gate result.
+- Local work: Prepared append-only lineage-generation v3 with manifest5ad0eb28, ran the bounded job7618251, retrieved all six raw outputs and receipt, and preserved score-retry summary/rows/controls plus validation receipts. The only evaluator change is optional dtype_profile acceptance: model_files must still match and actual child tensors must be finite fp32; the protected packet, phases, rows47/107, greedy decode, grammar-off mode, scorer no-repair rule and no-gate rule remain unchanged. The v2 failure and permission-limited first local scoring attempt are preserved.
 - External blocker: none verified
-- Next action: Run unchanged protected paired generation/score on base, parent and v7 child using the frozen prompts and denominator; use it only to measure the child and preserve zero credit unless the full frozen SANY/TLC/non-vacuity/TLAPS gates pass.
+- Next action: Do not repeat unchanged full-prompt lineage. Treat the six SANY rejects as a negative/local-minimum diagnostic and design a materially different intervention—such as grammar-constrained or prefix-conditioned training/evaluation—with a fresh hypothesis, while preserving the frozen acceptance gates and keeping diagnostic rows out of gate/model-selection credit.
 
 ## Objective and evidence rules
 
@@ -37,6 +37,19 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 
 ## Decisions
 
+- 2026-09-14T15:22:23Z: Validated v3 lineage job7618251 and the unchanged scorer: controls_ok=true; base/parent/child each have0/2 SANY passes (6/6 model rejects). No extraction, repair or reference conditioning; this is a genuine negative two-TRAIN-row diagnostic and earns zero protected/gate credit. Do not repeat unchanged.
+- 2026-09-14T15:16:46Z: Polaris lineage-generation v3 job7618251 terminally finished F Exit_status0 after00:02:15. Retrieve and score the complete six-output artifact before any judgment; no quality/gate claim.
+- 2026-09-14T15:13:53Z: Submitted exactly one lineage-generation v3 job7618251 under claimb4c4d706 after fresh empty Polaris/Sophia owned queues. Scheduler attests running in debug on one GPU atx3005c0s25b1n0/0*64 with00:15:00 walltime. Monitor only; no scoring or quality/gate claim.
+- 2026-09-14T15:12:58Z: Corrected unique lineage v3 claimb4c4d706 acquired after fresh empty Polaris/Sophia owned queues. It binds manifest5ad0eb28, protected packeta125a0d5, sequence parentb0399b51, v7 child7859aabd, rows47/107 and greedy grammar-off no-scoring contract. Submit one job only; no quality/gate claim.
+- 2026-09-14T15:11:10Z: Uploaded lineage-generation v3 manifest5ad0eb28; remote manifest,4 payload hashes, PBS/CLI, exact inventory, child hash/path and optional dtype-profile guard repair pass. No qsub, score or quality/gate claim. Proceed only through a fresh final ownership check and one exact claim.
+- 2026-09-14T15:09:53Z: Fresh authenticated precheck cleared lineage-generation v3 destination absent and both Polaris/Sophia owned queues empty. Proceed with transfer and remote guards only; no qsub, score or quality/gate claim.
+- 2026-09-14T15:09:40Z: Diagnosed lineage-generation v2 job7618179: evaluator rejected v7 child solely because compact exact-weight config omits optional dtype_profile; no model loading or protected generation occurred. Prepared v3 manifest5ad0eb28 with model_files plus actual finite fp32 tensor guard retained and only optional-metadata acceptance changed. No score/gate claim.
+- 2026-09-14T15:05:47Z: Polaris lineage-generation v2 job7618179 terminally finished F after00:01:13 with Exit_status1. Preserve terminal state, retrieve log/result and diagnose before any next action; no scoring or quality/gate claim.
+- 2026-09-14T15:03:55Z: Submitted exactly one lineage-generation v2 job7618179 under claim1444bf91 after fresh empty Polaris/Sophia owned queues. Scheduler attests running in debug on one GPU atx3207c0s37b1n0/0*64 with00:15:00 walltime. Monitor only; no scoring or quality/gate claim.
+- 2026-09-14T15:02:56Z: Corrected unique lineage claim1444bf91 acquired after fresh empty Polaris/Sophia owned queues. It binds manifest8f1cc374, protected packeta125a0d5, sequence parentb0399b51, v7 child7859aabd, rows47/107 and greedy grammar-off no-scoring contract. Submit one job only; no quality/gate claim.
+- 2026-09-14T15:01:41Z: Uploaded lineage-generation v2 manifest8f1cc374; remote manifest,4 payload hashes, PBS/CLI, exact inventory, child path/hash and frozen no-training/no-scoring guards pass. No qsub or quality/gate claim. Proceed only through a fresh final ownership check and one exact claim.
+- 2026-09-14T14:59:46Z: Fresh authenticated precheck cleared lineage-generation v2 destination absent and both Polaris/Sophia owned queues empty. Proceed with transfer and remote guards only; no qsub, scoring or quality/gate claim.
+- 2026-09-14T14:55:30Z: Prepared unchanged protected base/parent/v7-child generation stage manifest8f1cc374. Only the child/parent lineage bindings differ from the older stage; prompts, greedy decoding, 2-row denominator and no-scoring/no-gate contract remain frozen. Transfer and one bounded measurement remain pending; no quality claim.
 - 2026-09-14T14:50:00Z: Validated v7 job7618156: exact child hash7859aabd,872462359 bytes, 9 finite fp32 tensors, positive delta0.00544296, 8 updates, 12 disjoint diagnostic holdout pairs, exact reload and no protected/gate claim. Holdout gap moved-0.30565278 to-0.30429899; diagnostic only. Next unchanged protected measurement must preserve zero gate credit unless all gates pass.
 - 2026-09-14T14:50:00Z: Polaris v7 job7618156 terminally finished F Exit_status0 after00:01:39. Retrieve and validate the append-only exact-weight child before any judgment; no quality/gate claim.
 - 2026-09-14T14:47:47Z: Submitted exactly one v7 job7618156 under claimcfcf436 after fresh empty Polaris/Sophia owned queues. Scheduler attests running in debug on one GPU atx3005c0s25b0n0/0*64 with00:15:00 walltime. Monitor only; no quality/gate claim.
@@ -284,16 +297,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 449,
-  "verified_utc": "2026-09-14T14:50:00Z",
+  "revision": 462,
+  "verified_utc": "2026-09-14T15:22:23Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "local_work",
   "active_job": null,
-  "observation_evidence": "At 2026-09-14T14:50:00Z, v7 job7618156 completed Exit_status0 after00:01:39 on one Polaris GPU. Independent remote validation confirms an872462359-byte exact fp32 9-tensor child, positive parent-child delta0.00544296, 8 updates, 12 disjoint diagnostic holdout pairs, exact reload and matching child hash. No protected or gate claim.",
-  "last_result": "Polaris7618156 successfully executed the unchanged 8-update sequence objective and published an exact-weight child. The child is finite fp32, differs from the parent, reloads exactly, and has no optimizer slots by explicit contract. Diagnostic holdout gap moved from-0.30565278 to-0.30429899; this is internal diagnostic evidence only, not protected SANY or quality promotion.",
-  "local_work": "Prepared append-only v7 with manifest00d6e5f4. It stores the exact fp32 trainable tensors and explicitly records optimizer_state_stored=false and optimizer_resume_supported=false, omitting only the 1.745GB Adam slots that cannot fit the home hard quota. It retains exact reload validation, atomic publication, packet/plan, 8 updates, 12-pair diagnostic holdout, protected-row exclusion and all gate rules. Local payload checks, PBS syntax, trainer compile and pycache guards pass; the remote exact-weight probe passes reload=true.",
+  "observation_evidence": "At 2026-09-14T15:22:23Z, Polaris lineage-generation v3 job7618251 finished F Exit_status0 after00:02:15 on one GPU atx3005c0s25b1n0/0*64. The complete receipt and six raw generations were retrieved. Unchanged scoring controls pass, but base/parent/child each have0/2 SANY passes (six model rejects); no extraction, repair or reference conditioning occurred. No quality or gate claim.",
+  "last_result": "The corrected frozen base/parent/v7-child generation completed and the unchanged scorer validated all six outputs. Every candidate is a model_sany_reject: base0/2, parent0/2, child0/2. This is a genuine negative protected-row diagnostic with controls_ok=true, not a protected-quality or gate result.",
+  "local_work": "Prepared append-only lineage-generation v3 with manifest5ad0eb28, ran the bounded job7618251, retrieved all six raw outputs and receipt, and preserved score-retry summary/rows/controls plus validation receipts. The only evaluator change is optional dtype_profile acceptance: model_files must still match and actual child tensors must be finite fp32; the protected packet, phases, rows47/107, greedy decode, grammar-off mode, scorer no-repair rule and no-gate rule remain unchanged. The v2 failure and permission-limited first local scoring attempt are preserved.",
   "external_blocker": "",
-  "next_action": "Run unchanged protected paired generation/score on base, parent and v7 child using the frozen prompts and denominator; use it only to measure the child and preserve zero credit unless the full frozen SANY/TLC/non-vacuity/TLAPS gates pass.",
+  "next_action": "Do not repeat unchanged full-prompt lineage. Treat the six SANY rejects as a negative/local-minimum diagnostic and design a materially different intervention\u2014such as grammar-constrained or prefix-conditioned training/evaluation\u2014with a fresh hypothesis, while preserving the frozen acceptance gates and keeping diagnostic rows out of gate/model-selection credit.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -363,6 +376,19 @@ These snapshots preserve old statements, including mistakes. They are not curren
     }
   ],
   "decisions": [
+    "2026-09-14T15:22:23Z: Validated v3 lineage job7618251 and the unchanged scorer: controls_ok=true; base/parent/child each have0/2 SANY passes (6/6 model rejects). No extraction, repair or reference conditioning; this is a genuine negative two-TRAIN-row diagnostic and earns zero protected/gate credit. Do not repeat unchanged.",
+    "2026-09-14T15:16:46Z: Polaris lineage-generation v3 job7618251 terminally finished F Exit_status0 after00:02:15. Retrieve and score the complete six-output artifact before any judgment; no quality/gate claim.",
+    "2026-09-14T15:13:53Z: Submitted exactly one lineage-generation v3 job7618251 under claimb4c4d706 after fresh empty Polaris/Sophia owned queues. Scheduler attests running in debug on one GPU atx3005c0s25b1n0/0*64 with00:15:00 walltime. Monitor only; no scoring or quality/gate claim.",
+    "2026-09-14T15:12:58Z: Corrected unique lineage v3 claimb4c4d706 acquired after fresh empty Polaris/Sophia owned queues. It binds manifest5ad0eb28, protected packeta125a0d5, sequence parentb0399b51, v7 child7859aabd, rows47/107 and greedy grammar-off no-scoring contract. Submit one job only; no quality/gate claim.",
+    "2026-09-14T15:11:10Z: Uploaded lineage-generation v3 manifest5ad0eb28; remote manifest,4 payload hashes, PBS/CLI, exact inventory, child hash/path and optional dtype-profile guard repair pass. No qsub, score or quality/gate claim. Proceed only through a fresh final ownership check and one exact claim.",
+    "2026-09-14T15:09:53Z: Fresh authenticated precheck cleared lineage-generation v3 destination absent and both Polaris/Sophia owned queues empty. Proceed with transfer and remote guards only; no qsub, score or quality/gate claim.",
+    "2026-09-14T15:09:40Z: Diagnosed lineage-generation v2 job7618179: evaluator rejected v7 child solely because compact exact-weight config omits optional dtype_profile; no model loading or protected generation occurred. Prepared v3 manifest5ad0eb28 with model_files plus actual finite fp32 tensor guard retained and only optional-metadata acceptance changed. No score/gate claim.",
+    "2026-09-14T15:05:47Z: Polaris lineage-generation v2 job7618179 terminally finished F after00:01:13 with Exit_status1. Preserve terminal state, retrieve log/result and diagnose before any next action; no scoring or quality/gate claim.",
+    "2026-09-14T15:03:55Z: Submitted exactly one lineage-generation v2 job7618179 under claim1444bf91 after fresh empty Polaris/Sophia owned queues. Scheduler attests running in debug on one GPU atx3207c0s37b1n0/0*64 with00:15:00 walltime. Monitor only; no scoring or quality/gate claim.",
+    "2026-09-14T15:02:56Z: Corrected unique lineage claim1444bf91 acquired after fresh empty Polaris/Sophia owned queues. It binds manifest8f1cc374, protected packeta125a0d5, sequence parentb0399b51, v7 child7859aabd, rows47/107 and greedy grammar-off no-scoring contract. Submit one job only; no quality/gate claim.",
+    "2026-09-14T15:01:41Z: Uploaded lineage-generation v2 manifest8f1cc374; remote manifest,4 payload hashes, PBS/CLI, exact inventory, child path/hash and frozen no-training/no-scoring guards pass. No qsub or quality/gate claim. Proceed only through a fresh final ownership check and one exact claim.",
+    "2026-09-14T14:59:46Z: Fresh authenticated precheck cleared lineage-generation v2 destination absent and both Polaris/Sophia owned queues empty. Proceed with transfer and remote guards only; no qsub, scoring or quality/gate claim.",
+    "2026-09-14T14:55:30Z: Prepared unchanged protected base/parent/v7-child generation stage manifest8f1cc374. Only the child/parent lineage bindings differ from the older stage; prompts, greedy decoding, 2-row denominator and no-scoring/no-gate contract remain frozen. Transfer and one bounded measurement remain pending; no quality claim.",
     "2026-09-14T14:50:00Z: Validated v7 job7618156: exact child hash7859aabd,872462359 bytes, 9 finite fp32 tensors, positive delta0.00544296, 8 updates, 12 disjoint diagnostic holdout pairs, exact reload and no protected/gate claim. Holdout gap moved-0.30565278 to-0.30429899; diagnostic only. Next unchanged protected measurement must preserve zero gate credit unless all gates pass.",
     "2026-09-14T14:50:00Z: Polaris v7 job7618156 terminally finished F Exit_status0 after00:01:39. Retrieve and validate the append-only exact-weight child before any judgment; no quality/gate claim.",
     "2026-09-14T14:47:47Z: Submitted exactly one v7 job7618156 under claimcfcf436 after fresh empty Polaris/Sophia owned queues. Scheduler attests running in debug on one GPU atx3005c0s25b0n0/0*64 with00:15:00 walltime. Monitor only; no quality/gate claim.",
@@ -904,7 +930,31 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "results/runs/sequence-train-20260914-v7/job-7618156/job.7618156.log",
     "results/runs/sequence-train-20260914-v7/job-7618156/train_receipt.json",
     "results/runs/sequence-train-20260914-v7/job-7618156/steps.json",
-    "results/runs/sequence-train-20260914-v7/job-7618156-validation.json"
+    "results/runs/sequence-train-20260914-v7/job-7618156-validation.json",
+    "results/stages/tla-lineage-generation-20260914-v2/SHA256SUMS",
+    "results/runs/sequence-lineage-20260914-v2-local-validation.json",
+    "results/runs/sequence-lineage-20260914-v2-remote-precheck.json",
+    "results/runs/sequence-lineage-20260914-v2-stage-upload.json",
+    "results/prover-submit-claims/1444bf911568ccd5919916842124a4a6144656537664216e0382135bf30bd1fe.json",
+    "results/runs/sequence-lineage-20260914-v2-job-7618179-submission.json",
+    "results/runs/sequence-lineage-20260914-v2-job-7618179-terminal.json",
+    "results/runs/sequence-lineage-20260914-v2-job-7618179/job.7618179.log",
+    "results/runs/sequence-lineage-20260914-v2-job-7618179-diagnosis.json",
+    "results/stages/tla-lineage-generation-20260914-v3/SHA256SUMS",
+    "results/runs/sequence-lineage-20260914-v3-local-validation.json",
+    "results/runs/sequence-lineage-20260914-v3-remote-precheck.json",
+    "results/runs/sequence-lineage-20260914-v3-stage-upload.json",
+    "results/prover-submit-claims/b4c4d7061bd8a4a605715122cdf1c0f1699c7be25d84da07840263843abe8711.json",
+    "results/runs/sequence-lineage-20260914-v3-job-7618251-submission.json",
+    "results/runs/sequence-lineage-20260914-v3-job-7618251-terminal.json",
+    "results/runs/sequence-lineage-20260914-v3-job-7618251/job.7618251.log",
+    "results/runs/sequence-lineage-20260914-v3-job-7618251/result.7618251/receipt.json",
+    "results/runs/sequence-lineage-20260914-v3-job-7618251/score-retry/summary.json",
+    "results/runs/sequence-lineage-20260914-v3-job-7618251/score-retry/rows.json",
+    "results/runs/sequence-lineage-20260914-v3-job-7618251/score-retry/controls.json",
+    "results/runs/sequence-lineage-20260914-v3-job-7618251/score-retry/identity.json",
+    "results/runs/sequence-lineage-20260914-v3-job-7618251/score-validation.json",
+    "results/runs/sequence-lineage-20260914-v3-job-7618251/score-first-attempt-permission.json"
   ]
 }
 -->

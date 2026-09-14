@@ -1,0 +1,9 @@
+{
+  "observed_utc": "2026-09-14T15:17:30Z",
+  "kind": "protected_lineage_score_environment_retry_v1",
+  "output": "score",
+  "status": "blocked_by_local_process-inspection-permission",
+  "error": "psutil PermissionError while enumerating child processes on macOS",
+  "resolution": "Reran unchanged scorer with host-level permission into append-only score-retry; score-retry completed successfully.",
+  "quality_or_gate_claim": false
+}

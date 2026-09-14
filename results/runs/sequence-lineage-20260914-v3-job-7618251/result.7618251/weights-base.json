@@ -1,0 +1,33 @@
+{
+  "phase": "base",
+  "model_files": {
+    "config.json": "29e4c210b0d6ac178b16b2a255a568bdb23b581e50ca1ef6a6d071dd85704e6e",
+    "generation_config.json": "189fb0c0d7fd8a527db217c0a60a0e013f0394cd8800f9697a666a9e75e5f7fd",
+    "model-00001-of-00004.safetensors": "2b1879f356aed350030bb40eb45ad362c89d9891096f79a3ab323d3ba5607668",
+    "model-00002-of-00004.safetensors": "09d433f650646834a83c580877bd60c6d1f88f7755305c12576b5c7058f9af15",
+    "model-00003-of-00004.safetensors": "fc1cdddd6bfa91128d6e94ee73d0ce62bfcdb7af29e978ddcab30c66ae9ea7fa",
+    "model-00004-of-00004.safetensors": "92ecfe1a2414458b4821ac8c13cf8cb70aed66b5eea8dc5ad9eeb4ff309d6d7b",
+    "model.safetensors.index.json": "146776fce3f6db1103aa6f249e65ee5544c5923ce6f971b092eee79aa6e5d37b",
+    "special_tokens_map.json": "6f38c73729248f6c127296386e3cdde96e254636cc58b4169d3fd32328d9a8ec",
+    "tokenizer.json": "79e3e522635f3171300913bb421464a87de6222182a0570b9b2ccba2a964b2b4",
+    "tokenizer_config.json": "177c7b61e616fecb84c17ce0591acb92c6c4d60e9ac5ababfb940ff23bbcd424"
+  },
+  "dtype_profile": "frozen bf16 base with float32 final transformer layer; bf16 autocast",
+  "checkpoint_sha256": null,
+  "checkpoint_config": null,
+  "final_layer_tensor_count": 9,
+  "restored_parameter_count": 0,
+  "restored_tensors_exact": false,
+  "actual_tensors_exact": true,
+  "final_layer_sha256": {
+    "model.layers.31.self_attn.q_proj.weight": "a073da909dad894f60a82e954858ed626d61c813e28ac977a4264d247b8f463a",
+    "model.layers.31.self_attn.k_proj.weight": "e957a8a956521f5aa56706181b5a9851f185802162d946ae14f5792c69699a37",
+    "model.layers.31.self_attn.v_proj.weight": "c0a18e018f13f9b826959f154ad8008dee599d8ed23d418926f19355bd5d708f",
+    "model.layers.31.self_attn.o_proj.weight": "5ac7365c219b7f2a67fb21d0c0829524869e8233fe7417f7442ac5aa7d5bddea",
+    "model.layers.31.mlp.gate_proj.weight": "aa20de778a0993c4142ab32d7f771c0127a6bed2160394f23194e14a96d88a50",
+    "model.layers.31.mlp.up_proj.weight": "e742b5b0184eeb32e6932a46a7d4ae06bb9c3f71a8632e151a1dd66f50c170fd",
+    "model.layers.31.mlp.down_proj.weight": "2404b5ee579688fb78cb8c2da1313164a3ee71d34fca0fbd22f46b2e8b9586de",
+    "model.layers.31.input_layernorm.weight": "fe894ba4cecc091dc0f53d7abaec55314514f5ffd6914e344707a2d20892a6f8",
+    "model.layers.31.post_attention_layernorm.weight": "01efc1d804eff71571104a3a55fcc22a91e8bc0b1ec6d9345cabdcb27ac34d12"
+  }
+}
