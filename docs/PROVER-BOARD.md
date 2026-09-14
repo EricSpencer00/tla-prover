@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 487
-- Verified UTC: 2026-09-14T19:49:03Z
+- Revision: 488
+- Verified UTC: 2026-09-14T19:51:02Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
-- Phase: local_work
+- Phase: unverified
 - Active job: none
-- Observation evidence: At 2026-09-14T19:49:03Z, a fresh authenticated Polaris precheck passed: host polaris-login-01, user eric-spencer, owned jobs 0, exact destination /home/eric-spencer/tla-prefix-sft-train-20260914-v2 absent. Local SHA256SUMS, PBS syntax, Python compilation and 4/2/2 no-protected guards pass for manifest 86f9f40000c4d69bcd1cd77f40adc5f7bed21ddc755b58728b8379f30c18b92c. The stage is 26M and has no remote write or GPU submission yet. The active non-inference watchdog remains running in persistent session prover-roadblock-watch.
+- Observation evidence: At 2026-09-14T19:51:02Z, scp transfer to the previously absent /home/eric-spencer/tla-prefix-sft-train-20260914-v2 failed before any job submission. Remote inspection found all six small stage files plus a full-size 27416753-byte packet, but remote packet SHA ac88b2ce8981f5f421bec4c94ae9aa27da9d45be0d60c7b6200decea74eff4bd differs from the local frozen SHA a125a0d5. The partial destination is untrusted and will not be overwritten. No GPU submission occurred; the active non-inference watchdog remains running in persistent session prover-roadblock-watch.
 - Latest completed result: Structural-span training is now a complete, reproducible artifact and the serialization/runtime bottlenecks are resolved. Validation preference margin moved from 14.341142475605011 to 14.750914980064739, but the protected SANY denominator stayed 0/2. No model-improvement, TLC, non-vacuity, TLAPS, or gate claim is made.
 - Local work: Retrieved v3 receipt, child, diagnostics, terminal record and log under results/runs/tla-structured-span-train-20260914-v3. Independent remote torch.load plus local hash/size/receipt/ledger checks passed. The exact child is retained without optimizer state; it is not resumable. V1 timeout, v2 standard-serializer failure and v3 successful legacy serialization remain separate append-only evidence. The focused commit is complete; unrelated pre-existing worktree changes remain unstaged.
 - External blocker: none verified
-- Next action: Upload this exact stage to /home/eric-spencer/tla-prefix-sft-train-20260914-v2, rerun remote checksum/CLI guards, then submit at most one debug GPU for 15 minutes under a fresh unique claim. Preserve zero protected/gate credit until a complete frozen evaluation passes.
+- Next action: Preserve the hash-invalid v2 destination as failure evidence, prepare append-only v3 with the same exact manifest and an atomic compressed transfer, then rerun remote hashes/CLI guards. Submit at most one debug GPU only after the new destination is exact and queues remain clear.
 
 ## Objective and evidence rules
 
@@ -37,6 +37,7 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 
 ## Decisions
 
+- 2026-09-14T19:51:02Z: The first scp upload of prefix-SFT v2 produced a full-size but SHA-invalid remote packet (local a125a0d5 versus remote ac88b2ce) and no job. Treat the destination as untrusted, preserve it for diagnosis, and use a new append-only v3 destination with atomic compressed transfer; no data, prompt, denominator or gate guard is weakened.
 - 2026-09-14T19:49:03Z: Fresh authenticated Polaris precheck passed with destination absent and zero owned jobs. The exact 26M prefix-SFT stage may proceed to transfer, remote guards and one bounded GPU submission under the already authorized prover goal; no quality/gate claim.
 - 2026-09-14T19:47:42Z: Prepared prefix-conditioned response-SFT v1 as a fresh branch after structural-span proxy gains without protected SANY gain. Local checksum, PBS, Python, partition and no-protected-selection guards pass for manifest 86f9f400 at /home/eric-spencer/tla-prefix-sft-train-20260914-v2. Remote transfer and one bounded GPU remain pending; no quality/gate claim.
 - 2026-09-14T19:39:15Z: Sustained prover-building goal activated. A local non-inference watchdog now polls the board every60s and uses Hermes Discord only for a changed or previously undelivered external blocker; no blocker is currently verified. Continue breadth-first, evidence-gated research until the frozen prover gate passes or no meaningful authorized path remains.
@@ -302,16 +303,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 487,
-  "verified_utc": "2026-09-14T19:49:03Z",
+  "revision": 488,
+  "verified_utc": "2026-09-14T19:51:02Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
-  "phase": "local_work",
+  "phase": "unverified",
   "active_job": null,
-  "observation_evidence": "At 2026-09-14T19:49:03Z, a fresh authenticated Polaris precheck passed: host polaris-login-01, user eric-spencer, owned jobs 0, exact destination /home/eric-spencer/tla-prefix-sft-train-20260914-v2 absent. Local SHA256SUMS, PBS syntax, Python compilation and 4/2/2 no-protected guards pass for manifest 86f9f40000c4d69bcd1cd77f40adc5f7bed21ddc755b58728b8379f30c18b92c. The stage is 26M and has no remote write or GPU submission yet. The active non-inference watchdog remains running in persistent session prover-roadblock-watch.",
+  "observation_evidence": "At 2026-09-14T19:51:02Z, scp transfer to the previously absent /home/eric-spencer/tla-prefix-sft-train-20260914-v2 failed before any job submission. Remote inspection found all six small stage files plus a full-size 27416753-byte packet, but remote packet SHA ac88b2ce8981f5f421bec4c94ae9aa27da9d45be0d60c7b6200decea74eff4bd differs from the local frozen SHA a125a0d5. The partial destination is untrusted and will not be overwritten. No GPU submission occurred; the active non-inference watchdog remains running in persistent session prover-roadblock-watch.",
   "last_result": "Structural-span training is now a complete, reproducible artifact and the serialization/runtime bottlenecks are resolved. Validation preference margin moved from 14.341142475605011 to 14.750914980064739, but the protected SANY denominator stayed 0/2. No model-improvement, TLC, non-vacuity, TLAPS, or gate claim is made.",
   "local_work": "Retrieved v3 receipt, child, diagnostics, terminal record and log under results/runs/tla-structured-span-train-20260914-v3. Independent remote torch.load plus local hash/size/receipt/ledger checks passed. The exact child is retained without optimizer state; it is not resumable. V1 timeout, v2 standard-serializer failure and v3 successful legacy serialization remain separate append-only evidence. The focused commit is complete; unrelated pre-existing worktree changes remain unstaged.",
   "external_blocker": "",
-  "next_action": "Upload this exact stage to /home/eric-spencer/tla-prefix-sft-train-20260914-v2, rerun remote checksum/CLI guards, then submit at most one debug GPU for 15 minutes under a fresh unique claim. Preserve zero protected/gate credit until a complete frozen evaluation passes.",
+  "next_action": "Preserve the hash-invalid v2 destination as failure evidence, prepare append-only v3 with the same exact manifest and an atomic compressed transfer, then rerun remote hashes/CLI guards. Submit at most one debug GPU only after the new destination is exact and queues remain clear.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -381,6 +382,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
     }
   ],
   "decisions": [
+    "2026-09-14T19:51:02Z: The first scp upload of prefix-SFT v2 produced a full-size but SHA-invalid remote packet (local a125a0d5 versus remote ac88b2ce) and no job. Treat the destination as untrusted, preserve it for diagnosis, and use a new append-only v3 destination with atomic compressed transfer; no data, prompt, denominator or gate guard is weakened.",
     "2026-09-14T19:49:03Z: Fresh authenticated Polaris precheck passed with destination absent and zero owned jobs. The exact 26M prefix-SFT stage may proceed to transfer, remote guards and one bounded GPU submission under the already authorized prover goal; no quality/gate claim.",
     "2026-09-14T19:47:42Z: Prepared prefix-conditioned response-SFT v1 as a fresh branch after structural-span proxy gains without protected SANY gain. Local checksum, PBS, Python, partition and no-protected-selection guards pass for manifest 86f9f400 at /home/eric-spencer/tla-prefix-sft-train-20260914-v2. Remote transfer and one bounded GPU remain pending; no quality/gate claim.",
     "2026-09-14T19:39:15Z: Sustained prover-building goal activated. A local non-inference watchdog now polls the board every60s and uses Hermes Discord only for a changed or previously undelivered external blocker; no blocker is currently verified. Continue breadth-first, evidence-gated research until the frozen prover gate passes or no meaningful authorized path remains.",
