@@ -1,0 +1,31 @@
+{
+  "schema": 1,
+  "kind": "remote_storage_reconciliation",
+  "checked_utc": "2026-09-15T18:20:00Z",
+  "new_stage": "/home/eric-spencer/tla-fullmodule-structural-corruption-preference-20260915-v1",
+  "current_parent": "/home/eric-spencer/tla-fullmodule-structural-curriculum-20260915-v3/result.7624329/policy_optimizer.pt",
+  "current_parent_sha256": "1559b6c3014dc18e8a27c57f9ef58c8f89c507f4995d1152eb1ea9f5f07dcc72",
+  "failed_partial_copies": [
+    {
+      "path": "/home/eric-spencer/tla-fullmodule-structural-corruption-preference-20260915-v1/starting-policy_optimizer.pt",
+      "bytes": 538308608,
+      "error": "Disk quota exceeded",
+      "removed": true
+    },
+    {
+      "path": "/eagle/EVITA/eric-spencer/tla-fullmodule-structural-corruption-preference-20260915-v1/starting-policy_optimizer.pt",
+      "bytes": 23060480,
+      "error": "Disk quota exceeded",
+      "removed": true
+    }
+  ],
+  "reclaimed_stale_checkpoint": {
+    "path": "/home/eric-spencer/tla-parent-broader-sft-20260914-v3/result.7619197/policy_optimizer.pt",
+    "bytes": 872529801,
+    "sha256": "3d7e08733268eccad08ab7dace3484c0e3b7158b5e84ab27658ccdd004af7304",
+    "locally_preserved_evidence": "results/runs/tla-parent-broader-sft-20260914-v3/independent-tensor-verification.json",
+    "removed": true
+  },
+  "submission": "none",
+  "gpu_run": "none"
+}
