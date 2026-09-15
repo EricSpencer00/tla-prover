@@ -1,0 +1,16 @@
+{
+  "kind": "polaris_authentication_blocker_v1",
+  "utc": "2026-09-15T11:41:58Z",
+  "job_id": "7619279.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "last_authoritative_job_state": "R",
+  "last_authoritative_observation_utc": "2026-09-14T22:06:07Z",
+  "direct_polaris_poll": "failed before remote command: Permission denied (keyboard-interactive,hostbased)",
+  "local_control_master": "absent",
+  "local_ssh_agent": "unavailable",
+  "phoneclaw_hop": "reachable",
+  "phoneclaw_batch_polaris_poll": "failed before remote command: Permission denied (keyboard-interactive,hostbased)",
+  "phoneclaw_gateway": "Mac-mini ericspencer gateway health reachable; only configured channel is Discord and its probe returns 401; no Twilio channel is configured",
+  "agent_board": "unreachable from this Mac at localhost:8030 and configured tailnet hostname; needs_eric ticket was not recorded",
+  "roadblock_watcher": "tmux session prover-roadblock-watch live; Hermes notification accepted; unchanged blockers are deduplicated",
+  "credential_exposure": "none; no token or OTP included"
+}
