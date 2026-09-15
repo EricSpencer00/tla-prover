@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 614
-- Verified UTC: 2026-09-15T18:35:09Z
+- Revision: 615
+- Verified UTC: 2026-09-15T18:37:55Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: local_work
 - Active job: none
-- Observation evidence: At 2026-09-15T18:35:09Z, Polaris job7624499 is terminal F/Exit1 after00:00:00 resource use with no model load, no updates, no SANY, and no result namespace. The exact failure is PBS line12: PREFERENCE_ROOT parameter null or not set. No quality, gate, proof, generalization, or promotion claim exists. An append-only v2 wrapper repair is locally prepared with the same objective/data/checkpoint and fixed hash-bound defaults.
-- Latest completed result: Job7624499 was scheduler-attested on x3204c0s13b1n0/0*64 with one requested GPU and00:15:00 walltime, but failed before checkpoint/model load because qsub did not export the required variables. Its terminal evidence is preserved under results/runs/tla-fullmodule-structural-corruption-preference-20260915-v1/job-7624499-terminal.json. The v2 stage changes only PBS variable handling: objective, packet, parent, partition, manifest, and GPU bound remain unchanged.
+- Observation evidence: At 2026-09-15T18:37:55Z, append-only v2 is locally hash-verified and remotely staged with the inherited CPU/SANY manifest. Fresh Polaris guards pass: v2 stage SHA256, packet, parent1559b6c3, manifest0274c476, model, CLI, pycache absence, output absence, and empty owned queue. New claimd16f21a7 is persisted. No v2 GPU job has been submitted yet; no quality, gate, proof, generalization, or promotion claim exists.
+- Latest completed result: Job7624499 v1 remains terminal F/Exit1 before model load because PBS did not export required variables; its exact terminal evidence is preserved. V2 changes only PBS variable handling through fixed hash-bound defaults and uses the same objective, packet, parent, partition, manifest, one-GPU resource, and00:15:00 walltime. Remote v2 guards pass and the inherited CPU preflight remains 87/87 SANY controls.
 - Local work: Structural-curriculum v3 evidence and its independently tensor-verified child remain preserved and committed; the 832MB checkpoint stays outside Git. New append-only structural-corruption preference source and stage are locally compiled, hash-checked, and bound to parent1559b6c3. The local and remote CPU preflight contains87 deterministic candidates over non-protected training/validation rows across definition, membership, declaration, and config corruptions; all negative controls are SANY-rejected. Final remote guards are complete, and only a fresh unique claim plus one bounded GPU submission remain. The job will use a node-local scratch parent copy and only one persistent child output. Protected rows47/107 remain a fixed holdout; no generated feedback, replay negatives, quality, gate, proof, or promotion claim is allowed. Polaris access is restored and the programmatic watchdog remains live.
 - External blocker: none verified
-- Next action: Record the v2 stage/terminal diagnosis, upload the append-only v2 wrapper and the already hash-verified CPU manifest, perform fresh stage/parent/manifest/output/queue guards, acquire a new unique claim, and submit exactly one one-GPU job for00:15:00. Monitor the complete receipt; no quality/gate/proof/promotion claim.
+- Next action: Submit exactly one qsub for the already-claimed v2 stage, then immediately record its scheduler state. Monitor the complete receipt and independently verify exact parent scratch hash, finite updates, checkpoint reload/copy, and protected before/after SANY. No quality/gate/proof/promotion claim.
 
 ## Objective and evidence rules
 
@@ -37,6 +37,7 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 
 ## Decisions
 
+- 2026-09-15T18:37:55Z: V2 stage is remotely hash-verified with inherited manifest0274c476, exact parent1559b6c3, and fresh empty owned queue/output namespace. New claimd16f21a7 binds only the PBS variable-propagation repair; the objective/data/partition/checkpoint/resource bound are unchanged. Submit exactly one bounded GPU job; no quality, gate, proof or promotion claim.
 - 2026-09-15T18:35:09Z: Job7624499 terminal F/Exit1 before model load because PBS did not export PREFERENCE_ROOT/PREFERENCE_MANIFEST_SHA; resources_used.ngpus=0, updates0 and no output. Preserve zero-credit harness evidence. Prepare append-only v2 with fixed hash-bound defaults only; retain the same objective/data/parent/manifest and one-GPU/15-minute bound. No quality, gate, proof or promotion claim.
 - 2026-09-15T18:32:13Z: Submitted exactly one claimed structural-corruption preference job7624499. Scheduler reports R on x3204c0s13b1n0/0*64 with one GPU and00:15:00 walltime. Monitor only; no quality, gate, proof, or promotion claim.
 - 2026-09-15T18:30:55Z: Fresh final Polaris guards pass at18:30:10Z and unique claim15c84ea5 is acquired. It binds manifest0274c476, implementation ba833776, PBS afa8a2cd, packet a125a0d5, parent1559b6c3, 87 screened pairs, 16 updates, protected47/107 holdout, one GPU and00:15:00. Submit exactly once; no quality, gate, proof or promotion claim.
@@ -425,16 +426,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 614,
-  "verified_utc": "2026-09-15T18:35:09Z",
+  "revision": 615,
+  "verified_utc": "2026-09-15T18:37:55Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "local_work",
   "active_job": null,
-  "observation_evidence": "At 2026-09-15T18:35:09Z, Polaris job7624499 is terminal F/Exit1 after00:00:00 resource use with no model load, no updates, no SANY, and no result namespace. The exact failure is PBS line12: PREFERENCE_ROOT parameter null or not set. No quality, gate, proof, generalization, or promotion claim exists. An append-only v2 wrapper repair is locally prepared with the same objective/data/checkpoint and fixed hash-bound defaults.",
-  "last_result": "Job7624499 was scheduler-attested on x3204c0s13b1n0/0*64 with one requested GPU and00:15:00 walltime, but failed before checkpoint/model load because qsub did not export the required variables. Its terminal evidence is preserved under results/runs/tla-fullmodule-structural-corruption-preference-20260915-v1/job-7624499-terminal.json. The v2 stage changes only PBS variable handling: objective, packet, parent, partition, manifest, and GPU bound remain unchanged.",
+  "observation_evidence": "At 2026-09-15T18:37:55Z, append-only v2 is locally hash-verified and remotely staged with the inherited CPU/SANY manifest. Fresh Polaris guards pass: v2 stage SHA256, packet, parent1559b6c3, manifest0274c476, model, CLI, pycache absence, output absence, and empty owned queue. New claimd16f21a7 is persisted. No v2 GPU job has been submitted yet; no quality, gate, proof, generalization, or promotion claim exists.",
+  "last_result": "Job7624499 v1 remains terminal F/Exit1 before model load because PBS did not export required variables; its exact terminal evidence is preserved. V2 changes only PBS variable handling through fixed hash-bound defaults and uses the same objective, packet, parent, partition, manifest, one-GPU resource, and00:15:00 walltime. Remote v2 guards pass and the inherited CPU preflight remains 87/87 SANY controls.",
   "local_work": "Structural-curriculum v3 evidence and its independently tensor-verified child remain preserved and committed; the 832MB checkpoint stays outside Git. New append-only structural-corruption preference source and stage are locally compiled, hash-checked, and bound to parent1559b6c3. The local and remote CPU preflight contains87 deterministic candidates over non-protected training/validation rows across definition, membership, declaration, and config corruptions; all negative controls are SANY-rejected. Final remote guards are complete, and only a fresh unique claim plus one bounded GPU submission remain. The job will use a node-local scratch parent copy and only one persistent child output. Protected rows47/107 remain a fixed holdout; no generated feedback, replay negatives, quality, gate, proof, or promotion claim is allowed. Polaris access is restored and the programmatic watchdog remains live.",
   "external_blocker": null,
-  "next_action": "Record the v2 stage/terminal diagnosis, upload the append-only v2 wrapper and the already hash-verified CPU manifest, perform fresh stage/parent/manifest/output/queue guards, acquire a new unique claim, and submit exactly one one-GPU job for00:15:00. Monitor the complete receipt; no quality/gate/proof/promotion claim.",
+  "next_action": "Submit exactly one qsub for the already-claimed v2 stage, then immediately record its scheduler state. Monitor the complete receipt and independently verify exact parent scratch hash, finite updates, checkpoint reload/copy, and protected before/after SANY. No quality/gate/proof/promotion claim.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -504,6 +505,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
     }
   ],
   "decisions": [
+    "2026-09-15T18:37:55Z: V2 stage is remotely hash-verified with inherited manifest0274c476, exact parent1559b6c3, and fresh empty owned queue/output namespace. New claimd16f21a7 binds only the PBS variable-propagation repair; the objective/data/partition/checkpoint/resource bound are unchanged. Submit exactly one bounded GPU job; no quality, gate, proof or promotion claim.",
     "2026-09-15T18:35:09Z: Job7624499 terminal F/Exit1 before model load because PBS did not export PREFERENCE_ROOT/PREFERENCE_MANIFEST_SHA; resources_used.ngpus=0, updates0 and no output. Preserve zero-credit harness evidence. Prepare append-only v2 with fixed hash-bound defaults only; retain the same objective/data/parent/manifest and one-GPU/15-minute bound. No quality, gate, proof or promotion claim.",
     "2026-09-15T18:32:13Z: Submitted exactly one claimed structural-corruption preference job7624499. Scheduler reports R on x3204c0s13b1n0/0*64 with one GPU and00:15:00 walltime. Monitor only; no quality, gate, proof, or promotion claim.",
     "2026-09-15T18:30:55Z: Fresh final Polaris guards pass at18:30:10Z and unique claim15c84ea5 is acquired. It binds manifest0274c476, implementation ba833776, PBS afa8a2cd, packet a125a0d5, parent1559b6c3, 87 screened pairs, 16 updates, protected47/107 holdout, one GPU and00:15:00. Submit exactly once; no quality, gate, proof or promotion claim.",
@@ -1393,7 +1395,10 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "results/stages/tla-fullmodule-structural-corruption-preference-20260915-v2/train.pbs",
     "results/stages/tla-fullmodule-structural-corruption-preference-20260915-v2/stage-validation.json",
     "results/stages/tla-fullmodule-structural-corruption-preference-20260915-v2/tools/__init__.py",
-    "results/stages/tla-fullmodule-structural-corruption-preference-20260915-v2/tools/proof_fullmodule_structural_corruption_preference_train.py"
+    "results/stages/tla-fullmodule-structural-corruption-preference-20260915-v2/tools/proof_fullmodule_structural_corruption_preference_train.py",
+    "results/runs/tla-fullmodule-structural-corruption-preference-20260915-v2-remote-guards.json",
+    "results/runs/tla-fullmodule-structural-corruption-preference-20260915-v2/claim.json",
+    "results/prover-submit-claims/d16f21a78d1cd5fbb17fcee9d8028a4bccd625d94f4814b651c6bd26d1e6f7ed.json"
   ]
 }
 -->
