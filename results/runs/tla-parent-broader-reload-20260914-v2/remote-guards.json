@@ -1,0 +1,19 @@
+{
+  "kind": "parent_broader_reload_remote_guards_v1",
+  "utc": "2026-09-14T21:51:55Z",
+  "stage": "/home/eric-spencer/tla-parent-broader-reload-20260914-v2",
+  "stage_sha256": "471729bf5356d6027b270c51f929228304c7efe7ad2cb5a8f1d9dfedcbda0b15",
+  "verifier_sha256": "30446657ac47aa05ce5a178b7397a01018796504e0fce8eaf889efb805f42b17",
+  "pbs_sha256": "cfdd8af9f917d878fa1358c1b8d24c326f2f601da77704fafb8176f123e224fd",
+  "packet_sha256": "5adb8315e8d9563fbf42a40fa5055d4e4b3b7f3e3c6e4ec7fe889b05ca030860",
+  "child_sha256": "3d7e08733268eccad08ab7dace3484c0e3b7158b5e84ab27658ccdd004af7304",
+  "sha256sum_check": "pass",
+  "cli_help_child_argument": "pass",
+  "resource_fork_check": "pass",
+  "pycache_check": "pass",
+  "output_collision_check": "pass",
+  "owned_queue_check": "pass",
+  "gpu_submitted": false,
+  "gate_claim": false,
+  "quality_claim": false
+}

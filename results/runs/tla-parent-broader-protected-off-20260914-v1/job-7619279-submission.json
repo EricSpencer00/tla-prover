@@ -1,0 +1,27 @@
+{
+  "kind": "parent_broader_protected_grammar_off_submission_v1",
+  "utc": "2026-09-14T22:06:07Z",
+  "job_id": "7619279.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "claim_sha256": "a2b6a8d87ce56ad63cb92309d8b253c7b83ae024f5b7aeef24c08cc66abd48e5",
+  "stage": "/home/eric-spencer/tla-parent-broader-protected-off-20260914-v1",
+  "output_pattern": "/home/eric-spencer/tla-parent-broader-protected-off-20260914-v1/result.<PBS_JOBID>/receipt.json",
+  "scheduler": {
+    "state": "R",
+    "queue": "debug",
+    "select": "1:system=polaris:ngpus=1",
+    "walltime": "00:10:00",
+    "exec_host": "x3004c0s7b0n0/0*64"
+  },
+  "contract": {
+    "protected_rows": [47, 107],
+    "arms": ["existing_decoder"],
+    "generations_per_row": 2,
+    "grammar_enforced": false,
+    "reference_responses_loaded": false,
+    "max_new_tokens": 1024,
+    "independent_samples": false
+  },
+  "gpu_submitted": true,
+  "gate_claim": false,
+  "quality_claim": false
+}

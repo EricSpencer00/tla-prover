@@ -1,0 +1,22 @@
+{
+  "kind": "parent_broader_reload_terminal_receipt_v1",
+  "utc": "2026-09-14T21:55:40Z",
+  "job_id": "7619252.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "pbs_state": "F",
+  "queue": "debug",
+  "exec_host": "x3002c0s37b0n0/0*64",
+  "exec_vnode": "(x3002c0s37b0n0:ngpus=1:ncpus=64)",
+  "requested_walltime": "00:10:00",
+  "used_walltime": "00:01:16",
+  "used_memory": "6856948kb",
+  "exit_status": 0,
+  "verification_sha256": "a9090ff612d684cfbdfc39c5596868e08b9f8d94ded7d09713934453a2ce5d0e",
+  "log_sha256": "1e850ce1f0db5cb7aeeac965589cf8f2694c72fb8e0c8452e323b537cb07e6b1",
+  "complete": true,
+  "same_runtime_logits_exact": true,
+  "cuda_device": "NVIDIA A100-SXM4-40GB",
+  "protected_training_rows": [],
+  "reference_responses_loaded": false,
+  "gate_claim": false,
+  "quality_claim": false
+}

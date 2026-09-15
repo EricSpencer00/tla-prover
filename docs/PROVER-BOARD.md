@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 506
-- Verified UTC: 2026-09-14T20:46:02Z
+- Revision: 535
+- Verified UTC: 2026-09-15T11:33:05Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
-- Phase: local_work
+- Phase: external_wait
 - Active job: none
-- Observation evidence: At 2026-09-14T20:46:02Z, Polaris job 7619041 is terminal F with Exit_status 124 after 00:14:02 walltime, 00:13:52 CPU and 8562568kb memory on x3204c0s7b0n0/0*64 under the 00:15:00 request. The fresh stage and all four immutable payload hashes passed; CPU-only XGrammar 0.2.2 preflight passed before model/CUDA work. The launcher produced only row 47 ordinary-decoder generations 0 and 1; both raw records match local/remote hashes and both are independent SANY model_reject results. The reference and syntax-negative controls pass, while the remaining six planned outputs are unmeasured_missing because the grammar arm stalled before beginning. This is partial infrastructure evidence, not a model, quality or gate result. The earlier prefix-SFT result remains verified negative; the programmatic roadblock watchdog is active.
-- Latest completed result: Broader-child protected diagnostic job 7619041 timed out at the inner 840-second safety bound before the grammar arm. The two completed ordinary-decoder row-47 outputs were both SANY rejects; controls passed and no positive protected evidence was obtained. Do not repeat this stalled launcher unchanged.
-- Local work: Structural-span v3 and prefix-SFT v3 remain verified locally. The broader-child partial terminal, raw records, independent SANY score, and verification metadata are preserved under results/runs; exact large binaries remain outside Git. The v2 hash-invalid transfer evidence remains preserved; unrelated pre-existing worktree changes remain unstaged. The watchdog source and active tmux session are verified.
-- External blocker: none verified
-- Next action: Prepare a distinct broader whole-target SFT child initialized from the current structural parent fba2768ed9a8f629f6496dc1ef72763b32fc339c74ba9075d1ffc53acd6c2d1d, using the frozen 32 non-protected rows and fresh optimizer state. Add an explicit faster grammar-off protected diagnostic path after training; preserve the fixed denominator and promote only on independently verified protected SANY movement.
+- Observation evidence: At 2026-09-15T11:33:05Z, the last authoritative Polaris scheduler observation for claimed job7619279 was job_state R on x3004c0s7b0n0/0*64 with one GPU and 00:10:00 walltime at 2026-09-14T22:06:07Z. A fresh SSH/qstat/log poll now fails before any remote command with keyboard-interactive authentication denied. Local SSH inspection finds no active ControlMaster socket and no usable authentication agent. Job terminal state and outputs are therefore unverified; no duplicate submission is allowed. The programmatic roadblock watcher is active.
+- Latest completed result: The grammar-off protected diagnostic has an unverified remote state because Polaris authentication failed before terminal/output collection; no SANY or gate claim is made.
+- Local work: Structural-span v3 and prefix-SFT v3 remain verified locally. The broader-child partial terminal, raw records, independent SANY score, and verification metadata are preserved under results/runs; exact large binaries remain outside Git. Parent-initialized broader SFT v1/v2 stages and failures are preserved; repaired v3 is transferred, hash-verified, CPU-preflight verified, and remote-guard verified with an independently tensor-verified child. Corrected reload-verifier v2 transferred atomically, passed final guards, and completed job7619252 with exact same-runtime logit reload; its terminal, verification, and log evidence are preserved. Grammar-off protected diagnostic v1 is transferred, hash-verified, final-guard verified, and has claimed job7619279 whose terminal/result remain unverified solely because remote authentication is unavailable; its source is committed as145c6daf. The unused imprecise claim babeed2b, prior unique claims/terminal evidence and the v2 hash-invalid transfer evidence remain preserved; unrelated pre-existing worktree changes remain unstaged. Local scoring and analysis remain ready once raw outputs are retrieved. The watchdog source is verified and will be restarted.
+- External blocker: Polaris SSH keyboard-interactive authentication is unavailable, blocking authoritative qstat and retrieval for job7619279; secure credential/session re-establishment is required. The agent-board service is also unreachable from this Mac, so no needs_eric ticket could be recorded.
+- Next action: Re-establish secure Polaris SSH authentication through the approved setup flow, then re-poll job7619279 and retrieve its raw records/log. Do not submit a duplicate. Once collected, run independent SANY controls and resume the breadth-first prover search.
 
 ## Objective and evidence rules
 
@@ -37,6 +37,35 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 
 ## Decisions
 
+- 2026-09-15T11:33:05Z: Fresh Polaris access failed before qstat with keyboard-interactive authentication denied; no active control socket or local agent is available. Downgrade the claimed job7619279 to unverified and enter external_wait; do not infer terminal state or duplicate it. Agent-board ticket/notification could not be created because localhost:8030 and the configured tailnet board hostname were unreachable.
+- 2026-09-14T22:06:07Z: Submitted exactly one corrected claimed grammar-off protected diagnostic job7619279. Scheduler attests R on Polaris debug, x3004c0s7b0n0/0*64, one GPU and 00:10:00 walltime. Monitor only this job; no quality/gate claim.
+- 2026-09-14T22:05:09Z: The first claim babeed2b used an imprecise literal output placeholder and is unused. Corrected claim a2b6a8d8 binds the exact PBS job-ID-derived output pattern after the same final guards and empty queue. Submit exactly once; no quality/gate claim.
+- 2026-09-14T22:03:49Z: Grammar-off protected diagnostic v1 transfer and final remote guards pass for exact stage/packet/generator/preflight/PBS hashes, protected rows47/107, no-reference generation, no residue, no collision and empty owned queue. Acquire one fresh unique claim and submit at most one bounded GPU generation; no quality/gate claim.
+- 2026-09-14T22:00:30Z: Job7619252 terminal F Exit_status0 after00:01:16 on x3002c0s37b0n0/0*64 with one GPU. Verification confirms exact9-tensor child restore,100 updates, finite FP32 state, no optimizer, and bitwise-identical logits after clear/reload. No reference responses, quality, protected or gate claim. Proceed to a separate faster grammar-off protected diagnostic.
+- 2026-09-14T21:53:53Z: Submitted exactly one fresh claimed reload-verifier v2 job7619252. Scheduler attests R on Polaris debug, x3002c0s37b0n0/0*64, one GPU and 00:10:00 walltime. Monitor only this job; no quality/gate claim.
+- 2026-09-14T21:52:57Z: Fresh unique claim ccc147c7 acquired after reload-v2 final guards and empty owned queue. It binds exact stage/packet/child/verifier/PBS, one GPU, 00:10:00, and verification.json. Submit exactly once; no quality/gate claim.
+- 2026-09-14T21:51:55Z: Reload-verifier v2 final remote guards pass: exact stage/packet/child/verifier/PBS hashes, CLI child argument, no resource-fork/bytecode residue, no output collision and empty owned queue. Acquire one fresh unique claim and submit at most one bounded GPU verification; no quality/gate claim.
+- 2026-09-14T21:50:35Z: Corrected reload-verifier v2 stage is atomically transferred to /home/eric-spencer/tla-parent-broader-reload-20260914-v2; exact stage/verifier/PBS/packet hashes pass and child3d7e0873 is retained. The prior API-only failure remains zero-credit. Run final guards, one fresh claim and at most one bounded GPU verification; no quality/gate claim.
+- 2026-09-14T21:44:42Z: Job7619233 finished F Exit_status1 after00:01:01. CPU packet/child checks passed; verifier then failed on torch.is_bf16_supported before model/CUDA reload. Repair commitf7ce7dcb corrects the API and preserves zero quality/gate credit. Use a new append-only verifier stage.
+- 2026-09-14T21:40:30Z: Submitted exactly one claimed reload-verifier job7619233. PBS reports R on x3004c0s13b0n0/0*64 with one GPU and00:10:00 walltime. Monitor only the owned job and collect terminal evidence; no quality/gate credit.
+- 2026-09-14T21:39:14Z: Fresh unique reload-verifier claim12bf340a is acquired after final guards and empty Polaris queue. It binds exact stage/packet/child/verifier/PBS, one GPU and00:10:00. Submit exactly once and record live state; no quality/gate credit.
+- 2026-09-14T21:37:17Z: Exact child-reload stage final guards pass with empty queue/output and retained child hash3d7e0873. Acquire one unique claim and submit at most one bounded GPU verification; no quality/gate credit.
+- 2026-09-14T21:35:10Z: Separate exact child-reload verifier stage transferred and all four remote hashes pass. It points at retained child3d7e0873 and uses a same-runtime bitwise-logit check after no_grad clear/reload. Run final guards, one unique claim and at most one bounded GPU verification; no quality/gate credit.
+- 2026-09-14T21:30:53Z: Job 7619197 finished F Exit_status1 after00:02:21. All100 updates and the exact872529801-byte child were written; an independent CPU census confirms finite nine-tensor state, no optimizer, and child-parent delta0.1992149567. Post-save model-logit reload failed only because parameter.zero_ lacked no_grad; repair and verify separately. No quality/gate credit.
+- 2026-09-14T21:23:35Z: Submitted exactly one claimed v3 job 7619197. PBS reports R on x3001c0s19b1n0/0*64 with one GPU and 00:15:00 walltime. Monitor only the owned job and collect terminal evidence; no gate or quality credit.
+- 2026-09-14T21:22:24Z: Fresh unique v3 claim b01c5b23 is acquired after final guards and empty Polaris queue/quota. It binds exact stage/packet/parent/runner/PBS, one GPU and 00:15:00. Submit exactly once and record live state; no gate or quality credit.
+- 2026-09-14T21:21:12Z: V3 final remote guards pass: exact stage/packet/parent/runner hashes, CLI, no residue, output collision, owned queue, and quota. Acquire one fresh unique claim and submit at most one GPU job; no gate or quality credit.
+- 2026-09-14T21:19:58Z: Repaired v3 CPU preflight passed with explicit exit0 and receipt SHA1756de82. It confirms exact32-row/tokenizer/parent/model identity and no protected/CUDA load. Remove generated tools/__pycache__, rerun guards, then one fresh claim/qsub; no gate or quality credit.
+- 2026-09-14T21:16:49Z: Repaired v3 stage transferred and all six remote SHA256 checks pass; resource-fork/bytecode cleanup is clean. It includes the exit-code repair from3c50425 and the same packet/parent/objective. Run preflight and guards before one fresh claim/qsub; no gate or quality credit.
+- 2026-09-14T21:15:10Z: Job 7619171 finished F Exit_status1 after00:01:02. The preflight succeeded but its truthy dict reached SystemExit, so PBS set-e stopped before train; resources show no model load and no child. Repair commit3c50425 changes main to return0 after successful preflight/train. Use a new append-only v3 stage; no gate or quality credit.
+- 2026-09-14T21:11:47Z: Submitted exactly one claimed v2 job 7619171. PBS reports R on x3001c0s13b0n0/0*64 with one GPU and 00:15:00 walltime. Monitor only the owned job and collect terminal evidence; no gate or quality credit.
+- 2026-09-14T21:10:36Z: Unique v2 claim 566b09ce is acquired after all guards and a fresh empty Polaris queue. It binds the exact stage/packet/parent/runner/PBS, one GPU and 00:15:00. Submit exactly once and record the live handle; no gate or quality credit.
+- 2026-09-14T21:09:28Z: Remote v2 CLI/identity/no-pycache/output guards pass, and the final owned-queue check is empty. The stage binds exact packet 5adb8315 and parent fba2768 with one-GPU/15-minute limits. Acquire one unique claim and submit at most one qsub; no gate or quality credit.
+- 2026-09-14T21:07:40Z: Repaired v2 CPU preflight passed on Polaris: exact 32-row packet/tokenizer/parent/model identity, deterministic schedule, and no protected response or CUDA loading. Receipt SHA 1756de82 is preserved. Run remote CLI/identity/no-pycache guards, then one unique claim and at most one qsub; no gate or quality credit.
+- 2026-09-14T21:03:54Z: Repaired append-only v2 stage transfer passed all six remote SHA256 checks. The v1 import-path failure remains preserved; v2 binds the corrected runner and the same packet/parent without data or objective changes. Run CPU preflight and CLI/identity guards before any unique claim or qsub; no gate or quality credit.
+- 2026-09-14T21:02:19Z: The v1 CPU preflight stopped before packet validation on an isolated-stage import-path defect (ModuleNotFoundError for tools). No model/CUDA/GPU work occurred; the exact failure is preserved. The runner-only sys.path repair is committed as a07efca4; use a new append-only v2 stage and rerun all guards, with zero gate or quality credit.
+- 2026-09-14T21:00:56Z: Atomic transfer of the distinct parent-initialized broader SFT stage passed all six remote SHA256 checks. The stage is append-only at /home/eric-spencer/tla-parent-broader-sft-20260914-v1; no GPU was submitted. Run CPU preflight and CLI/identity guards before any unique claim or qsub; no gate or quality credit is assigned.
+- 2026-09-14T20:58:04Z: Prepared a distinct parent-initialized broader whole-target SFT branch. It binds the frozen 32-row packet and exact fba2768 parent, restores only the nine final-layer tensors, starts fresh AdamW state, omits optimizer bulk from the child, and explicitly excludes protected rows from training. CPU preflight and remote guards must pass before one bounded Polaris GPU submission; no gate or quality credit is assigned.
 - 2026-09-14T20:46:02Z: Job 7619041 is classified as a bounded infrastructure timeout: inner timeout exit 124 at 00:14:02, two ordinary row-47 outputs, grammar arm unstarted, controls 4/4 and available outputs 2/2 SANY rejects. No gate or quality credit. The unchanged launcher is pruned; the next branch is parent-initialized broader whole-target SFT with a separate grammar-off protected check.
 - 2026-09-14T20:30:26Z: Submitted exactly one claimed broader-child protected diagnostic job 7619041; qstat attests R on x3204c0s7b0n0/0*64 with one GPU and a 00:15:00 walltime cap. No duplicate submission, training, scoring or gate claim.
 - 2026-09-14T20:28:57Z: Unique claim 4852227256266f4368c562fe21ccc7ec0c46706454768ca9bccb12dbb6ec2e44 acquired after the Polaris owned-queue/output check passed. It binds the exact packet, broader child, generation helpers, canonical grammar, launcher, one GPU and 15-minute walltime. Submit exactly once; no gate or quality claim.
@@ -321,16 +350,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 506,
-  "verified_utc": "2026-09-14T20:46:02Z",
+  "revision": 535,
+  "verified_utc": "2026-09-15T11:33:05Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
-  "phase": "local_work",
+  "phase": "external_wait",
   "active_job": null,
-  "observation_evidence": "At 2026-09-14T20:46:02Z, Polaris job 7619041 is terminal F with Exit_status 124 after 00:14:02 walltime, 00:13:52 CPU and 8562568kb memory on x3204c0s7b0n0/0*64 under the 00:15:00 request. The fresh stage and all four immutable payload hashes passed; CPU-only XGrammar 0.2.2 preflight passed before model/CUDA work. The launcher produced only row 47 ordinary-decoder generations 0 and 1; both raw records match local/remote hashes and both are independent SANY model_reject results. The reference and syntax-negative controls pass, while the remaining six planned outputs are unmeasured_missing because the grammar arm stalled before beginning. This is partial infrastructure evidence, not a model, quality or gate result. The earlier prefix-SFT result remains verified negative; the programmatic roadblock watchdog is active.",
-  "last_result": "Broader-child protected diagnostic job 7619041 timed out at the inner 840-second safety bound before the grammar arm. The two completed ordinary-decoder row-47 outputs were both SANY rejects; controls passed and no positive protected evidence was obtained. Do not repeat this stalled launcher unchanged.",
-  "local_work": "Structural-span v3 and prefix-SFT v3 remain verified locally. The broader-child partial terminal, raw records, independent SANY score, and verification metadata are preserved under results/runs; exact large binaries remain outside Git. The v2 hash-invalid transfer evidence remains preserved; unrelated pre-existing worktree changes remain unstaged. The watchdog source and active tmux session are verified.",
-  "external_blocker": "",
-  "next_action": "Prepare a distinct broader whole-target SFT child initialized from the current structural parent fba2768ed9a8f629f6496dc1ef72763b32fc339c74ba9075d1ffc53acd6c2d1d, using the frozen 32 non-protected rows and fresh optimizer state. Add an explicit faster grammar-off protected diagnostic path after training; preserve the fixed denominator and promote only on independently verified protected SANY movement.",
+  "observation_evidence": "At 2026-09-15T11:33:05Z, the last authoritative Polaris scheduler observation for claimed job7619279 was job_state R on x3004c0s7b0n0/0*64 with one GPU and 00:10:00 walltime at 2026-09-14T22:06:07Z. A fresh SSH/qstat/log poll now fails before any remote command with keyboard-interactive authentication denied. Local SSH inspection finds no active ControlMaster socket and no usable authentication agent. Job terminal state and outputs are therefore unverified; no duplicate submission is allowed. The programmatic roadblock watcher is active.",
+  "last_result": "The grammar-off protected diagnostic has an unverified remote state because Polaris authentication failed before terminal/output collection; no SANY or gate claim is made.",
+  "local_work": "Structural-span v3 and prefix-SFT v3 remain verified locally. The broader-child partial terminal, raw records, independent SANY score, and verification metadata are preserved under results/runs; exact large binaries remain outside Git. Parent-initialized broader SFT v1/v2 stages and failures are preserved; repaired v3 is transferred, hash-verified, CPU-preflight verified, and remote-guard verified with an independently tensor-verified child. Corrected reload-verifier v2 transferred atomically, passed final guards, and completed job7619252 with exact same-runtime logit reload; its terminal, verification, and log evidence are preserved. Grammar-off protected diagnostic v1 is transferred, hash-verified, final-guard verified, and has claimed job7619279 whose terminal/result remain unverified solely because remote authentication is unavailable; its source is committed as145c6daf. The unused imprecise claim babeed2b, prior unique claims/terminal evidence and the v2 hash-invalid transfer evidence remain preserved; unrelated pre-existing worktree changes remain unstaged. Local scoring and analysis remain ready once raw outputs are retrieved. The watchdog source is verified and will be restarted.",
+  "external_blocker": "Polaris SSH keyboard-interactive authentication is unavailable, blocking authoritative qstat and retrieval for job7619279; secure credential/session re-establishment is required. The agent-board service is also unreachable from this Mac, so no needs_eric ticket could be recorded.",
+  "next_action": "Re-establish secure Polaris SSH authentication through the approved setup flow, then re-poll job7619279 and retrieve its raw records/log. Do not submit a duplicate. Once collected, run independent SANY controls and resume the breadth-first prover search.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -400,6 +429,35 @@ These snapshots preserve old statements, including mistakes. They are not curren
     }
   ],
   "decisions": [
+    "2026-09-15T11:33:05Z: Fresh Polaris access failed before qstat with keyboard-interactive authentication denied; no active control socket or local agent is available. Downgrade the claimed job7619279 to unverified and enter external_wait; do not infer terminal state or duplicate it. Agent-board ticket/notification could not be created because localhost:8030 and the configured tailnet board hostname were unreachable.",
+    "2026-09-14T22:06:07Z: Submitted exactly one corrected claimed grammar-off protected diagnostic job7619279. Scheduler attests R on Polaris debug, x3004c0s7b0n0/0*64, one GPU and 00:10:00 walltime. Monitor only this job; no quality/gate claim.",
+    "2026-09-14T22:05:09Z: The first claim babeed2b used an imprecise literal output placeholder and is unused. Corrected claim a2b6a8d8 binds the exact PBS job-ID-derived output pattern after the same final guards and empty queue. Submit exactly once; no quality/gate claim.",
+    "2026-09-14T22:03:49Z: Grammar-off protected diagnostic v1 transfer and final remote guards pass for exact stage/packet/generator/preflight/PBS hashes, protected rows47/107, no-reference generation, no residue, no collision and empty owned queue. Acquire one fresh unique claim and submit at most one bounded GPU generation; no quality/gate claim.",
+    "2026-09-14T22:00:30Z: Job7619252 terminal F Exit_status0 after00:01:16 on x3002c0s37b0n0/0*64 with one GPU. Verification confirms exact9-tensor child restore,100 updates, finite FP32 state, no optimizer, and bitwise-identical logits after clear/reload. No reference responses, quality, protected or gate claim. Proceed to a separate faster grammar-off protected diagnostic.",
+    "2026-09-14T21:53:53Z: Submitted exactly one fresh claimed reload-verifier v2 job7619252. Scheduler attests R on Polaris debug, x3002c0s37b0n0/0*64, one GPU and 00:10:00 walltime. Monitor only this job; no quality/gate claim.",
+    "2026-09-14T21:52:57Z: Fresh unique claim ccc147c7 acquired after reload-v2 final guards and empty owned queue. It binds exact stage/packet/child/verifier/PBS, one GPU, 00:10:00, and verification.json. Submit exactly once; no quality/gate claim.",
+    "2026-09-14T21:51:55Z: Reload-verifier v2 final remote guards pass: exact stage/packet/child/verifier/PBS hashes, CLI child argument, no resource-fork/bytecode residue, no output collision and empty owned queue. Acquire one fresh unique claim and submit at most one bounded GPU verification; no quality/gate claim.",
+    "2026-09-14T21:50:35Z: Corrected reload-verifier v2 stage is atomically transferred to /home/eric-spencer/tla-parent-broader-reload-20260914-v2; exact stage/verifier/PBS/packet hashes pass and child3d7e0873 is retained. The prior API-only failure remains zero-credit. Run final guards, one fresh claim and at most one bounded GPU verification; no quality/gate claim.",
+    "2026-09-14T21:44:42Z: Job7619233 finished F Exit_status1 after00:01:01. CPU packet/child checks passed; verifier then failed on torch.is_bf16_supported before model/CUDA reload. Repair commitf7ce7dcb corrects the API and preserves zero quality/gate credit. Use a new append-only verifier stage.",
+    "2026-09-14T21:40:30Z: Submitted exactly one claimed reload-verifier job7619233. PBS reports R on x3004c0s13b0n0/0*64 with one GPU and00:10:00 walltime. Monitor only the owned job and collect terminal evidence; no quality/gate credit.",
+    "2026-09-14T21:39:14Z: Fresh unique reload-verifier claim12bf340a is acquired after final guards and empty Polaris queue. It binds exact stage/packet/child/verifier/PBS, one GPU and00:10:00. Submit exactly once and record live state; no quality/gate credit.",
+    "2026-09-14T21:37:17Z: Exact child-reload stage final guards pass with empty queue/output and retained child hash3d7e0873. Acquire one unique claim and submit at most one bounded GPU verification; no quality/gate credit.",
+    "2026-09-14T21:35:10Z: Separate exact child-reload verifier stage transferred and all four remote hashes pass. It points at retained child3d7e0873 and uses a same-runtime bitwise-logit check after no_grad clear/reload. Run final guards, one unique claim and at most one bounded GPU verification; no quality/gate credit.",
+    "2026-09-14T21:30:53Z: Job 7619197 finished F Exit_status1 after00:02:21. All100 updates and the exact872529801-byte child were written; an independent CPU census confirms finite nine-tensor state, no optimizer, and child-parent delta0.1992149567. Post-save model-logit reload failed only because parameter.zero_ lacked no_grad; repair and verify separately. No quality/gate credit.",
+    "2026-09-14T21:23:35Z: Submitted exactly one claimed v3 job 7619197. PBS reports R on x3001c0s19b1n0/0*64 with one GPU and 00:15:00 walltime. Monitor only the owned job and collect terminal evidence; no gate or quality credit.",
+    "2026-09-14T21:22:24Z: Fresh unique v3 claim b01c5b23 is acquired after final guards and empty Polaris queue/quota. It binds exact stage/packet/parent/runner/PBS, one GPU and 00:15:00. Submit exactly once and record live state; no gate or quality credit.",
+    "2026-09-14T21:21:12Z: V3 final remote guards pass: exact stage/packet/parent/runner hashes, CLI, no residue, output collision, owned queue, and quota. Acquire one fresh unique claim and submit at most one GPU job; no gate or quality credit.",
+    "2026-09-14T21:19:58Z: Repaired v3 CPU preflight passed with explicit exit0 and receipt SHA1756de82. It confirms exact32-row/tokenizer/parent/model identity and no protected/CUDA load. Remove generated tools/__pycache__, rerun guards, then one fresh claim/qsub; no gate or quality credit.",
+    "2026-09-14T21:16:49Z: Repaired v3 stage transferred and all six remote SHA256 checks pass; resource-fork/bytecode cleanup is clean. It includes the exit-code repair from3c50425 and the same packet/parent/objective. Run preflight and guards before one fresh claim/qsub; no gate or quality credit.",
+    "2026-09-14T21:15:10Z: Job 7619171 finished F Exit_status1 after00:01:02. The preflight succeeded but its truthy dict reached SystemExit, so PBS set-e stopped before train; resources show no model load and no child. Repair commit3c50425 changes main to return0 after successful preflight/train. Use a new append-only v3 stage; no gate or quality credit.",
+    "2026-09-14T21:11:47Z: Submitted exactly one claimed v2 job 7619171. PBS reports R on x3001c0s13b0n0/0*64 with one GPU and 00:15:00 walltime. Monitor only the owned job and collect terminal evidence; no gate or quality credit.",
+    "2026-09-14T21:10:36Z: Unique v2 claim 566b09ce is acquired after all guards and a fresh empty Polaris queue. It binds the exact stage/packet/parent/runner/PBS, one GPU and 00:15:00. Submit exactly once and record the live handle; no gate or quality credit.",
+    "2026-09-14T21:09:28Z: Remote v2 CLI/identity/no-pycache/output guards pass, and the final owned-queue check is empty. The stage binds exact packet 5adb8315 and parent fba2768 with one-GPU/15-minute limits. Acquire one unique claim and submit at most one qsub; no gate or quality credit.",
+    "2026-09-14T21:07:40Z: Repaired v2 CPU preflight passed on Polaris: exact 32-row packet/tokenizer/parent/model identity, deterministic schedule, and no protected response or CUDA loading. Receipt SHA 1756de82 is preserved. Run remote CLI/identity/no-pycache guards, then one unique claim and at most one qsub; no gate or quality credit.",
+    "2026-09-14T21:03:54Z: Repaired append-only v2 stage transfer passed all six remote SHA256 checks. The v1 import-path failure remains preserved; v2 binds the corrected runner and the same packet/parent without data or objective changes. Run CPU preflight and CLI/identity guards before any unique claim or qsub; no gate or quality credit.",
+    "2026-09-14T21:02:19Z: The v1 CPU preflight stopped before packet validation on an isolated-stage import-path defect (ModuleNotFoundError for tools). No model/CUDA/GPU work occurred; the exact failure is preserved. The runner-only sys.path repair is committed as a07efca4; use a new append-only v2 stage and rerun all guards, with zero gate or quality credit.",
+    "2026-09-14T21:00:56Z: Atomic transfer of the distinct parent-initialized broader SFT stage passed all six remote SHA256 checks. The stage is append-only at /home/eric-spencer/tla-parent-broader-sft-20260914-v1; no GPU was submitted. Run CPU preflight and CLI/identity guards before any unique claim or qsub; no gate or quality credit is assigned.",
+    "2026-09-14T20:58:04Z: Prepared a distinct parent-initialized broader whole-target SFT branch. It binds the frozen 32-row packet and exact fba2768 parent, restores only the nine final-layer tensors, starts fresh AdamW state, omits optimizer bulk from the child, and explicitly excludes protected rows from training. CPU preflight and remote guards must pass before one bounded Polaris GPU submission; no gate or quality credit is assigned.",
     "2026-09-14T20:46:02Z: Job 7619041 is classified as a bounded infrastructure timeout: inner timeout exit 124 at 00:14:02, two ordinary row-47 outputs, grammar arm unstarted, controls 4/4 and available outputs 2/2 SANY rejects. No gate or quality credit. The unchanged launcher is pruned; the next branch is parent-initialized broader whole-target SFT with a separate grammar-off protected check.",
     "2026-09-14T20:30:26Z: Submitted exactly one claimed broader-child protected diagnostic job 7619041; qstat attests R on x3204c0s7b0n0/0*64 with one GPU and a 00:15:00 walltime cap. No duplicate submission, training, scoring or gate claim.",
     "2026-09-14T20:28:57Z: Unique claim 4852227256266f4368c562fe21ccc7ec0c46706454768ca9bccb12dbb6ec2e44 acquired after the Polaris owned-queue/output check passed. It binds the exact packet, broader child, generation helpers, canonical grammar, launcher, one GPU and 15-minute walltime. Submit exactly once; no gate or quality claim.",
@@ -1007,7 +1065,54 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "results/runs/tla-broader-child-protected-diag-20260914-v1/verification.json",
     "results/runs/tla-broader-child-protected-diag-20260914-v1/job.7619041.log",
     "results/runs/tla-broader-child-protected-diag-20260914-v1/sany-score-7619041/summary.json",
-    "results/runs/tla-broader-child-protected-diag-20260914-v1/sany-score-7619041/controls.json"
+    "results/runs/tla-broader-child-protected-diag-20260914-v1/sany-score-7619041/controls.json",
+    "results/stages/tla-parent-broader-sft-20260914-v1/SHA256SUMS",
+    "results/runs/tla-parent-broader-sft-20260914-v1/stage-upload-receipt.json",
+    "results/runs/tla-parent-broader-sft-20260914-v1/preflight-failure.json",
+    "results/stages/tla-parent-broader-sft-20260914-v2/SHA256SUMS",
+    "results/runs/tla-parent-broader-sft-20260914-v2/stage-upload-receipt.json",
+    "results/runs/tla-parent-broader-sft-20260914-v2/preflight.json",
+    "results/runs/tla-parent-broader-sft-20260914-v2/remote-guards.json",
+    "results/prover-submit-claims/566b09cee3ea6e0e509d92dc6d7c870e528a4174c2106320da360c997141741e.json",
+    "results/runs/tla-parent-broader-sft-20260914-v2/job-7619171-submission.json",
+    "results/runs/tla-parent-broader-sft-20260914-v2/job-7619171-terminal.json",
+    "results/runs/tla-parent-broader-sft-20260914-v2/job-7619171/job.7619171.log",
+    "results/stages/tla-parent-broader-sft-20260914-v3/SHA256SUMS",
+    "results/runs/tla-parent-broader-sft-20260914-v3/stage-upload-receipt.json",
+    "results/runs/tla-parent-broader-sft-20260914-v3/preflight.json",
+    "results/runs/tla-parent-broader-sft-20260914-v3/remote-guards.json",
+    "results/prover-submit-claims/b01c5b23c5f0647d5880f470864a8e86ca537e6a85b731b21446247355a74e06.json",
+    "results/runs/tla-parent-broader-sft-20260914-v3/job-7619197-submission.json",
+    "results/runs/tla-parent-broader-sft-20260914-v3/job-7619197-terminal.json",
+    "results/runs/tla-parent-broader-sft-20260914-v3/job.7619197.log",
+    "results/runs/tla-parent-broader-sft-20260914-v3/independent-tensor-verification.json",
+    "results/stages/tla-parent-broader-reload-20260914-v1/SHA256SUMS",
+    "results/runs/tla-parent-broader-reload-20260914-v1/stage-upload-receipt.json",
+    "results/runs/tla-parent-broader-reload-20260914-v1/remote-guards.json",
+    "results/prover-submit-claims/12bf340a6c47575c1efffe5c515da9cf7b2a168e95a111fb1e34d7fc486af154.json",
+    "results/runs/tla-parent-broader-reload-20260914-v1/job-7619233-submission.json",
+    "results/runs/tla-parent-broader-reload-20260914-v1/job-7619233-terminal.json",
+    "results/runs/tla-parent-broader-reload-20260914-v1/job-7619233/job.7619233.log",
+    "results/stages/tla-parent-broader-reload-20260914-v2/SHA256SUMS",
+    "results/runs/tla-parent-broader-reload-20260914-v2/stage-upload-receipt.json",
+    "results/runs/tla-parent-broader-reload-20260914-v2/remote-guards.json",
+    "results/prover-submit-claims/ccc147c7dae3aa3822fb3bd380a9d16d423dc02356f74d044f4d1ecaa7a4c5f3.json",
+    "results/runs/tla-parent-broader-reload-20260914-v2/job-7619252-submission.json",
+    "results/runs/tla-parent-broader-reload-20260914-v2/verification.json",
+    "results/runs/tla-parent-broader-reload-20260914-v2/job.7619252.log",
+    "results/runs/tla-parent-broader-reload-20260914-v2/job-7619252-terminal.json",
+    "tools/protected_checkpoint_grammar_off_generation.py",
+    "tools/protected_checkpoint_grammar_off_generation_polaris.pbs",
+    "results/stages/tla-parent-broader-protected-off-20260914-v1/SHA256SUMS",
+    "results/runs/tla-parent-broader-protected-off-20260914-v1/stage-upload-receipt.json",
+    "results/runs/tla-parent-broader-protected-off-20260914-v1/remote-guards.json",
+    "results/prover-submit-claims/babeed2b5338dd857fbc11a07c2a6b93618595440268caa266e0ad9714c88375.json",
+    "results/prover-submit-claims/a2b6a8d87ce56ad63cb92309d8b253c7b83ae024f5b7aeef24c08cc66abd48e5.json",
+    "results/runs/tla-parent-broader-protected-off-20260914-v1/job-7619279-submission.json",
+    "results/prover-submit-claims/12bf340a6c47575c1efffe5c515da9cf7b2a168e95a111fb1e34d7fc486af154.json",
+    "tools/proof_parent_broader_sft_train.py",
+    "tools/proof_parent_broader_sft_train_polaris.pbs",
+    "results/runs/proof-broader-train-prepared-20260905-v1/train.json"
   ]
 }
 -->
