@@ -274,12 +274,16 @@ def main():
     exact_inputs(args)
     tokenizer = load_tokenizer(args)
     xgrammar, compiled, vocab_size = compile_grammar(args, tokenizer)
+    packet = json.loads(args.packet.read_text())
+    selected_rows = preflight.protected_rows(packet)
+    prompt_evidence = preflight.verify_prompt_tokens(tokenizer, selected_rows)
     references = protected_references(args, tokenizer, xgrammar, compiled)
     controls = synthetic_beam_control(xgrammar)
     if args.preflight_only:
         print(json.dumps(dict(kind="protected_grammar_repair_beam_preflight_v1", complete=True,
             packet_sha256=PACKET_SHA, corpus_sha256=CORPUS_SHA, grammar_sha256=GRAMMAR_SHA,
             child_checkpoint_sha256=CHILD_SHA, rows=list(ROWS), protected_references=references,
+            protected_prompt_tokens=prompt_evidence,
             synthetic_controls=controls, xgrammar_version="0.2.2", vocabulary_size=vocab_size,
             max_new_tokens=args.max_new_tokens, beam_width=args.beam_width, branch_k=args.branch_k,
             model_weights_loaded=False, cuda_touched=False, gate_claim=False,
