@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 612
-- Verified UTC: 2026-09-15T18:30:55Z
+- Revision: 613
+- Verified UTC: 2026-09-15T18:32:13Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
-- Phase: local_work
-- Active job: none
-- Observation evidence: At 2026-09-15T18:30:55Z, the append-only structural-corruption preference stage has a locally verified CPU/SANY preflight and exact remote guards. The persistent one-experiment claim15c84ea5 is acquired after a fresh Polaris check at18:30:10Z: stage, packet, parent, manifest, model, and output guards pass; pycache is absent; and the owned queue is empty. No GPU job has been submitted yet. No quality, gate, proof, generalization, or promotion claim is made.
-- Latest completed result: CPU preflight manifest 0274c476 is retrieved and independently checked: 22 clean positives,87 SANY-rejected corruptions,63 train pairs,24 validation pairs, protected rows47/107 excluded. Remote guards pass with PBS afa8a2cd, implementation ba833776, SANY jar936a2620, model config29e4c210, production CLI help, no pycache, absent result namespace, and empty owned queue. Fresh claim identity15c84ea5 is persisted in results/prover-submit-claims and bound to this exact stage, parent, packet, objective, 16-update budget, one GPU, and00:15:00 walltime. This is readiness evidence only; no model result exists.
+- Phase: running
+- Active job: `7624499.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov` (R, polaris, owner eric-spencer)
+- Observation evidence: At 2026-09-15T18:32:13Z, Polaris job7624499 is scheduler-attested running on x3204c0s13b1n0/0*64 with one GPU and00:15:00 walltime. It is the sole submission under claim15c84ea5 after the exact CPU/SANY preflight and final remote guards. No result or quality/gate/proof claim exists yet.
+- Latest completed result: CPU preflight manifest 0274c476 is retrieved and independently checked: 22 clean positives,87 SANY-rejected corruptions,63 train pairs,24 validation pairs, protected rows47/107 excluded. Remote guards pass with PBS afa8a2cd, implementation ba833776, SANY jar936a2620, model config29e4c210, production CLI help, no pycache, absent result namespace, and empty owned queue. Claim identity15c84ea5 is persisted and bound to this exact stage, parent, packet, objective, 16-update budget, one GPU, and00:15:00 walltime; submission is recorded as job7624499.
 - Local work: Structural-curriculum v3 evidence and its independently tensor-verified child remain preserved and committed; the 832MB checkpoint stays outside Git. New append-only structural-corruption preference source and stage are locally compiled, hash-checked, and bound to parent1559b6c3. The local and remote CPU preflight contains87 deterministic candidates over non-protected training/validation rows across definition, membership, declaration, and config corruptions; all negative controls are SANY-rejected. Final remote guards are complete, and only a fresh unique claim plus one bounded GPU submission remain. The job will use a node-local scratch parent copy and only one persistent child output. Protected rows47/107 remain a fixed holdout; no generated feedback, replay negatives, quality, gate, proof, or promotion claim is allowed. Polaris access is restored and the programmatic watchdog remains live.
 - External blocker: none verified
-- Next action: Submit exactly one qsub for the already-claimed stage, then immediately record its scheduler state. Monitor the complete receipt and independently verify checkpoint reload/copy, finite updates, and protected before/after SANY. Do not promote any child or claim quality/gate/proof credit without the full frozen denominator.
+- Next action: Monitor job7624499 until terminal. Retrieve the complete receipt and independently verify exact parent scratch hash, finite updates, checkpoint reload/copy, and protected before/after SANY. Do not promote any child or claim quality/gate/proof credit without the full frozen denominator.
 
 ## Objective and evidence rules
 
@@ -37,6 +37,7 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 
 ## Decisions
 
+- 2026-09-15T18:32:13Z: Submitted exactly one claimed structural-corruption preference job7624499. Scheduler reports R on x3204c0s13b1n0/0*64 with one GPU and00:15:00 walltime. Monitor only; no quality, gate, proof, or promotion claim.
 - 2026-09-15T18:30:55Z: Fresh final Polaris guards pass at18:30:10Z and unique claim15c84ea5 is acquired. It binds manifest0274c476, implementation ba833776, PBS afa8a2cd, packet a125a0d5, parent1559b6c3, 87 screened pairs, 16 updates, protected47/107 holdout, one GPU and00:15:00. Submit exactly once; no quality, gate, proof or promotion claim.
 - 2026-09-15T18:28:11Z: Repaired CPU preflight completed 87/87 SANY controls with22 clean positives and87 rejected corruption controls; manifest0274c476 is hash-bound to packet a125a0d5 and parent1559b6c3. Remote stage/packet/parent/jar/model/output/pycache/CLI/queue guards pass, with no active owned job. The package-path defect earned no model credit. Proceed to one fresh unique claim and one bounded one-GPU submission only; no quality, gate, proof or promotion claim.
 - 2026-09-15T18:24:52Z: The first CPU-preflight attempt failed before SANY because the staged tools/__init__.py did not expose the shared decoder module. No manifest/output/GPU side effect occurred. Repair the stage initializer to the verified v3 path-extension implementation (SHA81c66d1), refresh the four-file inventory, and retry CPU preparation once. No quality, gate, proof or promotion claim.
@@ -423,16 +424,21 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 612,
-  "verified_utc": "2026-09-15T18:30:55Z",
+  "revision": 613,
+  "verified_utc": "2026-09-15T18:32:13Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
-  "phase": "local_work",
-  "active_job": null,
-  "observation_evidence": "At 2026-09-15T18:30:55Z, the append-only structural-corruption preference stage has a locally verified CPU/SANY preflight and exact remote guards. The persistent one-experiment claim15c84ea5 is acquired after a fresh Polaris check at18:30:10Z: stage, packet, parent, manifest, model, and output guards pass; pycache is absent; and the owned queue is empty. No GPU job has been submitted yet. No quality, gate, proof, generalization, or promotion claim is made.",
-  "last_result": "CPU preflight manifest 0274c476 is retrieved and independently checked: 22 clean positives,87 SANY-rejected corruptions,63 train pairs,24 validation pairs, protected rows47/107 excluded. Remote guards pass with PBS afa8a2cd, implementation ba833776, SANY jar936a2620, model config29e4c210, production CLI help, no pycache, absent result namespace, and empty owned queue. Fresh claim identity15c84ea5 is persisted in results/prover-submit-claims and bound to this exact stage, parent, packet, objective, 16-update budget, one GPU, and00:15:00 walltime. This is readiness evidence only; no model result exists.",
+  "phase": "running",
+  "active_job": {
+    "id": "7624499.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+    "owner": "eric-spencer",
+    "host": "polaris",
+    "pbs_state": "R"
+  },
+  "observation_evidence": "At 2026-09-15T18:32:13Z, Polaris job7624499 is scheduler-attested running on x3204c0s13b1n0/0*64 with one GPU and00:15:00 walltime. It is the sole submission under claim15c84ea5 after the exact CPU/SANY preflight and final remote guards. No result or quality/gate/proof claim exists yet.",
+  "last_result": "CPU preflight manifest 0274c476 is retrieved and independently checked: 22 clean positives,87 SANY-rejected corruptions,63 train pairs,24 validation pairs, protected rows47/107 excluded. Remote guards pass with PBS afa8a2cd, implementation ba833776, SANY jar936a2620, model config29e4c210, production CLI help, no pycache, absent result namespace, and empty owned queue. Claim identity15c84ea5 is persisted and bound to this exact stage, parent, packet, objective, 16-update budget, one GPU, and00:15:00 walltime; submission is recorded as job7624499.",
   "local_work": "Structural-curriculum v3 evidence and its independently tensor-verified child remain preserved and committed; the 832MB checkpoint stays outside Git. New append-only structural-corruption preference source and stage are locally compiled, hash-checked, and bound to parent1559b6c3. The local and remote CPU preflight contains87 deterministic candidates over non-protected training/validation rows across definition, membership, declaration, and config corruptions; all negative controls are SANY-rejected. Final remote guards are complete, and only a fresh unique claim plus one bounded GPU submission remain. The job will use a node-local scratch parent copy and only one persistent child output. Protected rows47/107 remain a fixed holdout; no generated feedback, replay negatives, quality, gate, proof, or promotion claim is allowed. Polaris access is restored and the programmatic watchdog remains live.",
   "external_blocker": null,
-  "next_action": "Submit exactly one qsub for the already-claimed stage, then immediately record its scheduler state. Monitor the complete receipt and independently verify checkpoint reload/copy, finite updates, and protected before/after SANY. Do not promote any child or claim quality/gate/proof credit without the full frozen denominator.",
+  "next_action": "Monitor job7624499 until terminal. Retrieve the complete receipt and independently verify exact parent scratch hash, finite updates, checkpoint reload/copy, and protected before/after SANY. Do not promote any child or claim quality/gate/proof credit without the full frozen denominator.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -502,6 +508,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
     }
   ],
   "decisions": [
+    "2026-09-15T18:32:13Z: Submitted exactly one claimed structural-corruption preference job7624499. Scheduler reports R on x3204c0s13b1n0/0*64 with one GPU and00:15:00 walltime. Monitor only; no quality, gate, proof, or promotion claim.",
     "2026-09-15T18:30:55Z: Fresh final Polaris guards pass at18:30:10Z and unique claim15c84ea5 is acquired. It binds manifest0274c476, implementation ba833776, PBS afa8a2cd, packet a125a0d5, parent1559b6c3, 87 screened pairs, 16 updates, protected47/107 holdout, one GPU and00:15:00. Submit exactly once; no quality, gate, proof or promotion claim.",
     "2026-09-15T18:28:11Z: Repaired CPU preflight completed 87/87 SANY controls with22 clean positives and87 rejected corruption controls; manifest0274c476 is hash-bound to packet a125a0d5 and parent1559b6c3. Remote stage/packet/parent/jar/model/output/pycache/CLI/queue guards pass, with no active owned job. The package-path defect earned no model credit. Proceed to one fresh unique claim and one bounded one-GPU submission only; no quality, gate, proof or promotion claim.",
     "2026-09-15T18:24:52Z: The first CPU-preflight attempt failed before SANY because the staged tools/__init__.py did not expose the shared decoder module. No manifest/output/GPU side effect occurred. Repair the stage initializer to the verified v3 path-extension implementation (SHA81c66d1), refresh the four-file inventory, and retry CPU preparation once. No quality, gate, proof or promotion claim.",
@@ -1382,7 +1389,8 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "results/runs/tla-fullmodule-structural-corruption-preference-20260915-v1/preflight/manifest.json",
     "results/runs/tla-fullmodule-structural-corruption-preference-20260915-v1/remote-guards.json",
     "results/runs/tla-fullmodule-structural-corruption-preference-20260915-v1/claim.json",
-    "results/prover-submit-claims/15c84ea571f01deeff1630059948e5e67be774d49bd3a3bbad24147c351a7960.json"
+    "results/prover-submit-claims/15c84ea571f01deeff1630059948e5e67be774d49bd3a3bbad24147c351a7960.json",
+    "results/runs/tla-fullmodule-structural-corruption-preference-20260915-v1/job-7624499-submission.json"
   ]
 }
 -->
