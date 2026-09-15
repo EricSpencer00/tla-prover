@@ -173,7 +173,10 @@ def synthetic_beam_control(xgrammar):
     if [token for token, _, _ in first] != [2]:
         raise ValueError("single legal branch control failed")
     # A fresh branch must not inherit the other branch's matcher state.
-    branch_a = top_accepted(xgrammar, compiled, [], [10., 9., 8., 7., 6., 11.], 2)
+    branch_compiled = xgrammar.GrammarCompiler(
+        xgrammar.TokenizerInfo(["ax", "a", "b", "ab", "x", "<eos>"], stop_token_ids=[5]),
+        max_threads=1).compile_grammar('root ::= "a" | "b"')
+    branch_a = top_accepted(xgrammar, branch_compiled, [], [10., 9., 8., 7., 6., 11.], 2)
     if [token for token, _, _ in branch_a] != [1, 2]:
         raise ValueError("stable branch ordering control failed")
     eos = prime(xgrammar, compiled, [1, 2])
