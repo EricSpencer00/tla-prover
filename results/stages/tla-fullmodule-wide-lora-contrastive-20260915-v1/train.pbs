@@ -1,0 +1,45 @@
+#!/bin/bash
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-w4-wide-v1
+#PBS -l select=1:system=polaris:ncpus=64:ngpus=1
+#PBS -l walltime=00:15:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+#PBS -o /home/eric-spencer/tla-fullmodule-wide-lora-contrastive-20260915-v1/train.stdout
+#PBS -e /home/eric-spencer/tla-fullmodule-wide-lora-contrastive-20260915-v1/train.stderr
+set -euo pipefail
+WIDE_ROOT="${WIDE_ROOT:-/home/eric-spencer/tla-fullmodule-wide-lora-contrastive-20260915-v1}"
+RUN_ROOT=/home/eric-spencer/tla-parent-broader-sany-replay-20260915-v1
+BASE=/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1
+export PYTHONPATH="$WIDE_ROOT:$RUN_ROOT:$BASE"
+export TLA_TOOLS_PATHS="$WIDE_ROOT/tools:$RUN_ROOT/tools:$BASE/tools"
+export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false
+export HF_HOME=/grand/EVITA/eric-spencer/hf-cache PYTHONUNBUFFERED=1
+export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1
+export PATH="/grand/EVITA/eric-spencer/tools/jre21/bin:$PATH"
+export JAVA_HOME=/grand/EVITA/eric-spencer/tools/jre21
+PYTHON=/home/eric-spencer/ChatTLA/.venv/bin/python
+test -x "$PYTHON"
+MODEL_PATH=/grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659
+if [[ ! -f "$MODEL_PATH/config.json" ]]; then MODEL_PATH=/grand/EVITA/eric-spencer/hf-cache/hub/models--meta--llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659; fi
+test -f "$MODEL_PATH/config.json"
+PACKET="$RUN_ROOT/packet.json"
+JAR="$BASE/tools/tla2tools.jar"
+MANIFEST="$WIDE_ROOT/preflight/manifest.json"
+PREFLIGHT="$WIDE_ROOT/preflight/preflight.json"
+SOURCE=/home/eric-spencer/tla-fullmodule-structural-curriculum-20260915-v3/result.7624329/policy_optimizer.pt
+START="/tmp/tla-wide-parent-${PBS_JOBID%%.*}.pt"
+test -f "$PACKET" -a -f "$JAR" -a -f "$MANIFEST" -a -f "$PREFLIGHT" -a -f "$SOURCE"
+test "$(sha256sum "$PACKET" | awk '{print $1}')" = a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c
+test "$(sha256sum "$SOURCE" | awk '{print $1}')" = 1559b6c3014dc18e8a27c57f9ef58c8f89c507f4995d1152eb1ea9f5f07dcc72
+cp "$SOURCE" "$START"
+test "$(sha256sum "$START" | awk '{print $1}')" = 1559b6c3014dc18e8a27c57f9ef58c8f89c507f4995d1152eb1ea9f5f07dcc72
+OUT="$WIDE_ROOT/result.${PBS_JOBID%%.*}"
+test ! -e "$OUT"
+PREFLIGHT_SHA=$(sha256sum "$PREFLIGHT" | awk '{print $1}')
+"$PYTHON" -u "$WIDE_ROOT/tools/proof_fullmodule_wide_lora_contrastive_train.py" train \
+  --packet "$PACKET" --jar "$JAR" --java "$JAVA_HOME/bin/java" --output "$OUT" \
+  --manifest "$MANIFEST" --manifest-sha256 "$(sha256sum "$MANIFEST" | awk '{print $1}')" \
+  --preflight "$PREFLIGHT" --preflight-sha256 "$PREFLIGHT_SHA" \
+  --checkpoint "$START" --model "$MODEL_PATH"
