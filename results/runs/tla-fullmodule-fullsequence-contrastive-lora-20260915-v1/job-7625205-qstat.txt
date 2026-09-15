@@ -1,0 +1,13 @@
+    Job_Owner = eric-spencer@polaris-login-01.hsn.cm.polaris.alcf.anl.gov
+    job_state = R
+    queue = debug
+    exec_host = x3111c0s37b1n0/0*64
+    Resource_List.ncpus = 64
+    Resource_List.ngpus = 1
+    Resource_List.walltime = 00:15:00
+
+polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov:
+                                                                 Req'd  Req'd   Elap
+Job ID               Username Queue    Jobname    SessID NDS TSK Memory Time  S Time
+-------------------- -------- -------- ---------- ------ --- --- ------ ----- - -----
+7625205.polaris-pbs* eric-sp* debug    tla-w4-co* 678422   1  64    --  00:15 R 00:00

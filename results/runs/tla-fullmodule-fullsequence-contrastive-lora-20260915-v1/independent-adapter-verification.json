@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "verified_utc": "2026-09-15T20:42:36Z",
+  "host": "polaris",
+  "job_id": "7625205.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "checkpoint_sha256": "c1189145ffc919badd564b0735105f27832b1eb0d7468313f289527dca7d0c5b",
+  "adapter_tensors": 16,
+  "adapter_parameters": 425984,
+  "finite_fp32": true,
+  "updates": 16,
+  "parent_sha256": "1559b6c3014dc18e8a27c57f9ef58c8f89c507f4995d1152eb1ea9f5f07dcc72",
+  "manifest_sha256": "6f63ec3e7b85df61e981b1533a25e821042186679bccf8a6050b90464867e02c",
+  "adapter_only": true,
+  "optimizer_state_stored": false,
+  "quality_claim": false,
+  "gate_claim": false,
+  "proof_claim": false,
+  "promotion": false
+}

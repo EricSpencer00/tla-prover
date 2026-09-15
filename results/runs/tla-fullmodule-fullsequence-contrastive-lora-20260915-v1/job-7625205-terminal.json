@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "terminal_utc": "2026-09-15T20:42:36Z",
+  "host": "polaris",
+  "job_id": "7625205.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "pbs_state": "F",
+  "exit_status": 0,
+  "exec_host": "x3111c0s37b1n0/0*64",
+  "requested": {"ncpus": 64, "ngpus": 1, "walltime": "00:15:00", "queue": "debug"},
+  "resources_used": {"cput": "00:02:35", "ngpus": 0, "walltime": "00:05:07"},
+  "resource_note": "Scheduler accounting reports resources_used.ngpus=0 despite Resource_List.ngpus=1 and the GPU-bearing exec_host; no GPU-utilization claim is made from this field.",
+  "receipt_complete": true,
+  "quality_claim": false,
+  "gate_claim": false,
+  "proof_claim": false,
+  "promotion": false
+}

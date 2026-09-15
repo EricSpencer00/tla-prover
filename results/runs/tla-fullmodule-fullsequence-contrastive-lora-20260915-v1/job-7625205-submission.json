@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "submitted_utc": "2026-09-15T20:34:00Z",
+  "host": "polaris",
+  "job_id": "7625205.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "stage": "tla-fullmodule-fullsequence-contrastive-lora-20260915-v1",
+  "claim_sha256": "42f2cffbde784361558b5d7c9aad9ce6e1a775b13b37de68700b541b5e46ed73",
+  "one_gpu": true,
+  "walltime": "00:15:00",
+  "quality_claim": false,
+  "gate_claim": false,
+  "proof_claim": false,
+  "promotion": false
+}
