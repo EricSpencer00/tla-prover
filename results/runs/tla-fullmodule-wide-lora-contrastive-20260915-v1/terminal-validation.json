@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "kind": "wide_multilayer_fullsequence_contrastive_lora_terminal_validation_v1",
+  "job_id": "7625950.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "job_exit_status": 0,
+  "job_state": "F",
+  "exec_host": "x3001c0s19b1n0/0*64",
+  "requested_ngpus": 1,
+  "requested_walltime": "00:15:00",
+  "accounted_walltime": "00:06:15",
+  "accounted_cputime": "00:03:38",
+  "accounted_resources_used_ngpus": 0,
+  "accounted_ngpus_note": "PBS accounting field only; not used as a GPU-utilization claim.",
+  "manifest_sha256": "ca3abb20dab4b0288ba55b466e6272fe2f7b6ab2385347fc09451d908c531cb3",
+  "preflight_sha256": "19702f9f021d8dceff8b96009de09e05a85eec2afdb2badf0631afd826cfa434",
+  "receipt_sha256": "d7e86e6f44274dd61ac62cea6866e91ca59169f514799196337edee63711f57b",
+  "gradient_preflight_sha256": "65c664b53df3e70b75954f4c2fc966d495e452a56a87618a89e71458a50f8d42",
+  "checkpoint_sha256": "f62df4fc74f8a46f5aa6b2aa804f6f2ed3ccc8ecc5d4dde9099f0268157beae8",
+  "checkpoint_bytes": 10511857,
+  "updates": 16,
+  "adapter_parameter_tensors": 112,
+  "adapter_parameter_count": 2621440,
+  "parameter_delta_l2": 1.4891389860558584,
+  "validation_clean_nll_before": 0.2936503365635872,
+  "validation_clean_nll_after": 0.2880832875768344,
+  "validation_clean_nll_delta": -0.0055670489867528095,
+  "validation_retention_tolerance": 0.02,
+  "validation_retention_guard_pass": true,
+  "independent_checkpoint_verification": {
+    "finite_fp32": true,
+    "tensor_count": 112,
+    "parameter_count": 2621440,
+    "adapter_only": true,
+    "optimizer_state_stored": false,
+    "exact_parent_binding": true,
+    "exact_manifest_binding": true,
+    "budget_matches_manifest": true
+  },
+  "protected_evaluation": {
+    "rows": [47, 107],
+    "parent_sany_passes": 0,
+    "child_sany_passes": 0,
+    "parent": [
+      {"row": 47, "output_tokens": 461, "finish_reason": "eos", "sany_status": "model_reject"},
+      {"row": 107, "output_tokens": 2076, "finish_reason": "token_limit", "sany_status": "model_reject"}
+    ],
+    "child": [
+      {"row": 47, "output_tokens": 554, "finish_reason": "eos", "sany_status": "model_reject"},
+      {"row": 107, "output_tokens": 2076, "finish_reason": "token_limit", "sany_status": "model_reject"}
+    ]
+  },
+  "quality_claim": false,
+  "gate_claim": false,
+  "proof_claim": false,
+  "promotion_claim": false,
+  "diagnosis": "Complete valid negative capacity diagnostic: broader adapters preserved clean validation but did not change the fixed protected SANY denominator.",
+  "claim_state_sha256": "e8df07158835fc3641e9b1c771aa4ef698421439bbf102fc6955eff4606dcefa"
+}

@@ -1,0 +1,7 @@
+{
+  "claimed_unix": 1789514367.594115,
+  "host": "Eric-MB64.local",
+  "identity": "tla-fullmodule-wide-lora-contrastive-20260915-v1|destination=/home/eric-spencer/tla-fullmodule-wide-lora-contrastive-20260915-v1|manifest=ca3abb20dab4b0288ba55b466e6272fe2f7b6ab2385347fc09451d908c531cb3|preflight=19702f9f021d8dceff8b96009de09e05a85eec2afdb2badf0631afd826cfa434|implementation=1f842b34088b3d86756e83bb44d586db57185426642c232cab14e45fcbbdc617|helper=76df57096f2fcc0512bac04edd8f67e3ad881b686fffb0993b799f945e8223fc|pbs=ef9d63651dbada3dbf5e51741099808fd4237c5752a3c5d11e5b72af5f19e3c0|packet=a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c|parent=1559b6c3014dc18e8a27c57f9ef58c8f89c507f4995d1152eb1ea9f5f07dcc72|train=42,43,44,45,46,48,49,50,51,52,53,54,55,56,57,58|validation=59,60,61,62,63,64|protected=47,107|updates=16|objective=wide_multilayer_fullsequence_contrastive_lora|adapter_layers=24,25,26,27,28,29,30,31|adapter_targets=q_proj,k_proj,v_proj,o_proj,gate_proj,up_proj,down_proj|rank=4|alpha=8|retention_tolerance=0.02|one_gpu=true|walltime=00:15:00",
+  "identity_sha256": "fc002371bea3746e097351478dd8f6d01a4b0f51cab003b9417c5c2bf8228b10",
+  "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001"
+}

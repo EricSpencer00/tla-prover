@@ -1,0 +1,870 @@
+{
+  "kind": "wide_multilayer_fullsequence_contrastive_lora_v1",
+  "packet_sha256": "a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c",
+  "parent_checkpoint_sha256": "1559b6c3014dc18e8a27c57f9ef58c8f89c507f4995d1152eb1ea9f5f07dcc72",
+  "train_rows": [
+    42,
+    43,
+    44,
+    45,
+    46,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58
+  ],
+  "validation_rows": [
+    59,
+    60,
+    61,
+    62,
+    63,
+    64
+  ],
+  "protected_rows": [
+    47,
+    107
+  ],
+  "budget": {
+    "steps": 16,
+    "accumulation": 2,
+    "lr": 0.0002,
+    "rank": 4,
+    "alpha": 8,
+    "base_weight": 1.0,
+    "structural_weight": 4.0,
+    "eos_weight": 8.0,
+    "margin": 0.25,
+    "contrastive_weight": 0.5,
+    "retention_tolerance": 0.02,
+    "seed": 20260915,
+    "training_seconds": 480,
+    "max_new_tokens": 2048,
+    "generation_seconds": 60,
+    "sany_seconds": 30,
+    "adapter_layers": [
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31
+    ],
+    "adapter_targets": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj",
+      "gate_proj",
+      "up_proj",
+      "down_proj"
+    ],
+    "objective": "wide_multilayer_fullsequence_contrastive_lora"
+  },
+  "sany_jar_sha256": "936a262061c914694dfd669a543be24573c45d5aa0ff20a8b96b23d01e050e88",
+  "pairs": [
+    {
+      "row": 42,
+      "id": "w4-fullmodule:w4opus::d14-m4-p0-t4",
+      "split": "train",
+      "kind": "definition_equals",
+      "positive_sha256": "39d35a34deda13d950e72efaf0641e1d6c0ef980a9d75bd8260a57290be1c910",
+      "negative_sha256": "53b87e9b0fa89955f485289bf422cf05f902207cf394f3d3ce55f1b118252e38",
+      "negative": "---- MODULE W4Od14m4p0t4 ----\nEXTENDS Integers\nVARIABLES holders, queue, cap\nInit = holders = 0 /\\ queue = 0 /\\ cap = 2\nGrab == holders = 0 /\\ holders' = (holders) + 1 /\\ UNCHANGED <<queue, cap>>\nRelease == holders > 0 /\\ holders' = holders - 1 /\\ UNCHANGED <<queue, cap>>\nEnqueue == queue < cap /\\ queue' = queue + 1 /\\ UNCHANGED <<holders, cap>>\nDrain == queue > 0 /\\ queue' = queue - 1 /\\ UNCHANGED <<holders, cap>>\nReconfig == \\E c \\in {2, 3} : c >= queue /\\ cap' = c /\\ UNCHANGED <<holders, queue>>\nNext == Grab \\/ Release \\/ Enqueue \\/ Drain \\/ Reconfig\nSpec == Init /\\ [][Next]_<<holders, queue, cap>>\nExclusiveDownlink == holders >= 0 /\\ holders <= 1 /\\ queue >= 0 /\\ queue <= cap\n===="
+    },
+    {
+      "row": 42,
+      "id": "w4-fullmodule:w4opus::d14-m4-p0-t4",
+      "split": "train",
+      "kind": "membership_keyword",
+      "positive_sha256": "39d35a34deda13d950e72efaf0641e1d6c0ef980a9d75bd8260a57290be1c910",
+      "negative_sha256": "2969f24403a9cefc6bc2ac77dfbd43f27d9363126dd1ccc102420f7f06620e52",
+      "negative": "---- MODULE W4Od14m4p0t4 ----\nEXTENDS Integers\nVARIABLES holders, queue, cap\nInit == holders = 0 /\\ queue = 0 /\\ cap = 2\nGrab == holders = 0 /\\ holders' = (holders) + 1 /\\ UNCHANGED <<queue, cap>>\nRelease == holders > 0 /\\ holders' = holders - 1 /\\ UNCHANGED <<queue, cap>>\nEnqueue == queue < cap /\\ queue' = queue + 1 /\\ UNCHANGED <<holders, cap>>\nDrain == queue > 0 /\\ queue' = queue - 1 /\\ UNCHANGED <<holders, cap>>\nReconfig == \\E c IN {2, 3} : c >= queue /\\ cap' = c /\\ UNCHANGED <<holders, queue>>\nNext == Grab \\/ Release \\/ Enqueue \\/ Drain \\/ Reconfig\nSpec == Init /\\ [][Next]_<<holders, queue, cap>>\nExclusiveDownlink == holders >= 0 /\\ holders <= 1 /\\ queue >= 0 /\\ queue <= cap\n===="
+    },
+    {
+      "row": 42,
+      "id": "w4-fullmodule:w4opus::d14-m4-p0-t4",
+      "split": "train",
+      "kind": "declaration_comma",
+      "positive_sha256": "39d35a34deda13d950e72efaf0641e1d6c0ef980a9d75bd8260a57290be1c910",
+      "negative_sha256": "7c7b89d80d969558747607cfb29bc62f48614982a059425f0e77e762f01a0b47",
+      "negative": "---- MODULE W4Od14m4p0t4 ----\nEXTENDS Integers\nVARIABLES holders queue, cap\nInit == holders = 0 /\\ queue = 0 /\\ cap = 2\nGrab == holders = 0 /\\ holders' = (holders) + 1 /\\ UNCHANGED <<queue, cap>>\nRelease == holders > 0 /\\ holders' = holders - 1 /\\ UNCHANGED <<queue, cap>>\nEnqueue == queue < cap /\\ queue' = queue + 1 /\\ UNCHANGED <<holders, cap>>\nDrain == queue > 0 /\\ queue' = queue - 1 /\\ UNCHANGED <<holders, cap>>\nReconfig == \\E c \\in {2, 3} : c >= queue /\\ cap' = c /\\ UNCHANGED <<holders, queue>>\nNext == Grab \\/ Release \\/ Enqueue \\/ Drain \\/ Reconfig\nSpec == Init /\\ [][Next]_<<holders, queue, cap>>\nExclusiveDownlink == holders >= 0 /\\ holders <= 1 /\\ queue >= 0 /\\ queue <= cap\n===="
+    },
+    {
+      "row": 42,
+      "id": "w4-fullmodule:w4opus::d14-m4-p0-t4",
+      "split": "train",
+      "kind": "config_in_module",
+      "positive_sha256": "39d35a34deda13d950e72efaf0641e1d6c0ef980a9d75bd8260a57290be1c910",
+      "negative_sha256": "4ca413a545ca91dcd7c484197764c4d25980917e2b88abca6e28f8603c769099",
+      "negative": "---- MODULE W4Od14m4p0t4 ----\nEXTENDS Integers\nVARIABLES holders, queue, cap\nInit == holders = 0 /\\ queue = 0 /\\ cap = 2\nGrab == holders = 0 /\\ holders' = (holders) + 1 /\\ UNCHANGED <<queue, cap>>\nRelease == holders > 0 /\\ holders' = holders - 1 /\\ UNCHANGED <<queue, cap>>\nEnqueue == queue < cap /\\ queue' = queue + 1 /\\ UNCHANGED <<holders, cap>>\nDrain == queue > 0 /\\ queue' = queue - 1 /\\ UNCHANGED <<holders, cap>>\nReconfig == \\E c \\in {2, 3} : c >= queue /\\ cap' = c /\\ UNCHANGED <<holders, queue>>\nNext == Grab \\/ Release \\/ Enqueue \\/ Drain \\/ Reconfig\nSpec == Init /\\ [][Next]_<<holders, queue, cap>>\nExclusiveDownlink == holders >= 0 /\\ holders <= 1 /\\ queue >= 0 /\\ queue <= cap\nSPECIFICATION Init\n===="
+    },
+    {
+      "row": 43,
+      "id": "w4-fullmodule:w4opus::d13-m7-p1-t4",
+      "split": "train",
+      "kind": "definition_equals",
+      "positive_sha256": "0adf63f07aa9367cc90de5f7d12d0be303549f42c660729dfa6e10620f1c8194",
+      "negative_sha256": "12b130b1d3b8f8dd569ff4ba8481788e7ef255fa2ddb418979d63c357c6eaf75",
+      "negative": "------------------------- MODULE W4Od13m7p1t4 -------------------------\n(* Vending-machine network with a shared restock record held in a\n   compare-and-swap register.  Each restock reads the record's current value\n   as its expected value, then does a CAS that writes value+1 only if the\n   register still holds that expected value; a CAS whose expectation no longer\n   matches has been raced and is discarded, so it can never overwrite and lose\n   a concurrent restock.  The shelf capacity can change at runtime but never\n   drops below the current record.  We count accepted restocks; safety: the\n   record equals the number of accepted restocks, so no restock is lost. *)\nEXTENDS Naturals\n\nMaxCap = 3\n\nVARIABLES record, inflight, numUpdates, capacity\n\nTypeInv ==\n    /\\ record \\in 0..MaxCap\n    /\\ inflight \\subseteq [expect : 0..MaxCap]\n    /\\ numUpdates \\in 0..MaxCap\n    /\\ capacity \\in 1..MaxCap\n\nInit ==\n    /\\ record = 0\n    /\\ inflight = {}\n    /\\ numUpdates = 0\n    /\\ capacity = 1\n\nBeginCAS ==\n    /\\ inflight' = inflight \\union {[expect |-> record]}\n    /\\ UNCHANGED <<record, numUpdates, capacity>>\n\nCommitCAS(op) ==\n    /\\ op \\in inflight\n    /\\ op.expect = record\n    /\\ record < capacity\n    /\\ record' = op.expect + 1\n    /\\ numUpdates' = numUpdates + 1\n    /\\ inflight' = inflight \\ {op}\n    /\\ UNCHANGED capacity\n\nFailCAS(op) ==\n    /\\ op \\in inflight\n    /\\ op.expect # record\n    /\\ inflight' = inflight \\ {op}\n    /\\ UNCHANGED <<record, numUpdates, capacity>>\n\nResize ==\n    /\\ \\E c \\in 1..MaxCap :\n        /\\ c >= record\n        /\\ capacity' = c\n    /\\ UNCHANGED <<record, inflight, numUpdates>>\n\nNext ==\n    \\/ BeginCAS\n    \\/ \\E op \\in inflight : CommitCAS(op)\n    \\/ \\E op \\in inflight : FailCAS(op)\n    \\/ Resize\n\nNoLostUpdates == record = numUpdates\n\nvars == <<record, inflight, numUpdates, capacity>>\nSpec == Init /\\ [][Next]_vars\n======================================================================="
+    },
+    {
+      "row": 43,
+      "id": "w4-fullmodule:w4opus::d13-m7-p1-t4",
+      "split": "train",
+      "kind": "membership_keyword",
+      "positive_sha256": "0adf63f07aa9367cc90de5f7d12d0be303549f42c660729dfa6e10620f1c8194",
+      "negative_sha256": "538ad836142f5f06c88f9e8f706d6029974024195edafc1a5860165bab96eba5",
+      "negative": "------------------------- MODULE W4Od13m7p1t4 -------------------------\n(* Vending-machine network with a shared restock record held in a\n   compare-and-swap register.  Each restock reads the record's current value\n   as its expected value, then does a CAS that writes value+1 only if the\n   register still holds that expected value; a CAS whose expectation no longer\n   matches has been raced and is discarded, so it can never overwrite and lose\n   a concurrent restock.  The shelf capacity can change at runtime but never\n   drops below the current record.  We count accepted restocks; safety: the\n   record equals the number of accepted restocks, so no restock is lost. *)\nEXTENDS Naturals\n\nMaxCap == 3\n\nVARIABLES record, inflight, numUpdates, capacity\n\nTypeInv ==\n    /\\ record IN 0..MaxCap\n    /\\ inflight \\subseteq [expect : 0..MaxCap]\n    /\\ numUpdates \\in 0..MaxCap\n    /\\ capacity \\in 1..MaxCap\n\nInit ==\n    /\\ record = 0\n    /\\ inflight = {}\n    /\\ numUpdates = 0\n    /\\ capacity = 1\n\nBeginCAS ==\n    /\\ inflight' = inflight \\union {[expect |-> record]}\n    /\\ UNCHANGED <<record, numUpdates, capacity>>\n\nCommitCAS(op) ==\n    /\\ op \\in inflight\n    /\\ op.expect = record\n    /\\ record < capacity\n    /\\ record' = op.expect + 1\n    /\\ numUpdates' = numUpdates + 1\n    /\\ inflight' = inflight \\ {op}\n    /\\ UNCHANGED capacity\n\nFailCAS(op) ==\n    /\\ op \\in inflight\n    /\\ op.expect # record\n    /\\ inflight' = inflight \\ {op}\n    /\\ UNCHANGED <<record, numUpdates, capacity>>\n\nResize ==\n    /\\ \\E c \\in 1..MaxCap :\n        /\\ c >= record\n        /\\ capacity' = c\n    /\\ UNCHANGED <<record, inflight, numUpdates>>\n\nNext ==\n    \\/ BeginCAS\n    \\/ \\E op \\in inflight : CommitCAS(op)\n    \\/ \\E op \\in inflight : FailCAS(op)\n    \\/ Resize\n\nNoLostUpdates == record = numUpdates\n\nvars == <<record, inflight, numUpdates, capacity>>\nSpec == Init /\\ [][Next]_vars\n======================================================================="
+    },
+    {
+      "row": 43,
+      "id": "w4-fullmodule:w4opus::d13-m7-p1-t4",
+      "split": "train",
+      "kind": "declaration_comma",
+      "positive_sha256": "0adf63f07aa9367cc90de5f7d12d0be303549f42c660729dfa6e10620f1c8194",
+      "negative_sha256": "dfbf12bafe68ed1dc6e26cb33f20baa600c7249e0a607b6a1cdeadb421595e95",
+      "negative": "------------------------- MODULE W4Od13m7p1t4 -------------------------\n(* Vending-machine network with a shared restock record held in a\n   compare-and-swap register.  Each restock reads the record's current value\n   as its expected value, then does a CAS that writes value+1 only if the\n   register still holds that expected value; a CAS whose expectation no longer\n   matches has been raced and is discarded, so it can never overwrite and lose\n   a concurrent restock.  The shelf capacity can change at runtime but never\n   drops below the current record.  We count accepted restocks; safety: the\n   record equals the number of accepted restocks, so no restock is lost. *)\nEXTENDS Naturals\n\nMaxCap == 3\n\nVARIABLES record inflight, numUpdates, capacity\n\nTypeInv ==\n    /\\ record \\in 0..MaxCap\n    /\\ inflight \\subseteq [expect : 0..MaxCap]\n    /\\ numUpdates \\in 0..MaxCap\n    /\\ capacity \\in 1..MaxCap\n\nInit ==\n    /\\ record = 0\n    /\\ inflight = {}\n    /\\ numUpdates = 0\n    /\\ capacity = 1\n\nBeginCAS ==\n    /\\ inflight' = inflight \\union {[expect |-> record]}\n    /\\ UNCHANGED <<record, numUpdates, capacity>>\n\nCommitCAS(op) ==\n    /\\ op \\in inflight\n    /\\ op.expect = record\n    /\\ record < capacity\n    /\\ record' = op.expect + 1\n    /\\ numUpdates' = numUpdates + 1\n    /\\ inflight' = inflight \\ {op}\n    /\\ UNCHANGED capacity\n\nFailCAS(op) ==\n    /\\ op \\in inflight\n    /\\ op.expect # record\n    /\\ inflight' = inflight \\ {op}\n    /\\ UNCHANGED <<record, numUpdates, capacity>>\n\nResize ==\n    /\\ \\E c \\in 1..MaxCap :\n        /\\ c >= record\n        /\\ capacity' = c\n    /\\ UNCHANGED <<record, inflight, numUpdates>>\n\nNext ==\n    \\/ BeginCAS\n    \\/ \\E op \\in inflight : CommitCAS(op)\n    \\/ \\E op \\in inflight : FailCAS(op)\n    \\/ Resize\n\nNoLostUpdates == record = numUpdates\n\nvars == <<record, inflight, numUpdates, capacity>>\nSpec == Init /\\ [][Next]_vars\n======================================================================="
+    },
+    {
+      "row": 43,
+      "id": "w4-fullmodule:w4opus::d13-m7-p1-t4",
+      "split": "train",
+      "kind": "config_in_module",
+      "positive_sha256": "0adf63f07aa9367cc90de5f7d12d0be303549f42c660729dfa6e10620f1c8194",
+      "negative_sha256": "d6c371c121c1f638043d06bf712019134ad1edb1aa4a16277230124bac849c25",
+      "negative": "------------------------- MODULE W4Od13m7p1t4 -------------------------\n(* Vending-machine network with a shared restock record held in a\n   compare-and-swap register.  Each restock reads the record's current value\n   as its expected value, then does a CAS that writes value+1 only if the\n   register still holds that expected value; a CAS whose expectation no longer\n   matches has been raced and is discarded, so it can never overwrite and lose\n   a concurrent restock.  The shelf capacity can change at runtime but never\n   drops below the current record.  We count accepted restocks; safety: the\n   record equals the number of accepted restocks, so no restock is lost. *)\nEXTENDS Naturals\n\nMaxCap == 3\n\nVARIABLES record, inflight, numUpdates, capacity\n\nTypeInv ==\n    /\\ record \\in 0..MaxCap\n    /\\ inflight \\subseteq [expect : 0..MaxCap]\n    /\\ numUpdates \\in 0..MaxCap\n    /\\ capacity \\in 1..MaxCap\n\nInit ==\n    /\\ record = 0\n    /\\ inflight = {}\n    /\\ numUpdates = 0\n    /\\ capacity = 1\n\nBeginCAS ==\n    /\\ inflight' = inflight \\union {[expect |-> record]}\n    /\\ UNCHANGED <<record, numUpdates, capacity>>\n\nCommitCAS(op) ==\n    /\\ op \\in inflight\n    /\\ op.expect = record\n    /\\ record < capacity\n    /\\ record' = op.expect + 1\n    /\\ numUpdates' = numUpdates + 1\n    /\\ inflight' = inflight \\ {op}\n    /\\ UNCHANGED capacity\n\nFailCAS(op) ==\n    /\\ op \\in inflight\n    /\\ op.expect # record\n    /\\ inflight' = inflight \\ {op}\n    /\\ UNCHANGED <<record, numUpdates, capacity>>\n\nResize ==\n    /\\ \\E c \\in 1..MaxCap :\n        /\\ c >= record\n        /\\ capacity' = c\n    /\\ UNCHANGED <<record, inflight, numUpdates>>\n\nNext ==\n    \\/ BeginCAS\n    \\/ \\E op \\in inflight : CommitCAS(op)\n    \\/ \\E op \\in inflight : FailCAS(op)\n    \\/ Resize\n\nNoLostUpdates == record = numUpdates\n\nvars == <<record, inflight, numUpdates, capacity>>\nSpec == Init /\\ [][Next]_vars\nSPECIFICATION Init\n======================================================================="
+    },
+    {
+      "row": 44,
+      "id": "w4-fullmodule:w4opus::d0-m0-p1-t0",
+      "split": "train",
+      "kind": "definition_equals",
+      "positive_sha256": "1014e9b256c188e24ba4374d5125099d0af0475df5883896bdb41ca683bc7f94",
+      "negative_sha256": "4119fd649d987f38efef426eda667df7d88683cbfb3d9cba9ce62c2dbafafeea",
+      "negative": "------------------------------ MODULE W4Od0m0p1t0 ------------------------------\nEXTENDS Naturals\nCONSTANT Shift\nVARIABLES tally, ledger\n\nTypeOK = tally \\in 0..Shift /\\ ledger \\in 0..Shift\n\nInit == tally = 0 /\\ ledger = 0\n\nCommit == tally < Shift /\\ tally' = 1 + tally /\\ ledger' = ledger + 1\nNextShift == tally = Shift /\\ tally' = 0 /\\ ledger' = 0\n\nNext == Commit \\/ NextShift\n\nNoLostUpdate == tally = ledger\n\nvars == <<tally, ledger>>\nSpec == Init /\\ [][Next]_vars\n================================================================================"
+    },
+    {
+      "row": 44,
+      "id": "w4-fullmodule:w4opus::d0-m0-p1-t0",
+      "split": "train",
+      "kind": "membership_keyword",
+      "positive_sha256": "1014e9b256c188e24ba4374d5125099d0af0475df5883896bdb41ca683bc7f94",
+      "negative_sha256": "adb51990cb04551f6b08ae91299aff8bbe5abe4db003ec1b52b6cdd9ba5dc823",
+      "negative": "------------------------------ MODULE W4Od0m0p1t0 ------------------------------\nEXTENDS Naturals\nCONSTANT Shift\nVARIABLES tally, ledger\n\nTypeOK == tally IN 0..Shift /\\ ledger \\in 0..Shift\n\nInit == tally = 0 /\\ ledger = 0\n\nCommit == tally < Shift /\\ tally' = 1 + tally /\\ ledger' = ledger + 1\nNextShift == tally = Shift /\\ tally' = 0 /\\ ledger' = 0\n\nNext == Commit \\/ NextShift\n\nNoLostUpdate == tally = ledger\n\nvars == <<tally, ledger>>\nSpec == Init /\\ [][Next]_vars\n================================================================================"
+    },
+    {
+      "row": 44,
+      "id": "w4-fullmodule:w4opus::d0-m0-p1-t0",
+      "split": "train",
+      "kind": "declaration_comma",
+      "positive_sha256": "1014e9b256c188e24ba4374d5125099d0af0475df5883896bdb41ca683bc7f94",
+      "negative_sha256": "59a01c85f1ecf7b5223c5762577e6a5da307cbdf745519a7f01916aa007c88ac",
+      "negative": "------------------------------ MODULE W4Od0m0p1t0 ------------------------------\nEXTENDS Naturals\nCONSTANT Shift\nVARIABLES tally ledger\n\nTypeOK == tally \\in 0..Shift /\\ ledger \\in 0..Shift\n\nInit == tally = 0 /\\ ledger = 0\n\nCommit == tally < Shift /\\ tally' = 1 + tally /\\ ledger' = ledger + 1\nNextShift == tally = Shift /\\ tally' = 0 /\\ ledger' = 0\n\nNext == Commit \\/ NextShift\n\nNoLostUpdate == tally = ledger\n\nvars == <<tally, ledger>>\nSpec == Init /\\ [][Next]_vars\n================================================================================"
+    },
+    {
+      "row": 44,
+      "id": "w4-fullmodule:w4opus::d0-m0-p1-t0",
+      "split": "train",
+      "kind": "config_in_module",
+      "positive_sha256": "1014e9b256c188e24ba4374d5125099d0af0475df5883896bdb41ca683bc7f94",
+      "negative_sha256": "8eeb65fdb8bfcfd28f7f9bdc534cb586a1bb690d7cb811c1b37ae2b08962c547",
+      "negative": "------------------------------ MODULE W4Od0m0p1t0 ------------------------------\nEXTENDS Naturals\nCONSTANT Shift\nVARIABLES tally, ledger\n\nTypeOK == tally \\in 0..Shift /\\ ledger \\in 0..Shift\n\nInit == tally = 0 /\\ ledger = 0\n\nCommit == tally < Shift /\\ tally' = 1 + tally /\\ ledger' = ledger + 1\nNextShift == tally = Shift /\\ tally' = 0 /\\ ledger' = 0\n\nNext == Commit \\/ NextShift\n\nNoLostUpdate == tally = ledger\n\nvars == <<tally, ledger>>\nSpec == Init /\\ [][Next]_vars\nSPECIFICATION Init\n================================================================================"
+    },
+    {
+      "row": 45,
+      "id": "w4-fullmodule:w4opus::d18-m9-p1-t2",
+      "split": "train",
+      "kind": "definition_equals",
+      "positive_sha256": "bad6c0dff5965a7363ecf1abf1a6a3faab714ad81cceff6c88b223cd62dac9fb",
+      "negative_sha256": "6fdcb8c8c049956dc823f630514f2e3e82a74e2f34bc42c190a7dd466e73a58d",
+      "negative": "---- MODULE W4Od18m9p1t2 ----\nEXTENDS Naturals\nHubs = {\"h1\", \"h2\"}\nPolicies == {\"day\", \"night\"}\nVARIABLES config, highWater\nvars == <<config, highWater>>\n\nInit ==\n  /\\ config = [policy |-> \"day\", epoch |-> 0]\n  /\\ highWater = 0\n\nReconfigure ==\n  /\\ config.epoch < 3\n  /\\ \\E h \\in Hubs, p \\in Policies :\n       /\\ config' = [policy |-> p, epoch |-> config.epoch + 1]\n  /\\ highWater' = config.epoch + 1\n\nHubHeartbeat ==\n  /\\ config' = config\n  /\\ highWater' = config.epoch\n\nNext == Reconfigure \\/ HubHeartbeat\nSpec == Init /\\ [][Next]_vars\nNoStaleOverwrite == config.epoch >= highWater\n===="
+    },
+    {
+      "row": 45,
+      "id": "w4-fullmodule:w4opus::d18-m9-p1-t2",
+      "split": "train",
+      "kind": "membership_keyword",
+      "positive_sha256": "bad6c0dff5965a7363ecf1abf1a6a3faab714ad81cceff6c88b223cd62dac9fb",
+      "negative_sha256": "3d448b6631cf387234c848592503ec64861ddb18e44f4a454d2dd7b8e59325ac",
+      "negative": "---- MODULE W4Od18m9p1t2 ----\nEXTENDS Naturals\nHubs == {\"h1\", \"h2\"}\nPolicies == {\"day\", \"night\"}\nVARIABLES config, highWater\nvars == <<config, highWater>>\n\nInit ==\n  /\\ config = [policy |-> \"day\", epoch |-> 0]\n  /\\ highWater = 0\n\nReconfigure ==\n  /\\ config.epoch < 3\n  /\\ \\E h IN Hubs, p \\in Policies :\n       /\\ config' = [policy |-> p, epoch |-> config.epoch + 1]\n  /\\ highWater' = config.epoch + 1\n\nHubHeartbeat ==\n  /\\ config' = config\n  /\\ highWater' = config.epoch\n\nNext == Reconfigure \\/ HubHeartbeat\nSpec == Init /\\ [][Next]_vars\nNoStaleOverwrite == config.epoch >= highWater\n===="
+    },
+    {
+      "row": 45,
+      "id": "w4-fullmodule:w4opus::d18-m9-p1-t2",
+      "split": "train",
+      "kind": "declaration_comma",
+      "positive_sha256": "bad6c0dff5965a7363ecf1abf1a6a3faab714ad81cceff6c88b223cd62dac9fb",
+      "negative_sha256": "da514dfad27e49087a03d8c8b509c7971edbd3de8960228f076c2a1ff68ac765",
+      "negative": "---- MODULE W4Od18m9p1t2 ----\nEXTENDS Naturals\nHubs == {\"h1\", \"h2\"}\nPolicies == {\"day\", \"night\"}\nVARIABLES config highWater\nvars == <<config, highWater>>\n\nInit ==\n  /\\ config = [policy |-> \"day\", epoch |-> 0]\n  /\\ highWater = 0\n\nReconfigure ==\n  /\\ config.epoch < 3\n  /\\ \\E h \\in Hubs, p \\in Policies :\n       /\\ config' = [policy |-> p, epoch |-> config.epoch + 1]\n  /\\ highWater' = config.epoch + 1\n\nHubHeartbeat ==\n  /\\ config' = config\n  /\\ highWater' = config.epoch\n\nNext == Reconfigure \\/ HubHeartbeat\nSpec == Init /\\ [][Next]_vars\nNoStaleOverwrite == config.epoch >= highWater\n===="
+    },
+    {
+      "row": 45,
+      "id": "w4-fullmodule:w4opus::d18-m9-p1-t2",
+      "split": "train",
+      "kind": "config_in_module",
+      "positive_sha256": "bad6c0dff5965a7363ecf1abf1a6a3faab714ad81cceff6c88b223cd62dac9fb",
+      "negative_sha256": "9212936bf6dc2e941cc42a0bfa0344c6241a43e89c523828044767fa214325df",
+      "negative": "---- MODULE W4Od18m9p1t2 ----\nEXTENDS Naturals\nHubs == {\"h1\", \"h2\"}\nPolicies == {\"day\", \"night\"}\nVARIABLES config, highWater\nvars == <<config, highWater>>\n\nInit ==\n  /\\ config = [policy |-> \"day\", epoch |-> 0]\n  /\\ highWater = 0\n\nReconfigure ==\n  /\\ config.epoch < 3\n  /\\ \\E h \\in Hubs, p \\in Policies :\n       /\\ config' = [policy |-> p, epoch |-> config.epoch + 1]\n  /\\ highWater' = config.epoch + 1\n\nHubHeartbeat ==\n  /\\ config' = config\n  /\\ highWater' = config.epoch\n\nNext == Reconfigure \\/ HubHeartbeat\nSpec == Init /\\ [][Next]_vars\nNoStaleOverwrite == config.epoch >= highWater\nSPECIFICATION Init\n===="
+    },
+    {
+      "row": 46,
+      "id": "w4-fullmodule:w4opus::d13-m1-p5-t1",
+      "split": "train",
+      "kind": "definition_equals",
+      "positive_sha256": "9f436f4463f97528db6c948e1d0befd03bd20d18cdb14065d53af6d40827872c",
+      "negative_sha256": "18fb0a5d678a09dff5adda851ce6750a20f60b1c124509935678e18fba8e3f06",
+      "negative": "---- MODULE W4Od13m1p5t1 ----\nEXTENDS Naturals\nCONSTANT Machines\nVARIABLES grant, dispensed\nvars = <<grant, dispensed>>\n\nInit ==\n  /\\ grant = (CHOOSE m \\in Machines : TRUE)\n  /\\ dispensed = [m \\in Machines |-> 0]\n\nPassToRing(m) ==\n  /\\ grant = m\n  /\\ grant' = \"ring\"\n  /\\ UNCHANGED dispensed\n\nDeliver(m) ==\n  /\\ grant = \"ring\"\n  /\\ grant' = m\n  /\\ UNCHANGED dispensed\n\nDispense(m) ==\n  /\\ grant = m\n  /\\ dispensed[m] = 0\n  /\\ dispensed' = [dispensed EXCEPT ![m] = dispensed[m] + 1]\n  /\\ grant' = \"ring\"\n\nNext == \\E m \\in Machines : PassToRing(m) \\/ Deliver(m) \\/ Dispense(m)\nSpec == Init /\\ [][Next]_vars\n\nDispensedAtMostOnce == \\A m \\in Machines : dispensed[m] <= 1\n===="
+    },
+    {
+      "row": 46,
+      "id": "w4-fullmodule:w4opus::d13-m1-p5-t1",
+      "split": "train",
+      "kind": "membership_keyword",
+      "positive_sha256": "9f436f4463f97528db6c948e1d0befd03bd20d18cdb14065d53af6d40827872c",
+      "negative_sha256": "24ffc62d7fbbfb1fb56f99343e67b872bc2fe96d18b7d8b14f626c5a48cf6631",
+      "negative": "---- MODULE W4Od13m1p5t1 ----\nEXTENDS Naturals\nCONSTANT Machines\nVARIABLES grant, dispensed\nvars == <<grant, dispensed>>\n\nInit ==\n  /\\ grant = (CHOOSE m IN Machines : TRUE)\n  /\\ dispensed = [m \\in Machines |-> 0]\n\nPassToRing(m) ==\n  /\\ grant = m\n  /\\ grant' = \"ring\"\n  /\\ UNCHANGED dispensed\n\nDeliver(m) ==\n  /\\ grant = \"ring\"\n  /\\ grant' = m\n  /\\ UNCHANGED dispensed\n\nDispense(m) ==\n  /\\ grant = m\n  /\\ dispensed[m] = 0\n  /\\ dispensed' = [dispensed EXCEPT ![m] = dispensed[m] + 1]\n  /\\ grant' = \"ring\"\n\nNext == \\E m \\in Machines : PassToRing(m) \\/ Deliver(m) \\/ Dispense(m)\nSpec == Init /\\ [][Next]_vars\n\nDispensedAtMostOnce == \\A m \\in Machines : dispensed[m] <= 1\n===="
+    },
+    {
+      "row": 46,
+      "id": "w4-fullmodule:w4opus::d13-m1-p5-t1",
+      "split": "train",
+      "kind": "declaration_comma",
+      "positive_sha256": "9f436f4463f97528db6c948e1d0befd03bd20d18cdb14065d53af6d40827872c",
+      "negative_sha256": "1f9c3efbde4dba0db0792bb38d4c5d0c3a1f843fa4e235895dc3e8d8c0a3faf1",
+      "negative": "---- MODULE W4Od13m1p5t1 ----\nEXTENDS Naturals\nCONSTANT Machines\nVARIABLES grant dispensed\nvars == <<grant, dispensed>>\n\nInit ==\n  /\\ grant = (CHOOSE m \\in Machines : TRUE)\n  /\\ dispensed = [m \\in Machines |-> 0]\n\nPassToRing(m) ==\n  /\\ grant = m\n  /\\ grant' = \"ring\"\n  /\\ UNCHANGED dispensed\n\nDeliver(m) ==\n  /\\ grant = \"ring\"\n  /\\ grant' = m\n  /\\ UNCHANGED dispensed\n\nDispense(m) ==\n  /\\ grant = m\n  /\\ dispensed[m] = 0\n  /\\ dispensed' = [dispensed EXCEPT ![m] = dispensed[m] + 1]\n  /\\ grant' = \"ring\"\n\nNext == \\E m \\in Machines : PassToRing(m) \\/ Deliver(m) \\/ Dispense(m)\nSpec == Init /\\ [][Next]_vars\n\nDispensedAtMostOnce == \\A m \\in Machines : dispensed[m] <= 1\n===="
+    },
+    {
+      "row": 46,
+      "id": "w4-fullmodule:w4opus::d13-m1-p5-t1",
+      "split": "train",
+      "kind": "config_in_module",
+      "positive_sha256": "9f436f4463f97528db6c948e1d0befd03bd20d18cdb14065d53af6d40827872c",
+      "negative_sha256": "6051eda355d41a29419201e8ff5e023ee13d78619cac1172af8c42a050f51714",
+      "negative": "---- MODULE W4Od13m1p5t1 ----\nEXTENDS Naturals\nCONSTANT Machines\nVARIABLES grant, dispensed\nvars == <<grant, dispensed>>\n\nInit ==\n  /\\ grant = (CHOOSE m \\in Machines : TRUE)\n  /\\ dispensed = [m \\in Machines |-> 0]\n\nPassToRing(m) ==\n  /\\ grant = m\n  /\\ grant' = \"ring\"\n  /\\ UNCHANGED dispensed\n\nDeliver(m) ==\n  /\\ grant = \"ring\"\n  /\\ grant' = m\n  /\\ UNCHANGED dispensed\n\nDispense(m) ==\n  /\\ grant = m\n  /\\ dispensed[m] = 0\n  /\\ dispensed' = [dispensed EXCEPT ![m] = dispensed[m] + 1]\n  /\\ grant' = \"ring\"\n\nNext == \\E m \\in Machines : PassToRing(m) \\/ Deliver(m) \\/ Dispense(m)\nSpec == Init /\\ [][Next]_vars\n\nDispensedAtMostOnce == \\A m \\in Machines : dispensed[m] <= 1\nSPECIFICATION Init\n===="
+    },
+    {
+      "row": 48,
+      "id": "w4-fullmodule:w4opus::d10-m0-p4-t2",
+      "split": "train",
+      "kind": "definition_equals",
+      "positive_sha256": "6c6c0796360ee046b8b1151ebd5beab54cb51e367b2ecba3fff48cdd7dc66c7a",
+      "negative_sha256": "7ffd08d56478df5627aa1cd8f615dadec4fd693761c28b224a6abe5eb5d3087e",
+      "negative": "---- MODULE W4Od10m0p4t2 ----\nEXTENDS Naturals\nVARIABLES occupancy, cap, ver, snap\nInit = occupancy = 0 /\\ cap = 2 /\\ ver = 0 /\\ snap = 0\nRead == snap' = ver /\\ UNCHANGED <<occupancy, cap, ver>>\nAdmit == snap = ver /\\ occupancy < cap /\\ occupancy' = occupancy + 1 /\\ ver' = (ver + 1) % 3 /\\ UNCHANGED <<cap, snap>>\nDepart == occupancy > 0 /\\ occupancy' = occupancy - 1 /\\ ver' = (ver + 1) % 3 /\\ UNCHANGED <<cap, snap>>\nRetry == snap # ver /\\ snap' = ver /\\ UNCHANGED <<occupancy, cap, ver>>\nNext == Read \\/ Admit \\/ Depart \\/ Retry\nSpec == Init /\\ [][Next]_<<occupancy, cap, ver, snap>>\nOccupancyWithinCap == occupancy >= 0 /\\ occupancy <= cap\n===="
+    },
+    {
+      "row": 48,
+      "id": "w4-fullmodule:w4opus::d10-m0-p4-t2",
+      "split": "train",
+      "kind": "declaration_comma",
+      "positive_sha256": "6c6c0796360ee046b8b1151ebd5beab54cb51e367b2ecba3fff48cdd7dc66c7a",
+      "negative_sha256": "41b60c25ef1f8826e8e3b70fcf929a1029ac3fd0202fa2a6642be25350c83431",
+      "negative": "---- MODULE W4Od10m0p4t2 ----\nEXTENDS Naturals\nVARIABLES occupancy cap, ver, snap\nInit == occupancy = 0 /\\ cap = 2 /\\ ver = 0 /\\ snap = 0\nRead == snap' = ver /\\ UNCHANGED <<occupancy, cap, ver>>\nAdmit == snap = ver /\\ occupancy < cap /\\ occupancy' = occupancy + 1 /\\ ver' = (ver + 1) % 3 /\\ UNCHANGED <<cap, snap>>\nDepart == occupancy > 0 /\\ occupancy' = occupancy - 1 /\\ ver' = (ver + 1) % 3 /\\ UNCHANGED <<cap, snap>>\nRetry == snap # ver /\\ snap' = ver /\\ UNCHANGED <<occupancy, cap, ver>>\nNext == Read \\/ Admit \\/ Depart \\/ Retry\nSpec == Init /\\ [][Next]_<<occupancy, cap, ver, snap>>\nOccupancyWithinCap == occupancy >= 0 /\\ occupancy <= cap\n===="
+    },
+    {
+      "row": 48,
+      "id": "w4-fullmodule:w4opus::d10-m0-p4-t2",
+      "split": "train",
+      "kind": "config_in_module",
+      "positive_sha256": "6c6c0796360ee046b8b1151ebd5beab54cb51e367b2ecba3fff48cdd7dc66c7a",
+      "negative_sha256": "79781d3589b6df8b1e48977dbe200e70bd3a5d9aad80dab6d23de7c41126d8b4",
+      "negative": "---- MODULE W4Od10m0p4t2 ----\nEXTENDS Naturals\nVARIABLES occupancy, cap, ver, snap\nInit == occupancy = 0 /\\ cap = 2 /\\ ver = 0 /\\ snap = 0\nRead == snap' = ver /\\ UNCHANGED <<occupancy, cap, ver>>\nAdmit == snap = ver /\\ occupancy < cap /\\ occupancy' = occupancy + 1 /\\ ver' = (ver + 1) % 3 /\\ UNCHANGED <<cap, snap>>\nDepart == occupancy > 0 /\\ occupancy' = occupancy - 1 /\\ ver' = (ver + 1) % 3 /\\ UNCHANGED <<cap, snap>>\nRetry == snap # ver /\\ snap' = ver /\\ UNCHANGED <<occupancy, cap, ver>>\nNext == Read \\/ Admit \\/ Depart \\/ Retry\nSpec == Init /\\ [][Next]_<<occupancy, cap, ver, snap>>\nOccupancyWithinCap == occupancy >= 0 /\\ occupancy <= cap\nSPECIFICATION Init\n===="
+    },
+    {
+      "row": 49,
+      "id": "w4-fullmodule:w4opus::d1-m0-p0-t5",
+      "split": "train",
+      "kind": "definition_equals",
+      "positive_sha256": "2167983adbb1e282fd81f4aeb4f6572acba44fa1db9abdb2e783c449cbd0c23c",
+      "negative_sha256": "375a1317c61cf6f8879abd46342074c0e58858b61c76bab081aafac00a02ba29",
+      "negative": "---- MODULE W4Od1m0p0t5 ----\nEXTENDS Integers\nPlanes = {\"p1\",\"p2\"}\nMaxV == 4\nVARIABLES cleared, version, admin\nInit == cleared = [p \\in Planes |-> FALSE] /\\ version = 0 /\\ admin = FALSE\nClear(p) == (\\A q \\in Planes : ~cleared[q]) /\\ version < MaxV /\\ cleared' = [cleared EXCEPT ![p] = TRUE] /\\ version' = version + 1 /\\ admin' = admin\nVacate(p) == cleared[p] /\\ version < MaxV /\\ cleared' = [cleared EXCEPT ![p] = FALSE] /\\ version' = version + 1 /\\ admin' = admin\nAdminClear == admin' = TRUE /\\ cleared' = [p \\in Planes |-> FALSE] /\\ version' = version\nNext == AdminClear \\/ (\\E p \\in Planes : Clear(p) \\/ Vacate(p))\nvars == <<cleared, version, admin>>\nSpec == Init /\\ [][Next]_vars\nOneRunwayUser == \\A p1 \\in Planes, p2 \\in Planes : (cleared[p1] /\\ cleared[p2]) => (p1 = p2)\n===="
+    },
+    {
+      "row": 49,
+      "id": "w4-fullmodule:w4opus::d1-m0-p0-t5",
+      "split": "train",
+      "kind": "membership_keyword",
+      "positive_sha256": "2167983adbb1e282fd81f4aeb4f6572acba44fa1db9abdb2e783c449cbd0c23c",
+      "negative_sha256": "f1d08887dcc5ac6b37b0a94cc7cf8bda2cb77c18215dfd4818a91bcafad1aa33",
+      "negative": "---- MODULE W4Od1m0p0t5 ----\nEXTENDS Integers\nPlanes == {\"p1\",\"p2\"}\nMaxV == 4\nVARIABLES cleared, version, admin\nInit == cleared = [p IN Planes |-> FALSE] /\\ version = 0 /\\ admin = FALSE\nClear(p) == (\\A q \\in Planes : ~cleared[q]) /\\ version < MaxV /\\ cleared' = [cleared EXCEPT ![p] = TRUE] /\\ version' = version + 1 /\\ admin' = admin\nVacate(p) == cleared[p] /\\ version < MaxV /\\ cleared' = [cleared EXCEPT ![p] = FALSE] /\\ version' = version + 1 /\\ admin' = admin\nAdminClear == admin' = TRUE /\\ cleared' = [p \\in Planes |-> FALSE] /\\ version' = version\nNext == AdminClear \\/ (\\E p \\in Planes : Clear(p) \\/ Vacate(p))\nvars == <<cleared, version, admin>>\nSpec == Init /\\ [][Next]_vars\nOneRunwayUser == \\A p1 \\in Planes, p2 \\in Planes : (cleared[p1] /\\ cleared[p2]) => (p1 = p2)\n===="
+    },
+    {
+      "row": 49,
+      "id": "w4-fullmodule:w4opus::d1-m0-p0-t5",
+      "split": "train",
+      "kind": "declaration_comma",
+      "positive_sha256": "2167983adbb1e282fd81f4aeb4f6572acba44fa1db9abdb2e783c449cbd0c23c",
+      "negative_sha256": "600debc956ea6ef61ba62c1e4ef71f18b183ba2b5515b01152ccd920af389454",
+      "negative": "---- MODULE W4Od1m0p0t5 ----\nEXTENDS Integers\nPlanes == {\"p1\",\"p2\"}\nMaxV == 4\nVARIABLES cleared version, admin\nInit == cleared = [p \\in Planes |-> FALSE] /\\ version = 0 /\\ admin = FALSE\nClear(p) == (\\A q \\in Planes : ~cleared[q]) /\\ version < MaxV /\\ cleared' = [cleared EXCEPT ![p] = TRUE] /\\ version' = version + 1 /\\ admin' = admin\nVacate(p) == cleared[p] /\\ version < MaxV /\\ cleared' = [cleared EXCEPT ![p] = FALSE] /\\ version' = version + 1 /\\ admin' = admin\nAdminClear == admin' = TRUE /\\ cleared' = [p \\in Planes |-> FALSE] /\\ version' = version\nNext == AdminClear \\/ (\\E p \\in Planes : Clear(p) \\/ Vacate(p))\nvars == <<cleared, version, admin>>\nSpec == Init /\\ [][Next]_vars\nOneRunwayUser == \\A p1 \\in Planes, p2 \\in Planes : (cleared[p1] /\\ cleared[p2]) => (p1 = p2)\n===="
+    },
+    {
+      "row": 49,
+      "id": "w4-fullmodule:w4opus::d1-m0-p0-t5",
+      "split": "train",
+      "kind": "config_in_module",
+      "positive_sha256": "2167983adbb1e282fd81f4aeb4f6572acba44fa1db9abdb2e783c449cbd0c23c",
+      "negative_sha256": "262041fa29dab1a048ed80ad58bc658eff0fc893439c79d21e7644dad1e70dd1",
+      "negative": "---- MODULE W4Od1m0p0t5 ----\nEXTENDS Integers\nPlanes == {\"p1\",\"p2\"}\nMaxV == 4\nVARIABLES cleared, version, admin\nInit == cleared = [p \\in Planes |-> FALSE] /\\ version = 0 /\\ admin = FALSE\nClear(p) == (\\A q \\in Planes : ~cleared[q]) /\\ version < MaxV /\\ cleared' = [cleared EXCEPT ![p] = TRUE] /\\ version' = version + 1 /\\ admin' = admin\nVacate(p) == cleared[p] /\\ version < MaxV /\\ cleared' = [cleared EXCEPT ![p] = FALSE] /\\ version' = version + 1 /\\ admin' = admin\nAdminClear == admin' = TRUE /\\ cleared' = [p \\in Planes |-> FALSE] /\\ version' = version\nNext == AdminClear \\/ (\\E p \\in Planes : Clear(p) \\/ Vacate(p))\nvars == <<cleared, version, admin>>\nSpec == Init /\\ [][Next]_vars\nOneRunwayUser == \\A p1 \\in Planes, p2 \\in Planes : (cleared[p1] /\\ cleared[p2]) => (p1 = p2)\nSPECIFICATION Init\n===="
+    },
+    {
+      "row": 50,
+      "id": "w4-fullmodule:w4opus::d10-m2-p0-t3",
+      "split": "train",
+      "kind": "definition_equals",
+      "positive_sha256": "4eb9d23b701851e2039a5d2c00696cd9b618d68204778295ba38187c3ed30378",
+      "negative_sha256": "46748055a52d913ae210a1ce1b46870ac5d4524a183359a51803be1cbf233af7",
+      "negative": "---- MODULE W4Od10m2p0t3 ----\nEXTENDS Naturals\n\nCONSTANTS Trains, Interlockings\n\nVARIABLES holders, phase, candidate, prepared\nvars = <<holders, phase, candidate, prepared>>\n\nInit ==\n    /\\ holders = {}\n    /\\ phase = \"idle\"\n    /\\ candidate = \"none\"\n    /\\ prepared = {}\n\nRequest(t) ==\n    /\\ phase = \"idle\"\n    /\\ holders = {}\n    /\\ phase' = \"voting\"\n    /\\ candidate' = t\n    /\\ prepared' = {}\n    /\\ UNCHANGED holders\n\nPrepare(i) ==\n    /\\ phase = \"voting\"\n    /\\ i \\in Interlockings\n    /\\ i \\notin prepared\n    /\\ prepared' = prepared \\cup {i}\n    /\\ UNCHANGED <<holders, phase, candidate>>\n\nCommit ==\n    /\\ phase = \"voting\"\n    /\\ prepared = Interlockings\n    /\\ holders' = {candidate}\n    /\\ phase' = \"idle\"\n    /\\ UNCHANGED <<candidate, prepared>>\n\nAbort ==\n    /\\ phase = \"voting\"\n    /\\ phase' = \"idle\"\n    /\\ UNCHANGED <<holders, candidate, prepared>>\n\nRelease(t) ==\n    /\\ t \\in holders\n    /\\ holders' = holders \\ {t}\n    /\\ UNCHANGED <<phase, candidate, prepared>>\n\nNext ==\n    \\/ \\E t \\in Trains : Request(t)\n    \\/ \\E i \\in Interlockings : Prepare(i)\n    \\/ Commit\n    \\/ Abort\n    \\/ \\E t \\in Trains : Release(t)\n\nSpec == Init /\\ [][Next]_vars\n\nBlockExclusive == holders = {} \\/ \\E t \\in Trains : holders = {t}\n===="
+    },
+    {
+      "row": 50,
+      "id": "w4-fullmodule:w4opus::d10-m2-p0-t3",
+      "split": "train",
+      "kind": "membership_keyword",
+      "positive_sha256": "4eb9d23b701851e2039a5d2c00696cd9b618d68204778295ba38187c3ed30378",
+      "negative_sha256": "5bdf9e684da93fca4f64f36fd5911c67cb69162fedaf27df82831a6428acf7db",
+      "negative": "---- MODULE W4Od10m2p0t3 ----\nEXTENDS Naturals\n\nCONSTANTS Trains, Interlockings\n\nVARIABLES holders, phase, candidate, prepared\nvars == <<holders, phase, candidate, prepared>>\n\nInit ==\n    /\\ holders = {}\n    /\\ phase = \"idle\"\n    /\\ candidate = \"none\"\n    /\\ prepared = {}\n\nRequest(t) ==\n    /\\ phase = \"idle\"\n    /\\ holders = {}\n    /\\ phase' = \"voting\"\n    /\\ candidate' = t\n    /\\ prepared' = {}\n    /\\ UNCHANGED holders\n\nPrepare(i) ==\n    /\\ phase = \"voting\"\n    /\\ i IN Interlockings\n    /\\ i \\notin prepared\n    /\\ prepared' = prepared \\cup {i}\n    /\\ UNCHANGED <<holders, phase, candidate>>\n\nCommit ==\n    /\\ phase = \"voting\"\n    /\\ prepared = Interlockings\n    /\\ holders' = {candidate}\n    /\\ phase' = \"idle\"\n    /\\ UNCHANGED <<candidate, prepared>>\n\nAbort ==\n    /\\ phase = \"voting\"\n    /\\ phase' = \"idle\"\n    /\\ UNCHANGED <<holders, candidate, prepared>>\n\nRelease(t) ==\n    /\\ t \\in holders\n    /\\ holders' = holders \\ {t}\n    /\\ UNCHANGED <<phase, candidate, prepared>>\n\nNext ==\n    \\/ \\E t \\in Trains : Request(t)\n    \\/ \\E i \\in Interlockings : Prepare(i)\n    \\/ Commit\n    \\/ Abort\n    \\/ \\E t \\in Trains : Release(t)\n\nSpec == Init /\\ [][Next]_vars\n\nBlockExclusive == holders = {} \\/ \\E t \\in Trains : holders = {t}\n===="
+    },
+    {
+      "row": 50,
+      "id": "w4-fullmodule:w4opus::d10-m2-p0-t3",
+      "split": "train",
+      "kind": "declaration_comma",
+      "positive_sha256": "4eb9d23b701851e2039a5d2c00696cd9b618d68204778295ba38187c3ed30378",
+      "negative_sha256": "3e14c00fc03993f6d247af93e6c6e866079f08e7b2766b471b12acda0ea080bf",
+      "negative": "---- MODULE W4Od10m2p0t3 ----\nEXTENDS Naturals\n\nCONSTANTS Trains, Interlockings\n\nVARIABLES holders phase, candidate, prepared\nvars == <<holders, phase, candidate, prepared>>\n\nInit ==\n    /\\ holders = {}\n    /\\ phase = \"idle\"\n    /\\ candidate = \"none\"\n    /\\ prepared = {}\n\nRequest(t) ==\n    /\\ phase = \"idle\"\n    /\\ holders = {}\n    /\\ phase' = \"voting\"\n    /\\ candidate' = t\n    /\\ prepared' = {}\n    /\\ UNCHANGED holders\n\nPrepare(i) ==\n    /\\ phase = \"voting\"\n    /\\ i \\in Interlockings\n    /\\ i \\notin prepared\n    /\\ prepared' = prepared \\cup {i}\n    /\\ UNCHANGED <<holders, phase, candidate>>\n\nCommit ==\n    /\\ phase = \"voting\"\n    /\\ prepared = Interlockings\n    /\\ holders' = {candidate}\n    /\\ phase' = \"idle\"\n    /\\ UNCHANGED <<candidate, prepared>>\n\nAbort ==\n    /\\ phase = \"voting\"\n    /\\ phase' = \"idle\"\n    /\\ UNCHANGED <<holders, candidate, prepared>>\n\nRelease(t) ==\n    /\\ t \\in holders\n    /\\ holders' = holders \\ {t}\n    /\\ UNCHANGED <<phase, candidate, prepared>>\n\nNext ==\n    \\/ \\E t \\in Trains : Request(t)\n    \\/ \\E i \\in Interlockings : Prepare(i)\n    \\/ Commit\n    \\/ Abort\n    \\/ \\E t \\in Trains : Release(t)\n\nSpec == Init /\\ [][Next]_vars\n\nBlockExclusive == holders = {} \\/ \\E t \\in Trains : holders = {t}\n===="
+    },
+    {
+      "row": 50,
+      "id": "w4-fullmodule:w4opus::d10-m2-p0-t3",
+      "split": "train",
+      "kind": "config_in_module",
+      "positive_sha256": "4eb9d23b701851e2039a5d2c00696cd9b618d68204778295ba38187c3ed30378",
+      "negative_sha256": "6eb880333f64fb03f0669c031a52d672c8539f3c6624eb0bd81a8e574cc7fdff",
+      "negative": "---- MODULE W4Od10m2p0t3 ----\nEXTENDS Naturals\n\nCONSTANTS Trains, Interlockings\n\nVARIABLES holders, phase, candidate, prepared\nvars == <<holders, phase, candidate, prepared>>\n\nInit ==\n    /\\ holders = {}\n    /\\ phase = \"idle\"\n    /\\ candidate = \"none\"\n    /\\ prepared = {}\n\nRequest(t) ==\n    /\\ phase = \"idle\"\n    /\\ holders = {}\n    /\\ phase' = \"voting\"\n    /\\ candidate' = t\n    /\\ prepared' = {}\n    /\\ UNCHANGED holders\n\nPrepare(i) ==\n    /\\ phase = \"voting\"\n    /\\ i \\in Interlockings\n    /\\ i \\notin prepared\n    /\\ prepared' = prepared \\cup {i}\n    /\\ UNCHANGED <<holders, phase, candidate>>\n\nCommit ==\n    /\\ phase = \"voting\"\n    /\\ prepared = Interlockings\n    /\\ holders' = {candidate}\n    /\\ phase' = \"idle\"\n    /\\ UNCHANGED <<candidate, prepared>>\n\nAbort ==\n    /\\ phase = \"voting\"\n    /\\ phase' = \"idle\"\n    /\\ UNCHANGED <<holders, candidate, prepared>>\n\nRelease(t) ==\n    /\\ t \\in holders\n    /\\ holders' = holders \\ {t}\n    /\\ UNCHANGED <<phase, candidate, prepared>>\n\nNext ==\n    \\/ \\E t \\in Trains : Request(t)\n    \\/ \\E i \\in Interlockings : Prepare(i)\n    \\/ Commit\n    \\/ Abort\n    \\/ \\E t \\in Trains : Release(t)\n\nSpec == Init /\\ [][Next]_vars\n\nBlockExclusive == holders = {} \\/ \\E t \\in Trains : holders = {t}\nSPECIFICATION Init\n===="
+    },
+    {
+      "row": 51,
+      "id": "w4-fullmodule:w4opus::d4-m2-p0-t1",
+      "split": "train",
+      "kind": "definition_equals",
+      "positive_sha256": "ae56c12d774b6daa7440e132fc988e8d057c3a10590a97cec75898baab7e2a22",
+      "negative_sha256": "f94d1cb3ce84face6424c496a7a91c939401848e57e8c24154fe994f063e2400",
+      "negative": "--------------------------- MODULE W4Od4m2p0t1 ---------------------------\nEXTENDS Naturals\nCONSTANTS Cars, Stations, NoCar\nVARIABLES phase, proposed, votes, washing\n\nvars = <<phase, proposed, votes, washing>>\n\nInit ==\n    /\\ phase = \"idle\"\n    /\\ proposed = NoCar\n    /\\ votes = [s \\in Stations |-> \"none\"]\n    /\\ washing = {}\n\nPropose(c) ==\n    /\\ phase = \"idle\"\n    /\\ washing = {}\n    /\\ c \\in Cars\n    /\\ phase' = \"voting\"\n    /\\ proposed' = c\n    /\\ votes' = [s \\in Stations |-> \"none\"]\n    /\\ UNCHANGED washing\n\nVote(s, v) ==\n    /\\ phase = \"voting\"\n    /\\ votes[s] = \"none\"\n    /\\ v \\in {\"yes\", \"no\"}\n    /\\ votes' = [votes EXCEPT ![s] = v]\n    /\\ UNCHANGED <<phase, proposed, washing>>\n\nCommit ==\n    /\\ phase = \"voting\"\n    /\\ \\A s \\in Stations : votes[s] = \"yes\"\n    /\\ washing' = {proposed}\n    /\\ phase' = \"committed\"\n    /\\ UNCHANGED <<proposed, votes>>\n\nAbort ==\n    /\\ phase = \"voting\"\n    /\\ \\E s \\in Stations : votes[s] = \"no\"\n    /\\ phase' = \"idle\"\n    /\\ proposed' = NoCar\n    /\\ UNCHANGED <<votes, washing>>\n\nExit ==\n    /\\ phase = \"committed\"\n    /\\ washing' = {}\n    /\\ phase' = \"idle\"\n    /\\ proposed' = NoCar\n    /\\ UNCHANGED votes\n\nNext ==\n    \\/ \\E c \\in Cars : Propose(c)\n    \\/ \\E s \\in Stations : \\E v \\in {\"yes\", \"no\"} : Vote(s, v)\n    \\/ Commit\n    \\/ Abort\n    \\/ Exit\n\nSpec == Init /\\ [][Next]_vars\n\nAtMostOneCarWashing == washing = {} \\/ \\E c \\in Cars : washing = {c}\n========================================================================="
+    },
+    {
+      "row": 51,
+      "id": "w4-fullmodule:w4opus::d4-m2-p0-t1",
+      "split": "train",
+      "kind": "membership_keyword",
+      "positive_sha256": "ae56c12d774b6daa7440e132fc988e8d057c3a10590a97cec75898baab7e2a22",
+      "negative_sha256": "484db3e483ccb65a09e3e49a02687427fccdd746d710cea188f72359d77620e8",
+      "negative": "--------------------------- MODULE W4Od4m2p0t1 ---------------------------\nEXTENDS Naturals\nCONSTANTS Cars, Stations, NoCar\nVARIABLES phase, proposed, votes, washing\n\nvars == <<phase, proposed, votes, washing>>\n\nInit ==\n    /\\ phase = \"idle\"\n    /\\ proposed = NoCar\n    /\\ votes = [s IN Stations |-> \"none\"]\n    /\\ washing = {}\n\nPropose(c) ==\n    /\\ phase = \"idle\"\n    /\\ washing = {}\n    /\\ c \\in Cars\n    /\\ phase' = \"voting\"\n    /\\ proposed' = c\n    /\\ votes' = [s \\in Stations |-> \"none\"]\n    /\\ UNCHANGED washing\n\nVote(s, v) ==\n    /\\ phase = \"voting\"\n    /\\ votes[s] = \"none\"\n    /\\ v \\in {\"yes\", \"no\"}\n    /\\ votes' = [votes EXCEPT ![s] = v]\n    /\\ UNCHANGED <<phase, proposed, washing>>\n\nCommit ==\n    /\\ phase = \"voting\"\n    /\\ \\A s \\in Stations : votes[s] = \"yes\"\n    /\\ washing' = {proposed}\n    /\\ phase' = \"committed\"\n    /\\ UNCHANGED <<proposed, votes>>\n\nAbort ==\n    /\\ phase = \"voting\"\n    /\\ \\E s \\in Stations : votes[s] = \"no\"\n    /\\ phase' = \"idle\"\n    /\\ proposed' = NoCar\n    /\\ UNCHANGED <<votes, washing>>\n\nExit ==\n    /\\ phase = \"committed\"\n    /\\ washing' = {}\n    /\\ phase' = \"idle\"\n    /\\ proposed' = NoCar\n    /\\ UNCHANGED votes\n\nNext ==\n    \\/ \\E c \\in Cars : Propose(c)\n    \\/ \\E s \\in Stations : \\E v \\in {\"yes\", \"no\"} : Vote(s, v)\n    \\/ Commit\n    \\/ Abort\n    \\/ Exit\n\nSpec == Init /\\ [][Next]_vars\n\nAtMostOneCarWashing == washing = {} \\/ \\E c \\in Cars : washing = {c}\n========================================================================="
+    },
+    {
+      "row": 51,
+      "id": "w4-fullmodule:w4opus::d4-m2-p0-t1",
+      "split": "train",
+      "kind": "declaration_comma",
+      "positive_sha256": "ae56c12d774b6daa7440e132fc988e8d057c3a10590a97cec75898baab7e2a22",
+      "negative_sha256": "b0af29071922fa9b96837a40c7fcc88e3bd15e0c52e548f6cad02f6acd24caab",
+      "negative": "--------------------------- MODULE W4Od4m2p0t1 ---------------------------\nEXTENDS Naturals\nCONSTANTS Cars, Stations, NoCar\nVARIABLES phase proposed, votes, washing\n\nvars == <<phase, proposed, votes, washing>>\n\nInit ==\n    /\\ phase = \"idle\"\n    /\\ proposed = NoCar\n    /\\ votes = [s \\in Stations |-> \"none\"]\n    /\\ washing = {}\n\nPropose(c) ==\n    /\\ phase = \"idle\"\n    /\\ washing = {}\n    /\\ c \\in Cars\n    /\\ phase' = \"voting\"\n    /\\ proposed' = c\n    /\\ votes' = [s \\in Stations |-> \"none\"]\n    /\\ UNCHANGED washing\n\nVote(s, v) ==\n    /\\ phase = \"voting\"\n    /\\ votes[s] = \"none\"\n    /\\ v \\in {\"yes\", \"no\"}\n    /\\ votes' = [votes EXCEPT ![s] = v]\n    /\\ UNCHANGED <<phase, proposed, washing>>\n\nCommit ==\n    /\\ phase = \"voting\"\n    /\\ \\A s \\in Stations : votes[s] = \"yes\"\n    /\\ washing' = {proposed}\n    /\\ phase' = \"committed\"\n    /\\ UNCHANGED <<proposed, votes>>\n\nAbort ==\n    /\\ phase = \"voting\"\n    /\\ \\E s \\in Stations : votes[s] = \"no\"\n    /\\ phase' = \"idle\"\n    /\\ proposed' = NoCar\n    /\\ UNCHANGED <<votes, washing>>\n\nExit ==\n    /\\ phase = \"committed\"\n    /\\ washing' = {}\n    /\\ phase' = \"idle\"\n    /\\ proposed' = NoCar\n    /\\ UNCHANGED votes\n\nNext ==\n    \\/ \\E c \\in Cars : Propose(c)\n    \\/ \\E s \\in Stations : \\E v \\in {\"yes\", \"no\"} : Vote(s, v)\n    \\/ Commit\n    \\/ Abort\n    \\/ Exit\n\nSpec == Init /\\ [][Next]_vars\n\nAtMostOneCarWashing == washing = {} \\/ \\E c \\in Cars : washing = {c}\n========================================================================="
+    },
+    {
+      "row": 51,
+      "id": "w4-fullmodule:w4opus::d4-m2-p0-t1",
+      "split": "train",
+      "kind": "config_in_module",
+      "positive_sha256": "ae56c12d774b6daa7440e132fc988e8d057c3a10590a97cec75898baab7e2a22",
+      "negative_sha256": "be6c0a9b6fcd08fb2511413779a6c41b046da85758121c0461a90003218e3ce8",
+      "negative": "--------------------------- MODULE W4Od4m2p0t1 ---------------------------\nEXTENDS Naturals\nCONSTANTS Cars, Stations, NoCar\nVARIABLES phase, proposed, votes, washing\n\nvars == <<phase, proposed, votes, washing>>\n\nInit ==\n    /\\ phase = \"idle\"\n    /\\ proposed = NoCar\n    /\\ votes = [s \\in Stations |-> \"none\"]\n    /\\ washing = {}\n\nPropose(c) ==\n    /\\ phase = \"idle\"\n    /\\ washing = {}\n    /\\ c \\in Cars\n    /\\ phase' = \"voting\"\n    /\\ proposed' = c\n    /\\ votes' = [s \\in Stations |-> \"none\"]\n    /\\ UNCHANGED washing\n\nVote(s, v) ==\n    /\\ phase = \"voting\"\n    /\\ votes[s] = \"none\"\n    /\\ v \\in {\"yes\", \"no\"}\n    /\\ votes' = [votes EXCEPT ![s] = v]\n    /\\ UNCHANGED <<phase, proposed, washing>>\n\nCommit ==\n    /\\ phase = \"voting\"\n    /\\ \\A s \\in Stations : votes[s] = \"yes\"\n    /\\ washing' = {proposed}\n    /\\ phase' = \"committed\"\n    /\\ UNCHANGED <<proposed, votes>>\n\nAbort ==\n    /\\ phase = \"voting\"\n    /\\ \\E s \\in Stations : votes[s] = \"no\"\n    /\\ phase' = \"idle\"\n    /\\ proposed' = NoCar\n    /\\ UNCHANGED <<votes, washing>>\n\nExit ==\n    /\\ phase = \"committed\"\n    /\\ washing' = {}\n    /\\ phase' = \"idle\"\n    /\\ proposed' = NoCar\n    /\\ UNCHANGED votes\n\nNext ==\n    \\/ \\E c \\in Cars : Propose(c)\n    \\/ \\E s \\in Stations : \\E v \\in {\"yes\", \"no\"} : Vote(s, v)\n    \\/ Commit\n    \\/ Abort\n    \\/ Exit\n\nSpec == Init /\\ [][Next]_vars\n\nAtMostOneCarWashing == washing = {} \\/ \\E c \\in Cars : washing = {c}\nSPECIFICATION Init\n========================================================================="
+    },
+    {
+      "row": 52,
+      "id": "w4-fullmodule:w4opus::d19-m7-p2-t1",
+      "split": "train",
+      "kind": "definition_equals",
+      "positive_sha256": "769f844aaa3a81ab2a77b59922b84824d678c071468f8ab3b96bd5be021e7132",
+      "negative_sha256": "861179c4ae3430977f29510bd1a50f02695e315b231f1584373d393c1e0fd1fa",
+      "negative": "---- MODULE W4Od19m7p2t1 ----\nEXTENDS Naturals\nCONSTANTS Patrons, Total\n\nNone = \"none\"\n\nVARIABLES reg, shelf, loaned, inbox\nvars == <<reg, shelf, loaned, inbox>>\n\nMsgs == [patron : Patrons, act : {\"borrow\", \"return\"}]\n\nInit ==\n  /\\ reg = None\n  /\\ shelf = Total\n  /\\ loaned = 0\n  /\\ inbox = {}\n\nRequest(p, a) ==\n  /\\ [patron |-> p, act |-> a] \\notin inbox\n  /\\ inbox' = inbox \\cup {[patron |-> p, act |-> a]}\n  /\\ UNCHANGED <<reg, shelf, loaned>>\n\nAcquire(p) ==\n  /\\ reg = None\n  /\\ reg' = p\n  /\\ UNCHANGED <<shelf, loaned, inbox>>\n\nBorrow(p) ==\n  /\\ reg = p\n  /\\ shelf > 0\n  /\\ [patron |-> p, act |-> \"borrow\"] \\in inbox\n  /\\ shelf' = shelf - 1\n  /\\ loaned' = loaned + 1\n  /\\ inbox' = inbox \\ {[patron |-> p, act |-> \"borrow\"]}\n  /\\ reg' = None\n\nReturn(p) ==\n  /\\ reg = p\n  /\\ loaned > 0\n  /\\ [patron |-> p, act |-> \"return\"] \\in inbox\n  /\\ loaned' = loaned - 1\n  /\\ shelf' = shelf + 1\n  /\\ inbox' = inbox \\ {[patron |-> p, act |-> \"return\"]}\n  /\\ reg' = None\n\nRelease(p) ==\n  /\\ reg = p\n  /\\ reg' = None\n  /\\ UNCHANGED <<shelf, loaned, inbox>>\n\nNext ==\n  \\/ \\E p \\in Patrons, a \\in {\"borrow\", \"return\"} : Request(p, a)\n  \\/ \\E p \\in Patrons : Acquire(p) \\/ Borrow(p) \\/ Return(p) \\/ Release(p)\n\nSpec == Init /\\ [][Next]_vars\n\nCopiesConserved == shelf + loaned = Total\n===="
+    },
+    {
+      "row": 52,
+      "id": "w4-fullmodule:w4opus::d19-m7-p2-t1",
+      "split": "train",
+      "kind": "membership_keyword",
+      "positive_sha256": "769f844aaa3a81ab2a77b59922b84824d678c071468f8ab3b96bd5be021e7132",
+      "negative_sha256": "384dbd622f9ed4de6e0921c7d641193fe4cdca23da4db40d66bb28a43003c3db",
+      "negative": "---- MODULE W4Od19m7p2t1 ----\nEXTENDS Naturals\nCONSTANTS Patrons, Total\n\nNone == \"none\"\n\nVARIABLES reg, shelf, loaned, inbox\nvars == <<reg, shelf, loaned, inbox>>\n\nMsgs == [patron : Patrons, act : {\"borrow\", \"return\"}]\n\nInit ==\n  /\\ reg = None\n  /\\ shelf = Total\n  /\\ loaned = 0\n  /\\ inbox = {}\n\nRequest(p, a) ==\n  /\\ [patron |-> p, act |-> a] \\notin inbox\n  /\\ inbox' = inbox \\cup {[patron |-> p, act |-> a]}\n  /\\ UNCHANGED <<reg, shelf, loaned>>\n\nAcquire(p) ==\n  /\\ reg = None\n  /\\ reg' = p\n  /\\ UNCHANGED <<shelf, loaned, inbox>>\n\nBorrow(p) ==\n  /\\ reg = p\n  /\\ shelf > 0\n  /\\ [patron |-> p, act |-> \"borrow\"] IN inbox\n  /\\ shelf' = shelf - 1\n  /\\ loaned' = loaned + 1\n  /\\ inbox' = inbox \\ {[patron |-> p, act |-> \"borrow\"]}\n  /\\ reg' = None\n\nReturn(p) ==\n  /\\ reg = p\n  /\\ loaned > 0\n  /\\ [patron |-> p, act |-> \"return\"] \\in inbox\n  /\\ loaned' = loaned - 1\n  /\\ shelf' = shelf + 1\n  /\\ inbox' = inbox \\ {[patron |-> p, act |-> \"return\"]}\n  /\\ reg' = None\n\nRelease(p) ==\n  /\\ reg = p\n  /\\ reg' = None\n  /\\ UNCHANGED <<shelf, loaned, inbox>>\n\nNext ==\n  \\/ \\E p \\in Patrons, a \\in {\"borrow\", \"return\"} : Request(p, a)\n  \\/ \\E p \\in Patrons : Acquire(p) \\/ Borrow(p) \\/ Return(p) \\/ Release(p)\n\nSpec == Init /\\ [][Next]_vars\n\nCopiesConserved == shelf + loaned = Total\n===="
+    },
+    {
+      "row": 52,
+      "id": "w4-fullmodule:w4opus::d19-m7-p2-t1",
+      "split": "train",
+      "kind": "declaration_comma",
+      "positive_sha256": "769f844aaa3a81ab2a77b59922b84824d678c071468f8ab3b96bd5be021e7132",
+      "negative_sha256": "42a224018d0079528f612f2808ff3d087f8d87b01d69fc31edbbe296a0db2c74",
+      "negative": "---- MODULE W4Od19m7p2t1 ----\nEXTENDS Naturals\nCONSTANTS Patrons, Total\n\nNone == \"none\"\n\nVARIABLES reg shelf, loaned, inbox\nvars == <<reg, shelf, loaned, inbox>>\n\nMsgs == [patron : Patrons, act : {\"borrow\", \"return\"}]\n\nInit ==\n  /\\ reg = None\n  /\\ shelf = Total\n  /\\ loaned = 0\n  /\\ inbox = {}\n\nRequest(p, a) ==\n  /\\ [patron |-> p, act |-> a] \\notin inbox\n  /\\ inbox' = inbox \\cup {[patron |-> p, act |-> a]}\n  /\\ UNCHANGED <<reg, shelf, loaned>>\n\nAcquire(p) ==\n  /\\ reg = None\n  /\\ reg' = p\n  /\\ UNCHANGED <<shelf, loaned, inbox>>\n\nBorrow(p) ==\n  /\\ reg = p\n  /\\ shelf > 0\n  /\\ [patron |-> p, act |-> \"borrow\"] \\in inbox\n  /\\ shelf' = shelf - 1\n  /\\ loaned' = loaned + 1\n  /\\ inbox' = inbox \\ {[patron |-> p, act |-> \"borrow\"]}\n  /\\ reg' = None\n\nReturn(p) ==\n  /\\ reg = p\n  /\\ loaned > 0\n  /\\ [patron |-> p, act |-> \"return\"] \\in inbox\n  /\\ loaned' = loaned - 1\n  /\\ shelf' = shelf + 1\n  /\\ inbox' = inbox \\ {[patron |-> p, act |-> \"return\"]}\n  /\\ reg' = None\n\nRelease(p) ==\n  /\\ reg = p\n  /\\ reg' = None\n  /\\ UNCHANGED <<shelf, loaned, inbox>>\n\nNext ==\n  \\/ \\E p \\in Patrons, a \\in {\"borrow\", \"return\"} : Request(p, a)\n  \\/ \\E p \\in Patrons : Acquire(p) \\/ Borrow(p) \\/ Return(p) \\/ Release(p)\n\nSpec == Init /\\ [][Next]_vars\n\nCopiesConserved == shelf + loaned = Total\n===="
+    },
+    {
+      "row": 52,
+      "id": "w4-fullmodule:w4opus::d19-m7-p2-t1",
+      "split": "train",
+      "kind": "config_in_module",
+      "positive_sha256": "769f844aaa3a81ab2a77b59922b84824d678c071468f8ab3b96bd5be021e7132",
+      "negative_sha256": "187b29d887d1d1b9b9e5854a27b3dc0956acba49e5cd1da6dd68014c26abb1cc",
+      "negative": "---- MODULE W4Od19m7p2t1 ----\nEXTENDS Naturals\nCONSTANTS Patrons, Total\n\nNone == \"none\"\n\nVARIABLES reg, shelf, loaned, inbox\nvars == <<reg, shelf, loaned, inbox>>\n\nMsgs == [patron : Patrons, act : {\"borrow\", \"return\"}]\n\nInit ==\n  /\\ reg = None\n  /\\ shelf = Total\n  /\\ loaned = 0\n  /\\ inbox = {}\n\nRequest(p, a) ==\n  /\\ [patron |-> p, act |-> a] \\notin inbox\n  /\\ inbox' = inbox \\cup {[patron |-> p, act |-> a]}\n  /\\ UNCHANGED <<reg, shelf, loaned>>\n\nAcquire(p) ==\n  /\\ reg = None\n  /\\ reg' = p\n  /\\ UNCHANGED <<shelf, loaned, inbox>>\n\nBorrow(p) ==\n  /\\ reg = p\n  /\\ shelf > 0\n  /\\ [patron |-> p, act |-> \"borrow\"] \\in inbox\n  /\\ shelf' = shelf - 1\n  /\\ loaned' = loaned + 1\n  /\\ inbox' = inbox \\ {[patron |-> p, act |-> \"borrow\"]}\n  /\\ reg' = None\n\nReturn(p) ==\n  /\\ reg = p\n  /\\ loaned > 0\n  /\\ [patron |-> p, act |-> \"return\"] \\in inbox\n  /\\ loaned' = loaned - 1\n  /\\ shelf' = shelf + 1\n  /\\ inbox' = inbox \\ {[patron |-> p, act |-> \"return\"]}\n  /\\ reg' = None\n\nRelease(p) ==\n  /\\ reg = p\n  /\\ reg' = None\n  /\\ UNCHANGED <<shelf, loaned, inbox>>\n\nNext ==\n  \\/ \\E p \\in Patrons, a \\in {\"borrow\", \"return\"} : Request(p, a)\n  \\/ \\E p \\in Patrons : Acquire(p) \\/ Borrow(p) \\/ Return(p) \\/ Release(p)\n\nSpec == Init /\\ [][Next]_vars\n\nCopiesConserved == shelf + loaned = Total\nSPECIFICATION Init\n===="
+    },
+    {
+      "row": 53,
+      "id": "w4-fullmodule:w4opus::d12-m7-p3-t1",
+      "split": "train",
+      "kind": "definition_equals",
+      "positive_sha256": "53db414f719adaeb58a9890f7164294c44d16721963b31b855ad648be147d66c",
+      "negative_sha256": "b60c0ce53329e6a68d892568e5b8b28a48372bbbdddc27a0923b190b18a03937",
+      "negative": "------------------------------ MODULE W4Od12m7p3t1 ------------------------------\nEXTENDS Naturals, FiniteSets\n\nCONSTANTS Slots, Units, MaxInbox, MaxVersion\n\nAllRequests = [slot : Slots, unit : Units]\n\nVARIABLES inbox, grants, done, version\nvars == <<inbox, grants, done, version>>\n\nInit ==\n    /\\ inbox = {}\n    /\\ grants = {}\n    /\\ done = {}\n    /\\ version = 0\n\nArrive(r) ==\n    /\\ r \\in AllRequests\n    /\\ r \\notin inbox\n    /\\ r \\notin grants\n    /\\ r \\notin done\n    /\\ Cardinality(inbox) < MaxInbox\n    /\\ inbox' = inbox \\cup {r}\n    /\\ UNCHANGED <<grants, done, version>>\n\nCommitCAS(r) ==\n    /\\ r \\in inbox\n    /\\ version < MaxVersion\n    /\\ \\A g \\in grants : g.slot # r.slot\n    /\\ grants' = grants \\cup {r}\n    /\\ inbox' = inbox \\ {r}\n    /\\ version' = version + 1\n    /\\ UNCHANGED done\n\nReject(r) ==\n    /\\ r \\in inbox\n    /\\ \\E g \\in grants : g.slot = r.slot\n    /\\ inbox' = inbox \\ {r}\n    /\\ UNCHANGED <<grants, done, version>>\n\nRelease(r) ==\n    /\\ r \\in grants\n    /\\ grants' = grants \\ {r}\n    /\\ done' = done \\cup {r}\n    /\\ UNCHANGED <<inbox, version>>\n\nRecycle ==\n    /\\ inbox = {}\n    /\\ grants = {}\n    /\\ done # {}\n    /\\ done' = {}\n    /\\ version' = 0\n    /\\ UNCHANGED <<inbox, grants>>\n\nNext ==\n    \\/ Recycle\n    \\/ \\E r \\in AllRequests :\n         Arrive(r) \\/ CommitCAS(r) \\/ Reject(r) \\/ Release(r)\n\nSpec == Init /\\ [][Next]_vars\n\nNoDoubleGrant ==\n    \\A g1, g2 \\in grants : (g1.slot = g2.slot) => (g1 = g2)\n\nGrantsArchiveDisjoint ==\n    grants \\cap done = {}\n\n================================================================================"
+    },
+    {
+      "row": 53,
+      "id": "w4-fullmodule:w4opus::d12-m7-p3-t1",
+      "split": "train",
+      "kind": "membership_keyword",
+      "positive_sha256": "53db414f719adaeb58a9890f7164294c44d16721963b31b855ad648be147d66c",
+      "negative_sha256": "de33caf952ad627cdae44ccb4880df9b81db30005a508f64a56601d81ed98f7c",
+      "negative": "------------------------------ MODULE W4Od12m7p3t1 ------------------------------\nEXTENDS Naturals, FiniteSets\n\nCONSTANTS Slots, Units, MaxInbox, MaxVersion\n\nAllRequests == [slot : Slots, unit : Units]\n\nVARIABLES inbox, grants, done, version\nvars == <<inbox, grants, done, version>>\n\nInit ==\n    /\\ inbox = {}\n    /\\ grants = {}\n    /\\ done = {}\n    /\\ version = 0\n\nArrive(r) ==\n    /\\ r IN AllRequests\n    /\\ r \\notin inbox\n    /\\ r \\notin grants\n    /\\ r \\notin done\n    /\\ Cardinality(inbox) < MaxInbox\n    /\\ inbox' = inbox \\cup {r}\n    /\\ UNCHANGED <<grants, done, version>>\n\nCommitCAS(r) ==\n    /\\ r \\in inbox\n    /\\ version < MaxVersion\n    /\\ \\A g \\in grants : g.slot # r.slot\n    /\\ grants' = grants \\cup {r}\n    /\\ inbox' = inbox \\ {r}\n    /\\ version' = version + 1\n    /\\ UNCHANGED done\n\nReject(r) ==\n    /\\ r \\in inbox\n    /\\ \\E g \\in grants : g.slot = r.slot\n    /\\ inbox' = inbox \\ {r}\n    /\\ UNCHANGED <<grants, done, version>>\n\nRelease(r) ==\n    /\\ r \\in grants\n    /\\ grants' = grants \\ {r}\n    /\\ done' = done \\cup {r}\n    /\\ UNCHANGED <<inbox, version>>\n\nRecycle ==\n    /\\ inbox = {}\n    /\\ grants = {}\n    /\\ done # {}\n    /\\ done' = {}\n    /\\ version' = 0\n    /\\ UNCHANGED <<inbox, grants>>\n\nNext ==\n    \\/ Recycle\n    \\/ \\E r \\in AllRequests :\n         Arrive(r) \\/ CommitCAS(r) \\/ Reject(r) \\/ Release(r)\n\nSpec == Init /\\ [][Next]_vars\n\nNoDoubleGrant ==\n    \\A g1, g2 \\in grants : (g1.slot = g2.slot) => (g1 = g2)\n\nGrantsArchiveDisjoint ==\n    grants \\cap done = {}\n\n================================================================================"
+    },
+    {
+      "row": 53,
+      "id": "w4-fullmodule:w4opus::d12-m7-p3-t1",
+      "split": "train",
+      "kind": "declaration_comma",
+      "positive_sha256": "53db414f719adaeb58a9890f7164294c44d16721963b31b855ad648be147d66c",
+      "negative_sha256": "3c0bbb2013e2a7bbb0ffdcaba33f027f905e2034a6e1312da29f7f8ad5525768",
+      "negative": "------------------------------ MODULE W4Od12m7p3t1 ------------------------------\nEXTENDS Naturals, FiniteSets\n\nCONSTANTS Slots, Units, MaxInbox, MaxVersion\n\nAllRequests == [slot : Slots, unit : Units]\n\nVARIABLES inbox grants, done, version\nvars == <<inbox, grants, done, version>>\n\nInit ==\n    /\\ inbox = {}\n    /\\ grants = {}\n    /\\ done = {}\n    /\\ version = 0\n\nArrive(r) ==\n    /\\ r \\in AllRequests\n    /\\ r \\notin inbox\n    /\\ r \\notin grants\n    /\\ r \\notin done\n    /\\ Cardinality(inbox) < MaxInbox\n    /\\ inbox' = inbox \\cup {r}\n    /\\ UNCHANGED <<grants, done, version>>\n\nCommitCAS(r) ==\n    /\\ r \\in inbox\n    /\\ version < MaxVersion\n    /\\ \\A g \\in grants : g.slot # r.slot\n    /\\ grants' = grants \\cup {r}\n    /\\ inbox' = inbox \\ {r}\n    /\\ version' = version + 1\n    /\\ UNCHANGED done\n\nReject(r) ==\n    /\\ r \\in inbox\n    /\\ \\E g \\in grants : g.slot = r.slot\n    /\\ inbox' = inbox \\ {r}\n    /\\ UNCHANGED <<grants, done, version>>\n\nRelease(r) ==\n    /\\ r \\in grants\n    /\\ grants' = grants \\ {r}\n    /\\ done' = done \\cup {r}\n    /\\ UNCHANGED <<inbox, version>>\n\nRecycle ==\n    /\\ inbox = {}\n    /\\ grants = {}\n    /\\ done # {}\n    /\\ done' = {}\n    /\\ version' = 0\n    /\\ UNCHANGED <<inbox, grants>>\n\nNext ==\n    \\/ Recycle\n    \\/ \\E r \\in AllRequests :\n         Arrive(r) \\/ CommitCAS(r) \\/ Reject(r) \\/ Release(r)\n\nSpec == Init /\\ [][Next]_vars\n\nNoDoubleGrant ==\n    \\A g1, g2 \\in grants : (g1.slot = g2.slot) => (g1 = g2)\n\nGrantsArchiveDisjoint ==\n    grants \\cap done = {}\n\n================================================================================"
+    },
+    {
+      "row": 53,
+      "id": "w4-fullmodule:w4opus::d12-m7-p3-t1",
+      "split": "train",
+      "kind": "config_in_module",
+      "positive_sha256": "53db414f719adaeb58a9890f7164294c44d16721963b31b855ad648be147d66c",
+      "negative_sha256": "563492089c261f7d167a1044f3a5dee156f6fb84d85ba3212e18e1eebd5430e1",
+      "negative": "------------------------------ MODULE W4Od12m7p3t1 ------------------------------\nEXTENDS Naturals, FiniteSets\n\nCONSTANTS Slots, Units, MaxInbox, MaxVersion\n\nAllRequests == [slot : Slots, unit : Units]\n\nVARIABLES inbox, grants, done, version\nvars == <<inbox, grants, done, version>>\n\nInit ==\n    /\\ inbox = {}\n    /\\ grants = {}\n    /\\ done = {}\n    /\\ version = 0\n\nArrive(r) ==\n    /\\ r \\in AllRequests\n    /\\ r \\notin inbox\n    /\\ r \\notin grants\n    /\\ r \\notin done\n    /\\ Cardinality(inbox) < MaxInbox\n    /\\ inbox' = inbox \\cup {r}\n    /\\ UNCHANGED <<grants, done, version>>\n\nCommitCAS(r) ==\n    /\\ r \\in inbox\n    /\\ version < MaxVersion\n    /\\ \\A g \\in grants : g.slot # r.slot\n    /\\ grants' = grants \\cup {r}\n    /\\ inbox' = inbox \\ {r}\n    /\\ version' = version + 1\n    /\\ UNCHANGED done\n\nReject(r) ==\n    /\\ r \\in inbox\n    /\\ \\E g \\in grants : g.slot = r.slot\n    /\\ inbox' = inbox \\ {r}\n    /\\ UNCHANGED <<grants, done, version>>\n\nRelease(r) ==\n    /\\ r \\in grants\n    /\\ grants' = grants \\ {r}\n    /\\ done' = done \\cup {r}\n    /\\ UNCHANGED <<inbox, version>>\n\nRecycle ==\n    /\\ inbox = {}\n    /\\ grants = {}\n    /\\ done # {}\n    /\\ done' = {}\n    /\\ version' = 0\n    /\\ UNCHANGED <<inbox, grants>>\n\nNext ==\n    \\/ Recycle\n    \\/ \\E r \\in AllRequests :\n         Arrive(r) \\/ CommitCAS(r) \\/ Reject(r) \\/ Release(r)\n\nSpec == Init /\\ [][Next]_vars\n\nNoDoubleGrant ==\n    \\A g1, g2 \\in grants : (g1.slot = g2.slot) => (g1 = g2)\n\nGrantsArchiveDisjoint ==\n    grants \\cap done = {}\n\nSPECIFICATION Init\n================================================================================"
+    },
+    {
+      "row": 54,
+      "id": "w4-fullmodule:w4opus::d17-m2-p2-t4",
+      "split": "train",
+      "kind": "definition_equals",
+      "positive_sha256": "cb2e00379b73e285cd76a024755c357e9947aec239d4b14a74388eb89776c107",
+      "negative_sha256": "a78194f56b9f07f3d4d9a26973874885465be5687f04bbcdf279eaa7b982f835",
+      "negative": "---- MODULE W4Od17m2p2t4 ----\nEXTENDS Naturals\n\nCONSTANTS Zone, RM, Total, MaxCap, NoMove, Home\n\nASSUME NoMove \\notin (Zone \\X Zone)\n\nVARIABLES bags, vote, pending, cap\nvars = <<bags, vote, pending, cap>>\n\nRECURSIVE SumOf(_)\nSumOf(S) ==\n  IF S = {} THEN 0\n  ELSE LET z == CHOOSE y \\in S : TRUE IN bags[z] + SumOf(S \\ {z})\n\nInit ==\n  /\\ bags = [z \\in Zone |-> IF z = Home THEN Total ELSE 0]\n  /\\ vote = [r \\in RM |-> \"none\"]\n  /\\ pending = NoMove\n  /\\ cap = [z \\in Zone |-> Total]\n\nPropose(s, d) ==\n  /\\ pending = NoMove\n  /\\ s # d\n  /\\ pending' = <<s, d>>\n  /\\ vote' = [r \\in RM |-> \"none\"]\n  /\\ UNCHANGED <<bags, cap>>\n\nPrepare(r) ==\n  /\\ pending # NoMove\n  /\\ vote[r] = \"none\"\n  /\\ vote' = [vote EXCEPT ![r] = \"yes\"]\n  /\\ UNCHANGED <<bags, pending, cap>>\n\nCommit ==\n  /\\ pending # NoMove\n  /\\ \\A r \\in RM : vote[r] = \"yes\"\n  /\\ LET s == pending[1]\n         d == pending[2] IN\n       /\\ bags[s] > 0\n       /\\ bags[d] < cap[d]\n       /\\ bags' = [bags EXCEPT ![s] = @ - 1, ![d] = @ + 1]\n  /\\ pending' = NoMove\n  /\\ UNCHANGED <<vote, cap>>\n\nAbort ==\n  /\\ pending # NoMove\n  /\\ pending' = NoMove\n  /\\ UNCHANGED <<bags, vote, cap>>\n\nResize(z, n) ==\n  /\\ n \\in 1..MaxCap\n  /\\ n >= bags[z]\n  /\\ cap' = [cap EXCEPT ![z] = n]\n  /\\ UNCHANGED <<bags, vote, pending>>\n\nIdle == UNCHANGED vars\n\nNext ==\n  \\/ Idle\n  \\/ \\E s, d \\in Zone : Propose(s, d)\n  \\/ \\E r \\in RM : Prepare(r)\n  \\/ Commit\n  \\/ Abort\n  \\/ \\E z \\in Zone, n \\in 1..MaxCap : Resize(z, n)\n\nSpec == Init /\\ [][Next]_vars\n\nBagConservation == SumOf(Zone) = Total\n===="
+    },
+    {
+      "row": 54,
+      "id": "w4-fullmodule:w4opus::d17-m2-p2-t4",
+      "split": "train",
+      "kind": "membership_keyword",
+      "positive_sha256": "cb2e00379b73e285cd76a024755c357e9947aec239d4b14a74388eb89776c107",
+      "negative_sha256": "3898bbeb74de572733090d42bd97469779011ded61c43def2b0440cbed3c77a0",
+      "negative": "---- MODULE W4Od17m2p2t4 ----\nEXTENDS Naturals\n\nCONSTANTS Zone, RM, Total, MaxCap, NoMove, Home\n\nASSUME NoMove \\notin (Zone \\X Zone)\n\nVARIABLES bags, vote, pending, cap\nvars == <<bags, vote, pending, cap>>\n\nRECURSIVE SumOf(_)\nSumOf(S) ==\n  IF S = {} THEN 0\n  ELSE LET z == CHOOSE y IN S : TRUE IN bags[z] + SumOf(S \\ {z})\n\nInit ==\n  /\\ bags = [z \\in Zone |-> IF z = Home THEN Total ELSE 0]\n  /\\ vote = [r \\in RM |-> \"none\"]\n  /\\ pending = NoMove\n  /\\ cap = [z \\in Zone |-> Total]\n\nPropose(s, d) ==\n  /\\ pending = NoMove\n  /\\ s # d\n  /\\ pending' = <<s, d>>\n  /\\ vote' = [r \\in RM |-> \"none\"]\n  /\\ UNCHANGED <<bags, cap>>\n\nPrepare(r) ==\n  /\\ pending # NoMove\n  /\\ vote[r] = \"none\"\n  /\\ vote' = [vote EXCEPT ![r] = \"yes\"]\n  /\\ UNCHANGED <<bags, pending, cap>>\n\nCommit ==\n  /\\ pending # NoMove\n  /\\ \\A r \\in RM : vote[r] = \"yes\"\n  /\\ LET s == pending[1]\n         d == pending[2] IN\n       /\\ bags[s] > 0\n       /\\ bags[d] < cap[d]\n       /\\ bags' = [bags EXCEPT ![s] = @ - 1, ![d] = @ + 1]\n  /\\ pending' = NoMove\n  /\\ UNCHANGED <<vote, cap>>\n\nAbort ==\n  /\\ pending # NoMove\n  /\\ pending' = NoMove\n  /\\ UNCHANGED <<bags, vote, cap>>\n\nResize(z, n) ==\n  /\\ n \\in 1..MaxCap\n  /\\ n >= bags[z]\n  /\\ cap' = [cap EXCEPT ![z] = n]\n  /\\ UNCHANGED <<bags, vote, pending>>\n\nIdle == UNCHANGED vars\n\nNext ==\n  \\/ Idle\n  \\/ \\E s, d \\in Zone : Propose(s, d)\n  \\/ \\E r \\in RM : Prepare(r)\n  \\/ Commit\n  \\/ Abort\n  \\/ \\E z \\in Zone, n \\in 1..MaxCap : Resize(z, n)\n\nSpec == Init /\\ [][Next]_vars\n\nBagConservation == SumOf(Zone) = Total\n===="
+    },
+    {
+      "row": 54,
+      "id": "w4-fullmodule:w4opus::d17-m2-p2-t4",
+      "split": "train",
+      "kind": "declaration_comma",
+      "positive_sha256": "cb2e00379b73e285cd76a024755c357e9947aec239d4b14a74388eb89776c107",
+      "negative_sha256": "fcb4f0b1e84c2eedb2708732731b87a34f26e336b7d7b6e4954a3ef8555d8794",
+      "negative": "---- MODULE W4Od17m2p2t4 ----\nEXTENDS Naturals\n\nCONSTANTS Zone, RM, Total, MaxCap, NoMove, Home\n\nASSUME NoMove \\notin (Zone \\X Zone)\n\nVARIABLES bags vote, pending, cap\nvars == <<bags, vote, pending, cap>>\n\nRECURSIVE SumOf(_)\nSumOf(S) ==\n  IF S = {} THEN 0\n  ELSE LET z == CHOOSE y \\in S : TRUE IN bags[z] + SumOf(S \\ {z})\n\nInit ==\n  /\\ bags = [z \\in Zone |-> IF z = Home THEN Total ELSE 0]\n  /\\ vote = [r \\in RM |-> \"none\"]\n  /\\ pending = NoMove\n  /\\ cap = [z \\in Zone |-> Total]\n\nPropose(s, d) ==\n  /\\ pending = NoMove\n  /\\ s # d\n  /\\ pending' = <<s, d>>\n  /\\ vote' = [r \\in RM |-> \"none\"]\n  /\\ UNCHANGED <<bags, cap>>\n\nPrepare(r) ==\n  /\\ pending # NoMove\n  /\\ vote[r] = \"none\"\n  /\\ vote' = [vote EXCEPT ![r] = \"yes\"]\n  /\\ UNCHANGED <<bags, pending, cap>>\n\nCommit ==\n  /\\ pending # NoMove\n  /\\ \\A r \\in RM : vote[r] = \"yes\"\n  /\\ LET s == pending[1]\n         d == pending[2] IN\n       /\\ bags[s] > 0\n       /\\ bags[d] < cap[d]\n       /\\ bags' = [bags EXCEPT ![s] = @ - 1, ![d] = @ + 1]\n  /\\ pending' = NoMove\n  /\\ UNCHANGED <<vote, cap>>\n\nAbort ==\n  /\\ pending # NoMove\n  /\\ pending' = NoMove\n  /\\ UNCHANGED <<bags, vote, cap>>\n\nResize(z, n) ==\n  /\\ n \\in 1..MaxCap\n  /\\ n >= bags[z]\n  /\\ cap' = [cap EXCEPT ![z] = n]\n  /\\ UNCHANGED <<bags, vote, pending>>\n\nIdle == UNCHANGED vars\n\nNext ==\n  \\/ Idle\n  \\/ \\E s, d \\in Zone : Propose(s, d)\n  \\/ \\E r \\in RM : Prepare(r)\n  \\/ Commit\n  \\/ Abort\n  \\/ \\E z \\in Zone, n \\in 1..MaxCap : Resize(z, n)\n\nSpec == Init /\\ [][Next]_vars\n\nBagConservation == SumOf(Zone) = Total\n===="
+    },
+    {
+      "row": 54,
+      "id": "w4-fullmodule:w4opus::d17-m2-p2-t4",
+      "split": "train",
+      "kind": "config_in_module",
+      "positive_sha256": "cb2e00379b73e285cd76a024755c357e9947aec239d4b14a74388eb89776c107",
+      "negative_sha256": "59227880c70851ae25c3742c537a8755bf832292b465680d1cee57acf25a6bfb",
+      "negative": "---- MODULE W4Od17m2p2t4 ----\nEXTENDS Naturals\n\nCONSTANTS Zone, RM, Total, MaxCap, NoMove, Home\n\nASSUME NoMove \\notin (Zone \\X Zone)\n\nVARIABLES bags, vote, pending, cap\nvars == <<bags, vote, pending, cap>>\n\nRECURSIVE SumOf(_)\nSumOf(S) ==\n  IF S = {} THEN 0\n  ELSE LET z == CHOOSE y \\in S : TRUE IN bags[z] + SumOf(S \\ {z})\n\nInit ==\n  /\\ bags = [z \\in Zone |-> IF z = Home THEN Total ELSE 0]\n  /\\ vote = [r \\in RM |-> \"none\"]\n  /\\ pending = NoMove\n  /\\ cap = [z \\in Zone |-> Total]\n\nPropose(s, d) ==\n  /\\ pending = NoMove\n  /\\ s # d\n  /\\ pending' = <<s, d>>\n  /\\ vote' = [r \\in RM |-> \"none\"]\n  /\\ UNCHANGED <<bags, cap>>\n\nPrepare(r) ==\n  /\\ pending # NoMove\n  /\\ vote[r] = \"none\"\n  /\\ vote' = [vote EXCEPT ![r] = \"yes\"]\n  /\\ UNCHANGED <<bags, pending, cap>>\n\nCommit ==\n  /\\ pending # NoMove\n  /\\ \\A r \\in RM : vote[r] = \"yes\"\n  /\\ LET s == pending[1]\n         d == pending[2] IN\n       /\\ bags[s] > 0\n       /\\ bags[d] < cap[d]\n       /\\ bags' = [bags EXCEPT ![s] = @ - 1, ![d] = @ + 1]\n  /\\ pending' = NoMove\n  /\\ UNCHANGED <<vote, cap>>\n\nAbort ==\n  /\\ pending # NoMove\n  /\\ pending' = NoMove\n  /\\ UNCHANGED <<bags, vote, cap>>\n\nResize(z, n) ==\n  /\\ n \\in 1..MaxCap\n  /\\ n >= bags[z]\n  /\\ cap' = [cap EXCEPT ![z] = n]\n  /\\ UNCHANGED <<bags, vote, pending>>\n\nIdle == UNCHANGED vars\n\nNext ==\n  \\/ Idle\n  \\/ \\E s, d \\in Zone : Propose(s, d)\n  \\/ \\E r \\in RM : Prepare(r)\n  \\/ Commit\n  \\/ Abort\n  \\/ \\E z \\in Zone, n \\in 1..MaxCap : Resize(z, n)\n\nSpec == Init /\\ [][Next]_vars\n\nBagConservation == SumOf(Zone) = Total\nSPECIFICATION Init\n===="
+    },
+    {
+      "row": 55,
+      "id": "w4-fullmodule:w4opus::d14-m8-p3-t1",
+      "split": "train",
+      "kind": "definition_equals",
+      "positive_sha256": "8be5178f8ac92665e3ec72ab2e71d7252a97ac4bfe0cb54e3e558600fcfce314",
+      "negative_sha256": "9f6a8940a4bf19242767127d13fbdbd902ce7a71282e07fd924b6d323a087eb9",
+      "negative": "---- MODULE W4Od14m8p3t1 ----\nCONSTANTS Drones, Slots, NONE\nVARIABLES assign, holds, coarse, fine\n\nvars = <<assign, holds, coarse, fine>>\n\nTypeOK ==\n    /\\ assign \\in [Slots -> Drones \\cup {NONE}]\n    /\\ holds \\in [Drones -> Slots \\cup {NONE}]\n    /\\ coarse \\in Drones \\cup {NONE}\n    /\\ fine \\in Drones \\cup {NONE}\n\nInit ==\n    /\\ assign = [s \\in Slots |-> NONE]\n    /\\ holds = [d \\in Drones |-> NONE]\n    /\\ coarse = NONE\n    /\\ fine = NONE\n\nAcquireCoarse(d) ==\n    /\\ coarse = NONE\n    /\\ coarse' = d\n    /\\ UNCHANGED <<assign, holds, fine>>\n\nAcquireFine(d) ==\n    /\\ coarse = d\n    /\\ fine = NONE\n    /\\ fine' = d\n    /\\ UNCHANGED <<assign, holds, coarse>>\n\nBind(d, s) ==\n    /\\ coarse = d\n    /\\ fine = d\n    /\\ holds[d] = NONE\n    /\\ assign[s] = NONE\n    /\\ assign' = [assign EXCEPT ![s] = d]\n    /\\ holds' = [holds EXCEPT ![d] = s]\n    /\\ UNCHANGED <<coarse, fine>>\n\nReleaseLocks(d) ==\n    /\\ coarse = d\n    /\\ coarse' = NONE\n    /\\ fine' = IF fine = d THEN NONE ELSE fine\n    /\\ UNCHANGED <<assign, holds>>\n\nUnbind(d) ==\n    /\\ holds[d] # NONE\n    /\\ assign' = [assign EXCEPT ![holds[d]] = NONE]\n    /\\ holds' = [holds EXCEPT ![d] = NONE]\n    /\\ UNCHANGED <<coarse, fine>>\n\nNext ==\n    \\/ \\E d \\in Drones : AcquireCoarse(d) \\/ AcquireFine(d) \\/ ReleaseLocks(d) \\/ Unbind(d)\n    \\/ \\E d \\in Drones, s \\in Slots : Bind(d, s)\n\nSpec == Init /\\ [][Next]_vars\n\nAllocationCoherent == \\A d \\in Drones : holds[d] # NONE => assign[holds[d]] = d\n===="
+    },
+    {
+      "row": 55,
+      "id": "w4-fullmodule:w4opus::d14-m8-p3-t1",
+      "split": "train",
+      "kind": "membership_keyword",
+      "positive_sha256": "8be5178f8ac92665e3ec72ab2e71d7252a97ac4bfe0cb54e3e558600fcfce314",
+      "negative_sha256": "68097bb9a4f0ca3c16fc09a6019fea1b4a892ddb0d9e194e1afe07f7109e6c61",
+      "negative": "---- MODULE W4Od14m8p3t1 ----\nCONSTANTS Drones, Slots, NONE\nVARIABLES assign, holds, coarse, fine\n\nvars == <<assign, holds, coarse, fine>>\n\nTypeOK ==\n    /\\ assign IN [Slots -> Drones \\cup {NONE}]\n    /\\ holds \\in [Drones -> Slots \\cup {NONE}]\n    /\\ coarse \\in Drones \\cup {NONE}\n    /\\ fine \\in Drones \\cup {NONE}\n\nInit ==\n    /\\ assign = [s \\in Slots |-> NONE]\n    /\\ holds = [d \\in Drones |-> NONE]\n    /\\ coarse = NONE\n    /\\ fine = NONE\n\nAcquireCoarse(d) ==\n    /\\ coarse = NONE\n    /\\ coarse' = d\n    /\\ UNCHANGED <<assign, holds, fine>>\n\nAcquireFine(d) ==\n    /\\ coarse = d\n    /\\ fine = NONE\n    /\\ fine' = d\n    /\\ UNCHANGED <<assign, holds, coarse>>\n\nBind(d, s) ==\n    /\\ coarse = d\n    /\\ fine = d\n    /\\ holds[d] = NONE\n    /\\ assign[s] = NONE\n    /\\ assign' = [assign EXCEPT ![s] = d]\n    /\\ holds' = [holds EXCEPT ![d] = s]\n    /\\ UNCHANGED <<coarse, fine>>\n\nReleaseLocks(d) ==\n    /\\ coarse = d\n    /\\ coarse' = NONE\n    /\\ fine' = IF fine = d THEN NONE ELSE fine\n    /\\ UNCHANGED <<assign, holds>>\n\nUnbind(d) ==\n    /\\ holds[d] # NONE\n    /\\ assign' = [assign EXCEPT ![holds[d]] = NONE]\n    /\\ holds' = [holds EXCEPT ![d] = NONE]\n    /\\ UNCHANGED <<coarse, fine>>\n\nNext ==\n    \\/ \\E d \\in Drones : AcquireCoarse(d) \\/ AcquireFine(d) \\/ ReleaseLocks(d) \\/ Unbind(d)\n    \\/ \\E d \\in Drones, s \\in Slots : Bind(d, s)\n\nSpec == Init /\\ [][Next]_vars\n\nAllocationCoherent == \\A d \\in Drones : holds[d] # NONE => assign[holds[d]] = d\n===="
+    },
+    {
+      "row": 55,
+      "id": "w4-fullmodule:w4opus::d14-m8-p3-t1",
+      "split": "train",
+      "kind": "declaration_comma",
+      "positive_sha256": "8be5178f8ac92665e3ec72ab2e71d7252a97ac4bfe0cb54e3e558600fcfce314",
+      "negative_sha256": "11ebc576876c2476974fa9c55c405485f4f1cda884f831653f93cb7f779a87ae",
+      "negative": "---- MODULE W4Od14m8p3t1 ----\nCONSTANTS Drones, Slots, NONE\nVARIABLES assign holds, coarse, fine\n\nvars == <<assign, holds, coarse, fine>>\n\nTypeOK ==\n    /\\ assign \\in [Slots -> Drones \\cup {NONE}]\n    /\\ holds \\in [Drones -> Slots \\cup {NONE}]\n    /\\ coarse \\in Drones \\cup {NONE}\n    /\\ fine \\in Drones \\cup {NONE}\n\nInit ==\n    /\\ assign = [s \\in Slots |-> NONE]\n    /\\ holds = [d \\in Drones |-> NONE]\n    /\\ coarse = NONE\n    /\\ fine = NONE\n\nAcquireCoarse(d) ==\n    /\\ coarse = NONE\n    /\\ coarse' = d\n    /\\ UNCHANGED <<assign, holds, fine>>\n\nAcquireFine(d) ==\n    /\\ coarse = d\n    /\\ fine = NONE\n    /\\ fine' = d\n    /\\ UNCHANGED <<assign, holds, coarse>>\n\nBind(d, s) ==\n    /\\ coarse = d\n    /\\ fine = d\n    /\\ holds[d] = NONE\n    /\\ assign[s] = NONE\n    /\\ assign' = [assign EXCEPT ![s] = d]\n    /\\ holds' = [holds EXCEPT ![d] = s]\n    /\\ UNCHANGED <<coarse, fine>>\n\nReleaseLocks(d) ==\n    /\\ coarse = d\n    /\\ coarse' = NONE\n    /\\ fine' = IF fine = d THEN NONE ELSE fine\n    /\\ UNCHANGED <<assign, holds>>\n\nUnbind(d) ==\n    /\\ holds[d] # NONE\n    /\\ assign' = [assign EXCEPT ![holds[d]] = NONE]\n    /\\ holds' = [holds EXCEPT ![d] = NONE]\n    /\\ UNCHANGED <<coarse, fine>>\n\nNext ==\n    \\/ \\E d \\in Drones : AcquireCoarse(d) \\/ AcquireFine(d) \\/ ReleaseLocks(d) \\/ Unbind(d)\n    \\/ \\E d \\in Drones, s \\in Slots : Bind(d, s)\n\nSpec == Init /\\ [][Next]_vars\n\nAllocationCoherent == \\A d \\in Drones : holds[d] # NONE => assign[holds[d]] = d\n===="
+    },
+    {
+      "row": 55,
+      "id": "w4-fullmodule:w4opus::d14-m8-p3-t1",
+      "split": "train",
+      "kind": "config_in_module",
+      "positive_sha256": "8be5178f8ac92665e3ec72ab2e71d7252a97ac4bfe0cb54e3e558600fcfce314",
+      "negative_sha256": "0c90e503e73ad07d1ef211aace9f8b8b8228269c99e15d00b7d3b59de0e72ed3",
+      "negative": "---- MODULE W4Od14m8p3t1 ----\nCONSTANTS Drones, Slots, NONE\nVARIABLES assign, holds, coarse, fine\n\nvars == <<assign, holds, coarse, fine>>\n\nTypeOK ==\n    /\\ assign \\in [Slots -> Drones \\cup {NONE}]\n    /\\ holds \\in [Drones -> Slots \\cup {NONE}]\n    /\\ coarse \\in Drones \\cup {NONE}\n    /\\ fine \\in Drones \\cup {NONE}\n\nInit ==\n    /\\ assign = [s \\in Slots |-> NONE]\n    /\\ holds = [d \\in Drones |-> NONE]\n    /\\ coarse = NONE\n    /\\ fine = NONE\n\nAcquireCoarse(d) ==\n    /\\ coarse = NONE\n    /\\ coarse' = d\n    /\\ UNCHANGED <<assign, holds, fine>>\n\nAcquireFine(d) ==\n    /\\ coarse = d\n    /\\ fine = NONE\n    /\\ fine' = d\n    /\\ UNCHANGED <<assign, holds, coarse>>\n\nBind(d, s) ==\n    /\\ coarse = d\n    /\\ fine = d\n    /\\ holds[d] = NONE\n    /\\ assign[s] = NONE\n    /\\ assign' = [assign EXCEPT ![s] = d]\n    /\\ holds' = [holds EXCEPT ![d] = s]\n    /\\ UNCHANGED <<coarse, fine>>\n\nReleaseLocks(d) ==\n    /\\ coarse = d\n    /\\ coarse' = NONE\n    /\\ fine' = IF fine = d THEN NONE ELSE fine\n    /\\ UNCHANGED <<assign, holds>>\n\nUnbind(d) ==\n    /\\ holds[d] # NONE\n    /\\ assign' = [assign EXCEPT ![holds[d]] = NONE]\n    /\\ holds' = [holds EXCEPT ![d] = NONE]\n    /\\ UNCHANGED <<coarse, fine>>\n\nNext ==\n    \\/ \\E d \\in Drones : AcquireCoarse(d) \\/ AcquireFine(d) \\/ ReleaseLocks(d) \\/ Unbind(d)\n    \\/ \\E d \\in Drones, s \\in Slots : Bind(d, s)\n\nSpec == Init /\\ [][Next]_vars\n\nAllocationCoherent == \\A d \\in Drones : holds[d] # NONE => assign[holds[d]] = d\nSPECIFICATION Init\n===="
+    },
+    {
+      "row": 56,
+      "id": "w4-fullmodule:w4opus::d16-m3-p3-t1",
+      "split": "train",
+      "kind": "definition_equals",
+      "positive_sha256": "370c233b2b83340ab9973c1ce2420a930786fcb80e56c3c33a7db179ab2ce6ff",
+      "negative_sha256": "1394908d5605f524e7df446dd4928aa7786bbf66e3ed504602e4d1062da51610",
+      "negative": "-------------------------- MODULE W4Od16m3p3t1 --------------------------\nEXTENDS Naturals\nCONSTANTS Nodes, Slots, Scripts, MaxTerm\nASSUME MaxTerm \\in Nat\n\nVARIABLES term, leader, owner, requests, log\nvars = <<term, leader, owner, requests, log>>\n\nNone == \"none\"\nBump(t) == IF t < MaxTerm THEN t + 1 ELSE t\n\nReqs == [script : Scripts, slot : Slots]\nEntries == [slot : Slots, script : Scripts, term : 0..MaxTerm]\n\nTypeOK ==\n  /\\ term \\in 0..MaxTerm\n  /\\ leader \\in (Nodes \\cup {None})\n  /\\ owner \\in [Slots -> (Scripts \\cup {None})]\n  /\\ requests \\in SUBSET Reqs\n  /\\ log \\in SUBSET Entries\n\nAllocated(sc) == \\E s \\in Slots : owner[s] = sc\n\nInit ==\n  /\\ term = 0\n  /\\ leader = None\n  /\\ owner = [s \\in Slots |-> None]\n  /\\ requests = {}\n  /\\ log = {}\n\nElectLeader(n) ==\n  /\\ leader = None\n  /\\ leader' = n\n  /\\ term' = Bump(term)\n  /\\ UNCHANGED <<owner, requests, log>>\n\nFailLeader(n) ==\n  /\\ leader = n\n  /\\ leader' = None\n  /\\ UNCHANGED <<term, owner, requests, log>>\n\nSubmitRequest(sc, s) ==\n  /\\ ~Allocated(sc)\n  /\\ [script |-> sc, slot |-> s] \\notin requests\n  /\\ requests' = requests \\cup {[script |-> sc, slot |-> s]}\n  /\\ UNCHANGED <<term, leader, owner, log>>\n\n\\* Leader allocates a free slot; reordered requests handled in any order.\nAllocate(r) ==\n  /\\ leader # None\n  /\\ r \\in requests\n  /\\ owner[r.slot] = None\n  /\\ ~Allocated(r.script)\n  /\\ owner' = [owner EXCEPT ![r.slot] = r.script]\n  /\\ log' = log \\cup {[slot |-> r.slot, script |-> r.script, term |-> term]}\n  /\\ requests' = requests \\ {r}\n  /\\ UNCHANGED <<term, leader>>\n\nRejectRequest(r) ==\n  /\\ r \\in requests\n  /\\ owner[r.slot] # None\n  /\\ requests' = requests \\ {r}\n  /\\ UNCHANGED <<term, leader, owner, log>>\n\nNext ==\n  \\/ \\E n \\in Nodes : ElectLeader(n) \\/ FailLeader(n)\n  \\/ \\E sc \\in Scripts, s \\in Slots : SubmitRequest(sc, s)\n  \\/ \\E r \\in requests : Allocate(r) \\/ RejectRequest(r)\n\nSpec == Init /\\ [][Next]_vars\n\n\\* The allocation log is functional on slots: one slot never maps to two scripts.\nNoDoubleAllocation ==\n  \\A e1, e2 \\in log : (e1.slot = e2.slot) => (e1.script = e2.script)\n============================================================================="
+    },
+    {
+      "row": 56,
+      "id": "w4-fullmodule:w4opus::d16-m3-p3-t1",
+      "split": "train",
+      "kind": "membership_keyword",
+      "positive_sha256": "370c233b2b83340ab9973c1ce2420a930786fcb80e56c3c33a7db179ab2ce6ff",
+      "negative_sha256": "73be7519997a4b918419a780a24ffbeccbea2803e55e250618099ebd6c993dc1",
+      "negative": "-------------------------- MODULE W4Od16m3p3t1 --------------------------\nEXTENDS Naturals\nCONSTANTS Nodes, Slots, Scripts, MaxTerm\nASSUME MaxTerm IN Nat\n\nVARIABLES term, leader, owner, requests, log\nvars == <<term, leader, owner, requests, log>>\n\nNone == \"none\"\nBump(t) == IF t < MaxTerm THEN t + 1 ELSE t\n\nReqs == [script : Scripts, slot : Slots]\nEntries == [slot : Slots, script : Scripts, term : 0..MaxTerm]\n\nTypeOK ==\n  /\\ term \\in 0..MaxTerm\n  /\\ leader \\in (Nodes \\cup {None})\n  /\\ owner \\in [Slots -> (Scripts \\cup {None})]\n  /\\ requests \\in SUBSET Reqs\n  /\\ log \\in SUBSET Entries\n\nAllocated(sc) == \\E s \\in Slots : owner[s] = sc\n\nInit ==\n  /\\ term = 0\n  /\\ leader = None\n  /\\ owner = [s \\in Slots |-> None]\n  /\\ requests = {}\n  /\\ log = {}\n\nElectLeader(n) ==\n  /\\ leader = None\n  /\\ leader' = n\n  /\\ term' = Bump(term)\n  /\\ UNCHANGED <<owner, requests, log>>\n\nFailLeader(n) ==\n  /\\ leader = n\n  /\\ leader' = None\n  /\\ UNCHANGED <<term, owner, requests, log>>\n\nSubmitRequest(sc, s) ==\n  /\\ ~Allocated(sc)\n  /\\ [script |-> sc, slot |-> s] \\notin requests\n  /\\ requests' = requests \\cup {[script |-> sc, slot |-> s]}\n  /\\ UNCHANGED <<term, leader, owner, log>>\n\n\\* Leader allocates a free slot; reordered requests handled in any order.\nAllocate(r) ==\n  /\\ leader # None\n  /\\ r \\in requests\n  /\\ owner[r.slot] = None\n  /\\ ~Allocated(r.script)\n  /\\ owner' = [owner EXCEPT ![r.slot] = r.script]\n  /\\ log' = log \\cup {[slot |-> r.slot, script |-> r.script, term |-> term]}\n  /\\ requests' = requests \\ {r}\n  /\\ UNCHANGED <<term, leader>>\n\nRejectRequest(r) ==\n  /\\ r \\in requests\n  /\\ owner[r.slot] # None\n  /\\ requests' = requests \\ {r}\n  /\\ UNCHANGED <<term, leader, owner, log>>\n\nNext ==\n  \\/ \\E n \\in Nodes : ElectLeader(n) \\/ FailLeader(n)\n  \\/ \\E sc \\in Scripts, s \\in Slots : SubmitRequest(sc, s)\n  \\/ \\E r \\in requests : Allocate(r) \\/ RejectRequest(r)\n\nSpec == Init /\\ [][Next]_vars\n\n\\* The allocation log is functional on slots: one slot never maps to two scripts.\nNoDoubleAllocation ==\n  \\A e1, e2 \\in log : (e1.slot = e2.slot) => (e1.script = e2.script)\n============================================================================="
+    },
+    {
+      "row": 56,
+      "id": "w4-fullmodule:w4opus::d16-m3-p3-t1",
+      "split": "train",
+      "kind": "declaration_comma",
+      "positive_sha256": "370c233b2b83340ab9973c1ce2420a930786fcb80e56c3c33a7db179ab2ce6ff",
+      "negative_sha256": "cbf43787f1c568402d6e02db2a717d10becaa7e289c72af7e8b84e5d9c1854e9",
+      "negative": "-------------------------- MODULE W4Od16m3p3t1 --------------------------\nEXTENDS Naturals\nCONSTANTS Nodes, Slots, Scripts, MaxTerm\nASSUME MaxTerm \\in Nat\n\nVARIABLES term leader, owner, requests, log\nvars == <<term, leader, owner, requests, log>>\n\nNone == \"none\"\nBump(t) == IF t < MaxTerm THEN t + 1 ELSE t\n\nReqs == [script : Scripts, slot : Slots]\nEntries == [slot : Slots, script : Scripts, term : 0..MaxTerm]\n\nTypeOK ==\n  /\\ term \\in 0..MaxTerm\n  /\\ leader \\in (Nodes \\cup {None})\n  /\\ owner \\in [Slots -> (Scripts \\cup {None})]\n  /\\ requests \\in SUBSET Reqs\n  /\\ log \\in SUBSET Entries\n\nAllocated(sc) == \\E s \\in Slots : owner[s] = sc\n\nInit ==\n  /\\ term = 0\n  /\\ leader = None\n  /\\ owner = [s \\in Slots |-> None]\n  /\\ requests = {}\n  /\\ log = {}\n\nElectLeader(n) ==\n  /\\ leader = None\n  /\\ leader' = n\n  /\\ term' = Bump(term)\n  /\\ UNCHANGED <<owner, requests, log>>\n\nFailLeader(n) ==\n  /\\ leader = n\n  /\\ leader' = None\n  /\\ UNCHANGED <<term, owner, requests, log>>\n\nSubmitRequest(sc, s) ==\n  /\\ ~Allocated(sc)\n  /\\ [script |-> sc, slot |-> s] \\notin requests\n  /\\ requests' = requests \\cup {[script |-> sc, slot |-> s]}\n  /\\ UNCHANGED <<term, leader, owner, log>>\n\n\\* Leader allocates a free slot; reordered requests handled in any order.\nAllocate(r) ==\n  /\\ leader # None\n  /\\ r \\in requests\n  /\\ owner[r.slot] = None\n  /\\ ~Allocated(r.script)\n  /\\ owner' = [owner EXCEPT ![r.slot] = r.script]\n  /\\ log' = log \\cup {[slot |-> r.slot, script |-> r.script, term |-> term]}\n  /\\ requests' = requests \\ {r}\n  /\\ UNCHANGED <<term, leader>>\n\nRejectRequest(r) ==\n  /\\ r \\in requests\n  /\\ owner[r.slot] # None\n  /\\ requests' = requests \\ {r}\n  /\\ UNCHANGED <<term, leader, owner, log>>\n\nNext ==\n  \\/ \\E n \\in Nodes : ElectLeader(n) \\/ FailLeader(n)\n  \\/ \\E sc \\in Scripts, s \\in Slots : SubmitRequest(sc, s)\n  \\/ \\E r \\in requests : Allocate(r) \\/ RejectRequest(r)\n\nSpec == Init /\\ [][Next]_vars\n\n\\* The allocation log is functional on slots: one slot never maps to two scripts.\nNoDoubleAllocation ==\n  \\A e1, e2 \\in log : (e1.slot = e2.slot) => (e1.script = e2.script)\n============================================================================="
+    },
+    {
+      "row": 56,
+      "id": "w4-fullmodule:w4opus::d16-m3-p3-t1",
+      "split": "train",
+      "kind": "config_in_module",
+      "positive_sha256": "370c233b2b83340ab9973c1ce2420a930786fcb80e56c3c33a7db179ab2ce6ff",
+      "negative_sha256": "66a0c5aa7a203d9cad88774b64f5b98dfaa7eb10b4231ca1ae40657f57e91f91",
+      "negative": "-------------------------- MODULE W4Od16m3p3t1 --------------------------\nEXTENDS Naturals\nCONSTANTS Nodes, Slots, Scripts, MaxTerm\nASSUME MaxTerm \\in Nat\n\nVARIABLES term, leader, owner, requests, log\nvars == <<term, leader, owner, requests, log>>\n\nNone == \"none\"\nBump(t) == IF t < MaxTerm THEN t + 1 ELSE t\n\nReqs == [script : Scripts, slot : Slots]\nEntries == [slot : Slots, script : Scripts, term : 0..MaxTerm]\n\nTypeOK ==\n  /\\ term \\in 0..MaxTerm\n  /\\ leader \\in (Nodes \\cup {None})\n  /\\ owner \\in [Slots -> (Scripts \\cup {None})]\n  /\\ requests \\in SUBSET Reqs\n  /\\ log \\in SUBSET Entries\n\nAllocated(sc) == \\E s \\in Slots : owner[s] = sc\n\nInit ==\n  /\\ term = 0\n  /\\ leader = None\n  /\\ owner = [s \\in Slots |-> None]\n  /\\ requests = {}\n  /\\ log = {}\n\nElectLeader(n) ==\n  /\\ leader = None\n  /\\ leader' = n\n  /\\ term' = Bump(term)\n  /\\ UNCHANGED <<owner, requests, log>>\n\nFailLeader(n) ==\n  /\\ leader = n\n  /\\ leader' = None\n  /\\ UNCHANGED <<term, owner, requests, log>>\n\nSubmitRequest(sc, s) ==\n  /\\ ~Allocated(sc)\n  /\\ [script |-> sc, slot |-> s] \\notin requests\n  /\\ requests' = requests \\cup {[script |-> sc, slot |-> s]}\n  /\\ UNCHANGED <<term, leader, owner, log>>\n\n\\* Leader allocates a free slot; reordered requests handled in any order.\nAllocate(r) ==\n  /\\ leader # None\n  /\\ r \\in requests\n  /\\ owner[r.slot] = None\n  /\\ ~Allocated(r.script)\n  /\\ owner' = [owner EXCEPT ![r.slot] = r.script]\n  /\\ log' = log \\cup {[slot |-> r.slot, script |-> r.script, term |-> term]}\n  /\\ requests' = requests \\ {r}\n  /\\ UNCHANGED <<term, leader>>\n\nRejectRequest(r) ==\n  /\\ r \\in requests\n  /\\ owner[r.slot] # None\n  /\\ requests' = requests \\ {r}\n  /\\ UNCHANGED <<term, leader, owner, log>>\n\nNext ==\n  \\/ \\E n \\in Nodes : ElectLeader(n) \\/ FailLeader(n)\n  \\/ \\E sc \\in Scripts, s \\in Slots : SubmitRequest(sc, s)\n  \\/ \\E r \\in requests : Allocate(r) \\/ RejectRequest(r)\n\nSpec == Init /\\ [][Next]_vars\n\n\\* The allocation log is functional on slots: one slot never maps to two scripts.\nNoDoubleAllocation ==\n  \\A e1, e2 \\in log : (e1.slot = e2.slot) => (e1.script = e2.script)\nSPECIFICATION Init\n============================================================================="
+    },
+    {
+      "row": 57,
+      "id": "w4-fullmodule:w4opus::d12-m1-p6-t5",
+      "split": "train",
+      "kind": "definition_equals",
+      "positive_sha256": "cc4e338038b796251b2e1a98e7482a75b910e6cbfceb953beb9d0ca24796e686",
+      "negative_sha256": "06c7371ea00f6665f242123f34ae7d5923f455219503e56121b72b273719f96b",
+      "negative": "---- MODULE W4Od12m1p6t5 ----\nEXTENDS Integers\nCONSTANTS CAP, MAXGEN\nASSUME CAP \\in Nat /\\ MAXGEN \\in Nat\n\nTrackers = {\"b1\", \"b2\", \"b3\"}\nNextR(t) == CASE t = \"b1\" -> \"b2\"\n              [] t = \"b2\" -> \"b3\"\n              [] OTHER    -> \"b1\"\n\nVARIABLES tokenHolder, tokenGen, phase, usedGen, stock\nvars == <<tokenHolder, tokenGen, phase, usedGen, stock>>\n\nInit == /\\ tokenHolder = \"b1\"\n        /\\ tokenGen = 0\n        /\\ phase = [t \\in Trackers |-> \"idle\"]\n        /\\ usedGen = [t \\in Trackers |-> -1]\n        /\\ stock = 0\n\nPass(t) == /\\ tokenHolder = t\n           /\\ phase[t] = \"idle\"\n           /\\ tokenHolder' = NextR(t)\n           /\\ UNCHANGED <<tokenGen, phase, usedGen, stock>>\n\nArm(t) == /\\ tokenHolder = t\n          /\\ phase[t] = \"idle\"\n          /\\ phase' = [phase EXCEPT ![t] = \"armed\"]\n          /\\ usedGen' = [usedGen EXCEPT ![t] = tokenGen]\n          /\\ UNCHANGED <<tokenHolder, tokenGen, stock>>\n\nWrite(t) == /\\ tokenHolder = t\n            /\\ phase[t] = \"armed\"\n            /\\ usedGen[t] = tokenGen\n            /\\ stock < CAP\n            /\\ phase' = [phase EXCEPT ![t] = \"writing\"]\n            /\\ stock' = stock + 1\n            /\\ UNCHANGED <<tokenHolder, tokenGen, usedGen>>\n\nFinish(t) == /\\ phase[t] = \"writing\"\n             /\\ phase' = [phase EXCEPT ![t] = \"idle\"]\n             /\\ usedGen' = [usedGen EXCEPT ![t] = -1]\n             /\\ UNCHANGED <<tokenHolder, tokenGen, stock>>\n\nDropStale(t) == /\\ phase[t] \\in {\"armed\", \"writing\"}\n                /\\ (tokenHolder # t \\/ usedGen[t] # tokenGen)\n                /\\ phase' = [phase EXCEPT ![t] = \"idle\"]\n                /\\ usedGen' = [usedGen EXCEPT ![t] = -1]\n                /\\ UNCHANGED <<tokenHolder, tokenGen, stock>>\n\nAdminRevoke == /\\ tokenGen' = IF tokenGen < MAXGEN THEN tokenGen + 1 ELSE tokenGen\n               /\\ phase' = [t \\in Trackers |-> \"idle\"]\n               /\\ usedGen' = [t \\in Trackers |-> -1]\n               /\\ \\E e \\in Trackers : tokenHolder' = e\n               /\\ UNCHANGED stock\n\nNext == \\/ \\E t \\in Trackers : Pass(t) \\/ Arm(t) \\/ Write(t) \\/ Finish(t) \\/ DropStale(t)\n        \\/ AdminRevoke\n\nSpec == Init /\\ [][Next]_vars\n\nNoUnauthorizedWriter ==\n    \\A t \\in Trackers :\n        phase[t] \\in {\"armed\", \"writing\"} =>\n            (tokenHolder = t /\\ usedGen[t] = tokenGen)\n===="
+    },
+    {
+      "row": 57,
+      "id": "w4-fullmodule:w4opus::d12-m1-p6-t5",
+      "split": "train",
+      "kind": "membership_keyword",
+      "positive_sha256": "cc4e338038b796251b2e1a98e7482a75b910e6cbfceb953beb9d0ca24796e686",
+      "negative_sha256": "6eb12d0eb6aee74bcfda950ce94beb9a1ff7a29de0f39980a6d3e4f3ac58d70f",
+      "negative": "---- MODULE W4Od12m1p6t5 ----\nEXTENDS Integers\nCONSTANTS CAP, MAXGEN\nASSUME CAP IN Nat /\\ MAXGEN \\in Nat\n\nTrackers == {\"b1\", \"b2\", \"b3\"}\nNextR(t) == CASE t = \"b1\" -> \"b2\"\n              [] t = \"b2\" -> \"b3\"\n              [] OTHER    -> \"b1\"\n\nVARIABLES tokenHolder, tokenGen, phase, usedGen, stock\nvars == <<tokenHolder, tokenGen, phase, usedGen, stock>>\n\nInit == /\\ tokenHolder = \"b1\"\n        /\\ tokenGen = 0\n        /\\ phase = [t \\in Trackers |-> \"idle\"]\n        /\\ usedGen = [t \\in Trackers |-> -1]\n        /\\ stock = 0\n\nPass(t) == /\\ tokenHolder = t\n           /\\ phase[t] = \"idle\"\n           /\\ tokenHolder' = NextR(t)\n           /\\ UNCHANGED <<tokenGen, phase, usedGen, stock>>\n\nArm(t) == /\\ tokenHolder = t\n          /\\ phase[t] = \"idle\"\n          /\\ phase' = [phase EXCEPT ![t] = \"armed\"]\n          /\\ usedGen' = [usedGen EXCEPT ![t] = tokenGen]\n          /\\ UNCHANGED <<tokenHolder, tokenGen, stock>>\n\nWrite(t) == /\\ tokenHolder = t\n            /\\ phase[t] = \"armed\"\n            /\\ usedGen[t] = tokenGen\n            /\\ stock < CAP\n            /\\ phase' = [phase EXCEPT ![t] = \"writing\"]\n            /\\ stock' = stock + 1\n            /\\ UNCHANGED <<tokenHolder, tokenGen, usedGen>>\n\nFinish(t) == /\\ phase[t] = \"writing\"\n             /\\ phase' = [phase EXCEPT ![t] = \"idle\"]\n             /\\ usedGen' = [usedGen EXCEPT ![t] = -1]\n             /\\ UNCHANGED <<tokenHolder, tokenGen, stock>>\n\nDropStale(t) == /\\ phase[t] \\in {\"armed\", \"writing\"}\n                /\\ (tokenHolder # t \\/ usedGen[t] # tokenGen)\n                /\\ phase' = [phase EXCEPT ![t] = \"idle\"]\n                /\\ usedGen' = [usedGen EXCEPT ![t] = -1]\n                /\\ UNCHANGED <<tokenHolder, tokenGen, stock>>\n\nAdminRevoke == /\\ tokenGen' = IF tokenGen < MAXGEN THEN tokenGen + 1 ELSE tokenGen\n               /\\ phase' = [t \\in Trackers |-> \"idle\"]\n               /\\ usedGen' = [t \\in Trackers |-> -1]\n               /\\ \\E e \\in Trackers : tokenHolder' = e\n               /\\ UNCHANGED stock\n\nNext == \\/ \\E t \\in Trackers : Pass(t) \\/ Arm(t) \\/ Write(t) \\/ Finish(t) \\/ DropStale(t)\n        \\/ AdminRevoke\n\nSpec == Init /\\ [][Next]_vars\n\nNoUnauthorizedWriter ==\n    \\A t \\in Trackers :\n        phase[t] \\in {\"armed\", \"writing\"} =>\n            (tokenHolder = t /\\ usedGen[t] = tokenGen)\n===="
+    },
+    {
+      "row": 57,
+      "id": "w4-fullmodule:w4opus::d12-m1-p6-t5",
+      "split": "train",
+      "kind": "declaration_comma",
+      "positive_sha256": "cc4e338038b796251b2e1a98e7482a75b910e6cbfceb953beb9d0ca24796e686",
+      "negative_sha256": "d17c5b26d0fa8dda5cad57d9c3e3886ff87fb08e6c64f042523261c3ee228cb4",
+      "negative": "---- MODULE W4Od12m1p6t5 ----\nEXTENDS Integers\nCONSTANTS CAP, MAXGEN\nASSUME CAP \\in Nat /\\ MAXGEN \\in Nat\n\nTrackers == {\"b1\", \"b2\", \"b3\"}\nNextR(t) == CASE t = \"b1\" -> \"b2\"\n              [] t = \"b2\" -> \"b3\"\n              [] OTHER    -> \"b1\"\n\nVARIABLES tokenHolder tokenGen, phase, usedGen, stock\nvars == <<tokenHolder, tokenGen, phase, usedGen, stock>>\n\nInit == /\\ tokenHolder = \"b1\"\n        /\\ tokenGen = 0\n        /\\ phase = [t \\in Trackers |-> \"idle\"]\n        /\\ usedGen = [t \\in Trackers |-> -1]\n        /\\ stock = 0\n\nPass(t) == /\\ tokenHolder = t\n           /\\ phase[t] = \"idle\"\n           /\\ tokenHolder' = NextR(t)\n           /\\ UNCHANGED <<tokenGen, phase, usedGen, stock>>\n\nArm(t) == /\\ tokenHolder = t\n          /\\ phase[t] = \"idle\"\n          /\\ phase' = [phase EXCEPT ![t] = \"armed\"]\n          /\\ usedGen' = [usedGen EXCEPT ![t] = tokenGen]\n          /\\ UNCHANGED <<tokenHolder, tokenGen, stock>>\n\nWrite(t) == /\\ tokenHolder = t\n            /\\ phase[t] = \"armed\"\n            /\\ usedGen[t] = tokenGen\n            /\\ stock < CAP\n            /\\ phase' = [phase EXCEPT ![t] = \"writing\"]\n            /\\ stock' = stock + 1\n            /\\ UNCHANGED <<tokenHolder, tokenGen, usedGen>>\n\nFinish(t) == /\\ phase[t] = \"writing\"\n             /\\ phase' = [phase EXCEPT ![t] = \"idle\"]\n             /\\ usedGen' = [usedGen EXCEPT ![t] = -1]\n             /\\ UNCHANGED <<tokenHolder, tokenGen, stock>>\n\nDropStale(t) == /\\ phase[t] \\in {\"armed\", \"writing\"}\n                /\\ (tokenHolder # t \\/ usedGen[t] # tokenGen)\n                /\\ phase' = [phase EXCEPT ![t] = \"idle\"]\n                /\\ usedGen' = [usedGen EXCEPT ![t] = -1]\n                /\\ UNCHANGED <<tokenHolder, tokenGen, stock>>\n\nAdminRevoke == /\\ tokenGen' = IF tokenGen < MAXGEN THEN tokenGen + 1 ELSE tokenGen\n               /\\ phase' = [t \\in Trackers |-> \"idle\"]\n               /\\ usedGen' = [t \\in Trackers |-> -1]\n               /\\ \\E e \\in Trackers : tokenHolder' = e\n               /\\ UNCHANGED stock\n\nNext == \\/ \\E t \\in Trackers : Pass(t) \\/ Arm(t) \\/ Write(t) \\/ Finish(t) \\/ DropStale(t)\n        \\/ AdminRevoke\n\nSpec == Init /\\ [][Next]_vars\n\nNoUnauthorizedWriter ==\n    \\A t \\in Trackers :\n        phase[t] \\in {\"armed\", \"writing\"} =>\n            (tokenHolder = t /\\ usedGen[t] = tokenGen)\n===="
+    },
+    {
+      "row": 57,
+      "id": "w4-fullmodule:w4opus::d12-m1-p6-t5",
+      "split": "train",
+      "kind": "config_in_module",
+      "positive_sha256": "cc4e338038b796251b2e1a98e7482a75b910e6cbfceb953beb9d0ca24796e686",
+      "negative_sha256": "ce8654dd1db1d9a66d65e6ff49e67bda35bc636b02185a1d6e147051a534795e",
+      "negative": "---- MODULE W4Od12m1p6t5 ----\nEXTENDS Integers\nCONSTANTS CAP, MAXGEN\nASSUME CAP \\in Nat /\\ MAXGEN \\in Nat\n\nTrackers == {\"b1\", \"b2\", \"b3\"}\nNextR(t) == CASE t = \"b1\" -> \"b2\"\n              [] t = \"b2\" -> \"b3\"\n              [] OTHER    -> \"b1\"\n\nVARIABLES tokenHolder, tokenGen, phase, usedGen, stock\nvars == <<tokenHolder, tokenGen, phase, usedGen, stock>>\n\nInit == /\\ tokenHolder = \"b1\"\n        /\\ tokenGen = 0\n        /\\ phase = [t \\in Trackers |-> \"idle\"]\n        /\\ usedGen = [t \\in Trackers |-> -1]\n        /\\ stock = 0\n\nPass(t) == /\\ tokenHolder = t\n           /\\ phase[t] = \"idle\"\n           /\\ tokenHolder' = NextR(t)\n           /\\ UNCHANGED <<tokenGen, phase, usedGen, stock>>\n\nArm(t) == /\\ tokenHolder = t\n          /\\ phase[t] = \"idle\"\n          /\\ phase' = [phase EXCEPT ![t] = \"armed\"]\n          /\\ usedGen' = [usedGen EXCEPT ![t] = tokenGen]\n          /\\ UNCHANGED <<tokenHolder, tokenGen, stock>>\n\nWrite(t) == /\\ tokenHolder = t\n            /\\ phase[t] = \"armed\"\n            /\\ usedGen[t] = tokenGen\n            /\\ stock < CAP\n            /\\ phase' = [phase EXCEPT ![t] = \"writing\"]\n            /\\ stock' = stock + 1\n            /\\ UNCHANGED <<tokenHolder, tokenGen, usedGen>>\n\nFinish(t) == /\\ phase[t] = \"writing\"\n             /\\ phase' = [phase EXCEPT ![t] = \"idle\"]\n             /\\ usedGen' = [usedGen EXCEPT ![t] = -1]\n             /\\ UNCHANGED <<tokenHolder, tokenGen, stock>>\n\nDropStale(t) == /\\ phase[t] \\in {\"armed\", \"writing\"}\n                /\\ (tokenHolder # t \\/ usedGen[t] # tokenGen)\n                /\\ phase' = [phase EXCEPT ![t] = \"idle\"]\n                /\\ usedGen' = [usedGen EXCEPT ![t] = -1]\n                /\\ UNCHANGED <<tokenHolder, tokenGen, stock>>\n\nAdminRevoke == /\\ tokenGen' = IF tokenGen < MAXGEN THEN tokenGen + 1 ELSE tokenGen\n               /\\ phase' = [t \\in Trackers |-> \"idle\"]\n               /\\ usedGen' = [t \\in Trackers |-> -1]\n               /\\ \\E e \\in Trackers : tokenHolder' = e\n               /\\ UNCHANGED stock\n\nNext == \\/ \\E t \\in Trackers : Pass(t) \\/ Arm(t) \\/ Write(t) \\/ Finish(t) \\/ DropStale(t)\n        \\/ AdminRevoke\n\nSpec == Init /\\ [][Next]_vars\n\nNoUnauthorizedWriter ==\n    \\A t \\in Trackers :\n        phase[t] \\in {\"armed\", \"writing\"} =>\n            (tokenHolder = t /\\ usedGen[t] = tokenGen)\nSPECIFICATION Init\n===="
+    },
+    {
+      "row": 58,
+      "id": "w4-fullmodule:w4opus::d12-m8-p5-t0",
+      "split": "train",
+      "kind": "definition_equals",
+      "positive_sha256": "5e3d633c0525479a98a81a339de060809b3fed0743666c4ba53541eedff87a6b",
+      "negative_sha256": "aad3f1c352c01b2029b95d0b188f20981d8a025b85afa09fca0d57e41e667b47",
+      "negative": "---------------------------- MODULE W4Od12m8p5t0 ----------------------------\nEXTENDS Naturals, Sequences\n\nCONSTANTS Workers, Units, FridgeA, FridgeB, NONE\n\nASSUME FridgeA \\cap FridgeB = {} /\\ FridgeA \\cup FridgeB = Units\n\nFridges = {\"A\", \"B\"}\n\nFridgeOf(u) == IF u \\in FridgeA THEN \"A\" ELSE \"B\"\n\nVARIABLES coarse, fine, log, crashed\n\nvars == <<coarse, fine, log, crashed>>\n\nLogged == {log[i] : i \\in DOMAIN log}\n\nTypeOK ==\n  /\\ coarse \\in [Fridges -> Workers \\cup {NONE}]\n  /\\ fine \\in [Units -> Workers \\cup {NONE}]\n  /\\ log \\in Seq(Units)\n  /\\ crashed \\subseteq Workers\n\nInit ==\n  /\\ coarse = [f \\in Fridges |-> NONE]\n  /\\ fine = [u \\in Units |-> NONE]\n  /\\ log = << >>\n  /\\ crashed = {}\n\nAcquireCoarse(w, f) ==\n  /\\ w \\notin crashed\n  /\\ coarse[f] = NONE\n  /\\ coarse' = [coarse EXCEPT ![f] = w]\n  /\\ UNCHANGED <<fine, log, crashed>>\n\nAcquireFine(w, u) ==\n  /\\ w \\notin crashed\n  /\\ coarse[FridgeOf(u)] = w\n  /\\ fine[u] = NONE\n  /\\ fine' = [fine EXCEPT ![u] = w]\n  /\\ UNCHANGED <<coarse, log, crashed>>\n\nDispatch(w, u) ==\n  /\\ w \\notin crashed\n  /\\ coarse[FridgeOf(u)] = w\n  /\\ fine[u] = w\n  /\\ u \\notin Logged\n  /\\ log' = Append(log, u)\n  /\\ fine' = [fine EXCEPT ![u] = NONE]\n  /\\ UNCHANGED <<coarse, crashed>>\n\nReleaseFine(w, u) ==\n  /\\ fine[u] = w\n  /\\ fine' = [fine EXCEPT ![u] = NONE]\n  /\\ UNCHANGED <<coarse, log, crashed>>\n\nReleaseCoarse(w, f) ==\n  /\\ coarse[f] = w\n  /\\ coarse' = [coarse EXCEPT ![f] = NONE]\n  /\\ UNCHANGED <<fine, log, crashed>>\n\nCrash(w) ==\n  /\\ w \\notin crashed\n  /\\ crashed' = crashed \\cup {w}\n  /\\ coarse' = [f \\in Fridges |-> IF coarse[f] = w THEN NONE ELSE coarse[f]]\n  /\\ fine' = [u \\in Units |-> IF fine[u] = w THEN NONE ELSE fine[u]]\n  /\\ UNCHANGED log\n\nIdle == UNCHANGED vars\n\nNext ==\n  \\/ \\E w \\in Workers, f \\in Fridges : AcquireCoarse(w, f)\n  \\/ \\E w \\in Workers, u \\in Units : AcquireFine(w, u)\n  \\/ \\E w \\in Workers, u \\in Units : Dispatch(w, u)\n  \\/ \\E w \\in Workers, u \\in Units : ReleaseFine(w, u)\n  \\/ \\E w \\in Workers, f \\in Fridges : ReleaseCoarse(w, f)\n  \\/ \\E w \\in Workers : Crash(w)\n  \\/ Idle\n\nSpec == Init /\\ [][Next]_vars\n\nEachUnitDispatchedOnce ==\n  \\A i, j \\in DOMAIN log : log[i] = log[j] => i = j\n\n============================================================================="
+    },
+    {
+      "row": 58,
+      "id": "w4-fullmodule:w4opus::d12-m8-p5-t0",
+      "split": "train",
+      "kind": "membership_keyword",
+      "positive_sha256": "5e3d633c0525479a98a81a339de060809b3fed0743666c4ba53541eedff87a6b",
+      "negative_sha256": "baf3e8bdcdd756f1f08c52956ea580375390c0501c3fc2fdd2171a0e0ebd1389",
+      "negative": "---------------------------- MODULE W4Od12m8p5t0 ----------------------------\nEXTENDS Naturals, Sequences\n\nCONSTANTS Workers, Units, FridgeA, FridgeB, NONE\n\nASSUME FridgeA \\cap FridgeB = {} /\\ FridgeA \\cup FridgeB = Units\n\nFridges == {\"A\", \"B\"}\n\nFridgeOf(u) == IF u IN FridgeA THEN \"A\" ELSE \"B\"\n\nVARIABLES coarse, fine, log, crashed\n\nvars == <<coarse, fine, log, crashed>>\n\nLogged == {log[i] : i \\in DOMAIN log}\n\nTypeOK ==\n  /\\ coarse \\in [Fridges -> Workers \\cup {NONE}]\n  /\\ fine \\in [Units -> Workers \\cup {NONE}]\n  /\\ log \\in Seq(Units)\n  /\\ crashed \\subseteq Workers\n\nInit ==\n  /\\ coarse = [f \\in Fridges |-> NONE]\n  /\\ fine = [u \\in Units |-> NONE]\n  /\\ log = << >>\n  /\\ crashed = {}\n\nAcquireCoarse(w, f) ==\n  /\\ w \\notin crashed\n  /\\ coarse[f] = NONE\n  /\\ coarse' = [coarse EXCEPT ![f] = w]\n  /\\ UNCHANGED <<fine, log, crashed>>\n\nAcquireFine(w, u) ==\n  /\\ w \\notin crashed\n  /\\ coarse[FridgeOf(u)] = w\n  /\\ fine[u] = NONE\n  /\\ fine' = [fine EXCEPT ![u] = w]\n  /\\ UNCHANGED <<coarse, log, crashed>>\n\nDispatch(w, u) ==\n  /\\ w \\notin crashed\n  /\\ coarse[FridgeOf(u)] = w\n  /\\ fine[u] = w\n  /\\ u \\notin Logged\n  /\\ log' = Append(log, u)\n  /\\ fine' = [fine EXCEPT ![u] = NONE]\n  /\\ UNCHANGED <<coarse, crashed>>\n\nReleaseFine(w, u) ==\n  /\\ fine[u] = w\n  /\\ fine' = [fine EXCEPT ![u] = NONE]\n  /\\ UNCHANGED <<coarse, log, crashed>>\n\nReleaseCoarse(w, f) ==\n  /\\ coarse[f] = w\n  /\\ coarse' = [coarse EXCEPT ![f] = NONE]\n  /\\ UNCHANGED <<fine, log, crashed>>\n\nCrash(w) ==\n  /\\ w \\notin crashed\n  /\\ crashed' = crashed \\cup {w}\n  /\\ coarse' = [f \\in Fridges |-> IF coarse[f] = w THEN NONE ELSE coarse[f]]\n  /\\ fine' = [u \\in Units |-> IF fine[u] = w THEN NONE ELSE fine[u]]\n  /\\ UNCHANGED log\n\nIdle == UNCHANGED vars\n\nNext ==\n  \\/ \\E w \\in Workers, f \\in Fridges : AcquireCoarse(w, f)\n  \\/ \\E w \\in Workers, u \\in Units : AcquireFine(w, u)\n  \\/ \\E w \\in Workers, u \\in Units : Dispatch(w, u)\n  \\/ \\E w \\in Workers, u \\in Units : ReleaseFine(w, u)\n  \\/ \\E w \\in Workers, f \\in Fridges : ReleaseCoarse(w, f)\n  \\/ \\E w \\in Workers : Crash(w)\n  \\/ Idle\n\nSpec == Init /\\ [][Next]_vars\n\nEachUnitDispatchedOnce ==\n  \\A i, j \\in DOMAIN log : log[i] = log[j] => i = j\n\n============================================================================="
+    },
+    {
+      "row": 58,
+      "id": "w4-fullmodule:w4opus::d12-m8-p5-t0",
+      "split": "train",
+      "kind": "declaration_comma",
+      "positive_sha256": "5e3d633c0525479a98a81a339de060809b3fed0743666c4ba53541eedff87a6b",
+      "negative_sha256": "a8d81a840b33b0a447b547efde962afc3d2118c0f4859ef047cce8f5e7a99f58",
+      "negative": "---------------------------- MODULE W4Od12m8p5t0 ----------------------------\nEXTENDS Naturals, Sequences\n\nCONSTANTS Workers, Units, FridgeA, FridgeB, NONE\n\nASSUME FridgeA \\cap FridgeB = {} /\\ FridgeA \\cup FridgeB = Units\n\nFridges == {\"A\", \"B\"}\n\nFridgeOf(u) == IF u \\in FridgeA THEN \"A\" ELSE \"B\"\n\nVARIABLES coarse fine, log, crashed\n\nvars == <<coarse, fine, log, crashed>>\n\nLogged == {log[i] : i \\in DOMAIN log}\n\nTypeOK ==\n  /\\ coarse \\in [Fridges -> Workers \\cup {NONE}]\n  /\\ fine \\in [Units -> Workers \\cup {NONE}]\n  /\\ log \\in Seq(Units)\n  /\\ crashed \\subseteq Workers\n\nInit ==\n  /\\ coarse = [f \\in Fridges |-> NONE]\n  /\\ fine = [u \\in Units |-> NONE]\n  /\\ log = << >>\n  /\\ crashed = {}\n\nAcquireCoarse(w, f) ==\n  /\\ w \\notin crashed\n  /\\ coarse[f] = NONE\n  /\\ coarse' = [coarse EXCEPT ![f] = w]\n  /\\ UNCHANGED <<fine, log, crashed>>\n\nAcquireFine(w, u) ==\n  /\\ w \\notin crashed\n  /\\ coarse[FridgeOf(u)] = w\n  /\\ fine[u] = NONE\n  /\\ fine' = [fine EXCEPT ![u] = w]\n  /\\ UNCHANGED <<coarse, log, crashed>>\n\nDispatch(w, u) ==\n  /\\ w \\notin crashed\n  /\\ coarse[FridgeOf(u)] = w\n  /\\ fine[u] = w\n  /\\ u \\notin Logged\n  /\\ log' = Append(log, u)\n  /\\ fine' = [fine EXCEPT ![u] = NONE]\n  /\\ UNCHANGED <<coarse, crashed>>\n\nReleaseFine(w, u) ==\n  /\\ fine[u] = w\n  /\\ fine' = [fine EXCEPT ![u] = NONE]\n  /\\ UNCHANGED <<coarse, log, crashed>>\n\nReleaseCoarse(w, f) ==\n  /\\ coarse[f] = w\n  /\\ coarse' = [coarse EXCEPT ![f] = NONE]\n  /\\ UNCHANGED <<fine, log, crashed>>\n\nCrash(w) ==\n  /\\ w \\notin crashed\n  /\\ crashed' = crashed \\cup {w}\n  /\\ coarse' = [f \\in Fridges |-> IF coarse[f] = w THEN NONE ELSE coarse[f]]\n  /\\ fine' = [u \\in Units |-> IF fine[u] = w THEN NONE ELSE fine[u]]\n  /\\ UNCHANGED log\n\nIdle == UNCHANGED vars\n\nNext ==\n  \\/ \\E w \\in Workers, f \\in Fridges : AcquireCoarse(w, f)\n  \\/ \\E w \\in Workers, u \\in Units : AcquireFine(w, u)\n  \\/ \\E w \\in Workers, u \\in Units : Dispatch(w, u)\n  \\/ \\E w \\in Workers, u \\in Units : ReleaseFine(w, u)\n  \\/ \\E w \\in Workers, f \\in Fridges : ReleaseCoarse(w, f)\n  \\/ \\E w \\in Workers : Crash(w)\n  \\/ Idle\n\nSpec == Init /\\ [][Next]_vars\n\nEachUnitDispatchedOnce ==\n  \\A i, j \\in DOMAIN log : log[i] = log[j] => i = j\n\n============================================================================="
+    },
+    {
+      "row": 58,
+      "id": "w4-fullmodule:w4opus::d12-m8-p5-t0",
+      "split": "train",
+      "kind": "config_in_module",
+      "positive_sha256": "5e3d633c0525479a98a81a339de060809b3fed0743666c4ba53541eedff87a6b",
+      "negative_sha256": "e6f656d94cd6e61619d56fd640d48bdf39b57ef6a675ee4217921fadda26d79d",
+      "negative": "---------------------------- MODULE W4Od12m8p5t0 ----------------------------\nEXTENDS Naturals, Sequences\n\nCONSTANTS Workers, Units, FridgeA, FridgeB, NONE\n\nASSUME FridgeA \\cap FridgeB = {} /\\ FridgeA \\cup FridgeB = Units\n\nFridges == {\"A\", \"B\"}\n\nFridgeOf(u) == IF u \\in FridgeA THEN \"A\" ELSE \"B\"\n\nVARIABLES coarse, fine, log, crashed\n\nvars == <<coarse, fine, log, crashed>>\n\nLogged == {log[i] : i \\in DOMAIN log}\n\nTypeOK ==\n  /\\ coarse \\in [Fridges -> Workers \\cup {NONE}]\n  /\\ fine \\in [Units -> Workers \\cup {NONE}]\n  /\\ log \\in Seq(Units)\n  /\\ crashed \\subseteq Workers\n\nInit ==\n  /\\ coarse = [f \\in Fridges |-> NONE]\n  /\\ fine = [u \\in Units |-> NONE]\n  /\\ log = << >>\n  /\\ crashed = {}\n\nAcquireCoarse(w, f) ==\n  /\\ w \\notin crashed\n  /\\ coarse[f] = NONE\n  /\\ coarse' = [coarse EXCEPT ![f] = w]\n  /\\ UNCHANGED <<fine, log, crashed>>\n\nAcquireFine(w, u) ==\n  /\\ w \\notin crashed\n  /\\ coarse[FridgeOf(u)] = w\n  /\\ fine[u] = NONE\n  /\\ fine' = [fine EXCEPT ![u] = w]\n  /\\ UNCHANGED <<coarse, log, crashed>>\n\nDispatch(w, u) ==\n  /\\ w \\notin crashed\n  /\\ coarse[FridgeOf(u)] = w\n  /\\ fine[u] = w\n  /\\ u \\notin Logged\n  /\\ log' = Append(log, u)\n  /\\ fine' = [fine EXCEPT ![u] = NONE]\n  /\\ UNCHANGED <<coarse, crashed>>\n\nReleaseFine(w, u) ==\n  /\\ fine[u] = w\n  /\\ fine' = [fine EXCEPT ![u] = NONE]\n  /\\ UNCHANGED <<coarse, log, crashed>>\n\nReleaseCoarse(w, f) ==\n  /\\ coarse[f] = w\n  /\\ coarse' = [coarse EXCEPT ![f] = NONE]\n  /\\ UNCHANGED <<fine, log, crashed>>\n\nCrash(w) ==\n  /\\ w \\notin crashed\n  /\\ crashed' = crashed \\cup {w}\n  /\\ coarse' = [f \\in Fridges |-> IF coarse[f] = w THEN NONE ELSE coarse[f]]\n  /\\ fine' = [u \\in Units |-> IF fine[u] = w THEN NONE ELSE fine[u]]\n  /\\ UNCHANGED log\n\nIdle == UNCHANGED vars\n\nNext ==\n  \\/ \\E w \\in Workers, f \\in Fridges : AcquireCoarse(w, f)\n  \\/ \\E w \\in Workers, u \\in Units : AcquireFine(w, u)\n  \\/ \\E w \\in Workers, u \\in Units : Dispatch(w, u)\n  \\/ \\E w \\in Workers, u \\in Units : ReleaseFine(w, u)\n  \\/ \\E w \\in Workers, f \\in Fridges : ReleaseCoarse(w, f)\n  \\/ \\E w \\in Workers : Crash(w)\n  \\/ Idle\n\nSpec == Init /\\ [][Next]_vars\n\nEachUnitDispatchedOnce ==\n  \\A i, j \\in DOMAIN log : log[i] = log[j] => i = j\n\nSPECIFICATION Init\n============================================================================="
+    },
+    {
+      "row": 59,
+      "id": "w4-fullmodule:w4opus::d17-m5-p1-t1",
+      "split": "validation",
+      "kind": "definition_equals",
+      "positive_sha256": "d363d2179a91f476fe1047e496df3e7cfeae24a54d8422b5672351a8265b6bd7",
+      "negative_sha256": "3d115597c67e6ebc4ab73a0f602a6b629a1ce84495f41b77731b7466372a9dd1",
+      "negative": "-------------------------------- MODULE W4Od17m5p1t1 --------------------------------\nEXTENDS Naturals, FiniteSets\nCONSTANTS Routers, Pids, MaxVer\nVARIABLES recVer, proposals, ballots, applied\nvars = <<recVer, proposals, ballots, applied>>\n\nOpenPids == { p.pid : p \\in proposals }\nBallotsFor(pid) == { b \\in ballots : b.pid = pid }\nQuorum(pid) == 2 * Cardinality(BallotsFor(pid)) > Cardinality(Routers)\n\nInit ==\n    /\\ recVer = 0\n    /\\ proposals = {}\n    /\\ ballots = {}\n    /\\ applied = {}\n\nPropose(pid) ==\n    /\\ recVer < MaxVer\n    /\\ pid \\notin OpenPids\n    /\\ proposals' = proposals \\union {[pid |-> pid, base |-> recVer]}\n    /\\ UNCHANGED <<recVer, ballots, applied>>\n\nCastBallot(r, pid) ==\n    /\\ pid \\in OpenPids\n    /\\ [pid |-> pid, voter |-> r] \\notin ballots\n    /\\ ballots' = ballots \\union {[pid |-> pid, voter |-> r]}\n    /\\ UNCHANGED <<recVer, proposals, applied>>\n\nCommit(pid) ==\n    /\\ \\E p \\in proposals : p.pid = pid /\\ p.base = recVer\n    /\\ recVer < MaxVer\n    /\\ Quorum(pid)\n    /\\ recVer' = recVer + 1\n    /\\ applied' = applied \\union {pid}\n    /\\ proposals' = { p \\in proposals : p.pid # pid }\n    /\\ ballots' = { b \\in ballots : b.pid # pid }\n\nDiscard(pid) ==\n    /\\ \\E p \\in proposals : p.pid = pid /\\ (p.base # recVer \\/ recVer >= MaxVer)\n    /\\ proposals' = { p \\in proposals : p.pid # pid }\n    /\\ ballots' = { b \\in ballots : b.pid # pid }\n    /\\ UNCHANGED <<recVer, applied>>\n\nRollover ==\n    /\\ recVer >= MaxVer\n    /\\ recVer' = 0\n    /\\ proposals' = {}\n    /\\ ballots' = {}\n    /\\ applied' = {}\n\nNext ==\n    \\/ \\E pid \\in Pids : Propose(pid)\n    \\/ \\E r \\in Routers, pid \\in Pids : CastBallot(r, pid)\n    \\/ \\E pid \\in Pids : Commit(pid)\n    \\/ \\E pid \\in Pids : Discard(pid)\n    \\/ Rollover\n\nSpec == Init /\\ [][Next]_vars\n\nBaseNeverAhead == \\A p \\in proposals : p.base <= recVer\n============================================================================="
+    },
+    {
+      "row": 59,
+      "id": "w4-fullmodule:w4opus::d17-m5-p1-t1",
+      "split": "validation",
+      "kind": "membership_keyword",
+      "positive_sha256": "d363d2179a91f476fe1047e496df3e7cfeae24a54d8422b5672351a8265b6bd7",
+      "negative_sha256": "e2de52b1b0f04776ae46d874bcecf922f242ff75c91b388d42abb7fe764cb3a7",
+      "negative": "-------------------------------- MODULE W4Od17m5p1t1 --------------------------------\nEXTENDS Naturals, FiniteSets\nCONSTANTS Routers, Pids, MaxVer\nVARIABLES recVer, proposals, ballots, applied\nvars == <<recVer, proposals, ballots, applied>>\n\nOpenPids == { p.pid : p IN proposals }\nBallotsFor(pid) == { b \\in ballots : b.pid = pid }\nQuorum(pid) == 2 * Cardinality(BallotsFor(pid)) > Cardinality(Routers)\n\nInit ==\n    /\\ recVer = 0\n    /\\ proposals = {}\n    /\\ ballots = {}\n    /\\ applied = {}\n\nPropose(pid) ==\n    /\\ recVer < MaxVer\n    /\\ pid \\notin OpenPids\n    /\\ proposals' = proposals \\union {[pid |-> pid, base |-> recVer]}\n    /\\ UNCHANGED <<recVer, ballots, applied>>\n\nCastBallot(r, pid) ==\n    /\\ pid \\in OpenPids\n    /\\ [pid |-> pid, voter |-> r] \\notin ballots\n    /\\ ballots' = ballots \\union {[pid |-> pid, voter |-> r]}\n    /\\ UNCHANGED <<recVer, proposals, applied>>\n\nCommit(pid) ==\n    /\\ \\E p \\in proposals : p.pid = pid /\\ p.base = recVer\n    /\\ recVer < MaxVer\n    /\\ Quorum(pid)\n    /\\ recVer' = recVer + 1\n    /\\ applied' = applied \\union {pid}\n    /\\ proposals' = { p \\in proposals : p.pid # pid }\n    /\\ ballots' = { b \\in ballots : b.pid # pid }\n\nDiscard(pid) ==\n    /\\ \\E p \\in proposals : p.pid = pid /\\ (p.base # recVer \\/ recVer >= MaxVer)\n    /\\ proposals' = { p \\in proposals : p.pid # pid }\n    /\\ ballots' = { b \\in ballots : b.pid # pid }\n    /\\ UNCHANGED <<recVer, applied>>\n\nRollover ==\n    /\\ recVer >= MaxVer\n    /\\ recVer' = 0\n    /\\ proposals' = {}\n    /\\ ballots' = {}\n    /\\ applied' = {}\n\nNext ==\n    \\/ \\E pid \\in Pids : Propose(pid)\n    \\/ \\E r \\in Routers, pid \\in Pids : CastBallot(r, pid)\n    \\/ \\E pid \\in Pids : Commit(pid)\n    \\/ \\E pid \\in Pids : Discard(pid)\n    \\/ Rollover\n\nSpec == Init /\\ [][Next]_vars\n\nBaseNeverAhead == \\A p \\in proposals : p.base <= recVer\n============================================================================="
+    },
+    {
+      "row": 59,
+      "id": "w4-fullmodule:w4opus::d17-m5-p1-t1",
+      "split": "validation",
+      "kind": "declaration_comma",
+      "positive_sha256": "d363d2179a91f476fe1047e496df3e7cfeae24a54d8422b5672351a8265b6bd7",
+      "negative_sha256": "225ce0b409794e9105114bc7d182655e20ec5df4b6e37e33ba599f06c372fad1",
+      "negative": "-------------------------------- MODULE W4Od17m5p1t1 --------------------------------\nEXTENDS Naturals, FiniteSets\nCONSTANTS Routers, Pids, MaxVer\nVARIABLES recVer proposals, ballots, applied\nvars == <<recVer, proposals, ballots, applied>>\n\nOpenPids == { p.pid : p \\in proposals }\nBallotsFor(pid) == { b \\in ballots : b.pid = pid }\nQuorum(pid) == 2 * Cardinality(BallotsFor(pid)) > Cardinality(Routers)\n\nInit ==\n    /\\ recVer = 0\n    /\\ proposals = {}\n    /\\ ballots = {}\n    /\\ applied = {}\n\nPropose(pid) ==\n    /\\ recVer < MaxVer\n    /\\ pid \\notin OpenPids\n    /\\ proposals' = proposals \\union {[pid |-> pid, base |-> recVer]}\n    /\\ UNCHANGED <<recVer, ballots, applied>>\n\nCastBallot(r, pid) ==\n    /\\ pid \\in OpenPids\n    /\\ [pid |-> pid, voter |-> r] \\notin ballots\n    /\\ ballots' = ballots \\union {[pid |-> pid, voter |-> r]}\n    /\\ UNCHANGED <<recVer, proposals, applied>>\n\nCommit(pid) ==\n    /\\ \\E p \\in proposals : p.pid = pid /\\ p.base = recVer\n    /\\ recVer < MaxVer\n    /\\ Quorum(pid)\n    /\\ recVer' = recVer + 1\n    /\\ applied' = applied \\union {pid}\n    /\\ proposals' = { p \\in proposals : p.pid # pid }\n    /\\ ballots' = { b \\in ballots : b.pid # pid }\n\nDiscard(pid) ==\n    /\\ \\E p \\in proposals : p.pid = pid /\\ (p.base # recVer \\/ recVer >= MaxVer)\n    /\\ proposals' = { p \\in proposals : p.pid # pid }\n    /\\ ballots' = { b \\in ballots : b.pid # pid }\n    /\\ UNCHANGED <<recVer, applied>>\n\nRollover ==\n    /\\ recVer >= MaxVer\n    /\\ recVer' = 0\n    /\\ proposals' = {}\n    /\\ ballots' = {}\n    /\\ applied' = {}\n\nNext ==\n    \\/ \\E pid \\in Pids : Propose(pid)\n    \\/ \\E r \\in Routers, pid \\in Pids : CastBallot(r, pid)\n    \\/ \\E pid \\in Pids : Commit(pid)\n    \\/ \\E pid \\in Pids : Discard(pid)\n    \\/ Rollover\n\nSpec == Init /\\ [][Next]_vars\n\nBaseNeverAhead == \\A p \\in proposals : p.base <= recVer\n============================================================================="
+    },
+    {
+      "row": 59,
+      "id": "w4-fullmodule:w4opus::d17-m5-p1-t1",
+      "split": "validation",
+      "kind": "config_in_module",
+      "positive_sha256": "d363d2179a91f476fe1047e496df3e7cfeae24a54d8422b5672351a8265b6bd7",
+      "negative_sha256": "a13466633ae49a1a2315175780ba9380a6cd036fe946c5801e1030818cd2ae17",
+      "negative": "-------------------------------- MODULE W4Od17m5p1t1 --------------------------------\nEXTENDS Naturals, FiniteSets\nCONSTANTS Routers, Pids, MaxVer\nVARIABLES recVer, proposals, ballots, applied\nvars == <<recVer, proposals, ballots, applied>>\n\nOpenPids == { p.pid : p \\in proposals }\nBallotsFor(pid) == { b \\in ballots : b.pid = pid }\nQuorum(pid) == 2 * Cardinality(BallotsFor(pid)) > Cardinality(Routers)\n\nInit ==\n    /\\ recVer = 0\n    /\\ proposals = {}\n    /\\ ballots = {}\n    /\\ applied = {}\n\nPropose(pid) ==\n    /\\ recVer < MaxVer\n    /\\ pid \\notin OpenPids\n    /\\ proposals' = proposals \\union {[pid |-> pid, base |-> recVer]}\n    /\\ UNCHANGED <<recVer, ballots, applied>>\n\nCastBallot(r, pid) ==\n    /\\ pid \\in OpenPids\n    /\\ [pid |-> pid, voter |-> r] \\notin ballots\n    /\\ ballots' = ballots \\union {[pid |-> pid, voter |-> r]}\n    /\\ UNCHANGED <<recVer, proposals, applied>>\n\nCommit(pid) ==\n    /\\ \\E p \\in proposals : p.pid = pid /\\ p.base = recVer\n    /\\ recVer < MaxVer\n    /\\ Quorum(pid)\n    /\\ recVer' = recVer + 1\n    /\\ applied' = applied \\union {pid}\n    /\\ proposals' = { p \\in proposals : p.pid # pid }\n    /\\ ballots' = { b \\in ballots : b.pid # pid }\n\nDiscard(pid) ==\n    /\\ \\E p \\in proposals : p.pid = pid /\\ (p.base # recVer \\/ recVer >= MaxVer)\n    /\\ proposals' = { p \\in proposals : p.pid # pid }\n    /\\ ballots' = { b \\in ballots : b.pid # pid }\n    /\\ UNCHANGED <<recVer, applied>>\n\nRollover ==\n    /\\ recVer >= MaxVer\n    /\\ recVer' = 0\n    /\\ proposals' = {}\n    /\\ ballots' = {}\n    /\\ applied' = {}\n\nNext ==\n    \\/ \\E pid \\in Pids : Propose(pid)\n    \\/ \\E r \\in Routers, pid \\in Pids : CastBallot(r, pid)\n    \\/ \\E pid \\in Pids : Commit(pid)\n    \\/ \\E pid \\in Pids : Discard(pid)\n    \\/ Rollover\n\nSpec == Init /\\ [][Next]_vars\n\nBaseNeverAhead == \\A p \\in proposals : p.base <= recVer\nSPECIFICATION Init\n============================================================================="
+    },
+    {
+      "row": 60,
+      "id": "w4-fullmodule:w4opus::d14-m2-p2-t1",
+      "split": "validation",
+      "kind": "definition_equals",
+      "positive_sha256": "02da4343b3f670e13f69d7a879b102e3988f040a3901f98584a6d2ae4f24e5d5",
+      "negative_sha256": "b44ed7d83b6ab724c4b1559f9bc172841a1b8ac4ae24093a8992f773d954138e",
+      "negative": "-------------------------- MODULE W4Od14m2p2t1 --------------------------\nEXTENDS Naturals\nCONSTANTS Drones, Budget\n\nVARIABLES phase, vote, tokens, src, dst\n\nvars = <<phase, vote, tokens, src, dst>>\n\nNoDrone == \"none\"\n\nRECURSIVE SumOver(_)\nSumOver(S) ==\n    IF S = {} THEN 0\n    ELSE LET x == CHOOSE y \\in S : TRUE IN tokens[x] + SumOver(S \\ {x})\n\nAllYes == \\A d \\in Drones : vote[d] = \"yes\"\nSomeNo == \\E d \\in Drones : vote[d] = \"no\"\n\nInit ==\n    /\\ phase = \"idle\"\n    /\\ vote = [d \\in Drones |-> \"none\"]\n    /\\ tokens = [d \\in Drones |-> IF d = CHOOSE x \\in Drones : TRUE THEN Budget ELSE 0]\n    /\\ src = NoDrone\n    /\\ dst = NoDrone\n\nBegin(s, t) ==\n    /\\ phase = \"idle\"\n    /\\ s # t\n    /\\ tokens[s] > 0\n    /\\ phase' = \"voting\"\n    /\\ vote' = [d \\in Drones |-> \"none\"]\n    /\\ src' = s\n    /\\ dst' = t\n    /\\ UNCHANGED tokens\n\nVote(d, v) ==\n    /\\ phase = \"voting\"\n    /\\ vote[d] = \"none\"\n    /\\ v \\in {\"yes\", \"no\"}\n    /\\ vote' = [vote EXCEPT ![d] = v]\n    /\\ UNCHANGED <<phase, tokens, src, dst>>\n\nCommit ==\n    /\\ phase = \"voting\"\n    /\\ AllYes\n    /\\ tokens' = [tokens EXCEPT ![src] = @ - 1, ![dst] = @ + 1]\n    /\\ phase' = \"committed\"\n    /\\ UNCHANGED <<vote, src, dst>>\n\nAbort ==\n    /\\ phase = \"voting\"\n    /\\ SomeNo\n    /\\ phase' = \"aborted\"\n    /\\ UNCHANGED <<vote, tokens, src, dst>>\n\nReset ==\n    /\\ phase \\in {\"committed\", \"aborted\"}\n    /\\ phase' = \"idle\"\n    /\\ vote' = [d \\in Drones |-> \"none\"]\n    /\\ src' = NoDrone\n    /\\ dst' = NoDrone\n    /\\ UNCHANGED tokens\n\nNext ==\n    \\/ \\E s, t \\in Drones : Begin(s, t)\n    \\/ \\E d \\in Drones, v \\in {\"yes\", \"no\"} : Vote(d, v)\n    \\/ Commit\n    \\/ Abort\n    \\/ Reset\n\nSpec == Init /\\ [][Next]_vars\n\nTokensConserved == SumOver(Drones) = Budget\n============================================================================="
+    },
+    {
+      "row": 60,
+      "id": "w4-fullmodule:w4opus::d14-m2-p2-t1",
+      "split": "validation",
+      "kind": "membership_keyword",
+      "positive_sha256": "02da4343b3f670e13f69d7a879b102e3988f040a3901f98584a6d2ae4f24e5d5",
+      "negative_sha256": "7228069346df11735c1c98b8f8840baaa60cdc2799a1786e396003b5ecee6b4e",
+      "negative": "-------------------------- MODULE W4Od14m2p2t1 --------------------------\nEXTENDS Naturals\nCONSTANTS Drones, Budget\n\nVARIABLES phase, vote, tokens, src, dst\n\nvars == <<phase, vote, tokens, src, dst>>\n\nNoDrone == \"none\"\n\nRECURSIVE SumOver(_)\nSumOver(S) ==\n    IF S = {} THEN 0\n    ELSE LET x == CHOOSE y IN S : TRUE IN tokens[x] + SumOver(S \\ {x})\n\nAllYes == \\A d \\in Drones : vote[d] = \"yes\"\nSomeNo == \\E d \\in Drones : vote[d] = \"no\"\n\nInit ==\n    /\\ phase = \"idle\"\n    /\\ vote = [d \\in Drones |-> \"none\"]\n    /\\ tokens = [d \\in Drones |-> IF d = CHOOSE x \\in Drones : TRUE THEN Budget ELSE 0]\n    /\\ src = NoDrone\n    /\\ dst = NoDrone\n\nBegin(s, t) ==\n    /\\ phase = \"idle\"\n    /\\ s # t\n    /\\ tokens[s] > 0\n    /\\ phase' = \"voting\"\n    /\\ vote' = [d \\in Drones |-> \"none\"]\n    /\\ src' = s\n    /\\ dst' = t\n    /\\ UNCHANGED tokens\n\nVote(d, v) ==\n    /\\ phase = \"voting\"\n    /\\ vote[d] = \"none\"\n    /\\ v \\in {\"yes\", \"no\"}\n    /\\ vote' = [vote EXCEPT ![d] = v]\n    /\\ UNCHANGED <<phase, tokens, src, dst>>\n\nCommit ==\n    /\\ phase = \"voting\"\n    /\\ AllYes\n    /\\ tokens' = [tokens EXCEPT ![src] = @ - 1, ![dst] = @ + 1]\n    /\\ phase' = \"committed\"\n    /\\ UNCHANGED <<vote, src, dst>>\n\nAbort ==\n    /\\ phase = \"voting\"\n    /\\ SomeNo\n    /\\ phase' = \"aborted\"\n    /\\ UNCHANGED <<vote, tokens, src, dst>>\n\nReset ==\n    /\\ phase \\in {\"committed\", \"aborted\"}\n    /\\ phase' = \"idle\"\n    /\\ vote' = [d \\in Drones |-> \"none\"]\n    /\\ src' = NoDrone\n    /\\ dst' = NoDrone\n    /\\ UNCHANGED tokens\n\nNext ==\n    \\/ \\E s, t \\in Drones : Begin(s, t)\n    \\/ \\E d \\in Drones, v \\in {\"yes\", \"no\"} : Vote(d, v)\n    \\/ Commit\n    \\/ Abort\n    \\/ Reset\n\nSpec == Init /\\ [][Next]_vars\n\nTokensConserved == SumOver(Drones) = Budget\n============================================================================="
+    },
+    {
+      "row": 60,
+      "id": "w4-fullmodule:w4opus::d14-m2-p2-t1",
+      "split": "validation",
+      "kind": "declaration_comma",
+      "positive_sha256": "02da4343b3f670e13f69d7a879b102e3988f040a3901f98584a6d2ae4f24e5d5",
+      "negative_sha256": "f9125376a6f75c3db1bbacb53d974175f17316615c5222e34791b6bcfe88763d",
+      "negative": "-------------------------- MODULE W4Od14m2p2t1 --------------------------\nEXTENDS Naturals\nCONSTANTS Drones, Budget\n\nVARIABLES phase vote, tokens, src, dst\n\nvars == <<phase, vote, tokens, src, dst>>\n\nNoDrone == \"none\"\n\nRECURSIVE SumOver(_)\nSumOver(S) ==\n    IF S = {} THEN 0\n    ELSE LET x == CHOOSE y \\in S : TRUE IN tokens[x] + SumOver(S \\ {x})\n\nAllYes == \\A d \\in Drones : vote[d] = \"yes\"\nSomeNo == \\E d \\in Drones : vote[d] = \"no\"\n\nInit ==\n    /\\ phase = \"idle\"\n    /\\ vote = [d \\in Drones |-> \"none\"]\n    /\\ tokens = [d \\in Drones |-> IF d = CHOOSE x \\in Drones : TRUE THEN Budget ELSE 0]\n    /\\ src = NoDrone\n    /\\ dst = NoDrone\n\nBegin(s, t) ==\n    /\\ phase = \"idle\"\n    /\\ s # t\n    /\\ tokens[s] > 0\n    /\\ phase' = \"voting\"\n    /\\ vote' = [d \\in Drones |-> \"none\"]\n    /\\ src' = s\n    /\\ dst' = t\n    /\\ UNCHANGED tokens\n\nVote(d, v) ==\n    /\\ phase = \"voting\"\n    /\\ vote[d] = \"none\"\n    /\\ v \\in {\"yes\", \"no\"}\n    /\\ vote' = [vote EXCEPT ![d] = v]\n    /\\ UNCHANGED <<phase, tokens, src, dst>>\n\nCommit ==\n    /\\ phase = \"voting\"\n    /\\ AllYes\n    /\\ tokens' = [tokens EXCEPT ![src] = @ - 1, ![dst] = @ + 1]\n    /\\ phase' = \"committed\"\n    /\\ UNCHANGED <<vote, src, dst>>\n\nAbort ==\n    /\\ phase = \"voting\"\n    /\\ SomeNo\n    /\\ phase' = \"aborted\"\n    /\\ UNCHANGED <<vote, tokens, src, dst>>\n\nReset ==\n    /\\ phase \\in {\"committed\", \"aborted\"}\n    /\\ phase' = \"idle\"\n    /\\ vote' = [d \\in Drones |-> \"none\"]\n    /\\ src' = NoDrone\n    /\\ dst' = NoDrone\n    /\\ UNCHANGED tokens\n\nNext ==\n    \\/ \\E s, t \\in Drones : Begin(s, t)\n    \\/ \\E d \\in Drones, v \\in {\"yes\", \"no\"} : Vote(d, v)\n    \\/ Commit\n    \\/ Abort\n    \\/ Reset\n\nSpec == Init /\\ [][Next]_vars\n\nTokensConserved == SumOver(Drones) = Budget\n============================================================================="
+    },
+    {
+      "row": 60,
+      "id": "w4-fullmodule:w4opus::d14-m2-p2-t1",
+      "split": "validation",
+      "kind": "config_in_module",
+      "positive_sha256": "02da4343b3f670e13f69d7a879b102e3988f040a3901f98584a6d2ae4f24e5d5",
+      "negative_sha256": "88d554a564757f9271eeea5315636826bdba5392c3a743fdc89dd10a154b66f7",
+      "negative": "-------------------------- MODULE W4Od14m2p2t1 --------------------------\nEXTENDS Naturals\nCONSTANTS Drones, Budget\n\nVARIABLES phase, vote, tokens, src, dst\n\nvars == <<phase, vote, tokens, src, dst>>\n\nNoDrone == \"none\"\n\nRECURSIVE SumOver(_)\nSumOver(S) ==\n    IF S = {} THEN 0\n    ELSE LET x == CHOOSE y \\in S : TRUE IN tokens[x] + SumOver(S \\ {x})\n\nAllYes == \\A d \\in Drones : vote[d] = \"yes\"\nSomeNo == \\E d \\in Drones : vote[d] = \"no\"\n\nInit ==\n    /\\ phase = \"idle\"\n    /\\ vote = [d \\in Drones |-> \"none\"]\n    /\\ tokens = [d \\in Drones |-> IF d = CHOOSE x \\in Drones : TRUE THEN Budget ELSE 0]\n    /\\ src = NoDrone\n    /\\ dst = NoDrone\n\nBegin(s, t) ==\n    /\\ phase = \"idle\"\n    /\\ s # t\n    /\\ tokens[s] > 0\n    /\\ phase' = \"voting\"\n    /\\ vote' = [d \\in Drones |-> \"none\"]\n    /\\ src' = s\n    /\\ dst' = t\n    /\\ UNCHANGED tokens\n\nVote(d, v) ==\n    /\\ phase = \"voting\"\n    /\\ vote[d] = \"none\"\n    /\\ v \\in {\"yes\", \"no\"}\n    /\\ vote' = [vote EXCEPT ![d] = v]\n    /\\ UNCHANGED <<phase, tokens, src, dst>>\n\nCommit ==\n    /\\ phase = \"voting\"\n    /\\ AllYes\n    /\\ tokens' = [tokens EXCEPT ![src] = @ - 1, ![dst] = @ + 1]\n    /\\ phase' = \"committed\"\n    /\\ UNCHANGED <<vote, src, dst>>\n\nAbort ==\n    /\\ phase = \"voting\"\n    /\\ SomeNo\n    /\\ phase' = \"aborted\"\n    /\\ UNCHANGED <<vote, tokens, src, dst>>\n\nReset ==\n    /\\ phase \\in {\"committed\", \"aborted\"}\n    /\\ phase' = \"idle\"\n    /\\ vote' = [d \\in Drones |-> \"none\"]\n    /\\ src' = NoDrone\n    /\\ dst' = NoDrone\n    /\\ UNCHANGED tokens\n\nNext ==\n    \\/ \\E s, t \\in Drones : Begin(s, t)\n    \\/ \\E d \\in Drones, v \\in {\"yes\", \"no\"} : Vote(d, v)\n    \\/ Commit\n    \\/ Abort\n    \\/ Reset\n\nSpec == Init /\\ [][Next]_vars\n\nTokensConserved == SumOver(Drones) = Budget\nSPECIFICATION Init\n============================================================================="
+    },
+    {
+      "row": 61,
+      "id": "w4-fullmodule:w4opus::d18-m8-p6-t4",
+      "split": "validation",
+      "kind": "definition_equals",
+      "positive_sha256": "c3706eff466c602ba477bfb7b53c83ded57353df7aa2daa17d6af0f69c9a02e6",
+      "negative_sha256": "df85b380bf3c840be1dd234b24c68f7209d29310c215b192865ade9c41fa163b",
+      "negative": "---- MODULE W4Od18m8p6t4 ----\nEXTENDS Naturals, FiniteSets\nCONSTANTS Residents, Doors, MaxEpoch\nNone = \"none\"\nVARIABLES zoneOwner, doorOwner, epoch, cred, capacity\nvars == <<zoneOwner, doorOwner, epoch, cred, capacity>>\n\nLocked == {d \\in Doors : doorOwner[d] # None}\n\nTypeInv ==\n    /\\ zoneOwner \\in Residents \\cup {None}\n    /\\ doorOwner \\in [Doors -> Residents \\cup {None}]\n    /\\ epoch \\in 0..MaxEpoch\n    /\\ cred \\in [Residents -> 0..MaxEpoch]\n    /\\ capacity \\in 1..Cardinality(Doors)\n\nInit ==\n    /\\ zoneOwner = None\n    /\\ doorOwner = [d \\in Doors |-> None]\n    /\\ epoch = 0\n    /\\ cred = [p \\in Residents |-> 0]\n    /\\ capacity = Cardinality(Doors)\n\nAcquireZone(p) ==\n    /\\ zoneOwner = None\n    /\\ cred[p] = epoch\n    /\\ zoneOwner' = p\n    /\\ UNCHANGED <<doorOwner, epoch, cred, capacity>>\n\nReleaseZone(p) ==\n    /\\ zoneOwner = p\n    /\\ \\A d \\in Doors : doorOwner[d] # p\n    /\\ zoneOwner' = None\n    /\\ UNCHANGED <<doorOwner, epoch, cred, capacity>>\n\nLockDoor(p, d) ==\n    /\\ zoneOwner = p\n    /\\ cred[p] = epoch\n    /\\ doorOwner[d] = None\n    /\\ Cardinality(Locked) < capacity\n    /\\ doorOwner' = [doorOwner EXCEPT ![d] = p]\n    /\\ UNCHANGED <<zoneOwner, epoch, cred, capacity>>\n\nUnlockDoor(p, d) ==\n    /\\ doorOwner[d] = p\n    /\\ doorOwner' = [doorOwner EXCEPT ![d] = None]\n    /\\ UNCHANGED <<zoneOwner, epoch, cred, capacity>>\n\nRefresh(p) ==\n    /\\ cred[p] # epoch\n    /\\ cred' = [cred EXCEPT ![p] = epoch]\n    /\\ UNCHANGED <<zoneOwner, doorOwner, epoch, capacity>>\n\nRotateEpoch ==\n    /\\ epoch < MaxEpoch\n    /\\ epoch' = epoch + 1\n    /\\ zoneOwner' = None\n    /\\ doorOwner' = [d \\in Doors |-> None]\n    /\\ UNCHANGED <<cred, capacity>>\n\nChangeCapacity ==\n    /\\ \\E c \\in 1..Cardinality(Doors) : capacity' = c\n    /\\ UNCHANGED <<zoneOwner, doorOwner, epoch, cred>>\n\nNext ==\n    \\/ \\E p \\in Residents : AcquireZone(p) \\/ ReleaseZone(p) \\/ Refresh(p)\n    \\/ \\E p \\in Residents, d \\in Doors : LockDoor(p, d) \\/ UnlockDoor(p, d)\n    \\/ RotateEpoch \\/ ChangeCapacity\n\nSpec == Init /\\ [][Next]_vars\n\nHierarchyAuthorized ==\n    \\A d \\in Doors :\n        doorOwner[d] # None =>\n            /\\ doorOwner[d] = zoneOwner\n            /\\ cred[doorOwner[d]] = epoch\n===="
+    },
+    {
+      "row": 61,
+      "id": "w4-fullmodule:w4opus::d18-m8-p6-t4",
+      "split": "validation",
+      "kind": "membership_keyword",
+      "positive_sha256": "c3706eff466c602ba477bfb7b53c83ded57353df7aa2daa17d6af0f69c9a02e6",
+      "negative_sha256": "5d9ea3bb5b4c7ccd2dcde088b2b7bf2c5eb6a34e0ba3046fa54aa5b2a781536b",
+      "negative": "---- MODULE W4Od18m8p6t4 ----\nEXTENDS Naturals, FiniteSets\nCONSTANTS Residents, Doors, MaxEpoch\nNone == \"none\"\nVARIABLES zoneOwner, doorOwner, epoch, cred, capacity\nvars == <<zoneOwner, doorOwner, epoch, cred, capacity>>\n\nLocked == {d IN Doors : doorOwner[d] # None}\n\nTypeInv ==\n    /\\ zoneOwner \\in Residents \\cup {None}\n    /\\ doorOwner \\in [Doors -> Residents \\cup {None}]\n    /\\ epoch \\in 0..MaxEpoch\n    /\\ cred \\in [Residents -> 0..MaxEpoch]\n    /\\ capacity \\in 1..Cardinality(Doors)\n\nInit ==\n    /\\ zoneOwner = None\n    /\\ doorOwner = [d \\in Doors |-> None]\n    /\\ epoch = 0\n    /\\ cred = [p \\in Residents |-> 0]\n    /\\ capacity = Cardinality(Doors)\n\nAcquireZone(p) ==\n    /\\ zoneOwner = None\n    /\\ cred[p] = epoch\n    /\\ zoneOwner' = p\n    /\\ UNCHANGED <<doorOwner, epoch, cred, capacity>>\n\nReleaseZone(p) ==\n    /\\ zoneOwner = p\n    /\\ \\A d \\in Doors : doorOwner[d] # p\n    /\\ zoneOwner' = None\n    /\\ UNCHANGED <<doorOwner, epoch, cred, capacity>>\n\nLockDoor(p, d) ==\n    /\\ zoneOwner = p\n    /\\ cred[p] = epoch\n    /\\ doorOwner[d] = None\n    /\\ Cardinality(Locked) < capacity\n    /\\ doorOwner' = [doorOwner EXCEPT ![d] = p]\n    /\\ UNCHANGED <<zoneOwner, epoch, cred, capacity>>\n\nUnlockDoor(p, d) ==\n    /\\ doorOwner[d] = p\n    /\\ doorOwner' = [doorOwner EXCEPT ![d] = None]\n    /\\ UNCHANGED <<zoneOwner, epoch, cred, capacity>>\n\nRefresh(p) ==\n    /\\ cred[p] # epoch\n    /\\ cred' = [cred EXCEPT ![p] = epoch]\n    /\\ UNCHANGED <<zoneOwner, doorOwner, epoch, capacity>>\n\nRotateEpoch ==\n    /\\ epoch < MaxEpoch\n    /\\ epoch' = epoch + 1\n    /\\ zoneOwner' = None\n    /\\ doorOwner' = [d \\in Doors |-> None]\n    /\\ UNCHANGED <<cred, capacity>>\n\nChangeCapacity ==\n    /\\ \\E c \\in 1..Cardinality(Doors) : capacity' = c\n    /\\ UNCHANGED <<zoneOwner, doorOwner, epoch, cred>>\n\nNext ==\n    \\/ \\E p \\in Residents : AcquireZone(p) \\/ ReleaseZone(p) \\/ Refresh(p)\n    \\/ \\E p \\in Residents, d \\in Doors : LockDoor(p, d) \\/ UnlockDoor(p, d)\n    \\/ RotateEpoch \\/ ChangeCapacity\n\nSpec == Init /\\ [][Next]_vars\n\nHierarchyAuthorized ==\n    \\A d \\in Doors :\n        doorOwner[d] # None =>\n            /\\ doorOwner[d] = zoneOwner\n            /\\ cred[doorOwner[d]] = epoch\n===="
+    },
+    {
+      "row": 61,
+      "id": "w4-fullmodule:w4opus::d18-m8-p6-t4",
+      "split": "validation",
+      "kind": "declaration_comma",
+      "positive_sha256": "c3706eff466c602ba477bfb7b53c83ded57353df7aa2daa17d6af0f69c9a02e6",
+      "negative_sha256": "f34ec05c53bf1fa8f5de7ed663b52d1cdd71dac8dd2c23312f35e0955a325c20",
+      "negative": "---- MODULE W4Od18m8p6t4 ----\nEXTENDS Naturals, FiniteSets\nCONSTANTS Residents, Doors, MaxEpoch\nNone == \"none\"\nVARIABLES zoneOwner doorOwner, epoch, cred, capacity\nvars == <<zoneOwner, doorOwner, epoch, cred, capacity>>\n\nLocked == {d \\in Doors : doorOwner[d] # None}\n\nTypeInv ==\n    /\\ zoneOwner \\in Residents \\cup {None}\n    /\\ doorOwner \\in [Doors -> Residents \\cup {None}]\n    /\\ epoch \\in 0..MaxEpoch\n    /\\ cred \\in [Residents -> 0..MaxEpoch]\n    /\\ capacity \\in 1..Cardinality(Doors)\n\nInit ==\n    /\\ zoneOwner = None\n    /\\ doorOwner = [d \\in Doors |-> None]\n    /\\ epoch = 0\n    /\\ cred = [p \\in Residents |-> 0]\n    /\\ capacity = Cardinality(Doors)\n\nAcquireZone(p) ==\n    /\\ zoneOwner = None\n    /\\ cred[p] = epoch\n    /\\ zoneOwner' = p\n    /\\ UNCHANGED <<doorOwner, epoch, cred, capacity>>\n\nReleaseZone(p) ==\n    /\\ zoneOwner = p\n    /\\ \\A d \\in Doors : doorOwner[d] # p\n    /\\ zoneOwner' = None\n    /\\ UNCHANGED <<doorOwner, epoch, cred, capacity>>\n\nLockDoor(p, d) ==\n    /\\ zoneOwner = p\n    /\\ cred[p] = epoch\n    /\\ doorOwner[d] = None\n    /\\ Cardinality(Locked) < capacity\n    /\\ doorOwner' = [doorOwner EXCEPT ![d] = p]\n    /\\ UNCHANGED <<zoneOwner, epoch, cred, capacity>>\n\nUnlockDoor(p, d) ==\n    /\\ doorOwner[d] = p\n    /\\ doorOwner' = [doorOwner EXCEPT ![d] = None]\n    /\\ UNCHANGED <<zoneOwner, epoch, cred, capacity>>\n\nRefresh(p) ==\n    /\\ cred[p] # epoch\n    /\\ cred' = [cred EXCEPT ![p] = epoch]\n    /\\ UNCHANGED <<zoneOwner, doorOwner, epoch, capacity>>\n\nRotateEpoch ==\n    /\\ epoch < MaxEpoch\n    /\\ epoch' = epoch + 1\n    /\\ zoneOwner' = None\n    /\\ doorOwner' = [d \\in Doors |-> None]\n    /\\ UNCHANGED <<cred, capacity>>\n\nChangeCapacity ==\n    /\\ \\E c \\in 1..Cardinality(Doors) : capacity' = c\n    /\\ UNCHANGED <<zoneOwner, doorOwner, epoch, cred>>\n\nNext ==\n    \\/ \\E p \\in Residents : AcquireZone(p) \\/ ReleaseZone(p) \\/ Refresh(p)\n    \\/ \\E p \\in Residents, d \\in Doors : LockDoor(p, d) \\/ UnlockDoor(p, d)\n    \\/ RotateEpoch \\/ ChangeCapacity\n\nSpec == Init /\\ [][Next]_vars\n\nHierarchyAuthorized ==\n    \\A d \\in Doors :\n        doorOwner[d] # None =>\n            /\\ doorOwner[d] = zoneOwner\n            /\\ cred[doorOwner[d]] = epoch\n===="
+    },
+    {
+      "row": 61,
+      "id": "w4-fullmodule:w4opus::d18-m8-p6-t4",
+      "split": "validation",
+      "kind": "config_in_module",
+      "positive_sha256": "c3706eff466c602ba477bfb7b53c83ded57353df7aa2daa17d6af0f69c9a02e6",
+      "negative_sha256": "1de39de060b5b32ca3090ef1a587725c0914f258833e5b5f7f2b60bfd13032d8",
+      "negative": "---- MODULE W4Od18m8p6t4 ----\nEXTENDS Naturals, FiniteSets\nCONSTANTS Residents, Doors, MaxEpoch\nNone == \"none\"\nVARIABLES zoneOwner, doorOwner, epoch, cred, capacity\nvars == <<zoneOwner, doorOwner, epoch, cred, capacity>>\n\nLocked == {d \\in Doors : doorOwner[d] # None}\n\nTypeInv ==\n    /\\ zoneOwner \\in Residents \\cup {None}\n    /\\ doorOwner \\in [Doors -> Residents \\cup {None}]\n    /\\ epoch \\in 0..MaxEpoch\n    /\\ cred \\in [Residents -> 0..MaxEpoch]\n    /\\ capacity \\in 1..Cardinality(Doors)\n\nInit ==\n    /\\ zoneOwner = None\n    /\\ doorOwner = [d \\in Doors |-> None]\n    /\\ epoch = 0\n    /\\ cred = [p \\in Residents |-> 0]\n    /\\ capacity = Cardinality(Doors)\n\nAcquireZone(p) ==\n    /\\ zoneOwner = None\n    /\\ cred[p] = epoch\n    /\\ zoneOwner' = p\n    /\\ UNCHANGED <<doorOwner, epoch, cred, capacity>>\n\nReleaseZone(p) ==\n    /\\ zoneOwner = p\n    /\\ \\A d \\in Doors : doorOwner[d] # p\n    /\\ zoneOwner' = None\n    /\\ UNCHANGED <<doorOwner, epoch, cred, capacity>>\n\nLockDoor(p, d) ==\n    /\\ zoneOwner = p\n    /\\ cred[p] = epoch\n    /\\ doorOwner[d] = None\n    /\\ Cardinality(Locked) < capacity\n    /\\ doorOwner' = [doorOwner EXCEPT ![d] = p]\n    /\\ UNCHANGED <<zoneOwner, epoch, cred, capacity>>\n\nUnlockDoor(p, d) ==\n    /\\ doorOwner[d] = p\n    /\\ doorOwner' = [doorOwner EXCEPT ![d] = None]\n    /\\ UNCHANGED <<zoneOwner, epoch, cred, capacity>>\n\nRefresh(p) ==\n    /\\ cred[p] # epoch\n    /\\ cred' = [cred EXCEPT ![p] = epoch]\n    /\\ UNCHANGED <<zoneOwner, doorOwner, epoch, capacity>>\n\nRotateEpoch ==\n    /\\ epoch < MaxEpoch\n    /\\ epoch' = epoch + 1\n    /\\ zoneOwner' = None\n    /\\ doorOwner' = [d \\in Doors |-> None]\n    /\\ UNCHANGED <<cred, capacity>>\n\nChangeCapacity ==\n    /\\ \\E c \\in 1..Cardinality(Doors) : capacity' = c\n    /\\ UNCHANGED <<zoneOwner, doorOwner, epoch, cred>>\n\nNext ==\n    \\/ \\E p \\in Residents : AcquireZone(p) \\/ ReleaseZone(p) \\/ Refresh(p)\n    \\/ \\E p \\in Residents, d \\in Doors : LockDoor(p, d) \\/ UnlockDoor(p, d)\n    \\/ RotateEpoch \\/ ChangeCapacity\n\nSpec == Init /\\ [][Next]_vars\n\nHierarchyAuthorized ==\n    \\A d \\in Doors :\n        doorOwner[d] # None =>\n            /\\ doorOwner[d] = zoneOwner\n            /\\ cred[doorOwner[d]] = epoch\nSPECIFICATION Init\n===="
+    },
+    {
+      "row": 62,
+      "id": "w4-fullmodule:w4opus::d1-m2-p2-t0",
+      "split": "validation",
+      "kind": "definition_equals",
+      "positive_sha256": "1ae202ef3a51da76886ac4e2e6bf46ad1343d21bebfd1aaf92f4ade3935754e5",
+      "negative_sha256": "af1c468a936765967847d7373f0379787bd5a34befe6038219aee7e1e4c50681",
+      "negative": "---------------------------- MODULE W4Od1m2p2t0 ----------------------------\nEXTENDS Naturals\nTotal   == 4\nTowers  == {\"t1\", \"t2\"}\n\nVARIABLES free, pending, allocated, votes, alive\n\nTypeInv =\n    /\\ free \\in 0..Total\n    /\\ pending \\in 0..Total\n    /\\ allocated \\in 0..Total\n    /\\ votes \\subseteq Towers\n    /\\ alive \\subseteq Towers\n\nInit ==\n    /\\ free = Total\n    /\\ pending = 0\n    /\\ allocated = 0\n    /\\ votes = {}\n    /\\ alive = Towers\n\nPropose ==\n    /\\ pending = 0\n    /\\ free > 0\n    /\\ free' = free - 1\n    /\\ pending' = 1\n    /\\ votes' = {}\n    /\\ UNCHANGED <<allocated, alive>>\n\nVote(t) ==\n    /\\ pending = 1\n    /\\ t \\in alive\n    /\\ votes' = votes \\cup {t}\n    /\\ UNCHANGED <<free, pending, allocated, alive>>\n\nCommit ==\n    /\\ pending = 1\n    /\\ votes = alive\n    /\\ alive = Towers\n    /\\ pending' = 0\n    /\\ allocated' = allocated + 1\n    /\\ votes' = {}\n    /\\ UNCHANGED <<free, alive>>\n\nAbort ==\n    /\\ pending = 1\n    /\\ pending' = 0\n    /\\ free' = free + 1\n    /\\ votes' = {}\n    /\\ UNCHANGED <<allocated, alive>>\n\nCrash(t) ==\n    /\\ t \\in alive\n    /\\ alive' = alive \\ {t}\n    /\\ UNCHANGED <<free, pending, allocated, votes>>\n\nRelease ==\n    /\\ allocated > 0\n    /\\ allocated' = allocated - 1\n    /\\ free' = free + 1\n    /\\ UNCHANGED <<pending, votes, alive>>\n\nNext ==\n    \\/ Propose \\/ Commit \\/ Abort \\/ Release\n    \\/ \\E t \\in Towers : Vote(t) \\/ Crash(t)\n\nSlotsConserved == free + pending + allocated = Total\n\nvars == <<free, pending, allocated, votes, alive>>\nSpec == Init /\\ [][Next]_vars\n============================================================================="
+    },
+    {
+      "row": 62,
+      "id": "w4-fullmodule:w4opus::d1-m2-p2-t0",
+      "split": "validation",
+      "kind": "membership_keyword",
+      "positive_sha256": "1ae202ef3a51da76886ac4e2e6bf46ad1343d21bebfd1aaf92f4ade3935754e5",
+      "negative_sha256": "4f5822076e5bf347f3dd84d02bbbc4ff7b5fd2475c4488151c2f4e7f4c0dbc64",
+      "negative": "---------------------------- MODULE W4Od1m2p2t0 ----------------------------\nEXTENDS Naturals\nTotal   == 4\nTowers  == {\"t1\", \"t2\"}\n\nVARIABLES free, pending, allocated, votes, alive\n\nTypeInv ==\n    /\\ free IN 0..Total\n    /\\ pending \\in 0..Total\n    /\\ allocated \\in 0..Total\n    /\\ votes \\subseteq Towers\n    /\\ alive \\subseteq Towers\n\nInit ==\n    /\\ free = Total\n    /\\ pending = 0\n    /\\ allocated = 0\n    /\\ votes = {}\n    /\\ alive = Towers\n\nPropose ==\n    /\\ pending = 0\n    /\\ free > 0\n    /\\ free' = free - 1\n    /\\ pending' = 1\n    /\\ votes' = {}\n    /\\ UNCHANGED <<allocated, alive>>\n\nVote(t) ==\n    /\\ pending = 1\n    /\\ t \\in alive\n    /\\ votes' = votes \\cup {t}\n    /\\ UNCHANGED <<free, pending, allocated, alive>>\n\nCommit ==\n    /\\ pending = 1\n    /\\ votes = alive\n    /\\ alive = Towers\n    /\\ pending' = 0\n    /\\ allocated' = allocated + 1\n    /\\ votes' = {}\n    /\\ UNCHANGED <<free, alive>>\n\nAbort ==\n    /\\ pending = 1\n    /\\ pending' = 0\n    /\\ free' = free + 1\n    /\\ votes' = {}\n    /\\ UNCHANGED <<allocated, alive>>\n\nCrash(t) ==\n    /\\ t \\in alive\n    /\\ alive' = alive \\ {t}\n    /\\ UNCHANGED <<free, pending, allocated, votes>>\n\nRelease ==\n    /\\ allocated > 0\n    /\\ allocated' = allocated - 1\n    /\\ free' = free + 1\n    /\\ UNCHANGED <<pending, votes, alive>>\n\nNext ==\n    \\/ Propose \\/ Commit \\/ Abort \\/ Release\n    \\/ \\E t \\in Towers : Vote(t) \\/ Crash(t)\n\nSlotsConserved == free + pending + allocated = Total\n\nvars == <<free, pending, allocated, votes, alive>>\nSpec == Init /\\ [][Next]_vars\n============================================================================="
+    },
+    {
+      "row": 62,
+      "id": "w4-fullmodule:w4opus::d1-m2-p2-t0",
+      "split": "validation",
+      "kind": "declaration_comma",
+      "positive_sha256": "1ae202ef3a51da76886ac4e2e6bf46ad1343d21bebfd1aaf92f4ade3935754e5",
+      "negative_sha256": "d69409f36894e98c4c147fe652b3adffdd4480166727b0b39af178c308c56d0a",
+      "negative": "---------------------------- MODULE W4Od1m2p2t0 ----------------------------\nEXTENDS Naturals\nTotal   == 4\nTowers  == {\"t1\", \"t2\"}\n\nVARIABLES free pending, allocated, votes, alive\n\nTypeInv ==\n    /\\ free \\in 0..Total\n    /\\ pending \\in 0..Total\n    /\\ allocated \\in 0..Total\n    /\\ votes \\subseteq Towers\n    /\\ alive \\subseteq Towers\n\nInit ==\n    /\\ free = Total\n    /\\ pending = 0\n    /\\ allocated = 0\n    /\\ votes = {}\n    /\\ alive = Towers\n\nPropose ==\n    /\\ pending = 0\n    /\\ free > 0\n    /\\ free' = free - 1\n    /\\ pending' = 1\n    /\\ votes' = {}\n    /\\ UNCHANGED <<allocated, alive>>\n\nVote(t) ==\n    /\\ pending = 1\n    /\\ t \\in alive\n    /\\ votes' = votes \\cup {t}\n    /\\ UNCHANGED <<free, pending, allocated, alive>>\n\nCommit ==\n    /\\ pending = 1\n    /\\ votes = alive\n    /\\ alive = Towers\n    /\\ pending' = 0\n    /\\ allocated' = allocated + 1\n    /\\ votes' = {}\n    /\\ UNCHANGED <<free, alive>>\n\nAbort ==\n    /\\ pending = 1\n    /\\ pending' = 0\n    /\\ free' = free + 1\n    /\\ votes' = {}\n    /\\ UNCHANGED <<allocated, alive>>\n\nCrash(t) ==\n    /\\ t \\in alive\n    /\\ alive' = alive \\ {t}\n    /\\ UNCHANGED <<free, pending, allocated, votes>>\n\nRelease ==\n    /\\ allocated > 0\n    /\\ allocated' = allocated - 1\n    /\\ free' = free + 1\n    /\\ UNCHANGED <<pending, votes, alive>>\n\nNext ==\n    \\/ Propose \\/ Commit \\/ Abort \\/ Release\n    \\/ \\E t \\in Towers : Vote(t) \\/ Crash(t)\n\nSlotsConserved == free + pending + allocated = Total\n\nvars == <<free, pending, allocated, votes, alive>>\nSpec == Init /\\ [][Next]_vars\n============================================================================="
+    },
+    {
+      "row": 62,
+      "id": "w4-fullmodule:w4opus::d1-m2-p2-t0",
+      "split": "validation",
+      "kind": "config_in_module",
+      "positive_sha256": "1ae202ef3a51da76886ac4e2e6bf46ad1343d21bebfd1aaf92f4ade3935754e5",
+      "negative_sha256": "758fcda0ead4c18bae64ed497ddf006ef30184fed690e22edfbdc7dc5fd3a824",
+      "negative": "---------------------------- MODULE W4Od1m2p2t0 ----------------------------\nEXTENDS Naturals\nTotal   == 4\nTowers  == {\"t1\", \"t2\"}\n\nVARIABLES free, pending, allocated, votes, alive\n\nTypeInv ==\n    /\\ free \\in 0..Total\n    /\\ pending \\in 0..Total\n    /\\ allocated \\in 0..Total\n    /\\ votes \\subseteq Towers\n    /\\ alive \\subseteq Towers\n\nInit ==\n    /\\ free = Total\n    /\\ pending = 0\n    /\\ allocated = 0\n    /\\ votes = {}\n    /\\ alive = Towers\n\nPropose ==\n    /\\ pending = 0\n    /\\ free > 0\n    /\\ free' = free - 1\n    /\\ pending' = 1\n    /\\ votes' = {}\n    /\\ UNCHANGED <<allocated, alive>>\n\nVote(t) ==\n    /\\ pending = 1\n    /\\ t \\in alive\n    /\\ votes' = votes \\cup {t}\n    /\\ UNCHANGED <<free, pending, allocated, alive>>\n\nCommit ==\n    /\\ pending = 1\n    /\\ votes = alive\n    /\\ alive = Towers\n    /\\ pending' = 0\n    /\\ allocated' = allocated + 1\n    /\\ votes' = {}\n    /\\ UNCHANGED <<free, alive>>\n\nAbort ==\n    /\\ pending = 1\n    /\\ pending' = 0\n    /\\ free' = free + 1\n    /\\ votes' = {}\n    /\\ UNCHANGED <<allocated, alive>>\n\nCrash(t) ==\n    /\\ t \\in alive\n    /\\ alive' = alive \\ {t}\n    /\\ UNCHANGED <<free, pending, allocated, votes>>\n\nRelease ==\n    /\\ allocated > 0\n    /\\ allocated' = allocated - 1\n    /\\ free' = free + 1\n    /\\ UNCHANGED <<pending, votes, alive>>\n\nNext ==\n    \\/ Propose \\/ Commit \\/ Abort \\/ Release\n    \\/ \\E t \\in Towers : Vote(t) \\/ Crash(t)\n\nSlotsConserved == free + pending + allocated = Total\n\nvars == <<free, pending, allocated, votes, alive>>\nSpec == Init /\\ [][Next]_vars\nSPECIFICATION Init\n============================================================================="
+    },
+    {
+      "row": 63,
+      "id": "w4-fullmodule:w4opus::d6-m2-p2-t3",
+      "split": "validation",
+      "kind": "definition_equals",
+      "positive_sha256": "a7026cc81181b89417536a350a1066cfe041bccdfef129aff30fab675457b697",
+      "negative_sha256": "494c05de2e94b973fcde900fc958ae53b0352a0e4246cd138bfa34480ef9586f",
+      "negative": "---- MODULE W4Od6m2p2t3 ----\nEXTENDS Naturals\nCONSTANTS f1, f2\nFloors = {f1, f2}\nTOTAL == 2\n\nVARIABLES waiting, car, resv, ph, ready\nvars == <<waiting, car, resv, ph, ready>>\n\nInit ==\n  /\\ waiting = [f \\in Floors |-> 1]\n  /\\ car = 0\n  /\\ resv = [f \\in Floors |-> 0]\n  /\\ ph = \"idle\"\n  /\\ ready = [f \\in Floors |-> FALSE]\n\nBegin ==\n  /\\ ph = \"idle\"\n  /\\ ph' = \"voting\"\n  /\\ ready' = [f \\in Floors |-> FALSE]\n  /\\ UNCHANGED <<waiting, car, resv>>\n\nPrepare(f) ==\n  /\\ ph = \"voting\"\n  /\\ ~ready[f]\n  /\\ waiting[f] >= 1\n  /\\ waiting' = [waiting EXCEPT ![f] = @ - 1]\n  /\\ resv' = [resv EXCEPT ![f] = 1]\n  /\\ ready' = [ready EXCEPT ![f] = TRUE]\n  /\\ UNCHANGED <<car, ph>>\n\nPrepareEmpty(f) ==\n  /\\ ph = \"voting\"\n  /\\ ~ready[f]\n  /\\ waiting[f] = 0\n  /\\ ready' = [ready EXCEPT ![f] = TRUE]\n  /\\ UNCHANGED <<waiting, car, resv, ph>>\n\nCommit ==\n  /\\ ph = \"voting\"\n  /\\ \\A f \\in Floors : ready[f]\n  /\\ car' = car + resv[f1] + resv[f2]\n  /\\ resv' = [f \\in Floors |-> 0]\n  /\\ ph' = \"committed\"\n  /\\ UNCHANGED <<waiting, ready>>\n\nReset ==\n  /\\ ph = \"committed\"\n  /\\ ph' = \"idle\"\n  /\\ UNCHANGED <<waiting, car, resv, ready>>\n\nNext ==\n  \\/ Begin \\/ Commit \\/ Reset\n  \\/ \\E f \\in Floors : Prepare(f) \\/ PrepareEmpty(f)\nSpec == Init /\\ [][Next]_vars\n\nPassengersConserved == (waiting[f1] + waiting[f2]) + (resv[f1] + resv[f2]) + car = TOTAL\n===="
+    },
+    {
+      "row": 63,
+      "id": "w4-fullmodule:w4opus::d6-m2-p2-t3",
+      "split": "validation",
+      "kind": "membership_keyword",
+      "positive_sha256": "a7026cc81181b89417536a350a1066cfe041bccdfef129aff30fab675457b697",
+      "negative_sha256": "3cafc46c7f2f48d52d6e26483fd4035c8b8b84a153669e413e47fbf6fe8a5787",
+      "negative": "---- MODULE W4Od6m2p2t3 ----\nEXTENDS Naturals\nCONSTANTS f1, f2\nFloors == {f1, f2}\nTOTAL == 2\n\nVARIABLES waiting, car, resv, ph, ready\nvars == <<waiting, car, resv, ph, ready>>\n\nInit ==\n  /\\ waiting = [f IN Floors |-> 1]\n  /\\ car = 0\n  /\\ resv = [f \\in Floors |-> 0]\n  /\\ ph = \"idle\"\n  /\\ ready = [f \\in Floors |-> FALSE]\n\nBegin ==\n  /\\ ph = \"idle\"\n  /\\ ph' = \"voting\"\n  /\\ ready' = [f \\in Floors |-> FALSE]\n  /\\ UNCHANGED <<waiting, car, resv>>\n\nPrepare(f) ==\n  /\\ ph = \"voting\"\n  /\\ ~ready[f]\n  /\\ waiting[f] >= 1\n  /\\ waiting' = [waiting EXCEPT ![f] = @ - 1]\n  /\\ resv' = [resv EXCEPT ![f] = 1]\n  /\\ ready' = [ready EXCEPT ![f] = TRUE]\n  /\\ UNCHANGED <<car, ph>>\n\nPrepareEmpty(f) ==\n  /\\ ph = \"voting\"\n  /\\ ~ready[f]\n  /\\ waiting[f] = 0\n  /\\ ready' = [ready EXCEPT ![f] = TRUE]\n  /\\ UNCHANGED <<waiting, car, resv, ph>>\n\nCommit ==\n  /\\ ph = \"voting\"\n  /\\ \\A f \\in Floors : ready[f]\n  /\\ car' = car + resv[f1] + resv[f2]\n  /\\ resv' = [f \\in Floors |-> 0]\n  /\\ ph' = \"committed\"\n  /\\ UNCHANGED <<waiting, ready>>\n\nReset ==\n  /\\ ph = \"committed\"\n  /\\ ph' = \"idle\"\n  /\\ UNCHANGED <<waiting, car, resv, ready>>\n\nNext ==\n  \\/ Begin \\/ Commit \\/ Reset\n  \\/ \\E f \\in Floors : Prepare(f) \\/ PrepareEmpty(f)\nSpec == Init /\\ [][Next]_vars\n\nPassengersConserved == (waiting[f1] + waiting[f2]) + (resv[f1] + resv[f2]) + car = TOTAL\n===="
+    },
+    {
+      "row": 63,
+      "id": "w4-fullmodule:w4opus::d6-m2-p2-t3",
+      "split": "validation",
+      "kind": "declaration_comma",
+      "positive_sha256": "a7026cc81181b89417536a350a1066cfe041bccdfef129aff30fab675457b697",
+      "negative_sha256": "2dfe2b735df7e0d8a27bd1cdea819e5d627be0f21fbbcd365fbd8b62bf6fcb56",
+      "negative": "---- MODULE W4Od6m2p2t3 ----\nEXTENDS Naturals\nCONSTANTS f1, f2\nFloors == {f1, f2}\nTOTAL == 2\n\nVARIABLES waiting car, resv, ph, ready\nvars == <<waiting, car, resv, ph, ready>>\n\nInit ==\n  /\\ waiting = [f \\in Floors |-> 1]\n  /\\ car = 0\n  /\\ resv = [f \\in Floors |-> 0]\n  /\\ ph = \"idle\"\n  /\\ ready = [f \\in Floors |-> FALSE]\n\nBegin ==\n  /\\ ph = \"idle\"\n  /\\ ph' = \"voting\"\n  /\\ ready' = [f \\in Floors |-> FALSE]\n  /\\ UNCHANGED <<waiting, car, resv>>\n\nPrepare(f) ==\n  /\\ ph = \"voting\"\n  /\\ ~ready[f]\n  /\\ waiting[f] >= 1\n  /\\ waiting' = [waiting EXCEPT ![f] = @ - 1]\n  /\\ resv' = [resv EXCEPT ![f] = 1]\n  /\\ ready' = [ready EXCEPT ![f] = TRUE]\n  /\\ UNCHANGED <<car, ph>>\n\nPrepareEmpty(f) ==\n  /\\ ph = \"voting\"\n  /\\ ~ready[f]\n  /\\ waiting[f] = 0\n  /\\ ready' = [ready EXCEPT ![f] = TRUE]\n  /\\ UNCHANGED <<waiting, car, resv, ph>>\n\nCommit ==\n  /\\ ph = \"voting\"\n  /\\ \\A f \\in Floors : ready[f]\n  /\\ car' = car + resv[f1] + resv[f2]\n  /\\ resv' = [f \\in Floors |-> 0]\n  /\\ ph' = \"committed\"\n  /\\ UNCHANGED <<waiting, ready>>\n\nReset ==\n  /\\ ph = \"committed\"\n  /\\ ph' = \"idle\"\n  /\\ UNCHANGED <<waiting, car, resv, ready>>\n\nNext ==\n  \\/ Begin \\/ Commit \\/ Reset\n  \\/ \\E f \\in Floors : Prepare(f) \\/ PrepareEmpty(f)\nSpec == Init /\\ [][Next]_vars\n\nPassengersConserved == (waiting[f1] + waiting[f2]) + (resv[f1] + resv[f2]) + car = TOTAL\n===="
+    },
+    {
+      "row": 63,
+      "id": "w4-fullmodule:w4opus::d6-m2-p2-t3",
+      "split": "validation",
+      "kind": "config_in_module",
+      "positive_sha256": "a7026cc81181b89417536a350a1066cfe041bccdfef129aff30fab675457b697",
+      "negative_sha256": "829c7719faada1d641f583e28d8b6b2894c7415ab389a1e28cba4acad428d7ad",
+      "negative": "---- MODULE W4Od6m2p2t3 ----\nEXTENDS Naturals\nCONSTANTS f1, f2\nFloors == {f1, f2}\nTOTAL == 2\n\nVARIABLES waiting, car, resv, ph, ready\nvars == <<waiting, car, resv, ph, ready>>\n\nInit ==\n  /\\ waiting = [f \\in Floors |-> 1]\n  /\\ car = 0\n  /\\ resv = [f \\in Floors |-> 0]\n  /\\ ph = \"idle\"\n  /\\ ready = [f \\in Floors |-> FALSE]\n\nBegin ==\n  /\\ ph = \"idle\"\n  /\\ ph' = \"voting\"\n  /\\ ready' = [f \\in Floors |-> FALSE]\n  /\\ UNCHANGED <<waiting, car, resv>>\n\nPrepare(f) ==\n  /\\ ph = \"voting\"\n  /\\ ~ready[f]\n  /\\ waiting[f] >= 1\n  /\\ waiting' = [waiting EXCEPT ![f] = @ - 1]\n  /\\ resv' = [resv EXCEPT ![f] = 1]\n  /\\ ready' = [ready EXCEPT ![f] = TRUE]\n  /\\ UNCHANGED <<car, ph>>\n\nPrepareEmpty(f) ==\n  /\\ ph = \"voting\"\n  /\\ ~ready[f]\n  /\\ waiting[f] = 0\n  /\\ ready' = [ready EXCEPT ![f] = TRUE]\n  /\\ UNCHANGED <<waiting, car, resv, ph>>\n\nCommit ==\n  /\\ ph = \"voting\"\n  /\\ \\A f \\in Floors : ready[f]\n  /\\ car' = car + resv[f1] + resv[f2]\n  /\\ resv' = [f \\in Floors |-> 0]\n  /\\ ph' = \"committed\"\n  /\\ UNCHANGED <<waiting, ready>>\n\nReset ==\n  /\\ ph = \"committed\"\n  /\\ ph' = \"idle\"\n  /\\ UNCHANGED <<waiting, car, resv, ready>>\n\nNext ==\n  \\/ Begin \\/ Commit \\/ Reset\n  \\/ \\E f \\in Floors : Prepare(f) \\/ PrepareEmpty(f)\nSpec == Init /\\ [][Next]_vars\n\nPassengersConserved == (waiting[f1] + waiting[f2]) + (resv[f1] + resv[f2]) + car = TOTAL\nSPECIFICATION Init\n===="
+    },
+    {
+      "row": 64,
+      "id": "w4-fullmodule:w4opus::d0-m9-p0-t2",
+      "split": "validation",
+      "kind": "definition_equals",
+      "positive_sha256": "8d49269fb7805d0a70e66b646449dfc254aabfc5e51bd388179bd64202e566d1",
+      "negative_sha256": "564649018518ce837501b71e4a031451715544b2ea146f530470742816b87090",
+      "negative": "---- MODULE W4Od0m9p0t2 ----\nEXTENDS Integers\nCONSTANTS Rooms, Instances, MaxEpoch\nNONE = \"none\"\n\nVARIABLES avail, occupant, epoch, pending\nvars == <<avail, occupant, epoch, pending>>\n\nInit ==\n    /\\ avail = [r \\in Rooms |-> 1]\n    /\\ occupant = [r \\in Rooms |-> NONE]\n    /\\ epoch = 0\n    /\\ pending = [i \\in Instances |-> {}]\n\nRequest(i, r) ==\n    /\\ r \\notin pending[i]\n    /\\ pending' = [pending EXCEPT ![i] = @ \\cup {r}]\n    /\\ UNCHANGED <<avail, occupant, epoch>>\n\nAcquire(i, r) ==\n    /\\ r \\in pending[i]\n    /\\ avail[r] = 1\n    /\\ avail' = [avail EXCEPT ![r] = 0]\n    /\\ occupant' = [occupant EXCEPT ![r] = i]\n    /\\ pending' = [pending EXCEPT ![i] = @ \\ {r}]\n    /\\ UNCHANGED epoch\n\nRelease(i, r) ==\n    /\\ occupant[r] = i\n    /\\ avail' = [avail EXCEPT ![r] = 1]\n    /\\ occupant' = [occupant EXCEPT ![r] = NONE]\n    /\\ UNCHANGED <<epoch, pending>>\n\nReconfigure ==\n    /\\ epoch < MaxEpoch\n    /\\ epoch' = epoch + 1\n    /\\ avail' = [r \\in Rooms |-> 1]\n    /\\ occupant' = [r \\in Rooms |-> NONE]\n    /\\ pending' = [i \\in Instances |-> {}]\n\nNext ==\n    \\/ \\E i \\in Instances, r \\in Rooms : Request(i, r)\n    \\/ \\E i \\in Instances, r \\in Rooms : Acquire(i, r)\n    \\/ \\E i \\in Instances, r \\in Rooms : Release(i, r)\n    \\/ Reconfigure\n\nSpec == Init /\\ [][Next]_vars\n\nSemaphoreConsistent ==\n    \\A r \\in Rooms : (avail[r] = 1) <=> (occupant[r] = NONE)\n===="
+    },
+    {
+      "row": 64,
+      "id": "w4-fullmodule:w4opus::d0-m9-p0-t2",
+      "split": "validation",
+      "kind": "membership_keyword",
+      "positive_sha256": "8d49269fb7805d0a70e66b646449dfc254aabfc5e51bd388179bd64202e566d1",
+      "negative_sha256": "6820370c4938c254dcc9f318e5ad0ed234247af6349ddf4e2f622592f6904b6d",
+      "negative": "---- MODULE W4Od0m9p0t2 ----\nEXTENDS Integers\nCONSTANTS Rooms, Instances, MaxEpoch\nNONE == \"none\"\n\nVARIABLES avail, occupant, epoch, pending\nvars == <<avail, occupant, epoch, pending>>\n\nInit ==\n    /\\ avail = [r IN Rooms |-> 1]\n    /\\ occupant = [r \\in Rooms |-> NONE]\n    /\\ epoch = 0\n    /\\ pending = [i \\in Instances |-> {}]\n\nRequest(i, r) ==\n    /\\ r \\notin pending[i]\n    /\\ pending' = [pending EXCEPT ![i] = @ \\cup {r}]\n    /\\ UNCHANGED <<avail, occupant, epoch>>\n\nAcquire(i, r) ==\n    /\\ r \\in pending[i]\n    /\\ avail[r] = 1\n    /\\ avail' = [avail EXCEPT ![r] = 0]\n    /\\ occupant' = [occupant EXCEPT ![r] = i]\n    /\\ pending' = [pending EXCEPT ![i] = @ \\ {r}]\n    /\\ UNCHANGED epoch\n\nRelease(i, r) ==\n    /\\ occupant[r] = i\n    /\\ avail' = [avail EXCEPT ![r] = 1]\n    /\\ occupant' = [occupant EXCEPT ![r] = NONE]\n    /\\ UNCHANGED <<epoch, pending>>\n\nReconfigure ==\n    /\\ epoch < MaxEpoch\n    /\\ epoch' = epoch + 1\n    /\\ avail' = [r \\in Rooms |-> 1]\n    /\\ occupant' = [r \\in Rooms |-> NONE]\n    /\\ pending' = [i \\in Instances |-> {}]\n\nNext ==\n    \\/ \\E i \\in Instances, r \\in Rooms : Request(i, r)\n    \\/ \\E i \\in Instances, r \\in Rooms : Acquire(i, r)\n    \\/ \\E i \\in Instances, r \\in Rooms : Release(i, r)\n    \\/ Reconfigure\n\nSpec == Init /\\ [][Next]_vars\n\nSemaphoreConsistent ==\n    \\A r \\in Rooms : (avail[r] = 1) <=> (occupant[r] = NONE)\n===="
+    },
+    {
+      "row": 64,
+      "id": "w4-fullmodule:w4opus::d0-m9-p0-t2",
+      "split": "validation",
+      "kind": "declaration_comma",
+      "positive_sha256": "8d49269fb7805d0a70e66b646449dfc254aabfc5e51bd388179bd64202e566d1",
+      "negative_sha256": "e5e27887d2cfc0870df8448298ab77b7f9fffb80a474b81ffc7e0abd6ea1923c",
+      "negative": "---- MODULE W4Od0m9p0t2 ----\nEXTENDS Integers\nCONSTANTS Rooms, Instances, MaxEpoch\nNONE == \"none\"\n\nVARIABLES avail occupant, epoch, pending\nvars == <<avail, occupant, epoch, pending>>\n\nInit ==\n    /\\ avail = [r \\in Rooms |-> 1]\n    /\\ occupant = [r \\in Rooms |-> NONE]\n    /\\ epoch = 0\n    /\\ pending = [i \\in Instances |-> {}]\n\nRequest(i, r) ==\n    /\\ r \\notin pending[i]\n    /\\ pending' = [pending EXCEPT ![i] = @ \\cup {r}]\n    /\\ UNCHANGED <<avail, occupant, epoch>>\n\nAcquire(i, r) ==\n    /\\ r \\in pending[i]\n    /\\ avail[r] = 1\n    /\\ avail' = [avail EXCEPT ![r] = 0]\n    /\\ occupant' = [occupant EXCEPT ![r] = i]\n    /\\ pending' = [pending EXCEPT ![i] = @ \\ {r}]\n    /\\ UNCHANGED epoch\n\nRelease(i, r) ==\n    /\\ occupant[r] = i\n    /\\ avail' = [avail EXCEPT ![r] = 1]\n    /\\ occupant' = [occupant EXCEPT ![r] = NONE]\n    /\\ UNCHANGED <<epoch, pending>>\n\nReconfigure ==\n    /\\ epoch < MaxEpoch\n    /\\ epoch' = epoch + 1\n    /\\ avail' = [r \\in Rooms |-> 1]\n    /\\ occupant' = [r \\in Rooms |-> NONE]\n    /\\ pending' = [i \\in Instances |-> {}]\n\nNext ==\n    \\/ \\E i \\in Instances, r \\in Rooms : Request(i, r)\n    \\/ \\E i \\in Instances, r \\in Rooms : Acquire(i, r)\n    \\/ \\E i \\in Instances, r \\in Rooms : Release(i, r)\n    \\/ Reconfigure\n\nSpec == Init /\\ [][Next]_vars\n\nSemaphoreConsistent ==\n    \\A r \\in Rooms : (avail[r] = 1) <=> (occupant[r] = NONE)\n===="
+    },
+    {
+      "row": 64,
+      "id": "w4-fullmodule:w4opus::d0-m9-p0-t2",
+      "split": "validation",
+      "kind": "config_in_module",
+      "positive_sha256": "8d49269fb7805d0a70e66b646449dfc254aabfc5e51bd388179bd64202e566d1",
+      "negative_sha256": "057e78f1a40068d7aee140033d44c6cb4cb754f63db4109f0614800b1f313c18",
+      "negative": "---- MODULE W4Od0m9p0t2 ----\nEXTENDS Integers\nCONSTANTS Rooms, Instances, MaxEpoch\nNONE == \"none\"\n\nVARIABLES avail, occupant, epoch, pending\nvars == <<avail, occupant, epoch, pending>>\n\nInit ==\n    /\\ avail = [r \\in Rooms |-> 1]\n    /\\ occupant = [r \\in Rooms |-> NONE]\n    /\\ epoch = 0\n    /\\ pending = [i \\in Instances |-> {}]\n\nRequest(i, r) ==\n    /\\ r \\notin pending[i]\n    /\\ pending' = [pending EXCEPT ![i] = @ \\cup {r}]\n    /\\ UNCHANGED <<avail, occupant, epoch>>\n\nAcquire(i, r) ==\n    /\\ r \\in pending[i]\n    /\\ avail[r] = 1\n    /\\ avail' = [avail EXCEPT ![r] = 0]\n    /\\ occupant' = [occupant EXCEPT ![r] = i]\n    /\\ pending' = [pending EXCEPT ![i] = @ \\ {r}]\n    /\\ UNCHANGED epoch\n\nRelease(i, r) ==\n    /\\ occupant[r] = i\n    /\\ avail' = [avail EXCEPT ![r] = 1]\n    /\\ occupant' = [occupant EXCEPT ![r] = NONE]\n    /\\ UNCHANGED <<epoch, pending>>\n\nReconfigure ==\n    /\\ epoch < MaxEpoch\n    /\\ epoch' = epoch + 1\n    /\\ avail' = [r \\in Rooms |-> 1]\n    /\\ occupant' = [r \\in Rooms |-> NONE]\n    /\\ pending' = [i \\in Instances |-> {}]\n\nNext ==\n    \\/ \\E i \\in Instances, r \\in Rooms : Request(i, r)\n    \\/ \\E i \\in Instances, r \\in Rooms : Acquire(i, r)\n    \\/ \\E i \\in Instances, r \\in Rooms : Release(i, r)\n    \\/ Reconfigure\n\nSpec == Init /\\ [][Next]_vars\n\nSemaphoreConsistent ==\n    \\A r \\in Rooms : (avail[r] = 1) <=> (occupant[r] = NONE)\nSPECIFICATION Init\n===="
+    }
+  ],
+  "clean_reference_targets_only": true,
+  "corruption_targets_deterministic": true,
+  "generated_feedback_loaded": false,
+  "replay_negatives_loaded": false,
+  "protected_targets_never_train": true,
+  "quality_claim": false,
+  "gate_claim": false,
+  "proof_claim": false,
+  "generalization_claim": false,
+  "tlc_claim": false,
+  "nonvacuity_claim": false
+}
