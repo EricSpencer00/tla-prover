@@ -1,0 +1,29 @@
+{
+  "kind": "protected_grammar_repair_beam_stage_validation_v1",
+  "objective": "prefix_preserving_grammar_repair_beam",
+  "packet_sha256": "a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c",
+  "corpus_sha256": "fb76468f6a3217a359d54da92a2e3fa25396aad0547e6b5eb35129193a0e812a",
+  "grammar_sha256": "2bcc86946f0a858628f455a3d0648c7117e2b780743e1f25dff82cebd0fb4d67",
+  "child_checkpoint_sha256": "b0399b51aed001051fe200751b3087fc008482ca9dfeb64eb12884f71eee3bb6",
+  "runner_sha256": "4efaec5c9a61eca1d1b9307c879c50396777999df1ee762d9f1e6449d55549a6",
+  "preflight_sha256": "4c569421946fcd207028f16f12f90b24182817b7f89975c988277197195f15e8",
+  "pbs_path": "protected_grammar_repair_beam_polaris.pbs",
+  "contract": {
+    "rows": [47, 107],
+    "max_new_tokens": 2048,
+    "beam_width": 2,
+    "branch_k": 2,
+    "prefix_preserving": true,
+    "reference_conditioning": false,
+    "training": false,
+    "protected_sany_denominator": 2,
+    "gpu_walltime_minutes": 15
+  },
+  "claims": {
+    "model_weights_loaded": false,
+    "cuda_touched": false,
+    "gate_claim": false,
+    "model_improvement_claim": false,
+    "proof_claim": false
+  }
+}
