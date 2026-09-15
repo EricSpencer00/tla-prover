@@ -1,0 +1,66 @@
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/291 [00:00<?, ?it/s]Loading weights:   3%|▎         | 9/291 [00:00<00:05, 52.71it/s]Loading weights:   5%|▌         | 15/291 [00:00<00:05, 47.44it/s]Loading weights:   7%|▋         | 20/291 [00:00<00:07, 36.82it/s]Loading weights:  14%|█▍        | 41/291 [00:00<00:03, 74.02it/s]Loading weights:  17%|█▋        | 49/291 [00:00<00:03, 67.44it/s]Loading weights:  19%|█▉        | 56/291 [00:00<00:03, 65.89it/s]Loading weights:  22%|██▏       | 63/291 [00:01<00:03, 58.13it/s]Loading weights:  24%|██▍       | 70/291 [00:01<00:04, 45.84it/s]Loading weights:  30%|██▉       | 86/291 [00:01<00:03, 63.97it/s]Loading weights:  32%|███▏      | 93/291 [00:01<00:03, 63.06it/s]Loading weights:  34%|███▍      | 100/291 [00:01<00:03, 60.20it/s]Loading weights:  37%|███▋      | 108/291 [00:01<00:02, 61.51it/s]Loading weights:  40%|███▉      | 116/291 [00:02<00:04, 42.31it/s]Loading weights:  45%|████▌     | 132/291 [00:02<00:02, 61.92it/s]Loading weights:  48%|████▊     | 140/291 [00:02<00:03, 47.97it/s]Loading weights:  51%|█████     | 147/291 [00:02<00:03, 46.46it/s]Loading weights:  53%|█████▎    | 153/291 [00:02<00:02, 48.32it/s]Loading weights:  55%|█████▍    | 159/291 [00:03<00:03, 38.84it/s]Loading weights:  57%|█████▋    | 167/291 [00:03<00:02, 44.96it/s]Loading weights:  60%|██████    | 176/291 [00:03<00:02, 53.27it/s]Loading weights:  63%|██████▎   | 184/291 [00:03<00:02, 51.09it/s]Loading weights:  70%|███████   | 204/291 [00:03<00:01, 69.87it/s]Loading weights:  73%|███████▎  | 212/291 [00:03<00:01, 57.92it/s]Loading weights:  76%|███████▌  | 221/291 [00:04<00:01, 52.77it/s]Loading weights:  81%|████████  | 236/291 [00:04<00:00, 68.09it/s]Loading weights:  84%|████████▍ | 244/291 [00:04<00:00, 66.39it/s]Loading weights:  87%|████████▋ | 254/291 [00:04<00:00, 58.80it/s]Loading weights:  90%|█████████ | 263/291 [00:04<00:00, 59.58it/s]Loading weights:  93%|█████████▎| 270/291 [00:04<00:00, 55.86it/s]Loading weights:  96%|█████████▌| 280/291 [00:05<00:00, 55.96it/s]Loading weights: 100%|██████████| 291/291 [00:05<00:00, 57.81it/s]
+Traceback (most recent call last):
+  File "/home/eric-spencer/tla-fullmodule-multilayer-structural-sft-20260915-v1/tools/proof_fullmodule_multilayer_structural_sft_train.py", line 487, in <module>
+    train(args)
+  File "/home/eric-spencer/tla-fullmodule-multilayer-structural-sft-20260915-v1/tools/proof_fullmodule_multilayer_structural_sft_train.py", line 354, in train
+    base_probe = net(input_ids=torch.tensor([probe_ids], device='cuda'), use_cache=False).logits[:, -1].float().cpu()
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1779, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1790, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/transformers/utils/generic.py", line 887, in wrapper
+    output = func(self, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/transformers/models/llama/modeling_llama.py", line 474, in forward
+    outputs: BaseModelOutputWithPast = self.model(
+                                       ^^^^^^^^^^^
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1779, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1790, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/transformers/utils/generic.py", line 963, in wrapper
+    output = func(self, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/transformers/utils/output_capturing.py", line 248, in wrapper
+    outputs = func(self, *args, **kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/transformers/models/llama/modeling_llama.py", line 411, in forward
+    hidden_states = decoder_layer(
+                    ^^^^^^^^^^^^^^
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/transformers/modeling_layers.py", line 93, in __call__
+    return super().__call__(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1779, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1790, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/transformers/models/llama/modeling_llama.py", line 316, in forward
+    hidden_states, _ = self.self_attn(
+                       ^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1779, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1790, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/transformers/models/llama/modeling_llama.py", line 262, in forward
+    query_states = self.q_proj(hidden_states).view(hidden_shape).transpose(1, 2)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1779, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1790, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/tla-fullmodule-multilayer-structural-sft-20260915-v1/tools/proof_fullmodule_multilayer_structural_sft_train.py", line 255, in forward
+    update = F.linear(F.linear(values, self.lora_A.to(dtype)), self.lora_B.to(dtype))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Expected all tensors to be on the same device, but got mat2 is on cpu, different from other tensors on cuda:0 (when checking argument in method wrapper_CUDA_mm)
