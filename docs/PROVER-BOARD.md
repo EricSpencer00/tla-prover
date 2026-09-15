@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 617
-- Verified UTC: 2026-09-15T18:50:11Z
+- Revision: 618
+- Verified UTC: 2026-09-15T19:07:22Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: local_work
 - Active job: none
-- Observation evidence: At 2026-09-15T18:50:11Z, Polaris job7624528 is terminal F/Exit0 after00:03:13 with a complete receipt and exact child checkpoint. All16 updates completed with finite metrics, parameter delta0.0730821, exact tensor/logit reload, and independent remote torch.load verification of9 fp32 finite tensors/218112000 parameters. Protected candidates remain0/2: row47 eos at514 tokens but has a SANY precedence error, and row107 eos at1026 tokens but has a malformed quantifier. No quality, gate, proof, generalization, or promotion claim is made.
-- Latest completed result: V2 structural-corruption preference is valid negative evidence. Teacher-forced mean corruption margin improved11.53→13.57 overall, train11.63→13.64 and validation11.28→13.37, but protected before/after SANY is0/2→0/2. Row47 after fails on a union/backslash precedence conflict; row107 after fails on a colon/Banks quantifier parse error. Receipt SHA2bcad629 and child SHA54919ca are locally verified; the v1 PBS wrapper failure7624499 remains separately preserved with zero model credit.
-- Local work: Structural-curriculum v3 evidence and its independently tensor-verified child remain preserved and committed; the 832MB checkpoints stay outside Git unless explicitly staged as evidence. The corruption-preference v2 source/stage, CPU/SANY manifest, complete receipt, child, and independent tensor verification are preserved locally; the v2 checkpoint is not promoted. The objective improved explicit teacher-forced corruption margins but did not improve the fixed protected SANY denominator, so this is not a model result. The next search must change the training signal or parameterization rather than repeat first-divergence preference or clean final-layer SFT. Protected rows47/107 remain a fixed holdout; no generated feedback, replay negatives, quality, gate, proof, or promotion claim is allowed. Polaris access is restored and the programmatic watchdog remains live.
+- Observation evidence: At 2026-09-15T19:07:22Z, the append-only multi-layer LoRA syntax-weighted clean-reference stage is locally packaged and checksum-verified. It binds exact packet a125a0d5, parent checkpoint1559b6c3, 16 train rows, 6 validation rows, protected47/107 holdout, four adapter layers, q/v targets, 16 updates, no generated feedback/replay, and no quality/gate/proof claim. Local compilation and stage inventory pass; Polaris CPU prepare/preflight and remote guards are still required before any GPU submission.
+- Latest completed result: V2 structural-corruption preference remains valid negative evidence: teacher-forced mean corruption margin improved11.53→13.57 overall, train11.63→13.64 and validation11.28→13.37, but protected before/after SANY is0/2→0/2. The next diagnostic changes both parameterization and signal: zero-initialized LoRA adapters on the last four attention q/v projections with fixed structural-token/EOS weights on clean SANY-passing references. This is an admission/staging result only; no model, quality, gate, proof, generalization, or promotion claim exists.
+- Local work: Structural-curriculum v3 and corruption-preference v2 evidence remain preserved and committed; large checkpoints stay outside Git. The new multi-layer adapter stage is append-only, locally compiled, stage-hashed, and explicitly binds the exact parent/packet/partition plus a CPU tokenizer preflight and GPU nonzero-gradient guard. The protected rows47/107 remain a fixed holdout. Do not promote checkpoint54919ca or recycle first-divergence preference. Polaris access is restored and the programmatic watchdog remains live.
 - External blocker: none verified
-- Next action: Use the observed failure mode to design and CPU-admit a genuinely different structural objective: multi-layer or syntax-weighted clean-reference repair with explicit structural-token/EOS accounting, fixed protected47/107 holdout, and no generated feedback. Require a cheap preflight that demonstrates nonzero gradients on the new parameters and exact tokenizer/partition identity before one bounded GPU run. Do not promote checkpoint54919ca or recycle first-divergence preference.
+- Next action: Upload and CPU-admit the append-only multi-layer LoRA stage. Require exact packet/parent/model/tokenizer identity, all 22 clean SANY controls, nonzero EOS per row, exact tokenizer encodings, and a fresh empty owned queue before acquiring one unique claim and submitting at most one Polaris GPU for 15 minutes. After completion, independently verify adapter tensors/reload and protected SANY; do not infer quality or gate credit from a diagnostic.
 
 ## Objective and evidence rules
 
@@ -37,6 +37,7 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 
 ## Decisions
 
+- 2026-09-15T19:07:22Z: Prepared append-only multi-layer LoRA syntax-weighted clean-reference stage. Zero-initialized adapters cover q/v projections in layers28-31; fixed structural-token/EOS weights train only22 clean SANY-passing non-protected references, with protected47/107 held out. Local compilation and stage SHA inventory pass; next gates are Polaris CPU prepare/preflight, remote identity/queue guards, one unique claim and at most one15-minute one-GPU run. No model, quality, gate, proof, generalization or promotion claim.
 - 2026-09-15T18:50:11Z: Job7624528 completed Exit0 after00:03:13 with16 finite updates, exact reload, child54919ca and independent9-tensor/218112000-param fp32 verification. Teacher-forced corruption margins improved overall11.53→13.57 and validation11.28→13.37, but protected SANY stayed0/2→0/2: row47 precedence rejection and row107 malformed quantifier. Preserve as valid negative evidence; do not promote or recycle first-divergence preference. Next objective must change training signal or parameterization; no quality, gate, proof or promotion claim.
 - 2026-09-15T18:39:23Z: Submitted exactly one claimed v2 structural-corruption preference job7624528. Scheduler reports R on x3204c0s13b1n0/0*64 with one GPU and00:15:00 walltime. Monitor only; no quality, gate, proof or promotion claim.
 - 2026-09-15T18:37:55Z: V2 stage is remotely hash-verified with inherited manifest0274c476, exact parent1559b6c3, and fresh empty owned queue/output namespace. New claimd16f21a7 binds only the PBS variable-propagation repair; the objective/data/partition/checkpoint/resource bound are unchanged. Submit exactly one bounded GPU job; no quality, gate, proof or promotion claim.
@@ -428,16 +429,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 617,
-  "verified_utc": "2026-09-15T18:50:11Z",
+  "revision": 618,
+  "verified_utc": "2026-09-15T19:07:22Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "local_work",
   "active_job": null,
-  "observation_evidence": "At 2026-09-15T18:50:11Z, Polaris job7624528 is terminal F/Exit0 after00:03:13 with a complete receipt and exact child checkpoint. All16 updates completed with finite metrics, parameter delta0.0730821, exact tensor/logit reload, and independent remote torch.load verification of9 fp32 finite tensors/218112000 parameters. Protected candidates remain0/2: row47 eos at514 tokens but has a SANY precedence error, and row107 eos at1026 tokens but has a malformed quantifier. No quality, gate, proof, generalization, or promotion claim is made.",
-  "last_result": "V2 structural-corruption preference is valid negative evidence. Teacher-forced mean corruption margin improved11.53\u219213.57 overall, train11.63\u219213.64 and validation11.28\u219213.37, but protected before/after SANY is0/2\u21920/2. Row47 after fails on a union/backslash precedence conflict; row107 after fails on a colon/Banks quantifier parse error. Receipt SHA2bcad629 and child SHA54919ca are locally verified; the v1 PBS wrapper failure7624499 remains separately preserved with zero model credit.",
-  "local_work": "Structural-curriculum v3 evidence and its independently tensor-verified child remain preserved and committed; the 832MB checkpoints stay outside Git unless explicitly staged as evidence. The corruption-preference v2 source/stage, CPU/SANY manifest, complete receipt, child, and independent tensor verification are preserved locally; the v2 checkpoint is not promoted. The objective improved explicit teacher-forced corruption margins but did not improve the fixed protected SANY denominator, so this is not a model result. The next search must change the training signal or parameterization rather than repeat first-divergence preference or clean final-layer SFT. Protected rows47/107 remain a fixed holdout; no generated feedback, replay negatives, quality, gate, proof, or promotion claim is allowed. Polaris access is restored and the programmatic watchdog remains live.",
+  "observation_evidence": "At 2026-09-15T19:07:22Z, the append-only multi-layer LoRA syntax-weighted clean-reference stage is locally packaged and checksum-verified. It binds exact packet a125a0d5, parent checkpoint1559b6c3, 16 train rows, 6 validation rows, protected47/107 holdout, four adapter layers, q/v targets, 16 updates, no generated feedback/replay, and no quality/gate/proof claim. Local compilation and stage inventory pass; Polaris CPU prepare/preflight and remote guards are still required before any GPU submission.",
+  "last_result": "V2 structural-corruption preference remains valid negative evidence: teacher-forced mean corruption margin improved11.53\u219213.57 overall, train11.63\u219213.64 and validation11.28\u219213.37, but protected before/after SANY is0/2\u21920/2. The next diagnostic changes both parameterization and signal: zero-initialized LoRA adapters on the last four attention q/v projections with fixed structural-token/EOS weights on clean SANY-passing references. This is an admission/staging result only; no model, quality, gate, proof, generalization, or promotion claim exists.",
+  "local_work": "Structural-curriculum v3 and corruption-preference v2 evidence remain preserved and committed; large checkpoints stay outside Git. The new multi-layer adapter stage is append-only, locally compiled, stage-hashed, and explicitly binds the exact parent/packet/partition plus a CPU tokenizer preflight and GPU nonzero-gradient guard. The protected rows47/107 remain a fixed holdout. Do not promote checkpoint54919ca or recycle first-divergence preference. Polaris access is restored and the programmatic watchdog remains live.",
   "external_blocker": null,
-  "next_action": "Use the observed failure mode to design and CPU-admit a genuinely different structural objective: multi-layer or syntax-weighted clean-reference repair with explicit structural-token/EOS accounting, fixed protected47/107 holdout, and no generated feedback. Require a cheap preflight that demonstrates nonzero gradients on the new parameters and exact tokenizer/partition identity before one bounded GPU run. Do not promote checkpoint54919ca or recycle first-divergence preference.",
+  "next_action": "Upload and CPU-admit the append-only multi-layer LoRA stage. Require exact packet/parent/model/tokenizer identity, all 22 clean SANY controls, nonzero EOS per row, exact tokenizer encodings, and a fresh empty owned queue before acquiring one unique claim and submitting at most one Polaris GPU for 15 minutes. After completion, independently verify adapter tensors/reload and protected SANY; do not infer quality or gate credit from a diagnostic.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -507,6 +508,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
     }
   ],
   "decisions": [
+    "2026-09-15T19:07:22Z: Prepared append-only multi-layer LoRA syntax-weighted clean-reference stage. Zero-initialized adapters cover q/v projections in layers28-31; fixed structural-token/EOS weights train only22 clean SANY-passing non-protected references, with protected47/107 held out. Local compilation and stage SHA inventory pass; next gates are Polaris CPU prepare/preflight, remote identity/queue guards, one unique claim and at most one15-minute one-GPU run. No model, quality, gate, proof, generalization or promotion claim.",
     "2026-09-15T18:50:11Z: Job7624528 completed Exit0 after00:03:13 with16 finite updates, exact reload, child54919ca and independent9-tensor/218112000-param fp32 verification. Teacher-forced corruption margins improved overall11.53\u219213.57 and validation11.28\u219213.37, but protected SANY stayed0/2\u21920/2: row47 precedence rejection and row107 malformed quantifier. Preserve as valid negative evidence; do not promote or recycle first-divergence preference. Next objective must change training signal or parameterization; no quality, gate, proof or promotion claim.",
     "2026-09-15T18:39:23Z: Submitted exactly one claimed v2 structural-corruption preference job7624528. Scheduler reports R on x3204c0s13b1n0/0*64 with one GPU and00:15:00 walltime. Monitor only; no quality, gate, proof or promotion claim.",
     "2026-09-15T18:37:55Z: V2 stage is remotely hash-verified with inherited manifest0274c476, exact parent1559b6c3, and fresh empty owned queue/output namespace. New claimd16f21a7 binds only the PBS variable-propagation repair; the objective/data/partition/checkpoint/resource bound are unchanged. Submit exactly one bounded GPU job; no quality, gate, proof or promotion claim.",
@@ -1407,7 +1409,13 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "results/runs/tla-fullmodule-structural-corruption-preference-20260915-v2/job-7624528-terminal.json",
     "results/runs/tla-fullmodule-structural-corruption-preference-20260915-v2/independent-tensor-verification.json",
     "results/runs/tla-fullmodule-structural-corruption-preference-20260915-v2/result.7624528/receipt.json",
-    "results/runs/tla-fullmodule-structural-corruption-preference-20260915-v2/train.stdout"
+    "results/runs/tla-fullmodule-structural-corruption-preference-20260915-v2/train.stdout",
+    "results/stages/tla-fullmodule-multilayer-structural-sft-20260915-v1/SHA256SUMS",
+    "results/stages/tla-fullmodule-multilayer-structural-sft-20260915-v1/train.pbs",
+    "results/stages/tla-fullmodule-multilayer-structural-sft-20260915-v1/stage-validation.json",
+    "results/stages/tla-fullmodule-multilayer-structural-sft-20260915-v1/tools/__init__.py",
+    "results/stages/tla-fullmodule-multilayer-structural-sft-20260915-v1/tools/proof_fullmodule_multilayer_structural_sft_train.py",
+    "tools/proof_fullmodule_multilayer_structural_sft_train.py"
   ]
 }
 -->
