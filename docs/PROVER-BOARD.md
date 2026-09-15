@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 540
-- Verified UTC: 2026-09-15T12:30:23Z
+- Revision: 541
+- Verified UTC: 2026-09-15T13:00:59Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: external_wait
 - Active job: none
-- Observation evidence: At 2026-09-15T12:30:23Z, the second fresh unblock-audit poll after goal resumption still finds the last authoritative Polaris scheduler observation for claimed job7619279 at job_state R on x3004c0s7b0n0/0*64 with one GPU and 00:10:00 walltime from 2026-09-14T22:06:07Z. BatchMode SSH again fails before any remote command with keyboard-interactive authentication denied; no new credential was entered. Job terminal state and outputs remain unverified; no duplicate submission is allowed. The programmatic roadblock watcher is live.
+- Observation evidence: At 2026-09-15T13:00:59Z, the third fresh unblock-audit poll after goal resumption still finds the last authoritative Polaris scheduler observation for claimed job7619279 at job_state R on x3004c0s7b0n0/0*64 with one GPU and 00:10:00 walltime from 2026-09-14T22:06:07Z. BatchMode SSH again fails before any remote command with keyboard-interactive authentication denied; no new credential was entered. Job terminal state and outputs remain unverified; no duplicate submission is allowed. The programmatic roadblock watcher is live.
 - Latest completed result: The grammar-off protected diagnostic has an unverified remote state because Polaris authentication failed before terminal/output collection; no SANY or gate claim is made.
 - Local work: Structural-span v3 and prefix-SFT v3 remain verified locally. The broader-child partial terminal, raw records, independent SANY score, and verification metadata are preserved under results/runs; exact large binaries remain outside Git. Parent-initialized broader SFT v1/v2 stages and failures are preserved; repaired v3 is transferred, hash-verified, CPU-preflight verified, and remote-guard verified with an independently tensor-verified child. Corrected reload-verifier v2 transferred atomically, passed final guards, and completed job7619252 with exact same-runtime logit reload; its terminal, verification, and log evidence are preserved. Grammar-off protected diagnostic v1 is transferred, hash-verified, final-guard verified, and has claimed job7619279 whose terminal/result remain unverified solely because remote authentication is unavailable; its source is committed as145c6daf. The unused imprecise claim babeed2b, prior unique claims/terminal evidence and the v2 hash-invalid transfer evidence remain preserved; unrelated pre-existing changes remain unstaged. Local scoring and analysis remain ready once raw outputs are retrieved. The redacted authentication blocker receipt is preserved, the watchdog source is verified, and its tmux session is live.
 - External blocker: Polaris requires interactive password/OTP authentication for authoritative qstat and retrieval of job7619279; no credential is available through a secure agent setup. The agent-board service is also unreachable from this Mac, so no needs_eric ticket could be recorded.
-- Next action: Enter the Polaris password/OTP through the approved secure setup flow, then re-poll job7619279 and retrieve its raw records/log. Do not submit a duplicate. Once collected, run independent SANY controls and resume the breadth-first prover search; the goal is blocked until that external change occurs.
+- Next action: Enter the Polaris password/OTP through the approved secure setup flow, then re-poll job7619279 and retrieve its raw records/log. Do not submit a duplicate. Once collected, run independent SANY controls and resume the breadth-first prover search; the resumed goal remains blocked until that external change occurs.
 
 ## Objective and evidence rules
 
@@ -37,6 +37,7 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 
 ## Decisions
 
+- 2026-09-15T13:00:59Z: Third fresh unblock-audit poll after resumption reproduces the same Polaris keyboard-interactive authentication denial. The resumed blocked-audit threshold is satisfied after direct/interactive/phoneclaw checks; preserve job7619279 as unverified, do not duplicate it, and make no SANY, quality or gate claim.
 - 2026-09-15T12:30:23Z: Second fresh unblock-audit poll after resumption reproduces the same Polaris keyboard-interactive authentication denial. Preserve job7619279 as unverified and continue the no-duplicate rule; no SANY, quality or gate claim.
 - 2026-09-15T11:46:35Z: The same secure Polaris credential blocker has recurred across three consecutive goal turns. Direct SSH, interactive no-secret probe, phoneclaw hop, local agent/control-socket checks, board-service checks and programmatic notification were exhausted; no meaningful evidence-backed work remains without retrieval of job7619279. Record the blocked audit and mark the goal blocked; no model, SANY or gate claim.
 - 2026-09-15T11:44:31Z: Interactive SSH reaches a Polaris password prompt, proving the cluster is reachable; no credential was entered. Treat secure password/OTP entry as the sole external dependency, preserve job7619279 as unverified, and keep the no-duplicate rule. Agent-board remains unreachable, so no needs_eric ticket/notification was recorded there.
@@ -354,16 +355,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 540,
-  "verified_utc": "2026-09-15T12:30:23Z",
+  "revision": 541,
+  "verified_utc": "2026-09-15T13:00:59Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "external_wait",
   "active_job": null,
-  "observation_evidence": "At 2026-09-15T12:30:23Z, the second fresh unblock-audit poll after goal resumption still finds the last authoritative Polaris scheduler observation for claimed job7619279 at job_state R on x3004c0s7b0n0/0*64 with one GPU and 00:10:00 walltime from 2026-09-14T22:06:07Z. BatchMode SSH again fails before any remote command with keyboard-interactive authentication denied; no new credential was entered. Job terminal state and outputs remain unverified; no duplicate submission is allowed. The programmatic roadblock watcher is live.",
+  "observation_evidence": "At 2026-09-15T13:00:59Z, the third fresh unblock-audit poll after goal resumption still finds the last authoritative Polaris scheduler observation for claimed job7619279 at job_state R on x3004c0s7b0n0/0*64 with one GPU and 00:10:00 walltime from 2026-09-14T22:06:07Z. BatchMode SSH again fails before any remote command with keyboard-interactive authentication denied; no new credential was entered. Job terminal state and outputs remain unverified; no duplicate submission is allowed. The programmatic roadblock watcher is live.",
   "last_result": "The grammar-off protected diagnostic has an unverified remote state because Polaris authentication failed before terminal/output collection; no SANY or gate claim is made.",
   "local_work": "Structural-span v3 and prefix-SFT v3 remain verified locally. The broader-child partial terminal, raw records, independent SANY score, and verification metadata are preserved under results/runs; exact large binaries remain outside Git. Parent-initialized broader SFT v1/v2 stages and failures are preserved; repaired v3 is transferred, hash-verified, CPU-preflight verified, and remote-guard verified with an independently tensor-verified child. Corrected reload-verifier v2 transferred atomically, passed final guards, and completed job7619252 with exact same-runtime logit reload; its terminal, verification, and log evidence are preserved. Grammar-off protected diagnostic v1 is transferred, hash-verified, final-guard verified, and has claimed job7619279 whose terminal/result remain unverified solely because remote authentication is unavailable; its source is committed as145c6daf. The unused imprecise claim babeed2b, prior unique claims/terminal evidence and the v2 hash-invalid transfer evidence remain preserved; unrelated pre-existing changes remain unstaged. Local scoring and analysis remain ready once raw outputs are retrieved. The redacted authentication blocker receipt is preserved, the watchdog source is verified, and its tmux session is live.",
   "external_blocker": "Polaris requires interactive password/OTP authentication for authoritative qstat and retrieval of job7619279; no credential is available through a secure agent setup. The agent-board service is also unreachable from this Mac, so no needs_eric ticket could be recorded.",
-  "next_action": "Enter the Polaris password/OTP through the approved secure setup flow, then re-poll job7619279 and retrieve its raw records/log. Do not submit a duplicate. Once collected, run independent SANY controls and resume the breadth-first prover search; the goal is blocked until that external change occurs.",
+  "next_action": "Enter the Polaris password/OTP through the approved secure setup flow, then re-poll job7619279 and retrieve its raw records/log. Do not submit a duplicate. Once collected, run independent SANY controls and resume the breadth-first prover search; the resumed goal remains blocked until that external change occurs.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -433,6 +434,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
     }
   ],
   "decisions": [
+    "2026-09-15T13:00:59Z: Third fresh unblock-audit poll after resumption reproduces the same Polaris keyboard-interactive authentication denial. The resumed blocked-audit threshold is satisfied after direct/interactive/phoneclaw checks; preserve job7619279 as unverified, do not duplicate it, and make no SANY, quality or gate claim.",
     "2026-09-15T12:30:23Z: Second fresh unblock-audit poll after resumption reproduces the same Polaris keyboard-interactive authentication denial. Preserve job7619279 as unverified and continue the no-duplicate rule; no SANY, quality or gate claim.",
     "2026-09-15T11:46:35Z: The same secure Polaris credential blocker has recurred across three consecutive goal turns. Direct SSH, interactive no-secret probe, phoneclaw hop, local agent/control-socket checks, board-service checks and programmatic notification were exhausted; no meaningful evidence-backed work remains without retrieval of job7619279. Record the blocked audit and mark the goal blocked; no model, SANY or gate claim.",
     "2026-09-15T11:44:31Z: Interactive SSH reaches a Polaris password prompt, proving the cluster is reachable; no credential was entered. Treat secure password/OTP entry as the sole external dependency, preserve job7619279 as unverified, and keep the no-duplicate rule. Agent-board remains unreachable, so no needs_eric ticket/notification was recorded there.",

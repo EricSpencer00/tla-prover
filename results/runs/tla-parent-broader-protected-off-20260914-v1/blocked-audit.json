@@ -1,8 +1,10 @@
 {
   "kind": "tla_prover_goal_blocked_audit_v1",
-  "utc": "2026-09-15T11:46:35Z",
+  "utc": "2026-09-15T13:00:59Z",
   "condition": "Secure Polaris credential entry is unavailable; authoritative state and output for already-submitted job 7619279 cannot be collected.",
   "consecutive_goal_turns": 3,
+  "resumed_audit_consecutive_turns": 3,
+  "resumed_audit_last_poll_utc": "2026-09-15T13:00:59Z",
   "last_authoritative_job_state": "R",
   "last_authoritative_job_state_utc": "2026-09-14T22:06:07Z",
   "attempted_alternatives": [
