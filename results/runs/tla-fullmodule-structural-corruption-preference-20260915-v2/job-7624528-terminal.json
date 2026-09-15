@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "kind": "fullmodule_structural_corruption_preference_terminal_v2",
+  "job_id": "7624528.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "short_job_id": "7624528",
+  "stage": "tla-fullmodule-structural-corruption-preference-20260915-v2",
+  "pbs_state": "F",
+  "exit_status": 0,
+  "exec_host": "x3204c0s13b1n0/0*64",
+  "requested": {
+    "select": "1:system=polaris:ncpus=64:ngpus=1",
+    "walltime": "00:15:00"
+  },
+  "resources_used": {
+    "walltime": "00:03:13",
+    "cput": "00:02:43",
+    "ngpus_reported": 0
+  },
+  "qtime": "Tue Sep 15 18:38:44 2026",
+  "stime": "Tue Sep 15 18:38:46 2026",
+  "obittime": "Tue Sep 15 18:42:03 2026",
+  "receipt_sha256": "2bcad6299707537d87666328ef8f2ce5efe65a05a672e2c1b075b39458728629",
+  "checkpoint_sha256": "54919caeecf83cb8983c4bb2506d2aa7e8342ab016cf5cec193dd16468fabf6c",
+  "stdout_sha256": "a785c7fd61dc557c726ed2cbd695370e51ad8944e0263b59d21287162a6c4e2a",
+  "result_namespace": "result.7624528",
+  "complete_receipt": true,
+  "updates": 16,
+  "quality_claim": false,
+  "gate_claim": false,
+  "proof_claim": false,
+  "promotion": false
+}

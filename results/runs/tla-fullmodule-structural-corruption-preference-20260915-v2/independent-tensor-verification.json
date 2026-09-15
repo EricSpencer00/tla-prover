@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "kind": "independent_checkpoint_tensor_verification_v1",
+  "checked_utc": "2026-09-15T18:43:00Z",
+  "checkpoint": "result.7624528/policy_optimizer.pt",
+  "checkpoint_sha256": "54919caeecf83cb8983c4bb2506d2aa7e8342ab016cf5cec193dd16468fabf6c",
+  "checkpoint_bytes": 872453729,
+  "torch_load": "independent remote torch.load(weights_only=False)",
+  "tensor_count": 9,
+  "parameter_count": 218112000,
+  "dtypes": ["torch.float32"],
+  "all_fp32_finite": true,
+  "config_parent_sha256": "1559b6c3014dc18e8a27c57f9ef58c8f89c507f4995d1152eb1ea9f5f07dcc72",
+  "config_manifest_sha256": "0274c476620f45db9d485a9fead641d84ae09489edb90aef9a4e275e137b941b",
+  "optimizer_state_stored": false,
+  "reload_tensors_exact": true,
+  "reload_logits_exact": true
+}
