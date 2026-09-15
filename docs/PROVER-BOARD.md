@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 619
-- Verified UTC: 2026-09-15T19:17:02Z
+- Revision: 620
+- Verified UTC: 2026-09-15T19:19:29Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
-- Phase: local_work
-- Active job: none
-- Observation evidence: At 2026-09-15T19:17:02Z, Polaris CPU preparation passed all22 clean SANY controls and tokenizer preflight passed exact re-encoding/nonzero-EOS guards for the16-train/6-validation partition. Final remote stage, input, CLI, bytecode, output, and owned-queue guards pass. Unique claim98e506d4 is acquired for exactly one bounded15-minute one-GPU run; no quality, gate, proof, generalization, or promotion claim is made.
-- Latest completed result: V2 structural-corruption preference remains valid negative evidence: teacher-forced mean corruption margin improved11.53→13.57 overall, train11.63→13.64 and validation11.28→13.37, but protected before/after SANY is0/2→0/2. The multi-layer LoRA stage now has fresh CPU/SANY admission and remote identity/queue evidence; the single claimed GPU run has not yet been submitted. This is still diagnostic-only with no model, quality, gate, proof, generalization, or promotion claim.
+- Phase: running
+- Active job: `7624753.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov` (R, x3201c0s7b1n0/0*64, owner eric-spencer)
+- Observation evidence: At 2026-09-15T19:19:29Z, qstat verifies exactly one claimed multilayer LoRA diagnostic job7624753 is running on Polaris debug with one GPU, 64 CPUs and a00:15:00 walltime cap. CPU/SANY admission and final remote guards passed beforehand; no quality, gate, proof, generalization, or promotion claim is made.
+- Latest completed result: V2 structural-corruption preference remains valid negative evidence: teacher-forced mean corruption margin improved11.53→13.57 overall, train11.63→13.64 and validation11.28→13.37, but protected before/after SANY is0/2→0/2. The multilayer LoRA stage is now running as a distinct diagnostic with exact parent/packet/preflight identity and a 16-update cap. No model, quality, gate, proof, generalization, or promotion claim exists.
 - Local work: Structural-curriculum v3 and corruption-preference v2 evidence remain preserved and committed; large checkpoints stay outside Git. The new multi-layer adapter stage is append-only, locally compiled, stage-hashed, and explicitly binds the exact parent/packet/partition plus a CPU tokenizer preflight and GPU nonzero-gradient guard. The protected rows47/107 remain a fixed holdout. Do not promote checkpoint54919ca or recycle first-divergence preference. Polaris access is restored and the programmatic watchdog remains live.
 - External blocker: none verified
-- Next action: Perform one final fresh Polaris ownership check, submit the already-claimed stage exactly once, and monitor the single15-minute GPU run. On terminal completion, retrieve and independently verify the adapter checkpoint, finite tensors, exact reload, update count, and protected SANY before deciding the next objective. Do not infer quality or gate credit from a diagnostic.
+- Next action: Wait for job7624753 to terminate, then retrieve and independently verify the adapter checkpoint, finite tensors, exact reload, update count, and protected SANY before deciding the next objective. Do not infer quality or gate credit from a diagnostic.
 
 ## Objective and evidence rules
 
@@ -37,6 +37,7 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 
 ## Decisions
 
+- 2026-09-15T19:19:29Z: Submitted exactly one already-claimed multilayer LoRA diagnostic as job7624753. qstat verifies R on x3201c0s7b1n0/0*64, debug queue, one GPU,64 CPUs and00:15:00 walltime. Await terminal receipt; no quality, gate, proof, generalization or promotion claim.
 - 2026-09-15T19:17:02Z: CPU/SANY admission and final remote guards pass for multilayer LoRA stage v1: manifest49ddc351, preflightd134385f, implementationb6c4b798, PBS062b3c6a, packet a125a0d5, parent1559b6c3,22 clean controls, exact tokenizer encodings, nonzero EOS, no pycache, absent output namespace and empty owned queue. Persistent unique claim98e506d4 is acquired; submit exactly one15-minute one-GPU diagnostic after one final live ownership check. No quality, gate, proof, generalization or promotion claim.
 - 2026-09-15T19:07:22Z: Prepared append-only multi-layer LoRA syntax-weighted clean-reference stage. Zero-initialized adapters cover q/v projections in layers28-31; fixed structural-token/EOS weights train only22 clean SANY-passing non-protected references, with protected47/107 held out. Local compilation and stage SHA inventory pass; next gates are Polaris CPU prepare/preflight, remote identity/queue guards, one unique claim and at most one15-minute one-GPU run. No model, quality, gate, proof, generalization or promotion claim.
 - 2026-09-15T18:50:11Z: Job7624528 completed Exit0 after00:03:13 with16 finite updates, exact reload, child54919ca and independent9-tensor/218112000-param fp32 verification. Teacher-forced corruption margins improved overall11.53→13.57 and validation11.28→13.37, but protected SANY stayed0/2→0/2: row47 precedence rejection and row107 malformed quantifier. Preserve as valid negative evidence; do not promote or recycle first-divergence preference. Next objective must change training signal or parameterization; no quality, gate, proof or promotion claim.
@@ -430,16 +431,21 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 619,
-  "verified_utc": "2026-09-15T19:17:02Z",
+  "revision": 620,
+  "verified_utc": "2026-09-15T19:19:29Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
-  "phase": "local_work",
-  "active_job": null,
-  "observation_evidence": "At 2026-09-15T19:17:02Z, Polaris CPU preparation passed all22 clean SANY controls and tokenizer preflight passed exact re-encoding/nonzero-EOS guards for the16-train/6-validation partition. Final remote stage, input, CLI, bytecode, output, and owned-queue guards pass. Unique claim98e506d4 is acquired for exactly one bounded15-minute one-GPU run; no quality, gate, proof, generalization, or promotion claim is made.",
-  "last_result": "V2 structural-corruption preference remains valid negative evidence: teacher-forced mean corruption margin improved11.53\u219213.57 overall, train11.63\u219213.64 and validation11.28\u219213.37, but protected before/after SANY is0/2\u21920/2. The multi-layer LoRA stage now has fresh CPU/SANY admission and remote identity/queue evidence; the single claimed GPU run has not yet been submitted. This is still diagnostic-only with no model, quality, gate, proof, generalization, or promotion claim.",
+  "phase": "running",
+  "active_job": {
+    "id": "7624753.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+    "pbs_state": "R",
+    "owner": "eric-spencer",
+    "host": "x3201c0s7b1n0/0*64"
+  },
+  "observation_evidence": "At 2026-09-15T19:19:29Z, qstat verifies exactly one claimed multilayer LoRA diagnostic job7624753 is running on Polaris debug with one GPU, 64 CPUs and a00:15:00 walltime cap. CPU/SANY admission and final remote guards passed beforehand; no quality, gate, proof, generalization, or promotion claim is made.",
+  "last_result": "V2 structural-corruption preference remains valid negative evidence: teacher-forced mean corruption margin improved11.53\u219213.57 overall, train11.63\u219213.64 and validation11.28\u219213.37, but protected before/after SANY is0/2\u21920/2. The multilayer LoRA stage is now running as a distinct diagnostic with exact parent/packet/preflight identity and a 16-update cap. No model, quality, gate, proof, generalization, or promotion claim exists.",
   "local_work": "Structural-curriculum v3 and corruption-preference v2 evidence remain preserved and committed; large checkpoints stay outside Git. The new multi-layer adapter stage is append-only, locally compiled, stage-hashed, and explicitly binds the exact parent/packet/partition plus a CPU tokenizer preflight and GPU nonzero-gradient guard. The protected rows47/107 remain a fixed holdout. Do not promote checkpoint54919ca or recycle first-divergence preference. Polaris access is restored and the programmatic watchdog remains live.",
   "external_blocker": null,
-  "next_action": "Perform one final fresh Polaris ownership check, submit the already-claimed stage exactly once, and monitor the single15-minute GPU run. On terminal completion, retrieve and independently verify the adapter checkpoint, finite tensors, exact reload, update count, and protected SANY before deciding the next objective. Do not infer quality or gate credit from a diagnostic.",
+  "next_action": "Wait for job7624753 to terminate, then retrieve and independently verify the adapter checkpoint, finite tensors, exact reload, update count, and protected SANY before deciding the next objective. Do not infer quality or gate credit from a diagnostic.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -509,6 +515,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
     }
   ],
   "decisions": [
+    "2026-09-15T19:19:29Z: Submitted exactly one already-claimed multilayer LoRA diagnostic as job7624753. qstat verifies R on x3201c0s7b1n0/0*64, debug queue, one GPU,64 CPUs and00:15:00 walltime. Await terminal receipt; no quality, gate, proof, generalization or promotion claim.",
     "2026-09-15T19:17:02Z: CPU/SANY admission and final remote guards pass for multilayer LoRA stage v1: manifest49ddc351, preflightd134385f, implementationb6c4b798, PBS062b3c6a, packet a125a0d5, parent1559b6c3,22 clean controls, exact tokenizer encodings, nonzero EOS, no pycache, absent output namespace and empty owned queue. Persistent unique claim98e506d4 is acquired; submit exactly one15-minute one-GPU diagnostic after one final live ownership check. No quality, gate, proof, generalization or promotion claim.",
     "2026-09-15T19:07:22Z: Prepared append-only multi-layer LoRA syntax-weighted clean-reference stage. Zero-initialized adapters cover q/v projections in layers28-31; fixed structural-token/EOS weights train only22 clean SANY-passing non-protected references, with protected47/107 held out. Local compilation and stage SHA inventory pass; next gates are Polaris CPU prepare/preflight, remote identity/queue guards, one unique claim and at most one15-minute one-GPU run. No model, quality, gate, proof, generalization or promotion claim.",
     "2026-09-15T18:50:11Z: Job7624528 completed Exit0 after00:03:13 with16 finite updates, exact reload, child54919ca and independent9-tensor/218112000-param fp32 verification. Teacher-forced corruption margins improved overall11.53\u219213.57 and validation11.28\u219213.37, but protected SANY stayed0/2\u21920/2: row47 precedence rejection and row107 malformed quantifier. Preserve as valid negative evidence; do not promote or recycle first-divergence preference. Next objective must change training signal or parameterization; no quality, gate, proof or promotion claim.",
@@ -1422,7 +1429,8 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "results/runs/tla-fullmodule-multilayer-structural-sft-20260915-v1/preflight/preflight.json",
     "results/runs/tla-fullmodule-multilayer-structural-sft-20260915-v1/remote-guards.json",
     "results/runs/tla-fullmodule-multilayer-structural-sft-20260915-v1/claim.json",
-    "results/prover-submit-claims/98e506d430b0adddeb45bec5cefde2fbf13d8b4dc584fa7b85984c1d6ad4397e.json"
+    "results/prover-submit-claims/98e506d430b0adddeb45bec5cefde2fbf13d8b4dc584fa7b85984c1d6ad4397e.json",
+    "results/runs/tla-fullmodule-multilayer-structural-sft-20260915-v1/job-7624753-submission.json"
   ]
 }
 -->
