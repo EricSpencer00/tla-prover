@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "kind": "multilayer_structural_sft_independent_adapter_verification_v1",
+  "checkpoint_sha256": "a25f7446d71b332896d9160455e6c4341941412466e3dd64100f22eeddd38a41",
+  "tensor_count": 16,
+  "parameter_count": 425984,
+  "all_fp32_finite": true,
+  "updates_in_checkpoint_metrics": 16,
+  "adapter_only": true,
+  "optimizer_state_stored": false,
+  "receipt_present": false,
+  "protected_evaluation_present": false,
+  "model_credit": false
+}

@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 623
-- Verified UTC: 2026-09-15T19:33:32Z
+- Revision: 624
+- Verified UTC: 2026-09-15T19:41:10Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
-- Phase: running
-- Active job: `7624830.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov` (R, x3208c0s37b1n0/0*64, owner eric-spencer)
-- Observation evidence: At 2026-09-15T19:33:32Z, qstat verifies exactly one claimed multilayer LoRA v2 retry job7624830 running on Polaris debug with one GPU,64 CPUs and a00:15:00 walltime cap. CPU/SANY admission, exact tokenizer preflight and final remote guards passed; no quality, gate, proof, generalization or promotion claim is made.
-- Latest completed result: V1 job7624753 is preserved as harness-only zero-credit evidence: it stopped before the first forward with a CPU/CUDA adapter mismatch. V2 is the exact device-local repair with a new stage identity and fresh preflight/remote evidence, now running under a16-update cap. No model, quality, gate, proof, generalization or promotion result exists yet.
-- Local work: Structural-curriculum v3 and corruption-preference v2 evidence remain preserved and committed; large checkpoints stay outside Git. V1 failure7624753 is preserved with no model credit. Append-only v2 allocates fp32 LoRA parameters on each wrapped base layer's device, while keeping the exact multilayer syntax-weighted clean-reference objective, fixed protected47/107 holdout, CPU preflight and GPU gradient guard. Polaris access is restored and the programmatic watchdog remains live.
+- Phase: local_work
+- Active job: none
+- Observation evidence: At 2026-09-15T19:41:10Z, Polaris job7624830 finished F/Exit1 after00:04:38 with all16 optimizer updates and a finite adapter-only checkpoint, but stopped in the reload guard when zeroing leaf tensors outside no_grad. The receipt and protected child evaluation are absent; this is harness-only zero-credit evidence. Append-only v3 contains the narrow no_grad repair and passes local compilation/checksum inventory.
+- Latest completed result: V2 independently verifies 16 finite fp32 adapter tensors/425984 parameters and a passed nonzero-gradient preflight, but no model credit is granted because the post-checkpoint reload receipt and protected SANY evaluation did not complete. V3 changes only the reload reset context; objective, data, parent, partition, weighting, update cap and resource bound remain unchanged. No model, quality, gate, proof, generalization or promotion claim exists.
+- Local work: Structural-curriculum v3 and corruption-preference v2 evidence remain preserved and committed; large checkpoints stay outside Git. V1 and v2 harness failures are preserved with no model credit; v2's finite adapter checkpoint remains diagnostic-only. Append-only v3 keeps device-local fp32 LoRA allocation and wraps the reload reset in no_grad, with the exact multilayer syntax-weighted clean-reference objective, fixed protected47/107 holdout, CPU preflight and GPU gradient guard. Polaris access is restored and the programmatic watchdog remains live.
 - External blocker: none verified
-- Next action: Wait for job7624830 to terminate, then retrieve and independently verify the adapter checkpoint, finite tensors, exact reload, update count, gradient preflight, and protected SANY. Do not infer quality or gate credit from a diagnostic.
+- Next action: Stage and CPU-admit append-only multilayer v3, require fresh remote hash/input/CLI/queue guards and a unique claim, then submit at most one new15-minute one-GPU retry. On terminal completion, require the complete receipt, exact reload, update count, gradient preflight and protected SANY before deciding the next objective. Do not infer quality or gate credit from a diagnostic.
 
 ## Objective and evidence rules
 
@@ -37,6 +37,7 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 
 ## Decisions
 
+- 2026-09-15T19:41:10Z: Job7624830 finished F/Exit1 after00:04:38 with16 optimizer updates, passed gradient preflight and finite adapter checkpoint a25f7446, then failed in the reload guard because parameter.zero_() ran outside no_grad. Receipt/protected child evaluation absent; preserve independent16-tensor/425984-param verification as diagnostic only. Repair only the reset context in append-only v3; no objective/data/parent/partition/weighting/resource change and no quality/gate/proof/promotion claim.
 - 2026-09-15T19:33:32Z: Submitted exactly one already-claimed multilayer LoRA v2 retry as job7624830. qstat verifies R on x3208c0s37b1n0/0*64, debug queue, one GPU,64 CPUs and00:15:00 walltime. Await terminal receipt; no quality, gate, proof, generalization or promotion claim.
 - 2026-09-15T19:32:16Z: V2 passes fresh remote stage SHA, exact packet/parent/model/jar, repeated22-control CPU preparation, exact tokenizer preflight d134385f, no pycache, absent output namespace and empty owned queue. Unique claim5227e151 is acquired for the device-placement-only repair; submit exactly one15-minute one-GPU retry after one final live ownership check. No quality, gate, proof, generalization or promotion claim.
 - 2026-09-15T19:25:39Z: Job7624753 finished F/Exit1 after00:03:29 during the first parent-logit probe because injected LoRA parameters remained CPU while the model was CUDA. Updates0, receipt/checkpoint/protected generation absent; preserve as harness-only zero-credit evidence. Repair only device-local adapter allocation in append-only v2; no objective/data/parent/partition/weighting/resource change and no quality/gate/proof/promotion claim.
@@ -434,21 +435,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 623,
-  "verified_utc": "2026-09-15T19:33:32Z",
+  "revision": 624,
+  "verified_utc": "2026-09-15T19:41:10Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
-  "phase": "running",
-  "active_job": {
-    "id": "7624830.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
-    "pbs_state": "R",
-    "owner": "eric-spencer",
-    "host": "x3208c0s37b1n0/0*64"
-  },
-  "observation_evidence": "At 2026-09-15T19:33:32Z, qstat verifies exactly one claimed multilayer LoRA v2 retry job7624830 running on Polaris debug with one GPU,64 CPUs and a00:15:00 walltime cap. CPU/SANY admission, exact tokenizer preflight and final remote guards passed; no quality, gate, proof, generalization or promotion claim is made.",
-  "last_result": "V1 job7624753 is preserved as harness-only zero-credit evidence: it stopped before the first forward with a CPU/CUDA adapter mismatch. V2 is the exact device-local repair with a new stage identity and fresh preflight/remote evidence, now running under a16-update cap. No model, quality, gate, proof, generalization or promotion result exists yet.",
-  "local_work": "Structural-curriculum v3 and corruption-preference v2 evidence remain preserved and committed; large checkpoints stay outside Git. V1 failure7624753 is preserved with no model credit. Append-only v2 allocates fp32 LoRA parameters on each wrapped base layer's device, while keeping the exact multilayer syntax-weighted clean-reference objective, fixed protected47/107 holdout, CPU preflight and GPU gradient guard. Polaris access is restored and the programmatic watchdog remains live.",
+  "phase": "local_work",
+  "active_job": null,
+  "observation_evidence": "At 2026-09-15T19:41:10Z, Polaris job7624830 finished F/Exit1 after00:04:38 with all16 optimizer updates and a finite adapter-only checkpoint, but stopped in the reload guard when zeroing leaf tensors outside no_grad. The receipt and protected child evaluation are absent; this is harness-only zero-credit evidence. Append-only v3 contains the narrow no_grad repair and passes local compilation/checksum inventory.",
+  "last_result": "V2 independently verifies 16 finite fp32 adapter tensors/425984 parameters and a passed nonzero-gradient preflight, but no model credit is granted because the post-checkpoint reload receipt and protected SANY evaluation did not complete. V3 changes only the reload reset context; objective, data, parent, partition, weighting, update cap and resource bound remain unchanged. No model, quality, gate, proof, generalization or promotion claim exists.",
+  "local_work": "Structural-curriculum v3 and corruption-preference v2 evidence remain preserved and committed; large checkpoints stay outside Git. V1 and v2 harness failures are preserved with no model credit; v2's finite adapter checkpoint remains diagnostic-only. Append-only v3 keeps device-local fp32 LoRA allocation and wraps the reload reset in no_grad, with the exact multilayer syntax-weighted clean-reference objective, fixed protected47/107 holdout, CPU preflight and GPU gradient guard. Polaris access is restored and the programmatic watchdog remains live.",
   "external_blocker": null,
-  "next_action": "Wait for job7624830 to terminate, then retrieve and independently verify the adapter checkpoint, finite tensors, exact reload, update count, gradient preflight, and protected SANY. Do not infer quality or gate credit from a diagnostic.",
+  "next_action": "Stage and CPU-admit append-only multilayer v3, require fresh remote hash/input/CLI/queue guards and a unique claim, then submit at most one new15-minute one-GPU retry. On terminal completion, require the complete receipt, exact reload, update count, gradient preflight and protected SANY before deciding the next objective. Do not infer quality or gate credit from a diagnostic.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -518,6 +514,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
     }
   ],
   "decisions": [
+    "2026-09-15T19:41:10Z: Job7624830 finished F/Exit1 after00:04:38 with16 optimizer updates, passed gradient preflight and finite adapter checkpoint a25f7446, then failed in the reload guard because parameter.zero_() ran outside no_grad. Receipt/protected child evaluation absent; preserve independent16-tensor/425984-param verification as diagnostic only. Repair only the reset context in append-only v3; no objective/data/parent/partition/weighting/resource change and no quality/gate/proof/promotion claim.",
     "2026-09-15T19:33:32Z: Submitted exactly one already-claimed multilayer LoRA v2 retry as job7624830. qstat verifies R on x3208c0s37b1n0/0*64, debug queue, one GPU,64 CPUs and00:15:00 walltime. Await terminal receipt; no quality, gate, proof, generalization or promotion claim.",
     "2026-09-15T19:32:16Z: V2 passes fresh remote stage SHA, exact packet/parent/model/jar, repeated22-control CPU preparation, exact tokenizer preflight d134385f, no pycache, absent output namespace and empty owned queue. Unique claim5227e151 is acquired for the device-placement-only repair; submit exactly one15-minute one-GPU retry after one final live ownership check. No quality, gate, proof, generalization or promotion claim.",
     "2026-09-15T19:25:39Z: Job7624753 finished F/Exit1 after00:03:29 during the first parent-logit probe because injected LoRA parameters remained CPU while the model was CUDA. Updates0, receipt/checkpoint/protected generation absent; preserve as harness-only zero-credit evidence. Repair only device-local adapter allocation in append-only v2; no objective/data/parent/partition/weighting/resource change and no quality/gate/proof/promotion claim.",
@@ -1449,7 +1446,18 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "results/runs/tla-fullmodule-multilayer-structural-sft-20260915-v2/remote-guards.json",
     "results/runs/tla-fullmodule-multilayer-structural-sft-20260915-v2/claim.json",
     "results/prover-submit-claims/5227e151112bc3f9baf72c987b0a88905779b3ca65159444b03afe951704fff1.json",
-    "results/runs/tla-fullmodule-multilayer-structural-sft-20260915-v2/job-7624830-submission.json"
+    "results/runs/tla-fullmodule-multilayer-structural-sft-20260915-v2/job-7624830-submission.json",
+    "results/runs/tla-fullmodule-multilayer-structural-sft-20260915-v2/job-7624830-qstat.txt",
+    "results/runs/tla-fullmodule-multilayer-structural-sft-20260915-v2/job-7624830-terminal.json",
+    "results/runs/tla-fullmodule-multilayer-structural-sft-20260915-v2/independent-adapter-verification.json",
+    "results/runs/tla-fullmodule-multilayer-structural-sft-20260915-v2/train.stdout",
+    "results/runs/tla-fullmodule-multilayer-structural-sft-20260915-v2/result.7624830/gradient-preflight.json",
+    "results/runs/tla-fullmodule-multilayer-structural-sft-20260915-v2/result.7624830/policy_lora.pt",
+    "results/stages/tla-fullmodule-multilayer-structural-sft-20260915-v3/SHA256SUMS",
+    "results/stages/tla-fullmodule-multilayer-structural-sft-20260915-v3/train.pbs",
+    "results/stages/tla-fullmodule-multilayer-structural-sft-20260915-v3/stage-validation.json",
+    "results/stages/tla-fullmodule-multilayer-structural-sft-20260915-v3/tools/__init__.py",
+    "results/stages/tla-fullmodule-multilayer-structural-sft-20260915-v3/tools/proof_fullmodule_multilayer_structural_sft_train.py"
   ]
 }
 -->

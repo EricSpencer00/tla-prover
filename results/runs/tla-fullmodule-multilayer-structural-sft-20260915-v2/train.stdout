@@ -1,0 +1,24 @@
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/291 [00:00<?, ?it/s]Loading weights:   5%|▍         | 14/291 [00:00<00:04, 63.16it/s]Loading weights:   8%|▊         | 24/291 [00:00<00:04, 63.26it/s]Loading weights:  11%|█         | 32/291 [00:00<00:04, 54.05it/s]Loading weights:  15%|█▍        | 43/291 [00:00<00:03, 67.12it/s]Loading weights:  18%|█▊        | 51/291 [00:00<00:03, 62.88it/s]Loading weights:  20%|█▉        | 58/291 [00:00<00:04, 55.47it/s]Loading weights:  23%|██▎       | 66/291 [00:01<00:04, 53.41it/s]Loading weights:  26%|██▌       | 75/291 [00:01<00:03, 56.95it/s]Loading weights:  28%|██▊       | 81/291 [00:01<00:03, 55.45it/s]Loading weights:  30%|██▉       | 87/291 [00:01<00:04, 47.05it/s]Loading weights:  32%|███▏      | 92/291 [00:01<00:04, 43.42it/s]Loading weights:  37%|███▋      | 109/291 [00:01<00:02, 63.22it/s]Loading weights:  40%|███▉      | 116/291 [00:01<00:02, 63.35it/s]Loading weights:  42%|████▏     | 123/291 [00:02<00:02, 61.79it/s]Loading weights:  45%|████▍     | 130/291 [00:02<00:02, 61.53it/s]Loading weights:  47%|████▋     | 137/291 [00:02<00:02, 54.70it/s]Loading weights:  50%|█████     | 146/291 [00:02<00:02, 56.80it/s]Loading weights:  53%|█████▎    | 154/291 [00:02<00:02, 49.99it/s]Loading weights:  56%|█████▌    | 163/291 [00:02<00:02, 56.49it/s]Loading weights:  59%|█████▉    | 171/291 [00:03<00:02, 55.79it/s]Loading weights:  61%|██████    | 177/291 [00:03<00:02, 50.76it/s]Loading weights:  64%|██████▍   | 187/291 [00:03<00:01, 59.52it/s]Loading weights:  67%|██████▋   | 195/291 [00:03<00:01, 55.47it/s]Loading weights:  71%|███████   | 206/291 [00:03<00:01, 62.35it/s]Loading weights:  73%|███████▎  | 213/291 [00:03<00:01, 58.58it/s]Loading weights:  77%|███████▋  | 223/291 [00:03<00:01, 64.74it/s]Loading weights:  80%|███████▉  | 232/291 [00:03<00:00, 67.85it/s]Loading weights:  82%|████████▏ | 239/291 [00:04<00:00, 58.01it/s]Loading weights:  85%|████████▍ | 246/291 [00:04<00:00, 56.97it/s]Loading weights:  88%|████████▊ | 255/291 [00:04<00:00, 51.51it/s]Loading weights:  90%|█████████ | 262/291 [00:04<00:00, 50.20it/s]Loading weights:  94%|█████████▍| 273/291 [00:04<00:00, 60.01it/s]Loading weights:  97%|█████████▋| 281/291 [00:04<00:00, 60.94it/s]Loading weights: 100%|██████████| 291/291 [00:04<00:00, 59.56it/s]
+{"step": 1, "loss": 0.13232611492276192}
+{"step": 2, "loss": 0.11455474607646465}
+{"step": 3, "loss": 0.14201316982507706}
+{"step": 4, "loss": 0.13241346180438995}
+{"step": 5, "loss": 0.13850080966949463}
+{"step": 6, "loss": 0.09641912579536438}
+{"step": 7, "loss": 0.22688348963856697}
+{"step": 8, "loss": 0.03660624101758003}
+{"step": 9, "loss": 0.1911860853433609}
+{"step": 10, "loss": 0.14675956964492798}
+{"step": 11, "loss": 0.14594687521457672}
+{"step": 12, "loss": 0.09209191612899303}
+{"step": 13, "loss": 0.15606707707047462}
+{"step": 14, "loss": 0.06722826045006514}
+{"step": 15, "loss": 0.08926970697939396}
+{"step": 16, "loss": 0.15513599663972855}
+Traceback (most recent call last):
+  File "/home/eric-spencer/tla-fullmodule-multilayer-structural-sft-20260915-v2/tools/proof_fullmodule_multilayer_structural_sft_train.py", line 488, in <module>
+    train(args)
+  File "/home/eric-spencer/tla-fullmodule-multilayer-structural-sft-20260915-v2/tools/proof_fullmodule_multilayer_structural_sft_train.py", line 431, in train
+    parameter.zero_()
+RuntimeError: a leaf Variable that requires grad is being used in an in-place operation.
