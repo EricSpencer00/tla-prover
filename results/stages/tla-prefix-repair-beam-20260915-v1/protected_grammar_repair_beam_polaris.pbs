@@ -10,7 +10,7 @@
 #PBS -l filesystems=home:grand
 #PBS -j oe
 set -euo pipefail
-STAGE=/home/eric-spencer/tla-prefix-repair-beam-20260915-v1
+STAGE=/home/eric-spencer/tla-prefix-repair-beam-20260915-v2
 cd "$STAGE"
 set -o noclobber
 exec > "job.${PBS_JOBID%%.*}.log" 2>&1
@@ -19,7 +19,7 @@ export HF_HOME=/grand/EVITA/eric-spencer/hf-cache PYTHONUNBUFFERED=1
 export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 CC=/usr/bin/gcc CXX=/usr/bin/g++
 BASE=/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-learning-20260906-v1
 MODEL=/grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659
-CHECKPOINT=/home/eric-spencer/tla-structured-polaris-20260911/result.7605656/policy_optimizer.pt
+CHECKPOINT=/home/eric-spencer/tla-structured-span-train-20260914-v3/result.7618905/policy_optimizer.pt
 XGRAMMAR_SITE=/grand/EVITA/eric-spencer/tla-checkpoint-preflight-deps/xgrammar-0.2.2-cp312
 sha256sum -c SHA256SUMS
 timeout --signal=TERM --kill-after=10s 840s /home/eric-spencer/ChatTLA/.venv/bin/python -u -B protected_grammar_repair_beam.py \

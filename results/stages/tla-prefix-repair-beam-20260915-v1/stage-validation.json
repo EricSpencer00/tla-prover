@@ -4,8 +4,8 @@
   "packet_sha256": "a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c",
   "corpus_sha256": "fb76468f6a3217a359d54da92a2e3fa25396aad0547e6b5eb35129193a0e812a",
   "grammar_sha256": "2bcc86946f0a858628f455a3d0648c7117e2b780743e1f25dff82cebd0fb4d67",
-  "child_checkpoint_sha256": "b0399b51aed001051fe200751b3087fc008482ca9dfeb64eb12884f71eee3bb6",
-  "runner_sha256": "4efaec5c9a61eca1d1b9307c879c50396777999df1ee762d9f1e6449d55549a6",
+  "child_checkpoint_sha256": "87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511",
+  "runner_sha256": "bd3b995ee407fda0255a92725bdf67ce4e9e078ab43a5f707c2cad961f839558",
   "preflight_sha256": "4c569421946fcd207028f16f12f90b24182817b7f89975c988277197195f15e8",
   "pbs_path": "protected_grammar_repair_beam_polaris.pbs",
   "contract": {
