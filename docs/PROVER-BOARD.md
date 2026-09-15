@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 537
-- Verified UTC: 2026-09-15T11:44:31Z
+- Revision: 538
+- Verified UTC: 2026-09-15T11:46:35Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: external_wait
 - Active job: none
-- Observation evidence: At 2026-09-15T11:44:31Z, the last authoritative Polaris scheduler observation for claimed job7619279 was job_state R on x3004c0s7b0n0/0*64 with one GPU and 00:10:00 walltime at 2026-09-14T22:06:07Z. Repeated BatchMode direct and phoneclaw-hop SSH/qstat/log polls fail before any remote command with keyboard-interactive authentication denied; an interactive probe reaches a password prompt, but no credential was entered. Local inspection finds no active ControlMaster socket or usable authentication agent; the Mac-mini gateway has no Twilio channel and its only Discord probe returns 401. Job terminal state and outputs are therefore unverified; no duplicate submission is allowed. Redacted blocker evidence is preserved in authentication-blocker.json. The programmatic roadblock watcher is live.
+- Observation evidence: At 2026-09-15T11:46:35Z, the last authoritative Polaris scheduler observation for claimed job7619279 was job_state R on x3004c0s7b0n0/0*64 with one GPU and 00:10:00 walltime at 2026-09-14T22:06:07Z. The third consecutive goal-turn revalidation still fails BatchMode direct and phoneclaw-hop SSH/qstat/log polls before any remote command with keyboard-interactive authentication denied; an interactive probe reaches a password prompt, but no credential was entered. Local inspection finds no active ControlMaster socket or usable authentication agent; the Mac-mini gateway has no Twilio channel and its only Discord probe returns 401. Job terminal state and outputs are therefore unverified; no duplicate submission is allowed. Redacted blocker evidence and the completed blocked audit are preserved. The programmatic roadblock watcher is live.
 - Latest completed result: The grammar-off protected diagnostic has an unverified remote state because Polaris authentication failed before terminal/output collection; no SANY or gate claim is made.
 - Local work: Structural-span v3 and prefix-SFT v3 remain verified locally. The broader-child partial terminal, raw records, independent SANY score, and verification metadata are preserved under results/runs; exact large binaries remain outside Git. Parent-initialized broader SFT v1/v2 stages and failures are preserved; repaired v3 is transferred, hash-verified, CPU-preflight verified, and remote-guard verified with an independently tensor-verified child. Corrected reload-verifier v2 transferred atomically, passed final guards, and completed job7619252 with exact same-runtime logit reload; its terminal, verification, and log evidence are preserved. Grammar-off protected diagnostic v1 is transferred, hash-verified, final-guard verified, and has claimed job7619279 whose terminal/result remain unverified solely because remote authentication is unavailable; its source is committed as145c6daf. The unused imprecise claim babeed2b, prior unique claims/terminal evidence and the v2 hash-invalid transfer evidence remain preserved; unrelated pre-existing changes remain unstaged. Local scoring and analysis remain ready once raw outputs are retrieved. The redacted authentication blocker receipt is preserved, the watchdog source is verified, and its tmux session is live.
 - External blocker: Polaris requires interactive password/OTP authentication for authoritative qstat and retrieval of job7619279; no credential is available through a secure agent setup. The agent-board service is also unreachable from this Mac, so no needs_eric ticket could be recorded.
-- Next action: Enter the Polaris password/OTP through the approved secure setup flow, then re-poll job7619279 and retrieve its raw records/log. Do not submit a duplicate. Once collected, run independent SANY controls and resume the breadth-first prover search.
+- Next action: Enter the Polaris password/OTP through the approved secure setup flow, then re-poll job7619279 and retrieve its raw records/log. Do not submit a duplicate. Once collected, run independent SANY controls and resume the breadth-first prover search; the goal is blocked until that external change occurs.
 
 ## Objective and evidence rules
 
@@ -37,6 +37,7 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 
 ## Decisions
 
+- 2026-09-15T11:46:35Z: The same secure Polaris credential blocker has recurred across three consecutive goal turns. Direct SSH, interactive no-secret probe, phoneclaw hop, local agent/control-socket checks, board-service checks and programmatic notification were exhausted; no meaningful evidence-backed work remains without retrieval of job7619279. Record the blocked audit and mark the goal blocked; no model, SANY or gate claim.
 - 2026-09-15T11:44:31Z: Interactive SSH reaches a Polaris password prompt, proving the cluster is reachable; no credential was entered. Treat secure password/OTP entry as the sole external dependency, preserve job7619279 as unverified, and keep the no-duplicate rule. Agent-board remains unreachable, so no needs_eric ticket/notification was recorded there.
 - 2026-09-15T11:41:58Z: Exhausted direct and phoneclaw-hop auth checks. Polaris denies keyboard-interactive authentication before qstat; Mac-mini has no configured Twilio channel and its only Discord channel is unauthorized. Preserve the blocker, do not expose credentials or duplicate job7619279, and wait for secure Polaris re-authentication. Agent-board remains unreachable, so no needs_eric ticket/notification was recorded there.
 - 2026-09-15T11:33:05Z: Fresh Polaris access failed before qstat with keyboard-interactive authentication denied; no active control socket or local agent is available. Downgrade the claimed job7619279 to unverified and enter external_wait; do not infer terminal state or duplicate it. Agent-board ticket/notification could not be created because localhost:8030 and the configured tailnet board hostname were unreachable.
@@ -352,16 +353,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 537,
-  "verified_utc": "2026-09-15T11:44:31Z",
+  "revision": 538,
+  "verified_utc": "2026-09-15T11:46:35Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "external_wait",
   "active_job": null,
-  "observation_evidence": "At 2026-09-15T11:44:31Z, the last authoritative Polaris scheduler observation for claimed job7619279 was job_state R on x3004c0s7b0n0/0*64 with one GPU and 00:10:00 walltime at 2026-09-14T22:06:07Z. Repeated BatchMode direct and phoneclaw-hop SSH/qstat/log polls fail before any remote command with keyboard-interactive authentication denied; an interactive probe reaches a password prompt, but no credential was entered. Local inspection finds no active ControlMaster socket or usable authentication agent; the Mac-mini gateway has no Twilio channel and its only Discord probe returns 401. Job terminal state and outputs are therefore unverified; no duplicate submission is allowed. Redacted blocker evidence is preserved in authentication-blocker.json. The programmatic roadblock watcher is live.",
+  "observation_evidence": "At 2026-09-15T11:46:35Z, the last authoritative Polaris scheduler observation for claimed job7619279 was job_state R on x3004c0s7b0n0/0*64 with one GPU and 00:10:00 walltime at 2026-09-14T22:06:07Z. The third consecutive goal-turn revalidation still fails BatchMode direct and phoneclaw-hop SSH/qstat/log polls before any remote command with keyboard-interactive authentication denied; an interactive probe reaches a password prompt, but no credential was entered. Local inspection finds no active ControlMaster socket or usable authentication agent; the Mac-mini gateway has no Twilio channel and its only Discord probe returns 401. Job terminal state and outputs are therefore unverified; no duplicate submission is allowed. Redacted blocker evidence and the completed blocked audit are preserved. The programmatic roadblock watcher is live.",
   "last_result": "The grammar-off protected diagnostic has an unverified remote state because Polaris authentication failed before terminal/output collection; no SANY or gate claim is made.",
   "local_work": "Structural-span v3 and prefix-SFT v3 remain verified locally. The broader-child partial terminal, raw records, independent SANY score, and verification metadata are preserved under results/runs; exact large binaries remain outside Git. Parent-initialized broader SFT v1/v2 stages and failures are preserved; repaired v3 is transferred, hash-verified, CPU-preflight verified, and remote-guard verified with an independently tensor-verified child. Corrected reload-verifier v2 transferred atomically, passed final guards, and completed job7619252 with exact same-runtime logit reload; its terminal, verification, and log evidence are preserved. Grammar-off protected diagnostic v1 is transferred, hash-verified, final-guard verified, and has claimed job7619279 whose terminal/result remain unverified solely because remote authentication is unavailable; its source is committed as145c6daf. The unused imprecise claim babeed2b, prior unique claims/terminal evidence and the v2 hash-invalid transfer evidence remain preserved; unrelated pre-existing changes remain unstaged. Local scoring and analysis remain ready once raw outputs are retrieved. The redacted authentication blocker receipt is preserved, the watchdog source is verified, and its tmux session is live.",
   "external_blocker": "Polaris requires interactive password/OTP authentication for authoritative qstat and retrieval of job7619279; no credential is available through a secure agent setup. The agent-board service is also unreachable from this Mac, so no needs_eric ticket could be recorded.",
-  "next_action": "Enter the Polaris password/OTP through the approved secure setup flow, then re-poll job7619279 and retrieve its raw records/log. Do not submit a duplicate. Once collected, run independent SANY controls and resume the breadth-first prover search.",
+  "next_action": "Enter the Polaris password/OTP through the approved secure setup flow, then re-poll job7619279 and retrieve its raw records/log. Do not submit a duplicate. Once collected, run independent SANY controls and resume the breadth-first prover search; the goal is blocked until that external change occurs.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -431,6 +432,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
     }
   ],
   "decisions": [
+    "2026-09-15T11:46:35Z: The same secure Polaris credential blocker has recurred across three consecutive goal turns. Direct SSH, interactive no-secret probe, phoneclaw hop, local agent/control-socket checks, board-service checks and programmatic notification were exhausted; no meaningful evidence-backed work remains without retrieval of job7619279. Record the blocked audit and mark the goal blocked; no model, SANY or gate claim.",
     "2026-09-15T11:44:31Z: Interactive SSH reaches a Polaris password prompt, proving the cluster is reachable; no credential was entered. Treat secure password/OTP entry as the sole external dependency, preserve job7619279 as unverified, and keep the no-duplicate rule. Agent-board remains unreachable, so no needs_eric ticket/notification was recorded there.",
     "2026-09-15T11:41:58Z: Exhausted direct and phoneclaw-hop auth checks. Polaris denies keyboard-interactive authentication before qstat; Mac-mini has no configured Twilio channel and its only Discord channel is unauthorized. Preserve the blocker, do not expose credentials or duplicate job7619279, and wait for secure Polaris re-authentication. Agent-board remains unreachable, so no needs_eric ticket/notification was recorded there.",
     "2026-09-15T11:33:05Z: Fresh Polaris access failed before qstat with keyboard-interactive authentication denied; no active control socket or local agent is available. Downgrade the claimed job7619279 to unverified and enter external_wait; do not infer terminal state or duplicate it. Agent-board ticket/notification could not be created because localhost:8030 and the configured tailnet board hostname were unreachable.",
@@ -1114,6 +1116,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "results/prover-submit-claims/a2b6a8d87ce56ad63cb92309d8b253c7b83ae024f5b7aeef24c08cc66abd48e5.json",
     "results/runs/tla-parent-broader-protected-off-20260914-v1/job-7619279-submission.json",
     "results/runs/tla-parent-broader-protected-off-20260914-v1/authentication-blocker.json",
+    "results/runs/tla-parent-broader-protected-off-20260914-v1/blocked-audit.json",
     "results/prover-submit-claims/12bf340a6c47575c1efffe5c515da9cf7b2a168e95a111fb1e34d7fc486af154.json",
     "tools/proof_parent_broader_sft_train.py",
     "tools/proof_parent_broader_sft_train_polaris.pbs",

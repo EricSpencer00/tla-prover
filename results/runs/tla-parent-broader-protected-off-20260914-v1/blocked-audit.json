@@ -1,0 +1,24 @@
+{
+  "kind": "tla_prover_goal_blocked_audit_v1",
+  "utc": "2026-09-15T11:46:35Z",
+  "condition": "Secure Polaris credential entry is unavailable; authoritative state and output for already-submitted job 7619279 cannot be collected.",
+  "consecutive_goal_turns": 3,
+  "last_authoritative_job_state": "R",
+  "last_authoritative_job_state_utc": "2026-09-14T22:06:07Z",
+  "attempted_alternatives": [
+    "Direct BatchMode SSH/qstat/log retrieval: denied keyboard-interactive/hostbased authentication.",
+    "Direct interactive SSH probe: reached password prompt; no credential was entered.",
+    "Mac-mini phoneclaw hop with BatchMode SSH: same Polaris authentication denial.",
+    "Mac-mini OpenClaw gateway: reachable only under ericspencer account; no Twilio channel is configured and the only Discord channel probes unauthorized.",
+    "Agent-board human-attention ticket: local and tailnet board endpoints unreachable, so no ticket was recorded.",
+    "Programmatic Hermes watcher: live and notified the blocker without model inference."
+  ],
+  "why_no_meaningful_path_remains": "The protected diagnostic is already submitted and must not be duplicated; scoring requires its remote raw records, and further GPU or SANY work cannot be evidence-backed without authoritative retrieval. Remaining local work would not advance the frozen acceptance measurement while the exact job result is inaccessible.",
+  "smallest_external_change": "Eric re-establishes Polaris password/OTP authentication through the secure setup flow.",
+  "claims": {
+    "model_quality": false,
+    "protected_sany": false,
+    "acceptance_gate": false
+  },
+  "credential_exposure": "none"
+}
