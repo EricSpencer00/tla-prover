@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 622
-- Verified UTC: 2026-09-15T19:32:16Z
+- Revision: 623
+- Verified UTC: 2026-09-15T19:33:32Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
-- Phase: local_work
-- Active job: none
-- Observation evidence: At 2026-09-15T19:32:16Z, append-only multilayer v2 passes remote stage/input/CLI/bytecode/output/queue guards, repeats all22 clean SANY controls and exact tokenizer preflight, and has fresh claim5227e151. V1's device-placement defect is repaired by allocating each fp32 LoRA adapter on its wrapped layer's device; no objective/data/parent/partition/weighting/resource change is made.
-- Latest completed result: V1 job7624753 is preserved as harness-only zero-credit evidence: it stopped before the first forward with a CPU/CUDA adapter mismatch. V2 is the exact device-local repair with a new stage identity and fresh preflight/remote evidence; no GPU submission or model, quality, gate, proof, generalization, or promotion result exists yet.
+- Phase: running
+- Active job: `7624830.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov` (R, x3208c0s37b1n0/0*64, owner eric-spencer)
+- Observation evidence: At 2026-09-15T19:33:32Z, qstat verifies exactly one claimed multilayer LoRA v2 retry job7624830 running on Polaris debug with one GPU,64 CPUs and a00:15:00 walltime cap. CPU/SANY admission, exact tokenizer preflight and final remote guards passed; no quality, gate, proof, generalization or promotion claim is made.
+- Latest completed result: V1 job7624753 is preserved as harness-only zero-credit evidence: it stopped before the first forward with a CPU/CUDA adapter mismatch. V2 is the exact device-local repair with a new stage identity and fresh preflight/remote evidence, now running under a16-update cap. No model, quality, gate, proof, generalization or promotion result exists yet.
 - Local work: Structural-curriculum v3 and corruption-preference v2 evidence remain preserved and committed; large checkpoints stay outside Git. V1 failure7624753 is preserved with no model credit. Append-only v2 allocates fp32 LoRA parameters on each wrapped base layer's device, while keeping the exact multilayer syntax-weighted clean-reference objective, fixed protected47/107 holdout, CPU preflight and GPU gradient guard. Polaris access is restored and the programmatic watchdog remains live.
 - External blocker: none verified
-- Next action: Perform one final fresh Polaris ownership check, submit already-claimed v2 exactly once, and monitor the single15-minute GPU retry. On completion, retrieve and independently verify the adapter checkpoint, finite tensors, exact reload, update count, gradient preflight, and protected SANY. Do not infer quality or gate credit from a diagnostic.
+- Next action: Wait for job7624830 to terminate, then retrieve and independently verify the adapter checkpoint, finite tensors, exact reload, update count, gradient preflight, and protected SANY. Do not infer quality or gate credit from a diagnostic.
 
 ## Objective and evidence rules
 
@@ -37,6 +37,7 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 
 ## Decisions
 
+- 2026-09-15T19:33:32Z: Submitted exactly one already-claimed multilayer LoRA v2 retry as job7624830. qstat verifies R on x3208c0s37b1n0/0*64, debug queue, one GPU,64 CPUs and00:15:00 walltime. Await terminal receipt; no quality, gate, proof, generalization or promotion claim.
 - 2026-09-15T19:32:16Z: V2 passes fresh remote stage SHA, exact packet/parent/model/jar, repeated22-control CPU preparation, exact tokenizer preflight d134385f, no pycache, absent output namespace and empty owned queue. Unique claim5227e151 is acquired for the device-placement-only repair; submit exactly one15-minute one-GPU retry after one final live ownership check. No quality, gate, proof, generalization or promotion claim.
 - 2026-09-15T19:25:39Z: Job7624753 finished F/Exit1 after00:03:29 during the first parent-logit probe because injected LoRA parameters remained CPU while the model was CUDA. Updates0, receipt/checkpoint/protected generation absent; preserve as harness-only zero-credit evidence. Repair only device-local adapter allocation in append-only v2; no objective/data/parent/partition/weighting/resource change and no quality/gate/proof/promotion claim.
 - 2026-09-15T19:19:29Z: Submitted exactly one already-claimed multilayer LoRA diagnostic as job7624753. qstat verifies R on x3201c0s7b1n0/0*64, debug queue, one GPU,64 CPUs and00:15:00 walltime. Await terminal receipt; no quality, gate, proof, generalization or promotion claim.
@@ -433,16 +434,21 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 622,
-  "verified_utc": "2026-09-15T19:32:16Z",
+  "revision": 623,
+  "verified_utc": "2026-09-15T19:33:32Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
-  "phase": "local_work",
-  "active_job": null,
-  "observation_evidence": "At 2026-09-15T19:32:16Z, append-only multilayer v2 passes remote stage/input/CLI/bytecode/output/queue guards, repeats all22 clean SANY controls and exact tokenizer preflight, and has fresh claim5227e151. V1's device-placement defect is repaired by allocating each fp32 LoRA adapter on its wrapped layer's device; no objective/data/parent/partition/weighting/resource change is made.",
-  "last_result": "V1 job7624753 is preserved as harness-only zero-credit evidence: it stopped before the first forward with a CPU/CUDA adapter mismatch. V2 is the exact device-local repair with a new stage identity and fresh preflight/remote evidence; no GPU submission or model, quality, gate, proof, generalization, or promotion result exists yet.",
+  "phase": "running",
+  "active_job": {
+    "id": "7624830.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+    "pbs_state": "R",
+    "owner": "eric-spencer",
+    "host": "x3208c0s37b1n0/0*64"
+  },
+  "observation_evidence": "At 2026-09-15T19:33:32Z, qstat verifies exactly one claimed multilayer LoRA v2 retry job7624830 running on Polaris debug with one GPU,64 CPUs and a00:15:00 walltime cap. CPU/SANY admission, exact tokenizer preflight and final remote guards passed; no quality, gate, proof, generalization or promotion claim is made.",
+  "last_result": "V1 job7624753 is preserved as harness-only zero-credit evidence: it stopped before the first forward with a CPU/CUDA adapter mismatch. V2 is the exact device-local repair with a new stage identity and fresh preflight/remote evidence, now running under a16-update cap. No model, quality, gate, proof, generalization or promotion result exists yet.",
   "local_work": "Structural-curriculum v3 and corruption-preference v2 evidence remain preserved and committed; large checkpoints stay outside Git. V1 failure7624753 is preserved with no model credit. Append-only v2 allocates fp32 LoRA parameters on each wrapped base layer's device, while keeping the exact multilayer syntax-weighted clean-reference objective, fixed protected47/107 holdout, CPU preflight and GPU gradient guard. Polaris access is restored and the programmatic watchdog remains live.",
   "external_blocker": null,
-  "next_action": "Perform one final fresh Polaris ownership check, submit already-claimed v2 exactly once, and monitor the single15-minute GPU retry. On completion, retrieve and independently verify the adapter checkpoint, finite tensors, exact reload, update count, gradient preflight, and protected SANY. Do not infer quality or gate credit from a diagnostic.",
+  "next_action": "Wait for job7624830 to terminate, then retrieve and independently verify the adapter checkpoint, finite tensors, exact reload, update count, gradient preflight, and protected SANY. Do not infer quality or gate credit from a diagnostic.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -512,6 +518,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
     }
   ],
   "decisions": [
+    "2026-09-15T19:33:32Z: Submitted exactly one already-claimed multilayer LoRA v2 retry as job7624830. qstat verifies R on x3208c0s37b1n0/0*64, debug queue, one GPU,64 CPUs and00:15:00 walltime. Await terminal receipt; no quality, gate, proof, generalization or promotion claim.",
     "2026-09-15T19:32:16Z: V2 passes fresh remote stage SHA, exact packet/parent/model/jar, repeated22-control CPU preparation, exact tokenizer preflight d134385f, no pycache, absent output namespace and empty owned queue. Unique claim5227e151 is acquired for the device-placement-only repair; submit exactly one15-minute one-GPU retry after one final live ownership check. No quality, gate, proof, generalization or promotion claim.",
     "2026-09-15T19:25:39Z: Job7624753 finished F/Exit1 after00:03:29 during the first parent-logit probe because injected LoRA parameters remained CPU while the model was CUDA. Updates0, receipt/checkpoint/protected generation absent; preserve as harness-only zero-credit evidence. Repair only device-local adapter allocation in append-only v2; no objective/data/parent/partition/weighting/resource change and no quality/gate/proof/promotion claim.",
     "2026-09-15T19:19:29Z: Submitted exactly one already-claimed multilayer LoRA diagnostic as job7624753. qstat verifies R on x3201c0s7b1n0/0*64, debug queue, one GPU,64 CPUs and00:15:00 walltime. Await terminal receipt; no quality, gate, proof, generalization or promotion claim.",
@@ -1441,7 +1448,8 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "results/stages/tla-fullmodule-multilayer-structural-sft-20260915-v2/tools/proof_fullmodule_multilayer_structural_sft_train.py",
     "results/runs/tla-fullmodule-multilayer-structural-sft-20260915-v2/remote-guards.json",
     "results/runs/tla-fullmodule-multilayer-structural-sft-20260915-v2/claim.json",
-    "results/prover-submit-claims/5227e151112bc3f9baf72c987b0a88905779b3ca65159444b03afe951704fff1.json"
+    "results/prover-submit-claims/5227e151112bc3f9baf72c987b0a88905779b3ca65159444b03afe951704fff1.json",
+    "results/runs/tla-fullmodule-multilayer-structural-sft-20260915-v2/job-7624830-submission.json"
   ]
 }
 -->
