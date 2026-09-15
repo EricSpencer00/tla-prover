@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "verified_utc": "2026-09-15T20:55:00Z",
+  "grammar": "harness/grammars/tla_module_v1.ebnf",
+  "grammar_sha256": "2bcc86946f0a858628f455a3d0648c7117e2b780743e1f25dff82cebd0fb4d67",
+  "local_xgrammar_version": "0.2.3",
+  "known_good_nonproof_modules": 358,
+  "known_good_false_rejected": 0,
+  "known_good_false_reject_rate": 0.0,
+  "frontier_parse_failures_sampled": 125,
+  "frontier_rejected": 92,
+  "frontier_catch_rate": 0.736,
+  "frontier_by_spec": {"55": [17, 25], "121": [14, 25], "135": [18, 25], "141": [20, 25], "148": [23, 25]},
+  "historical_remote_v1_run": {
+    "job_id": "7608834.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+    "produced": 6,
+    "requested": 8,
+    "grammar_sany_pass": 0,
+    "grammar_sany_reject": 2,
+    "grammar_unknown": 2,
+    "decision": "retired; no unchanged retry"
+  },
+  "interpretation": "The grammar is safe on the measured known-good corpus and catches many observed parse failures, but the historical model run was incomplete/slow and yielded no measured protected SANY benefit. This audit supports grammar safety only; it does not justify replaying the same decoder arm.",
+  "quality_claim": false,
+  "gate_claim": false,
+  "proof_claim": false,
+  "promotion": false
+}
