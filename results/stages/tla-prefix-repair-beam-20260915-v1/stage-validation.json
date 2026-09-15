@@ -5,7 +5,7 @@
   "corpus_sha256": "fb76468f6a3217a359d54da92a2e3fa25396aad0547e6b5eb35129193a0e812a",
   "grammar_sha256": "2bcc86946f0a858628f455a3d0648c7117e2b780743e1f25dff82cebd0fb4d67",
   "child_checkpoint_sha256": "87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511",
-  "runner_sha256": "55230f958c64bdc12299c6d6dd1ed9e4501c5d7376fe5ccaf7abf0eee3f1393b",
+  "runner_sha256": "b31cbbeb9bdbb7b9fbe22093eaf8f752c34270415ea82f97456adfba1a0b3440",
   "preflight_sha256": "4c569421946fcd207028f16f12f90b24182817b7f89975c988277197195f15e8",
   "pbs_path": "protected_grammar_repair_beam_polaris.pbs",
   "contract": {

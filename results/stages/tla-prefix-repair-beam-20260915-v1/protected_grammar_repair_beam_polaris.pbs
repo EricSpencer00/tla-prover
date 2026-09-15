@@ -10,7 +10,7 @@
 #PBS -l filesystems=home:grand
 #PBS -j oe
 set -euo pipefail
-STAGE=/home/eric-spencer/tla-prefix-repair-beam-20260915-v4
+STAGE=/home/eric-spencer/tla-prefix-repair-beam-20260915-v5
 cd "$STAGE"
 set -o noclobber
 exec > "job.${PBS_JOBID%%.*}.log" 2>&1

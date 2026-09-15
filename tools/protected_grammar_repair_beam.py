@@ -210,6 +210,7 @@ def load_child(torch, args, model_files):
 
 def run_repair(model, tokenizer, xgrammar, compiled, prompt_inputs, baseline_ids,
                *, max_new_tokens, beam_width, branch_k, pad_id):
+    import torch
     response = baseline_ids[len(prompt_inputs["input_ids"][0]):]
     prefix, rejected_at, baseline_grammar_ended, _ = longest_accepted_prefix(
         xgrammar, compiled, response)
