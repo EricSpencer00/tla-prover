@@ -1,0 +1,31 @@
+{
+  "schema": 1,
+  "kind": "fullmodule_clean_structural_length_curriculum_cpu_preflight_v2",
+  "complete": true,
+  "verified_utc": "2026-09-15T17:30:23Z",
+  "supersedes_failed_job": "7624173",
+  "admission_sha256": "b80c0c15f59107bafcde55ee47e6f87a32e4969dccd5e2694c318abf15cb7e35",
+  "implementation_sha256": "2b9ef29ca6312b6fa93a9a16130a3a59c8cc7f7eb294aaf97043e95958b3aea1",
+  "stage_manifest_sha256": "87a2ee05e81982d69f391da137df4e830b389ffa43df863e19a26602b39142f1",
+  "input_packet_sha256": "a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c",
+  "starting_checkpoint_sha256": "1d4fce896e0d55b10cf3f6943df58fabd6aeebb3649c98822dc0385b36fd32c4",
+  "train_rows": [42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58],
+  "validation_rows": [59, 60, 61, 62, 63, 64],
+  "protected_eval_rows": [47, 107],
+  "schedule_sha256": "2b5fe18081d857d2ced4da9ee1ca00abebe3975346c27c16dfe88c98e11053cb",
+  "updates": 32,
+  "max_new_tokens": 2048,
+  "generated_feedback_loaded": false,
+  "replay_negatives_loaded": false,
+  "protected_rows_never_train": true,
+  "checks": {
+    "python_compile": true,
+    "canonical_admission_builder": true,
+    "exact_packet_and_checkpoint": true,
+    "rows_and_encodings_loaded": 24,
+    "training_authorized": true
+  },
+  "quality_claim": false,
+  "gate_claim": false,
+  "proof_claim": false
+}

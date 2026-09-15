@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "kind": "fullmodule_clean_structural_length_curriculum_submission_v2",
+  "submitted_utc": "2026-09-15T17:40:34Z",
+  "job_id": "7624261.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "short_job_id": "7624261",
+  "stage": "tla-fullmodule-structural-curriculum-20260915-v2",
+  "claim_sha256": "20b63d121a350f9552e55af520d841a4d1cdf76db1fe618adbc6e808be68ed12",
+  "manifest_sha256": "87a2ee05e81982d69f391da137df4e830b389ffa43df863e19a26602b39142f1",
+  "input_packet_sha256": "a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c",
+  "starting_checkpoint_sha256": "1d4fce896e0d55b10cf3f6943df58fabd6aeebb3649c98822dc0385b36fd32c4",
+  "pbs": {
+    "queue": "debug",
+    "select": "1:system=polaris:ncpus=64:ngpus=1",
+    "walltime": "00:15:00"
+  },
+  "scheduler": {
+    "state": "R",
+    "exec_host": "x3101c0s7b0n0/0*64",
+    "qtime": "Tue Sep 15 17:40:07 2026",
+    "stime": "Tue Sep 15 17:40:09 2026"
+  },
+  "updates": 32,
+  "train_rows": [42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58],
+  "validation_rows": [59, 60, 61, 62, 63, 64],
+  "protected_eval_rows": [47, 107],
+  "training": true,
+  "generated_feedback_loaded": false,
+  "replay_negatives_loaded": false,
+  "protected_rows_never_train": true,
+  "quality_claim": false,
+  "gate_claim": false,
+  "proof_claim": false,
+  "promotion": false
+}

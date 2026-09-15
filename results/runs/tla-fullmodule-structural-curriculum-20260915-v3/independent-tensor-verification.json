@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "kind": "independent_checkpoint_tensor_verification",
+  "job_id": "7624329",
+  "checkpoint_sha256": "1559b6c3014dc18e8a27c57f9ef58c8f89c507f4995d1152eb1ea9f5f07dcc72",
+  "tensors": 9,
+  "parameters": 218112000,
+  "all_fp32_finite": true,
+  "checkpoint_format": "slim_trainable_state_no_optimizer",
+  "optimizer_state_stored": false,
+  "metrics": 32,
+  "parent_sha256": "1d4fce896e0d55b10cf3f6943df58fabd6aeebb3649c98822dc0385b36fd32c4",
+  "verified_with": "Polaris ChatTLA venv torch.load(weights_only=False) plus receipt reload evidence",
+  "model_claim": false,
+  "promotion": false
+}

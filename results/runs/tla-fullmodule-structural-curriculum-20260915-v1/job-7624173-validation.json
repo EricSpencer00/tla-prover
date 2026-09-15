@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "kind": "fullmodule_clean_structural_length_curriculum_validation",
+  "complete": true,
+  "job_id": "7624173",
+  "terminal_classification": "harness_failure_before_training",
+  "receipt_present": false,
+  "updates_executed": 0,
+  "candidate_credit": false,
+  "protected_sany_claim": false,
+  "quality_claim": false,
+  "gate_claim": false,
+  "proof_claim": false,
+  "diagnosis": "The direct PBS admission record and the worker's regenerated admission printed the same visible fields, but the strict equality guard failed. Preserve the run as zero-credit and repair the redundant admission comparison before retrying.",
+  "stdout_sha256": "63369c9a70243f04865db21c2ffca52509c247b066bedec3d6cf36985f133213"
+}

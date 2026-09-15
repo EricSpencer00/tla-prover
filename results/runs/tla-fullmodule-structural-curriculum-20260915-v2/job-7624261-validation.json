@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "kind": "fullmodule_clean_structural_length_curriculum_validation_v2",
+  "complete": true,
+  "job_id": "7624261",
+  "terminal_classification": "harness_failure_before_training",
+  "receipt_present": false,
+  "updates_executed": 0,
+  "candidate_credit": false,
+  "protected_sany_claim": false,
+  "quality_claim": false,
+  "gate_claim": false,
+  "proof_claim": false,
+  "diagnosis": "The canonical builder returned a tuple for schedule while the serialized admission record correctly reloaded it as a JSON list. The explicit diff isolated schedule; v3 normalizes it to a list.",
+  "stdout_sha256": "1f0aa58eb079b20e5cde7106198741fbc7defc485891e5cb3368327e0e06e5d0"
+}

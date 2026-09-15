@@ -1,0 +1,4 @@
+a4b9c0f531b2d51339624145aa9d42d2f5e845ec4e6986dc3eb88bad05f8f7eb  ./train.pbs
+cf33318714d67af9268b0505a8234c385153890ce7eea17c27895fee839dbf36  ./stage-validation.json
+81c66d17205c14614f97a25b04f94dce2f25ea2b5c1a7cead52c222379af244b  ./tools/__init__.py
+d642cc981c2413a0d6ad6164a2a8a433674f83029f3086037a407b741d0fff73  ./tools/proof_fullmodule_structural_curriculum_train.py

@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "kind": "fullmodule_clean_structural_length_curriculum_remote_precheck",
+  "complete": true,
+  "verified_utc": "2026-09-15T17:16:23Z",
+  "destination": "/home/eric-spencer/tla-fullmodule-structural-curriculum-20260915-v1",
+  "remote_manifest_sha256": "abb506834341f0080a8672c520adc4e3fa4595d75ecb5665e01a522bdf00f908",
+  "input_packet_sha256": "a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c",
+  "starting_checkpoint_sha256": "1d4fce896e0d55b10cf3f6943df58fabd6aeebb3649c98822dc0385b36fd32c4",
+  "stage_hashes_pass": true,
+  "cli_help_pass": true,
+  "model_config_present": true,
+  "starting_checkpoint_present_and_exact": true,
+  "output_namespace_absent": true,
+  "owned_queue_empty": true,
+  "source_checkpoint_removed": false,
+  "gpu_run_submitted": false,
+  "training": true,
+  "quality_claim": false,
+  "gate_claim": false,
+  "proof_claim": false
+}
