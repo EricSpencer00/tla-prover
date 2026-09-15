@@ -1,0 +1,24 @@
+{
+  "index": 58,
+  "loss": 0.21336117386817932,
+  "target_mass": 2128.0,
+  "gradient_norms": {
+    "model.layers.28.self_attn.q_proj.lora_A": 0.0,
+    "model.layers.28.self_attn.q_proj.lora_B": 0.00924650952219963,
+    "model.layers.28.self_attn.v_proj.lora_A": 0.0,
+    "model.layers.28.self_attn.v_proj.lora_B": 0.015933090820908546,
+    "model.layers.29.self_attn.q_proj.lora_A": 0.0,
+    "model.layers.29.self_attn.q_proj.lora_B": 0.02454705536365509,
+    "model.layers.29.self_attn.v_proj.lora_A": 0.0,
+    "model.layers.29.self_attn.v_proj.lora_B": 0.02298281155526638,
+    "model.layers.30.self_attn.q_proj.lora_A": 0.0,
+    "model.layers.30.self_attn.q_proj.lora_B": 0.01199307944625616,
+    "model.layers.30.self_attn.v_proj.lora_A": 0.0,
+    "model.layers.30.self_attn.v_proj.lora_B": 0.016637563705444336,
+    "model.layers.31.self_attn.q_proj.lora_A": 0.0,
+    "model.layers.31.self_attn.q_proj.lora_B": 0.013910965994000435,
+    "model.layers.31.self_attn.v_proj.lora_A": 0.0,
+    "model.layers.31.self_attn.v_proj.lora_B": 0.03505847975611687
+  },
+  "parameters_unchanged": true
+}

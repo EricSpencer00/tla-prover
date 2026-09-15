@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "kind": "multilayer_structural_sft_independent_adapter_verification_v2",
+  "checkpoint_sha256": "e1e73e15e31e3aea87fd95c6c94bd58ed6960300567b2930cd07967ebb9dbe43",
+  "checkpoint_bytes": 1710705,
+  "tensor_count": 16,
+  "parameter_count": 425984,
+  "all_fp32_finite": true,
+  "updates": 16,
+  "parent_binding_exact": true,
+  "manifest_binding_exact": true,
+  "optimizer_state_stored": false,
+  "receipt_complete": true,
+  "protected_sany_before": "0/2",
+  "protected_sany_after": "0/2",
+  "model_credit": false,
+  "quality_claim": false,
+  "gate_claim": false,
+  "proof_claim": false
+}
