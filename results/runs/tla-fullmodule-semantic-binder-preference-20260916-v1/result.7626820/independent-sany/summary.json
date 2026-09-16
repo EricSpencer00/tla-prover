@@ -1,0 +1,64 @@
+{
+  "complete": true,
+  "controls_ok": true,
+  "scope": "independent SANY byte audit of semantic preference diagnostic",
+  "results": [
+    {
+      "row": 47,
+      "label": "reference",
+      "status": "pass",
+      "candidate_sha256": "36c548d2a475c0d086ddf0340f927b36002699ce86e955d702e061324ad2f07c",
+      "module_name": "W4Od2m7p4t2",
+      "returncode": 0,
+      "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-semantic-binder-preference-20260916-v1/result.7626820/independent-sany/controls/47-reference/sany.log"
+    },
+    {
+      "row": 107,
+      "label": "reference",
+      "status": "pass",
+      "candidate_sha256": "5f6b169dc010369d4e6f65b7766b7961e44a4df15790988c5763861a06e3e853",
+      "module_name": "W4Od3m0p0t0",
+      "returncode": 0,
+      "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-semantic-binder-preference-20260916-v1/result.7626820/independent-sany/controls/107-reference/sany.log"
+    },
+    {
+      "row": 47,
+      "label": "restored_parent",
+      "status": "model_sany_reject",
+      "candidate_sha256": "f82d02515bf8b6a0c210040f74d21f34102204b5c908cadf86785dac1d8052d7",
+      "module_name": "W4Od2m7p4t2",
+      "returncode": 255,
+      "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-semantic-binder-preference-20260916-v1/result.7626820/independent-sany/candidates/47-restored_parent/sany.log"
+    },
+    {
+      "row": 47,
+      "label": "trained_child",
+      "status": "model_sany_reject",
+      "candidate_sha256": "fa601de1efd0f628115d5bf7e7ef3340744356b75bbaa08fefc448522bcdb731",
+      "module_name": "W4Od2m7p4t2",
+      "returncode": 255,
+      "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-semantic-binder-preference-20260916-v1/result.7626820/independent-sany/candidates/47-trained_child/sany.log"
+    },
+    {
+      "row": 107,
+      "label": "restored_parent",
+      "status": "model_sany_reject",
+      "candidate_sha256": "a73854c7ad249a15f1471cac6442dc8d37df3b11f1ba76557bf6ebc91e90c751",
+      "module_name": "W4Od3m0p0t0",
+      "returncode": 255,
+      "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-semantic-binder-preference-20260916-v1/result.7626820/independent-sany/candidates/107-restored_parent/sany.log"
+    },
+    {
+      "row": 107,
+      "label": "trained_child",
+      "status": "model_sany_reject",
+      "candidate_sha256": "f944bf49ee269fc14f5fca171172940f1ab3e8c088a50d3c59ad2c5a40239264",
+      "module_name": "W4Od3m0p0t0",
+      "returncode": 255,
+      "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-semantic-binder-preference-20260916-v1/result.7626820/independent-sany/candidates/107-trained_child/sany.log"
+    }
+  ],
+  "gate_claim": false,
+  "model_improvement_claim": false,
+  "quality_claim": false
+}

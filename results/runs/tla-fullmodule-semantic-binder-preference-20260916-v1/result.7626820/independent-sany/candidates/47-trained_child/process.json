@@ -1,0 +1,31 @@
+{
+  "command": [
+    "/usr/bin/java",
+    "-cp",
+    "/Users/eric/GitHub/prove-TLA/tools/tla2tools.jar",
+    "tla2sany.SANY",
+    "W4Od2m7p4t2.tla"
+  ],
+  "cwd": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-semantic-binder-preference-20260916-v1/result.7626820/independent-sany/candidates/47-trained_child",
+  "root_pid": 78276,
+  "root_reaped": true,
+  "returncode": 255,
+  "output": "\n****** SANY2 Version 2.1 created 24 February 2014\n\nParsing file /Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-semantic-binder-preference-20260916-v1/result.7626820/independent-sany/candidates/47-trained_child/W4Od2m7p4t2.tla\n***Parse Error***\nWas expecting \"==== or more Module body\"\nEncountered \"readSnapshots\" at line 10, column 1 and token \"0\" \n\nResidual stack trace follows:\nModule definition starting at line 1, column 1.\n\n\nFatal errors while parsing TLA+ spec in file W4Od2m7p4t2.tla\n\ntla2sany.semantic.AbortException\n*** Abort messages: 1\n\nIn module W4Od2m7p4t2\n\nCould not parse module W4Od2m7p4t2 from file W4Od2m7p4t2.tla\n\n\n",
+  "seconds": 0.15189320800709538,
+  "timed_out": false,
+  "output_complete": true,
+  "output_limit": false,
+  "cleanup_complete": true,
+  "surviving_owned_processes": [],
+  "owned_processes": [
+    {
+      "pid": 78276,
+      "created": 1789531991.539827,
+      "pgid": 78276
+    }
+  ],
+  "signals": [],
+  "errors": [],
+  "execution_complete": true,
+  "containment": "Best-effort ancestry polling; instantaneous unobserved reparenting is not excluded"
+}

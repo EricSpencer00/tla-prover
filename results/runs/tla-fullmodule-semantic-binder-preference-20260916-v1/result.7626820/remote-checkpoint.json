@@ -1,0 +1,22 @@
+{
+  "job_id": "7626820.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "remote_path": "/home/eric-spencer/tla-fullmodule-semantic-binder-preference-20260916-v1/result.7626820/policy_optimizer.pt",
+  "child_sha256": "74427a8141f9f0b8cec1c5cc054901c2ac9d6f8cad774d36c83d3a91c938d73a",
+  "parent_sha256": "87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511",
+  "updates": 16,
+  "parameter_delta_l2": 0.08113996013616405,
+  "reload_tensors_exact": true,
+  "reload_logits_exact": true,
+  "optimizer_state_stored": false,
+  "optimizer_resume_supported": false,
+  "training_authorized": true,
+  "protected_rows_never_train": true,
+  "gate_claim": false,
+  "quality_claim": false,
+  "model_improvement_claim": false,
+  "generalization_claim": false,
+  "proof_claim": false,
+  "tlc_claim": false,
+  "nonvacuity_claim": false,
+  "checkpoint_not_copied_to_local_workspace": true
+}
