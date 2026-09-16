@@ -1,0 +1,2235 @@
+{
+  "kind": "layout_junction_guard_audit_v1",
+  "known_good_requested": 438,
+  "known_good_false_rejects": 0,
+  "known_good_false_reject_rate": 0.0,
+  "known_good": [
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/Bakery-Boulangerie/Bakery.tla",
+      "sha256": "3b2a3f370e5f0fde8660b3ef09932d579c9bd2ccd249a5ce2304007bf24da8d5",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/Bakery-Boulangerie/Boulanger.tla",
+      "sha256": "e0f76da20c999aa23ed494d319119575f678ccd77f3c1e105eead18d3fe66fa0",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/Bakery-Boulangerie/MCBakery.tla",
+      "sha256": "e30e4fc5558357406b890b3249eda6ec0ec7d5e191b1469adc3774990c1fbe25",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/Bakery-Boulangerie/MCBoulanger.tla",
+      "sha256": "e1a52928940ae952cd25a3888cecb962f615237d5e81e4c164c9bfd64f82f3fa",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/CarTalkPuzzle/CarTalkPuzzle.tla",
+      "sha256": "287165c6508c164f63754073cee070603bcba97a7f9cbf8e4b655f047e90256f",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/CarTalkPuzzle/CarTalkPuzzle.toolbox/Model_1/CarTalkPuzzle.tla",
+      "sha256": "6ed3808383683f2ecdf8430ef0ed04dc181b0949be3c36dfe1970a8ea866a651",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/CarTalkPuzzle/CarTalkPuzzle.toolbox/Model_1/MC.tla",
+      "sha256": "8ab5978a5b30bf5441128aa73faa7ca0053091668f1184d0d4e1a3e114923f77",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/CarTalkPuzzle/CarTalkPuzzle.toolbox/Model_2/CarTalkPuzzle.tla",
+      "sha256": "706ae151d9e2b207eab2f4360cc0cfd59a5e3b58fe8ed566fbd30319f8009912",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/CarTalkPuzzle/CarTalkPuzzle.toolbox/Model_2/MC.tla",
+      "sha256": "606a965959c3002132ae96bc203ef86e8c2b1412ccd9737676e47a07a5ac7418",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/CarTalkPuzzle/CarTalkPuzzle.toolbox/Model_3/CarTalkPuzzle.tla",
+      "sha256": "e1210a1dc347966f53233095cb2be5b8d17e237342d9f7fb49fc38a14df10d6a",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/CarTalkPuzzle/CarTalkPuzzle.toolbox/Model_3/MC.tla",
+      "sha256": "d49aa03533a0aee67efbfdbb6f47e3f79683a7751eb7a271ac7e2b239962ef87",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/Chameneos/APChameneos.tla",
+      "sha256": "a25560fdb8f9030aca71b74949b6ccc57453cfd245988ba2840d6c14ef90df94",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/Chameneos/Chameneos.tla",
+      "sha256": "0e709f85c9fd764e8410fd57201b5c0900eb5bcb881168709c2376e921b29b32",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/CheckpointCoordination/CheckpointCoordination.tla",
+      "sha256": "c69fbc8bd2b05373edf0bfb76fa00ab1cd980bf5fbd81c4fc1361e3c99199964",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/CheckpointCoordination/MCCheckpointCoordination.tla",
+      "sha256": "b8ec0a17e4a3558e11635b4958872d2d3d02847ffe79a0a592fbc61fb6b10d4c",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/CigaretteSmokers/APCigaretteSmokers.tla",
+      "sha256": "80d8f65ff08a20a3e6aae6c2bf1c44f9aa5ee3d3fe6f52af0f501ea139dda9c0",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/CigaretteSmokers/CigaretteSmokers.tla",
+      "sha256": "c0dc0ebf3fef3e95be8f7173197f6798f4c2ada5e99aa34fcadc9f71bececa51",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/CigaretteSmokers/CigaretteSmokers_proof.tla",
+      "sha256": "27e6f0f71b5a2f4702d35302c7d7609ec276586b20c2f87e7aad4af35bffa52f",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/CoffeeCan/APCoffeeCan.tla",
+      "sha256": "1de47b998ded67418cdab386f9ddde0122dcdaf553b8cca126c670045d67dbc3",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/CoffeeCan/CoffeeCan.tla",
+      "sha256": "32c5d9c900104c0d8be0d3730a6013d141dc90901e08ccaea403fb0be731cd90",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/CoffeeCan/CoffeeCan_proof.tla",
+      "sha256": "afed664aed94d10e6cdde95895ee79b41d60a27116bdf40d08813dcc5f2b00ab",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/DieHard/APADieHardest.tla",
+      "sha256": "ddff49719155c70d8464f7f94cc9d99457e808348aca4bb28daaef938572fa30",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/DieHard/APDieHarder.tla",
+      "sha256": "13717bfa8f60570945a471643dc201d3d359225f71d0613bdf6190f059d557ee",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/DieHard/DieHard.tla",
+      "sha256": "295495de6509d86a82b88757835b95e3f91fad8691d764ece4d98886dcf42b66",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/DieHard/DieHard_proof.tla",
+      "sha256": "581a7773656302ec59ec3dc6eae78e4c9d39ee9e70894b6fba364f185b123033",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/DieHard/DieHarder.tla",
+      "sha256": "01a2593d58bb383bdb2a8b36f8838ab2bfbe87dc9e00c94c5755c20db4e4a404",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/DieHard/DieHardest.tla",
+      "sha256": "e0afd451c0e26c5e1b1b7a5c9d4a5a61b7947a4d65dc484583344397c64d1de3",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/DieHard/MCDieHarder.tla",
+      "sha256": "0c45536b4116e80a3736af5a968d5df43653eb54809567bcdcf4e2ca3d54a324",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/DieHard/MCDieHardest.tla",
+      "sha256": "443d6959d0ec4cfbef6fd815c2a6fbc9df47aa10a0a26cc446072417245f2bc4",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/DiningPhilosophers/APDiningPhilosophers.tla",
+      "sha256": "bf6e7b7124c6778d21b246e0a17a1722781ce09bd09334281aa6184014971d08",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/DiningPhilosophers/DiningPhilosophers.tla",
+      "sha256": "2290c338922895e78990171ce5a5bfe80c9470bd5c9bb1ff8f58ed1563f6d4ff",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/Disruptor/APDisruptor_MPMC.tla",
+      "sha256": "67c508197e5edeec64621f52b3625e912cce9a1110c6bb312dedc6b8669f56fc",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/Disruptor/APDisruptor_SPMC.tla",
+      "sha256": "08d0de05055752ef3dcd8c484992c330180dfd2738d62922c61c5f78e8315e72",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/Disruptor/APRingBuffer.tla",
+      "sha256": "f470389d0efaa8fcd3f94b42e41cfd425f0556b723b307ca869f26b682a41d38",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/Disruptor/Disruptor_MPMC.tla",
+      "sha256": "ebff2fba4a7abb11d299e1375f5e76aa937e30a862e89a1c655909ec236f4941",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/Disruptor/Disruptor_SPMC.tla",
+      "sha256": "a739a1b027d1ffa3281f987f02beee409ee934f5e9b361daf9ebd16704b5f749",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/Disruptor/RingBuffer.tla",
+      "sha256": "f60ddf3c9bcef2c38baaf02bbdb858c2596f6ebd2c4444c6071c0afb1f165dcc",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/EinsteinRiddle/Einstein.tla",
+      "sha256": "3831e713ca0e61f9917a334c4bf7797dc51f2ad1dfdbe9418ff086d18ccf62ef",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/FiniteMonotonic/APCRDT.tla",
+      "sha256": "b5c3a2809bbacca0a40a126029a13145e0bcd93ca12b52580feafe2ce517729b",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/FiniteMonotonic/APDistributedReplicatedLog.tla",
+      "sha256": "287752ce859011f3087d0b6b9d9502a4d542b866743925576ceeb2ca9e16a06c",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/FiniteMonotonic/APReplicatedLog.tla",
+      "sha256": "e61f90b0c13bb4bb1a766d7e8ed193a529842228a8a8e0e8d6cc28acc556b40d",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/FiniteMonotonic/CRDT.tla",
+      "sha256": "2e9017ee8ca3262aa0fb501a832eb130990a1b478a7c6c2126228978fbc2155a",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/FiniteMonotonic/CRDT_proof.tla",
+      "sha256": "3e95d9e746373cb44fbcf8d4df33fedbe6e562dfef4703fc1266dfa7b44e3e03",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/FiniteMonotonic/DistributedReplicatedLog.tla",
+      "sha256": "615b69c68910120019b4425d5ac6356b11c2a386a0789a6a99c2e1c748727c31",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/FiniteMonotonic/MCCRDT.tla",
+      "sha256": "cf0d1971da841fb9de709f4ea0e21042d4b60a85268bdfc7f33707b71e4928ec",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/FiniteMonotonic/MCDistributedReplicatedLog.tla",
+      "sha256": "970c912319fcc76fa2da93c6b7790dd9ee6f15614cf19bd6f42fa5143288fc8a",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/FiniteMonotonic/MCReplicatedLog.tla",
+      "sha256": "860e55182547e9e1c730da33d66d4b5f2eb393c887f941e489af2efd80ffc4d9",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/FiniteMonotonic/ReplicatedLog.tla",
+      "sha256": "9ef8e9e885d7b94738e5121132709b4a540db5608544d5233f583d9df5fda310",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/GameOfLife/GameOfLife.tla",
+      "sha256": "dcd6d626946faab35ac22ad38a031b0d9bd9bc274d8750340506acc407dccbc6",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/Huang/Huang.tla",
+      "sha256": "4d42886bd6e5b42346611c254d209fbfb9ea102b058f98d9857f3567c004950c",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/KeyValueStore/APKeyValueStore.tla",
+      "sha256": "bcf588ce6554d21b4d89c38234aa2eeb401a83fcc2338870fa0e5a2deb83d1ff",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/KeyValueStore/ClientCentric.tla",
+      "sha256": "f3c6e377229e0aeeefbc50dcb4c39805c6aeae88e81376edd3f4765be456c1ba",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/KeyValueStore/KVsnap.tla",
+      "sha256": "c05c349c4b3f07e06781e2666e73f5ed6c1185d7cc6998c852a6eebd80894582",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/KeyValueStore/KeyValueStore.tla",
+      "sha256": "0306e7659212ef214fdb40012f1f24a78b25669292a80127c815da5eec466b07",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/KeyValueStore/KeyValueStore_proof.tla",
+      "sha256": "ed287a9290e55a47e93cb7593ffec5e47169398e797ce7fc170da5758f852f7e",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/KeyValueStore/MCKVS.tla",
+      "sha256": "4d66a40abeb29558b473770b736dc1bd16c841d9ac847b4644b36cd47d8c8962",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/KeyValueStore/MCKVsnap.tla",
+      "sha256": "c500a1abde66e13467cdb882071601e9b1442487c47510348ded4e86b34e9329",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/KeyValueStore/Util.tla",
+      "sha256": "7ffa38a940992bec344fe7d033e9ac7acc85e0180aeacee59512a26807e14254",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/KnuthYao/KnuthYao.tla",
+      "sha256": "83aeb8412f6ea48559e00677a86bd2c34ba00550509a7b187672d230255ae603",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/KnuthYao/Prob.tla",
+      "sha256": "16fe00ac97b5f21588f4f3ba30549926b5d7607c11bb1565deb0ea4f04040732",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/KnuthYao/SimKnuthYao.tla",
+      "sha256": "f105688d78a2e3f90b53e8946eae445b05819d30588a60e3d19473f9d68a376a",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/LearnProofs/AddTwo.tla",
+      "sha256": "b8f26df9d64dee325c05245956f170eaa7aa5b61dc54f1354a139c1f7578103a",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/LearnProofs/FindHighest.tla",
+      "sha256": "2236ae6e1547246c7539c96368ed8b2707243e2c215cbc48b981bc6896eee1bc",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/LearnProofs/MCFindHighest.tla",
+      "sha256": "f6a52f3ac863a235f0356551ce0fe1d41c34a606dae52546284b00da6a61bafc",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/LeastCircularSubstring/LeastCircularSubstring.tla",
+      "sha256": "a1f60ca5457e8a4ab51d8fc89c20b0cd5877f7cd286bf595ff234a2b35089567",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/LeastCircularSubstring/MCLeastCircularSubstring.tla",
+      "sha256": "e1c09a0132181bce2a37b5aed0849662b7d74e4304d9d5dab7fd0f3f9c80d838",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/LeastCircularSubstring/ZSequences.tla",
+      "sha256": "e5178ca6bb66485b3f234c1758c810b106e9bc19f0aa86decc29e082e019ea20",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/LevelChecking/LevelSpec.tla",
+      "sha256": "71a03f349c8cd10ae32b5e35349b2089908daa52f1a3dc648a1f18784166109e",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/LoopInvariance/BinarySearch.tla",
+      "sha256": "fa56deb7c8d1cce2e5b9c4559ab7a1ced1fea5098edc46eb8d99c257e8eaecec",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/LoopInvariance/MCBinarySearch.tla",
+      "sha256": "807264a6cb748cd4e36100c170f805840efe33ed39c7a0297d869250acb32cdb",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/LoopInvariance/MCQuicksort.tla",
+      "sha256": "1c1cb71fcd1a1cef070cff835516a1db57ed572bee83ea680bf186c4f57b9286",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/LoopInvariance/Quicksort.tla",
+      "sha256": "65c70e42eb28bef01e7754cffe66d87ac1d00b4cd27b107ce389da3f31ad7672",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/LoopInvariance/SumSequence.tla",
+      "sha256": "aad92f983376e998d9bb628b7d8804ef3aff27d598e0f0be098138a2c134d296",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/Majority/APMajority.tla",
+      "sha256": "51d40487901523fd9d28e41e129df9cf9281af66917701aae5c4d0e90ca8895e",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/Majority/MCMajority.tla",
+      "sha256": "26c9d3dfcc49022b59ce761677b8d75501c91e64bcf5c1c128ce3184aa7b811e",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/Majority/Majority.tla",
+      "sha256": "09651709752cc32e4b9d9546a90170cff6f186da9d6b8d39e63dd991e2c86033",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/Majority/MajorityProof.tla",
+      "sha256": "466fe6e44cb600620baf540c1b18bb3d13095c4373c1d336c675409f9568d91b",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/MisraReachability/APParReach.tla",
+      "sha256": "332a28d6cce37977f41f0738da3037683a45b33225f364f4575c9354730c0caa",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/MisraReachability/APReachable.tla",
+      "sha256": "1197519a0858925b00c8754228bb8b15fd2a168ab3f836d1de0c5b601e119bd7",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/MisraReachability/MCParReach.tla",
+      "sha256": "8669e2c4bd80d5be177e8331a0c5415c605ef3bb5d7f7ec0651a7194b7f67f81",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/MisraReachability/MCReachabilityTest.tla",
+      "sha256": "7827f14e60d73f88687ca2e05dd28d829e88366742e3afa05198751013494ef7",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/MisraReachability/MCReachable.tla",
+      "sha256": "51b25788a688f63bf28788530e0b7884d635ae1feb69b4def405b126af80a7b1",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/MisraReachability/ParReach.tla",
+      "sha256": "9d830d1f015a7ec320c4a93ea2af4287ee886caa09acbf1ca6434fa2d7ef9d3c",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/MisraReachability/ParReachProofs.tla",
+      "sha256": "7dd3ff57b476de48d2239b333e5bdb7670a999e43f2b7561b8deebf8f16b7233",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/MisraReachability/Reachability.tla",
+      "sha256": "00d8f9751c26e8eb5fd542fa569b123ff6fb961e71325f4765887dc3b4d1dfae",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/MisraReachability/ReachabilityProofs.tla",
+      "sha256": "7dc8f697765747cf4723139d3b79d9a883d90c15696bc68e2d53e9b1430a7a0c",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/MisraReachability/ReachabilityTest.tla",
+      "sha256": "50070e0e8712405f2f5b06e3340d96b01457b64550ffce3f7b3cffb6d4c0db0d",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/MisraReachability/Reachable.tla",
+      "sha256": "4ebb3f079b1bb76361b0473b26b8c833dedf6b0437f422b7b02c4514dcf32a12",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/MisraReachability/ReachableProofs.tla",
+      "sha256": "be290ee350eb4e885702e538d8ddc43bb1ab9f16784b3d8763b6c86230a47197",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/MissionariesAndCannibals/APMissionariesAndCannibals.tla",
+      "sha256": "faa5f76aa2766c48c3e546bc3a78143accf287133d1f1137859a213623370725",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/MissionariesAndCannibals/MissionariesAndCannibals.tla",
+      "sha256": "afb87e6ebc4af897ab9b27f90729c0170f061f8d95444a54035df1afaf21c65a",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/MissionariesAndCannibals/MissionariesAndCannibals_proof.tla",
+      "sha256": "c30018a0b3cb561578fbd797edb69986436fe2867833295f1982ba05b43e52c0",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/Moving_Cat_Puzzle/APCat.tla",
+      "sha256": "75964cb318385a742b662f3cb272088d0bc4313bf0608de9c483311646e7ff3d",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/Moving_Cat_Puzzle/Cat.tla",
+      "sha256": "407c41f11d1caf62911f383c521f80858bde0f0554036095308dedd2ebb6fb1d",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/MultiCarElevator/Elevator.tla",
+      "sha256": "c44366dbf4f4bdef30edade0c8a2faf75fd37b2b7aeb1c04b24e80eb40ed2203",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/MultiCarElevator/Elevator_proof.tla",
+      "sha256": "8fe413184e0150167ddb7009563af31bdb151219d7156796bce4dd4551bfed21",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/MultiPaxos-SMR/MultiPaxos.tla",
+      "sha256": "80990b9d19381fd8d21290e5a5002727eff56f35f87d0b04eda3126c60dca9d6",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/MultiPaxos-SMR/MultiPaxos_MC.tla",
+      "sha256": "de29fa4029bb0f678ce5b325faa273397a18b91f867d72cf20f3b6dd9925beee",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/N-Queens/Queens.tla",
+      "sha256": "ce6c6787ab7e7733c62870f815c2f21460dc9d60747a30689fdc61c891e563bf",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/N-Queens/Queens.toolbox/FourQueens/MC.tla",
+      "sha256": "53c5975eab1397e55149cc50337f8914d02f636e96dee291b891ae5f2ca9c23d",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/N-Queens/Queens.toolbox/FourQueens/Queens.tla",
+      "sha256": "ce6c6787ab7e7733c62870f815c2f21460dc9d60747a30689fdc61c891e563bf",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/N-Queens/QueensPluscal.tla",
+      "sha256": "289aee93c983706e825f30bdf438747cc76049a09ee6db143ea65d0ec3fa81a8",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/N-Queens/QueensPluscal.toolbox/FourQueens/MC.tla",
+      "sha256": "f8b3417c12b3404f7abd2f83b78167e802bea08e1f44dbd084c42069250790fc",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/N-Queens/QueensPluscal.toolbox/FourQueens/QueensPluscal.tla",
+      "sha256": "289aee93c983706e825f30bdf438747cc76049a09ee6db143ea65d0ec3fa81a8",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/NanoBlockchain/MCNano.tla",
+      "sha256": "592643677b45b85a7889c784dc97968090813e1697487e60e4858f6b15726a48",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/NanoBlockchain/Nano.tla",
+      "sha256": "8a4b2d8958a36f9bbeef83b6232e835a72e9b1ccf8e4561c12ab0b66ebb26b82",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/Paxos/Consensus.tla",
+      "sha256": "c5c181338db9d7489da158daaead6e8ed47b91ca5802f64ecab02dfd379f8e21",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/Paxos/MCConsensus.tla",
+      "sha256": "13dafc53b46105ad249952d400fed103b5066a455db1925140bb73dec631fd46",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/Paxos/MCPaxos.tla",
+      "sha256": "4bfd984ceba025ea50abeda3a54ea74acb7dbba3380c44afba87a9130cade3ee",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/Paxos/MCVoting.tla",
+      "sha256": "c38f90e525e236ddc8a4d64af7b20c43dcfa0729476e69735aa795ca07f341b9",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/Paxos/Paxos.tla",
+      "sha256": "cda7cef60840dd587f317de41ed25abaaa828f988a51a0b9c502ea6b4e4c0db0",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/Paxos/Voting.tla",
+      "sha256": "636453a0291c87ba29d5fa768aef77e6bb58fdab22a088250224a93cdf1138d9",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/PaxosHowToWinATuringAward/Consensus.tla",
+      "sha256": "13b1270ded32c406c5a4c062d61bebb6e61197023f94aae52574474636b7198b",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/PaxosHowToWinATuringAward/MCConsensus.tla",
+      "sha256": "5d253478994e142ec1e8576f1d339a5bca18b563fef4a447ed2f0bff902bc8e4",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/PaxosHowToWinATuringAward/MCPaxos.tla",
+      "sha256": "b923b4753fe9dbf250d46e4fed0472b91f1e79056c80660d7268b0e3e5eabecd",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/PaxosHowToWinATuringAward/MCVoting.tla",
+      "sha256": "ae2a1c05f63e8e49ff6b330410bb65b5ee8090b1e8528d398281d46a25236abc",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/PaxosHowToWinATuringAward/Paxos.tla",
+      "sha256": "74be5e2d7f96db8b39073284dc183338a3f66552e87bae56857dd9d0e0c8cb9e",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/PaxosHowToWinATuringAward/Voting.tla",
+      "sha256": "d4bde738c5ad59042370210548eb3ff9ab3177fd03144fd0ab266cb1dcdeff11",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/PaxosHowToWinATuringAward/Voting_proof.tla",
+      "sha256": "d93b14c5b70e361e44c35c99eaa9e8f9284b010fdf5866b4ff7b0b501fbd1edf",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/Prisoners/APPrisoners.tla",
+      "sha256": "f0299eee5a377a6a12c9112110d4bcb6950bc6c14a4c03a49f9031e4827dd3a1",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/Prisoners/MCPrisoners.tla",
+      "sha256": "366173e15af298cef6ae6694544156360c1773118fe7b2c58c6a9a948adbee4b",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/Prisoners/Prisoners.tla",
+      "sha256": "b6c5c267a76320897c0fc7ebe57aa4267bf2ee836c89967eb53298d08817e140",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/Prisoners_Single_Switch/APPrisoner.tla",
+      "sha256": "5904ebb81105a169d0683eff41d2c383008866238491bed39df8fd4ed18b34c8",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/Prisoners_Single_Switch/Prisoner.tla",
+      "sha256": "00f8885e6cc56862b7dbf349809ae4415d1eac77d7dfaa6e480316be7f0cbeea",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/ReadersWriters/APReadersWriters.tla",
+      "sha256": "4274771776b2ec3d521dbdec8daa9f38fa36cef9975dee9c9a179813cf5f85be",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/ReadersWriters/MC.tla",
+      "sha256": "ebaa5772aab4758cfc62d249dcae493c60008ced982f428764212feb14a33366",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/ReadersWriters/ReadersWriters.tla",
+      "sha256": "3b51a02efbb409271f00133e32096459e4d0db2deb196dcbbee25638d0d07c8d",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/ReadersWriters/ReadersWriters_proof.tla",
+      "sha256": "1568700c9038ebd0b950961bb110def01c6980223d182357ec895a8592a3d689",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SDP_Verification/SDP_Attack_New_Solution_Spec/MC.tla",
+      "sha256": "298d32e25f4a63bd1d631ae531dfd58638a44df69c3cfcb0b9601973022efe79",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SDP_Verification/SDP_Attack_New_Solution_Spec/SPA_Attack_New.tla",
+      "sha256": "48656af7e6c3bbd93ea189680b719c9d92733000bc9d179789f10b56299adbe0",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SDP_Verification/SDP_Attack_Spec/MC.tla",
+      "sha256": "b3ea700f3d1b906d725b2d1f33f583d7e2d4a54053710cb77ddbefdf2815105b",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SDP_Verification/SDP_Attack_Spec/SPA_Attack.tla",
+      "sha256": "0a56df3330008e776995ac6f54c1e0f21435c087e66b65ef120a72039d437fde",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SimplifiedFastPaxos/FastPaxos.tla",
+      "sha256": "a02b8b22a53640ad5184b0c6cc7484f2aeb5ce5f91c1b05c4753bf4909446687",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SimplifiedFastPaxos/Paxos.tla",
+      "sha256": "1f2a6d31e00be1839081c9f170f84acbe852fe07bb1669a0dcae1af5dfc9f6a9",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SingleLaneBridge/APSingleLaneBridge.tla",
+      "sha256": "7c69557b93044b077e659216700710f8cce48d29401e1b0a20a3b60c5bf11941",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SingleLaneBridge/MC.tla",
+      "sha256": "ffde8f33fd0c4fdf75e6e719637837397f3607550981e40516b5a56e2b70c75e",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SingleLaneBridge/SingleLaneBridge.tla",
+      "sha256": "57315058ea10d408fd00bf6142bcd735d5848a0f835fbb6c3721a64b9e7465a5",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SlidingPuzzles/SlidingPuzzles.tla",
+      "sha256": "df0d6a46542a0b1aa7cdb5141923df2ea3770d241e4ca5afde0cb5c2234e76fd",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SlidingPuzzles/SlidingPuzzles_anim.tla",
+      "sha256": "35ab9b0b7e9c7ad657d31e961b73335e08d922ef9828f7d9431bf125647a1df4",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SlushProtocol/Slush.tla",
+      "sha256": "95303e105352d257abfd17feb6363948f728364a0aa47b043e43fd4118e3b16f",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpanningTree/APSpanTree.tla",
+      "sha256": "f6fa8aa77034860d216b28db437f1ccd3ff6867054dd80e0ef67f7ffd47f7cd0",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpanningTree/SpanTree.tla",
+      "sha256": "528cbe07f16d42e73aac18ff0bdf679c6adc5498f8bac92772a87ae5ea7a9456",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpanningTree/SpanTreeRandom.tla",
+      "sha256": "25b75ae2ccf1347036816c0440f10a50c63fdc61fa92a355f3b688abbab4a119",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpanningTree/SpanTreeTest.tla",
+      "sha256": "474ae020a81dc380a89b829366db79698eaaca6afb9cafb6579748d2838c6e5c",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpanningTree/SpanTree_proof.tla",
+      "sha256": "880d6a7f3b049e5a2b74bdf25394548088f988f7c6336443781160d3e1ae9d8c",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/AdvancedExamples/BNFGrammars.tla",
+      "sha256": "abf5367b41024c907dfd0d2dbe650c7bb43e121f3f1133ee6c2ce1dbe7f48580",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/AdvancedExamples/DifferentialEquations.tla",
+      "sha256": "0066a5018aac58a254e18791ce4010a504d35880d3a5f8a129eeed408179a5db",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/AdvancedExamples/Graphs.tla",
+      "sha256": "de5a703d7a040f02e5ed68f8646117852caa6e0886ba390ae305f8393f926377",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/AdvancedExamples/InnerSequential.tla",
+      "sha256": "aba1dfe174b3659c983cffcdb04bd9177c9f7bc3323344de8e73d50671ff9085",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/AdvancedExamples/InnerSerial.tla",
+      "sha256": "169e1d29975d0762d11fa123b987f7d117c77566496a0d0b781a3835d10e218b",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/AdvancedExamples/MCInnerSequential.tla",
+      "sha256": "23684e92316b323c59d210687b07f946f0150932ca537ab2f2972ed0a5501101",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/AdvancedExamples/MCInnerSerial.tla",
+      "sha256": "4b0322e0e3795bd1e63201b4876ac7b84e8acbe4fe56308ea7d57b64b084dc28",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/AdvancedExamples/RegisterInterface.tla",
+      "sha256": "2c5421475f5f8f3882d7caa5c98e31572a499cc4db88e5d8c10558f4a4f7da62",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/AdvancedExamples/SerialMemory.tla",
+      "sha256": "3b75a9387bfdf4e971422b342d159d782c81ea4e1f4e7644883bfcde52157d5e",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/AsynchronousInterface/APAsynchInterface.tla",
+      "sha256": "934e39d49d51c91cc2ab83a4042840fccbb6f452c8e6d10b7132d0c38a360ec9",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/AsynchronousInterface/APChannel.tla",
+      "sha256": "d3c1297ecca74ed632a27e19561ff3ee035314594e6330e7b2cbace7066bbabc",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/AsynchronousInterface/AsynchInterface.tla",
+      "sha256": "86adf068c65219ebe140e047dece85a9d04b9492d508e4aa4d5f86685ada09d4",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/AsynchronousInterface/AsynchInterface_proof.tla",
+      "sha256": "53aaf75ae7cb4ae3c6d58ffcaab6bc6136cb4b094bacb786eea5d62737a01ffc",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/AsynchronousInterface/Channel.tla",
+      "sha256": "8b2cbd4533a157ae0760e3117e3c008fb9a31dc3673005fc8b537d3879de1bfc",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/AsynchronousInterface/Channel_proof.tla",
+      "sha256": "d0e75bc6ae5102b7e27178f6dd3210398ddb9905ce086f9ddb995846be7b7a2a",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/AsynchronousInterface/PrintValues.tla",
+      "sha256": "3b71af5a55d460f6580dc26e66ff537b22f6d0e2d2cfe0924e5376597aafd080",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/CachingMemory/InternalMemory.tla",
+      "sha256": "8ba1a82a0f418b6b3c6c99ad06adfe808d604670d0d8c31ce05d53ed16d2aa73",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/CachingMemory/InternalMemory_proof.tla",
+      "sha256": "24170404352beae262fab14dafebc89b97f47cc70b40eaa5d61f05d5e58d8ded",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/CachingMemory/MCInternalMemory.tla",
+      "sha256": "67deb792930526267e556009d41a4eb6bf9ce663d6224d8c745b67acb2faffe2",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/CachingMemory/MCWriteThroughCache.tla",
+      "sha256": "e17b34c769b096b638fa472198b9e52490145dd02ef3eff66b8fa00b0c734019",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/CachingMemory/Memory.tla",
+      "sha256": "5f8e923b62c0f67535a59374a092f502676f21eda378108f3b85caca447174e0",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/CachingMemory/MemoryInterface.tla",
+      "sha256": "cb496258606d5323b1a8f1f4450460a676df68ca0f945764ac80e763078d2e5a",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/CachingMemory/WriteThroughCache.tla",
+      "sha256": "d63221a21377ee59c707dcf1ec05dd73be7616674343052a2b0d794b0c0526a2",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/CachingMemory/WriteThroughCacheInstanced.tla",
+      "sha256": "a150af608ff518b9b72bf9ceae5202bd984ed3c5de44f86a52117988cd300dd8",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/Composing/APChannel.tla",
+      "sha256": "f3cac6ad99aa1122d2966ff482c7c046e0ddd38442ba7364c49227c6dd2e09d3",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/Composing/APHourClock.tla",
+      "sha256": "b1ee6db9d303720f5302b73dee332afb1c9f11c29a86a7a4254c45cc895381c6",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/Composing/BinaryHourClock.tla",
+      "sha256": "8e0c13341979b79604b9d185ce6b8e382ca4687bca538ec76572b0c53e4f999c",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/Composing/Channel.tla",
+      "sha256": "8b2cbd4533a157ae0760e3117e3c008fb9a31dc3673005fc8b537d3879de1bfc",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/Composing/ChannelRefinement.tla",
+      "sha256": "0e56a3a57d5a9145d1dff3106e6918cce22077298bdc98343be33e3ba31bdb39",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/Composing/Channel_proof.tla",
+      "sha256": "d0e75bc6ae5102b7e27178f6dd3210398ddb9905ce086f9ddb995846be7b7a2a",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/Composing/CompositeFIFO.tla",
+      "sha256": "c3baede049ba6c25981f0ecf0843b5e4ab7ba66c77880b6f4e241ed94e6a985f",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/Composing/HourClock.tla",
+      "sha256": "985903176db4725f9cf25df84ad84dcd53ba94be80d26298b87ec86fbc9b08b3",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/Composing/HourClock_proof.tla",
+      "sha256": "4c1a78c4af90e7f6b19cc669ae779da69e9a2cb86e940dd9060f5a3bca864c68",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/Composing/InternalMemory.tla",
+      "sha256": "caeb7786a801cc6a5ce52193292091d5818d262cda8d664b63247cd955563ce9",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/Composing/InternalMemory_proof.tla",
+      "sha256": "24170404352beae262fab14dafebc89b97f47cc70b40eaa5d61f05d5e58d8ded",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/Composing/JointActionMemory.tla",
+      "sha256": "f7418b154c60dd156122c500962d9a9840b09e6a6db166f98fc092dd30987689",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/Composing/MemoryInterface.tla",
+      "sha256": "cb496258606d5323b1a8f1f4450460a676df68ca0f945764ac80e763078d2e5a",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/FIFO/APChannel.tla",
+      "sha256": "6bb1f596600cb121576bff44f67a191da7c105fbdb8c80c155f8ccdd3429eb34",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/FIFO/APInnerFIFO.tla",
+      "sha256": "8706d74891957f6d7ed84715fea05bd869212b47802dbbd96269fb4be15ed93c",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/FIFO/APInnerFIFOInstanced.tla",
+      "sha256": "f5ecc56ae0ef5bc90d114115561b1b74ebee75585f8fde00525f767ab7fbcb35",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/FIFO/APMCInnerFIFO.tla",
+      "sha256": "fb588810f2c4ada66cfb2f1b3547685f93e446aa95fe183455eb7a84093be36f",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/FIFO/Channel.tla",
+      "sha256": "8b2cbd4533a157ae0760e3117e3c008fb9a31dc3673005fc8b537d3879de1bfc",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/FIFO/Channel_proof.tla",
+      "sha256": "d0e75bc6ae5102b7e27178f6dd3210398ddb9905ce086f9ddb995846be7b7a2a",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/FIFO/FIFO.tla",
+      "sha256": "9fa4517cf5ccd8848164c263d73716db7f53fbbac8fcce5197bb6511519e88f6",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/FIFO/InnerFIFO.tla",
+      "sha256": "6971e25b26afd099fbeba9dd2f48e85dbfbd3461f75a01491613351211a6f907",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/FIFO/InnerFIFOInstanced.tla",
+      "sha256": "bfdb32a7fcf3a45814c2caa03b872ec1569373691422e7affb242ceecfad2c1c",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/FIFO/InnerFIFO_proof.tla",
+      "sha256": "26bec8a039d66568dec96fb71e86cedea7cd4bac377545ba5bc406cb06e00abf",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/FIFO/MCInnerFIFO.tla",
+      "sha256": "0307ab77efcefd78af6a5ddd2d6f382419a2b1e79112f5f16941ad83315936d7",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/HourClock/APHourClock.tla",
+      "sha256": "c8f348ca33893c58fc4c084b9e34543d13fcd8068fa4a078a49d3fcd59b569ea",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/HourClock/APHourClock2.tla",
+      "sha256": "82cb76c07c1f66c617c1bd3879837734e234b326d1bd8a8f50b5ec4ec376f291",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/HourClock/HourClock.tla",
+      "sha256": "985903176db4725f9cf25df84ad84dcd53ba94be80d26298b87ec86fbc9b08b3",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/HourClock/HourClock2.tla",
+      "sha256": "dfbb3e62e0ad33edec7d7dd5db8eba8a57f18778bf7c3adf1e5e4fe8dd6b69ca",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/HourClock/HourClock_proof.tla",
+      "sha256": "4c1a78c4af90e7f6b19cc669ae779da69e9a2cb86e940dd9060f5a3bca864c68",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/Liveness/APHourClock.tla",
+      "sha256": "566751e84f3f8783b1e37b3ca978d75583af104713234000c2cc890d28f7cf54",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/Liveness/APLiveHourClock.tla",
+      "sha256": "c9ee67ef8357b9912750a63a869ce1183b8ca27405a8dca8c6c423a0accf82ec",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/Liveness/HourClock.tla",
+      "sha256": "985903176db4725f9cf25df84ad84dcd53ba94be80d26298b87ec86fbc9b08b3",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/Liveness/HourClock_proof.tla",
+      "sha256": "4c1a78c4af90e7f6b19cc669ae779da69e9a2cb86e940dd9060f5a3bca864c68",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/Liveness/InternalMemory.tla",
+      "sha256": "caeb7786a801cc6a5ce52193292091d5818d262cda8d664b63247cd955563ce9",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/Liveness/InternalMemory_proof.tla",
+      "sha256": "24170404352beae262fab14dafebc89b97f47cc70b40eaa5d61f05d5e58d8ded",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/Liveness/LiveHourClock.tla",
+      "sha256": "44d1b10e8b617196589965b053720886a08cb2aeccc784e079dcc955b0c2313b",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/Liveness/LiveInternalMemory.tla",
+      "sha256": "47328a2e4c714b97df2579e3f145b3e4a34f380269ef1afe663cd48c1d5d30d6",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/Liveness/LiveWriteThroughCache.tla",
+      "sha256": "f87e3923afbf63b16c24ee10dfc946057ca0b1266a0741d77d94d5afd4182dfe",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/Liveness/MCInternalMemory.tla",
+      "sha256": "67deb792930526267e556009d41a4eb6bf9ce663d6224d8c745b67acb2faffe2",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/Liveness/MCLiveInternalMemory.tla",
+      "sha256": "46b09f1b84b763e366cc98a7af4a072b4371c5cdd06ef5396ebba49233490af8",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/Liveness/MCLiveWriteThroughCache.tla",
+      "sha256": "1ac113599f0d9263c7512febf7aa29a35877f8a2cbcb6191316ef0a929358238",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/Liveness/Memory.tla",
+      "sha256": "5f8e923b62c0f67535a59374a092f502676f21eda378108f3b85caca447174e0",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/Liveness/MemoryInterface.tla",
+      "sha256": "cb496258606d5323b1a8f1f4450460a676df68ca0f945764ac80e763078d2e5a",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/Liveness/WriteThroughCacheInstanced.tla",
+      "sha256": "a150af608ff518b9b72bf9ceae5202bd984ed3c5de44f86a52117988cd300dd8",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/RealTime/HourClock.tla",
+      "sha256": "985903176db4725f9cf25df84ad84dcd53ba94be80d26298b87ec86fbc9b08b3",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/RealTime/HourClock_proof.tla",
+      "sha256": "4c1a78c4af90e7f6b19cc669ae779da69e9a2cb86e940dd9060f5a3bca864c68",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/RealTime/InternalMemory.tla",
+      "sha256": "caeb7786a801cc6a5ce52193292091d5818d262cda8d664b63247cd955563ce9",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/RealTime/InternalMemory_proof.tla",
+      "sha256": "24170404352beae262fab14dafebc89b97f47cc70b40eaa5d61f05d5e58d8ded",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/RealTime/MCRealTime.tla",
+      "sha256": "284f1ba167b032e7408a6726e880f4b7fe682b7db1ed687c0dd8b8958ada50bf",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/RealTime/MCRealTimeHourClock.tla",
+      "sha256": "1228de54f974e17a0f9ce400ecc45464f7183eec8539f416a65cf60e8a4b61fd",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/RealTime/Memory.tla",
+      "sha256": "5f8e923b62c0f67535a59374a092f502676f21eda378108f3b85caca447174e0",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/RealTime/MemoryInterface.tla",
+      "sha256": "cb496258606d5323b1a8f1f4450460a676df68ca0f945764ac80e763078d2e5a",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/RealTime/RTMemory.tla",
+      "sha256": "eb9b22362dd86efb482b2b258ec8025c5ca8d6112b7c9ed9d0f1864ac6cd79cc",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/RealTime/RTWriteThroughCache.tla",
+      "sha256": "ff1e80f967bfd0a2243170f9413eabf9fb8ff2db30dad288a4c3f5fc21d185f0",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/RealTime/RealTimeHourClock.tla",
+      "sha256": "4b0766a0059ee9b790b4d68ab1866e8d8c5ca7b14a67ba855d3306f5370fe532",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/RealTime/RealTime_SS.tla",
+      "sha256": "06a125c2b3251b2bb762c9349facc2edd1a594839569d93cf68607a044e62ff3",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/RealTime/WriteThroughCache.tla",
+      "sha256": "d63221a21377ee59c707dcf1ec05dd73be7616674343052a2b0d794b0c0526a2",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/SimpleMath/SimpleMath.tla",
+      "sha256": "2fc09bd878a02b2e756b149b364352cc5c738d1266ca0323479baa2fcf6e95cd",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/Standard/Bags.tla",
+      "sha256": "7b673f7e6bad7ad17556bd9c9707ce21d2a77dd055aa0013182d85078b45b0e1",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/Standard/FiniteSets.tla",
+      "sha256": "85b585987fa5ab4d1fa19773c8e3d7667c6331756928faf3ee3779b0b4cf030a",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/Standard/Integers.tla",
+      "sha256": "a4d7f9746e2915f8c61b72ed1b5e79cca86a703a8ede5fd17f86f1a6348d6bc1",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/Standard/Naturals.tla",
+      "sha256": "8fb0de30f526e30131ea77578da35714267f016abb139506221b231b006697f3",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/Standard/Peano.tla",
+      "sha256": "c16d01e6d1f8f041622ba0067bb8873dc6215710b24c759f2ace49c490f3f273",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/Standard/ProtoReals.tla",
+      "sha256": "1f850db4e1c802674ee07c35ff40793a058fec1ecc647215eb2e8d1f63086247",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/Standard/Reals.tla",
+      "sha256": "205b76e578cfbee843cc92ea8f520cc3f3d9da0aedbdf792773db59ad5237e4d",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/Standard/Sequences.tla",
+      "sha256": "0514b464e9780d973a60b9d0bafe62313869ba5efdc91af134a517dc5c97204b",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/Syntax/BNFGrammars.tla",
+      "sha256": "abf5367b41024c907dfd0d2dbe650c7bb43e121f3f1133ee6c2ce1dbe7f48580",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/Syntax/TLAPlusGrammar.tla",
+      "sha256": "7922a9616da4020230cd470e83f452a5c8c63bc3d7241ae77394341801f74996",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/TLC/ABCorrectness.tla",
+      "sha256": "90c960c490f9fa66e919cc025cc4f31e3036be4949f78484799874a27ac6054b",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/TLC/AlternatingBit.tla",
+      "sha256": "27afc8a6ff033f7646d483eb8a987f2f3f89d351bbee8fffbacdc0af61b5ad6e",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/TLC/AlternatingBit_proof.tla",
+      "sha256": "2dbe363eecaf6644fff69d37df89292b6d1b03e4b068ef9de48e9cc603c1aea9",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/TLC/BNFGrammars.tla",
+      "sha256": "abf5367b41024c907dfd0d2dbe650c7bb43e121f3f1133ee6c2ce1dbe7f48580",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/TLC/ConfigFileGrammar.tla",
+      "sha256": "2a9efb65f2fa00f8bd3574cc34dc178063cbe2bac910eff1625a2cf8fb00ffae",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/SpecifyingSystems/TLC/MCAlternatingBit.tla",
+      "sha256": "b97edf65c80c0d0a116d1016fc2a95bf51a2e008bb1768bde2c52e828f08785a",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/Stones/Stones.tla",
+      "sha256": "76099e8a5c9c85806fd881b23eb09fc958d402f5e0c3d04653fbfbb2d8996eed",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/TLC/MCReachability.tla",
+      "sha256": "b2fa7632b3b92cc29fb60760ea1a3078d7a9dabd2a4eaf3baca2641096e05bf2",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/TLC/StateGraphs.tla",
+      "sha256": "cb23d28e09f6053d413df0acc37ebb91f7315be8bc833d8a36f954f9a4b5a1bb",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/TLC/TLCMC.tla",
+      "sha256": "5d553b7066376e909a093c6f5c0f881d5d37c4907a19f5d5738a465ec2ab4294",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/TLC/TestGraphs.tla",
+      "sha256": "444e8430c69b0598c5f6580f5ce7e4f9304ddb269211c35f997cfeff13063cf3",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/TLC/TestMCReachability.tla",
+      "sha256": "cf5d2ec158de5f0c3253ff62f22b569ffa867612aa6c1d473d04bab4ca32b81e",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/TeachingConcurrency/Simple.tla",
+      "sha256": "dd859866e8be0ee36b0005b0393becd788fe51aae7ebcd7deaa14c259a3c0bab",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/TeachingConcurrency/SimpleRegular.tla",
+      "sha256": "bf3872f04d71f7b80fcb55cecd07bf1b38fac3861fbb3452eb179c593c1bcdb5",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/TeachingConcurrency/SimpleRegular_proof.tla",
+      "sha256": "0bebedcf4a56e72ee29bf71aa6bc97f7e48ccc3bac18aca3db39829b3b789386",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/TeachingConcurrency/Simple_proof.tla",
+      "sha256": "f2e5348593cd1b4e4107c591442c1b625146f6907189013c822440d67c84d1af",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/TransitiveClosure/TransitiveClosure.tla",
+      "sha256": "c84ff1f8cd40e03953ff190cc2708359ec139268d035df31d7dd701ba26ffddb",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/TwoPhase/Alternate.tla",
+      "sha256": "4fd4a62a3c5bfa8c9d9f5e1defb2ec711bb6186b58681812b60a78f36e16f957",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/TwoPhase/MCTwoPhase.tla",
+      "sha256": "c2e0ab8004043d22833818fe2c4426bb393bbfde26bfddd9f904ee76a605a061",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/TwoPhase/TwoPhase.tla",
+      "sha256": "e33c65ab946b6bf45a94af2bf9bc790601099322b67dfd99bfb4f0d58d3915bf",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/TwoPhase/TwoPhase_proof.tla",
+      "sha256": "266202a2487e216e14b6a65a454ac0116b5e3f2d4801f74cfc3bf23f89b91602",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/YoYo/MCYoYoNoPruning.tla",
+      "sha256": "fe7df0862a86e31dc9d5dd783fd88ac442c8b5bd7e07550741c85fadda857a38",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/YoYo/MCYoYoPruning.tla",
+      "sha256": "f34a24d781f9a0580f2377678e38b2084e13d29f5acc3066b97b579097ffe85e",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/YoYo/YoYoAllGraphs.tla",
+      "sha256": "20cd0e15e4644f7f320eb598ed4b769ff406e2a2598c47bb897630afa4bca3d4",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/YoYo/YoYoNoPruning.tla",
+      "sha256": "d3485c1eda14899424b6c26129cc8fdcb9db595083116768b7452e22ba8bbbe8",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/YoYo/YoYoPruning.tla",
+      "sha256": "231e63a373b7552b2eecd61c31b148a3dfe89fcc7f41afe67ac2f2863e16dec0",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/aba-asyn-byz/aba_asyn_byz.tla",
+      "sha256": "8d58bba250c826ed5655364210152c873b52f9837c5592d1a688020abe4eab6c",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/acp/ACP_NB.tla",
+      "sha256": "0ef793affa1b0356021e7d512a37e0e0ef4f1e2de24b0dbfc3154b41dfbf3b22",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/acp/ACP_NB_TLC.tla",
+      "sha256": "f6b1fa054abc998a6601064d7339bdaeb9ce2f3825410ea068227db7122ecc43",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/acp/ACP_NB_WRONG_TLC.tla",
+      "sha256": "a0eed90eda36ab2ceeb324f5dfe211bcea3951bdeccf978db32cb1a4ccb1bd4d",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/acp/ACP_SB.tla",
+      "sha256": "a62fedef4725c150efd03f5a864bb607f2f3960686b518792144e1d781c6de89",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/acp/ACP_SB_TLC.tla",
+      "sha256": "fc5e9d4cc4312e03eaf73288683c24a8e755f467f2da63ce56a7c48cd97c8cb1",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/acp/APACP_SB.tla",
+      "sha256": "90e34d935e521e19974ff9d35f55f31f8934b96242fd32fd410d7b0c87f09b27",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/allocator/AllocatorImplementation.tla",
+      "sha256": "209c8953785972a12c699370fc39085ad732ec534bd7ed5b573a48a6ea3ba72e",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/allocator/AllocatorImplementation_proof.tla",
+      "sha256": "90e197d259730d495108449362d5a7efea47c6c80ab23b34d9712048c075b932",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/allocator/AllocatorRefinement.tla",
+      "sha256": "7c3900880a1a6235440d37818e43e9a2d818af4645b2bca1964a144adc95fb74",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/allocator/SchedulingAllocator.tla",
+      "sha256": "2079cbb8770147eff672f1f3fddd759064e63c0e2c31bfa6a08de57d2d3bac79",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/allocator/SchedulingAllocator_proof.tla",
+      "sha256": "11402242872c6bc07418a9fde6241b91bcb56c8f34d954188e5e25815edffae2",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/allocator/SimpleAllocator.tla",
+      "sha256": "39180889fb44ea7cbba47e97c2fa727a54c43f8f7ff983caf61d67eb0a2db0e3",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/allocator/SimpleAllocator_proof.tla",
+      "sha256": "7debe796f6ab469d08930cc81b5ce0e62697c48c517f17cacb191bbc6f62ff18",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/barriers/APBarrier.tla",
+      "sha256": "09e60969912d06bdbb88e391d821acb8e29718f78e6a15352a758ea826f4090a",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/barriers/Barrier.tla",
+      "sha256": "e4a28b2900e3769602e700c3d474e5ac2147a1187ce80ef2f365a029abc5c220",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/barriers/Barriers.tla",
+      "sha256": "34883b1e21d7b3c3fb02e5343844fa29f8663f9e602da0b3fc3f50653abc68ee",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/bcastByz/bcastByz.tla",
+      "sha256": "c0238947351cce5debb0543f11cde2b0ed7e84fb7b3339651cd0750e639e6a7d",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/bcastFolklore/APbcastFolklore.tla",
+      "sha256": "d1a2ba74d6cdb1b80c3e48a1e16548dd160631eb43df71959858b6d10ecd5ad1",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/bcastFolklore/bcastFolklore.tla",
+      "sha256": "1a5daf85a82219184ce6531d1b7600bf5dfc15dd04d98a75d06cf8109496ddd3",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/bosco/APbosco.tla",
+      "sha256": "be3a14daab5b7c0402aa7acf50f0841c073382ce69bb3b3138a2d626e73db47c",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/bosco/bosco.tla",
+      "sha256": "a2b9f8564b658992f036dadaeb5acdc8ba8b79ba1262400ca3217721796f7fd8",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/braf/BufferedRandomAccessFile.tla",
+      "sha256": "9fc2d7d7e2d73699da1da538fb21830171ebd905ed8bb63ae8108aba6652de17",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/btree/btree.tla",
+      "sha256": "6f415db52020da4b0f876c7037961f47cd4e40ef1b66322f3807d7bfee1168b3",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/btree/kvstore.tla",
+      "sha256": "c1131a8591f91c110f2a739dc91d20564542ac6f201d5b76be581e485cfbb376",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/byihive/VoucherCancel.tla",
+      "sha256": "8be98e04430febfdd779ccb6ace0d97d4a98e04a41a1ec204311c68ecf222a95",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/byihive/VoucherIssue.tla",
+      "sha256": "d399e0a3159de507a0c034d942b0ae9ca7a1e7400bc1c4fcf9b193e5a63cc0e5",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/byihive/VoucherLifeCycle.tla",
+      "sha256": "6eadee511ab80cc35f389104c8b558677ba5572ce621422a0f0ffdebdc72505f",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/byihive/VoucherLifeCycle_proof.tla",
+      "sha256": "10ec05b68d1b4c8641ab151e00835bd596bcf87cb536b9b75d9fcea1da9b1319",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/byihive/VoucherRedeem.tla",
+      "sha256": "ddda749e9049f736c2ddaeb4acbacc93b7c8f4bff890700a06e4d32e0e73827a",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/byihive/VoucherTransfer.tla",
+      "sha256": "0a645d46eec0b818d69924811dcd96589ac6c4d02eee2e82fc99a45c436832b8",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/byzpaxos/BPConProof.tla",
+      "sha256": "daa731dcadf12a892415131881d82d5b23e56c53097e90b986a24b1408a2e3c6",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/byzpaxos/Consensus.tla",
+      "sha256": "5b877e93b31c982e80b1443127bc2c50c090d7f8d729d468f3b42849315205bf",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/byzpaxos/PConProof.tla",
+      "sha256": "c78bd085b8e5ec696034d8a259d6d00df1576cf6c553c2c0d89a78d3198fe659",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/byzpaxos/VoteProof.tla",
+      "sha256": "89f9ca0345801ed0834542c1332bc2b6bb3feb9a95da40d750793e8948d696da",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/c1cs/APc1cs.tla",
+      "sha256": "d09488e62cdf94f7313e62e521cea9d7b62150cd4ce457659d3435dbc6e90270",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/c1cs/c1cs.tla",
+      "sha256": "ee222e8a5a7defc2d449ec30ee24053036560b6b7f1107ab2ab115427fb53af0",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/cbc_max/cbc_max.tla",
+      "sha256": "0837487b9257afa7de94d1ef2dd6afd735fb6b1d8a0e8fd9b060caed86e64b04",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/cf1s-folklore/APcf1s_folklore.tla",
+      "sha256": "2422141e95884cdee6591ff7312399af4fa5df53d5fcc7f37d77c85fa0b5ce5a",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/cf1s-folklore/cf1s_folklore.tla",
+      "sha256": "50dec6842e4af32c020bf0d72dd2c7b11cc89b574218aa206c23c04ad3d1e7e2",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/chang_roberts/APChangRoberts.tla",
+      "sha256": "cc5e6adf949b003f353eeb4b8e5ea6499b99bc477fd7dc799c045b9e83221366",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/chang_roberts/ChangRoberts.tla",
+      "sha256": "867fa5151013b9999f4f0337e813a48255840ff438a5d0498524ea313ed83937",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/chang_roberts/MCChangRoberts.tla",
+      "sha256": "5005fd1f2e674a146399044de17c89c268c79b2bcc1f08297f878f2adad96614",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/dag-consensus/BlockDag.tla",
+      "sha256": "6d581d7e2abf65fbe2adca591fdf999e2868210b1b2d740f46d6e4cb6a723a29",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/dag-consensus/BlockDagTest.tla",
+      "sha256": "ad63b7d3fc193dd0374170d12052ae414d53134a789c8f8b85275c503eb552cb",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/dag-consensus/Digraph.tla",
+      "sha256": "d89e6b7ffb1f25e288bdfef9b80c2259493ae5381929a10b8bb4a949b0db6be5",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/dag-consensus/Sailfish.tla",
+      "sha256": "8230344952934bf6b4c8dfdb7b66b421877d4cc16056657d02b35ad18551588b",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/dag-consensus/TLCSailfish1.tla",
+      "sha256": "d0548fa25e0ab1476c436de537f4907326811b5d9fd1e25a88fb08d4510b4c9a",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/dag-consensus/TLCSailfish2.tla",
+      "sha256": "1ecaedb6ea3cf1c42e3039651fe367b0861a418d255560bd1cffd248c77531f3",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/dag-consensus/Utils.tla",
+      "sha256": "b38f43403c4d5cfd4b733613935e9ac92149c26d055d44b77f0b9c81c6644a1e",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/detector_chan96/Age_Channel.tla",
+      "sha256": "2235e13cbf2e930caeda1ae3a592c1f6e3c166a9903bddb8bef4e931cb413d47",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/detector_chan96/EPFailureDetector.tla",
+      "sha256": "34407972eef86a8353374086558ede7a1ae611794ff399ca528112b431414b25",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/detector_chan96/EnvironmentController.tla",
+      "sha256": "27d4468fd8dae883b066b2e9aba0b3bae1402260e373362ed7b79935c0480372",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/dijkstra-mutex/DijkstraMutex.tla",
+      "sha256": "eacf4da395557f2291c7a09a7203af530ac3e4dff1ea178cb84270a9fc6661e1",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/dijkstra-mutex/DijkstraMutex.toolbox/LSpec-model/DijkstraMutex.tla",
+      "sha256": "b0033a7059170cda363091b64da3e01ba78822ed348592a3c979575fb10dff6d",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/dijkstra-mutex/DijkstraMutex.toolbox/LSpec-model/MC.tla",
+      "sha256": "592100b6baef4ec24cca79c97bdb5c7b83e7f7b7f2174b7a12a3591c69a6786c",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/dijkstra-mutex/DijkstraMutex.toolbox/Safety-4-processors/DijkstraMutex.tla",
+      "sha256": "b0033a7059170cda363091b64da3e01ba78822ed348592a3c979575fb10dff6d",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/dijkstra-mutex/DijkstraMutex.toolbox/Safety-4-processors/MC.tla",
+      "sha256": "ed5b3aaaf9ffacc4f2821d646472f35e73faf5fed2148a31c468787a558046c4",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/diskpaxos/DiskSynod.tla",
+      "sha256": "c3924d65bfedaf991a43f50b1739822543e8e25b39c15854f9bf80cab09902da",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/diskpaxos/HDiskSynod.tla",
+      "sha256": "1758028ad1a579b045189ed305392361a5d154101ed8f9773bc3955f7646713a",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/diskpaxos/MC_HDiskSynod.tla",
+      "sha256": "f70a04902aaa20b175daddeead891e2f687128b8fe43b30cee3049bbb46af041",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/diskpaxos/Synod.tla",
+      "sha256": "4bd2a69cc03151158cb422a0ee670470ad62b0dd2b56bc1d49a67cf77c3cc008",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/echo/Echo.tla",
+      "sha256": "1b2079afdb6b79e801411de95c846399d97589bc84cb651855b93989ca3a3b83",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/echo/MCEcho.tla",
+      "sha256": "505c7e02bec386dd24cd1b0f33e16cbc1b7fe02edda7dd63689ad4172d01c2ac",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/echo/Relation.tla",
+      "sha256": "396cfc86672145d54002f6052b0fcfcfc3802bc3294520b4d8add6d91e9504a5",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/ewd426/APTokenRing.tla",
+      "sha256": "0b2f2e0ec93a3d9ae34575883f75fefd9303ca59b42c82c0a0dcf16612565724",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/ewd426/SimTokenRing.tla",
+      "sha256": "e2c7d77c6cc12c2f4117750fba8d7d78463612f3b4717f09cdd00c089662191e",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/ewd426/TokenRing.tla",
+      "sha256": "e13841dfa43b3bd65a35d53c0c7c02bf8de42bb6864bd202ba30b724b33a056f",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/ewd687a/EWD687a.tla",
+      "sha256": "9a5e07de75e8c2c4df6a52a2548b7643f102d9b5c7e1ad0faa07b631247feb57",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/ewd687a/EWD687aPlusCal.tla",
+      "sha256": "77f4c63b86fec0dfc96811dfdce0e1f862a87dc429242701bafaa8bcb0fb272a",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/ewd687a/EWD687a_anim.tla",
+      "sha256": "7b62d90a697d03adabe353ae17bd52b8bea6ac26458b1c641f80f3f423feabf0",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/ewd687a/EWD687a_proof.tla",
+      "sha256": "ef41c7c30e0918bfa5fde720b5510961933f18915840c335391bef24f5166c74",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/ewd687a/MCEWD687a.tla",
+      "sha256": "d042d17c49b3acdcaf3edba594df436b7962b077601a20f13a4af5f41522b2c7",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/ewd840/APEWD840.tla",
+      "sha256": "821ef5e07819ebf6d923c99112a3a5b75ebc6cb36f7b8e1f1be51ea09e29e90b",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/ewd840/APSyncTerminationDetection.tla",
+      "sha256": "08cee0501a38644345ca7d61ec7e7b7b20c445d3c6251a94834c2818890f24ae",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/ewd840/EWD840.tla",
+      "sha256": "4a42e8a67c7ecb8425c6e370a5d3b180ad697751128d7b331e778afbcd29b747",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/ewd840/EWD840_anim.tla",
+      "sha256": "d95cc641e5ff12bdc815b6e7dad5ff47748b0c9f309d805f243b3669b748c636",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/ewd840/EWD840_json.tla",
+      "sha256": "c0a4dca40a55ab18fc2c32bd1352905ed025ea5e047862401bb3f4afcaf08801",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/ewd840/EWD840_proof.tla",
+      "sha256": "2b00ab2de84711226037c464f6d39213169d695a1f049f57058c55e115c0586e",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/ewd840/SyncTerminationDetection.tla",
+      "sha256": "3626ab87e7431a7c07cf0f92b442fdf38363e6d7a9928f2391476c54a1e4fb2e",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/ewd840/SyncTerminationDetection_proof.tla",
+      "sha256": "77cb25e68e54084a4ac07327bb60f0ad171d3aa969cdf278cb4836a504d4983b",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/ewd998/AsyncTerminationDetection.tla",
+      "sha256": "c1b15be68a73c6e5f69c5c09f2736870182a9b0765ad9860452240119911b030",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/ewd998/AsyncTerminationDetection_proof.tla",
+      "sha256": "87cc4e25be553691b1819b1be20b0addec2f724cec9ffe081014b23f99722ec7",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/ewd998/EWD998.tla",
+      "sha256": "b51ba3587e0d1b88a38cc15cd667b7a50ccb72e7f5f79f7260c97e473f9392e8",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/ewd998/EWD998Chan.tla",
+      "sha256": "ebdb5e9c6469fb1afc3b12198e1e2159b3ff3fa76d7bd15e5e11dce92b72313c",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/ewd998/EWD998ChanID.tla",
+      "sha256": "c498e5e35a83d84257016fdf4ba359ddb40dbb5f3b2234656e32b419a5499e93",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/ewd998/EWD998ChanID_export.tla",
+      "sha256": "638f814c422250d6debe1209419971b66ead59c8aa8aca4a2efcc29feb379985",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/ewd998/EWD998ChanID_shiviz.tla",
+      "sha256": "43739b7a7c0754fbb2cf5a7606df9bd9610fc4bc3f22b79aab559e2f4e630c98",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/ewd998/EWD998ChanTrace.tla",
+      "sha256": "da182795698ff457ae8979b7d97cd47842d75e3d860323ca02031dc47c940171",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/ewd998/EWD998Chan_opts.tla",
+      "sha256": "4f29c2b6208a54f1ba954fe455f47c70898789b9549d97b6deca6c9efbeaacab",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/ewd998/EWD998PCal.tla",
+      "sha256": "d1622e16901edfa5b01d4e9c00779408b97483156d241c7b0f22515a1d81dc0d",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/ewd998/EWD998PCal_proof.tla",
+      "sha256": "fdf1114b7c47216f4b4a3c81db0cc34dd92c0712bad6c31eef09751835d906fd",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/ewd998/EWD998_anim.tla",
+      "sha256": "6265b417dc405685a3e860493bb21bc4481b2ac278daff99e281a25e7324e209",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/ewd998/EWD998_opts.tla",
+      "sha256": "5eab17aa1ab6cff0df0cda646453e240c92ed7378e51b4c97b3597fb732a8f85",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/ewd998/EWD998_optsSC.tla",
+      "sha256": "bf863afe83e52cc6c08e671100a1c15bb4d9ad6735b7887f8ac5cd254ef2334d",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/ewd998/EWD998_proof.tla",
+      "sha256": "0126fcb6d16df43a33384fd47425bca69296236856c34bee2410f41fa0c98091",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/ewd998/Folds.tla",
+      "sha256": "2f8c0a7de9a64a5276a78cb7b048e18038d37787439bb9e60df126dc7608a35a",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/ewd998/Functions.tla",
+      "sha256": "74eb363182d05d09c86526d9ffe29aa67e6559e81d895f496a568fde6879dc41",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/ewd998/SmokeEWD998.tla",
+      "sha256": "c59b406bc1d54108b3d842e41bc2444c915adde416ebd8a02cb5fe4f6b13f808",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/ewd998/SmokeEWD998_SC.tla",
+      "sha256": "063fe7c67a95789aeb793a67b8ac0135be60749356824e5d85fbe1fed09599d3",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/ewd998/Utils.tla",
+      "sha256": "386c5319fd101fdde36610466f82151e8a39e01d1c6c8c44e894f7589bcc2b7b",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/glowingRaccoon/APclean.tla",
+      "sha256": "d11d3186ab9403c013dc12b78935021f769f9aba036047cf801a04a676a88d70",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/glowingRaccoon/APstages.tla",
+      "sha256": "1a977e6718c316b30e8b570db81dda842535d463e05de46e5bbe413a34058a7f",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/glowingRaccoon/clean.tla",
+      "sha256": "48ba67d167d158f4e34238e13b135ad83cb705ea12d842c0a3506ff851990d73",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/glowingRaccoon/clean_proof.tla",
+      "sha256": "f653d9241d938ead6ee72c509b6e46fdd46eab05678f576d0c8878155863f0f4",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/glowingRaccoon/product.tla",
+      "sha256": "f6e7d141ed63230da2703f595cc13c9aa11e1b8278228029acb04f5355e8acad",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/glowingRaccoon/stages.tla",
+      "sha256": "dcd17e4a4d968f8cdae866b673052219afb88b9af0055cb24c1f75670bdf3a17",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/glowingRaccoon/stages_proof.tla",
+      "sha256": "73946eb71b7070ac84537be95cba254ec767dce4afb95b47e346b49fbb2792cc",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/lamport_mutex/APLamportMutex.tla",
+      "sha256": "4d894d361a203b91900400e0db5e9a2886ee690389311bd6944b7688194233e4",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/lamport_mutex/LamportMutex.tla",
+      "sha256": "dfa726da541fb0515ad482c3b5ca82c81b6f54df6626c3b9edfcebedc2a9c05a",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/lamport_mutex/LamportMutex_proofs.tla",
+      "sha256": "9cbecb6501595b2222e663e09145f48d3cd73df2c817f07acc4d76acb9ca9f61",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/lamport_mutex/MCLamportMutex.tla",
+      "sha256": "2ebf6f863f504f76cfcb4a3bc8228aae1c5a896e7f2f8d046f8ab763656ccca8",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/locks_auxiliary_vars/Lock.tla",
+      "sha256": "f10562642cb5d9cb6a3d3912d93917fa692a97ab9a879fa3b3f2c7989098765f",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/locks_auxiliary_vars/LockHS.tla",
+      "sha256": "a34543670fc7fb46332624aa46ab6f350b67de5f0ffb59ec0b1c50cfe3500d10",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/locks_auxiliary_vars/Peterson.tla",
+      "sha256": "0cad3a0a34bdf495606aa0b3a27d58d2a6568b4d1a4fe4bdc4b45d723a90cba7",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/locks_auxiliary_vars/Stuttering.tla",
+      "sha256": "4556219687510d41abfeb20587260278346b17ffa9cfff24142d6c089d8ba834",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/nbacc_ray97/nbacc_ray97.tla",
+      "sha256": "c763b946f4135a439c67daa5b3d4ce55977726855b8af8198e453fc795c2f353",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/nbacg_guer01/APnbacg_guer01.tla",
+      "sha256": "0e7528e77217c97ad63ad2387cee2044f307d9becc20ecd5d46ff7887ba55c4a",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/nbacg_guer01/nbacg_guer01.tla",
+      "sha256": "01beedb7aa321e51e626d11fd71298113c56995173569a9814be599f5943703d",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/spanning/APspanning.tla",
+      "sha256": "40fe5524348094ba798effb2c0abd80c91f089f5f6b1aa62cac8a85547888c13",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/spanning/MC_spanning.tla",
+      "sha256": "08e4703ccdcf45be11aaacb91971bf0bcbd69adc8e27b227e7085189df2d6bc5",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/spanning/spanning.tla",
+      "sha256": "878e917b075f6cd2bfa2a2d0083c1c66e9eb47fe2baaed41dd9a0a28fbcb2c36",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/spanning/spanning_proof.tla",
+      "sha256": "2c96247c40d77a391d56f0cc744d0c0fa7818ffbb0d99d10e411bf82afedf59a",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/sums_even/MC_sums_even.tla",
+      "sha256": "82c5c8f9390d51c7f3e397badd51fdbf7d36c46a02a45249f5b76213ebac7251",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/sums_even/sums_even.tla",
+      "sha256": "44f0b85145ad3de36b12904a18c408de3134cea7c80343b2e1a52940b5f07e19",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/tcp/APtcp.tla",
+      "sha256": "4dcaeb65d34b733433a7909af31ed903cf36186ce71172c461656c075a3d1ba3",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/tcp/IndInv_apa.tla",
+      "sha256": "b693691a75bc5ec95d19e30f84ea9f8e76946e250ddc55e3d8c5a12754c501f0",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/tcp/MCtcp.tla",
+      "sha256": "7b8b8167e2bd0ab8991168afd4a1c057906939ffb6166cd93ea283fe002c606e",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/tcp/tcp.tla",
+      "sha256": "c77f6c0c33e54d4b3ce8ecfd934967569be3f7c613c89b4fdcdfa3768fc56e92",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/tcp/tcp_proof.tla",
+      "sha256": "23e7180bc27ce366579f604dfda04887e0b32e5642531c5efaf768ebea1e8cd7",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/tower_of_hanoi/Bits.tla",
+      "sha256": "26d661e7c8b38df31eeedfeca84ad4db6d74dc36ec013b676affd0243221e34f",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/tower_of_hanoi/Hanoi.tla",
+      "sha256": "29a54ca2eb07e863c4d9f3f59ae27d2442861acdb5e1aab3f2c7674d2057f948",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/tower_of_hanoi/Hanoi.toolbox/Model_1/Bits.tla",
+      "sha256": "26d661e7c8b38df31eeedfeca84ad4db6d74dc36ec013b676affd0243221e34f",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/tower_of_hanoi/Hanoi.toolbox/Model_1/Hanoi.tla",
+      "sha256": "29a54ca2eb07e863c4d9f3f59ae27d2442861acdb5e1aab3f2c7674d2057f948",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/tower_of_hanoi/Hanoi.toolbox/Model_1/MC.tla",
+      "sha256": "e1500033dd4411fb24382a9e8cb41e5384d2fc77cd731704b69d94c7d1638975",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/tower_of_hanoi/HanoiSeq.tla",
+      "sha256": "1d8a45e45814ddee06242b182da16200be978cd664dac53125cb5ecdf76d0b60",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/tower_of_hanoi/Hanoi_anim.tla",
+      "sha256": "84c5e135fd6c6d5125ad988870793ed183370e6f36bfe1b15cea015b1268cd2e",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/transaction_commit/2PCwithBTM.tla",
+      "sha256": "ea518313d91f44080ddd8a062439e24be52c6851173952558436124f35227198",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/transaction_commit/APTCommit.tla",
+      "sha256": "c7bc5fb5728f34cc86a0f338205dca12864ffd7e6a89b561b2faea2f80ef74c0",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/transaction_commit/PaxosCommit.tla",
+      "sha256": "95ae4ea62bc1767f233a9e66d21ca6233ccf2464a4f8fd9fabea0fc5c15aebcd",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/transaction_commit/PaxosCommit_proof.tla",
+      "sha256": "f0c634c7fdda167b3ffacf5b0631545e09e9e1a3b37f0506ba68c17cefbae843",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/transaction_commit/TCommit.tla",
+      "sha256": "98974d8c5ee007f4f62188737c20c7dcdb05af099cc53a59c8b8651331fd925d",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/transaction_commit/TCommit_proof.tla",
+      "sha256": "a6e1f248ce225bbf9e61c45006cbed84b63381c5f6ea99194ad4ee9477fc22ff",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/transaction_commit/TwoPhase.tla",
+      "sha256": "e6e72ed0097cca55e80b97af33c3bc54792a504bcbdf639d6d9c666f49c17817",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/transaction_commit/TwoPhase_proof.tla",
+      "sha256": "01a016d40ffdea5f0350dfe75c853d9b0766d3c7a62b41373a0c33af1f66df0b",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/tla_benchmark/data/tla_files/2.tla",
+      "sha256": "0ef793affa1b0356021e7d512a37e0e0ef4f1e2de24b0dbfc3154b41dfbf3b22",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/tla_benchmark/data/tla_files/5.tla",
+      "sha256": "a62fedef4725c150efd03f5a864bb607f2f3960686b518792144e1d781c6de89",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/tla_benchmark/data/tla_files/13.tla",
+      "sha256": "e30e4fc5558357406b890b3249eda6ec0ec7d5e191b1469adc3774990c1fbe25",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/tla_benchmark/data/tla_files/14.tla",
+      "sha256": "e1a52928940ae952cd25a3888cecb962f615237d5e81e4c164c9bfd64f82f3fa",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/tla_benchmark/data/tla_files/15.tla",
+      "sha256": "130307c0148f5c273a0ff2cb0d9edad7a512391284827ec1b1562ee168eab116",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/prove-TLA/corpus/configs/patches/30.tla",
+      "sha256": "bfdbeb0a3da80b65ff0cfd318695512762cbe13fd8096def22810f11a1d1f11c",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/tla_benchmark/data/tla_files/32.tla",
+      "sha256": "0e709f85c9fd764e8410fd57201b5c0900eb5bcb881168709c2376e921b29b32",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/tla_benchmark/data/tla_files/37.tla",
+      "sha256": "4b8b476f37462e721a1b3db2f92bbbfaaf5aba794506220de6224b1691fbea62",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/tla_benchmark/data/tla_files/41.tla",
+      "sha256": "34407972eef86a8353374086558ede7a1ae611794ff399ca528112b431414b25",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/tla_benchmark/data/tla_files/55.tla",
+      "sha256": "505c7e02bec386dd24cd1b0f33e16cbc1b7fe02edda7dd63689ad4172d01c2ac",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/tla_benchmark/data/tla_files/86.tla",
+      "sha256": "720a31f61573f1d925f66c75982b3b539b7bd5b25753b7e233cbf48456b4ada7",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/tla_benchmark/data/tla_files/95.tla",
+      "sha256": "dcd6d626946faab35ac22ad38a031b0d9bd9bc274d8750340506acc407dccbc6",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/tla_benchmark/data/tla_files/105.tla",
+      "sha256": "d56b4099a07a48485c7754e4082a8c4ea53fbfa064b438ad8cdb43e0c7efa320",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/tla_benchmark/data/tla_files/106.tla",
+      "sha256": "7ffa38a940992bec344fe7d033e9ac7acc85e0180aeacee59512a26807e14254",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/tla_benchmark/data/tla_files/121.tla",
+      "sha256": "a1f60ca5457e8a4ab51d8fc89c20b0cd5877f7cd286bf595ff234a2b35089567",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/tla_benchmark/data/tla_files/128.tla",
+      "sha256": "f789005d07077380c428c0ce1243f9c8b5a73cc522d3165d724e9b28b48fad6a",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/tla_benchmark/data/tla_files/131.tla",
+      "sha256": "e41aa348899514843da234124bb584ed56b41ec5b1e126b35bf09859878c609d",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/tla_benchmark/data/tla_files/132.tla",
+      "sha256": "26c9d3dfcc49022b59ce761677b8d75501c91e64bcf5c1c128ce3184aa7b811e",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/tla_benchmark/data/tla_files/133.tla",
+      "sha256": "8669e2c4bd80d5be177e8331a0c5415c605ef3bb5d7f7ec0651a7194b7f67f81",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/tla_benchmark/data/tla_files/135.tla",
+      "sha256": "51b25788a688f63bf28788530e0b7884d635ae1feb69b4def405b126af80a7b1",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/tla_benchmark/data/tla_files/141.tla",
+      "sha256": "4ebb3f079b1bb76361b0473b26b8c833dedf6b0437f422b7b02c4514dcf32a12",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/tla_benchmark/data/tla_files/142.tla",
+      "sha256": "be290ee350eb4e885702e538d8ddc43bb1ab9f16784b3d8763b6c86230a47197",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/tla_benchmark/data/tla_files/143.tla",
+      "sha256": "afb87e6ebc4af897ab9b27f90729c0170f061f8d95444a54035df1afaf21c65a",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/tla_benchmark/data/tla_files/148.tla",
+      "sha256": "8a4b2d8958a36f9bbeef83b6232e835a72e9b1ccf8e4561c12ab0b66ebb26b82",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/tla_benchmark/data/tla_files/158.tla",
+      "sha256": "86364a0a958cd14787a4b72f76de6fa84dcbd0f66a1a7b7c56f0f71f8b992f88",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/tla_benchmark/data/tla_files/168.tla",
+      "sha256": "3b51a02efbb409271f00133e32096459e4d0db2deb196dcbbee25638d0d07c8d",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/tla_benchmark/data/tla_files/174.tla",
+      "sha256": "95303e105352d257abfd17feb6363948f728364a0aa47b043e43fd4118e3b16f",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/tla_benchmark/data/tla_files/181.tla",
+      "sha256": "82c5c8f9390d51c7f3e397badd51fdbf7d36c46a02a45249f5b76213ebac7251",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/tla_benchmark/data/tla_files/183.tla",
+      "sha256": "720a31f61573f1d925f66c75982b3b539b7bd5b25753b7e233cbf48456b4ada7",
+      "hits": []
+    },
+    {
+      "path": "/Users/eric/GitHub/tla_benchmark/data/tla_files/191.tla",
+      "sha256": "29a54ca2eb07e863c4d9f3f59ae27d2442861acdb5e1aab3f2c7674d2057f948",
+      "hits": []
+    }
+  ],
+  "candidates": [
+    {
+      "path": "results/runs/tla-prefix-repair-ranked-greedy-20260916-v1/sany/candidates/47-baseline/W4Od2m7p4t2.tla",
+      "sha256": "1e8c6ff81f2662b74b6d408a6c5ed78972fa33971a50a53e9333fbedab3b3ada",
+      "hits": [
+        {
+          "start_line": 12,
+          "end_line": 14,
+          "indent": 7,
+          "operators": [
+            [
+              12,
+              "\\/"
+            ],
+            [
+              13,
+              "/\\"
+            ],
+            [
+              14,
+              "/\\"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "path": "results/runs/tla-prefix-repair-ranked-greedy-20260916-v1/sany/candidates/107-baseline/W4Od3m0p0t0.tla",
+      "sha256": "82e78bb4428f9b759e1165cea19c6a1c13204b528ee0b90eb6debbd3052356cd",
+      "hits": []
+    }
+  ],
+  "claims": {
+    "sany_claim": false,
+    "model_improvement_claim": false,
+    "gate_claim": false
+  }
+}
