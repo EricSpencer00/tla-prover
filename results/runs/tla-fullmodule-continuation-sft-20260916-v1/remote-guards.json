@@ -1,0 +1,19 @@
+{
+  "complete": true,
+  "destination": "/home/eric-spencer/tla-fullmodule-continuation-sft-20260916-v1",
+  "manifest_sha256": "51af9fe77953f46de12ebc88528af13b088355dd3e646e8482a21bcce73fca15",
+  "packet_sha256": "a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c",
+  "parent_sha256": "87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511",
+  "preflight_sha256": "ebd32d0109d40ddd85de3f0c6c2e0642e5dcd5f3152ec965f6b34c3264e0c81d",
+  "sany_jar_sha256": "936a262061c914694dfd669a543be24573c45d5aa0ff20a8b96b23d01e050e88",
+  "python_compile": true,
+  "cli_help": true,
+  "pycache_clean": true,
+  "result_namespace_empty": true,
+  "owned_queue_empty": true,
+  "gpu_submitted": false,
+  "model_improvement_claim": false,
+  "quality_claim": false,
+  "gate_claim": false,
+  "proof_claim": false
+}
