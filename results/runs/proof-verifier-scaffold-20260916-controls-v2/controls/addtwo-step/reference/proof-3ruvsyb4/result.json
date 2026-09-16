@@ -1,0 +1,29 @@
+{
+  "certified": true,
+  "status": "pass",
+  "proved": 8,
+  "total": 8,
+  "output": "(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/proof-verifier-scaffold-20260916-controls-v2/controls/addtwo-step/reference/proof-3ruvsyb4/.tlacache/AddTwo.tlaps/AddTwo.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/proof-verifier-scaffold-20260916-controls-v2/controls/addtwo-step/reference/proof-3ruvsyb4/.tlacache/AddTwo.tlaps/fingerprints\" *)\nFile \"./AddTwo.tla\", line 1, character 1 to line 45, character 77:\n[INFO]: All 8 obligations proved.\n",
+  "seconds": 0.40268397331237793,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-verifier-scaffold-20260916-controls-v2/controls/addtwo-step/reference/proof-3ruvsyb4",
+  "reason": "",
+  "sha256": "6da9d52fdfa61c32defa566645a20d11fae7bab9ea5e8c576173a02f1fd253ce",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/proof-verifier-scaffold-20260916-controls-v2/controls/addtwo-step/reference/proof-3ruvsyb4/AddTwo.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/proof-verifier-scaffold-20260916-controls-v2/controls/addtwo-step/reference/proof-3ruvsyb4/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "AddTwo.tla"
+  ],
+  "returncode": 0,
+  "timed_out": false
+}

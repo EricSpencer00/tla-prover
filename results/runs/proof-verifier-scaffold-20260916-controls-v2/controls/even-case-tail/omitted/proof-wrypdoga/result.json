@@ -1,0 +1,11 @@
+{
+  "certified": false,
+  "status": "contract_reject",
+  "proved": 0,
+  "total": 0,
+  "output": "",
+  "seconds": 0.0,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-verifier-scaffold-20260916-controls-v2/controls/even-case-tail/omitted/proof-wrypdoga",
+  "reason": "admission, declaration, or module injection",
+  "sha256": "9a016eab3c775b9a8ab51cd1f7c4170ef7af7a607961dc81306f3d04892590e2"
+}

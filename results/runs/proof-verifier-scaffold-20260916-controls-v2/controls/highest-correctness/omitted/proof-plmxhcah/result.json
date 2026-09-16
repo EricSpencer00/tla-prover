@@ -1,0 +1,11 @@
+{
+  "certified": false,
+  "status": "contract_reject",
+  "proved": 0,
+  "total": 0,
+  "output": "",
+  "seconds": 0.0,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-verifier-scaffold-20260916-controls-v2/controls/highest-correctness/omitted/proof-plmxhcah",
+  "reason": "admission, declaration, or module injection",
+  "sha256": "785439d1b935d9259b0f7beb86c059e68a21f977d398cce58c5861478b0ab802"
+}

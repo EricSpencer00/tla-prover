@@ -1,0 +1,11 @@
+{
+  "certified": false,
+  "status": "contract_reject",
+  "proved": 0,
+  "total": 0,
+  "output": "",
+  "seconds": 0.0,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-verifier-scaffold-20260916-controls-v2/controls/addtwo-init/omitted/proof-em5htcrn",
+  "reason": "admission, declaration, or module injection",
+  "sha256": "90fdf33c1022ca778fdf492354bc1f000ae34a731673b4ee9b911ca0baec83bc"
+}

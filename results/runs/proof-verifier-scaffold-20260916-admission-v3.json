@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "kind": "cpu_answer_free_verifier_scaffold_admission",
+  "verified_utc": "2026-09-16T20:37:20Z",
+  "manifest_sha256": "c186ddf0007c5b5adfdc345a06feb777a89746160cf9041b875a8655ed1eb344",
+  "train_packet_sha256": "d94b9e7ceea870f8eedeeda1eae4878208ecd27740e0b3aec2809728932a2d28",
+  "development_packet_sha256": "bec0946900d52e2a236eb53622b4b267bc2e229b6e426e3afb6bf00630ead6b8",
+  "index_sha256": "622cd16a56437852b29b9d3ce78d59adc28cd8cd63dd790594ebae2ed7e05480",
+  "controls": {
+    "manifest_sha256": "c186ddf0007c5b5adfdc345a06feb777a89746160cf9041b875a8655ed1eb344",
+    "controls_sha256": "512c005c9457fa594b3c7073dac68462db9a3d95c7e92d1a89af0ef55457dcbc",
+    "verifier_identity_sha256": "c473115dd80fe1fb653fbede10d0ac4c8f32191ac3d15a0073c7b426605104af",
+    "controls": 34,
+    "train_tasks": 17,
+    "reference_controls_passed": 17,
+    "omitted_controls_rejected": 17
+  },
+  "protected_denominators": {
+    "official119": {
+      "count": 119,
+      "manifest_sha256": "270ca22d3c060b75308b35825b00fe7d375dcaaa390f903a913d904ce9128992"
+    },
+    "official30": {
+      "count": 30,
+      "manifest_sha256": "ecfc20533b9dc9a6e727ab989732310659d469eefbcc3705df72e3094ef54f78"
+    }
+  },
+  "train_packet": {
+    "tasks": 17,
+    "nonempty_retrieval": 3
+  },
+  "development_packet": {
+    "tasks": 4,
+    "nonempty_retrieval": 2
+  },
+  "admitted": true,
+  "model_executed": false,
+  "training_executed": false,
+  "proof_or_quality_claim": false,
+  "scope": "CPU packet integrity and verifier controls only; no model, GPU, proof-gate, or quality claim",
+  "implementation_sha256": "5038613820271a20b917680843d03bb0e6ef272de58c6f74da1bc27fbcb3c04c"
+}

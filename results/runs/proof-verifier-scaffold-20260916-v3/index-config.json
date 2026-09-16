@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "kind": "answer_free_verifier_trace_index",
+  "trace_rows": [
+    {
+      "path": "results/proof_traces/corpus-v1/rows.jsonl",
+      "sha256": "7720612fe8f5f61becf27bbcdbe4f3b8be7c16dbbb5c533868947444f9e0283c",
+      "bytes": 3658508
+    },
+    {
+      "path": "results/proof_traces/examples-v1/rows.jsonl",
+      "sha256": "32614830713339a55c4270635683c51779ed2e8dedfd1f52ede94747f82495a4",
+      "bytes": 20653428
+    }
+  ],
+  "excluded_modules": [
+    "AddTwo",
+    "AtomicCommit",
+    "AtomicRegister",
+    "ByzantineQuorum",
+    "CRDT_proof",
+    "CircuitBreaker",
+    "DistributedLock",
+    "EventCount",
+    "FindHighest",
+    "HeartbeatFailureDetector",
+    "IdempotencyKey",
+    "LeaderLease",
+    "ResourceLease",
+    "RetryWithBackoff",
+    "RoundRobinScheduler",
+    "Simple",
+    "SleepingBarber",
+    "SzymanskiMutex",
+    "TokenRing",
+    "TwoPhaseLockingDeadlock",
+    "VotingMajority",
+    "WitnessReplication",
+    "sums_even"
+  ],
+  "allowed_sources": [
+    "corpus",
+    "examples"
+  ],
+  "entries": 3970,
+  "index_sha256": "622cd16a56437852b29b9d3ce78d59adc28cd8cd63dd790594ebae2ed7e05480",
+  "safe_fields": [
+    "shape_signature",
+    "features",
+    "backend",
+    "theorem_kind",
+    "source_kind",
+    "support_count"
+  ],
+  "forbidden_trace_fields": [
+    "answer",
+    "by_facts",
+    "candidate",
+    "candidates",
+    "proof",
+    "proof_body",
+    "proof_module",
+    "reference",
+    "reference_fragment",
+    "response",
+    "successful_candidate"
+  ],
+  "proof_or_quality_claim": false
+}

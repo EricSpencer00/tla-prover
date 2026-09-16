@@ -1,0 +1,29 @@
+{
+  "certified": true,
+  "status": "pass",
+  "proved": 20,
+  "total": 20,
+  "output": "(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/proof-verifier-scaffold-20260916-controls-v2/controls/simple-conclusion/reference/proof-e1kp30nx/.tlacache/Simple.tlaps/Simple.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/proof-verifier-scaffold-20260916-controls-v2/controls/simple-conclusion/reference/proof-e1kp30nx/.tlacache/Simple.tlaps/fingerprints\" *)\nFile \"./Simple.tla\", line 1, character 1 to line 159, character 77:\n[INFO]: All 20 obligations proved.\n",
+  "seconds": 1.245469331741333,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-verifier-scaffold-20260916-controls-v2/controls/simple-conclusion/reference/proof-e1kp30nx",
+  "reason": "",
+  "sha256": "c68d3c66c055afbcfaaa7affa666e8f2f557050690ea5c39d75ab861144d5cd6",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/proof-verifier-scaffold-20260916-controls-v2/controls/simple-conclusion/reference/proof-e1kp30nx/Simple.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/proof-verifier-scaffold-20260916-controls-v2/controls/simple-conclusion/reference/proof-e1kp30nx/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "Simple.tla"
+  ],
+  "returncode": 0,
+  "timed_out": false
+}

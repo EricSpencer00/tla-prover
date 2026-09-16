@@ -1,0 +1,11 @@
+{
+  "certified": false,
+  "status": "contract_reject",
+  "proved": 0,
+  "total": 0,
+  "output": "",
+  "seconds": 0.0,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-verifier-scaffold-20260916-controls-v2/controls/highest-inductive-step/omitted/proof-x13bah60",
+  "reason": "admission, declaration, or module injection",
+  "sha256": "cef38d340a2f360c8b041ba4aacb0e7f35d2d35ecb20f99db16b910bb79cf14a"
+}

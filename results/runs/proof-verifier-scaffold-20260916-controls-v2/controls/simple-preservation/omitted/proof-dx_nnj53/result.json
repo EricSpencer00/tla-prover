@@ -1,0 +1,11 @@
+{
+  "certified": false,
+  "status": "contract_reject",
+  "proved": 0,
+  "total": 0,
+  "output": "",
+  "seconds": 0.0,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-verifier-scaffold-20260916-controls-v2/controls/simple-preservation/omitted/proof-dx_nnj53",
+  "reason": "admission, declaration, or module injection",
+  "sha256": "822a4f98f9555d02d324a009572ed1b662ac61b45206b1131e0ff903b9d5d5db"
+}

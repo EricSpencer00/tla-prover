@@ -1,0 +1,29 @@
+{
+  "certified": true,
+  "status": "pass",
+  "proved": 21,
+  "total": 21,
+  "output": "(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/proof-verifier-scaffold-20260916-controls-v2/controls/odd-case-tail/reference/proof-wp606eg3/.tlacache/sums_even.tlaps/sums_even.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/proof-verifier-scaffold-20260916-controls-v2/controls/odd-case-tail/reference/proof-wp606eg3/.tlacache/sums_even.tlaps/fingerprints\" *)\nFile \"./sums_even.tla\", line 1, character 1 to line 33, character 77:\n[INFO]: All 21 obligations proved.\n",
+  "seconds": 0.4538388252258301,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-verifier-scaffold-20260916-controls-v2/controls/odd-case-tail/reference/proof-wp606eg3",
+  "reason": "",
+  "sha256": "76e4a2f7d29dc800c9a33000c05fefd24e7881897eba5ac6befc28ea95e42b78",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/proof-verifier-scaffold-20260916-controls-v2/controls/odd-case-tail/reference/proof-wp606eg3/sums_even.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/proof-verifier-scaffold-20260916-controls-v2/controls/odd-case-tail/reference/proof-wp606eg3/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "sums_even.tla"
+  ],
+  "returncode": 0,
+  "timed_out": false
+}
