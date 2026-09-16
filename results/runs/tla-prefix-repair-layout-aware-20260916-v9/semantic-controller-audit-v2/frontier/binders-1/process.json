@@ -1,0 +1,31 @@
+{
+  "command": [
+    "/usr/bin/java",
+    "-cp",
+    "/Users/eric/GitHub/prove-TLA/tools/tla2tools.jar",
+    "tla2sany.SANY",
+    "W4Od2m7p4t2.tla"
+  ],
+  "cwd": "/Users/eric/GitHub/prove-TLA/results/runs/tla-prefix-repair-layout-aware-20260916-v9/semantic-controller-audit-v2/frontier/binders-1",
+  "root_pid": 82103,
+  "root_reaped": true,
+  "returncode": 0,
+  "output": "\n****** SANY2 Version 2.1 created 24 February 2014\n\nParsing file /Users/eric/GitHub/prove-TLA/results/runs/tla-prefix-repair-layout-aware-20260916-v9/semantic-controller-audit-v2/frontier/binders-1/W4Od2m7p4t2.tla\nParsing file /private/var/folders/2q/79m85_bj1qlbkz3sts_bdfl00000gn/T/Naturals.tla\nSemantic processing of module Naturals\nSemantic processing of module W4Od2m7p4t2\nSemantic errors:\n\n*** Errors: 6\n\nline 16, col 17 to line 16, col 17 of module W4Od2m7p4t2\n\nMultiply-defined symbol 'd': this definition or declaration conflicts \nwith the one at line 15, col 17 to line 15, col 17 of module W4Od2m7p4t2.\n\n\nline 17, col 17 to line 17, col 17 of module W4Od2m7p4t2\n\nMultiply-defined symbol 'd': this definition or declaration conflicts \nwith the one at line 15, col 17 to line 15, col 17 of module W4Od2m7p4t2.\n\n\nline 19, col 14 to line 19, col 14 of module W4Od2m7p4t2\n\nMultiply-defined symbol 'd': this definition or declaration conflicts \nwith the one at line 15, col 17 to line 15, col 17 of module W4Od2m7p4t2.\n\n\nline 20, col 17 to line 20, col 17 of module W4Od2m7p4t2\n\nMultiply-defined symbol 'd': this definition or declaration conflicts \nwith the one at line 15, col 17 to line 15, col 17 of module W4Od2m7p4t2.\n\n\nline 21, col 17 to line 21, col 17 of module W4Od2m7p4t2\n\nMultiply-defined symbol 'd': this definition or declaration conflicts \nwith the one at line 15, col 17 to line 15, col 17 of module W4Od2m7p4t2.\n\n\nline 22, col 17 to line 22, col 17 of module W4Od2m7p4t2\n\nMultiply-defined symbol 'd': this definition or declaration conflicts \nwith the one at line 15, col 17 to line 15, col 17 of module W4Od2m7p4t2.\n\n\n\n",
+  "seconds": 0.17796699999598786,
+  "timed_out": false,
+  "output_complete": true,
+  "output_limit": false,
+  "cleanup_complete": true,
+  "surviving_owned_processes": [],
+  "owned_processes": [
+    {
+      "pid": 82103,
+      "created": 1789532361.390224,
+      "pgid": 82103
+    }
+  ],
+  "signals": [],
+  "errors": [],
+  "execution_complete": true,
+  "containment": "Best-effort ancestry polling; instantaneous unobserved reparenting is not excluded"
+}

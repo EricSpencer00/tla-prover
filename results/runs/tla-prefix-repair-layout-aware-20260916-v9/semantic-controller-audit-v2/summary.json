@@ -1,0 +1,130 @@
+{
+  "complete": true,
+  "controls_ok": true,
+  "protected_rows": [
+    47,
+    107
+  ],
+  "measured_rows": [
+    47
+  ],
+  "unmeasured_rows": [
+    107
+  ],
+  "binder_count": 8,
+  "first_sany_passing_repair": 7,
+  "cumulative_frontier_monotonic": true,
+  "rejected_before_first_pass": true,
+  "all_repairs_at_or_after_first_pass": true,
+  "controller_policy": "select only the first SANY-passing scoped repair; reject all earlier frontier states",
+  "controls": [
+    {
+      "label": "reference",
+      "status": "pass",
+      "passed": true,
+      "candidate_sha256": "36c548d2a475c0d086ddf0340f927b36002699ce86e955d702e061324ad2f07c",
+      "module_name": "W4Od2m7p4t2",
+      "returncode": 0,
+      "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-prefix-repair-layout-aware-20260916-v9/semantic-controller-audit-v2/controls/reference/sany.log"
+    },
+    {
+      "label": "negative",
+      "status": "model_sany_reject",
+      "passed": false,
+      "candidate_sha256": "bdc6071bd60c72a6d7ca788895226ad63f9f0b4c83eb16ffae6829bbfbe0b394",
+      "module_name": "W4Od2m7p4t2",
+      "returncode": 255,
+      "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-prefix-repair-layout-aware-20260916-v9/semantic-controller-audit-v2/controls/negative/sany.log"
+    }
+  ],
+  "observed": {
+    "status": "model_sany_reject",
+    "passed": false,
+    "candidate_sha256": "5ff6fcac5e09649bd557dd0cb238f19b061ae6296167d134748de10022f0de08",
+    "module_name": "W4Od2m7p4t2",
+    "returncode": 0,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-prefix-repair-layout-aware-20260916-v9/semantic-controller-audit-v2/candidates/observed/sany.log"
+  },
+  "frontier": [
+    {
+      "changed_binders": 1,
+      "status": "model_sany_reject",
+      "passed": false,
+      "candidate_sha256": "e072ed3dd106ac430b808a489823f1b91500b2db3390be903efbbc89793c1a67",
+      "module_name": "W4Od2m7p4t2",
+      "returncode": 0,
+      "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-prefix-repair-layout-aware-20260916-v9/semantic-controller-audit-v2/frontier/binders-1/sany.log"
+    },
+    {
+      "changed_binders": 2,
+      "status": "model_sany_reject",
+      "passed": false,
+      "candidate_sha256": "75934135242f4780492a44862e5767c6ac0d7f74da68352f20c340b49c1df1aa",
+      "module_name": "W4Od2m7p4t2",
+      "returncode": 0,
+      "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-prefix-repair-layout-aware-20260916-v9/semantic-controller-audit-v2/frontier/binders-2/sany.log"
+    },
+    {
+      "changed_binders": 3,
+      "status": "model_sany_reject",
+      "passed": false,
+      "candidate_sha256": "0c24e705d9954d03653017eadbaaa5e790d8b3e259e3e85af908a5b1683e02a3",
+      "module_name": "W4Od2m7p4t2",
+      "returncode": 0,
+      "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-prefix-repair-layout-aware-20260916-v9/semantic-controller-audit-v2/frontier/binders-3/sany.log"
+    },
+    {
+      "changed_binders": 4,
+      "status": "model_sany_reject",
+      "passed": false,
+      "candidate_sha256": "8a52b5ecf0bdd5093e9157a78beffada5b4fd8ffa1d5bd5b097cdfc39b4407b5",
+      "module_name": "W4Od2m7p4t2",
+      "returncode": 0,
+      "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-prefix-repair-layout-aware-20260916-v9/semantic-controller-audit-v2/frontier/binders-4/sany.log"
+    },
+    {
+      "changed_binders": 5,
+      "status": "model_sany_reject",
+      "passed": false,
+      "candidate_sha256": "83e1b0fae22a47dfaf22d3a355c4fa4d0c0fccb926694484fbb6f5c75237bc0c",
+      "module_name": "W4Od2m7p4t2",
+      "returncode": 0,
+      "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-prefix-repair-layout-aware-20260916-v9/semantic-controller-audit-v2/frontier/binders-5/sany.log"
+    },
+    {
+      "changed_binders": 6,
+      "status": "model_sany_reject",
+      "passed": false,
+      "candidate_sha256": "dcec66959519f2f259f3760edbf43ecd527c465e05675fbff0adca3689709baf",
+      "module_name": "W4Od2m7p4t2",
+      "returncode": 0,
+      "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-prefix-repair-layout-aware-20260916-v9/semantic-controller-audit-v2/frontier/binders-6/sany.log"
+    },
+    {
+      "changed_binders": 7,
+      "status": "pass",
+      "passed": true,
+      "candidate_sha256": "ad0ea0f22b234612d567125bbdf6da4363ccea4fd2cc576390fc01ce02827f15",
+      "module_name": "W4Od2m7p4t2",
+      "returncode": 0,
+      "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-prefix-repair-layout-aware-20260916-v9/semantic-controller-audit-v2/frontier/binders-7/sany.log"
+    },
+    {
+      "changed_binders": 8,
+      "status": "pass",
+      "passed": true,
+      "candidate_sha256": "2b97ea1ba202452704624998f7a9fe93b7ce8e5e5e38076f5d4390012a74f532",
+      "module_name": "W4Od2m7p4t2",
+      "returncode": 0,
+      "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-prefix-repair-layout-aware-20260916-v9/semantic-controller-audit-v2/frontier/binders-8/sany.log"
+    }
+  ],
+  "transformed_candidate_is_diagnostic_only": true,
+  "model_improvement_claim": false,
+  "quality_claim": false,
+  "gate_claim": false,
+  "proof_claim": false,
+  "generalization_claim": false,
+  "tlc_claim": false,
+  "nonvacuity_claim": false
+}

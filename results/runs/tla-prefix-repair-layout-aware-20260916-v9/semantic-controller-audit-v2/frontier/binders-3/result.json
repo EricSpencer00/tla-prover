@@ -1,0 +1,8 @@
+{
+  "status": "model_sany_reject",
+  "passed": false,
+  "candidate_sha256": "0c24e705d9954d03653017eadbaaa5e790d8b3e259e3e85af908a5b1683e02a3",
+  "module_name": "W4Od2m7p4t2",
+  "returncode": 0,
+  "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-prefix-repair-layout-aware-20260916-v9/semantic-controller-audit-v2/frontier/binders-3/sany.log"
+}

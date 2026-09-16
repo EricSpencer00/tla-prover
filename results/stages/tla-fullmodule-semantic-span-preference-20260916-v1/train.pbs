@@ -1,0 +1,46 @@
+#!/bin/bash
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-w4-semantic-span-v1
+#PBS -l select=1:system=polaris:ncpus=64:ngpus=1
+#PBS -l walltime=00:15:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+#PBS -o /home/eric-spencer/tla-fullmodule-semantic-span-preference-20260916-v1/train.stdout
+#PBS -e /home/eric-spencer/tla-fullmodule-semantic-span-preference-20260916-v1/train.stderr
+set -euo pipefail
+PREFERENCE_ROOT="${PREFERENCE_ROOT:-/home/eric-spencer/tla-fullmodule-semantic-span-preference-20260916-v1}"
+PREFERENCE_MANIFEST_SHA="${PREFERENCE_MANIFEST_SHA:-a038695e26fe6bf05630b8e226f1f156ff54ad3965708b6697dd6b8a9c2d161e}"
+RUN_ROOT=/home/eric-spencer/tla-parent-broader-sany-replay-20260915-v1
+BASE=/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1
+DEPENDENCY_ROOT=/home/eric-spencer/tla-fullmodule-structural-corruption-preference-20260915-v2
+export PYTHONPATH="$PREFERENCE_ROOT:$RUN_ROOT:$BASE"
+export TLA_TOOLS_PATHS="$PREFERENCE_ROOT/tools:$RUN_ROOT/tools:$BASE/tools"
+export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false
+export HF_HOME=/grand/EVITA/eric-spencer/hf-cache PYTHONUNBUFFERED=1
+export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1
+export PATH="/grand/EVITA/eric-spencer/tools/jre21/bin:$PATH"
+export JAVA_HOME=/grand/EVITA/eric-spencer/tools/jre21
+PYTHON=/home/eric-spencer/ChatTLA/.venv/bin/python
+test -x "$PYTHON"
+MODEL_PATH=/grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659
+test -f "$MODEL_PATH/config.json"
+PACKET="$RUN_ROOT/packet.json"
+JAR="$BASE/tools/tla2tools.jar"
+SOURCE=/home/eric-spencer/tla-structured-span-train-20260914-v3/result.7618905/policy_optimizer.pt
+MANIFEST="$PREFERENCE_ROOT/preflight-v3/manifest.json"
+STORAGE_ROOT=/home/eric-spencer/tla-fullmodule-semantic-span-preference-20260916-v1
+START="/tmp/tla-semantic-span-${PBS_JOBID%%.*}.pt"
+test -f "$PACKET" -a -f "$JAR" -a -f "$SOURCE" -a -f "$MANIFEST"
+test "$(sha256sum "$PACKET" | awk '{print $1}')" = a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c
+test "$(sha256sum "$SOURCE" | awk '{print $1}')" = 87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511
+test "$(sha256sum "$MANIFEST" | awk '{print $1}')" = "$PREFERENCE_MANIFEST_SHA"
+cp "$SOURCE" "$START"
+test "$(sha256sum "$START" | awk '{print $1}')" = 87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511
+OUT="$STORAGE_ROOT/result.${PBS_JOBID%%.*}"
+test ! -e "$OUT"
+"$PYTHON" -u "$PREFERENCE_ROOT/tools/proof_fullmodule_semantic_span_preference_train.py" train \
+  --packet "$PACKET" --jar "$JAR" --java "$JAVA_HOME/bin/java" --output "$OUT" \
+  --manifest "$MANIFEST" --manifest-sha256 "$PREFERENCE_MANIFEST_SHA" \
+  --checkpoint "$START" --model "$MODEL_PATH"
+test -f "$OUT/policy_optimizer.pt"

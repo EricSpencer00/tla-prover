@@ -1,0 +1,8 @@
+{
+  "status": "model_sany_reject",
+  "passed": false,
+  "candidate_sha256": "bdc6071bd60c72a6d7ca788895226ad63f9f0b4c83eb16ffae6829bbfbe0b394",
+  "module_name": "W4Od2m7p4t2",
+  "returncode": 255,
+  "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-prefix-repair-layout-aware-20260916-v9/semantic-controller-audit-v2/controls/negative/sany.log"
+}

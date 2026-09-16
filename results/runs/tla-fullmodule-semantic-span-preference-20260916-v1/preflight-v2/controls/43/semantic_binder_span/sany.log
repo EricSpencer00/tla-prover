@@ -1,0 +1,28 @@
+
+****** SANY2 Version 2.1 created 24 February 2014
+
+Parsing file /Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-semantic-span-preference-20260916-v1/preflight-v2/controls/43/semantic_binder_span/W4Od13m7p1t4.tla
+Parsing file /private/var/folders/2q/79m85_bj1qlbkz3sts_bdfl00000gn/T/Naturals.tla
+Semantic processing of module Naturals
+Semantic processing of module W4Od13m7p1t4
+Semantic errors:
+
+*** Errors: 3
+
+line 48, col 11 to line 48, col 16 of module W4Od13m7p1t4
+
+Multiply-defined symbol 'record': this definition or declaration conflicts 
+with the one at line 14, col 11 to line 14, col 16 of module W4Od13m7p1t4.
+
+
+line 49, col 12 to line 49, col 12 of module W4Od13m7p1t4
+
+Unknown operator: `c'.
+
+
+line 50, col 24 to line 50, col 24 of module W4Od13m7p1t4
+
+Unknown operator: `c'.
+
+
+
