@@ -1,0 +1,40 @@
+{
+  "kind": "protected_layout_aware_repair_stage_validation_v7",
+  "objective": "layout_aware_prefix_admission_extended_precedence_comment_free_traced_bounded_backtracking_repair",
+  "packet_sha256": "a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c",
+  "corpus_sha256": "fb76468f6a3217a359d54da92a2e3fa25396aad0547e6b5eb35129193a0e812a",
+  "grammar_sha256": "2bcc86946f0a858628f455a3d0648c7117e2b780743e1f25dff82cebd0fb4d67",
+  "child_checkpoint_sha256": "87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511",
+  "runner_sha256": "30b86e5a3e84b538f8746dcaab452692455e5138a8d3897c005f68824370a35d",
+  "selector_sha256": "1aa34984ced2ee36a267dee4ec9a94f0ff465fe3b9d790175b3d49458bc5969f",
+  "precedence_guard_sha256": "ba8c744f2e898d94a1b3b8a92c29f85c37af7b51050b37921a10877564306e2b",
+  "comment_guard_sha256": "6e3117afee2544bb41bc95278ee2e61a224efdf7a287b9177293026c192cbed2",
+  "layout_audit_sha256": "72b41dea7d6e4da7ca1532967db46d7b76cd840caca1924b32380b5c0b814809",
+  "preflight_sha256": "4c569421946fcd207028f16f12f90b24182817b7f89975c988277197195f15e8",
+  "pbs_sha256": "dede714e5c95b1556137940a36d9ed9827febafc3ccb60ed2ba6680a0bfad822",
+  "contract": {
+    "rows": [47, 107],
+    "max_new_tokens": 2048,
+    "repair_max_new_tokens": 512,
+    "selector_audit_steps": 4,
+    "backtrack_windows": [64, 128, 256, 512],
+    "failure_trace_fields": ["attempt", "status", "rollback_tokens", "banned_token", "remaining_tokens", "selected_tokens", "failure_steps"],
+    "prefix_preserving": true,
+    "layout_guard": "same-indent contiguous junction runs plus extended audited precedence forms during prefix admission and repair; comment-free protected repair; bounded rollback bans",
+    "known_good_false_rejects": 0,
+    "known_good_denominator": 438,
+    "reference_conditioning": false,
+    "training": false,
+    "protected_sany_denominator": 2,
+    "gpu_walltime_minutes": 15,
+    "comment_free_repair": true,
+    "comment_free_reference_denominator": 2
+  },
+  "claims": {
+    "model_weights_loaded": false,
+    "cuda_touched": false,
+    "gate_claim": false,
+    "model_improvement_claim": false,
+    "proof_claim": false
+  }
+}
