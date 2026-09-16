@@ -4,8 +4,8 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 694
-- Verified UTC: 2026-09-16T03:14:39Z
+- Revision: 696
+- Verified UTC: 2026-09-16T03:24:48Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: local_work
 - Active job: none
@@ -13,7 +13,7 @@ This is the only execution board. It records verified observations, not continuo
 - Latest completed result: V8 job7626636 finished F/Exit1 after00:03:56 on x3109c0s1b0n0/0*64. Row47 produced a partial253-token repair from accepted prefix89 without grammar completion; row107 admitted prefix138 and exhausted five traced guarded attempts at39 selected tokens each without a finite continuation. Preserve raw receipts as a decoder negative; no complete protected denominator, SANY, model, quality or gate credit exists.
 - Local work: Structural-curriculum v3, corruption-preference v2, multilayer LoRA v3, the narrow and wide full-sequence contrastive diagnostics and the grammar frontier audit remain preserved and committed; large base checkpoints stay outside Git. The wide run has complete raw evidence and remains a negative diagnostic: protected rows47/107 stay fixed holdouts, no generated feedback/replay was loaded, and the programmatic Discord watchdog remains live. The full-replay beam and cache-aware v1 ranked-greedy repair are preserved as bounded negatives and will not be replayed unchanged. The independent receipt scorer confirms the v1 grammar over-accepts the same SANY precedence failures it was designed to leave permissive. The layout-aware v3/v4/v5 failures remain preserved. V6 applies precedence guarding during baseline prefix extraction while retaining bounded rollback and partial failure traces. Its targeted CPU audit demonstrates the row107 prefix stops before the mixed-definition violation and retains a large finite guarded continuation set; no SANY, model, quality or gate credit is assigned.
 - External blocker: none verified
-- Next action: Score the complete row47 plus partial row107 receipt with the independent v7 partial scorer, preserve its no-credit result, and choose a materially different decoder hypothesis rather than replaying v8 unchanged.
+- Next action: Perform one final fresh empty-queue/output check, submit exactly one claimed v9 one-GPU diagnostic for00:15:00, and monitor only that job through terminal completion. No SANY, model, quality or gate credit is permitted without independent evidence.
 
 ## Objective and evidence rules
 
@@ -37,6 +37,8 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 
 ## Decisions
 
+- 2026-09-16T03:24:48Z: V9 is remotely static-admitted at /home/eric-spencer/tla-prefix-repair-layout-aware-20260916-v9. Exact SHA256, remote Python compilation, PBS syntax, pycache/output-namespace and owned-queue guards pass; no-weights CPU preflight is complete with cuda_touched=false, model_weights_loaded=false, lexical invalid/valid controls true, gate_claim=false and model_improvement_claim=false. Unique claim 505dae53 is acquired; submit exactly one bounded one-GPU diagnostic after one final live empty-queue/output check. No SANY/model/quality/gate credit.
+- 2026-09-16T03:21:39Z: V9 is locally staged append-only as a materially different lexical-safety intervention. It adds a narrow guard for the observed SANY-invalid #</#> adjacent operator corruption; the audit rejects the v8 row47 #< candidate, passes438 known-good modules with0 false rejects, and passes synthetic invalid/valid controls. V8 remains a negative with no model/quality/gate credit; upload and CPU admission are next.
 - 2026-09-16T03:14:39Z: Job7626636 finished F/Exit1 after00:03:56 on x3109c0s1b0n0/0*64 with one GPU. Row47 produced a partial253-token repair from accepted prefix89 without grammar completion; row107 admitted prefix138 and exhausted five traced guarded attempts at39 selected tokens each without a finite continuation. Preserve raw log/receipts and independently score only row47; the protected denominator is incomplete and no SANY/model/quality/gate credit exists.
 - 2026-09-16T03:10:24Z: Final live owned-queue/output checks passed and exactly one claimed v8 diagnostic was submitted as job7626636. PBS reports R on x3109c0s1b0n0/0*64 in debug with one GPU,64 CPUs and00:15:00 walltime. Monitor only this job; no SANY/model/quality/gate credit.
 - 2026-09-16T03:07:12Z: V8 is remotely static-admitted at /home/eric-spencer/tla-prefix-repair-layout-aware-20260916-v8. Exact SHA256, remote Python compilation, PBS syntax, pycache/output-namespace and owned-queue guards pass; no-weights CPU preflight is complete with cuda_touched=false, model_weights_loaded=false, gate_claim=false and model_improvement_claim=false. Its direct quantified-junction audit passes438 known-good modules with0 false rejects. Unique claim acc81d6d is acquired; submit exactly one bounded one-GPU diagnostic after one final live empty-queue/output check. No SANY/model/quality/gate credit.
@@ -497,8 +499,8 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 694,
-  "verified_utc": "2026-09-16T03:14:39Z",
+  "revision": 696,
+  "verified_utc": "2026-09-16T03:24:48Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "local_work",
   "active_job": null,
@@ -506,7 +508,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
   "last_result": "V8 job7626636 finished F/Exit1 after00:03:56 on x3109c0s1b0n0/0*64. Row47 produced a partial253-token repair from accepted prefix89 without grammar completion; row107 admitted prefix138 and exhausted five traced guarded attempts at39 selected tokens each without a finite continuation. Preserve raw receipts as a decoder negative; no complete protected denominator, SANY, model, quality or gate credit exists.",
   "local_work": "Structural-curriculum v3, corruption-preference v2, multilayer LoRA v3, the narrow and wide full-sequence contrastive diagnostics and the grammar frontier audit remain preserved and committed; large base checkpoints stay outside Git. The wide run has complete raw evidence and remains a negative diagnostic: protected rows47/107 stay fixed holdouts, no generated feedback/replay was loaded, and the programmatic Discord watchdog remains live. The full-replay beam and cache-aware v1 ranked-greedy repair are preserved as bounded negatives and will not be replayed unchanged. The independent receipt scorer confirms the v1 grammar over-accepts the same SANY precedence failures it was designed to leave permissive. The layout-aware v3/v4/v5 failures remain preserved. V6 applies precedence guarding during baseline prefix extraction while retaining bounded rollback and partial failure traces. Its targeted CPU audit demonstrates the row107 prefix stops before the mixed-definition violation and retains a large finite guarded continuation set; no SANY, model, quality or gate credit is assigned.",
   "external_blocker": null,
-  "next_action": "Score the complete row47 plus partial row107 receipt with the independent v7 partial scorer, preserve its no-credit result, and choose a materially different decoder hypothesis rather than replaying v8 unchanged.",
+  "next_action": "Perform one final fresh empty-queue/output check, submit exactly one claimed v9 one-GPU diagnostic for00:15:00, and monitor only that job through terminal completion. No SANY, model, quality or gate credit is permitted without independent evidence.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -576,6 +578,8 @@ These snapshots preserve old statements, including mistakes. They are not curren
     }
   ],
   "decisions": [
+    "2026-09-16T03:24:48Z: V9 is remotely static-admitted at /home/eric-spencer/tla-prefix-repair-layout-aware-20260916-v9. Exact SHA256, remote Python compilation, PBS syntax, pycache/output-namespace and owned-queue guards pass; no-weights CPU preflight is complete with cuda_touched=false, model_weights_loaded=false, lexical invalid/valid controls true, gate_claim=false and model_improvement_claim=false. Unique claim 505dae53 is acquired; submit exactly one bounded one-GPU diagnostic after one final live empty-queue/output check. No SANY/model/quality/gate credit.",
+    "2026-09-16T03:21:39Z: V9 is locally staged append-only as a materially different lexical-safety intervention. It adds a narrow guard for the observed SANY-invalid #</#> adjacent operator corruption; the audit rejects the v8 row47 #< candidate, passes438 known-good modules with0 false rejects, and passes synthetic invalid/valid controls. V8 remains a negative with no model/quality/gate credit; upload and CPU admission are next.",
     "2026-09-16T03:14:39Z: Job7626636 finished F/Exit1 after00:03:56 on x3109c0s1b0n0/0*64 with one GPU. Row47 produced a partial253-token repair from accepted prefix89 without grammar completion; row107 admitted prefix138 and exhausted five traced guarded attempts at39 selected tokens each without a finite continuation. Preserve raw log/receipts and independently score only row47; the protected denominator is incomplete and no SANY/model/quality/gate credit exists.",
     "2026-09-16T03:10:24Z: Final live owned-queue/output checks passed and exactly one claimed v8 diagnostic was submitted as job7626636. PBS reports R on x3109c0s1b0n0/0*64 in debug with one GPU,64 CPUs and00:15:00 walltime. Monitor only this job; no SANY/model/quality/gate credit.",
     "2026-09-16T03:07:12Z: V8 is remotely static-admitted at /home/eric-spencer/tla-prefix-repair-layout-aware-20260916-v8. Exact SHA256, remote Python compilation, PBS syntax, pycache/output-namespace and owned-queue guards pass; no-weights CPU preflight is complete with cuda_touched=false, model_weights_loaded=false, gate_claim=false and model_improvement_claim=false. Its direct quantified-junction audit passes438 known-good modules with0 false rejects. Unique claim acc81d6d is acquired; submit exactly one bounded one-GPU diagnostic after one final live empty-queue/output check. No SANY/model/quality/gate credit.",
@@ -1858,7 +1862,26 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "results/runs/tla-prefix-repair-layout-aware-20260916-v8/terminal.json",
     "results/runs/tla-prefix-repair-layout-aware-20260916-v8/job.7626636.log",
     "results/runs/tla-prefix-repair-layout-aware-20260916-v8/result.7626636/row-47.json",
-    "results/runs/tla-prefix-repair-layout-aware-20260916-v8/result.7626636/failure-row-107.json"
+    "results/runs/tla-prefix-repair-layout-aware-20260916-v8/result.7626636/failure-row-107.json",
+    "results/stages/tla-prefix-repair-layout-aware-20260916-v9/protected_layout_aware_repair.py",
+    "results/stages/tla-prefix-repair-layout-aware-20260916-v9/layout_aware_greedy_grammar_selector.py",
+    "results/stages/tla-prefix-repair-layout-aware-20260916-v9/lexical_guard.py",
+    "results/stages/tla-prefix-repair-layout-aware-20260916-v9/precedence_guard.py",
+    "results/stages/tla-prefix-repair-layout-aware-20260916-v9/comment_guard.py",
+    "results/stages/tla-prefix-repair-layout-aware-20260916-v9/layout_junction_audit.py",
+    "results/stages/tla-prefix-repair-layout-aware-20260916-v9/protected_checkpoint_preflight.py",
+    "results/stages/tla-prefix-repair-layout-aware-20260916-v9/packet.json",
+    "results/stages/tla-prefix-repair-layout-aware-20260916-v9/canonical-preflight-corpus-20260911.json",
+    "results/stages/tla-prefix-repair-layout-aware-20260916-v9/tla_module_v1.ebnf",
+    "results/stages/tla-prefix-repair-layout-aware-20260916-v9/protected_layout_aware_repair_polaris.pbs",
+    "results/stages/tla-prefix-repair-layout-aware-20260916-v9/stage-validation.json",
+    "results/stages/tla-prefix-repair-layout-aware-20260916-v9/SHA256SUMS",
+    "tools/lexical_guard_audit.py",
+    "results/runs/tla-prefix-repair-layout-aware-20260916-v9/lexical-guard-audit.json",
+    "results/runs/tla-prefix-repair-layout-aware-20260916-v9/cpu-preflight.json",
+    "results/runs/tla-prefix-repair-layout-aware-20260916-v9/remote-guards.json",
+    "results/runs/tla-prefix-repair-layout-aware-20260916-v9/claim.json",
+    "results/runs/tla-prefix-repair-layout-aware-20260916-v9/claim-state/505dae53602ddd904cc5b3004c415237283cd2a4879283d6f31e19ca32d59693.json"
   ]
 }
 -->
