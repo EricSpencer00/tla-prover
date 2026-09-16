@@ -369,7 +369,7 @@ def preflight(args):
             input_ids_sha256=sha(json.dumps(encoded['input_ids'], separators=(',', ':')).encode()),
             labels_sha256=sha(json.dumps(encoded['labels'], separators=(',', ':')).encode())))
     result = dict(
-        schema=1, kind='fullmodule_structure_first_sft_cpu_preflight_v1',
+        schema=1, kind=f'{EXPERIMENT_KIND}_cpu_preflight',
         manifest_sha256=args.manifest_sha256, packet_sha256=PACKET_SHA,
         structure_probe_sha256=PROBE_SHA, parent_checkpoint_sha256=PARENT_SHA,
         records=records, record_count=len(records), all_tokenizers_exact=True,

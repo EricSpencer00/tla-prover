@@ -1,0 +1,34 @@
+[
+  {
+    "row": 47,
+    "phase": "restored_parent",
+    "status": "candidate_unmeasured",
+    "reason": "plan did not terminate with EOS",
+    "finish_reason": "time_limit",
+    "raw_reply_sha256": "e924262a3cbd6e5bb5444f74b147189c8381d6c19b36a9841f25c0456170b8f6"
+  },
+  {
+    "row": 107,
+    "phase": "restored_parent",
+    "status": "candidate_unmeasured",
+    "reason": "plan did not terminate with EOS",
+    "finish_reason": "time_limit",
+    "raw_reply_sha256": "1fe1df8808a826e2598dd286fef2198cf8605c8b000507c8a716fdb86333bfa0"
+  },
+  {
+    "row": 47,
+    "phase": "trained_child",
+    "status": "candidate_unmeasured",
+    "reason": "plan did not terminate with EOS",
+    "finish_reason": "time_limit",
+    "raw_reply_sha256": "7cbf3c6854c420f80282a8565273d1f4fc1f9daf89dc4de4aa23cb78dca3236e"
+  },
+  {
+    "row": 107,
+    "phase": "trained_child",
+    "status": "candidate_unmeasured",
+    "reason": "plan did not terminate with EOS",
+    "finish_reason": "time_limit",
+    "raw_reply_sha256": "e79c00b8f4dec3c029738d6c17bf76544c923305e7b4bf11c4327f1a713ac484"
+  }
+]
