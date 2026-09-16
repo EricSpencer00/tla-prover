@@ -1,0 +1,8 @@
+Job Id: 7626997.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov
+    Job_Name = tla-continuation-grammar-v1
+    job_state = R
+    queue = debug
+    exec_host = x3003c0s13b0n0/0*64
+    Resource_List.ncpus = 64
+    Resource_List.ngpus = 1
+    Resource_List.walltime = 00:15:00

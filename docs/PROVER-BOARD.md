@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 717
-- Verified UTC: 2026-09-16T05:33:13Z
+- Revision: 718
+- Verified UTC: 2026-09-16T05:34:29Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
-- Phase: local_work
-- Active job: none
-- Observation evidence: At 2026-09-16T05:33:13Z, the uploaded decoder-only continuation stage passed remote SHA256, compile, PBS, pycache, output-namespace and owned-queue guards. Its no-weight CPU/xgrammar preflight passes exact packet/prompts, parent87489e47 and adaptere8a13956 identities, xgrammar0.2.2, ranked/EOS/rollback controls, and protected rows47/107; CUDA/model weights remain untouched and no GPU job exists.
+- Phase: running
+- Active job: `7626997` (R, polaris, owner 01a08e7c-daff-7753-8e4f-41c47d0e3001)
+- Observation evidence: At 2026-09-16T05:34:29Z, final fresh Polaris ownership/output guards passed and exactly one decoder-only continuation diagnostic job7626997 is scheduler-attested R on x3003c0s13b0n0/0*64 in debug with one GPU and00:15:00 walltime. The CPU/xgrammar preflight is complete; no quality, model, SANY, gate, proof, generalization, TLC or promotion claim exists before the terminal receipt and independent audit.
 - Latest completed result: Continuation-aware wide SFT v1 plus the bounded CPU verifier-guided repair search are complete negatives: references2/2 pass, parent and trained-child candidates4/4 reject, protected child0/2, and all14 reference-free fixed-vocabulary repairs reject SANY. The decoder-only adapter-restored continuation stage is remotely CPU-admitted and awaits one bounded diagnostic run.
 - Local work: The semantic preference child remains a complete negative: all20 teacher-forced margins rose but protected SANY stayed0/2. The row47 SANY-in-the-loop controller found the first valid scoped repair at seven of eight binder changes; row107 is now independently measured and rejected at lexical EOF. Semantic-span v1 failed before model load due an omitted manifest and earned zero credit. Corrected v2 job7626911 completed12 multi-token semantic-span updates with exact training-time reload; independent pinned-SANY audit v2 measured both references, both restored-parent candidates and both trained-child candidates, with0/4 model candidates passing and2/2 references passing. The CPU error-frontier audit measured16/16 counterfactual variants with0 SANY passes and identifies continuation/definition incompleteness beyond local layout. Continuation-aware wide SFT job7626952 completed12 exact-reload updates with112 adapter tensors across layers24-31 and all attention/MLP projections, but independent pinned SANY remained0/2 for the child and2/2 for references. The new CPU verifier-guided search measured14 reference-free fixed-vocabulary repairs with0 passes, so bounded textual repair is insufficient for this child. The lexical-abort classifier fix is covered by41 focused tests. Large checkpoints remain remote-only; the programmatic Discord watchdog remains live. Do not promote or replay these objectives unchanged.
 - External blocker: none verified
-- Next action: Perform one final fresh Polaris ownership/output check and submit exactly one bounded verifier-constrained decoder diagnostic for the CPU-admitted stage. Independently score both protected rows with pinned SANY afterward; no gate or model credit without the frozen denominator.
+- Next action: Monitor sole job7626997 to terminal state, retrieve its complete decoder receipt or failure trace, and independently score both protected rows with pinned SANY. Do not submit a duplicate or grant model/gate credit before that audit.
 
 ## Objective and evidence rules
 
@@ -34,13 +34,14 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 | TLA-06C | Done | Separate local syntax faults from continuation failure | CPU-only frontier-v2 passes4/4 SANY controls and measures16/16 exact or pre-registered counterfactual variants. All16 reject: row47 child moves from missing Init conjunction to precedence conflict, row107 child from lexical EOF to precedence conflict, and the parent retains additional module-body faults. Counterfactual edits are explicitly diagnostic-only with no model or gate credit. |
 | TLA-06D | Done | Test continuation-aware wide clean-reference SFT | Polaris job7626952 completed12 updates with exact reload and finite112-tensor adapter checkpoint e8a13956. Independent pinned-SANY controls pass2/2 references, while parent and trained-child candidates reject4/4; protected child remains0/2. Do not promote or repeat this parameterization and weighting unchanged. |
 | TLA-06E | Done | Bound verifier-guided repair vocabulary on continuation child | CPU-only search v2 passed4/4 pinned-SANY controls and measured14 reference-free transformations of the exact trained-child bytes;0/14 passed. This is diagnostic evidence that the fixed textual repair vocabulary is insufficient, not model or gate credit. |
-| TLA-06F | In progress | Prepare adapter-restored verifier-constrained continuation decode | Stage tla-fullmodule-continuation-grammar-decode-20260916-v1 binds packet a125a0d5, parent87489e47, adapter checkpoint e8a13956, pinned grammar and selector, prefix-preserving bounded rollback, no training, and no reference conditioning. Local and remote guards pass; CPU/xgrammar preflight is complete with CUDA/model_weights false. One bounded diagnostic remains. |
+| TLA-06F | In progress | Prepare adapter-restored verifier-constrained continuation decode | Stage tla-fullmodule-continuation-grammar-decode-20260916-v1 binds packet a125a0d5, parent87489e47, adapter checkpoint e8a13956, pinned grammar and selector, prefix-preserving bounded rollback, no training, and no reference conditioning. Local and remote guards pass; CPU/xgrammar preflight is complete with CUDA/model_weights false. Job7626997 is the sole bounded diagnostic, running under the one-GPU15-minute contract. |
 | TLA-07 | Not ready | Verify complete frozen SANY gate | Full frozen denominator has not passed 100%; no diagnostic promotion. |
 | TLA-08 | Not ready | Verify applicable TLC and non-vacuity | Prerequisite SANY gate and intended-behavior evidence incomplete. |
 | TLA-09 | Not ready | Verify genuine TLAPS model performance | Acceptance gates incomplete; same-node positive/negative TLAPS controls and bounded dry run required before retry. |
 
 ## Decisions
 
+- 2026-09-16T05:34:29Z: Final fresh ownership/output guard passed and exactly one decoder-only continuation diagnostic was submitted as job7626997. qstat reports R on x3003c0s13b0n0/0*64, debug, one GPU,64 CPUs and00:15:00 walltime. Monitor only; no model, SANY, quality, gate, proof, generalization, TLC or promotion claim before complete receipt and independent SANY.
 - 2026-09-16T05:33:13Z: Remote upload and no-weight CPU/xgrammar preflight passed for decoder-only continuation stage v1. Exact parent/adapter/packet identities, xgrammar0.2.2, prompt counts401/457, reference controls2/2, ranked selection, EOS termination, rollback, comment and lexical guards all pass; pycache/result namespace/owned queue are clear. No model weights or CUDA were used. Perform one final fresh check and submit exactly one bounded diagnostic; no quality or gate claim.
 - 2026-09-16T05:26:34Z: Prepared decoder-only continuation stage v1 as a materially different hypothesis after the 0/14 bounded textual repair negative. It restores the exact parent final layer and exact 112-tensor adapter, then applies the existing cache-preserving grammar/rollback selector to the protected rows with no training or reference conditioning. Local SHA256, compile and PBS guards pass; upload and remote CPU preflight are next, with no model or gate claim.
 - 2026-09-16T05:18:53Z: CPU-only verifier-guided repair search v2 passed4/4 pinned-SANY controls and measured14 reference-free candidates derived from the exact job7626952 child bytes;0/14 passed SANY. The fixed vocabulary is insufficient for this child, so no transformed candidate receives model, protected, quality or gate credit. Next work must target constrained continuation policy rather than post-hoc textual repair.
@@ -524,16 +525,26 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 717,
-  "verified_utc": "2026-09-16T05:33:13Z",
+  "revision": 718,
+  "verified_utc": "2026-09-16T05:34:29Z",
+  "active_job": {
+    "id": "7626997",
+    "scheduler_id": "7626997.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+    "pbs_state": "R",
+    "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
+    "host": "polaris",
+    "queue": "debug",
+    "ngpus": 1,
+    "walltime": "00:15:00",
+    "exec_host": "x3003c0s13b0n0/0*64"
+  },
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
-  "phase": "local_work",
-  "active_job": null,
-  "observation_evidence": "At 2026-09-16T05:33:13Z, the uploaded decoder-only continuation stage passed remote SHA256, compile, PBS, pycache, output-namespace and owned-queue guards. Its no-weight CPU/xgrammar preflight passes exact packet/prompts, parent87489e47 and adaptere8a13956 identities, xgrammar0.2.2, ranked/EOS/rollback controls, and protected rows47/107; CUDA/model weights remain untouched and no GPU job exists.",
+  "phase": "running",
+  "observation_evidence": "At 2026-09-16T05:34:29Z, final fresh Polaris ownership/output guards passed and exactly one decoder-only continuation diagnostic job7626997 is scheduler-attested R on x3003c0s13b0n0/0*64 in debug with one GPU and00:15:00 walltime. The CPU/xgrammar preflight is complete; no quality, model, SANY, gate, proof, generalization, TLC or promotion claim exists before the terminal receipt and independent audit.",
   "last_result": "Continuation-aware wide SFT v1 plus the bounded CPU verifier-guided repair search are complete negatives: references2/2 pass, parent and trained-child candidates4/4 reject, protected child0/2, and all14 reference-free fixed-vocabulary repairs reject SANY. The decoder-only adapter-restored continuation stage is remotely CPU-admitted and awaits one bounded diagnostic run.",
   "local_work": "The semantic preference child remains a complete negative: all20 teacher-forced margins rose but protected SANY stayed0/2. The row47 SANY-in-the-loop controller found the first valid scoped repair at seven of eight binder changes; row107 is now independently measured and rejected at lexical EOF. Semantic-span v1 failed before model load due an omitted manifest and earned zero credit. Corrected v2 job7626911 completed12 multi-token semantic-span updates with exact training-time reload; independent pinned-SANY audit v2 measured both references, both restored-parent candidates and both trained-child candidates, with0/4 model candidates passing and2/2 references passing. The CPU error-frontier audit measured16/16 counterfactual variants with0 SANY passes and identifies continuation/definition incompleteness beyond local layout. Continuation-aware wide SFT job7626952 completed12 exact-reload updates with112 adapter tensors across layers24-31 and all attention/MLP projections, but independent pinned SANY remained0/2 for the child and2/2 for references. The new CPU verifier-guided search measured14 reference-free fixed-vocabulary repairs with0 passes, so bounded textual repair is insufficient for this child. The lexical-abort classifier fix is covered by41 focused tests. Large checkpoints remain remote-only; the programmatic Discord watchdog remains live. Do not promote or replay these objectives unchanged.",
   "external_blocker": null,
-  "next_action": "Perform one final fresh Polaris ownership/output check and submit exactly one bounded verifier-constrained decoder diagnostic for the CPU-admitted stage. Independently score both protected rows with pinned SANY afterward; no gate or model credit without the frozen denominator.",
+  "next_action": "Monitor sole job7626997 to terminal state, retrieve its complete decoder receipt or failure trace, and independently score both protected rows with pinned SANY. Do not submit a duplicate or grant model/gate credit before that audit.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -605,7 +616,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
       "id": "TLA-06F",
       "state": "In progress",
       "task": "Prepare adapter-restored verifier-constrained continuation decode",
-      "evidence": "Stage tla-fullmodule-continuation-grammar-decode-20260916-v1 binds packet a125a0d5, parent87489e47, adapter checkpoint e8a13956, pinned grammar and selector, prefix-preserving bounded rollback, no training, and no reference conditioning. Local and remote guards pass; CPU/xgrammar preflight is complete with CUDA/model_weights false. One bounded diagnostic remains."
+      "evidence": "Stage tla-fullmodule-continuation-grammar-decode-20260916-v1 binds packet a125a0d5, parent87489e47, adapter checkpoint e8a13956, pinned grammar and selector, prefix-preserving bounded rollback, no training, and no reference conditioning. Local and remote guards pass; CPU/xgrammar preflight is complete with CUDA/model_weights false. Job7626997 is the sole bounded diagnostic, running under the one-GPU15-minute contract."
     },
     {
       "id": "TLA-07",
@@ -627,6 +638,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
     }
   ],
   "decisions": [
+    "2026-09-16T05:34:29Z: Final fresh ownership/output guard passed and exactly one decoder-only continuation diagnostic was submitted as job7626997. qstat reports R on x3003c0s13b0n0/0*64, debug, one GPU,64 CPUs and00:15:00 walltime. Monitor only; no model, SANY, quality, gate, proof, generalization, TLC or promotion claim before complete receipt and independent SANY.",
     "2026-09-16T05:33:13Z: Remote upload and no-weight CPU/xgrammar preflight passed for decoder-only continuation stage v1. Exact parent/adapter/packet identities, xgrammar0.2.2, prompt counts401/457, reference controls2/2, ranked selection, EOS termination, rollback, comment and lexical guards all pass; pycache/result namespace/owned queue are clear. No model weights or CUDA were used. Perform one final fresh check and submit exactly one bounded diagnostic; no quality or gate claim.",
     "2026-09-16T05:26:34Z: Prepared decoder-only continuation stage v1 as a materially different hypothesis after the 0/14 bounded textual repair negative. It restores the exact parent final layer and exact 112-tensor adapter, then applies the existing cache-preserving grammar/rollback selector to the protected rows with no training or reference conditioning. Local SHA256, compile and PBS guards pass; upload and remote CPU preflight are next, with no model or gate claim.",
     "2026-09-16T05:18:53Z: CPU-only verifier-guided repair search v2 passed4/4 pinned-SANY controls and measured14 reference-free candidates derived from the exact job7626952 child bytes;0/14 passed SANY. The fixed vocabulary is insufficient for this child, so no transformed candidate receives model, protected, quality or gate credit. Next work must target constrained continuation policy rather than post-hoc textual repair.",
@@ -2033,7 +2045,9 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "results/stages/tla-fullmodule-continuation-grammar-decode-20260916-v1/protected_layout_aware_repair.py",
     "results/stages/tla-fullmodule-continuation-grammar-decode-20260916-v1/run.pbs",
     "results/runs/tla-fullmodule-continuation-grammar-decode-20260916-v1/remote-preflight/cpu-preflight.json",
-    "results/runs/tla-fullmodule-continuation-grammar-decode-20260916-v1/remote-guards.json"
+    "results/runs/tla-fullmodule-continuation-grammar-decode-20260916-v1/remote-guards.json",
+    "results/runs/tla-fullmodule-continuation-grammar-decode-20260916-v1/job.7626997-submission.json",
+    "results/runs/tla-fullmodule-continuation-grammar-decode-20260916-v1/job.7626997-qstat-running.txt"
   ]
 }
 -->
