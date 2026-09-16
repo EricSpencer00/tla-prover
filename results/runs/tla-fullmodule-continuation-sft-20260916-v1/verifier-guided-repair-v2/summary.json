@@ -1,0 +1,28 @@
+{
+  "complete": true,
+  "controls_ok": true,
+  "candidate_count": 14,
+  "pass_count": 0,
+  "passes": [],
+  "protected_rows": [
+    47,
+    107
+  ],
+  "search_depth": 2,
+  "operation_vocabulary": [
+    "normalize_known_identifier_typos",
+    "normalize_escaped_identifiers",
+    "repair_map_rhs_domain",
+    "repair_nested_map_builder",
+    "repair_trailing_map_bar",
+    "drop_post_spec_definitions"
+  ],
+  "interpretation": "A passing transformed string is a reference-free SANY diagnostic only; it is not a model output and earns no protected, quality, gate, proof, generalization, TLC or promotion credit.",
+  "model_improvement_claim": false,
+  "quality_claim": false,
+  "gate_claim": false,
+  "proof_claim": false,
+  "generalization_claim": false,
+  "tlc_claim": false,
+  "nonvacuity_claim": false
+}

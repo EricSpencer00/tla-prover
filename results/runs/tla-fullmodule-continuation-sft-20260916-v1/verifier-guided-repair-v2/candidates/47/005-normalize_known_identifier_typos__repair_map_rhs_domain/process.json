@@ -1,0 +1,31 @@
+{
+  "command": [
+    "/usr/bin/java",
+    "-cp",
+    "/Users/eric/GitHub/prove-TLA/tools/tla2tools.jar",
+    "tla2sany.SANY",
+    "W4Od2m7p4t2.tla"
+  ],
+  "cwd": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-continuation-sft-20260916-v1/verifier-guided-repair-v2/candidates/47/005-normalize_known_identifier_typos__repair_map_rhs_domain",
+  "root_pid": 13848,
+  "root_reaped": true,
+  "returncode": 255,
+  "output": "\n****** SANY2 Version 2.1 created 24 February 2014\n\nParsing file /Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-continuation-sft-20260916-v1/verifier-guided-repair-v2/candidates/47/005-normalize_known_identifier_typos__repair_map_rhs_domain/W4Od2m7p4t2.tla\n***Parse Error***\nEncountered \"IF\" at line 17, column 7 and token \"|\" \n\nResidual stack trace follows:\nExtendableExpr starting at line 16, column 56.\nExpression starting at line 16, column 56.\nQuant Bound starting at line 16, column 50.\nSome [] Form starting at line 16, column 49.\nExtendableExpr starting at line 16, column 49.\n\n\nFatal errors while parsing TLA+ spec in file W4Od2m7p4t2.tla\n\ntla2sany.semantic.AbortException\n*** Abort messages: 1\n\nIn module W4Od2m7p4t2\n\nCould not parse module W4Od2m7p4t2 from file W4Od2m7p4t2.tla\n\n\n",
+  "seconds": 0.17141629199613817,
+  "timed_out": false,
+  "output_complete": true,
+  "output_limit": false,
+  "cleanup_complete": true,
+  "surviving_owned_processes": [],
+  "owned_processes": [
+    {
+      "pid": 13848,
+      "created": 1789535899.123208,
+      "pgid": 13848
+    }
+  ],
+  "signals": [],
+  "errors": [],
+  "execution_complete": true,
+  "containment": "Best-effort ancestry polling; instantaneous unobserved reparenting is not excluded"
+}

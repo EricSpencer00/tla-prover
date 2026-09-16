@@ -1,0 +1,31 @@
+{
+  "command": [
+    "/usr/bin/java",
+    "-cp",
+    "/Users/eric/GitHub/prove-TLA/tools/tla2tools.jar",
+    "tla2sany.SANY",
+    "W4Od2m7p4t2.tla"
+  ],
+  "cwd": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-continuation-sft-20260916-v1/verifier-guided-repair-v2/controls/47-negative",
+  "root_pid": 13833,
+  "root_reaped": true,
+  "returncode": 255,
+  "output": "\n****** SANY2 Version 2.1 created 24 February 2014\n\nParsing file /Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-continuation-sft-20260916-v1/verifier-guided-repair-v2/controls/47-negative/W4Od2m7p4t2.tla\n***Parse Error***\nWas expecting \"Expression or Instance\"\nEncountered \")\" at line 20, column 26 and token \"==\" \n\nResidual stack trace follows:\nDefinition starting at line 20, column 1.\nModule body starting at line 3, column 1.\nModule definition starting at line 1, column 1.\n\n\nFatal errors while parsing TLA+ spec in file W4Od2m7p4t2.tla\n\ntla2sany.semantic.AbortException\n*** Abort messages: 1\n\nIn module W4Od2m7p4t2\n\nCould not parse module W4Od2m7p4t2 from file W4Od2m7p4t2.tla\n\n\n",
+  "seconds": 0.15730083298694808,
+  "timed_out": false,
+  "output_complete": true,
+  "output_limit": false,
+  "cleanup_complete": true,
+  "surviving_owned_processes": [],
+  "owned_processes": [
+    {
+      "pid": 13833,
+      "created": 1789535897.805344,
+      "pgid": 13833
+    }
+  ],
+  "signals": [],
+  "errors": [],
+  "execution_complete": true,
+  "containment": "Best-effort ancestry polling; instantaneous unobserved reparenting is not excluded"
+}

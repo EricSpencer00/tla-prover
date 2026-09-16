@@ -1,0 +1,31 @@
+{
+  "command": [
+    "/usr/bin/java",
+    "-cp",
+    "/Users/eric/GitHub/prove-TLA/tools/tla2tools.jar",
+    "tla2sany.SANY",
+    "W4Od2m7p4t2.tla"
+  ],
+  "cwd": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-continuation-sft-20260916-v1/verifier-guided-repair-v2/candidates/47/008-repair_map_rhs_domain__repair_trailing_map_bar",
+  "root_pid": 13851,
+  "root_reaped": true,
+  "returncode": 255,
+  "output": "\n****** SANY2 Version 2.1 created 24 February 2014\n\nParsing file /Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-continuation-sft-20260916-v1/verifier-guided-repair-v2/candidates/47/008-repair_map_rhs_domain__repair_trailing_map_bar/W4Od2m7p4t2.tla\n***Parse Error***\nEncountered \"IF\" at line 17, column 7 and token \"Cap\" \n\nResidual stack trace follows:\nSome [] Form starting at line 16, column 49.\nExtendableExpr starting at line 16, column 49.\nExtendableExpr starting at line 16, column 32.\nExpression starting at line 16, column 32.\nJunction Item starting at line 16, column 29.\n\n\nFatal errors while parsing TLA+ spec in file W4Od2m7p4t2.tla\n\ntla2sany.semantic.AbortException\n*** Abort messages: 1\n\nIn module W4Od2m7p4t2\n\nCould not parse module W4Od2m7p4t2 from file W4Od2m7p4t2.tla\n\n\n",
+  "seconds": 0.15593291699769907,
+  "timed_out": false,
+  "output_complete": true,
+  "output_limit": false,
+  "cleanup_complete": true,
+  "surviving_owned_processes": [],
+  "owned_processes": [
+    {
+      "pid": 13851,
+      "created": 1789535899.624605,
+      "pgid": 13851
+    }
+  ],
+  "signals": [],
+  "errors": [],
+  "execution_complete": true,
+  "containment": "Best-effort ancestry polling; instantaneous unobserved reparenting is not excluded"
+}

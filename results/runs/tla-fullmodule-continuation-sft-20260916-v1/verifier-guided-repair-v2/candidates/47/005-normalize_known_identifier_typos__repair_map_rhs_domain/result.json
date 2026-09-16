@@ -1,0 +1,7 @@
+{
+  "status": "model_sany_reject",
+  "candidate_sha256": "c530be897bdd10bb7df0ebd5d36540638dfd924a0fb2afc80699e173d073eb70",
+  "module_name": "W4Od2m7p4t2",
+  "returncode": 255,
+  "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-continuation-sft-20260916-v1/verifier-guided-repair-v2/candidates/47/005-normalize_known_identifier_typos__repair_map_rhs_domain/sany.log"
+}

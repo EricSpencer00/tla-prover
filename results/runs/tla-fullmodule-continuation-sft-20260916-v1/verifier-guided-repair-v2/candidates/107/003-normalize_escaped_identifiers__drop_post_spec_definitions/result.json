@@ -1,0 +1,7 @@
+{
+  "status": "model_sany_reject",
+  "candidate_sha256": "2d0d2c8379361d02a24d77a95a6635512026277c64b0635e45266ac5338afa53",
+  "module_name": "W4Od3m0p0t0",
+  "returncode": 255,
+  "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-continuation-sft-20260916-v1/verifier-guided-repair-v2/candidates/107/003-normalize_escaped_identifiers__drop_post_spec_definitions/sany.log"
+}

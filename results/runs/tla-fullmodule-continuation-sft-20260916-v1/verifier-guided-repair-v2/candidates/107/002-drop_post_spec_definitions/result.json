@@ -1,0 +1,7 @@
+{
+  "status": "model_sany_reject",
+  "candidate_sha256": "8a8b01a0951474c1a67c3dc771f9a09c156fa09f6dd5f5c658cd109ac13b35a6",
+  "module_name": "W4Od3m0p0t0",
+  "returncode": 255,
+  "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-continuation-sft-20260916-v1/verifier-guided-repair-v2/candidates/107/002-drop_post_spec_definitions/sany.log"
+}

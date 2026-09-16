@@ -1,0 +1,7 @@
+{
+  "status": "model_sany_reject",
+  "candidate_sha256": "cf7d07e01aef597a668391d66e33e46b5dc9fb39f78e7e22f73cb10a0533eb14",
+  "module_name": "W4Od2m7p4t2",
+  "returncode": 255,
+  "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-continuation-sft-20260916-v1/verifier-guided-repair-v2/candidates/47/009-repair_nested_map_builder__repair_trailing_map_bar/sany.log"
+}

@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "kind": "verifier_guided_repair_search_v1",
+  "receipt_sha256": "88b5bed093c035b9d56c073125ef65fbbb8aaece029a7526efe793bd64c84f8e",
+  "packet_sha256": "a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c",
+  "jar_sha256": "936a262061c914694dfd669a543be24573c45d5aa0ff20a8b96b23d01e050e88",
+  "source_sha256": "d20628c7637b1ea259fd84b98a71d96341ecb04f619debaa9ed13fc083ef480d",
+  "scorer_sha256": "e684b2f776bee62cbec4aa86e2312aa12238b7adfafe91b903a1cdab8df507b5",
+  "classifier_sha256": "c9a8c1496fc75c7aa051a2e6d0f0eb79550c56ac713a51d098f4164891c78efd",
+  "rows": [
+    47,
+    107
+  ],
+  "max_depth": 2,
+  "reference_text_used_for_transform": false,
+  "transformed_strings_diagnostic_only": true
+}

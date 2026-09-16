@@ -1,0 +1,186 @@
+[
+  {
+    "row": 47,
+    "depth": 0,
+    "operations": [],
+    "original_sha256": "32bf2445b4288894f079b919236ba919c0daee31b6d436e7aca8af6c8ef2bb59",
+    "candidate_sha256": "32bf2445b4288894f079b919236ba919c0daee31b6d436e7aca8af6c8ef2bb59",
+    "status": "model_sany_reject",
+    "module_name": "W4Od2m7p4t2",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-continuation-sft-20260916-v1/verifier-guided-repair-v2/candidates/47/000-original/sany.log"
+  },
+  {
+    "row": 47,
+    "depth": 1,
+    "operations": [
+      "normalize_known_identifier_typos"
+    ],
+    "original_sha256": "32bf2445b4288894f079b919236ba919c0daee31b6d436e7aca8af6c8ef2bb59",
+    "candidate_sha256": "efa270032559044a034cb549bcb40f95d757356948a1113749794983e6ff8187",
+    "status": "model_sany_reject",
+    "module_name": "W4Od2m7p4t2",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-continuation-sft-20260916-v1/verifier-guided-repair-v2/candidates/47/001-normalize_known_identifier_typos/sany.log"
+  },
+  {
+    "row": 47,
+    "depth": 1,
+    "operations": [
+      "repair_map_rhs_domain"
+    ],
+    "original_sha256": "32bf2445b4288894f079b919236ba919c0daee31b6d436e7aca8af6c8ef2bb59",
+    "candidate_sha256": "8b067b0b5b430ec571fa905fa7615078dbe3a67b0efe3b2d1c50f20a917a4c48",
+    "status": "model_sany_reject",
+    "module_name": "W4Od2m7p4t2",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-continuation-sft-20260916-v1/verifier-guided-repair-v2/candidates/47/002-repair_map_rhs_domain/sany.log"
+  },
+  {
+    "row": 47,
+    "depth": 1,
+    "operations": [
+      "repair_nested_map_builder"
+    ],
+    "original_sha256": "32bf2445b4288894f079b919236ba919c0daee31b6d436e7aca8af6c8ef2bb59",
+    "candidate_sha256": "b68aee346078d2d9649895b595a9d52b801e9eafeb526eaa2680c55620a216f5",
+    "status": "model_sany_reject",
+    "module_name": "W4Od2m7p4t2",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-continuation-sft-20260916-v1/verifier-guided-repair-v2/candidates/47/003-repair_nested_map_builder/sany.log"
+  },
+  {
+    "row": 47,
+    "depth": 1,
+    "operations": [
+      "repair_trailing_map_bar"
+    ],
+    "original_sha256": "32bf2445b4288894f079b919236ba919c0daee31b6d436e7aca8af6c8ef2bb59",
+    "candidate_sha256": "05d8a7100c21ec5baabce57c70deef671db0c772896603332192cb7d20d0fd57",
+    "status": "model_sany_reject",
+    "module_name": "W4Od2m7p4t2",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-continuation-sft-20260916-v1/verifier-guided-repair-v2/candidates/47/004-repair_trailing_map_bar/sany.log"
+  },
+  {
+    "row": 47,
+    "depth": 2,
+    "operations": [
+      "normalize_known_identifier_typos",
+      "repair_map_rhs_domain"
+    ],
+    "original_sha256": "32bf2445b4288894f079b919236ba919c0daee31b6d436e7aca8af6c8ef2bb59",
+    "candidate_sha256": "c530be897bdd10bb7df0ebd5d36540638dfd924a0fb2afc80699e173d073eb70",
+    "status": "model_sany_reject",
+    "module_name": "W4Od2m7p4t2",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-continuation-sft-20260916-v1/verifier-guided-repair-v2/candidates/47/005-normalize_known_identifier_typos__repair_map_rhs_domain/sany.log"
+  },
+  {
+    "row": 47,
+    "depth": 2,
+    "operations": [
+      "normalize_known_identifier_typos",
+      "repair_nested_map_builder"
+    ],
+    "original_sha256": "32bf2445b4288894f079b919236ba919c0daee31b6d436e7aca8af6c8ef2bb59",
+    "candidate_sha256": "dced7b885b21decb9c56cba387c9921a38973830a0ac52fcf232958ac5df47e4",
+    "status": "model_sany_reject",
+    "module_name": "W4Od2m7p4t2",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-continuation-sft-20260916-v1/verifier-guided-repair-v2/candidates/47/006-normalize_known_identifier_typos__repair_nested_map_builder/sany.log"
+  },
+  {
+    "row": 47,
+    "depth": 2,
+    "operations": [
+      "normalize_known_identifier_typos",
+      "repair_trailing_map_bar"
+    ],
+    "original_sha256": "32bf2445b4288894f079b919236ba919c0daee31b6d436e7aca8af6c8ef2bb59",
+    "candidate_sha256": "9c2f65b620e1ee37aa84f9ee26a86331ae9b549b00b3ae8299559f1585720046",
+    "status": "model_sany_reject",
+    "module_name": "W4Od2m7p4t2",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-continuation-sft-20260916-v1/verifier-guided-repair-v2/candidates/47/007-normalize_known_identifier_typos__repair_trailing_map_bar/sany.log"
+  },
+  {
+    "row": 47,
+    "depth": 2,
+    "operations": [
+      "repair_map_rhs_domain",
+      "repair_trailing_map_bar"
+    ],
+    "original_sha256": "32bf2445b4288894f079b919236ba919c0daee31b6d436e7aca8af6c8ef2bb59",
+    "candidate_sha256": "be6ac474398bc90c575b21ad21e1fcccd720762ad3e232e7cca1c963a3624feb",
+    "status": "model_sany_reject",
+    "module_name": "W4Od2m7p4t2",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-continuation-sft-20260916-v1/verifier-guided-repair-v2/candidates/47/008-repair_map_rhs_domain__repair_trailing_map_bar/sany.log"
+  },
+  {
+    "row": 47,
+    "depth": 2,
+    "operations": [
+      "repair_nested_map_builder",
+      "repair_trailing_map_bar"
+    ],
+    "original_sha256": "32bf2445b4288894f079b919236ba919c0daee31b6d436e7aca8af6c8ef2bb59",
+    "candidate_sha256": "cf7d07e01aef597a668391d66e33e46b5dc9fb39f78e7e22f73cb10a0533eb14",
+    "status": "model_sany_reject",
+    "module_name": "W4Od2m7p4t2",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-continuation-sft-20260916-v1/verifier-guided-repair-v2/candidates/47/009-repair_nested_map_builder__repair_trailing_map_bar/sany.log"
+  },
+  {
+    "row": 107,
+    "depth": 0,
+    "operations": [],
+    "original_sha256": "b2cc8c3b5ca8a22c72507ca4201fdbb887b53f4073634b747a07bef3212994a9",
+    "candidate_sha256": "b2cc8c3b5ca8a22c72507ca4201fdbb887b53f4073634b747a07bef3212994a9",
+    "status": "model_sany_reject",
+    "module_name": "W4Od3m0p0t0",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-continuation-sft-20260916-v1/verifier-guided-repair-v2/candidates/107/000-original/sany.log"
+  },
+  {
+    "row": 107,
+    "depth": 1,
+    "operations": [
+      "normalize_escaped_identifiers"
+    ],
+    "original_sha256": "b2cc8c3b5ca8a22c72507ca4201fdbb887b53f4073634b747a07bef3212994a9",
+    "candidate_sha256": "59591a2dbad0b14e06acfbb663c3a87b6c11f5f50a31accfca37d9c495884c6e",
+    "status": "model_sany_reject",
+    "module_name": "W4Od3m0p0t0",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-continuation-sft-20260916-v1/verifier-guided-repair-v2/candidates/107/001-normalize_escaped_identifiers/sany.log"
+  },
+  {
+    "row": 107,
+    "depth": 1,
+    "operations": [
+      "drop_post_spec_definitions"
+    ],
+    "original_sha256": "b2cc8c3b5ca8a22c72507ca4201fdbb887b53f4073634b747a07bef3212994a9",
+    "candidate_sha256": "8a8b01a0951474c1a67c3dc771f9a09c156fa09f6dd5f5c658cd109ac13b35a6",
+    "status": "model_sany_reject",
+    "module_name": "W4Od3m0p0t0",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-continuation-sft-20260916-v1/verifier-guided-repair-v2/candidates/107/002-drop_post_spec_definitions/sany.log"
+  },
+  {
+    "row": 107,
+    "depth": 2,
+    "operations": [
+      "normalize_escaped_identifiers",
+      "drop_post_spec_definitions"
+    ],
+    "original_sha256": "b2cc8c3b5ca8a22c72507ca4201fdbb887b53f4073634b747a07bef3212994a9",
+    "candidate_sha256": "2d0d2c8379361d02a24d77a95a6635512026277c64b0635e45266ac5338afa53",
+    "status": "model_sany_reject",
+    "module_name": "W4Od3m0p0t0",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-continuation-sft-20260916-v1/verifier-guided-repair-v2/candidates/107/003-normalize_escaped_identifiers__drop_post_spec_definitions/sany.log"
+  }
+]
