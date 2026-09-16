@@ -26,7 +26,7 @@ PARENT=/home/eric-spencer/tla-structured-span-train-20260914-v3/result.7618905/p
 CHECKPOINT=/home/eric-spencer/tla-fullmodule-continuation-sft-20260916-v1/result.7626952/policy_lora.pt
 XGRAMMAR_SITE=/grand/EVITA/eric-spencer/tla-checkpoint-preflight-deps/xgrammar-0.2.2-cp312
 test -f "$MODEL/config.json" -a -f "$PARENT" -a -f "$CHECKPOINT" -a -f cpu-preflight.json
-test "$(sha256sum "$PARENT" | awk '{print $1}')" = 87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f244dcf8511
+test "$(sha256sum "$PARENT" | awk '{print $1}')" = 87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511
 test "$(sha256sum "$CHECKPOINT" | awk '{print $1}')" = e8a1395685c5c5c4d9311361fcea1e354d3decb4cf46b94cffab8831e936e69a
 OUT="$STAGE/result.${PBS_JOBID%%.*}"
 test ! -e "$OUT"
