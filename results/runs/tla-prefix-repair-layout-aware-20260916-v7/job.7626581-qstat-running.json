@@ -1,0 +1,10 @@
+{
+  "job_id": "7626581.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "observed_utc": "2026-09-16T02:52:14Z",
+  "state": "R",
+  "exec_host": "x3101c0s7b1n0/0*64",
+  "queue": "debug",
+  "ngpus": 1,
+  "ncpus": 64,
+  "walltime": "00:15:00"
+}
