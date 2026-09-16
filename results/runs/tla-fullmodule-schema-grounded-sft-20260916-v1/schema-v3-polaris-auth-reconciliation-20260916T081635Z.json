@@ -1,0 +1,32 @@
+{
+  "kind": "polaris_auth_reconciliation_v1",
+  "observed_utc": "2026-09-16T08:16:35Z",
+  "job_id": "7627237.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "checks": [
+    {
+      "path": "local to Polaris",
+      "command": "ssh BatchMode qstat",
+      "result": "authentication_denied_before_remote_command"
+    },
+    {
+      "path": "local to Mac mini",
+      "command": "ssh BatchMode hostname and date",
+      "result": "mini_reachable"
+    },
+    {
+      "path": "Mac mini to Polaris",
+      "command": "ssh BatchMode hostname and date",
+      "result": "authentication_denied_before_remote_command"
+    }
+  ],
+  "remote_job_state": "unverified",
+  "remote_result_retrieved": false,
+  "side_effects": {
+    "qsub_attempted": false,
+    "duplicate_submission": false,
+    "cancellation_attempted": false,
+    "remote_files_modified": false,
+    "credentials_recorded": false
+  },
+  "decision": "preserve_existing_job_claim_and_wait_for_secure_reauthentication; do_not_infer_terminal_state_or_resubmit"
+}
