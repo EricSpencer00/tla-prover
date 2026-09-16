@@ -1,0 +1,14 @@
+{
+  "requested_tasks": 4,
+  "measured_tasks": 4,
+  "certified_tasks": 4,
+  "top1_verified": 4,
+  "shortlist_width": 4,
+  "selection": "exact-parent conditional mean response logp within deterministic first-four symbolic proposals",
+  "reference_fragment_used": false,
+  "training_executed": false,
+  "repair_or_reward": false,
+  "quality_claim": false,
+  "gate_claim": false,
+  "denominator_fixed": true
+}
