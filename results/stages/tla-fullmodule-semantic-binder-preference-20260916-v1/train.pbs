@@ -13,8 +13,9 @@ PREFERENCE_ROOT="${PREFERENCE_ROOT:-/home/eric-spencer/tla-fullmodule-semantic-b
 PREFERENCE_MANIFEST_SHA="${PREFERENCE_MANIFEST_SHA:-8b01f825e97e4367016988b8b2644a2555d1ae3f119c00663889e113158080a6}"
 RUN_ROOT=/home/eric-spencer/tla-parent-broader-sany-replay-20260915-v1
 BASE=/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1
+DEPENDENCY_ROOT=/home/eric-spencer/tla-fullmodule-structural-corruption-preference-20260915-v2
 export PYTHONPATH="$PREFERENCE_ROOT:$RUN_ROOT:$BASE"
-export TLA_TOOLS_PATHS="$PREFERENCE_ROOT/tools:$RUN_ROOT/tools:$BASE/tools"
+export TLA_TOOLS_PATHS="$PREFERENCE_ROOT/tools:$DEPENDENCY_ROOT/tools:$RUN_ROOT/tools:$BASE/tools"
 export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false
 export HF_HOME=/grand/EVITA/eric-spencer/hf-cache PYTHONUNBUFFERED=1
 export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1
@@ -32,6 +33,7 @@ START="/tmp/tla-semantic-binder-${PBS_JOBID%%.*}.pt"
 test -f "$PACKET" -a -f "$JAR" -a -f "$SOURCE" -a -f "$MANIFEST"
 test "$(sha256sum "$PACKET" | awk '{print $1}')" = a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c
 test "$(sha256sum "$SOURCE" | awk '{print $1}')" = 87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511
+test "$(sha256sum "$DEPENDENCY_ROOT/tools/proof_fullmodule_structural_corruption_preference_train.py" | awk '{print $1}')" = ba8337765a99c05bf30adbe5a307cc46663d30a252a38fca690acc4ba3ed3d19
 test "$(sha256sum "$MANIFEST" | awk '{print $1}')" = "$PREFERENCE_MANIFEST_SHA"
 cp "$SOURCE" "$START"
 test "$(sha256sum "$START" | awk '{print $1}')" = 87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511
