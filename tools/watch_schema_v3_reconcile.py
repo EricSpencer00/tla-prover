@@ -20,6 +20,7 @@ JOB = "7627237.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov"
 REMOTE_ROOT = "/home/eric-spencer/tla-fullmodule-schema-grounded-sft-20260916-v3"
 LOCAL_ROOT = Path("results/runs/tla-fullmodule-schema-grounded-sft-20260916-v1")
 RESULT_NAME = "schema-v3-result.7627237"
+DEFAULT_LOG = Path("/Users/eric/.local/state/prover-schema-v3-reconcile-watch.jsonl")
 
 
 def stamp():
@@ -100,12 +101,14 @@ def main():
     parser.add_argument("--interval", type=int, default=60)
     parser.add_argument("--once", action="store_true")
     parser.add_argument("--local-root", type=Path, default=LOCAL_ROOT)
+    parser.add_argument("--log-path", type=Path, default=DEFAULT_LOG)
     args = parser.parse_args()
     if args.interval < 1:
         parser.error("--interval must be positive")
     local_root = args.local_root
     local_root.mkdir(parents=True, exist_ok=True)
-    log_path = local_root / "schema-v3-reconcile-watch.jsonl"
+    log_path = args.log_path
+    log_path.parent.mkdir(parents=True, exist_ok=True)
     while True:
         if (local_root / RESULT_NAME / "receipt.json").is_file():
             log(log_path, "receipt_already_retrieved")
