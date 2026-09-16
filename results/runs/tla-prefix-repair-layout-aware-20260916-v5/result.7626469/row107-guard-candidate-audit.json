@@ -1,0 +1,86 @@
+{
+  "kind": "row107_guard_candidate_audit_v1",
+  "row": 107,
+  "baseline_tokens": 305,
+  "requested_prefix_tokens": 248,
+  "accepted_prefix_replay": 248,
+  "prefix_layout_hits": [],
+  "prefix_precedence_hits": [
+    {
+      "line": 12,
+      "kind": "mixed_definition_rhs"
+    }
+  ],
+  "counts": {
+    "grammar_allowed": 35214,
+    "layout_reject": 0,
+    "precedence_reject": 35214,
+    "both_reject": 0,
+    "guard_allowed": 0
+  },
+  "examples": {
+    "layout": [],
+    "precedence": [
+      {
+        "token": 7,
+        "piece": "("
+      },
+      {
+        "token": 15,
+        "piece": "0"
+      },
+      {
+        "token": 16,
+        "piece": "1"
+      },
+      {
+        "token": 17,
+        "piece": "2"
+      },
+      {
+        "token": 18,
+        "piece": "3"
+      },
+      {
+        "token": 19,
+        "piece": "4"
+      },
+      {
+        "token": 20,
+        "piece": "5"
+      },
+      {
+        "token": 21,
+        "piece": "6"
+      },
+      {
+        "token": 22,
+        "piece": "7"
+      },
+      {
+        "token": 23,
+        "piece": "8"
+      },
+      {
+        "token": 24,
+        "piece": "9"
+      },
+      {
+        "token": 28,
+        "piece": "="
+      }
+    ],
+    "both": [],
+    "allowed": []
+  },
+  "inputs": {
+    "row_sha256": "f29ed9359b9f2ad59834712d6938e69c2ac70cb5de0be284a8e8bfdc324717f8"
+  },
+  "claims": {
+    "model_weights_loaded": false,
+    "cuda_touched": false,
+    "sany_claim": false,
+    "model_improvement_claim": false,
+    "gate_claim": false
+  }
+}

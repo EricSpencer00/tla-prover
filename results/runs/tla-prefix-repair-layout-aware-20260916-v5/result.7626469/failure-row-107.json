@@ -1,0 +1,38 @@
+{
+  "kind": "protected_layout_aware_repair_failure_v1",
+  "complete": false,
+  "row": 107,
+  "generation_seed": 20261023,
+  "prompt_tokens": 457,
+  "prompt_tokens_match_frozen": true,
+  "baseline_reply_sha256": "82e78bb4428f9b759e1165cea19c6a1c13204b528ee0b90eb6debbd3052356cd",
+  "baseline_response_tokens": 306,
+  "accepted_prefix_tokens": 248,
+  "first_rejected_response_token": 248,
+  "repair_max_new_tokens": 512,
+  "selector_audit_steps": 4,
+  "backtrack_windows": [
+    64,
+    128,
+    256,
+    512
+  ],
+  "selected_tokens_at_failure": 0,
+  "backtrack_attempts": [
+    {
+      "attempt": 0,
+      "status": "dead_end",
+      "rollback_tokens": null,
+      "banned_token": null,
+      "remaining_tokens": 512,
+      "selected_tokens": 0,
+      "failure_steps": 0
+    }
+  ],
+  "failure": "bounded guard backtracking exhausted without a finite continuation",
+  "protected_reference_conditioning": false,
+  "training": false,
+  "supplied_reference_credit": false,
+  "gate_claim": false,
+  "model_improvement_claim": false
+}
