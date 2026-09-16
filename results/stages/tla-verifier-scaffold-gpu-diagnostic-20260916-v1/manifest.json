@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "kind": "answer_free_verifier_scaffold_gpu_diagnostic",
+  "packet": "packet.json",
+  "packet_sha256": "bec0946900d52e2a236eb53622b4b267bc2e229b6e426e3afb6bf00630ead6b8",
+  "parent_checkpoint_remote": "/home/eric-spencer/tla-structured-span-train-20260914-v3/result.7618905/policy_optimizer.pt",
+  "parent_checkpoint_sha256": "87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511",
+  "model_path_remote": "/grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659",
+  "budget": {
+    "rows": 4,
+    "max_new_tokens": 256,
+    "generation_seconds_per_row": 90,
+    "parameter_updates": 0,
+    "training_executed": false,
+    "resources": "one Polaris GPU, 64 CPUs, 00:15:00"
+  },
+  "reference_fragments_exported": false,
+  "proof_bodies_exported": false,
+  "generated_feedback": false,
+  "repair_or_reward": false,
+  "protected_evaluation": false,
+  "proof_or_quality_claim": false,
+  "independent_sany_scoring": "required after retrieval; not part of GPU worker"
+}
