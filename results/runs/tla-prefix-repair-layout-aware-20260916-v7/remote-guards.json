@@ -1,0 +1,14 @@
+{
+  "observed_utc": "2026-09-16T02:50:17Z",
+  "destination": "/home/eric-spencer/tla-prefix-repair-layout-aware-20260916-v7",
+  "host": "polaris-login-04",
+  "stage_sha256sum_check": true,
+  "python_compile": true,
+  "pbs_syntax": true,
+  "pycache_absent": true,
+  "result_namespace_absent": true,
+  "owned_queue_empty": true,
+  "model_weights_loaded": false,
+  "cuda_touched": false,
+  "gpu_submitted": false
+}

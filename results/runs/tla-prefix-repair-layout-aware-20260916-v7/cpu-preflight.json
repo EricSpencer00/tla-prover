@@ -1,0 +1,31 @@
+{
+  "kind": "protected_layout_aware_repair_preflight_v1",
+  "complete": true,
+  "packet_sha256": "a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c",
+  "corpus_sha256": "fb76468f6a3217a359d54da92a2e3fa25396aad0547e6b5eb35129193a0e812a",
+  "grammar_sha256": "2bcc86946f0a858628f455a3d0648c7117e2b780743e1f25dff82cebd0fb4d67",
+  "child_checkpoint_sha256": "87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511",
+  "rows": [47, 107],
+  "protected_references": {
+    "47": {"reference_tokens": 226, "reference_sha256": "36c548d2a475c0d086ddf0340f927b36002699ce86e955d702e061324ad2f07c"},
+    "107": {"reference_tokens": 673, "reference_sha256": "4ed6e849af37ac7083fa7aaf33344f226eba1955a504f3a1d4bfba93d4a0437f"}
+  },
+  "protected_prompt_tokens": {
+    "47": {"prompt_tokens": 401, "prompt_sha256": "32eb750d7db375df72e8e93d929ac3e5c7a365d50a915202c62db6e3d675877f"},
+    "107": {"prompt_tokens": 457, "prompt_sha256": "388d75fc27a48d38ccb3fd0258a72ddfd1b9dbb0852b0b058057521e8eaafb51"}
+  },
+  "synthetic_controls": {"prefix_priming": true, "exact_ranked_selection": true, "stable_ties": true, "eos_termination": true, "first_rejection": true, "torch_imported": true},
+  "bounded_backtracking_controls": {"dead_end_type": "LayoutGuardDeadEnd", "eos_termination": true, "finite_alternate": true, "rollback_ban": true},
+  "failure_trace_controls": {"partial_failure_receipt": true, "required_fields": ["attempt", "status", "rollback_tokens", "banned_token", "remaining_tokens", "selected_tokens", "failure_steps"], "ordered_attempts": true, "no_sany_or_quality_credit": true},
+  "comment_free_repair_controls": {"protected_reference_comment_free": true, "protected_reference_denominator": 2, "synthetic_comment_rejection": true, "universal_false_reject_audit": false},
+  "xgrammar_version": "0.2.2",
+  "vocabulary_size": 128256,
+  "max_new_tokens": 2048,
+  "repair_max_new_tokens": 512,
+  "selector_audit_steps": 4,
+  "backtrack_windows": [64, 128, 256, 512],
+  "model_weights_loaded": false,
+  "cuda_touched": false,
+  "gate_claim": false,
+  "model_improvement_claim": false
+}
