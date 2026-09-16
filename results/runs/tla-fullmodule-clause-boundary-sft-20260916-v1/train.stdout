@@ -1,0 +1,15 @@
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/291 [00:00<?, ?it/s]Loading weights:  29%|██▉       | 84/291 [00:00<00:00, 510.35it/s]Loading weights:  47%|████▋     | 136/291 [00:01<00:01, 107.59it/s]Loading weights:  55%|█████▌    | 161/291 [00:01<00:01, 78.15it/s] Loading weights:  61%|██████    | 177/291 [00:01<00:01, 76.12it/s]Loading weights:  65%|██████▍   | 189/291 [00:02<00:01, 77.46it/s]Loading weights:  69%|██████▊   | 200/291 [00:02<00:01, 75.28it/s]Loading weights:  72%|███████▏  | 210/291 [00:02<00:01, 71.95it/s]Loading weights:  75%|███████▌  | 219/291 [00:02<00:01, 60.75it/s]Loading weights:  78%|███████▊  | 228/291 [00:02<00:01, 58.98it/s]Loading weights:  81%|████████  | 236/291 [00:02<00:00, 55.98it/s]Loading weights:  84%|████████▎ | 243/291 [00:03<00:00, 56.73it/s]Loading weights:  87%|████████▋ | 254/291 [00:03<00:00, 62.51it/s]Loading weights:  90%|████████▉ | 261/291 [00:03<00:00, 61.78it/s]Loading weights:  92%|█████████▏| 268/291 [00:03<00:00, 59.34it/s]Loading weights:  95%|█████████▍| 275/291 [00:03<00:00, 59.47it/s]Loading weights:  97%|█████████▋| 282/291 [00:03<00:00, 61.42it/s]Loading weights: 100%|██████████| 291/291 [00:03<00:00, 78.92it/s]
+{"step": 1, "loss": 0.9312357604503632}
+{"step": 2, "loss": 1.1782462000846863}
+{"step": 3, "loss": 1.1225929260253906}
+{"step": 4, "loss": 0.701247364282608}
+{"step": 5, "loss": 0.8285671770572662}
+{"step": 6, "loss": 0.7250766605138779}
+{"step": 7, "loss": 1.2694495916366577}
+{"step": 8, "loss": 0.4452062249183655}
+{"step": 9, "loss": 0.5822903513908386}
+{"step": 10, "loss": 0.9163881242275238}
+{"step": 11, "loss": 0.672107383608818}
+{"step": 12, "loss": 0.5738141089677811}
+{"complete": true, "updates": 12, "parameter_delta_l2": 0.4598490594675953, "checkpoint_sha256": "76dc83b567637acc5f2cc9765d654085f3e1785d2d0997eb0ee0b3258abc4962"}

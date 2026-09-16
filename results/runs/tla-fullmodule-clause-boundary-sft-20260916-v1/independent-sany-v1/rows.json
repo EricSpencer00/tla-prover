@@ -1,0 +1,46 @@
+[
+  {
+    "row": 47,
+    "phase": "restored_parent",
+    "status": "model_sany_reject",
+    "candidate_sha256": "f82d02515bf8b6a0c210040f74d21f34102204b5c908cadf86785dac1d8052d7",
+    "module_name": "W4Od2m7p4t2",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-clause-boundary-sft-20260916-v1/independent-sany-v1/candidates/restored_parent-47/sany.log",
+    "finish_reason": "eos",
+    "embedded_worker_status": "model_reject"
+  },
+  {
+    "row": 107,
+    "phase": "restored_parent",
+    "status": "model_sany_reject",
+    "candidate_sha256": "a73854c7ad249a15f1471cac6442dc8d37df3b11f1ba76557bf6ebc91e90c751",
+    "module_name": "W4Od3m0p0t0",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-clause-boundary-sft-20260916-v1/independent-sany-v1/candidates/restored_parent-107/sany.log",
+    "finish_reason": "eos",
+    "embedded_worker_status": "model_reject"
+  },
+  {
+    "row": 47,
+    "phase": "trained_child",
+    "status": "model_sany_reject",
+    "candidate_sha256": "e6e49ac75b58b0a60a5d8602e5d89ee98c8e56939df30927fd1e7577b594f398",
+    "module_name": "W4Od2m7p4t2",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-clause-boundary-sft-20260916-v1/independent-sany-v1/candidates/trained_child-47/sany.log",
+    "finish_reason": "eos",
+    "embedded_worker_status": "model_reject"
+  },
+  {
+    "row": 107,
+    "phase": "trained_child",
+    "status": "model_sany_reject",
+    "candidate_sha256": "b60743e31e9fcc92e221ac2dd543e7b85438664e24a5049bc7f6d3b268756662",
+    "module_name": "W4Od3m0p0t0",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-clause-boundary-sft-20260916-v1/independent-sany-v1/candidates/trained_child-107/sany.log",
+    "finish_reason": "eos",
+    "embedded_worker_status": "model_reject"
+  }
+]

@@ -1,0 +1,27 @@
+{
+  "complete": true,
+  "controls_ok": true,
+  "protected_rows": [
+    47,
+    107
+  ],
+  "requested_candidates": 4,
+  "measured_candidates": 4,
+  "candidate_sany_pass": 0,
+  "candidate_sany_reject": 4,
+  "candidate_statuses": {
+    "restored_parent/47": "model_sany_reject",
+    "restored_parent/107": "model_sany_reject",
+    "trained_child/47": "model_sany_reject",
+    "trained_child/107": "model_sany_reject"
+  },
+  "worker_labels_reproduced": false,
+  "independent_bytes": true,
+  "model_improvement_claim": false,
+  "quality_claim": false,
+  "gate_claim": false,
+  "proof_claim": false,
+  "generalization_claim": false,
+  "tlc_claim": false,
+  "nonvacuity_claim": false
+}

@@ -1,0 +1,31 @@
+{
+  "command": [
+    "/usr/bin/java",
+    "-cp",
+    "/Users/eric/GitHub/prove-TLA/tools/tla2tools.jar",
+    "tla2sany.SANY",
+    "W4Od2m7p4t2.tla"
+  ],
+  "cwd": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-clause-boundary-sft-20260916-v1/independent-sany-v1/candidates/trained_child-47",
+  "root_pid": 19591,
+  "root_reaped": true,
+  "returncode": 255,
+  "output": "\n****** SANY2 Version 2.1 created 24 February 2014\n\nParsing file /Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-clause-boundary-sft-20260916-v1/independent-sany-v1/candidates/trained_child-47/W4Od2m7p4t2.tla\n***Parse Error***\nEncountered \"|->\" at line 21, column 67 and token \"Dispatchers\" \n\nResidual stack trace follows:\nSome [] Form starting at line 21, column 47.\nExtendableExpr starting at line 21, column 47.\nExtendableExpr starting at line 21, column 30.\nExpression starting at line 21, column 30.\nJunction Item starting at line 21, column 27.\n\n\nFatal errors while parsing TLA+ spec in file W4Od2m7p4t2.tla\n\ntla2sany.semantic.AbortException\n*** Abort messages: 1\n\nIn module W4Od2m7p4t2\n\nCould not parse module W4Od2m7p4t2 from file W4Od2m7p4t2.tla\n\n\n",
+  "seconds": 0.42209954200370703,
+  "timed_out": false,
+  "output_complete": true,
+  "output_limit": false,
+  "cleanup_complete": true,
+  "surviving_owned_processes": [],
+  "owned_processes": [
+    {
+      "pid": 19591,
+      "created": 1789539336.649486,
+      "pgid": 19591
+    }
+  ],
+  "signals": [],
+  "errors": [],
+  "execution_complete": true,
+  "containment": "Best-effort ancestry polling; instantaneous unobserved reparenting is not excluded"
+}
