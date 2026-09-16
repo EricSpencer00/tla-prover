@@ -1,0 +1,30 @@
+{
+  "job_id": "7626380.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "stage": "tla-prefix-repair-layout-aware-20260916-v3",
+  "state": "F",
+  "exit_status": 1,
+  "queue": "debug",
+  "exec_host": "x3102c0s13b0n0/0*64",
+  "resources_used": {
+    "cput": "00:01:24",
+    "mem": "6807220kb",
+    "ngpus": 0,
+    "ncpus": 64,
+    "walltime": "00:01:56"
+  },
+  "requested": {
+    "ngpus": 1,
+    "ncpus": 64,
+    "walltime": "00:15:00"
+  },
+  "stageout_status": 1,
+  "log_sha256": "111d78ba793cb631f775969be8fee1b081b23447df6e4c03bb0bced2047bdbfa",
+  "partial_row_sha256": {
+    "47": "89b1c8250023c5b73e7030d40983858d0d745ea2f5f935a6bd757fa5df988636"
+  },
+  "result_namespace": "partial row-47 only; no row-107 or complete receipt",
+  "failure": "no finite layout-and-grammar-allowed token score after row-47 repair reached its 512-token cap",
+  "quality_claim": false,
+  "gate_claim": false,
+  "model_improvement_claim": false
+}
