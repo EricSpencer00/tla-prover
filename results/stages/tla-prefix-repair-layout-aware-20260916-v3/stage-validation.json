@@ -1,0 +1,35 @@
+{
+  "kind": "protected_layout_aware_repair_stage_validation_v3",
+  "objective": "layout_aware_prefix_preserving_ranked_greedy_repair_precedence_guard",
+  "packet_sha256": "a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c",
+  "corpus_sha256": "fb76468f6a3217a359d54da92a2e3fa25396aad0547e6b5eb35129193a0e812a",
+  "grammar_sha256": "2bcc86946f0a858628f455a3d0648c7117e2b780743e1f25dff82cebd0fb4d67",
+  "child_checkpoint_sha256": "87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511",
+  "runner_sha256": "8518ee84858d16e00fb98036a3e702f2db2a4fe3f6601cc9292add83dc1eb4aa",
+  "selector_sha256": "8a807fd5dab64f7ffce8a7689c8ff0362f7c677e305c41ea366ea9ce036cba30",
+  "precedence_guard_sha256": "3c42091f1bc5578cc0640a16c3ad7f01d58e1d9e0d5879342041682aa9937b86",
+  "layout_audit_sha256": "72b41dea7d6e4da7ca1532967db46d7b76cd840caca1924b32380b5c0b814809",
+  "preflight_sha256": "4c569421946fcd207028f16f12f90b24182817b7f89975c988277197195f15e8",
+  "pbs_sha256": "cd5938943d7c7a45be2fcbbbadc8020855838ef2d022ddad08aad0446b5d34b8",
+  "contract": {
+    "rows": [47, 107],
+    "max_new_tokens": 2048,
+    "repair_max_new_tokens": 512,
+    "selector_audit_steps": 4,
+    "prefix_preserving": true,
+    "layout_guard": "same-indent contiguous junction runs plus audited precedence forms",
+    "known_good_false_rejects": 0,
+    "known_good_denominator": 438,
+    "reference_conditioning": false,
+    "training": false,
+    "protected_sany_denominator": 2,
+    "gpu_walltime_minutes": 15
+  },
+  "claims": {
+    "model_weights_loaded": false,
+    "cuda_touched": false,
+    "gate_claim": false,
+    "model_improvement_claim": false,
+    "proof_claim": false
+  }
+}
