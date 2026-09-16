@@ -1,0 +1,40 @@
+{
+  "schema": 1,
+  "kind": "fullmodule_continuation_grammar_decode_stage_v2",
+  "objective": "adapter-restored-prefix-preserving-verifier-constrained-continuation-with-error-family-guards",
+  "packet_sha256": "a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c",
+  "parent_checkpoint_sha256": "87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511",
+  "adapter_checkpoint_sha256": "e8a1395685c5c5c4d9311361fcea1e354d3decb4cf46b94cffab8831e936e69a",
+  "corpus_sha256": "fb76468f6a3217a359d54da92a2e3fa25396aad0547e6b5eb35129193a0e812a",
+  "grammar_sha256": "2bcc86946f0a858628f455a3d0648c7117e2b780743e1f25dff82cebd0fb4d67",
+  "runner_sha256": "1c991dad096a022bb54fd4cf3de7ca6cdd47e6dd5aef1ecc9f70f2fea7f6a6dd",
+  "repair_helper_sha256": "187e07682cb2e34e1a9f477cdc79b71a8bf9e0095745004c3f98ce6b3a618753",
+  "selector_sha256": "34fbffa46bdaa5315864bb46eb78de5a1af27c2c88a9c32f6087e991a28a502d",
+  "continuation_error_guard_sha256": "e4deb37ce690d90e7a5e1e9bb235fd72c35fe7ec5eb979c96e3ad7a1908a8810",
+  "comment_guard_sha256": "6e3117afee2544bb41bc95278ee2e61a224efdf7a287b9177293026c192cbed2",
+  "pbs_sha256": "934da5abe5615ed949cba5cc8acfe28bb16a385f33958ba91ad786fb8329446e",
+  "contract": {
+    "rows": [47, 107],
+    "max_new_tokens": 2048,
+    "repair_max_new_tokens": 512,
+    "selector_audit_steps": 4,
+    "backtrack_windows": [64, 128, 256, 512],
+    "prefix_preserving": true,
+    "adapter_only_inference": true,
+    "reference_conditioning": false,
+    "training": false,
+    "protected_sany_denominator": 2,
+    "gpu_walltime_minutes": 15
+  },
+  "claims": {
+    "model_weights_loaded": false,
+    "cuda_touched": false,
+    "model_improvement_claim": false,
+    "quality_claim": false,
+    "gate_claim": false,
+    "proof_claim": false,
+    "generalization_claim": false,
+    "tlc_claim": false,
+    "nonvacuity_claim": false
+  }
+}

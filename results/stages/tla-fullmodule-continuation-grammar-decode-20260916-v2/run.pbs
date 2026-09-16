@@ -1,0 +1,43 @@
+#!/bin/bash
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-continuation-grammar-v2
+#PBS -l select=1:system=polaris:ngpus=1
+#PBS -l walltime=00:15:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+set -euo pipefail
+STAGE=/home/eric-spencer/tla-fullmodule-continuation-grammar-decode-20260916-v2
+BASE=/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1
+RUN_ROOT=/home/eric-spencer/tla-parent-broader-sany-replay-20260915-v1
+cd "$STAGE"
+set -o noclobber
+exec > "job.${PBS_JOBID%%.*}.log" 2>&1
+export PYTHONPATH="$STAGE:$STAGE/tools:$RUN_ROOT:$BASE"
+export TLA_TOOLS_PATHS="$STAGE/tools:$RUN_ROOT/tools:$BASE/tools"
+export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false
+export HF_HOME=/grand/EVITA/eric-spencer/hf-cache PYTHONUNBUFFERED=1
+export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1
+export PATH="/grand/EVITA/eric-spencer/tools/jre21/bin:$PATH"
+export JAVA_HOME=/grand/EVITA/eric-spencer/tools/jre21
+PYTHON=/home/eric-spencer/ChatTLA/.venv/bin/python
+MODEL=/grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659
+PARENT=/home/eric-spencer/tla-structured-span-train-20260914-v3/result.7618905/policy_optimizer.pt
+CHECKPOINT=/home/eric-spencer/tla-fullmodule-continuation-sft-20260916-v1/result.7626952/policy_lora.pt
+XGRAMMAR_SITE=/grand/EVITA/eric-spencer/tla-checkpoint-preflight-deps/xgrammar-0.2.2-cp312
+test -f "$MODEL/config.json" -a -f "$PARENT" -a -f "$CHECKPOINT" -a -f cpu-preflight.json
+test "$(sha256sum "$PARENT" | awk '{print $1}')" = 87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511
+test "$(sha256sum "$CHECKPOINT" | awk '{print $1}')" = e8a1395685c5c5c4d9311361fcea1e354d3decb4cf46b94cffab8831e936e69a
+OUT="$STAGE/result.${PBS_JOBID%%.*}"
+test ! -e "$OUT"
+timeout --signal=TERM --kill-after=10s 840s "$PYTHON" -u -B tools/proof_fullmodule_continuation_grammar_decode.py \
+  --packet "$STAGE/packet.json" \
+  --corpus "$STAGE/canonical-preflight-corpus-20260911.json" \
+  --grammar "$STAGE/tla_module_v1.ebnf" \
+  --model "$MODEL" \
+  --parent-checkpoint "$PARENT" \
+  --checkpoint "$CHECKPOINT" \
+  --xgrammar-site "$XGRAMMAR_SITE" \
+  --output "$OUT" \
+  --max-new-tokens 2048 --repair-max-new-tokens 512 --selector-audit-steps 4 \
+  --backtrack-windows 64 128 256 512
