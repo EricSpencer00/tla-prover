@@ -1,0 +1,15 @@
+{
+  "job_id": "7626186.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "stage": "tla-prefix-repair-ranked-greedy-20260916-v1",
+  "destination": "/home/eric-spencer/tla-prefix-repair-ranked-greedy-20260916-v1",
+  "submitted_utc": "2026-09-16T00:33:44Z",
+  "state_at_submit_check": "R",
+  "queue": "debug",
+  "exec_host": "x3004c0s37b0n0/0*64",
+  "ngpus": 1,
+  "ncpus": 64,
+  "walltime": "00:15:00",
+  "identity_sha256": "481172e3084b1ea9ebd9596f48cc03997331c8bc2baed885ac9aaba9b1a9f1c8",
+  "claim_path": "results/runs/tla-prefix-repair-ranked-greedy-20260916-v1/claim.json",
+  "guard": "fresh owned queue and result namespace checks passed; submitted exactly once"
+}
