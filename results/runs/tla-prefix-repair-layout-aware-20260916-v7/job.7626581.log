@@ -1,0 +1,25 @@
+protected_layout_aware_repair.py: OK
+layout_aware_greedy_grammar_selector.py: OK
+precedence_guard.py: OK
+comment_guard.py: OK
+layout_junction_audit.py: OK
+protected_checkpoint_preflight.py: OK
+packet.json: OK
+canonical-preflight-corpus-20260911.json: OK
+tla_module_v1.ebnf: OK
+protected_layout_aware_repair_polaris.pbs: OK
+stage-validation.json: OK
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/291 [00:00<?, ?it/s]Loading weights: 100%|██████████| 291/291 [00:00<00:00, 10390.87it/s]
+[transformers] The following generation flags are not valid and may be ignored: ['temperature', 'top_p']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+{"event": "row", "row": 47, "accepted_prefix_tokens": 89, "repair_tokens": 134, "grammar_ended": true}
+{"event": "failure", "row": 107, "failure": "bounded guard backtracking exhausted without a finite continuation", "attempts": 5}
+Traceback (most recent call last):
+  File "/home/eric-spencer/tla-prefix-repair-layout-aware-20260916-v7/protected_layout_aware_repair.py", line 599, in <module>
+    main()
+  File "/home/eric-spencer/tla-prefix-repair-layout-aware-20260916-v7/protected_layout_aware_repair.py", line 516, in main
+    repaired = run_repair(model, tokenizer, xgrammar, compiled, prompt_inputs,
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/tla-prefix-repair-layout-aware-20260916-v7/protected_layout_aware_repair.py", line 432, in run_repair
+    raise BoundedBacktrackingFailure(
+BoundedBacktrackingFailure: bounded guard backtracking exhausted without a finite continuation

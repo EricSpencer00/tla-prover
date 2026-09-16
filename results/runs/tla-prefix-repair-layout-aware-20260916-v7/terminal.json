@@ -1,0 +1,18 @@
+{
+  "job_id": "7626581.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "observed_utc": "2026-09-16T02:56:15Z",
+  "job_state": "F",
+  "exit_status": 1,
+  "exec_host": "x3101c0s7b1n0/0*64",
+  "started_utc": "2026-09-16T02:52:14Z",
+  "finished_utc": "2026-09-16T02:56:15Z",
+  "resources_requested": {"ngpus": 1, "ncpus": 64, "walltime": "00:15:00"},
+  "resources_used_reported": {"ngpus": 0, "ncpus": 64, "walltime": "00:03:57"},
+  "receipt_complete": false,
+  "completed_rows": [47],
+  "failure_rows": [107],
+  "model_weights_loaded": true,
+  "sany_scored": false,
+  "gate_claim": false,
+  "model_improvement_claim": false
+}

@@ -1,0 +1,20 @@
+[
+  {
+    "row": 47,
+    "label": "reference",
+    "status": "pass",
+    "candidate_sha256": "36c548d2a475c0d086ddf0340f927b36002699ce86e955d702e061324ad2f07c",
+    "module_name": "W4Od2m7p4t2",
+    "returncode": 0,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-prefix-repair-layout-aware-20260916-v7/sany-partial-audit/controls/47-reference/sany.log"
+  },
+  {
+    "row": 47,
+    "label": "negative",
+    "status": "model_sany_reject",
+    "candidate_sha256": "bdc6071bd60c72a6d7ca788895226ad63f9f0b4c83eb16ffae6829bbfbe0b394",
+    "module_name": "W4Od2m7p4t2",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-prefix-repair-layout-aware-20260916-v7/sany-partial-audit/controls/47-negative/sany.log"
+  }
+]
