@@ -1,0 +1,17 @@
+{
+  "requested_tasks": 4,
+  "fully_ranked_tasks": 4,
+  "measured_tasks": 4,
+  "certified_tasks": 1,
+  "top1_verified": 1,
+  "top4_verified": 1,
+  "checker_attempts": 13,
+  "checker": "strict uncached TLAPS --strict --nofp",
+  "reference_fragment_used": false,
+  "training_executed": false,
+  "repair_or_reward": false,
+  "quality_claim": false,
+  "gate_claim": false,
+  "denominator_fixed": true,
+  "method": "independent strict TLAPS over exact-parent ranked symbolic proposals"
+}

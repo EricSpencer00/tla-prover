@@ -1,0 +1,16 @@
+{
+  "method": "answer-free deterministic proposal order with strict uncached TLAPS",
+  "packet_sha256": "4acd0f7a05e308a1cc37bf4586f00c9f5a220553a6833adee00cb1fc83440c4d",
+  "manifest_sha256": "c186ddf0007c5b5adfdc345a06feb777a89746160cf9041b875a8655ed1eb344",
+  "requested_tasks": 4,
+  "measured_tasks": 4,
+  "certified_tasks": 4,
+  "checker_attempts": 12,
+  "reference_fragment_used": false,
+  "training_executed": false,
+  "reward_or_feedback_used": false,
+  "protected_evaluation": false,
+  "quality_claim": false,
+  "gate_claim": false,
+  "diagnosis": "The frozen symbolic proposal vocabulary is sufficient for all four development tasks when evaluated in deterministic proposal order; the exact-parent neural ranker selected harmful long irrelevant premise sets for three tasks. This is a system-control result, not model credit."
+}

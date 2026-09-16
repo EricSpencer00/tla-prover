@@ -1,0 +1,3 @@
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/291 [00:00<?, ?it/s]Loading weights: 100%|██████████| 291/291 [00:00<00:00, 9641.32it/s]
+{"requested_tasks": 4, "fully_scored_tasks": 4, "scored_candidates": 116, "candidate_budget_per_task": [29, 29, 29, 29], "parameter_updates": 0, "training_executed": false, "reference_fragment_used": false, "tlaps_executed": false, "proof_or_quality_claim": false, "method": "exact-parent conditional mean response logp over answer-free symbolic BY proposals", "gpu": "NVIDIA A100-SXM4-40GB", "cuda_peak_allocated_bytes": 17442733568, "cuda_peak_reserved_bytes": 24226299904, "elapsed_seconds": 15.68897333717905}

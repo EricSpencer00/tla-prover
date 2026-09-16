@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "job_id": "7628491.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "stage": "tla-verifier-candidate-rank-gpu-20260916-v1",
+  "destination": "/home/eric-spencer/tla-verifier-candidate-rank-gpu-20260916-v1",
+  "pbs": {
+    "state": "F",
+    "exit_status": 0,
+    "exec_host": "x3005c0s19b0n0/0*64",
+    "qtime": "2026-09-16T21:27:08",
+    "start_time": "2026-09-16T21:34:33",
+    "obittime": "2026-09-16T21:36:08",
+    "resource_list": {
+      "ncpus": 64,
+      "ngpus": 1,
+      "walltime": "00:15:00"
+    },
+    "resources_used": {
+      "cput": "00:01:01",
+      "mem": "5746168kb",
+      "ncpus": 64,
+      "ngpus": 0,
+      "walltime": "00:01:31"
+    },
+    "resource_discrepancy": "PBS resources_used.ngpus=0 conflicts with Resource_List.ngpus=1 and the allocated exec_host receipt; worker runtime independently reports an NVIDIA A100-SXM4-40GB. No GPU-success inference is based on this field alone."
+  },
+  "stage_hashes": {
+    "packet_sha256": "4acd0f7a05e308a1cc37bf4586f00c9f5a220553a6833adee00cb1fc83440c4d",
+    "manifest_sha256": "4afdfa6169047af09c0f858981cbb0e1e0d3e5acea989347982c62f7de453d96",
+    "packet_manifest_sha256": "c186ddf0007c5b5adfdc345a06feb777a89746160cf9041b875a8655ed1eb344",
+    "parent_checkpoint_sha256": "87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511",
+    "worker_sha256": "b6c751a8ed23ff12435a55f9b8bad3167826df28199a90ad618857af533937ed"
+  },
+  "remote_result_hashes": {
+    "config.json": "99bd7f18544e0af7dc6f4afd90a4971fa38929188bd415d466c396e9b00b86b9",
+    "rankings.json": "828666ffeade867c6873148759694e815caf34dced12635b4b4e3c8abdb1b8dc",
+    "runtime.json": "525ac485c1144948edefc6d725ad1826e75dbcb13f6e71c8ec15efe898bad039",
+    "scores.jsonl": "c601c7f6ac9740a701d629083104876c1244bcf09c953c7725424345feff192b",
+    "summary.json": "6cfe009bcfc4eaf55b3100127213fc8784462a1b8248ff81aceb48a60f5b087e",
+    "train.stdout": "9969e9d12e8a8765683f43bac6b52c8886a151004f0323dea548fce95e9bf220"
+  },
+  "worker_receipt": {
+    "gpu": "NVIDIA A100-SXM4-40GB",
+    "requested_tasks": 4,
+    "fully_scored_tasks": 4,
+    "scored_candidates": 116,
+    "candidate_budget_per_task": [29, 29, 29, 29],
+    "parameter_updates": 0,
+    "reference_fragment_used": false,
+    "tlaps_executed": false,
+    "cuda_peak_allocated_bytes": 17442733568,
+    "cuda_peak_reserved_bytes": 24226299904,
+    "elapsed_seconds": 15.68897333717905
+  },
+  "independent_score": {
+    "requested_tasks": 4,
+    "fully_ranked_tasks": 4,
+    "measured_tasks": 4,
+    "certified_tasks": 1,
+    "top1_verified": 1,
+    "top4_verified": 1,
+    "checker_attempts": 13,
+    "checker": "strict uncached TLAPS --strict --nofp",
+    "summary_sha256": "4561d0b089938a53c2c80b7948c72762ed210f11622171bf817a3e3e473e74c7",
+    "checks_sha256": "e2a60f7a1cdbc40c20f0790fea96c539d222ae341382c16c88245c0b809a596c"
+  },
+  "claims": {
+    "model": false,
+    "quality": false,
+    "proof": false,
+    "gate": false,
+    "generalization": false,
+    "promotion": false,
+    "reward_hacking": false
+  },
+  "diagnosis": "Complete answer-free exact-parent candidate-ranking diagnostic. One of four top-ranked candidates was strict-TLAPS certified; three tasks had no certified candidate in their top four. Preserve as a negative ranking hypothesis and do not replay unchanged."
+}
