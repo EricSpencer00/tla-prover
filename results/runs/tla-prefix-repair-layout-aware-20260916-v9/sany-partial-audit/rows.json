@@ -1,0 +1,20 @@
+[
+  {
+    "row": 47,
+    "arm": "baseline",
+    "status": "model_sany_reject",
+    "candidate_sha256": "1e8c6ff81f2662b74b6d408a6c5ed78972fa33971a50a53e9333fbedab3b3ada",
+    "module_name": "W4Od2m7p4t2",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-prefix-repair-layout-aware-20260916-v9/sany-partial-audit/candidates/47-baseline/sany.log"
+  },
+  {
+    "row": 47,
+    "arm": "layout_aware_repair",
+    "status": "model_sany_reject",
+    "candidate_sha256": "5ff6fcac5e09649bd557dd0cb238f19b061ae6296167d134748de10022f0de08",
+    "module_name": "W4Od2m7p4t2",
+    "returncode": 0,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-prefix-repair-layout-aware-20260916-v9/sany-partial-audit/candidates/47-layout_aware_repair/sany.log"
+  }
+]

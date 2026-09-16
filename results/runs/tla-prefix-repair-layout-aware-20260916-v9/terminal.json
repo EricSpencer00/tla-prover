@@ -1,0 +1,22 @@
+{
+  "job_id": "7626692.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "stage": "tla-prefix-repair-layout-aware-20260916-v9",
+  "observed_utc": "2026-09-16T03:32:44Z",
+  "state": "F",
+  "exit_status": 1,
+  "exec_host": "x3208c0s7b0n0/0*64",
+  "queue": "debug",
+  "ngpus": 1,
+  "ncpus": 64,
+  "walltime": "00:04:59",
+  "memory_kb": 6814256,
+  "row47_receipt": "result.7626692/row-47.json",
+  "row107_failure_receipt": "result.7626692/failure-row-107.json",
+  "log": "job.7626692.log",
+  "log_sha256": "9090f85ee602b0bbc7c45590acba71687c92b6cdd7c5b829333c04e9b2efe688",
+  "failure_mode": "bounded_guard_backtracking_exhausted_without_a_finite_continuation",
+  "protected_denominator_complete": false,
+  "sany_or_quality_credit": false,
+  "model_improvement_claim": false,
+  "gate_claim": false
+}
