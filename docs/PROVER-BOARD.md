@@ -4,8 +4,8 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 690
-- Verified UTC: 2026-09-16T03:01:26Z
+- Revision: 692
+- Verified UTC: 2026-09-16T03:07:12Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: local_work
 - Active job: none
@@ -13,7 +13,7 @@ This is the only execution board. It records verified observations, not continuo
 - Latest completed result: V8 is locally staged append-only. Its direct quantified-junction precedence guard catches the v7 row47 conflict with0 false rejects over438 known-good modules, excluding the known-good nested \/ /\ form. It preserves the scoped comment-free repair constraint and corrected v6 receipt kind; local SHA256, compile and PBS syntax pass. No remote or GPU result exists.
 - Local work: Structural-curriculum v3, corruption-preference v2, multilayer LoRA v3, the narrow and wide full-sequence contrastive diagnostics and the grammar frontier audit remain preserved and committed; large base checkpoints stay outside Git. The wide run has complete raw evidence and remains a negative diagnostic: protected rows47/107 stay fixed holdouts, no generated feedback/replay was loaded, and the programmatic Discord watchdog remains live. The full-replay beam and cache-aware v1 ranked-greedy repair are preserved as bounded negatives and will not be replayed unchanged. The independent receipt scorer confirms the v1 grammar over-accepts the same SANY precedence failures it was designed to leave permissive. The layout-aware v3/v4/v5 failures remain preserved. V6 applies precedence guarding during baseline prefix extraction while retaining bounded rollback and partial failure traces. Its targeted CPU audit demonstrates the row107 prefix stops before the mixed-definition violation and retains a large finite guarded continuation set; no SANY, model, quality or gate credit is assigned.
 - External blocker: none verified
-- Next action: Upload v8 to a fresh Polaris destination, run no-weights CPU admission and remote static guards, then consider exactly one bounded GPU diagnostic only if all guards pass.
+- Next action: Perform one final fresh empty-queue/output check, submit exactly one claimed v8 one-GPU diagnostic for00:15:00, and monitor only that job through its terminal receipt. No SANY, model, quality or gate credit is permitted without independent evidence.
 
 ## Objective and evidence rules
 
@@ -37,6 +37,7 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 
 ## Decisions
 
+- 2026-09-16T03:07:12Z: V8 is remotely static-admitted at /home/eric-spencer/tla-prefix-repair-layout-aware-20260916-v8. Exact SHA256, remote Python compilation, PBS syntax, pycache/output-namespace and owned-queue guards pass; no-weights CPU preflight is complete with cuda_touched=false, model_weights_loaded=false, gate_claim=false and model_improvement_claim=false. Its direct quantified-junction audit passes438 known-good modules with0 false rejects. Unique claim acc81d6d is acquired; submit exactly one bounded one-GPU diagnostic after one final live empty-queue/output check. No SANY/model/quality/gate credit.
 - 2026-09-16T03:01:26Z: V8 is locally staged append-only. Its direct quantified-junction precedence guard catches the v7 row47 conflict with0 false rejects over438 known-good modules, excluding the known-good nested \/ /\ form. It preserves the scoped comment-free repair constraint and corrected v6 receipt kind; local SHA256, compile and PBS syntax pass. No remote/GPU/model/gate result.
 - 2026-09-16T02:58:39Z: Job7626581 finished F/Exit1 after00:03:57. V7 row47 reached grammar_ended=true after134 repair tokens but independent SANY still rejects its direct quantified disjunction/conjunction precedence conflict. Row107 failed closed after39 guarded tokens across five traced attempts; no complete two-row receipt. Preserve as a partial negative with no model/quality/gate credit; v8 will tighten the direct-quantifier guard.
 - 2026-09-16T02:52:14Z: qstat transitioned sole claimed v7 job7626581 to R on x3101c0s7b1n0/0*64 with one GPU,64 CPUs and00:15:00 walltime. Monitor only; no SANY/model/quality/gate credit.
@@ -494,8 +495,8 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 690,
-  "verified_utc": "2026-09-16T03:01:26Z",
+  "revision": 692,
+  "verified_utc": "2026-09-16T03:07:12Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "local_work",
   "active_job": null,
@@ -503,7 +504,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
   "last_result": "V8 is locally staged append-only. Its direct quantified-junction precedence guard catches the v7 row47 conflict with0 false rejects over438 known-good modules, excluding the known-good nested \\/ /\\ form. It preserves the scoped comment-free repair constraint and corrected v6 receipt kind; local SHA256, compile and PBS syntax pass. No remote or GPU result exists.",
   "local_work": "Structural-curriculum v3, corruption-preference v2, multilayer LoRA v3, the narrow and wide full-sequence contrastive diagnostics and the grammar frontier audit remain preserved and committed; large base checkpoints stay outside Git. The wide run has complete raw evidence and remains a negative diagnostic: protected rows47/107 stay fixed holdouts, no generated feedback/replay was loaded, and the programmatic Discord watchdog remains live. The full-replay beam and cache-aware v1 ranked-greedy repair are preserved as bounded negatives and will not be replayed unchanged. The independent receipt scorer confirms the v1 grammar over-accepts the same SANY precedence failures it was designed to leave permissive. The layout-aware v3/v4/v5 failures remain preserved. V6 applies precedence guarding during baseline prefix extraction while retaining bounded rollback and partial failure traces. Its targeted CPU audit demonstrates the row107 prefix stops before the mixed-definition violation and retains a large finite guarded continuation set; no SANY, model, quality or gate credit is assigned.",
   "external_blocker": null,
-  "next_action": "Upload v8 to a fresh Polaris destination, run no-weights CPU admission and remote static guards, then consider exactly one bounded GPU diagnostic only if all guards pass.",
+  "next_action": "Perform one final fresh empty-queue/output check, submit exactly one claimed v8 one-GPU diagnostic for00:15:00, and monitor only that job through its terminal receipt. No SANY, model, quality or gate credit is permitted without independent evidence.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -573,6 +574,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
     }
   ],
   "decisions": [
+    "2026-09-16T03:07:12Z: V8 is remotely static-admitted at /home/eric-spencer/tla-prefix-repair-layout-aware-20260916-v8. Exact SHA256, remote Python compilation, PBS syntax, pycache/output-namespace and owned-queue guards pass; no-weights CPU preflight is complete with cuda_touched=false, model_weights_loaded=false, gate_claim=false and model_improvement_claim=false. Its direct quantified-junction audit passes438 known-good modules with0 false rejects. Unique claim acc81d6d is acquired; submit exactly one bounded one-GPU diagnostic after one final live empty-queue/output check. No SANY/model/quality/gate credit.",
     "2026-09-16T03:01:26Z: V8 is locally staged append-only. Its direct quantified-junction precedence guard catches the v7 row47 conflict with0 false rejects over438 known-good modules, excluding the known-good nested \\/ /\\ form. It preserves the scoped comment-free repair constraint and corrected v6 receipt kind; local SHA256, compile and PBS syntax pass. No remote/GPU/model/gate result.",
     "2026-09-16T02:58:39Z: Job7626581 finished F/Exit1 after00:03:57. V7 row47 reached grammar_ended=true after134 repair tokens but independent SANY still rejects its direct quantified disjunction/conjunction precedence conflict. Row107 failed closed after39 guarded tokens across five traced attempts; no complete two-row receipt. Preserve as a partial negative with no model/quality/gate credit; v8 will tighten the direct-quantifier guard.",
     "2026-09-16T02:52:14Z: qstat transitioned sole claimed v7 job7626581 to R on x3101c0s7b1n0/0*64 with one GPU,64 CPUs and00:15:00 walltime. Monitor only; no SANY/model/quality/gate credit.",
@@ -1842,7 +1844,11 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "results/stages/tla-prefix-repair-layout-aware-20260916-v8/SHA256SUMS",
     "results/stages/tla-prefix-repair-layout-aware-20260916-v8/stage-validation.json",
     "tools/precedence_guard_direct_audit.py",
-    "results/runs/tla-prefix-repair-layout-aware-20260916-v8/precedence-guard-direct-audit.json"
+    "results/runs/tla-prefix-repair-layout-aware-20260916-v8/precedence-guard-direct-audit.json",
+    "results/runs/tla-prefix-repair-layout-aware-20260916-v8/cpu-preflight.json",
+    "results/runs/tla-prefix-repair-layout-aware-20260916-v8/remote-guards.json",
+    "results/runs/tla-prefix-repair-layout-aware-20260916-v8/claim.json",
+    "results/runs/tla-prefix-repair-layout-aware-20260916-v8/claim-state/acc81d6dbeb78281195a6f157a00d58e8b5181b53637d68e3f07d94ad9d42621.json"
   ]
 }
 -->
