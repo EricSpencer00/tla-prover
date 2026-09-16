@@ -1,0 +1,80 @@
+{
+  "schema": 1,
+  "kind": "continuation_error_family_guard_audit_v1",
+  "known_good_requested": 438,
+  "known_good_false_rejects": 0,
+  "known_good_false_reject_rate": 0.0,
+  "synthetic": {
+    "precedence_reject": true,
+    "map_reject": true,
+    "parenthesized_accept": true,
+    "function_map_accept": true
+  },
+  "candidates": [
+    {
+      "path": "results/runs/tla-fullmodule-continuation-grammar-decode-20260916-v1/result.7626997/row-47.json",
+      "sha256": "1818d5541a82835da675d15794195bfcb71d191971081f0c2c6ebafe83bd3c92",
+      "hits": [
+        {
+          "line": 19,
+          "kind": "top_level_quantified_junction"
+        },
+        {
+          "line": 23,
+          "kind": "top_level_quantified_junction"
+        },
+        {
+          "line": 26,
+          "kind": "top_level_quantified_junction"
+        }
+      ]
+    },
+    {
+      "path": "results/runs/tla-fullmodule-continuation-grammar-decode-20260916-v1/result.7626997/row-107.json",
+      "sha256": "c0187583dc0cc1a0c27cf64e16fcbe6188ee7be6eaf00f2ac29f56a261d34284",
+      "hits": [
+        {
+          "line": 13,
+          "kind": "set_brace_map_arrow"
+        },
+        {
+          "line": 14,
+          "kind": "set_brace_map_arrow"
+        },
+        {
+          "line": 15,
+          "kind": "set_brace_map_arrow"
+        },
+        {
+          "line": 16,
+          "kind": "set_brace_map_arrow"
+        },
+        {
+          "line": 17,
+          "kind": "set_brace_map_arrow"
+        },
+        {
+          "line": 19,
+          "kind": "set_brace_map_arrow"
+        },
+        {
+          "line": 26,
+          "kind": "set_brace_map_arrow"
+        }
+      ]
+    }
+  ],
+  "guard_vocabulary": [
+    "top_level_quantified_junction",
+    "set_brace_map_arrow"
+  ],
+  "complete": true,
+  "decoder_constraint_only": true,
+  "model_improvement_claim": false,
+  "quality_claim": false,
+  "gate_claim": false,
+  "proof_claim": false,
+  "generalization_claim": false,
+  "tlc_claim": false,
+  "nonvacuity_claim": false
+}
