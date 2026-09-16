@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 725
-- Verified UTC: 2026-09-16T06:06:02Z
+- Revision: 726
+- Verified UTC: 2026-09-16T06:09:44Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: local_work
 - Active job: none
-- Observation evidence: At 2026-09-16T06:06:02Z, a fresh clause-boundary SFT stage is locally prepared from the exact parent and packet. All22 non-protected clean reference controls pass pinned SANY; the stage uses selective clause-boundary/context/closure/EOS weighting, rank8 adapters on layers28-31, and no protected/generated/reward data. Local SHA256, Python compilation and PBS syntax pass; remote CPU admission is next. No model, quality or gate credit exists.
+- Observation evidence: At 2026-09-16T06:09:44Z, the fresh clause-boundary SFT stage is remotely CPU-admitted. Exact stage SHA256, Python compilation, PBS syntax, CLI, clean pycache/result namespace and empty owned queue pass; preflight 3bcfd2b passes 22/22 tokenizer/reference records with EOS per row, exact parent/packet identity, and no generated feedback/replay negatives. No GPU has been submitted and no model, quality or gate credit exists.
 - Latest completed result: Decoder-only v2 is a complete negative: strict guards remove both observed error-family shapes without false rejects over438 known-good modules, but both protected rows still stop at the512-token repair cap without grammar completion; independent pinned SANY passes2/2 references and rejects4/4 baseline/repaired model bytes, so repaired protected SANY is0/2.
 - Local work: The semantic preference child remains a complete negative: all20 teacher-forced margins rose but protected SANY stayed0/2. The row47 SANY-in-the-loop controller found the first valid scoped repair at seven of eight binder changes; row107 is now independently measured and rejected at lexical EOF. Semantic-span v1 failed before model load due an omitted manifest and earned zero credit. Corrected v2 job7626911 completed12 multi-token semantic-span updates with exact training-time reload; independent pinned-SANY audit v2 measured both references, both restored-parent candidates and both trained-child candidates, with0/4 model candidates passing and2/2 references passing. The CPU error-frontier audit measured16/16 counterfactual variants with0 SANY passes and identifies continuation/definition incompleteness beyond local layout. Continuation-aware wide SFT job7626952 completed12 exact-reload updates with112 adapter tensors across layers24-31 and all attention/MLP projections, but independent pinned SANY remained0/2 for the child and2/2 for references. The CPU verifier-guided search measured14 reference-free fixed-vocabulary repairs with0 passes. Decoder job7626997 then used exact parent-plus-adapter restoration and prefix-preserving grammar/rollback decoding; the v2 strict error-family guard then removed the observed quantified-junction and set/map shapes with zero false rejects over438 known-good modules, but job7627037 still stopped both rows at512 repair tokens without grammar completion. Independent pinned SANY passed2/2 references and rejected4/4 baseline/repaired outputs. Large checkpoints remain remote-only; the programmatic Discord watchdog remains live. Do not promote or replay these objectives unchanged.
 - External blocker: none verified
-- Next action: Upload the append-only clause-boundary stage to a fresh Polaris destination, run remote no-weight CPU admission and live ownership/output guards, then—only if all pass—submit exactly one bounded one-GPU/15-minute training diagnostic. Independently evaluate its restored parent and child on protected rows with pinned SANY; do not grant model, quality or gate credit otherwise.
+- Next action: Perform one final live Polaris ownership/output check, acquire a fresh unique claim for the exact clause-boundary bundle, and submit exactly one bounded one-GPU/15-minute training diagnostic. Independently evaluate its restored parent and child on protected rows with pinned SANY; do not grant model, quality or gate credit otherwise.
 
 ## Objective and evidence rules
 
@@ -38,13 +38,14 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 | TLA-06G | Done | Independently score constrained decoder outputs | Decoder audit v1 ignores worker labels, passes4/4 SANY controls, and measures baseline plus repaired bytes for both protected rows. References pass2/2; all4 model bytes reject, including repaired47 and107. No model, quality, gate, proof, TLC or promotion credit. |
 | TLA-06H | Done | Audit strict continuation error-family guards | CPU guard audit v1 passes synthetic controls and scans438 known-good modules with0 false rejects. It catches row47's top-level quantified-junction shape and row107's set-brace map-arrow shape. This is a decoder constraint diagnostic, not SANY/model/gate credit. |
 | TLA-06I | Done | Integrate strict continuation guards into fresh decoder stage | Append-only v2 stage binds the same packet/parent/adapter and integrates the audited guard into ranked grammar admission, final validation and prefix rollback. Polaris CPU admission passes exact prompt counts401/457, references2/2, xgrammar0.2.2, stage hashes, compile/PBS/CLI, clean pycache/result namespace and empty owned queue. Unique claim5c0b8d9b acquired; job7627037 completed Exit0 in02:21 with both rows bounded at512 repair tokens. Independent pinned SANY passes2/2 references and rejects4/4 model bytes, repaired protected0/2. Negative diagnostic only; no model/quality/gate credit. |
-| TLA-06J | In progress | Test clause-boundary structured continuation SFT | Locally prepared append-only stage uses only22 pinned-SANY-passing non-protected references, selective clause-boundary/context/closure/EOS weights, rank8 adapters on layers28-31, and the exact parent checkpoint. Local hashes, compile and PBS syntax pass; remote CPU admission and any protected independent audit remain required. No model, quality or gate credit. |
+| TLA-06J | In progress | Test clause-boundary structured continuation SFT | Append-only stage uses only22 pinned-SANY-passing non-protected references, selective clause-boundary/context/closure/EOS weights, rank8 adapters on layers28-31, and the exact parent checkpoint. Remote CPU admission passes22/22 exact tokenizer/reference records with EOS per row, all stage/compile/PBS/CLI/pycache/output/queue guards, and no generated feedback/replay negatives. Final live claim and one bounded training run remain; no model, quality or gate credit. |
 | TLA-07 | Not ready | Verify complete frozen SANY gate | Full frozen denominator has not passed 100%; no diagnostic promotion. |
 | TLA-08 | Not ready | Verify applicable TLC and non-vacuity | Prerequisite SANY gate and intended-behavior evidence incomplete. |
 | TLA-09 | Not ready | Verify genuine TLAPS model performance | Acceptance gates incomplete; same-node positive/negative TLAPS controls and bounded dry run required before retry. |
 
 ## Decisions
 
+- 2026-09-16T06:09:44Z: Remote clause-boundary CPU admission passes stage SHA256, compile, PBS, CLI, pycache/output/queue guards and preflight3bcfd2b. The preflight verifies22/22 clean references, exact packet/parent, EOS per row, boundary-focused records, and no generated feedback/replay negatives. Fixing the first wrapper-only hash-extraction retry earned no model credit. Perform one final live check then one fresh bounded training diagnostic.
 - 2026-09-16T06:06:02Z: After the strict-guard decoder negative, prepare a materially different clause-boundary SFT: selective weights on line/clause starts, four-token post-boundary context, line closures and EOS, with rank8 adapters on layers28-31. Local preparation passes22/22 non-protected pinned-SANY controls and exact parent/packet identity. Upload and remote CPU admission are next; no model or gate credit.
 - 2026-09-16T05:58:55Z: Job7627037 completed the fresh strict-guard v2 decoder diagnostic Exit0 after02:21 with both rows stopping at512 repair tokens and grammar_ended=false. Independent pinned-SANY audit passes2/2 references and rejects4/4 baseline/repaired model bytes; repaired protected result0/2. The strict guards are a valid zero-false-reject constraint result but not a quality intervention. Mark TLA-06I done and pivot to verifier-in-loop structured continuation; do not replay grammar-only rollback unchanged.
 - 2026-09-16T05:54:29Z: Final live Polaris guards passed after removing generated pycache: output namespace absent, owned queue empty, preflight hash db6ccaff and strict guard hash e4deb37c remain exact. Unique claim5c0b8d9b binds v2 stage hashes, packet/parent/adapter, rows47/107, one GPU and00:15:00. Exactly one qsub submitted as job7627037, scheduler state Q in debug; monitor only and independently score pinned SANY before any claim.
@@ -536,16 +537,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 725,
-  "verified_utc": "2026-09-16T06:06:02Z",
+  "revision": 726,
+  "verified_utc": "2026-09-16T06:09:44Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "local_work",
   "active_job": null,
-  "observation_evidence": "At 2026-09-16T06:06:02Z, a fresh clause-boundary SFT stage is locally prepared from the exact parent and packet. All22 non-protected clean reference controls pass pinned SANY; the stage uses selective clause-boundary/context/closure/EOS weighting, rank8 adapters on layers28-31, and no protected/generated/reward data. Local SHA256, Python compilation and PBS syntax pass; remote CPU admission is next. No model, quality or gate credit exists.",
+  "observation_evidence": "At 2026-09-16T06:09:44Z, the fresh clause-boundary SFT stage is remotely CPU-admitted. Exact stage SHA256, Python compilation, PBS syntax, CLI, clean pycache/result namespace and empty owned queue pass; preflight 3bcfd2b passes 22/22 tokenizer/reference records with EOS per row, exact parent/packet identity, and no generated feedback/replay negatives. No GPU has been submitted and no model, quality or gate credit exists.",
   "last_result": "Decoder-only v2 is a complete negative: strict guards remove both observed error-family shapes without false rejects over438 known-good modules, but both protected rows still stop at the512-token repair cap without grammar completion; independent pinned SANY passes2/2 references and rejects4/4 baseline/repaired model bytes, so repaired protected SANY is0/2.",
   "local_work": "The semantic preference child remains a complete negative: all20 teacher-forced margins rose but protected SANY stayed0/2. The row47 SANY-in-the-loop controller found the first valid scoped repair at seven of eight binder changes; row107 is now independently measured and rejected at lexical EOF. Semantic-span v1 failed before model load due an omitted manifest and earned zero credit. Corrected v2 job7626911 completed12 multi-token semantic-span updates with exact training-time reload; independent pinned-SANY audit v2 measured both references, both restored-parent candidates and both trained-child candidates, with0/4 model candidates passing and2/2 references passing. The CPU error-frontier audit measured16/16 counterfactual variants with0 SANY passes and identifies continuation/definition incompleteness beyond local layout. Continuation-aware wide SFT job7626952 completed12 exact-reload updates with112 adapter tensors across layers24-31 and all attention/MLP projections, but independent pinned SANY remained0/2 for the child and2/2 for references. The CPU verifier-guided search measured14 reference-free fixed-vocabulary repairs with0 passes. Decoder job7626997 then used exact parent-plus-adapter restoration and prefix-preserving grammar/rollback decoding; the v2 strict error-family guard then removed the observed quantified-junction and set/map shapes with zero false rejects over438 known-good modules, but job7627037 still stopped both rows at512 repair tokens without grammar completion. Independent pinned SANY passed2/2 references and rejected4/4 baseline/repaired outputs. Large checkpoints remain remote-only; the programmatic Discord watchdog remains live. Do not promote or replay these objectives unchanged.",
   "external_blocker": null,
-  "next_action": "Upload the append-only clause-boundary stage to a fresh Polaris destination, run remote no-weight CPU admission and live ownership/output guards, then\u2014only if all pass\u2014submit exactly one bounded one-GPU/15-minute training diagnostic. Independently evaluate its restored parent and child on protected rows with pinned SANY; do not grant model, quality or gate credit otherwise.",
+  "next_action": "Perform one final live Polaris ownership/output check, acquire a fresh unique claim for the exact clause-boundary bundle, and submit exactly one bounded one-GPU/15-minute training diagnostic. Independently evaluate its restored parent and child on protected rows with pinned SANY; do not grant model, quality or gate credit otherwise.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -641,7 +642,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
       "id": "TLA-06J",
       "state": "In progress",
       "task": "Test clause-boundary structured continuation SFT",
-      "evidence": "Locally prepared append-only stage uses only22 pinned-SANY-passing non-protected references, selective clause-boundary/context/closure/EOS weights, rank8 adapters on layers28-31, and the exact parent checkpoint. Local hashes, compile and PBS syntax pass; remote CPU admission and any protected independent audit remain required. No model, quality or gate credit."
+      "evidence": "Append-only stage uses only22 pinned-SANY-passing non-protected references, selective clause-boundary/context/closure/EOS weights, rank8 adapters on layers28-31, and the exact parent checkpoint. Remote CPU admission passes22/22 exact tokenizer/reference records with EOS per row, all stage/compile/PBS/CLI/pycache/output/queue guards, and no generated feedback/replay negatives. Final live claim and one bounded training run remain; no model, quality or gate credit."
     },
     {
       "id": "TLA-07",
@@ -663,6 +664,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
     }
   ],
   "decisions": [
+    "2026-09-16T06:09:44Z: Remote clause-boundary CPU admission passes stage SHA256, compile, PBS, CLI, pycache/output/queue guards and preflight3bcfd2b. The preflight verifies22/22 clean references, exact packet/parent, EOS per row, boundary-focused records, and no generated feedback/replay negatives. Fixing the first wrapper-only hash-extraction retry earned no model credit. Perform one final live check then one fresh bounded training diagnostic.",
     "2026-09-16T06:06:02Z: After the strict-guard decoder negative, prepare a materially different clause-boundary SFT: selective weights on line/clause starts, four-token post-boundary context, line closures and EOS, with rank8 adapters on layers28-31. Local preparation passes22/22 non-protected pinned-SANY controls and exact parent/packet identity. Upload and remote CPU admission are next; no model or gate credit.",
     "2026-09-16T05:58:55Z: Job7627037 completed the fresh strict-guard v2 decoder diagnostic Exit0 after02:21 with both rows stopping at512 repair tokens and grammar_ended=false. Independent pinned-SANY audit passes2/2 references and rejects4/4 baseline/repaired model bytes; repaired protected result0/2. The strict guards are a valid zero-false-reject constraint result but not a quality intervention. Mark TLA-06I done and pivot to verifier-in-loop structured continuation; do not replay grammar-only rollback unchanged.",
     "2026-09-16T05:54:29Z: Final live Polaris guards passed after removing generated pycache: output namespace absent, owned queue empty, preflight hash db6ccaff and strict guard hash e4deb37c remain exact. Unique claim5c0b8d9b binds v2 stage hashes, packet/parent/adapter, rows47/107, one GPU and00:15:00. Exactly one qsub submitted as job7627037, scheduler state Q in debug; monitor only and independently score pinned SANY before any claim.",
@@ -2116,7 +2118,9 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "results/stages/tla-fullmodule-clause-boundary-sft-20260916-v1/SHA256SUMS",
     "results/stages/tla-fullmodule-clause-boundary-sft-20260916-v1/tools/proof_fullmodule_clause_boundary_sft_train.py",
     "results/stages/tla-fullmodule-clause-boundary-sft-20260916-v1/train.pbs",
-    "results/runs/tla-fullmodule-clause-boundary-sft-20260916-v1/local-prepare.json"
+    "results/runs/tla-fullmodule-clause-boundary-sft-20260916-v1/local-prepare.json",
+    "results/runs/tla-fullmodule-clause-boundary-sft-20260916-v1/remote-preflight/preflight.json",
+    "results/runs/tla-fullmodule-clause-boundary-sft-20260916-v1/remote-guards.json"
   ]
 }
 -->
