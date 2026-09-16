@@ -1,0 +1,21 @@
+{
+  "complete": false,
+  "raw_sany_audit_complete": false,
+  "controls_ok": true,
+  "requested": 4,
+  "observed": 4,
+  "counts": {
+    "baseline": {
+      "model_sany_reject": 2
+    },
+    "layout_aware_repair": {
+      "model_sany_reject": 1,
+      "unmeasured_infrastructure": 1
+    }
+  },
+  "input_transform": "none; baseline and repaired bytes scored verbatim",
+  "scope": "two protected rows; diagnostic only",
+  "receipt_kind_mismatch_preserved": true,
+  "gate_claim": false,
+  "model_improvement_claim": false
+}

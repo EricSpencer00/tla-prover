@@ -1,0 +1,31 @@
+{
+  "row": 47,
+  "generation_seed": 20260963,
+  "prompt_tokens": 401,
+  "prompt_tokens_match_frozen": true,
+  "baseline_reply": "---- MODULE W4Od2m7p4t2 ----\nEXTENDS Naturals\nCONSTANTS Dispatchers, Cap\nVARIABLES active, readSnapshots\n\nvars == <<active, readSnapshots>>\n\nInit == /\\ active = 0\n       /\\ readSnapshots = [d \\in Dispatchers |-> 0]\n\nNext == \\/ active' = active\n       \\/ active' = active + 1\n       /\\ readSnapshots' = [d \\in Dispatchers |-> IF d = \"dispatcher1\" THEN readSnapshots[d] + 1 ELSE readSnapshots[d]]\n       /\\ UNCHANGED <<vars>>\n\nSpec == Init /\\ [][Next]_vars\n\nActiveWithinCapacity == active <= Cap\n\n====",
+  "baseline_reply_sha256": "1e8c6ff81f2662b74b6d408a6c5ed78972fa33971a50a53e9333fbedab3b3ada",
+  "baseline_response_tokens": 154,
+  "accepted_prefix_tokens": 89,
+  "first_rejected_response_token": 89,
+  "repaired_reply": "---- MODULE W4Od2m7p4t2 ----\nEXTENDS Naturals\nCONSTANTS Dispatchers, Cap\nVARIABLES active, readSnapshots\n\nvars == <<active, readSnapshots>>\n\nInit == /\\ active = 0\n       /\\ readSnapshots = [d \\in Dispatchers |-> 0]\n\nNext == \\/ active' = active\n       \\/ active' = active + 1\n       \\/ active' = active - 1\n       \\/ \\E d \\in Dispatchers : readSnapshots[d] < Cap /\\ readSnapshots[d] = active /\\ active < Cap /\\ active = active + 1\n       \\/ \\E d \\in Dispatchers : readSnapshots[d] < Cap /\\ readSnapshots[d] # active /\\ active < Cap /\\ active = active\n       \\/ \\E d \\in Dispatchers : readSnapshots[d] < Cap /\\ readSnapshots[d] # active /\\ active < Cap /\\ active = active\n       \\/ \\E d \\in Dispatchers : readSnapshots[d] < Cap /\\ readSnapshots[d] # active /\\ active >= Cap /\\ active = active\n       \\/ \\E d \\in Dispatchers : readSnapshots[d] >= Cap /\\ active = active\n       \\/ \\E d \\in Dispatchers : readSnapshots[d] >= Cap /\\ active = active\n       \\/ \\E d \\in Dispatchers : readSnapshots[d] >= Cap /\\ active = active\n       \\/ \\E d \\in Dispatchers : readSnapshots[d] >= Cap /\\ active = active\n       \\/ \\E d \\in Dispatchers : readSnapshots[d] >= Cap /\\ active = active\n       \\/ \\E d \\in Dispatchers : readSnapshots[d] >= Cap /\\ active = active\n       \\/ \\E d \\in Dispatchers : readSnapshots[d] >= Cap /\\ active = active\n       \\/ \\E d \\in Dispatchers : readSnapshots[d] >= Cap /\\ active = active\n       \\/ \\E d \\in Dispatchers : readSnapshots[d] >= Cap /\\ active = active\n       \\/ \\E d \\in Dispatchers : readSnapshots[d] >= Cap /\\ active = active\n       \\/ \\E d \\in Dispatchers : readSnapshots[d] >= Cap /\\ active = active\n       \\/ \\E d \\in Dispatchers : readSnapshots[d] >= Cap /\\ active = active\n       \\/ \\E d \\in Dispatchers : readSnapshots[d] >= Cap /\\ active = active\n       \\/ \\E d \\in Dispatchers : readSnapshots[d] >= Cap /\\ active = active\n       \\/ \\E d \\in Dispatchers : readSnapshots[d] >= Cap /\\ active = active\n       \\/ \\E d \\in Dispatchers : readSnapshots[d] >= Cap /\\ active = active\n       \\/ \\E d \\in Dispatchers : readSnap",
+  "repaired_reply_sha256": "15834cbbbb4b38b725d9fbda57b92884711028385b637a9ccd1f8d30091c9eae",
+  "repaired_response_tokens": 601,
+  "repair_tokens": 512,
+  "grammar_ended": false,
+  "repair_max_new_tokens": 512,
+  "selector_audit_steps": 4,
+  "backtrack_windows": [
+    64,
+    128,
+    256,
+    512
+  ],
+  "repair_wall_seconds": 14.641636946005747,
+  "backtrack_attempts": [],
+  "protected_reference_conditioning": false,
+  "training": false,
+  "supplied_reference_credit": false,
+  "gate_claim": false,
+  "model_improvement_claim": false
+}
