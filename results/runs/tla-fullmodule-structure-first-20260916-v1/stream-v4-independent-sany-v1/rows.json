@@ -1,0 +1,54 @@
+[
+  {
+    "row": 47,
+    "phase": "restored_parent",
+    "status": "model_sany_reject",
+    "independent_result": {
+      "status": "model_sany_reject",
+      "candidate_sha256": "78d14888e79e92d24668e5b177cf759b5e45eda88899e2deb908670fb31a672f",
+      "module_name": "W4Od2m7p4t2",
+      "returncode": 255,
+      "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-structure-first-20260916-v1/stream-v4-independent-sany-v1/candidates/restored_parent-47/sany.log"
+    },
+    "finish_reason": "not_used"
+  },
+  {
+    "row": 107,
+    "phase": "restored_parent",
+    "status": "model_sany_reject",
+    "independent_result": {
+      "status": "model_sany_reject",
+      "candidate_sha256": "0b65dc390d0bf85a4c73f0227b1616b8822d2349bc48627c814738b03fdf159f",
+      "module_name": "W4Od3m0p0t0",
+      "returncode": 255,
+      "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-structure-first-20260916-v1/stream-v4-independent-sany-v1/candidates/restored_parent-107/sany.log"
+    },
+    "finish_reason": "not_used"
+  },
+  {
+    "row": 47,
+    "phase": "trained_child",
+    "status": "model_sany_reject",
+    "independent_result": {
+      "status": "model_sany_reject",
+      "candidate_sha256": "78d14888e79e92d24668e5b177cf759b5e45eda88899e2deb908670fb31a672f",
+      "module_name": "W4Od2m7p4t2",
+      "returncode": 255,
+      "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-structure-first-20260916-v1/stream-v4-independent-sany-v1/candidates/trained_child-47/sany.log"
+    },
+    "finish_reason": "not_used"
+  },
+  {
+    "row": 107,
+    "phase": "trained_child",
+    "status": "model_sany_reject",
+    "independent_result": {
+      "status": "model_sany_reject",
+      "candidate_sha256": "a86474a4587c8e227efeed83c9013879573df130943f8933d23b3f2e2304ba95",
+      "module_name": "W4Od3m0p0t0",
+      "returncode": 255,
+      "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-structure-first-20260916-v1/stream-v4-independent-sany-v1/candidates/trained_child-107/sany.log"
+    },
+    "finish_reason": "not_used"
+  }
+]

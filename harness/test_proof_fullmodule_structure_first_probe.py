@@ -2,6 +2,7 @@
 
 from tools import proof_fullmodule_structure_first_probe as probe
 from tools import proof_fullmodule_structure_first_sft_train as worker
+from tools.proof_fullmodule_streaming_parser_admission import ModuleStream
 
 
 def test_decompose_is_lossless_and_ignores_indented_let_bindings():
@@ -79,3 +80,23 @@ def test_structure_first_plan_contract_and_forced_eos_boundary():
     assert scores.assignments == [((0, slice(None)), float('-inf')), ((0, 9), 0.0)]
     assert worker.PLAN_PREFIX == 'STRUCTURE-FIRST PLAN\nMODULE: '
     assert worker.PLAN_STOP == 'END PLAN\n'
+
+
+def test_incremental_stream_rejects_structural_corruption():
+    stream = ModuleStream()
+    stream.feed('---- MODULE Demo ----\n')
+    stream.feed('Init == TRUE\n')
+    stream.feed('====\n')
+    assert stream.finish() == '---- MODULE Demo ----\nInit == TRUE\n====\n'
+    for bad in (
+            '---- MODULE Demo ----\n====\nInit == TRUE\n',
+            '---- MODULE Demo ----\n---- MODULE Inner ----\n====\n',
+            '---- MODULE Demo ----\n```\n====\n'):
+        try:
+            candidate = ModuleStream()
+            candidate.feed(bad)
+            candidate.finish()
+        except ValueError:
+            pass
+        else:
+            raise AssertionError('stream accepted structural corruption')
