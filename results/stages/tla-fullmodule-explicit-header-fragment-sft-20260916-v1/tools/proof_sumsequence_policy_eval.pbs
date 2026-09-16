@@ -1,0 +1,31 @@
+#!/bin/bash
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-sumseq-base
+#PBS -l select=1:system=polaris
+#PBS -l walltime=01:00:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+set -euo pipefail
+: "${SUMSEQUENCE_ROOT:?isolated staging root required}"
+: "${SUMSEQUENCE_PROMPTS_SHA:?exact packet hash required}"
+: "${SUMSEQUENCE_CHECKPOINT:?immutable current child required}"
+cd "$SUMSEQUENCE_ROOT"
+export PYTHONUNBUFFERED=1
+export OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 MKL_NUM_THREADS=4 NUMEXPR_NUM_THREADS=4
+SUMSEQUENCE_PYTHON=/home/eric-spencer/ChatTLA/.venv/bin/python
+SUMSEQUENCE_MODEL=/grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659
+account_batch() {
+ "$SUMSEQUENCE_PYTHON" tools/proof_sumsequence_policy_eval.py account \
+  --prompts prompts.json --expected-input-sha256 "$SUMSEQUENCE_PROMPTS_SHA" \
+  --model-path "$SUMSEQUENCE_MODEL" --output results
+}
+account_batch
+trap account_batch EXIT
+timeout --signal=TERM --kill-after=20s 1150s "$SUMSEQUENCE_PYTHON" tools/proof_sumsequence_policy_eval.py generate \
+ --prompts prompts.json --expected-input-sha256 "$SUMSEQUENCE_PROMPTS_SHA" \
+ --model-path "$SUMSEQUENCE_MODEL" --admission base-admission.json --output results/base
+timeout --signal=TERM --kill-after=20s 1150s "$SUMSEQUENCE_PYTHON" tools/proof_sumsequence_policy_eval.py generate \
+ --prompts prompts.json --expected-input-sha256 "$SUMSEQUENCE_PROMPTS_SHA" \
+ --model-path "$SUMSEQUENCE_MODEL" --checkpoint "$SUMSEQUENCE_CHECKPOINT" \
+ --admission child-admission.json --output results/child

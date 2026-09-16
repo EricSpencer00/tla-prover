@@ -1,0 +1,46 @@
+#!/bin/bash
+#PBS -N holdout30-http
+#PBS -q by-gpu
+#PBS -l select=1:ncpus=128:ngpus=4:mem=480gb
+#PBS -l filesystems=home:grand
+#PBS -l walltime=01:00:00
+#PBS -j oe
+set -euo pipefail
+cd "$PBS_O_WORKDIR"
+BASE="$PWD"
+module load conda/2026-06-08 >/dev/null 2>&1 || true
+conda activate base >/dev/null 2>&1 || true
+REMOTE_ROOT="$PWD"
+MODEL="/grand/EVITA/eric-spencer/hf-cache/hub/models--EricSpencer00--chattla-20b/snapshots/c1a3e8b5c6916ce4a0ed830e996662ca28e0a262"
+ADAPTER="${ADAPTER_PATH:-$PWD/results/runs/fullmodule-sft20b-20260907-045802-184688}"
+PORTABLE="$PWD/proof-fullmodule-holdout-portable-20260907-v1"
+OUT="$PWD/results/runs/holdout30-http-$(date +%Y%m%d-%H%M%S)-${PBS_JOBID%%.*}"
+STAGE="$PWD/results/.chattla-clean-$PBS_JOBID"
+rm -rf "$STAGE"; mkdir -p "$STAGE"
+# Symlink the immutable 20B weights/config from Grand; omit stale PEFT metadata.
+for f in "$MODEL"/*; do
+  case "$(basename "$f")" in adapter_config.json|adapter_model.safetensors) continue;; esac
+  ln -s "$f" "$STAGE/$(basename "$f")"
+done
+export PYTHONPATH="$BASE:${PYTHONPATH:-}"
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1
+HARMONY_CACHE="$PWD/results/harmony-cache"
+mkdir -p "$HARMONY_CACHE"
+if [ ! -s "$HARMONY_CACHE/o200k_base.tiktoken" ]; then
+  curl -L --fail --retry 3 -o "$HARMONY_CACHE/o200k_base.tiktoken" \
+    https://openaipublic.blob.core.windows.net/encodings/o200k_base.tiktoken
+fi
+export TIKTOKEN_ENCODINGS_BASE="$HARMONY_CACHE"
+VLLM="${VLLM_BIN:-/soft/applications/conda/2026-06-08/mconda3/bin/vllm}"
+"$VLLM" serve "$STAGE" --served-model-name repair --enable-lora --lora-modules repair="$ADAPTER" --tensor-parallel-size 4 --max-model-len 32768 --gpu-memory-utilization 0.88 --enforce-eager --host 127.0.0.1 --port 8000 >"$OUT.vllm.log" 2>&1 &
+SERVER_PID=$!
+trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+for i in $(seq 1 120); do
+  curl -sf http://127.0.0.1:8000/health >/dev/null 2>&1 && break
+  sleep 2
+done
+python -u tools/proof_fullmodule_holdout30_http_eval.py \
+  --portable "$PORTABLE" --output "$OUT" --base "$BASE" --library "$BASE/tools/tlapm/lib/tlapm/stdlib:$BASE/tools/community-modules:$BASE/tools/extra-modules" \
+  --java "${JAVA_HOME:-$BASE/tools/jre21}/bin/java" --adapter "$ADAPTER" \
+  --tokenizer "$STAGE" --max-tokens "${MAX_TOKENS:-16384}" --item-timeout "${ITEM_TIMEOUT:-30}" \
+  --timeout 60 --limit "${LIMIT:-30}"

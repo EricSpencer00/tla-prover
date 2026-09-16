@@ -1,0 +1,21 @@
+#!/bin/bash
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-sft-repair-eval
+#PBS -l select=1:system=polaris
+#PBS -l walltime=01:00:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+set -euo pipefail
+: "${SANY_LEARNING_EVAL_ROOT:?isolated evaluation stage required}"
+cd "$SANY_LEARNING_EVAL_ROOT"
+export OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 MKL_NUM_THREADS=4 NUMEXPR_NUM_THREADS=4
+export PYTHONUNBUFFERED=1
+timeout --signal=TERM --kill-after=20s 3050s /home/eric-spencer/ChatTLA/.venv/bin/python \
+ tools/proof_sany_repair_learning_eval.py generate \
+ --prompts prompts.json --repair-packet repair-packet.json --model-path "$SANY_LEARNING_MODEL" \
+ --parent-checkpoint "$SANY_LEARNING_PARENT" --training-input train.json \
+ --training-admission training-admission.json --training-output "$SANY_LEARNING_TRAINING_OUTPUT" \
+ --baseline-original baseline-original --baseline-repairs baseline-repairs \
+ --checkpoint "$SANY_LEARNING_CHILD" --expected-input-sha256 "$SANY_LEARNING_INPUT_SHA" \
+ --prospective prospective-admission.json --admission child-admission.json --output results/child

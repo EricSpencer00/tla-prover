@@ -1,0 +1,26 @@
+#!/bin/bash
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-whole-sft8b
+#PBS -l select=1:system=polaris
+#PBS -l walltime=00:50:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+set -euo pipefail
+: "${PROOF_WHOLE_ROOT:?isolated new run root required}"
+: "${PROOF_WHOLE_PARENT:?immutable hierarchy checkpoint required}"
+: "${PROOF_WHOLE_TRAIN_SHA:?frozen training packet hash required}"
+: "${PROOF_WHOLE_PROMPTS_SHA:?frozen probe packet hash required}"
+cd "$PROOF_WHOLE_ROOT"
+export PYTHONUNBUFFERED=1
+resume_args=()
+if [[ -n "${PROOF_WHOLE_RESUME_CYCLE:-}" ]]; then
+ : "${PROOF_WHOLE_RESUME_RUNTIME:?original immutable runtime root required}"
+ resume_args=(--resume-cycle "$PROOF_WHOLE_RESUME_CYCLE" --resume-runtime-root "$PROOF_WHOLE_RESUME_RUNTIME")
+elif [[ -n "${PROOF_WHOLE_RESUME_RUNTIME:-}" ]]; then
+ exit 2
+fi
+timeout --signal=TERM --kill-after=20s 2700s \
+ /home/eric-spencer/ChatTLA/.venv/bin/python tools/proof_cuda_whole_cycle.py \
+ --train-input train.json --prompts prompts.json --train-sha256 "$PROOF_WHOLE_TRAIN_SHA" \
+ --prompts-sha256 "$PROOF_WHOLE_PROMPTS_SHA" --parent-checkpoint "$PROOF_WHOLE_PARENT" --output results/cycle "${resume_args[@]}"

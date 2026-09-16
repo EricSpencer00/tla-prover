@@ -1,0 +1,18 @@
+#!/bin/bash
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-proof-sft8b
+#PBS -l select=1:system=polaris
+#PBS -l walltime=00:40:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+set -euo pipefail
+: "${PROOF_CUDA_CYCLE_ROOT:?isolated run root required}"
+cd "$PROOF_CUDA_CYCLE_ROOT"
+export PYTHONUNBUFFERED=1
+: "${PROOF_CUDA_RESUME_CYCLE:?prior immutable completed BASE cycle required}"
+timeout --signal=TERM --kill-after=20s 2100s \
+ /home/eric-spencer/ChatTLA/.venv/bin/python tools/proof_cuda_cycle.py \
+ --train-input train.json --prompts prompts.json \
+ --model-path /grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659 \
+ --output results/cycle --resume-cycle "$PROOF_CUDA_RESUME_CYCLE"

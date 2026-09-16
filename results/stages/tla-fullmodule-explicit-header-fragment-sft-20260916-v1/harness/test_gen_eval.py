@@ -1,0 +1,1230 @@
+"""Tests for harness.gen_eval — E2.c Gate-2 baseline eval (PLAN Amendment 12).
+
+Deterministic units (prompt build, cfg-signature parse, response parse, pass@k
+aggregation) are tested here with no network. The Sophia sweep and oracle
+scoring are exercised separately via the CLI with --model local-stub.
+"""
+import hashlib
+import json
+
+import pytest
+
+from harness import gen_eval
+
+REALISH_MODULE = """---- MODULE Counter ----
+EXTENDS Naturals
+VARIABLE x
+
+Init == x = 0
+Next == x' = x + 1
+TypeOK == x \\in Nat
+Safe == /\\ TypeOK
+        /\\ x >= 0
+====
+"""
+
+
+def test_required_signature_extracts_constants_spec_and_properties():
+    cfg = (
+        "CONSTANT\n"
+        "  Clients = {c1,c2,c3}\n"
+        "  Resources = {r1,r2}\n"
+        "SPECIFICATION\n"
+        "  Allocator\n"
+        "PROPERTIES\n"
+        "  SimpleAllocator\n"
+    )
+    sig = gen_eval.required_signature(cfg)
+    assert sig["constants"] == ["Clients", "Resources"]
+    assert sig["specification"] == "Allocator"
+    assert sig["properties"] == ["SimpleAllocator"]
+    assert sig["invariants"] == []
+    assert sig["init"] is None
+    assert sig["next"] is None
+
+
+def test_required_signature_init_next_invariant_form():
+    cfg = (
+        "CONSTANT N = 3  \\* comment\n"
+        "INIT Init\n"
+        "NEXT Next\n"
+        "INVARIANT TypeOK Safety\n"
+    )
+    sig = gen_eval.required_signature(cfg)
+    assert sig["constants"] == ["N"]
+    assert sig["init"] == "Init"
+    assert sig["next"] == "Next"
+    assert sig["invariants"] == ["TypeOK", "Safety"]
+    assert sig["specification"] is None
+
+
+def test_extract_module_from_fenced_response():
+    resp = (
+        "Here is the spec:\n"
+        "```tla\n"
+        "---- MODULE Foo ----\n"
+        "EXTENDS Naturals\n"
+        "Init == x = 0\n"
+        "====\n"
+        "```\n"
+        "Hope that helps!\n"
+    )
+    mod = gen_eval.extract_module(resp)
+    assert mod.startswith("---- MODULE Foo ----")
+    assert mod.rstrip().endswith("====")
+    assert "Hope that helps" not in mod
+    assert "```" not in mod
+
+
+def test_extract_module_unfenced_and_missing():
+    resp = "---- MODULE Bar ----\nInit == TRUE\n===="
+    assert gen_eval.extract_module(resp).startswith("---- MODULE Bar ----")
+    assert gen_eval.extract_module("no module here at all") is None
+
+
+def test_build_generation_prompt_includes_description_and_signature():
+    description_json = {
+        "system_overview": "A simple allocator that hands out resources to clients.",
+        "state_variables": "unsat, alloc: mappings from client to requested/held resources.",
+        "safety_properties": "No resource is double-allocated (mutual exclusion).",
+    }
+    cfg = (
+        "CONSTANT\n"
+        "  Clients = {c1,c2,c3}\n"
+        "  Resources = {r1,r2}\n"
+        "SPECIFICATION\n"
+        "  Spec\n"
+        "INVARIANT\n"
+        "  TypeOK Mutex\n"
+    )
+    prompt = gen_eval.build_generation_prompt(description_json, cfg, "SimpleAllocator")
+    # description content is present
+    assert "A simple allocator that hands out resources to clients." in prompt
+    assert "No resource is double-allocated (mutual exclusion)." in prompt
+    # required signature (computed from cfg) is present
+    sig = gen_eval.required_signature(cfg)
+    assert "Clients" in prompt and "Resources" in prompt
+    assert sig["specification"] in prompt
+    assert "TypeOK" in prompt and "Mutex" in prompt
+    # module-naming instructions target extract_module's expected wrapper
+    assert "SimpleAllocator" in prompt
+    assert "---- MODULE" in prompt
+    assert "====" in prompt
+
+
+def test_build_generation_prompt_module_name_is_exact_target():
+    description_json = {"system_overview": "Trivial counter."}
+    cfg = "INIT\n  Init\nNEXT\n  Next\n"
+    prompt = gen_eval.build_generation_prompt(description_json, cfg, "Counter")
+    assert "Counter" in prompt
+    # sanity: a model following instructions would produce something extract_module parses
+    fake_reply = f"---- MODULE Counter ----\nInit == TRUE\nNext == TRUE\n===="
+    mod = gen_eval.extract_module(fake_reply)
+    assert mod is not None and "Counter" in mod
+
+
+def test_build_repair_prompt_includes_spec_and_error_evidence():
+    broken_module = "---- MODULE Foo ----\nInit == x = 0\nNext == x' = x + 1\n===="
+    error_evidence = (
+        "===== SANY (fail) =====\n"
+        "line 3, col 5: Unknown operator y\n"
+    )
+    prompt = gen_eval.build_repair_prompt(broken_module, error_evidence)
+    assert broken_module in prompt
+    assert "Unknown operator y" in prompt
+    assert "Foo" in prompt
+
+
+def test_summarize_passk_counts_greedy_and_any():
+    # per spec: (greedy_pass, [sample passes...])
+    results = {
+        "8":  {"greedy": True,  "samples": [False, True, False]},
+        "10": {"greedy": False, "samples": [False, False, True]},   # only best-of-N
+        "22": {"greedy": False, "samples": [False, False, False]},  # never
+    }
+    s = gen_eval.summarize_passk(results, k=3)
+    assert s["pass@1"] == 1       # only spec 8 greedy-passed
+    assert s["pass@3"] == 2       # specs 8 and 10 have some sample pass
+    assert s["n"] == 3
+    assert s["pass@1_specs"] == ["8"]
+    assert s["pass@3_specs"] == ["8", "10"]
+
+
+def test_corrupt_is_deterministic_for_same_seed():
+    c1, r1 = gen_eval.corrupt(REALISH_MODULE, seed=42)
+    c2, r2 = gen_eval.corrupt(REALISH_MODULE, seed=42)
+    assert c1 == c2
+    assert r1 == r2
+
+
+def test_corrupt_different_seeds_usually_differ():
+    seen = set()
+    for seed in range(20):
+        c, _ = gen_eval.corrupt(REALISH_MODULE, seed=seed)
+        seen.add(c)
+    # different seeds should not all collapse onto the same single mutation site
+    assert len(seen) > 1
+
+
+def test_corrupt_changes_exactly_one_site_and_record_matches():
+    corrupted, record = gen_eval.corrupt(REALISH_MODULE, seed=7)
+    assert corrupted != REALISH_MODULE
+    # the record's offset/original/replacement must be consistent with the diff
+    original_fragment = REALISH_MODULE[record["offset"]:record["offset"] + len(record["original"])]
+    assert original_fragment == record["original"]
+    reconstructed = (REALISH_MODULE[:record["offset"]] + record["replacement"]
+                      + REALISH_MODULE[record["offset"] + len(record["original"]):])
+    assert reconstructed == corrupted
+    # exactly one mutation applied: reconstructing from the *other* direction
+    # (corrupted with replacement swapped back to original at the recorded
+    # offset) must reproduce the original exactly -- proving nothing else changed.
+    undone = (corrupted[:record["offset"]] + record["original"]
+              + corrupted[record["offset"] + len(record["replacement"]):])
+    assert undone == REALISH_MODULE
+    assert record["mutation"] in [label for label, _, _ in gen_eval.MUTATIONS]
+
+
+def test_corrupt_no_candidates_raises():
+    text_with_no_mutation_sites = "---- MODULE Empty ----\n====\n"
+    with pytest.raises(gen_eval.NoCandidateMutation):
+        gen_eval.corrupt(text_with_no_mutation_sites, seed=1)
+
+
+def test_in_to_notin_mutation_does_not_touch_definition_delimiter():
+    # Regression for the \in -> \notin operator added to close the
+    # NoCandidateMutation gap on MC-stub/library holdout specs (13, 14, 105,
+    # 106, 132, 133, 135, 181) that have no /\ or "n + m" site. The tricky
+    # part: "\in" must never be confused with "==" (definition delimiter) --
+    # they share no characters, but a naive "=" -> "#" mutation (tried and
+    # dropped, see mutation.py) WOULD corrupt "==". This module has both a
+    # "==" definition and a "\in" membership test with nothing else
+    # mutation-eligible (no /\, no "n + m", no \cup), so seed=0 must pick
+    # \in and must leave every "==" untouched.
+    module = (
+        "---- MODULE OnlyIn ----\n"
+        "EXTENDS Naturals\n"
+        "CONSTANT MaxNat\n"
+        "ASSUME MaxNat \\in Nat\n"
+        "NatOverride == 0 .. MaxNat\n"
+        "====\n"
+    )
+    corrupted, record = gen_eval.corrupt(module, seed=0)
+    assert record["mutation"] == "in_to_notin"
+    assert record["original"] == "\\in"
+    assert record["replacement"] == "\\notin"
+    # every "==" definition delimiter survives untouched
+    assert corrupted.count("==") == module.count("==")
+    assert "NatOverride == 0 .. MaxNat" in corrupted
+    # the membership test itself is negated
+    assert "MaxNat \\notin Nat" in corrupted
+    assert "MaxNat \\in Nat" not in corrupted
+
+
+# ------------------------------------------------------ seed derivation
+
+def test_holdout_specs_and_hash_matches_frozen_ledger_digest():
+    # PLAN ledger entry 11 / E2C_HANDOFF.md record this exact digest for
+    # corpus/holdout_30.json; it must never drift silently.
+    specs, digest = gen_eval.holdout_specs_and_hash()
+    assert digest == "ecfc20533b9dc9a6e727ab989732310659d469eefbcc3705df72e3094ef54f78"
+    assert len(specs) == 30
+    assert all(isinstance(s, str) for s in specs)
+
+
+def test_corruption_seed_is_deterministic_and_spec_sensitive():
+    h = "deadbeef" * 8
+    s1 = gen_eval.corruption_seed(h, "2")
+    s2 = gen_eval.corruption_seed(h, "2")
+    s3 = gen_eval.corruption_seed(h, "5")
+    assert s1 == s2
+    assert s1 != s3
+    assert s1 == int(hashlib.sha256(f"{h}:2".encode()).hexdigest()[:8], 16)
+
+
+def test_corruption_seed_changes_with_holdout_hash():
+    s_a = gen_eval.corruption_seed("aaaa", "2")
+    s_b = gen_eval.corruption_seed("bbbb", "2")
+    assert s_a != s_b
+
+
+# ------------------------------------------------------ row/resume logic
+
+def test_load_existing_rows_reads_spec_sample_pairs(tmp_path):
+    p = tmp_path / "rows.jsonl"
+    p.write_text(
+        json.dumps({"spec": "2", "sample": "greedy", "verdict": "pass"}) + "\n"
+        + json.dumps({"spec": "2", "sample": 1, "verdict": "fail:tlc=fail"}) + "\n"
+    )
+    done = gen_eval.load_existing_rows(p)
+    assert done == {("2", "greedy"), ("2", 1)}
+
+
+def test_load_existing_rows_missing_file_is_empty(tmp_path):
+    assert gen_eval.load_existing_rows(tmp_path / "nope.jsonl") == set()
+
+
+# ------------------------------------------------------ end-to-end dry run
+
+class _FixedModel:
+    """Deterministic model stub for tests: always emits the same fixed module
+    reply, so extract_module/scoring/ledger logic is exercised without any
+    real model or TLC call (eval_module_text itself is monkeypatched below)."""
+    id = "test-fixed-v1"
+
+    def __init__(self, reply):
+        self.reply = reply
+
+    def generate(self, prompt, n, temperature, max_tokens):
+        return [self.reply] * n
+
+
+def gen_eval_stub_model(reply):
+    """Like _FixedModel, but a real harness.repair.Model subclass so the traced
+    path (and therefore decoder provenance) is exercised. _FixedModel stays
+    duck-typed on purpose -- it is the regression guard for the compat shim that
+    keeps the other ten four-arg stand-ins in the harness working."""
+    from .repair import Model
+
+    class _TracedFixed(Model):
+        id = "test-traced-fixed-v1"
+
+        def generate_traced(self, prompt, n, temperature, max_tokens, seed=None):
+            meta = {"decode_seed": seed, "provider_seed_echo": seed,
+                    "seed_supported": True,
+                    "decode_params_sha256": "f" * 64,
+                    "backend_sha256": "e" * 64}
+            return [(reply, dict(meta)) for _ in range(n)]
+
+        def generate(self, prompt, n, temperature, max_tokens, seed=None):
+            return [t for t, _ in self.generate_traced(
+                prompt, n, temperature, max_tokens, seed)]
+
+    return _TracedFixed()
+
+
+def test_gen_eval_spec_framing_a_dry_run_with_monkeypatched_scoring(monkeypatch, tmp_path):
+    reply = "---- MODULE Foo ----\nInit == x = 0\nNext == x' = x + 1\n===="
+
+    def fake_eval_module_text(num, module_text, corpus, num2mod, mod2path, cfg_dirs,
+                              workroot, logdir, timeout, stages, override_cfg=None,
+                              log_name=None):
+        log_path = logdir / (log_name or f"{num}.log")
+        log_path.write_text("fake sany/tlc log\n")
+        return {"spec": num, "sany": "pass", "tlc": "pass", "tlc_vacuity": "clean",
+                "tlaps": None, "budget_used": {}, "log_path": str(log_path)}
+
+    monkeypatch.setattr(gen_eval, "eval_module_text", fake_eval_module_text)
+
+    logdir = tmp_path / "logs"
+    logdir.mkdir()
+    model = _FixedModel(reply)
+    description_json = {"system_overview": "A trivial counter."}
+    cfg_text = "INIT\n  Init\nNEXT\n  Next\n"
+
+    rows = list(gen_eval.gen_eval_spec_framing_a(
+        "999", description_json, cfg_text, "Foo", model, "test-run", 2,
+        corpus=tmp_path, num2mod={}, mod2path={}, cfg_dirs=[],
+        workroot=tmp_path / "work", logdir=logdir, done=set()))
+
+    # greedy + k=2 samples = 3 rows total
+    assert len(rows) == 3
+    sample_ids = {r["sample"] for r in rows}
+    assert sample_ids == {"greedy", 1, 2}
+    for r in rows:
+        assert r["framing"] == "A"
+        assert r["spec"] == "999"
+        assert r["model"] == "test-fixed-v1"
+        assert r["verdict"] == "pass"
+        assert "prompt_sha256" in r
+        assert "timestamp" in r
+
+
+def test_gen_eval_spec_framing_a_resume_skips_done_pairs(monkeypatch, tmp_path):
+    reply = "---- MODULE Foo ----\nInit == x = 0\n===="
+
+    def fake_eval_module_text(num, module_text, corpus, num2mod, mod2path, cfg_dirs,
+                              workroot, logdir, timeout, stages, override_cfg=None,
+                              log_name=None):
+        log_path = logdir / (log_name or f"{num}.log")
+        log_path.write_text("log\n")
+        return {"spec": num, "sany": "pass", "tlc": "pass", "tlc_vacuity": "clean",
+                "tlaps": None, "budget_used": {}, "log_path": str(log_path)}
+
+    monkeypatch.setattr(gen_eval, "eval_module_text", fake_eval_module_text)
+    logdir = tmp_path / "logs"
+    logdir.mkdir()
+    model = _FixedModel(reply)
+    done = {("999", "greedy"), ("999", 1)}
+
+    rows = list(gen_eval.gen_eval_spec_framing_a(
+        "999", {"system_overview": "x"}, "INIT\n Init\n", "Foo", model, "test-run",
+        2, corpus=tmp_path, num2mod={}, mod2path={}, cfg_dirs=[],
+        workroot=tmp_path / "work", logdir=logdir, done=done))
+
+    assert {r["sample"] for r in rows} == {2}
+
+
+def test_gen_eval_spec_framing_b_records_mutation_and_seed(monkeypatch, tmp_path):
+    reply = "---- MODULE OnlyIn ----\nEXTENDS Naturals\nCONSTANT MaxNat\n" \
+            "ASSUME MaxNat \\in Nat\nNatOverride == 0 .. MaxNat\n===="
+
+    def fake_eval_module_text(num, module_text, corpus, num2mod, mod2path, cfg_dirs,
+                              workroot, logdir, timeout, stages, override_cfg=None,
+                              log_name=None):
+        log_path = logdir / (log_name or f"{num}.log")
+        log_path.write_text("fake corrupted-spec sany/tlc failure log\n")
+        return {"spec": num, "sany": "fail", "tlc": None, "tlc_vacuity": None,
+                "tlaps": None, "budget_used": {}, "log_path": str(log_path)}
+
+    monkeypatch.setattr(gen_eval, "eval_module_text", fake_eval_module_text)
+    logdir = tmp_path / "logs"
+    logdir.mkdir()
+    model = _FixedModel(reply)
+    corrupted = reply.replace("\\in", "\\notin")
+    mutation_record = {"mutation": "in_to_notin", "offset": 60,
+                       "original": "\\in", "replacement": "\\notin",
+                       "candidate_index": 0, "seeded_index": 0,
+                       "candidates_total": 1, "rejected": [],
+                       "corrupted_verdict": "fail:sany=fail"}
+    seed = gen_eval.corruption_seed("some-frozen-hash", "999")
+
+    rows = list(gen_eval.gen_eval_spec_framing_b(
+        "999", corrupted, mutation_record, seed, "sany error evidence", model,
+        "test-run", 1, corpus=tmp_path, num2mod={}, mod2path={}, cfg_dirs=[],
+        workroot=tmp_path / "work", logdir=logdir, done=set()))
+
+    assert len(rows) == 2  # greedy + k=1
+    for r in rows:
+        assert r["framing"] == "B"
+        assert r["mutation_record"]["mutation"] == "in_to_notin"
+        assert r["seed"] == seed
+
+
+# ------------------------------------- decoder provenance (2026-08-08 design)
+
+def test_framing_b_decode_seed_never_clobbers_the_mutation_seed(monkeypatch,
+                                                                tmp_path):
+    """Landmine 1. Framing-B rows have carried a "seed" key since Amendment 12 --
+    the deterministic harness.mutation corruption seed identifying WHICH swap
+    produced the repair task. The decoder seed is a different thing and must land
+    in "decode_seed". If these ever merge, every Framing-B analysis that joins on
+    the mutation silently breaks."""
+    reply = "---- MODULE OnlyIn ----\nEXTENDS Naturals\n===="
+    monkeypatch.setattr(gen_eval, "eval_module_text", _fake_pass_eval_module_text)
+    logdir = tmp_path / "logs"
+    logdir.mkdir()
+    mutation_seed = gen_eval.corruption_seed("some-frozen-hash", "999")
+
+    rows = list(gen_eval.gen_eval_spec_framing_b(
+        "999", reply, {"mutation": "m"}, mutation_seed, "evidence",
+        gen_eval_stub_model(reply), "test-run", 1, corpus=tmp_path, num2mod={},
+        mod2path={}, cfg_dirs=[], workroot=tmp_path / "work", logdir=logdir,
+        done=set()))
+
+    assert rows
+    for r in rows:
+        assert r["seed"] == mutation_seed, "mutation seed was overwritten"
+        assert "decode_seed" in r
+        assert r["decode_seed"] != r["seed"] or r["decode_seed"] is None
+
+
+def test_rows_carry_decoder_provenance_fields(monkeypatch, tmp_path):
+    reply = "---- MODULE Foo ----\nInit == x = 0\n===="
+    monkeypatch.setattr(gen_eval, "eval_module_text", _fake_pass_eval_module_text)
+    logdir = tmp_path / "logs"
+    logdir.mkdir()
+
+    rows = list(gen_eval.gen_eval_spec_framing_a(
+        "999", {"system_overview": "x"}, "INIT\n Init\n", "Foo",
+        gen_eval_stub_model(reply), "test-run", 1, corpus=tmp_path, num2mod={},
+        mod2path={}, cfg_dirs=[], workroot=tmp_path / "work", logdir=logdir,
+        done=set()))
+
+    for r in rows:
+        for field in ("decode_seed", "decode_params_sha256", "provider_seed_echo",
+                      "seed_supported", "backend_sha256", "extractor",
+                      "extract_divergent"):
+            assert field in r, field
+        assert r["extractor"] == "gen_eval.first"
+        assert r["extract_divergent"] is False
+
+
+def test_decode_seed_differs_per_sample_and_is_reproducible(monkeypatch, tmp_path):
+    """Distinct seeds per sample (otherwise every sample in a spec is the same
+    draw), and identical across two runs of the same run_id (that is what makes
+    `harness replay` able to recompute them)."""
+    reply = "---- MODULE Foo ----\nInit == x = 0\n===="
+    monkeypatch.setattr(gen_eval, "eval_module_text", _fake_pass_eval_module_text)
+    logdir = tmp_path / "logs"
+    logdir.mkdir()
+
+    def go():
+        return list(gen_eval.gen_eval_spec_framing_a(
+            "999", {"system_overview": "x"}, "INIT\n Init\n", "Foo",
+            gen_eval_stub_model(reply), "fixed-run-id", 3, corpus=tmp_path,
+            num2mod={}, mod2path={}, cfg_dirs=[], workroot=tmp_path / "work",
+            logdir=logdir, done=set()))
+
+    first, second = go(), go()
+    seeds = [r["decode_seed"] for r in first]
+    assert len(set(seeds)) == len(seeds), "samples shared a decoder seed"
+    assert seeds == [r["decode_seed"] for r in second]
+
+
+def test_extract_divergent_flags_a_draft_then_final_reply(monkeypatch, tmp_path):
+    """gen_eval scores the FIRST module, repair would take the LAST. Neither
+    extractor changes; the disagreement is recorded so its rate is measurable."""
+    reply = ("draft:\n---- MODULE Foo ----\nInit == x = 0\n====\n"
+             "final:\n---- MODULE Foo ----\nInit == x = 1\n====\n")
+    monkeypatch.setattr(gen_eval, "eval_module_text", _fake_pass_eval_module_text)
+    logdir = tmp_path / "logs"
+    logdir.mkdir()
+
+    rows = list(gen_eval.gen_eval_spec_framing_a(
+        "999", {"system_overview": "x"}, "INIT\n Init\n", "Foo",
+        gen_eval_stub_model(reply), "test-run", 1, corpus=tmp_path, num2mod={},
+        mod2path={}, cfg_dirs=[], workroot=tmp_path / "work", logdir=logdir,
+        done=set()))
+
+    assert rows and all(r["extract_divergent"] is True for r in rows)
+
+
+def test_gate_check_is_unaffected_by_the_new_fields(tmp_path):
+    """The provenance fields are additive; gate_check reads by key and must
+    produce an identical report with and without them."""
+    from .gate_check import gate_check
+
+    lean = [{"spec": "1", "framing": "A", "sample": "greedy", "verdict": "pass"},
+            {"spec": "1", "framing": "A", "sample": 1, "verdict": "fail"}]
+    rich = [{**r, "decode_seed": 7, "decode_params_sha256": "d" * 64,
+             "provider_seed_echo": 7, "seed_supported": True,
+             "backend_sha256": "b" * 64, "extractor": "gen_eval.first",
+             "extract_divergent": False} for r in lean]
+
+    def report_for(rows, name):
+        d = tmp_path / name
+        d.mkdir()
+        (d / "rows.jsonl").write_text(
+            "".join(json.dumps(r) + "\n" for r in rows))
+        # run_dir is the tmp path itself and is expected to differ
+        return {k: v for k, v in gate_check(d).items() if k != "run_dir"}
+
+    assert report_for(lean, "lean") == report_for(rich, "rich")
+
+
+# --------------------------------------------- candidate persistence (Rule 9)
+
+def _fake_pass_eval_module_text(num, module_text, corpus, num2mod, mod2path,
+                                cfg_dirs, workroot, logdir, timeout, stages,
+                                override_cfg=None, log_name=None):
+    log_path = logdir / (log_name or f"{num}.log")
+    log_path.write_text("fake pass log\n")
+    return {"spec": num, "sany": "pass", "tlc": "pass", "tlc_vacuity": "clean",
+            "tlaps": None, "budget_used": {}, "log_path": str(log_path)}
+
+
+def test_framing_a_persists_candidate_with_matching_sha(monkeypatch, tmp_path):
+    reply = "---- MODULE Foo ----\nInit == x = 0\nNext == x' = x + 1\n===="
+    monkeypatch.setattr(gen_eval, "eval_module_text", _fake_pass_eval_module_text)
+
+    logdir = tmp_path / "logs"
+    logdir.mkdir()
+    candidates_dir = tmp_path / "candidates"
+    model = _FixedModel(reply)
+
+    rows = list(gen_eval.gen_eval_spec_framing_a(
+        "999", {"system_overview": "x"}, "INIT\n Init\n", "Foo", model,
+        "test-run", 0, corpus=tmp_path, num2mod={}, mod2path={}, cfg_dirs=[],
+        workroot=tmp_path / "work", logdir=logdir, done=set(),
+        candidates_dir=candidates_dir))
+
+    assert len(rows) == 1  # greedy only (k=0)
+    row = rows[0]
+    expected_text = gen_eval.extract_module(reply)
+    expected_path = candidates_dir / "999-A-greedy.tla"
+    assert expected_path.exists()
+    assert expected_path.read_text() == expected_text
+    assert row["candidate_path"] == "candidates/999-A-greedy.tla"
+    assert row["candidate_sha256"] == hashlib.sha256(expected_text.encode()).hexdigest()
+
+
+def test_framing_a_extraction_failure_writes_response_txt(monkeypatch, tmp_path):
+    reply = "I refuse to write a module today, sorry."
+    monkeypatch.setattr(gen_eval, "eval_module_text", _fake_pass_eval_module_text)
+
+    logdir = tmp_path / "logs"
+    logdir.mkdir()
+    candidates_dir = tmp_path / "candidates"
+    model = _FixedModel(reply)
+
+    rows = list(gen_eval.gen_eval_spec_framing_a(
+        "999", {"system_overview": "x"}, "INIT\n Init\n", "Foo", model,
+        "test-run", 0, corpus=tmp_path, num2mod={}, mod2path={}, cfg_dirs=[],
+        workroot=tmp_path / "work", logdir=logdir, done=set(),
+        candidates_dir=candidates_dir))
+
+    assert len(rows) == 1
+    row = rows[0]
+    assert row["verdict"] == "no_module_extracted"
+    expected_path = candidates_dir / "999-A-greedy.response.txt"
+    assert expected_path.exists()
+    assert expected_path.read_text() == reply
+    # extraction failed -- nothing was scored, so no candidate fields on the row
+    assert "candidate_path" not in row
+    assert "candidate_sha256" not in row
+
+
+def test_framing_b_persists_candidate_for_both_greedy_and_sample(monkeypatch, tmp_path):
+    reply = "---- MODULE OnlyIn ----\nEXTENDS Naturals\nCONSTANT MaxNat\n" \
+            "ASSUME MaxNat \\in Nat\nNatOverride == 0 .. MaxNat\n===="
+    monkeypatch.setattr(gen_eval, "eval_module_text", _fake_pass_eval_module_text)
+    logdir = tmp_path / "logs"
+    logdir.mkdir()
+    candidates_dir = tmp_path / "candidates"
+    model = _FixedModel(reply)
+    corrupted = reply.replace("\\in", "\\notin")
+    mutation_record = {"mutation": "in_to_notin", "offset": 60,
+                       "original": "\\in", "replacement": "\\notin",
+                       "candidate_index": 0, "seeded_index": 0,
+                       "candidates_total": 1, "rejected": [],
+                       "corrupted_verdict": "fail:sany=fail"}
+    seed = gen_eval.corruption_seed("some-frozen-hash", "999")
+
+    rows = list(gen_eval.gen_eval_spec_framing_b(
+        "999", corrupted, mutation_record, seed, "sany error evidence", model,
+        "test-run", 1, corpus=tmp_path, num2mod={}, mod2path={}, cfg_dirs=[],
+        workroot=tmp_path / "work", logdir=logdir, done=set(),
+        candidates_dir=candidates_dir))
+
+    assert len(rows) == 2  # greedy + k=1
+    expected_text = gen_eval.extract_module(reply)
+    expected_sha = hashlib.sha256(expected_text.encode()).hexdigest()
+    by_sample = {r["sample"]: r for r in rows}
+    for sample_id, fname in (("greedy", "999-B-greedy.tla"), (1, "999-B-1.tla")):
+        r = by_sample[sample_id]
+        path = candidates_dir / fname
+        assert path.exists()
+        assert path.read_text() == expected_text
+        assert r["candidate_path"] == f"candidates/{fname}"
+        assert r["candidate_sha256"] == expected_sha
+
+
+def test_candidates_not_persisted_when_candidates_dir_omitted(monkeypatch, tmp_path):
+    # Backward-compat / opt-in: callers that don't pass candidates_dir (e.g.
+    # any future caller of these generators) must not have rows mutated with
+    # candidate fields, and no candidates/ dir should be created as a side effect.
+    reply = "---- MODULE Foo ----\nInit == x = 0\n===="
+    monkeypatch.setattr(gen_eval, "eval_module_text", _fake_pass_eval_module_text)
+    logdir = tmp_path / "logs"
+    logdir.mkdir()
+    model = _FixedModel(reply)
+
+    rows = list(gen_eval.gen_eval_spec_framing_a(
+        "999", {"system_overview": "x"}, "INIT\n Init\n", "Foo", model,
+        "test-run", 0, corpus=tmp_path, num2mod={}, mod2path={}, cfg_dirs=[],
+        workroot=tmp_path / "work", logdir=logdir, done=set()))
+
+    assert "candidate_path" not in rows[0]
+    assert not (tmp_path / "candidates").exists()
+
+
+def test_framing_a_per_sample_log_paths_are_distinct(monkeypatch, tmp_path):
+    reply = "---- MODULE Foo ----\nInit == x = 0\n===="
+    captured = []
+
+    def fake_eval_module_text(num, module_text, corpus, num2mod, mod2path,
+                              cfg_dirs, workroot, logdir, timeout, stages,
+                              override_cfg=None, log_name=None):
+        captured.append((logdir, log_name))
+        log_path = logdir / (log_name or f"{num}.log")
+        log_path.write_text("log\n")
+        return {"spec": num, "sany": "pass", "tlc": "pass", "tlc_vacuity": "clean",
+                "tlaps": None, "budget_used": {}, "log_path": str(log_path)}
+
+    monkeypatch.setattr(gen_eval, "eval_module_text", fake_eval_module_text)
+    logdir = tmp_path / "logs"
+    logdir.mkdir()
+    model = _FixedModel(reply)
+
+    list(gen_eval.gen_eval_spec_framing_a(
+        "999", {"system_overview": "x"}, "INIT\n Init\n", "Foo", model,
+        "test-run", 2, corpus=tmp_path, num2mod={}, mod2path={}, cfg_dirs=[],
+        workroot=tmp_path / "work", logdir=logdir, done=set()))
+
+    assert len(captured) == 3  # greedy + 2 samples
+    log_names = [ln for _, ln in captured]
+    assert len(set(log_names)) == 3  # all distinct -- no overwrite
+    assert log_names == ["999-A-greedy.log", "999-A-1.log", "999-A-2.log"]
+
+
+# --------------------------------------- corruption precondition (E2C §4.3)
+
+def test_find_valid_corruption_accepts_seeded_candidate_when_valid():
+    # REALISH_MODULE seeded pick must be accepted when it sany-parses and fails.
+    def scorer(text):
+        return {"sany": "pass"}, "fail:tlc=fail_invariant", "tlc log"
+    corrupted, record, evidence = gen_eval.find_valid_corruption(
+        REALISH_MODULE, seed=42, scorer=scorer)
+    ref_corrupted, ref_record = gen_eval.corrupt(REALISH_MODULE, seed=42)
+    assert corrupted == ref_corrupted  # first candidate tried == corrupt()'s pick
+    assert record["mutation"] == ref_record["mutation"]
+    assert record["offset"] == ref_record["offset"]
+    assert record["candidate_index"] == record["seeded_index"]
+    assert record["rejected"] == []
+    assert record["corrupted_verdict"] == "fail:tlc=fail_invariant"
+    assert evidence == "tlc log"
+
+
+def test_find_valid_corruption_falls_back_past_sany_breaking_candidates():
+    # first candidate breaks SANY -> must be rejected (reason recorded) and the
+    # next candidate in rotation accepted.
+    state = {"n": 0}
+
+    def scorer(text):
+        state["n"] += 1
+        if state["n"] == 1:
+            return {"sany": "fail"}, "fail:sany=fail", "sany parse error"
+        return {"sany": "pass"}, "fail:tlc=fail_invariant", "tlc log"
+
+    corrupted, record, evidence = gen_eval.find_valid_corruption(
+        REALISH_MODULE, seed=42, scorer=scorer)
+    assert corrupted is not None
+    assert len(record["rejected"]) == 1
+    assert record["rejected"][0]["reason"] == "sany_fail"
+    assert record["candidate_index"] == \
+        (record["seeded_index"] + 1) % record["candidates_total"]
+
+
+def test_find_valid_corruption_rejects_still_passing_candidates():
+    state = {"n": 0}
+
+    def scorer(text):
+        state["n"] += 1
+        if state["n"] == 1:
+            return {"sany": "pass"}, "pass", "clean tlc log"  # mutation is a no-op
+        return {"sany": "pass"}, "fail:tlc=fail_invariant", "tlc log"
+
+    corrupted, record, _ = gen_eval.find_valid_corruption(
+        REALISH_MODULE, seed=42, scorer=scorer)
+    assert corrupted is not None
+    assert record["rejected"][0]["reason"] == "still_passes"
+
+
+def test_find_valid_corruption_no_mutation_site():
+    def scorer(text):
+        raise AssertionError("scorer must not be called with zero candidates")
+    corrupted, record, evidence = gen_eval.find_valid_corruption(
+        "---- MODULE Empty ----\n====\n", seed=1, scorer=scorer)
+    assert corrupted is None
+    assert record["skip"] == "no_mutation_site"
+    assert evidence is None
+
+
+def test_find_valid_corruption_no_valid_candidate_returns_skip_record():
+    def scorer(text):
+        return {"sany": "fail"}, "fail:sany=fail", "parse error"
+    corrupted, record, evidence = gen_eval.find_valid_corruption(
+        REALISH_MODULE, seed=3, scorer=scorer)
+    assert corrupted is None
+    assert record["skip"] == "no_valid_corruption"
+    assert record["candidates_total"] == len(record["rejected"])
+    assert all(r["reason"] == "sany_fail" for r in record["rejected"])
+    assert evidence is None
+
+
+def test_find_valid_corruption_is_deterministic():
+    def scorer(text):
+        return {"sany": "pass"}, "fail:tlc=fail_invariant", "log"
+    a = gen_eval.find_valid_corruption(REALISH_MODULE, seed=9, scorer=scorer)
+    b = gen_eval.find_valid_corruption(REALISH_MODULE, seed=9, scorer=scorer)
+    assert a == b
+
+
+# ------------------------------------------------- canonical text (158/183)
+
+def test_canonical_spec_text_reads_duplicate_numbered_specs(tmp_path):
+    # Regression: specs 158/183 are byte-identical duplicates of 164/86 (same
+    # module name -> mod2path keeps only one path per module name), so any
+    # mod2path-based lookup loses them. canonical_spec_text must read
+    # tla_files/{num}.tla directly.
+    (tmp_path / "tla_files").mkdir()
+    (tmp_path / "tla_files" / "158.tla").write_text("---- MODULE Voting ----\n====")
+    (tmp_path / "tla_files" / "164.tla").write_text("---- MODULE Voting ----\n====")
+    text = gen_eval.canonical_spec_text("158", tmp_path)
+    assert "MODULE Voting" in text
+
+
+def test_canonical_spec_text_missing_raises(tmp_path):
+    (tmp_path / "tla_files").mkdir()
+    with pytest.raises(FileNotFoundError):
+        gen_eval.canonical_spec_text("120", tmp_path)
+
+
+# --------------------------------------------- corruption cache + skip rows
+
+def test_corruption_for_spec_caches_and_resumes(monkeypatch, tmp_path):
+    calls = {"n": 0}
+
+    def fake_score(num, text, corpus, num2mod, mod2path, cfg_dirs, workroot,
+                   logdir, timeout):
+        calls["n"] += 1
+        return {"sany": "pass"}, "fail:tlc=fail_invariant", "tlc log"
+
+    monkeypatch.setattr(gen_eval, "_score", fake_score)
+    rundir = tmp_path / "run"
+    rundir.mkdir()
+    args = ("999", REALISH_MODULE, 42, rundir, None, {}, {}, [], None, None)
+
+    c1, r1, e1 = gen_eval._corruption_for_spec(*args)
+    n_after_first = calls["n"]
+    assert c1 is not None and n_after_first >= 1
+    assert (rundir / "corruptions" / "999.json").exists()
+
+    # second call (resume): served from cache, zero additional scoring
+    c2, r2, e2 = gen_eval._corruption_for_spec(*args)
+    assert calls["n"] == n_after_first
+    assert (c2, r2, e2) == (c1, r1, e1)
+
+
+def test_corruption_for_spec_caches_skip_outcome(monkeypatch, tmp_path):
+    def fake_score(num, text, corpus, num2mod, mod2path, cfg_dirs, workroot,
+                   logdir, timeout):
+        return {"sany": "fail"}, "fail:sany=fail", "parse error"
+
+    monkeypatch.setattr(gen_eval, "_score", fake_score)
+    rundir = tmp_path / "run"
+    rundir.mkdir()
+    args = ("999", REALISH_MODULE, 42, rundir, None, {}, {}, [], None, None)
+    c, record, e = gen_eval._corruption_for_spec(*args)
+    assert c is None and record["skip"] == "no_valid_corruption"
+    # cached skip survives resume
+    monkeypatch.setattr(gen_eval, "_score",
+                        lambda *a: (_ for _ in ()).throw(AssertionError("no rescore")))
+    c2, record2, _ = gen_eval._corruption_for_spec(*args)
+    assert c2 is None and record2["skip"] == "no_valid_corruption"
+
+
+def test_run_gen_eval_framing_b_ledgers_skip_rows(monkeypatch, tmp_path):
+    # A spec whose every corruption candidate breaks SANY must yield a
+    # "skipped:no_valid_corruption" ROW in rows.jsonl, not a console-only skip.
+    corpus = tmp_path / "corpus"
+    (corpus / "tla_files").mkdir(parents=True)
+    (corpus / "descriptions").mkdir()
+    (corpus / "cfg").mkdir()
+    (corpus / "tla_files" / "2.tla").write_text(REALISH_MODULE)
+
+    def fake_score(num, text, corpus_, num2mod, mod2path, cfg_dirs, workroot,
+                   logdir, timeout):
+        return {"sany": "fail"}, "fail:sany=fail", "parse error"
+
+    monkeypatch.setattr(gen_eval, "_score", fake_score)
+    rundir = tmp_path / "results-run"
+    monkeypatch.setattr(gen_eval, "REPO", tmp_path)  # results/runs under tmp
+    monkeypatch.setattr(gen_eval, "HOLDOUT_FILE", tmp_path / "holdout.json")
+    (tmp_path / "holdout.json").write_text(json.dumps({"holdout_specs": [2]}))
+
+    gen_eval.run_gen_eval(corpus, "skiprow-test", "B", "local-stub", 1,
+                          specs=["2"])
+
+    rows_path = tmp_path / "results" / "runs" / "skiprow-test" / "rows.jsonl"
+    rows = [json.loads(l) for l in rows_path.read_text().splitlines() if l]
+    assert len(rows) == 1
+    assert rows[0]["spec"] == "2"
+    assert rows[0]["sample"] == "corruption"
+    assert rows[0]["verdict"] == "skipped:no_valid_corruption"
+    assert rows[0]["mutation_record"]["skip"] == "no_valid_corruption"
+
+
+# --- cfg substitution / multi-pair parsing (2026-07-29 audit) -----------------
+# required_signature() used to keep only the LEFT identifier of `X <- Y` and drop
+# Y, so the framing-A prompt never told the model to define Y -- while TLC hard
+# errors with "substitutes for X with the undefined identifier Y". That silently
+# under-specified 13/30 holdout specs (12 of them unsolved in gate2-w4dg-120b-A).
+
+def test_required_signature_keeps_substitution_rhs():
+    # Uses a spec-domain LHS: a builtin LHS like Nat is reported separately, see
+    # test_builtin_substitution_lhs_is_not_a_declared_constant.
+    cfg = "CONSTANT\n  MaxBallot = 2\n  Quorum <- MCQuorum\n"
+    sig = gen_eval.required_signature(cfg)
+    assert sig["constants"] == ["MaxBallot", "Quorum"]
+    assert sig["substitutions"] == [("Quorum", "MCQuorum")]
+
+
+def test_required_signature_splits_multi_pair_line():
+    # spec 158's real cfg: five assignments on one line, plus four substitutions.
+    cfg = (
+        "CONSTANTS \n"
+        "  a1=a1  a2=a2  a3=a3  v1=v1  v2=v2 \n"
+        "  Acceptor <- MCAcceptor \n"
+        "  Quorum   <- MCQuorum\n"
+        "SYMMETRY MCSymmetry\n"
+    )
+    sig = gen_eval.required_signature(cfg)
+    assert sig["constants"] == ["a1", "a2", "a3", "v1", "v2", "Acceptor", "Quorum"]
+    assert sig["substitutions"] == [("Acceptor", "MCAcceptor"), ("Quorum", "MCQuorum")]
+    assert sig["symmetry"] == "MCSymmetry"
+
+
+def test_format_signature_tells_model_to_define_rhs_operators():
+    cfg = "CONSTANT\n  MaxNat = 1000000\n  Nat <- NatOverride\n"
+    body = gen_eval._format_signature(gen_eval.required_signature(cfg))
+    assert "NatOverride" in body, "the model is never told to define the RHS operator"
+
+
+def test_substitution_free_cfg_signature_is_unchanged():
+    # regression guard: arms without `<-` must produce byte-identical prompts.
+    cfg = "CONSTANT N = 3\nINIT Init\nNEXT Next\nINVARIANT TypeOK\n"
+    sig = gen_eval.required_signature(cfg)
+    assert sig["substitutions"] == []
+    body = gen_eval._format_signature(sig)
+    assert "substitut" not in body.lower()
+
+
+def test_required_signature_keeps_bare_constant_declaration():
+    # "CONSTANT N" has no "=" or "<-"; the pair scan must not swallow it.
+    sig = gen_eval.required_signature("CONSTANT N\nINIT Init\n")
+    assert sig["constants"] == ["N"]
+
+
+def test_required_signature_mixed_bare_and_assigned():
+    sig = gen_eval.required_signature("CONSTANTS N  MaxNat = 10  Nat <- NatOverride\n")
+    # Nat is inherited from Naturals, so it is an override, not a declaration.
+    assert sig["constants"] == ["MaxNat", "N"]
+    assert sig["substitutions"] == []
+    assert sig["builtin_overrides"] == [("Nat", "NatOverride", "Naturals")]
+
+
+def test_required_signature_does_not_harvest_set_elements():
+    # spec 2's real cfg: a set literal with spaces after the commas. p2/p3 are
+    # model VALUES, not identifiers the module must declare.
+    sig = gen_eval.required_signature("CONSTANTS\n  participants = {p1, p2, p3}\n  yes = yes\n")
+    assert sig["constants"] == ["participants", "yes"]
+
+
+def test_required_signature_handles_record_and_function_values():
+    sig = gen_eval.required_signature("CONSTANT f = [a |-> 1, b |-> 2]\n")
+    assert sig["constants"] == ["f"]
+
+
+def test_required_signature_nested_set_literal():
+    # spec 37's real cfg: a set OF sets. Elements must not become constants.
+    cfg = ("CONSTANTS\n"
+           "  Ingredients = {matches, paper, tobacco}\n"
+           "  Offers = {{matches, paper}, {matches, tobacco}, {paper, tobacco}}\n")
+    assert gen_eval.required_signature(cfg)["constants"] == ["Ingredients", "Offers"]
+
+
+# --- substitution LHS: builtin vs spec-domain (2026-07-29, second pass) -------
+# `Nat <- NatOverride` must NOT make the model declare Nat: Nat comes from
+# EXTENDS Naturals, and declaring it too is a hard SANY error ("Multiply-defined
+# symbol 'Nat'"). Observed in gate2-w4dg-120b-A2: 31/33 candidates correctly
+# defined NatOverride, then all 33 died on the Nat collision.
+# `Acceptor <- MCAcceptor` is the opposite: Acceptor IS a spec constant to declare.
+
+def test_builtin_substitution_lhs_is_not_a_declared_constant():
+    cfg = "CONSTANT\n  MaxNat = 1000000\n  Nat <- NatOverride\n"
+    sig = gen_eval.required_signature(cfg)
+    assert sig["constants"] == ["MaxNat"], "Nat must not be declared"
+    assert sig["builtin_overrides"] == [("Nat", "NatOverride", "Naturals")]
+    assert sig["substitutions"] == []
+    body = gen_eval._format_signature(sig)
+    assert "NatOverride" in body
+    assert "do NOT declare" in body
+
+
+def test_domain_substitution_lhs_stays_a_declared_constant():
+    cfg = "CONSTANTS\n  Acceptor <- MCAcceptor\n  Ballot <- MCBallot\n"
+    sig = gen_eval.required_signature(cfg)
+    assert sig["constants"] == ["Acceptor", "Ballot"]
+    assert sig["builtin_overrides"] == []
+    assert sig["substitutions"] == [("Acceptor", "MCAcceptor"), ("Ballot", "MCBallot")]
+
+
+def test_seq_substitution_is_treated_as_builtin():
+    sig = gen_eval.required_signature("CONSTANT Seq <- LimitedSeq\n")
+    assert sig["constants"] == []
+    assert sig["builtin_overrides"] == [("Seq", "LimitedSeq", "Sequences")]
+
+
+def test_load_existing_rows_api_error_is_not_done(tmp_path):
+    """A dropped connection writes verdict=api_error rows; resume must retry
+    those (spec, sample) pairs instead of freezing the failure into the run."""
+    p = tmp_path / "rows.jsonl"
+    p.write_text(
+        json.dumps({"spec": "2", "sample": "greedy", "verdict": "pass"}) + "\n"
+        + json.dumps({"spec": "2", "sample": 1, "verdict": "api_error"}) + "\n"
+        + json.dumps({"spec": "5", "sample": 1, "verdict": "api_error"}) + "\n"
+        + json.dumps({"spec": "5", "sample": 1, "verdict": "fail:tlc=fail"}) + "\n"
+    )
+    done = gen_eval.load_existing_rows(p)
+    # ("2", 1) was api_error with no retry -> not done. ("5", 1) has a scored
+    # retry appended later -> done.
+    assert done == {("2", "greedy"), ("5", 1)}
+
+
+def test_gate_check_prefers_scored_retry_over_api_error(tmp_path):
+    """Keep-first dedup stands for scored rows (Amendment-16), but an api_error
+    first occurrence yields to a later scored retry of the same (spec, sample)."""
+    from .gate_check import gate_check
+
+    d = tmp_path / "run"
+    d.mkdir()
+    rows = [
+        {"spec": "1", "sample": "greedy", "verdict": "api_error"},
+        {"spec": "1", "sample": "greedy", "verdict": "pass"},        # retry wins
+        {"spec": "1", "sample": 1, "verdict": "pass"},
+        {"spec": "1", "sample": 1, "verdict": "fail:tlc=fail"},       # first scored wins
+        {"spec": "3", "sample": "greedy", "verdict": "api_error"},    # no retry: stays
+    ]
+    (d / "rows.jsonl").write_text("".join(json.dumps(r) + "\n" for r in rows))
+    rep = gate_check(d)
+    assert rep["pass_set"] == ["1"]
+    assert rep["pass_at_1"] == 1          # greedy retry scored as pass
+    assert rep["api_error_rows"] == 1     # only spec 3's unhealed row remains
+
+
+# --- A7: the no-redefinition block (docs/RALPH_STAIRCASE.md it10) ------------
+# 27.1% of the frontier's SANY failures carry a redefinition error and 12.1%
+# carry ONLY that. Flag-gated like A6 so every frozen arm stays byte-identical.
+
+def _a7_cfg():
+    return (
+        "CONSTANTS\n"
+        "  Node <- N1\n"
+        "  NoNode = NoNode\n"
+        "  Seq <- LimitedSeq\n"
+        "SPECIFICATION\n  Spec\n"
+        "INVARIANT\n  TypeOK\n"
+    )
+
+
+def test_no_redef_block_absent_without_the_flag(monkeypatch):
+    monkeypatch.delenv("TLA_PROMPT_NO_REDEF", raising=False)
+    p = gen_eval.build_generation_prompt({"system_overview": "x"}, _a7_cfg(), "M")
+    assert "DO NOT REDEFINE" not in p
+
+
+def test_no_redef_block_present_with_the_flag(monkeypatch):
+    monkeypatch.setenv("TLA_PROMPT_NO_REDEF", "1")
+    p = gen_eval.build_generation_prompt({"system_overview": "x"}, _a7_cfg(), "M")
+    assert "DO NOT REDEFINE" in p
+    # names the three measured causes
+    assert "declare" in p.lower() and "define" in p.lower()
+    assert "EXTENDS" in p
+    assert "exactly once" in p.lower()
+
+
+def test_no_redef_block_only_appends(monkeypatch):
+    """The flagged prompt must be the unflagged prompt plus the block, so the
+    A1/A2-style controls stay comparable and prompt_sha256 differences are
+    attributable to this one change."""
+    monkeypatch.delenv("TLA_PROMPT_NO_REDEF", raising=False)
+    off = gen_eval.build_generation_prompt({"system_overview": "x"}, _a7_cfg(), "M")
+    monkeypatch.setenv("TLA_PROMPT_NO_REDEF", "1")
+    on = gen_eval.build_generation_prompt({"system_overview": "x"}, _a7_cfg(), "M")
+    assert on.startswith(off)
+    assert len(on) > len(off)
+
+
+# --- A8: the cfg interface contract (docs/RALPH_STAIRCASE.md it16) -----------
+# 55% of TLC failures on SANY-clean generations are interface mismatches:
+# arity (64), undefined substitution target (37), missing module/constant (26).
+
+def _a8_cfg():
+    return (
+        "CONSTANTS\n"
+        "  Nodes = {n1, n2}\n"
+        "  Succ <- ConnectedToSomeButNotAll\n"
+        "  Seq <- LimitedSeq\n"
+        "  Nat <- [ZSequences]CharacterSet\n"
+        "SPECIFICATION Spec\nINVARIANT TypeOK\n"
+    )
+
+
+def test_arity_block_absent_without_the_flag(monkeypatch):
+    monkeypatch.delenv("TLA_PROMPT_ARITY", raising=False)
+    p = gen_eval.build_generation_prompt({"system_overview": "x"}, _a8_cfg(), "M")
+    assert "SAME NUMBER OF ARGUMENTS" not in p
+
+
+def test_arity_block_names_each_substitution_pair(monkeypatch):
+    monkeypatch.setenv("TLA_PROMPT_ARITY", "1")
+    p = gen_eval.build_generation_prompt({"system_overview": "x"}, _a8_cfg(), "M")
+    assert "SAME NUMBER OF ARGUMENTS" in p
+    # the plain substitution and both builtin overrides are all named
+    assert "ConnectedToSomeButNotAll" in p and "Succ" in p
+    assert "LimitedSeq" in p and "CharacterSet" in p
+
+
+def test_arity_block_demands_the_module_the_cfg_names(monkeypatch):
+    """121 dies with 'module name ZSequences is not a module in the
+    specification' -- the cfg's [ZSequences]Op form requires that module."""
+    monkeypatch.setenv("TLA_PROMPT_ARITY", "1")
+    p = gen_eval.build_generation_prompt({"system_overview": "x"}, _a8_cfg(), "M")
+    assert "ZSequences" in p
+
+
+def test_arity_block_only_appends(monkeypatch):
+    monkeypatch.delenv("TLA_PROMPT_ARITY", raising=False)
+    off = gen_eval.build_generation_prompt({"system_overview": "x"}, _a8_cfg(), "M")
+    monkeypatch.setenv("TLA_PROMPT_ARITY", "1")
+    on = gen_eval.build_generation_prompt({"system_overview": "x"}, _a8_cfg(), "M")
+    assert on.startswith(off) and len(on) > len(off)
+
+
+def test_arity_block_silent_when_cfg_has_no_substitutions(monkeypatch):
+    monkeypatch.setenv("TLA_PROMPT_ARITY", "1")
+    cfg = "CONSTANTS\n  Nodes = {n1}\nSPECIFICATION Spec\nINVARIANT TypeOK\n"
+    p = gen_eval.build_generation_prompt({"system_overview": "x"}, cfg, "M")
+    assert "SAME NUMBER OF ARGUMENTS" not in p
+
+
+def test_arity_block_does_not_ask_for_wrapper_provided_operators(monkeypatch):
+    """Specs 141/148 are checked through a wrapper that ALREADY defines the
+    substitution target (141's wrapper defines LimitedSeq and
+    ConnectedToSomeButNotAll). Telling the model to define it too produces
+    "Multiple declarations or definitions for symbol LimitedSeq" and TLC
+    refuses the module -- 56 of the 246 frontier TLC failures (it19)."""
+    monkeypatch.setenv("TLA_PROMPT_ARITY", "1")
+    wrapper = ("---- MODULE Reachable ----\n"
+               "ConnectedToSomeButNotAll == {}\n"
+               "LimitedSeq(S) == {}\n====\n")
+    p = gen_eval.build_generation_prompt(
+        {"system_overview": "x"}, _a8_cfg(), "M", wrapper_text=wrapper)
+    assert "SAME NUMBER OF ARGUMENTS" in p
+    blk = p[p.index("SAME NUMBER OF ARGUMENTS"):]
+    # LimitedSeq comes from the wrapper: the model must be told NOT to define it
+    assert "do NOT define" in blk and "LimitedSeq" in blk
+    # and it must not also be listed as one to define
+    assert "Define `LimitedSeq`" not in blk
+
+
+def test_arity_block_unchanged_when_no_wrapper(monkeypatch):
+    monkeypatch.setenv("TLA_PROMPT_ARITY", "1")
+    a = gen_eval.build_generation_prompt({"system_overview": "x"}, _a8_cfg(), "M")
+    b = gen_eval.build_generation_prompt({"system_overview": "x"}, _a8_cfg(), "M",
+                                         wrapper_text=None)
+    # LimitedSeq now comes through the builtin-override branch, which states
+    # Sequences' own arity instead of constant-declaration logic (it36).
+    assert a == b and "`LimitedSeq(S) == ...`" in a
+
+
+# --- A9: wrapper-aware signature (docs/RALPH_STAIRCASE.md it20/it21) ---------
+# The prompt asks for 17 names across the 5 wrapper specs that the wrapper
+# already provides -- constants, invariants AND substitution targets -- costing
+# 190 rows. Flag-gated because fixing the DEFAULT changes prompt_sha256 for
+# every wrapper spec and breaks byte-identity with all frozen arms.
+
+_A9_CFG = (
+    "CONSTANTS\n  Nodes = {n1}\n  MaxSeqLen = 3\n"
+    "  Succ <- ConnectedToSomeButNotAll\n"
+    "SPECIFICATION Spec\nINVARIANT TypeInvariant SafetyInvariant\n"
+)
+_A9_WRAPPER = (
+    "---- MODULE W ----\nCONSTANT MaxSeqLen\n"
+    "ConnectedToSomeButNotAll == {}\nTypeInvariant == TRUE\n====\n"
+)
+
+
+def test_wrapper_aware_off_by_default_is_byte_identical(monkeypatch):
+    monkeypatch.delenv("TLA_PROMPT_WRAPPER_AWARE", raising=False)
+    a = gen_eval.build_generation_prompt({"system_overview": "x"}, _A9_CFG, "M")
+    b = gen_eval.build_generation_prompt({"system_overview": "x"}, _A9_CFG, "M",
+                                         wrapper_text=_A9_WRAPPER)
+    assert a == b, "without the flag a wrapper must not change the prompt"
+
+
+def test_wrapper_aware_drops_names_the_wrapper_provides(monkeypatch):
+    monkeypatch.setenv("TLA_PROMPT_WRAPPER_AWARE", "1")
+    p = gen_eval.build_generation_prompt({"system_overview": "x"}, _A9_CFG, "M",
+                                         wrapper_text=_A9_WRAPPER)
+    sig_part = p.split("=== TASK ===")[0]
+    # DEFINED by the wrapper (==) -> must not be demanded
+    assert "TypeInvariant" not in sig_part.split("INVARIANTS:")[1].split("\n")[0]
+    # only DECLARED by the wrapper -> the candidate still owes it, because
+    # missing_signature still requires it (it35). MaxSeqLen stays demanded.
+    assert "MaxSeqLen" in sig_part.split("CONSTANTS:")[1].split("\n")[0]
+    # not provided at all -> still demanded
+    assert "Nodes" in sig_part and "SafetyInvariant" in sig_part
+
+
+def test_wrapper_aware_says_where_those_names_come_from(monkeypatch):
+    monkeypatch.setenv("TLA_PROMPT_WRAPPER_AWARE", "1")
+    p = gen_eval.build_generation_prompt({"system_overview": "x"}, _A9_CFG, "M",
+                                         wrapper_text=_A9_WRAPPER)
+    assert "model-checking wrapper" in p
+    assert "MaxSeqLen" in p and "TypeInvariant" in p
+
+
+def test_wrapper_aware_noop_without_a_wrapper(monkeypatch):
+    monkeypatch.delenv("TLA_PROMPT_WRAPPER_AWARE", raising=False)
+    off = gen_eval.build_generation_prompt({"system_overview": "x"}, _A9_CFG, "M")
+    monkeypatch.setenv("TLA_PROMPT_WRAPPER_AWARE", "1")
+    on = gen_eval.build_generation_prompt({"system_overview": "x"}, _A9_CFG, "M")
+    assert on == off, "no wrapper means nothing to filter"
+
+
+def test_no_redef_block_covers_non_standard_extends(monkeypatch):
+    """55 is MCEcho EXTENDS Echo, and 82 of its 132 redefinition failures
+    EXTEND Echo then redefine what Echo provides (it32). Echo is not a STANDARD
+    module, so wording limited to Sequences/Naturals misses the real case."""
+    monkeypatch.setenv("TLA_PROMPT_NO_REDEF", "1")
+    p = gen_eval.build_generation_prompt({"system_overview": "x"}, _a7_cfg(), "M")
+    blk = p[p.index("DO NOT REDEFINE"):]
+    assert "standard" not in blk.split("EXTENDS")[1][:120].lower(), \
+        "the rule must not be limited to standard modules"
+    assert "any module you EXTEND" in blk
+
+
+def test_arity_block_warns_about_function_valued_constants(monkeypatch):
+    """The dominant real arity error (it33): the model declares `CONSTANT Succ`
+    correctly 0-ary, then defines `ConnectedToSomeButNotAll(n)` WITH a
+    parameter. Succ is used as Succ[n] -- a 0-ary constant holding a function --
+    so the substitute must take no arguments. The block must say so instead of
+    implying the operator should take one."""
+    monkeypatch.setenv("TLA_PROMPT_ARITY", "1")
+    p = gen_eval.build_generation_prompt({"system_overview": "x"}, _a8_cfg(), "M")
+    blk = p[p.index("SAME NUMBER OF ARGUMENTS"):]
+    assert "[" in blk and "no arguments" in blk, \
+        "must explain that a function-valued constant is 0-ary (applied with [])"
+
+
+def test_wrapper_aware_only_drops_what_the_wrapper_DEFINES(monkeypatch):
+    """A9 must stay consistent with missing_signature, the harness's own
+    criterion (it35). Spec 148's wrapper DEFINES TypeInvariant/SafetyInvariant
+    but only DECLARES the constant CalculateHash; missing_signature still
+    requires the candidate to supply CalculateHash. Dropping it from the
+    demanded list would make the loop demand back what A9 told the model to
+    omit."""
+    monkeypatch.setenv("TLA_PROMPT_WRAPPER_AWARE", "1")
+    cfg = ("CONSTANTS\n  CalculateHash <- CalculateHashImpl\n"
+           "SPECIFICATION Spec\nINVARIANT TypeInvariant\n")
+    wrapper = ("---- MODULE W ----\nCONSTANT CalculateHash\n"
+               "CalculateHashImpl(a) == TRUE\nTypeInvariant == TRUE\n====\n")
+    p = gen_eval.build_generation_prompt({"system_overview": "x"}, cfg, "M",
+                                         wrapper_text=wrapper)
+    head = p.split("=== TASK ===")[0]
+    # defined by the wrapper -> dropped
+    assert "do NOT define or declare them: " in head
+    dropped = head.split("do NOT define or declare them: ")[1].split("\n")[0]
+    assert "TypeInvariant" in dropped
+    # only DECLARED by the wrapper -> the candidate still owes it
+    assert "CalculateHash" not in dropped.replace("CalculateHashImpl", "")
+
+
+def test_arity_block_uses_the_standard_operators_own_arity(monkeypatch):
+    """`Seq <- LimitedSeq` is a BUILTIN override, not a declared constant: Seq
+    comes from Sequences and is 1-ary, and gold 135 defines `LimitedSeq(S)`.
+    Constant-declaration logic does not apply, and telling the model to write a
+    0-ary LimitedSeq breaks the substitution -- leaving the unbounded Seq(S)
+    that TLC cannot enumerate (18 of 29 StackOverflow candidates, it36)."""
+    monkeypatch.setenv("TLA_PROMPT_ARITY", "1")
+    cfg = ("CONSTANTS\n  Seq <- LimitedSeq\n  Nat <- MyNat\n"
+           "SPECIFICATION Spec\nINVARIANT TypeOK\n")
+    p = gen_eval.build_generation_prompt({"system_overview": "x"}, cfg, "M")
+    blk = p[p.index("SAME NUMBER OF ARGUMENTS"):]
+    seq_line = [l for l in blk.splitlines() if "LimitedSeq" in l][0]
+    assert "Sequences" in seq_line and "one argument" in seq_line
+    assert "CONSTANT Seq" not in seq_line, "Seq is not a declared constant"
+    nat_line = [l for l in blk.splitlines() if "MyNat" in l][0]
+    assert "no arguments" in nat_line, "Nat is a 0-ary set from Naturals"

@@ -1,0 +1,27 @@
+#!/bin/bash
+# Parent-initialized broader whole-target SFT; no protected rows in training.
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-parent-broader
+#PBS -l select=1:system=polaris:ngpus=1
+#PBS -l walltime=00:15:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+set -euo pipefail
+: "${TLA_PARENT_BROADER_STAGE:?absolute isolated stage required}"
+cd "$TLA_PARENT_BROADER_STAGE"
+exec > "job.${PBS_JOBID%%.*}.log" 2>&1
+export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false
+export HF_HOME=/grand/EVITA/eric-spencer/hf-cache PYTHONUNBUFFERED=1
+export OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 MKL_NUM_THREADS=4 NUMEXPR_NUM_THREADS=4
+export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+PYTHON=/home/eric-spencer/ChatTLA/.venv/bin/python
+MODEL=/grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659
+PARENT=/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-learning-20260906-v1/results/training/policy_optimizer.pt
+sha256sum -c SHA256SUMS
+"$PYTHON" -u tools/proof_parent_broader_sft_train.py preflight \
+  --input train.json --checkpoint "$PARENT" --model-path "$MODEL" \
+  --receipt preflight.json
+"$PYTHON" -u tools/proof_parent_broader_sft_train.py train \
+  --input train.json --checkpoint "$PARENT" --model-path "$MODEL" \
+  --output "result.${PBS_JOBID%%.*}"

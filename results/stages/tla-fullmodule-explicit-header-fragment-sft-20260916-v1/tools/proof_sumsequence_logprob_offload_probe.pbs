@@ -1,0 +1,22 @@
+#!/bin/bash
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-logprob-offload
+#PBS -l select=1:system=polaris
+#PBS -l walltime=01:00:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+set -euo pipefail
+: "${SUMSEQUENCE_PROBE_ROOT:?isolated staged probe root required}"
+: "${SUMSEQUENCE_PROBE_MODEL:?verified model path required}"
+: "${SUMSEQUENCE_PROBE_CHECKPOINT:?verified immutable child path required}"
+cd "$SUMSEQUENCE_PROBE_ROOT"
+export OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 MKL_NUM_THREADS=4 NUMEXPR_NUM_THREADS=4
+export PYTHONUNBUFFERED=1
+timeout --signal=TERM --kill-after=20s 950s /home/eric-spencer/ChatTLA/.venv/bin/python \
+ tools/proof_sumsequence_logprob_offload_probe.py run \
+ --broader-prompts broader-prompts.json --rollouts rollouts.jsonl \
+ --inference-admission inference-admission.json --model-path "$SUMSEQUENCE_PROBE_MODEL" \
+ --checkpoint "$SUMSEQUENCE_PROBE_CHECKPOINT" --verified-rows verified-rows.json \
+ --verified-summary verified-summary.json --rng-before sampling_generator_before.pt \
+ --rng-after sampling_generator_after.pt --admission probe-admission.json --output results/probe

@@ -1,0 +1,31 @@
+{
+  "command": [
+    "/usr/bin/java",
+    "-cp",
+    "/Users/eric/GitHub/prove-TLA/tools/tla2tools.jar",
+    "tla2sany.SANY",
+    "W4Od2m7p4t2.tla"
+  ],
+  "cwd": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-structure-first-20260916-v1/explicit-header-fragment-independent-sany-v2/candidates/restored_parent-47",
+  "root_pid": 6794,
+  "root_reaped": true,
+  "returncode": 255,
+  "output": "\n****** SANY2 Version 2.1 created 24 February 2014\n\nParsing file /Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-structure-first-20260916-v1/explicit-header-fragment-independent-sany-v2/candidates/restored_parent-47/W4Od2m7p4t2.tla\n***Parse Error***\nEncountered \"'\" at line 9, column 30 and token \"d\" \n\nResidual stack trace follows:\nQuant Bound starting at line 9, column 29.\nQuantified form starting at line 9, column 26.\nExtendableExpr starting at line 8, column 77.\nExtendableExpr starting at line 8, column 58.\nExtendableExpr starting at line 8, column 51.\n\n\nFatal errors while parsing TLA+ spec in file W4Od2m7p4t2.tla\n\ntla2sany.semantic.AbortException\n*** Abort messages: 1\n\nIn module W4Od2m7p4t2\n\nCould not parse module W4Od2m7p4t2 from file W4Od2m7p4t2.tla\n\n\n",
+  "seconds": 0.18638245899637695,
+  "timed_out": false,
+  "output_complete": true,
+  "output_limit": false,
+  "cleanup_complete": true,
+  "surviving_owned_processes": [],
+  "owned_processes": [
+    {
+      "pid": 6794,
+      "created": 1789556249.990097,
+      "pgid": 6794
+    }
+  ],
+  "signals": [],
+  "errors": [],
+  "execution_complete": true,
+  "containment": "Best-effort ancestry polling; instantaneous unobserved reparenting is not excluded"
+}

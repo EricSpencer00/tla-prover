@@ -1,0 +1,27 @@
+#!/bin/bash
+# Compare ordinary and expression-grammar decoding using verified frozen tokens.
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-expression-paired
+#PBS -l select=1:system=polaris:ngpus=1
+#PBS -l walltime=00:15:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+set -euo pipefail
+STAGE=/grand/EVITA/eric-spencer/tla-checkpoint-expression-generation-20260911-v4
+cd "$STAGE"
+exec > "job.${PBS_JOBID%%.*}.log" 2>&1
+export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false
+export HF_HOME=/grand/EVITA/eric-spencer/hf-cache PYTHONUNBUFFERED=1
+export CC=/usr/bin/gcc CXX=/usr/bin/g++
+XGRAMMAR_SITE=/grand/EVITA/eric-spencer/tla-checkpoint-preflight-deps/xgrammar-0.2.2-cp312
+BASE=/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-learning-20260906-v1
+MODEL=/grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659
+CHECKPOINT=/grand/EVITA/eric-spencer/tla-structured-polaris-20260911/result.7605656/policy_optimizer.pt
+sha256sum -c SHA256SUMS
+# PBS accounting exceeded the requested15min on7608834. Keep an inner bound
+# with cleanup reserve; this is a launch safeguard, not permission to retry.
+timeout --signal=TERM --kill-after=10s 840s /home/eric-spencer/ChatTLA/.venv/bin/python -u protected_checkpoint_paired_generation.py \
+  --packet "$BASE/train.json" --model "$MODEL" --checkpoint "$CHECKPOINT" \
+  --grammar "$STAGE/tla_module_v1.ebnf" --xgrammar-site "$XGRAMMAR_SITE" \
+  --output "result.${PBS_JOBID%%.*}"

@@ -1,0 +1,20 @@
+#!/bin/bash
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-sany-sft
+#PBS -l select=1:system=polaris
+#PBS -l walltime=01:00:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+set -euo pipefail
+: "${SANY_LEARNING_ROOT:?isolated staged root required}"
+: "${SANY_LEARNING_INPUT_SHA:?exact frozen42 packet hash required}"
+: "${SANY_LEARNING_PARENT:?immutable actual1bb6 checkpoint required}"
+cd "$SANY_LEARNING_ROOT"
+export PYTHONUNBUFFERED=1
+export OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 MKL_NUM_THREADS=4 NUMEXPR_NUM_THREADS=4
+timeout --signal=TERM --kill-after=20s 3500s /home/eric-spencer/ChatTLA/.venv/bin/python \
+ tools/proof_sany_repair_learning_train.py train --input train.json \
+ --expected-input-sha256 "$SANY_LEARNING_INPUT_SHA" \
+ --model-path /grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659 \
+ --checkpoint "$SANY_LEARNING_PARENT" --admission training-admission.json --output results/training

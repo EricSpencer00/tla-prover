@@ -1,0 +1,28 @@
+#!/bin/bash
+# Grammar-off protected diagnostic for the parent-initialized broader child.
+# The frozen packet and child are read-only inputs; output is append-only.
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-protected-off
+#PBS -l select=1:system=polaris:ngpus=1
+#PBS -l walltime=00:10:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+set -euo pipefail
+STAGE=${TLA_PROTECTED_OFF_STAGE:?}
+cd "$STAGE"
+exec > "job.${PBS_JOBID%%.*}.log" 2>&1
+export PATH="/grand/EVITA/eric-spencer/tools/jre21/bin:$PATH"
+export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false
+export HF_HOME=/grand/EVITA/eric-spencer/hf-cache
+export PYTHONUNBUFFERED=1 PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+MODEL=/grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659
+CHILD=/home/eric-spencer/tla-parent-broader-sft-20260914-v3/result.7619197/policy_optimizer.pt
+PYTHON=/home/eric-spencer/ChatTLA/.venv/bin/python
+sha256sum -c SHA256SUMS
+"$PYTHON" -u tools/protected_checkpoint_grammar_off_generation.py \
+  --packet packet.json \
+  --model "$MODEL" \
+  --checkpoint "$CHILD" \
+  --child-sha256 "3d7e08733268eccad08ab7dace3484c0e3b7158b5e84ab27658ccdd004af7304" \
+  --output "result.${PBS_JOBID%%.*}"

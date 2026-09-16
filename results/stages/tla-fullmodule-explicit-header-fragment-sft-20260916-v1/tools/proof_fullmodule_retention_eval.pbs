@@ -1,0 +1,24 @@
+#!/bin/bash
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-retention-eval
+#PBS -l select=1:system=polaris
+#PBS -l walltime=01:00:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+set -euo pipefail
+: "${FULLMODULE_RETENTION_EVAL_ROOT:?isolated evaluation stage required}"
+cd "$FULLMODULE_RETENTION_EVAL_ROOT"
+export OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 MKL_NUM_THREADS=4 NUMEXPR_NUM_THREADS=4
+export PYTHONUNBUFFERED=1
+timeout --signal=TERM --kill-after=20s 3050s /home/eric-spencer/ChatTLA/.venv/bin/python \
+ tools/proof_fullmodule_retention_eval.py generate \
+ --prompts prompts.json --repair-packet repair-packet.json --model-path "$FULLMODULE_RETENTION_MODEL" \
+ --parent-checkpoint "$FULLMODULE_RETENTION_PARENT" --training-input train.json \
+ --training-admission training-admission.json --training-output "$FULLMODULE_RETENTION_TRAINING_OUTPUT" \
+ --baseline-combined baseline-combined \
+ --checkpoint "$FULLMODULE_RETENTION_CHILD" --expected-input-sha256 "$FULLMODULE_RETENTION_INPUT_SHA" \
+ --parent-training-input "$FULLMODULE_RETENTION_PARENT_INPUT" --parent-training-admission "$FULLMODULE_RETENTION_PARENT_ADMISSION" \
+ --parent-training-output "$FULLMODULE_RETENTION_PARENT_OUTPUT" --parent-parent-checkpoint "$FULLMODULE_RETENTION_GRANDPARENT" \
+ --expected-child-sha256 "$FULLMODULE_RETENTION_CHILD_SHA" \
+ --prospective prospective-admission.json --admission child-admission.json --output results/child

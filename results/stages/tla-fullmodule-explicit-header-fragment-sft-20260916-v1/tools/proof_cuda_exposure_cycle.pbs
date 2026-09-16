@@ -1,0 +1,21 @@
+#!/bin/bash
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-exposure8b
+#PBS -l select=1:system=polaris
+#PBS -l walltime=01:00:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+set -euo pipefail
+: "${PROOF_EXPOSURE_ROOT:?new isolated staging root required}"
+: "${PROOF_EXPOSURE_PRIOR:?immutable completed100-step cycle required}"
+: "${PROOF_EXPOSURE_TRAIN_SHA:?frozen TRAIN packet hash required}"
+: "${PROOF_EXPOSURE_PROMPTS_SHA:?frozen prompt packet hash required}"
+cd "$PROOF_EXPOSURE_ROOT"
+export PYTHONUNBUFFERED=1
+timeout --signal=TERM --kill-after=20s 3420s \
+ /home/eric-spencer/ChatTLA/.venv/bin/python tools/proof_cuda_exposure_cycle.py \
+ --train-input train.json --prompts prompts.json \
+ --train-input-sha256 "$PROOF_EXPOSURE_TRAIN_SHA" --prompts-sha256 "$PROOF_EXPOSURE_PROMPTS_SHA" \
+ --model-path /grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659 \
+ --prior-cycle "$PROOF_EXPOSURE_PRIOR" --output results/cycle

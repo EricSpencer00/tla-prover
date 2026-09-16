@@ -1,0 +1,38 @@
+[
+  {
+    "row": 47,
+    "phase": "restored_parent",
+    "status": "model_sany_reject",
+    "independent_result": {
+      "status": "model_sany_reject",
+      "candidate_sha256": "9c4eb8792f15c1f02740b1290460a3f31d645bb90a43a407dcc2d3daf81c9c89",
+      "module_name": "W4Od2m7p4t2",
+      "returncode": 255,
+      "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-structure-first-20260916-v1/explicit-header-fragment-independent-sany-v2/candidates/restored_parent-47/sany.log"
+    }
+  },
+  {
+    "row": 107,
+    "phase": "restored_parent",
+    "status": "model_sany_reject",
+    "independent_result": {
+      "status": "model_sany_reject",
+      "candidate_sha256": "9bdb5bc659bfda892cb94366efb33424363f30b4f4380590bf4d76059450c516",
+      "module_name": "W4Od3m0p0t0",
+      "returncode": 255,
+      "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-structure-first-20260916-v1/explicit-header-fragment-independent-sany-v2/candidates/restored_parent-107/sany.log"
+    }
+  },
+  {
+    "row": 47,
+    "phase": "trained_child",
+    "status": "candidate_unmeasured",
+    "reason": "complete module footer required"
+  },
+  {
+    "row": 107,
+    "phase": "trained_child",
+    "status": "candidate_unmeasured",
+    "reason": "complete module footer required"
+  }
+]

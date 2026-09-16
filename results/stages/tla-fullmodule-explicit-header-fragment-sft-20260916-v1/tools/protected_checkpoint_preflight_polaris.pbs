@@ -1,0 +1,26 @@
+#!/bin/bash
+# Same-node preflight for the direct trained-checkpoint protected evaluator.
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-checkpoint-preflight
+#PBS -l select=1:system=polaris:ngpus=1
+#PBS -l walltime=00:15:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+set -euo pipefail
+# PBS does not inherit arbitrary submit-shell variables unless qsub is given
+# an explicit export list.  This payload has one immutable reviewed stage, so
+# bind that path in the launcher rather than relying on ambient propagation.
+STAGE=/grand/EVITA/eric-spencer/tla-checkpoint-preflight-20260911-v2
+cd "$STAGE"
+exec > "job.${PBS_JOBID%%.*}.log" 2>&1
+export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false
+export HF_HOME=/grand/EVITA/eric-spencer/hf-cache PYTHONUNBUFFERED=1
+BASE=/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-learning-20260906-v1
+MODEL=/grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659
+CHECKPOINT=/grand/EVITA/eric-spencer/tla-structured-polaris-20260911/result.7605656/policy_optimizer.pt
+GRAMMAR=$BASE/harness/grammars/tla_module_v0.ebnf
+sha256sum -c SHA256SUMS
+/home/eric-spencer/ChatTLA/.venv/bin/python -u protected_checkpoint_preflight.py \
+  --packet "$BASE/train.json" --model "$MODEL" --checkpoint "$CHECKPOINT" \
+  --grammar "$GRAMMAR" --output "result.${PBS_JOBID%%.*}"

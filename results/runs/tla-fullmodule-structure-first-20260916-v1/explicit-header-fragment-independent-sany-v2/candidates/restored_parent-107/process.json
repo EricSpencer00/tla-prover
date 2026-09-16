@@ -1,0 +1,31 @@
+{
+  "command": [
+    "/usr/bin/java",
+    "-cp",
+    "/Users/eric/GitHub/prove-TLA/tools/tla2tools.jar",
+    "tla2sany.SANY",
+    "W4Od3m0p0t0.tla"
+  ],
+  "cwd": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-structure-first-20260916-v1/explicit-header-fragment-independent-sany-v2/candidates/restored_parent-107",
+  "root_pid": 6798,
+  "root_reaped": true,
+  "returncode": 255,
+  "output": "\n****** SANY2 Version 2.1 created 24 February 2014\n\nParsing file /Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-structure-first-20260916-v1/explicit-header-fragment-independent-sany-v2/candidates/restored_parent-107/W4Od3m0p0t0.tla\n***Parse Error***\nEncountered \"|->\" at line 10, column 39 and token \">>\" \n\nResidual stack trace follows:\nSome [] Form starting at line 10, column 21.\nExtendableExpr starting at line 10, column 21.\nExtendableExpr starting at line 10, column 11.\nExtendableExpr starting at line 9, column 18.\nExtendableExpr starting at line 9, column 11.\n\n\nFatal errors while parsing TLA+ spec in file W4Od3m0p0t0.tla\n\ntla2sany.semantic.AbortException\n*** Abort messages: 1\n\nIn module W4Od3m0p0t0\n\nCould not parse module W4Od3m0p0t0 from file W4Od3m0p0t0.tla\n\n\n",
+  "seconds": 0.1806084170093527,
+  "timed_out": false,
+  "output_complete": true,
+  "output_limit": false,
+  "cleanup_complete": true,
+  "surviving_owned_processes": [],
+  "owned_processes": [
+    {
+      "pid": 6798,
+      "created": 1789556250.178667,
+      "pgid": 6798
+    }
+  ],
+  "signals": [],
+  "errors": [],
+  "execution_complete": true,
+  "containment": "Best-effort ancestry polling; instantaneous unobserved reparenting is not excluded"
+}

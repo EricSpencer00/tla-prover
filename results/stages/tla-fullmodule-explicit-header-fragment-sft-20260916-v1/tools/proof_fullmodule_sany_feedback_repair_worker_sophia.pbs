@@ -1,0 +1,43 @@
+#!/bin/bash
+# Authenticated worker; submission is intentionally a separate operator action.
+#PBS -A EVITA
+#PBS -q by-gpu
+#PBS -N tla-sany-repair
+#PBS -l select=1:system=sophia:ncpus=32:ngpus=1:mem=120gb
+#PBS -l walltime=01:00:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+set -euo pipefail
+: "${SFB_ROOT:?}"
+cd "$SFB_ROOT"
+module load conda/2026-06-08 >/dev/null 2>&1
+conda activate base >/dev/null 2>&1
+export PATH="/grand/EVITA/eric-spencer/tools/jre21/bin:$PATH"
+export JAVA_HOME=/grand/EVITA/eric-spencer/tools/jre21
+export PYTHONUNBUFFERED=1 OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 MKL_NUM_THREADS=4 NUMEXPR_NUM_THREADS=4
+
+MODEL_PATH=/grand/projects/EVITA/eric-spencer/hf-cache/hub/models--meta--llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659
+[[ -f "$MODEL_PATH/config.json" ]] || MODEL_PATH=/lus/grand/projects/EVITA/eric-spencer/hf-cache/hub/models--meta--llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659
+[[ -f "$MODEL_PATH/config.json" ]] || MODEL_PATH=/grand/EVITA/eric-spencer/hf-cache/hub/models--meta--llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659
+test -f "$MODEL_PATH/config.json"
+
+RUN_ROOT=/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-sany-feedback-repair-20260906-v1
+INPUT=/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-learning-packet-20260906-v2/train.json
+BASE_ADMISSION=/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1/results/multi4-runtime-sophia-v2/admission.json
+SCAFFOLD="$RUN_ROOT/scaffold-admission.json"
+FEEDBACK="$RUN_ROOT/sany-feedback-runtime-20260906-233943"
+CHECKPOINT=/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1/results/multi4-runtime-sophia-v2/policy_optimizer.pt
+EVAL_RECEIPT=/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1/results/multi4-runtime-sophia-v2/receipt.json
+ADMISSION="$RUN_ROOT/repair-admission.json"
+OUTPUT="$RUN_ROOT/repair-runtime-$(date +%Y%m%d-%H%M%S)"
+
+if [[ ! -f "$ADMISSION" ]]; then
+  python tools/proof_fullmodule_sany_feedback_repair_probe.py repair-admit \
+    --input "$INPUT" --base-admission "$BASE_ADMISSION" --scaffold "$SCAFFOLD" \
+    --feedback "$FEEDBACK" --checkpoint "$CHECKPOINT" --eval-receipt "$EVAL_RECEIPT" \
+    --output "$ADMISSION"
+fi
+python tools/proof_fullmodule_sany_feedback_repair_probe.py repair-worker \
+  --input "$INPUT" --base-admission "$BASE_ADMISSION" --scaffold "$SCAFFOLD" \
+  --feedback "$FEEDBACK" --checkpoint "$CHECKPOINT" --eval-receipt "$EVAL_RECEIPT" \
+  --admission "$ADMISSION" --model-path "$MODEL_PATH" --output "$OUTPUT"

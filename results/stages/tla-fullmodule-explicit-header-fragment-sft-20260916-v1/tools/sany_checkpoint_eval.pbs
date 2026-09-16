@@ -1,0 +1,21 @@
+#!/bin/bash
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-sany-1000
+#PBS -l select=1:system=polaris
+#PBS -l walltime=01:00:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+set -euo pipefail
+: "${SANY_EVAL_ROOT:?isolated evaluation checkout required}"
+: "${SANY_EVAL_PARENT:?immutable checkpoint required}"
+cd "$SANY_EVAL_ROOT"
+export PATH="/grand/EVITA/eric-spencer/tools/jre21/bin:$PATH"
+export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false
+export CUDA_VISIBLE_DEVICES=0 PYTHONUNBUFFERED=1
+timeout --signal=TERM --kill-after=20s 3480s \
+ /home/eric-spencer/ChatTLA/.venv/bin/python tools/sany_checkpoint_eval.py \
+ --resume "$SANY_EVAL_PARENT" \
+ --model-path /grand/EVITA/eric-spencer/hf-cache/hub/models--Qwen--Qwen2.5-0.5B-Instruct/snapshots/7ae557604adf67be50417f59c2c2f167def9a775 \
+ --output "$SANY_EVAL_ROOT/results/runs/sany-1000-20260905" \
+ --attempts 1000 --seconds 3300 --temperature 1.0

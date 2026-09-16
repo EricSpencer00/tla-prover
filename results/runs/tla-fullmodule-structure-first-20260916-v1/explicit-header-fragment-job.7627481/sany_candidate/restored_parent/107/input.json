@@ -1,0 +1,21 @@
+{
+  "task": {
+    "id": "w4opus::d3-m0-p0-t0",
+    "index": 2603,
+    "module_name": "W4Od3m0p0t0",
+    "dependencies": {},
+    "source": {
+      "path": "/home/eric-spencer/tla-fullmodule-explicit-header-fragment-sft-20260916-v1/result.7627481/reference/reference/107/W4Od3m0p0t0.tla",
+      "sha256": "5f6b169dc010369d4e6f65b7766b7961e44a4df15790988c5763861a06e3e853"
+    },
+    "description": {
+      "path": "/home/eric-spencer/tla-fullmodule-explicit-header-fragment-sft-20260916-v1/result.7627481/reference/reference/107/description.txt",
+      "sha256": "869e43b13fd6ea7e66d9be1f280eb5df00589afcd9dd75319a4ce9b9452cc6a9"
+    },
+    "config": {
+      "path": "/home/eric-spencer/tla-fullmodule-explicit-header-fragment-sft-20260916-v1/result.7627481/reference/reference/107/configuration.cfg",
+      "sha256": "b1c730c107f649bfe2af4b1146e48d6f04128f93143e41be9b65b4a383f3043f"
+    }
+  },
+  "raw_reply": "---- MODULE W4Od3m0p0t0 ----\nVARIABLES banks, lock, last, crashed\n\nCONSTANTS NumBanks\n\nvars == <<NumBanks, lock, last, crashed>>\n\nInit == /\\ lock = \"none\"\n       /\\ last = \"none\"\n       /\\ crashed = [ <<1..NumBanks>> |-> \"none\" ]\n       /\\ banks = [ <<1..NumBands>> |-> \"idle\" ]\n\nNext == \\/ lock' = IF banks' = banks /\\ crashed' = crashed\n                 THEN IF banks' = [ <<1..NumBans>> |-> \"idle\" ]\n                          THEN \"none\"\n                          ELSE \"none\"\n                 ELSE \"none\"\n            \\/ lock' = \"none\"\n            \\/ last' = IF banks' = banks\n                          /\\ crashed' = crashed\n                          /\\ lock' = \"none\"\n                          /\\ \\E b \\in 1..NumBanks : banks' = [ b |-> \"idle\" ]\n                          /\\ \\E b \\in banks : banks' = [ b |->[ \"idle\" ] ]\n                          /\\ \\E b \\e banks : banks' = [ b -> \"idle\" ]\n                          /\\ \\A b \\in banks : banks' (b) # \"idle\"\n                          /\\ \\A b \\in 1..Numbanks : crashed' (b) # \"none\"\n                          /\\ lock = \"none\"\n                          /\\ banks' = [ b |-> IF b = last /\\ crashed' (b) = \"none\"\n                                              THEN \"idle\"\n                                              ELSE banks' (b) ]\n                          /\\ last' = \"none\"\n                          /\\ UNCHANGED banks\n                          /\\ UNCHANGED crashed\n                          /\\ UNCHANGED last\n                          ELSE UNCHANGED <<lock, last, crashed, banks>>\n\nSpec == Init /\\ [][Next]_vars\n\nSpec == Init /\\ [][Next](vars) /\\ [][Next](vars) => Init\n\n===="
+}

@@ -1,0 +1,54 @@
+{
+  "task_sha256": "3a99bcfe38add8fbc53af6f80b4a13cbf28d1784c3480a8aa80b65dbbef45a92",
+  "raw_reply_sha256": "9bdb5bc659bfda892cb94366efb33424363f30b4f4380590bf4d76059450c516",
+  "module": "---- MODULE W4Od3m0p0t0 ----\nVARIABLES banks, lock, last, crashed\n\nCONSTANTS NumBanks\n\nvars == <<NumBanks, lock, last, crashed>>\n\nInit == /\\ lock = \"none\"\n       /\\ last = \"none\"\n       /\\ crashed = [ <<1..NumBanks>> |-> \"none\" ]\n       /\\ banks = [ <<1..NumBands>> |-> \"idle\" ]\n\nNext == \\/ lock' = IF banks' = banks /\\ crashed' = crashed\n                 THEN IF banks' = [ <<1..NumBans>> |-> \"idle\" ]\n                          THEN \"none\"\n                          ELSE \"none\"\n                 ELSE \"none\"\n            \\/ lock' = \"none\"\n            \\/ last' = IF banks' = banks\n                          /\\ crashed' = crashed\n                          /\\ lock' = \"none\"\n                          /\\ \\E b \\in 1..NumBanks : banks' = [ b |-> \"idle\" ]\n                          /\\ \\E b \\in banks : banks' = [ b |->[ \"idle\" ] ]\n                          /\\ \\E b \\e banks : banks' = [ b -> \"idle\" ]\n                          /\\ \\A b \\in banks : banks' (b) # \"idle\"\n                          /\\ \\A b \\in 1..Numbanks : crashed' (b) # \"none\"\n                          /\\ lock = \"none\"\n                          /\\ banks' = [ b |-> IF b = last /\\ crashed' (b) = \"none\"\n                                              THEN \"idle\"\n                                              ELSE banks' (b) ]\n                          /\\ last' = \"none\"\n                          /\\ UNCHANGED banks\n                          /\\ UNCHANGED crashed\n                          /\\ UNCHANGED last\n                          ELSE UNCHANGED <<lock, last, crashed, banks>>\n\nSpec == Init /\\ [][Next]_vars\n\nSpec == Init /\\ [][Next](vars) /\\ [][Next](vars) => Init\n\n====",
+  "module_sha256": "9bdb5bc659bfda892cb94366efb33424363f30b4f4380590bf4d76059450c516",
+  "status": "model_sany_reject",
+  "sany": 0,
+  "process": {
+    "command": [
+      "/lus/grand/projects/EVITA/eric-spencer/tools/jre21/bin/java",
+      "-Djava.io.tmpdir=/home/eric-spencer/tla-fullmodule-explicit-header-fragment-sft-20260916-v1/result.7627481/sany_candidate/restored_parent/107/jtmp",
+      "-DTLA-Library=/home/eric-spencer/tla-fullmodule-explicit-header-fragment-sft-20260916-v1/tools/tlapm/lib/tlapm/stdlib:/home/eric-spencer/tla-fullmodule-explicit-header-fragment-sft-20260916-v1/tools/community-modules:/home/eric-spencer/tla-fullmodule-explicit-header-fragment-sft-20260916-v1/tools/extra-modules",
+      "-cp",
+      "/home/eric-spencer/tla-fullmodule-explicit-header-fragment-sft-20260916-v1/tools/tla2tools.jar",
+      "tla2sany.SANY",
+      "W4Od3m0p0t0.tla"
+    ],
+    "cwd": "/home/eric-spencer/tla-fullmodule-explicit-header-fragment-sft-20260916-v1/result.7627481/sany_candidate/restored_parent/107",
+    "root_pid": 1724579,
+    "root_reaped": true,
+    "returncode": 255,
+    "output": "\n****** SANY2 Version 2.1 created 24 February 2014\n\nParsing file /home/eric-spencer/tla-fullmodule-explicit-header-fragment-sft-20260916-v1/result.7627481/sany_candidate/restored_parent/107/W4Od3m0p0t0.tla\n***Parse Error***\nEncountered \"|->\" at line 10, column 39 and token \">>\" \n\nResidual stack trace follows:\nSome [] Form starting at line 10, column 21.\nExtendableExpr starting at line 10, column 21.\nExtendableExpr starting at line 10, column 11.\nExtendableExpr starting at line 9, column 18.\nExtendableExpr starting at line 9, column 11.\n\n\nFatal errors while parsing TLA+ spec in file W4Od3m0p0t0.tla\n\ntla2sany.semantic.AbortException\n*** Abort messages: 1\n\nIn module W4Od3m0p0t0\n\nCould not parse module W4Od3m0p0t0 from file W4Od3m0p0t0.tla\n\n\n",
+    "seconds": 0.18750038603320718,
+    "timed_out": false,
+    "output_complete": true,
+    "output_limit": false,
+    "cleanup_complete": true,
+    "surviving_owned_processes": [],
+    "owned_processes": [
+      {
+        "pid": 1724579,
+        "created": 1789556058.61,
+        "pgid": 1724579
+      }
+    ],
+    "signals": [],
+    "errors": [],
+    "execution_complete": true,
+    "containment": "Best-effort ancestry polling; instantaneous unobserved reparenting is not excluded"
+  },
+  "syntax_only": true,
+  "timeout_seconds": 30,
+  "command": [
+    "/lus/grand/projects/EVITA/eric-spencer/tools/jre21/bin/java",
+    "-Djava.io.tmpdir=/home/eric-spencer/tla-fullmodule-explicit-header-fragment-sft-20260916-v1/result.7627481/sany_candidate/restored_parent/107/jtmp",
+    "-DTLA-Library=/home/eric-spencer/tla-fullmodule-explicit-header-fragment-sft-20260916-v1/tools/tlapm/lib/tlapm/stdlib:/home/eric-spencer/tla-fullmodule-explicit-header-fragment-sft-20260916-v1/tools/community-modules:/home/eric-spencer/tla-fullmodule-explicit-header-fragment-sft-20260916-v1/tools/extra-modules",
+    "-cp",
+    "/home/eric-spencer/tla-fullmodule-explicit-header-fragment-sft-20260916-v1/tools/tla2tools.jar",
+    "tla2sany.SANY",
+    "W4Od3m0p0t0.tla"
+  ],
+  "dependency_sha256": {},
+  "seconds": 0.20661511411890388
+}

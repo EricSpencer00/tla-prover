@@ -1,0 +1,26 @@
+#!/bin/bash
+#PBS -A EVITA
+#PBS -q by-gpu
+#PBS -N tla-sany-search
+#PBS -l select=1:system=sophia:ncpus=32:ngpus=1:mem=120gb
+#PBS -l walltime=01:00:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+#PBS -o /lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1/tla-sany-search.stdout
+#PBS -e /lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1/tla-sany-search.stderr
+set -euo pipefail
+: "${SFB_ROOT:?}"; cd "$SFB_ROOT"
+echo "START $PWD"
+module load conda/2026-06-08 >/dev/null 2>&1; conda activate base >/dev/null 2>&1
+export PATH="/grand/EVITA/eric-spencer/tools/jre21/bin:$PATH"; export JAVA_HOME=/grand/EVITA/eric-spencer/tools/jre21
+export PYTHONUNBUFFERED=1 OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 MKL_NUM_THREADS=4 NUMEXPR_NUM_THREADS=4
+MODEL_PATH=/grand/projects/EVITA/eric-spencer/hf-cache/hub/models--meta--llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659
+if [[ ! -f "$MODEL_PATH/config.json" ]]; then MODEL_PATH=/lus/grand/projects/EVITA/eric-spencer/hf-cache/hub/models--meta--llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659; fi
+if [[ ! -f "$MODEL_PATH/config.json" ]]; then MODEL_PATH=/grand/projects/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659; fi
+test -f "$MODEL_PATH/config.json"
+BASE=/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1
+INPUT=/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-learning-20260906-v1/train.json
+CHECKPOINT=${CHECKPOINT:-$BASE/results/sany-feedback-corpus-repair-v8-20260907-104214/policy_optimizer.pt}
+SAMPLES=${SAMPLES:-8}
+OUTPUT=${OUTPUT:-results/sany-candidate-search-v2-$(date +%Y%m%d-%H%M%S)}
+python proof_fullmodule_sany_candidate_search.py --input "$INPUT" --model-path "$MODEL_PATH" --checkpoint "$CHECKPOINT" --eval-receipt "$BASE/results/multi4-runtime-sophia-v2/receipt.json" --samples "$SAMPLES" --output "$OUTPUT"

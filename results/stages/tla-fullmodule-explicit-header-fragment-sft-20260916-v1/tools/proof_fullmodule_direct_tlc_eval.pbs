@@ -1,0 +1,20 @@
+#!/bin/bash
+#PBS -N tlc-fullmodule-protected
+#PBS -A EVITA
+#PBS -q by-gpu
+#PBS -l select=1:ngpus=1:ncpus=16:mem=64gb
+#PBS -l walltime=00:20:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+set -euo pipefail
+exec > "/home/eric-spencer/fullmodule_tlc.${PBS_JOBID%%.*}.log" 2>&1
+module load conda/2026-06-08 >/dev/null 2>&1
+conda activate base >/dev/null 2>&1
+export JAVA_HOME=/grand/EVITA/eric-spencer/tools/jre21
+export PATH="$JAVA_HOME/bin:$PATH"
+BASE=/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1
+SANY=$BASE/results/runs/direct-vllm-sany-20260907-051202-184690
+OUT=$BASE/results/runs/direct-tlc-nonvacuity-$(date +%Y%m%d-%H%M%S)-${PBS_JOBID%%.*}
+cd "$BASE"
+export PYTHONPATH="$BASE:${PYTHONPATH:-}"
+python tools/proof_fullmodule_direct_tlc_eval.py --receipt "$SANY/receipt.json" --sany-output "$SANY" --output "$OUT" --timeout 120

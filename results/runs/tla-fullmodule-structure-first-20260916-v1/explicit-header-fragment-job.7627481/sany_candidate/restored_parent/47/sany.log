@@ -1,0 +1,25 @@
+
+****** SANY2 Version 2.1 created 24 February 2014
+
+Parsing file /home/eric-spencer/tla-fullmodule-explicit-header-fragment-sft-20260916-v1/result.7627481/sany_candidate/restored_parent/47/W4Od2m7p4t2.tla
+***Parse Error***
+Encountered "'" at line 9, column 30 and token "d" 
+
+Residual stack trace follows:
+Quant Bound starting at line 9, column 29.
+Quantified form starting at line 9, column 26.
+ExtendableExpr starting at line 8, column 77.
+ExtendableExpr starting at line 8, column 58.
+ExtendableExpr starting at line 8, column 51.
+
+
+Fatal errors while parsing TLA+ spec in file W4Od2m7p4t2.tla
+
+tla2sany.semantic.AbortException
+*** Abort messages: 1
+
+In module W4Od2m7p4t2
+
+Could not parse module W4Od2m7p4t2 from file W4Od2m7p4t2.tla
+
+

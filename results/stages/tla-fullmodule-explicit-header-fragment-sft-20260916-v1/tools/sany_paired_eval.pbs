@@ -1,0 +1,26 @@
+#!/bin/bash
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-sany-paired
+#PBS -l select=1:system=polaris
+#PBS -l walltime=00:20:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+set -euo pipefail
+: "${SANY_PAIR_ROOT:?isolated evaluation checkout required}"
+: "${SANY_PAIR_PARENT:?original checkpoint required}"
+: "${SANY_PAIR_CHILD:?trained child required}"
+cd "$SANY_PAIR_ROOT"
+export PATH="/grand/EVITA/eric-spencer/tools/jre21/bin:$PATH"
+export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false
+export CUDA_VISIBLE_DEVICES=0 PYTHONUNBUFFERED=1
+pilot_python=/home/eric-spencer/ChatTLA/.venv/bin/python
+pilot_model=/grand/EVITA/eric-spencer/hf-cache/hub/models--Qwen--Qwen2.5-0.5B-Instruct/snapshots/7ae557604adf67be50417f59c2c2f167def9a775
+for arm in parent child; do
+  pilot_checkpoint="$SANY_PAIR_PARENT"
+  if [ "$arm" = child ]; then pilot_checkpoint="$SANY_PAIR_CHILD"; fi
+  timeout --signal=TERM --kill-after=20s 540s "$pilot_python" tools/sany_checkpoint_eval.py \
+   --model-path "$pilot_model" --resume "$pilot_checkpoint" \
+   --output "$SANY_PAIR_ROOT/results/runs/sany-paired-$arm-20260905" \
+   --attempts 1000 --seconds 510 --temperature 1.0 --seed 20260910
+done

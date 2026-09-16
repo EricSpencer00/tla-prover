@@ -1,0 +1,44 @@
+#!/bin/bash
+#PBS -A EVITA
+#PBS -q by-gpu
+#PBS -N tla-proof-candidate-rl
+#PBS -l select=1:system=sophia:ncpus=32:ngpus=1:mem=120gb
+#PBS -l walltime=00:30:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+set -Eeuo pipefail
+: "${PROVE_TLA_ROOT:?}"
+cd "$PROVE_TLA_ROOT"
+PHASE=environment
+failure_handoff() {
+  local code=$1 line=$2
+  trap - ERR
+  python3 tools/proof_failure_handoff.py --root "$PROVE_TLA_ROOT" --phase "$PHASE" --code "$code" --line "$line" || true
+  exit "$code"
+}
+trap 'failure_handoff "$?" "$LINENO"' ERR
+module load conda/2026-06-08 >/dev/null 2>&1
+conda activate base >/dev/null 2>&1
+export PYTHONUNBUFFERED=1 OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 MKL_NUM_THREADS=4 NUMEXPR_NUM_THREADS=4
+TLAPS_ROOT=/lus/grand/projects/EVITA/eric-spencer/tools/tlaps-1.5.0
+test -x "$TLAPS_ROOT/bin/tlapm"
+export PROVE_TLA_TLAPM="$TLAPS_ROOT/bin/tlapm"
+export PROVE_TLA_LIBRARY="$TLAPS_ROOT/lib/tlaps:$PROVE_TLA_ROOT/tools/community-modules:$PROVE_TLA_ROOT/tools/extra-modules"
+export PROVE_TLA_TLAPM_LEGACY=1
+PHASE=runtime_preflight
+export PREFLIGHT_RECEIPT="$PROVE_TLA_ROOT/results/runs/proof-runtime-preflight-$(date +%Y%m%d-%H%M%S)-${PBS_JOBID:-local}.json"
+python -u tools/proof_runtime_preflight.py --tlapm "$PROVE_TLA_TLAPM" \
+  --library "$PROVE_TLA_LIBRARY" --receipt "$PREFLIGHT_RECEIPT" --timeout 30
+PHASE=model_preflight
+MODEL_PATH=/grand/projects/EVITA/eric-spencer/hf-cache/hub/models--meta--llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659
+if [[ ! -f "$MODEL_PATH/config.json" ]]; then MODEL_PATH=/lus/grand/projects/EVITA/eric-spencer/hf-cache/hub/models--meta--llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659; fi
+if [[ ! -f "$MODEL_PATH/config.json" ]]; then MODEL_PATH=/grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659; fi
+test -f "$MODEL_PATH/config.json"
+MANIFEST=results/runs/proof-leaf-manifest-20260905-v1/defs-complete/manifest.json
+export OUT=results/runs/proof-candidate-rl-step-20260907-$(date +%Y%m%d-%H%M%S)
+PHASE=training
+python -u tools/proof_candidate_rl.py \
+  --manifest "$MANIFEST" --model-path "$MODEL_PATH" --output "$OUT" \
+  --device cuda --steps 16 --candidates 8 --group-size 4 \
+  --temperature 1.0 --lr 1e-5 --seconds 900 --timeout 10 \
+  --max-tokens 8192 --seed 20260917 --shuffle-tasks --step-candidates

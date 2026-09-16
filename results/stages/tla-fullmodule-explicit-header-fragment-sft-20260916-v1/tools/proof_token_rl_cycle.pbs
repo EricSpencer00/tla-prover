@@ -1,0 +1,18 @@
+#!/bin/bash
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-token-rl
+#PBS -l select=1:system=polaris
+#PBS -l walltime=01:00:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+set -euo pipefail
+: "${PROOF_TOKEN_RL_ROOT:?new isolated staging root required}"
+: "${PROOF_TOKEN_RL_CHECKPOINT:?immutable exposure512 parent required}"
+cd "$PROOF_TOKEN_RL_ROOT"
+export PYTHONUNBUFFERED=1
+timeout --signal=TERM --kill-after=20s 3300s \
+ /home/eric-spencer/ChatTLA/.venv/bin/python tools/proof_token_rl_cycle.py \
+ --requests requests.json --broader-prompts broader-prompts.json \
+ --model-path /grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659 \
+ --checkpoint "$PROOF_TOKEN_RL_CHECKPOINT" --output results/cycle

@@ -1,0 +1,33 @@
+{
+  "command": [
+    "/lus/grand/projects/EVITA/eric-spencer/tools/jre21/bin/java",
+    "-Djava.io.tmpdir=/home/eric-spencer/tla-fullmodule-explicit-header-fragment-sft-20260916-v1/result.7627481/sany_candidate/restored_parent/47/jtmp",
+    "-DTLA-Library=/home/eric-spencer/tla-fullmodule-explicit-header-fragment-sft-20260916-v1/tools/tlapm/lib/tlapm/stdlib:/home/eric-spencer/tla-fullmodule-explicit-header-fragment-sft-20260916-v1/tools/community-modules:/home/eric-spencer/tla-fullmodule-explicit-header-fragment-sft-20260916-v1/tools/extra-modules",
+    "-cp",
+    "/home/eric-spencer/tla-fullmodule-explicit-header-fragment-sft-20260916-v1/tools/tla2tools.jar",
+    "tla2sany.SANY",
+    "W4Od2m7p4t2.tla"
+  ],
+  "cwd": "/home/eric-spencer/tla-fullmodule-explicit-header-fragment-sft-20260916-v1/result.7627481/sany_candidate/restored_parent/47",
+  "root_pid": 1724555,
+  "root_reaped": true,
+  "returncode": 255,
+  "output": "\n****** SANY2 Version 2.1 created 24 February 2014\n\nParsing file /home/eric-spencer/tla-fullmodule-explicit-header-fragment-sft-20260916-v1/result.7627481/sany_candidate/restored_parent/47/W4Od2m7p4t2.tla\n***Parse Error***\nEncountered \"'\" at line 9, column 30 and token \"d\" \n\nResidual stack trace follows:\nQuant Bound starting at line 9, column 29.\nQuantified form starting at line 9, column 26.\nExtendableExpr starting at line 8, column 77.\nExtendableExpr starting at line 8, column 58.\nExtendableExpr starting at line 8, column 51.\n\n\nFatal errors while parsing TLA+ spec in file W4Od2m7p4t2.tla\n\ntla2sany.semantic.AbortException\n*** Abort messages: 1\n\nIn module W4Od2m7p4t2\n\nCould not parse module W4Od2m7p4t2 from file W4Od2m7p4t2.tla\n\n\n",
+  "seconds": 0.8895319721195847,
+  "timed_out": false,
+  "output_complete": true,
+  "output_limit": false,
+  "cleanup_complete": true,
+  "surviving_owned_processes": [],
+  "owned_processes": [
+    {
+      "pid": 1724555,
+      "created": 1789556048.78,
+      "pgid": 1724555
+    }
+  ],
+  "signals": [],
+  "errors": [],
+  "execution_complete": true,
+  "containment": "Best-effort ancestry polling; instantaneous unobserved reparenting is not excluded"
+}

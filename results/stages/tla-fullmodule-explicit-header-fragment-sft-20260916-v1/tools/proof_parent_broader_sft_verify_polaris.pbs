@@ -1,0 +1,23 @@
+#!/bin/bash
+# Independent exact model-logit reload verification for the retained v3 child.
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-parent-reload
+#PBS -l select=1:system=polaris:ngpus=1
+#PBS -l walltime=00:10:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+set -euo pipefail
+: "${TLA_PARENT_RELOAD_STAGE:?absolute isolated stage required}"
+cd "$TLA_PARENT_RELOAD_STAGE"
+exec > "job.${PBS_JOBID%%.*}.log" 2>&1
+export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false
+export HF_HOME=/grand/EVITA/eric-spencer/hf-cache PYTHONUNBUFFERED=1
+export OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 MKL_NUM_THREADS=4 NUMEXPR_NUM_THREADS=4
+PYTHON=/home/eric-spencer/ChatTLA/.venv/bin/python
+MODEL=/grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659
+CHILD=/home/eric-spencer/tla-parent-broader-sft-20260914-v3/result.7619197/policy_optimizer.pt
+sha256sum -c SHA256SUMS
+"$PYTHON" -B -u tools/proof_parent_broader_sft_verify.py \
+  --packet train.json --child "$CHILD" --model-path "$MODEL" \
+  --output verification.json

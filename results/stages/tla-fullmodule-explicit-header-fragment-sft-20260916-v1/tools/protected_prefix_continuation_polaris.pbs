@@ -1,0 +1,28 @@
+#!/bin/bash
+# Six supplied-prefix continuation diagnostics; no training or gate credit.
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-prefix-cont
+#PBS -l select=1:system=polaris:ngpus=1
+#PBS -l walltime=00:15:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+set -euo pipefail
+STAGE=/home/eric-spencer/tla-prefix-continuation-20260912-v3
+cd "$STAGE"
+set -o noclobber
+exec > "job.${PBS_JOBID%%.*}.log" 2>&1
+export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false
+export HF_HOME=/grand/EVITA/eric-spencer/hf-cache PYTHONUNBUFFERED=1
+export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1
+export CC=/usr/bin/gcc CXX=/usr/bin/g++
+BASE=/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-learning-20260906-v1
+MODEL=/grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659
+PARENT="$BASE/results/training/policy_optimizer.pt"
+CHILD=/grand/EVITA/eric-spencer/tla-structured-polaris-20260911/result.7605656/policy_optimizer.pt
+XGRAMMAR_SITE=/grand/EVITA/eric-spencer/tla-checkpoint-preflight-deps/xgrammar-0.2.2-cp312
+sha256sum -c SHA256SUMS
+timeout --signal=TERM --kill-after=10s 840s /home/eric-spencer/ChatTLA/.venv/bin/python -u -B protected_prefix_continuation.py \
+  --packet "$BASE/train.json" --corpus "$STAGE/canonical-preflight-corpus-20260911.json" \
+  --grammar "$STAGE/canonical.ebnf" --model "$MODEL" --parent "$PARENT" --child "$CHILD" \
+  --xgrammar-site "$XGRAMMAR_SITE" --output "$STAGE/result.${PBS_JOBID%%.*}"

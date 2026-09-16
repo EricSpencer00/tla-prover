@@ -1,0 +1,25 @@
+#!/bin/bash
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-module-sft
+#PBS -l select=1:system=polaris
+#PBS -l walltime=01:00:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+set -euo pipefail
+: "${MODULE_LEARNING_ROOT:?isolated staged root required}"
+: "${MODULE_LEARNING_INPUT_SHA:?exact169 TRAIN packet hash required}"
+: "${MODULE_LEARNING_PARENT:?immutable actual8866 checkpoint required}"
+: "${MODULE_PARENT_INPUT:?original canonical42 training input path required}"
+: "${MODULE_PARENT_ADMISSION:?original canonical84 training admission required}"
+: "${MODULE_PARENT_OUTPUT:?complete original84 training output required}"
+: "${MODULE_PARENT_PARENT:?immutable actual1bb6 checkpoint required}"
+cd "$MODULE_LEARNING_ROOT"
+export PYTHONUNBUFFERED=1
+export OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 MKL_NUM_THREADS=4 NUMEXPR_NUM_THREADS=4
+timeout --signal=TERM --kill-after=20s 3500s /home/eric-spencer/ChatTLA/.venv/bin/python \
+ tools/proof_fullmodule_learning_train.py train --input train.json --expected-input-sha256 "$MODULE_LEARNING_INPUT_SHA" \
+ --model-path /grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659 \
+ --checkpoint "$MODULE_LEARNING_PARENT" --parent-training-input "$MODULE_PARENT_INPUT" \
+ --parent-training-admission "$MODULE_PARENT_ADMISSION" --parent-training-output "$MODULE_PARENT_OUTPUT" \
+ --parent-parent-checkpoint "$MODULE_PARENT_PARENT" --admission training-admission.json --output results/training

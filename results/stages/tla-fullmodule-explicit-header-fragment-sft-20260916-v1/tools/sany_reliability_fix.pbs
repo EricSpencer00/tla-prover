@@ -1,0 +1,31 @@
+#!/bin/bash
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-sany-fix
+#PBS -l select=1:system=polaris
+#PBS -l walltime=01:00:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+set -euo pipefail
+: "${SANY_FIX_ROOT:?isolated checkout required}"
+: "${SANY_FIX_PARENT:?immutable parent required}"
+cd "$SANY_FIX_ROOT"
+export PATH="/grand/EVITA/eric-spencer/tools/jre21/bin:$PATH"
+export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false
+export CUDA_VISIBLE_DEVICES=0 PYTHONUNBUFFERED=1
+pilot_python=/home/eric-spencer/ChatTLA/.venv/bin/python
+pilot_model=/grand/EVITA/eric-spencer/hf-cache/hub/models--Qwen--Qwen2.5-0.5B-Instruct/snapshots/7ae557604adf67be50417f59c2c2f167def9a775
+pilot_training="$SANY_FIX_ROOT/results/runs/sany-fix-rl-20260905"
+# More on-policy exploration exposes rare failures. Scoring and evaluation
+# temperature are unchanged; no logged failing candidate is injected.
+timeout --signal=TERM --kill-after=20s 2640s "$pilot_python" tools/online_tlc_rl.py \
+ --model-path "$pilot_model" --device cuda \
+ --holdout-corpus /grand/EVITA/eric-spencer/prove-TLA-smoke/corpus-data/tla_files \
+ --resume "$SANY_FIX_PARENT" --output "$pilot_training" \
+ --steps 24 --group-size 16 --temperature 1.5 --seed 20260908 \
+ --task-indices 2,2,0,2,3,4,5,1 --seconds 2400
+# Fresh frozen-policy evaluation, never adapt to its samples during the run.
+timeout --signal=TERM --kill-after=20s 780s "$pilot_python" tools/sany_checkpoint_eval.py \
+ --model-path "$pilot_model" --resume "$pilot_training/policy_optimizer.pt" \
+ --output "$SANY_FIX_ROOT/results/runs/sany-fix-eval-20260905" \
+ --attempts 1000 --seconds 720 --temperature 1.0 --seed 20260909

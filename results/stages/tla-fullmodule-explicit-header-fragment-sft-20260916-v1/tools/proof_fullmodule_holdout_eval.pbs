@@ -1,0 +1,24 @@
+#!/bin/bash
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-holdout-sany
+#PBS -l select=1:system=polaris
+#PBS -l walltime=01:00:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+set -euo pipefail
+: "${FULLMODULE_ROOT:?isolated staged root required}"
+: "${FULLMODULE_PACKET_SHA:?exact protected30 packet hash required}"
+: "${FULLMODULE_PARENT:?immutable1bb6 parent required}"
+: "${FULLMODULE_CHILD:?immutable88660d5 child required}"
+: "${FULLMODULE_TRAINING_ROOT:?actual complete84 SFT output required}"
+cd "$FULLMODULE_ROOT"
+export PYTHONUNBUFFERED=1
+export OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 MKL_NUM_THREADS=4 NUMEXPR_NUM_THREADS=4
+export TLA_PROMPT_WRAPPER_AWARE=0 TLA_PROMPT_NO_REDEF=0 TLA_PROMPT_ARITY=0 GEN_EVAL_CONCURRENCY=1
+timeout --signal=TERM --kill-after=20s 3100s /home/eric-spencer/ChatTLA/.venv/bin/python \
+ tools/proof_fullmodule_holdout_eval.py run --packet prompts.json --expected-packet-sha256 "$FULLMODULE_PACKET_SHA" \
+ --model-path /grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659 \
+ --parent-checkpoint "$FULLMODULE_PARENT" --checkpoint "$FULLMODULE_CHILD" \
+ --training-input train.json --training-admission training-admission.json --training-output "$FULLMODULE_TRAINING_ROOT" \
+ --admission paired-admission.json --output results/paired

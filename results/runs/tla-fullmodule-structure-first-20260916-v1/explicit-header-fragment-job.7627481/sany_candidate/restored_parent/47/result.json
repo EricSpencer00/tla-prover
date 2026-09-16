@@ -1,0 +1,54 @@
+{
+  "task_sha256": "d0b7778e82751b18e36737b9862f813d079d93d06a8b897b555de586dc88fe1f",
+  "raw_reply_sha256": "9c4eb8792f15c1f02740b1290460a3f31d645bb90a43a407dcc2d3daf81c9c89",
+  "module": "---- MODULE W4Od2m7p4t2 ----\nVARIABLES Dispatchers, Cap, Active, ReadSnapshots\n\nCONSTANTS Dispatchers, Cap\n\nInit == Active = 0 /\\ ReadSnapshots = [d \\in Dispatchers |-> 0]\n\nNext == \\E d \\in Dispatchers : ReadSnapshots[d] < Cap /\\ ReadSnapshots[d] = Active\n                      /\\ \\A d' \\in Dispatchers : ReadSnaphots[d'] = ReadSnapshots[d']\n                      -> (Active' = Active + 1) /\\ ReadSnapshots' = ReadSnapshots\n                      \\/ \\E d \\in Dispatchers, c \\in 0..Cap : ReadSnapshots[d] = Active /\\ ReadSnapshots[d] < Cap\n                      /\\ \\A d'!= d \\in Dispatchers : Readsnapshots[d'] = ReadSnapshots[d]\n                      /\\ \\A d' \\neq d \\in Dispatchers : ReadSnaphots[d'] = ReadSnapshots[d']'\n                      -> (Active' = Active) /\\ ReadSnapshots' = [d' \\in Dispatchers |-> IF d' = d THEN ReadSnapshots[d] + 1 ELSE ReadSnapshots[d']])\n\nSpec == Init /\\ [][Next]_<<Dispatchers, Cap, Active, ReadSnaphots>>\n\n====",
+  "module_sha256": "9c4eb8792f15c1f02740b1290460a3f31d645bb90a43a407dcc2d3daf81c9c89",
+  "status": "model_sany_reject",
+  "sany": 0,
+  "process": {
+    "command": [
+      "/lus/grand/projects/EVITA/eric-spencer/tools/jre21/bin/java",
+      "-Djava.io.tmpdir=/home/eric-spencer/tla-fullmodule-explicit-header-fragment-sft-20260916-v1/result.7627481/sany_candidate/restored_parent/47/jtmp",
+      "-DTLA-Library=/home/eric-spencer/tla-fullmodule-explicit-header-fragment-sft-20260916-v1/tools/tlapm/lib/tlapm/stdlib:/home/eric-spencer/tla-fullmodule-explicit-header-fragment-sft-20260916-v1/tools/community-modules:/home/eric-spencer/tla-fullmodule-explicit-header-fragment-sft-20260916-v1/tools/extra-modules",
+      "-cp",
+      "/home/eric-spencer/tla-fullmodule-explicit-header-fragment-sft-20260916-v1/tools/tla2tools.jar",
+      "tla2sany.SANY",
+      "W4Od2m7p4t2.tla"
+    ],
+    "cwd": "/home/eric-spencer/tla-fullmodule-explicit-header-fragment-sft-20260916-v1/result.7627481/sany_candidate/restored_parent/47",
+    "root_pid": 1724555,
+    "root_reaped": true,
+    "returncode": 255,
+    "output": "\n****** SANY2 Version 2.1 created 24 February 2014\n\nParsing file /home/eric-spencer/tla-fullmodule-explicit-header-fragment-sft-20260916-v1/result.7627481/sany_candidate/restored_parent/47/W4Od2m7p4t2.tla\n***Parse Error***\nEncountered \"'\" at line 9, column 30 and token \"d\" \n\nResidual stack trace follows:\nQuant Bound starting at line 9, column 29.\nQuantified form starting at line 9, column 26.\nExtendableExpr starting at line 8, column 77.\nExtendableExpr starting at line 8, column 58.\nExtendableExpr starting at line 8, column 51.\n\n\nFatal errors while parsing TLA+ spec in file W4Od2m7p4t2.tla\n\ntla2sany.semantic.AbortException\n*** Abort messages: 1\n\nIn module W4Od2m7p4t2\n\nCould not parse module W4Od2m7p4t2 from file W4Od2m7p4t2.tla\n\n\n",
+    "seconds": 0.8895319721195847,
+    "timed_out": false,
+    "output_complete": true,
+    "output_limit": false,
+    "cleanup_complete": true,
+    "surviving_owned_processes": [],
+    "owned_processes": [
+      {
+        "pid": 1724555,
+        "created": 1789556048.78,
+        "pgid": 1724555
+      }
+    ],
+    "signals": [],
+    "errors": [],
+    "execution_complete": true,
+    "containment": "Best-effort ancestry polling; instantaneous unobserved reparenting is not excluded"
+  },
+  "syntax_only": true,
+  "timeout_seconds": 30,
+  "command": [
+    "/lus/grand/projects/EVITA/eric-spencer/tools/jre21/bin/java",
+    "-Djava.io.tmpdir=/home/eric-spencer/tla-fullmodule-explicit-header-fragment-sft-20260916-v1/result.7627481/sany_candidate/restored_parent/47/jtmp",
+    "-DTLA-Library=/home/eric-spencer/tla-fullmodule-explicit-header-fragment-sft-20260916-v1/tools/tlapm/lib/tlapm/stdlib:/home/eric-spencer/tla-fullmodule-explicit-header-fragment-sft-20260916-v1/tools/community-modules:/home/eric-spencer/tla-fullmodule-explicit-header-fragment-sft-20260916-v1/tools/extra-modules",
+    "-cp",
+    "/home/eric-spencer/tla-fullmodule-explicit-header-fragment-sft-20260916-v1/tools/tla2tools.jar",
+    "tla2sany.SANY",
+    "W4Od2m7p4t2.tla"
+  ],
+  "dependency_sha256": {},
+  "seconds": 0.9030209090560675
+}

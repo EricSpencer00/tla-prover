@@ -1,0 +1,28 @@
+#!/bin/bash
+#PBS -N holdout30-vllm-sany-tlc
+#PBS -A EVITA
+#PBS -q by-gpu
+#PBS -l select=1:ngpus=4:ncpus=64:mem=256gb
+#PBS -l walltime=01:00:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+set -euo pipefail
+exec > "/home/eric-spencer/holdout30_eval.${PBS_JOBID%%.*}.log" 2>&1
+module load conda/2026-06-08 >/dev/null 2>&1
+conda activate base >/dev/null 2>&1
+export HF_HUB_OFFLINE=1 HF_HOME=/grand/EVITA/eric-spencer/hf-cache
+export JAVA_HOME=/grand/EVITA/eric-spencer/tools/jre21
+export PATH="$JAVA_HOME/bin:$PATH"
+export PYTHONPATH=/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1
+BASE=/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1
+MODEL=/grand/EVITA/eric-spencer/hf-cache/hub/models--EricSpencer00--chattla-20b/snapshots/c1a3e8b5c6916ce4a0ed830e996662ca28e0a262
+MODEL_STAGE=/home/eric-spencer/holdout30-base-${PBS_JOBID%%.*}
+mkdir -p "$MODEL_STAGE"
+for f in config.json generation_config.json tokenizer.json tokenizer_config.json chat_template.jinja model.safetensors; do
+  ln -sfn "$MODEL/$f" "$MODEL_STAGE/$f"
+done
+PORT=$BASE/proof-fullmodule-holdout-portable-20260907-v1
+ADAPTER=$BASE/results/runs/fullmodule-sft20b-20260907-045802-184688
+OUT=$BASE/results/runs/holdout30-vllm-sany-tlc-$(date +%Y%m%d-%H%M%S)-${PBS_JOBID%%.*}
+cd "$BASE"
+python tools/proof_fullmodule_holdout30_vllm_eval.py --portable "$PORT" --model-path "$MODEL_STAGE" --adapter "$ADAPTER" --base "$BASE" --output "$OUT" --java "$JAVA_HOME/bin/java" --max-tokens "${MAX_TOKENS:-16384}" --timeout 60 --start "${START:-0}" --limit "${LIMIT:-30}"
