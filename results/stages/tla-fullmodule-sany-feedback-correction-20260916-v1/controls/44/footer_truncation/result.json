@@ -1,0 +1,6 @@
+{
+  "status": "model_reject",
+  "passed": false,
+  "returncode": 255,
+  "diagnostic": "Encountered \"Beginning of definition\" at line 18, column 26 and token \"]_\""
+}

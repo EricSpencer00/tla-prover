@@ -1,0 +1,6 @@
+{
+  "status": "model_reject",
+  "passed": false,
+  "returncode": 255,
+  "diagnostic": "Encountered \":\" at line 10, column 29 and token \"Rooms\""
+}

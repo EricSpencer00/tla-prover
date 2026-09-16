@@ -1,0 +1,6 @@
+{
+  "status": "model_reject",
+  "passed": false,
+  "returncode": 255,
+  "diagnostic": "Encountered \":\" at line 19, column 33 and token \"Doors\""
+}
