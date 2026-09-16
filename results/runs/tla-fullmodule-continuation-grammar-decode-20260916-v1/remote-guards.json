@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "observed_utc": "2026-09-16T05:33:13Z",
+  "destination": "/home/eric-spencer/tla-fullmodule-continuation-grammar-decode-20260916-v1",
+  "host": "polaris-login-04",
+  "stage_sha256sum_check": true,
+  "python_compile": true,
+  "pbs_syntax": true,
+  "pycache_absent": true,
+  "result_namespace_absent": true,
+  "owned_queue_empty": true,
+  "remote_cpu_preflight_sha256": "db6ccaffee3374d5adcde9a5ad11568c0282103a1c70e1c77771b4d79ca48979",
+  "model_weights_loaded": false,
+  "cuda_touched": false,
+  "gpu_submitted": false,
+  "quality_claim": false,
+  "gate_claim": false,
+  "proof_claim": false,
+  "generalization_claim": false,
+  "tlc_claim": false,
+  "nonvacuity_claim": false
+}
