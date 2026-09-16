@@ -1,0 +1,15 @@
+{
+  "job_id": "7626952.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "destination": "/home/eric-spencer/tla-fullmodule-continuation-sft-20260916-v1",
+  "stage_manifest_sha256": "51af9fe77953f46de12ebc88528af13b088355dd3e646e8482a21bcce73fca15",
+  "packet_sha256": "a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c",
+  "parent_sha256": "87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511",
+  "gpu_limit": 1,
+  "walltime_limit": "00:15:00",
+  "qsub_command": "qsub /home/eric-spencer/tla-fullmodule-continuation-sft-20260916-v1/train.pbs",
+  "fresh_owned_queue_check": "empty",
+  "result_namespace_check": "empty",
+  "quality_claim": false,
+  "gate_claim": false,
+  "promotion_claim": false
+}
