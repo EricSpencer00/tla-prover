@@ -1,0 +1,13 @@
+{
+  "packet_sha256": "f40539a20e449ad63b8244e85eff33c8022402df11a84e8228b71ccbfeae11b5",
+  "manifest_sha256": "3380cf37c7311466ea7762662d55866839b3c3620ce73fb8d7ad209befe6de1d",
+  "rows": 119,
+  "candidate_counts": {
+    "2": 7,
+    "4": 112
+  },
+  "reference_fragment_used": false,
+  "training_executed": false,
+  "tlaps_executed": false,
+  "parameter_updates": 0
+}

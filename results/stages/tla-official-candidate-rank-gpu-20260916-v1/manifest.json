@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "kind": "answer_free_official_symbolic_candidate_rank_gpu",
+  "stage": "tla-official-candidate-rank-gpu-20260916-v1",
+  "packet_sha256": "f40539a20e449ad63b8244e85eff33c8022402df11a84e8228b71ccbfeae11b5",
+  "packet_manifest_sha256": "3380cf37c7311466ea7762662d55866839b3c3620ce73fb8d7ad209befe6de1d",
+  "parent_checkpoint_remote": "/home/eric-spencer/tla-structured-span-train-20260914-v3/result.7618905/policy_optimizer.pt",
+  "parent_checkpoint_sha256": "87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511",
+  "model_path_remote": "/grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659",
+  "worker_sha256": "6b50984e7b948cf5e7d045903c7190848c0be5b8771f5d2f1b1cb9d657ddbef0",
+  "builder_sha256": "1007428b46cb1b9921f973cd0e63cebedf5fe285d6a68e76b56d9f30f2343d6f",
+  "scorer_sha256": "7b33e7f922eea02ec6e0b81d8967bbab36e8ab993411e244e17e12690cf33678",
+  "budget": {
+    "rows": 119,
+    "max_candidates_per_row": 4,
+    "parameter_updates": 0,
+    "training_executed": false,
+    "reference_fragment_used": false,
+    "tlaps_executed": false,
+    "resources": "one Polaris GPU, 64 CPUs, 00:15:00"
+  },
+  "claims": {
+    "model": false,
+    "quality": false,
+    "proof": false,
+    "gate": false,
+    "generalization": false,
+    "promotion": false
+  }
+}
