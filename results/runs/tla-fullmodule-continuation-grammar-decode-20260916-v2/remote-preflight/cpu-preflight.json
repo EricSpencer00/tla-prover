@@ -1,0 +1,84 @@
+{
+  "schema": 1,
+  "kind": "fullmodule_continuation_grammar_decode_cpu_preflight_v1",
+  "complete": true,
+  "packet_sha256": "a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c",
+  "parent_checkpoint_sha256": "87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511",
+  "adapter_checkpoint_sha256": "e8a1395685c5c5c4d9311361fcea1e354d3decb4cf46b94cffab8831e936e69a",
+  "corpus_sha256": "fb76468f6a3217a359d54da92a2e3fa25396aad0547e6b5eb35129193a0e812a",
+  "grammar_sha256": "2bcc86946f0a858628f455a3d0648c7117e2b780743e1f25dff82cebd0fb4d67",
+  "rows": [
+    47,
+    107
+  ],
+  "protected_prompt_tokens": {
+    "47": {
+      "prompt_sha256": "32eb750d7db375df72e8e93d929ac3e5c7a365d50a915202c62db6e3d675877f",
+      "prompt_tokens": 401
+    },
+    "107": {
+      "prompt_sha256": "388d75fc27a48d38ccb3fd0258a72ddfd1b9dbb0852b0b058057521e8eaafb51",
+      "prompt_tokens": 457
+    }
+  },
+  "protected_references": {
+    "47": {
+      "reference_tokens": 226,
+      "reference_sha256": "36c548d2a475c0d086ddf0340f927b36002699ce86e955d702e061324ad2f07c"
+    },
+    "107": {
+      "reference_tokens": 673,
+      "reference_sha256": "4ed6e849af37ac7083fa7aaf33344f226eba1955a504f3a1d4bfba93d4a0437f"
+    }
+  },
+  "xgrammar_version": "0.2.2",
+  "vocabulary_size": 128256,
+  "synthetic_controls": {
+    "ranked": {
+      "prefix_priming": true,
+      "exact_ranked_selection": true,
+      "stable_ties": true,
+      "eos_termination": true,
+      "first_rejection": true,
+      "torch_imported": true
+    },
+    "rollback": {
+      "rollback_ban": true,
+      "finite_alternate": true,
+      "eos_termination": true,
+      "dead_end_type": "LayoutGuardDeadEnd"
+    },
+    "failure_trace": {
+      "partial_failure_receipt": true,
+      "required_fields": [
+        "attempt",
+        "status",
+        "rollback_tokens",
+        "banned_token",
+        "remaining_tokens",
+        "selected_tokens",
+        "failure_steps"
+      ],
+      "ordered_attempts": true,
+      "no_sany_or_quality_credit": true
+    },
+    "comment_free": {
+      "protected_reference_comment_free": true,
+      "protected_reference_denominator": 2,
+      "synthetic_comment_rejection": true,
+      "universal_false_reject_audit": false
+    },
+    "lexical": {
+      "invalid_adjacent_operator_rejection": true,
+      "valid_operator_separation": true,
+      "universal_false_reject_audit": false
+    }
+  },
+  "model_weights_loaded": false,
+  "cuda_touched": false,
+  "training": false,
+  "reference_conditioning": false,
+  "gate_claim": false,
+  "model_improvement_claim": false,
+  "proof_claim": false
+}
