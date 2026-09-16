@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 729
-- Verified UTC: 2026-09-16T06:35:23Z
+- Revision: 730
+- Verified UTC: 2026-09-16T06:36:00Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
-- Phase: local_work
-- Active job: none
-- Observation evidence: At 2026-09-16T06:35:23Z, the append-only verifier-conditioned correction stage is remotely static-admitted and CPU-preflighted. Its exact SHA256SUMS, Python compile, PBS syntax, CLI help, clean pycache/result namespace and empty owned queue all pass; preflight records105 SANY-screened correction pairs and16 clean anchors with exact tokenization and nonzero EOS, while model_weights_loaded and cuda_touched are false. No GPU has been submitted and no model-improvement, quality, gate, proof, generalization, TLC, non-vacuity or promotion claim exists.
+- Phase: running
+- Active job: `7627150` (R, polaris, owner 01a08e7c-daff-7753-8e4f-41c47d0e3001)
+- Observation evidence: At 2026-09-16T06:36:00Z, exactly one verifier-conditioned correction diagnostic job7627150 was submitted after the remote CPU preflight and fresh empty-queue/output guards. PBS reports R in debug on x3001c0s7b1n0/0*64 with one GPU,64 CPUs and00:15:00 walltime. The stage binds105 pinned-SANY-screened correction pairs,16 clean anchors, protected47/107 holdout and no generated/replay training data. No model-improvement, quality, gate, proof, generalization, TLC, non-vacuity or promotion claim exists before terminal receipt and independent SANY.
 - Latest completed result: Clause-boundary structured SFT job7627076 is a complete negative: child checkpoint76dc83b5 completed12 updates with exact tensor/logit reload and finite delta, but independent pinned SANY rejects restored-parent and trained-child bytes on both protected rows (4/4 candidates rejected; references2/2 pass). The trained child has ordinary SANY parse failures: row47 misuses the map arrow and row107 has a malformed universal quantifier. It is not promoted and earns zero protected SANY credit.
 - Local work: The semantic preference child remains a complete negative: all20 teacher-forced margins rose but protected SANY stayed0/2. The row47 SANY-in-the-loop controller found the first valid scoped repair at seven of eight binder changes; row107 is now independently measured and rejected at lexical EOF. Semantic-span v1 failed before model load due an omitted manifest and earned zero credit. Corrected v2 job7626911 completed12 multi-token semantic-span updates with exact training-time reload; independent pinned-SANY audit v2 measured both references, both restored-parent candidates and both trained-child candidates, with0/4 model candidates passing and2/2 references passing. The CPU error-frontier audit measured16/16 counterfactual variants with0 SANY passes and identifies continuation/definition incompleteness beyond local layout. Continuation-aware wide SFT job7626952 completed12 exact-reload updates with112 adapter tensors across layers24-31 and all attention/MLP projections, but independent pinned SANY remained0/2 for the child and2/2 for references. The CPU verifier-guided search measured14 reference-free fixed-vocabulary repairs with0 passes. Decoder job7626997 then used exact parent-plus-adapter restoration and prefix-preserving grammar/rollback decoding; the v2 strict error-family guard then removed the observed quantified-junction and set/map shapes with zero false rejects over438 known-good modules, but job7627037 still stopped both rows at512 repair tokens without grammar completion. Independent pinned SANY passed2/2 references and rejected4/4 baseline/repaired outputs. Clause-boundary job7627076 completed12 exact-reload updates but independent protected SANY rejected4/4 model candidates, so the objective is pruned. Large checkpoints remain remote-only; the programmatic Discord watchdog remains live. Do not promote or replay these objectives unchanged.
 - External blocker: none verified
-- Next action: Perform one final fresh Polaris ownership/output check, acquire one unique claim, and submit at most one bounded one-GPU 15-minute correction diagnostic. Retrieve its receipt and independently run pinned SANY on restored parent, ordinary child and self-feedback child for protected47/107. Do not grant model, quality or gate credit before that audit.
+- Next action: Monitor job7627150 to terminal state, retrieve its complete receipt/checkpoint or failure trace, and independently run pinned SANY on restored parent, ordinary child and self-feedback child for protected47/107. Do not grant model, quality or gate credit before that audit.
 
 ## Objective and evidence rules
 
@@ -46,6 +46,7 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 
 ## Decisions
 
+- 2026-09-16T06:36:00Z: Fresh ownership/output guard passed with exact stage SHA256, preflight5cc2c79, clean remote result namespace, no pycache and empty owned queue. Unique claim39430340 binds the correction stage, packet a125a0d5, parent87489e47, manifest7116980b, 105 SANY-labeled pairs,16 anchors, rank4 layers30-31,16 updates, one GPU and00:15:00. Exactly one qsub submitted as job7627150; PBS reports R on x3001c0s7b1n0/0*64. Monitor only and independently score protected SANY after completion.
 - 2026-09-16T06:35:23Z: Remote CPU admission for verifier-conditioned correction stage passes exact stage SHA256, compile, PBS, CLI, pycache, output and owned-queue guards. Preflight binds105 pinned-SANY-screened single-fault pairs over22 non-protected references plus16 clean anchors, exact tokenizer/EOS, rank4 layers30-31,16 updates and70/30 correction/anchor loss; no model weights or CUDA were touched. Proceed to one fresh final live check and one bounded GPU diagnostic only.
 - 2026-09-16T06:18:36Z: Job7627076 finished F/Exit0 after00:03:07 on x3003c0s13b0n0/0*64 with one-GPU allocation,64 CPUs and00:15:00 walltime. Its12-update clause-boundary child76dc83b5 has exact tensor/logit reload and complete receipt, but independent pinned SANY passes2/2 references and rejects4/4 restored-parent/trained-child protected candidates; child protected SANY is0/2. Row47 fails on map-arrow misuse and row107 on malformed quantifier. Mark TLA-06J done, assign zero model/quality/gate credit, and pivot to verifier-in-loop correction rather than repeating the objective.
 - 2026-09-16T06:11:16Z: Final live Polaris guards pass after remote CPU admission; unique claim67139287 binds the exact clause-boundary stage, manifest5175d9d5, preflight3bcfd2b, parent87489e47,22-row clean split, rank8 layers28-31 schedule, one GPU and00:15:00. Exactly one qsub submitted as job7627076, scheduler state Q in debug. Monitor only and independently score protected SANY before any claim.
@@ -541,16 +542,26 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 729,
-  "verified_utc": "2026-09-16T06:35:23Z",
+  "revision": 730,
+  "verified_utc": "2026-09-16T06:36:00Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
-  "phase": "local_work",
-  "active_job": null,
-  "observation_evidence": "At 2026-09-16T06:35:23Z, the append-only verifier-conditioned correction stage is remotely static-admitted and CPU-preflighted. Its exact SHA256SUMS, Python compile, PBS syntax, CLI help, clean pycache/result namespace and empty owned queue all pass; preflight records105 SANY-screened correction pairs and16 clean anchors with exact tokenization and nonzero EOS, while model_weights_loaded and cuda_touched are false. No GPU has been submitted and no model-improvement, quality, gate, proof, generalization, TLC, non-vacuity or promotion claim exists.",
+  "phase": "running",
+  "active_job": {
+    "id": "7627150",
+    "scheduler_id": "7627150.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+    "pbs_state": "R",
+    "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
+    "host": "polaris",
+    "queue": "debug",
+    "ngpus": 1,
+    "walltime": "00:15:00",
+    "exec_host": "x3001c0s7b1n0/0*64"
+  },
+  "observation_evidence": "At 2026-09-16T06:36:00Z, exactly one verifier-conditioned correction diagnostic job7627150 was submitted after the remote CPU preflight and fresh empty-queue/output guards. PBS reports R in debug on x3001c0s7b1n0/0*64 with one GPU,64 CPUs and00:15:00 walltime. The stage binds105 pinned-SANY-screened correction pairs,16 clean anchors, protected47/107 holdout and no generated/replay training data. No model-improvement, quality, gate, proof, generalization, TLC, non-vacuity or promotion claim exists before terminal receipt and independent SANY.",
   "last_result": "Clause-boundary structured SFT job7627076 is a complete negative: child checkpoint76dc83b5 completed12 updates with exact tensor/logit reload and finite delta, but independent pinned SANY rejects restored-parent and trained-child bytes on both protected rows (4/4 candidates rejected; references2/2 pass). The trained child has ordinary SANY parse failures: row47 misuses the map arrow and row107 has a malformed universal quantifier. It is not promoted and earns zero protected SANY credit.",
   "local_work": "The semantic preference child remains a complete negative: all20 teacher-forced margins rose but protected SANY stayed0/2. The row47 SANY-in-the-loop controller found the first valid scoped repair at seven of eight binder changes; row107 is now independently measured and rejected at lexical EOF. Semantic-span v1 failed before model load due an omitted manifest and earned zero credit. Corrected v2 job7626911 completed12 multi-token semantic-span updates with exact training-time reload; independent pinned-SANY audit v2 measured both references, both restored-parent candidates and both trained-child candidates, with0/4 model candidates passing and2/2 references passing. The CPU error-frontier audit measured16/16 counterfactual variants with0 SANY passes and identifies continuation/definition incompleteness beyond local layout. Continuation-aware wide SFT job7626952 completed12 exact-reload updates with112 adapter tensors across layers24-31 and all attention/MLP projections, but independent pinned SANY remained0/2 for the child and2/2 for references. The CPU verifier-guided search measured14 reference-free fixed-vocabulary repairs with0 passes. Decoder job7626997 then used exact parent-plus-adapter restoration and prefix-preserving grammar/rollback decoding; the v2 strict error-family guard then removed the observed quantified-junction and set/map shapes with zero false rejects over438 known-good modules, but job7627037 still stopped both rows at512 repair tokens without grammar completion. Independent pinned SANY passed2/2 references and rejected4/4 baseline/repaired outputs. Clause-boundary job7627076 completed12 exact-reload updates but independent protected SANY rejected4/4 model candidates, so the objective is pruned. Large checkpoints remain remote-only; the programmatic Discord watchdog remains live. Do not promote or replay these objectives unchanged.",
   "external_blocker": null,
-  "next_action": "Perform one final fresh Polaris ownership/output check, acquire one unique claim, and submit at most one bounded one-GPU 15-minute correction diagnostic. Retrieve its receipt and independently run pinned SANY on restored parent, ordinary child and self-feedback child for protected47/107. Do not grant model, quality or gate credit before that audit.",
+  "next_action": "Monitor job7627150 to terminal state, retrieve its complete receipt/checkpoint or failure trace, and independently run pinned SANY on restored parent, ordinary child and self-feedback child for protected47/107. Do not grant model, quality or gate credit before that audit.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -674,6 +685,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
     }
   ],
   "decisions": [
+    "2026-09-16T06:36:00Z: Fresh ownership/output guard passed with exact stage SHA256, preflight5cc2c79, clean remote result namespace, no pycache and empty owned queue. Unique claim39430340 binds the correction stage, packet a125a0d5, parent87489e47, manifest7116980b, 105 SANY-labeled pairs,16 anchors, rank4 layers30-31,16 updates, one GPU and00:15:00. Exactly one qsub submitted as job7627150; PBS reports R on x3001c0s7b1n0/0*64. Monitor only and independently score protected SANY after completion.",
     "2026-09-16T06:35:23Z: Remote CPU admission for verifier-conditioned correction stage passes exact stage SHA256, compile, PBS, CLI, pycache, output and owned-queue guards. Preflight binds105 pinned-SANY-screened single-fault pairs over22 non-protected references plus16 clean anchors, exact tokenizer/EOS, rank4 layers30-31,16 updates and70/30 correction/anchor loss; no model weights or CUDA were touched. Proceed to one fresh final live check and one bounded GPU diagnostic only.",
     "2026-09-16T06:18:36Z: Job7627076 finished F/Exit0 after00:03:07 on x3003c0s13b0n0/0*64 with one-GPU allocation,64 CPUs and00:15:00 walltime. Its12-update clause-boundary child76dc83b5 has exact tensor/logit reload and complete receipt, but independent pinned SANY passes2/2 references and rejects4/4 restored-parent/trained-child protected candidates; child protected SANY is0/2. Row47 fails on map-arrow misuse and row107 on malformed quantifier. Mark TLA-06J done, assign zero model/quality/gate credit, and pivot to verifier-in-loop correction rather than repeating the objective.",
     "2026-09-16T06:11:16Z: Final live Polaris guards pass after remote CPU admission; unique claim67139287 binds the exact clause-boundary stage, manifest5175d9d5, preflight3bcfd2b, parent87489e47,22-row clean split, rank8 layers28-31 schedule, one GPU and00:15:00. Exactly one qsub submitted as job7627076, scheduler state Q in debug. Monitor only and independently score protected SANY before any claim.",
@@ -2159,7 +2171,9 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "results/stages/tla-fullmodule-sany-feedback-correction-20260916-v1/tools/proof_fullmodule_sany_feedback_correction_train.py",
     "results/stages/tla-fullmodule-sany-feedback-correction-20260916-v1/train.pbs",
     "results/runs/tla-fullmodule-sany-feedback-correction-20260916-v1/remote-preflight/preflight.json",
-    "results/runs/tla-fullmodule-sany-feedback-correction-20260916-v1/remote-guards.json"
+    "results/runs/tla-fullmodule-sany-feedback-correction-20260916-v1/remote-guards.json",
+    "results/prover-submit-claims/39430340cce9a624120aebce09599965ddc708004ef06e8c8fb40282d119faa0.json",
+    "results/runs/tla-fullmodule-sany-feedback-correction-20260916-v1/job.7627150-submission.json"
   ]
 }
 -->

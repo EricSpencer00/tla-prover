@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "submitted_utc": "2026-09-16T06:36:00Z",
+  "stage": "tla-fullmodule-sany-feedback-correction-20260916-v1",
+  "destination": "/home/eric-spencer/tla-fullmodule-sany-feedback-correction-20260916-v1",
+  "job_id": "7627150.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "pbs_state": "R",
+  "queue": "debug",
+  "exec_host": "x3001c0s7b1n0/0*64",
+  "requested_ngpus": 1,
+  "requested_ncpus": 64,
+  "requested_walltime": "00:15:00",
+  "claim_identity_sha256": "39430340cce9a624120aebce09599965ddc708004ef06e8c8fb40282d119faa0",
+  "training": true,
+  "reference_conditioning": false,
+  "quality_claim": false,
+  "model_improvement_claim": false,
+  "gate_claim": false,
+  "proof_claim": false,
+  "generalization_claim": false,
+  "tlc_claim": false,
+  "nonvacuity_claim": false
+}
