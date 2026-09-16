@@ -97,7 +97,7 @@ if __name__ == "__main__":
     parser.add_argument("--jar", type=Path, required=True)
     parser.add_argument("--java", default="java")
     parser.add_argument("--output", type=Path, required=True)
-    parser.add_argument("--manifest")
+    parser.add_argument("--manifest", type=Path)
     parser.add_argument("--manifest-sha256")
     parser.add_argument("--checkpoint", type=Path)
     parser.add_argument("--model", type=Path)
