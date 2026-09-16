@@ -1,0 +1,36 @@
+{
+  "complete": true,
+  "controls_ok": true,
+  "requested_candidates": 16,
+  "measured_candidates": 16,
+  "pass_by_variant": {
+    "original": [
+      0,
+      4
+    ],
+    "layout": [
+      0,
+      4
+    ],
+    "close_tail": [
+      0,
+      4
+    ],
+    "layout_close_tail": [
+      0,
+      4
+    ]
+  },
+  "protected_rows": [
+    47,
+    107
+  ],
+  "interpretation": "Counterfactual layout edits are diagnostic only. A passing edited string is not a model output and earns no protected, quality, gate or proof credit.",
+  "model_improvement_claim": false,
+  "quality_claim": false,
+  "gate_claim": false,
+  "proof_claim": false,
+  "generalization_claim": false,
+  "tlc_claim": false,
+  "nonvacuity_claim": false
+}

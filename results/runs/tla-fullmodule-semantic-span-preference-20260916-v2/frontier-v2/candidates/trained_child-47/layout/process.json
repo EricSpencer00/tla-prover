@@ -1,0 +1,31 @@
+{
+  "command": [
+    "/usr/bin/java",
+    "-cp",
+    "/Users/eric/GitHub/prove-TLA/tools/tla2tools.jar",
+    "tla2sany.SANY",
+    "W4Od2m7p4t2.tla"
+  ],
+  "cwd": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-semantic-span-preference-20260916-v2/frontier-v2/candidates/trained_child-47/layout",
+  "root_pid": 99789,
+  "root_reaped": true,
+  "returncode": 255,
+  "output": "\n****** SANY2 Version 2.1 created 24 February 2014\n\nParsing file /Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-semantic-span-preference-20260916-v2/frontier-v2/candidates/trained_child-47/layout/W4Od2m7p4t2.tla\n***Parse Error***\n\n  Precedence conflict between ops \\land in block line 13, col 85 to line 13, col 86 of module W4Od2m7p4t2 and \\lor.\n\nResidual stack trace follows:\nExtendableExpr starting at line 13, column 105.\nExtendableExpr starting at line 13, column 88.\nExtendableExpr starting at line 13, column 81.\nExtendableExpr starting at line 13, column 72.\nExtendableExpr starting at line 13, column 67.\n\n\nFatal errors while parsing TLA+ spec in file W4Od2m7p4t2.tla\n\ntla2sany.semantic.AbortException\n*** Abort messages: 1\n\nIn module W4Od2m7p4t2\n\nCould not parse module W4Od2m7p4t2 from file W4Od2m7p4t2.tla\n\n\n",
+  "seconds": 0.1663430829939898,
+  "timed_out": false,
+  "output_complete": true,
+  "output_limit": false,
+  "cleanup_complete": true,
+  "surviving_owned_processes": [],
+  "owned_processes": [
+    {
+      "pid": 99789,
+      "created": 1789534405.009271,
+      "pgid": 99789
+    }
+  ],
+  "signals": [],
+  "errors": [],
+  "execution_complete": true,
+  "containment": "Best-effort ancestry polling; instantaneous unobserved reparenting is not excluded"
+}
