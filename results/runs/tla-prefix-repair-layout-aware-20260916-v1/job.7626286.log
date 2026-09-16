@@ -1,0 +1,36 @@
+protected_layout_aware_repair.py: OK
+layout_aware_greedy_grammar_selector.py: OK
+layout_junction_audit.py: OK
+protected_checkpoint_preflight.py: OK
+packet.json: OK
+canonical-preflight-corpus-20260911.json: OK
+tla_module_v1.ebnf: OK
+protected_layout_aware_repair_polaris.pbs: OK
+stage-validation.json: OK
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/291 [00:00<?, ?it/s]Loading weights: 100%|██████████| 291/291 [00:00<00:00, 10630.14it/s]
+[transformers] The following generation flags are not valid and may be ignored: ['temperature', 'top_p']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+Traceback (most recent call last):
+  File "/home/eric-spencer/tla-prefix-repair-layout-aware-20260916-v1/protected_layout_aware_repair.py", line 388, in <module>
+    main()
+  File "/home/eric-spencer/tla-prefix-repair-layout-aware-20260916-v1/protected_layout_aware_repair.py", line 340, in main
+    repaired = run_repair(model, tokenizer, xgrammar, compiled, prompt_inputs,
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/tla-prefix-repair-layout-aware-20260916-v1/protected_layout_aware_repair.py", line 263, in run_repair
+    generated = model.generate(
+                ^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/transformers/generation/utils.py", line 2543, in generate
+    result = decoding_method(
+             ^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/transformers/generation/utils.py", line 2765, in _sample
+    next_token_scores = logits_processor(input_ids, next_token_logits)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/transformers/generation/logits_process.py", line 96, in __call__
+    scores = processor(input_ids, scores)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/tla-prefix-repair-layout-aware-20260916-v1/layout_aware_greedy_grammar_selector.py", line 102, in __call__
+    raise RuntimeError(
+RuntimeError: audit mismatch: ranked token 37915, dense token 24445

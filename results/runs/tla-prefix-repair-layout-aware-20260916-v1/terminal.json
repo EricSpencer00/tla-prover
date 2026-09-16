@@ -1,0 +1,26 @@
+{
+  "job_id": "7626286.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "stage": "tla-prefix-repair-layout-aware-20260916-v1",
+  "state": "F",
+  "exit_status": 1,
+  "queue": "debug",
+  "exec_host": "x3204c0s1b0n0/0*64",
+  "resources_used": {
+    "cpu": "00:00:56",
+    "mem": "6808380kb",
+    "ngpus": 0,
+    "walltime": "00:01:31"
+  },
+  "requested": {
+    "ngpus": 1,
+    "ncpus": 64,
+    "walltime": "00:15:00"
+  },
+  "stageout_status": 1,
+  "log_sha256": "add8a6e32bd61dd4c4ce34e439085f4c228684978c041fb78a7fa3bafa6df4e6",
+  "result_namespace": "empty; no receipt or row outputs",
+  "failure": "selector audit mismatch: ranked token 37915, dense token 24445; model loaded but no result was admitted",
+  "quality_claim": false,
+  "gate_claim": false,
+  "model_improvement_claim": false
+}
