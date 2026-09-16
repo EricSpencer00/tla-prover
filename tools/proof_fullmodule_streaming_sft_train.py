@@ -1,10 +1,11 @@
-"""Bounded structure-first SFT and protected SANY diagnostic.
+"""Bounded matched-prefix streaming SFT and protected SANY diagnostic.
 
-The CPU admission probe proves that clean full modules have a lossless
-representation with substantially shorter sequential operator spans. This
-worker tests that representation with a model-emitted structure plan followed
-by one model response per planned module part. Parts are concatenated exactly
-as emitted and sent to pinned SANY; no text repair, target insertion,
+The preceding streaming run exposed a train/eval contract mismatch: its
+training examples requested named structural parts, while protected decoding
+requested an unconstrained continuation from the current assembled prefix.
+This worker trains on exact continuation segments using the identical
+prefix/state prompt that protected decoding uses. Segments are concatenated
+exactly as emitted and sent to pinned SANY; no text repair, target insertion,
 verifier feedback, or replay negative is allowed.
 """
 
@@ -33,14 +34,14 @@ REFERENCE_ROWS = TRAIN + VALID
 ANCHORS = tuple(i for i in range(42, 59) if i != 47)
 MODULE_NAMES = {47: 'W4Od2m7p4t2', 107: 'W4Od3m0p0t0'}
 
-EXPERIMENT_KIND = 'fullmodule_streaming_sft_v1'
+EXPERIMENT_KIND = 'fullmodule_streaming_matched_sft_v1'
 BUDGET = dict(
-    steps=48, accumulation=1, lr=2e-6, rank=4, alpha=8, seed=20260916,
+    steps=48, accumulation=1, lr=2e-6, rank=4, alpha=8, seed=20260917,
     training_seconds=600, max_new_tokens=768, generation_seconds=10,
     sany_seconds=30, stream_segments=4, adapter_layers=[28, 29, 30, 31],
     adapter_targets=['q_proj', 'k_proj', 'v_proj', 'o_proj',
                      'gate_proj', 'up_proj', 'down_proj'],
-    objective='streaming_lossless_module_part_sft',
+    objective='streaming_lossless_matched_prefix_sft',
 )
 def sha(data):
     return hashlib.sha256(data).hexdigest()
@@ -116,44 +117,22 @@ def load_probe(path):
     return value, structures
 
 
-def plan_text(module_name, structure):
-    lines = ['STRUCTURE-FIRST PLAN', f'MODULE: {module_name}']
-    for part in structure['parts']:
-        lines.append(f"PART: {part['id'] if part['kind'] == 'operator' else part['kind']}")
-    lines.append('END PLAN')
-    return '\n'.join(lines) + '\n'
-
-
-def parse_plan(text, expected_module):
-    if not isinstance(text, str) or '\x60\x60\x60' in text:
-        raise ValueError('plan contains markdown or is not text')
-    lines = text.splitlines()
-    if len(lines) < 5 or lines[0] != 'STRUCTURE-FIRST PLAN' or lines[-1] != 'END PLAN':
-        raise ValueError('plan envelope mismatch')
-    if lines[1] != f'MODULE: {expected_module}':
-        raise ValueError('plan module mismatch')
-    parts = []
-    for line in lines[2:-1]:
-        match = re.fullmatch(
-            r'PART: (header|declarations|footer|operator-([0-9]{3})-([A-Za-z_][A-Za-z0-9_]*))',
-            line)
-        if not match:
-            raise ValueError('plan part syntax mismatch')
-        raw_id = match.group(1)
-        if raw_id.startswith('operator-'):
-            parts.append(dict(id=raw_id, kind='operator',
-                              operator_name=match.group(3), index=int(match.group(2))))
-        else:
-            parts.append(dict(id=raw_id, kind=raw_id, operator_name=None))
-    if (not parts or parts[0]['kind'] != 'header' or
-            parts[1]['kind'] != 'declarations' or parts[-1]['kind'] != 'footer'):
-        raise ValueError('plan must begin with header/declarations and end with footer')
-    operators = [part for part in parts if part['kind'] == 'operator']
-    if not operators or [part['index'] for part in operators] != list(range(len(operators))):
-        raise ValueError('plan operator indices must be contiguous')
-    if len(parts) > 40:
-        raise ValueError('plan contains too many parts')
-    return parts
+def stream_segments(response, structure, count=BUDGET['stream_segments']):
+    """Group lossless structural parts into a fixed number of stream targets."""
+    parts = structure['parts']
+    if not parts or ''.join(response[p['start_char']:p['end_char']] for p in parts) != response:
+        raise ValueError('structure is not a lossless response partition')
+    count = min(int(count), len(parts))
+    if count <= 0:
+        raise ValueError('stream must contain at least one part')
+    groups = [[] for _ in range(count)]
+    for index, part in enumerate(parts):
+        groups[min(index * count // len(parts), count - 1)].append(part)
+    result = [''.join(response[p['start_char']:p['end_char']] for p in group)
+              for group in groups]
+    if any(not segment for segment in result) or ''.join(result) != response:
+        raise AssertionError('stream segmentation is not nonempty and lossless')
+    return result
 
 
 def prompt_only(tokenizer, prompt):
@@ -166,75 +145,22 @@ def prompt_only(tokenizer, prompt):
                 prompt_tokens=len(ids), response_tokens=0)
 
 
-def stream_prompt(source_prompt, module_name, prefix=''):
+def stream_prompt(source_prompt, module_name, segment, prefix=''):
     text = (
         '\n\n=== LOSSLESS STREAMING MODULE CONTRACT ===\n'
         'Emit only the exact continuation of the module byte stream. Do not '
-        'repeat any prefix, add markdown, or explain. The stream must end '
-        'with the complete module footer.\n'
-        f'MODULE: {module_name}\n')
+        'repeat any prefix, add markdown, or explain. Emit no synthetic text '
+        'when the prefix is incomplete. The stream must end with the complete '
+        'module footer.\n'
+        f'MODULE: {module_name}\n'
+        f'SEGMENT: {int(segment)}\n')
     if prefix:
-        text += 'CURRENT EXACT PREFIX:\n' + prefix + '\n'
+        text += ('CURRENT PREFIX SHA256: ' + sha(prefix.encode()) + '\n'
+                 'CURRENT EXACT PREFIX:\n' + prefix + '\n')
         text += 'Continue immediately after the prefix.\n'
     else:
         text += 'Begin with the exact module header line.\n'
     return source_prompt + text
-
-
-class ForceEosAfterPlan:
-    """Force the configured EOS after the model emits the plan terminator."""
-
-    def __init__(self, suffix_ids, eos_token_id, prompt_tokens):
-        self.suffix_ids = tuple(int(x) for x in suffix_ids)
-        self.eos_token_id = int(eos_token_id)
-        self.prompt_tokens = int(prompt_tokens)
-        if not self.suffix_ids or self.eos_token_id < 0:
-            raise ValueError('plan EOS control requires a non-empty suffix and EOS')
-
-    def __call__(self, input_ids, scores):
-        for row, ids in enumerate(input_ids.tolist()):
-            generated = ids[self.prompt_tokens:]
-            if (len(generated) >= len(self.suffix_ids) and
-                    generated[-len(self.suffix_ids):] == list(self.suffix_ids)):
-                scores[row, :] = float('-inf')
-                scores[row, self.eos_token_id] = 0.0
-        return scores
-
-
-def decode_plan(net, tokenizer, enc, module_name, budget, multi):
-    """Generate a plan with model-emitted content and a lossless EOS boundary."""
-    import torch
-    prompt_tokens = int(enc['prompt_tokens'])
-    prompt_ids = list(enc['input_ids'][:prompt_tokens])
-    prefix = PLAN_PREFIX + module_name + '\n'
-    prefix_ids = tokenizer.encode(prefix, add_special_tokens=False)
-    suffix_ids = tokenizer.encode(PLAN_STOP, add_special_tokens=False)
-    eos_id = tokenizer.eos_token_id
-    if not prefix_ids or not suffix_ids or eos_id is None:
-        raise ValueError('plan control tokenization is incomplete')
-    ids = torch.tensor([prompt_ids + prefix_ids], device='cuda')
-    try:
-        from transformers import LogitsProcessorList
-        processors = LogitsProcessorList([ForceEosAfterPlan(
-            suffix_ids, eos_id, prompt_tokens)])
-    except ImportError:
-        processors = [ForceEosAfterPlan(suffix_ids, eos_id, prompt_tokens)]
-    started = time.monotonic()
-    with torch.inference_mode(), multi.lineage.helpers.autocast('cuda'):
-        result = net.generate(
-            input_ids=ids, attention_mask=torch.ones_like(ids), do_sample=False,
-            temperature=1.0, top_p=1.0, num_beams=1, num_return_sequences=1,
-            max_new_tokens=budget['max_new_tokens'] + len(prefix_ids),
-            max_time=budget['generation_seconds'], logits_processor=processors,
-            no_repeat_ngram_size=8,
-            pad_token_id=tokenizer.pad_token_id or tokenizer.eos_token_id)
-    torch.cuda.synchronize()
-    elapsed = time.monotonic() - started
-    tokens = multi.lineage.common.trim_output(
-        result[0, prompt_tokens:].tolist(), set(multi.lineage.common.EOS_IDS))
-    reply = multi.lineage.common.decode_reply(tokenizer, tokens)
-    return multi.output_fields(
-        tokens, reply, elapsed, budget=budget['max_new_tokens'] + len(prefix_ids))
 
 
 def exact_chat(tokenizer, prompt, response):
@@ -251,66 +177,48 @@ def exact_chat(tokenizer, prompt, response):
                 prompt_tokens=len(prefix_ids), response_tokens=len(ids) - len(prefix_ids))
 
 
-def stage_prompt(source_prompt, module_name, request, plan=None, prefix=''):
-    text = (
-        '\n\n=== STRUCTURE-FIRST GENERATION CONTRACT ===\n'
-        'The final answer is assembled from exact model-emitted parts and '
-        'checked by the owned SANY parser. Return only the requested part, '
-        'with no markdown, explanation, or repeated context.\n'
-        f'MODULE: {module_name}\nREQUESTED PART: {request}\n')
-    if plan is not None:
-        text += 'PLAN:\n' + plan + '\n'
-    if prefix:
-        text += ('CURRENT ASSEMBLED PREFIX (context only; do not repeat it):\n'
-                 + prefix + '\n')
-    if request == 'plan':
-        text += ('Return exactly a STRUCTURE-FIRST PLAN with the module name, '
-                 'one header, one declarations part, every operator in order, '
-                 'and one footer part.\n')
-    elif request == 'header':
-        text += 'Return the complete module header part, including its exact module header line.\n'
-    elif request == 'declarations':
-        text += 'Return the complete declarations part before the first top-level operator.\n'
-    elif request == 'footer':
-        text += 'Return the complete module footer part.\n'
-    else:
-        text += 'Return the complete requested top-level operator block.\n'
-    return source_prompt + text
-
-
 def schedule(structures):
     selected_rows = [TRAIN[i * len(TRAIN) // BUDGET['steps']]
                      for i in range(BUDGET['steps'])]
     result = []
     for step, row in enumerate(selected_rows, 1):
-        structure = structures[row]
-        request = structure['parts'][(step * 7 + row) % len(structure['parts'])]['id']
-        result.append(dict(step=step, row=row, request=request, part_id=request))
+        segment_count = min(BUDGET['stream_segments'],
+                            len(structures[row]['parts']))
+        if segment_count <= 0:
+            raise ValueError(f'row {row} has no structural parts')
+        segment = (step * 7 + row) % segment_count
+        result.append(dict(step=step, row=row, segment=segment,
+                           segment_count=segment_count))
     return result
 
 
-def target_for(row, request, rows, structures):
-    structure = structures[row]
-    if request == 'plan':
-        return plan_text(structure['module_name'], structure)
-    part = next((part for part in structure['parts'] if part['id'] == request), None)
-    if part is None:
-        raise ValueError(f'part {request} missing for row {row}')
+def target_for(row, segment, rows, structures):
     response = rows[row]['response']
-    return response[part['start_char']:part['end_char']]
+    segments = stream_segments(response, structures[row])
+    if not 0 <= int(segment) < len(segments):
+        raise ValueError(f'stream segment {segment} missing for row {row}')
+    return segments[int(segment)]
+
+
+def prefix_for(row, segment, rows, structures):
+    response = rows[row]['response']
+    segments = stream_segments(response, structures[row])
+    if not 0 <= int(segment) <= len(segments):
+        raise ValueError(f'stream prefix {segment} missing for row {row}')
+    return ''.join(segments[:int(segment)])
 
 
 def manifest_value(rows, structures, probe):
     entries = schedule(structures)
     for entry in entries:
         structure = structures[entry['row']]
-        target = target_for(entry['row'], entry['request'], rows, structures)
-        prompt = stage_prompt(
-            rows[entry['row']]['prompt'], structure['module_name'], entry['request'],
-            plan=plan_text(structure['module_name'], structure)
-            if entry['request'] != 'plan' else None)
+        target = target_for(entry['row'], entry['segment'], rows, structures)
+        prefix = prefix_for(entry['row'], entry['segment'], rows, structures)
+        prompt = stream_prompt(rows[entry['row']]['prompt'],
+                               structure['module_name'], entry['segment'], prefix)
         entry.update(target_sha256=sha(target.encode()),
-                     target_char_count=len(target), prompt_sha256=sha(prompt.encode()))
+                     target_char_count=len(target), prefix_char_count=len(prefix),
+                     prefix_sha256=sha(prefix.encode()), prompt_sha256=sha(prompt.encode()))
     return dict(
         schema=1, kind=EXPERIMENT_KIND,
         packet_sha256=PACKET_SHA, structure_probe_sha256=PROBE_SHA,
@@ -324,7 +232,7 @@ def manifest_value(rows, structures, probe):
             median_sequential_horizon_ratio=probe['median_sequential_horizon_ratio'],
             max_sequential_horizon_ratio=probe['max_sequential_horizon_ratio']),
         clean_reference_targets_only=True,
-        planner_target_is_derived_structure_only=True,
+        planner_target_is_derived_structure_only=False,
         generated_feedback_loaded=False, replay_negatives_loaded=False,
         protected_targets_never_train=True, validation_targets_never_train=True,
         model_weights_loaded=False, cuda_touched=False, optimizer_updates=0,
@@ -360,21 +268,23 @@ def preflight(args):
     records = []
     for entry in manifest['schedule']:
         structure = structures[entry['row']]
-        target = target_for(entry['row'], entry['request'], rows, structures)
-        prompt = stage_prompt(
-            rows[entry['row']]['prompt'], structure['module_name'], entry['request'],
-            plan=plan_text(structure['module_name'], structure)
-            if entry['request'] != 'plan' else None)
+        target = target_for(entry['row'], entry['segment'], rows, structures)
+        prefix = prefix_for(entry['row'], entry['segment'], rows, structures)
+        prompt = stream_prompt(rows[entry['row']]['prompt'],
+                               structure['module_name'], entry['segment'], prefix)
         if (sha(target.encode()) != entry['target_sha256'] or
+                sha(prefix.encode()) != entry['prefix_sha256'] or
                 sha(prompt.encode()) != entry['prompt_sha256']):
             raise ValueError(f'schedule source identity changed at step {entry["step"]}')
         encoded = exact_chat(tokenizer, prompt, target)
         if encoded['response_tokens'] <= 0 or encoded != exact_chat(tokenizer, prompt, target):
             raise ValueError(f'non-deterministic or empty target at step {entry["step"]}')
         records.append(dict(
-            step=entry['step'], row=entry['row'], request=entry['request'],
+            step=entry['step'], row=entry['row'], segment=entry['segment'],
+            segment_count=entry['segment_count'], prefix_sha256=entry['prefix_sha256'],
             target_sha256=entry['target_sha256'], prompt_sha256=entry['prompt_sha256'],
-            target_char_count=len(target), prompt_tokens=encoded['prompt_tokens'],
+            target_char_count=len(target), prefix_char_count=len(prefix),
+            prompt_tokens=encoded['prompt_tokens'],
             response_tokens=encoded['response_tokens'],
             input_ids_sha256=sha(json.dumps(encoded['input_ids'], separators=(',', ':')).encode()),
             labels_sha256=sha(json.dumps(encoded['labels'], separators=(',', ':')).encode())))
@@ -410,6 +320,11 @@ def validate_preflight(args):
     by_step = {item['step']: item for item in value['records']}
     if set(by_step) != set(range(1, BUDGET['steps'] + 1)):
         raise ValueError('complete preflight step inventory required')
+    if any(not isinstance(item.get('segment'), int) or
+           not isinstance(item.get('segment_count'), int) or
+           not isinstance(item.get('prefix_sha256'), str)
+           for item in value['records']):
+        raise ValueError('matched-prefix segment identity missing')
     return value, by_step
 
 
@@ -432,12 +347,12 @@ def evaluate_protected(net, tokenizer, rows, output, phase, tasks, sany_identity
         plan = dict(raw_reply='', raw_reply_sha256=sha(b''), output_tokens=0,
                     finish_reason='not_used', deadline_exceeded=False,
                     elapsed_seconds=0.)
-        item = dict(row=row, phase=phase, module_name=module, plan=plan)
+        item = dict(row=row, phase=phase, module_name=module,
+                    stream_contract='matched_prefix_state_v1', plan=plan)
         for segment in range(BUDGET['stream_segments']):
-            prompt = stream_prompt(source['prompt'], module, assembled)
+            prompt = stream_prompt(source['prompt'], module, segment, assembled)
             generated = multi.decode(
-                net, tokenizer, prompt_only(tokenizer, prompt),
-                forced_prefix=f'---- MODULE {module} ----\n' if segment == 0 else None)
+                net, tokenizer, prompt_only(tokenizer, prompt))
             parts.append(dict(segment=segment, generation=generated))
             try:
                 stream.feed(generated['raw_reply'])
@@ -502,15 +417,15 @@ def train(args):
     encodings = []
     for entry in manifest['schedule']:
         structure = structures[entry['row']]
-        target = target_for(entry['row'], entry['request'], rows, structures)
-        prompt = stage_prompt(
-            rows[entry['row']]['prompt'], structure['module_name'], entry['request'],
-            plan=plan_text(structure['module_name'], structure)
-            if entry['request'] != 'plan' else None)
+        target = target_for(entry['row'], entry['segment'], rows, structures)
+        prefix = prefix_for(entry['row'], entry['segment'], rows, structures)
+        prompt = stream_prompt(rows[entry['row']]['prompt'],
+                               structure['module_name'], entry['segment'], prefix)
         encoded = base.exact_chat(tokenizer, prompt, target)
         record = preflight_by_step[entry['step']]
         if (sha(prompt.encode()) != record['prompt_sha256'] or
                 sha(target.encode()) != record['target_sha256'] or
+                sha(prefix.encode()) != record['prefix_sha256'] or
                 sha(json.dumps(encoded['input_ids'], separators=(',', ':')).encode()) != record['input_ids_sha256'] or
                 sha(json.dumps(encoded['labels'], separators=(',', ':')).encode()) != record['labels_sha256']):
             raise ValueError(f'actual worker tokenizer differs at step {entry["step"]}')
@@ -562,7 +477,8 @@ def train(args):
         if any(not bool(torch.isfinite(parameter).all())
                for parameter in selected.values()):
             raise ValueError(f'nonfinite adapter after step {step}')
-        item = dict(step=step, row=entry['row'], request=entry['request'],
+        item = dict(step=step, row=entry['row'], segment=entry['segment'],
+                    segment_count=entry['segment_count'],
                     target_sha256=entry['target_sha256'], loss=metric['loss'],
                     target_top1=metric['target_top1'],
                     target_tokens=metric['target_tokens'], gradient_norm=grad)
@@ -581,7 +497,7 @@ def train(args):
         raise ValueError('structure-first child did not change finitely')
     config = dict(
         kind=EXPERIMENT_KIND,
-        algorithm='planner plus lossless module-part response-only SFT; fresh AdamW',
+        algorithm='matched-prefix lossless stream response-only SFT; fresh AdamW',
         packet_sha256=PACKET_SHA, parent_sha256=PARENT_SHA,
         structure_probe_sha256=PROBE_SHA, manifest_sha256=args.manifest_sha256,
         budget=BUDGET, source_sha256=manifest['source_sha256'],
@@ -634,7 +550,7 @@ def train(args):
         sany_identity=sany_identity, preflight=preflight,
         generated_feedback_used_for_training=False, replay_negatives_loaded=False,
         protected_targets_never_train=True, validation_targets_never_train=True,
-        clean_reference_targets_only=True, planner_target_is_derived_structure_only=True,
+        clean_reference_targets_only=True, planner_target_is_derived_structure_only=False,
         model_improvement_claim=False, quality_claim=False, gate_claim=False,
         proof_claim=False, generalization_claim=False, tlc_claim=False,
         nonvacuity_claim=False)

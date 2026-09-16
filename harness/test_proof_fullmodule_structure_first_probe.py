@@ -1,7 +1,7 @@
 """Lightweight tests for the CPU-only structure-first decomposition."""
 
 from tools import proof_fullmodule_structure_first_probe as probe
-from tools import proof_fullmodule_structure_first_sft_train as worker
+from tools import proof_fullmodule_streaming_sft_train as stream_worker
 from tools.proof_fullmodule_streaming_parser_admission import ModuleStream
 
 
@@ -46,40 +46,27 @@ def test_decompose_keeps_comments_and_footer_bytes_exact():
                    for p in structure['parts']) == text
 
 
-def test_structure_first_plan_contract_and_forced_eos_boundary():
-    structure = {
-        'parts': [
-            {'kind': 'header', 'id': 'header'},
-            {'kind': 'declarations', 'id': 'declarations'},
-            {'kind': 'operator', 'id': 'operator-000-Init', 'index': 0},
-            {'kind': 'footer', 'id': 'footer'},
-        ]
-    }
-    plan = worker.plan_text('Demo', structure)
-    parsed = worker.parse_plan(plan, 'Demo')
-    assert [part['id'] for part in parsed] == [
-        'header', 'declarations', 'operator-000-Init', 'footer']
-    try:
-        worker.parse_plan('---- MODULE Demo ----\n====\n', 'Demo')
-    except ValueError as exc:
-        assert str(exc) == 'plan envelope mismatch'
-    else:
-        raise AssertionError('raw TLA must not satisfy the plan envelope')
-
-    class InputIds:
-        def __init__(self, values): self.values = values
-        def tolist(self): return [self.values]
-
-    class Scores:
-        def __init__(self): self.assignments = []
-        def __setitem__(self, key, value): self.assignments.append((key, value))
-
-    processor = worker.ForceEosAfterPlan([4, 5], 9, prompt_tokens=2)
-    scores = Scores()
-    processor(InputIds([1, 2, 3, 4, 5]), scores)
-    assert scores.assignments == [((0, slice(None)), float('-inf')), ((0, 9), 0.0)]
-    assert worker.PLAN_PREFIX == 'STRUCTURE-FIRST PLAN\nMODULE: '
-    assert worker.PLAN_STOP == 'END PLAN\n'
+def test_matched_stream_segments_are_lossless_and_prompt_identity_is_shared():
+    response = (
+        '---- MODULE Demo ----\n'
+        'EXTENDS Naturals\n'
+        'Init == TRUE\n'
+        'Next == TRUE\n'
+        '====\n'
+    )
+    structure = probe.decompose(response)
+    segments = stream_worker.stream_segments(response, structure, count=4)
+    assert len(segments) == 4
+    assert ''.join(segments) == response
+    for segment, prefix in enumerate(
+            (''.join(segments[:i]) for i in range(len(segments)))):
+        prompt = stream_worker.stream_prompt('TASK', 'Demo', segment, prefix)
+        assert f'SEGMENT: {segment}\n' in prompt
+        if prefix:
+            assert stream_worker.sha(prefix.encode()) in prompt
+            assert prompt.endswith('Continue immediately after the prefix.\n')
+        else:
+            assert prompt.endswith('Begin with the exact module header line.\n')
 
 
 def test_incremental_stream_rejects_structural_corruption():
