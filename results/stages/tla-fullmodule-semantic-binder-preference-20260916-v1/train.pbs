@@ -29,8 +29,10 @@ PACKET="$RUN_ROOT/packet.json"
 JAR="$BASE/tools/tla2tools.jar"
 SOURCE=/home/eric-spencer/tla-structured-span-train-20260914-v3/result.7618905/policy_optimizer.pt
 MANIFEST="$PREFERENCE_ROOT/preflight/manifest.json"
-STORAGE_ROOT=/grand/EVITA/eric-spencer/tla-fullmodule-semantic-binder-preference-20260916-v1
+STORAGE_ROOT=/tmp/tla-fullmodule-semantic-binder-preference-20260916-v1-${PBS_JOBID%%.*}
+ARCHIVE_ROOT=/tmp/tla-fullmodule-semantic-binder-preference-20260916-v1-archive-${PBS_JOBID%%.*}
 mkdir -p "$STORAGE_ROOT"
+ssh -o BatchMode=yes -o ConnectTimeout=10 polaris "mkdir -p '$ARCHIVE_ROOT'"
 START="$STORAGE_ROOT/start.${PBS_JOBID%%.*}.pt"
 test -f "$PACKET" -a -f "$JAR" -a -f "$SOURCE" -a -f "$MANIFEST"
 test "$(sha256sum "$PACKET" | awk '{print $1}')" = a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c
@@ -45,3 +47,5 @@ test ! -e "$OUT"
   --packet "$PACKET" --jar "$JAR" --java "$JAVA_HOME/bin/java" --output "$OUT" \
   --manifest "$MANIFEST" --manifest-sha256 "$PREFERENCE_MANIFEST_SHA" \
   --checkpoint "$START" --model "$MODEL_PATH"
+test -f "$OUT/policy_optimizer.pt"
+scp -q -o BatchMode=yes -o ConnectTimeout=10 -r "$OUT" "polaris:$ARCHIVE_ROOT/"
