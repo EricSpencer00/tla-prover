@@ -4,8 +4,8 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 668
-- Verified UTC: 2026-09-16T01:22:30Z
+- Revision: 669
+- Verified UTC: 2026-09-16T01:29:29Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: local_work
 - Active job: none
@@ -13,7 +13,7 @@ This is the only execution board. It records verified observations, not continuo
 - Latest completed result: Job7626339 is a complete bounded negative: the append-only v2 selector fix produced complete receipts for both protected rows and exited F/Exit0 after00:02:01 with one GPU. Independent pinned SANY controls pass4/4; baseline is0/2 and layout-aware repair is0/2. Both repairs exhaust512 tokens without grammar termination and remain SANY-rejected. No quality, gate, proof, or model-improvement claim is made.
 - Local work: Structural-curriculum v3, corruption-preference v2, multilayer LoRA v3, the narrow and wide full-sequence contrastive diagnostics and the grammar frontier audit remain preserved and committed; large base checkpoints stay outside Git. The wide run has complete raw evidence and remains a negative diagnostic: protected rows47/107 stay fixed holdouts, no generated feedback/replay was loaded, and the programmatic Discord watchdog remains live. The full-replay beam and cache-aware v1 ranked-greedy repair are preserved as bounded negatives and will not be replayed unchanged. The independent receipt scorer confirms the v1 grammar over-accepts the same SANY precedence failures it was designed to leave permissive. The layout-aware stage is a distinct constrained decoder: it enforces a CPU-audited same-indent junction guard before grammar-token commitment, without post-hoc byte repair, training, or reference conditioning.
 - External blocker: none verified
-- Next action: Use the exact SANY precedence failures to prepare a CPU-only precedence guard audit: reject only top-level mixed definition expressions whose RHS does not begin with a junction bullet, plus the observed quantified-junction/prime case. Require0/438 known-good false rejects and candidate hits for rows47/107 before any new GPU claim; no post-hoc repair or gate claim is allowed.
+- Next action: Transfer append-only v3, run fresh remote SHA/compile/CLI/checkpoint/queue guards and CPU preflight, then claim/submit at most one bounded one-GPU diagnostic only if all guards pass. Independently score complete outputs with SANY; no post-hoc repair or gate claim is allowed.
 
 ## Objective and evidence rules
 
@@ -455,6 +455,7 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 - 2026-09-16T01:13:00Z: Append-only layout-aware v2 changes only the selector audit reference to apply the same layout guard as ranked candidate selection. Local SHA/compile/CLI guards pass; remote SHA256SUMS, exact child hash, CPU preflight79384bd, no weights/CUDA, protected prompt/reference counts401/457 and226/673, all synthetic controls, empty result namespace and empty owned queue pass. Claim b3228ed3 binds the new runner/selector/PBS identity for one GPU and00:15:00; submit only after a fresh final check.
 - 2026-09-16T01:19:54Z: Fresh final SHA/checkpoint/result-namespace/owned-queue guards passed and claimed v2 was submitted exactly once as job7626339. PBS reports R on x3203c0s37b0n0/0*64 in debug with one GPU,64 CPUs and00:15:00 walltime; no receipt, SANY score, quality result, or gate claim exists.
 - 2026-09-16T01:22:30Z: Job7626339 finished F/Exit0 after00:02:01 with complete row47/107 receipts. Row47 accepted89 baseline tokens and repaired512; row107 accepted248 and repaired512; both grammar_ended=false. Independent scorer controls are4/4, baseline SANY is0/2 and layout-aware repair SANY is0/2. SANY logs retain row47 precedence conflict on the repaired quantified junction and row107 precedence conflict on the unchanged same-line mixed definition. This is a complete negative; no quality, gate, proof, or model-improvement claim.
+- 2026-09-16T01:29:29Z: The CPU-only precedence guard audit covers438 known-good modules with0 false rejects and flags the exact v2 repaired row47 quantified-junction/prime lines plus row107 same-line mixed-definition lines. Append-only v3 applies those guards during token commitment, preserves the same frozen packet/child/rows/budgets, passes local SHA/compile/CLI/smoke checks, and has no GPU result or gate claim. Remote admission is next.
 
 ## Board maintenance
 
@@ -472,8 +473,8 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 668,
-  "verified_utc": "2026-09-16T01:22:30Z",
+  "revision": 669,
+  "verified_utc": "2026-09-16T01:29:29Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "local_work",
   "active_job": null,
@@ -481,7 +482,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
   "last_result": "Job7626339 is a complete bounded negative: the append-only v2 selector fix produced complete receipts for both protected rows and exited F/Exit0 after00:02:01 with one GPU. Independent pinned SANY controls pass4/4; baseline is0/2 and layout-aware repair is0/2. Both repairs exhaust512 tokens without grammar termination and remain SANY-rejected. No quality, gate, proof, or model-improvement claim is made.",
   "local_work": "Structural-curriculum v3, corruption-preference v2, multilayer LoRA v3, the narrow and wide full-sequence contrastive diagnostics and the grammar frontier audit remain preserved and committed; large base checkpoints stay outside Git. The wide run has complete raw evidence and remains a negative diagnostic: protected rows47/107 stay fixed holdouts, no generated feedback/replay was loaded, and the programmatic Discord watchdog remains live. The full-replay beam and cache-aware v1 ranked-greedy repair are preserved as bounded negatives and will not be replayed unchanged. The independent receipt scorer confirms the v1 grammar over-accepts the same SANY precedence failures it was designed to leave permissive. The layout-aware stage is a distinct constrained decoder: it enforces a CPU-audited same-indent junction guard before grammar-token commitment, without post-hoc byte repair, training, or reference conditioning.",
   "external_blocker": null,
-  "next_action": "Use the exact SANY precedence failures to prepare a CPU-only precedence guard audit: reject only top-level mixed definition expressions whose RHS does not begin with a junction bullet, plus the observed quantified-junction/prime case. Require0/438 known-good false rejects and candidate hits for rows47/107 before any new GPU claim; no post-hoc repair or gate claim is allowed.",
+  "next_action": "Transfer append-only v3, run fresh remote SHA/compile/CLI/checkpoint/queue guards and CPU preflight, then claim/submit at most one bounded one-GPU diagnostic only if all guards pass. Independently score complete outputs with SANY; no post-hoc repair or gate claim is allowed.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -968,7 +969,8 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "2026-09-16T01:10:55Z: Job7626286 finished F/Exit1 after00:01:31 on x3204c0s1b0n0/0*64. The model loaded, then the selector failed its audit because the layout-filtered ranked choice37915 differed from the dense grammar-only reference24445; no receipt or row output exists. Preserve the log/terminal evidence as a runtime negative and do not replay v1 unchanged.",
     "2026-09-16T01:13:00Z: Append-only layout-aware v2 changes only the selector audit reference to apply the same layout guard as ranked candidate selection. Local SHA/compile/CLI guards pass; remote SHA256SUMS, exact child hash, CPU preflight79384bd, no weights/CUDA, protected prompt/reference counts401/457 and226/673, all synthetic controls, empty result namespace and empty owned queue pass. Claim b3228ed3 binds the new runner/selector/PBS identity for one GPU and00:15:00; submit only after a fresh final check.",
     "2026-09-16T01:19:54Z: Fresh final SHA/checkpoint/result-namespace/owned-queue guards passed and claimed v2 was submitted exactly once as job7626339. PBS reports R on x3203c0s37b0n0/0*64 in debug with one GPU,64 CPUs and00:15:00 walltime; no receipt, SANY score, quality result, or gate claim exists.",
-    "2026-09-16T01:22:30Z: Job7626339 finished F/Exit0 after00:02:01 with complete row47/107 receipts. Row47 accepted89 baseline tokens and repaired512; row107 accepted248 and repaired512; both grammar_ended=false. Independent scorer controls are4/4, baseline SANY is0/2 and layout-aware repair SANY is0/2. SANY logs retain row47 precedence conflict on the repaired quantified junction and row107 precedence conflict on the unchanged same-line mixed definition. This is a complete negative; no quality, gate, proof, or model-improvement claim."
+    "2026-09-16T01:22:30Z: Job7626339 finished F/Exit0 after00:02:01 with complete row47/107 receipts. Row47 accepted89 baseline tokens and repaired512; row107 accepted248 and repaired512; both grammar_ended=false. Independent scorer controls are4/4, baseline SANY is0/2 and layout-aware repair SANY is0/2. SANY logs retain row47 precedence conflict on the repaired quantified junction and row107 precedence conflict on the unchanged same-line mixed definition. This is a complete negative; no quality, gate, proof, or model-improvement claim.",
+    "2026-09-16T01:29:29Z: The CPU-only precedence guard audit covers438 known-good modules with0 false rejects and flags the exact v2 repaired row47 quantified-junction/prime lines plus row107 same-line mixed-definition lines. Append-only v3 applies those guards during token commitment, preserves the same frozen packet/child/rows/budgets, passes local SHA/compile/CLI/smoke checks, and has no GPU result or gate claim. Remote admission is next."
   ],
   "history": [
     "[Pre-reconciliation board; contains superseded claims](../results/board-history/board-686630068adb988bfde97c9bf5c8b18644721f0cd14ef92d438e03a76aa03886.md)"
@@ -1663,7 +1665,20 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "results/runs/tla-prefix-repair-layout-aware-20260916-v2/sany/summary.json",
     "results/runs/tla-prefix-repair-layout-aware-20260916-v2/sany/controls.json",
     "results/runs/tla-prefix-repair-layout-aware-20260916-v2/sany/rows.json",
-    "tools/score_layout_aware_receipt.py"
+    "tools/score_layout_aware_receipt.py",
+    "tools/precedence_guard_audit.py",
+    "results/runs/tla-prefix-repair-layout-aware-20260916-v2/precedence-guard-audit.json",
+    "results/stages/tla-prefix-repair-layout-aware-20260916-v3/protected_layout_aware_repair.py",
+    "results/stages/tla-prefix-repair-layout-aware-20260916-v3/layout_aware_greedy_grammar_selector.py",
+    "results/stages/tla-prefix-repair-layout-aware-20260916-v3/layout_junction_audit.py",
+    "results/stages/tla-prefix-repair-layout-aware-20260916-v3/precedence_guard.py",
+    "results/stages/tla-prefix-repair-layout-aware-20260916-v3/protected_checkpoint_preflight.py",
+    "results/stages/tla-prefix-repair-layout-aware-20260916-v3/packet.json",
+    "results/stages/tla-prefix-repair-layout-aware-20260916-v3/canonical-preflight-corpus-20260911.json",
+    "results/stages/tla-prefix-repair-layout-aware-20260916-v3/tla_module_v1.ebnf",
+    "results/stages/tla-prefix-repair-layout-aware-20260916-v3/protected_layout_aware_repair_polaris.pbs",
+    "results/stages/tla-prefix-repair-layout-aware-20260916-v3/SHA256SUMS",
+    "results/stages/tla-prefix-repair-layout-aware-20260916-v3/stage-validation.json"
   ]
 }
 -->
