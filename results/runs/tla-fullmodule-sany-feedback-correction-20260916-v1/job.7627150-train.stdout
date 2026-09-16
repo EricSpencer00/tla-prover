@@ -1,0 +1,46 @@
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/291 [00:00<?, ?it/s]Loading weights:   3%|▎         | 10/291 [00:00<00:02, 98.44it/s]Loading weights:   7%|▋         | 20/291 [00:00<00:04, 55.34it/s]Loading weights:  11%|█         | 32/291 [00:00<00:04, 55.62it/s]Loading weights:  14%|█▍        | 41/291 [00:00<00:04, 61.81it/s]Loading weights:  16%|█▋        | 48/291 [00:00<00:04, 59.81it/s]Loading weights:  19%|█▉        | 55/291 [00:00<00:03, 60.13it/s]Loading weights:  21%|██▏       | 62/291 [00:01<00:04, 50.02it/s]Loading weights:  25%|██▍       | 72/291 [00:01<00:04, 51.52it/s]Loading weights:  28%|██▊       | 82/291 [00:01<00:03, 60.48it/s]Loading weights:  31%|███       | 90/291 [00:01<00:03, 59.78it/s]Loading weights:  34%|███▍      | 99/291 [00:01<00:02, 64.04it/s]Loading weights:  36%|███▋      | 106/291 [00:01<00:03, 57.30it/s]Loading weights:  39%|███▉      | 114/291 [00:01<00:03, 55.43it/s]Loading weights:  41%|████      | 120/291 [00:02<00:04, 37.17it/s]Loading weights:  43%|████▎     | 125/291 [00:02<00:04, 35.58it/s]Loading weights:  45%|████▍     | 130/291 [00:02<00:04, 35.74it/s]Loading weights:  54%|█████▎    | 156/291 [00:02<00:01, 74.17it/s]Loading weights:  57%|█████▋    | 165/291 [00:02<00:01, 70.74it/s]Loading weights:  59%|█████▉    | 173/291 [00:03<00:02, 58.79it/s]Loading weights:  62%|██████▏   | 180/291 [00:03<00:02, 54.34it/s]Loading weights:  64%|██████▍   | 186/291 [00:03<00:01, 54.75it/s]Loading weights:  66%|██████▌   | 192/291 [00:03<00:01, 53.50it/s]Loading weights:  70%|███████   | 205/291 [00:03<00:01, 64.84it/s]Loading weights:  73%|███████▎  | 212/291 [00:03<00:01, 54.73it/s]Loading weights:  77%|███████▋  | 225/291 [00:03<00:01, 62.07it/s]Loading weights:  81%|████████  | 235/291 [00:04<00:00, 66.16it/s]Loading weights:  83%|████████▎ | 242/291 [00:04<00:01, 48.54it/s]Loading weights:  86%|████████▋ | 251/291 [00:04<00:00, 54.27it/s]Loading weights:  89%|████████▊ | 258/291 [00:04<00:00, 55.89it/s]Loading weights:  91%|█████████ | 265/291 [00:04<00:00, 51.88it/s]Loading weights:  93%|█████████▎| 271/291 [00:04<00:00, 46.73it/s]Loading weights: 100%|██████████| 291/291 [00:04<00:00, 58.25it/s]
+{"step": 1, "feedback_loss": 0.019523218739777803, "anchor_loss": 0.587993323802948}
+{"step": 2, "feedback_loss": 0.013495210791006684, "anchor_loss": 0.4764712005853653}
+{"step": 3, "feedback_loss": 0.00845149764791131, "anchor_loss": 0.5244040042161942}
+{"step": 4, "feedback_loss": 0.017668509855866432, "anchor_loss": 0.2783610373735428}
+{"step": 5, "feedback_loss": 0.007651845691725612, "anchor_loss": 0.47788678109645844}
+{"step": 6, "feedback_loss": 0.013303718063980341, "anchor_loss": 0.47491154074668884}
+{"step": 7, "feedback_loss": 0.017754453234374523, "anchor_loss": 0.37852974236011505}
+{"step": 8, "feedback_loss": 0.010694581782445312, "anchor_loss": 0.6191940009593964}
+{"step": 9, "feedback_loss": 0.10921632312238216, "anchor_loss": 0.6158102750778198}
+{"step": 10, "feedback_loss": 0.017211362719535828, "anchor_loss": 0.4213242083787918}
+{"step": 11, "feedback_loss": 0.0913991336710751, "anchor_loss": 0.4204827845096588}
+{"step": 12, "feedback_loss": 0.018096908926963806, "anchor_loss": 0.5282657593488693}
+{"step": 13, "feedback_loss": 0.01409066841006279, "anchor_loss": 0.38516731560230255}
+{"step": 14, "feedback_loss": 0.01982273580506444, "anchor_loss": 0.7684539556503296}
+{"step": 15, "feedback_loss": 0.01640222640708089, "anchor_loss": 0.6206641495227814}
+{"step": 16, "feedback_loss": 0.019293775781989098, "anchor_loss": 0.5872020423412323}
+Traceback (most recent call last):
+  File "/home/eric-spencer/tla-fullmodule-sany-feedback-correction-20260916-v1/tools/proof_fullmodule_sany_feedback_correction_train.py", line 737, in <module>
+    train(args)
+  File "/home/eric-spencer/tla-fullmodule-sany-feedback-correction-20260916-v1/tools/proof_fullmodule_sany_feedback_correction_train.py", line 653, in train
+    child_probe = net(input_ids=torch.tensor([probe_ids], device='cuda'), use_cache=False).logits[:, -1].float().cpu()
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1779, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1790, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/transformers/utils/generic.py", line 887, in wrapper
+    output = func(self, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/transformers/models/llama/modeling_llama.py", line 487, in forward
+    logits = self.lm_head(hidden_states[:, slice_indices, :])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1779, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1790, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/torch/nn/modules/linear.py", line 134, in forward
+    return F.linear(input, self.weight, self.bias)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: expected mat1 and mat2 to have the same dtype, but got: float != c10::BFloat16

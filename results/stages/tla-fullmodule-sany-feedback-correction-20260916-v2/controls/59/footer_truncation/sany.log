@@ -1,0 +1,25 @@
+
+****** SANY2 Version 2.1 created 24 February 2014
+
+Parsing file /Users/eric/GitHub/prove-TLA/results/stages/tla-fullmodule-sany-feedback-correction-20260916-v1/prepared-v2/controls/59/footer_truncation/W4Od17m5p1t1.tla
+***Parse Error***
+Encountered "Beginning of definition" at line 60, column 42 and token "." 
+
+Residual stack trace follows:
+ExtendableExpr starting at line 60, column 40.
+Expression starting at line 60, column 40.
+Quantified form starting at line 60, column 19.
+Expression starting at line 60, column 19.
+Definition starting at line 60, column 1.
+
+
+Fatal errors while parsing TLA+ spec in file W4Od17m5p1t1.tla
+
+tla2sany.semantic.AbortException
+*** Abort messages: 1
+
+In module W4Od17m5p1t1
+
+Could not parse module W4Od17m5p1t1 from file W4Od17m5p1t1.tla
+
+

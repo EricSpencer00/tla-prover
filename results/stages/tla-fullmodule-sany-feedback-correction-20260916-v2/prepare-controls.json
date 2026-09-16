@@ -1,0 +1,11 @@
+{
+  "controls_ok": true,
+  "reference_controls": 22,
+  "pair_count": 105,
+  "protected_rows": [
+    47,
+    107
+  ],
+  "protected_rows_touched": false,
+  "target_text_used_only_as_training_label": true
+}

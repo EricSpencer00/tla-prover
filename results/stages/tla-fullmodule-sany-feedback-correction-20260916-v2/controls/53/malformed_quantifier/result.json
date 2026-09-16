@@ -1,0 +1,6 @@
+{
+  "status": "model_reject",
+  "passed": false,
+  "returncode": 255,
+  "diagnostic": "Encountered \"\\in\" at line 29, column 11 and token \"\\\\A\""
+}
