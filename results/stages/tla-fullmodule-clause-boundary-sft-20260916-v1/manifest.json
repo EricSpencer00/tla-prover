@@ -1,0 +1,213 @@
+{
+  "kind": "fullmodule_clause_boundary_sft_v1",
+  "packet_sha256": "a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c",
+  "parent_checkpoint_sha256": "87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511",
+  "train_rows": [
+    42,
+    43,
+    44,
+    45,
+    46,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58
+  ],
+  "validation_rows": [
+    59,
+    60,
+    61,
+    62,
+    63,
+    64
+  ],
+  "protected_rows": [
+    47,
+    107
+  ],
+  "budget": {
+    "steps": 12,
+    "accumulation": 2,
+    "lr": 5e-05,
+    "rank": 8,
+    "alpha": 16,
+    "base_weight": 0.25,
+    "boundary_weight": 10.0,
+    "clause_context_weight": 2.0,
+    "newline_weight": 3.0,
+    "eos_weight": 24.0,
+    "seed": 20260916,
+    "training_seconds": 480,
+    "max_new_tokens": 2048,
+    "generation_seconds": 60,
+    "sany_seconds": 30,
+    "adapter_layers": [
+      28,
+      29,
+      30,
+      31
+    ],
+    "adapter_targets": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj",
+      "gate_proj",
+      "up_proj",
+      "down_proj"
+    ],
+    "objective": "clause_boundary_continuation_clean_reference_sft"
+  },
+  "sany_jar_sha256": "936a262061c914694dfd669a543be24573c45d5aa0ff20a8b96b23d01e050e88",
+  "pairs": [
+    {
+      "row": 42,
+      "id": "w4-fullmodule:w4opus::d14-m4-p0-t4",
+      "split": "train",
+      "response_sha256": "39d35a34deda13d950e72efaf0641e1d6c0ef980a9d75bd8260a57290be1c910"
+    },
+    {
+      "row": 43,
+      "id": "w4-fullmodule:w4opus::d13-m7-p1-t4",
+      "split": "train",
+      "response_sha256": "0adf63f07aa9367cc90de5f7d12d0be303549f42c660729dfa6e10620f1c8194"
+    },
+    {
+      "row": 44,
+      "id": "w4-fullmodule:w4opus::d0-m0-p1-t0",
+      "split": "train",
+      "response_sha256": "1014e9b256c188e24ba4374d5125099d0af0475df5883896bdb41ca683bc7f94"
+    },
+    {
+      "row": 45,
+      "id": "w4-fullmodule:w4opus::d18-m9-p1-t2",
+      "split": "train",
+      "response_sha256": "bad6c0dff5965a7363ecf1abf1a6a3faab714ad81cceff6c88b223cd62dac9fb"
+    },
+    {
+      "row": 46,
+      "id": "w4-fullmodule:w4opus::d13-m1-p5-t1",
+      "split": "train",
+      "response_sha256": "9f436f4463f97528db6c948e1d0befd03bd20d18cdb14065d53af6d40827872c"
+    },
+    {
+      "row": 48,
+      "id": "w4-fullmodule:w4opus::d10-m0-p4-t2",
+      "split": "train",
+      "response_sha256": "6c6c0796360ee046b8b1151ebd5beab54cb51e367b2ecba3fff48cdd7dc66c7a"
+    },
+    {
+      "row": 49,
+      "id": "w4-fullmodule:w4opus::d1-m0-p0-t5",
+      "split": "train",
+      "response_sha256": "2167983adbb1e282fd81f4aeb4f6572acba44fa1db9abdb2e783c449cbd0c23c"
+    },
+    {
+      "row": 50,
+      "id": "w4-fullmodule:w4opus::d10-m2-p0-t3",
+      "split": "train",
+      "response_sha256": "4eb9d23b701851e2039a5d2c00696cd9b618d68204778295ba38187c3ed30378"
+    },
+    {
+      "row": 51,
+      "id": "w4-fullmodule:w4opus::d4-m2-p0-t1",
+      "split": "train",
+      "response_sha256": "ae56c12d774b6daa7440e132fc988e8d057c3a10590a97cec75898baab7e2a22"
+    },
+    {
+      "row": 52,
+      "id": "w4-fullmodule:w4opus::d19-m7-p2-t1",
+      "split": "train",
+      "response_sha256": "769f844aaa3a81ab2a77b59922b84824d678c071468f8ab3b96bd5be021e7132"
+    },
+    {
+      "row": 53,
+      "id": "w4-fullmodule:w4opus::d12-m7-p3-t1",
+      "split": "train",
+      "response_sha256": "53db414f719adaeb58a9890f7164294c44d16721963b31b855ad648be147d66c"
+    },
+    {
+      "row": 54,
+      "id": "w4-fullmodule:w4opus::d17-m2-p2-t4",
+      "split": "train",
+      "response_sha256": "cb2e00379b73e285cd76a024755c357e9947aec239d4b14a74388eb89776c107"
+    },
+    {
+      "row": 55,
+      "id": "w4-fullmodule:w4opus::d14-m8-p3-t1",
+      "split": "train",
+      "response_sha256": "8be5178f8ac92665e3ec72ab2e71d7252a97ac4bfe0cb54e3e558600fcfce314"
+    },
+    {
+      "row": 56,
+      "id": "w4-fullmodule:w4opus::d16-m3-p3-t1",
+      "split": "train",
+      "response_sha256": "370c233b2b83340ab9973c1ce2420a930786fcb80e56c3c33a7db179ab2ce6ff"
+    },
+    {
+      "row": 57,
+      "id": "w4-fullmodule:w4opus::d12-m1-p6-t5",
+      "split": "train",
+      "response_sha256": "cc4e338038b796251b2e1a98e7482a75b910e6cbfceb953beb9d0ca24796e686"
+    },
+    {
+      "row": 58,
+      "id": "w4-fullmodule:w4opus::d12-m8-p5-t0",
+      "split": "train",
+      "response_sha256": "5e3d633c0525479a98a81a339de060809b3fed0743666c4ba53541eedff87a6b"
+    },
+    {
+      "row": 59,
+      "id": "w4-fullmodule:w4opus::d17-m5-p1-t1",
+      "split": "validation",
+      "response_sha256": "d363d2179a91f476fe1047e496df3e7cfeae24a54d8422b5672351a8265b6bd7"
+    },
+    {
+      "row": 60,
+      "id": "w4-fullmodule:w4opus::d14-m2-p2-t1",
+      "split": "validation",
+      "response_sha256": "02da4343b3f670e13f69d7a879b102e3988f040a3901f98584a6d2ae4f24e5d5"
+    },
+    {
+      "row": 61,
+      "id": "w4-fullmodule:w4opus::d18-m8-p6-t4",
+      "split": "validation",
+      "response_sha256": "c3706eff466c602ba477bfb7b53c83ded57353df7aa2daa17d6af0f69c9a02e6"
+    },
+    {
+      "row": 62,
+      "id": "w4-fullmodule:w4opus::d1-m2-p2-t0",
+      "split": "validation",
+      "response_sha256": "1ae202ef3a51da76886ac4e2e6bf46ad1343d21bebfd1aaf92f4ade3935754e5"
+    },
+    {
+      "row": 63,
+      "id": "w4-fullmodule:w4opus::d6-m2-p2-t3",
+      "split": "validation",
+      "response_sha256": "a7026cc81181b89417536a350a1066cfe041bccdfef129aff30fab675457b697"
+    },
+    {
+      "row": 64,
+      "id": "w4-fullmodule:w4opus::d0-m9-p0-t2",
+      "split": "validation",
+      "response_sha256": "8d49269fb7805d0a70e66b646449dfc254aabfc5e51bd388179bd64202e566d1"
+    }
+  ],
+  "clean_reference_targets_only": true,
+  "generated_feedback_loaded": false,
+  "replay_negatives_loaded": false,
+  "protected_targets_never_train": true,
+  "quality_claim": false,
+  "gate_claim": false,
+  "proof_claim": false,
+  "generalization_claim": false,
+  "tlc_claim": false,
+  "nonvacuity_claim": false
+}
