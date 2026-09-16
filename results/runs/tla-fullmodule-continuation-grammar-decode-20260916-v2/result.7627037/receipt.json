@@ -1,0 +1,103 @@
+{
+  "schema": 1,
+  "kind": "fullmodule_continuation_grammar_decode_v1",
+  "complete": true,
+  "packet_sha256": "a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c",
+  "parent_checkpoint_sha256": "87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511",
+  "adapter_checkpoint_sha256": "e8a1395685c5c5c4d9311361fcea1e354d3decb4cf46b94cffab8831e936e69a",
+  "model_files": {
+    "config.json": "29e4c210b0d6ac178b16b2a255a568bdb23b581e50ca1ef6a6d071dd85704e6e",
+    "generation_config.json": "189fb0c0d7fd8a527db217c0a60a0e013f0394cd8800f9697a666a9e75e5f7fd",
+    "model-00001-of-00004.safetensors": "2b1879f356aed350030bb40eb45ad362c89d9891096f79a3ab323d3ba5607668",
+    "model-00002-of-00004.safetensors": "09d433f650646834a83c580877bd60c6d1f88f7755305c12576b5c7058f9af15",
+    "model-00003-of-00004.safetensors": "fc1cdddd6bfa91128d6e94ee73d0ce62bfcdb7af29e978ddcab30c66ae9ea7fa",
+    "model-00004-of-00004.safetensors": "92ecfe1a2414458b4821ac8c13cf8cb70aed66b5eea8dc5ad9eeb4ff309d6d7b",
+    "model.safetensors.index.json": "146776fce3f6db1103aa6f249e65ee5544c5923ce6f971b092eee79aa6e5d37b",
+    "special_tokens_map.json": "6f38c73729248f6c127296386e3cdde96e254636cc58b4169d3fd32328d9a8ec",
+    "tokenizer.json": "79e3e522635f3171300913bb421464a87de6222182a0570b9b2ccba2a964b2b4",
+    "tokenizer_config.json": "177c7b61e616fecb84c17ce0591acb92c6c4d60e9ac5ababfb940ff23bbcd424"
+  },
+  "protected_prompt_tokens": {
+    "47": {
+      "prompt_sha256": "32eb750d7db375df72e8e93d929ac3e5c7a365d50a915202c62db6e3d675877f",
+      "prompt_tokens": 401
+    },
+    "107": {
+      "prompt_sha256": "388d75fc27a48d38ccb3fd0258a72ddfd1b9dbb0852b0b058057521e8eaafb51",
+      "prompt_tokens": 457
+    }
+  },
+  "rows": [
+    47,
+    107
+  ],
+  "records": [
+    {
+      "row": 47,
+      "prompt_tokens": 401,
+      "prompt_tokens_match_frozen": true,
+      "baseline_reply": "---- MODULE W4Od2m7p4t2 ----\nEXTENDS Naturals\nCONSTANTS Dispatchers, Cap\nVARIABLES active, readSnapshots\nvars == <<active, readSnapshots>>\n\nInit ==\n  /\\ active = 0\n  /\\ readSnapshots = [d \\in Dispatchers |-> 0]\n\nActiveWithinCapacity ==\n  /\\ active \\in 0..Cap\n  /\\ readSnapshots \\in [d \\in Dispatchers |-> 0..active]\n\nNext ==\n  /\\ \\E d \\in Dispatchers : readSnapshots[d] < active\n    /\\ \\E d \\in Dispatchers : readSnapshots' = readSnapshots \\cup {[d |-> readSnapshots[d] + 1]}\n    /\\ UNCHANGED <<active>>\n  \\/ \\E d \\in Dispatchers : \\E d' \\in Dispatchers : readSnapshots[d] = readSnapshots[d']\n    /\\ \\E d \\in Dispatchers : readSnapshots[d] < Cap\n    /\\ \\E d \\in Dispatchers : readSnapshots' = readSnapshots \\cup {[d |-> readSnapshots[d] + 1]}\n    /\\ UNCHANGED <<active>>\n  \\/ \\E d \\in Dispatchers : active' = active - 1\n    /\\ UNCHANGED <<readSnapshots>>\n\nSpec == Init /\\ [][Next]_vars\n\n====",
+      "baseline_reply_sha256": "296c909062c25e670f233344662a7dde1199cb8692e5c3f216e5e3edf5a5cfa7",
+      "repaired_reply": "---- MODULE W4Od2m7p4t2 ----\nEXTENDS Naturals\nCONSTANTS Dispatchers, Cap\nVARIABLES active, readSnapshots\nvars == <<active, readSnapshots>>\n\nInit ==\n  /\\ active = 0\n  /\\ readSnapshots = [d \\in Dispatchers |-> 0]\n\nActiveWithinCapacity ==\n  /\\ active \\in 0..Cap\n  /\\ readSnapshots \\in [d \\in Dispatchers |-> 0..active]\n\nNext ==\n  /\\ \\E d \\in Dispatchers : readSnapshots[d] < active\n    /\\ \\E d \\in Dispatchers : readSnapshots' = readSnapshots \\cup {[d |-> readSnapshots[d] + 1]}\n    /\\ UNCHANGED <<active>>\n  \\/ \\E d \\in Dispatchers : \\E d1 \\in Dispatchers : d1 # d /\\ readSnapshots[d1] < active\n    \\/ \\E d \\in Dispatchers : readSnapshots[d] < active /\\ readSnapshots[d] # readSnapshots[d]\n    \\/ \\E d \\in Dispatchers : readSnapshots' = readSnapshots \\cup {[d |-> readSnapshots[d] + 1]}\n    \\/ \\E d \\in Dispatchers, d1 \\in Dispatchers : readSnapshots[d1] < active /\\ readSnapshots[d1] # readSnapshots[d]\n      /\\ UNCHANGED <<active>>\n      /\\ UNCHANGED readSnapshots\n  \\/ \\E d \\in Dispatchers : readSnapshots[d] = active\n    \\/ \\E d \\in Dispatchers : readSnapshots[d] < Cap /\\ readSnapshots[d] # readSnapshots[d]\n      /\\ UNCHANGED <<active>>\n      /\\ UNCHANGED readSnapshots\n  \\/ \\E d \\in Dispatchers : active < Cap /\\ UNCHANGED <<active>>\n    \\/ \\E d \\in Dispatchers : UNCHANGED readSnapshots\n  \\/ \\E d \\in Dispatchers : active < Cap /\\ UNCHANGED <<active>>\n    \\/ \\E d \\in Dispatchers : UNCHANGED readSnapshots\n  \\/ \\E d \\in Dispatchers : active < Cap /\\ UNCHANGED <<active>>\n    \\/ \\E d \\in Dispatchers : UNCHANGED readSnapshots\n  \\/ \\E d \\in Dispatchers : active < Cap /\\ UNCHANGED <<active>>\n    \\/ \\E d \\in Dispatchers : UNCHANGED readSnapshots\n  \\/ \\E d \\in Dispatchers : active < Cap /\\ UNCHANGED <<active>>\n    \\/ \\E d \\in Dispatchers : UNCHANGED readSnapshots\n  \\/ \\E d \\in Dispatchers : active < Cap /\\ UNCHANGED <<active>>\n    \\/ \\E d \\in Dispatchers : UNCHANGED readSnapshots\n  \\/ \\E d \\in Dispatchers : active < Cap /\\ UNCHANGED <<active>>\n    \\/ \\E d \\in Dispatchers : UNCHANGED readSnapshots\n  \\/ \\E d \\in Dispatchers : active < Cap /\\ UNCHANGED <<active>>\n    \\/ \\E d \\in Dispatchers : UNCHANGED readSnapshots\n  \\/ \\E d \\in Dispatchers : active < Cap /\\ UN",
+      "repaired_reply_sha256": "e5a5be2660507f96f86f0c7730cfe60a6363beb09dce6f7537acaeec87e5de28",
+      "baseline_response_tokens": 296,
+      "accepted_prefix_tokens": 179,
+      "first_rejected_response_token": 179,
+      "repaired_response_tokens": 691,
+      "repair_tokens": 512,
+      "grammar_ended": false,
+      "backtrack_attempts": [],
+      "backtrack_windows": [
+        64,
+        128,
+        256,
+        512
+      ],
+      "protected_reference_conditioning": false,
+      "training": false,
+      "supplied_reference_credit": false,
+      "gate_claim": false,
+      "model_improvement_claim": false
+    },
+    {
+      "row": 107,
+      "prompt_tokens": 457,
+      "prompt_tokens_match_frozen": true,
+      "baseline_reply": "---- MODULE W4Od3m0p0t0 ----\nEXTENDS Naturals\nCONSTANTS Banks, Ledger, Lock\nVARIABLES snapshot, lastBank\nvars == <<Banks, Ledger, Lock, snapshot, lastBank>>\n\nInit ==\n    /\\ snapshot = [b \\in Banks |-> \"free\"]\n    /\\ lastBank = \"none\"\n    /\\ \\A b \\in Banks : b \\in Banks /\\ \"idle\" \\in b\n\nNext ==\n    /\\ \\E b \\in Banks : b \\in Banks /\\ \"idle\" \\in b /\\ snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"reading\"}}\n    \\/ \\E b \\in Banks : snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}}\n    /\\ \\A b \\in Banks : snapshot[b] \\in {\"free\", \"reading\", \"posting\"}\n    /\\ \\A b \\in Banks : snapshot' \\in {\"idle\"} \\cup {\"reading\"} \\cup {\"posting\"}\n    /\\ \\A b \\in Banks : snapshot' \\in {\"idle\"} \\cup {\"reading\"} \\cup {\"posting\"} => snapshot[b] \\in {\"idle\"} \\cup {\"reading\"} \\cup {\"posting\"}\n    /\\ \\A b \\in Banks : snapshot' \\in {\"idle\"} \\cup {\"reading\"} \\cup {\"posting\"} => snapshot' \\in {\"idle\"} \\cup {\"reading\"} \\cup {\"posting\"}\n    /\\ \\A b \\in Banks : snapshot' \\in {\"idle\"} \\cup {\"reading\"} \\cup {\"posting\"} => snapshot[b] \\in {\"idle\"} \\cup {\"reading\"} \\cup {\"posting\"}\n    /\\ \\E b \\in Banks : snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"idle\"}}\n    /\\ \\E b \\in Banks : snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"crashed\"}}\n    /\\ \\E b \\in Banks : snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"rebooting\"}}\n    /\\ \\E b \\in Banks : snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}}\n    /\\ Lock' = \"none\"\n    /\\ \\E b \\in Banks : snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}} => Lock' = b\n    /\\ \\E b \\in Banks : snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}} => snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}}\n    /\\ \\E b \\in Banks : snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}} => snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}}\n    /\\ \\E b \\in Banks : snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}} => snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}}\n    /\\ \\E b \\in Banks : snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}} => snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}}\n    /\\ \\E b \\in Banks : snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}} => snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}}\n    /\\ \\E b \\in Banks : snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}} => snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}}\n    /\\ \\E b \\in Banks : snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}} => snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}}\n    /\\ \\E b \\in Banks : snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}} => snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}}\n    /\\ \\E b \\in Banks : snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}} => snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}}\n    /\\ \\E b \\in Banks : snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}} => snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}}\n    /\\ \\E b \\in Banks : snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}} => snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}}\n    /\\ \\E b \\in Banks : snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}} => snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}}\n    /\\ \\E b \\in Banks : snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}} => snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}}\n    /\\ \\E b \\in Banks : snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}} => snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}}\n    /\\ \\E b \\in Banks : snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}} => snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}}\n    /\\ \\E b \\in Banks : snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}} => snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}}\n    /\\ \\E b \\in Banks : snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}} => snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}}\n    /\\ \\E b \\in Banks : snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}} => snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}}\n    /\\ \\E b \\in Banks : snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}} => snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}}\n    /\\ \\E b \\in Banks : snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}} => snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}}\n    /\\ \\E b \\in Banks : snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}} => snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}}\n    /\\ \\E b \\in Banks : snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}} => snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}}\n    /\\ \\E b \\in Banks : snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}} => snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}}\n    /\\ \\E b \\in Banks : snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}} => snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}}\n    /\\ \\E b \\in Banks : snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}} => snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}}\n    /\\ \\E b \\in Banks : snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}} => snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}}\n    /\\ \\E b \\in Banks : snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}} => snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}}\n    /\\ \\E b \\in Banks : snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}} => snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}}\n    /\\ \\E b \\in Banks : snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}} => snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}}\n    /\\ \\E b \\in Banks : snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}} => snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}}\n    /\\ \\E b \\in Banks : snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}} => snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}}\n    /\\ \\E b \\in Banks : snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}} => snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}}\n    /\\ \\E b \\in Banks : snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}} => snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}}\n    /\\ \\E b \\in Banks : snapshot' = snapshot \\cup {b |-> snapshot[b] \\cup {\"posting\"}} => snapshot' =",
+      "baseline_reply_sha256": "0fcb217680dabc79d44b63638cbde806b4f7ce7aaceeb1d9738fb953f4458df5",
+      "repaired_reply": "---- MODULE W4Od3m0p0t0 ----\nEXTENDS Naturals\nCONSTANTS Banks, Ledger, Lock\nVARIABLES snapshot, lastBank\nvars == <<Banks, Ledger, Lock, snapshot, lastBank>>\n\nInit ==\n    /\\ snapshot = [b \\in Banks |-> \"free\"]\n    /\\ lastBank = \"none\"\n    /\\ \\A b \\in Banks : b \\in Banks /\\ \"idle\" \\in b\n\nNext ==\n    /\\ \\E b \\in Banks : b \\in Banks /\\ \"idle\" \\in b /\\ snapshot' = snapshot \\cup {b | snapshot[b] = \"free\"}\n    /\\ \\A b \\in Banks : snapshot' \\in {\"idle\", \"posting\"}\n    /\\ \\A b \\in Banks : snapshot' \\in {\"idle\", \"posting\"} => snapshot[b] \\in {\"idle\", \"posting\"}\n    /\\ \\A b \\in Banks : snapshot' \\in {\"idle\", \"posting\"} => snapshot' \\in {\"idle\", \"posting\"}\n    /\\ \\A b \\in Banks : snapshot' \\in {\"idle\", \"posting\"} => snapshot' \\in {\"idle\", \"posting\"}\n    /\\ \\A b \\in Banks : snapshot' \\in {\"idle\", \"posting\"} => snapshot' \\in {\"idle\", \"posting\"}\n    /\\ \\A b \\in Banks : snapshot' \\in {\"idle\", \"posting\"} => snapshot' \\in {\"idle\", \"posting\"}\n    /\\ \\A b \\in Banks : snapshot' \\in {\"idle\", \"posting\"} => snapshot' \\in {\"idle\", \"posting\"}\n    /\\ \\A b \\in Banks : snapshot' \\in {\"idle\", \"posting\"} => snapshot' \\in {\"idle\", \"posting\"}\n    /\\ \\A b \\in Banks : snapshot' \\in {\"idle\", \"posting\"} => snapshot' \\in {\"idle\", \"posting\"}\n    /\\ \\A b \\in Banks : snapshot' \\in {\"idle\", \"posting\"} => snapshot' \\in {\"idle\", \"posting\"}\n    /\\ \\A b \\in Banks : snapshot' \\in {\"idle\", \"posting\"} => snapshot' \\in {\"idle\", \"posting\"}\n    /\\ \\A b \\in Banks : snapshot' \\in {\"idle\", \"posting\"} => snapshot' \\in {\"idle\", \"posting\"}\n    /\\ \\A b \\in Banks : snapshot' \\in {\"idle\", \"posting\"} => snapshot' \\in {\"idle\", \"posting\"}\n    /\\ \\A b \\in Banks : snapshot' \\in {\"idle\", \"posting\"} => snapshot' \\in {\"idle\", \"posting\"}\n    /\\ \\A b \\in Banks : snapshot' \\in {\"idle\", \"posting\"} => snapshot' \\in {\"idle\", \"posting\"}\n    /\\ \\A b \\in Banks : snapshot' \\in {\"idle\", \"posting\"} => snapshot' \\in {\"idle\", \"posting\"}\n    /\\ \\A b \\in Banks : snapshot' \\in {\"idle\", \"posting\"} => snapshot' \\in {\"idle\", \"posting\"}\n    /\\ \\A b",
+      "repaired_reply_sha256": "13b5fc9276ea7e367a494aa250abfd005e759b69051380b5454f202282e0fa23",
+      "baseline_response_tokens": 2048,
+      "accepted_prefix_tokens": 128,
+      "first_rejected_response_token": 128,
+      "repaired_response_tokens": 640,
+      "repair_tokens": 512,
+      "grammar_ended": false,
+      "backtrack_attempts": [],
+      "backtrack_windows": [
+        64,
+        128,
+        256,
+        512
+      ],
+      "protected_reference_conditioning": false,
+      "training": false,
+      "supplied_reference_credit": false,
+      "gate_claim": false,
+      "model_improvement_claim": false
+    }
+  ],
+  "grammar_sha256": "2bcc86946f0a858628f455a3d0648c7117e2b780743e1f25dff82cebd0fb4d67",
+  "corpus_sha256": "fb76468f6a3217a359d54da92a2e3fa25396aad0547e6b5eb35129193a0e812a",
+  "xgrammar_version": "0.2.2",
+  "restored_parent_exact": true,
+  "restored_adapter_exact": true,
+  "prefix_preserving": true,
+  "reference_conditioning": false,
+  "training": false,
+  "gate_claim": false,
+  "model_improvement_claim": false,
+  "proof_claim": false,
+  "tlc_claim": false,
+  "nonvacuity_claim": false
+}

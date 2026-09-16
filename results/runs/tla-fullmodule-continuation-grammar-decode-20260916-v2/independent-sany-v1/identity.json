@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "kind": "fullmodule_independent_decoder_sany_audit_v1",
+  "receipt_sha256": "cddf18adc1ff09527d224d529eb96997e9ac565c7f3ea175250897c14d3fb028",
+  "packet_sha256": "a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c",
+  "jar_sha256": "936a262061c914694dfd669a543be24573c45d5aa0ff20a8b96b23d01e050e88",
+  "source_sha256": "baf1ac63e52c6b4ca3b0b097166606d1cc1050c973f11e299825a232d518e266",
+  "scorer_sha256": "e684b2f776bee62cbec4aa86e2312aa12238b7adfafe91b903a1cdab8df507b5",
+  "classifier_sha256": "c9a8c1496fc75c7aa051a2e6d0f0eb79550c56ac713a51d098f4164891c78efd",
+  "embedded_decoder_labels_ignored": true
+}
