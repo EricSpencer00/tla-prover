@@ -1,0 +1,21 @@
+{
+  "task": {
+    "id": "w4opus::d2-m7-p4-t2",
+    "index": 197,
+    "module_name": "W4Od2m7p4t2",
+    "dependencies": {},
+    "source": {
+      "path": "/home/eric-spencer/tla-fullmodule-sany-feedback-correction-20260916-v2/result.7627172/reference/47/W4Od2m7p4t2.tla",
+      "sha256": "36c548d2a475c0d086ddf0340f927b36002699ce86e955d702e061324ad2f07c"
+    },
+    "description": {
+      "path": "/home/eric-spencer/tla-fullmodule-sany-feedback-correction-20260916-v2/result.7627172/reference/47/description.txt",
+      "sha256": "51af01e46cddacbe5a7b184d8a676e76907d896d1fce0f2020e8f52626214d5f"
+    },
+    "config": {
+      "path": "/home/eric-spencer/tla-fullmodule-sany-feedback-correction-20260916-v2/result.7627172/reference/47/configuration.cfg",
+      "sha256": "c0425fbaa10f14c2ffe86a0adcc830bfbbc1a49adffbc005df4d4fc0e726e653"
+    }
+  },
+  "raw_reply": "---- MODULE W4Od2m7p4t2 ----\nCONSTANTS Dispatchers, Cap\n\nVARIABLES active, readSnap, dispatcher\n\nvars == <<active, readSnap, dispatcher>>\n\nInit == active = 0 /\\ readSnap = [d \\in Dispatchers :-> 0] /\\ dispatcher \\in Dispatchers\n\nActiveWithinCapacity == active <= Cap /\\ readSnap \\in [d \\in Dispatchers :->[0, Cap]]\n\nNext == \\E d \\in dispatcher : (\n    readSnap[d] < active \\/ \n    ((readSnap[d] = active /\\ active <Cap /\\ active' = active +  1) /\\ dispatcher' = d) \\/ \n    (readSnap' = [d' \\in dispatcher :-> IF d' = d THEN  readSnap[d] ELSE readSnap[d']]) \n)\n\nSpec ==Init /\\ [][Next]_vars\n===="
+}

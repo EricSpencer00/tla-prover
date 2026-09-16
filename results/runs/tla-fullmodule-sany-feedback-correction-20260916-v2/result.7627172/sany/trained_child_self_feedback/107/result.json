@@ -1,0 +1,54 @@
+{
+  "task_sha256": "f41f0aa75a65643e5c0a0cad6841dca2268b8473aa8c66ba1cc1a932c9f4fc35",
+  "raw_reply_sha256": "c5c819a8f763f6fe868d32d8cd32951170d015d9abe52fb548c8776a18b611f6",
+  "module": "---- MODULE W4Od3m0p0t0 ----\nCONSTANTS Banks, Ledger, Rebooted, Crashed\nVARIABLES snapshot, holder, Lock, Ledger', Rebooted', Crashed'\nvars == <<snapshot, holder, Lock, Ledger', Crashed>>\n\nInit == snapshot = [b |-> \"free\" : b \\in Banks] /\\ holder = \"none\" /\\ Lock = \"none\" /\\ Ledger = {} /\\ Crashed = [b |-> F : b \\in Banks]\n\nNext == \\/ crash(b) \\/ reboot(b) \\/ idle(b) \\/ compareAndSet(b) \\/ post(b)\ncrush(b) == snapshot' = snapshot \\ {b} /\\ holder' = \"none\" /\\ Crashed' = [Crashed EXCEPT![b] = T]\nreboot(b) == snapshot' = snapshot  \\/ snapshot' = [b | -> \"free\"] /\\ holder' =  \"none\" /\\ Rebooted' = [Rebooted EXCEPT![b] = T] \nidle(b) == snapshot' = [snapshot EXCEPT![b] = \"free\"] /\\ holder' = [holder EXCEPT![b] = \"none\"] \ncompareAndSet(b) == snapshot' = [snap |-> snap' : snap \\in snapshot \\ {b}] /\\ holder' = [holder EXcept![b] = \"none\"] /\\ snapshot' = [snapshot EXCEPT ![b] = \"held by \" \\union {b}] /\\ Lock' = b\npost(b) == snapshot' = snapshot' = [snap |-> b : snap \\in snapshot] /\\ holder' = b /\\ Lock = b /\\ Ledger' = Ledger  \\cup {b}\n\nMutEx ==\n    \\A b \\in Banks : holder  = \"none\" => snapshot[b] = \"free\"\n    \\A b \\in Banks, snap \\in \"free\" \\cup \"held by \" \\cup {snap : snap \\in snapshot} : snapshot' = [snap |-> snapshot[b]] => snap = snapshot[b]\n    \\A b \\in Banks  : holder  = b => snapshot[b] = snapshot[b]\n    \\A c \\in Banks : snapshot[b]  = snapshot[b] => snapshot[b] = snapshot[b] \n    \\A b \\in Banks, snap \\in snapshot : snapshot[b] = snap => snapshot[b] = snap\n    \\A b \\in Banks: snapshot[b] = \"held by\" \\cup {b} => holder = b\n    \\A b \\in  Banks : snapshot[b] = \"held by \\cup {b} => holder  = b\n    \\A b, c \\in Banks : snapshot[b]= snapshot[c] => b = c\n    \\A b \\in Bank : snapshot[b] = \"free \" => snapshot[b] = \"free \"\n    \\A b \\in Banks   : snapshot[b] = \"held  by \" \\cup {b} => snapshot[b] = \"held  \" \\cup {b}\n    \\A b \\in Banks    : snapshot[b] = \"held \" \\cup {b} => holder   = b\n    \\A b  \\in Banks : snapshot[b]   = snapshot[b]\n    \\A a, b \\in Banks : snapshot[a] = snapshot[b] => a = b\n    \\A b,c \\in Banks : snapshot[b] \\cup snapshot[c] => snapshot[b] = snapshot[c]\n    \\A b \\in Bank: snapshot[b] = snapshot[b]\nSpec == Init /\\ [][Next \\* vars]_vars\n====",
+  "module_sha256": "c5c819a8f763f6fe868d32d8cd32951170d015d9abe52fb548c8776a18b611f6",
+  "status": "model_sany_reject",
+  "sany": 0,
+  "process": {
+    "command": [
+      "/lus/grand/projects/EVITA/eric-spencer/tools/jre21/bin/java",
+      "-Djava.io.tmpdir=/home/eric-spencer/tla-fullmodule-sany-feedback-correction-20260916-v2/result.7627172/sany/trained_child_self_feedback/107/jtmp",
+      "-DTLA-Library=/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1/tools/tlapm/lib/tlapm/stdlib:/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1/tools/community-modules:/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1/tools/extra-modules",
+      "-cp",
+      "/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1/tools/tla2tools.jar",
+      "tla2sany.SANY",
+      "W4Od3m0p0t0.tla"
+    ],
+    "cwd": "/home/eric-spencer/tla-fullmodule-sany-feedback-correction-20260916-v2/result.7627172/sany/trained_child_self_feedback/107",
+    "root_pid": 2528142,
+    "root_reaped": true,
+    "returncode": 255,
+    "output": "\n****** SANY2 Version 2.1 created 24 February 2014\n\nParsing file /home/eric-spencer/tla-fullmodule-sany-feedback-correction-20260916-v2/result.7627172/sany/trained_child_self_feedback/107/W4Od3m0p0t0.tla\n***Parse Error***\nWas expecting \"==== or more Module body\"\nEncountered \"'\" at line 3, column 41 and token \"Ledger\" \n\nResidual stack trace follows:\nModule definition starting at line 1, column 1.\n\n\nFatal errors while parsing TLA+ spec in file W4Od3m0p0t0.tla\n\ntla2sany.semantic.AbortException\n*** Abort messages: 1\n\nIn module W4Od3m0p0t0\n\nCould not parse module W4Od3m0p0t0 from file W4Od3m0p0t0.tla\n\n\n",
+    "seconds": 0.18031782214529812,
+    "timed_out": false,
+    "output_complete": true,
+    "output_limit": false,
+    "cleanup_complete": true,
+    "surviving_owned_processes": [],
+    "owned_processes": [
+      {
+        "pid": 2528142,
+        "created": 1789541750.93,
+        "pgid": 2528142
+      }
+    ],
+    "signals": [],
+    "errors": [],
+    "execution_complete": true,
+    "containment": "Best-effort ancestry polling; instantaneous unobserved reparenting is not excluded"
+  },
+  "syntax_only": true,
+  "timeout_seconds": 30,
+  "command": [
+    "/lus/grand/projects/EVITA/eric-spencer/tools/jre21/bin/java",
+    "-Djava.io.tmpdir=/home/eric-spencer/tla-fullmodule-sany-feedback-correction-20260916-v2/result.7627172/sany/trained_child_self_feedback/107/jtmp",
+    "-DTLA-Library=/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1/tools/tlapm/lib/tlapm/stdlib:/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1/tools/community-modules:/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1/tools/extra-modules",
+    "-cp",
+    "/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1/tools/tla2tools.jar",
+    "tla2sany.SANY",
+    "W4Od3m0p0t0.tla"
+  ],
+  "dependency_sha256": {},
+  "seconds": 0.19635164993815124
+}

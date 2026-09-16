@@ -1,0 +1,54 @@
+{
+  "task_sha256": "f41f0aa75a65643e5c0a0cad6841dca2268b8473aa8c66ba1cc1a932c9f4fc35",
+  "raw_reply_sha256": "a73854c7ad249a15f1471cac6442dc8d37df3b11f1ba76557bf6ebc91e90c751",
+  "module": "---- MODULE W4Od3m0p0t0 ----\nEXTENDS Naturals\nCONSTANTS Banks, Ledger, Lock\nVARIABLES snapshot, holder\nvars == <<snapshot, holder>>\n\nInit == snapshot = [b \\in Banks |-> \"free\"] /\\ holder = \"none\"\n\nNext == \\/ crash(b) \\/ idle(b) \\/ post(b)\ncrash(b) == snapshot' = snapshot /\\ holder' = \"none\"\nidle(b) == snapshot' = snapshot \\/ snapshot' = [b |-> \"free\"] /\\ holder' = \"none\"\npost(b) == snapshot' = [b |-> snapshot[b]] /\\ holder' = b /\\ Lock' = b /\\ Ledger' = Ledger \\cup {b}\n\nMutEx == \\A b \\in Banks : snapshot[b] = \"free\" => holder = \"none\"\n\\A b \\in Banks : snapshot' = [b |-> snap] => snap = snapshot[b]\n\\A b \\in Banks : holder = b => snapshot[b] = \"held by \" \\cup {b}\n\\A b \\in Banks : Lock = b => holder = b\n\\A b \\in Banks : \\E l \\in Ledger : l = b => holder = b\n\nSpec == Init /\\ [][Next]_vars\n\n====",
+  "module_sha256": "a73854c7ad249a15f1471cac6442dc8d37df3b11f1ba76557bf6ebc91e90c751",
+  "status": "model_sany_reject",
+  "sany": 0,
+  "process": {
+    "command": [
+      "/lus/grand/projects/EVITA/eric-spencer/tools/jre21/bin/java",
+      "-Djava.io.tmpdir=/home/eric-spencer/tla-fullmodule-sany-feedback-correction-20260916-v2/result.7627172/sany/trained_child_ordinary/107/jtmp",
+      "-DTLA-Library=/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1/tools/tlapm/lib/tlapm/stdlib:/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1/tools/community-modules:/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1/tools/extra-modules",
+      "-cp",
+      "/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1/tools/tla2tools.jar",
+      "tla2sany.SANY",
+      "W4Od3m0p0t0.tla"
+    ],
+    "cwd": "/home/eric-spencer/tla-fullmodule-sany-feedback-correction-20260916-v2/result.7627172/sany/trained_child_ordinary/107",
+    "root_pid": 2528089,
+    "root_reaped": true,
+    "returncode": 255,
+    "output": "\n****** SANY2 Version 2.1 created 24 February 2014\n\nParsing file /home/eric-spencer/tla-fullmodule-sany-feedback-correction-20260916-v2/result.7627172/sany/trained_child_ordinary/107/W4Od3m0p0t0.tla\n***Parse Error***\n\n  Precedence conflict between ops \\lor in block line 11, col 33 to line 11, col 34 of module W4Od3m0p0t0 and \\land.\n\nResidual stack trace follows:\nExtendableExpr starting at line 11, column 48.\nExtendableExpr starting at line 11, column 36.\nExtendableExpr starting at line 11, column 24.\nExtendableExpr starting at line 11, column 12.\nExpression starting at line 11, column 12.\n\n\nFatal errors while parsing TLA+ spec in file W4Od3m0p0t0.tla\n\ntla2sany.semantic.AbortException\n*** Abort messages: 1\n\nIn module W4Od3m0p0t0\n\nCould not parse module W4Od3m0p0t0 from file W4Od3m0p0t0.tla\n\n\n",
+    "seconds": 0.18355318694375455,
+    "timed_out": false,
+    "output_complete": true,
+    "output_limit": false,
+    "cleanup_complete": true,
+    "surviving_owned_processes": [],
+    "owned_processes": [
+      {
+        "pid": 2528089,
+        "created": 1789541730.17,
+        "pgid": 2528089
+      }
+    ],
+    "signals": [],
+    "errors": [],
+    "execution_complete": true,
+    "containment": "Best-effort ancestry polling; instantaneous unobserved reparenting is not excluded"
+  },
+  "syntax_only": true,
+  "timeout_seconds": 30,
+  "command": [
+    "/lus/grand/projects/EVITA/eric-spencer/tools/jre21/bin/java",
+    "-Djava.io.tmpdir=/home/eric-spencer/tla-fullmodule-sany-feedback-correction-20260916-v2/result.7627172/sany/trained_child_ordinary/107/jtmp",
+    "-DTLA-Library=/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1/tools/tlapm/lib/tlapm/stdlib:/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1/tools/community-modules:/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1/tools/extra-modules",
+    "-cp",
+    "/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1/tools/tla2tools.jar",
+    "tla2sany.SANY",
+    "W4Od3m0p0t0.tla"
+  ],
+  "dependency_sha256": {},
+  "seconds": 0.19432642799802125
+}

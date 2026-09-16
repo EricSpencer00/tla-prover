@@ -1,0 +1,21 @@
+{
+  "task": {
+    "id": "w4opus::d3-m0-p0-t0",
+    "index": 2603,
+    "module_name": "W4Od3m0p0t0",
+    "dependencies": {},
+    "source": {
+      "path": "/home/eric-spencer/tla-fullmodule-sany-feedback-correction-20260916-v2/result.7627172/reference/107/W4Od3m0p0t0.tla",
+      "sha256": "5f6b169dc010369d4e6f65b7766b7961e44a4df15790988c5763861a06e3e853"
+    },
+    "description": {
+      "path": "/home/eric-spencer/tla-fullmodule-sany-feedback-correction-20260916-v2/result.7627172/reference/107/description.txt",
+      "sha256": "869e43b13fd6ea7e66d9be1f280eb5df00589afcd9dd75319a4ce9b9452cc6a9"
+    },
+    "config": {
+      "path": "/home/eric-spencer/tla-fullmodule-sany-feedback-correction-20260916-v2/result.7627172/reference/107/configuration.cfg",
+      "sha256": "b1c730c107f649bfe2af4b1146e48d6f04128f93143e41be9b65b4a383f3043f"
+    }
+  },
+  "raw_reply": "---- MODULE W4Od3m0p0t0 ----\nEXTENDS Naturals\nCONSTANTS Banks, Ledger, Lock\nVARIABLES snapshot, holder\nvars == <<snapshot, holder>>\n\nInit == snapshot = [b \\in Banks |-> \"free\"] /\\ holder = \"none\"\n\nNext == \\/ crash(b) \\/ idle(b) \\/ post(b)\ncrash(b) == snapshot' = snapshot /\\ holder' = \"none\"\nidle(b) == snapshot' = snapshot \\/ snapshot' = [b |-> \"free\"] /\\ holder' = \"none\"\npost(b) == snapshot' = [b |-> snapshot[b]] /\\ holder' = b /\\ Lock' = b /\\ Ledger' = Ledger \\cup {b}\n\nMutEx == \\A b \\in Banks : snapshot[b] = \"free\" => holder = \"none\"\n\\A b \\in Banks : snapshot' = [b |-> snap] => snap = snapshot[b]\n\\A b \\in Banks : holder = b => snapshot[b] = \"held by \" \\cup {b}\n\\A b \\in Banks : Lock = b => holder = b\n\\A b \\in Banks : \\E l \\in Ledger : l = b => holder = b\n\nSpec == Init /\\ [][Next]_vars\n\n===="
+}

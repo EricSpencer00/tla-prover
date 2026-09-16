@@ -1,0 +1,12 @@
+Several banks share one interbank settlement batch that only one of them may be
+posting to at any instant -- the batch ledger is a critical resource under mutual
+exclusion. A bank enters the critical section using optimistic locking: it reads
+the shared lock register into a private snapshot, and if that snapshot showed the
+register free it attempts a compare-and-set that succeeds only while the register
+is still free, at which point the bank is in the critical section. If the snapshot
+has gone stale it must re-read and retry. On exiting, the bank clears the lock and
+records itself as the last bank to post to the shared ledger. Any bank may crash silently at any time; a
+crashed bank stops participating. A crashed bank may later reboot to idle, and if
+it happened to be holding the lock when it crashed, rebooting also releases that
+lock so others can proceed.
+SAFETY PROPERTY: At any moment at most one bank is in the critical section, because a bank is in the critical section only when the shared lock register names it.

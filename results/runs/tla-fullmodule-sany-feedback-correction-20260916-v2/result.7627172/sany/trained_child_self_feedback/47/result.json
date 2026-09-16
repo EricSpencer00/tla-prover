@@ -1,0 +1,54 @@
+{
+  "task_sha256": "e79d34178c9eb3fbd359dc7e056b0e7f8b1e631b95a14c1a3690738d5f903c94",
+  "raw_reply_sha256": "09ac0ada4b12b209463fa1993b7edc1e405b3ff2a4619155ccbb0d4ed9922649",
+  "module": "---- MODULE W4Od2m7p4t2 ----\nCONSTANTS Dispatchers, Cap\n\nVARIABLES active, readSnap, dispatcher\n\nvars == <<active, readSnap, dispatcher>>\n\nInit == active = 0 /\\ readSnap = [d \\in Dispatchers :-> 0] /\\ dispatcher \\in Dispatchers\n\nActiveWithinCapacity == active <= Cap /\\ readSnap \\in [d \\in Dispatchers :->[0, Cap]]\n\nNext == \\E d \\in dispatcher : (\n    readSnap[d] < active \\/ \n    ((readSnap[d] = active /\\ active <Cap /\\ active' = active +  1) /\\ dispatcher' = d) \\/ \n    (readSnap' = [d' \\in dispatcher :-> IF d' = d THEN  readSnap[d] ELSE readSnap[d']]) \n)\n\nSpec ==Init /\\ [][Next]_vars\n====",
+  "module_sha256": "09ac0ada4b12b209463fa1993b7edc1e405b3ff2a4619155ccbb0d4ed9922649",
+  "status": "model_sany_reject",
+  "sany": 0,
+  "process": {
+    "command": [
+      "/lus/grand/projects/EVITA/eric-spencer/tools/jre21/bin/java",
+      "-Djava.io.tmpdir=/home/eric-spencer/tla-fullmodule-sany-feedback-correction-20260916-v2/result.7627172/sany/trained_child_self_feedback/47/jtmp",
+      "-DTLA-Library=/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1/tools/tlapm/lib/tlapm/stdlib:/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1/tools/community-modules:/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1/tools/extra-modules",
+      "-cp",
+      "/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1/tools/tla2tools.jar",
+      "tla2sany.SANY",
+      "W4Od2m7p4t2.tla"
+    ],
+    "cwd": "/home/eric-spencer/tla-fullmodule-sany-feedback-correction-20260916-v2/result.7627172/sany/trained_child_self_feedback/47",
+    "root_pid": 2528115,
+    "root_reaped": true,
+    "returncode": 255,
+    "output": "\n****** SANY2 Version 2.1 created 24 February 2014\n\nParsing file /home/eric-spencer/tla-fullmodule-sany-feedback-correction-20260916-v2/result.7627172/sany/trained_child_self_feedback/47/W4Od2m7p4t2.tla\n***Parse Error***\nEncountered \":\" at line 8, column 53 and token \"Dispatchers\" \n\nResidual stack trace follows:\nSome [] Form starting at line 8, column 34.\nExtendableExpr starting at line 8, column 34.\nExtendableExpr starting at line 8, column 23.\nExtendableExpr starting at line 8, column 18.\nExtendableExpr starting at line 8, column 9.\n\n\nFatal errors while parsing TLA+ spec in file W4Od2m7p4t2.tla\n\ntla2sany.semantic.AbortException\n*** Abort messages: 1\n\nIn module W4Od2m7p4t2\n\nCould not parse module W4Od2m7p4t2 from file W4Od2m7p4t2.tla\n\n\n",
+    "seconds": 0.17936180299147964,
+    "timed_out": false,
+    "output_complete": true,
+    "output_limit": false,
+    "cleanup_complete": true,
+    "surviving_owned_processes": [],
+    "owned_processes": [
+      {
+        "pid": 2528115,
+        "created": 1789541734.25,
+        "pgid": 2528115
+      }
+    ],
+    "signals": [],
+    "errors": [],
+    "execution_complete": true,
+    "containment": "Best-effort ancestry polling; instantaneous unobserved reparenting is not excluded"
+  },
+  "syntax_only": true,
+  "timeout_seconds": 30,
+  "command": [
+    "/lus/grand/projects/EVITA/eric-spencer/tools/jre21/bin/java",
+    "-Djava.io.tmpdir=/home/eric-spencer/tla-fullmodule-sany-feedback-correction-20260916-v2/result.7627172/sany/trained_child_self_feedback/47/jtmp",
+    "-DTLA-Library=/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1/tools/tlapm/lib/tlapm/stdlib:/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1/tools/community-modules:/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1/tools/extra-modules",
+    "-cp",
+    "/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1/tools/tla2tools.jar",
+    "tla2sany.SANY",
+    "W4Od2m7p4t2.tla"
+  ],
+  "dependency_sha256": {},
+  "seconds": 0.19946712092496455
+}

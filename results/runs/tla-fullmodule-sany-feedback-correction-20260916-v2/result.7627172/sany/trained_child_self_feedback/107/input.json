@@ -1,0 +1,21 @@
+{
+  "task": {
+    "id": "w4opus::d3-m0-p0-t0",
+    "index": 2603,
+    "module_name": "W4Od3m0p0t0",
+    "dependencies": {},
+    "source": {
+      "path": "/home/eric-spencer/tla-fullmodule-sany-feedback-correction-20260916-v2/result.7627172/reference/107/W4Od3m0p0t0.tla",
+      "sha256": "5f6b169dc010369d4e6f65b7766b7961e44a4df15790988c5763861a06e3e853"
+    },
+    "description": {
+      "path": "/home/eric-spencer/tla-fullmodule-sany-feedback-correction-20260916-v2/result.7627172/reference/107/description.txt",
+      "sha256": "869e43b13fd6ea7e66d9be1f280eb5df00589afcd9dd75319a4ce9b9452cc6a9"
+    },
+    "config": {
+      "path": "/home/eric-spencer/tla-fullmodule-sany-feedback-correction-20260916-v2/result.7627172/reference/107/configuration.cfg",
+      "sha256": "b1c730c107f649bfe2af4b1146e48d6f04128f93143e41be9b65b4a383f3043f"
+    }
+  },
+  "raw_reply": "---- MODULE W4Od3m0p0t0 ----\nCONSTANTS Banks, Ledger, Rebooted, Crashed\nVARIABLES snapshot, holder, Lock, Ledger', Rebooted', Crashed'\nvars == <<snapshot, holder, Lock, Ledger', Crashed>>\n\nInit == snapshot = [b |-> \"free\" : b \\in Banks] /\\ holder = \"none\" /\\ Lock = \"none\" /\\ Ledger = {} /\\ Crashed = [b |-> F : b \\in Banks]\n\nNext == \\/ crash(b) \\/ reboot(b) \\/ idle(b) \\/ compareAndSet(b) \\/ post(b)\ncrush(b) == snapshot' = snapshot \\ {b} /\\ holder' = \"none\" /\\ Crashed' = [Crashed EXCEPT![b] = T]\nreboot(b) == snapshot' = snapshot  \\/ snapshot' = [b | -> \"free\"] /\\ holder' =  \"none\" /\\ Rebooted' = [Rebooted EXCEPT![b] = T] \nidle(b) == snapshot' = [snapshot EXCEPT![b] = \"free\"] /\\ holder' = [holder EXCEPT![b] = \"none\"] \ncompareAndSet(b) == snapshot' = [snap |-> snap' : snap \\in snapshot \\ {b}] /\\ holder' = [holder EXcept![b] = \"none\"] /\\ snapshot' = [snapshot EXCEPT ![b] = \"held by \" \\union {b}] /\\ Lock' = b\npost(b) == snapshot' = snapshot' = [snap |-> b : snap \\in snapshot] /\\ holder' = b /\\ Lock = b /\\ Ledger' = Ledger  \\cup {b}\n\nMutEx ==\n    \\A b \\in Banks : holder  = \"none\" => snapshot[b] = \"free\"\n    \\A b \\in Banks, snap \\in \"free\" \\cup \"held by \" \\cup {snap : snap \\in snapshot} : snapshot' = [snap |-> snapshot[b]] => snap = snapshot[b]\n    \\A b \\in Banks  : holder  = b => snapshot[b] = snapshot[b]\n    \\A c \\in Banks : snapshot[b]  = snapshot[b] => snapshot[b] = snapshot[b] \n    \\A b \\in Banks, snap \\in snapshot : snapshot[b] = snap => snapshot[b] = snap\n    \\A b \\in Banks: snapshot[b] = \"held by\" \\cup {b} => holder = b\n    \\A b \\in  Banks : snapshot[b] = \"held by \\cup {b} => holder  = b\n    \\A b, c \\in Banks : snapshot[b]= snapshot[c] => b = c\n    \\A b \\in Bank : snapshot[b] = \"free \" => snapshot[b] = \"free \"\n    \\A b \\in Banks   : snapshot[b] = \"held  by \" \\cup {b} => snapshot[b] = \"held  \" \\cup {b}\n    \\A b \\in Banks    : snapshot[b] = \"held \" \\cup {b} => holder   = b\n    \\A b  \\in Banks : snapshot[b]   = snapshot[b]\n    \\A a, b \\in Banks : snapshot[a] = snapshot[b] => a = b\n    \\A b,c \\in Banks : snapshot[b] \\cup snapshot[c] => snapshot[b] = snapshot[c]\n    \\A b \\in Bank: snapshot[b] = snapshot[b]\nSpec == Init /\\ [][Next \\* vars]_vars\n===="
+}
