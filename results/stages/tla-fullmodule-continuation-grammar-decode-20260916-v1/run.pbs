@@ -13,7 +13,7 @@ RUN_ROOT=/home/eric-spencer/tla-parent-broader-sany-replay-20260915-v1
 cd "$STAGE"
 set -o noclobber
 exec > "job.${PBS_JOBID%%.*}.log" 2>&1
-export PYTHONPATH="$STAGE/tools:$RUN_ROOT:$BASE"
+export PYTHONPATH="$STAGE:$STAGE/tools:$RUN_ROOT:$BASE"
 export TLA_TOOLS_PATHS="$STAGE/tools:$RUN_ROOT/tools:$BASE/tools"
 export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false
 export HF_HOME=/grand/EVITA/eric-spencer/hf-cache PYTHONUNBUFFERED=1

@@ -11,7 +11,7 @@
   "repair_helper_sha256": "ce6e343ec20f0077572a19500bf0bf8ad97f3a1550d58e6654aad158abacd78b",
   "selector_sha256": "125643d5be99521b7ce0653a6ac62bf49f5faf97bca0a7d5d93ca5a8df25c196",
   "comment_guard_sha256": "6e3117afee2544bb41bc95278ee2e61a224efdf7a287b9177293026c192cbed2",
-  "pbs_sha256": "681a454eb7c519f80bfbe354136cbd8981276a4447bd349c1d8029c30dc18800",
+  "pbs_sha256": "ac1b5a0e2e13fb9ae5845d7fb410168c8ba227a72ee38184495aff46208fc7ff",
   "contract": {
     "rows": [47, 107],
     "max_new_tokens": 2048,
