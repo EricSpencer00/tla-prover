@@ -1,0 +1,33 @@
+#!/bin/bash
+# Prefix-preserving grammar repair with traced bounded guard-aware rollback.
+# The guard is applied during constrained decoding; no post-hoc byte repair,
+# training, reference conditioning, or protected-gate credit is permitted.
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-layout-repair
+#PBS -l select=1:system=polaris:ngpus=1
+#PBS -l walltime=00:15:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+set -euo pipefail
+STAGE=/home/eric-spencer/tla-prefix-repair-layout-aware-20260916-v8
+cd "$STAGE"
+set -o noclobber
+exec > "job.${PBS_JOBID%%.*}.log" 2>&1
+export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false
+export HF_HOME=/grand/EVITA/eric-spencer/hf-cache PYTHONUNBUFFERED=1
+export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 CC=/usr/bin/gcc CXX=/usr/bin/g++
+MODEL=/grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659
+CHECKPOINT=/home/eric-spencer/tla-structured-span-train-20260914-v3/result.7618905/policy_optimizer.pt
+XGRAMMAR_SITE=/grand/EVITA/eric-spencer/tla-checkpoint-preflight-deps/xgrammar-0.2.2-cp312
+sha256sum -c SHA256SUMS
+timeout --signal=TERM --kill-after=10s 840s /home/eric-spencer/ChatTLA/.venv/bin/python -u -B protected_layout_aware_repair.py \
+  --packet "$STAGE/packet.json" \
+  --corpus "$STAGE/canonical-preflight-corpus-20260911.json" \
+  --grammar "$STAGE/tla_module_v1.ebnf" \
+  --model "$MODEL" \
+  --checkpoint "$CHECKPOINT" \
+  --xgrammar-site "$XGRAMMAR_SITE" \
+  --output "$STAGE/result.${PBS_JOBID%%.*}" \
+  --max-new-tokens 2048 --repair-max-new-tokens 512 --selector-audit-steps 4 \
+  --backtrack-windows 64 128 256 512
