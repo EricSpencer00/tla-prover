@@ -2,6 +2,7 @@
 
 from tools import proof_fullmodule_structure_first_probe as probe
 from tools import proof_fullmodule_streaming_sft_train as stream_worker
+from tools import fullmodule_structure_first_independent_audit as audit
 from tools.proof_fullmodule_streaming_parser_admission import ModuleStream
 
 
@@ -67,6 +68,28 @@ def test_matched_stream_segments_are_lossless_and_prompt_identity_is_shared():
             assert prompt.endswith('Continue immediately after the prefix.\n')
         else:
             assert prompt.endswith('Begin with the exact module header line.\n')
+
+
+def test_independent_audit_does_not_score_rejected_partial_stream():
+    raw = 'not a module'
+    record = {
+        'row': 47,
+        'plan': {
+            'raw_reply': '',
+            'raw_reply_sha256': audit.sha('').lower(),
+        },
+        'parts': [{
+            'segment': 0,
+            'generation': {
+                'raw_reply': raw,
+                'raw_reply_sha256': audit.sha(raw),
+            },
+        }],
+        'stream_reject': 'module stream must begin with one header',
+        'assembled_sha256': None,
+        'assembled_char_count': 0,
+    }
+    assert audit.verify_record(record, record) == ''
 
 
 def test_incremental_stream_rejects_structural_corruption():

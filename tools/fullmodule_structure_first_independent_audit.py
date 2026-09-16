@@ -49,9 +49,29 @@ def verify_record(record, saved):
     parts = record.get("parts")
     if not isinstance(parts, list):
         raise ValueError(f"parts inventory missing for row {record.get('row')}")
-    assembled = "".join(
-        part["generation"]["raw_reply"] for part in parts
-    )
+    raw_parts = []
+    for part in parts:
+        generation = part.get("generation") or {}
+        raw_reply = generation.get("raw_reply", "")
+        if sha(raw_reply) != generation.get("raw_reply_sha256"):
+            raise ValueError(f"stream-part digest mismatch for row {record.get('row')}")
+        raw_parts.append(raw_reply)
+
+    # A parser rejection is a measured decoder failure, not a candidate. The
+    # receipt still has to account exactly for the accepted prefix, while the
+    # rejected part remains preserved in the raw record. Never send partial
+    # bytes to SANY or award them candidate credit.
+    if record.get("stream_reject"):
+        accepted_prefixes = ["".join(raw_parts[:count])
+                             for count in range(len(raw_parts) + 1)]
+        matches = [value for value in accepted_prefixes
+                   if record.get("assembled_char_count") == len(value)
+                   and record.get("assembled_sha256") == (sha(value) if value else None)]
+        if len(matches) != 1:
+            raise ValueError(f"rejected-stream prefix mismatch for row {record.get('row')}")
+        return ""
+
+    assembled = "".join(raw_parts)
     if record.get("assembled_char_count") != len(assembled):
         raise ValueError(f"assembled length mismatch for row {record.get('row')}")
     assembled_sha = sha(assembled) if assembled else None
@@ -122,7 +142,8 @@ def main():
             if not assembled:
                 rows.append(dict(
                     row=row, phase=phase, status="candidate_unmeasured",
-                    reason=record.get("plan_reject", "no assembled bytes"),
+                    reason=(record.get("stream_reject") or
+                            record.get("plan_reject") or "no assembled bytes"),
                     finish_reason=record.get("plan", {}).get("finish_reason"),
                     raw_reply_sha256=record.get("plan", {}).get("raw_reply_sha256"),
                 ))

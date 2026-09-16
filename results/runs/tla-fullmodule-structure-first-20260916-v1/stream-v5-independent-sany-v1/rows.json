@@ -1,0 +1,34 @@
+[
+  {
+    "row": 47,
+    "phase": "restored_parent",
+    "status": "candidate_unmeasured",
+    "reason": "module stream must begin with one header",
+    "finish_reason": "not_used",
+    "raw_reply_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "row": 107,
+    "phase": "restored_parent",
+    "status": "candidate_unmeasured",
+    "reason": "module stream must begin with one header",
+    "finish_reason": "not_used",
+    "raw_reply_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "row": 47,
+    "phase": "trained_child",
+    "status": "candidate_unmeasured",
+    "reason": "module stream must begin with one header",
+    "finish_reason": "not_used",
+    "raw_reply_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "row": 107,
+    "phase": "trained_child",
+    "status": "candidate_unmeasured",
+    "reason": "module stream must begin with one header",
+    "finish_reason": "not_used",
+    "raw_reply_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+]
