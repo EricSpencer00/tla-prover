@@ -1,0 +1,77 @@
+{
+  "kind": "row107_prefix_admission_audit_v1",
+  "row": 107,
+  "requested_prefix_tokens": 248,
+  "admitted_prefix_tokens": 138,
+  "stop": {
+    "index": 138,
+    "token": 24445,
+    "layout_hits": [],
+    "precedence_hits": [
+      {
+        "line": 12,
+        "kind": "mixed_definition_rhs"
+      }
+    ]
+  },
+  "grammar_allowed_next_tokens": 93690,
+  "guard_allowed_next_tokens": 93686,
+  "guard_allowed_examples": [
+    {
+      "token": 0,
+      "piece": "!"
+    },
+    {
+      "token": 2,
+      "piece": "#"
+    },
+    {
+      "token": 3,
+      "piece": "$"
+    },
+    {
+      "token": 4,
+      "piece": "%"
+    },
+    {
+      "token": 5,
+      "piece": "&"
+    },
+    {
+      "token": 6,
+      "piece": "'"
+    },
+    {
+      "token": 7,
+      "piece": "("
+    },
+    {
+      "token": 9,
+      "piece": "*"
+    },
+    {
+      "token": 10,
+      "piece": "+"
+    },
+    {
+      "token": 12,
+      "piece": "-"
+    },
+    {
+      "token": 13,
+      "piece": "."
+    },
+    {
+      "token": 14,
+      "piece": "/"
+    }
+  ],
+  "row_sha256": "f29ed9359b9f2ad59834712d6938e69c2ac70cb5de0be284a8e8bfdc324717f8",
+  "claims": {
+    "model_weights_loaded": false,
+    "cuda_touched": false,
+    "sany_claim": false,
+    "model_improvement_claim": false,
+    "gate_claim": false
+  }
+}

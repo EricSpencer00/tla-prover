@@ -1,0 +1,11 @@
+{
+  "claim": {
+    "claimed_unix": 1789525548.0,
+    "host": "Eric-MB64.local",
+    "identity": "tla-prefix-repair-layout-aware-20260916-v6|destination=/home/eric-spencer/tla-prefix-repair-layout-aware-20260916-v6|preflight=3b33eb2e25afffb3ae641f6af2745180d6e3a83ba12117d5acc0458f79e9a13a|runner=746414329c12d66de37414bb127faf62419f9fac9f51ea1250a86ece428aa177|selector=d9ef4b76734116b3bdbc81b50d24a052d73e514fc700b5eead0583b937855d28|layout_audit=72b41dea7d6e4da7ca1532967db46d7b76cd840caca1924b32380b5c0b814809|precedence_guard=3c42091f1bc5578cc0640a16c3ad7f01d58e1d9e0d5879342041682aa9937b86|preflight_runner=4c569421946fcd207028f16f12f90b24182817b7f89975c988277197195f15e8|pbs=b1e8fdff864f49874e84e51f9e56fe998aa82aa82c91894a10f70108f9a19d6b|packet=a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c|child=87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511|grammar=2bcc86946f0a858628f455a3d0648c7117e2b780743e1f25dff82cebd0fb4d67|xgrammar=0.2.2|rows=47,107|max_new_tokens=2048|repair_max_new_tokens=512|selector_audit_steps=4|backtrack_windows=64,128,256,512|layout_guard=same_indent_contiguous_junction_runs_plus_audited_precedence_forms_during_prefix_admission_and_repair_plus_traced_bounded_rollback|one_gpu=true|walltime=00:15:00|objective=layout_aware_prefix_admission_precedence_guard_traced_bounded_backtracking_repair|training=false|reference_conditioning=false",
+    "identity_sha256": "c769f01a8f7bd5be48f59df6134876b8bbd73cd3a268c38e81b39dd6af442d90",
+    "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001"
+  },
+  "path": "results/runs/tla-prefix-repair-layout-aware-20260916-v6/claim-state/c769f01a8f7bd5be48f59df6134876b8bbd73cd3a268c38e81b39dd6af442d90.json",
+  "status": "claimed"
+}
