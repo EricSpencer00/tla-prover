@@ -1,0 +1,422 @@
+[
+  {
+    "id": "crdt-type-step",
+    "prefix": "------------------------------- MODULE CRDT_proof ---------------------------------\nEXTENDS CRDT, Functions, NaturalsInduction, FunctionTheorems, TLAPS\n\n(***************************************************************************)\n(* Proofs of safety properties.                                            *)\n(***************************************************************************)\n\nTHEOREM TypeCorrect == Spec => []TypeOK\n<1>1. Init => TypeOK\n  BY DEF Init, TypeOK\n<1>2. TypeOK /\\ [Next]_vars => TypeOK'\n  ",
+    "suffix": "\n<1>. QED  BY <1>1, <1>2, PTL DEF Spec, vars\n\n=============================================================================\n",
+    "theorem_name": "TypeCorrect",
+    "target_goal": "THEOREM TypeCorrect == Spec => []TypeOK",
+    "dependencies": [
+      "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/FiniteMonotonic/CRDT.tla"
+    ],
+    "dependency_sha256": {
+      "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/FiniteMonotonic/CRDT.tla": "2e9017ee8ca3262aa0fb501a832eb130990a1b478a7c6c2126228978fbc2155a"
+    },
+    "candidates": [
+      "BY SMT",
+      "BY SMT DEF vars, TypeOK, Safety, Monotonic, Monotonicity, Convergence, Init, Increment, Gossip, Next, Spec, Fairness, FairSpec",
+      "BY DEF vars, TypeOK, Safety, Monotonic, Monotonicity, Convergence, Init, Increment, Gossip, Next, Spec, Fairness, FairSpec",
+      "BY SMT, Fun_InjectionProperties",
+      "BY Fun_InjectionProperties",
+      "BY SMT, Fun_InjectionProperties, Fun_IsInj",
+      "BY Fun_InjectionProperties, Fun_IsInj",
+      "BY SMT, Fun_InjectionProperties, Fun_IsInj, RuleInvImplication, SetExtensionality",
+      "BY Fun_InjectionProperties, Fun_IsInj, RuleInvImplication, SetExtensionality",
+      "BY SMT, Fun_InjectionProperties, Fun_IsInj, RuleInvImplication, SetExtensionality, Fun_InverseProperties, DownwardNatInduction, Fun_BijectionProperties, Fun_InjInverse",
+      "BY Fun_InjectionProperties, Fun_IsInj, RuleInvImplication, SetExtensionality, Fun_InverseProperties, DownwardNatInduction, Fun_BijectionProperties, Fun_InjInverse",
+      "BY SMT, Fun_IsInj",
+      "BY Fun_IsInj",
+      "BY SMT, RuleInvImplication",
+      "BY RuleInvImplication",
+      "BY SMT, SetExtensionality",
+      "BY SetExtensionality",
+      "BY SMT, Fun_InverseProperties",
+      "BY Fun_InverseProperties",
+      "BY SMT, DownwardNatInduction",
+      "BY DownwardNatInduction",
+      "BY SMT, Fun_BijectionProperties",
+      "BY Fun_BijectionProperties",
+      "BY SMT, Fun_InjInverse",
+      "BY Fun_InjInverse",
+      "BY SMT, Fun_IsBij",
+      "BY Fun_IsBij",
+      "BY SMT, Fun_SmallestSurjectionIsBijection",
+      "BY Fun_SmallestSurjectionIsBijection"
+    ],
+    "prompt": "Complete the missing TLA+ proof fragment marked <PROOF_HOLE>. The theorem statement and all other proof steps are fixed. Return only the missing proof fragment, preferably in a tla code fence. Use valid TLAPS syntax. Do not introduce axioms, omit proofs, change definitions, or repeat the module.\n\n\n===BEGIN DEPENDENCY CRDT===\n------------------------------- MODULE CRDT ---------------------------------\n\nEXTENDS Naturals, FiniteSets\n\nCONSTANT Node\nASSUME NodeAssumption == IsFiniteSet(Node)\n\nVARIABLE counter\nvars == counter\n\nTypeOK == counter \\in [Node -> [Node -> Nat]]\n\nSafety == \\A n, o \\in Node : counter[n][n] >= counter[o][n]\n\nMonotonic == \\A n, o \\in Node : counter'[n][o] >= counter[n][o]\n\nMonotonicity == [][Monotonic]_counter\n\n\\* Repeatedly, the counters at all nodes are in sync.\nConvergence == []<>(\\A n, o \\in Node : counter[n] = counter[o])\n\nInit == counter = [n \\in Node |-> [o \\in Node |-> 0]]\n\nIncrement(n) == counter' = [counter EXCEPT ![n][n] = @ + 1]\n\nGossip(n, o) ==\n  LET Max(a, b) == IF a > b THEN a ELSE b IN\n  counter' = [\n    counter EXCEPT ![o] = [\n      nodeView \\in Node |->\n        Max(counter[n][nodeView], counter[o][nodeView])\n      ]\n    ]\n\nNext ==\n  \\/ \\E n \\in Node : Increment(n)\n  \\/ \\E n, o \\in Node : Gossip(n, o)\n\nSpec ==\n  /\\ Init\n  /\\ [][Next]_counter\n\n\n-----------------------------------------------------------------------------\n(***************************************************************************)\n(* Fairness and liveness assumptions.                                      *)\n(* We assume that Gossip actions will eventually occur when enabled, and   *)\n(* that from some point onwards, only Gossip actions will be performed.    *)\n(* In other words, incrementation of counters happens only finitely often. *)\n(* Note that the second conjunct is not a standard fairness condition,     *)\n(* yet the overall specification is machine closed.                        *)\n(***************************************************************************)\nFairness ==\n    /\\ \\A n, o \\in Node : WF_vars(Gossip(n,o))\n    /\\ <>[][\\E n, o \\in Node : Gossip(n,o)]_vars\n\nFairSpec ==\n  /\\ Spec\n  /\\ Fairness\n\n=============================================================================\n\n\n===END DEPENDENCY CRDT===\n\n------------------------------- MODULE CRDT_proof ---------------------------------\nEXTENDS CRDT, Functions, NaturalsInduction, FunctionTheorems, TLAPS\n\n(***************************************************************************)\n(* Proofs of safety properties.                                            *)\n(***************************************************************************)\n\nTHEOREM TypeCorrect == Spec => []TypeOK\n<1>1. Init => TypeOK\n  BY DEF Init, TypeOK\n<1>2. TypeOK /\\ [Next]_vars => TypeOK'\n  <PROOF_HOLE>\n<1>. QED  BY <1>1, <1>2, PTL DEF Spec, vars\n\n=============================================================================\n\n\nVisible proved statements and assumptions (cite names as facts, not as definitions; select only those useful to the goal):\nNodeAssumption == IsFiniteSet(Node)\nFun_InjectionProperties == ASSUME NEW S, NEW T, NEW F \\in Injection(S,T)\n  PROVE  /\\ F \\in [S -> T]\n         /\\ \\A a,b \\in S : F[a] = F[b] => a = b\nFun_IsInj == ASSUME NEW S, NEW T, NEW F \\in [S -> T],\n         \\A a,b \\in S : F[a] = F[b] => a = b\n  PROVE  F \\in Injection(S,T)\nRuleInvImplication == ASSUME STATE F, STATE G,\n         F => G\n  PROVE  []F => []G\nSetExtensionality == \\A S,T : (\\A x : x \\in S <=> x \\in T) => S = T\nFun_InverseProperties == ASSUME NEW S, NEW T, NEW f \\in [S -> T]\n  PROVE  /\\ (S = {} => T = {}) => Inverse(f,S,T) \\in [T -> S]\n         /\\ \\A y \\in Range(f) : f[Inverse(f,S,T)[y]] = y\nDownwardNatInduction == ASSUME NEW P(_), NEW m \\in Nat, P(m),\n         \\A n \\in 1 .. m : P(n) => P(n-1)\n  PROVE  P(0)\nFun_BijectionProperties == ASSUME NEW S, NEW T, NEW F \\in Bijection(S,T)\n  PROVE  /\\ F \\in [S -> T]\n         /\\ F \\in Injection(S,T)\n         /\\ F \\in Surjection(S,T)\n         /\\ \\A a,b \\in S : F[a] = F[b] => a = b\n         /\\ \\A t \\in T : \\E s \\in S : F[s] = t\nFun_InjInverse == ASSUME NEW S, NEW T, NEW f \\in Injection(S,T), S = {} => T = {}\n  PROVE  Inverse(f,S,T) \\in Surjection(T,S)",
+    "prompt_sha256": "ca4e12208f7f48a2a60de5b06331bedc84d3a8f321979b23404984a35b465bb6",
+    "context": {
+      "visible_facts": [
+        {
+          "name": "NodeAssumption",
+          "statement": "IsFiniteSet(Node)"
+        }
+      ],
+      "imported_facts": [
+        {
+          "name": "Fun_InjectionProperties",
+          "statement": "ASSUME NEW S, NEW T, NEW F \\in Injection(S,T)\n  PROVE  /\\ F \\in [S -> T]\n         /\\ \\A a,b \\in S : F[a] = F[b] => a = b"
+        },
+        {
+          "name": "Fun_IsInj",
+          "statement": "ASSUME NEW S, NEW T, NEW F \\in [S -> T],\n         \\A a,b \\in S : F[a] = F[b] => a = b\n  PROVE  F \\in Injection(S,T)"
+        },
+        {
+          "name": "RuleInvImplication",
+          "statement": "ASSUME STATE F, STATE G,\n         F => G\n  PROVE  []F => []G"
+        },
+        {
+          "name": "SetExtensionality",
+          "statement": "\\A S,T : (\\A x : x \\in S <=> x \\in T) => S = T"
+        },
+        {
+          "name": "Fun_InverseProperties",
+          "statement": "ASSUME NEW S, NEW T, NEW f \\in [S -> T]\n  PROVE  /\\ (S = {} => T = {}) => Inverse(f,S,T) \\in [T -> S]\n         /\\ \\A y \\in Range(f) : f[Inverse(f,S,T)[y]] = y"
+        },
+        {
+          "name": "DownwardNatInduction",
+          "statement": "ASSUME NEW P(_), NEW m \\in Nat, P(m),\n         \\A n \\in 1 .. m : P(n) => P(n-1)\n  PROVE  P(0)"
+        },
+        {
+          "name": "Fun_BijectionProperties",
+          "statement": "ASSUME NEW S, NEW T, NEW F \\in Bijection(S,T)\n  PROVE  /\\ F \\in [S -> T]\n         /\\ F \\in Injection(S,T)\n         /\\ F \\in Surjection(S,T)\n         /\\ \\A a,b \\in S : F[a] = F[b] => a = b\n         /\\ \\A t \\in T : \\E s \\in S : F[s] = t"
+        },
+        {
+          "name": "Fun_InjInverse",
+          "statement": "ASSUME NEW S, NEW T, NEW f \\in Injection(S,T), S = {} => T = {}\n  PROVE  Inverse(f,S,T) \\in Surjection(T,S)"
+        }
+      ],
+      "library_sha256": {
+        "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/Functions.tla": "b54ff63b7c76c327525c17c188d5f9f5e53d92f3fd701f5e2ba54f0f54391063",
+        "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/NaturalsInduction.tla": "08f52420cdaaf11292ed366782b5ce5b596bb7cbe789526a1cfd8806dbf98624",
+        "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/FunctionTheorems.tla": "f89871fb5b35d2fc54f583b12adb489dd6660be7aced67ab295fba0d4999c116",
+        "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla": "5cc604533e49792c1c3d050a38d845d08d9c209879ca20c86de04975bc4bc563",
+        "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/FiniteSets.tla": "eca905df95c16fb12f0f205a38b429c216a11b5c8429d270af044f05600a6380"
+      },
+      "selection": "lexical statements + one-hop visible bridge; no proof bodies or successful candidates",
+      "reference_fragment_used": false
+    }
+  },
+  {
+    "id": "crdt-safety-step",
+    "prefix": "------------------------------- MODULE CRDT_proof ---------------------------------\nEXTENDS CRDT, Functions, NaturalsInduction, FunctionTheorems, TLAPS\n\n(***************************************************************************)\n(* Proofs of safety properties.                                            *)\n(***************************************************************************)\n\nTHEOREM TypeCorrect == Spec => []TypeOK\n<1>1. Init => TypeOK\n  BY DEF Init, TypeOK\n<1>2. TypeOK /\\ [Next]_vars => TypeOK'\n  BY DEF TypeOK, Next, Increment, Gossip, vars\n<1>. QED  BY <1>1, <1>2, PTL DEF Spec, vars\n\n\nTHEOREM Safe == Spec => []Safety\n<1>1. Init => Safety\n  BY DEF Init, Safety\n<1>2. TypeOK /\\ Safety /\\ [Next]_vars => Safety'\n  ",
+    "suffix": "\n<1>. QED  BY <1>1, <1>2, TypeCorrect, PTL DEF Spec, vars\n\n=============================================================================\n",
+    "theorem_name": "Safe",
+    "target_goal": "THEOREM Safe == Spec => []Safety",
+    "dependencies": [
+      "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/FiniteMonotonic/CRDT.tla"
+    ],
+    "dependency_sha256": {
+      "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/FiniteMonotonic/CRDT.tla": "2e9017ee8ca3262aa0fb501a832eb130990a1b478a7c6c2126228978fbc2155a"
+    },
+    "candidates": [
+      "BY SMT",
+      "BY SMT DEF vars, TypeOK, Safety, Monotonic, Monotonicity, Convergence, Init, Increment, Gossip, Next, Spec, Fairness, FairSpec",
+      "BY DEF vars, TypeOK, Safety, Monotonic, Monotonicity, Convergence, Init, Increment, Gossip, Next, Spec, Fairness, FairSpec",
+      "BY SMT, TypeCorrect, Fun_InjectionProperties",
+      "BY TypeCorrect, Fun_InjectionProperties",
+      "BY SMT, TypeCorrect, Fun_InjectionProperties, Fun_IsInj",
+      "BY TypeCorrect, Fun_InjectionProperties, Fun_IsInj",
+      "BY SMT, TypeCorrect, Fun_InjectionProperties, Fun_IsInj, RuleInvImplication, SetExtensionality",
+      "BY TypeCorrect, Fun_InjectionProperties, Fun_IsInj, RuleInvImplication, SetExtensionality",
+      "BY SMT, TypeCorrect, Fun_InjectionProperties, Fun_IsInj, RuleInvImplication, SetExtensionality, Fun_InverseProperties, DownwardNatInduction, Fun_BijectionProperties, Fun_InjInverse",
+      "BY TypeCorrect, Fun_InjectionProperties, Fun_IsInj, RuleInvImplication, SetExtensionality, Fun_InverseProperties, DownwardNatInduction, Fun_BijectionProperties, Fun_InjInverse",
+      "BY SMT, TypeCorrect, Fun_IsInj",
+      "BY TypeCorrect, Fun_IsInj",
+      "BY SMT, TypeCorrect, RuleInvImplication",
+      "BY TypeCorrect, RuleInvImplication",
+      "BY SMT, TypeCorrect, SetExtensionality",
+      "BY TypeCorrect, SetExtensionality",
+      "BY SMT, TypeCorrect, Fun_InverseProperties",
+      "BY TypeCorrect, Fun_InverseProperties",
+      "BY SMT, TypeCorrect, DownwardNatInduction",
+      "BY TypeCorrect, DownwardNatInduction",
+      "BY SMT, TypeCorrect, Fun_BijectionProperties",
+      "BY TypeCorrect, Fun_BijectionProperties",
+      "BY SMT, TypeCorrect, Fun_InjInverse",
+      "BY TypeCorrect, Fun_InjInverse",
+      "BY SMT, TypeCorrect, Fun_IsBij",
+      "BY TypeCorrect, Fun_IsBij",
+      "BY SMT, TypeCorrect, Fun_SmallestSurjectionIsBijection",
+      "BY TypeCorrect, Fun_SmallestSurjectionIsBijection"
+    ],
+    "prompt": "Complete the missing TLA+ proof fragment marked <PROOF_HOLE>. The theorem statement and all other proof steps are fixed. Return only the missing proof fragment, preferably in a tla code fence. Use valid TLAPS syntax. Do not introduce axioms, omit proofs, change definitions, or repeat the module.\n\n\n===BEGIN DEPENDENCY CRDT===\n------------------------------- MODULE CRDT ---------------------------------\n\nEXTENDS Naturals, FiniteSets\n\nCONSTANT Node\nASSUME NodeAssumption == IsFiniteSet(Node)\n\nVARIABLE counter\nvars == counter\n\nTypeOK == counter \\in [Node -> [Node -> Nat]]\n\nSafety == \\A n, o \\in Node : counter[n][n] >= counter[o][n]\n\nMonotonic == \\A n, o \\in Node : counter'[n][o] >= counter[n][o]\n\nMonotonicity == [][Monotonic]_counter\n\n\\* Repeatedly, the counters at all nodes are in sync.\nConvergence == []<>(\\A n, o \\in Node : counter[n] = counter[o])\n\nInit == counter = [n \\in Node |-> [o \\in Node |-> 0]]\n\nIncrement(n) == counter' = [counter EXCEPT ![n][n] = @ + 1]\n\nGossip(n, o) ==\n  LET Max(a, b) == IF a > b THEN a ELSE b IN\n  counter' = [\n    counter EXCEPT ![o] = [\n      nodeView \\in Node |->\n        Max(counter[n][nodeView], counter[o][nodeView])\n      ]\n    ]\n\nNext ==\n  \\/ \\E n \\in Node : Increment(n)\n  \\/ \\E n, o \\in Node : Gossip(n, o)\n\nSpec ==\n  /\\ Init\n  /\\ [][Next]_counter\n\n\n-----------------------------------------------------------------------------\n(***************************************************************************)\n(* Fairness and liveness assumptions.                                      *)\n(* We assume that Gossip actions will eventually occur when enabled, and   *)\n(* that from some point onwards, only Gossip actions will be performed.    *)\n(* In other words, incrementation of counters happens only finitely often. *)\n(* Note that the second conjunct is not a standard fairness condition,     *)\n(* yet the overall specification is machine closed.                        *)\n(***************************************************************************)\nFairness ==\n    /\\ \\A n, o \\in Node : WF_vars(Gossip(n,o))\n    /\\ <>[][\\E n, o \\in Node : Gossip(n,o)]_vars\n\nFairSpec ==\n  /\\ Spec\n  /\\ Fairness\n\n=============================================================================\n\n\n===END DEPENDENCY CRDT===\n\n------------------------------- MODULE CRDT_proof ---------------------------------\nEXTENDS CRDT, Functions, NaturalsInduction, FunctionTheorems, TLAPS\n\n(***************************************************************************)\n(* Proofs of safety properties.                                            *)\n(***************************************************************************)\n\nTHEOREM TypeCorrect == Spec => []TypeOK\n<1>1. Init => TypeOK\n  BY DEF Init, TypeOK\n<1>2. TypeOK /\\ [Next]_vars => TypeOK'\n  BY DEF TypeOK, Next, Increment, Gossip, vars\n<1>. QED  BY <1>1, <1>2, PTL DEF Spec, vars\n\n\nTHEOREM Safe == Spec => []Safety\n<1>1. Init => Safety\n  BY DEF Init, Safety\n<1>2. TypeOK /\\ Safety /\\ [Next]_vars => Safety'\n  <PROOF_HOLE>\n<1>. QED  BY <1>1, <1>2, TypeCorrect, PTL DEF Spec, vars\n\n=============================================================================\n\n\nVisible proved statements and assumptions (cite names as facts, not as definitions; select only those useful to the goal):\nTypeCorrect == Spec => []TypeOK\nNodeAssumption == IsFiniteSet(Node)\nFun_InjectionProperties == ASSUME NEW S, NEW T, NEW F \\in Injection(S,T)\n  PROVE  /\\ F \\in [S -> T]\n         /\\ \\A a,b \\in S : F[a] = F[b] => a = b\nFun_IsInj == ASSUME NEW S, NEW T, NEW F \\in [S -> T],\n         \\A a,b \\in S : F[a] = F[b] => a = b\n  PROVE  F \\in Injection(S,T)\nRuleInvImplication == ASSUME STATE F, STATE G,\n         F => G\n  PROVE  []F => []G\nSetExtensionality == \\A S,T : (\\A x : x \\in S <=> x \\in T) => S = T\nFun_InverseProperties == ASSUME NEW S, NEW T, NEW f \\in [S -> T]\n  PROVE  /\\ (S = {} => T = {}) => Inverse(f,S,T) \\in [T -> S]\n         /\\ \\A y \\in Range(f) : f[Inverse(f,S,T)[y]] = y\nDownwardNatInduction == ASSUME NEW P(_), NEW m \\in Nat, P(m),\n         \\A n \\in 1 .. m : P(n) => P(n-1)\n  PROVE  P(0)\nFun_BijectionProperties == ASSUME NEW S, NEW T, NEW F \\in Bijection(S,T)\n  PROVE  /\\ F \\in [S -> T]\n         /\\ F \\in Injection(S,T)\n         /\\ F \\in Surjection(S,T)\n         /\\ \\A a,b \\in S : F[a] = F[b] => a = b\n         /\\ \\A t \\in T : \\E s \\in S : F[s] = t\nFun_InjInverse == ASSUME NEW S, NEW T, NEW f \\in Injection(S,T), S = {} => T = {}\n  PROVE  Inverse(f,S,T) \\in Surjection(T,S)",
+    "prompt_sha256": "52ac75a711515593e037d2a080ff643633f74004f878f01b801265dc5bc9b22d",
+    "context": {
+      "visible_facts": [
+        {
+          "name": "TypeCorrect",
+          "statement": "Spec => []TypeOK"
+        },
+        {
+          "name": "NodeAssumption",
+          "statement": "IsFiniteSet(Node)"
+        }
+      ],
+      "imported_facts": [
+        {
+          "name": "Fun_InjectionProperties",
+          "statement": "ASSUME NEW S, NEW T, NEW F \\in Injection(S,T)\n  PROVE  /\\ F \\in [S -> T]\n         /\\ \\A a,b \\in S : F[a] = F[b] => a = b"
+        },
+        {
+          "name": "Fun_IsInj",
+          "statement": "ASSUME NEW S, NEW T, NEW F \\in [S -> T],\n         \\A a,b \\in S : F[a] = F[b] => a = b\n  PROVE  F \\in Injection(S,T)"
+        },
+        {
+          "name": "RuleInvImplication",
+          "statement": "ASSUME STATE F, STATE G,\n         F => G\n  PROVE  []F => []G"
+        },
+        {
+          "name": "SetExtensionality",
+          "statement": "\\A S,T : (\\A x : x \\in S <=> x \\in T) => S = T"
+        },
+        {
+          "name": "Fun_InverseProperties",
+          "statement": "ASSUME NEW S, NEW T, NEW f \\in [S -> T]\n  PROVE  /\\ (S = {} => T = {}) => Inverse(f,S,T) \\in [T -> S]\n         /\\ \\A y \\in Range(f) : f[Inverse(f,S,T)[y]] = y"
+        },
+        {
+          "name": "DownwardNatInduction",
+          "statement": "ASSUME NEW P(_), NEW m \\in Nat, P(m),\n         \\A n \\in 1 .. m : P(n) => P(n-1)\n  PROVE  P(0)"
+        },
+        {
+          "name": "Fun_BijectionProperties",
+          "statement": "ASSUME NEW S, NEW T, NEW F \\in Bijection(S,T)\n  PROVE  /\\ F \\in [S -> T]\n         /\\ F \\in Injection(S,T)\n         /\\ F \\in Surjection(S,T)\n         /\\ \\A a,b \\in S : F[a] = F[b] => a = b\n         /\\ \\A t \\in T : \\E s \\in S : F[s] = t"
+        },
+        {
+          "name": "Fun_InjInverse",
+          "statement": "ASSUME NEW S, NEW T, NEW f \\in Injection(S,T), S = {} => T = {}\n  PROVE  Inverse(f,S,T) \\in Surjection(T,S)"
+        }
+      ],
+      "library_sha256": {
+        "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/Functions.tla": "b54ff63b7c76c327525c17c188d5f9f5e53d92f3fd701f5e2ba54f0f54391063",
+        "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/NaturalsInduction.tla": "08f52420cdaaf11292ed366782b5ce5b596bb7cbe789526a1cfd8806dbf98624",
+        "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/FunctionTheorems.tla": "f89871fb5b35d2fc54f583b12adb489dd6660be7aced67ab295fba0d4999c116",
+        "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla": "5cc604533e49792c1c3d050a38d845d08d9c209879ca20c86de04975bc4bc563",
+        "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/FiniteSets.tla": "eca905df95c16fb12f0f205a38b429c216a11b5c8429d270af044f05600a6380"
+      },
+      "selection": "lexical statements + one-hop visible bridge; no proof bodies or successful candidates",
+      "reference_fragment_used": false
+    }
+  },
+  {
+    "id": "crdt-sum-type-proof",
+    "prefix": "------------------------------- MODULE CRDT_proof ---------------------------------\nEXTENDS CRDT, Functions, NaturalsInduction, FunctionTheorems, TLAPS\n\n(***************************************************************************)\n(* Proofs of safety properties.                                            *)\n(***************************************************************************)\n\nTHEOREM TypeCorrect == Spec => []TypeOK\n<1>1. Init => TypeOK\n  BY DEF Init, TypeOK\n<1>2. TypeOK /\\ [Next]_vars => TypeOK'\n  BY DEF TypeOK, Next, Increment, Gossip, vars\n<1>. QED  BY <1>1, <1>2, PTL DEF Spec, vars\n\n\nTHEOREM Safe == Spec => []Safety\n<1>1. Init => Safety\n  BY DEF Init, Safety\n<1>2. TypeOK /\\ Safety /\\ [Next]_vars => Safety'\n  BY DEF TypeOK, Safety, Next, Increment, Gossip, vars\n<1>. QED  BY <1>1, <1>2, TypeCorrect, PTL DEF Spec, vars\n\nTHEOREM Spec => Monotonicity\n<1>1. TypeOK /\\ [Next]_vars => [Monotonic]_vars\n  BY DEF TypeOK, Safety, Next, Increment, Gossip, vars, Monotonic\n<1>. QED  BY <1>1, TypeCorrect, PTL DEF Spec, Monotonicity, vars\n-----------------------------------------------------------------------------\n(***************************************************************************)\n(* Sum the values of a vector of natural numbers. We discharge the four    *)\n(* Sum lemmas by reducing them to the corresponding `SumFunction` theorems *)\n(* in the community-modules `FunctionTheorems`, via the trivial unfolding  *)\n(*   Sum(f) = FoldFunction(+, 0, f)                                        *)\n(*          = FoldFunctionOnSet(+, 0, f, DOMAIN f)                         *)\n(*          = SumFunctionOnSet(f, DOMAIN f)                                *)\n(*          = SumFunction(f).                                              *)\n(***************************************************************************)\nSum(f) == FoldFunction(+, 0, f)\n\nLEMMA SumIsSumFunction ==\n  ASSUME NEW f\n  PROVE  Sum(f) = SumFunction(f)\n  BY DEF Sum, FoldFunction, SumFunction, SumFunctionOnSet\n\nLEMMA SumType ==\n  ASSUME NEW f \\in [Node -> Nat]\n  PROVE  Sum(f) \\in Nat\n  ",
+    "suffix": "\n\n=============================================================================\n",
+    "theorem_name": "SumType",
+    "target_goal": "LEMMA SumType ==\n  ASSUME NEW f \\in [Node -> Nat]\n  PROVE  Sum(f) \\in Nat",
+    "dependencies": [
+      "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/FiniteMonotonic/CRDT.tla"
+    ],
+    "dependency_sha256": {
+      "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/FiniteMonotonic/CRDT.tla": "2e9017ee8ca3262aa0fb501a832eb130990a1b478a7c6c2126228978fbc2155a"
+    },
+    "candidates": [
+      "BY SMT",
+      "BY SMT DEF Sum, vars, TypeOK, Safety, Monotonic, Monotonicity, Convergence, Init, Increment, Gossip, Next, Spec, Fairness, FairSpec",
+      "BY DEF Sum, vars, TypeOK, Safety, Monotonic, Monotonicity, Convergence, Init, Increment, Gossip, Next, Spec, Fairness, FairSpec",
+      "BY SMT, SumIsSumFunction, NodeAssumption, SumFunctionNat",
+      "BY SumIsSumFunction, NodeAssumption, SumFunctionNat",
+      "BY SMT, SumIsSumFunction, NodeAssumption, SumFunctionNat, SumFunctionZero",
+      "BY SumIsSumFunction, NodeAssumption, SumFunctionNat, SumFunctionZero",
+      "BY SMT, SumIsSumFunction, NodeAssumption, SumFunctionNat, SumFunctionZero, FactorialType, SumFunctionNatOnSubset",
+      "BY SumIsSumFunction, NodeAssumption, SumFunctionNat, SumFunctionZero, FactorialType, SumFunctionNatOnSubset",
+      "BY SMT, SumIsSumFunction, NodeAssumption, SumFunctionNat, SumFunctionZero, FactorialType, SumFunctionNatOnSubset, SumFunctionOnSetNat, SumFunctionOnSetZero, FiniteNatInductiveUnique, Fun_NatBijSame",
+      "BY SumIsSumFunction, NodeAssumption, SumFunctionNat, SumFunctionZero, FactorialType, SumFunctionNatOnSubset, SumFunctionOnSetNat, SumFunctionOnSetZero, FiniteNatInductiveUnique, Fun_NatBijSame",
+      "BY SMT, SumIsSumFunction, NodeAssumption, SumFunctionZero",
+      "BY SumIsSumFunction, NodeAssumption, SumFunctionZero",
+      "BY SMT, SumIsSumFunction, NodeAssumption, FactorialType",
+      "BY SumIsSumFunction, NodeAssumption, FactorialType",
+      "BY SMT, SumIsSumFunction, NodeAssumption, SumFunctionNatOnSubset",
+      "BY SumIsSumFunction, NodeAssumption, SumFunctionNatOnSubset",
+      "BY SMT, SumIsSumFunction, NodeAssumption, SumFunctionOnSetNat",
+      "BY SumIsSumFunction, NodeAssumption, SumFunctionOnSetNat",
+      "BY SMT, SumIsSumFunction, NodeAssumption, SumFunctionOnSetZero",
+      "BY SumIsSumFunction, NodeAssumption, SumFunctionOnSetZero",
+      "BY SMT, SumIsSumFunction, NodeAssumption, FiniteNatInductiveUnique",
+      "BY SumIsSumFunction, NodeAssumption, FiniteNatInductiveUnique",
+      "BY SMT, SumIsSumFunction, NodeAssumption, Fun_NatBijSame",
+      "BY SumIsSumFunction, NodeAssumption, Fun_NatBijSame",
+      "BY SMT, SumIsSumFunction, NodeAssumption, Fun_NatBijSubElem",
+      "BY SumIsSumFunction, NodeAssumption, Fun_NatBijSubElem",
+      "BY SMT, SumIsSumFunction, NodeAssumption, SmallestNatural",
+      "BY SumIsSumFunction, NodeAssumption, SmallestNatural"
+    ],
+    "prompt": "Complete the missing TLA+ proof fragment marked <PROOF_HOLE>. The theorem statement and all other proof steps are fixed. Return only the missing proof fragment, preferably in a tla code fence. Use valid TLAPS syntax. Do not introduce axioms, omit proofs, change definitions, or repeat the module.\n\n\n===BEGIN DEPENDENCY CRDT===\n------------------------------- MODULE CRDT ---------------------------------\n\nEXTENDS Naturals, FiniteSets\n\nCONSTANT Node\nASSUME NodeAssumption == IsFiniteSet(Node)\n\nVARIABLE counter\nvars == counter\n\nTypeOK == counter \\in [Node -> [Node -> Nat]]\n\nSafety == \\A n, o \\in Node : counter[n][n] >= counter[o][n]\n\nMonotonic == \\A n, o \\in Node : counter'[n][o] >= counter[n][o]\n\nMonotonicity == [][Monotonic]_counter\n\n\\* Repeatedly, the counters at all nodes are in sync.\nConvergence == []<>(\\A n, o \\in Node : counter[n] = counter[o])\n\nInit == counter = [n \\in Node |-> [o \\in Node |-> 0]]\n\nIncrement(n) == counter' = [counter EXCEPT ![n][n] = @ + 1]\n\nGossip(n, o) ==\n  LET Max(a, b) == IF a > b THEN a ELSE b IN\n  counter' = [\n    counter EXCEPT ![o] = [\n      nodeView \\in Node |->\n        Max(counter[n][nodeView], counter[o][nodeView])\n      ]\n    ]\n\nNext ==\n  \\/ \\E n \\in Node : Increment(n)\n  \\/ \\E n, o \\in Node : Gossip(n, o)\n\nSpec ==\n  /\\ Init\n  /\\ [][Next]_counter\n\n\n-----------------------------------------------------------------------------\n(***************************************************************************)\n(* Fairness and liveness assumptions.                                      *)\n(* We assume that Gossip actions will eventually occur when enabled, and   *)\n(* that from some point onwards, only Gossip actions will be performed.    *)\n(* In other words, incrementation of counters happens only finitely often. *)\n(* Note that the second conjunct is not a standard fairness condition,     *)\n(* yet the overall specification is machine closed.                        *)\n(***************************************************************************)\nFairness ==\n    /\\ \\A n, o \\in Node : WF_vars(Gossip(n,o))\n    /\\ <>[][\\E n, o \\in Node : Gossip(n,o)]_vars\n\nFairSpec ==\n  /\\ Spec\n  /\\ Fairness\n\n=============================================================================\n\n\n===END DEPENDENCY CRDT===\n\n------------------------------- MODULE CRDT_proof ---------------------------------\nEXTENDS CRDT, Functions, NaturalsInduction, FunctionTheorems, TLAPS\n\n(***************************************************************************)\n(* Proofs of safety properties.                                            *)\n(***************************************************************************)\n\nTHEOREM TypeCorrect == Spec => []TypeOK\n<1>1. Init => TypeOK\n  BY DEF Init, TypeOK\n<1>2. TypeOK /\\ [Next]_vars => TypeOK'\n  BY DEF TypeOK, Next, Increment, Gossip, vars\n<1>. QED  BY <1>1, <1>2, PTL DEF Spec, vars\n\n\nTHEOREM Safe == Spec => []Safety\n<1>1. Init => Safety\n  BY DEF Init, Safety\n<1>2. TypeOK /\\ Safety /\\ [Next]_vars => Safety'\n  BY DEF TypeOK, Safety, Next, Increment, Gossip, vars\n<1>. QED  BY <1>1, <1>2, TypeCorrect, PTL DEF Spec, vars\n\nTHEOREM Spec => Monotonicity\n<1>1. TypeOK /\\ [Next]_vars => [Monotonic]_vars\n  BY DEF TypeOK, Safety, Next, Increment, Gossip, vars, Monotonic\n<1>. QED  BY <1>1, TypeCorrect, PTL DEF Spec, Monotonicity, vars\n-----------------------------------------------------------------------------\n(***************************************************************************)\n(* Sum the values of a vector of natural numbers. We discharge the four    *)\n(* Sum lemmas by reducing them to the corresponding `SumFunction` theorems *)\n(* in the community-modules `FunctionTheorems`, via the trivial unfolding  *)\n(*   Sum(f) = FoldFunction(+, 0, f)                                        *)\n(*          = FoldFunctionOnSet(+, 0, f, DOMAIN f)                         *)\n(*          = SumFunctionOnSet(f, DOMAIN f)                                *)\n(*          = SumFunction(f).                                              *)\n(***************************************************************************)\nSum(f) == FoldFunction(+, 0, f)\n\nLEMMA SumIsSumFunction ==\n  ASSUME NEW f\n  PROVE  Sum(f) = SumFunction(f)\n  BY DEF Sum, FoldFunction, SumFunction, SumFunctionOnSet\n\nLEMMA SumType ==\n  ASSUME NEW f \\in [Node -> Nat]\n  PROVE  Sum(f) \\in Nat\n  <PROOF_HOLE>\n\n=============================================================================\n\n\nVisible proved statements and assumptions (cite names as facts, not as definitions; select only those useful to the goal):\nTypeCorrect == Spec => []TypeOK\nSafe == Spec => []Safety\nSumIsSumFunction == ASSUME NEW f\n  PROVE  Sum(f) = SumFunction(f)\nNodeAssumption == IsFiniteSet(Node)\nSumFunctionNat == ASSUME NEW fun, IsFiniteSet(DOMAIN fun),\n         \\A x \\in DOMAIN fun : fun[x] \\in Nat \n  PROVE  SumFunction(fun) \\in Nat\nSumFunctionZero == ASSUME NEW fun, IsFiniteSet(DOMAIN fun), \n         \\A x \\in DOMAIN fun : fun[x] \\in Nat\n  PROVE  SumFunction(fun) = 0 <=> \\A x \\in DOMAIN fun : fun[x] = 0\nFactorialType == factorial \\in [Nat -> Nat]\nSumFunctionNatOnSubset == ASSUME NEW S, IsFiniteSet(S), NEW T \\in SUBSET S,\n         NEW fun, \\A s \\in S : fun[s] \\in Nat\n  PROVE  SumFunctionOnSet(fun, T) <= SumFunctionOnSet(fun, S)\nSumFunctionOnSetNat == ASSUME NEW fun, NEW indices, IsFiniteSet(indices),\n         \\A i \\in indices : fun[i] \\in Nat \n  PROVE  SumFunctionOnSet(fun, indices) \\in Nat\nSumFunctionOnSetZero == ASSUME NEW S, IsFiniteSet(S),\n         NEW fun, \\A x \\in S : fun[x] \\in Nat\n  PROVE  SumFunctionOnSet(fun, S) = 0 <=> \\A x \\in S : fun[x] = 0\nFiniteNatInductiveUnique == ASSUME NEW Def(_,_), NEW f, NEW g, NEW c, NEW m \\in Nat, NEW n \\in Nat,\n         FiniteNatInductiveDefConclusion(f, c, Def, m, n),\n         FiniteNatInductiveDefConclusion(g, c, Def, m, n)\n  PROVE  f = g\nFun_NatBijSame == ASSUME NEW S,\n         NEW n \\in Nat, ExistsBijection(1..n,S),\n         NEW m \\in Nat, ExistsBijection(1..m,S)\n  PROVE  n = m",
+    "prompt_sha256": "81f0185b226b33f3b8272ebc7896348630905cb37898f5d4e5f2b0e68fe7647a",
+    "context": {
+      "visible_facts": [
+        {
+          "name": "TypeCorrect",
+          "statement": "Spec => []TypeOK"
+        },
+        {
+          "name": "Safe",
+          "statement": "Spec => []Safety"
+        },
+        {
+          "name": "SumIsSumFunction",
+          "statement": "ASSUME NEW f\n  PROVE  Sum(f) = SumFunction(f)"
+        },
+        {
+          "name": "NodeAssumption",
+          "statement": "IsFiniteSet(Node)"
+        }
+      ],
+      "imported_facts": [
+        {
+          "name": "SumFunctionNat",
+          "statement": "ASSUME NEW fun, IsFiniteSet(DOMAIN fun),\n         \\A x \\in DOMAIN fun : fun[x] \\in Nat \n  PROVE  SumFunction(fun) \\in Nat"
+        },
+        {
+          "name": "SumFunctionZero",
+          "statement": "ASSUME NEW fun, IsFiniteSet(DOMAIN fun), \n         \\A x \\in DOMAIN fun : fun[x] \\in Nat\n  PROVE  SumFunction(fun) = 0 <=> \\A x \\in DOMAIN fun : fun[x] = 0"
+        },
+        {
+          "name": "FactorialType",
+          "statement": "factorial \\in [Nat -> Nat]"
+        },
+        {
+          "name": "SumFunctionNatOnSubset",
+          "statement": "ASSUME NEW S, IsFiniteSet(S), NEW T \\in SUBSET S,\n         NEW fun, \\A s \\in S : fun[s] \\in Nat\n  PROVE  SumFunctionOnSet(fun, T) <= SumFunctionOnSet(fun, S)"
+        },
+        {
+          "name": "SumFunctionOnSetNat",
+          "statement": "ASSUME NEW fun, NEW indices, IsFiniteSet(indices),\n         \\A i \\in indices : fun[i] \\in Nat \n  PROVE  SumFunctionOnSet(fun, indices) \\in Nat"
+        },
+        {
+          "name": "SumFunctionOnSetZero",
+          "statement": "ASSUME NEW S, IsFiniteSet(S),\n         NEW fun, \\A x \\in S : fun[x] \\in Nat\n  PROVE  SumFunctionOnSet(fun, S) = 0 <=> \\A x \\in S : fun[x] = 0"
+        },
+        {
+          "name": "FiniteNatInductiveUnique",
+          "statement": "ASSUME NEW Def(_,_), NEW f, NEW g, NEW c, NEW m \\in Nat, NEW n \\in Nat,\n         FiniteNatInductiveDefConclusion(f, c, Def, m, n),\n         FiniteNatInductiveDefConclusion(g, c, Def, m, n)\n  PROVE  f = g"
+        },
+        {
+          "name": "Fun_NatBijSame",
+          "statement": "ASSUME NEW S,\n         NEW n \\in Nat, ExistsBijection(1..n,S),\n         NEW m \\in Nat, ExistsBijection(1..m,S)\n  PROVE  n = m"
+        }
+      ],
+      "library_sha256": {
+        "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/Functions.tla": "b54ff63b7c76c327525c17c188d5f9f5e53d92f3fd701f5e2ba54f0f54391063",
+        "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/NaturalsInduction.tla": "08f52420cdaaf11292ed366782b5ce5b596bb7cbe789526a1cfd8806dbf98624",
+        "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/FunctionTheorems.tla": "f89871fb5b35d2fc54f583b12adb489dd6660be7aced67ab295fba0d4999c116",
+        "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla": "5cc604533e49792c1c3d050a38d845d08d9c209879ca20c86de04975bc4bc563",
+        "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/FiniteSets.tla": "eca905df95c16fb12f0f205a38b429c216a11b5c8429d270af044f05600a6380"
+      },
+      "selection": "lexical statements + one-hop visible bridge; no proof bodies or successful candidates",
+      "reference_fragment_used": false
+    }
+  },
+  {
+    "id": "crdt-sum-zero-proof",
+    "prefix": "------------------------------- MODULE CRDT_proof ---------------------------------\nEXTENDS CRDT, Functions, NaturalsInduction, FunctionTheorems, TLAPS\n\n(***************************************************************************)\n(* Proofs of safety properties.                                            *)\n(***************************************************************************)\n\nTHEOREM TypeCorrect == Spec => []TypeOK\n<1>1. Init => TypeOK\n  BY DEF Init, TypeOK\n<1>2. TypeOK /\\ [Next]_vars => TypeOK'\n  BY DEF TypeOK, Next, Increment, Gossip, vars\n<1>. QED  BY <1>1, <1>2, PTL DEF Spec, vars\n\n\nTHEOREM Safe == Spec => []Safety\n<1>1. Init => Safety\n  BY DEF Init, Safety\n<1>2. TypeOK /\\ Safety /\\ [Next]_vars => Safety'\n  BY DEF TypeOK, Safety, Next, Increment, Gossip, vars\n<1>. QED  BY <1>1, <1>2, TypeCorrect, PTL DEF Spec, vars\n\nTHEOREM Spec => Monotonicity\n<1>1. TypeOK /\\ [Next]_vars => [Monotonic]_vars\n  BY DEF TypeOK, Safety, Next, Increment, Gossip, vars, Monotonic\n<1>. QED  BY <1>1, TypeCorrect, PTL DEF Spec, Monotonicity, vars\n-----------------------------------------------------------------------------\n(***************************************************************************)\n(* Sum the values of a vector of natural numbers. We discharge the four    *)\n(* Sum lemmas by reducing them to the corresponding `SumFunction` theorems *)\n(* in the community-modules `FunctionTheorems`, via the trivial unfolding  *)\n(*   Sum(f) = FoldFunction(+, 0, f)                                        *)\n(*          = FoldFunctionOnSet(+, 0, f, DOMAIN f)                         *)\n(*          = SumFunctionOnSet(f, DOMAIN f)                                *)\n(*          = SumFunction(f).                                              *)\n(***************************************************************************)\nSum(f) == FoldFunction(+, 0, f)\n\nLEMMA SumIsSumFunction ==\n  ASSUME NEW f\n  PROVE  Sum(f) = SumFunction(f)\n  BY DEF Sum, FoldFunction, SumFunction, SumFunctionOnSet\n\nLEMMA SumType ==\n  ASSUME NEW f \\in [Node -> Nat]\n  PROVE  Sum(f) \\in Nat\n  <1>1. IsFiniteSet(DOMAIN f)\n    BY NodeAssumption\n  <1>2. \\A x \\in DOMAIN f : f[x] \\in Nat\n    OBVIOUS\n  <1>. QED  BY <1>1, <1>2, SumFunctionNat, SumIsSumFunction\n\nLEMMA SumIsZero ==\n  ASSUME NEW f \\in [Node -> Nat]\n  PROVE  Sum(f) = 0 <=> \\A x \\in Node : f[x] = 0\n  ",
+    "suffix": "\n\n=============================================================================\n",
+    "theorem_name": "SumIsZero",
+    "target_goal": "LEMMA SumIsZero ==\n  ASSUME NEW f \\in [Node -> Nat]\n  PROVE  Sum(f) = 0 <=> \\A x \\in Node : f[x] = 0",
+    "dependencies": [
+      "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/FiniteMonotonic/CRDT.tla"
+    ],
+    "dependency_sha256": {
+      "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/FiniteMonotonic/CRDT.tla": "2e9017ee8ca3262aa0fb501a832eb130990a1b478a7c6c2126228978fbc2155a"
+    },
+    "candidates": [
+      "BY SMT",
+      "BY SMT DEF Sum, vars, TypeOK, Safety, Monotonic, Monotonicity, Convergence, Init, Increment, Gossip, Next, Spec, Fairness, FairSpec",
+      "BY DEF Sum, vars, TypeOK, Safety, Monotonic, Monotonicity, Convergence, Init, Increment, Gossip, Next, Spec, Fairness, FairSpec",
+      "BY SMT, SumIsSumFunction, SumType, NodeAssumption, SumFunctionZero",
+      "BY SumIsSumFunction, SumType, NodeAssumption, SumFunctionZero",
+      "BY SMT, SumIsSumFunction, SumType, NodeAssumption, SumFunctionZero, SumFunctionOnSetZero",
+      "BY SumIsSumFunction, SumType, NodeAssumption, SumFunctionZero, SumFunctionOnSetZero",
+      "BY SMT, SumIsSumFunction, SumType, NodeAssumption, SumFunctionZero, SumFunctionOnSetZero, SmallestNatural, DownwardNatInduction",
+      "BY SumIsSumFunction, SumType, NodeAssumption, SumFunctionZero, SumFunctionOnSetZero, SmallestNatural, DownwardNatInduction",
+      "BY SMT, SumIsSumFunction, SumType, NodeAssumption, SumFunctionZero, SumFunctionOnSetZero, SmallestNatural, DownwardNatInduction, Fun_NatBijEmpty, GeneralNatInduction, NatInduction, RecursiveFcnOfNatType",
+      "BY SumIsSumFunction, SumType, NodeAssumption, SumFunctionZero, SumFunctionOnSetZero, SmallestNatural, DownwardNatInduction, Fun_NatBijEmpty, GeneralNatInduction, NatInduction, RecursiveFcnOfNatType",
+      "BY SMT, SumIsSumFunction, SumType, NodeAssumption, SumFunctionOnSetZero",
+      "BY SumIsSumFunction, SumType, NodeAssumption, SumFunctionOnSetZero",
+      "BY SMT, SumIsSumFunction, SumType, NodeAssumption, SmallestNatural",
+      "BY SumIsSumFunction, SumType, NodeAssumption, SmallestNatural",
+      "BY SMT, SumIsSumFunction, SumType, NodeAssumption, DownwardNatInduction",
+      "BY SumIsSumFunction, SumType, NodeAssumption, DownwardNatInduction",
+      "BY SMT, SumIsSumFunction, SumType, NodeAssumption, Fun_NatBijEmpty",
+      "BY SumIsSumFunction, SumType, NodeAssumption, Fun_NatBijEmpty",
+      "BY SMT, SumIsSumFunction, SumType, NodeAssumption, GeneralNatInduction",
+      "BY SumIsSumFunction, SumType, NodeAssumption, GeneralNatInduction",
+      "BY SMT, SumIsSumFunction, SumType, NodeAssumption, NatInduction",
+      "BY SumIsSumFunction, SumType, NodeAssumption, NatInduction",
+      "BY SMT, SumIsSumFunction, SumType, NodeAssumption, RecursiveFcnOfNatType",
+      "BY SumIsSumFunction, SumType, NodeAssumption, RecursiveFcnOfNatType",
+      "BY SMT, SumIsSumFunction, SumType, NodeAssumption, Fun_NatInjLeq",
+      "BY SumIsSumFunction, SumType, NodeAssumption, Fun_NatInjLeq",
+      "BY SMT, SumIsSumFunction, SumType, NodeAssumption, Fun_NatSurjEquivNatBij",
+      "BY SumIsSumFunction, SumType, NodeAssumption, Fun_NatSurjEquivNatBij"
+    ],
+    "prompt": "Complete the missing TLA+ proof fragment marked <PROOF_HOLE>. The theorem statement and all other proof steps are fixed. Return only the missing proof fragment, preferably in a tla code fence. Use valid TLAPS syntax. Do not introduce axioms, omit proofs, change definitions, or repeat the module.\n\n\n===BEGIN DEPENDENCY CRDT===\n------------------------------- MODULE CRDT ---------------------------------\n\nEXTENDS Naturals, FiniteSets\n\nCONSTANT Node\nASSUME NodeAssumption == IsFiniteSet(Node)\n\nVARIABLE counter\nvars == counter\n\nTypeOK == counter \\in [Node -> [Node -> Nat]]\n\nSafety == \\A n, o \\in Node : counter[n][n] >= counter[o][n]\n\nMonotonic == \\A n, o \\in Node : counter'[n][o] >= counter[n][o]\n\nMonotonicity == [][Monotonic]_counter\n\n\\* Repeatedly, the counters at all nodes are in sync.\nConvergence == []<>(\\A n, o \\in Node : counter[n] = counter[o])\n\nInit == counter = [n \\in Node |-> [o \\in Node |-> 0]]\n\nIncrement(n) == counter' = [counter EXCEPT ![n][n] = @ + 1]\n\nGossip(n, o) ==\n  LET Max(a, b) == IF a > b THEN a ELSE b IN\n  counter' = [\n    counter EXCEPT ![o] = [\n      nodeView \\in Node |->\n        Max(counter[n][nodeView], counter[o][nodeView])\n      ]\n    ]\n\nNext ==\n  \\/ \\E n \\in Node : Increment(n)\n  \\/ \\E n, o \\in Node : Gossip(n, o)\n\nSpec ==\n  /\\ Init\n  /\\ [][Next]_counter\n\n\n-----------------------------------------------------------------------------\n(***************************************************************************)\n(* Fairness and liveness assumptions.                                      *)\n(* We assume that Gossip actions will eventually occur when enabled, and   *)\n(* that from some point onwards, only Gossip actions will be performed.    *)\n(* In other words, incrementation of counters happens only finitely often. *)\n(* Note that the second conjunct is not a standard fairness condition,     *)\n(* yet the overall specification is machine closed.                        *)\n(***************************************************************************)\nFairness ==\n    /\\ \\A n, o \\in Node : WF_vars(Gossip(n,o))\n    /\\ <>[][\\E n, o \\in Node : Gossip(n,o)]_vars\n\nFairSpec ==\n  /\\ Spec\n  /\\ Fairness\n\n=============================================================================\n\n\n===END DEPENDENCY CRDT===\n\n------------------------------- MODULE CRDT_proof ---------------------------------\nEXTENDS CRDT, Functions, NaturalsInduction, FunctionTheorems, TLAPS\n\n(***************************************************************************)\n(* Proofs of safety properties.                                            *)\n(***************************************************************************)\n\nTHEOREM TypeCorrect == Spec => []TypeOK\n<1>1. Init => TypeOK\n  BY DEF Init, TypeOK\n<1>2. TypeOK /\\ [Next]_vars => TypeOK'\n  BY DEF TypeOK, Next, Increment, Gossip, vars\n<1>. QED  BY <1>1, <1>2, PTL DEF Spec, vars\n\n\nTHEOREM Safe == Spec => []Safety\n<1>1. Init => Safety\n  BY DEF Init, Safety\n<1>2. TypeOK /\\ Safety /\\ [Next]_vars => Safety'\n  BY DEF TypeOK, Safety, Next, Increment, Gossip, vars\n<1>. QED  BY <1>1, <1>2, TypeCorrect, PTL DEF Spec, vars\n\nTHEOREM Spec => Monotonicity\n<1>1. TypeOK /\\ [Next]_vars => [Monotonic]_vars\n  BY DEF TypeOK, Safety, Next, Increment, Gossip, vars, Monotonic\n<1>. QED  BY <1>1, TypeCorrect, PTL DEF Spec, Monotonicity, vars\n-----------------------------------------------------------------------------\n(***************************************************************************)\n(* Sum the values of a vector of natural numbers. We discharge the four    *)\n(* Sum lemmas by reducing them to the corresponding `SumFunction` theorems *)\n(* in the community-modules `FunctionTheorems`, via the trivial unfolding  *)\n(*   Sum(f) = FoldFunction(+, 0, f)                                        *)\n(*          = FoldFunctionOnSet(+, 0, f, DOMAIN f)                         *)\n(*          = SumFunctionOnSet(f, DOMAIN f)                                *)\n(*          = SumFunction(f).                                              *)\n(***************************************************************************)\nSum(f) == FoldFunction(+, 0, f)\n\nLEMMA SumIsSumFunction ==\n  ASSUME NEW f\n  PROVE  Sum(f) = SumFunction(f)\n  BY DEF Sum, FoldFunction, SumFunction, SumFunctionOnSet\n\nLEMMA SumType ==\n  ASSUME NEW f \\in [Node -> Nat]\n  PROVE  Sum(f) \\in Nat\n  <1>1. IsFiniteSet(DOMAIN f)\n    BY NodeAssumption\n  <1>2. \\A x \\in DOMAIN f : f[x] \\in Nat\n    OBVIOUS\n  <1>. QED  BY <1>1, <1>2, SumFunctionNat, SumIsSumFunction\n\nLEMMA SumIsZero ==\n  ASSUME NEW f \\in [Node -> Nat]\n  PROVE  Sum(f) = 0 <=> \\A x \\in Node : f[x] = 0\n  <PROOF_HOLE>\n\n=============================================================================\n\n\nVisible proved statements and assumptions (cite names as facts, not as definitions; select only those useful to the goal):\nTypeCorrect == Spec => []TypeOK\nSafe == Spec => []Safety\nSumIsSumFunction == ASSUME NEW f\n  PROVE  Sum(f) = SumFunction(f)\nSumType == ASSUME NEW f \\in [Node -> Nat]\n  PROVE  Sum(f) \\in Nat\nNodeAssumption == IsFiniteSet(Node)\nSumFunctionZero == ASSUME NEW fun, IsFiniteSet(DOMAIN fun), \n         \\A x \\in DOMAIN fun : fun[x] \\in Nat\n  PROVE  SumFunction(fun) = 0 <=> \\A x \\in DOMAIN fun : fun[x] = 0\nSumFunctionOnSetZero == ASSUME NEW S, IsFiniteSet(S),\n         NEW fun, \\A x \\in S : fun[x] \\in Nat\n  PROVE  SumFunctionOnSet(fun, S) = 0 <=> \\A x \\in S : fun[x] = 0\nSmallestNatural == ASSUME NEW P(_), NEW n \\in Nat, P(n)\n  PROVE  \\E m \\in Nat : /\\ P(m)\n                        /\\ \\A k \\in 0 .. m-1 : ~ P(k)\nDownwardNatInduction == ASSUME NEW P(_), NEW m \\in Nat, P(m),\n         \\A n \\in 1 .. m : P(n) => P(n-1)\n  PROVE  P(0)\nFun_NatBijEmpty == ASSUME NEW S\n  PROVE  ExistsBijection(1..0,S) <=> S = {}\nGeneralNatInduction == ASSUME NEW P(_),\n                 \\A n \\in Nat : (\\A m \\in 0..(n-1) : P(m)) => P(n)\n          PROVE  \\A n \\in Nat : P(n)\nNatInduction == ASSUME NEW P(_),\n         P(0),\n         \\A n \\in Nat : P(n) => P(n+1)\n  PROVE  \\A n \\in Nat : P(n)\nRecursiveFcnOfNatType == ASSUME NEW f, NEW S, NEW Def(_,_), f = [n \\in Nat |-> Def(f,n)],\n         ASSUME NEW n \\in Nat, NEW g, \\A i \\in 0 .. n-1 : g[i] \\in S\n         PROVE  Def(g,n) \\in S\n  PROVE  f \\in [Nat -> S]",
+    "prompt_sha256": "396067d05d305b87a27e4e6a5fb7cfe50da912ea5773b5bda8b2b1cb7c62bcfe",
+    "context": {
+      "visible_facts": [
+        {
+          "name": "TypeCorrect",
+          "statement": "Spec => []TypeOK"
+        },
+        {
+          "name": "Safe",
+          "statement": "Spec => []Safety"
+        },
+        {
+          "name": "SumIsSumFunction",
+          "statement": "ASSUME NEW f\n  PROVE  Sum(f) = SumFunction(f)"
+        },
+        {
+          "name": "SumType",
+          "statement": "ASSUME NEW f \\in [Node -> Nat]\n  PROVE  Sum(f) \\in Nat"
+        },
+        {
+          "name": "NodeAssumption",
+          "statement": "IsFiniteSet(Node)"
+        }
+      ],
+      "imported_facts": [
+        {
+          "name": "SumFunctionZero",
+          "statement": "ASSUME NEW fun, IsFiniteSet(DOMAIN fun), \n         \\A x \\in DOMAIN fun : fun[x] \\in Nat\n  PROVE  SumFunction(fun) = 0 <=> \\A x \\in DOMAIN fun : fun[x] = 0"
+        },
+        {
+          "name": "SumFunctionOnSetZero",
+          "statement": "ASSUME NEW S, IsFiniteSet(S),\n         NEW fun, \\A x \\in S : fun[x] \\in Nat\n  PROVE  SumFunctionOnSet(fun, S) = 0 <=> \\A x \\in S : fun[x] = 0"
+        },
+        {
+          "name": "SmallestNatural",
+          "statement": "ASSUME NEW P(_), NEW n \\in Nat, P(n)\n  PROVE  \\E m \\in Nat : /\\ P(m)\n                        /\\ \\A k \\in 0 .. m-1 : ~ P(k)"
+        },
+        {
+          "name": "DownwardNatInduction",
+          "statement": "ASSUME NEW P(_), NEW m \\in Nat, P(m),\n         \\A n \\in 1 .. m : P(n) => P(n-1)\n  PROVE  P(0)"
+        },
+        {
+          "name": "Fun_NatBijEmpty",
+          "statement": "ASSUME NEW S\n  PROVE  ExistsBijection(1..0,S) <=> S = {}"
+        },
+        {
+          "name": "GeneralNatInduction",
+          "statement": "ASSUME NEW P(_),\n                 \\A n \\in Nat : (\\A m \\in 0..(n-1) : P(m)) => P(n)\n          PROVE  \\A n \\in Nat : P(n)"
+        },
+        {
+          "name": "NatInduction",
+          "statement": "ASSUME NEW P(_),\n         P(0),\n         \\A n \\in Nat : P(n) => P(n+1)\n  PROVE  \\A n \\in Nat : P(n)"
+        },
+        {
+          "name": "RecursiveFcnOfNatType",
+          "statement": "ASSUME NEW f, NEW S, NEW Def(_,_), f = [n \\in Nat |-> Def(f,n)],\n         ASSUME NEW n \\in Nat, NEW g, \\A i \\in 0 .. n-1 : g[i] \\in S\n         PROVE  Def(g,n) \\in S\n  PROVE  f \\in [Nat -> S]"
+        }
+      ],
+      "library_sha256": {
+        "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/Functions.tla": "b54ff63b7c76c327525c17c188d5f9f5e53d92f3fd701f5e2ba54f0f54391063",
+        "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/NaturalsInduction.tla": "08f52420cdaaf11292ed366782b5ce5b596bb7cbe789526a1cfd8806dbf98624",
+        "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/FunctionTheorems.tla": "f89871fb5b35d2fc54f583b12adb489dd6660be7aced67ab295fba0d4999c116",
+        "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla": "5cc604533e49792c1c3d050a38d845d08d9c209879ca20c86de04975bc4bc563",
+        "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/FiniteSets.tla": "eca905df95c16fb12f0f205a38b429c216a11b5c8429d270af044f05600a6380"
+      },
+      "selection": "lexical statements + one-hop visible bridge; no proof bodies or successful candidates",
+      "reference_fragment_used": false
+    }
+  }
+]

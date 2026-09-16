@@ -1,0 +1,31 @@
+#!/bin/bash
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-vcrank-gpu-v1
+#PBS -l select=1:system=polaris:ncpus=64:ngpus=1
+#PBS -l walltime=00:15:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+#PBS -o /home/eric-spencer/tla-verifier-candidate-rank-gpu-20260916-v1/train.stdout
+#PBS -e /home/eric-spencer/tla-verifier-candidate-rank-gpu-20260916-v1/train.stderr
+set -euo pipefail
+ROOT=/home/eric-spencer/tla-verifier-candidate-rank-gpu-20260916-v1
+BASE=/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1
+export PYTHONPATH="$ROOT:$ROOT/tools:$BASE:$BASE/tools"
+export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false
+export HF_HOME=/grand/EVITA/eric-spencer/hf-cache PYTHONUNBUFFERED=1
+export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1
+export PATH="/grand/EVITA/eric-spencer/tools/jre21/bin:$PATH"
+export JAVA_HOME=/grand/EVITA/eric-spencer/tools/jre21
+PYTHON=/home/eric-spencer/ChatTLA/.venv/bin/python
+MODEL=/grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659
+PACKET="$ROOT/packet.json"
+CHECKPOINT=/home/eric-spencer/tla-structured-span-train-20260914-v3/result.7618905/policy_optimizer.pt
+OUT="$ROOT/result.${PBS_JOBID%%.*}"
+test -x "$PYTHON" -a -f "$MODEL/config.json" -a -f "$PACKET" -a -f "$CHECKPOINT"
+test ! -e "$OUT"
+test "$(sha256sum "$PACKET" | awk '{print $1}')" = 4acd0f7a05e308a1cc37bf4586f00c9f5a220553a6833adee00cb1fc83440c4d
+test "$(sha256sum "$CHECKPOINT" | awk '{print $1}')" = 87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511
+"$PYTHON" -u "$ROOT/tools/proof_verifier_candidate_rank_cuda_eval.py" \
+  --packet "$PACKET" --packet-sha256 4acd0f7a05e308a1cc37bf4586f00c9f5a220553a6833adee00cb1fc83440c4d \
+  --model "$MODEL" --checkpoint "$CHECKPOINT" --output "$OUT"
