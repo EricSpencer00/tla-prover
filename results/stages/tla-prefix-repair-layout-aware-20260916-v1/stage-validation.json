@@ -1,0 +1,34 @@
+{
+  "kind": "protected_layout_aware_repair_stage_validation_v1",
+  "objective": "layout_aware_prefix_preserving_ranked_greedy_repair",
+  "packet_sha256": "a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c",
+  "corpus_sha256": "fb76468f6a3217a359d54da92a2e3fa25396aad0547e6b5eb35129193a0e812a",
+  "grammar_sha256": "2bcc86946f0a858628f455a3d0648c7117e2b780743e1f25dff82cebd0fb4d67",
+  "child_checkpoint_sha256": "87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511",
+  "runner_sha256": "4606418fee7050dcc3fdcf4f7f6705b88d7870a9c0ef01d3a14cc7eb645aa4b4",
+  "selector_sha256": "35e49223663a339b2785500b8c1d178cd8ffaafce7b904d43f299e02fa388fc8",
+  "layout_audit_sha256": "72b41dea7d6e4da7ca1532967db46d7b76cd840caca1924b32380b5c0b814809",
+  "preflight_sha256": "4c569421946fcd207028f16f12f90b24182817b7f89975c988277197195f15e8",
+  "pbs_sha256": "825b1fc37d6a9be872d24cd4efc4f171c2698f0e8b9911fc24b641454c418f3d",
+  "contract": {
+    "rows": [47, 107],
+    "max_new_tokens": 2048,
+    "repair_max_new_tokens": 512,
+    "selector_audit_steps": 4,
+    "prefix_preserving": true,
+    "layout_guard": "same-indent contiguous junction runs only",
+    "known_good_false_rejects": 0,
+    "known_good_denominator": 438,
+    "reference_conditioning": false,
+    "training": false,
+    "protected_sany_denominator": 2,
+    "gpu_walltime_minutes": 15
+  },
+  "claims": {
+    "model_weights_loaded": false,
+    "cuda_touched": false,
+    "gate_claim": false,
+    "model_improvement_claim": false,
+    "proof_claim": false
+  }
+}
