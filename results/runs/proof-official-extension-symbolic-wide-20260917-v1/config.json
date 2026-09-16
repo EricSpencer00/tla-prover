@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "method": "wider deterministic answer-free symbolic action lattice",
+  "manifest_sha256": "3380cf37c7311466ea7762662d55866839b3c3620ce73fb8d7ad209befe6de1d",
+  "requested_tasks": 119,
+  "attempts_per_task": 8,
+  "timeout_per_check": 5,
+  "seconds": 900,
+  "reference_fragment_used": false,
+  "training_executed": false,
+  "tlaps_executed": true,
+  "model_used": false,
+  "reward_or_feedback_used": false,
+  "denominator_fixed": true,
+  "quality_claim": false,
+  "gate_claim": false
+}
