@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 722
+- Revision: 723
 - Verified UTC: 2026-09-16T05:52:29Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
-- Phase: local_work
-- Active job: none
-- Observation evidence: At 2026-09-16T05:52:29Z, decoder-only v2 is uploaded to a fresh Polaris destination and remotely admitted on CPU. Exact stage hashes, Python compilation, PBS syntax, CLI help, pycache/output-namespace and owned-queue guards pass; xgrammar 0.2.2 preflight passes exact prompt counts401/457 and references2/2 with model_weights_loaded=false and cuda_touched=false. No GPU has been submitted and no quality, model or gate credit exists.
+- Phase: queued
+- Active job: `7627037` (Q, polaris, owner 01a08e7c-daff-7753-8e4f-41c47d0e3001)
+- Observation evidence: At 2026-09-16T05:54:29Z, exactly one v2 decoder diagnostic job7627037 was submitted after fresh final guards. PBS attests Q in debug with one GPU,64 CPUs and00:15:00 walltime; the destination/result namespace was clear and the owned queue was empty immediately before submission. No model, quality, SANY, gate, proof, generalization, TLC or promotion claim exists before terminal receipt and independent pinned SANY.
 - Latest completed result: Continuation-aware wide SFT, bounded textual repair, and decoder-only grammar-constrained continuation are complete negatives: references2/2 pass, the decoder's baseline/constrained outputs reject4/4, repaired protected SANY0/2; row47 grammar completion still has precedence failure and row107 remains grammar-incomplete.
 - Local work: The semantic preference child remains a complete negative: all20 teacher-forced margins rose but protected SANY stayed0/2. The row47 SANY-in-the-loop controller found the first valid scoped repair at seven of eight binder changes; row107 is now independently measured and rejected at lexical EOF. Semantic-span v1 failed before model load due an omitted manifest and earned zero credit. Corrected v2 job7626911 completed12 multi-token semantic-span updates with exact training-time reload; independent pinned-SANY audit v2 measured both references, both restored-parent candidates and both trained-child candidates, with0/4 model candidates passing and2/2 references passing. The CPU error-frontier audit measured16/16 counterfactual variants with0 SANY passes and identifies continuation/definition incompleteness beyond local layout. Continuation-aware wide SFT job7626952 completed12 exact-reload updates with112 adapter tensors across layers24-31 and all attention/MLP projections, but independent pinned SANY remained0/2 for the child and2/2 for references. The CPU verifier-guided search measured14 reference-free fixed-vocabulary repairs with0 passes. Decoder job7626997 then used exact parent-plus-adapter restoration and prefix-preserving grammar/rollback decoding: row47 reached grammar completion but SANY rejected a precedence conflict, while row107 exhausted its repair budget and SANY rejected a malformed map branch. The new strict error-family guard catches those two shapes with zero false rejects over438 known-good modules, but it remains a decoder constraint diagnostic only. Large checkpoints remain remote-only; the programmatic Discord watchdog remains live. Do not promote or replay these objectives unchanged.
 - External blocker: none verified
-- Next action: Perform one final live Polaris ownership/output check and submit exactly one bounded v2 decoder diagnostic under the existing one-GPU/15-minute limit. Monitor to terminal, retrieve the complete receipt, and independently score baseline and repaired bytes with pinned SANY; grant no model, quality or gate credit without that evidence.
+- Next action: Monitor sole job7627037 to terminal state, retrieve its complete decoder receipt or failure trace, and independently score both protected rows with pinned SANY. Do not submit a duplicate or grant model, quality or gate credit before that audit.
 
 ## Objective and evidence rules
 
@@ -37,13 +37,14 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 | TLA-06F | Done | Prepare adapter-restored verifier-constrained continuation decode | Stage tla-fullmodule-continuation-grammar-decode-20260916-v1 binds packet a125a0d5, parent87489e47, adapter checkpoint e8a13956, pinned grammar and selector, prefix-preserving bounded rollback, no training, and no reference conditioning. Job7626997 completed E/Exit0; row47 grammar-ended, row107 repair-budget exhausted. Independent SANY is recorded separately with0/2 repaired passes. |
 | TLA-06G | Done | Independently score constrained decoder outputs | Decoder audit v1 ignores worker labels, passes4/4 SANY controls, and measures baseline plus repaired bytes for both protected rows. References pass2/2; all4 model bytes reject, including repaired47 and107. No model, quality, gate, proof, TLC or promotion credit. |
 | TLA-06H | Done | Audit strict continuation error-family guards | CPU guard audit v1 passes synthetic controls and scans438 known-good modules with0 false rejects. It catches row47's top-level quantified-junction shape and row107's set-brace map-arrow shape. This is a decoder constraint diagnostic, not SANY/model/gate credit. |
-| TLA-06I | In progress | Integrate strict continuation guards into fresh decoder stage | Append-only v2 stage binds the same packet/parent/adapter and integrates the audited guard into ranked grammar admission, final validation and prefix rollback. Polaris CPU admission passes exact prompt counts401/457, references2/2, xgrammar0.2.2, stage hashes, compile/PBS/CLI, clean pycache/result namespace and empty owned queue. No GPU or model/quality/gate credit yet. |
+| TLA-06I | In progress | Integrate strict continuation guards into fresh decoder stage | Append-only v2 stage binds the same packet/parent/adapter and integrates the audited guard into ranked grammar admission, final validation and prefix rollback. Polaris CPU admission passes exact prompt counts401/457, references2/2, xgrammar0.2.2, stage hashes, compile/PBS/CLI, clean pycache/result namespace and empty owned queue. Unique claim5c0b8d9b acquired and exactly one bounded job7627037 submitted Q with one GPU/00:15:00; independent pinned SANY remains required. |
 | TLA-07 | Not ready | Verify complete frozen SANY gate | Full frozen denominator has not passed 100%; no diagnostic promotion. |
 | TLA-08 | Not ready | Verify applicable TLC and non-vacuity | Prerequisite SANY gate and intended-behavior evidence incomplete. |
 | TLA-09 | Not ready | Verify genuine TLAPS model performance | Acceptance gates incomplete; same-node positive/negative TLAPS controls and bounded dry run required before retry. |
 
 ## Decisions
 
+- 2026-09-16T05:54:29Z: Final live Polaris guards passed after removing generated pycache: output namespace absent, owned queue empty, preflight hash db6ccaff and strict guard hash e4deb37c remain exact. Unique claim5c0b8d9b binds v2 stage hashes, packet/parent/adapter, rows47/107, one GPU and00:15:00. Exactly one qsub submitted as job7627037, scheduler state Q in debug; monitor only and independently score pinned SANY before any claim.
 - 2026-09-16T05:52:29Z: Remote v2 admission passes at fresh destination /home/eric-spencer/tla-fullmodule-continuation-grammar-decode-20260916-v2. Exact SHA256SUMS, Python compile, PBS syntax, CLI help, pycache/output-namespace and owned-queue guards pass; no-weight CPU preflight passes references2/2, prompt tokens401/457, xgrammar0.2.2, and strict-guard bundle hash e4deb37c. Submit exactly one bounded one-GPU diagnostic only after one final live guard; independent pinned SANY remains mandatory and no quality/model/gate claim is authorized.
 - 2026-09-16T05:48:03Z: Fresh decoder-only v2 locally integrates the zero-false-reject strict quantified-junction and set/map guards into ranked token admission, final response validation and prefix rollback. Stage hashes, PBS syntax and Python compilation pass; local torch import is unavailable, so remote no-weight CPU admission is mandatory before any GPU. Upload append-only and preserve no model, quality or gate credit.
 - 2026-09-16T05:42:56Z: CPU-only strict continuation error-family guard audit passes438 known-good modules with0 false rejects and catches both exact latest decoder failure shapes: row47 top-level quantified junctions and row107 set-brace map arrows. Synthetic parenthesized/function-map controls remain accepted. Integrate these guards into a fresh stage; do not rerun the prior decoder unchanged and do not award SANY/model/gate credit.
@@ -532,16 +533,26 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 722,
+  "revision": 723,
   "verified_utc": "2026-09-16T05:52:29Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
-  "phase": "local_work",
-  "active_job": null,
-  "observation_evidence": "At 2026-09-16T05:52:29Z, decoder-only v2 is uploaded to a fresh Polaris destination and remotely admitted on CPU. Exact stage hashes, Python compilation, PBS syntax, CLI help, pycache/output-namespace and owned-queue guards pass; xgrammar 0.2.2 preflight passes exact prompt counts401/457 and references2/2 with model_weights_loaded=false and cuda_touched=false. No GPU has been submitted and no quality, model or gate credit exists.",
+  "phase": "queued",
+  "active_job": {
+    "id": "7627037",
+    "scheduler_id": "7627037.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+    "pbs_state": "Q",
+    "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
+    "host": "polaris",
+    "queue": "debug",
+    "ngpus": 1,
+    "walltime": "00:15:00",
+    "exec_host": null
+  },
+  "observation_evidence": "At 2026-09-16T05:54:29Z, exactly one v2 decoder diagnostic job7627037 was submitted after fresh final guards. PBS attests Q in debug with one GPU,64 CPUs and00:15:00 walltime; the destination/result namespace was clear and the owned queue was empty immediately before submission. No model, quality, SANY, gate, proof, generalization, TLC or promotion claim exists before terminal receipt and independent pinned SANY.",
   "last_result": "Continuation-aware wide SFT, bounded textual repair, and decoder-only grammar-constrained continuation are complete negatives: references2/2 pass, the decoder's baseline/constrained outputs reject4/4, repaired protected SANY0/2; row47 grammar completion still has precedence failure and row107 remains grammar-incomplete.",
   "local_work": "The semantic preference child remains a complete negative: all20 teacher-forced margins rose but protected SANY stayed0/2. The row47 SANY-in-the-loop controller found the first valid scoped repair at seven of eight binder changes; row107 is now independently measured and rejected at lexical EOF. Semantic-span v1 failed before model load due an omitted manifest and earned zero credit. Corrected v2 job7626911 completed12 multi-token semantic-span updates with exact training-time reload; independent pinned-SANY audit v2 measured both references, both restored-parent candidates and both trained-child candidates, with0/4 model candidates passing and2/2 references passing. The CPU error-frontier audit measured16/16 counterfactual variants with0 SANY passes and identifies continuation/definition incompleteness beyond local layout. Continuation-aware wide SFT job7626952 completed12 exact-reload updates with112 adapter tensors across layers24-31 and all attention/MLP projections, but independent pinned SANY remained0/2 for the child and2/2 for references. The CPU verifier-guided search measured14 reference-free fixed-vocabulary repairs with0 passes. Decoder job7626997 then used exact parent-plus-adapter restoration and prefix-preserving grammar/rollback decoding: row47 reached grammar completion but SANY rejected a precedence conflict, while row107 exhausted its repair budget and SANY rejected a malformed map branch. The new strict error-family guard catches those two shapes with zero false rejects over438 known-good modules, but it remains a decoder constraint diagnostic only. Large checkpoints remain remote-only; the programmatic Discord watchdog remains live. Do not promote or replay these objectives unchanged.",
   "external_blocker": null,
-  "next_action": "Perform one final live Polaris ownership/output check and submit exactly one bounded v2 decoder diagnostic under the existing one-GPU/15-minute limit. Monitor to terminal, retrieve the complete receipt, and independently score baseline and repaired bytes with pinned SANY; grant no model, quality or gate credit without that evidence.",
+  "next_action": "Monitor sole job7627037 to terminal state, retrieve its complete decoder receipt or failure trace, and independently score both protected rows with pinned SANY. Do not submit a duplicate or grant model, quality or gate credit before that audit.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -631,7 +642,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
       "id": "TLA-06I",
       "state": "In progress",
       "task": "Integrate strict continuation guards into fresh decoder stage",
-      "evidence": "Append-only v2 stage binds the same packet/parent/adapter and integrates the audited guard into ranked grammar admission, final validation and prefix rollback. Polaris CPU admission passes exact prompt counts401/457, references2/2, xgrammar0.2.2, stage hashes, compile/PBS/CLI, clean pycache/result namespace and empty owned queue. No GPU or model/quality/gate credit yet."
+      "evidence": "Append-only v2 stage binds the same packet/parent/adapter and integrates the audited guard into ranked grammar admission, final validation and prefix rollback. Polaris CPU admission passes exact prompt counts401/457, references2/2, xgrammar0.2.2, stage hashes, compile/PBS/CLI, clean pycache/result namespace and empty owned queue. Unique claim5c0b8d9b acquired and exactly one bounded job7627037 submitted Q with one GPU/00:15:00; independent pinned SANY remains required."
     },
     {
       "id": "TLA-07",
@@ -653,6 +664,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
     }
   ],
   "decisions": [
+    "2026-09-16T05:54:29Z: Final live Polaris guards passed after removing generated pycache: output namespace absent, owned queue empty, preflight hash db6ccaff and strict guard hash e4deb37c remain exact. Unique claim5c0b8d9b binds v2 stage hashes, packet/parent/adapter, rows47/107, one GPU and00:15:00. Exactly one qsub submitted as job7627037, scheduler state Q in debug; monitor only and independently score pinned SANY before any claim.",
     "2026-09-16T05:52:29Z: Remote v2 admission passes at fresh destination /home/eric-spencer/tla-fullmodule-continuation-grammar-decode-20260916-v2. Exact SHA256SUMS, Python compile, PBS syntax, CLI help, pycache/output-namespace and owned-queue guards pass; no-weight CPU preflight passes references2/2, prompt tokens401/457, xgrammar0.2.2, and strict-guard bundle hash e4deb37c. Submit exactly one bounded one-GPU diagnostic only after one final live guard; independent pinned SANY remains mandatory and no quality/model/gate claim is authorized.",
     "2026-09-16T05:48:03Z: Fresh decoder-only v2 locally integrates the zero-false-reject strict quantified-junction and set/map guards into ranked token admission, final response validation and prefix rollback. Stage hashes, PBS syntax and Python compilation pass; local torch import is unavailable, so remote no-weight CPU admission is mandatory before any GPU. Upload append-only and preserve no model, quality or gate credit.",
     "2026-09-16T05:42:56Z: CPU-only strict continuation error-family guard audit passes438 known-good modules with0 false rejects and catches both exact latest decoder failure shapes: row47 top-level quantified junctions and row107 set-brace map arrows. Synthetic parenthesized/function-map controls remain accepted. Integrate these guards into a fresh stage; do not rerun the prior decoder unchanged and do not award SANY/model/gate credit.",
@@ -2086,7 +2098,9 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "results/stages/tla-fullmodule-continuation-grammar-decode-20260916-v2/run.pbs",
     "results/stages/tla-fullmodule-continuation-grammar-decode-20260916-v2/tools/proof_fullmodule_continuation_grammar_decode.py",
     "results/runs/tla-fullmodule-continuation-grammar-decode-20260916-v2/remote-preflight/cpu-preflight.json",
-    "results/runs/tla-fullmodule-continuation-grammar-decode-20260916-v2/remote-guards.json"
+    "results/runs/tla-fullmodule-continuation-grammar-decode-20260916-v2/remote-guards.json",
+    "results/prover-submit-claims/5c0b8d9b70e20634a923d4e85c7771b6b573d059d8802ab2ea8c9b41a9f2dab8.json",
+    "results/runs/tla-fullmodule-continuation-grammar-decode-20260916-v2/job.7627037-submission.json"
   ]
 }
 -->
