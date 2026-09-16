@@ -1,0 +1,98 @@
+{
+  "kind": "protected_prefix_repair_ranked_greedy_v1",
+  "complete": true,
+  "contract": {
+    "rows": [
+      47,
+      107
+    ],
+    "max_new_tokens": 2048,
+    "repair_max_new_tokens": 512,
+    "selector_audit_steps": 4,
+    "prefix_preserving": true,
+    "reference_conditioning": false,
+    "training": false,
+    "supplied_reference_credit": false
+  },
+  "packet_sha256": "a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c",
+  "corpus_sha256": "fb76468f6a3217a359d54da92a2e3fa25396aad0547e6b5eb35129193a0e812a",
+  "grammar_sha256": "2bcc86946f0a858628f455a3d0648c7117e2b780743e1f25dff82cebd0fb4d67",
+  "child_checkpoint_sha256": "87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511",
+  "model_files": {
+    "config.json": "29e4c210b0d6ac178b16b2a255a568bdb23b581e50ca1ef6a6d071dd85704e6e",
+    "generation_config.json": "189fb0c0d7fd8a527db217c0a60a0e013f0394cd8800f9697a666a9e75e5f7fd",
+    "model-00001-of-00004.safetensors": "2b1879f356aed350030bb40eb45ad362c89d9891096f79a3ab323d3ba5607668",
+    "model-00002-of-00004.safetensors": "09d433f650646834a83c580877bd60c6d1f88f7755305c12576b5c7058f9af15",
+    "model-00003-of-00004.safetensors": "fc1cdddd6bfa91128d6e94ee73d0ce62bfcdb7af29e978ddcab30c66ae9ea7fa",
+    "model-00004-of-00004.safetensors": "92ecfe1a2414458b4821ac8c13cf8cb70aed66b5eea8dc5ad9eeb4ff309d6d7b",
+    "model.safetensors.index.json": "146776fce3f6db1103aa6f249e65ee5544c5923ce6f971b092eee79aa6e5d37b",
+    "special_tokens_map.json": "6f38c73729248f6c127296386e3cdde96e254636cc58b4169d3fd32328d9a8ec",
+    "tokenizer.json": "79e3e522635f3171300913bb421464a87de6222182a0570b9b2ccba2a964b2b4",
+    "tokenizer_config.json": "177c7b61e616fecb84c17ce0591acb92c6c4d60e9ac5ababfb940ff23bbcd424"
+  },
+  "restored_tensors_exact": true,
+  "protected_prompt_tokens": {
+    "47": {
+      "prompt_sha256": "32eb750d7db375df72e8e93d929ac3e5c7a365d50a915202c62db6e3d675877f",
+      "prompt_tokens": 401
+    },
+    "107": {
+      "prompt_sha256": "388d75fc27a48d38ccb3fd0258a72ddfd1b9dbb0852b0b058057521e8eaafb51",
+      "prompt_tokens": 457
+    }
+  },
+  "xgrammar_version": "0.2.2",
+  "records": [
+    {
+      "row": 47,
+      "generation_seed": 20260962,
+      "prompt_tokens": 401,
+      "prompt_tokens_match_frozen": true,
+      "baseline_reply": "---- MODULE W4Od2m7p4t2 ----\nEXTENDS Naturals\nCONSTANTS Dispatchers, Cap\nVARIABLES active, readSnapshots\n\nvars == <<active, readSnapshots>>\n\nInit == /\\ active = 0\n       /\\ readSnapshots = [d \\in Dispatchers |-> 0]\n\nNext == \\/ active' = active\n       \\/ active' = active + 1\n       /\\ readSnapshots' = [d \\in Dispatchers |-> IF d = \"dispatcher1\" THEN readSnapshots[d] + 1 ELSE readSnapshots[d]]\n       /\\ UNCHANGED <<vars>>\n\nSpec == Init /\\ [][Next]_vars\n\nActiveWithinCapacity == active <= Cap\n\n====",
+      "baseline_reply_sha256": "1e8c6ff81f2662b74b6d408a6c5ed78972fa33971a50a53e9333fbedab3b3ada",
+      "baseline_response_tokens": 154,
+      "accepted_prefix_tokens": 154,
+      "first_rejected_response_token": 154,
+      "repaired_reply": "---- MODULE W4Od2m7p4t2 ----\nEXTENDS Naturals\nCONSTANTS Dispatchers, Cap\nVARIABLES active, readSnapshots\n\nvars == <<active, readSnapshots>>\n\nInit == /\\ active = 0\n       /\\ readSnapshots = [d \\in Dispatchers |-> 0]\n\nNext == \\/ active' = active\n       \\/ active' = active + 1\n       /\\ readSnapshots' = [d \\in Dispatchers |-> IF d = \"dispatcher1\" THEN readSnapshots[d] + 1 ELSE readSnapshots[d]]\n       /\\ UNCHANGED <<vars>>\n\nSpec == Init /\\ [][Next]_vars\n\nActiveWithinCapacity == active <= Cap\n\n====",
+      "repaired_reply_sha256": "1e8c6ff81f2662b74b6d408a6c5ed78972fa33971a50a53e9333fbedab3b3ada",
+      "repaired_response_tokens": 154,
+      "repair_tokens": 0,
+      "grammar_ended": true,
+      "repair_max_new_tokens": 512,
+      "selector_audit_steps": 4,
+      "repair_wall_seconds": null,
+      "protected_reference_conditioning": false,
+      "training": false,
+      "supplied_reference_credit": false,
+      "gate_claim": false,
+      "model_improvement_claim": false
+    },
+    {
+      "row": 107,
+      "generation_seed": 20261022,
+      "prompt_tokens": 457,
+      "prompt_tokens_match_frozen": true,
+      "baseline_reply": "---- MODULE W4Od3m0p0t0 ----\nEXTENDS Naturals\nCONSTANTS Banks, Ledger, Lock\nVARIABLES snapshot, holder\nvars == <<snapshot, holder>>\n\nInit == snapshot = [b \\in Banks |-> \"free\"] /\\ holder = \"none\"\n\nNext == \\/ crash(b) \\/ idle(b) \\/ post(b)\ncrash(b) == snapshot' = snapshot /\\ holder' = \"none\"\nidle(b) == snapshot' = snapshot /\\ holder' = \"none\" /\\ snapshot[b] = \"free\"\npost(b) == snapshot' = snapshot \\/ snapshot' = [snapshot EXCEPT![b] = \"held\"] /\\ holder' = b\nlock(b) == snapshot' = [snapshot EXCEPT![b] = \"held\"] /\\ holder' = b\nrelease(b) == snapshot' = [snapshot EXCEPT![b] = \"free\"] /\\ holder' = \"none\"\nreboot(b) == snapshot' = snapshot /\\ holder' = \"none\"\n\nSpec == Init /\\ [][Next]_vars\n\nMutEx == \\A b \\in Banks : snapshot[b] = \"held\" => holder = b\n\\A b \\in Banks : snapshot[b] = \"free\" => holder = \"none\"\n\\A b \\in Banks : snapshot' = snapshot => holder' = holder\n\\A b \\in Banks : holder = b => \\E c \\in Banks : snapshot[c] = \"held\"\n\n====",
+      "baseline_reply_sha256": "82e78bb4428f9b759e1165cea19c6a1c13204b528ee0b90eb6debbd3052356cd",
+      "baseline_response_tokens": 306,
+      "accepted_prefix_tokens": 248,
+      "first_rejected_response_token": 248,
+      "repaired_reply": "---- MODULE W4Od3m0p0t0 ----\nEXTENDS Naturals\nCONSTANTS Banks, Ledger, Lock\nVARIABLES snapshot, holder\nvars == <<snapshot, holder>>\n\nInit == snapshot = [b \\in Banks |-> \"free\"] /\\ holder = \"none\"\n\nNext == \\/ crash(b) \\/ idle(b) \\/ post(b)\ncrash(b) == snapshot' = snapshot /\\ holder' = \"none\"\nidle(b) == snapshot' = snapshot /\\ holder' = \"none\" /\\ snapshot[b] = \"free\"\npost(b) == snapshot' = snapshot \\/ snapshot' = [snapshot EXCEPT![b] = \"held\"] /\\ holder' = b\nlock(b) == snapshot' = [snapshot EXCEPT![b] = \"held\"] /\\ holder' = b\nrelease(b) == snapshot' = [snapshot EXCEPT![b] = \"free\"] /\\ holder' = \"none\"\nreboot(b) == snapshot' = snapshot /\\ holder' = \"none\"\n\nSpec == Init /\\ [][Next]_vars\n\nMutEx == \\A b \\in Banks : snapshot[b] = \"held\" => holder = b\n\\A b \\in Banks \\* : snapshot[b] = \"held\" => \\E b' \\in Banks : snapshot[b'] = \"held\"\n\n==== PROPERTIES\nSpec => MutEx\n==== \n====  PROOF  ====\n  OBVIOUS\n  Theorem  :> Spec\n    (*** SUFFICES ASSUME: Init, [Next]_vars, Spec, and the two conjuncts of MutEx ***)\n    (***1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1",
+      "repaired_reply_sha256": "8b424670ddfe8d21b99a24ed36e3cecb3471384db7abf7ce696cbf26da9a3001",
+      "repaired_response_tokens": 760,
+      "repair_tokens": 512,
+      "grammar_ended": false,
+      "repair_max_new_tokens": 512,
+      "selector_audit_steps": 4,
+      "repair_wall_seconds": 10.93530559912324,
+      "protected_reference_conditioning": false,
+      "training": false,
+      "supplied_reference_credit": false,
+      "gate_claim": false,
+      "model_improvement_claim": false
+    }
+  ],
+  "producer": "protected_prefix_preserving_ranked_greedy_repair",
+  "gate_claim": false,
+  "model_improvement_claim": false
+}

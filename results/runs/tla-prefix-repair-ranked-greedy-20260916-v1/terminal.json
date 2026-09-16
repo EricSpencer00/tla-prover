@@ -1,0 +1,40 @@
+{
+  "kind": "protected_prefix_repair_ranked_greedy_terminal_v1",
+  "job_id": "7626186.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "pbs_state": "F",
+  "exit_status": 0,
+  "queue": "debug",
+  "exec_host": "x3004c0s37b0n0/0*64",
+  "requested_gpu_count": 1,
+  "pbs_resources_used_ngpus": 0,
+  "requested_walltime": "00:15:00",
+  "resources_used_walltime": "00:01:46",
+  "resources_used_cput": "00:01:14",
+  "job_log_sha256": "01e9b300817082e2f919f3dce5014b42369bdb5deb535452c6853e1c64828a6b",
+  "receipt_sha256": "720e427a0928d3dad4ddda766e3ef036dd67bddaf839253b3ef369ff214ceda1",
+  "row_47_sha256": "2dba1ace22bcc04d79c40408192527a305bf80de003e398a90071af41570813f",
+  "row_107_sha256": "a5bc508f9b6b29cf4a3a0b57fad3c9dcfa01316d1227efc1e03636ade50bfedb",
+  "receipt_complete": true,
+  "row_47_observed": {
+    "accepted_prefix_tokens": 154,
+    "repair_tokens": 0,
+    "grammar_ended": true,
+    "baseline_and_repaired_identical": true
+  },
+  "row_107_observed": {
+    "accepted_prefix_tokens": 248,
+    "repair_tokens": 512,
+    "grammar_ended": false,
+    "repaired_response_tokens": 760
+  },
+  "independent_sany": {
+    "controls": "2 reference passes and 2 syntax negatives rejected",
+    "baseline": "row47 rejected, row107 rejected",
+    "ranked_greedy_repair": "row47 rejected, row107 rejected"
+  },
+  "failure_class": "complete_negative_protected_sany_result",
+  "model_quality_claim": false,
+  "gate_claim": false,
+  "proof_claim": false,
+  "promotion_claim": false
+}

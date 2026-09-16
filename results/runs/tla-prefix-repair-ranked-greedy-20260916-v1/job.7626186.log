@@ -1,0 +1,13 @@
+protected_prefix_repair_ranked_greedy.py: OK
+protected_greedy_grammar_selector.py: OK
+protected_checkpoint_preflight.py: OK
+packet.json: OK
+canonical-preflight-corpus-20260911.json: OK
+tla_module_v1.ebnf: OK
+protected_prefix_repair_ranked_greedy_polaris.pbs: OK
+stage-validation.json: OK
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/291 [00:00<?, ?it/s]Loading weights: 100%|██████████| 291/291 [00:00<00:00, 10975.81it/s]
+[transformers] The following generation flags are not valid and may be ignored: ['temperature', 'top_p']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+{"event": "row", "row": 47, "accepted_prefix_tokens": 154, "repair_tokens": 0, "grammar_ended": true}
+{"event": "row", "row": 107, "accepted_prefix_tokens": 248, "repair_tokens": 512, "grammar_ended": false}

@@ -1,0 +1,18 @@
+{
+  "complete": true,
+  "controls_ok": true,
+  "requested": 4,
+  "observed": 4,
+  "counts": {
+    "baseline": {
+      "model_sany_reject": 2
+    },
+    "ranked_greedy_repair": {
+      "model_sany_reject": 2
+    }
+  },
+  "input_transform": "none; baseline and repaired bytes scored verbatim",
+  "scope": "two protected rows; diagnostic only",
+  "gate_claim": false,
+  "model_improvement_claim": false
+}
