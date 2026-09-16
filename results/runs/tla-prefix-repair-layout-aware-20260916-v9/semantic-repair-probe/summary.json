@@ -1,0 +1,16 @@
+{
+  "complete": true,
+  "controls_ok": true,
+  "observed": 2,
+  "binder_count": 8,
+  "variant_status": "pass",
+  "discriminator": "candidate-level binder repair is SANY-sufficient; pursue verifier-in-loop semantic repair",
+  "transformed_candidate_is_diagnostic_only": true,
+  "model_improvement_claim": false,
+  "quality_claim": false,
+  "gate_claim": false,
+  "proof_claim": false,
+  "generalization_claim": false,
+  "tlc_claim": false,
+  "nonvacuity_claim": false
+}

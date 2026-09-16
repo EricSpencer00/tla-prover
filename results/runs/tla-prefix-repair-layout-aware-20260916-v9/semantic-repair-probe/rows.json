@@ -1,0 +1,19 @@
+[
+  {
+    "arm": "observed_candidate",
+    "status": "model_sany_reject",
+    "candidate_sha256": "5ff6fcac5e09649bd557dd0cb238f19b061ae6296167d134748de10022f0de08",
+    "module_name": "W4Od2m7p4t2",
+    "returncode": 0,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-prefix-repair-layout-aware-20260916-v9/semantic-repair-probe/candidates/observed/sany.log"
+  },
+  {
+    "arm": "unique_binder_variant",
+    "binder_count": 8,
+    "status": "pass",
+    "candidate_sha256": "2b97ea1ba202452704624998f7a9fe93b7ce8e5e5e38076f5d4390012a74f532",
+    "module_name": "W4Od2m7p4t2",
+    "returncode": 0,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-prefix-repair-layout-aware-20260916-v9/semantic-repair-probe/candidates/unique_binders/sany.log"
+  }
+]

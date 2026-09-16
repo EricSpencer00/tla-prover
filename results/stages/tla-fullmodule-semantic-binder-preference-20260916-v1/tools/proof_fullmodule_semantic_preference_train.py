@@ -1,0 +1,110 @@
+"""SANY-screened semantic-binder preference diagnostic.
+
+This stage changes the training signal from syntax corruption preference to
+semantic binder-shadowing preference. Negatives are admitted only after the
+pinned SANY runtime rejects them. Protected rows remain evaluation-only.
+"""
+
+import json
+import re
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from tools import proof_fullmodule_structural_corruption_preference_train as base
+
+PACKET_SHA = base.PACKET_SHA
+PARENT_SHA = "87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511"
+TRAIN = base.TRAIN
+VALID = base.VALID
+PROTECTED = base.PROTECTED
+BUDGET = dict(base.BUDGET,
+              objective="deterministic_sany_screened_semantic_binder_preference",
+              steps=16, accumulation=2, lr=1e-6, seed=20260916)
+base.PARENT_SHA = PARENT_SHA
+base.BUDGET = BUDGET
+base.multi.BUDGET.update(
+    max_new_tokens=BUDGET["max_new_tokens"],
+    item_seconds=BUDGET["generation_seconds"],
+    sany_seconds=BUDGET["sany_seconds"],
+    train_only=False, eval_rows=list(PROTECTED), gate_claim=False,
+    quality_claim=False, generalization_claim=False, proof_claim=False,
+    tlc_claim=False, nonvacuity_claim=False)
+
+QUANTIFIER = re.compile(r"\\[AE] ([A-Za-z_][A-Za-z0-9_]*) \\in")
+IDENTIFIER = re.compile(r"(?<![A-Za-z0-9_\\])([A-Za-z_][A-Za-z0-9_]*)(?![A-Za-z0-9_])")
+
+
+def _rename_identifier(line, old, new):
+    return IDENTIFIER.sub(lambda match: new if match.group(1) == old else match.group(1), line)
+
+
+def corruptions(text):
+    """Return bounded scope-local shadowing candidates; SANY admits them."""
+    lines = text.splitlines(keepends=True)
+    binders = []
+    for index, line in enumerate(lines):
+        match = QUANTIFIER.search(line)
+        if match and len(QUANTIFIER.findall(line)) == 1:
+            binders.append((index, match.group(1)))
+    declared = []
+    for line in lines:
+        match = re.match(r"(?:CONSTANTS?|VARIABLES?)\s+(.+)", line)
+        if match:
+            declared.extend(re.findall(r"[A-Za-z_][A-Za-z0-9_]*", match.group(1)))
+    for index, name in binders:
+        for outer in declared:
+            if outer == name:
+                continue
+            changed = _rename_identifier(lines[index], name, outer)
+            if changed == lines[index] or QUANTIFIER.search(changed) is None:
+                continue
+            mutated = list(lines)
+            mutated[index] = changed
+            return [("semantic_declared_name_shadow", "".join(mutated))]
+    return []
+
+
+base.corruptions = corruptions
+
+
+def prepare(args):
+    base.prepare(args)
+    path = args.output / "manifest.json"
+    manifest = json.loads(path.read_text())
+    manifest["kind"] = "fullmodule_semantic_binder_preference_v1"
+    manifest["objective"] = BUDGET["objective"]
+    manifest["parent_checkpoint_sha256"] = PARENT_SHA
+    manifest["semantic_corruption"] = (
+        "line-local quantifier binder shadowing, admitted only after real SANY rejection")
+    path.write_text(json.dumps(manifest, indent=2) + "\n")
+    print(json.dumps(dict(prepared=len(manifest["pairs"]),
+                          manifest_sha256=base.file_sha(path), kind=manifest["kind"])))
+
+
+def train(args):
+    base.train(args)
+
+
+if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("mode", choices=("prepare", "train"))
+    parser.add_argument("--packet", type=Path, required=True)
+    parser.add_argument("--jar", type=Path, required=True)
+    parser.add_argument("--java", default="java")
+    parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--manifest")
+    parser.add_argument("--manifest-sha256")
+    parser.add_argument("--checkpoint", type=Path)
+    parser.add_argument("--model", type=Path)
+    args = parser.parse_args()
+    if args.mode == "train":
+        if not all((args.manifest, args.manifest_sha256, args.checkpoint, args.model)):
+            parser.error("train requires --manifest, --manifest-sha256, --checkpoint, --model")
+        train(args)
+    else:
+        prepare(args)

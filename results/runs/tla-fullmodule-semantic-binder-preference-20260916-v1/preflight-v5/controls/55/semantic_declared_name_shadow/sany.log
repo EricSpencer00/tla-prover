@@ -1,0 +1,16 @@
+
+****** SANY2 Version 2.1 created 24 February 2014
+
+Parsing file /Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-semantic-binder-preference-20260916-v1/preflight-v5/controls/55/semantic_declared_name_shadow/W4Od14m8p3t1.tla
+Semantic processing of module W4Od14m8p3t1
+Semantic errors:
+
+*** Errors: 1
+
+line 52, col 11 to line 52, col 16 of module W4Od14m8p3t1
+
+Multiply-defined symbol 'Drones': this definition or declaration conflicts 
+with the one at line 2, col 11 to line 2, col 16 of module W4Od14m8p3t1.
+
+
+
