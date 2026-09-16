@@ -1,0 +1,26 @@
+
+****** SANY2 Version 2.1 created 24 February 2014
+
+Parsing file /home/eric-spencer/tla-fullmodule-semantic-span-preference-20260916-v2/result.7626911/sany/restored_parent/47/W4Od2m7p4t2.tla
+***Parse Error***
+
+  Precedence conflict between ops \lor in block line 12, col 8 to line 12, col 9 of module W4Od2m7p4t2 and \land.
+
+Residual stack trace follows:
+ExtendableExpr starting at line 12, column 30.
+ExtendableExpr starting at line 12, column 21.
+ExtendableExpr starting at line 12, column 11.
+ExtendableExpr starting at line 11, column 9.
+Expression starting at line 11, column 9.
+
+
+Fatal errors while parsing TLA+ spec in file W4Od2m7p4t2.tla
+
+tla2sany.semantic.AbortException
+*** Abort messages: 1
+
+In module W4Od2m7p4t2
+
+Could not parse module W4Od2m7p4t2 from file W4Od2m7p4t2.tla
+
+

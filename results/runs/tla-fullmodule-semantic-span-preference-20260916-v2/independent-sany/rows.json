@@ -1,0 +1,46 @@
+[
+  {
+    "row": 47,
+    "phase": "restored_parent",
+    "status": "model_sany_reject",
+    "candidate_sha256": "1e8c6ff81f2662b74b6d408a6c5ed78972fa33971a50a53e9333fbedab3b3ada",
+    "module_name": "W4Od2m7p4t2",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-semantic-span-preference-20260916-v2/independent-sany/candidates/restored_parent-47/sany.log",
+    "finish_reason": "eos",
+    "embedded_worker_status": "model_reject"
+  },
+  {
+    "row": 107,
+    "phase": "restored_parent",
+    "status": "model_sany_reject",
+    "candidate_sha256": "82e78bb4428f9b759e1165cea19c6a1c13204b528ee0b90eb6debbd3052356cd",
+    "module_name": "W4Od3m0p0t0",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-semantic-span-preference-20260916-v2/independent-sany/candidates/restored_parent-107/sany.log",
+    "finish_reason": "eos",
+    "embedded_worker_status": "model_reject"
+  },
+  {
+    "row": 47,
+    "phase": "trained_child",
+    "status": "model_sany_reject",
+    "candidate_sha256": "6d69953d77d2d6d7cb1a9c88cfd336bebec9c9760b0527f8e06f79d318e6ce1e",
+    "module_name": "W4Od2m7p4t2",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-semantic-span-preference-20260916-v2/independent-sany/candidates/trained_child-47/sany.log",
+    "finish_reason": "eos",
+    "embedded_worker_status": "model_reject"
+  },
+  {
+    "row": 107,
+    "phase": "trained_child",
+    "status": "unmeasured_infrastructure",
+    "candidate_sha256": "b2d0ad65463d62a40e8bd477cd2ab2fe0b173bceea8341f47e5d8208865d95fa",
+    "module_name": "W4Od3m0p0t0",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-semantic-span-preference-20260916-v2/independent-sany/candidates/trained_child-107/sany.log",
+    "finish_reason": "token_or_time_limit",
+    "embedded_worker_status": "model_reject"
+  }
+]

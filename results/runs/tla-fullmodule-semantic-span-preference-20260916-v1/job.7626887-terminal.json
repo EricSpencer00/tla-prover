@@ -1,0 +1,21 @@
+{
+  "job_id": "7626887.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "pbs_state": "F",
+  "exit_status": 1,
+  "stageout_status": 1,
+  "exec_host": "x3003c0s13b0n0/0*64",
+  "resources_used": {
+    "cput": "00:00:00",
+    "walltime": "00:00:00",
+    "ngpus": 0,
+    "ncpus": 64,
+    "mem": "14848kb"
+  },
+  "result_namespace_created": false,
+  "model_weights_loaded": false,
+  "cuda_touched": false,
+  "diagnosis": "PBS script failed its manifest-file existence guard: preflight-v3/manifest.json was referenced but was not included in the uploaded v1 stage bundle.",
+  "model_improvement_claim": false,
+  "quality_claim": false,
+  "gate_claim": false
+}

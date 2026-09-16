@@ -1,0 +1,16 @@
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/291 [00:00<?, ?it/s]Loading weights: 100%|██████████| 291/291 [00:00<00:00, 9723.04it/s]
+[transformers] The following generation flags are not valid and may be ignored: ['temperature', 'top_p']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+{"step": 1, "loss": 1.1994135975837708}
+{"step": 2, "loss": 0.9816959798336029}
+{"step": 3, "loss": 0.9946198463439941}
+{"step": 4, "loss": 1.2614088654518127}
+{"step": 5, "loss": 1.2812735438346863}
+{"step": 6, "loss": 0.7585082650184631}
+{"step": 7, "loss": 0.9733542203903198}
+{"step": 8, "loss": 0.7525270879268646}
+{"step": 9, "loss": 1.2234722971916199}
+{"step": 10, "loss": 1.477262794971466}
+{"step": 11, "loss": 1.1718115210533142}
+{"step": 12, "loss": 0.6137634515762329}
+{"complete": true, "updates": 12, "parameter_delta_l2": 0.04694461471192907}

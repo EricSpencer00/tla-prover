@@ -1,0 +1,16 @@
+{
+  "complete": true,
+  "kind": "fullmodule_semantic_span_preference_remote_cpu_preflight_v2",
+  "manifest_sha256": "a038695e26fe6bf05630b8e226f1f156ff54ad3965708b6697dd6b8a9c2d161e",
+  "positive_reference_sany_pass": 22,
+  "negative_sany_reject": 20,
+  "protected_rows": [47, 107],
+  "model_weights_loaded": false,
+  "cuda_touched": false,
+  "training_authorized": false,
+  "gate_claim": false,
+  "remote_static_sha256sum_check": true,
+  "remote_source_compile": true,
+  "remote_cli_help": true,
+  "manifest_in_uploaded_bundle": true
+}

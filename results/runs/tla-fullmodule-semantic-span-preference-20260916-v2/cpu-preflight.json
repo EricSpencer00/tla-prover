@@ -1,0 +1,53 @@
+{
+  "schema": 1,
+  "kind": "fullmodule_semantic_span_preference_cpu_preflight_v2",
+  "created_utc": "2026-09-16T04:36:18Z",
+  "stage_sha256": "0199b52335c50186e4a7dc48343fec7d9b4251f68fab4de9861e55bf678895e6",
+  "stage_validation_sha256": "833163feb10472b8e633a21fb418d9ea21b2c3678bbd773effbc7e5d5095ee8e",
+  "implementation_sha256": "b6a0754fea51db89b2cda72ce05c5e6811d34d25d8ddd87e8169452146675398",
+  "pbs_sha256": "a836ba0c8351e55e422e7619097afcf91283129fd852feafa1515a168282b625",
+  "packet_sha256": "a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c",
+  "manifest_bundle_sha256": "a038695e26fe6bf05630b8e226f1f156ff54ad3965708b6697dd6b8a9c2d161e",
+  "manifest_sha256": "a038695e26fe6bf05630b8e226f1f156ff54ad3965708b6697dd6b8a9c2d161e",
+  "screened_pairs": 20,
+  "positive_reference_sany_pass": 22,
+  "negative_sany_reject": 20,
+  "train_rows": [
+    42,
+    43,
+    44,
+    45,
+    46,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58
+  ],
+  "validation_rows": [
+    59,
+    60,
+    61,
+    62,
+    63,
+    64
+  ],
+  "protected_rows": [
+    47,
+    107
+  ],
+  "protected_rows_in_pairs": [],
+  "model_weights_loaded": false,
+  "cuda_touched": false,
+  "training_authorized": false,
+  "gate_claim": false,
+  "quality_claim": false,
+  "model_improvement_claim": false,
+  "generalization_claim": false
+}
