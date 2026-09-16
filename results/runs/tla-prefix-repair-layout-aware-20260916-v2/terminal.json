@@ -1,0 +1,32 @@
+{
+  "job_id": "7626339.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "stage": "tla-prefix-repair-layout-aware-20260916-v2",
+  "state": "F",
+  "exit_status": 0,
+  "queue": "debug",
+  "exec_host": "x3203c0s37b0n0/0*64",
+  "resources_used": {
+    "cput": "00:01:28",
+    "mem": "6807328kb",
+    "ngpus": 0,
+    "ncpus": 64,
+    "walltime": "00:02:01"
+  },
+  "requested": {
+    "ngpus": 1,
+    "ncpus": 64,
+    "walltime": "00:15:00"
+  },
+  "stageout_status": 1,
+  "log_sha256": "9f2547dc1d02cc77a779a5c693b137103f020923497737707ede3d9928ae1550",
+  "receipt_sha256": "d832623037cecf9f0107ef61b4014b2566d32db7ae086feafe3e2def9ff9304f",
+  "row_sha256": {
+    "47": "c9530e59a24f321b1697afff01993ed0ff78272bd09b589f2099bd70e7275883",
+    "107": "f29ed9359b9f2ad59834712d6938e69c2ac70cb5de0be284a8e8bfdc324717f8"
+  },
+  "receipt_complete": true,
+  "records": 2,
+  "quality_claim": false,
+  "gate_claim": false,
+  "model_improvement_claim": false
+}

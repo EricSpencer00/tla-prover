@@ -1,0 +1,31 @@
+{
+  "command": [
+    "/usr/bin/java",
+    "-cp",
+    "/Users/eric/GitHub/prove-TLA/tools/tla2tools.jar",
+    "tla2sany.SANY",
+    "W4Od2m7p4t2.tla"
+  ],
+  "cwd": "/Users/eric/GitHub/prove-TLA/results/runs/tla-prefix-repair-layout-aware-20260916-v2/sany/controls/47-reference",
+  "root_pid": 86088,
+  "root_reaped": true,
+  "returncode": 0,
+  "output": "\n****** SANY2 Version 2.1 created 24 February 2014\n\nParsing file /Users/eric/GitHub/prove-TLA/results/runs/tla-prefix-repair-layout-aware-20260916-v2/sany/controls/47-reference/W4Od2m7p4t2.tla\nParsing file /private/var/folders/2q/79m85_bj1qlbkz3sts_bdfl00000gn/T/Integers.tla\nParsing file /private/var/folders/2q/79m85_bj1qlbkz3sts_bdfl00000gn/T/Naturals.tla\nSemantic processing of module Naturals\nSemantic processing of module Integers\nSemantic processing of module W4Od2m7p4t2\n",
+  "seconds": 0.30697262499597855,
+  "timed_out": false,
+  "output_complete": true,
+  "output_limit": false,
+  "cleanup_complete": true,
+  "surviving_owned_processes": [],
+  "owned_processes": [
+    {
+      "pid": 86088,
+      "created": 1789521751.962836,
+      "pgid": 86088
+    }
+  ],
+  "signals": [],
+  "errors": [],
+  "execution_complete": true,
+  "containment": "Best-effort ancestry polling; instantaneous unobserved reparenting is not excluded"
+}

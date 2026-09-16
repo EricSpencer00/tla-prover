@@ -1,0 +1,31 @@
+{
+  "command": [
+    "/usr/bin/java",
+    "-cp",
+    "/Users/eric/GitHub/prove-TLA/tools/tla2tools.jar",
+    "tla2sany.SANY",
+    "W4Od3m0p0t0.tla"
+  ],
+  "cwd": "/Users/eric/GitHub/prove-TLA/results/runs/tla-prefix-repair-layout-aware-20260916-v2/sany/candidates/107-baseline",
+  "root_pid": 86096,
+  "root_reaped": true,
+  "returncode": 255,
+  "output": "\n****** SANY2 Version 2.1 created 24 February 2014\n\nParsing file /Users/eric/GitHub/prove-TLA/results/runs/tla-prefix-repair-layout-aware-20260916-v2/sany/candidates/107-baseline/W4Od3m0p0t0.tla\n***Parse Error***\n\n  Precedence conflict between ops \\lor in block line 12, col 33 to line 12, col 34 of module W4Od3m0p0t0 and \\land.\n\nResidual stack trace follows:\nExtendableExpr starting at line 12, column 48.\nExtendableExpr starting at line 12, column 36.\nExtendableExpr starting at line 12, column 24.\nExtendableExpr starting at line 12, column 12.\nExpression starting at line 12, column 12.\n\n\nFatal errors while parsing TLA+ spec in file W4Od3m0p0t0.tla\n\ntla2sany.semantic.AbortException\n*** Abort messages: 1\n\nIn module W4Od3m0p0t0\n\nCould not parse module W4Od3m0p0t0 from file W4Od3m0p0t0.tla\n\n\n",
+  "seconds": 0.1804915419925237,
+  "timed_out": false,
+  "output_complete": true,
+  "output_limit": false,
+  "cleanup_complete": true,
+  "surviving_owned_processes": [],
+  "owned_processes": [
+    {
+      "pid": 86096,
+      "created": 1789521753.155194,
+      "pgid": 86096
+    }
+  ],
+  "signals": [],
+  "errors": [],
+  "execution_complete": true,
+  "containment": "Best-effort ancestry polling; instantaneous unobserved reparenting is not excluded"
+}
