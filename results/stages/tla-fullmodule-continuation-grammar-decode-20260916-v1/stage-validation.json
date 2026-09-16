@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "kind": "fullmodule_continuation_grammar_decode_stage_v1",
+  "objective": "adapter-restored-prefix-preserving-verifier-constrained-continuation",
+  "packet_sha256": "a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c",
+  "parent_checkpoint_sha256": "87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f244dcf8511",
+  "adapter_checkpoint_sha256": "e8a1395685c5c5c4d9311361fcea1e354d3decb4cf46b94cffab8831e936e69a",
+  "corpus_sha256": "fb76468f6a3217a359d54da92a2e3fa25396aad0547e6b5eb35129193a0e812a",
+  "grammar_sha256": "2bcc86946f0a858628f455a3d0648c7117e2b780743e1f25dff82cebd0fb4d67",
+  "runner_sha256": "796a71980b8af5794cb5bf6912df42db505a8e8d708ab200c0e5211c80c5a76d",
+  "repair_helper_sha256": "ce6e343ec20f0077572a19500bf0bf8ad97f3a1550d58e6654aad158abacd78b",
+  "selector_sha256": "125643d5be99521b7ce0653a6ac62bf49f5faf97bca0a7d5d93ca5a8df25c196",
+  "comment_guard_sha256": "6e3117afee2544bb41bc95278ee2e61a224efdf7a287b9177293026c192cbed2",
+  "pbs_sha256": "681a454eb7c519f80bfbe354136cbd8981276a4447bd349c1d8029c30dc18800",
+  "contract": {
+    "rows": [47, 107],
+    "max_new_tokens": 2048,
+    "repair_max_new_tokens": 512,
+    "selector_audit_steps": 4,
+    "backtrack_windows": [64, 128, 256, 512],
+    "prefix_preserving": true,
+    "adapter_only_inference": true,
+    "reference_conditioning": false,
+    "training": false,
+    "protected_sany_denominator": 2,
+    "gpu_walltime_minutes": 15
+  },
+  "claims": {
+    "model_weights_loaded": false,
+    "cuda_touched": false,
+    "model_improvement_claim": false,
+    "quality_claim": false,
+    "gate_claim": false,
+    "proof_claim": false,
+    "generalization_claim": false,
+    "tlc_claim": false,
+    "nonvacuity_claim": false
+  }
+}
