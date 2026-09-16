@@ -34,14 +34,14 @@ REFERENCE_ROWS = TRAIN + VALID
 ANCHORS = tuple(i for i in range(42, 59) if i != 47)
 MODULE_NAMES = {47: 'W4Od2m7p4t2', 107: 'W4Od3m0p0t0'}
 
-EXPERIMENT_KIND = 'fullmodule_streaming_matched_sft_v1'
+EXPERIMENT_KIND = 'fullmodule_streaming_sanitized_prompt_sft_v1'
 BUDGET = dict(
-    steps=48, accumulation=1, lr=2e-6, rank=4, alpha=8, seed=20260917,
+    steps=48, accumulation=1, lr=2e-6, rank=4, alpha=8, seed=20260918,
     training_seconds=600, max_new_tokens=768, generation_seconds=10,
     sany_seconds=30, stream_segments=4, adapter_layers=[28, 29, 30, 31],
     adapter_targets=['q_proj', 'k_proj', 'v_proj', 'o_proj',
                      'gate_proj', 'up_proj', 'down_proj'],
-    objective='streaming_lossless_matched_prefix_sft',
+    objective='streaming_lossless_sanitized_prompt_sft',
 )
 def sha(data):
     return hashlib.sha256(data).hexdigest()
@@ -151,12 +151,10 @@ def stream_prompt(source_prompt, module_name, segment, prefix=''):
         'Emit only the exact continuation of the module byte stream. Do not '
         'repeat any prefix, add markdown, or explain. Emit no synthetic text '
         'when the prefix is incomplete. The stream must end with the complete '
-        'module footer.\n'
-        f'MODULE: {module_name}\n'
-        f'SEGMENT: {int(segment)}\n')
+        'module footer. The task already names the module; begin the assistant '
+        'response with the exact bytes required by that task.\n')
     if prefix:
-        text += ('CURRENT PREFIX SHA256: ' + sha(prefix.encode()) + '\n'
-                 'CURRENT EXACT PREFIX:\n' + prefix + '\n')
+        text += 'CURRENT EXACT PREFIX:\n' + prefix + '\n'
         text += 'Continue immediately after the prefix.\n'
     else:
         text += 'Begin with the exact module header line.\n'

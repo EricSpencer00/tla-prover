@@ -62,9 +62,10 @@ def test_matched_stream_segments_are_lossless_and_prompt_identity_is_shared():
     for segment, prefix in enumerate(
             (''.join(segments[:i]) for i in range(len(segments)))):
         prompt = stream_worker.stream_prompt('TASK', 'Demo', segment, prefix)
-        assert f'SEGMENT: {segment}\n' in prompt
+        assert 'MODULE: Demo' not in prompt
+        assert 'SEGMENT:' not in prompt
         if prefix:
-            assert stream_worker.sha(prefix.encode()) in prompt
+            assert 'CURRENT EXACT PREFIX:\n' + prefix in prompt
             assert prompt.endswith('Continue immediately after the prefix.\n')
         else:
             assert prompt.endswith('Begin with the exact module header line.\n')

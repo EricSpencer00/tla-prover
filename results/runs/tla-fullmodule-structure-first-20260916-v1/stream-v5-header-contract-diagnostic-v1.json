@@ -1,0 +1,402 @@
+{
+  "schema": 1,
+  "kind": "fullmodule_header_contract_diagnostic_v1",
+  "packet_sha256": "a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c",
+  "validation_rows": [
+    59,
+    60,
+    61,
+    62,
+    63,
+    64
+  ],
+  "protected_rows": [
+    47,
+    107
+  ],
+  "validation": [
+    {
+      "row": 59,
+      "module_name": "W4Od17m5p1t1",
+      "response_sha256": "d363d2179a91f476fe1047e496df3e7cfeae24a54d8422b5672351a8265b6bd7",
+      "response_char_count": 1892,
+      "header_text": "-------------------------------- MODULE W4Od17m5p1t1 --------------------------------\n",
+      "header_char_count": 86,
+      "header_dash_count": 32,
+      "parser_admitted": true,
+      "source_prompt_has_exact_header_instruction": true
+    },
+    {
+      "row": 60,
+      "module_name": "W4Od14m2p2t1",
+      "response_sha256": "02da4343b3f670e13f69d7a879b102e3988f040a3901f98584a6d2ae4f24e5d5",
+      "response_char_count": 1782,
+      "header_text": "-------------------------- MODULE W4Od14m2p2t1 --------------------------\n",
+      "header_char_count": 74,
+      "header_dash_count": 26,
+      "parser_admitted": true,
+      "source_prompt_has_exact_header_instruction": true
+    },
+    {
+      "row": 61,
+      "module_name": "W4Od18m8p6t4",
+      "response_sha256": "c3706eff466c602ba477bfb7b53c83ded57353df7aa2daa17d6af0f69c9a02e6",
+      "response_char_count": 2167,
+      "header_text": "---- MODULE W4Od18m8p6t4 ----\n",
+      "header_char_count": 30,
+      "header_dash_count": 4,
+      "parser_admitted": true,
+      "source_prompt_has_exact_header_instruction": true
+    },
+    {
+      "row": 62,
+      "module_name": "W4Od1m2p2t0",
+      "response_sha256": "1ae202ef3a51da76886ac4e2e6bf46ad1343d21bebfd1aaf92f4ade3935754e5",
+      "response_char_count": 1595,
+      "header_text": "---------------------------- MODULE W4Od1m2p2t0 ----------------------------\n",
+      "header_char_count": 77,
+      "header_dash_count": 28,
+      "parser_admitted": true,
+      "source_prompt_has_exact_header_instruction": true
+    },
+    {
+      "row": 63,
+      "module_name": "W4Od6m2p2t3",
+      "response_sha256": "a7026cc81181b89417536a350a1066cfe041bccdfef129aff30fab675457b697",
+      "response_char_count": 1325,
+      "header_text": "---- MODULE W4Od6m2p2t3 ----\n",
+      "header_char_count": 29,
+      "header_dash_count": 4,
+      "parser_admitted": true,
+      "source_prompt_has_exact_header_instruction": true
+    },
+    {
+      "row": 64,
+      "module_name": "W4Od0m9p0t2",
+      "response_sha256": "8d49269fb7805d0a70e66b646449dfc254aabfc5e51bd388179bd64202e566d1",
+      "response_char_count": 1358,
+      "header_text": "---- MODULE W4Od0m9p0t2 ----\n",
+      "header_char_count": 29,
+      "header_dash_count": 4,
+      "parser_admitted": true,
+      "source_prompt_has_exact_header_instruction": true
+    }
+  ],
+  "tokenizer": {
+    "tokenizer_path": "/grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659",
+    "tokenizer_class": "TokenizersBackend",
+    "vocab_size": 128256,
+    "bos_token_id": 128000,
+    "eos_token_id": 128009,
+    "pad_token_id": null,
+    "validation": [
+      {
+        "row": 59,
+        "prompt_tokens": 497,
+        "response_tokens": 566,
+        "chat_suffix_exact": true,
+        "header_token_ids": [
+          1434,
+          41474,
+          468,
+          19,
+          67408,
+          1114,
+          76,
+          20,
+          79,
+          16,
+          83,
+          16,
+          20308,
+          198
+        ],
+        "header_token_count": 14,
+        "response_starts_with_reference_header": true
+      },
+      {
+        "row": 60,
+        "prompt_tokens": 483,
+        "response_tokens": 596,
+        "chat_suffix_exact": true,
+        "header_token_ids": [
+          776,
+          15700,
+          41474,
+          468,
+          19,
+          67408,
+          975,
+          76,
+          17,
+          79,
+          17,
+          83,
+          16,
+          14730,
+          14665
+        ],
+        "header_token_count": 15,
+        "response_starts_with_reference_header": true
+      },
+      {
+        "row": 61,
+        "prompt_tokens": 450,
+        "response_tokens": 672,
+        "chat_suffix_exact": true,
+        "header_token_ids": [
+          381,
+          41474,
+          468,
+          19,
+          67408,
+          972,
+          76,
+          23,
+          79,
+          21,
+          83,
+          19,
+          11556,
+          198
+        ],
+        "header_token_count": 14,
+        "response_starts_with_reference_header": true
+      },
+      {
+        "row": 62,
+        "prompt_tokens": 434,
+        "response_tokens": 468,
+        "chat_suffix_exact": true,
+        "header_token_ids": [
+          28914,
+          41474,
+          468,
+          19,
+          67408,
+          16,
+          76,
+          17,
+          79,
+          17,
+          83,
+          15,
+          14730,
+          57439
+        ],
+        "header_token_count": 14,
+        "response_starts_with_reference_header": true
+      },
+      {
+        "row": 63,
+        "prompt_tokens": 484,
+        "response_tokens": 499,
+        "chat_suffix_exact": true,
+        "header_token_ids": [
+          381,
+          41474,
+          468,
+          19,
+          67408,
+          21,
+          76,
+          17,
+          79,
+          17,
+          83,
+          18,
+          11556,
+          198
+        ],
+        "header_token_count": 14,
+        "response_starts_with_reference_header": true
+      },
+      {
+        "row": 64,
+        "prompt_tokens": 496,
+        "response_tokens": 465,
+        "chat_suffix_exact": true,
+        "header_token_ids": [
+          381,
+          41474,
+          468,
+          19,
+          67408,
+          15,
+          76,
+          24,
+          79,
+          15,
+          83,
+          17,
+          11556,
+          198
+        ],
+        "header_token_count": 14,
+        "response_starts_with_reference_header": true
+      }
+    ],
+    "all_chat_suffixes_exact": true,
+    "all_reference_headers_tokenized_as_exact_suffix": true,
+    "model_weights_loaded": false
+  },
+  "receipts": {
+    "v4": {
+      "restored_parent": [
+        {
+          "row": 47,
+          "phase": "restored_parent",
+          "stream_reject": null,
+          "assembled_char_count": 431,
+          "raw_reply_sha256": "78d14888e79e92d24668e5b177cf759b5e45eda88899e2deb908670fb31a672f",
+          "raw_reply_char_count": 431,
+          "first_lines": "---- MODULE W4Od2m7p4t2 ----\nEXTENDS Naturals\nCONSTANTS Dispatchers, Cap",
+          "canonical_header_admitted": true,
+          "header_module": "W4Od2m7p4t2",
+          "header_module_matches": true,
+          "synthetic_module_preamble": false,
+          "synthetic_segment_marker": false,
+          "exact_footer": true
+        },
+        {
+          "row": 107,
+          "phase": "restored_parent",
+          "stream_reject": null,
+          "assembled_char_count": 976,
+          "raw_reply_sha256": "0b65dc390d0bf85a4c73f0227b1616b8822d2349bc48627c814738b03fdf159f",
+          "raw_reply_char_count": 976,
+          "first_lines": "---- MODULE W4Od3m0p0t0 ----\nEXTENDS Naturals\nCONSTANTS NumBanks",
+          "canonical_header_admitted": true,
+          "header_module": "W4Od3m0p0t0",
+          "header_module_matches": true,
+          "synthetic_module_preamble": false,
+          "synthetic_segment_marker": false,
+          "exact_footer": true
+        }
+      ],
+      "trained_child": [
+        {
+          "row": 47,
+          "phase": "trained_child",
+          "stream_reject": null,
+          "assembled_char_count": 431,
+          "raw_reply_sha256": "78d14888e79e92d24668e5b177cf759b5e45eda88899e2deb908670fb31a672f",
+          "raw_reply_char_count": 431,
+          "first_lines": "---- MODULE W4Od2m7p4t2 ----\nEXTENDS Naturals\nCONSTANTS Dispatchers, Cap",
+          "canonical_header_admitted": true,
+          "header_module": "W4Od2m7p4t2",
+          "header_module_matches": true,
+          "synthetic_module_preamble": false,
+          "synthetic_segment_marker": false,
+          "exact_footer": true
+        },
+        {
+          "row": 107,
+          "phase": "trained_child",
+          "stream_reject": "complete module footer required",
+          "assembled_char_count": 4424,
+          "raw_reply_sha256": "dd33c6e2855ae1db1bae89875252605f0d702239fa5eaf94e3c489793c1854cc",
+          "raw_reply_char_count": 1005,
+          "first_lines": "---- MODULE W4Od3m0p0t0 ----\nEXTENDS Naturals\nCONSTANTS NumBanks",
+          "canonical_header_admitted": true,
+          "header_module": "W4Od3m0p0t0",
+          "header_module_matches": true,
+          "synthetic_module_preamble": false,
+          "synthetic_segment_marker": false,
+          "exact_footer": false
+        }
+      ]
+    },
+    "v5": {
+      "restored_parent": [
+        {
+          "row": 47,
+          "phase": "restored_parent",
+          "stream_reject": "module stream must begin with one header",
+          "assembled_char_count": 0,
+          "raw_reply_sha256": "a3b4a08f42c7953006716b9ec63df1540005f875761642ea7d97fa3baeb605af",
+          "raw_reply_char_count": 1626,
+          "first_lines": "MODULE W4Od2m7p42\n\nSEGMENT: 0",
+          "canonical_header_admitted": false,
+          "header_module": null,
+          "header_module_matches": false,
+          "synthetic_module_preamble": true,
+          "synthetic_segment_marker": true,
+          "exact_footer": false
+        },
+        {
+          "row": 107,
+          "phase": "restored_parent",
+          "stream_reject": "module stream must begin with one header",
+          "assembled_char_count": 0,
+          "raw_reply_sha256": "5facb845c7011a2b63b03519b84295a9ee99a18042af21ed46acccb62294df36",
+          "raw_reply_char_count": 1325,
+          "first_lines": "MODULE W4Od3m0pOtp0\nSEGMENT: 0\n",
+          "canonical_header_admitted": false,
+          "header_module": null,
+          "header_module_matches": false,
+          "synthetic_module_preamble": true,
+          "synthetic_segment_marker": true,
+          "exact_footer": false
+        }
+      ],
+      "trained_child": [
+        {
+          "row": 47,
+          "phase": "trained_child",
+          "stream_reject": "module stream must begin with one header",
+          "assembled_char_count": 0,
+          "raw_reply_sha256": "8fcd35056415d259b576585e5d29ef66a56e7d7dcf72bdea895cd2cc9342a2a0",
+          "raw_reply_char_count": 1643,
+          "first_lines": "MODULE W4Od2m7p42\n\nSEGMENT: 0",
+          "canonical_header_admitted": false,
+          "header_module": null,
+          "header_module_matches": false,
+          "synthetic_module_preamble": true,
+          "synthetic_segment_marker": true,
+          "exact_footer": false
+        },
+        {
+          "row": 107,
+          "phase": "trained_child",
+          "stream_reject": "module stream must begin with one header",
+          "assembled_char_count": 0,
+          "raw_reply_sha256": "0eb08ef6796fd0b1ef89a777c86d52660efbf2855237aea2dc4d7c23f5228411",
+          "raw_reply_char_count": 1315,
+          "first_lines": "MODULE W4Od3m0pOtp0\nSEGMENT: 0\n",
+          "canonical_header_admitted": false,
+          "header_module": null,
+          "header_module_matches": false,
+          "synthetic_module_preamble": true,
+          "synthetic_segment_marker": true,
+          "exact_footer": false
+        }
+      ]
+    }
+  },
+  "comparison": {
+    "v4_first_reply_header_admitted": "4/4",
+    "v5_first_reply_header_admitted": "0/4",
+    "v5_synthetic_module_and_segment_prefix": "4/4",
+    "v5_stream_rejects": "2/2"
+  },
+  "controls": {
+    "frozen_validation_parser_admitted": true,
+    "all_raw_first_replies_hashed": true,
+    "model_weights_loaded": false,
+    "cuda_touched": false,
+    "optimizer_updates": 0,
+    "text_repair": false,
+    "partial_sany_scoring": false,
+    "reward_or_feedback_used": false
+  },
+  "claims": {
+    "model_improvement_claim": false,
+    "quality_claim": false,
+    "gate_claim": false,
+    "proof_claim": false,
+    "tlc_claim": false,
+    "nonvacuity_claim": false
+  },
+  "conclusion": "V5 changed the first-reply contract: all four protected V5 replies start with a synthetic MODULE/SEGMENT metadata preamble and are parser-rejected, while V4 admitted canonical headers in all four first replies. Remove assistant-facing metadata labels before any new GPU hypothesis; preserve module identity in the user prompt or out-of-band manifest only."
+}
