@@ -1,0 +1,68 @@
+{
+  "kind": "bounded_rollback_policy_audit_v1",
+  "inputs": {
+    "v4_row47_sha256": "612059f43e56463f39df7c2a11ae3fff553fd1080844a193699d95c981369ef0",
+    "v4_terminal_sha256": "6adac0f9b17b129b42c23cd29a8f589eba4a3f2b1ec561df233cf80b9bab55a4",
+    "v4_log_sha256": "f883a59c513c307acdd14dbfe839a200d5b65ebdbc8189bbd5b868d7009fd75c",
+    "prior_row107_sha256": "f29ed9359b9f2ad59834712d6938e69c2ac70cb5de0be284a8e8bfdc324717f8"
+  },
+  "v4_observation": {
+    "row47_complete": true,
+    "row107_record_present": false,
+    "complete_receipt_present": false,
+    "failure_trace_for_row107_present": false,
+    "failure": "bounded guard backtracking exhausted without a finite continuation"
+  },
+  "policy": {
+    "repair_budget": 512,
+    "windows": [
+      64,
+      128,
+      256
+    ],
+    "retry_budgets_if_dead_end_after_512": [
+      {
+        "window": 64,
+        "rollback_tokens": 448,
+        "remaining_tokens": 64
+      },
+      {
+        "window": 128,
+        "rollback_tokens": 384,
+        "remaining_tokens": 128
+      },
+      {
+        "window": 256,
+        "rollback_tokens": 256,
+        "remaining_tokens": 256
+      }
+    ],
+    "max_retry_tokens": 256
+  },
+  "prior_model_shaped_evidence": {
+    "source": "results/runs/tla-prefix-repair-layout-aware-20260916-v2/result.7626339/row-107.json",
+    "repair_tokens": 512,
+    "grammar_ended": false,
+    "interpretation": "A prior independent row107 diagnostic also consumed the full 512-token suffix budget without grammar completion; this is context, not proof of the v4 hidden branch."
+  },
+  "synthetic_capacity_controls": {
+    "max_retry_tokens": 256,
+    "exact_capacity": {
+      "required_tokens": 256,
+      "status": "terminates"
+    },
+    "over_capacity": {
+      "required_tokens": 257,
+      "status": "closed"
+    }
+  },
+  "conclusion": {
+    "measured": "v4 row107 exhausted all bounded rollback attempts and failed closed; its per-attempt token trace was not persisted.",
+    "not_inferred": "The hidden row107 continuation length and the exact rollback point are unknown; no SANY or model-quality conclusion follows.",
+    "required_before_retry": "Persist each rollback attempt's selected-token count, rollback point, banned token, remaining budget and terminal reason in a partial failure receipt before considering a new stage or GPU run.",
+    "replay_v4_unchanged": false,
+    "sany_claim": false,
+    "model_improvement_claim": false,
+    "gate_claim": false
+  }
+}
