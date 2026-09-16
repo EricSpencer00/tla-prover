@@ -1,0 +1,21 @@
+{
+  "task": {
+    "id": "w4opus::d2-m7-p4-t2",
+    "index": 197,
+    "module_name": "W4Od2m7p4t2",
+    "dependencies": {},
+    "source": {
+      "path": "/home/eric-spencer/tla-fullmodule-broad-clean-sft-20260916-v1/result.7627209/reference/47/W4Od2m7p4t2.tla",
+      "sha256": "36c548d2a475c0d086ddf0340f927b36002699ce86e955d702e061324ad2f07c"
+    },
+    "description": {
+      "path": "/home/eric-spencer/tla-fullmodule-broad-clean-sft-20260916-v1/result.7627209/reference/47/description.txt",
+      "sha256": "51af01e46cddacbe5a7b184d8a676e76907d896d1fce0f2020e8f52626214d5f"
+    },
+    "config": {
+      "path": "/home/eric-spencer/tla-fullmodule-broad-clean-sft-20260916-v1/result.7627209/reference/47/configuration.cfg",
+      "sha256": "c0425fbaa10f14c2ffe86a0adcc830bfbbc1a49adffbc005df4d4fc0e726e653"
+    }
+  },
+  "raw_reply": "---- MODULE W4Od2m7p4t2 ----\nEXTENDS Naturals\nCONSTANTS Dispatchers, Cap\nVARIABLES active, readSnapshots\n\nvars == <<active, readSnapshots>>\n\nInit == /\\ active = 0\n       /\\ readSnapshots = [d \\in Dispatchers |-> 0]\n\nNext == \\/ active' = active\n       \\/ active' = active + 1\n       /\\ readSnapshots' = [d \\in Dispatchers |\n                          IF readSnapshots[d] = active\n                          THEN readSnapshots' = [d' \\in Dispatchers |-> IF d' = d THEN active + 1 ELSE readSnapshots[d']]\n                          ELSE readSnapshots']\n\nSpec == Init /\\ [][Next]_vars\n\nActiveWithinCapacity == active <= Cap\n\n===="
+}

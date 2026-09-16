@@ -1,0 +1,17 @@
+{
+  "kind": "fullmodule_broad_clean_sft_remote_final_guards_v1",
+  "verified_utc": "2026-09-16T07:18:04Z",
+  "destination": "/home/eric-spencer/tla-fullmodule-broad-clean-sft-20260916-v1",
+  "stage_sha256sums": "f4f7a08529bdee47fdee45a839ec85bbbbf081cdec675f6183346dc9ae1e9fd4",
+  "packet_sha256": "a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c",
+  "manifest_sha256": "73372fc0be2e57dd6f637b8865b3abc381e7fb7288ddf2f099708e1177a2f33b",
+  "preflight_sha256": "f36ee9388d064a88a8c88bb9d646fb3c11ba54f0e0ff8f652e8f2726422ae951",
+  "parent_checkpoint_sha256": "87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511",
+  "sha256sums_ok": true,
+  "python_compile_ok": true,
+  "pbs_syntax_ok": true,
+  "cli_help_ok": true,
+  "pycache_absent": true,
+  "result_namespace_empty": true,
+  "owned_queue_empty": true
+}

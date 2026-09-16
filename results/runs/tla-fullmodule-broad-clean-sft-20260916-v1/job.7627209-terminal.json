@@ -1,0 +1,47 @@
+{
+  "kind": "fullmodule_broad_clean_sft_terminal_v1",
+  "job_id": "7627209.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "pbs_state": "F",
+  "exit_status": 0,
+  "walltime": "00:04:07",
+  "exec_host": "x3001c0s19b1n0/0*64",
+  "resource_list": {
+    "ncpus": 64,
+    "ngpus": 1,
+    "walltime": "00:15:00"
+  },
+  "qstat_resources_used": {
+    "cput": "00:01:40",
+    "cpupercent": 75,
+    "mem": "6002472kb",
+    "ncpus": 64,
+    "ngpus": 0,
+    "vmem": "132805784kb",
+    "walltime": "00:04:07"
+  },
+  "updates": 32,
+  "checkpoint_sha256": "03a07dfb1b6b4ec625c07279e5187055a79953ea2ba9df047ce2f89a1c1ba192",
+  "receipt_sha256": "915583eea8e1a0bb569cd0fbeb56458d131fc817b552f8426ab20d3bbd53ed67",
+  "receipt_complete": true,
+  "reload_tensors_exact": true,
+  "reload_logits_exact": true,
+  "parameter_delta_l2": 0.015814929133645288,
+  "adapter_parameter_tensors": 56,
+  "adapter_parameter_count": 1310720,
+  "independent_summary_sha256": "ab946b68dcaa79ab600a5def2f78184634bf1ded1c4414dc497d6fb985e4e902",
+  "independent_controls_ok": true,
+  "independent_candidate_sany_pass": 0,
+  "independent_candidate_sany_reject": 4,
+  "independent_worker_labels_reproduced": false,
+  "validation_mean_loss_before": 0.4014848570028941,
+  "validation_mean_loss_after": 0.40127907196680707,
+  "validation_mean_top1_before": 0.8991512258847555,
+  "validation_mean_top1_after": 0.8987855911254883,
+  "protected_raw_bytes_unchanged": {
+    "47": true,
+    "107": true
+  },
+  "model_improvement_claim": false,
+  "quality_claim": false,
+  "gate_claim": false
+}

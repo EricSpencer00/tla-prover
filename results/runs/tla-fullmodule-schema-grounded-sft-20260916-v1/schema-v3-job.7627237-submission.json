@@ -1,0 +1,19 @@
+{
+  "kind": "fullmodule_prompt_grounded_schema_submission_v1",
+  "submitted_utc": "2026-09-16T07:44:22Z",
+  "job_id": "7627237.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "job_name": "tla-w4-schema-v3",
+  "owner": "eric-spencer",
+  "queue": "debug",
+  "pbs_state": "R",
+  "exec_host": "x3208c0s7b0n0/0*64",
+  "ncpus": 64,
+  "ngpus": 1,
+  "walltime": "00:15:00",
+  "account": "EVITA",
+  "stage": "tla-fullmodule-schema-grounded-sft-20260916-v3",
+  "claim_sha256": "d7a5425abfaa0baa2525369ec4f37661c31c3cd7eaf2f3f943783f0020543612",
+  "duplicate_submission": false,
+  "quality_claim": false,
+  "gate_claim": false
+}

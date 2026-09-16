@@ -1,0 +1,27 @@
+{
+  "kind": "polaris_auth_reconciliation_v1",
+  "observed_utc": "2026-09-16T07:56:25Z",
+  "job_id": "7627237.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "last_verified_job_state": {
+    "observed_utc": "2026-09-16T07:44:31Z",
+    "pbs_state": "R",
+    "host": "x3208c0s7b0n0/0*64",
+    "requested_gpus": 1,
+    "requested_cpus": 64,
+    "walltime": "00:15:00"
+  },
+  "current_observation": {
+    "batchmode_qstat": "failed_before_remote_command",
+    "interactive_ssh": "reached_password_prompt_but_authentication_was_not_completed",
+    "remote_job_state": "unverified",
+    "remote_result_retrieved": false
+  },
+  "side_effects": {
+    "qsub_attempted": false,
+    "duplicate_submission": false,
+    "cancellation_attempted": false,
+    "remote_files_modified": false,
+    "credentials_recorded": false
+  },
+  "decision": "preserve_existing_job_claim_and_wait_for_secure_reauthentication; do_not_infer_terminal_state_or_resubmit"
+}

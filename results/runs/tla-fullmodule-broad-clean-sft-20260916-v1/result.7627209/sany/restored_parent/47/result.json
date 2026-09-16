@@ -1,0 +1,54 @@
+{
+  "task_sha256": "78be930c9e490600323299efc73fbb0416870a7b502d3461f7ee75bd40e8fbd8",
+  "raw_reply_sha256": "f82d02515bf8b6a0c210040f74d21f34102204b5c908cadf86785dac1d8052d7",
+  "module": "---- MODULE W4Od2m7p4t2 ----\nEXTENDS Naturals\nCONSTANTS Dispatchers, Cap\nVARIABLES active, readSnapshots\n\nvars == <<active, readSnapshots>>\n\nInit == /\\ active = 0\n       /\\ readSnapshots = [d \\in Dispatchers |-> 0]\n\nNext == \\/ active' = active\n       \\/ active' = active + 1\n       /\\ readSnapshots' = [d \\in Dispatchers |\n                          IF readSnapshots[d] = active\n                          THEN readSnapshots' = [d' \\in Dispatchers |-> IF d' = d THEN active + 1 ELSE readSnapshots[d']]\n                          ELSE readSnapshots']\n\nSpec == Init /\\ [][Next]_vars\n\nActiveWithinCapacity == active <= Cap\n\n====",
+  "module_sha256": "f82d02515bf8b6a0c210040f74d21f34102204b5c908cadf86785dac1d8052d7",
+  "status": "model_sany_reject",
+  "sany": 0,
+  "process": {
+    "command": [
+      "/lus/grand/projects/EVITA/eric-spencer/tools/jre21/bin/java",
+      "-Djava.io.tmpdir=/home/eric-spencer/tla-fullmodule-broad-clean-sft-20260916-v1/result.7627209/sany/restored_parent/47/jtmp",
+      "-DTLA-Library=/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1/tools/tlapm/lib/tlapm/stdlib:/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1/tools/community-modules:/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1/tools/extra-modules",
+      "-cp",
+      "/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1/tools/tla2tools.jar",
+      "tla2sany.SANY",
+      "W4Od2m7p4t2.tla"
+    ],
+    "cwd": "/home/eric-spencer/tla-fullmodule-broad-clean-sft-20260916-v1/result.7627209/sany/restored_parent/47",
+    "root_pid": 1209925,
+    "root_reaped": true,
+    "returncode": 255,
+    "output": "\n****** SANY2 Version 2.1 created 24 February 2014\n\nParsing file /home/eric-spencer/tla-fullmodule-broad-clean-sft-20260916-v1/result.7627209/sany/restored_parent/47/W4Od2m7p4t2.tla\n***Parse Error***\n\n  Precedence conflict between ops \\lor in block line 12, col 8 to line 12, col 9 of module W4Od2m7p4t2 and \\land.\n\nResidual stack trace follows:\nExtendableExpr starting at line 12, column 30.\nExtendableExpr starting at line 12, column 21.\nExtendableExpr starting at line 12, column 11.\nExtendableExpr starting at line 11, column 9.\nExpression starting at line 11, column 9.\n\n\nFatal errors while parsing TLA+ spec in file W4Od2m7p4t2.tla\n\ntla2sany.semantic.AbortException\n*** Abort messages: 1\n\nIn module W4Od2m7p4t2\n\nCould not parse module W4Od2m7p4t2 from file W4Od2m7p4t2.tla\n\n\n",
+    "seconds": 0.8993357291910797,
+    "timed_out": false,
+    "output_complete": true,
+    "output_limit": false,
+    "cleanup_complete": true,
+    "surviving_owned_processes": [],
+    "owned_processes": [
+      {
+        "pid": 1209925,
+        "created": 1789543358.97,
+        "pgid": 1209925
+      }
+    ],
+    "signals": [],
+    "errors": [],
+    "execution_complete": true,
+    "containment": "Best-effort ancestry polling; instantaneous unobserved reparenting is not excluded"
+  },
+  "syntax_only": true,
+  "timeout_seconds": 30,
+  "command": [
+    "/lus/grand/projects/EVITA/eric-spencer/tools/jre21/bin/java",
+    "-Djava.io.tmpdir=/home/eric-spencer/tla-fullmodule-broad-clean-sft-20260916-v1/result.7627209/sany/restored_parent/47/jtmp",
+    "-DTLA-Library=/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1/tools/tlapm/lib/tlapm/stdlib:/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1/tools/community-modules:/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1/tools/extra-modules",
+    "-cp",
+    "/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1/tools/tla2tools.jar",
+    "tla2sany.SANY",
+    "W4Od2m7p4t2.tla"
+  ],
+  "dependency_sha256": {},
+  "seconds": 0.9341499330475926
+}

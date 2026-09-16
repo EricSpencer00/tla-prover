@@ -1,0 +1,17 @@
+{
+  "kind": "fullmodule_prompt_grounded_schema_remote_final_guards_v1",
+  "verified_utc": "2026-09-16T07:43:29Z",
+  "destination": "/home/eric-spencer/tla-fullmodule-schema-grounded-sft-20260916-v3",
+  "stage_sha256sums": "97d76914d5e6a4f45ac53de0cf1ebdf9db7e643458a955e3343115b97dca8d81",
+  "packet_sha256": "a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c",
+  "manifest_sha256": "7b204cf07a2b63b892c4e69d64a3143801bb794dfaba5ce74c973816ad4eed41",
+  "preflight_sha256": "6b6a0a378ffa81bbfa72bc366431540616ff56035c0257bce209c83040294ff8",
+  "parent_checkpoint_sha256": "87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511",
+  "sha256sums_ok": true,
+  "python_compile_ok": true,
+  "pbs_syntax_ok": true,
+  "cli_help_ok": true,
+  "pycache_absent": true,
+  "result_namespace_empty": true,
+  "owned_queue_empty": true
+}

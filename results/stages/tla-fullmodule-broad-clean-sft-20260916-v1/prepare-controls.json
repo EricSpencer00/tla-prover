@@ -1,0 +1,11 @@
+{
+  "controls_ok": true,
+  "reference_controls": 125,
+  "train_reference_count": 119,
+  "validation_reference_count": 6,
+  "protected_rows": [
+    47,
+    107
+  ],
+  "protected_rows_touched": false
+}

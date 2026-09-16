@@ -1,0 +1,19 @@
+{
+  "kind": "fullmodule_broad_clean_sft_submission_v1",
+  "submitted_utc": "2026-09-16T07:19:13Z",
+  "job_id": "7627209.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "job_name": "tla-w4-broad-clean-v1",
+  "owner": "eric-spencer",
+  "queue": "debug",
+  "pbs_state": "R",
+  "exec_host": "x3001c0s19b1n0/0*64",
+  "ncpus": 64,
+  "ngpus": 1,
+  "walltime": "00:15:00",
+  "account": "EVITA",
+  "stage": "tla-fullmodule-broad-clean-sft-20260916-v1",
+  "claim_sha256": "eb772006b82ad5e600f169536b31bc6810c7df856915a90aef0e083cb4efa513",
+  "duplicate_submission": false,
+  "quality_claim": false,
+  "gate_claim": false
+}
