@@ -1,0 +1,13 @@
+{
+  "job_id": "7626286.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "stage": "tla-prefix-repair-layout-aware-20260916-v1",
+  "destination": "/home/eric-spencer/tla-prefix-repair-layout-aware-20260916-v1",
+  "submitted_utc": "2026-09-16T01:09:25Z",
+  "state_at_submit_check": "R",
+  "queue": "debug",
+  "ngpus": 1,
+  "walltime": "00:15:00",
+  "identity_sha256": "922f49df649a06802f45702a9ea649dde01e63cd5f0fc68402bacba86a590cfe",
+  "claim_path": "results/runs/tla-prefix-repair-layout-aware-20260916-v1/claim.json",
+  "guard": "fresh owned queue and result namespace checks passed; submitted exactly once"
+}
