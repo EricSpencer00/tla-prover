@@ -1,0 +1,17 @@
+{
+  "requested_tasks": 119,
+  "fully_ranked_tasks": 119,
+  "measured_tasks": 113,
+  "certified_tasks_top4": 43,
+  "top1_verified": 35,
+  "checker_attempts": 328,
+  "checker": "strict uncached TLAPS --strict --nofp",
+  "reference_fragment_used": false,
+  "training_executed": false,
+  "repair_or_reward": false,
+  "quality_claim": false,
+  "gate_claim": false,
+  "denominator_fixed": true,
+  "method": "exact-parent conditional rank-1 action, with bounded top-4 strict certification",
+  "elapsed_seconds": 896.1600085420032
+}
