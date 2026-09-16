@@ -21,7 +21,7 @@ sys.path.insert(0, str(ROOT))
 import protected_layout_aware_repair as repair
 
 from tools import proof_cuda_train as helpers
-from tools import protected_checkpoint_preflight as preflight
+import protected_checkpoint_preflight as preflight
 
 
 def load_continuation_module():
