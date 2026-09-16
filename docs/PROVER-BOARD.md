@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 710
-- Verified UTC: 2026-09-16T04:53:49Z
+- Revision: 711
+- Verified UTC: 2026-09-16T05:02:51Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: local_work
 - Active job: none
-- Observation evidence: At 2026-09-16T04:53:49Z, the CPU-only pinned-SANY error-frontier audit is complete: its 4 reference/negative controls pass, and all16 original or pre-registered counterfactual layout variants for the two parent and two child candidates remain model_sany_reject. Row47 child advances from missing Init conjunction to a precedence conflict; row107 child advances from EOF truncation to a precedence conflict, while the parent retains orphaned module content. Counterfactual edits earn no model, quality, gate, proof, generalization, TLC or promotion credit.
-- Latest completed result: CPU error-frontier is complete with controls4/4 and candidate variants0/16 SANY passes; semantic-span v2 remains protected child0/2 with independent references2/2 passing.
+- Observation evidence: At 2026-09-16T05:02:51Z, continuation-aware stage v1 is remotely static-admitted and CPU-admitted: exact stage hashes, packet a125a0d5, parent87489e47, pinned SANY, model snapshot, 22 clean references, exact tokenizer encodings, nonzero EOS per row and protected holdout47/107 all pass. No GPU job has been submitted for this stage; no model, quality, gate, proof, generalization, TLC or promotion claim exists.
+- Latest completed result: Continuation-aware wide SFT stage v1 CPU preflight passes22/22 clean references with exact identity and protected rows held out; final live queue/output guards and one bounded qsub remain.
 - Local work: The semantic preference child remains a complete negative: all20 teacher-forced margins rose but protected SANY stayed0/2. The row47 SANY-in-the-loop controller found the first valid scoped repair at seven of eight binder changes; row107 is now independently measured and rejected at lexical EOF. Semantic-span v1 failed before model load due an omitted manifest and earned zero credit. Corrected v2 job7626911 completed12 multi-token semantic-span updates with exact training-time reload; independent pinned-SANY audit v2 measured both references, both restored-parent candidates and both trained-child candidates, with0/4 model candidates passing and2/2 references passing. The CPU error-frontier audit measured16/16 counterfactual variants with0 SANY passes and identifies continuation/definition incompleteness beyond local layout. The lexical-abort classifier fix is covered by41 focused tests. Large checkpoint remains remote-only; the programmatic Discord watchdog remains live. Do not promote or replay this objective unchanged.
 - External blocker: none verified
-- Next action: Use the complete frontier to design and CPU-admit a materially different continuation-aware or verifier-in-loop hypothesis: it must address row107 long-form definition/continuation failure and row47 operator structure, with fixed held-out SANY controls. Do not launch another GPU replay of teacher-forced semantic spans, and do not award model or gate credit without independent pinned SANY.
+- Next action: Run one fresh final Polaris destination/output/owned-queue check, acquire one exact stage-bound claim, and submit at most one GPU for 15 minutes. Monitor only that job, then independently SANY-score both references, restored parent and trained child for rows47/107 before any quality or promotion judgment.
 
 ## Objective and evidence rules
 
@@ -38,6 +38,7 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 
 ## Decisions
 
+- 2026-09-16T05:02:51Z: Continuation-aware wide SFT v1 is remotely static-admitted and CPU-admitted. It changes both training signal and parameterization: clean reference-only SFT with structural weight2 and EOS weight16 over layers24-31 and all q/k/v/o plus MLP gate/up/down projections, starting from parent87489e47. Remote preflight passes22/22 exact tokenizer/reference records with nonzero EOS, protected47/107 held out, generated feedback/replay negatives false and no quality/gate claim. Perform one final live queue/output guard and one bounded GPU diagnostic; independently score SANY afterward.
 - 2026-09-16T04:53:49Z: CPU frontier-v2 is complete with4/4 pinned SANY controls and16/16 measured original/counterfactual variants, all model_sany_reject. Row47 child moves from a missing Init conjunction to precedence conflict after layout normalization; row107 child moves from lexical EOF to precedence conflict after tail closure, while the parent retains module-body faults. Counterfactual edits are diagnostic only and earn no model, quality, gate, proof, generalization, TLC or promotion credit. Next hypothesis must target continuation-aware structured generation or verifier-in-loop training, not another semantic-span replay.
 - 2026-09-16T04:46:29Z: Independent pinned-SANY audit v2 is complete and authoritative for job7626911: references pass2/2, restored parent candidates reject2/2, and trained-child candidates reject2/2, so protected child is0/2. Row107 lexical EOF is now classified as model_sany_reject after the classifier repair; no model, quality, gate, proof, generalization, TLC or promotion credit. Record this complete negative and do not replay semantic-span preference unchanged.
 - 2026-09-16T04:45:51Z: Focused proof-ladder and fullmodule SANY tests pass41/41 after broadening the pinned SANY abort classifier to recognize Parse/Lexical and fatal parse errors without asterisks. This changes only independent evidence classification, not any generated bytes or gate result.
@@ -514,16 +515,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 710,
-  "verified_utc": "2026-09-16T04:53:49Z",
+  "revision": 711,
+  "verified_utc": "2026-09-16T05:02:51Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "local_work",
   "active_job": null,
-  "observation_evidence": "At 2026-09-16T04:53:49Z, the CPU-only pinned-SANY error-frontier audit is complete: its 4 reference/negative controls pass, and all16 original or pre-registered counterfactual layout variants for the two parent and two child candidates remain model_sany_reject. Row47 child advances from missing Init conjunction to a precedence conflict; row107 child advances from EOF truncation to a precedence conflict, while the parent retains orphaned module content. Counterfactual edits earn no model, quality, gate, proof, generalization, TLC or promotion credit.",
-  "last_result": "CPU error-frontier is complete with controls4/4 and candidate variants0/16 SANY passes; semantic-span v2 remains protected child0/2 with independent references2/2 passing.",
+  "observation_evidence": "At 2026-09-16T05:02:51Z, continuation-aware stage v1 is remotely static-admitted and CPU-admitted: exact stage hashes, packet a125a0d5, parent87489e47, pinned SANY, model snapshot, 22 clean references, exact tokenizer encodings, nonzero EOS per row and protected holdout47/107 all pass. No GPU job has been submitted for this stage; no model, quality, gate, proof, generalization, TLC or promotion claim exists.",
+  "last_result": "Continuation-aware wide SFT stage v1 CPU preflight passes22/22 clean references with exact identity and protected rows held out; final live queue/output guards and one bounded qsub remain.",
   "local_work": "The semantic preference child remains a complete negative: all20 teacher-forced margins rose but protected SANY stayed0/2. The row47 SANY-in-the-loop controller found the first valid scoped repair at seven of eight binder changes; row107 is now independently measured and rejected at lexical EOF. Semantic-span v1 failed before model load due an omitted manifest and earned zero credit. Corrected v2 job7626911 completed12 multi-token semantic-span updates with exact training-time reload; independent pinned-SANY audit v2 measured both references, both restored-parent candidates and both trained-child candidates, with0/4 model candidates passing and2/2 references passing. The CPU error-frontier audit measured16/16 counterfactual variants with0 SANY passes and identifies continuation/definition incompleteness beyond local layout. The lexical-abort classifier fix is covered by41 focused tests. Large checkpoint remains remote-only; the programmatic Discord watchdog remains live. Do not promote or replay this objective unchanged.",
   "external_blocker": null,
-  "next_action": "Use the complete frontier to design and CPU-admit a materially different continuation-aware or verifier-in-loop hypothesis: it must address row107 long-form definition/continuation failure and row47 operator structure, with fixed held-out SANY controls. Do not launch another GPU replay of teacher-forced semantic spans, and do not award model or gate credit without independent pinned SANY.",
+  "next_action": "Run one fresh final Polaris destination/output/owned-queue check, acquire one exact stage-bound claim, and submit at most one GPU for 15 minutes. Monitor only that job, then independently SANY-score both references, restored parent and trained child for rows47/107 before any quality or promotion judgment.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -599,6 +600,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
     }
   ],
   "decisions": [
+    "2026-09-16T05:02:51Z: Continuation-aware wide SFT v1 is remotely static-admitted and CPU-admitted. It changes both training signal and parameterization: clean reference-only SFT with structural weight2 and EOS weight16 over layers24-31 and all q/k/v/o plus MLP gate/up/down projections, starting from parent87489e47. Remote preflight passes22/22 exact tokenizer/reference records with nonzero EOS, protected47/107 held out, generated feedback/replay negatives false and no quality/gate claim. Perform one final live queue/output guard and one bounded GPU diagnostic; independently score SANY afterward.",
     "2026-09-16T04:53:49Z: CPU frontier-v2 is complete with4/4 pinned SANY controls and16/16 measured original/counterfactual variants, all model_sany_reject. Row47 child moves from a missing Init conjunction to precedence conflict after layout normalization; row107 child moves from lexical EOF to precedence conflict after tail closure, while the parent retains module-body faults. Counterfactual edits are diagnostic only and earn no model, quality, gate, proof, generalization, TLC or promotion credit. Next hypothesis must target continuation-aware structured generation or verifier-in-loop training, not another semantic-span replay.",
     "2026-09-16T04:46:29Z: Independent pinned-SANY audit v2 is complete and authoritative for job7626911: references pass2/2, restored parent candidates reject2/2, and trained-child candidates reject2/2, so protected child is0/2. Row107 lexical EOF is now classified as model_sany_reject after the classifier repair; no model, quality, gate, proof, generalization, TLC or promotion credit. Record this complete negative and do not replay semantic-span preference unchanged.",
     "2026-09-16T04:45:51Z: Focused proof-ladder and fullmodule SANY tests pass41/41 after broadening the pinned SANY abort classifier to recognize Parse/Lexical and fatal parse errors without asterisks. This changes only independent evidence classification, not any generated bytes or gate result.",
@@ -1965,7 +1967,13 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "results/runs/tla-fullmodule-semantic-span-preference-20260916-v2/frontier-v2/summary.json",
     "results/runs/tla-fullmodule-semantic-span-preference-20260916-v2/frontier-v2/identity.json",
     "results/runs/tla-fullmodule-semantic-span-preference-20260916-v2/frontier-v2/controls.json",
-    "results/runs/tla-fullmodule-semantic-span-preference-20260916-v2/frontier-v2/rows.json"
+    "results/runs/tla-fullmodule-semantic-span-preference-20260916-v2/frontier-v2/rows.json",
+    "results/stages/tla-fullmodule-continuation-sft-20260916-v1/manifest.json",
+    "results/stages/tla-fullmodule-continuation-sft-20260916-v1/stage-validation.json",
+    "results/stages/tla-fullmodule-continuation-sft-20260916-v1/SHA256SUMS",
+    "results/stages/tla-fullmodule-continuation-sft-20260916-v1/tools/proof_fullmodule_continuation_sft_train.py",
+    "results/stages/tla-fullmodule-continuation-sft-20260916-v1/train.pbs",
+    "results/runs/tla-fullmodule-continuation-sft-20260916-v1/remote-preflight/preflight.json"
   ]
 }
 -->
