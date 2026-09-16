@@ -649,7 +649,7 @@ def train(args):
                   optimizer_state_stored=False, optimizer_resume_supported=False)
     checkpoint = args.output / 'policy_lora.pt'
     save_exact(torch, state, config, ledger, checkpoint)
-    with torch.no_grad():
+    with torch.no_grad(), context():
         child_probe = net(input_ids=torch.tensor([probe_ids], device='cuda'), use_cache=False).logits[:, -1].float().cpu()
         for parameter in selected.values():
             parameter.zero_()
