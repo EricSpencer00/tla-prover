@@ -1,0 +1,19 @@
+{
+  "job_id": "7626952.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "job_state": "F",
+  "exit_status": 0,
+  "exec_host": "x3001c0s1b1n0/0*64",
+  "resources_used": {
+    "cput": "00:01:47",
+    "walltime": "00:04:13",
+    "ngpus": 0,
+    "cpupercent": 77,
+    "mem": "6008136kb"
+  },
+  "stageout_status": null,
+  "receipt_present": true,
+  "checkpoint_present_remote_only": true,
+  "quality_claim": false,
+  "gate_claim": false,
+  "promotion_claim": false
+}

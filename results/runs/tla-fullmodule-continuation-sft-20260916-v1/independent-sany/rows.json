@@ -1,0 +1,46 @@
+[
+  {
+    "row": 47,
+    "phase": "restored_parent",
+    "status": "model_sany_reject",
+    "candidate_sha256": "f82d02515bf8b6a0c210040f74d21f34102204b5c908cadf86785dac1d8052d7",
+    "module_name": "W4Od2m7p4t2",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-continuation-sft-20260916-v1/independent-sany/candidates/restored_parent-47/sany.log",
+    "finish_reason": "eos",
+    "embedded_worker_status": "model_reject"
+  },
+  {
+    "row": 107,
+    "phase": "restored_parent",
+    "status": "model_sany_reject",
+    "candidate_sha256": "a73854c7ad249a15f1471cac6442dc8d37df3b11f1ba76557bf6ebc91e90c751",
+    "module_name": "W4Od3m0p0t0",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-continuation-sft-20260916-v1/independent-sany/candidates/restored_parent-107/sany.log",
+    "finish_reason": "eos",
+    "embedded_worker_status": "model_reject"
+  },
+  {
+    "row": 47,
+    "phase": "trained_child",
+    "status": "model_sany_reject",
+    "candidate_sha256": "32bf2445b4288894f079b919236ba919c0daee31b6d436e7aca8af6c8ef2bb59",
+    "module_name": "W4Od2m7p4t2",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-continuation-sft-20260916-v1/independent-sany/candidates/trained_child-47/sany.log",
+    "finish_reason": "eos",
+    "embedded_worker_status": "model_reject"
+  },
+  {
+    "row": 107,
+    "phase": "trained_child",
+    "status": "model_sany_reject",
+    "candidate_sha256": "b2cc8c3b5ca8a22c72507ca4201fdbb887b53f4073634b747a07bef3212994a9",
+    "module_name": "W4Od3m0p0t0",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-continuation-sft-20260916-v1/independent-sany/candidates/trained_child-107/sany.log",
+    "finish_reason": "eos",
+    "embedded_worker_status": "model_reject"
+  }
+]

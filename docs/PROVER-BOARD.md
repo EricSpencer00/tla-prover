@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 713
-- Verified UTC: 2026-09-16T05:05:35Z
+- Revision: 714
+- Verified UTC: 2026-09-16T05:10:56Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
-- Phase: running
-- Active job: `7626952.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov` (R, polaris, owner eric-spencer)
-- Observation evidence: At 2026-09-16T05:05:35Z, Polaris qstat reports the sole continuation-aware stage v1 job7626952 running in debug. It is bound to one GPU and the 00:15:00 walltime PBS contract; no result or model-quality outcome exists yet.
-- Latest completed result: Job7626952 is running; no training receipt, protected SANY score, model, quality, gate, proof, generalization, TLC or promotion claim exists.
-- Local work: The semantic preference child remains a complete negative: all20 teacher-forced margins rose but protected SANY stayed0/2. The row47 SANY-in-the-loop controller found the first valid scoped repair at seven of eight binder changes; row107 is now independently measured and rejected at lexical EOF. Semantic-span v1 failed before model load due an omitted manifest and earned zero credit. Corrected v2 job7626911 completed12 multi-token semantic-span updates with exact training-time reload; independent pinned-SANY audit v2 measured both references, both restored-parent candidates and both trained-child candidates, with0/4 model candidates passing and2/2 references passing. The CPU error-frontier audit measured16/16 counterfactual variants with0 SANY passes and identifies continuation/definition incompleteness beyond local layout. The lexical-abort classifier fix is covered by41 focused tests. Large checkpoint remains remote-only; the programmatic Discord watchdog remains live. Do not promote or replay this objective unchanged.
+- Phase: local_work
+- Active job: none
+- Observation evidence: At 2026-09-16T05:10:56Z, Polaris job7626952 finished F/Exit0 after00:04:13 with12 wide continuation-aware SFT updates and a complete receipt. Independent pinned-SANY audit passes both references2/2 but rejects restored-parent and trained-child candidates4/4, so protected child is0/2. The 112-tensor adapter checkpoint is finite and retained remote-only; no model-improvement, quality, gate, proof, generalization, TLC or promotion claim exists.
+- Latest completed result: Continuation-aware wide SFT v1 is a complete negative: independent references2/2 pass, parent2/2 reject and trained-child2/2 reject; protected child SANY is0/2.
+- Local work: The semantic preference child remains a complete negative: all20 teacher-forced margins rose but protected SANY stayed0/2. The row47 SANY-in-the-loop controller found the first valid scoped repair at seven of eight binder changes; row107 is now independently measured and rejected at lexical EOF. Semantic-span v1 failed before model load due an omitted manifest and earned zero credit. Corrected v2 job7626911 completed12 multi-token semantic-span updates with exact training-time reload; independent pinned-SANY audit v2 measured both references, both restored-parent candidates and both trained-child candidates, with0/4 model candidates passing and2/2 references passing. The CPU error-frontier audit measured16/16 counterfactual variants with0 SANY passes and identifies continuation/definition incompleteness beyond local layout. Continuation-aware wide SFT job7626952 completed12 exact-reload updates with112 adapter tensors across layers24-31 and all attention/MLP projections, but independent pinned SANY remained0/2 for the child and2/2 for references. The lexical-abort classifier fix is covered by41 focused tests. Large checkpoints remain remote-only; the programmatic Discord watchdog remains live. Do not promote or replay these objectives unchanged.
 - External blocker: none verified
-- Next action: Monitor only job7626952 until terminal. Retrieve the complete small receipt and raw rows without copying the remote checkpoint locally, then independently pinned-SANY-score both references, restored parent and trained child for rows47/107 before any quality or promotion judgment.
+- Next action: Record the complete continuation-aware negative and select a materially different CPU-only verifier-guided hypothesis. Use the stable 17-token protected divergence plus the row47/107 SANY error families to design a constrained continuation or semantic repair policy with fixed controls; do not launch another unchanged SFT GPU replay or award model/gate credit without independent pinned SANY.
 
 ## Objective and evidence rules
 
@@ -32,12 +32,14 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 | TLA-06A | Done | Measure syntax-token preference training | 185259 completed 24 updates and exact reload; parent 0/2 and child 0/2 protected SANY. Negative result; do not repeat unchanged. |
 | TLA-06B | In progress | Establish a genuinely different structured training objective | Polaris7613214 actual8B/CUDA zero-update preflight Exit0: exact packet cb137c52/checkpoint b0399b51, longest-pair full forwards, loss1.2650, gap-0.5953, all9 gradient norms positive, peak reserved23.12GB and exact zero parameter drift. True-update jobs7613858 and7616283 exposed and repaired precision/assembly defects;7618046 and7618116 exposed /home and EVITA-project /grand storage failures. v7 job7618156 completed Exit0: exact packet cb137c52, plan ae1c5bb5, parent b0399b51, 8 updates, 12 disjoint diagnostic holdout pairs, positive delta0.00544296, exact reload, finite fp32 state and no optimizer-resume claim. Current-child feedback repair7623749 completed with exact reload and finite state but protected candidate SANY0/2, malformed outputs, and128 actual updates despite the declared32 cap. Replay job7623899 and raised-cap evaluation7624084 both preserve exact evidence but candidate remains0/2 versus references2/2. Clean curriculum jobs7624173 and7624261 failed before model load and earned zero credit; v2 isolated the exact schedule tuple/list drift. Append-only v3 normalizes that schedule, passes CPU/stage/remote checks with its exact uploaded checkpoint, and remains clean reference-only with exact packet/checkpoint, 16 train rows, 6 validation rows, protected47/107 held out,32 updates, schedule2b5fe180, max generation2048, no generated feedback and no replay negatives. Structural-corruption preference v2 job7624528 completed16 updates with exact reload and independent checkpoint verification; explicit corruption margins improved, but protected candidate remains0/2 with row47 precedence and row107 quantifier parse errors. Do not promote or recycle this objective; next search must change training signal or parameterization. No protected/gate claim exists. Semantic-binder preference job7626820 then completed 16 exact-reload updates from parent87489e47 with child74427a8, but independent frozen SANY stayed0/2 for the trained protected child while references stayed2/2; all20 teacher-forced semantic margins increased, so this is a negative reward-hacking diagnostic and is not promoted or replayed unchanged. A separate CPU semantic-repair probe shows a mechanically binder-renamed row47 candidate can pass SANY, establishing recoverability but not model credit. Semantic-span v2 job7626911 completed12 exact-reload updates from the same parent; independent pinned-SANY audit v2 passes references2/2 and rejects parent plus trained-child candidates4/4, so protected child remains0/2. The audit now classifies row107 lexical EOF as model_sany_reject, and the classifier repair is covered by41 focused tests. Do not promote or replay either semantic objective unchanged. Storage failures 7626775/7626794/7626805 are preserved as infrastructure evidence; the exact stale 13G home directory was removed to restore quota. |
 | TLA-06C | Done | Separate local syntax faults from continuation failure | CPU-only frontier-v2 passes4/4 SANY controls and measures16/16 exact or pre-registered counterfactual variants. All16 reject: row47 child moves from missing Init conjunction to precedence conflict, row107 child from lexical EOF to precedence conflict, and the parent retains additional module-body faults. Counterfactual edits are explicitly diagnostic-only with no model or gate credit. |
+| TLA-06D | Done | Test continuation-aware wide clean-reference SFT | Polaris job7626952 completed12 updates with exact reload and finite112-tensor adapter checkpoint e8a13956. Independent pinned-SANY controls pass2/2 references, while parent and trained-child candidates reject4/4; protected child remains0/2. Do not promote or repeat this parameterization and weighting unchanged. |
 | TLA-07 | Not ready | Verify complete frozen SANY gate | Full frozen denominator has not passed 100%; no diagnostic promotion. |
 | TLA-08 | Not ready | Verify applicable TLC and non-vacuity | Prerequisite SANY gate and intended-behavior evidence incomplete. |
 | TLA-09 | Not ready | Verify genuine TLAPS model performance | Acceptance gates incomplete; same-node positive/negative TLAPS controls and bounded dry run required before retry. |
 
 ## Decisions
 
+- 2026-09-16T05:10:56Z: Job7626952 finished F/Exit0 after00:04:13 with12 wide continuation-aware SFT updates, finite112-tensor/2621440-parameter adapter checkpoint e8a13956, parameter delta0.8790605281 and complete worker receipt. Independent SANY references pass2/2; restored parent and trained-child candidates reject4/4, with protected child0/2. Row47 child now emits a complete EOS-terminated module but still has invalid nested set/function syntax; row107 child is complete but has colon/quantifier parse faults. This is a valid negative; no promotion or unchanged replay.
 - 2026-09-16T05:05:35Z: Final live ownership/output guards passed and exactly one continuation-aware stage v1 job7626952 was submitted. qstat reports R on Polaris debug; the PBS contract is one GPU and00:15:00 walltime. Monitor only this job; no model, quality, gate, proof, generalization, TLC or promotion claim before complete receipt and independent SANY.
 - 2026-09-16T05:04:26Z: Fresh final remote guards pass for continuation-aware stage v1: manifest51af9fe7, packet a125a0d5, parent87489e47, preflight ebd32d01, pinned JAR936a2620, source compile/CLI, no pycache, empty result namespace and empty owned queue. Submit exactly one bounded one-GPU15-minute diagnostic; no quality, gate, proof, generalization or promotion claim before complete receipt and independent SANY.
 - 2026-09-16T05:02:51Z: Continuation-aware wide SFT v1 is remotely static-admitted and CPU-admitted. It changes both training signal and parameterization: clean reference-only SFT with structural weight2 and EOS weight16 over layers24-31 and all q/k/v/o plus MLP gate/up/down projections, starting from parent87489e47. Remote preflight passes22/22 exact tokenizer/reference records with nonzero EOS, protected47/107 held out, generated feedback/replay negatives false and no quality/gate claim. Perform one final live queue/output guard and one bounded GPU diagnostic; independently score SANY afterward.
@@ -517,21 +519,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 713,
-  "verified_utc": "2026-09-16T05:05:35Z",
+  "revision": 714,
+  "verified_utc": "2026-09-16T05:10:56Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
-  "phase": "running",
-  "active_job": {
-    "id": "7626952.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
-    "owner": "eric-spencer",
-    "host": "polaris",
-    "pbs_state": "R"
-  },
-  "observation_evidence": "At 2026-09-16T05:05:35Z, Polaris qstat reports the sole continuation-aware stage v1 job7626952 running in debug. It is bound to one GPU and the 00:15:00 walltime PBS contract; no result or model-quality outcome exists yet.",
-  "last_result": "Job7626952 is running; no training receipt, protected SANY score, model, quality, gate, proof, generalization, TLC or promotion claim exists.",
-  "local_work": "The semantic preference child remains a complete negative: all20 teacher-forced margins rose but protected SANY stayed0/2. The row47 SANY-in-the-loop controller found the first valid scoped repair at seven of eight binder changes; row107 is now independently measured and rejected at lexical EOF. Semantic-span v1 failed before model load due an omitted manifest and earned zero credit. Corrected v2 job7626911 completed12 multi-token semantic-span updates with exact training-time reload; independent pinned-SANY audit v2 measured both references, both restored-parent candidates and both trained-child candidates, with0/4 model candidates passing and2/2 references passing. The CPU error-frontier audit measured16/16 counterfactual variants with0 SANY passes and identifies continuation/definition incompleteness beyond local layout. The lexical-abort classifier fix is covered by41 focused tests. Large checkpoint remains remote-only; the programmatic Discord watchdog remains live. Do not promote or replay this objective unchanged.",
+  "phase": "local_work",
+  "active_job": null,
+  "observation_evidence": "At 2026-09-16T05:10:56Z, Polaris job7626952 finished F/Exit0 after00:04:13 with12 wide continuation-aware SFT updates and a complete receipt. Independent pinned-SANY audit passes both references2/2 but rejects restored-parent and trained-child candidates4/4, so protected child is0/2. The 112-tensor adapter checkpoint is finite and retained remote-only; no model-improvement, quality, gate, proof, generalization, TLC or promotion claim exists.",
+  "last_result": "Continuation-aware wide SFT v1 is a complete negative: independent references2/2 pass, parent2/2 reject and trained-child2/2 reject; protected child SANY is0/2.",
+  "local_work": "The semantic preference child remains a complete negative: all20 teacher-forced margins rose but protected SANY stayed0/2. The row47 SANY-in-the-loop controller found the first valid scoped repair at seven of eight binder changes; row107 is now independently measured and rejected at lexical EOF. Semantic-span v1 failed before model load due an omitted manifest and earned zero credit. Corrected v2 job7626911 completed12 multi-token semantic-span updates with exact training-time reload; independent pinned-SANY audit v2 measured both references, both restored-parent candidates and both trained-child candidates, with0/4 model candidates passing and2/2 references passing. The CPU error-frontier audit measured16/16 counterfactual variants with0 SANY passes and identifies continuation/definition incompleteness beyond local layout. Continuation-aware wide SFT job7626952 completed12 exact-reload updates with112 adapter tensors across layers24-31 and all attention/MLP projections, but independent pinned SANY remained0/2 for the child and2/2 for references. The lexical-abort classifier fix is covered by41 focused tests. Large checkpoints remain remote-only; the programmatic Discord watchdog remains live. Do not promote or replay these objectives unchanged.",
   "external_blocker": null,
-  "next_action": "Monitor only job7626952 until terminal. Retrieve the complete small receipt and raw rows without copying the remote checkpoint locally, then independently pinned-SANY-score both references, restored parent and trained child for rows47/107 before any quality or promotion judgment.",
+  "next_action": "Record the complete continuation-aware negative and select a materially different CPU-only verifier-guided hypothesis. Use the stable 17-token protected divergence plus the row47/107 SANY error families to design a constrained continuation or semantic repair policy with fixed controls; do not launch another unchanged SFT GPU replay or award model/gate credit without independent pinned SANY.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -588,6 +585,12 @@ These snapshots preserve old statements, including mistakes. They are not curren
       "evidence": "CPU-only frontier-v2 passes4/4 SANY controls and measures16/16 exact or pre-registered counterfactual variants. All16 reject: row47 child moves from missing Init conjunction to precedence conflict, row107 child from lexical EOF to precedence conflict, and the parent retains additional module-body faults. Counterfactual edits are explicitly diagnostic-only with no model or gate credit."
     },
     {
+      "id": "TLA-06D",
+      "state": "Done",
+      "task": "Test continuation-aware wide clean-reference SFT",
+      "evidence": "Polaris job7626952 completed12 updates with exact reload and finite112-tensor adapter checkpoint e8a13956. Independent pinned-SANY controls pass2/2 references, while parent and trained-child candidates reject4/4; protected child remains0/2. Do not promote or repeat this parameterization and weighting unchanged."
+    },
+    {
       "id": "TLA-07",
       "state": "Not ready",
       "task": "Verify complete frozen SANY gate",
@@ -607,6 +610,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
     }
   ],
   "decisions": [
+    "2026-09-16T05:10:56Z: Job7626952 finished F/Exit0 after00:04:13 with12 wide continuation-aware SFT updates, finite112-tensor/2621440-parameter adapter checkpoint e8a13956, parameter delta0.8790605281 and complete worker receipt. Independent SANY references pass2/2; restored parent and trained-child candidates reject4/4, with protected child0/2. Row47 child now emits a complete EOS-terminated module but still has invalid nested set/function syntax; row107 child is complete but has colon/quantifier parse faults. This is a valid negative; no promotion or unchanged replay.",
     "2026-09-16T05:05:35Z: Final live ownership/output guards passed and exactly one continuation-aware stage v1 job7626952 was submitted. qstat reports R on Polaris debug; the PBS contract is one GPU and00:15:00 walltime. Monitor only this job; no model, quality, gate, proof, generalization, TLC or promotion claim before complete receipt and independent SANY.",
     "2026-09-16T05:04:26Z: Fresh final remote guards pass for continuation-aware stage v1: manifest51af9fe7, packet a125a0d5, parent87489e47, preflight ebd32d01, pinned JAR936a2620, source compile/CLI, no pycache, empty result namespace and empty owned queue. Submit exactly one bounded one-GPU15-minute diagnostic; no quality, gate, proof, generalization or promotion claim before complete receipt and independent SANY.",
     "2026-09-16T05:02:51Z: Continuation-aware wide SFT v1 is remotely static-admitted and CPU-admitted. It changes both training signal and parameterization: clean reference-only SFT with structural weight2 and EOS weight16 over layers24-31 and all q/k/v/o plus MLP gate/up/down projections, starting from parent87489e47. Remote preflight passes22/22 exact tokenizer/reference records with nonzero EOS, protected47/107 held out, generated feedback/replay negatives false and no quality/gate claim. Perform one final live queue/output guard and one bounded GPU diagnostic; independently score SANY afterward.",
@@ -1985,7 +1989,18 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "results/runs/tla-fullmodule-continuation-sft-20260916-v1/remote-preflight/preflight.json",
     "results/runs/tla-fullmodule-continuation-sft-20260916-v1/remote-guards.json",
     "results/runs/tla-fullmodule-continuation-sft-20260916-v1/job.7626952-submission.json",
-    "results/runs/tla-fullmodule-continuation-sft-20260916-v1/job.7626952-qstat-running.txt"
+    "results/runs/tla-fullmodule-continuation-sft-20260916-v1/job.7626952-qstat-running.txt",
+    "results/runs/tla-fullmodule-continuation-sft-20260916-v1/result.7626952/receipt.json",
+    "results/runs/tla-fullmodule-continuation-sft-20260916-v1/result.7626952/gradient-preflight.json",
+    "results/runs/tla-fullmodule-continuation-sft-20260916-v1/result.7626952/steps.jsonl",
+    "results/runs/tla-fullmodule-continuation-sft-20260916-v1/result.7626952/trained_child-row-47.json",
+    "results/runs/tla-fullmodule-continuation-sft-20260916-v1/result.7626952/trained_child-row-107.json",
+    "results/runs/tla-fullmodule-continuation-sft-20260916-v1/result.7626952/restored_parent-row-47.json",
+    "results/runs/tla-fullmodule-continuation-sft-20260916-v1/result.7626952/restored_parent-row-107.json",
+    "results/runs/tla-fullmodule-continuation-sft-20260916-v1/job.7626952-terminal.json",
+    "results/runs/tla-fullmodule-continuation-sft-20260916-v1/remote-checkpoint.json",
+    "results/runs/tla-fullmodule-continuation-sft-20260916-v1/independent-sany/summary.json",
+    "results/runs/tla-fullmodule-continuation-sft-20260916-v1/independent-sany/identity.json"
   ]
 }
 -->

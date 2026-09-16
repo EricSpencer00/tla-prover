@@ -1,0 +1,12 @@
+{
+  "path": "/home/eric-spencer/tla-fullmodule-continuation-sft-20260916-v1/result.7626952/policy_lora.pt",
+  "sha256": "e8a1395685c5c5c4d9311361fcea1e354d3decb4cf46b94cffab8831e936e69a",
+  "bytes": 10508610,
+  "adapter_parameter_tensors": 112,
+  "adapter_parameter_count": 2621440,
+  "copied_locally": false,
+  "receipt_sha256": "88b5bed093c035b9d56c073125ef65fbbb8aaece029a7526efe793bd64c84f8e",
+  "model_improvement_claim": false,
+  "quality_claim": false,
+  "gate_claim": false
+}
