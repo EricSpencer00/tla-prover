@@ -1,0 +1,31 @@
+{
+  "command": [
+    "/usr/bin/java",
+    "-cp",
+    "/Users/eric/GitHub/prove-TLA/tools/tla2tools.jar",
+    "tla2sany.SANY",
+    "W4Od2m7p4t2.tla"
+  ],
+  "cwd": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-continuation-grammar-decode-20260916-v1/independent-sany-v1/controls/47-reference",
+  "root_pid": 67010,
+  "root_reaped": true,
+  "returncode": 0,
+  "output": "\n****** SANY2 Version 2.1 created 24 February 2014\n\nParsing file /Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-continuation-grammar-decode-20260916-v1/independent-sany-v1/controls/47-reference/W4Od2m7p4t2.tla\nParsing file /private/var/folders/2q/79m85_bj1qlbkz3sts_bdfl00000gn/T/Integers.tla\nParsing file /private/var/folders/2q/79m85_bj1qlbkz3sts_bdfl00000gn/T/Naturals.tla\nSemantic processing of module Naturals\nSemantic processing of module Integers\nSemantic processing of module W4Od2m7p4t2\n",
+  "seconds": 0.3218318330036709,
+  "timed_out": false,
+  "output_complete": true,
+  "output_limit": false,
+  "cleanup_complete": true,
+  "surviving_owned_processes": [],
+  "owned_processes": [
+    {
+      "pid": 67010,
+      "created": 1789537064.088795,
+      "pgid": 67010
+    }
+  ],
+  "signals": [],
+  "errors": [],
+  "execution_complete": true,
+  "containment": "Best-effort ancestry polling; instantaneous unobserved reparenting is not excluded"
+}

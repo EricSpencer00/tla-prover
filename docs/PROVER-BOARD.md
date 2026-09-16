@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 718
-- Verified UTC: 2026-09-16T05:34:29Z
+- Revision: 719
+- Verified UTC: 2026-09-16T05:38:12Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
-- Phase: running
-- Active job: `7626997` (R, polaris, owner 01a08e7c-daff-7753-8e4f-41c47d0e3001)
-- Observation evidence: At 2026-09-16T05:34:29Z, final fresh Polaris ownership/output guards passed and exactly one decoder-only continuation diagnostic job7626997 is scheduler-attested R on x3003c0s13b0n0/0*64 in debug with one GPU and00:15:00 walltime. The CPU/xgrammar preflight is complete; no quality, model, SANY, gate, proof, generalization, TLC or promotion claim exists before the terminal receipt and independent audit.
-- Latest completed result: Continuation-aware wide SFT v1 plus the bounded CPU verifier-guided repair search are complete negatives: references2/2 pass, parent and trained-child candidates4/4 reject, protected child0/2, and all14 reference-free fixed-vocabulary repairs reject SANY. The decoder-only adapter-restored continuation stage is remotely CPU-admitted and awaits one bounded diagnostic run.
-- Local work: The semantic preference child remains a complete negative: all20 teacher-forced margins rose but protected SANY stayed0/2. The row47 SANY-in-the-loop controller found the first valid scoped repair at seven of eight binder changes; row107 is now independently measured and rejected at lexical EOF. Semantic-span v1 failed before model load due an omitted manifest and earned zero credit. Corrected v2 job7626911 completed12 multi-token semantic-span updates with exact training-time reload; independent pinned-SANY audit v2 measured both references, both restored-parent candidates and both trained-child candidates, with0/4 model candidates passing and2/2 references passing. The CPU error-frontier audit measured16/16 counterfactual variants with0 SANY passes and identifies continuation/definition incompleteness beyond local layout. Continuation-aware wide SFT job7626952 completed12 exact-reload updates with112 adapter tensors across layers24-31 and all attention/MLP projections, but independent pinned SANY remained0/2 for the child and2/2 for references. The new CPU verifier-guided search measured14 reference-free fixed-vocabulary repairs with0 passes, so bounded textual repair is insufficient for this child. The lexical-abort classifier fix is covered by41 focused tests. Large checkpoints remain remote-only; the programmatic Discord watchdog remains live. Do not promote or replay these objectives unchanged.
+- Phase: local_work
+- Active job: none
+- Observation evidence: At 2026-09-16T05:38:12Z, decoder job7626997 finished E/Exit0 after00:02:16 with complete rows and receipt. Independent pinned-SANY controls pass2/2 references; baseline and constrained outputs reject4/4, so repaired protected SANY is0/2. Row47 is grammar-ended but rejects at a precedence conflict; row107 exhausts512 repair tokens without grammar completion and rejects at a malformed map branch. No quality, model, gate, proof, generalization, TLC or promotion claim exists.
+- Latest completed result: Continuation-aware wide SFT, bounded textual repair, and decoder-only grammar-constrained continuation are complete negatives: references2/2 pass, the decoder's baseline/constrained outputs reject4/4, repaired protected SANY0/2; row47 grammar completion still has precedence failure and row107 remains grammar-incomplete.
+- Local work: The semantic preference child remains a complete negative: all20 teacher-forced margins rose but protected SANY stayed0/2. The row47 SANY-in-the-loop controller found the first valid scoped repair at seven of eight binder changes; row107 is now independently measured and rejected at lexical EOF. Semantic-span v1 failed before model load due an omitted manifest and earned zero credit. Corrected v2 job7626911 completed12 multi-token semantic-span updates with exact training-time reload; independent pinned-SANY audit v2 measured both references, both restored-parent candidates and both trained-child candidates, with0/4 model candidates passing and2/2 references passing. The CPU error-frontier audit measured16/16 counterfactual variants with0 SANY passes and identifies continuation/definition incompleteness beyond local layout. Continuation-aware wide SFT job7626952 completed12 exact-reload updates with112 adapter tensors across layers24-31 and all attention/MLP projections, but independent pinned SANY remained0/2 for the child and2/2 for references. The CPU verifier-guided search measured14 reference-free fixed-vocabulary repairs with0 passes. Decoder job7626997 then used exact parent-plus-adapter restoration and prefix-preserving grammar/rollback decoding: row47 reached grammar completion but SANY rejected a precedence conflict, while row107 exhausted its repair budget and SANY rejected a malformed map branch. The independent decoder audit is complete and earns no model/gate credit. Large checkpoints remain remote-only; the programmatic Discord watchdog remains live. Do not promote or replay these objectives unchanged.
 - External blocker: none verified
-- Next action: Monitor sole job7626997 to terminal state, retrieve its complete decoder receipt or failure trace, and independently score both protected rows with pinned SANY. Do not submit a duplicate or grant model/gate credit before that audit.
+- Next action: Use the new row47 precedence and row107 malformed-map error families to design a materially different CPU-only continuation/semantic verifier policy. Do not submit another unchanged decoder or SFT replay; preserve fixed denominators and require independent pinned SANY before any claim.
 
 ## Objective and evidence rules
 
@@ -34,13 +34,15 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 | TLA-06C | Done | Separate local syntax faults from continuation failure | CPU-only frontier-v2 passes4/4 SANY controls and measures16/16 exact or pre-registered counterfactual variants. All16 reject: row47 child moves from missing Init conjunction to precedence conflict, row107 child from lexical EOF to precedence conflict, and the parent retains additional module-body faults. Counterfactual edits are explicitly diagnostic-only with no model or gate credit. |
 | TLA-06D | Done | Test continuation-aware wide clean-reference SFT | Polaris job7626952 completed12 updates with exact reload and finite112-tensor adapter checkpoint e8a13956. Independent pinned-SANY controls pass2/2 references, while parent and trained-child candidates reject4/4; protected child remains0/2. Do not promote or repeat this parameterization and weighting unchanged. |
 | TLA-06E | Done | Bound verifier-guided repair vocabulary on continuation child | CPU-only search v2 passed4/4 pinned-SANY controls and measured14 reference-free transformations of the exact trained-child bytes;0/14 passed. This is diagnostic evidence that the fixed textual repair vocabulary is insufficient, not model or gate credit. |
-| TLA-06F | In progress | Prepare adapter-restored verifier-constrained continuation decode | Stage tla-fullmodule-continuation-grammar-decode-20260916-v1 binds packet a125a0d5, parent87489e47, adapter checkpoint e8a13956, pinned grammar and selector, prefix-preserving bounded rollback, no training, and no reference conditioning. Local and remote guards pass; CPU/xgrammar preflight is complete with CUDA/model_weights false. Job7626997 is the sole bounded diagnostic, running under the one-GPU15-minute contract. |
+| TLA-06F | Done | Prepare adapter-restored verifier-constrained continuation decode | Stage tla-fullmodule-continuation-grammar-decode-20260916-v1 binds packet a125a0d5, parent87489e47, adapter checkpoint e8a13956, pinned grammar and selector, prefix-preserving bounded rollback, no training, and no reference conditioning. Job7626997 completed E/Exit0; row47 grammar-ended, row107 repair-budget exhausted. Independent SANY is recorded separately with0/2 repaired passes. |
+| TLA-06G | Done | Independently score constrained decoder outputs | Decoder audit v1 ignores worker labels, passes4/4 SANY controls, and measures baseline plus repaired bytes for both protected rows. References pass2/2; all4 model bytes reject, including repaired47 and107. No model, quality, gate, proof, TLC or promotion credit. |
 | TLA-07 | Not ready | Verify complete frozen SANY gate | Full frozen denominator has not passed 100%; no diagnostic promotion. |
 | TLA-08 | Not ready | Verify applicable TLC and non-vacuity | Prerequisite SANY gate and intended-behavior evidence incomplete. |
 | TLA-09 | Not ready | Verify genuine TLAPS model performance | Acceptance gates incomplete; same-node positive/negative TLAPS controls and bounded dry run required before retry. |
 
 ## Decisions
 
+- 2026-09-16T05:38:12Z: Job7626997 finished E/Exit0 after00:02:16 with complete decoder receipt. Row47 accepted179 tokens and grammar-completed after215 repair tokens but independent SANY rejects a precedence conflict; row107 accepted138, exhausted512 repair tokens, did not grammar-complete and rejects a malformed map branch. Independent decoder SANY audit passes2/2 references and rejects4/4 baseline/constrained candidates; repaired protected result0/2. Do not repeat unchanged.
 - 2026-09-16T05:34:29Z: Final fresh ownership/output guard passed and exactly one decoder-only continuation diagnostic was submitted as job7626997. qstat reports R on x3003c0s13b0n0/0*64, debug, one GPU,64 CPUs and00:15:00 walltime. Monitor only; no model, SANY, quality, gate, proof, generalization, TLC or promotion claim before complete receipt and independent SANY.
 - 2026-09-16T05:33:13Z: Remote upload and no-weight CPU/xgrammar preflight passed for decoder-only continuation stage v1. Exact parent/adapter/packet identities, xgrammar0.2.2, prompt counts401/457, reference controls2/2, ranked selection, EOS termination, rollback, comment and lexical guards all pass; pycache/result namespace/owned queue are clear. No model weights or CUDA were used. Perform one final fresh check and submit exactly one bounded diagnostic; no quality or gate claim.
 - 2026-09-16T05:26:34Z: Prepared decoder-only continuation stage v1 as a materially different hypothesis after the 0/14 bounded textual repair negative. It restores the exact parent final layer and exact 112-tensor adapter, then applies the existing cache-preserving grammar/rollback selector to the protected rows with no training or reference conditioning. Local SHA256, compile and PBS guards pass; upload and remote CPU preflight are next, with no model or gate claim.
@@ -525,26 +527,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 718,
-  "verified_utc": "2026-09-16T05:34:29Z",
-  "active_job": {
-    "id": "7626997",
-    "scheduler_id": "7626997.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
-    "pbs_state": "R",
-    "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
-    "host": "polaris",
-    "queue": "debug",
-    "ngpus": 1,
-    "walltime": "00:15:00",
-    "exec_host": "x3003c0s13b0n0/0*64"
-  },
+  "revision": 719,
+  "verified_utc": "2026-09-16T05:38:12Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
-  "phase": "running",
-  "observation_evidence": "At 2026-09-16T05:34:29Z, final fresh Polaris ownership/output guards passed and exactly one decoder-only continuation diagnostic job7626997 is scheduler-attested R on x3003c0s13b0n0/0*64 in debug with one GPU and00:15:00 walltime. The CPU/xgrammar preflight is complete; no quality, model, SANY, gate, proof, generalization, TLC or promotion claim exists before the terminal receipt and independent audit.",
-  "last_result": "Continuation-aware wide SFT v1 plus the bounded CPU verifier-guided repair search are complete negatives: references2/2 pass, parent and trained-child candidates4/4 reject, protected child0/2, and all14 reference-free fixed-vocabulary repairs reject SANY. The decoder-only adapter-restored continuation stage is remotely CPU-admitted and awaits one bounded diagnostic run.",
-  "local_work": "The semantic preference child remains a complete negative: all20 teacher-forced margins rose but protected SANY stayed0/2. The row47 SANY-in-the-loop controller found the first valid scoped repair at seven of eight binder changes; row107 is now independently measured and rejected at lexical EOF. Semantic-span v1 failed before model load due an omitted manifest and earned zero credit. Corrected v2 job7626911 completed12 multi-token semantic-span updates with exact training-time reload; independent pinned-SANY audit v2 measured both references, both restored-parent candidates and both trained-child candidates, with0/4 model candidates passing and2/2 references passing. The CPU error-frontier audit measured16/16 counterfactual variants with0 SANY passes and identifies continuation/definition incompleteness beyond local layout. Continuation-aware wide SFT job7626952 completed12 exact-reload updates with112 adapter tensors across layers24-31 and all attention/MLP projections, but independent pinned SANY remained0/2 for the child and2/2 for references. The new CPU verifier-guided search measured14 reference-free fixed-vocabulary repairs with0 passes, so bounded textual repair is insufficient for this child. The lexical-abort classifier fix is covered by41 focused tests. Large checkpoints remain remote-only; the programmatic Discord watchdog remains live. Do not promote or replay these objectives unchanged.",
+  "phase": "local_work",
+  "active_job": null,
+  "observation_evidence": "At 2026-09-16T05:38:12Z, decoder job7626997 finished E/Exit0 after00:02:16 with complete rows and receipt. Independent pinned-SANY controls pass2/2 references; baseline and constrained outputs reject4/4, so repaired protected SANY is0/2. Row47 is grammar-ended but rejects at a precedence conflict; row107 exhausts512 repair tokens without grammar completion and rejects at a malformed map branch. No quality, model, gate, proof, generalization, TLC or promotion claim exists.",
+  "last_result": "Continuation-aware wide SFT, bounded textual repair, and decoder-only grammar-constrained continuation are complete negatives: references2/2 pass, the decoder's baseline/constrained outputs reject4/4, repaired protected SANY0/2; row47 grammar completion still has precedence failure and row107 remains grammar-incomplete.",
+  "local_work": "The semantic preference child remains a complete negative: all20 teacher-forced margins rose but protected SANY stayed0/2. The row47 SANY-in-the-loop controller found the first valid scoped repair at seven of eight binder changes; row107 is now independently measured and rejected at lexical EOF. Semantic-span v1 failed before model load due an omitted manifest and earned zero credit. Corrected v2 job7626911 completed12 multi-token semantic-span updates with exact training-time reload; independent pinned-SANY audit v2 measured both references, both restored-parent candidates and both trained-child candidates, with0/4 model candidates passing and2/2 references passing. The CPU error-frontier audit measured16/16 counterfactual variants with0 SANY passes and identifies continuation/definition incompleteness beyond local layout. Continuation-aware wide SFT job7626952 completed12 exact-reload updates with112 adapter tensors across layers24-31 and all attention/MLP projections, but independent pinned SANY remained0/2 for the child and2/2 for references. The CPU verifier-guided search measured14 reference-free fixed-vocabulary repairs with0 passes. Decoder job7626997 then used exact parent-plus-adapter restoration and prefix-preserving grammar/rollback decoding: row47 reached grammar completion but SANY rejected a precedence conflict, while row107 exhausted its repair budget and SANY rejected a malformed map branch. The independent decoder audit is complete and earns no model/gate credit. Large checkpoints remain remote-only; the programmatic Discord watchdog remains live. Do not promote or replay these objectives unchanged.",
   "external_blocker": null,
-  "next_action": "Monitor sole job7626997 to terminal state, retrieve its complete decoder receipt or failure trace, and independently score both protected rows with pinned SANY. Do not submit a duplicate or grant model/gate credit before that audit.",
+  "next_action": "Use the new row47 precedence and row107 malformed-map error families to design a materially different CPU-only continuation/semantic verifier policy. Do not submit another unchanged decoder or SFT replay; preserve fixed denominators and require independent pinned SANY before any claim.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -614,9 +606,15 @@ These snapshots preserve old statements, including mistakes. They are not curren
     },
     {
       "id": "TLA-06F",
-      "state": "In progress",
+      "state": "Done",
       "task": "Prepare adapter-restored verifier-constrained continuation decode",
-      "evidence": "Stage tla-fullmodule-continuation-grammar-decode-20260916-v1 binds packet a125a0d5, parent87489e47, adapter checkpoint e8a13956, pinned grammar and selector, prefix-preserving bounded rollback, no training, and no reference conditioning. Local and remote guards pass; CPU/xgrammar preflight is complete with CUDA/model_weights false. Job7626997 is the sole bounded diagnostic, running under the one-GPU15-minute contract."
+      "evidence": "Stage tla-fullmodule-continuation-grammar-decode-20260916-v1 binds packet a125a0d5, parent87489e47, adapter checkpoint e8a13956, pinned grammar and selector, prefix-preserving bounded rollback, no training, and no reference conditioning. Job7626997 completed E/Exit0; row47 grammar-ended, row107 repair-budget exhausted. Independent SANY is recorded separately with0/2 repaired passes."
+    },
+    {
+      "id": "TLA-06G",
+      "state": "Done",
+      "task": "Independently score constrained decoder outputs",
+      "evidence": "Decoder audit v1 ignores worker labels, passes4/4 SANY controls, and measures baseline plus repaired bytes for both protected rows. References pass2/2; all4 model bytes reject, including repaired47 and107. No model, quality, gate, proof, TLC or promotion credit."
     },
     {
       "id": "TLA-07",
@@ -638,6 +636,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
     }
   ],
   "decisions": [
+    "2026-09-16T05:38:12Z: Job7626997 finished E/Exit0 after00:02:16 with complete decoder receipt. Row47 accepted179 tokens and grammar-completed after215 repair tokens but independent SANY rejects a precedence conflict; row107 accepted138, exhausted512 repair tokens, did not grammar-complete and rejects a malformed map branch. Independent decoder SANY audit passes2/2 references and rejects4/4 baseline/constrained candidates; repaired protected result0/2. Do not repeat unchanged.",
     "2026-09-16T05:34:29Z: Final fresh ownership/output guard passed and exactly one decoder-only continuation diagnostic was submitted as job7626997. qstat reports R on x3003c0s13b0n0/0*64, debug, one GPU,64 CPUs and00:15:00 walltime. Monitor only; no model, SANY, quality, gate, proof, generalization, TLC or promotion claim before complete receipt and independent SANY.",
     "2026-09-16T05:33:13Z: Remote upload and no-weight CPU/xgrammar preflight passed for decoder-only continuation stage v1. Exact parent/adapter/packet identities, xgrammar0.2.2, prompt counts401/457, reference controls2/2, ranked selection, EOS termination, rollback, comment and lexical guards all pass; pycache/result namespace/owned queue are clear. No model weights or CUDA were used. Perform one final fresh check and submit exactly one bounded diagnostic; no quality or gate claim.",
     "2026-09-16T05:26:34Z: Prepared decoder-only continuation stage v1 as a materially different hypothesis after the 0/14 bounded textual repair negative. It restores the exact parent final layer and exact 112-tensor adapter, then applies the existing cache-preserving grammar/rollback selector to the protected rows with no training or reference conditioning. Local SHA256, compile and PBS guards pass; upload and remote CPU preflight are next, with no model or gate claim.",
@@ -2047,7 +2046,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "results/runs/tla-fullmodule-continuation-grammar-decode-20260916-v1/remote-preflight/cpu-preflight.json",
     "results/runs/tla-fullmodule-continuation-grammar-decode-20260916-v1/remote-guards.json",
     "results/runs/tla-fullmodule-continuation-grammar-decode-20260916-v1/job.7626997-submission.json",
-    "results/runs/tla-fullmodule-continuation-grammar-decode-20260916-v1/job.7626997-qstat-running.txt"
+    "results/runs/tla-fullmodule-continuation-grammar-decode-20260916-v1/job.7626997-qstat-running.txt",
+    "results/runs/tla-fullmodule-continuation-grammar-decode-20260916-v1/job.7626997-terminal.json",
+    "results/runs/tla-fullmodule-continuation-grammar-decode-20260916-v1/job.7626997-qstat-terminal.txt",
+    "results/runs/tla-fullmodule-continuation-grammar-decode-20260916-v1/job.7626997.log",
+    "results/runs/tla-fullmodule-continuation-grammar-decode-20260916-v1/result.7626997/receipt.json",
+    "results/runs/tla-fullmodule-continuation-grammar-decode-20260916-v1/result.7626997/row-47.json",
+    "results/runs/tla-fullmodule-continuation-grammar-decode-20260916-v1/result.7626997/row-107.json",
+    "tools/fullmodule_independent_decoder_sany_audit.py",
+    "results/runs/tla-fullmodule-continuation-grammar-decode-20260916-v1/independent-sany-v1/summary.json",
+    "results/runs/tla-fullmodule-continuation-grammar-decode-20260916-v1/independent-sany-v1/identity.json"
   ]
 }
 -->

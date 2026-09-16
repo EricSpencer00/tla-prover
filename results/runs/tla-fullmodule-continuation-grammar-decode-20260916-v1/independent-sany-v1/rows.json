@@ -1,0 +1,42 @@
+[
+  {
+    "row": 47,
+    "phase": "baseline",
+    "grammar_ended": null,
+    "status": "model_sany_reject",
+    "candidate_sha256": "296c909062c25e670f233344662a7dde1199cb8692e5c3f216e5e3edf5a5cfa7",
+    "module_name": "W4Od2m7p4t2",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-continuation-grammar-decode-20260916-v1/independent-sany-v1/candidates/baseline-47/sany.log"
+  },
+  {
+    "row": 47,
+    "phase": "repaired",
+    "grammar_ended": true,
+    "status": "model_sany_reject",
+    "candidate_sha256": "1818d5541a82835da675d15794195bfcb71d191971081f0c2c6ebafe83bd3c92",
+    "module_name": "W4Od2m7p4t2",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-continuation-grammar-decode-20260916-v1/independent-sany-v1/candidates/repaired-47/sany.log"
+  },
+  {
+    "row": 107,
+    "phase": "baseline",
+    "grammar_ended": null,
+    "status": "model_sany_reject",
+    "candidate_sha256": "0fcb217680dabc79d44b63638cbde806b4f7ce7aaceeb1d9738fb953f4458df5",
+    "module_name": "W4Od3m0p0t0",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-continuation-grammar-decode-20260916-v1/independent-sany-v1/candidates/baseline-107/sany.log"
+  },
+  {
+    "row": 107,
+    "phase": "repaired",
+    "grammar_ended": false,
+    "status": "model_sany_reject",
+    "candidate_sha256": "c0187583dc0cc1a0c27cf64e16fcbe6188ee7be6eaf00f2ac29f56a261d34284",
+    "module_name": "W4Od3m0p0t0",
+    "returncode": 255,
+    "log": "/Users/eric/GitHub/prove-TLA/results/runs/tla-fullmodule-continuation-grammar-decode-20260916-v1/independent-sany-v1/candidates/repaired-107/sany.log"
+  }
+]

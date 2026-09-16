@@ -1,0 +1,31 @@
+{
+  "complete": true,
+  "controls_ok": true,
+  "protected_rows": [
+    47,
+    107
+  ],
+  "requested_candidates": 4,
+  "measured_candidates": 4,
+  "repaired_sany_pass": 0,
+  "repaired_sany_reject": 2,
+  "statuses": {
+    "baseline/47": "model_sany_reject",
+    "repaired/47": "model_sany_reject",
+    "baseline/107": "model_sany_reject",
+    "repaired/107": "model_sany_reject"
+  },
+  "grammar_ended": {
+    "47": true,
+    "107": false
+  },
+  "independent_bytes": true,
+  "embedded_decoder_labels_ignored": true,
+  "model_improvement_claim": false,
+  "quality_claim": false,
+  "gate_claim": false,
+  "proof_claim": false,
+  "generalization_claim": false,
+  "tlc_claim": false,
+  "nonvacuity_claim": false
+}
