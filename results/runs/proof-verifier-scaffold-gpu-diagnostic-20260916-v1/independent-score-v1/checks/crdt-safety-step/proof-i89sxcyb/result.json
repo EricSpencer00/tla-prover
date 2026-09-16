@@ -1,0 +1,31 @@
+{
+  "certified": false,
+  "status": "verifier_reject",
+  "proved": 0,
+  "total": 0,
+  "output": "Missing proof at File \"./CRDT_proof.tla\", line 19, characters 1-48\nFile \"./CRDT_proof.tla\", line 1, character 1 to line 24, character 77:\n[ERROR]: Proof incomplete in module \"CRDT_proof\": 1 missing, 0 omitted proof step(s).\nZenon error: exhausted search space without finding a proof\n(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/proof-verifier-scaffold-gpu-diagnostic-20260916-v1/independent-score-v1/checks/crdt-safety-step/proof-i89sxcyb/.tlacache/CRDT_proof.tlaps/CRDT_proof.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/proof-verifier-scaffold-gpu-diagnostic-20260916-v1/independent-score-v1/checks/crdt-safety-step/proof-i89sxcyb/.tlacache/CRDT_proof.tlaps/fingerprints\" *)\nFile \"./CRDT_proof.tla\", line 21, characters 3-4:\n[ERROR]: Could not prove or check:\n           ASSUME NEW CONSTANT Node,\n                  NodeAssumption == IsFiniteSet(Node),\n                  NEW VARIABLE counter,\n                  vars == counter,\n                  TypeOK == counter \\in [Node -> [Node -> Nat]],\n                  Safety == \\A n, o \\in Node : counter[n][n] >= counter[o][n],\n                  Next ==\n                    \\/ \\E n \\in Node : Increment(n)\n                    \\/ \\E n, o \\in Node : Gossip(n, o)\n           PROVE  TypeOK /\\ Safety /\\ [Next]_vars => Safety'\nFile \"./CRDT_proof.tla\", line 1, character 1 to line 24, character 77:\n[ERROR]: 1/13 obligations failed.\nThere were backend errors processing module `\"CRDT_proof\"`.\n",
+  "seconds": 7.929362058639526,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-verifier-scaffold-gpu-diagnostic-20260916-v1/independent-score-v1/checks/crdt-safety-step/proof-i89sxcyb",
+  "reason": "",
+  "sha256": "cd4e107b9419d17f1e3b1617eb0a630043c4673248b1b7bc5baddc84171a465f",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/proof-verifier-scaffold-gpu-diagnostic-20260916-v1/independent-score-v1/checks/crdt-safety-step/proof-i89sxcyb/CRDT_proof.tla",
+  "dependency_sha256": {
+    "CRDT.tla": "2e9017ee8ca3262aa0fb501a832eb130990a1b478a7c6c2126228978fbc2155a"
+  },
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/proof-verifier-scaffold-gpu-diagnostic-20260916-v1/independent-score-v1/checks/crdt-safety-step/proof-i89sxcyb/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "CRDT_proof.tla"
+  ],
+  "returncode": 10,
+  "timed_out": false
+}

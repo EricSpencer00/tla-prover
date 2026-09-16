@@ -1,0 +1,21 @@
+Missing proof at File "./CRDT_proof.tla", line 19, characters 1-48
+File "./CRDT_proof.tla", line 1, character 1 to line 24, character 77:
+[ERROR]: Proof incomplete in module "CRDT_proof": 1 missing, 0 omitted proof step(s).
+Zenon error: exhausted search space without finding a proof
+(* created new "/Users/eric/GitHub/prove-TLA/results/runs/proof-verifier-scaffold-gpu-diagnostic-20260916-v1/independent-score-v1/checks/crdt-safety-step/proof-i89sxcyb/.tlacache/CRDT_proof.tlaps/CRDT_proof.thy" *)
+(* fingerprints written in "/Users/eric/GitHub/prove-TLA/results/runs/proof-verifier-scaffold-gpu-diagnostic-20260916-v1/independent-score-v1/checks/crdt-safety-step/proof-i89sxcyb/.tlacache/CRDT_proof.tlaps/fingerprints" *)
+File "./CRDT_proof.tla", line 21, characters 3-4:
+[ERROR]: Could not prove or check:
+           ASSUME NEW CONSTANT Node,
+                  NodeAssumption == IsFiniteSet(Node),
+                  NEW VARIABLE counter,
+                  vars == counter,
+                  TypeOK == counter \in [Node -> [Node -> Nat]],
+                  Safety == \A n, o \in Node : counter[n][n] >= counter[o][n],
+                  Next ==
+                    \/ \E n \in Node : Increment(n)
+                    \/ \E n, o \in Node : Gossip(n, o)
+           PROVE  TypeOK /\ Safety /\ [Next]_vars => Safety'
+File "./CRDT_proof.tla", line 1, character 1 to line 24, character 77:
+[ERROR]: 1/13 obligations failed.
+There were backend errors processing module `"CRDT_proof"`.

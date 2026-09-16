@@ -1,0 +1,31 @@
+{
+  "certified": false,
+  "status": "verifier_reject",
+  "proved": 0,
+  "total": 0,
+  "output": "Zenon error: exhausted search space without finding a proof\n(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/proof-verifier-scaffold-gpu-diagnostic-20260916-v1/independent-score-v1/checks/crdt-sum-type-proof/proof-iz17881n/.tlacache/CRDT_proof.tlaps/CRDT_proof.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/proof-verifier-scaffold-gpu-diagnostic-20260916-v1/independent-score-v1/checks/crdt-sum-type-proof/proof-iz17881n/.tlacache/CRDT_proof.tlaps/fingerprints\" *)\nFile \"./CRDT_proof.tla\", line 47, characters 3-4:\n[ERROR]: Could not prove or check:\n           ASSUME NEW CONSTANT Node,\n                  NodeAssumption == IsFiniteSet(Node),\n                  NEW VARIABLE counter,\n                  FoldFunction(op(_, _), base, fun) ==\n                    FoldFunctionOnSet(op, base, fun, DOMAIN fun),\n                  Sum(f) == FoldFunction(LAMBDA x1, x2 : x1 + x2, 0, f),\n                  NEW CONSTANT f \\in \n                  [Node -> Nat]\n           PROVE  Sum(f) \\in Nat\nFile \"./CRDT_proof.tla\", line 1, character 1 to line 49, character 77:\n[ERROR]: 1/20 obligations failed.\nThere were backend errors processing module `\"CRDT_proof\"`.\n",
+  "seconds": 7.904393911361694,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-verifier-scaffold-gpu-diagnostic-20260916-v1/independent-score-v1/checks/crdt-sum-type-proof/proof-iz17881n",
+  "reason": "",
+  "sha256": "3e5e323d17199817e19b6e7cc2dd8e3d29f6430da451298f68ca9929924ba9ee",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/proof-verifier-scaffold-gpu-diagnostic-20260916-v1/independent-score-v1/checks/crdt-sum-type-proof/proof-iz17881n/CRDT_proof.tla",
+  "dependency_sha256": {
+    "CRDT.tla": "2e9017ee8ca3262aa0fb501a832eb130990a1b478a7c6c2126228978fbc2155a"
+  },
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/proof-verifier-scaffold-gpu-diagnostic-20260916-v1/independent-score-v1/checks/crdt-sum-type-proof/proof-iz17881n/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "CRDT_proof.tla"
+  ],
+  "returncode": 10,
+  "timed_out": false
+}

@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "job_id": "7628446.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "job_name": "tla-vscaf-gpu-v1",
+  "host": "polaris-login-04",
+  "exec_host": "x3010c0s31b0n0/0*64",
+  "queue": "debug",
+  "account": "EVITA",
+  "job_state": "F",
+  "exit_status": 0,
+  "requested": {
+    "ngpus": 1,
+    "ncpus": 64,
+    "walltime": "00:15:00",
+    "filesystems": "home:grand"
+  },
+  "resources_used": {
+    "ngpus": 0,
+    "ncpus": 64,
+    "cput": "00:00:47",
+    "walltime": "00:01:20",
+    "mem": "5747500kb"
+  },
+  "submitted_utc": "2026-09-16T21:05:57Z",
+  "started_utc": "2026-09-16T21:06:01Z",
+  "finished_utc": "2026-09-16T21:07:26Z",
+  "stage": "/home/eric-spencer/tla-verifier-scaffold-gpu-diagnostic-20260916-v1",
+  "stage_manifest_sha256": "911dc5e174ebb79a21afc69d6fb3bb2d598d2777febe6f7f87033c478354e0a9",
+  "packet_sha256": "bec0946900d52e2a236eb53622b4b267bc2e229b6e426e3afb6bf00630ead6b8",
+  "parent_checkpoint_sha256": "87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511",
+  "remote_result_sha256": {
+    "config.json": "24d27e919036b7eeeb3bac7bb579232b509f830a3698f76389eac3c0e4bec0f9",
+    "generations.jsonl": "2588e54842fc0801f43e3639fb25a188f7b8efaf1026a69b55d85991a1d95f54",
+    "runtime.json": "234e278af5d5f3fb3f82872bdce808415d499505985688a8d0036ee977880c6d",
+    "summary.json": "06a1c719e56139ad5f44acc8e0adfb76ed2656e8042b0db8302e3fed1ba2095c",
+    "train.stdout": "f2467b9061c6d2bcaa8e62b6be49c58693f01e3b455ebdfe5559428b46bdcad8"
+  },
+  "worker_contract": {
+    "rows": 4,
+    "generated_rows": 4,
+    "parameter_updates": 0,
+    "training_executed": false,
+    "reference_fragment_used": false,
+    "proof_or_quality_claim": false,
+    "gpu": "NVIDIA A100-SXM4-40GB",
+    "cuda_peak_allocated_bytes": 17037828096,
+    "cuda_peak_reserved_bytes": 17341349888
+  },
+  "independent_score": {
+    "scorer": "tools/proof_verifier_scaffold_score.py",
+    "strict_tlapm": true,
+    "requested_rows": 4,
+    "measured_rows": 4,
+    "certified_tasks": 0,
+    "unmeasured_tasks": 4,
+    "reference_fragment_read": false,
+    "repair_executed": false,
+    "reward_executed": false,
+    "protected_evaluation": false,
+    "proof_or_quality_claim": false
+  },
+  "notes": [
+    "Remote result hashes were checked after retrieval.",
+    "The qstat historical resources_used.ngpus field was 0 while exec_vnode and Resource_List reported one requested GPU; no GPU count beyond the scheduler receipt is inferred.",
+    "All four generated fragments were independently rejected by strict uncached TLAPS; this is a complete diagnostic negative, not a protected-gate result."
+  ]
+}

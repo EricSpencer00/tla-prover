@@ -1,0 +1,31 @@
+{
+  "certified": false,
+  "status": "verifier_reject",
+  "proved": 0,
+  "total": 0,
+  "output": "Missing proof at File \"./CRDT_proof.tla\", line 11, characters 1-38\nFile \"./CRDT_proof.tla\", line 1, character 1 to line 16, character 77:\n[ERROR]: Proof incomplete in module \"CRDT_proof\": 1 missing, 0 omitted proof step(s).\n(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/proof-verifier-scaffold-gpu-diagnostic-20260916-v1/independent-score-v1/checks/crdt-type-step/proof-ifcvv28h/.tlacache/CRDT_proof.tlaps/CRDT_proof.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/proof-verifier-scaffold-gpu-diagnostic-20260916-v1/independent-score-v1/checks/crdt-type-step/proof-ifcvv28h/.tlacache/CRDT_proof.tlaps/fingerprints\" *)\nFile \"./CRDT_proof.tla\", line 1, character 1 to line 16, character 77:\n[INFO]: All 10 obligations proved.\n",
+  "seconds": 0.9979720115661621,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-verifier-scaffold-gpu-diagnostic-20260916-v1/independent-score-v1/checks/crdt-type-step/proof-ifcvv28h",
+  "reason": "",
+  "sha256": "62439be7082b61407c2fdd454c685eb5a6425dc01c3b9132d64fda8b8602f981",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/proof-verifier-scaffold-gpu-diagnostic-20260916-v1/independent-score-v1/checks/crdt-type-step/proof-ifcvv28h/CRDT_proof.tla",
+  "dependency_sha256": {
+    "CRDT.tla": "2e9017ee8ca3262aa0fb501a832eb130990a1b478a7c6c2126228978fbc2155a"
+  },
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/proof-verifier-scaffold-gpu-diagnostic-20260916-v1/independent-score-v1/checks/crdt-type-step/proof-ifcvv28h/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "CRDT_proof.tla"
+  ],
+  "returncode": 11,
+  "timed_out": false
+}

@@ -1,0 +1,17 @@
+Zenon error: exhausted search space without finding a proof
+(* created new "/Users/eric/GitHub/prove-TLA/results/runs/proof-verifier-scaffold-gpu-diagnostic-20260916-v1/independent-score-v1/checks/crdt-sum-zero-proof/proof-0foau6bt/.tlacache/CRDT_proof.tlaps/CRDT_proof.thy" *)
+(* fingerprints written in "/Users/eric/GitHub/prove-TLA/results/runs/proof-verifier-scaffold-gpu-diagnostic-20260916-v1/independent-score-v1/checks/crdt-sum-zero-proof/proof-0foau6bt/.tlacache/CRDT_proof.tlaps/fingerprints" *)
+File "./CRDT_proof.tla", line 56, characters 3-4:
+[ERROR]: Could not prove or check:
+           ASSUME NEW CONSTANT Node,
+                  NodeAssumption == IsFiniteSet(Node),
+                  NEW VARIABLE counter,
+                  FoldFunction(op(_, _), base, fun) ==
+                    FoldFunctionOnSet(op, base, fun, DOMAIN fun),
+                  Sum(f) == FoldFunction(LAMBDA x1, x2 : x1 + x2, 0, f),
+                  NEW CONSTANT f \in 
+                  [Node -> Nat]
+           PROVE  Sum(f) = 0 <=> (\A x \in Node : f[x] = 0)
+File "./CRDT_proof.tla", line 1, character 1 to line 58, character 77:
+[ERROR]: 1/28 obligations failed.
+There were backend errors processing module `"CRDT_proof"`.

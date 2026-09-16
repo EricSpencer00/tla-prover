@@ -1,0 +1,7 @@
+Missing proof at File "./CRDT_proof.tla", line 11, characters 1-38
+File "./CRDT_proof.tla", line 1, character 1 to line 16, character 77:
+[ERROR]: Proof incomplete in module "CRDT_proof": 1 missing, 0 omitted proof step(s).
+(* created new "/Users/eric/GitHub/prove-TLA/results/runs/proof-verifier-scaffold-gpu-diagnostic-20260916-v1/independent-score-v1/checks/crdt-type-step/proof-ifcvv28h/.tlacache/CRDT_proof.tlaps/CRDT_proof.thy" *)
+(* fingerprints written in "/Users/eric/GitHub/prove-TLA/results/runs/proof-verifier-scaffold-gpu-diagnostic-20260916-v1/independent-score-v1/checks/crdt-type-step/proof-ifcvv28h/.tlacache/CRDT_proof.tlaps/fingerprints" *)
+File "./CRDT_proof.tla", line 1, character 1 to line 16, character 77:
+[INFO]: All 10 obligations proved.

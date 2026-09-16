@@ -1,0 +1,14 @@
+{
+  "requested_rows": 4,
+  "generated_rows": 4,
+  "context_overflow_rows": 0,
+  "parameter_updates": 0,
+  "training_executed": false,
+  "reference_fragment_used": false,
+  "proof_or_quality_claim": false,
+  "independent_sany_scoring": "not performed in worker",
+  "gpu": "NVIDIA A100-SXM4-40GB",
+  "cuda_peak_allocated_bytes": 17037828096,
+  "cuda_peak_reserved_bytes": 17341349888,
+  "elapsed_seconds": 2.838944634888321
+}

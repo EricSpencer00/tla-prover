@@ -1,0 +1,4 @@
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/291 [00:00<?, ?it/s]Loading weights: 100%|██████████| 291/291 [00:00<00:00, 9206.64it/s]
+[transformers] The following generation flags are not valid and may be ignored: ['temperature', 'top_p']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+{"requested_rows": 4, "generated_rows": 4, "context_overflow_rows": 0, "parameter_updates": 0, "training_executed": false, "reference_fragment_used": false, "proof_or_quality_claim": false, "independent_sany_scoring": "not performed in worker"}
