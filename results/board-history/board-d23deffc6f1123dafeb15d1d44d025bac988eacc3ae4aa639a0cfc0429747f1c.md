@@ -4,13 +4,13 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 942
-- Verified UTC: 2026-09-17T18:50:29Z
+- Revision: 941
+- Verified UTC: 2026-09-17T18:48:21Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: local_work
 - Active job: none
-- Observation evidence: Goal/fact v1 job7630526 is terminal F/Exit1 after00:00:05 with resources_used.ngpus=0, empty train.stdout/stderr, no result namespace and scheduler Stageout_status=1. Its PBS wrapper carried the prior transition packet hash and failed its packet guard before model import. Corrected append-only v2 at /home/eric-spencer/tla-goal-fact-transition-20260917-v2 is hash-exact for all14 files; corrected worker/PBS dependency compile, PBS syntax, packet CLI and clean output guards pass. Fresh v2 queue/output ownership also passes: REMOTE_GOAL_FACT_V2_FINAL_OWNERSHIP_PASS.
-- Latest completed result: Job7630526 is infrastructure-only and rejected: no model/CUDA/optimizer/GPU work, no checkpoint and no generation receipt. Corrected v2 admission and final ownership guards pass; no quality, proof-gate or promotion credit exists before the new run and independent strict scoring.
+- Observation evidence: Goal/fact v1 job7630526 is terminal F/Exit1 after00:00:05 with resources_used.ngpus=0, empty train.stdout/stderr, no result namespace and scheduler Stageout_status=1. Its PBS wrapper carried the prior transition packet hash and failed its packet guard before model import. Corrected append-only v2 at /home/eric-spencer/tla-goal-fact-transition-20260917-v2 is hash-exact for all14 files; corrected worker/PBS dependency compile, PBS syntax, packet CLI and clean output guards pass: REMOTE_GOAL_FACT_V2_CPU_GUARDS_PASS.
+- Latest completed result: Job7630526 is infrastructure-only and rejected: no model/CUDA/optimizer/GPU work, no checkpoint and no generation receipt. The corrected v2 is admission-only until a fresh bounded run yields complete task-bound receipts and independent strict scoring.
 - Local work: Commits 19195c67, 0b6d139b, d1eb4a53 and 1f2648a0 preserve the transition negative, goal/fact packet and the PBS packet-hash regression fix. Focused goal/fact tests now pass4/4; the packet remains answer-free with exact17 TRAIN/4 DEVELOPMENT and fixed116 candidates.
 - External blocker: none verified
 - Next action: Perform one final live empty-queue/output ownership check for v2, submit exactly one bounded one-GPU job for at most 15 minutes, then retrieve raw receipts and independently score selected candidates over the fixed116 renderer denominator with strict TLAPS. Do not replay v1 or claim quality, proof-gate or promotion credit from training completion alone.
@@ -721,7 +721,6 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 - 2026-09-17T18:40:51Z: Exact14-file goal/fact bundle is uploaded to /home/eric-spencer/tla-goal-fact-transition-20260917-v1 with local/remote SHA256 equality for packet0c2aa10e, parent87489e47, manifestc186ddf0, worker, PBS and imported dependencies. Remote CPU/static guards pass dependency py_compile, PBS syntax, packet CLI exact17 TRAIN/4 DEVELOPMENT, fixed116 denominator and clean output namespace: REMOTE_GOAL_FACT_CPU_GUARDS_PASS. Fresh live Polaris queue/output ownership check also passes: REMOTE_GOAL_FACT_FINAL_OWNERSHIP_PASS. No model/CUDA/optimizer/GPU activity or quality claim.
 - 2026-09-17T18:42:16Z: After the final live guards, exactly one bounded goal/fact GPU job7630526 was submitted to Polaris debug. PBS reports Q with one requested GPU and00:15:00 walltime. Monitor only; no worker receipt, model result, quality, proof-gate or promotion claim exists before terminal retrieval and independent strict scoring.
 - 2026-09-17T18:48:21Z: Job7630526 finished F/Exit1 after00:00:05 with resources_used.ngpus=0, empty stdout/stderr and no result. The PBS wrapper failed its stale prior-transition packet hash guard before model import; preserve as infrastructure-only and do not score. Commit1f2648a0 corrects the hash and adds a regression. Fresh v2 upload at /home/eric-spencer/tla-goal-fact-transition-20260917-v2 passes all14 remote hashes, dependency py_compile, PBS syntax, packet CLI and clean output guards: REMOTE_GOAL_FACT_V2_CPU_GUARDS_PASS.
-- 2026-09-17T18:50:29Z: Fresh final v2 Polaris ownership check passes with an empty eric-spencer queue, no train stdout/stderr and no result.* namespace collision: REMOTE_GOAL_FACT_V2_FINAL_OWNERSHIP_PASS. Submit exactly one corrected bounded one-GPU run, then monitor and independently strict-score only complete task-bound receipts.
 
 ## Board maintenance
 
@@ -765,13 +764,13 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 942,
-  "verified_utc": "2026-09-17T18:50:29Z",
+  "revision": 941,
+  "verified_utc": "2026-09-17T18:48:21Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "local_work",
   "active_job": null,
-  "observation_evidence": "Goal/fact v1 job7630526 is terminal F/Exit1 after00:00:05 with resources_used.ngpus=0, empty train.stdout/stderr, no result namespace and scheduler Stageout_status=1. Its PBS wrapper carried the prior transition packet hash and failed its packet guard before model import. Corrected append-only v2 at /home/eric-spencer/tla-goal-fact-transition-20260917-v2 is hash-exact for all14 files; corrected worker/PBS dependency compile, PBS syntax, packet CLI and clean output guards pass. Fresh v2 queue/output ownership also passes: REMOTE_GOAL_FACT_V2_FINAL_OWNERSHIP_PASS.",
-  "last_result": "Job7630526 is infrastructure-only and rejected: no model/CUDA/optimizer/GPU work, no checkpoint and no generation receipt. Corrected v2 admission and final ownership guards pass; no quality, proof-gate or promotion credit exists before the new run and independent strict scoring.",
+  "observation_evidence": "Goal/fact v1 job7630526 is terminal F/Exit1 after00:00:05 with resources_used.ngpus=0, empty train.stdout/stderr, no result namespace and scheduler Stageout_status=1. Its PBS wrapper carried the prior transition packet hash and failed its packet guard before model import. Corrected append-only v2 at /home/eric-spencer/tla-goal-fact-transition-20260917-v2 is hash-exact for all14 files; corrected worker/PBS dependency compile, PBS syntax, packet CLI and clean output guards pass: REMOTE_GOAL_FACT_V2_CPU_GUARDS_PASS.",
+  "last_result": "Job7630526 is infrastructure-only and rejected: no model/CUDA/optimizer/GPU work, no checkpoint and no generation receipt. The corrected v2 is admission-only until a fresh bounded run yields complete task-bound receipts and independent strict scoring.",
   "local_work": "Commits 19195c67, 0b6d139b, d1eb4a53 and 1f2648a0 preserve the transition negative, goal/fact packet and the PBS packet-hash regression fix. Focused goal/fact tests now pass4/4; the packet remains answer-free with exact17 TRAIN/4 DEVELOPMENT and fixed116 candidates.",
   "external_blocker": "",
   "next_action": "Perform one final live empty-queue/output ownership check for v2, submit exactly one bounded one-GPU job for at most 15 minutes, then retrieve raw receipts and independently score selected candidates over the fixed116 renderer denominator with strict TLAPS. Do not replay v1 or claim quality, proof-gate or promotion credit from training completion alone.",
@@ -1712,8 +1711,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "2026-09-17T18:34:22Z: TLA-06AN local preflight passes for packet0c2aa10e: exact17 TRAIN/4 DEVELOPMENT,116 candidates,27 transition events, goal-overlap plus compound fact-bridge state, focused tests3/3, Python compilation and PBS syntax. No model/CUDA/remote side effect or claim.",
     "2026-09-17T18:40:51Z: Exact14-file goal/fact bundle is uploaded to /home/eric-spencer/tla-goal-fact-transition-20260917-v1 with local/remote SHA256 equality for packet0c2aa10e, parent87489e47, manifestc186ddf0, worker, PBS and imported dependencies. Remote CPU/static guards pass dependency py_compile, PBS syntax, packet CLI exact17 TRAIN/4 DEVELOPMENT, fixed116 denominator and clean output namespace: REMOTE_GOAL_FACT_CPU_GUARDS_PASS. Fresh live Polaris queue/output ownership check also passes: REMOTE_GOAL_FACT_FINAL_OWNERSHIP_PASS. No model/CUDA/optimizer/GPU activity or quality claim.",
     "2026-09-17T18:42:16Z: After the final live guards, exactly one bounded goal/fact GPU job7630526 was submitted to Polaris debug. PBS reports Q with one requested GPU and00:15:00 walltime. Monitor only; no worker receipt, model result, quality, proof-gate or promotion claim exists before terminal retrieval and independent strict scoring.",
-    "2026-09-17T18:48:21Z: Job7630526 finished F/Exit1 after00:00:05 with resources_used.ngpus=0, empty stdout/stderr and no result. The PBS wrapper failed its stale prior-transition packet hash guard before model import; preserve as infrastructure-only and do not score. Commit1f2648a0 corrects the hash and adds a regression. Fresh v2 upload at /home/eric-spencer/tla-goal-fact-transition-20260917-v2 passes all14 remote hashes, dependency py_compile, PBS syntax, packet CLI and clean output guards: REMOTE_GOAL_FACT_V2_CPU_GUARDS_PASS.",
-    "2026-09-17T18:50:29Z: Fresh final v2 Polaris ownership check passes with an empty eric-spencer queue, no train stdout/stderr and no result.* namespace collision: REMOTE_GOAL_FACT_V2_FINAL_OWNERSHIP_PASS. Submit exactly one corrected bounded one-GPU run, then monitor and independently strict-score only complete task-bound receipts."
+    "2026-09-17T18:48:21Z: Job7630526 finished F/Exit1 after00:00:05 with resources_used.ngpus=0, empty stdout/stderr and no result. The PBS wrapper failed its stale prior-transition packet hash guard before model import; preserve as infrastructure-only and do not score. Commit1f2648a0 corrects the hash and adds a regression. Fresh v2 upload at /home/eric-spencer/tla-goal-fact-transition-20260917-v2 passes all14 remote hashes, dependency py_compile, PBS syntax, packet CLI and clean output guards: REMOTE_GOAL_FACT_V2_CPU_GUARDS_PASS."
   ],
   "history": [
     "2026-09-17T05:04:20Z: Canonical byte-sequence job7629178 completed PBS F/Exit0 after00:04:04 with48 updates, exact reload checkpoint d9706d1a and both protected prompt-only receipts. Independent pinned-SANY audit ignores worker labels, passes references2/2, and finds0/4 canonical frames and0/4 candidate SANY passes. Prune this exact frame SFT objective; do not replay unchanged.",
