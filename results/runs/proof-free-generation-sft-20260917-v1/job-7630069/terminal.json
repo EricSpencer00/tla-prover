@@ -1,0 +1,24 @@
+{
+  "job_id": "7630069",
+  "job_name": "tla-free-generation-sft-v1",
+  "pbs_state": "F",
+  "exit_status": 1,
+  "exec_host": "x3006c0s13b0n0/0*64",
+  "resource_list": {
+    "select": "1:system=polaris:ncpus=64:ngpus=1",
+    "ncpus": "64",
+    "ngpus": "1",
+    "walltime": "00:15:00"
+  },
+  "resources_used": {
+    "ncpus": "64",
+    "ngpus": "0",
+    "walltime": "00:00:00",
+    "cput": "00:00:00",
+    "mem": "35328kb"
+  },
+  "stdout_sha256": "8cd1d1398c80cd85b343eb08da9c24cb1208276d1036f85a6948da058cfe4a91",
+  "model_loaded": false,
+  "optimizer_updates": 0,
+  "failure_class": "implementation_cli_shadowing_before_model_load"
+}

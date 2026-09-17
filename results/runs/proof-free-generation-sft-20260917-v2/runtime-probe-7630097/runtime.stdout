@@ -1,0 +1,6 @@
+HOST=x3205c0s25b0n0
+PYTHON=/soft/applications/conda/2025-09-28/mconda3/bin/python3
+LD_LIBRARY_PATH=/tmp/eric-mpi-compat-147525:/opt/nvidia/hpc_sdk/Linux_x86_64/25.9/comm_libs/13.0/nccl/lib:/opt/nvidia/hpc_sdk/Linux_x86_64/25.9/comm_libs/13.0/nvshmem/lib:/opt/nvidia/hpc_sdk/Linux_x86_64/25.9/math_libs/13.0/lib64:/opt/nvidia/hpc_sdk/Linux_x86_64/25.9/cuda/13.0/extras/CUPTI/lib64:/opt/nvidia/hpc_sdk/Linux_x86_64/25.9/cuda/13.0/extras/Debugger/lib64:/opt/nvidia/hpc_sdk/Linux_x86_64/25.9/cuda/13.0/nvvm/lib64:/opt/nvidia/hpc_sdk/Linux_x86_64/25.9/cuda/13.0/lib64:/soft/perftools/darshan/darshan-3.5.0/lib:/opt/cray/pals/1.8/lib:/opt/cray/pe/papi/7.3.0.1/lib64:/opt/cray/libfabric/2.3.1/lib64
+exe /soft/applications/conda/2025-09-28/mconda3/bin/python3
+torch 2.8.0 cuda_available True cuda_version 12.9
+transformers 4.53.3

@@ -1,0 +1,43 @@
+{
+  "job_id": "7630021",
+  "job_name": "tla-teacher-development-strict-v8",
+  "state": "F",
+  "exit_status": 0,
+  "exec_host": "x3005c0s31b0n0/0*4",
+  "resources_used": {
+    "cpupercent": 47,
+    "cput": "00:03:02",
+    "mem": "105520kb",
+    "ncpus": 4,
+    "ngpus": 0,
+    "vmem": "47120kb",
+    "walltime": "00:09:54"
+  },
+  "resource_list": {
+    "ncpus": 4,
+    "ngpus": 0,
+    "select": "1:ncpus=4:ngpus=0",
+    "walltime": "00:15:00"
+  },
+  "packet_sha256": "ab311319022b03f09c3a4e039d37f2958ff55ff914c09865f98672d4145a2611",
+  "ranking_rows_sha256": "c483731cd7970f6d209dff9bc1ed98d6d2bfdc5ce74b078b7af35e2eecebe2ba",
+  "development_tasks": 4,
+  "topk_per_policy": 29,
+  "attempts": 232,
+  "target_scoped_passes": 8,
+  "parent_passes": 4,
+  "child_passes": 4,
+  "raw_status_counts": {
+    "parent_verifier_reject": 102,
+    "parent_timeout": 10,
+    "parent_unrecognized_output": 4,
+    "child_verifier_reject": 102,
+    "child_timeout": 10,
+    "child_unrecognized_output": 4
+  },
+  "development_reference_bytes_forwarded": false,
+  "optimizer_updates": 0,
+  "quality_claim": false,
+  "proof_claim": false,
+  "gate_claim": false
+}

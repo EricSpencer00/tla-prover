@@ -1,0 +1,8 @@
+{
+  "train_tasks": 17,
+  "development_tasks": 4,
+  "development_reference_bytes_forwarded": false,
+  "model_loaded": false,
+  "cuda_touched": false,
+  "optimizer_updates": 0
+}

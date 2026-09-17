@@ -1,0 +1,20 @@
+{
+  "job_id": "7630062",
+  "pbs_state": "F",
+  "exit_status": 0,
+  "exec_host": "x3002c0s37b0n0/0*4",
+  "resources_used": {
+    "ncpus": 4,
+    "ngpus": 0,
+    "walltime": "00:00:00"
+  },
+  "preflight_stdout_sha256": "43bc35955586153f80722f87e400a85ffcfebbcf3dbd76cddbf9731fccf02d82",
+  "remote_preflight": {
+    "train_tasks": 17,
+    "development_tasks": 4,
+    "development_reference_bytes_forwarded": false,
+    "model_loaded": false,
+    "cuda_touched": false,
+    "optimizer_updates": 0
+  }
+}

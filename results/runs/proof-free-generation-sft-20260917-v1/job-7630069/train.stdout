@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/home/eric-spencer/tla-free-generation-sft-20260917-v1/tools/proof_free_generation_sft.py", line 331, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/home/eric-spencer/tla-free-generation-sft-20260917-v1/tools/proof_free_generation_sft.py", line 326, in main
+    train(args)
+    ^^^^^
+UnboundLocalError: cannot access local variable 'train' where it is not associated with a value

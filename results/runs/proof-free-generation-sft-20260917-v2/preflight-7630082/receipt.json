@@ -1,0 +1,25 @@
+{
+  "job_id": "7630082",
+  "job_name": "tla-free-generation-preflight-v1",
+  "pbs_state": "F",
+  "exit_status": 127,
+  "exec_host": "x3014c0s31b0n0/0*4",
+  "resource_list": {
+    "select": "1:system=polaris:ncpus=4:ngpus=0",
+    "ncpus": "4",
+    "ngpus": "0",
+    "walltime": "00:05:00"
+  },
+  "resources_used": {
+    "ncpus": "4",
+    "ngpus": "0",
+    "walltime": "00:00:00",
+    "cput": "00:00:00",
+    "mem": "14336kb"
+  },
+  "stdout_sha256": "d7fd42e91c41d031ed58d16d6efb1103e4c0c7600060738e50c65104258ef62b",
+  "model_loaded": false,
+  "cuda_touched": false,
+  "optimizer_updates": 0,
+  "failure_class": "runtime_interpreter_unavailable"
+}

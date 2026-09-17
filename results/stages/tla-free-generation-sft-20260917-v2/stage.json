@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "stage": "tla-free-generation-sft-20260917-v2",
+  "manifest_sha256": "647e5b3502fabc6da2245fa5275f7e28d3140396d473d1771dc1014d63cc4000",
+  "train_tasks": 17,
+  "development_tasks": 4,
+  "development_reference_bytes_forwarded": false,
+  "worker_sha256": "abde950686cbab8c72266566db98957212e3d50cb4de48eac906e32d8c1ce25c",
+  "strict_scorer_sha256": "8a37a63959e6aac37557b6c24a5f2ab68e1352244b2ae98ede0494b379290acc",
+  "parent_checkpoint": "/home/eric-spencer/tla-structured-span-train-20260914-v3/result.7618905/policy_optimizer.pt",
+  "parent_checkpoint_sha256": "87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511",
+  "gpu_limit": "one GPU, 15 minutes",
+  "verifier_feedback_used": false,
+  "reward_used": false,
+  "quality_claim": false,
+  "proof_claim": false,
+  "gate_claim": false
+}

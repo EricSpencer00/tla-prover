@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 859
-- Verified UTC: 2026-09-17T12:10:37Z
+- Revision: 916
+- Verified UTC: 2026-09-17T15:38:58Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
-- Phase: local_work
+- Phase: external_wait
 - Active job: none
-- Observation evidence: The structured full-proof line-event diagnostic is terminal and negative. Job7629744 exited0 after16 optimizer updates from exact parent87489e47, with finite checkpoint71791a8a, four base generations, four parent generations and four child generations. The child decoded2/4 rows; strict uncached TLAPS independently ran on those two original fragments and certified0/2, so the fixed four-row child result is0/4. Base and parent were each4/4 malformed. The packet7ec5b64b, manifestc186ddf0 and no-reward/no-repair/no-feedback contract remain bound. PBS requested one GPU but reports resources_used.ngpus=0; model CUDA execution completed, so the discrepancy is preserved without an inference about allocation.
-- Latest completed result: Job7629744.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov finished F/Exit0 on x3006c0s13b0n0/0*64 at 2026-09-17T12:04:30Z. Worker sha29a2c5ee made16/16 requested updates and emitted12 target-free generations. Independent strict score is fixed-denominator0/4 certified child tasks:2/4 malformed line-event decodes and2/4 decoded verifier rejects. No model-quality, proof, gate, official, repair, verifier-feedback or reward claim is made.
-- Local work: The semantic, span, broad-clean, schema-weighted, planner, parser-controlled, matched-prefix streaming, explicit-header body, canonical byte-frame, typed-slot, proof-state scope-graph, proof-dependency graph, goal-coverage, proof-obligation residual, train-reference premise, both raw sequence PIR objectives and the coarse three-way strategy policy remain complete negatives and are not replayed. Candidate-order, factorized, pairwise, retrieval/prototype, transition-utility, task-conditioned energy, scope-graph, dependency-graph, goal-coverage, proof-obligation residual, train-reference premise, frozen-parent pooled-hidden-state, non-pooled geometry, hashed lexical action and structured full-proof line-event branches are pruned or baseline-only. The symbolic full-proof shape synthesizer remains a 4/4 development control with no model credit. TLA-06AL must change the model-facing contract or learning signal materially, begin with a CPU-only frozen-holdout protocol, and require independent strict scoring before any new GPU run.
-- External blocker: none verified
-- Next action: Design and CPU-admit TLA-06AL as a materially different model-facing contract or learning signal, using the frozen four-row target-free holdout and preserving malformed outputs. Do not submit another GPU run until the new branch has local tests, exact hashes, clean namespace and independent scoring protocol.
+- Observation evidence: v3 CPU preflight7630109 is F/Exit127 on x3014c0s31b1n0/0*4 with ngpus=0 and zero walltime: the current conda Python path is inaccessible before worker start. Read-only path probe7630130 on known runtime host x3205c0s25b0n0 shows the same conda directory has mode dr-x--S--- and returns Permission denied. Alternate project venvs are symlinks to the unavailable /soft conda tree; Sophia SSH is not authenticated.
+- Latest completed result: No model load, CUDA activity or optimizer update occurred in v3; no GPU job is eligible while the cluster software mount is inaccessible.
+- Local work: Experiment code, answer-free packet and v3 runtime configuration are preserved. The v3 failure is infrastructure-only. Do not alter training/scoring semantics or submit GPU retries against an inaccessible runtime.
+- External blocker: Polaris /soft conda runtime mount is currently permission-denied on sampled compute nodes; the verified torch runtime from probe7630097 cannot be launched until site permissions/mount state recovers or a supported accessible runtime is provided.
+- Next action: Recheck Polaris software-mount permissions with a short CPU-only probe after the external state changes; if the verified runtime becomes accessible, rerun v3 preflight and then one bounded GPU. Otherwise retain the goal active and continue local evidence/implementation work without claiming a result.
 
 ## Objective and evidence rules
 
@@ -48,7 +48,7 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 | TLA-06V | Done | Scale constrained action selection to a held-out non-protected population | A fresh answer-free packet covers exactly17 non-protected multistep train rows with the same fixed first-four symbolic action contract. The pre-registered structural order SMT+DEF, DEF, other SMT, bare SMT was independently strict-TLAPS-audited on all17 rows:8/17 certified,7/17 certified at rank1,46 attempts, packet SHA c9784d4da893464f23bc27610c5f7aed64c44bf5406a7ec33f27637ad0d7394f and manifest SHA c186ddf0007c5b5adfdc345a06feb777a89746160cf9041b875a8655ed1eb344. This is answer-free shortlist/interface control evidence only, not learned ranking or generalization. No reference proofs, verifier feedback, repair, reward or training were used. |
 | TLA-06Z | Done | Scale the structural action prior over official 119 | The deterministic structural-action control orders frozen candidates as SMT+DEF, DEF, other SMT, bare SMT. It is strict-TLAPS-audited on all17 non-protected rows with8/17 total and7/17 rank1 certificates, then on the official119 packet with324 attempts,115/119 tasks reached and43/119 rank1 certificates. Packet SHA f40539a20e449ad63b8244e85eff33c8022402df11a84e8228b71ccbfeae11b5 and manifest SHA3380cf37c7311466ea7762662d55866839b3c3620ce73fb8d7ad209befe6de1d are fixed. No model, reference, feedback, repair, reward, training or gate claim. |
 | TLA-06AA | Done | Design a source-aware action representation beyond scalar ranking | The answer-free structural baseline reaches43/119 rank1, below the frozen57/119 symbolic baseline; scalar mean and sum likelihood rerankings are pruned. The source-aware representation counts candidate identifiers present in visible statement-only context, prioritizes overlap, then uses the fixed structural order. Its official strict-TLAPS audit made324 attempts, measured112/119 tasks, and certified35/119 rank1 and43/119 total, matching scalar neural controls. No model, feedback, reward, training or gate claim. |
-| TLA-06AB | In progress | Select a genuinely different prover representation or learning signal | Candidate-order and learned orderer branches are pruned or baseline-only: neural mean-logp35/119, sum-logp35/119, visible-context35/119, structural43/119, factorized36/119, pairwise42/119, retrieval36/119, frozen-parent pooled-hidden-state action heads42/119, non-pooled geometry0/119, hashed lexical0/119, transition utility2/4 holdout rank1, variable-width37/119, task-context energy42/119, scope-graph37/119, dependency-graph2/4 holdout, goal-coverage2/4 holdout, proof-obligation residual2/4 holdout, train-reference premise2/4 holdout and frozen symbolic baseline57/119. TLA-06AC is complete with4/4 development tasks having strict TLAPS-certified symbolic candidates across17/17 fixed rows, but no model credit. TLA-06AE is a complete negative: v3 completed16 final-layer updates and produced a finite child checkpoint, yet independent legacy TLAPS rejected4/4 child fragments while parent and base each had4/4 malformed typed streams. TLA-06AJ is now complete and negative; TLA-06AK moves the search to an answer-free full-proof sequence objective. No quality, model or gate credit. |
+| TLA-06AB | In progress | Select a genuinely different prover representation or learning signal | Candidate-order and learned orderer branches are pruned or baseline-only: neural mean-logp35/119, sum-logp35/119, visible-context35/119, structural43/119, factorized36/119, pairwise42/119, retrieval36/119, frozen-parent pooled-hidden-state action heads42/119, non-pooled geometry0/119, hashed lexical0/119, transition utility2/4 holdout rank1, variable-width37/119, task-context energy42/119, scope-graph37/119, dependency-graph2/4 holdout, goal-coverage2/4 holdout, proof-obligation residual2/4 holdout, train-reference premise2/4 holdout and frozen symbolic baseline57/119. TLA-06AC is complete with4/4 development tasks having strict TLAPS-certified symbolic candidates across17/17 fixed rows, but no model credit. TLA-06AE and TLA-06AK are complete negatives. TLA-06AL is also complete negative: full strict audit job7630021 gives parent4/116 and child4/116, so the next search changes the output contract to free-generation teacher-forced SFT rather than another selector/ranking objective. No quality, model or gate credit. The next materially different branch is now prepared locally: free-generation teacher-forced SFT with strict DEVELOPMENT answer stripping, exact raw base/parent/child generations, and independent TLAPS scoring. Local focused tests6/6 and no-model preflight pass; remote admission and bounded GPU remain pending. |
 | TLA-06AC | Done | Establish a train-only complete-proof synthesis baseline | Committed tools/proof_train_shape_synth.py and harness/test_proof_train_shape_synth.py. The v2 run uses manifest SHA c186ddf0, reads only17 TRAIN proof fragments to count response shapes, removes all development answer-bearing fields before generation, freezes4/4 task candidate plans before checking, and makes17/17 fresh strict uncached TLAPS checks. Every development task has a certified candidate with proved obligations6/6,13/13,27/27 and37/37; the first successful candidates are indices0,0,0,1. This is a symbolic full-proof diagnostic with no optimizer updates, model claim, quality claim, official rows, verifier feedback, repair or gate credit. Preserve as a control and do not submit a GPU run. |
 | TLA-06AD | Done | Admit typed proof-fragment PIR packet for trainable sequence generation | Committed tools/proof_fragment_pir.py and harness/test_proof_fragment_pir.py. Packet results/runs/proof-fragment-pir-20260917-v2/packet.json has SHA095d2d0a, binds manifest SHA c186ddf0, losslessly reconstructs17/17 TRAIN proof fragments, and carries the existing complete strict receipt with17 positive and17 omitted controls. Four DEVELOPMENT rows retain immutable prompt/scaffold fields but no reference_fragment, pir_target or other answer-bearing field. CPU tests pass5/5; model_loaded=false, cuda_touched=false and optimizer_updates=0. This is packet admission only; no remote upload, GPU, model, quality or gate claim yet. |
 | TLA-06AE | Done | Run bounded typed-token PIR sequence worker | Committed worker/scorer/PBS bundle and30 focused tests. Remote v3 preflight binds packet095d2d0a, parent87489e47, manifestc186ddf0 and zero development targets. Polaris job7629519 reached CUDA model load, completed16 fresh final-layer AdamW updates, produced checkpoint9dec8480 and paired base/parent/child outputs; no verifier feedback, repair or reward entered training. Same-node legacy TLAPS runtime preflight passed. Independent fixed-denominator4 scoring measured base0/4 malformed, parent0/4 malformed and child0/4 verifier-certified: all four child streams were parsed and rejected for proof/parser errors. No quality, proof, gate or promotion claim. |
@@ -58,7 +58,7 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 | TLA-06AI | Done | Build answer-free ordered proof-plan transition diagnostic | Packet SHA4665e036 binds the exact17/4 target-free population, slots entry/local/close and source packet SHA99e13cfb. Local10-test suite and remote exact-hash, compile/import, target-free and clean-output guards passed after preserving pre-worker packaging failure job7629672. Corrected job7629676 completed Exit0 after00:03:34 with16 fresh multi-slot AdamW updates and finite plan-head checkpoint2388d072. Independent legacy-TLAPS runtime controls passed; fixed-denominator4 scoring certified base0/4, parent0/4 and child0/4. The child changed selections but still chose rejected sum candidates; direct rows remained unrecognized because dependency zero-obligation lines were included in legacy output. No verifier feedback, repair, reward, quality, proof, gate or promotion credit. Prune this representation and do not replay it unchanged. |
 | TLA-06AJ | Done | Design a non-pooled geometry-aware proof-state representation | Fresh branch after the negative pooled ordered-plan head: the official answer-free packet uses17 TRAIN rows,4 frozen holdout rows and119 official rows with54 sanitized labels; exact hashes bind train c9784d4d, official f40539a2, labels bba10249 and parent87489e47. The worker replaces the single prompt-terminal vector with theorem-line, goal-line, context-line and prompt-tail states plus two transition features. Local population admission and fresh Polaris exact-hash, target-free, compile/import and clean-namespace guards pass. Job7629693 completed Exit0 on x3208c0s7b1n0/0*64 with one requested GPU,64 CPUs and00:15:00 walltime; scheduler used wall00:03:29 and cput00:00:57, while PBS reported resources_used.ngpus=0 despite the allocated GPU vnode. The worker made16 updates and ranked119/119 official rows. Independent strict uncached TLAPS at the fixed official denominator made462 attempts and certified0/119 top-four; the same scorer certified4/4 holdout top-four and2/4 holdout top1. No reference fragment, verifier feedback, repair, reward, quality or gate claim. |
 | TLA-06AK | Done | Admit an answer-free full-proof sequence objective after action-head negatives | Geometry and hashed lexical action representations both fail to generalize on the official119 fixed denominator (0/119 top-four under independent strict TLAPS), so this branch leaves candidate-order heads. The structured full-proof line-event packet 7ec5b64bebe1df1e9fa9c93ec33e66e819a33fbeb0b5aede7fecfeca27b91d79 encodes only non-protected TRAIN fragments, reconstructs17/17 losslessly, and keeps4 DEVELOPMENT targets absent. Jobs7629733 and7629738 exposed and preserved infrastructure-only CLI/schema defects; corrected worker sha29a2c5ee passed final remote compile/preflight/clean-namespace guards. Job7629744 exited0 with16 updates and finite checkpoint71791a8a. Base and parent were4/4 malformed; child decoded2/4 and independent strict uncached TLAPS certified0/2 decoded rows, hence fixed-denominator child0/4. No model, proof, quality or gate claim. |
-| TLA-06AL | In progress | Choose a materially different full-proof learning contract after line-event failure | The next branch is intentionally not a replay: it must change the model-facing output contract or learning signal, start with CPU-only format/holdout controls, preserve target-free DEVELOPMENT rows and malformed outputs, and require independent strict scoring before any GPU submission. The exact branch design and admission artifacts are not yet complete. |
+| TLA-06AL | Done | Choose a materially different full-proof learning contract after line-event failure | Complete negative. Stage v8 used the exact 17x8 train-only teacher-anchor packet (manifest c186ddf0, teacher packet d6437a57, parent 87489e47) with no DEVELOPMENT target or reference bytes. GPU training job 7629936 completed all17 updates with exact reload and finite delta; independent TRAIN scoring job 7629983 measured parent15/17 versus child17/17 teacher top-1 but this did not establish proof ability. The complete strict target-free DEVELOPMENT audit job7630021 measured parent4/116 and child4/116 target-scoped passes over the full fixed denominator, with raw checks preserved. No model, quality, proof or gate credit. |
 | TLA-06W | Done | Rank the fixed symbolic action lattice over official 119 | Stage tla-official-candidate-rank-gpu-20260916-v1 passed fresh remote SHA256, parent, compile, PBS, CLI, destination and queue guards. Polaris job7628679 completed Exit0 with one NVIDIA A100,119/119 task rankings,462 candidates, zero updates and no reference/TLAPS/repair/reward path. Independent strict uncached TLAPS ran328 attempts at the fixed900-second bound for both mean-logp and the pre-registered sum-logp rerank: each verified35/119 rank1 and43/119 bounded top4, measured_tasks113/119. The sum order changed112 task orders but changed neither measured count. Receipts and checker outputs are preserved under results/runs/tla-official-candidate-rank-gpu-20260916-v1/. This is a complete diagnostic negative for scalar neural ordering; no model, quality or gate claim exists. |
 | TLA-06X | Done | Complete answer-free symbolic tail search | Local host-level strict-TLAPS tail diagnostics over the frozen119 population tested candidate indices4,5,6 on60 baseline failures each and index7 on34 available failures; every arm certified0 new tasks and the union remained57/119. The wider eight-proposal run was budget-limited to42/119 tasks and also found0 new certifications. No reference fragments, model, feedback, repair, reward or gate claim was used. Prune this symbolic-tail hypothesis and retain the exact results. |
 | TLA-07 | Not ready | Verify complete frozen SANY gate | Full frozen denominator has not passed 100%; no diagnostic promotion. |
@@ -654,6 +654,55 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 - 2026-09-16T01:33:13Z: Fresh final SHA/checkpoint/result-namespace/owned-queue guards passed and claimed v3 was submitted exactly once as job7626380. PBS reports R on x3102c0s13b0n0/0*64 in debug with one GPU,64 CPUs and00:15:00 walltime; no receipt, SANY score, quality result, or gate claim exists.
 - 2026-09-16T01:36:10Z: Job7626380 finished F/Exit1 after00:01:56 on x3102c0s13b0n0/0*64. Row47 emitted a partial512-token repair record, then the stricter precedence guard raised no finite layout-and-grammar-allowed token; row107 and complete receipt are absent. Preserve log/terminal/partial-row evidence as a decoder-liveness negative and do not replay v3 unchanged.
 - 2026-09-17T12:10:37Z: Job7629744 finished F/Exit0 after00:02:30 with16 updates and checkpoint71791a8a. The full-proof line-event child decoded2/4 rows and strict uncached TLAPS certified0/2 decoded rows; base and parent were each4/4 malformed, so child fixed-denominator certification is0/4. Preserve all original outputs; no repair, verifier feedback, reward, quality, proof or gate credit. Mark TLA-06AK done and begin TLA-06AL with a materially different contract or learning signal.
+- 2026-09-17T13:01:03Z: Job7629827 completed Exit0 from synchronized v5 after16/16 groups and380.5s. Independent audit found64 sampled,46 actual strict checks,29 unknown,17 strict rejects,0 positives,0 updates, exact reload and checkpoint daafb22f; independent parent/child tensor comparison was exact across9 trainable tensors. Mark TLA-06AL as a complete zero-update negative; do not replay finite-candidate RL unchanged, and require a materially different CPU-admitted branch before another GPU run.
+- 2026-09-17T13:28:24Z: CPU preflight job7629892 completed Exit0 with ngpus=0 and strict target-scoped checks17/17. The parser correction accepts only the target module positive line after TLAPS library prelude output; all raw receipts are retained. Teacher-anchor packet is CPU-admitted but has no model/CUDA/update/quality/gate credit; implement the deterministic contrastive worker next.
+- 2026-09-17T13:36:58Z: Implemented v7 deterministic teacher-anchor contrastive worker and local preflight. It is not RL, uses no verifier rewards or DEVELOPMENT answers, and requires exact 17 updates plus tensor/logit reload. Transfer and zero-GPU remote preflight are next; no GPU or quality claim yet.
+- 2026-09-17T13:38:10Z: Exact v7 bundle transfer to the absent Polaris destination passed remote packet/manifest identity checks and found no duplicate owned job. Submit one zero-GPU CPU preflight next; keep GPU launch separate and require exit0.
+- 2026-09-17T13:38:43Z: Submitted exactly one v7 zero-GPU preflight as job7629904 with ngpus=0. Await its terminal receipt; GPU submission remains gated on clean CPU admission.
+- 2026-09-17T13:40:29Z: v7 CPU preflight job7629904 finished Exit0 with ngpus=0, exact packet/manifest identity, 17 TRAIN teacher anchors, 119 negatives, no model/CUDA/update activity, and no DEVELOPMENT export. One fresh duplicate/output check precedes the single bounded GPU run.
+- 2026-09-17T13:41:02Z: Fresh final v7 checks pass: exact packet/manifest hashes, CPU preflight receipt present, zero GPU result directories, and no owned duplicate job. Submit exactly one one-GPU 15-minute diagnostic.
+- 2026-09-17T13:41:34Z: Submitted exactly one v7 deterministic teacher-anchor contrastive GPU diagnostic as job7629907 after CPU admission and fresh identity/output/queue checks. One GPU,64 CPUs,15-minute walltime; await complete artifact.
+- 2026-09-17T13:42:02Z: qstat confirms v7 GPU job7629907 is running on x3205c0s37b1n0/0*64 with one GPU and the requested 15-minute walltime. No judgment until complete retrieval and audit.
+- 2026-09-17T13:51:34Z: Job7629907 completed all17 updates but failed only at optimizer-inclusive torch.save on Polaris home (unexpected iostream position; partial hash95dbf2bd, no summary/reload). Treat as storage infrastructure negative; patch to scratch-first weights-only checkpoint and retry, preserving fixed packet/parent and no quality credit.
+- 2026-09-17T13:52:58Z: v8 recovery is locally ready after the v7 post-update checkpoint serialization failure. Only persistence changed: atomic scratch-first trainable-state-only checkpoint, exact reload retained. Transfer and CPU preflight precede retry; no learning-quality claim from v7.
+- 2026-09-17T13:53:55Z: v8 transfer passed exact remote packet d6437a57, manifest c186ddf0, and worker c43aed3c hashes after freeing only the preserved-invalid v7 partial. Submit one zero-GPU v8 preflight before retry.
+- 2026-09-17T13:54:21Z: Submitted exactly one v8 zero-GPU CPU preflight as job7629933 after repaired-stage transfer. Await clean admission before GPU retry.
+- 2026-09-17T13:55:26Z: v8 CPU preflight job7629933 finished Exit0 with ngpus=0, exact packet/manifest identity, 17 TRAIN rows x8 candidates, and zero model/CUDA/update activity. Fresh duplicate/output check precedes one GPU retry.
+- 2026-09-17T13:55:55Z: Fresh v8 final checks pass: exact packet/manifest/worker hashes, CPU preflight present, zero result directories, and no duplicate owned job. Submit one one-GPU 15-minute retry.
+- 2026-09-17T13:56:25Z: Submitted exactly one v8 one-GPU retry as job7629936 after repaired CPU admission and fresh identity/output/queue checks. One GPU,64 CPUs,15-minute walltime; await complete artifact.
+- 2026-09-17T13:56:54Z: qstat confirms v8 retry job7629936 is running on x3207c0s31b1n0/0*64 with one GPU and the requested 15-minute walltime. No quality or gate judgment until complete artifact audit.
+- 2026-09-17T14:08:21Z: v8 job7629936 completed Exit0 with17 updates, delta0.9374, exact tensor/logit reload and authoritative child hash672ada25. PBS resources_used.ngpus=0 conflicts with requested/exec one-GPU allocation; preserve discrepancy and independently score full136-candidate parent/child TRAIN denominator before judgment.
+- 2026-09-17T14:10:07Z: v8 child hash672ada25 now matches the local retrieval. Independent scorer is locally compiled and packet-guarded for all136 TRAIN candidates under parent/child, with no optimizer/reward/DEVELOPMENT path. Transfer and one bounded scoring audit are next.
+- 2026-09-17T14:11:02Z: Final independent-audit checks pass: scorer665ebc64, packet d6437a57, child672ada25, parent87489e47, empty score namespace, and no owned duplicate. Submit one bounded scoring audit.
+- 2026-09-17T14:11:30Z: Submitted exactly one independent v8 scoring audit as job7629983 after fresh scorer/packet/parent/child/output/queue checks. Await complete136-candidate result.
+- 2026-09-17T14:11:57Z: qstat confirms scoring audit job7629983 is running on x3005c0s37b1n0/0*64 with one GPU and00:15:00 walltime. No quality/proof/gate judgment until complete rows.
+- 2026-09-17T14:22:05Z: Independent v8 score job7629983 completed all136 TRAIN candidates: parent teacher top1 15/17, child17/17, mean margin delta+11.8288, no updates/rewards/DEVELOPMENT rows. Treat as train-objective evidence only; next freeze unseen DEVELOPMENT scoring and strict selected-candidate checks.
+- 2026-09-17T14:24:35Z: TRAIN ranking audit is complete but not sufficient. Frozen target-free DEVELOPMENT packet d43ca8ab has4 rows x29 candidates, no reference field, and7/7 local guards. Transfer and independent parent/child scoring next; strict TLAPS checks remain separate.
+- 2026-09-17T14:25:54Z: Fresh DEVELOPMENT final checks pass: packet d43ca8ab, scorer0c0594bb, child672ada25, parent87489e47, empty output namespace, and no owned duplicate. Submit one bounded scoring audit.
+- 2026-09-17T14:26:22Z: Submitted exactly one target-free DEVELOPMENT ranking audit as job7630000 after fresh packet/scorer/parent/child/output/queue checks. Await complete116-candidate result.
+- 2026-09-17T14:26:50Z: qstat confirms target-free DEVELOPMENT audit job7630000 is running on x3005c0s25b0n0/0*64 with one GPU and00:15:00 walltime. No judgment until complete rows.
+- 2026-09-17T14:37:08Z: Target-free DEVELOPMENT score job7630000 completed4/4 rows x29=116 per policy, top1 changed2/4, no reference/reward/update path. Strict TLAPS top4 audit is next; ranking movement alone cannot support promotion.
+- 2026-09-17T14:38:57Z: Final strict-audit checks pass: packet ab311319, ranking rows c483731c, CRDT dependency/source hashes, empty strict output namespace, and no owned duplicate. Submit one CPU-only32-check TLAPS audit.
+- 2026-09-17T14:39:26Z: Submitted exactly one CPU-only strict TLAPS audit as job7630014 after fresh packet/rows/source/dependency/output/queue checks. Await all32 raw checks.
+- 2026-09-17T14:40:13Z: qstat confirms strict TLAPS job7630014 is running CPU-only on x3205c0s25b0n0/0*4. Await complete32-check receipt; no partial judgment.
+- 2026-09-17T14:42:10Z: Strict top4 audit job7630014 completed32 checks: parent0 passes, child2 passes, both on crdt-safety-step; raw rejects/timeouts preserved. Treat as narrow unseen signal only; expand to all116 candidates per policy before promotion/pruning.
+- 2026-09-17T14:43:04Z: Expanded strict audit from top4 to complete top29/116 candidates per policy (232 checks) after narrow child2/32 vs parent0/32 signal. Refresh and rerun CPU-only before promotion/pruning.
+- 2026-09-17T14:43:51Z: Final full-audit checks pass: worker b056de05, PBS db39ff97, packet ab311319, rows c483731c, empty full-output namespace, no owned duplicate. Submit one CPU-only232-check audit.
+- 2026-09-17T14:44:18Z: Submitted exactly one full strict CPU audit as job7630021 after fresh worker/packet/rows/output/queue checks. Await all232 raw checks.
+- 2026-09-17T14:44:43Z: qstat confirms full strict job7630021 is running CPU-only on x3005c0s31b0n0/0*4. Await complete232-check receipt.
+- 2026-09-17T14:58:12Z: Full strict DEVELOPMENT audit job7630021 completed F/Exit0 with 232 checks. Parent and child each certify 4/116 target-scoped candidates; preserve all raw rejects, timeouts and parser-unrecognized statuses. Mark teacher-anchor contrastive branch complete negative and move to free-generation teacher-forced SFT admission.
+- 2026-09-17T15:04:39Z: Local free-generation SFT branch passes 6/6 focused tests and no-model preflight with sanitized packet 8e81b0be. Publish local_work before Polaris upload; no GPU or proof claim yet.
+- 2026-09-17T15:06:26Z: Stage tla-free-generation-sft-20260917-v1 is locally frozen with manifest SHA647e5b35, answer-free DEVELOPMENT packet, six focused tests, and one-GPU/15-minute cap. Publish local_work before upload and remote preflight.
+- 2026-09-17T15:08:27Z: Remote upload of tla-free-generation-sft-20260917-v1 verified by SHA256SUMS and static guards. No job yet; submit one CPU-only preflight next.
+- 2026-09-17T15:10:23Z: CPU-only remote preflight 7630062 completed F/Exit0 with ngpus=0 and no model/CUDA/optimizer activity. Guards remain clean; next action is one bounded GPU train+generation job.
+- 2026-09-17T15:12:14Z: GPU job7630069 allocated one GPU but failed before model load with CLI UnboundLocalError; resources_used.ngpus=0 and zero walltime. Preserve v1 and repair only in append-only v2.
+- 2026-09-17T15:12:54Z: Append-only v2 repairs only the pre-model CLI shadowing defect from 7630069. Worker SHA abde9506, manifest SHA647e5b35, tests6/6 and local preflight pass; upload v2 next.
+- 2026-09-17T15:15:32Z: v2 upload/hash/leakage guards pass. Login-side venv symlink is presently unresolved but v1 compute preflight used it successfully; submit v2 CPU preflight as the decisive compute-node guard.
+- 2026-09-17T15:17:13Z: v2 preflight 7630082 exited127 on compute node because the hard-coded venv interpreter target is unavailable. No model/CUDA activity; probe compute runtime before any GPU retry.
+- 2026-09-17T15:26:22Z: Runtime probe7630097 passed torch2.8.0/CUDA12.9/transformers4.53.3 using conda 2025-09-28, cuda/13.0, PrgEnv-gnu and a job-local MPI soname alias. Repair PBS only in v3.
+- 2026-09-17T15:27:25Z: v3 freezes verified compute runtime setup from probe7630097 while leaving worker/packet/scorer unchanged. Upload new destination and run CPU preflight before any GPU retry.
+- 2026-09-17T15:29:24Z: v3 upload and static guards pass with runtime probe-backed PBS setup. Submit one CPU-only preflight before the bounded GPU retry.
+- 2026-09-17T15:38:58Z: v3 preflight7630109 exited127 before worker because /soft conda is inaccessible. Probe7630130 confirms Permission denied on x3205; project venvs point to /soft and Sophia SSH is unavailable. Enter external_wait; no GPU claim.
 
 ## Board maintenance
 
@@ -697,16 +746,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 859,
-  "verified_utc": "2026-09-17T12:10:37Z",
+  "revision": 916,
+  "verified_utc": "2026-09-17T15:38:58Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
-  "phase": "local_work",
+  "phase": "external_wait",
   "active_job": null,
-  "observation_evidence": "The structured full-proof line-event diagnostic is terminal and negative. Job7629744 exited0 after16 optimizer updates from exact parent87489e47, with finite checkpoint71791a8a, four base generations, four parent generations and four child generations. The child decoded2/4 rows; strict uncached TLAPS independently ran on those two original fragments and certified0/2, so the fixed four-row child result is0/4. Base and parent were each4/4 malformed. The packet7ec5b64b, manifestc186ddf0 and no-reward/no-repair/no-feedback contract remain bound. PBS requested one GPU but reports resources_used.ngpus=0; model CUDA execution completed, so the discrepancy is preserved without an inference about allocation.",
-  "last_result": "Job7629744.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov finished F/Exit0 on x3006c0s13b0n0/0*64 at 2026-09-17T12:04:30Z. Worker sha29a2c5ee made16/16 requested updates and emitted12 target-free generations. Independent strict score is fixed-denominator0/4 certified child tasks:2/4 malformed line-event decodes and2/4 decoded verifier rejects. No model-quality, proof, gate, official, repair, verifier-feedback or reward claim is made.",
-  "local_work": "The semantic, span, broad-clean, schema-weighted, planner, parser-controlled, matched-prefix streaming, explicit-header body, canonical byte-frame, typed-slot, proof-state scope-graph, proof-dependency graph, goal-coverage, proof-obligation residual, train-reference premise, both raw sequence PIR objectives and the coarse three-way strategy policy remain complete negatives and are not replayed. Candidate-order, factorized, pairwise, retrieval/prototype, transition-utility, task-conditioned energy, scope-graph, dependency-graph, goal-coverage, proof-obligation residual, train-reference premise, frozen-parent pooled-hidden-state, non-pooled geometry, hashed lexical action and structured full-proof line-event branches are pruned or baseline-only. The symbolic full-proof shape synthesizer remains a 4/4 development control with no model credit. TLA-06AL must change the model-facing contract or learning signal materially, begin with a CPU-only frozen-holdout protocol, and require independent strict scoring before any new GPU run.",
-  "external_blocker": "none verified",
-  "next_action": "Design and CPU-admit TLA-06AL as a materially different model-facing contract or learning signal, using the frozen four-row target-free holdout and preserving malformed outputs. Do not submit another GPU run until the new branch has local tests, exact hashes, clean namespace and independent scoring protocol.",
+  "observation_evidence": "v3 CPU preflight7630109 is F/Exit127 on x3014c0s31b1n0/0*4 with ngpus=0 and zero walltime: the current conda Python path is inaccessible before worker start. Read-only path probe7630130 on known runtime host x3205c0s25b0n0 shows the same conda directory has mode dr-x--S--- and returns Permission denied. Alternate project venvs are symlinks to the unavailable /soft conda tree; Sophia SSH is not authenticated.",
+  "last_result": "No model load, CUDA activity or optimizer update occurred in v3; no GPU job is eligible while the cluster software mount is inaccessible.",
+  "local_work": "Experiment code, answer-free packet and v3 runtime configuration are preserved. The v3 failure is infrastructure-only. Do not alter training/scoring semantics or submit GPU retries against an inaccessible runtime.",
+  "external_blocker": "Polaris /soft conda runtime mount is currently permission-denied on sampled compute nodes; the verified torch runtime from probe7630097 cannot be launched until site permissions/mount state recovers or a supported accessible runtime is provided.",
+  "next_action": "Recheck Polaris software-mount permissions with a short CPU-only probe after the external state changes; if the verified runtime becomes accessible, rerun v3 preflight and then one bounded GPU. Otherwise retain the goal active and continue local evidence/implementation work without claiming a result.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -862,7 +911,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
       "id": "TLA-06AB",
       "state": "In progress",
       "task": "Select a genuinely different prover representation or learning signal",
-      "evidence": "Candidate-order and learned orderer branches are pruned or baseline-only: neural mean-logp35/119, sum-logp35/119, visible-context35/119, structural43/119, factorized36/119, pairwise42/119, retrieval36/119, frozen-parent pooled-hidden-state action heads42/119, non-pooled geometry0/119, hashed lexical0/119, transition utility2/4 holdout rank1, variable-width37/119, task-context energy42/119, scope-graph37/119, dependency-graph2/4 holdout, goal-coverage2/4 holdout, proof-obligation residual2/4 holdout, train-reference premise2/4 holdout and frozen symbolic baseline57/119. TLA-06AC is complete with4/4 development tasks having strict TLAPS-certified symbolic candidates across17/17 fixed rows, but no model credit. TLA-06AE is a complete negative: v3 completed16 final-layer updates and produced a finite child checkpoint, yet independent legacy TLAPS rejected4/4 child fragments while parent and base each had4/4 malformed typed streams. TLA-06AJ is now complete and negative; TLA-06AK moves the search to an answer-free full-proof sequence objective. No quality, model or gate credit."
+      "evidence": "Candidate-order and learned orderer branches are pruned or baseline-only: neural mean-logp35/119, sum-logp35/119, visible-context35/119, structural43/119, factorized36/119, pairwise42/119, retrieval36/119, frozen-parent pooled-hidden-state action heads42/119, non-pooled geometry0/119, hashed lexical0/119, transition utility2/4 holdout rank1, variable-width37/119, task-context energy42/119, scope-graph37/119, dependency-graph2/4 holdout, goal-coverage2/4 holdout, proof-obligation residual2/4 holdout, train-reference premise2/4 holdout and frozen symbolic baseline57/119. TLA-06AC is complete with4/4 development tasks having strict TLAPS-certified symbolic candidates across17/17 fixed rows, but no model credit. TLA-06AE and TLA-06AK are complete negatives. TLA-06AL is also complete negative: full strict audit job7630021 gives parent4/116 and child4/116, so the next search changes the output contract to free-generation teacher-forced SFT rather than another selector/ranking objective. No quality, model or gate credit. The next materially different branch is now prepared locally: free-generation teacher-forced SFT with strict DEVELOPMENT answer stripping, exact raw base/parent/child generations, and independent TLAPS scoring. Local focused tests6/6 and no-model preflight pass; remote admission and bounded GPU remain pending."
     },
     {
       "id": "TLA-06AC",
@@ -920,9 +969,9 @@ These snapshots preserve old statements, including mistakes. They are not curren
     },
     {
       "id": "TLA-06AL",
-      "state": "In progress",
+      "state": "Done",
       "task": "Choose a materially different full-proof learning contract after line-event failure",
-      "evidence": "The next branch is intentionally not a replay: it must change the model-facing output contract or learning signal, start with CPU-only format/holdout controls, preserve target-free DEVELOPMENT rows and malformed outputs, and require independent strict scoring before any GPU submission. The exact branch design and admission artifacts are not yet complete."
+      "evidence": "Complete negative. Stage v8 used the exact 17x8 train-only teacher-anchor packet (manifest c186ddf0, teacher packet d6437a57, parent 87489e47) with no DEVELOPMENT target or reference bytes. GPU training job 7629936 completed all17 updates with exact reload and finite delta; independent TRAIN scoring job 7629983 measured parent15/17 versus child17/17 teacher top-1 but this did not establish proof ability. The complete strict target-free DEVELOPMENT audit job7630021 measured parent4/116 and child4/116 target-scoped passes over the full fixed denominator, with raw checks preserved. No model, quality, proof or gate credit."
     },
     {
       "id": "TLA-06W",
@@ -1567,7 +1616,56 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "2026-09-16T01:32:29Z: Corrected remote v3 CPU preflight passes with no model weights/CUDA, exact protected prompt/reference tokens401/457 and226/673, all synthetic controls true, exact child hash, all remote hashes and compile/CLI guards, empty result namespace and empty owned queue. Claim f3d6316f binds runner8518ee84, selector8a807fd5, precedence guard3c42091f, PBS cd593894, packet/child/grammar/XGrammar, rows47/107, repair512, one GPU and00:15:00. Submit only after a fresh final check.",
     "2026-09-16T01:33:13Z: Fresh final SHA/checkpoint/result-namespace/owned-queue guards passed and claimed v3 was submitted exactly once as job7626380. PBS reports R on x3102c0s13b0n0/0*64 in debug with one GPU,64 CPUs and00:15:00 walltime; no receipt, SANY score, quality result, or gate claim exists.",
     "2026-09-16T01:36:10Z: Job7626380 finished F/Exit1 after00:01:56 on x3102c0s13b0n0/0*64. Row47 emitted a partial512-token repair record, then the stricter precedence guard raised no finite layout-and-grammar-allowed token; row107 and complete receipt are absent. Preserve log/terminal/partial-row evidence as a decoder-liveness negative and do not replay v3 unchanged.",
-    "2026-09-17T12:10:37Z: Job7629744 finished F/Exit0 after00:02:30 with16 updates and checkpoint71791a8a. The full-proof line-event child decoded2/4 rows and strict uncached TLAPS certified0/2 decoded rows; base and parent were each4/4 malformed, so child fixed-denominator certification is0/4. Preserve all original outputs; no repair, verifier feedback, reward, quality, proof or gate credit. Mark TLA-06AK done and begin TLA-06AL with a materially different contract or learning signal."
+    "2026-09-17T12:10:37Z: Job7629744 finished F/Exit0 after00:02:30 with16 updates and checkpoint71791a8a. The full-proof line-event child decoded2/4 rows and strict uncached TLAPS certified0/2 decoded rows; base and parent were each4/4 malformed, so child fixed-denominator certification is0/4. Preserve all original outputs; no repair, verifier feedback, reward, quality, proof or gate credit. Mark TLA-06AK done and begin TLA-06AL with a materially different contract or learning signal.",
+    "2026-09-17T13:01:03Z: Job7629827 completed Exit0 from synchronized v5 after16/16 groups and380.5s. Independent audit found64 sampled,46 actual strict checks,29 unknown,17 strict rejects,0 positives,0 updates, exact reload and checkpoint daafb22f; independent parent/child tensor comparison was exact across9 trainable tensors. Mark TLA-06AL as a complete zero-update negative; do not replay finite-candidate RL unchanged, and require a materially different CPU-admitted branch before another GPU run.",
+    "2026-09-17T13:28:24Z: CPU preflight job7629892 completed Exit0 with ngpus=0 and strict target-scoped checks17/17. The parser correction accepts only the target module positive line after TLAPS library prelude output; all raw receipts are retained. Teacher-anchor packet is CPU-admitted but has no model/CUDA/update/quality/gate credit; implement the deterministic contrastive worker next.",
+    "2026-09-17T13:36:58Z: Implemented v7 deterministic teacher-anchor contrastive worker and local preflight. It is not RL, uses no verifier rewards or DEVELOPMENT answers, and requires exact 17 updates plus tensor/logit reload. Transfer and zero-GPU remote preflight are next; no GPU or quality claim yet.",
+    "2026-09-17T13:38:10Z: Exact v7 bundle transfer to the absent Polaris destination passed remote packet/manifest identity checks and found no duplicate owned job. Submit one zero-GPU CPU preflight next; keep GPU launch separate and require exit0.",
+    "2026-09-17T13:38:43Z: Submitted exactly one v7 zero-GPU preflight as job7629904 with ngpus=0. Await its terminal receipt; GPU submission remains gated on clean CPU admission.",
+    "2026-09-17T13:40:29Z: v7 CPU preflight job7629904 finished Exit0 with ngpus=0, exact packet/manifest identity, 17 TRAIN teacher anchors, 119 negatives, no model/CUDA/update activity, and no DEVELOPMENT export. One fresh duplicate/output check precedes the single bounded GPU run.",
+    "2026-09-17T13:41:02Z: Fresh final v7 checks pass: exact packet/manifest hashes, CPU preflight receipt present, zero GPU result directories, and no owned duplicate job. Submit exactly one one-GPU 15-minute diagnostic.",
+    "2026-09-17T13:41:34Z: Submitted exactly one v7 deterministic teacher-anchor contrastive GPU diagnostic as job7629907 after CPU admission and fresh identity/output/queue checks. One GPU,64 CPUs,15-minute walltime; await complete artifact.",
+    "2026-09-17T13:42:02Z: qstat confirms v7 GPU job7629907 is running on x3205c0s37b1n0/0*64 with one GPU and the requested 15-minute walltime. No judgment until complete retrieval and audit.",
+    "2026-09-17T13:51:34Z: Job7629907 completed all17 updates but failed only at optimizer-inclusive torch.save on Polaris home (unexpected iostream position; partial hash95dbf2bd, no summary/reload). Treat as storage infrastructure negative; patch to scratch-first weights-only checkpoint and retry, preserving fixed packet/parent and no quality credit.",
+    "2026-09-17T13:52:58Z: v8 recovery is locally ready after the v7 post-update checkpoint serialization failure. Only persistence changed: atomic scratch-first trainable-state-only checkpoint, exact reload retained. Transfer and CPU preflight precede retry; no learning-quality claim from v7.",
+    "2026-09-17T13:53:55Z: v8 transfer passed exact remote packet d6437a57, manifest c186ddf0, and worker c43aed3c hashes after freeing only the preserved-invalid v7 partial. Submit one zero-GPU v8 preflight before retry.",
+    "2026-09-17T13:54:21Z: Submitted exactly one v8 zero-GPU CPU preflight as job7629933 after repaired-stage transfer. Await clean admission before GPU retry.",
+    "2026-09-17T13:55:26Z: v8 CPU preflight job7629933 finished Exit0 with ngpus=0, exact packet/manifest identity, 17 TRAIN rows x8 candidates, and zero model/CUDA/update activity. Fresh duplicate/output check precedes one GPU retry.",
+    "2026-09-17T13:55:55Z: Fresh v8 final checks pass: exact packet/manifest/worker hashes, CPU preflight present, zero result directories, and no duplicate owned job. Submit one one-GPU 15-minute retry.",
+    "2026-09-17T13:56:25Z: Submitted exactly one v8 one-GPU retry as job7629936 after repaired CPU admission and fresh identity/output/queue checks. One GPU,64 CPUs,15-minute walltime; await complete artifact.",
+    "2026-09-17T13:56:54Z: qstat confirms v8 retry job7629936 is running on x3207c0s31b1n0/0*64 with one GPU and the requested 15-minute walltime. No quality or gate judgment until complete artifact audit.",
+    "2026-09-17T14:08:21Z: v8 job7629936 completed Exit0 with17 updates, delta0.9374, exact tensor/logit reload and authoritative child hash672ada25. PBS resources_used.ngpus=0 conflicts with requested/exec one-GPU allocation; preserve discrepancy and independently score full136-candidate parent/child TRAIN denominator before judgment.",
+    "2026-09-17T14:10:07Z: v8 child hash672ada25 now matches the local retrieval. Independent scorer is locally compiled and packet-guarded for all136 TRAIN candidates under parent/child, with no optimizer/reward/DEVELOPMENT path. Transfer and one bounded scoring audit are next.",
+    "2026-09-17T14:11:02Z: Final independent-audit checks pass: scorer665ebc64, packet d6437a57, child672ada25, parent87489e47, empty score namespace, and no owned duplicate. Submit one bounded scoring audit.",
+    "2026-09-17T14:11:30Z: Submitted exactly one independent v8 scoring audit as job7629983 after fresh scorer/packet/parent/child/output/queue checks. Await complete136-candidate result.",
+    "2026-09-17T14:11:57Z: qstat confirms scoring audit job7629983 is running on x3005c0s37b1n0/0*64 with one GPU and00:15:00 walltime. No quality/proof/gate judgment until complete rows.",
+    "2026-09-17T14:22:05Z: Independent v8 score job7629983 completed all136 TRAIN candidates: parent teacher top1 15/17, child17/17, mean margin delta+11.8288, no updates/rewards/DEVELOPMENT rows. Treat as train-objective evidence only; next freeze unseen DEVELOPMENT scoring and strict selected-candidate checks.",
+    "2026-09-17T14:24:35Z: TRAIN ranking audit is complete but not sufficient. Frozen target-free DEVELOPMENT packet d43ca8ab has4 rows x29 candidates, no reference field, and7/7 local guards. Transfer and independent parent/child scoring next; strict TLAPS checks remain separate.",
+    "2026-09-17T14:25:54Z: Fresh DEVELOPMENT final checks pass: packet d43ca8ab, scorer0c0594bb, child672ada25, parent87489e47, empty output namespace, and no owned duplicate. Submit one bounded scoring audit.",
+    "2026-09-17T14:26:22Z: Submitted exactly one target-free DEVELOPMENT ranking audit as job7630000 after fresh packet/scorer/parent/child/output/queue checks. Await complete116-candidate result.",
+    "2026-09-17T14:26:50Z: qstat confirms target-free DEVELOPMENT audit job7630000 is running on x3005c0s25b0n0/0*64 with one GPU and00:15:00 walltime. No judgment until complete rows.",
+    "2026-09-17T14:37:08Z: Target-free DEVELOPMENT score job7630000 completed4/4 rows x29=116 per policy, top1 changed2/4, no reference/reward/update path. Strict TLAPS top4 audit is next; ranking movement alone cannot support promotion.",
+    "2026-09-17T14:38:57Z: Final strict-audit checks pass: packet ab311319, ranking rows c483731c, CRDT dependency/source hashes, empty strict output namespace, and no owned duplicate. Submit one CPU-only32-check TLAPS audit.",
+    "2026-09-17T14:39:26Z: Submitted exactly one CPU-only strict TLAPS audit as job7630014 after fresh packet/rows/source/dependency/output/queue checks. Await all32 raw checks.",
+    "2026-09-17T14:40:13Z: qstat confirms strict TLAPS job7630014 is running CPU-only on x3205c0s25b0n0/0*4. Await complete32-check receipt; no partial judgment.",
+    "2026-09-17T14:42:10Z: Strict top4 audit job7630014 completed32 checks: parent0 passes, child2 passes, both on crdt-safety-step; raw rejects/timeouts preserved. Treat as narrow unseen signal only; expand to all116 candidates per policy before promotion/pruning.",
+    "2026-09-17T14:43:04Z: Expanded strict audit from top4 to complete top29/116 candidates per policy (232 checks) after narrow child2/32 vs parent0/32 signal. Refresh and rerun CPU-only before promotion/pruning.",
+    "2026-09-17T14:43:51Z: Final full-audit checks pass: worker b056de05, PBS db39ff97, packet ab311319, rows c483731c, empty full-output namespace, no owned duplicate. Submit one CPU-only232-check audit.",
+    "2026-09-17T14:44:18Z: Submitted exactly one full strict CPU audit as job7630021 after fresh worker/packet/rows/output/queue checks. Await all232 raw checks.",
+    "2026-09-17T14:44:43Z: qstat confirms full strict job7630021 is running CPU-only on x3005c0s31b0n0/0*4. Await complete232-check receipt.",
+    "2026-09-17T14:58:12Z: Full strict DEVELOPMENT audit job7630021 completed F/Exit0 with 232 checks. Parent and child each certify 4/116 target-scoped candidates; preserve all raw rejects, timeouts and parser-unrecognized statuses. Mark teacher-anchor contrastive branch complete negative and move to free-generation teacher-forced SFT admission.",
+    "2026-09-17T15:04:39Z: Local free-generation SFT branch passes 6/6 focused tests and no-model preflight with sanitized packet 8e81b0be. Publish local_work before Polaris upload; no GPU or proof claim yet.",
+    "2026-09-17T15:06:26Z: Stage tla-free-generation-sft-20260917-v1 is locally frozen with manifest SHA647e5b35, answer-free DEVELOPMENT packet, six focused tests, and one-GPU/15-minute cap. Publish local_work before upload and remote preflight.",
+    "2026-09-17T15:08:27Z: Remote upload of tla-free-generation-sft-20260917-v1 verified by SHA256SUMS and static guards. No job yet; submit one CPU-only preflight next.",
+    "2026-09-17T15:10:23Z: CPU-only remote preflight 7630062 completed F/Exit0 with ngpus=0 and no model/CUDA/optimizer activity. Guards remain clean; next action is one bounded GPU train+generation job.",
+    "2026-09-17T15:12:14Z: GPU job7630069 allocated one GPU but failed before model load with CLI UnboundLocalError; resources_used.ngpus=0 and zero walltime. Preserve v1 and repair only in append-only v2.",
+    "2026-09-17T15:12:54Z: Append-only v2 repairs only the pre-model CLI shadowing defect from 7630069. Worker SHA abde9506, manifest SHA647e5b35, tests6/6 and local preflight pass; upload v2 next.",
+    "2026-09-17T15:15:32Z: v2 upload/hash/leakage guards pass. Login-side venv symlink is presently unresolved but v1 compute preflight used it successfully; submit v2 CPU preflight as the decisive compute-node guard.",
+    "2026-09-17T15:17:13Z: v2 preflight 7630082 exited127 on compute node because the hard-coded venv interpreter target is unavailable. No model/CUDA activity; probe compute runtime before any GPU retry.",
+    "2026-09-17T15:26:22Z: Runtime probe7630097 passed torch2.8.0/CUDA12.9/transformers4.53.3 using conda 2025-09-28, cuda/13.0, PrgEnv-gnu and a job-local MPI soname alias. Repair PBS only in v3.",
+    "2026-09-17T15:27:25Z: v3 freezes verified compute runtime setup from probe7630097 while leaving worker/packet/scorer unchanged. Upload new destination and run CPU preflight before any GPU retry.",
+    "2026-09-17T15:29:24Z: v3 upload and static guards pass with runtime probe-backed PBS setup. Submit one CPU-only preflight before the bounded GPU retry.",
+    "2026-09-17T15:38:58Z: v3 preflight7630109 exited127 before worker because /soft conda is inaccessible. Probe7630130 confirms Permission denied on x3205; project venvs point to /soft and Sophia SSH is unavailable. Enter external_wait; no GPU claim."
   ],
   "history": [
     "2026-09-17T05:04:20Z: Canonical byte-sequence job7629178 completed PBS F/Exit0 after00:04:04 with48 updates, exact reload checkpoint d9706d1a and both protected prompt-only receipts. Independent pinned-SANY audit ignores worker labels, passes references2/2, and finds0/4 canonical frames and0/4 candidate SANY passes. Prune this exact frame SFT objective; do not replay unchanged.",
@@ -3294,7 +3392,128 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "results/runs/proof-fullproof-line-20260917-v1/result.7629744/base_generations.json",
     "results/runs/proof-fullproof-line-20260917-v1/result.7629744/parent_generations.json",
     "results/runs/proof-fullproof-line-20260917-v1/result.7629744/child_generations.json",
-    "results/runs/proof-fullproof-line-20260917-v1/strict-child-score-v1/summary.json"
+    "results/runs/proof-fullproof-line-20260917-v1/strict-child-score-v1/summary.json",
+    "tools/proof_candidate_rl.py",
+    "tools/proof_candidate_rl_admission.py",
+    "tools/proof_candidate_rl_independent_audit.py",
+    "tools/proof_candidate_rl_polaris.pbs",
+    "harness/test_proof_candidate_rl_admission.py",
+    "harness/test_proof_candidate_rl_independent_audit.py",
+    "results/stages/tla-candidate-rl-gpu-20260917-v5/SHA256SUMS",
+    "results/stages/tla-candidate-rl-gpu-20260917-v5/manifest.json",
+    "results/stages/tla-candidate-rl-gpu-20260917-v5/frozen.json",
+    "results/stages/tla-candidate-rl-gpu-20260917-v5/summary.json",
+    "results/stages/tla-candidate-rl-gpu-20260917-v5/train.pbs",
+    "results/runs/proof-candidate-rl-20260917-v1/job-7629805/terminal.json",
+    "results/runs/proof-candidate-rl-20260917-v1/job-7629814/terminal.json",
+    "results/runs/proof-candidate-rl-20260917-v1/job-7629818/terminal.json",
+    "results/runs/proof-candidate-rl-20260917-v1/job-7629822/terminal.json",
+    "results/runs/proof-candidate-rl-20260917-v1/job-7629827/terminal.json",
+    "results/runs/proof-candidate-rl-20260917-v1/job-7629827/result.7629827/summary.json",
+    "results/runs/proof-candidate-rl-20260917-v1/job-7629827/result.7629827/groups.jsonl",
+    "results/runs/proof-candidate-rl-20260917-v1/job-7629827/independent-audit.json",
+    "tools/proof_teacher_anchor_admission.py",
+    "tools/proof_teacher_anchor_verify.pbs",
+    "harness/test_proof_teacher_anchor_admission.py",
+    "results/stages/tla-teacher-anchor-contrastive-20260917-v4/SHA256SUMS",
+    "results/stages/tla-teacher-anchor-contrastive-20260917-v4/packet.json",
+    "results/stages/tla-teacher-anchor-contrastive-20260917-v4/summary.json",
+    "results/stages/tla-teacher-anchor-contrastive-20260917-v4/verify.pbs",
+    "results/runs/proof-teacher-anchor-contrastive-20260917-v1/job-7629873/terminal.json",
+    "results/stages/tla-teacher-anchor-contrastive-20260917-v6/SHA256SUMS",
+    "results/stages/tla-teacher-anchor-contrastive-20260917-v6/packet.json",
+    "results/stages/tla-teacher-anchor-contrastive-20260917-v6/summary.json",
+    "results/stages/tla-teacher-anchor-contrastive-20260917-v6/verify.pbs",
+    "results/runs/proof-teacher-anchor-contrastive-20260917-v1/job-7629878/terminal.json",
+    "results/runs/proof-teacher-anchor-contrastive-20260917-v1/job-7629885/terminal.json",
+    "results/runs/proof-teacher-anchor-contrastive-20260917-v1/job-7629892/terminal.json",
+    "results/runs/proof-teacher-anchor-contrastive-20260917-v1/job-7629892/verification/checks.json",
+    "tools/proof_teacher_anchor_contrastive.py",
+    "tools/proof_teacher_anchor_contrastive_preflight.pbs",
+    "tools/proof_teacher_anchor_contrastive_polaris.pbs",
+    "harness/test_proof_teacher_anchor_contrastive.py",
+    "results/stages/tla-teacher-anchor-contrastive-20260917-v7/manifest.json",
+    "results/stages/tla-teacher-anchor-contrastive-20260917-v7/packet.json",
+    "results/stages/tla-teacher-anchor-contrastive-20260917-v7/summary.json",
+    "results/runs/proof-teacher-anchor-contrastive-20260917-v1/job-7629904/terminal.json",
+    "results/runs/proof-teacher-anchor-contrastive-20260917-v1/job-7629904/summary.json",
+    "results/runs/proof-teacher-anchor-contrastive-20260917-v1/job-7629904/preflight.stdout",
+    "results/runs/proof-teacher-anchor-contrastive-20260917-v1/job-7629907/terminal.json",
+    "results/runs/proof-teacher-anchor-contrastive-20260917-v1/job-7629907/steps.jsonl",
+    "results/runs/proof-teacher-anchor-contrastive-20260917-v1/job-7629907/runtime-config.json",
+    "results/runs/proof-teacher-anchor-contrastive-20260917-v1/job-7629907/train.stdout",
+    "results/stages/tla-teacher-anchor-contrastive-20260917-v8/manifest.json",
+    "results/stages/tla-teacher-anchor-contrastive-20260917-v8/packet.json",
+    "results/stages/tla-teacher-anchor-contrastive-20260917-v8/summary.json",
+    "results/stages/tla-teacher-anchor-contrastive-20260917-v8/tools/proof_teacher_anchor_contrastive.py",
+    "results/runs/proof-teacher-anchor-contrastive-20260917-v1/job-7629933/terminal.json",
+    "results/runs/proof-teacher-anchor-contrastive-20260917-v1/job-7629933/summary.json",
+    "results/runs/proof-teacher-anchor-contrastive-20260917-v1/job-7629933/preflight.stdout",
+    "results/runs/proof-teacher-anchor-contrastive-20260917-v1/job-7629936/terminal.json",
+    "results/runs/proof-teacher-anchor-contrastive-20260917-v1/job-7629936/summary.json",
+    "results/runs/proof-teacher-anchor-contrastive-20260917-v1/job-7629936/steps.jsonl",
+    "results/runs/proof-teacher-anchor-contrastive-20260917-v1/job-7629936/policy_optimizer.pt",
+    "results/runs/proof-teacher-anchor-contrastive-20260917-v1/job-7629936/packet.json",
+    "tools/proof_teacher_anchor_contrastive_score.py",
+    "tools/proof_teacher_anchor_contrastive_score.pbs",
+    "results/runs/proof-teacher-anchor-contrastive-20260917-v1/job-7629983/terminal.json",
+    "results/runs/proof-teacher-anchor-contrastive-20260917-v1/job-7629983/summary.json",
+    "results/runs/proof-teacher-anchor-contrastive-20260917-v1/job-7629983/rows.jsonl",
+    "results/runs/proof-teacher-anchor-contrastive-20260917-v1/job-7629983/packet.json",
+    "tools/proof_teacher_anchor_development_score.py",
+    "tools/proof_teacher_anchor_development_score.pbs",
+    "harness/test_proof_teacher_anchor_development_score.py",
+    "results/stages/tla-teacher-anchor-contrastive-20260917-v8/development_packet.json",
+    "results/runs/proof-teacher-anchor-contrastive-20260917-v1/job-7630000/terminal.json",
+    "results/runs/proof-teacher-anchor-contrastive-20260917-v1/job-7630000/summary.json",
+    "results/runs/proof-teacher-anchor-contrastive-20260917-v1/job-7630000/rows.jsonl",
+    "results/runs/proof-teacher-anchor-contrastive-20260917-v1/job-7630000/development_packet.json",
+    "tools/proof_teacher_anchor_development_strict.py",
+    "tools/proof_teacher_anchor_development_strict.pbs",
+    "results/stages/tla-teacher-anchor-contrastive-20260917-v8/development_strict_packet.json",
+    "results/runs/proof-teacher-anchor-contrastive-20260917-v1/job-7630014/terminal.json",
+    "results/runs/proof-teacher-anchor-contrastive-20260917-v1/job-7630014/summary.json",
+    "results/runs/proof-teacher-anchor-contrastive-20260917-v1/job-7630014/checks.jsonl",
+    "results/runs/proof-teacher-anchor-contrastive-20260917-v1/job-7630014/packet.json",
+    "results/runs/proof-teacher-anchor-contrastive-20260917-v1/job-7630021/summary.json",
+    "results/runs/proof-teacher-anchor-contrastive-20260917-v1/job-7630021/checks.jsonl",
+    "results/runs/proof-teacher-anchor-contrastive-20260917-v1/job-7630021/packet.json",
+    "results/runs/proof-teacher-anchor-contrastive-20260917-v1/job-7630021/terminal.json",
+    "tools/proof_free_generation_sft.py",
+    "tools/proof_free_generation_strict.py",
+    "harness/test_proof_free_generation_sft.py",
+    "results/runs/proof-free-generation-sft-20260917-v1/manifest.json",
+    "results/stages/tla-free-generation-sft-20260917-v1/SHA256SUMS",
+    "results/stages/tla-free-generation-sft-20260917-v1/manifest.json",
+    "results/stages/tla-free-generation-sft-20260917-v1/stage.json",
+    "results/stages/tla-free-generation-sft-20260917-v1/preflight.pbs",
+    "results/stages/tla-free-generation-sft-20260917-v1/train.pbs",
+    "results/stages/tla-free-generation-sft-20260917-v1/strict-score.pbs",
+    "results/runs/proof-free-generation-sft-20260917-v1/preflight-7630062/receipt.json",
+    "results/runs/proof-free-generation-sft-20260917-v1/preflight-7630062/preflight.stdout",
+    "results/runs/proof-free-generation-sft-20260917-v1/preflight-7630062/qstat.txt",
+    "results/runs/proof-free-generation-sft-20260917-v1/job-7630069/terminal.json",
+    "results/runs/proof-free-generation-sft-20260917-v1/job-7630069/qstat.txt",
+    "results/runs/proof-free-generation-sft-20260917-v1/job-7630069/train.stdout",
+    "results/stages/tla-free-generation-sft-20260917-v2/SHA256SUMS",
+    "results/stages/tla-free-generation-sft-20260917-v2/stage.json",
+    "results/stages/tla-free-generation-sft-20260917-v2/manifest.json",
+    "results/stages/tla-free-generation-sft-20260917-v2/tools/proof_free_generation_sft.py",
+    "results/runs/proof-free-generation-sft-20260917-v2/manifest.json",
+    "results/runs/proof-free-generation-sft-20260917-v2/preflight-7630082/receipt.json",
+    "results/runs/proof-free-generation-sft-20260917-v2/preflight-7630082/qstat.txt",
+    "results/runs/proof-free-generation-sft-20260917-v2/preflight-7630082/preflight.stdout",
+    "results/runs/proof-free-generation-sft-20260917-v2/runtime-probe-7630097/receipt.json",
+    "results/runs/proof-free-generation-sft-20260917-v2/runtime-probe-7630097/runtime.stdout",
+    "results/runs/proof-free-generation-sft-20260917-v2/runtime-probe-7630097/qstat.txt",
+    "results/stages/tla-free-generation-sft-20260917-v3/SHA256SUMS",
+    "results/stages/tla-free-generation-sft-20260917-v3/stage.json",
+    "results/runs/proof-free-generation-sft-20260917-v3/manifest.json",
+    "results/runs/proof-free-generation-sft-20260917-v3/preflight-7630109/receipt.json",
+    "results/runs/proof-free-generation-sft-20260917-v3/preflight-7630109/qstat.txt",
+    "results/runs/proof-free-generation-sft-20260917-v3/preflight-7630109/preflight.stdout",
+    "results/runs/proof-free-generation-sft-20260917-v3/runtime-probes/probe-7630133.stdout",
+    "results/runs/proof-free-generation-sft-20260917-v3/runtime-probes/probe-7630133.qstat"
   ]
 }
 -->

@@ -1,0 +1,21 @@
+{
+  "job_id": "7630097",
+  "job_name": "tla-runtime-probe-v5",
+  "pbs_state": "F",
+  "exit_status": 0,
+  "exec_host": "x3205c0s25b0n0/0*2",
+  "resources_used": {
+    "ncpus": "2",
+    "ngpus": "0",
+    "walltime": "00:00:12",
+    "cput": "00:00:04",
+    "mem": "621468kb"
+  },
+  "runtime_stdout_sha256": "1288866426f2261f4b53255eb861da9a35aa2d8ccb792f279afa7b72065eeb03",
+  "python": "/soft/applications/conda/2025-09-28/mconda3/bin/python3",
+  "torch": "2.8.0",
+  "transformers": "4.53.3",
+  "torch_cuda_available": true,
+  "torch_cuda_version": "12.9",
+  "mpi_alias": "/tmp job-local libmpi_gnu_123.so.12 -> /opt/cray/pe/mpich/9.1.0/ofi/gnu/12.3/lib/libmpi_gnu.so.12"
+}
