@@ -16,3 +16,5 @@ def test_agenda_head_contract_is_cpu_importable():
 def test_pbs_declares_shared_training_dependency():
     pbs = (ROOT / "tools/proof_typed_agenda_polaris.pbs").read_text()
     assert "proof_sequence_train.py" in pbs
+    assert "proof_repair_pilot.py" in pbs
+    assert "proof_candidate_rank.py" in pbs

@@ -1,15 +1,15 @@
 #!/bin/bash
 #PBS -A EVITA
 #PBS -q debug
-#PBS -N tla-typed-agenda-v2
+#PBS -N tla-typed-agenda-v3
 #PBS -l select=1:system=polaris:ncpus=64:ngpus=1
 #PBS -l walltime=00:15:00
 #PBS -l filesystems=home:grand
 #PBS -j oe
-#PBS -o /home/eric-spencer/tla-typed-agenda-20260917-v2/train.stdout
-#PBS -e /home/eric-spencer/tla-typed-agenda-20260917-v2/train.stderr
+#PBS -o /home/eric-spencer/tla-typed-agenda-20260917-v3/train.stdout
+#PBS -e /home/eric-spencer/tla-typed-agenda-20260917-v3/train.stderr
 set -euo pipefail
-ROOT=/home/eric-spencer/tla-typed-agenda-20260917-v2
+ROOT=/home/eric-spencer/tla-typed-agenda-20260917-v3
 BASE=/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1
 export PYTHONPATH="$ROOT:$ROOT/tools:$BASE:$BASE/tools"
 export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false

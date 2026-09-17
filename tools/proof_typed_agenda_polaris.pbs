@@ -23,11 +23,12 @@ PARENT=/home/eric-spencer/tla-structured-span-train-20260914-v3/result.7618905/p
 PACKET="$ROOT/packet.json"
 OUT="$ROOT/result.${PBS_JOBID%%.*}"
 test -x "$PYTHON" -a -f "$MODEL/config.json" -a -f "$PACKET"
-test -f "$ROOT/tools/__init__.py" -a -f "$ROOT/tools/proof_sequence_train.py"
+test -f "$ROOT/tools/__init__.py" -a -f "$ROOT/tools/proof_sequence_train.py" \
+  -a -f "$ROOT/tools/proof_repair_pilot.py" -a -f "$ROOT/tools/proof_candidate_rank.py"
 test ! -e "$OUT"
 test "$(sha256sum "$PACKET" | awk '{print $1}')" = c85da2971dc9152378373b041e7f6b7af9e718b53fb317037283c0d3f4fe2373
 test "$(sha256sum "$PARENT" | awk '{print $1}')" = 87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511
-"$PYTHON" -m py_compile "$ROOT/tools/proof_typed_agenda.py" "$ROOT/tools/proof_typed_agenda_cuda_train.py" "$ROOT/tools/proof_cuda_train.py" "$ROOT/tools/proof_sequence_train.py"
+"$PYTHON" -m py_compile "$ROOT/tools/proof_typed_agenda.py" "$ROOT/tools/proof_typed_agenda_cuda_train.py" "$ROOT/tools/proof_cuda_train.py" "$ROOT/tools/proof_sequence_train.py" "$ROOT/tools/proof_repair_pilot.py" "$ROOT/tools/proof_candidate_rank.py"
 "$PYTHON" "$ROOT/tools/proof_typed_agenda.py" --packet "$PACKET" \
   --expected-packet-sha256 c85da2971dc9152378373b041e7f6b7af9e718b53fb317037283c0d3f4fe2373 >/dev/null
 "$PYTHON" -u "$ROOT/tools/proof_typed_agenda_cuda_train.py" \
