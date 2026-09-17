@@ -1,0 +1,18 @@
+{
+  "fixed_candidate_denominator": 116,
+  "fresh_selected_strict_checks": 12,
+  "rank1_by_arm": {
+    "base": [null, null, null, null],
+    "parent": [1, 1, 1, 1],
+    "child": [1, 1, 1, 1]
+  },
+  "certified_by_arm": {
+    "base": "0/4",
+    "parent": "2/4",
+    "child": "2/4"
+  },
+  "child_minus_parent": "0/4",
+  "child_minus_frozen_symbolic_capacity": "-2/4",
+  "model_or_gate_claim": false,
+  "interpretation": "The decoder learns a rank-1 abstract transition trace but collapses all four DEVELOPMENT rows to candidate index 2; it does not learn the fact identity needed to select either Sum proof. Prune unchanged and enrich the renderer-state representation before another run."
+}

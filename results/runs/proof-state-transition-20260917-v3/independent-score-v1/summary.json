@@ -1,0 +1,35 @@
+{
+  "kind": "independent_state_transition_selection_score",
+  "packet_sha256": "7fdb1f73c5f1d7a385ffef5e0cde1ab6cff416858777aa2d3d9b43039448f418",
+  "generations_sha256": {
+    "base": "b18a4cc74d149a28179463656783118de6a9b3722a2e94fffc06e20a32b90719",
+    "parent": "b51cea7d453a245f5e6b40684c3012b60a54579b8a877a63de6a99b0464292c4",
+    "child": "4337f01abd8fa62f407d3650551ef6a48050b3502a78dabe40df40a58f01ae30"
+  },
+  "frozen_audit_sha256": "0007cdf350a78dba3dddff12b7a5cce3b40649803f4142039aa362412d32ff49",
+  "fixed_candidate_denominator": 116,
+  "fresh_selected_strict_checks": 12,
+  "arms": [
+    "base",
+    "parent",
+    "child"
+  ],
+  "certified_by_arm": {
+    "base": 0,
+    "parent": 2,
+    "child": 2
+  },
+  "frozen_audit_certified_by_arm": {
+    "base": 0,
+    "parent": 2,
+    "child": 2
+  },
+  "verifier_feedback_used": false,
+  "repair_used": false,
+  "reward_used": false,
+  "training_executed": false,
+  "quality_claim": false,
+  "proof_claim": false,
+  "gate_claim": false,
+  "checker": "fresh strict uncached TLAPS for selections"
+}
