@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "stage": "tla-listwise-action-head-gpu-20260917-v1",
+  "files": {
+    "config.json": "8040b7e40d28e3e79aacc6288a698a15b5ec9f36592e57ff1a54b4dfff2b9dc2",
+    "train-packet.json": "c9784d4da893464f23bc27610c5f7aed64c44bf5406a7ec33f27637ad0d7394f",
+    "official-packet.json": "f40539a20e449ad63b8244e85eff33c8022402df11a84e8228b71ccbfeae11b5",
+    "train-labels.jsonl": "bba10249105e1999656dd329a642c079f623f64fd9a4ee49f574c390d34a7854",
+    "tools/proof_listwise_action_head_cuda_train.py": "513bece070af88d1e58e933e8e493ccc99a814b1124c8a31846e32482254f800",
+    "train.pbs": "a2e26118967e56b6d2dd40d0e3deeda3e801f46b07b1fdef4d640e9e062d024a",
+    "preflight.json": "8a33dc82657d6c68e1147346429f5951473742948112a45ba5f2ee271882962f"
+  },
+  "parent_checkpoint_sha256": "87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511",
+  "answer_free": true,
+  "protected_training": false,
+  "tlaps_executed": false,
+  "parameter_updates": 16,
+  "learning_signal": "task-normalized listwise cross-entropy over complete candidate sets"
+}
