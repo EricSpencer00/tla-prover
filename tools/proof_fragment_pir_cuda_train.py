@@ -145,7 +145,7 @@ def _generate(net, tokenizer, prompt: str, max_new_tokens: int, device: str) -> 
     )
     inputs = tokenizer(rendered, return_tensors="pt", add_special_tokens=False).to(device)
     started = time.monotonic()
-    with torch.inference_mode():
+    with torch.inference_mode(), torch.autocast(device_type=device, dtype=torch.bfloat16):
         output = net.generate(
             **inputs, max_new_tokens=max_new_tokens, do_sample=False,
             pad_token_id=tokenizer.eos_token_id,

@@ -45,3 +45,8 @@ def test_preflight_does_not_import_torch_or_touch_cuda():
 def test_score_source_supports_remote_dependency_rebinding_without_packet_change():
     source = (ROOT / "tools/proof_fragment_pir_score.py").read_text()
     assert "dependency_root / path.name" in source
+
+
+def test_generation_uses_bf16_autocast_for_mixed_parent_layer():
+    source = (ROOT / "tools/proof_fragment_pir_cuda_train.py").read_text()
+    assert 'torch.autocast(device_type=device, dtype=torch.bfloat16)' in source

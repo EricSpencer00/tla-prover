@@ -6,11 +6,11 @@
 #PBS -l walltime=00:15:00
 #PBS -l filesystems=home:grand
 #PBS -j oe
-#PBS -o /home/eric-spencer/tla-fragment-pir-20260917-v2/train.stdout
-#PBS -e /home/eric-spencer/tla-fragment-pir-20260917-v2/train.stderr
+#PBS -o /home/eric-spencer/tla-fragment-pir-20260917-v3/train.stdout
+#PBS -e /home/eric-spencer/tla-fragment-pir-20260917-v3/train.stderr
 set -euo pipefail
 
-ROOT=/home/eric-spencer/tla-fragment-pir-20260917-v2
+ROOT=/home/eric-spencer/tla-fragment-pir-20260917-v3
 BASE=/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1
 MODEL=/grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659
 PARENT=/home/eric-spencer/tla-structured-span-train-20260914-v3/result.7618905/policy_optimizer.pt
