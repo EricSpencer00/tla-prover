@@ -1,0 +1,25 @@
+{
+  "stage": "tla-free-generation-sft-20260917-v4",
+  "job_id": "7630172",
+  "job_name": "tla-free-generation-preflight-v4",
+  "pbs_state": "F",
+  "exit_status": 126,
+  "exec_host": "x3014c0s31b1n0/0*4",
+  "resources_used": {
+    "ncpus": "4",
+    "ngpus": "0",
+    "walltime": "00:00:00",
+    "cput": "00:00:00",
+    "mem": "14848kb"
+  },
+  "submitted_utc": "2026-09-17T15:53:57Z",
+  "started_local": "Thu Sep 17 15:54:00 2026",
+  "finished_local": "Thu Sep 17 15:54:06 2026",
+  "stdout_sha256": "3ecea8945d90afaa6d31eb75882308741853e3d007c64786e060e127ee2add31",
+  "qstat_sha256": "5aeba531605b3f9bec7ea72fb0e482cc24cd204b710cf4d77edb2c0a97eb111e",
+  "model_loaded": false,
+  "cuda_touched": false,
+  "optimizer_updates": 0,
+  "failure_class": "runtime_python_path_permission_denied_on_allocated_node",
+  "diagnostic": "/soft/applications/conda/2025-09-28/mconda3/bin/python3 returned Permission denied before worker import"
+}
