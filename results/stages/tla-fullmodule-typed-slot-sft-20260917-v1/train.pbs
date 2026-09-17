@@ -1,0 +1,45 @@
+#!/bin/bash
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-w4-typed-slot-v1
+#PBS -l select=1:system=polaris:ncpus=64:ngpus=1
+#PBS -l walltime=00:15:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+#PBS -o /home/eric-spencer/tla-fullmodule-typed-slot-sft-20260917-v1/train.stdout
+#PBS -e /home/eric-spencer/tla-fullmodule-typed-slot-sft-20260917-v1/train.stderr
+set -euo pipefail
+STAGE=/home/eric-spencer/tla-fullmodule-typed-slot-sft-20260917-v1
+export PYTHONPATH="$STAGE:$STAGE/tools:$STAGE/harness"
+export TLA_TOOLS_PATHS="$STAGE/tools"
+export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false
+export HF_HOME=/grand/EVITA/eric-spencer/hf-cache PYTHONUNBUFFERED=1
+export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1
+export PATH="/grand/EVITA/eric-spencer/tools/jre21/bin:$PATH"
+export JAVA_HOME=/grand/EVITA/eric-spencer/tools/jre21
+PYTHON=/home/eric-spencer/ChatTLA/.venv/bin/python
+test -x "$PYTHON"
+MODEL_PATH=/grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659
+test -f "$MODEL_PATH/config.json"
+PACKET="$STAGE/packet.json"
+PROBE="$STAGE/typed-slot-admission.json"
+JAR="$STAGE/tools/tla2tools.jar"
+MANIFEST="$STAGE/manifest.json"
+PREFLIGHT="$STAGE/preflight.json"
+SOURCE=/home/eric-spencer/tla-structured-span-train-20260914-v3/result.7618905/policy_optimizer.pt
+JOB_ID=$(echo "$PBS_JOBID" | cut -d. -f1)
+START="/tmp/tla-typed-slot-parent-$JOB_ID.pt"
+test -f "$PACKET" -a -f "$PROBE" -a -f "$JAR" -a -f "$MANIFEST" -a -f "$PREFLIGHT"
+test "$(sha256sum "$PACKET" | awk '{print $1}')" = a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c
+test "$(sha256sum "$PROBE" | awk '{print $1}')" = d9716570080f92c2faf8afb0ca6210201e4a53c92696aa867410060c0245d880
+test "$(sha256sum "$SOURCE" | awk '{print $1}')" = 87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511
+cp "$SOURCE" "$START"
+test "$(sha256sum "$START" | awk '{print $1}')" = 87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511
+OUT="$STAGE/result.$JOB_ID"
+test ! -e "$OUT"
+PREFLIGHT_SHA=$(sha256sum "$PREFLIGHT" | awk '{print $1}')
+"$PYTHON" -u "$STAGE/tools/proof_fullmodule_typed_slot_sft_train.py" train \
+  --packet "$PACKET" --probe "$PROBE" --jar "$JAR" --output "$OUT" --model "$MODEL_PATH" \
+  --manifest "$MANIFEST" --manifest-sha256 "$(sha256sum "$MANIFEST" | awk '{print $1}')" \
+  --preflight "$PREFLIGHT" --preflight-sha256 "$PREFLIGHT_SHA" \
+  --checkpoint "$START"

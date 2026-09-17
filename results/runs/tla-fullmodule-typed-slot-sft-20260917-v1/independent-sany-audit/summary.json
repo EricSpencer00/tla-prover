@@ -1,0 +1,94 @@
+{
+  "schema": 1,
+  "kind": "fullmodule_typed_slot_independent_sany_audit_v1",
+  "packet_sha256": "a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c",
+  "parent_checkpoint_sha256": "87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511",
+  "child_checkpoint_sha256": "86f2104f302fe45fd96fd983e717031a80115f743753b02f3ce60056ff70e002",
+  "protected_rows": [
+    47,
+    107
+  ],
+  "phases": [
+    "restored_parent",
+    "trained_child"
+  ],
+  "reference_records": [
+    {
+      "row": 47,
+      "status": "pass",
+      "passed": true,
+      "returncode": 0,
+      "diagnostic": "SANY semantic processing passed"
+    },
+    {
+      "row": 107,
+      "status": "pass",
+      "passed": true,
+      "returncode": 0,
+      "diagnostic": "SANY semantic processing passed"
+    }
+  ],
+  "candidate_records": [
+    {
+      "phase": "restored_parent",
+      "row": 47,
+      "raw_reply_sha256": "cead2f8f00c4ab24e5a1fef8410e7e4cf50073aacf0ac9978f0483a29f8ccdea",
+      "worker_labels_ignored": true,
+      "protected_reference_conditioning": false,
+      "protected_target_loaded": false,
+      "generated_feedback_loaded": false,
+      "typed_valid": false,
+      "candidate_sany_pass": null,
+      "reject_reason": "typed-slot magic required"
+    },
+    {
+      "phase": "restored_parent",
+      "row": 107,
+      "raw_reply_sha256": "4fe7e952877241988db442059c1bb9b30c696e75cf96c626b8447990ea4f63f9",
+      "worker_labels_ignored": true,
+      "protected_reference_conditioning": false,
+      "protected_target_loaded": false,
+      "generated_feedback_loaded": false,
+      "typed_valid": false,
+      "candidate_sany_pass": null,
+      "reject_reason": "typed-slot magic required"
+    },
+    {
+      "phase": "trained_child",
+      "row": 47,
+      "raw_reply_sha256": "cead2f8f00c4ab24e5a1fef8410e7e4cf50073aacf0ac9978f0483a29f8ccdea",
+      "worker_labels_ignored": true,
+      "protected_reference_conditioning": false,
+      "protected_target_loaded": false,
+      "generated_feedback_loaded": false,
+      "typed_valid": false,
+      "candidate_sany_pass": null,
+      "reject_reason": "typed-slot magic required"
+    },
+    {
+      "phase": "trained_child",
+      "row": 107,
+      "raw_reply_sha256": "6844add1cb2bd2fcd21fd56ffd59c9dadaeb34c92a196792a65010a67c6ab384",
+      "worker_labels_ignored": true,
+      "protected_reference_conditioning": false,
+      "protected_target_loaded": false,
+      "generated_feedback_loaded": false,
+      "typed_valid": false,
+      "candidate_sany_pass": null,
+      "reject_reason": "typed-slot magic required"
+    }
+  ],
+  "reference_sany_pass": 2,
+  "candidate_count": 4,
+  "typed_candidate_count": 0,
+  "candidate_sany_pass": 0,
+  "worker_labels_ignored": true,
+  "generated_feedback_used": false,
+  "protected_reference_conditioning": false,
+  "quality_claim": false,
+  "model_improvement_claim": false,
+  "proof_claim": false,
+  "gate_claim": false,
+  "denominator_fixed": true,
+  "method": "independent typed-slot parse, canonical render and pinned SANY; worker labels ignored"
+}
