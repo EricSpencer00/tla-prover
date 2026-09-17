@@ -1,0 +1,106 @@
+{
+  "highest-correctness": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF max, vars, Init, lb, Terminating, Next, Spec, Termination, TypeOK, InductiveInvariant, DoneIndexValue, Correctness",
+      "mean_logp": 3.876930398880203,
+      "pairwise_score": 3.876930398880203
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF max, vars, Init, lb, Terminating, Next, Spec, Termination, TypeOK, InductiveInvariant, DoneIndexValue, Correctness",
+      "mean_logp": 2.060641795615434,
+      "pairwise_score": 2.060641795615434
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, TypeInvariantHolds, InductiveInvariantHolds, DoneIndexValueThm, SetExtensionality",
+      "mean_logp": 0.05637296814799251,
+      "pairwise_score": 0.05637296814799251
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": 0.009552190721172617,
+      "pairwise_score": 0.009552190721172617
+    }
+  ],
+  "highest-done-step": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF max, vars, Init, lb, Terminating, Next, Spec, Termination, TypeOK, InductiveInvariant, DoneIndexValue",
+      "mean_logp": 3.8555993395871937,
+      "pairwise_score": 3.8555993395871937
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF max, vars, Init, lb, Terminating, Next, Spec, Termination, TypeOK, InductiveInvariant, DoneIndexValue",
+      "mean_logp": 2.039310736322425,
+      "pairwise_score": 2.039310736322425
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, TypeInvariantHolds, InductiveInvariantHolds, SetExtensionality",
+      "mean_logp": 0.045350924396538664,
+      "pairwise_score": 0.045350924396538664
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": 0.009552190721172617,
+      "pairwise_score": 0.009552190721172617
+    }
+  ],
+  "simple-preservation": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+      "mean_logp": 3.8845984460681886,
+      "pairwise_score": 3.8845984460681886
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+      "mean_logp": 2.06830984280342,
+      "pairwise_score": 2.06830984280342
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": 0.020574234472626452,
+      "pairwise_score": 0.020574234472626452
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": 0.009552190721172617,
+      "pairwise_score": 0.009552190721172617
+    }
+  ],
+  "simple-short-full": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+      "mean_logp": 3.8845984460681886,
+      "pairwise_score": 3.8845984460681886
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+      "mean_logp": 2.06830984280342,
+      "pairwise_score": 2.06830984280342
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, Correctness, SetExtensionality",
+      "mean_logp": 0.029254047577504966,
+      "pairwise_score": 0.029254047577504966
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": 0.009552190721172617,
+      "pairwise_score": 0.009552190721172617
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "requested_tasks": 119,
+  "fully_ranked_tasks": 119,
+  "measured_tasks": 113,
+  "certified_tasks_top4": 43,
+  "top1_verified": 36,
+  "checker_attempts": 324,
+  "checker": "strict uncached TLAPS --strict --nofp",
+  "reference_fragment_used": false,
+  "training_executed": false,
+  "repair_or_reward": false,
+  "quality_claim": false,
+  "gate_claim": false,
+  "denominator_fixed": true,
+  "method": "non-protected answer-free retrieval prototypes by prompt signature and candidate family",
+  "elapsed_seconds": 898.768665208001
+}

@@ -1,0 +1,57 @@
+{
+  "prototypes": [
+    {
+      "task_id": "addtwo-init",
+      "family": "smt_def",
+      "tokens": [
+        "fixed",
+        "local",
+        "scaffold",
+        "the"
+      ]
+    },
+    {
+      "task_id": "addtwo-step",
+      "family": "smt_def",
+      "tokens": [
+        "fixed",
+        "local",
+        "scaffold",
+        "the"
+      ]
+    },
+    {
+      "task_id": "highest-inductive-step",
+      "family": "smt_def",
+      "tokens": [
+        "fixed",
+        "local",
+        "scaffold",
+        "the"
+      ]
+    },
+    {
+      "task_id": "highest-type-step",
+      "family": "smt_def",
+      "tokens": [
+        "fixed",
+        "local",
+        "scaffold",
+        "the"
+      ]
+    }
+  ],
+  "family_counts": {
+    "smt_def": 4
+  },
+  "train_packet_sha256": "c9784d4da893464f23bc27610c5f7aed64c44bf5406a7ec33f27637ad0d7394f",
+  "train_checks_sha256": "22a02e008c535957e4a69f6b33bf65f2f0c16dece1eed7bedeefe0385d5d573a",
+  "holdout_task_ids": [
+    "highest-correctness",
+    "highest-done-step",
+    "simple-preservation",
+    "simple-short-full"
+  ],
+  "reference_fragment_used": false,
+  "protected_verifier_feedback_used": false
+}

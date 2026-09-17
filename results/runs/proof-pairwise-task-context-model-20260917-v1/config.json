@@ -1,0 +1,12 @@
+{
+  "packet_sha256": "f40539a20e449ad63b8244e85eff33c8022402df11a84e8228b71ccbfeae11b5",
+  "checkpoint_sha256": "87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511",
+  "selection_method": "non-protected within-task pairwise TLAPS labels with task-context features",
+  "training_checks_sha256": "22a02e008c535957e4a69f6b33bf65f2f0c16dece1eed7bedeefe0385d5d573a",
+  "training_examples": 4,
+  "holdout_tasks": 4,
+  "holdout_rank1_certified": 3,
+  "holdout_tasks_with_certified_candidate": 4,
+  "reference_fragment_used": false,
+  "protected_verifier_feedback_used": false
+}
