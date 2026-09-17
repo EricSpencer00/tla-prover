@@ -35,6 +35,7 @@ ANCHORS = tuple(i for i in range(42, 59) if i != 47)
 MODULE_NAMES = {47: 'W4Od2m7p4t2', 107: 'W4Od3m0p0t0'}
 
 EXPERIMENT_KIND = 'fullmodule_streaming_sanitized_prompt_sft_v1'
+ALGORITHM = 'matched-prefix lossless stream response-only SFT; fresh AdamW'
 BUDGET = dict(
     steps=48, accumulation=1, lr=2e-6, rank=4, alpha=8, seed=20260918,
     training_seconds=600, max_new_tokens=768, generation_seconds=10,
@@ -495,7 +496,7 @@ def train(args):
         raise ValueError('structure-first child did not change finitely')
     config = dict(
         kind=EXPERIMENT_KIND,
-        algorithm='matched-prefix lossless stream response-only SFT; fresh AdamW',
+        algorithm=ALGORITHM,
         packet_sha256=PACKET_SHA, parent_sha256=PARENT_SHA,
         structure_probe_sha256=PROBE_SHA, manifest_sha256=args.manifest_sha256,
         budget=BUDGET, source_sha256=manifest['source_sha256'],
