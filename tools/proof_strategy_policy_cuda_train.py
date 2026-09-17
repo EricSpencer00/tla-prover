@@ -29,9 +29,10 @@ def prompt_hidden(net, tokenizer, prompt: str, torch):
     return hidden.detach().clone(), int(batch["input_ids"].shape[1])
 
 
-def choose(row: dict, logits, torch) -> dict:
+def choose(row: dict, logits, torch, factored: bool = False) -> dict:
     strategy_id = int(torch.argmax(logits).item())
-    selected = policy.select_candidate(row, strategy_id)
+    selected = (policy.select_factored_candidate(row, strategy_id) if factored
+                else policy.select_candidate(row, strategy_id))
     selected.update({"id": row["id"], "valid": selected["candidate"] is not None,
                      "strategy_id": strategy_id, "strategy_probabilities":
                      torch.softmax(logits.float(), dim=0).detach().cpu().tolist()})
@@ -70,11 +71,17 @@ def worker(args) -> dict:
     optimizer = torch.optim.AdamW(head.parameters(), lr=args.lr, weight_decay=0.01)
     train_matrix = torch.stack([representations[row["id"]] for row in packet["train_rows"]])
     targets = torch.tensor([row["strategy_id"] for row in packet["train_rows"]], device="cuda")
+    class_weights = None
+    if args.balanced_family:
+        counts = torch.bincount(targets, minlength=len(policy.STRATEGIES)).float()
+        if (counts <= 0).any():
+            raise ValueError("balanced family requires every strategy class in TRAIN")
+        class_weights = (counts.sum() / (len(policy.STRATEGIES) * counts))
     losses = []
     started = time.monotonic()
     for update in range(args.updates):
         logits = head(train_matrix).float()
-        loss = torch.nn.functional.cross_entropy(logits, targets)
+        loss = torch.nn.functional.cross_entropy(logits, targets, weight=class_weights)
         if not torch.isfinite(loss):
             raise ValueError("nonfinite strategy loss")
         optimizer.zero_grad(set_to_none=True)
@@ -94,11 +101,11 @@ def worker(args) -> dict:
                          candidate=row["candidate_proposals"][0], strategy="renderer_first",
                          strategy_id=None, strategy_probabilities=[])
             base.append(first)
-            parent.append(choose(row, head(representations[row["id"]]), torch))
+            parent.append(choose(row, head(representations[row["id"]]), torch, args.factored_renderer))
         head.load_state_dict(trained_state)
     with torch.inference_mode():
         for row in dev_rows:
-            child.append(choose(row, head(representations[row["id"]]), torch))
+            child.append(choose(row, head(representations[row["id"]]), torch, args.factored_renderer))
     args.output.mkdir(parents=True, exist_ok=False)
     head_path = args.output / "strategy_head.pt"
     torch.save({"state_dict": trained_state, "strategies": list(policy.STRATEGIES),
@@ -109,7 +116,9 @@ def worker(args) -> dict:
     steps = [{"update": i + 1, "loss": value} for i, value in enumerate(losses)]
     (args.output / "steps.jsonl").write_text("".join(json.dumps(row) + "\n" for row in steps))
     summary = {
-        "algorithm": "prompt-terminal hidden-state strategy classifier with deterministic scaffold expansion; fresh float32 AdamW head; no RL",
+        "algorithm": ("balanced prompt-terminal family classifier with visible-goal-bound frozen renderer variants; "
+                      "fresh float32 AdamW head; no RL" if args.factored_renderer else
+                      "prompt-terminal hidden-state strategy classifier with deterministic scaffold expansion; fresh float32 AdamW head; no RL"),
         "packet_sha256": sha(args.packet.read_bytes()), "parent_sha256": file_sha(args.parent),
         "manifest_sha256": packet["manifest_sha256"], "strategies": list(policy.STRATEGIES),
         "train_rows": 17, "development_rows": 4, "requested_updates": args.updates,
@@ -119,11 +128,13 @@ def worker(args) -> dict:
         "prompt_tokens": prompt_tokens, "development_targets_exported": False,
         "verifier_feedback_used": False, "repair_used": False, "reward_used": False,
         "strict_verifier_runs": 0, "quality_claim": False, "proof_claim": False, "gate_claim": False,
-        "loss_first_last": [losses[0], losses[-1]], "elapsed_seconds": time.monotonic() - started,
+        "loss_first_last": [losses[0], losses[-1]], "balanced_family": args.balanced_family,
+        "factored_renderer": args.factored_renderer, "elapsed_seconds": time.monotonic() - started,
     }
     (args.output / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
     (args.output / "config.json").write_text(json.dumps({
         "seed": args.seed, "lr": args.lr, "updates": args.updates,
+        "balanced_family": args.balanced_family, "factored_renderer": args.factored_renderer,
         "model_files": model_files(args.model), "parent_sha256": file_sha(args.parent),
         "packet_sha256": sha(args.packet.read_bytes()), "max_prompt_tokens": 8192,
     }, indent=2) + "\n")
@@ -140,6 +151,8 @@ def main() -> None:
     parser.add_argument("--updates", type=int, default=16)
     parser.add_argument("--lr", type=float, default=0.02)
     parser.add_argument("--seed", type=int, default=20260917)
+    parser.add_argument("--factored-renderer", action="store_true")
+    parser.add_argument("--balanced-family", action="store_true")
     args = parser.parse_args()
     print(json.dumps(worker(args), indent=2), flush=True)
 

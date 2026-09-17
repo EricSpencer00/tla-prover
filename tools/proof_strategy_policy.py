@@ -155,6 +155,40 @@ def select_candidate(row: dict, strategy_id: int) -> dict:
     return {"candidate_index": None, "candidate": None, "strategy": strategy}
 
 
+def goal_variant(row: dict) -> str:
+    text = row.get("prompt", "") + row.get("prefix", "") + row.get("suffix", "")
+    if re.search(r"Sum\(f\)\s*=\s*0", text):
+        return "sum_zero"
+    if "Sum(f)" in text:
+        return "sum_type"
+    return "default"
+
+
+def candidate_variant(candidate: str) -> str:
+    if "SumFunctionZero" in candidate:
+        return "sum_zero"
+    if "SumFunctionNat" in candidate or "SumIsSumFunction" in candidate:
+        return "sum_type"
+    return "default"
+
+
+def select_factored_candidate(row: dict, strategy_id: int) -> dict:
+    """Select a family match, then a visible-goal-bound frozen renderer variant."""
+    strategy = STRATEGIES[strategy_id]
+    variant = goal_variant(row)
+    for index, candidate in enumerate(row["candidate_proposals"]):
+        if (row["candidate_strategies"][index] == strategy and
+                candidate_variant(candidate) == variant):
+            return {"candidate_index": index, "candidate": candidate,
+                    "strategy": strategy, "renderer_variant": variant}
+    for index, candidate_strategy in enumerate(row["candidate_strategies"]):
+        if candidate_strategy == strategy:
+            return {"candidate_index": index, "candidate": row["candidate_proposals"][index],
+                    "strategy": strategy, "renderer_variant": candidate_variant(row["candidate_proposals"][index])}
+    return {"candidate_index": None, "candidate": None,
+            "strategy": strategy, "renderer_variant": variant}
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--manifest", type=Path)

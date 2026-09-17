@@ -1,0 +1,35 @@
+#!/bin/bash
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-factored-v1
+#PBS -l select=1:system=polaris:ncpus=64:ngpus=1
+#PBS -l walltime=00:15:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+#PBS -o /home/eric-spencer/tla-factored-strategy-policy-20260917-v1/train.stdout
+#PBS -e /home/eric-spencer/tla-factored-strategy-policy-20260917-v1/train.stderr
+set -euo pipefail
+ROOT=/home/eric-spencer/tla-factored-strategy-policy-20260917-v1
+BASE=/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1
+export PYTHONPATH="$ROOT:$ROOT/tools:$BASE:$BASE/tools"
+export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false
+export HF_HOME=/grand/EVITA/eric-spencer/hf-cache PYTHONUNBUFFERED=1
+export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1
+export PATH="/grand/EVITA/eric-spencer/tools/jre21/bin:$PATH"
+export JAVA_HOME=/grand/EVITA/eric-spencer/tools/jre21
+PYTHON=/home/eric-spencer/ChatTLA/.venv/bin/python
+MODEL=/grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659
+PARENT=/home/eric-spencer/tla-structured-span-train-20260914-v3/result.7618905/policy_optimizer.pt
+PACKET="$ROOT/packet.json"
+OUT="$ROOT/result.${PBS_JOBID%%.*}"
+test -x "$PYTHON" -a -f "$MODEL/config.json" -a -f "$PACKET" -a -f "$PARENT"
+test ! -e "$OUT"
+test "$(sha256sum "$PACKET" | awk '{print $1}')" = 99e13cfb413f1d8d4e2766360be41d29bc7aaf5027e9dba1f3c10a696b952bae
+test "$(sha256sum "$PARENT" | awk '{print $1}')" = 87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511
+"$PYTHON" -m py_compile "$ROOT/tools/proof_strategy_policy.py" "$ROOT/tools/proof_strategy_policy_cuda_train.py" "$ROOT/tools/proof_strategy_policy_score.py"
+"$PYTHON" "$ROOT/tools/proof_strategy_policy.py" --packet "$PACKET" \
+  --expected-packet-sha256 99e13cfb413f1d8d4e2766360be41d29bc7aaf5027e9dba1f3c10a696b952bae >/dev/null
+"$PYTHON" -u "$ROOT/tools/proof_strategy_policy_cuda_train.py" \
+  --packet "$PACKET" --expected-packet-sha256 99e13cfb413f1d8d4e2766360be41d29bc7aaf5027e9dba1f3c10a696b952bae \
+  --model "$MODEL" --parent "$PARENT" --output "$OUT" --updates 16 --lr 0.02 \
+  --balanced-family --factored-renderer

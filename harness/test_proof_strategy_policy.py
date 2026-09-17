@@ -46,6 +46,18 @@ def test_renderer_selects_only_matching_strategy(tmp_path):
                 assert chosen["strategy"] == row["candidate_strategies"][chosen["candidate_index"]]
 
 
+def test_factored_renderer_binds_visible_sum_variant(tmp_path):
+    policy.build(MANIFEST, tmp_path / "packet")
+    packet = json.loads((tmp_path / "packet" / "packet.json").read_text())
+    rows = {row["id"]: row for row in packet["development_rows"]}
+    nat = policy.select_factored_candidate(rows["crdt-sum-type-proof"], 1)
+    zero = policy.select_factored_candidate(rows["crdt-sum-zero-proof"], 1)
+    assert nat["renderer_variant"] == "sum_type"
+    assert "SumFunctionNat" in nat["candidate"]
+    assert zero["renderer_variant"] == "sum_zero"
+    assert "SumFunctionZero" in zero["candidate"]
+
+
 def test_manifest_hash_is_frozen(tmp_path):
     altered = tmp_path / "manifest.json"
     altered.write_bytes(MANIFEST.read_bytes() + b"\n")
