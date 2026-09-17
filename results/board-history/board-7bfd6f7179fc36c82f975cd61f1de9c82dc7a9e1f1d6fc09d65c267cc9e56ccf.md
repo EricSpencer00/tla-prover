@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 938
-- Verified UTC: 2026-09-17T18:34:22Z
+- Revision: 937
+- Verified UTC: 2026-09-17T18:28:27Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: local_work
 - Active job: none
-- Observation evidence: A materially different goal-conditioned renderer-state branch is locally frozen: packet 0c2aa10e adds visible goal-overlap and compound fact-bridge events to the same answer-free 17 TRAIN/4 DEVELOPMENT contract and fixed116 renderer candidates. Focused goal/fact tests3/3, Python compilation and PBS syntax pass; no model/CUDA/optimizer activity or remote upload occurred.
-- Latest completed result: The prior autoregressive transition branch is pruned at base0/4, parent2/4, child2/4. The new goal/fact identity branch is local-only and earns no model, quality, proof-gate or promotion credit until independently scored.
-- Local work: Commits 19195c67 and 0b6d139b preserve the transition negative and add the goal-conditioned compound fact-bridge packet, worker, PBS contract and preflight. The new packet never exports DEVELOPMENT references or verifier feedback; remote admission is next.
+- Observation evidence: Independent fresh strict TLAPS scoring completed 12/12 selected-candidate checks over the fixed116-candidate renderer denominator. Base certifies0/4; parent2/4; corrected child2/4. Child equals parent and is two rows below the frozen symbolic renderer capacity; all child/parent choices are rank1 in the learned transition score but collapse to candidate index2. No verifier result was fed back to training.
+- Latest completed result: Autoregressive abstract transition branch is a complete negative for promotion: child2/4 equals parent2/4 and does not recover either Sum proof. It is pruned unchanged; no model-quality, proof-gate or promotion credit.
+- Local work: Commits 82473e3b and b0453f47 preserve the valid v3 raw artifact, independent scorer, 12 fresh strict receipts and selection metrics. v2 remains rejected for missing task ids. The next branch must bind visible goal/fact identity into renderer-owned state transitions before another GPU run.
 - External blocker: none verified
-- Next action: Upload only the exact goal/fact bundle to Polaris, run remote checksum/CLI/CPU guards, and—if fresh ownership and guards pass—run one bounded one-GPU job for at most 15 minutes. Then validate task-bound receipts and independently score selected candidates over the fixed116 renderer denominator with strict TLAPS. Do not replay the collapsed transition decoder.
+- Next action: Implement a new goal-conditioned renderer-state transition branch locally: retain the autoregressive event trace but add answer-free visible fact-family/goal-bridge state, rebuild the frozen116-candidate packet, and require focused tests plus a fresh fixed-denominator strict audit before any remote or GPU work. Do not replay the collapsed transition decoder.
 
 ## Objective and evidence rules
 
@@ -70,7 +70,6 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 | TLA-06O | Done | Repair the streaming train/eval contract | V4 job7627366 completed48 exact-reload updates and independently measured all4 raw protected streams, but candidate SANY was0/4. V5 job7627402 repaired the demonstrated prompt-state mismatch with exact matched source-prompt/module/segment/prefix prompts and lossless segment targets, passed remote CPU admission48/48 with no model/CUDA/optimizer activity, and completed48 exact-reload updates under claim136a721d. Both rows47/107 in both parent and child streams were rejected at segment0 because the learned response began with MODULE rather than the exact ---- MODULE ... ---- header; independent controls pass and all4 candidates are correctly unmeasured. This closes the matched-prefix streaming hypothesis without quality or gate credit. |
 | TLA-06P | Done | Remove assistant-facing stream metadata leakage | The CPU/tokenizer diagnostic compares frozen validation rows and raw V4/V5 protected receipts: V4 first-reply header admission is4/4, V5 is0/4, and every V5 first reply contains the synthetic MODULE/SEGMENT prefix. All six held-out chat-template suffixes and reference header tokenizations are exact, with no model weights, CUDA, optimizer, repair, feedback or SANY candidate scoring. Append-only v6 removes only MODULE:/SEGMENT: labels, preserves external segment identity and exact matched train/eval targets, passes remote SHA554/554, CPU preflight48/48 and clean queue/output/compile guards, and completes once as job7627458 under claim5c313d3d with Exit0,48 updates, exact reload and checkpoint SHA432ec161. Both restored-parent and trained-child rows47/107 reject before assembly because the first generated response lacks the canonical module header; independent audit passes2/2 references and2/2 negative controls, measures0/4 candidates and classifies4/4 candidate_unmeasured. Complete negative; no model, quality or gate credit. |
 | TLA-06AM | Done | Change from one-step action ranking to renderer-owned proof-state transitions | The autoregressive transition-sequence branch is now a complete negative. V3 job7630491 completed32/32 updates with valid task-bound base/parent/child receipts; fresh independent strict TLAPS scores are base0/4, parent2/4 and child2/4 over fixed116 candidates, exactly matching the frozen audit. Parent and child are rank1 but both collapse to candidate2; child has0/4 delta over parent and misses both Sum rows. Prune unchanged with no model, quality, proof-gate or promotion credit. Next branch adds visible goal/fact identity to renderer state. |
-| TLA-06AN | In progress | Bind visible goal and fact identity into renderer-owned transitions | Local packet 0c2aa10e adds answer-free goal-overlap and compound fact-bridge events while preserving exact17 TRAIN/4 DEVELOPMENT rows and116 frozen candidates. Focused tests3/3, Python compilation and PBS syntax pass. No model, verifier, remote or GPU execution yet. |
 
 ## Decisions
 
@@ -717,7 +716,6 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 - 2026-09-17T18:18:26Z: Fresh qstat confirms sole v3 job7630491 is R on x3006c0s13b0n0/0*64 with one GPU and00:15:00 walltime. Monitor only this job; no quality, model or gate credit before valid raw receipts and independent strict scoring.
 - 2026-09-17T18:24:41Z: Job7630491 finished F after00:03:34 with32/32 updates. All12 base/parent/child generation rows pass task-id, candidate and trace binding. Proceed to fresh strict TLAPS scoring for the selected rows only, bound to the frozen116-candidate audit; no gate claim.
 - 2026-09-17T18:28:27Z: Independent strict scoring completed12/12 fresh uncached TLAPS selections: base0/4, parent2/4, child2/4, matching the frozen116-row audit. Parent and child are rank1 in learned transition score, but both choose candidate2 for all rows; child delta over parent is0/4 and misses both Sum rows. Prune TLA-06AM and change representation to goal-conditioned visible fact identity.
-- 2026-09-17T18:34:22Z: TLA-06AN local preflight passes for packet0c2aa10e: exact17 TRAIN/4 DEVELOPMENT,116 candidates,27 transition events, goal-overlap plus compound fact-bridge state, focused tests3/3, Python compilation and PBS syntax. No model/CUDA/remote side effect or claim.
 
 ## Board maintenance
 
@@ -761,16 +759,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 938,
-  "verified_utc": "2026-09-17T18:34:22Z",
+  "revision": 937,
+  "verified_utc": "2026-09-17T18:28:27Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "local_work",
   "active_job": null,
-  "observation_evidence": "A materially different goal-conditioned renderer-state branch is locally frozen: packet 0c2aa10e adds visible goal-overlap and compound fact-bridge events to the same answer-free 17 TRAIN/4 DEVELOPMENT contract and fixed116 renderer candidates. Focused goal/fact tests3/3, Python compilation and PBS syntax pass; no model/CUDA/optimizer activity or remote upload occurred.",
-  "last_result": "The prior autoregressive transition branch is pruned at base0/4, parent2/4, child2/4. The new goal/fact identity branch is local-only and earns no model, quality, proof-gate or promotion credit until independently scored.",
-  "local_work": "Commits 19195c67 and 0b6d139b preserve the transition negative and add the goal-conditioned compound fact-bridge packet, worker, PBS contract and preflight. The new packet never exports DEVELOPMENT references or verifier feedback; remote admission is next.",
+  "observation_evidence": "Independent fresh strict TLAPS scoring completed 12/12 selected-candidate checks over the fixed116-candidate renderer denominator. Base certifies0/4; parent2/4; corrected child2/4. Child equals parent and is two rows below the frozen symbolic renderer capacity; all child/parent choices are rank1 in the learned transition score but collapse to candidate index2. No verifier result was fed back to training.",
+  "last_result": "Autoregressive abstract transition branch is a complete negative for promotion: child2/4 equals parent2/4 and does not recover either Sum proof. It is pruned unchanged; no model-quality, proof-gate or promotion credit.",
+  "local_work": "Commits 82473e3b and b0453f47 preserve the valid v3 raw artifact, independent scorer, 12 fresh strict receipts and selection metrics. v2 remains rejected for missing task ids. The next branch must bind visible goal/fact identity into renderer-owned state transitions before another GPU run.",
   "external_blocker": "",
-  "next_action": "Upload only the exact goal/fact bundle to Polaris, run remote checksum/CLI/CPU guards, and\u2014if fresh ownership and guards pass\u2014run one bounded one-GPU job for at most 15 minutes. Then validate task-bound receipts and independently score selected candidates over the fixed116 renderer denominator with strict TLAPS. Do not replay the collapsed transition decoder.",
+  "next_action": "Implement a new goal-conditioned renderer-state transition branch locally: retain the autoregressive event trace but add answer-free visible fact-family/goal-bridge state, rebuild the frozen116-candidate packet, and require focused tests plus a fresh fixed-denominator strict audit before any remote or GPU work. Do not replay the collapsed transition decoder.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -1053,12 +1051,6 @@ These snapshots preserve old statements, including mistakes. They are not curren
       "state": "Done",
       "task": "Change from one-step action ranking to renderer-owned proof-state transitions",
       "evidence": "The autoregressive transition-sequence branch is now a complete negative. V3 job7630491 completed32/32 updates with valid task-bound base/parent/child receipts; fresh independent strict TLAPS scores are base0/4, parent2/4 and child2/4 over fixed116 candidates, exactly matching the frozen audit. Parent and child are rank1 but both collapse to candidate2; child has0/4 delta over parent and misses both Sum rows. Prune unchanged with no model, quality, proof-gate or promotion credit. Next branch adds visible goal/fact identity to renderer state."
-    },
-    {
-      "id": "TLA-06AN",
-      "state": "In progress",
-      "task": "Bind visible goal and fact identity into renderer-owned transitions",
-      "evidence": "Local packet 0c2aa10e adds answer-free goal-overlap and compound fact-bridge events while preserving exact17 TRAIN/4 DEVELOPMENT rows and116 frozen candidates. Focused tests3/3, Python compilation and PBS syntax pass. No model, verifier, remote or GPU execution yet."
     }
   ],
   "decisions": [
@@ -1704,8 +1696,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "2026-09-17T18:17:13Z: Append-only v3 upload is hash-exact across14 files. Remote packet CLI, dependency py_compile, PBS syntax, fixed116-candidate denominator and output-namespace guards pass. Final live empty-queue/output check is required before the single corrected v3 submission.",
     "2026-09-17T18:18:26Z: Fresh qstat confirms sole v3 job7630491 is R on x3006c0s13b0n0/0*64 with one GPU and00:15:00 walltime. Monitor only this job; no quality, model or gate credit before valid raw receipts and independent strict scoring.",
     "2026-09-17T18:24:41Z: Job7630491 finished F after00:03:34 with32/32 updates. All12 base/parent/child generation rows pass task-id, candidate and trace binding. Proceed to fresh strict TLAPS scoring for the selected rows only, bound to the frozen116-candidate audit; no gate claim.",
-    "2026-09-17T18:28:27Z: Independent strict scoring completed12/12 fresh uncached TLAPS selections: base0/4, parent2/4, child2/4, matching the frozen116-row audit. Parent and child are rank1 in learned transition score, but both choose candidate2 for all rows; child delta over parent is0/4 and misses both Sum rows. Prune TLA-06AM and change representation to goal-conditioned visible fact identity.",
-    "2026-09-17T18:34:22Z: TLA-06AN local preflight passes for packet0c2aa10e: exact17 TRAIN/4 DEVELOPMENT,116 candidates,27 transition events, goal-overlap plus compound fact-bridge state, focused tests3/3, Python compilation and PBS syntax. No model/CUDA/remote side effect or claim."
+    "2026-09-17T18:28:27Z: Independent strict scoring completed12/12 fresh uncached TLAPS selections: base0/4, parent2/4, child2/4, matching the frozen116-row audit. Parent and child are rank1 in learned transition score, but both choose candidate2 for all rows; child delta over parent is0/4 and misses both Sum rows. Prune TLA-06AM and change representation to goal-conditioned visible fact identity."
   ],
   "history": [
     "2026-09-17T05:04:20Z: Canonical byte-sequence job7629178 completed PBS F/Exit0 after00:04:04 with48 updates, exact reload checkpoint d9706d1a and both protected prompt-only receipts. Independent pinned-SANY audit ignores worker labels, passes references2/2, and finds0/4 canonical frames and0/4 candidate SANY passes. Prune this exact frame SFT objective; do not replay unchanged.",
@@ -3599,14 +3590,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "harness/test_proof_state_transition_score.py",
     "results/runs/proof-state-transition-20260917-v3/independent-score-v1/summary.json",
     "results/runs/proof-state-transition-20260917-v3/independent-score-v1/rows.jsonl",
-    "results/runs/proof-state-transition-20260917-v3/independent-score-v1/selection-metrics.json",
-    "tools/proof_goal_fact_transition.py",
-    "tools/proof_goal_fact_transition_cuda_train.py",
-    "tools/proof_goal_fact_transition_polaris.pbs",
-    "harness/test_goal_fact_transition.py",
-    "results/runs/proof-goal-fact-transition-20260917-v1/packet.json",
-    "results/runs/proof-goal-fact-transition-20260917-v1/preflight.json",
-    "results/runs/proof-goal-fact-transition-20260917-v1/summary.json"
+    "results/runs/proof-state-transition-20260917-v3/independent-score-v1/selection-metrics.json"
   ]
 }
 -->
