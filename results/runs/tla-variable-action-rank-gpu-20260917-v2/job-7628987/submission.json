@@ -1,0 +1,23 @@
+{
+  "job_id": "7628987.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "submitted_utc": "2026-09-17T03:18:09Z",
+  "host": "polaris-login-04",
+  "pbs_state_at_submission": "Q",
+  "queue": "debug",
+  "job_name": "tla-varact-v2",
+  "resources": {
+    "ncpus": 64,
+    "ngpus": 1,
+    "nodect": 1,
+    "walltime": "00:15:00"
+  },
+  "stage": "tla-variable-action-rank-gpu-20260917-v2",
+  "mode": "inference_only",
+  "parameter_updates": 0,
+  "training_executed": false,
+  "protected_feedback": false,
+  "tlaps_in_worker": false,
+  "quality_claim": false,
+  "gate_claim": false,
+  "unique_claim": "results/prover-submit-claims/82346746a67020f0ddc4968550654c049707e27396d478bf597be30aef8c49d4.json"
+}
