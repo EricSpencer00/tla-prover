@@ -1,0 +1,155 @@
+File "./Simple.tla", line 154, characters 1-2:
+Error: Expecting a proof step but found a BY leaf proof
+
+ tlapm ending abnormally with Failure("Proof.Parser")
+Raised at Stdlib.failwith in file "stdlib.ml", line 29, characters 17-33
+Called from Tlapm_lib__P_parser.to_steps in file "src/proof/p_parser.ml", line 145, characters 33-52
+Called from Tlapm_lib__P_parser.to_steps in file "src/proof/p_parser.ml", line 145, characters 33-52
+Called from Tlapm_lib__P_parser.to_steps in file "src/proof/p_parser.ml", line 145, characters 33-52
+Called from Tlapm_lib__P_parser.to_proof in file "src/proof/p_parser.ml", line 84, characters 27-57
+Called from Tlapm_lib__P_parser.toplevel in file "src/proof/p_parser.ml", line 230, characters 8-39
+Called from Tlapm_lib__Pco.Make.(<$>).(fun) in file "src/pars/pco.ml", line 427, characters 31-36
+Called from Tlapm_lib__Pco.Make.(>>+).(fun) in file "src/pars/pco.ml", line 377, characters 30-46
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(>>+).(fun) in file "src/pars/pco.ml", line 374, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(>>+).(fun) in file "src/pars/pco.ml", line 374, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(<|>).(fun) in file "src/pars/pco.ml", line 387, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.withloc.(fun) in file "src/pars/pco.ml", line 445, characters 16-27
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(>>+).(fun) in file "src/pars/pco.ml", line 374, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(>>+).(fun) in file "src/pars/pco.ml", line 374, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(>>+).(fun) in file "src/pars/pco.ml", line 374, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(>>+).(fun) in file "src/pars/pco.ml", line 374, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(<|>).(fun) in file "src/pars/pco.ml", line 387, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(>>+).(fun) in file "src/pars/pco.ml", line 374, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(>>+).(fun) in file "src/pars/pco.ml", line 374, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(<|>).(fun) in file "src/pars/pco.ml", line 387, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(>>+).(fun) in file "src/pars/pco.ml", line 374, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(>>+).(fun) in file "src/pars/pco.ml", line 374, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(<|>).(fun) in file "src/pars/pco.ml", line 387, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(>>+).(fun) in file "src/pars/pco.ml", line 374, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(>>+).(fun) in file "src/pars/pco.ml", line 374, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(<|>).(fun) in file "src/pars/pco.ml", line 387, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(>>+).(fun) in file "src/pars/pco.ml", line 374, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(>>+).(fun) in file "src/pars/pco.ml", line 374, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(<|>).(fun) in file "src/pars/pco.ml", line 387, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(>>+).(fun) in file "src/pars/pco.ml", line 374, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(>>+).(fun) in file "src/pars/pco.ml", line 374, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(<|>).(fun) in file "src/pars/pco.ml", line 387, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(>>+).(fun) in file "src/pars/pco.ml", line 374, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(>>+).(fun) in file "src/pars/pco.ml", line 374, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(<|>).(fun) in file "src/pars/pco.ml", line 387, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(>>+).(fun) in file "src/pars/pco.ml", line 374, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(>>+).(fun) in file "src/pars/pco.ml", line 374, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(<|>).(fun) in file "src/pars/pco.ml", line 387, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(>>+).(fun) in file "src/pars/pco.ml", line 374, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(>>+).(fun) in file "src/pars/pco.ml", line 374, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(<|>).(fun) in file "src/pars/pco.ml", line 387, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(>>+).(fun) in file "src/pars/pco.ml", line 374, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(>>+).(fun) in file "src/pars/pco.ml", line 374, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(<|>).(fun) in file "src/pars/pco.ml", line 387, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(>>+).(fun) in file "src/pars/pco.ml", line 374, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(>>+).(fun) in file "src/pars/pco.ml", line 374, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(<|>).(fun) in file "src/pars/pco.ml", line 387, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(>>+).(fun) in file "src/pars/pco.ml", line 374, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(>>+).(fun) in file "src/pars/pco.ml", line 374, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(<|>).(fun) in file "src/pars/pco.ml", line 387, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(>>+).(fun) in file "src/pars/pco.ml", line 374, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(>>+).(fun) in file "src/pars/pco.ml", line 374, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(<|>).(fun) in file "src/pars/pco.ml", line 387, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(>>+).(fun) in file "src/pars/pco.ml", line 374, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(>>+).(fun) in file "src/pars/pco.ml", line 374, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(<|>).(fun) in file "src/pars/pco.ml", line 387, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(>>+).(fun) in file "src/pars/pco.ml", line 374, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(>>+).(fun) in file "src/pars/pco.ml", line 374, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(<|>).(fun) in file "src/pars/pco.ml", line 387, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(>>+).(fun) in file "src/pars/pco.ml", line 374, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(>>+).(fun) in file "src/pars/pco.ml", line 374, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(<|>).(fun) in file "src/pars/pco.ml", line 387, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(>>+).(fun) in file "src/pars/pco.ml", line 374, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(>>+).(fun) in file "src/pars/pco.ml", line 374, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(<|>).(fun) in file "src/pars/pco.ml", line 387, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(>>+).(fun) in file "src/pars/pco.ml", line 374, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(>>+).(fun) in file "src/pars/pco.ml", line 374, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(<|>).(fun) in file "src/pars/pco.ml", line 387, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.commit.(fun) in file "src/pars/pco.ml", line 403, characters 12-23
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(>>+).(fun) in file "src/pars/pco.ml", line 374, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(>>+).(fun) in file "src/pars/pco.ml", line 374, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(>>+).(fun) in file "src/pars/pco.ml", line 374, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(>>+).(fun) in file "src/pars/pco.ml", line 374, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.withloc.(fun) in file "src/pars/pco.ml", line 445, characters 16-27
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.(>>+).(fun) in file "src/pars/pco.ml", line 374, characters 17-28
+Called from Tlapm_lib__Pco.Make.exec in file "src/pars/pco.ml" (inlined), line 243, characters 26-32
+Called from Tlapm_lib__Pco.Make.execute in file "src/pars/pco.ml", line 246, characters 14-25
+Called from Tlapm_lib__M_save.really_parse_file in file "src/module/m_save.ml", line 84, characters 14-61
+Called from Tlapm_lib__M_save.clocking in file "src/module/m_save.ml", line 24, characters 18-22
+Called from Tlapm_lib.read_new_modules.(fun) in file "src/tlapm_lib.ml", line 549, characters 8-57
+Called from Stdlib__List.fold_left in file "list.ml", line 123, characters 24-34
+Called from Tlapm_lib.main in file "src/tlapm_lib.ml", line 608, characters 20-43
+Called from Tlapm_lib.init in file "src/tlapm_lib.ml", line 641, characters 8-59
+

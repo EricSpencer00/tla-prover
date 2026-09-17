@@ -1,0 +1,29 @@
+{
+  "certified": false,
+  "status": "verifier_reject",
+  "proved": 0,
+  "total": 0,
+  "output": "File \"./exercise_1_1_2a.tla\", line 5, characters 32-34:\nError: Operator \"aBY\" not found\n tlapm ending abnormally with Failure(\"Expr.Anon: 4\")\nRaised at Stdlib.failwith in file \"stdlib.ml\", line 29, characters 17-33\nCalled from Tlapm_lib__E_anon.anon#expr in file \"src/expr/e_anon.ml\", line 308, characters 22-63\nCalled from Tlapm_lib__E_anon.anon#expr in file \"src/expr/e_anon.ml\", line 308, characters 22-63\nCalled from Stdlib__List.map in file \"list.ml\", line 87, characters 15-19\nCalled from Tlapm_lib__E_anon.anon_sg#expr in file \"src/expr/e_anon.ml\", line 186, characters 27-56\nCalled from Tlapm_lib__E_anon.anon#expr in file \"src/expr/e_anon.ml\", line 308, characters 22-63\nCalled from Stdlib__List.rev_map.rmap_f in file \"list.ml\", line 105, characters 22-25\nCalled from Tlapm_lib__Ext.List.map in file \"src/util/ext.ml\", line 48, characters 22-37\nCalled from Tlapm_lib__E_visit.map#expr in file \"src/expr/e_visit.ml\", line 297, characters 33-60\nCalled from Tlapm_lib__E_anon.anon#expr in file \"src/expr/e_anon.ml\", line 308, characters 22-63\nCalled from Tlapm_lib__E_visit.map#expr in file \"src/expr/e_visit.ml\", line 312, characters 22-37\nCalled from Tlapm_lib__E_anon.anon#expr in file \"src/expr/e_anon.ml\", line 308, characters 22-63\nCalled from Tlapm_lib__E_visit.map#sequent in file \"src/expr/e_visit.ml\", line 387, characters 38-61\nCalled from Tlapm_lib__M_elab.normalize.spin in file \"src/module/m_elab.ml\", line 1237, characters 28-57\nCalled from Tlapm_lib__M_elab.normalize in file \"src/module/m_elab.ml\", line 1274, characters 12-66\nCalled from Tlapm_lib.process_module in file \"src/tlapm_lib.ml\", line 325, characters 29-68\nCalled from Tlapm_lib.main.f in file \"src/tlapm_lib.ml\", line 621, characters 23-43\nCalled from Stdlib__List.fold_left in file \"list.ml\", line 123, characters 24-34\nCalled from Tlapm_lib.main in file \"src/tlapm_lib.ml\", line 624, characters 13-40\nCalled from Tlapm_lib.init in file \"src/tlapm_lib.ml\", line 641, characters 8-59\n\n",
+  "seconds": 0.10837674140930176,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/exercise_1_1_2a/2/proof-s12s_j5p",
+  "reason": "",
+  "sha256": "3d30072361ff6c8c8370155f7796146dc09f68a07567378b76135abd10d1a056",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/exercise_1_1_2a/2/proof-s12s_j5p/exercise_1_1_2a.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/exercise_1_1_2a/2/proof-s12s_j5p/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "exercise_1_1_2a.tla"
+  ],
+  "returncode": 3,
+  "timed_out": false
+}

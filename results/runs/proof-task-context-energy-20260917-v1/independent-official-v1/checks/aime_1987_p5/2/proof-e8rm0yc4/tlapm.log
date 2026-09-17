@@ -1,0 +1,25 @@
+File "./aime_1987_p5.tla", line 5, characters 91-95:
+Error: Operator "588BY" not found
+ tlapm ending abnormally with Failure("Expr.Anon: 4")
+Raised at Stdlib.failwith in file "stdlib.ml", line 29, characters 17-33
+Called from Tlapm_lib__E_anon.anon#expr in file "src/expr/e_anon.ml", line 308, characters 22-63
+Called from Tlapm_lib__E_anon.anon#expr in file "src/expr/e_anon.ml", line 308, characters 22-63
+Called from Stdlib__List.rev_map.rmap_f in file "list.ml", line 105, characters 22-25
+Called from Tlapm_lib__Ext.List.map in file "src/util/ext.ml", line 48, characters 22-37
+Called from Tlapm_lib__E_visit.map#expr in file "src/expr/e_visit.ml", line 297, characters 33-60
+Called from Tlapm_lib__E_anon.anon#expr in file "src/expr/e_anon.ml", line 308, characters 22-63
+Called from Stdlib__List.rev_map.rmap_f in file "list.ml", line 105, characters 22-25
+Called from Tlapm_lib__Ext.List.map in file "src/util/ext.ml", line 48, characters 22-37
+Called from Tlapm_lib__E_visit.map#expr in file "src/expr/e_visit.ml", line 297, characters 33-60
+Called from Tlapm_lib__E_anon.anon#expr in file "src/expr/e_anon.ml", line 308, characters 22-63
+Called from Tlapm_lib__E_visit.map#expr in file "src/expr/e_visit.ml", line 312, characters 22-37
+Called from Tlapm_lib__E_anon.anon#expr in file "src/expr/e_anon.ml", line 308, characters 22-63
+Called from Tlapm_lib__E_visit.map#sequent in file "src/expr/e_visit.ml", line 387, characters 38-61
+Called from Tlapm_lib__M_elab.normalize.spin in file "src/module/m_elab.ml", line 1237, characters 28-57
+Called from Tlapm_lib__M_elab.normalize in file "src/module/m_elab.ml", line 1274, characters 12-66
+Called from Tlapm_lib.process_module in file "src/tlapm_lib.ml", line 325, characters 29-68
+Called from Tlapm_lib.main.f in file "src/tlapm_lib.ml", line 621, characters 23-43
+Called from Stdlib__List.fold_left in file "list.ml", line 123, characters 24-34
+Called from Tlapm_lib.main in file "src/tlapm_lib.ml", line 624, characters 13-40
+Called from Tlapm_lib.init in file "src/tlapm_lib.ml", line 641, characters 8-59
+

@@ -1,0 +1,1 @@
+{"prefix": "---- MODULE mathd_numbertheory_541 ----\nEXTENDS TLAPS, Integers\n\nTHEOREM mathd_numbertheory_541 ==\n    \\A m, n \\in Nat :\n        (m > 1 /\\ n > 1 /\\ m * n = 2005) => m + n = 406\n", "fragment": "BY SMT", "suffix": "\n====\n", "theorem_name": "mathd_numbertheory_541"}

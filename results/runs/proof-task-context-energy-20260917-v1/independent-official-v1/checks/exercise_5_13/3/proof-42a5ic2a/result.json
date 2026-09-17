@@ -1,0 +1,29 @@
+{
+  "certified": false,
+  "status": "timeout",
+  "proved": 0,
+  "total": 0,
+  "output": "",
+  "seconds": 5.0044121742248535,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/exercise_5_13/3/proof-42a5ic2a",
+  "reason": "",
+  "sha256": "c6bbe08f1029617615c7765dc964403df07b8de410c3165e48bde41023248ff8",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/exercise_5_13/3/proof-42a5ic2a/exercise_5_13.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/exercise_5_13/3/proof-42a5ic2a/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "exercise_5_13.tla"
+  ],
+  "returncode": -1,
+  "timed_out": true
+}

@@ -1,0 +1,1 @@
+{"prefix": "---- MODULE mathd_numbertheory_582 ----\nEXTENDS TLAPS, Integers\n\nDivides(a, b) == \\E k \\in Nat : b = a * k\n\nTHEOREM mathd_numbertheory_582 ==\n    \\A n \\in Nat \\ {0} :\n        Divides(3, n)\n        => (n + 4 + (n + 6) + (n + 8)) % 9 = 0", "fragment": "BY SMT, SetExtensionality", "suffix": "\n====\n", "theorem_name": "mathd_numbertheory_582"}

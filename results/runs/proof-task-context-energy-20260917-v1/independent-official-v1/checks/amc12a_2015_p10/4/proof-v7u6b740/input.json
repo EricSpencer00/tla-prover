@@ -1,0 +1,1 @@
+{"prefix": "----- MODULE amc12a_2015_p10 -----\nEXTENDS Integers, TLAPS\n\nTHEOREM amc12a_2015_p10 ==\n    \\A x, y \\in Int :\n        (y > 0) /\\ (x > y) /\\ (x + y + x * y = 80) => x = 26", "fragment": "BY SMT, SetExtensionality", "suffix": "\n====\n", "theorem_name": "amc12a_2015_p10"}

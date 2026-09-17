@@ -1,0 +1,1 @@
+{"prefix": "----- MODULE aime_1994_p3 -----\nEXTENDS Integers, TLAPS\n\nTHEOREM aime_1994_p3 ==\n    \\A x \\in Int : \\A f \\in [Int -> Int] : (f[x] + f[x - 1] = x * x) /\\ (f[19] = 94) => (f[94] % 1000 = 561)", "fragment": "BY SMT", "suffix": "\n===============================================================\n", "theorem_name": "aime_1994_p3"}

@@ -1,0 +1,29 @@
+{
+  "certified": false,
+  "status": "timeout",
+  "proved": 0,
+  "total": 0,
+  "output": "",
+  "seconds": 5.004981994628906,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/induction_ineq_nsqlefactn/4/proof-hu7ml7jr",
+  "reason": "",
+  "sha256": "5f6afd3b2832f330edd89d8760e3b6c3e99803c027bdd4f3508f67331f49e773",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/induction_ineq_nsqlefactn/4/proof-hu7ml7jr/induction_ineq_nsqlefactn.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/induction_ineq_nsqlefactn/4/proof-hu7ml7jr/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "induction_ineq_nsqlefactn.tla"
+  ],
+  "returncode": -1,
+  "timed_out": true
+}

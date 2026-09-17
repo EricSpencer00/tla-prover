@@ -1,0 +1,1 @@
+{"prefix": "----- MODULE mathd_algebra_125 -----\nEXTENDS TLAPS, Integers\n\nTHEOREM mathd_algebra_125 ==\n    \\A x, y \\in Nat :\n        (x > 0) /\\ (y > 0) /\\ (y = 5 * x) /\\ ((x - 3) + (y - 3) = 30) => x = 6", "fragment": "BY SMT, SetExtensionality, NoSetContainsEverything", "suffix": "\n====\n", "theorem_name": "mathd_algebra_125"}

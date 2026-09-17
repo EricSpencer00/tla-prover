@@ -1,0 +1,29 @@
+{
+  "certified": false,
+  "status": "verifier_reject",
+  "proved": 0,
+  "total": 0,
+  "output": "Zenon error: exhausted search space without finding a proof\n(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/1_Consensus/2/proof-9m89vl05/.tlacache/1_Consensus.tlaps/1_Consensus.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/1_Consensus/2/proof-9m89vl05/.tlacache/1_Consensus.tlaps/fingerprints\" *)\nFile \"./1_Consensus.tla\", line 39, characters 52-58:\n[ERROR]: Could not prove or check:\n           ASSUME NEW CONSTANT Value,\n                  NEW VARIABLE chosen,\n                  Fin == IsFiniteSet(Value)\n           PROVE  IndAuto /\\ Next => IndAuto'\nFile \"./1_Consensus.tla\", line 1, character 1 to line 40, character 77:\n[ERROR]: 1/1 obligation failed.\nThere were backend errors processing module `\"1_Consensus\"`.\n",
+  "seconds": 2.8159663677215576,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/1_Consensus/2/proof-9m89vl05",
+  "reason": "",
+  "sha256": "7d8113b1e9b8b3ebea55d3f174b58e7beb688b9a1b136365a94ebe5037dd3084",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/1_Consensus/2/proof-9m89vl05/1_Consensus.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/1_Consensus/2/proof-9m89vl05/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "1_Consensus.tla"
+  ],
+  "returncode": 10,
+  "timed_out": false
+}

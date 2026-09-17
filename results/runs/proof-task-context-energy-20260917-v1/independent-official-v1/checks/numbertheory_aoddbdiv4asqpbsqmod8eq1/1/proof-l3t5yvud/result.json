@@ -1,0 +1,29 @@
+{
+  "certified": false,
+  "status": "timeout",
+  "proved": 0,
+  "total": 0,
+  "output": "",
+  "seconds": 5.004426956176758,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/numbertheory_aoddbdiv4asqpbsqmod8eq1/1/proof-l3t5yvud",
+  "reason": "",
+  "sha256": "ce0b6efb06abd1c96c7716ab7e1a69184a037df85b3df5b13fad94b1096c3226",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/numbertheory_aoddbdiv4asqpbsqmod8eq1/1/proof-l3t5yvud/numbertheory_aoddbdiv4asqpbsqmod8eq1.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/numbertheory_aoddbdiv4asqpbsqmod8eq1/1/proof-l3t5yvud/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "numbertheory_aoddbdiv4asqpbsqmod8eq1.tla"
+  ],
+  "returncode": -1,
+  "timed_out": true
+}

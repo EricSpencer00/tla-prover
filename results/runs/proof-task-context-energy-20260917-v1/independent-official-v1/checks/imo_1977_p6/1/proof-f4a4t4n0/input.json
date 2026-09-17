@@ -1,0 +1,1 @@
+{"prefix": "----- MODULE imo_1977_p6 -----\nEXTENDS Naturals, TLAPS\n\nTHEOREM imo_1977_p6 ==\n    \\A f \\in [Nat -> Nat] :\n        (\\A n \\in Nat : (f[n] > 0)) /\\\n        (\\A n \\in Nat : (n > 0) => (f[f[n]] < f[n + 1]))\n        => (\\A n \\in Nat : (n > 0) => (f[n] = n))", "fragment": "BY SetExtensionality", "suffix": "\n====\n", "theorem_name": "imo_1977_p6"}

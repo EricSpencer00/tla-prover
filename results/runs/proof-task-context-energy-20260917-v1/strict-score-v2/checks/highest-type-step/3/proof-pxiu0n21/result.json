@@ -1,0 +1,29 @@
+{
+  "certified": false,
+  "status": "timeout",
+  "proved": 0,
+  "total": 0,
+  "output": "",
+  "seconds": 5.00543999671936,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/strict-score-v2/checks/highest-type-step/3/proof-pxiu0n21",
+  "reason": "",
+  "sha256": "0c3edbe775690096537e391bc981e32670c21ba4b8e6a6711f1113e7f8100ea0",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/strict-score-v2/checks/highest-type-step/3/proof-pxiu0n21/FindHighest.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/strict-score-v2/checks/highest-type-step/3/proof-pxiu0n21/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "FindHighest.tla"
+  ],
+  "returncode": -1,
+  "timed_out": true
+}

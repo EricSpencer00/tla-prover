@@ -1,0 +1,1 @@
+{"prefix": "----- MODULE exercise_3_5 -----\nEXTENDS TLAPS, Integers\n\nTHEOREM exercise_3_5 ==\n  ~ (\\E x, y \\in Int : 7 * x*x*x + 2 = y*y*y)", "fragment": "BY NoSetContainsEverything", "suffix": "\n====\n", "theorem_name": "exercise_3_5"}

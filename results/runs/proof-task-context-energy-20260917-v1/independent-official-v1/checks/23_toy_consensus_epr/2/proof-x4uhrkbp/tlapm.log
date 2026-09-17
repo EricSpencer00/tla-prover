@@ -1,0 +1,22 @@
+Zenon error: exhausted search space without finding a proof
+(* created new "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/23_toy_consensus_epr/2/proof-x4uhrkbp/.tlacache/23_toy_consensus_epr.tlaps/23_toy_consensus_epr.thy" *)
+(* fingerprints written in "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/23_toy_consensus_epr/2/proof-x4uhrkbp/.tlacache/23_toy_consensus_epr.tlaps/fingerprints" *)
+File "./23_toy_consensus_epr.tla", line 74, characters 53-59:
+[ERROR]: Could not prove or check:
+           ASSUME NEW CONSTANT Node,
+                  NEW CONSTANT Quorum,
+                  NEW CONSTANT Value,
+                  NEW VARIABLE voted,
+                  NEW VARIABLE vote,
+                  NEW VARIABLE decided,
+                  QuorumType == Quorum \subseteq SUBSET Node,
+                  NodeFinite == IsFiniteSet(Node),
+                  QuorumsAreNonEmpty == \A Q \in Quorum : Q # {},
+                  QuorumsExist == Quorum # {},
+                  ValueNonEmpty == Value # {},
+                  NodeNonEmpty == Node # {},
+                  QuorumsIntersect == \A Q1, Q2 \in Quorum : Q1 \cap Q2 # {}
+           PROVE  IndAuto /\ Next => IndAuto'
+File "./23_toy_consensus_epr.tla", line 1, character 1 to line 75, character 4:
+[ERROR]: 1/1 obligation failed.
+There were backend errors processing module `"23_toy_consensus_epr"`.

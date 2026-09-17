@@ -1,0 +1,15 @@
+(* created new "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/27_firewall/3/proof-jpj7wswn/.tlacache/27_firewall.tlaps/27_firewall.thy" *)
+(* fingerprints written in "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/27_firewall/3/proof-jpj7wswn/.tlacache/27_firewall.tlaps/fingerprints" *)
+File "./27_firewall.tla", line 69, characters 53-54:
+[ERROR]: Could not prove or check:
+           ASSUME NEW CONSTANT Node,
+                  NEW VARIABLE internal,
+                  NEW VARIABLE sent,
+                  NEW VARIABLE allowed_in,
+                  NodeNonEmpty == Node # {},
+                  NodeFinite == IsFiniteSet(Node),
+                  SMT 
+           PROVE  IndAuto /\ Next => IndAuto'
+File "./27_firewall.tla", line 1, character 1 to line 70, character 4:
+[ERROR]: 1/2 obligations failed.
+There were backend errors processing module `"27_firewall"`.

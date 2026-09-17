@@ -1,0 +1,12 @@
+Zenon error: exhausted search space without finding a proof
+(* created new "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/1_Consensus/2/proof-9m89vl05/.tlacache/1_Consensus.tlaps/1_Consensus.thy" *)
+(* fingerprints written in "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/1_Consensus/2/proof-9m89vl05/.tlacache/1_Consensus.tlaps/fingerprints" *)
+File "./1_Consensus.tla", line 39, characters 52-58:
+[ERROR]: Could not prove or check:
+           ASSUME NEW CONSTANT Value,
+                  NEW VARIABLE chosen,
+                  Fin == IsFiniteSet(Value)
+           PROVE  IndAuto /\ Next => IndAuto'
+File "./1_Consensus.tla", line 1, character 1 to line 40, character 77:
+[ERROR]: 1/1 obligation failed.
+There were backend errors processing module `"1_Consensus"`.

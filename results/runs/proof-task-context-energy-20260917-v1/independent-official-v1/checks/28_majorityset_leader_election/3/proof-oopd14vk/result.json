@@ -1,0 +1,29 @@
+{
+  "certified": false,
+  "status": "verifier_reject",
+  "proved": 0,
+  "total": 0,
+  "output": "(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/28_majorityset_leader_election/3/proof-oopd14vk/.tlacache/28_majorityset_leader_election.tlaps/28_majorityset_leader_election.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/28_majorityset_leader_election/3/proof-oopd14vk/.tlacache/28_majorityset_leader_election.tlaps/fingerprints\" *)\nFile \"./28_majorityset_leader_election.tla\", line 85, characters 53-54:\n[ERROR]: Could not prove or check:\n           ASSUME NEW CONSTANT Node,\n                  NEW VARIABLE vote,\n                  NEW VARIABLE leader,\n                  NEW VARIABLE voters,\n                  MajorityIntersect ==\n                    \\A m1, m2 \\in Majority : m1 \\cap m2 # {},\n                  MajorityNonEmpty ==\n                    Majority # {} /\\ (\\A s \\in Majority : s # {}),\n                  NodeFinite == IsFiniteSet(Node) /\\ Node # {},\n                  NatTimesTwoIneq ==\n                    \\A a, b \\in Nat : a >= b => a * 2 >= b * 2,\n                  NatIneqTrans ==\n                    \\A a, b, c \\in Nat : a >= b /\\ b > c => a > c,\n                  SMT \n           PROVE  IndAuto /\\ Next => IndAuto'\nFile \"./28_majorityset_leader_election.tla\", line 1, character 1 to line 86, character 4:\n[ERROR]: 1/2 obligations failed.\nThere were backend errors processing module `\"28_majorityset_leader_election\"`.\n",
+  "seconds": 0.4784688949584961,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/28_majorityset_leader_election/3/proof-oopd14vk",
+  "reason": "",
+  "sha256": "d8e8a01ef525a2f1d63bbf4d8488d5e4ab8501a1f3226ef53b2df48d45c691be",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/28_majorityset_leader_election/3/proof-oopd14vk/28_majorityset_leader_election.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/28_majorityset_leader_election/3/proof-oopd14vk/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "28_majorityset_leader_election.tla"
+  ],
+  "returncode": 10,
+  "timed_out": false
+}

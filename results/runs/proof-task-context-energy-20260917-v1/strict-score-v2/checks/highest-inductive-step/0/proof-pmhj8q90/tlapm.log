@@ -1,0 +1,13 @@
+(* created new "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/strict-score-v2/checks/highest-inductive-step/0/proof-pmhj8q90/.tlacache/FindHighest.tlaps/FindHighest.thy" *)
+(* fingerprints written in "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/strict-score-v2/checks/highest-inductive-step/0/proof-pmhj8q90/.tlacache/FindHighest.tlaps/fingerprints" *)
+File "./FindHighest.tla", line 114, characters 7-8:
+[ERROR]: Could not prove or check:
+           ASSUME NEW VARIABLE f,
+                  NEW VARIABLE h,
+                  NEW VARIABLE i,
+                  NEW VARIABLE pc,
+                  SMT 
+           PROVE  InductiveInvariant /\ TypeOK /\ lb => InductiveInvariant'
+File "./FindHighest.tla", line 1, character 1 to line 119, character 77:
+[ERROR]: 1/26 obligations failed.
+There were backend errors processing module `"FindHighest"`.

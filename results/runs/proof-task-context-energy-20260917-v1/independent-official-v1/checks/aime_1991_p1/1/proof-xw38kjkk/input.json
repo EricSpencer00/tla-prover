@@ -1,0 +1,1 @@
+{"prefix": "---- MODULE aime_1991_p1 ----\nEXTENDS Naturals, TLAPS\n\nTHEOREM aime_1991_p1 ==\n    \\A x, y \\in Nat \\ {0} :\n        (x * y + x + y = 71) /\\ (x * x * y + x * y * y = 880) => (x * x + y * y = 146)", "fragment": "BY SetExtensionality", "suffix": "\n====\n", "theorem_name": "aime_1991_p1"}

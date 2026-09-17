@@ -1,0 +1,1 @@
+{"prefix": "----- MODULE mathd_numbertheory_22 -----\n\nEXTENDS Naturals, TLAPS\n\nTHEOREM mathd_numbertheory_22 ==\n    \\A b \\in Nat :\n        b < 10 /\\\n        (\\E n \\in Nat : n * n = 10 * b + 6) =>\n        (b = 1) \\/ (b = 3)", "fragment": "BY SetExtensionality", "suffix": "\n====\n", "theorem_name": "mathd_numbertheory_22"}

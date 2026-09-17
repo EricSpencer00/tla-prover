@@ -1,0 +1,29 @@
+{
+  "certified": true,
+  "status": "pass",
+  "proved": 2,
+  "total": 2,
+  "output": "(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/amc12a_2002_p6/2/proof-frpt7vdy/.tlacache/amc12a_2002_p6.tlaps/amc12a_2002_p6.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/amc12a_2002_p6/2/proof-frpt7vdy/.tlacache/amc12a_2002_p6.tlaps/fingerprints\" *)\nFile \"./amc12a_2002_p6.tla\", line 1, character 1 to line 7, character 4:\n[INFO]: All 2 obligations proved.\n",
+  "seconds": 1.7853710651397705,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/amc12a_2002_p6/2/proof-frpt7vdy",
+  "reason": "",
+  "sha256": "d375c3ac99e5032394fa94636a118b291b72600eb131358fa479ff6b995081c3",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/amc12a_2002_p6/2/proof-frpt7vdy/amc12a_2002_p6.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/amc12a_2002_p6/2/proof-frpt7vdy/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "amc12a_2002_p6.tla"
+  ],
+  "returncode": 0,
+  "timed_out": false
+}

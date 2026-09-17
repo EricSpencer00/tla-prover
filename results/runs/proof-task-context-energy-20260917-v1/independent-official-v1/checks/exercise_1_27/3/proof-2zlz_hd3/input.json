@@ -1,0 +1,1 @@
+{"prefix": "---- MODULE exercise_1_27 ----\nEXTENDS Naturals, TLAPS\n\nOdd(n) == n % 2 = 1\nDivides(a, b) == \\E k \\in Nat : b = a * k\n\nTHEOREM exercise_1_27 ==\n  \\A n \\in Nat :\n    Odd(n) => Divides(8, (n * n - 1))\n", "fragment": "BY SMT", "suffix": "\n====\n", "theorem_name": "exercise_1_27"}

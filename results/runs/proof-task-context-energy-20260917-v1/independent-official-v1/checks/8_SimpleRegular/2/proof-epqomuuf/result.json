@@ -1,0 +1,29 @@
+{
+  "certified": false,
+  "status": "verifier_reject",
+  "proved": 0,
+  "total": 0,
+  "output": "Zenon error: exhausted search space without finding a proof\n(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/8_SimpleRegular/2/proof-epqomuuf/.tlacache/8_SimpleRegular.tlaps/8_SimpleRegular.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/8_SimpleRegular/2/proof-epqomuuf/.tlacache/8_SimpleRegular.tlaps/fingerprints\" *)\nFile \"./8_SimpleRegular.tla\", line 145, characters 53-59:\n[ERROR]: Could not prove or check:\n           ASSUME NEW CONSTANT N,\n                  NAssump == N \\in Nat /\\ N > 0,\n                  NEW VARIABLE x,\n                  NEW VARIABLE y,\n                  NEW VARIABLE pc\n           PROVE  IndAuto /\\ Next => IndAuto'\nFile \"./8_SimpleRegular.tla\", line 1, character 1 to line 146, character 38:\n[ERROR]: 1/1 obligation failed.\nThere were backend errors processing module `\"8_SimpleRegular\"`.\n",
+  "seconds": 2.1764118671417236,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/8_SimpleRegular/2/proof-epqomuuf",
+  "reason": "",
+  "sha256": "e1bf5c70cbdede2d85b3f581ec89ae3a631643d2cec015e6dff5e6f0e7a380a0",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/8_SimpleRegular/2/proof-epqomuuf/8_SimpleRegular.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/8_SimpleRegular/2/proof-epqomuuf/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "8_SimpleRegular.tla"
+  ],
+  "returncode": 10,
+  "timed_out": false
+}

@@ -1,0 +1,29 @@
+{
+  "certified": true,
+  "status": "pass",
+  "proved": 2,
+  "total": 2,
+  "output": "(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/mathd_numbertheory_34/1/proof-wzbfijwg/.tlacache/mathd_numbertheory_34.tlaps/mathd_numbertheory_34.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/mathd_numbertheory_34/1/proof-wzbfijwg/.tlacache/mathd_numbertheory_34.tlaps/fingerprints\" *)\nFile \"./mathd_numbertheory_34.tla\", line 1, character 1 to line 7, character 4:\n[INFO]: All 2 obligations proved.\n",
+  "seconds": 0.39571094512939453,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/mathd_numbertheory_34/1/proof-wzbfijwg",
+  "reason": "",
+  "sha256": "cc9da892951e3d1bc2490b43eab63db4ff1ae817631f131b1836098f0023ed83",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/mathd_numbertheory_34/1/proof-wzbfijwg/mathd_numbertheory_34.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/mathd_numbertheory_34/1/proof-wzbfijwg/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "mathd_numbertheory_34.tla"
+  ],
+  "returncode": 0,
+  "timed_out": false
+}

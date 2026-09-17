@@ -1,0 +1,1 @@
+{"prefix": "----- MODULE mathd_numbertheory_1124 -----\nEXTENDS TLAPS, Integers\n\nDivides(a, b) == \\E k \\in Nat : b = a * k\n\nTHEOREM mathd_numbertheory_1124 ==\n  \\A n \\in Nat :\n    n <= 9 /\\ Divides(18, 3740 + n)\n    => (n = 4)", "fragment": "BY SMT DEF Divides", "suffix": "\n====\n", "theorem_name": "mathd_numbertheory_1124"}

@@ -1,0 +1,12 @@
+File "./mathd_numbertheory_483.tla", line 8, character 28
+Unexpected ,
+File "<unknown>":
+Error: Could not parse "./mathd_numbertheory_483.tla" successfully.
+ tlapm ending abnormally with Failure("Module.Parser.parse_file")
+Raised at Stdlib.failwith in file "stdlib.ml", line 29, characters 17-33
+Called from Tlapm_lib__M_save.clocking in file "src/module/m_save.ml", line 24, characters 18-22
+Called from Tlapm_lib.read_new_modules.(fun) in file "src/tlapm_lib.ml", line 549, characters 8-57
+Called from Stdlib__List.fold_left in file "list.ml", line 123, characters 24-34
+Called from Tlapm_lib.main in file "src/tlapm_lib.ml", line 608, characters 20-43
+Called from Tlapm_lib.init in file "src/tlapm_lib.ml", line 641, characters 8-59
+

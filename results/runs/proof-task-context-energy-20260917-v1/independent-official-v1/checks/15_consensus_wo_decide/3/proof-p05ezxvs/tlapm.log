@@ -1,0 +1,20 @@
+(* created new "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/15_consensus_wo_decide/3/proof-p05ezxvs/.tlacache/15_consensus_wo_decide.tlaps/15_consensus_wo_decide.thy" *)
+(* fingerprints written in "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/15_consensus_wo_decide/3/proof-p05ezxvs/.tlacache/15_consensus_wo_decide.tlaps/fingerprints" *)
+File "./15_consensus_wo_decide.tla", line 157, characters 1-2:
+[ERROR]: Could not prove or check:
+           ASSUME NEW CONSTANT Node,
+                  NEW CONSTANT Quorums,
+                  NEW VARIABLE vote_request_msg,
+                  NEW VARIABLE voted,
+                  NEW VARIABLE vote_msg,
+                  NEW VARIABLE votes,
+                  NEW VARIABLE leader,
+                  NEW VARIABLE voting_quorum,
+                  QuorumsAreNodePowersets == Quorums \subseteq SUBSET Node,
+                  EmptyNotInQuorums == {} \notin Quorums,
+                  QuorumsOverlap == \A Q1, Q2 \in Quorums : Q1 \cap Q2 # {},
+                  SMT 
+           PROVE  IndAuto /\ Next => IndAuto'
+File "./15_consensus_wo_decide.tla", line 1, character 1 to line 158, character 4:
+[ERROR]: 1/2 obligations failed.
+There were backend errors processing module `"15_consensus_wo_decide"`.

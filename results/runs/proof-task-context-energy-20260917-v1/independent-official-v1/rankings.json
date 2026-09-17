@@ -1,0 +1,2550 @@
+{
+  "10_lockserv": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY DEF vars, SendLock, RecvLock, RecvGrant, Unlock, RecvUnlock, Next, Init, TypeOK, NextUnchanged, Mutex, Inv151_1_0_def, Inv162_1_1_def, Inv146_1_2_def, Inv164_1_3_def, Inv149_1_4_def, Inv177_1_5_def, Inv96_2_6_def, Inv128_2_0_def, IndAuto",
+      "energy": -2.17266246921996
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "OBVIOUS",
+      "energy": -3.1886569867467274
+    }
+  ],
+  "11_TwoPhase": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY DEF vars, Message, TypeOK, Init, TMRcvPrepared, TMCommit, TMAbort, RMPrepare, RMChooseToAbort, RMRcvCommitMsg, RMRcvAbortMsg, Next, TPSpec, NextUnchanged, Symmetry, Test, TCConsistent, Inv276_1_0_def, Inv45_1_1_def, Inv79_1_2_def, Inv349_1_3_def, Inv318_1_4_def, Inv331_1_5_def, Inv334_1_6_def, Inv344_1_7_def, Inv1863_2_8_def, IndAuto",
+      "energy": -2.479545622479997
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "OBVIOUS",
+      "energy": -3.5227279449538322
+    }
+  ],
+  "13_simple_decentralized_lock": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, Send, Recv, Next, NextUnchanged, Init, TypeOK, Inv, IndHuman, IndHumanB, Inv531_1_0_def, Inv4437_2_1_def, Inv4494_2_2_def, IndAuto",
+      "energy": -1.6160154419337733
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, Send, Recv, Next, NextUnchanged, Init, TypeOK, Inv, IndHuman, IndHumanB, Inv531_1_0_def, Inv4437_2_1_def, Inv4494_2_2_def, IndAuto",
+      "energy": -1.6321571423729917
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -6.593140935344586
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -8.379061311816784
+    }
+  ],
+  "14_two_phase_commit": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY DEF vars, Vote1, Vote2, Fail, Go1, Go2, Commit, Abort, Next, Init, NextUnchanged, TypeOK, Safety, Symmetry, Inv703_1_0_def, Inv1049_1_1_def, Inv648_1_2_def, Inv699_1_3_def, Inv346_1_4_def, Inv313_1_5_def, Inv588_1_0_def, Inv591_1_1_def, Inv2455_2_2_def, Inv192_1_0_def, IndAuto",
+      "energy": -1.2954333947403545
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "OBVIOUS",
+      "energy": -2.976579055147055
+    }
+  ],
+  "15_consensus_wo_decide": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF SendRequestVote, SendVote, RecvVote, ChooseVotingQuorum, BecomeLeader, Init, Next, TypeOK, Safety, NoLeader, Symmetry, NextUnchanged, A1, A2, A3, A4, IndHuman, Ind, Inv434_1_0_def, Inv306_1_1_def, Inv426_1_2_def, Inv550_1_3_def, Inv6986_2_4_def, Inv538_1_0_def, Inv1559_2_1_def, IndAuto",
+      "energy": -2.4930642996336454
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF SendRequestVote, SendVote, RecvVote, ChooseVotingQuorum, BecomeLeader, Init, Next, TypeOK, Safety, NoLeader, Symmetry, NextUnchanged, A1, A2, A3, A4, IndHuman, Ind, Inv434_1_0_def, Inv306_1_1_def, Inv426_1_2_def, Inv550_1_3_def, Inv6986_2_4_def, Inv538_1_0_def, Inv1559_2_1_def, IndAuto",
+      "energy": -2.5093862168525973
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -6.914264191277738
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -8.810435203477809
+    }
+  ],
+  "16_consensus_forall": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, SendRequestVote, SendVote, RecvVote, ChooseVotingQuorum, BecomeLeader, Decide, Init, SendRequestVoteAction, SendVoteAction, RecvVoteAction, ChooseVotingQuorumAction, BecomeLeaderAction, DecideAction, Next, TypeOK, Safety, NoLeader, Symmetry, NextUnchanged, Inv358_1_0_def, Inv119_1_1_def, Inv759_1_2_def, Inv680_1_3_def, Inv7155_2_4_def, Inv7039_2_0_def, Inv2245_2_1_def, IndAuto",
+      "energy": -1.9537180374944263
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, SendRequestVote, SendVote, RecvVote, ChooseVotingQuorum, BecomeLeader, Decide, Init, SendRequestVoteAction, SendVoteAction, RecvVoteAction, ChooseVotingQuorumAction, BecomeLeaderAction, DecideAction, Next, TypeOK, Safety, NoLeader, Symmetry, NextUnchanged, Inv358_1_0_def, Inv119_1_1_def, Inv759_1_2_def, Inv680_1_3_def, Inv7155_2_4_def, Inv7039_2_0_def, Inv2245_2_1_def, IndAuto",
+      "energy": -1.9688808900056274
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -7.431593955896352
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -9.371342849478452
+    }
+  ],
+  "19_sharded_kv_no_lost_keys": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, Reshard, RecvTransferMsg, Put, Next, Init, TypeOK, Safety, Symmetry, NextUnchanged, Inv45_1_0_def, IndAuto",
+      "energy": -2.035207394776867
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, Reshard, RecvTransferMsg, Put, Next, Init, TypeOK, Safety, Symmetry, NextUnchanged, Inv45_1_0_def, IndAuto",
+      "energy": -2.0555243688753864
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -6.8337755992402975
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -8.735399136030331
+    }
+  ],
+  "1_Consensus": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY DEF TypeOK, Init, Next, Inv, IndAuto",
+      "energy": 0.39229696323744256
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "OBVIOUS",
+      "energy": -2.5420895175041256
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY FS_Subset, FS_EmptySet",
+      "energy": -4.423483613286717
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY FS_Subset",
+      "energy": -5.213493510096235
+    }
+  ],
+  "20_naive_consensus": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, VotedFor, CastVote, CollectVotes, LearnValue, Init, Next, NextUnchanged, TypeOK, Safety, Symmetry, Inv255_1_0_def, Inv1230_2_1_def, Inv217_2_2_def, IndAuto",
+      "energy": -1.6160154419337733
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, VotedFor, CastVote, CollectVotes, LearnValue, Init, Next, NextUnchanged, TypeOK, Safety, Symmetry, Inv255_1_0_def, Inv1230_2_1_def, Inv217_2_2_def, IndAuto",
+      "energy": -1.6321571423729917
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -6.593140935344586
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -8.379061311816784
+    }
+  ],
+  "21_client_server_ae": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY DEF vars, ResponseMatched, NewRequest, Respond, ReceiveResponse, Next, Init, TypeOK, NextUnchanged, Safety, Symmetry, Inv93_1_0_def, IndAuto",
+      "energy": -1.4501188207336115
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "OBVIOUS",
+      "energy": -2.908230930954417
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY FS_Subset, FS_EmptySet",
+      "energy": -5.021352210101609
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY FS_Subset",
+      "energy": -5.913956464822366
+    }
+  ],
+  "22_simple_election": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, DidNotPromise, ChosenAt, Send1a, Send1b, Decide, Next, Init, NextUnchanged, TypeOK, Safety, Inv219_1_0_def, Inv136_1_1_def, Inv200_2_2_def, IndAuto",
+      "energy": -2.4930642996336454
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, DidNotPromise, ChosenAt, Send1a, Send1b, Decide, Next, Init, NextUnchanged, TypeOK, Safety, Inv219_1_0_def, Inv136_1_1_def, Inv200_2_2_def, IndAuto",
+      "energy": -2.5093862168525973
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -6.914264191277738
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -8.810435203477809
+    }
+  ],
+  "23_toy_consensus_epr": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY DEF vars, ChosenAt, CastVote, Decide, Init, Next, NextUnchanged, TypeOK, Safety, Symmetry, Inv220_1_0_def, Inv155_1_1_def, Inv201_2_2_def, IndAuto",
+      "energy": -0.7549280678933844
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "OBVIOUS",
+      "energy": -3.2273833238554963
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY FS_Subset, FS_EmptySet",
+      "energy": -5.457880068774731
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY FS_Subset",
+      "energy": -6.421977334076354
+    }
+  ],
+  "24_toy_consensus": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY DEF vars, Quorums, ChosenAt, CastVote, Decide, Init, Next, TypeOK, NextUnchanged, Inv, Symmetry, Inv78_1_0_def, IndAuto",
+      "energy": -3.2193580364848087
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "OBVIOUS",
+      "energy": -3.651539187054841
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY FS_Subset, FS_EmptySet",
+      "energy": -6.10575332663872
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY FS_Subset",
+      "energy": -7.2254979267037065
+    }
+  ],
+  "25_client_server_db_ae": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, NoneWithId, ResponseMatched, NewRequest, ServerProcessRequest, DbProcessRequest, ServerProcessDbResponse, ReceiveResponse, Next, Init, TypeOK, Safety, Symmetry, NextUnchanged, Test, Inv273_1_0_def, Inv209_1_1_def, Inv3082_2_2_def, Inv380_1_0_def, Inv388_1_1_def, Inv2868_2_2_def, Inv873_2_3_def, IndAuto",
+      "energy": -1.6160154419337733
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, NoneWithId, ResponseMatched, NewRequest, ServerProcessRequest, DbProcessRequest, ServerProcessDbResponse, ReceiveResponse, Next, Init, TypeOK, Safety, Symmetry, NextUnchanged, Test, Inv273_1_0_def, Inv209_1_1_def, Inv3082_2_2_def, Inv380_1_0_def, Inv388_1_1_def, Inv2868_2_2_def, Inv873_2_3_def, IndAuto",
+      "energy": -1.6321571423729917
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -6.593140935344586
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -8.379061311816784
+    }
+  ],
+  "27_firewall": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, SendFromInternal, SendToInternal, Init, Next, Inv, NextUnchanged, TypeOK, Symmetry, Inv285_1_0_def, Inv201_1_1_def, Inv370_1_2_def, Inv3144_2_3_def, IndAuto",
+      "energy": -2.4930642996336454
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, SendFromInternal, SendToInternal, Init, Next, Inv, NextUnchanged, TypeOK, Symmetry, Inv285_1_0_def, Inv201_1_1_def, Inv370_1_2_def, Inv3144_2_3_def, IndAuto",
+      "energy": -2.5093862168525973
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -6.914264191277738
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -8.810435203477809
+    }
+  ],
+  "28_majorityset_leader_election": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, Majority, DidNotVote, Voting, ReceiveVote, BecomeLeader, Next, EmptySet, Init, TypeOK, Safety, Symmetry, NextUnchanged, Inv172_1_0_def, Inv396_1_1_def, Inv1537_2_2_def, IndAuto",
+      "energy": -4.3892353118337155
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, Majority, DidNotVote, Voting, ReceiveVote, BecomeLeader, Next, EmptySet, Init, TypeOK, Safety, Symmetry, NextUnchanged, Inv172_1_0_def, Inv396_1_1_def, Inv1537_2_2_def, IndAuto",
+      "energy": -4.405557229052668
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -6.914264191277738
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NatTimesTwoIneq, NatIneqTrans, SetExtensionality",
+      "energy": -7.132647476029012
+    }
+  ],
+  "29_consensus_epr": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, SendRequestVote, SendVote, RecvVote, BecomeLeader, Decide, Init, Next, Symmetry, TypeOK, Safety, SafetyWithTypeOK, NextUnchanged, Inv119_1_0_def, Inv152_1_1_def, Inv693_1_2_def, Inv164_1_3_def, Inv622_1_4_def, Inv4302_2_0_def, Inv5288_2_0_def, IndAuto",
+      "energy": -1.3258871336275873
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, SendRequestVote, SendVote, RecvVote, BecomeLeader, Decide, Init, Next, Symmetry, TypeOK, Safety, SafetyWithTypeOK, NextUnchanged, Inv119_1_0_def, Inv152_1_1_def, Inv693_1_2_def, Inv164_1_3_def, Inv622_1_4_def, Inv4302_2_0_def, Inv5288_2_0_def, IndAuto",
+      "energy": -1.3444244397126295
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -7.3667147313819825
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -9.315996943073447
+    }
+  ],
+  "2_TCommit": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY DEF TCTypeOK, Init, canCommit, notCommitted, Prepare, Decide, Next, TCSpec, TCConsistent, Symmetry, IndAuto",
+      "energy": -1.4418293137204778
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "OBVIOUS",
+      "energy": -3.0948989660593047
+    }
+  ],
+  "30_MongoLoglessDynamicRaft": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, Quorums, QuorumsAt, Empty, IsNewerConfig, IsNewerOrEqualConfig, NewerConfig, NewerOrEqualConfig, CanVoteForConfig, QuorumsOverlap, ConfigIsCommitted, UpdateTermsExpr, UpdateTerms, BecomeLeader, Reconfig, SendConfig, Init, ReconfigAction, SendConfigAction, BecomeLeaderAction, UpdateTermsAction, Next, Spec, CV, ConfigDisabled, OnePrimaryPerTerm, Safety, SeqOf, BoundedSeq, NatFinite, PositiveNat, NumRandSubsets, TypeOK, StateConstraint, NextUnchanged, Symmetry, Test, Inv2973_1_1_def, Inv1758_1_0_def, Inv3915_1_1_def, Inv3246_1_2_def, Inv866_1_0_def, IndAuto, ActiveConfigSet, Inv862_1_0_def, Inv846_1_0_def, Inv6243_1_1_def, Inv648_1_0_def, Inv1925_1_1_def, Inv716_1_1_def, Inv852_1_2_def",
+      "energy": -0.8084162569905774
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, Quorums, QuorumsAt, Empty, IsNewerConfig, IsNewerOrEqualConfig, NewerConfig, NewerOrEqualConfig, CanVoteForConfig, QuorumsOverlap, ConfigIsCommitted, UpdateTermsExpr, UpdateTerms, BecomeLeader, Reconfig, SendConfig, Init, ReconfigAction, SendConfigAction, BecomeLeaderAction, UpdateTermsAction, Next, Spec, CV, ConfigDisabled, OnePrimaryPerTerm, Safety, SeqOf, BoundedSeq, NatFinite, PositiveNat, NumRandSubsets, TypeOK, StateConstraint, NextUnchanged, Symmetry, Test, Inv2973_1_1_def, Inv1758_1_0_def, Inv3915_1_1_def, Inv3246_1_2_def, Inv866_1_0_def, IndAuto, ActiveConfigSet, Inv862_1_0_def, Inv846_1_0_def, Inv6243_1_1_def, Inv648_1_0_def, Inv1925_1_1_def, Inv716_1_1_def, Inv852_1_2_def",
+      "energy": -0.8365816711764665
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -7.795801755179211
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -10.00303890139153
+    }
+  ],
+  "3_lockserver": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, Connect, Disconnect, Init, Next, NextUnchanged, TypeOK, Inv, Inv10_1_0_def, IndAuto",
+      "energy": -1.36232504589255
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, Connect, Disconnect, Init, Next, NextUnchanged, TypeOK, Inv, Inv10_1_0_def, IndAuto",
+      "energy": -1.3666650211252547
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -7.447203323419423
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -9.391033010520925
+    }
+  ],
+  "4_quorum_leader_election": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY DEF vars, Quorums, Vote, BecomeLeader, Init, Next, Inv, TypeOK, NextUnchanged, Inv55_1_0_def, IndAuto",
+      "energy": -1.1782952943957787
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "OBVIOUS",
+      "energy": -3.371113131262531
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY FS_Subset, FS_EmptySet",
+      "energy": -5.724373622694014
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY FS_Subset",
+      "energy": -6.736994856263122
+    }
+  ],
+  "5_toy_consensus_forall": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY DEF vars, Quorums, CastVote, Decide, Init, Next, NextUnchanged, Inv, TypeOK, Symmetry, Inv150_1_0_def, Inv65_1_1_def, IndAuto",
+      "energy": -2.291416689174331
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "OBVIOUS",
+      "energy": -3.4394612554551687
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY FS_Subset, FS_EmptySet",
+      "energy": -5.781816697706725
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY FS_Subset",
+      "energy": -6.823737630390031
+    }
+  ],
+  "6_Simple": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, NextUnchanged, PCorrect, TypeOK, Inv31_1_0_def, IndAuto",
+      "energy": -3.2822213412624066
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "OBVIOUS",
+      "energy": -3.871344468193606
+    }
+  ],
+  "7_lockserv_automaton": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY DEF vars, Lock, Unlock, RecvLock, RecvGrant, RecvUnlock, Next, Init, NextUnchanged, TypeOK, Mutex, Inv151_1_0_def, Inv60_1_1_def, Inv147_1_2_def, Inv169_1_3_def, Inv58_1_4_def, Inv64_1_5_def, Inv96_2_6_def, Inv134_2_7_def, IndAuto",
+      "energy": -2.17266246921996
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "OBVIOUS",
+      "energy": -3.1886569867467274
+    }
+  ],
+  "8_SimpleRegular": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY DEF vars, ProcSet, Init, a1, a2, b, proc, Next, Spec, Termination, NextUnchanged, PCorrect, TypeOK, Inv417_1_0_def, Inv921_1_1_def, Inv924_1_2_def, IndAuto",
+      "energy": -3.2822213412624066
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "OBVIOUS",
+      "energy": -3.871344468193606
+    }
+  ],
+  "9_sharded_kv": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, Reshard, RecvTransferMsg, Put, Next, Init, TypeOK, Safety, Symmetry, NextUnchanged, Inv238_1_0_def, Inv114_1_1_def, Inv1376_2_2_def, Inv1336_2_0_def, Inv1476_2_1_def, IndAuto",
+      "energy": -2.4930642996336454
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, Reshard, RecvTransferMsg, Put, Next, Init, TypeOK, Safety, Symmetry, NextUnchanged, Inv238_1_0_def, Inv114_1_1_def, Inv1376_2_2_def, Inv1336_2_0_def, Inv1476_2_1_def, IndAuto",
+      "energy": -2.5093862168525973
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -6.914264191277738
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -8.810435203477809
+    }
+  ],
+  "aimeII_2001_p3": [
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.888720275337292
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.932563190108024
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -6.281683326407068
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -7.127900529533285
+    }
+  ],
+  "aime_1984_p7": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -4.2492670686431016
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY NoSetContainsEverything",
+      "energy": -4.273719331597809
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything, SetExtensionality",
+      "energy": -4.472211258402654
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "energy": -5.11649262180797
+    }
+  ],
+  "aime_1987_p5": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.177511208596593
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.200312313054658
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.444774041294258
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.200633004065576
+    }
+  ],
+  "aime_1991_p1": [
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.5727556826908575
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.6763191586892425
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.958236802125731
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.751872544277264
+    }
+  ],
+  "aime_1994_p3": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.4152334254894114
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.467442180210213
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.762968991873096
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.566992883532643
+    }
+  ],
+  "algebra_xmysqpymzsqpzmxsqeqxyz_xpypzp6dvdx3y3z3": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Divides",
+      "energy": -4.179686129768015
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.498634464529745
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Divides",
+      "energy": -5.528169543256086
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.632006895726601
+    }
+  ],
+  "amc12_2000_p1": [
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.5727556826908575
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.6763191586892425
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.958236802125731
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.751872544277264
+    }
+  ],
+  "amc12_2000_p12": [
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.305625815535302
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.438596941796426
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.6400418515468935
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.3855126648101965
+    }
+  ],
+  "amc12_2000_p6": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF IsPrime",
+      "energy": -4.21917327263894
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF IsPrime",
+      "energy": -5.68812134818927
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.997442414622395
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -7.18324643593829
+    }
+  ],
+  "amc12_2001_p2": [
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.5727556826908575
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.6763191586892425
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.958236802125731
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.751872544277264
+    }
+  ],
+  "amc12_2001_p21": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.4152334254894114
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.467442180210213
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.762968991873096
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.566992883532643
+    }
+  ],
+  "amc12a_2002_p6": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -4.508423547064778
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY NoSetContainsEverything",
+      "energy": -4.637571579275457
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything, SetExtensionality",
+      "energy": -4.785276688051214
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "energy": -5.482498551810471
+    }
+  ],
+  "amc12a_2003_p5": [
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.5727556826908575
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.6763191586892425
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.958236802125731
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.751872544277264
+    }
+  ],
+  "amc12a_2015_p10": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.4152334254894114
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.467442180210213
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.762968991873096
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.566992883532643
+    }
+  ],
+  "amc12a_2021_p3": [
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.5727556826908575
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.6763191586892425
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.958236802125731
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.751872544277264
+    }
+  ],
+  "amc12a_2021_p8": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Even, Odd",
+      "energy": -2.981981449940696
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Even, Odd",
+      "energy": -3.001407282634865
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -3.8711418468256795
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "energy": -4.53003379664732
+    }
+  ],
+  "amc12b_2002_p11": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF IsPrime",
+      "energy": -4.145060499968887
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF IsPrime",
+      "energy": -5.551468412713028
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.7363566814225635
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.998366775193668
+    }
+  ],
+  "amc12b_2002_p2": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.177511208596593
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.200312313054658
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.444774041294258
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.200633004065576
+    }
+  ],
+  "amc12b_2002_p7": [
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.5727556826908575
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.6763191586892425
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.958236802125731
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.751872544277264
+    }
+  ],
+  "exercise_11_13_3": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Divides, IsPrime",
+      "energy": -4.622902415490822
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Divides, IsPrime",
+      "energy": -4.655791946415521
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.607962300816377
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "energy": -6.659659750216761
+    }
+  ],
+  "exercise_18_4": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Cube",
+      "energy": -4.145060499968887
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Cube",
+      "energy": -5.551468412713028
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.7363566814225635
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.998366775193668
+    }
+  ],
+  "exercise_1_1_2a": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -3.9495780742388082
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY NoSetContainsEverything",
+      "energy": -3.9686814158062256
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything, SetExtensionality",
+      "energy": -4.113531513193031
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "energy": -4.684764780682377
+    }
+  ],
+  "exercise_1_1_3": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -4.534822620220842
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY NoSetContainsEverything",
+      "energy": -4.6136746340395565
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything, SetExtensionality",
+      "energy": -4.70974349741565
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "energy": -5.392427630504805
+    }
+  ],
+  "exercise_1_1_4": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -4.534822620220842
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY NoSetContainsEverything",
+      "energy": -4.6136746340395565
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything, SetExtensionality",
+      "energy": -4.70974349741565
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "energy": -5.392427630504805
+    }
+  ],
+  "exercise_1_27": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Odd, Divides",
+      "energy": -4.810677326991792
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Odd, Divides",
+      "energy": -4.841527998087342
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.759720197729578
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.816886556471223
+    }
+  ],
+  "exercise_2000_a2": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.346876567616544
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY NoSetContainsEverything",
+      "energy": -5.460609970716215
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything, SetExtensionality",
+      "energy": -5.657541246864531
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "energy": -6.474780089472141
+    }
+  ],
+  "exercise_3_10": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF IsPrime",
+      "energy": -4.145060499968887
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, FactorialDefConclusion, FactorialDef, DownwardNatInduction",
+      "energy": -4.8216563131354455
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF IsPrime",
+      "energy": -5.551468412713028
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.7363566814225635
+    }
+  ],
+  "exercise_3_4": [
+    {
+      "candidate_index": 2,
+      "candidate": "BY NoSetContainsEverything",
+      "energy": -4.211914337725879
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -4.21369936428769
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything, SetExtensionality",
+      "energy": -4.356193273136306
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "energy": -4.961053738843779
+    }
+  ],
+  "exercise_3_5": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -3.6934571526661824
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY NoSetContainsEverything",
+      "energy": -3.742748587567586
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything, SetExtensionality",
+      "energy": -3.8478600332351087
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "energy": -4.4101681480966555
+    }
+  ],
+  "exercise_5_13": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF IsPrime, Divides",
+      "energy": -4.62084989949191
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF IsPrime, Divides",
+      "energy": -4.6696208536718
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.7363566814225635
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.998366775193668
+    }
+  ],
+  "exercise_5_28": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF IsPrime",
+      "energy": -4.145060499968887
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF IsPrime",
+      "energy": -5.551468412713028
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.7363566814225635
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.998366775193668
+    }
+  ],
+  "imo_1977_p5": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF ABS",
+      "energy": -3.7803120442439733
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF ABS",
+      "energy": -5.107108011222252
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.4152334254894114
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.566992883532643
+    }
+  ],
+  "imo_1977_p6": [
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.5727556826908575
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.6763191586892425
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.958236802125731
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.751872544277264
+    }
+  ],
+  "imo_1981_p6": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.4152334254894114
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.467442180210213
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.762968991873096
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.566992883532643
+    }
+  ],
+  "imo_1982_p1": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.4152334254894114
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.467442180210213
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.762968991873096
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.566992883532643
+    }
+  ],
+  "imo_1987_p4": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -4.270701330171962
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY NoSetContainsEverything",
+      "energy": -4.370441712119902
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything, SetExtensionality",
+      "energy": -4.467081737472377
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "energy": -5.1161386723434035
+    }
+  ],
+  "imo_1992_p1": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Divides",
+      "energy": -4.145060499968887
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Divides",
+      "energy": -5.551468412713028
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.7363566814225635
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.998366775193668
+    }
+  ],
+  "imo_1993_p5": [
+    {
+      "candidate_index": 2,
+      "candidate": "BY NoSetContainsEverything",
+      "energy": -5.565923473196859
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.607962300816377
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything, SetExtensionality",
+      "energy": -5.852809057117167
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "energy": -6.659659750216761
+    }
+  ],
+  "imo_2001_p6": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF IsPrime",
+      "energy": -4.145060499968887
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF IsPrime",
+      "energy": -5.551468412713028
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.7363566814225635
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.998366775193668
+    }
+  ],
+  "imo_2019_p1": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.498634464529745
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.602072609368333
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.798324265573601
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.632006895726601
+    }
+  ],
+  "induction_divisibility_3divnto3m2n": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Divides",
+      "energy": -3.725323960643945
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -4.534822620220842
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Divides",
+      "energy": -4.838787584015147
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "energy": -5.392427630504805
+    }
+  ],
+  "induction_ineq_nsqlefactn": [
+    {
+      "candidate_index": 2,
+      "candidate": "BY FactorialDefConclusion, FactorialDef, DownwardNatInduction",
+      "energy": -3.2451332565028648
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, FactorialDefConclusion, FactorialDef, DownwardNatInduction",
+      "energy": -4.2454539475137825
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, FactorialDefConclusion, FactorialDef, DownwardNatInduction, GeneralNatInduction",
+      "energy": -4.2454539475137825
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.177511208596593
+    }
+  ],
+  "mathd_algebra_123": [
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.5727556826908575
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.6763191586892425
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.958236802125731
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.751872544277264
+    }
+  ],
+  "mathd_algebra_125": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.4152334254894114
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.467442180210213
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.762968991873096
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.566992883532643
+    }
+  ],
+  "mathd_algebra_144": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.4152334254894114
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.467442180210213
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.762968991873096
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.566992883532643
+    }
+  ],
+  "mathd_algebra_296": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF ABS",
+      "energy": -2.8607771859359836
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF ABS",
+      "energy": -3.827619955128545
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -3.946665627235915
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "energy": -4.694786835935899
+    }
+  ],
+  "mathd_algebra_392": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Even",
+      "energy": -3.7803120442439733
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Even",
+      "energy": -5.107108011222252
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.4152334254894114
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.566992883532643
+    }
+  ],
+  "mathd_algebra_69": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.4152334254894114
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.467442180210213
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.762968991873096
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.566992883532643
+    }
+  ],
+  "mathd_algebra_76": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Even, Odd",
+      "energy": -4.256101443766996
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Even, Odd",
+      "energy": -4.303084119562705
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.4152334254894114
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.566992883532643
+    }
+  ],
+  "mathd_numbertheory_110": [
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.5727556826908575
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.6763191586892425
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.958236802125731
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.751872544277264
+    }
+  ],
+  "mathd_numbertheory_1124": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Divides",
+      "energy": -4.145060499968887
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Divides",
+      "energy": -5.551468412713028
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.7363566814225635
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.998366775193668
+    }
+  ],
+  "mathd_numbertheory_136": [
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.305625815535302
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.438596941796426
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.6400418515468935
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.3855126648101965
+    }
+  ],
+  "mathd_numbertheory_150": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Divides, IsPrime",
+      "energy": -4.62084989949191
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Divides, IsPrime",
+      "energy": -4.6696208536718
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.7363566814225635
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.998366775193668
+    }
+  ],
+  "mathd_numbertheory_185": [
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.305625815535302
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.438596941796426
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.6400418515468935
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.3855126648101965
+    }
+  ],
+  "mathd_numbertheory_22": [
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.974515979004533
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.997442414622395
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -6.311787026405074
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -7.18324643593829
+    }
+  ],
+  "mathd_numbertheory_234": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.4152334254894114
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.467442180210213
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.762968991873096
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.566992883532643
+    }
+  ],
+  "mathd_numbertheory_247": [
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.305625815535302
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.438596941796426
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.6400418515468935
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.3855126648101965
+    }
+  ],
+  "mathd_numbertheory_284": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.4152334254894114
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.467442180210213
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.762968991873096
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.566992883532643
+    }
+  ],
+  "mathd_numbertheory_293": [
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.5727556826908575
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.6763191586892425
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.958236802125731
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.751872544277264
+    }
+  ],
+  "mathd_numbertheory_296": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.7363566814225635
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.869202476523888
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -6.116519216152438
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.998366775193668
+    }
+  ],
+  "mathd_numbertheory_301": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.177511208596593
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.200312313054658
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.444774041294258
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.200633004065576
+    }
+  ],
+  "mathd_numbertheory_314": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.4152334254894114
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.467442180210213
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.762968991873096
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.566992883532643
+    }
+  ],
+  "mathd_numbertheory_320": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Divides",
+      "energy": -4.145060499968887
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Divides",
+      "energy": -5.551468412713028
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.7363566814225635
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.998366775193668
+    }
+  ],
+  "mathd_numbertheory_326": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.177511208596593
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.200312313054658
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.444774041294258
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.200633004065576
+    }
+  ],
+  "mathd_numbertheory_33": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.4152334254894114
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.467442180210213
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.762968991873096
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.566992883532643
+    }
+  ],
+  "mathd_numbertheory_335": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.177511208596593
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.200312313054658
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.444774041294258
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.200633004065576
+    }
+  ],
+  "mathd_numbertheory_34": [
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.5727556826908575
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.6763191586892425
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.958236802125731
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.751872544277264
+    }
+  ],
+  "mathd_numbertheory_370": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.177511208596593
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.200312313054658
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.444774041294258
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.200633004065576
+    }
+  ],
+  "mathd_numbertheory_405": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.4152334254894114
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.467442180210213
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.762968991873096
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.566992883532643
+    }
+  ],
+  "mathd_numbertheory_412": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.4152334254894114
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.467442180210213
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.762968991873096
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.566992883532643
+    }
+  ],
+  "mathd_numbertheory_430": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.4152334254894114
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.467442180210213
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.762968991873096
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.566992883532643
+    }
+  ],
+  "mathd_numbertheory_457": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Divides",
+      "energy": -4.145060499968887
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, FactorialDefConclusion, FactorialDef, DownwardNatInduction",
+      "energy": -4.8216563131354455
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Divides",
+      "energy": -5.551468412713028
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.7363566814225635
+    }
+  ],
+  "mathd_numbertheory_458": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.177511208596593
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.200312313054658
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.444774041294258
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.200633004065576
+    }
+  ],
+  "mathd_numbertheory_48": [
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.5727556826908575
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.6763191586892425
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.958236802125731
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.751872544277264
+    }
+  ],
+  "mathd_numbertheory_483": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.4152334254894114
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.467442180210213
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.762968991873096
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.566992883532643
+    }
+  ],
+  "mathd_numbertheory_5": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.7363566814225635
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.869202476523888
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -6.116519216152438
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.998366775193668
+    }
+  ],
+  "mathd_numbertheory_521": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Even",
+      "energy": -3.854424816914027
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Even",
+      "energy": -5.243760946698492
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.6763191586892425
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.751872544277264
+    }
+  ],
+  "mathd_numbertheory_541": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.4152334254894114
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.467442180210213
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.762968991873096
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.566992883532643
+    }
+  ],
+  "mathd_numbertheory_559": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.4152334254894114
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.467442180210213
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.762968991873096
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.566992883532643
+    }
+  ],
+  "mathd_numbertheory_582": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Divides",
+      "energy": -4.179686129768015
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.498634464529745
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Divides",
+      "energy": -5.528169543256086
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.632006895726601
+    }
+  ],
+  "mathd_numbertheory_64": [
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.5727556826908575
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.6763191586892425
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.958236802125731
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.751872544277264
+    }
+  ],
+  "mathd_numbertheory_690": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.4152334254894114
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.467442180210213
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.762968991873096
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.566992883532643
+    }
+  ],
+  "mathd_numbertheory_765": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.4152334254894114
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.467442180210213
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.762968991873096
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.566992883532643
+    }
+  ],
+  "mathd_numbertheory_780": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.4152334254894114
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.467442180210213
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.762968991873096
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.566992883532643
+    }
+  ],
+  "mathd_numbertheory_92": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.177511208596593
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.200312313054658
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.444774041294258
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.200633004065576
+    }
+  ],
+  "mathd_numbertheory_99": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.177511208596593
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "energy": -5.200312313054658
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "energy": -5.444774041294258
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.200633004065576
+    }
+  ],
+  "numbertheory_4x3m7y3neq2003": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -3.9495780742388087
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY NoSetContainsEverything",
+      "energy": -3.968681415806226
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything, SetExtensionality",
+      "energy": -4.113531513193033
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "energy": -4.684764780682377
+    }
+  ],
+  "numbertheory_aoddbdiv4asqpbsqmod8eq1": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Divides",
+      "energy": -4.145060499968887
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Divides",
+      "energy": -5.551468412713028
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.7363566814225635
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.998366775193668
+    }
+  ],
+  "numbertheory_notequiv2i2jasqbsqdiv8": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Divides",
+      "energy": -4.179686129768015
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.498634464529745
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Divides",
+      "energy": -5.528169543256086
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -6.632006895726601
+    }
+  ],
+  "numbertheory_prmdvsneqnsqmodpeq0": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Divides, IsPrime",
+      "energy": -4.776051697192663
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Divides, IsPrime",
+      "energy": -4.816661938656056
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -5.997442414622395
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "energy": -7.18324643593829
+    }
+  ],
+  "numbertheory_sqmod3in01d": [
+    {
+      "candidate_index": 2,
+      "candidate": "BY NoSetContainsEverything",
+      "energy": -4.211914337725879
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -4.213699364287691
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything, SetExtensionality",
+      "energy": -4.356193273136306
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "energy": -4.961053738843779
+    }
+  ],
+  "numbertheory_sqmod4in01d": [
+    {
+      "candidate_index": 2,
+      "candidate": "BY NoSetContainsEverything",
+      "energy": -4.211914337725879
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -4.213699364287691
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything, SetExtensionality",
+      "energy": -4.356193273136306
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "energy": -4.961053738843779
+    }
+  ],
+  "numbertheory_x5neqy2p4": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "energy": -3.9495780742388087
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY NoSetContainsEverything",
+      "energy": -3.968681415806226
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything, SetExtensionality",
+      "energy": -4.113531513193033
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "energy": -4.684764780682377
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "certified": true,
+  "status": "pass",
+  "proved": 2,
+  "total": 2,
+  "output": "(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/19_sharded_kv_no_lost_keys/1/proof-8c2bmkx6/.tlacache/19_sharded_kv_no_lost_keys.tlaps/19_sharded_kv_no_lost_keys.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/19_sharded_kv_no_lost_keys/1/proof-8c2bmkx6/.tlacache/19_sharded_kv_no_lost_keys.tlaps/fingerprints\" *)\nFile \"./19_sharded_kv_no_lost_keys.tla\", line 1, character 1 to line 86, character 4:\n[INFO]: All 2 obligations proved.\n",
+  "seconds": 1.9518449306488037,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/19_sharded_kv_no_lost_keys/1/proof-8c2bmkx6",
+  "reason": "",
+  "sha256": "bbb1dbe4d09e7265421c165ad6eb1573ce5b5aa33dd377ba0a9c7859cf4ce079",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/19_sharded_kv_no_lost_keys/1/proof-8c2bmkx6/19_sharded_kv_no_lost_keys.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/19_sharded_kv_no_lost_keys/1/proof-8c2bmkx6/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "19_sharded_kv_no_lost_keys.tla"
+  ],
+  "returncode": 0,
+  "timed_out": false
+}

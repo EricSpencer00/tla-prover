@@ -1,0 +1,29 @@
+{
+  "certified": false,
+  "status": "verifier_reject",
+  "proved": 0,
+  "total": 0,
+  "output": "Zenon error: exhausted search space without finding a proof\n(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/5_toy_consensus_forall/2/proof-pvqs8fji/.tlacache/5_toy_consensus_forall.tlaps/5_toy_consensus_forall.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/5_toy_consensus_forall/2/proof-pvqs8fji/.tlacache/5_toy_consensus_forall.tlaps/fingerprints\" *)\nFile \"./5_toy_consensus_forall.tla\", line 99, characters 53-59:\n[ERROR]: Could not prove or check:\n           ASSUME NEW CONSTANT Node,\n                  NEW CONSTANT Value,\n                  NEW CONSTANT Nil,\n                  NEW VARIABLE vote,\n                  NEW VARIABLE voted,\n                  NEW VARIABLE decided,\n                  QuorumType == Quorums \\subseteq SUBSET Node,\n                  NodeFinite == IsFiniteSet(Node),\n                  QuorumsAreNonEmpty == \\A Q \\in Quorums : Q # {},\n                  QuorumsIntersect == \\A Q1, Q2 \\in Quorums : Q1 \\cap Q2 # {},\n                  NilType == Nil \\notin Value\n           PROVE  IndAuto /\\ Next => IndAuto'\nFile \"./5_toy_consensus_forall.tla\", line 1, character 1 to line 100, character 4:\n[ERROR]: 1/1 obligation failed.\nThere were backend errors processing module `\"5_toy_consensus_forall\"`.\n",
+  "seconds": 2.3364601135253906,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/5_toy_consensus_forall/2/proof-pvqs8fji",
+  "reason": "",
+  "sha256": "98a9e9c2031563515c514962e06152487d1b8d1280ad692ffe7a22367c7c4427",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/5_toy_consensus_forall/2/proof-pvqs8fji/5_toy_consensus_forall.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/5_toy_consensus_forall/2/proof-pvqs8fji/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "5_toy_consensus_forall.tla"
+  ],
+  "returncode": 10,
+  "timed_out": false
+}

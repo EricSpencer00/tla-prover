@@ -1,0 +1,29 @@
+{
+  "certified": true,
+  "status": "pass",
+  "proved": 26,
+  "total": 26,
+  "output": "(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/strict-score-v2/checks/highest-inductive-step/1/proof-240x_3_q/.tlacache/FindHighest.tlaps/FindHighest.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/strict-score-v2/checks/highest-inductive-step/1/proof-240x_3_q/.tlacache/FindHighest.tlaps/fingerprints\" *)\nFile \"./FindHighest.tla\", line 1, character 1 to line 119, character 77:\n[INFO]: All 26 obligations proved.\n",
+  "seconds": 0.49321603775024414,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/strict-score-v2/checks/highest-inductive-step/1/proof-240x_3_q",
+  "reason": "",
+  "sha256": "f5437549b3b0887c725deecc40d8bb99156a7ebbfa8a1819af4ff90bf5d57640",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/strict-score-v2/checks/highest-inductive-step/1/proof-240x_3_q/FindHighest.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/strict-score-v2/checks/highest-inductive-step/1/proof-240x_3_q/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "FindHighest.tla"
+  ],
+  "returncode": 0,
+  "timed_out": false
+}

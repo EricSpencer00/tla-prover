@@ -1,0 +1,29 @@
+{
+  "certified": false,
+  "status": "verifier_reject",
+  "proved": 0,
+  "total": 0,
+  "output": "(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/15_consensus_wo_decide/3/proof-p05ezxvs/.tlacache/15_consensus_wo_decide.tlaps/15_consensus_wo_decide.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/15_consensus_wo_decide/3/proof-p05ezxvs/.tlacache/15_consensus_wo_decide.tlaps/fingerprints\" *)\nFile \"./15_consensus_wo_decide.tla\", line 157, characters 1-2:\n[ERROR]: Could not prove or check:\n           ASSUME NEW CONSTANT Node,\n                  NEW CONSTANT Quorums,\n                  NEW VARIABLE vote_request_msg,\n                  NEW VARIABLE voted,\n                  NEW VARIABLE vote_msg,\n                  NEW VARIABLE votes,\n                  NEW VARIABLE leader,\n                  NEW VARIABLE voting_quorum,\n                  QuorumsAreNodePowersets == Quorums \\subseteq SUBSET Node,\n                  EmptyNotInQuorums == {} \\notin Quorums,\n                  QuorumsOverlap == \\A Q1, Q2 \\in Quorums : Q1 \\cap Q2 # {},\n                  SMT \n           PROVE  IndAuto /\\ Next => IndAuto'\nFile \"./15_consensus_wo_decide.tla\", line 1, character 1 to line 158, character 4:\n[ERROR]: 1/2 obligations failed.\nThere were backend errors processing module `\"15_consensus_wo_decide\"`.\n",
+  "seconds": 0.49725794792175293,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/15_consensus_wo_decide/3/proof-p05ezxvs",
+  "reason": "",
+  "sha256": "26e99259412da8be4189ce6b6f4327621737908ce094e76b10b5d335ff004fd9",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/15_consensus_wo_decide/3/proof-p05ezxvs/15_consensus_wo_decide.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/15_consensus_wo_decide/3/proof-p05ezxvs/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "15_consensus_wo_decide.tla"
+  ],
+  "returncode": 10,
+  "timed_out": false
+}

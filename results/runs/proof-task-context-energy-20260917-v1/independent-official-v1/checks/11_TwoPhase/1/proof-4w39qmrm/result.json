@@ -1,0 +1,29 @@
+{
+  "certified": true,
+  "status": "pass",
+  "proved": 1,
+  "total": 1,
+  "output": "(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/11_TwoPhase/1/proof-4w39qmrm/.tlacache/11_TwoPhase.tlaps/11_TwoPhase.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/11_TwoPhase/1/proof-4w39qmrm/.tlacache/11_TwoPhase.tlaps/fingerprints\" *)\nFile \"./11_TwoPhase.tla\", line 1, character 1 to line 201, character 77:\n[INFO]: All 1 obligation proved.\n",
+  "seconds": 0.6353499889373779,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/11_TwoPhase/1/proof-4w39qmrm",
+  "reason": "",
+  "sha256": "f5a5f647504a84fbd45bb06472a5ce56383fa00e11733a2628ea4bc8a512aa6a",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/11_TwoPhase/1/proof-4w39qmrm/11_TwoPhase.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/11_TwoPhase/1/proof-4w39qmrm/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "11_TwoPhase.tla"
+  ],
+  "returncode": 0,
+  "timed_out": false
+}

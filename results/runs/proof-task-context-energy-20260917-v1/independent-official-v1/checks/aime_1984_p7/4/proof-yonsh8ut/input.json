@@ -1,0 +1,1 @@
+{"prefix": "---- MODULE aime_1984_p7 ----\nEXTENDS TLAPS, Integers\n\nf[n \\in Int] == IF n >= 1000 THEN n - 3 ELSE f[f[n + 5]]\n\nTHEOREM aime_1984_p7 == f[84] = 997", "fragment": "BY SMT, NoSetContainsEverything", "suffix": "\n============================================================\n", "theorem_name": "aime_1984_p7"}

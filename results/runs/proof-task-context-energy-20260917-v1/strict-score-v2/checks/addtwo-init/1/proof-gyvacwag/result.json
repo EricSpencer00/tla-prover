@@ -1,0 +1,29 @@
+{
+  "certified": true,
+  "status": "pass",
+  "proved": 9,
+  "total": 9,
+  "output": "(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/strict-score-v2/checks/addtwo-init/1/proof-gyvacwag/.tlacache/AddTwo.tlaps/AddTwo.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/strict-score-v2/checks/addtwo-init/1/proof-gyvacwag/.tlacache/AddTwo.tlaps/fingerprints\" *)\nFile \"./AddTwo.tla\", line 1, character 1 to line 45, character 77:\n[INFO]: All 9 obligations proved.\n",
+  "seconds": 0.4626891613006592,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/strict-score-v2/checks/addtwo-init/1/proof-gyvacwag",
+  "reason": "",
+  "sha256": "c375ab06fea292bb59311521832f94c8bbbc2ac5f0a27cebe18316c3d4d2047c",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/strict-score-v2/checks/addtwo-init/1/proof-gyvacwag/AddTwo.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/strict-score-v2/checks/addtwo-init/1/proof-gyvacwag/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "AddTwo.tla"
+  ],
+  "returncode": 0,
+  "timed_out": false
+}

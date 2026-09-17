@@ -1,0 +1,13 @@
+(* created new "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/strict-score-v2/checks/highest-type-step/0/proof-kce7xfbr/.tlacache/FindHighest.tlaps/FindHighest.thy" *)
+(* fingerprints written in "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/strict-score-v2/checks/highest-type-step/0/proof-kce7xfbr/.tlacache/FindHighest.tlaps/fingerprints" *)
+File "./FindHighest.tla", line 92, characters 7-8:
+[ERROR]: Could not prove or check:
+           ASSUME NEW VARIABLE f,
+                  NEW VARIABLE h,
+                  NEW VARIABLE i,
+                  NEW VARIABLE pc,
+                  SMT 
+           PROVE  TypeOK /\ lb => TypeOK'
+File "./FindHighest.tla", line 1, character 1 to line 98, character 77:
+[ERROR]: 1/13 obligations failed.
+There were backend errors processing module `"FindHighest"`.

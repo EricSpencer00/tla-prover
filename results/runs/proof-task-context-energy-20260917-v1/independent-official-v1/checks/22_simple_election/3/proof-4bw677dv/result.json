@@ -1,0 +1,29 @@
+{
+  "certified": false,
+  "status": "verifier_reject",
+  "proved": 0,
+  "total": 0,
+  "output": "(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/22_simple_election/3/proof-4bw677dv/.tlacache/22_simple_election.tlaps/22_simple_election.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/22_simple_election/3/proof-4bw677dv/.tlacache/22_simple_election.tlaps/fingerprints\" *)\nFile \"./22_simple_election.tla\", line 78, characters 53-54:\n[ERROR]: Could not prove or check:\n           ASSUME NEW CONSTANT Acceptor,\n                  NEW CONSTANT Quorum,\n                  NEW CONSTANT Proposer,\n                  NEW VARIABLE start,\n                  NEW VARIABLE promise,\n                  NEW VARIABLE leader,\n                  QuorumsNonEmpty == Quorum # {},\n                  Fin == IsFiniteSet(Acceptor) /\\ IsFiniteSet(Proposer),\n                  QuorumsType == Quorum \\subseteq SUBSET Acceptor,\n                  QuorumsIntersect == \\A Q1, Q2 \\in Quorum : Q1 \\cap Q2 # {},\n                  NonEmpty == Proposer # {},\n                  SMT \n           PROVE  IndAuto /\\ Next => IndAuto'\nFile \"./22_simple_election.tla\", line 1, character 1 to line 79, character 4:\n[ERROR]: 1/2 obligations failed.\nThere were backend errors processing module `\"22_simple_election\"`.\n",
+  "seconds": 0.490797758102417,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/22_simple_election/3/proof-4bw677dv",
+  "reason": "",
+  "sha256": "9f1cf9df769a51d871e5e0d9c6a28cd5caccb12eac6ccafab543bddebcd43afd",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/22_simple_election/3/proof-4bw677dv/22_simple_election.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/proof-task-context-energy-20260917-v1/independent-official-v1/checks/22_simple_election/3/proof-4bw677dv/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "22_simple_election.tla"
+  ],
+  "returncode": 10,
+  "timed_out": false
+}
