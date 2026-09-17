@@ -40,6 +40,7 @@ def test_packet_has_four_target_free_development_rows():
 
 def test_worker_accepts_compact_delimited_packet_contract():
     packet = worker.load_packet(DELIMITED_PACKET, worker.DELIMITED_PACKET_SHA256)
+    assert pir.load_packet(DELIMITED_PACKET)["packet_kind"] == packet["packet_kind"]
     assert packet["packet_kind"] == "frozen17_delimited_proof_fragment_pir"
     assert all("target_stream" in row for row in packet["train_rows"])
     assert all("target_stream" not in row for row in packet["development_rows"])

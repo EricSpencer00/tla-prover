@@ -31,6 +31,7 @@ TRAIN_IDS = {
 }
 DEV_IDS = {"crdt-type-step", "crdt-safety-step", "crdt-sum-type-proof", "crdt-sum-zero-proof"}
 PACKET_SHA256 = "095d2d0a070961150d76575e5768f3ce615ee01b283a844c69d24f8a4661f5f5"
+DELIMITED_PACKET_SHA256 = "30e594b4e82de3f8d455e2a87597e175d79bcb6cd31d67e55de84b384e53baaf"
 ANSWER_KEYS = {
     "reference_fragment", "response", "answer", "proof_body", "proof_module",
     "successful_candidate", "reward", "feedback", "repair", "target", "pir_target",
@@ -107,10 +108,10 @@ def target_text(fragment: str) -> str:
 def load_packet(path: Path) -> dict:
     """Load the exact admitted packet for independent downstream consumers."""
     raw = path.read_bytes()
-    if sha(raw) != PACKET_SHA256:
+    if sha(raw) not in {PACKET_SHA256, DELIMITED_PACKET_SHA256}:
         raise ValueError("exact admitted PIR packet required")
     packet = json.loads(raw)
-    if (packet.get("packet_kind") != "frozen17_typed_proof_fragment_pir" or
+    if (packet.get("packet_kind") not in {"frozen17_typed_proof_fragment_pir", "frozen17_delimited_proof_fragment_pir"} or
             packet.get("manifest_sha256") != MANIFEST_SHA256 or
             packet.get("development_targets_exported") is not False):
         raise ValueError("unexpected or answer-bearing PIR packet")
@@ -121,6 +122,10 @@ def load_packet(path: Path) -> dict:
         raise ValueError("exact4 PIR DEVELOPMENT rows required")
     for row in dev:
         reject_answer_fields(row)
+    if packet["packet_kind"] == "frozen17_delimited_proof_fragment_pir":
+        for row in train:
+            if "target_stream" not in row or sha(row["target_stream"].encode()) != row["target_sha256"]:
+                raise ValueError("changed delimited train target")
     return packet
 
 
