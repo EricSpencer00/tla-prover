@@ -1,0 +1,42 @@
+#!/bin/bash
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-free-generation-sft-v4
+#PBS -l select=1:system=polaris:ncpus=64:ngpus=1
+#PBS -l walltime=00:15:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+#PBS -o /home/eric-spencer/tla-free-generation-sft-20260917-v4/train.stdout
+#PBS -e /home/eric-spencer/tla-free-generation-sft-20260917-v4/train.stderr
+set -euo pipefail
+module load PrgEnv-gnu/8.7.0 >/dev/null 2>&1
+module load cuda/13.0 >/dev/null 2>&1
+
+ROOT=/home/eric-spencer/tla-free-generation-sft-20260917-v4
+PYTHON=/soft/applications/conda/2025-09-28/mconda3/bin/python3
+MODEL=/grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659
+PARENT=/home/eric-spencer/tla-structured-span-train-20260914-v3/result.7618905/policy_optimizer.pt
+OUT="$ROOT/train.${PBS_JOBID%%.*}"
+export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false PYTHONUNBUFFERED=1
+COMPAT=/tmp/eric-free-generation-mpi-${PBS_JOBID%%.*}
+mkdir -p "$COMPAT"
+ln -s /opt/cray/pe/mpich/9.1.0/ofi/gnu/12.3/lib/libmpi_gnu.so.12 "$COMPAT/libmpi_gnu_123.so.12"
+export LD_LIBRARY_PATH="$COMPAT:${LD_LIBRARY_PATH:-}"
+trap 'rm -rf "$COMPAT"' EXIT
+cd "$ROOT"
+test "$(pwd)" = "$ROOT"
+test -x "$PYTHON" && test -d "$MODEL" && test -f "$PARENT"
+test -f manifest.json && test -f tools/proof_free_generation_sft.py
+test ! -e "$OUT"
+"$PYTHON" -m py_compile tools/proof_free_generation_sft.py
+"$PYTHON" -u tools/proof_free_generation_sft.py train \
+  --manifest manifest.json \
+  --model-path "$MODEL" \
+  --parent-checkpoint "$PARENT" \
+  --output "$OUT" \
+  --device cuda \
+  --steps 17 \
+  --seconds 780 \
+  --max-tokens 256 \
+  --max-sequence-tokens 10000 \
+  --lr 1e-5

@@ -1,0 +1,31 @@
+{
+  "schema": 1,
+  "stage": "tla-free-generation-sft-20260917-v4",
+  "manifest_sha256": "647e5b3502fabc6da2245fa5275f7e28d3140396d473d1771dc1014d63cc4000",
+  "train_tasks": 17,
+  "development_tasks": 4,
+  "development_reference_bytes_forwarded": false,
+  "worker_sha256": "abde950686cbab8c72266566db98957212e3d50cb4de48eac906e32d8c1ce25c",
+  "strict_scorer_sha256": "400c6e1d453b58ba35599f540d43abc68517a737052ad9d5fcca60318932b037",
+  "fragment_ladder_sha256": "90334a13a19ecbe7068a091787953c25725f378100cb8853432872e36c1c4e5f",
+  "sany_ladder_sha256": "c9a8c1496fc75c7aa051a2e6d0f0eb79550c56ac713a51d098f4164891c78efd",
+  "sany_jar_sha256": "936a262061c914694dfd669a543be24573c45d5aa0ff20a8b96b23d01e050e88",
+  "parent_checkpoint": "/home/eric-spencer/tla-structured-span-train-20260914-v3/result.7618905/policy_optimizer.pt",
+  "parent_checkpoint_sha256": "87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511",
+  "gpu_limit": "one GPU, 15 minutes",
+  "sany_first": true,
+  "shared_verifier_deadline_seconds": 10,
+  "verifier_feedback_used": false,
+  "reward_used": false,
+  "quality_claim": false,
+  "proof_claim": false,
+  "gate_claim": false,
+  "runtime_python": "/soft/applications/conda/2025-09-28/mconda3/bin/python3",
+  "runtime_modules": [
+    "PrgEnv-gnu/8.7.0",
+    "cuda/13.0"
+  ],
+  "runtime_mpi_soname_alias": "job-local libmpi_gnu_123.so.12 -> /opt/cray/pe/mpich/9.1.0/ofi/gnu/12.3/lib/libmpi_gnu.so.12",
+  "runtime_probe_job": "7630097",
+  "supersedes": "tla-free-generation-sft-20260917-v3"
+}

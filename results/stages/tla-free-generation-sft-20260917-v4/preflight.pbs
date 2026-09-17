@@ -1,0 +1,24 @@
+#!/bin/bash
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-free-generation-preflight-v4
+#PBS -l select=1:system=polaris:ncpus=4:ngpus=0
+#PBS -l walltime=00:05:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+#PBS -o /home/eric-spencer/tla-free-generation-sft-20260917-v4/preflight.stdout
+#PBS -e /home/eric-spencer/tla-free-generation-sft-20260917-v4/preflight.stderr
+set -euo pipefail
+module load PrgEnv-gnu/8.7.0 >/dev/null 2>&1
+module load cuda/13.0 >/dev/null 2>&1
+
+ROOT=/home/eric-spencer/tla-free-generation-sft-20260917-v4
+PYTHON=/soft/applications/conda/2025-09-28/mconda3/bin/python3
+export PYTHONUNBUFFERED=1
+cd "$ROOT"
+test "$(pwd)" = "$ROOT"
+test -x "$PYTHON" && test -f manifest.json
+test -f tools/proof_free_generation_sft.py
+test ! -e "preflight.${PBS_JOBID%%.*}.json"
+"$PYTHON" -m py_compile tools/proof_free_generation_sft.py
+"$PYTHON" -u tools/proof_free_generation_sft.py preflight --manifest manifest.json

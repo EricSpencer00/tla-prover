@@ -1,0 +1,39 @@
+#!/bin/bash
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-free-generation-strict-v4
+#PBS -l select=1:system=polaris:ncpus=4:ngpus=0
+#PBS -l walltime=00:15:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+#PBS -o /home/eric-spencer/tla-free-generation-sft-20260917-v4/strict-score.stdout
+#PBS -e /home/eric-spencer/tla-free-generation-sft-20260917-v4/strict-score.stderr
+set -euo pipefail
+
+ROOT=/home/eric-spencer/tla-free-generation-sft-20260917-v4
+PYTHON=/soft/applications/conda/2025-09-28/mconda3/bin/python3
+TLAPS_ROOT=/lus/grand/projects/EVITA/eric-spencer/tools/tlaps-1.5.0
+TRAIN_JOB_ID=${TRAIN_JOB_ID:?set TRAIN_JOB_ID to the completed training job id}
+GEN="$ROOT/train.${TRAIN_JOB_ID}/generations.jsonl"
+OUT="$ROOT/strict-score.${PBS_JOBID%%.*}"
+export PROVE_TLA_TLAPM="$TLAPS_ROOT/bin/tlapm"
+export PROVE_TLA_LIBRARY="$TLAPS_ROOT/lib/tlaps:$ROOT/runtime/dependencies"
+export PROVE_TLA_TLAPM_LEGACY=1
+export PATH="/grand/EVITA/eric-spencer/tools/jre21/bin:$PATH"
+export JAVA_HOME=/grand/EVITA/eric-spencer/tools/jre21
+export PYTHONUNBUFFERED=1
+cd "$ROOT"
+test "$(pwd)" = "$ROOT"
+test -x "$PYTHON" && test -x "$PROVE_TLA_TLAPM" && test -f manifest.json && test -f "$GEN"
+test -f tools/proof_free_generation_strict.py
+test -f tools/tla2tools.jar && test -f tools/proof_outcome_audit.py
+test -f harness/proof_fragment_check.py && test -f harness/proof_fragment_ladder.py
+test -f harness/proof_ladder_check.py && test -f harness/proof_full_fragment_check.py
+test -f harness/runner.py
+test ! -e "$OUT"
+"$PYTHON" -m py_compile tools/proof_free_generation_strict.py tools/proof_outcome_audit.py \
+  harness/proof_fragment_check.py harness/proof_fragment_ladder.py \
+  harness/proof_ladder_check.py harness/proof_full_fragment_check.py harness/runner.py
+"$PYTHON" -u tools/proof_free_generation_strict.py \
+  --packet manifest.json --generations "$GEN" --output "$OUT" --timeout 10 \
+  --expected-packet-sha256 647e5b3502fabc6da2245fa5275f7e28d3140396d473d1771dc1014d63cc4000
