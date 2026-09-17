@@ -1,0 +1,16 @@
+{
+  "packet_sha256": "30e594b4e82de3f8d455e2a87597e175d79bcb6cd31d67e55de84b384e53baaf",
+  "manifest_sha256": "c186ddf0007c5b5adfdc345a06feb777a89746160cf9041b875a8655ed1eb344",
+  "train_rows": 17,
+  "development_rows": 4,
+  "lossless_train_reconstructions": 17,
+  "development_targets_exported": false,
+  "strict_control_positive": 17,
+  "strict_control_omitted": 17,
+  "model_loaded": false,
+  "cuda_touched": false,
+  "optimizer_updates": 0,
+  "quality_claim": false,
+  "proof_claim": false,
+  "gate_claim": false
+}
