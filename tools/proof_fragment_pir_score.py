@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 from pathlib import Path
 import sys
 
@@ -46,9 +47,12 @@ def score(packet_path: Path, generations_path: Path, output: Path, work_root: Pa
                                   dependencies=dependencies,
                                   work_root=work_root / row["id"], timeout=timeout)
         rows.append(dict(id=row["id"], fragment=fragment, raw_reply=row.get("raw_reply", ""), **result))
+    legacy = os.environ.get("PROVE_TLA_TLAPM_LEGACY") == "1"
     summary = dict(packet_sha256=sha(packet_path.read_bytes()), generations_sha256=sha(generations_path.read_bytes()),
                    rows=rows, tasks=4, certified_tasks=sum(row.get("certified") is True for row in rows),
-                   strict_verifier_runs=len(rows), verifier_feedback_used=False, repair_used=False,
+                   verifier_runs=len(rows), verifier_mode=("legacy_tlaps_1.5.0_uncached_nofp_threads1"
+                                                          if legacy else "tlaps_strict_uncached"),
+                   strict_flags_used=not legacy, verifier_feedback_used=False, repair_used=False,
                    reward_used=False, fixed_denominator=4, quality_claim=False, proof_claim=False, gate_claim=False)
     output.mkdir(parents=True, exist_ok=False)
     (output / "rows.jsonl").write_text("\n".join(json.dumps(row) for row in rows) + "\n")
