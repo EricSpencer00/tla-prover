@@ -1,0 +1,56 @@
+[
+  {
+    "candidate_index": null,
+    "candidate": null,
+    "strategy": "hierarchical",
+    "id": "crdt-type-step",
+    "valid": false,
+    "strategy_id": 1,
+    "strategy_probabilities": [
+      2.972556575886465e-11,
+      1.0,
+      0.0
+    ],
+    "status": "renderer_abstain"
+  },
+  {
+    "candidate_index": null,
+    "candidate": null,
+    "strategy": "hierarchical",
+    "id": "crdt-safety-step",
+    "valid": false,
+    "strategy_id": 1,
+    "strategy_probabilities": [
+      6.964706074921946e-18,
+      1.0,
+      0.0
+    ],
+    "status": "renderer_abstain"
+  },
+  {
+    "candidate_index": 0,
+    "candidate": "<1>1. IsFiniteSet(DOMAIN f)\n    BY NodeAssumption\n  <1>2. \\A x \\in DOMAIN f : f[x] \\in Nat\n    OBVIOUS\n  <1>. QED  BY <1>1, <1>2, SumFunctionNat, SumIsSumFunction",
+    "strategy": "hierarchical",
+    "id": "crdt-sum-type-proof",
+    "valid": true,
+    "strategy_id": 1,
+    "strategy_probabilities": [
+      4.550441090600543e-08,
+      1.0,
+      0.0
+    ]
+  },
+  {
+    "candidate_index": 0,
+    "candidate": "<1>1. IsFiniteSet(DOMAIN f)\n    BY NodeAssumption\n  <1>2. \\A x \\in DOMAIN f : f[x] \\in Nat\n    OBVIOUS\n  <1>. QED  BY <1>1, <1>2, SumFunctionNat, SumIsSumFunction",
+    "strategy": "hierarchical",
+    "id": "crdt-sum-zero-proof",
+    "valid": true,
+    "strategy_id": 1,
+    "strategy_probabilities": [
+      2.455568842880951e-13,
+      1.0,
+      0.0
+    ]
+  }
+]

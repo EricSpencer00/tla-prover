@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "hostname": "polaris-login-04",
+  "library": "/lus/grand/projects/EVITA/eric-spencer/tools/tlaps-1.5.0/lib/tlaps:/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1/tools/community-modules:/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1/extra-modules",
+  "tlapm": "/lus/grand/projects/EVITA/eric-spencer/tools/tlaps-1.5.0/bin/tlapm",
+  "tlapm_sha256": "537f46dd857d5a3861705b388798a13cb62bc65115e6c1c5edba1568b5980a08",
+  "controls": [
+    {
+      "control": "known_good",
+      "returncode": 0,
+      "passed": true,
+      "output": "(* created new \".tlacache/TLAPS.tlaps/TLAPS.thy\" *)\n(* fingerprints written in \".tlacache/TLAPS.tlaps/fingerprints\" *)\nZenon error: exhausted search space without finding a proof\n(* created new \".tlacache/RuntimeGood.tlaps/RuntimeGood.thy\" *)\n(* fingerprints written in \".tlacache/RuntimeGood.tlaps/fingerprints\" *)\nFile \"/lus/grand/projects/EVITA/eric-spencer/tools/tlaps-1.5.0/lib/tlaps/TLAPS.tla\", line 1, character 1 to line 362, character 77:\n[INFO]: All 0 obligation proved.\nFile \"./RuntimeGood.tla\", line 1, character 1 to line 5, character 4:\n[INFO]: All 1 obligation proved.\n",
+      "source": "---- MODULE RuntimeGood ----\nEXTENDS Naturals, TLAPS\nTHEOREM Good == 1 + 1 = 2\nOBVIOUS\n====\n",
+      "output_sha256": "52fa2fe08042a7db4deda237548e7d8e30bcc4d27126e57b28d2b3a4978d79cd"
+    },
+    {
+      "control": "known_false",
+      "returncode": 3,
+      "passed": true,
+      "output": "(* created new \".tlacache/TLAPS.tlaps/TLAPS.thy\" *)\n(* fingerprints written in \".tlacache/TLAPS.tlaps/fingerprints\" *)\n(* created new \".tlacache/RuntimeFalse.tlaps/RuntimeFalse.thy\" *)\n(* fingerprints written in \".tlacache/RuntimeFalse.tlaps/fingerprints\" *)\nFile \"/lus/grand/projects/EVITA/eric-spencer/tools/tlaps-1.5.0/lib/tlaps/TLAPS.tla\", line 1, character 1 to line 362, character 77:\n[INFO]: All 0 obligation proved.\n** Unexpanded symbols: ---\n\nFile \"./RuntimeFalse.tla\", line 4, characters 1-2:\n[ERROR]: Could not prove or check:\n           ASSUME SMT \n           PROVE  1 = 2\nFile \"./RuntimeFalse.tla\", line 1, character 1 to line 5, character 4:\n[ERROR]: 1/2 obligations failed.\nThere were backend errors processing module `\"RuntimeFalse\"`.\n tlapm ending abnormally with Failure(\"backend errors: there are unproved obligations\")\nRaised at Stdlib.failwith in file \"stdlib.ml\", line 29, characters 17-33\nCalled from Tlapm.process_module in file \"tlapm.ml\", line 408, characters 12-77\nCalled from Tlapm.main.f in file \"tlapm.ml\", line 503, characters 23-43\nCalled from Stdlib__list.fold_left in file \"list.ml\", line 121, characters 24-34\nCalled from Tlapm.main in file \"tlapm.ml\", line 506, characters 13-40\nCalled from Tlapm.init in file \"tlapm.ml\", line 518, characters 8-33\n\n",
+      "source": "---- MODULE RuntimeFalse ----\nEXTENDS Naturals, TLAPS\nTHEOREM FalseClaim == 1 = 2\nBY SMT\n====\n",
+      "output_sha256": "7a3eab155f2d0e213baf4722ef1e01f33491530b2b5477599d3602318072032b"
+    }
+  ],
+  "passed": true
+}

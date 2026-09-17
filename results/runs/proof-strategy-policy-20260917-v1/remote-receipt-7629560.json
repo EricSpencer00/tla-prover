@@ -1,0 +1,19 @@
+{
+  "job_id": "7629560.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "job_name": "tla-strategy-v1",
+  "job_state": "F",
+  "exit_status": 1,
+  "exec_host": "x3005c0s7b0n0/0*64",
+  "resource_list": {"ncpus": 64, "ngpus": 1, "walltime": "00:15:00"},
+  "resources_used": {"ncpus": 64, "ngpus": 0, "walltime": "00:03:22", "cput": "00:00:51", "mem": "5749148kb"},
+  "started": "Thu Sep 17 10:08:15 2026",
+  "finished": "Thu Sep 17 10:11:41 2026",
+  "failure_stage": "prompt representation",
+  "failure": "BatchEncoding was passed as input_ids instead of its tensor field",
+  "model_loaded": true,
+  "cuda_touched": true,
+  "optimizer_updates": 0,
+  "quality_claim": false,
+  "proof_claim": false,
+  "gate_claim": false
+}

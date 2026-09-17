@@ -1,0 +1,38 @@
+[
+  {
+    "id": "crdt-type-step",
+    "valid": true,
+    "candidate_index": 0,
+    "candidate": "BY DEF TypeOK, Next, Increment, Gossip, vars",
+    "strategy": "renderer_first",
+    "strategy_id": null,
+    "strategy_probabilities": []
+  },
+  {
+    "id": "crdt-safety-step",
+    "valid": true,
+    "candidate_index": 0,
+    "candidate": "BY DEF TypeOK, Safety, Next, Increment, Gossip, vars",
+    "strategy": "renderer_first",
+    "strategy_id": null,
+    "strategy_probabilities": []
+  },
+  {
+    "id": "crdt-sum-type-proof",
+    "valid": true,
+    "candidate_index": 0,
+    "candidate": "<1>1. IsFiniteSet(DOMAIN f)\n    BY NodeAssumption\n  <1>2. \\A x \\in DOMAIN f : f[x] \\in Nat\n    OBVIOUS\n  <1>. QED  BY <1>1, <1>2, SumFunctionNat, SumIsSumFunction",
+    "strategy": "renderer_first",
+    "strategy_id": null,
+    "strategy_probabilities": []
+  },
+  {
+    "id": "crdt-sum-zero-proof",
+    "valid": true,
+    "candidate_index": 0,
+    "candidate": "<1>1. IsFiniteSet(DOMAIN f)\n    BY NodeAssumption\n  <1>2. \\A x \\in DOMAIN f : f[x] \\in Nat\n    OBVIOUS\n  <1>. QED  BY <1>1, <1>2, SumFunctionNat, SumIsSumFunction",
+    "strategy": "renderer_first",
+    "strategy_id": null,
+    "strategy_probabilities": []
+  }
+]

@@ -1,0 +1,13 @@
+{
+  "job_id": "7629579.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "job_name": "tla-strategy-v1",
+  "job_state": "F",
+  "exit_status": 0,
+  "exec_host": "x3208c0s13b0n0/0*64",
+  "resource_list": {"ncpus": 64, "ngpus": 1, "walltime": "00:15:00"},
+  "resources_used": {"cpupercent": 50, "cput": "00:01:04", "mem": "5750536kb", "ncpus": 64, "ngpus": 0, "walltime": "00:03:33"},
+  "started": "Thu Sep 17 10:14:31 2026",
+  "finished": "Thu Sep 17 10:18:08 2026",
+  "worker_exit": 0,
+  "note": "Scheduler resources_used.ngpus is reported as 0 by Polaris for this completed GPU job; the PBS resource request and GPU-node exec_host are preserved."
+}

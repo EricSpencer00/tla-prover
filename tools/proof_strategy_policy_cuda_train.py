@@ -22,10 +22,11 @@ def sha(raw: bytes) -> str:
 def prompt_hidden(net, tokenizer, prompt: str, torch):
     rendered = tokenizer.apply_chat_template(
         [dict(role="user", content=prompt)], tokenize=False, add_generation_prompt=True)
-    ids = tokenizer(rendered, return_tensors="pt", add_special_tokens=False).to("cuda")
+    batch = tokenizer(rendered, return_tensors="pt", add_special_tokens=False)
+    batch = {key: value.to("cuda") for key, value in batch.items()}
     with torch.inference_mode(), torch.autocast(device_type="cuda", dtype=torch.bfloat16):
-        hidden = net(input_ids=ids, use_cache=False, output_hidden_states=True).hidden_states[-1][0, -1].float()
-    return hidden.detach().clone(), len(ids.input_ids[0])
+        hidden = net(**batch, use_cache=False, output_hidden_states=True).hidden_states[-1][0, -1].float()
+    return hidden.detach().clone(), int(batch["input_ids"].shape[1])
 
 
 def choose(row: dict, logits, torch) -> dict:
