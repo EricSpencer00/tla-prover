@@ -1,0 +1,29 @@
+{
+  "kind": "protected_answer_free_symbolic_renderer_search_v1",
+  "manifest_sha256": "c186ddf0007c5b5adfdc345a06feb777a89746160cf9041b875a8655ed1eb344",
+  "protected_rows": [
+    "crdt-type-step",
+    "crdt-safety-step",
+    "crdt-sum-type-proof",
+    "crdt-sum-zero-proof"
+  ],
+  "candidate_denominator": 116,
+  "strict_checks": 116,
+  "certified_candidates": 4,
+  "certified_by_task": {
+    "crdt-type-step": 2,
+    "crdt-safety-step": 2,
+    "crdt-sum-type-proof": 0,
+    "crdt-sum-zero-proof": 0
+  },
+  "reference_fragment_used": false,
+  "protected_feedback_used": false,
+  "repair_or_reward_used": false,
+  "training_executed": false,
+  "parameter_updates": 0,
+  "quality_claim": false,
+  "proof_claim": false,
+  "gate_claim": false,
+  "checker": "fresh strict uncached TLAPS",
+  "elapsed_seconds": 556.111
+}
