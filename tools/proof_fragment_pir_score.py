@@ -38,7 +38,9 @@ def score(packet_path: Path, generations_path: Path, output: Path, work_root: Pa
             rows.append(dict(id=row["id"], certified=False, status=row.get("status", "invalid_decode"),
                              proved=0, total=0, raw_reply=row.get("raw_reply", "")))
             continue
-        fragment = pir.decode_tokens(row["typed_tokens"])
+        fragment = row.get("fragment")
+        if fragment is None:
+            fragment = pir.decode_tokens(row["typed_tokens"])
         dependencies = tuple(Path(p) for p in task.get("dependencies", []))
         if dependency_root is not None:
             dependencies = tuple(dependency_root / path.name for path in dependencies)

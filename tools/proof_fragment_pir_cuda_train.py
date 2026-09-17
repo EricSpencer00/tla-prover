@@ -24,6 +24,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from tools import proof_fragment_pir as pir
+from tools.proof_fragment_delimited_pir import PACKET_KIND as DELIMITED_PACKET_KIND, decode_stream
 from tools.proof_candidate_rank import encode_candidate
 from tools.proof_cuda_train import (
     PROFILE,
@@ -36,6 +37,7 @@ from tools.proof_cuda_train import (
 )
 
 PACKET_SHA256 = "095d2d0a070961150d76575e5768f3ce615ee01b283a844c69d24f8a4661f5f5"
+DELIMITED_PACKET_SHA256 = "30e594b4e82de3f8d455e2a87597e175d79bcb6cd31d67e55de84b384e53baaf"
 PARENT_SHA256 = "87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511"
 MANIFEST_SHA256 = pir.MANIFEST_SHA256
 TRAIN_IDS = pir.TRAIN_IDS
@@ -56,7 +58,8 @@ def load_packet(packet_path: Path, expected_sha: str = PACKET_SHA256) -> dict:
     if sha(raw) != expected_sha:
         raise ValueError("exact admitted PIR packet SHA required")
     packet = json.loads(raw)
-    if packet.get("packet_kind") != "frozen17_typed_proof_fragment_pir":
+    packet_kind = packet.get("packet_kind")
+    if packet_kind not in {"frozen17_typed_proof_fragment_pir", DELIMITED_PACKET_KIND}:
         raise ValueError("unexpected PIR packet kind")
     if packet.get("manifest_sha256") != MANIFEST_SHA256:
         raise ValueError("PIR manifest binding changed")
@@ -71,23 +74,30 @@ def load_packet(packet_path: Path, expected_sha: str = PACKET_SHA256) -> dict:
     if packet.get("verifier_feedback_used") or packet.get("repair_used") or packet.get("reward_used"):
         raise ValueError("PIR packet cannot contain verifier feedback, repair, or reward")
     for row in train:
-        if set(row) != {
-            "id", "split", "source_family", "source_sha256", "assembled_sha256",
-            "prompt", "prompt_sha256", "pir_target", "pir_target_sha256", "target_tokens",
-        }:
-            raise ValueError("unexpected TRAIN packet fields")
-        if row["split"] != "train" or sha(row["prompt"].encode()) != row["prompt_sha256"]:
-            raise ValueError("TRAIN prompt binding changed")
-        if pir.decode_tokens(row["pir_target"]) == "":
-            raise ValueError("empty PIR target")
-        target = pir.target_text(pir.decode_tokens(row["pir_target"]))
-        if sha(target.encode()) != row["pir_target_sha256"]:
-            raise ValueError("TRAIN typed target binding changed")
+        if packet_kind == DELIMITED_PACKET_KIND:
+            required = {"id", "split", "source_family", "source_sha256", "assembled_sha256",
+                        "prompt", "target_stream", "target_sha256", "target_records"}
+            if set(row) != required or not row["prompt"] or sha(row["target_stream"].encode()) != row["target_sha256"]:
+                raise ValueError("unexpected or changed delimited TRAIN row")
+            if not decode_stream(row["target_stream"]):
+                raise ValueError("empty delimited target")
+        else:
+            required = {"id", "split", "source_family", "source_sha256", "assembled_sha256",
+                        "prompt", "prompt_sha256", "pir_target", "pir_target_sha256", "target_tokens"}
+            if set(row) != required:
+                raise ValueError("unexpected TRAIN packet fields")
+            if row["split"] != "train" or sha(row["prompt"].encode()) != row["prompt_sha256"]:
+                raise ValueError("TRAIN prompt binding changed")
+            if pir.decode_tokens(row["pir_target"]) == "":
+                raise ValueError("empty PIR target")
+            target = pir.target_text(pir.decode_tokens(row["pir_target"]))
+            if sha(target.encode()) != row["pir_target_sha256"]:
+                raise ValueError("TRAIN typed target binding changed")
     for row in dev:
         if row.get("split") != "development":
             raise ValueError("development split binding changed")
         pir.reject_answer_fields(row)
-        if sha(row["prompt"].encode()) != row["prompt_sha256"]:
+        if "prompt_sha256" in row and sha(row["prompt"].encode()) != row["prompt_sha256"]:
             raise ValueError("DEVELOPMENT prompt binding changed")
     return packet
 
@@ -116,15 +126,20 @@ def preflight(packet_path: Path, parent_path: Path, expected_packet_sha: str, ex
     }
 
 
-def decode_pir_reply(reply: str) -> dict:
-    """Decode only a complete JSON typed-token stream; never repair output."""
-    result = {"raw_reply": reply, "valid": False, "status": "malformed_json"}
+def decode_pir_reply(reply: str, packet_kind: str = "frozen17_typed_proof_fragment_pir") -> dict:
+    """Decode a complete packet-specific stream; never repair output."""
+    result = {"raw_reply": reply, "valid": False,
+              "status": "malformed_delimited" if packet_kind == DELIMITED_PACKET_KIND else "malformed_json"}
     try:
-        tokens = json.loads(reply)
-        if not tokens:
-            raise ValueError("empty typed token stream")
-        fragment = pir.decode_tokens(tokens)
-        result.update(valid=True, status="decoded", typed_tokens=tokens, fragment=fragment)
+        if packet_kind == DELIMITED_PACKET_KIND:
+            fragment = decode_stream(reply)
+            result.update(valid=True, status="decoded", fragment=fragment)
+        else:
+            tokens = json.loads(reply)
+            if not tokens:
+                raise ValueError("empty typed token stream")
+            fragment = pir.decode_tokens(tokens)
+            result.update(valid=True, status="decoded", typed_tokens=tokens, fragment=fragment)
     except (json.JSONDecodeError, TypeError, ValueError) as exc:
         result["reason"] = str(exc)
     return result
@@ -137,7 +152,7 @@ def _encode(tokenizer, prompt: str, target: str, max_tokens: int) -> dict:
     return encoded
 
 
-def _generate(net, tokenizer, prompt: str, max_new_tokens: int, device: str) -> dict:
+def _generate(net, tokenizer, prompt: str, max_new_tokens: int, device: str, packet_kind: str) -> dict:
     import torch
 
     rendered = tokenizer.apply_chat_template(
@@ -155,7 +170,7 @@ def _generate(net, tokenizer, prompt: str, max_new_tokens: int, device: str) -> 
     row = dict(rendered_prompt=rendered, token_ids=ids, raw_reply=reply,
                output_tokens=len(ids), hit_token_limit=len(ids) >= max_new_tokens,
                generation_seconds=time.monotonic() - started)
-    row.update(decode_pir_reply(reply))
+    row.update(decode_pir_reply(reply, packet_kind))
     return row
 
 
@@ -186,9 +201,11 @@ def train(args) -> dict:
     torch.cuda.manual_seed_all(args.seed)
     torch.backends.cuda.matmul.allow_tf32 = False
     tokenizer = transformers.AutoTokenizer.from_pretrained(args.model, local_files_only=True)
+    packet_kind = packet["packet_kind"]
     encoded = []
     for row in packet["train_rows"]:
-        target = pir.target_text(pir.decode_tokens(row["pir_target"]))
+        target = (row["target_stream"] if packet_kind == DELIMITED_PACKET_KIND
+                  else pir.target_text(pir.decode_tokens(row["pir_target"])))
         encoded.append(_encode(tokenizer, row["prompt"], target, args.max_tokens))
 
     expected_files = model_files(args.model)
@@ -196,7 +213,7 @@ def train(args) -> dict:
     selected = select_final_layer(net, train=False)
     base_generations = []
     for row in packet["development_rows"]:
-        base_generations.append(dict(id=row["id"], **_generate(net, tokenizer, row["prompt"], args.max_new_tokens, "cuda")))
+        base_generations.append(dict(id=row["id"], **_generate(net, tokenizer, row["prompt"], args.max_new_tokens, "cuda", packet_kind)))
     parent_saved = torch.load(args.parent, map_location="cpu", weights_only=False)
     restore_policy(net, parent_saved, expected_files)
     parent_selected = select_final_layer(net, train=False)
@@ -206,7 +223,7 @@ def train(args) -> dict:
     started = time.monotonic()
     parent_generations = []
     for row in packet["development_rows"]:
-        parent_generations.append(dict(id=row["id"], **_generate(net, tokenizer, row["prompt"], args.max_new_tokens, "cuda")))
+        parent_generations.append(dict(id=row["id"], **_generate(net, tokenizer, row["prompt"], args.max_new_tokens, "cuda", packet_kind)))
 
     selected = select_final_layer(net, train=True)
     optimizer = torch.optim.AdamW(selected.values(), lr=args.lr, weight_decay=0, foreach=False)
@@ -240,11 +257,12 @@ def train(args) -> dict:
                     dtype_profile=PROFILE), metrics=steps), checkpoint)
     child_generations = []
     for row in packet["development_rows"]:
-        child_generations.append(dict(id=row["id"], **_generate(net, tokenizer, row["prompt"], args.max_new_tokens, "cuda")))
+        child_generations.append(dict(id=row["id"], **_generate(net, tokenizer, row["prompt"], args.max_new_tokens, "cuda", packet_kind)))
 
     delta = sum(float((selected[n].detach().cpu() - initial[n]).double().square().sum()) for n in initial) ** 0.5
     summary = dict(
-        algorithm=ALGORITHM, packet_sha256=file_sha(args.packet), parent_sha256=file_sha(args.parent),
+        algorithm=("delimited-token " + ALGORITHM if packet_kind == DELIMITED_PACKET_KIND else ALGORITHM),
+        packet_kind=packet_kind, packet_sha256=file_sha(args.packet), parent_sha256=file_sha(args.parent),
         model_files=expected_files, model_path=str(args.model), dtype_profile=PROFILE,
         train_rows=17, development_rows=4, requested_updates=args.updates, updates=len(steps),
         attempted_train_tasks=len({x["id"] for x in steps}), parameter_delta_l2=delta,

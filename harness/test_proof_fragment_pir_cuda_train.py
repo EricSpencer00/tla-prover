@@ -9,6 +9,7 @@ from tools import proof_fragment_pir as pir
 
 ROOT = Path(__file__).resolve().parents[1]
 PACKET = ROOT / "results/runs/proof-fragment-pir-20260917-v2/packet.json"
+DELIMITED_PACKET = ROOT / "results/runs/proof-fragment-delimited-pir-20260917-v1/packet.json"
 PARENT_SHA = worker.PARENT_SHA256
 
 
@@ -35,6 +36,13 @@ def test_packet_has_four_target_free_development_rows():
     assert len(packet["development_rows"]) == 4
     assert all("pir_target" not in row for row in packet["development_rows"])
     assert all("reference_fragment" not in row for row in packet["development_rows"])
+
+
+def test_worker_accepts_compact_delimited_packet_contract():
+    packet = worker.load_packet(DELIMITED_PACKET, worker.DELIMITED_PACKET_SHA256)
+    assert packet["packet_kind"] == "frozen17_delimited_proof_fragment_pir"
+    assert all("target_stream" in row for row in packet["train_rows"])
+    assert all("target_stream" not in row for row in packet["development_rows"])
 
 
 def test_preflight_does_not_import_torch_or_touch_cuda():

@@ -1,0 +1,47 @@
+#!/bin/bash
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-dpir-v1
+#PBS -l select=1:system=polaris:ncpus=64:ngpus=1
+#PBS -l walltime=00:15:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+#PBS -o /home/eric-spencer/tla-fragment-delimited-pir-20260917-v2/train.stdout
+#PBS -e /home/eric-spencer/tla-fragment-delimited-pir-20260917-v2/train.stderr
+set -euo pipefail
+
+ROOT=/home/eric-spencer/tla-fragment-delimited-pir-20260917-v2
+BASE=/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1
+MODEL=/grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659
+PARENT=/home/eric-spencer/tla-structured-span-train-20260914-v3/result.7618905/policy_optimizer.pt
+PACKET=$ROOT/packet.json
+OUT=$ROOT/result.${PBS_JOBID%%.*}
+PYTHON=/home/eric-spencer/ChatTLA/.venv/bin/python
+
+export PYTHONPATH="$ROOT:$ROOT/tools:$BASE:$BASE/tools"
+export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false
+export HF_HOME=/grand/EVITA/eric-spencer/hf-cache PYTHONUNBUFFERED=1
+export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1
+export PATH="/grand/EVITA/eric-spencer/tools/jre21/bin:$PATH"
+export JAVA_HOME=/grand/EVITA/eric-spencer/tools/jre21
+export PROVE_TLA_TLAPM="$BASE/tools/tlapm/bin/tlapm"
+export PROVE_TLA_LIBRARY="$BASE/tools/tlapm/lib/tlapm/stdlib:$BASE/tools/community-modules:$BASE/tools/extra-modules"
+
+test -x "$PYTHON" -a -f "$MODEL/config.json" -a -f "$PACKET" -a -f "$PARENT"
+test ! -e "$OUT"
+test "$(sha256sum "$PACKET" | awk '{print $1}')" = 30e594b4e82de3f8d455e2a87597e175d79bcb6cd31d67e55de84b384e53baaf
+test "$(sha256sum "$PARENT" | awk '{print $1}')" = 87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511
+"$PYTHON" -m py_compile "$ROOT/tools/proof_fragment_pir.py" "$ROOT/tools/proof_fragment_delimited_pir.py" "$ROOT/tools/proof_fragment_pir_cuda_train.py" "$ROOT/tools/proof_fragment_pir_score.py"
+"$PYTHON" -u "$ROOT/tools/proof_fragment_pir_cuda_train.py" preflight --packet "$PACKET" --parent "$PARENT" --expected-packet-sha256 30e594b4e82de3f8d455e2a87597e175d79bcb6cd31d67e55de84b384e53baaf
+"$PYTHON" -u "$ROOT/tools/proof_fragment_pir_cuda_train.py" train \
+  --packet "$PACKET" --parent "$PARENT" --model "$MODEL" --output "$OUT" \
+  --expected-packet-sha256 30e594b4e82de3f8d455e2a87597e175d79bcb6cd31d67e55de84b384e53baaf \
+  --updates 16 --seconds 540 --max-tokens 8192 --max-new-tokens 256 --lr 1e-5
+
+DEP=$BASE/tools/tlaplus-examples/specifications/FiniteMonotonic
+for label in base parent child; do
+  "$PYTHON" -u "$ROOT/tools/proof_fragment_pir_score.py" \
+    --packet "$PACKET" --generations "$OUT/${label}_generations.json" \
+    --output "$OUT/score-$label" --work-root "$OUT/tlaps-$label" \
+    --dependency-root "$DEP" --timeout 60
+done
