@@ -25,11 +25,11 @@ OUT="$ROOT/result.${PBS_JOBID%%.*}"
 test -x "$PYTHON" -a -f "$MODEL/config.json" -a -f "$PACKET"
 test -f "$ROOT/tools/__init__.py" -a -f "$ROOT/tools/proof_cuda_train.py"
 test ! -e "$OUT"
-test "$(sha256sum "$PACKET" | awk '{print $1}')" = 7fdb1f73c5f1d7a385ffef5e0cde1ab6cff416858777aa2d3d9b43039448f418
+test "$(sha256sum "$PACKET" | awk '{print $1}')" = 0c2aa10e6a87d4450811a476af5dd17e31af4059fbbb59a6e50e2845785fe597
 test "$(sha256sum "$PARENT" | awk '{print $1}')" = 87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511
 "$PYTHON" -m py_compile "$ROOT/tools/proof_goal_fact_transition.py" "$ROOT/tools/proof_goal_fact_transition_cuda_train.py" "$ROOT/tools/proof_cuda_train.py"
 "$PYTHON" "$ROOT/tools/proof_goal_fact_transition.py" --packet "$PACKET" \
-  --expected-packet-sha256 7fdb1f73c5f1d7a385ffef5e0cde1ab6cff416858777aa2d3d9b43039448f418 >/dev/null
+  --expected-packet-sha256 0c2aa10e6a87d4450811a476af5dd17e31af4059fbbb59a6e50e2845785fe597 >/dev/null
 "$PYTHON" -u "$ROOT/tools/proof_goal_fact_transition_cuda_train.py" \
-  --packet "$PACKET" --expected-packet-sha256 7fdb1f73c5f1d7a385ffef5e0cde1ab6cff416858777aa2d3d9b43039448f418 \
+  --packet "$PACKET" --expected-packet-sha256 0c2aa10e6a87d4450811a476af5dd17e31af4059fbbb59a6e50e2845785fe597 \
   --model "$MODEL" --parent "$PARENT" --output "$OUT" --updates 32 --lr 0.01

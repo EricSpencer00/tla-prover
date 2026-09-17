@@ -40,3 +40,13 @@ def test_packet_rejects_answer_bearing_development_row(tmp_path):
     path.write_text(json.dumps(altered))
     with pytest.raises(ValueError, match="answer-bearing"):
         transition.load_packet(path, transition.sha(path.read_bytes()))
+
+
+def test_polaris_contract_binds_exact_packet_hash():
+    pbs = (ROOT / "tools/proof_goal_fact_transition_polaris.pbs").read_text()
+    packet_sha = transition.sha(
+        (ROOT / "results/runs/proof-goal-fact-transition-20260917-v1/packet.json")
+        .read_bytes()
+    )
+    assert pbs.count(packet_sha) == 3
+    assert "7fdb1f73c5f1d7a385ffef5e0cde1ab6cff416858777aa2d3d9b43039448f418" not in pbs
