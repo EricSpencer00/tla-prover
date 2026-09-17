@@ -1,0 +1,14 @@
+{
+  "packet_sha256": "6080e64031126dbaa9271baa2cf72dfcddd7c8f5d01eb5e9b7991e798b68dc75",
+  "manifest_sha256": "3380cf37c7311466ea7762662d55866839b3c3620ce73fb8d7ad209befe6de1d",
+  "rows": 119,
+  "candidate_width_min": 3,
+  "candidate_width_max": 29,
+  "candidate_width_total": 1335,
+  "parameter_updates": 0,
+  "reference_fragment_used": false,
+  "training_executed": false,
+  "tlaps_executed": false,
+  "quality_claim": false,
+  "gate_claim": false
+}
