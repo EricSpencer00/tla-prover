@@ -86,7 +86,9 @@ def score_rows(decoder, hidden, row, torch, bos_id):
     for ids in row["candidate_transition_ids"]:
         logs = decoder.trace_log_probs(hidden, ids, bos_id)
         scores.append(float(logs.mean().detach().cpu()))
-    return transition.select_candidate(row, scores) | {"scores": scores}
+    selected = transition.select_candidate(row, scores)
+    selected.update({"id": row["id"], "valid": True, "scores": scores})
+    return selected
 
 
 def worker(args) -> dict:

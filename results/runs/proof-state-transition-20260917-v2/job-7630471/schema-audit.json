@@ -1,0 +1,14 @@
+{
+  "job_id": "7630471.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "audit": "generation schema audit",
+  "base_generation_schema": "valid",
+  "parent_generation_schema": "invalid_missing_id",
+  "child_generation_schema": "invalid_missing_id",
+  "raw_result_preserved": true,
+  "strict_scoring_started": false,
+  "model_claim": false,
+  "quality_claim": false,
+  "proof_claim": false,
+  "gate_claim": false,
+  "repair_policy": "reject v2 for scoring; fix selector receipt binding and use a fresh append-only v3 output namespace"
+}

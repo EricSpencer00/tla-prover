@@ -4,6 +4,7 @@ from pathlib import Path
 import pytest
 
 from tools import proof_state_transition as transition
+from tools.proof_state_transition_cuda_train import score_rows
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -45,6 +46,27 @@ def test_renderer_selection_is_score_only(tmp_path):
     selected = transition.select_candidate(row, scores)
     assert selected["candidate_index"] == len(scores) - 1
     assert selected["candidate"] == row["candidate_proposals"][-1]
+
+
+def test_worker_selection_receipt_binds_task_id(tmp_path):
+    transition.build(MANIFEST, tmp_path / "packet")
+    packet_path = tmp_path / "packet" / "packet.json"
+    packet = transition.load_packet(packet_path, transition.sha(packet_path.read_bytes()))
+    row = packet["development_rows"][0]
+
+    class FakeScalar:
+        def mean(self): return self
+        def detach(self): return self
+        def cpu(self): return self
+        def __float__(self): return -1.0
+
+    class FakeDecoder:
+        def trace_log_probs(self, hidden, ids, bos_id): return FakeScalar()
+
+    selected = score_rows(FakeDecoder(), None, row, object(), len(transition.EVENTS))
+    assert selected["id"] == row["id"]
+    assert selected["valid"] is True
+    assert len(selected["scores"]) == len(row["candidate_proposals"])
 
 
 def test_packet_rejects_answer_bearing_development_row(tmp_path):
