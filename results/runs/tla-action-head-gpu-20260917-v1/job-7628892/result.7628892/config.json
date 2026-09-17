@@ -1,0 +1,15 @@
+{
+  "train_packet_sha256": "c9784d4da893464f23bc27610c5f7aed64c44bf5406a7ec33f27637ad0d7394f",
+  "labels_sha256": "bba10249105e1999656dd329a642c079f623f64fd9a4ee49f574c390d34a7854",
+  "packet_sha256": "f40539a20e449ad63b8244e85eff33c8022402df11a84e8228b71ccbfeae11b5",
+  "checkpoint_sha256": "87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511",
+  "selection_method": "frozen-parent pooled hidden-state linear action head",
+  "training_tasks": 13,
+  "holdout_tasks": 4,
+  "parameter_updates": 16,
+  "hidden_size": 4096,
+  "holdout_rank1_certified": 3,
+  "holdout_tasks_with_certified_candidate": 4,
+  "protected_verifier_feedback_used": false,
+  "reference_fragment_used": false
+}
