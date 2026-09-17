@@ -1,0 +1,14 @@
+{
+  "training_tasks": 17,
+  "training_examples": 46,
+  "positive_examples": 8,
+  "official_tasks_ranked": 119,
+  "official_candidates_ranked": 462,
+  "representation": "backend/fact-count/visible-overlap factorized action features",
+  "reference_fragment_used": false,
+  "protected_verifier_feedback_used": false,
+  "training_executed": true,
+  "parameter_updates": 4000,
+  "proof_or_quality_claim": false,
+  "gate_claim": false
+}

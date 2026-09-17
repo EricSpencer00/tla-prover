@@ -1,0 +1,17 @@
+{
+  "requested_tasks": 119,
+  "fully_ranked_tasks": 119,
+  "measured_tasks": 119,
+  "certified_tasks_top4": 0,
+  "top1_verified": 0,
+  "checker_attempts": 462,
+  "checker": "strict uncached TLAPS --strict --nofp",
+  "reference_fragment_used": false,
+  "training_executed": false,
+  "repair_or_reward": false,
+  "quality_claim": false,
+  "gate_claim": false,
+  "denominator_fixed": true,
+  "method": "non-protected TLAPS-trained factorized action features",
+  "elapsed_seconds": 18.548782292000396
+}

@@ -1,0 +1,31 @@
+{
+  "feature_names": [
+    "bias",
+    "obvious",
+    "smt",
+    "def",
+    "smt_def",
+    "def_count",
+    "identifier_count",
+    "candidate_chars",
+    "visible_overlap",
+    "set_extensionality"
+  ],
+  "weights": [
+    -2.963972340200009,
+    0.0,
+    0.015218687992666867,
+    -0.20964862227245684,
+    2.7695424059202285,
+    -0.21298764361935182,
+    -0.11853426571094901,
+    0.21364726984273033,
+    0.0,
+    0.7698778832654094
+  ],
+  "train_packet_sha256": "c9784d4da893464f23bc27610c5f7aed64c44bf5406a7ec33f27637ad0d7394f",
+  "train_checks_sha256": "4d0144ba942fd5e2a1df22449a611af29691340f9447a889f1f1a587821a4a14",
+  "protected_packet_used_for_training": false,
+  "reference_fragment_used": false,
+  "verifier_feedback_from_protected_set": false
+}

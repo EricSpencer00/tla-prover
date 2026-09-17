@@ -124,6 +124,10 @@ def score(packet_path: Path, manifest_path: Path, rankings_path: Path, output: P
     if expected_checkpoint_sha256 and worker_config.get("checkpoint_sha256") != expected_checkpoint_sha256:
         raise ValueError("worker did not bind exact parent checkpoint")
     normalized = normalize_rankings(ranking_data, packet)
+    selection_method = worker_config.get(
+        "selection_method",
+        "exact-parent conditional rank-1 action, with bounded top-4 strict certification",
+    )
 
     if not 1 <= timeout <= 5 or not 0 < seconds <= 900:
         raise ValueError("checker budget outside the frozen bound")
@@ -173,7 +177,7 @@ def score(packet_path: Path, manifest_path: Path, rankings_path: Path, output: P
         "quality_claim": False,
         "gate_claim": False,
         "denominator_fixed": True,
-        "method": "exact-parent conditional rank-1 action, with bounded top-4 strict certification",
+        "method": selection_method,
         "elapsed_seconds": time.monotonic() - started,
     }
     dump(output / "rankings.json", normalized)
