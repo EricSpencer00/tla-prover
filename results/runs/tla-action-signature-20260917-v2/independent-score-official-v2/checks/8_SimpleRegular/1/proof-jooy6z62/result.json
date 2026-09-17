@@ -1,0 +1,29 @@
+{
+  "certified": false,
+  "status": "timeout",
+  "proved": 0,
+  "total": 0,
+  "output": "",
+  "seconds": 5.003885984420776,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/8_SimpleRegular/1/proof-jooy6z62",
+  "reason": "",
+  "sha256": "a237b4dfdd2802de49857eb26f5230a261c024c4c4cbd713893b808369d096f9",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/8_SimpleRegular/1/proof-jooy6z62/8_SimpleRegular.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/8_SimpleRegular/1/proof-jooy6z62/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "8_SimpleRegular.tla"
+  ],
+  "returncode": -1,
+  "timed_out": true
+}

@@ -1,0 +1,1 @@
+{"prefix": "----- MODULE amc12_2001_p2 -----\nEXTENDS TLAPS, Naturals\n\nTHEOREM amc12_2001_p2 ==\n    \\A a, b, n \\in Nat :\n        (1 <= a) /\\ (a <= 9) /\\ (0 <= b) /\\ (b <= 9) /\\ (n = 10 * a + b) /\\ (n = a * b + a + b) => (b = 9)", "fragment": "BY SMT", "suffix": "\n====\n", "theorem_name": "amc12_2001_p2"}

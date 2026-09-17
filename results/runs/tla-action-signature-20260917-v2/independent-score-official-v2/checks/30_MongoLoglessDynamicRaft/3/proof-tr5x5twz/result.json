@@ -1,0 +1,29 @@
+{
+  "certified": false,
+  "status": "timeout",
+  "proved": 0,
+  "total": 0,
+  "output": "",
+  "seconds": 5.004724025726318,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/30_MongoLoglessDynamicRaft/3/proof-tr5x5twz",
+  "reason": "",
+  "sha256": "04142975b78dfb55a39335c6c9429ccb7ddf92cd5e32a835e15fb3c95370a94c",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/30_MongoLoglessDynamicRaft/3/proof-tr5x5twz/30_MongoLoglessDynamicRaft.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/30_MongoLoglessDynamicRaft/3/proof-tr5x5twz/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "30_MongoLoglessDynamicRaft.tla"
+  ],
+  "returncode": -1,
+  "timed_out": true
+}

@@ -1,0 +1,29 @@
+{
+  "certified": false,
+  "status": "timeout",
+  "proved": 0,
+  "total": 0,
+  "output": "",
+  "seconds": 5.004255056381226,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/imo_1977_p6/1/proof-6auqlxo9",
+  "reason": "",
+  "sha256": "a6ba012a0369802d8632be9a376da83a460a5d06917773c30a387c9183fda120",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/imo_1977_p6/1/proof-6auqlxo9/imo_1977_p6.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/imo_1977_p6/1/proof-6auqlxo9/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "imo_1977_p6.tla"
+  ],
+  "returncode": -1,
+  "timed_out": true
+}

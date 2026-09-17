@@ -1,0 +1,1 @@
+{"prefix": "---- MODULE amc12_2000_p12 ----\nEXTENDS Naturals, TLAPS\n\nTHEOREM amc12_2000_p12 ==\n    \\A a, m, c \\in Nat :\n        (a + m + c = 12) =>\n        (a * m * c + a * m + m * c + a * c <= 112)", "fragment": "BY SMT", "suffix": "\n====\n", "theorem_name": "amc12_2000_p12"}

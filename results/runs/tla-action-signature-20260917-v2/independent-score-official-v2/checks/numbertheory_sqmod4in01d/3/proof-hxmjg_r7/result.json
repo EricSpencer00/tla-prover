@@ -1,0 +1,29 @@
+{
+  "certified": false,
+  "status": "timeout",
+  "proved": 0,
+  "total": 0,
+  "output": "",
+  "seconds": 5.003709077835083,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/numbertheory_sqmod4in01d/3/proof-hxmjg_r7",
+  "reason": "",
+  "sha256": "9457744ea5c027246eb6409e1be0cb5e42a289d78e00572bd7ba3b2746ffb429",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/numbertheory_sqmod4in01d/3/proof-hxmjg_r7/numbertheory_sqmod4in01d.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/numbertheory_sqmod4in01d/3/proof-hxmjg_r7/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "numbertheory_sqmod4in01d.tla"
+  ],
+  "returncode": -1,
+  "timed_out": true
+}

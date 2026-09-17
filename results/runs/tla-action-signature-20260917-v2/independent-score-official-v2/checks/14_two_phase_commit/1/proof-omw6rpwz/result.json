@@ -1,0 +1,29 @@
+{
+  "certified": true,
+  "status": "pass",
+  "proved": 1,
+  "total": 1,
+  "output": "(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/14_two_phase_commit/1/proof-omw6rpwz/.tlacache/14_two_phase_commit.tlaps/14_two_phase_commit.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/14_two_phase_commit/1/proof-omw6rpwz/.tlacache/14_two_phase_commit.tlaps/fingerprints\" *)\nFile \"./14_two_phase_commit.tla\", line 1, character 1 to line 138, character 4:\n[INFO]: All 1 obligation proved.\n",
+  "seconds": 0.43366098403930664,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/14_two_phase_commit/1/proof-omw6rpwz",
+  "reason": "",
+  "sha256": "609f0a73c76b109c17dab4ce9a49dbf53e0dc273ca759d75837b7c89b850afad",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/14_two_phase_commit/1/proof-omw6rpwz/14_two_phase_commit.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/14_two_phase_commit/1/proof-omw6rpwz/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "14_two_phase_commit.tla"
+  ],
+  "returncode": 0,
+  "timed_out": false
+}

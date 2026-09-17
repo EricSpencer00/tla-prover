@@ -1,0 +1,10 @@
+{
+  "job_id": "7629246.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "stage": "tla-action-signature-gpu-20260917-v1",
+  "destination": "/home/eric-spencer/tla-action-signature-gpu-20260917-v1",
+  "claim_sha256": "be6476009ec6fbc971a4db3230296dad04516f462e249a01e5385ccedf63173b",
+  "resources": "one Polaris GPU, 64 CPUs, 00:15:00",
+  "submitted_once": true,
+  "quality_claim": false,
+  "gate_claim": false
+}

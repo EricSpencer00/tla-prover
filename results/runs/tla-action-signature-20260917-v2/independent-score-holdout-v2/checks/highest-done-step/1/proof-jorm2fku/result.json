@@ -1,0 +1,29 @@
+{
+  "certified": false,
+  "status": "verifier_reject",
+  "proved": 0,
+  "total": 0,
+  "output": "(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-holdout-v2/checks/highest-done-step/1/proof-jorm2fku/.tlacache/FindHighest.tlaps/FindHighest.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-holdout-v2/checks/highest-done-step/1/proof-jorm2fku/.tlacache/FindHighest.tlaps/fingerprints\" *)\nFile \"./FindHighest.tla\", line 132, characters 7-8:\n[ERROR]: Could not prove or check:\n           ASSUME NEW VARIABLE f,\n                  NEW VARIABLE h,\n                  NEW VARIABLE i,\n                  NEW VARIABLE pc,\n                  SMT \n           PROVE  DoneIndexValue /\\ TypeOK /\\ lb => DoneIndexValue'\nFile \"./FindHighest.tla\", line 1, character 1 to line 136, character 77:\n[ERROR]: 1/39 obligations failed.\nThere were backend errors processing module `\"FindHighest\"`.\n",
+  "seconds": 0.7030467987060547,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-holdout-v2/checks/highest-done-step/1/proof-jorm2fku",
+  "reason": "",
+  "sha256": "308722a6ad7ef4c6640af867d5d4498b35c9294682a5055b26fc782a31b97c56",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-holdout-v2/checks/highest-done-step/1/proof-jorm2fku/FindHighest.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-holdout-v2/checks/highest-done-step/1/proof-jorm2fku/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "FindHighest.tla"
+  ],
+  "returncode": 10,
+  "timed_out": false
+}

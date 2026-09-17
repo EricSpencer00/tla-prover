@@ -1,0 +1,29 @@
+{
+  "certified": false,
+  "status": "timeout",
+  "proved": 0,
+  "total": 0,
+  "output": "",
+  "seconds": 5.003824949264526,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/numbertheory_notequiv2i2jasqbsqdiv8/2/proof-elv8a9lc",
+  "reason": "",
+  "sha256": "8b5be47fae01b5e52f53c7d3fb37cbd5fe03a815b07963c2c054806eb749fe8a",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/numbertheory_notequiv2i2jasqbsqdiv8/2/proof-elv8a9lc/numbertheory_notequiv2i2jasqbsqdiv8.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/numbertheory_notequiv2i2jasqbsqdiv8/2/proof-elv8a9lc/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "numbertheory_notequiv2i2jasqbsqdiv8.tla"
+  ],
+  "returncode": -1,
+  "timed_out": true
+}

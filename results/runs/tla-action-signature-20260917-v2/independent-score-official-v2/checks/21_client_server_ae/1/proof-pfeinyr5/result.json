@@ -1,0 +1,29 @@
+{
+  "certified": true,
+  "status": "pass",
+  "proved": 1,
+  "total": 1,
+  "output": "(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/21_client_server_ae/1/proof-pfeinyr5/.tlacache/21_client_server_ae.tlaps/21_client_server_ae.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/21_client_server_ae/1/proof-pfeinyr5/.tlacache/21_client_server_ae.tlaps/fingerprints\" *)\nFile \"./21_client_server_ae.tla\", line 1, character 1 to line 72, character 4:\n[INFO]: All 1 obligation proved.\n",
+  "seconds": 0.5365538597106934,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/21_client_server_ae/1/proof-pfeinyr5",
+  "reason": "",
+  "sha256": "8e77b6ed3406e102deba871d1549759a2a4f6d35dc2bcd535aec879d295daa69",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/21_client_server_ae/1/proof-pfeinyr5/21_client_server_ae.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/21_client_server_ae/1/proof-pfeinyr5/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "21_client_server_ae.tla"
+  ],
+  "returncode": 0,
+  "timed_out": false
+}

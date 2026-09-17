@@ -1,0 +1,18 @@
+{
+  "job_id": "7629246.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "job_state": "F",
+  "exit_status": 1,
+  "exec_host": "x3005c0s37b0n0/0*64",
+  "requested_ngpus": 1,
+  "requested_ncpus": 64,
+  "requested_walltime": "00:15:00",
+  "resources_used_walltime": "00:03:36",
+  "resources_used_cpupercent": 48,
+  "resources_used_cput": "00:00:56",
+  "resources_used_mem": "5751228kb",
+  "resources_used_ngpus": 0,
+  "result_directory_present": false,
+  "failure_class": "harness_autograd_inference_tensor_boundary",
+  "model_or_quality_credit": false,
+  "gate_claim": false
+}

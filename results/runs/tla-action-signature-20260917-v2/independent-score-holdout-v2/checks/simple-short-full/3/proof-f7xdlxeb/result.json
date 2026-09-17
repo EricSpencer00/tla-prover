@@ -1,0 +1,29 @@
+{
+  "certified": false,
+  "status": "verifier_reject",
+  "proved": 0,
+  "total": 0,
+  "output": "Zenon error: exhausted search space without finding a proof\n(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-holdout-v2/checks/simple-short-full/3/proof-f7xdlxeb/.tlacache/Simple.tlaps/Simple.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-holdout-v2/checks/simple-short-full/3/proof-f7xdlxeb/.tlacache/Simple.tlaps/fingerprints\" *)\nFile \"./Simple.tla\", line 164, characters 1-2:\n[ERROR]: Could not prove or check:\n           ASSUME NEW CONSTANT N,\n                  NAssump == N \\in Nat /\\ N > 0,\n                  NEW VARIABLE x,\n                  NEW VARIABLE y,\n                  NEW VARIABLE pc,\n                  vars == <<x, y, pc>>,\n                  ProcSet == 0..N - 1,\n                  Init ==\n                    /\\ x = [i \\in 0..N - 1 |-> 0]\n                    /\\ y = [i \\in 0..N - 1 |-> 0]\n                    /\\ pc = [self \\in ProcSet |-> \"a\"],\n                  a(self) ==\n                    /\\ pc[self] = \"a\"\n                    /\\ x' = [x EXCEPT !\n                                   [self] = 1]\n                    /\\ pc' = [pc EXCEPT !\n                                   [self] = \"b\"]\n                    /\\ y' = y,\n                  b(self) ==\n                    /\\ pc[self] = \"b\"\n                    /\\ y' = [y EXCEPT !\n                                   [self] = x[(self - 1) % N]]\n                    /\\ pc' = [pc EXCEPT !\n                                   [self] = \"Done\"]\n                    /\\ x' = x,\n                  proc(self) == a(self) \\/ b(self),\n                  Terminating ==\n                    /\\ \\A self \\in ProcSet : pc[self] = \"Done\"\n                    /\\ UNCHANGED vars,\n                  Next == (\\E self \\in 0..N - 1 : proc(self)) \\/ Terminating,\n                  Spec == Init /\\ [][Next]_vars,\n                  Termination == <>(\\A self \\in ProcSet : pc[self] = \"Done\"),\n                  PCorrect ==\n                    (\\A i \\in 0..N - 1 : pc[i] = \"Done\")\n                    => (\\E i \\in 0..N - 1 : y[i] = 1),\n                  TypeOK ==\n                    /\\ x \\in [0..N - 1 -> {0, 1}]\n                    /\\ y \\in [0..N - 1 -> {0, 1}]\n                    /\\ pc \\in [0..N - 1 -> {\"a\", \"b\", \"Done\"}],\n                  Inv ==\n                    /\\ TypeOK\n                    /\\ \\A i \\in 0..N - 1 :\n                          pc[i] \\in {\"b\", \"Done\"} => x[i] = 1\n                    /\\ \\/ \\E i \\in 0..N - 1 : pc[i] # \"Done\"\n                       \\/ \\E i \\in 0..N - 1 : y[i] = 1\n           PROVE  Spec => []PCorrect\nFile \"./Simple.tla\", line 1, character 1 to line 166, character 77:\n[ERROR]: 1/21 obligations failed.\nThere were backend errors processing module `\"Simple\"`.\n",
+  "seconds": 7.5201380252838135,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-holdout-v2/checks/simple-short-full/3/proof-f7xdlxeb",
+  "reason": "",
+  "sha256": "dad74d52928cad16937fc6d90f3466dcc77e8ee85b8436b665e378cff369ee67",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-holdout-v2/checks/simple-short-full/3/proof-f7xdlxeb/Simple.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-holdout-v2/checks/simple-short-full/3/proof-f7xdlxeb/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "Simple.tla"
+  ],
+  "returncode": 10,
+  "timed_out": false
+}

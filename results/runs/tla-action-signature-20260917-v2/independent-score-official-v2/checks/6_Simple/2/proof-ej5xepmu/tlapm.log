@@ -1,0 +1,16 @@
+Zenon error: exhausted search space without finding a proof
+(* created new "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/6_Simple/2/proof-ej5xepmu/.tlacache/6_Simple.tlaps/6_Simple.thy" *)
+(* fingerprints written in "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/6_Simple/2/proof-ej5xepmu/.tlacache/6_Simple.tlaps/fingerprints" *)
+File "./6_Simple.tla", line 132, characters 53-59:
+[ERROR]: Could not prove or check:
+           ASSUME NEW CONSTANT N,
+                  NAssump == N \in Nat /\ N > 0,
+                  NEW VARIABLE x,
+                  NEW VARIABLE y,
+                  NEW VARIABLE pc,
+                  NType == N \in Nat /\ N > 0,
+                  ProcType == ProcSet \in SUBSET Nat
+           PROVE  IndAuto /\ Next => IndAuto'
+File "./6_Simple.tla", line 1, character 1 to line 133, character 77:
+[ERROR]: 1/1 obligation failed.
+There were backend errors processing module `"6_Simple"`.

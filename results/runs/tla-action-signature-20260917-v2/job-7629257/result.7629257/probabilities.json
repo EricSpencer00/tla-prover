@@ -1,0 +1,954 @@
+{
+  "10_lockserv": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 2.3797286363702597e-09,
+    "instance": 0.0
+  },
+  "11_TwoPhase": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 2.3797286363702597e-09,
+    "instance": 0.0
+  },
+  "13_simple_decentralized_lock": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.9999102354049683,
+    "instance": 0.0
+  },
+  "14_two_phase_commit": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 2.3797286363702597e-09,
+    "instance": 0.0
+  },
+  "15_consensus_wo_decide": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.033380236476659775,
+    "instance": 0.0
+  },
+  "16_consensus_forall": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.9999983310699463,
+    "instance": 0.0
+  },
+  "19_sharded_kv_no_lost_keys": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.9999936819076538,
+    "instance": 0.0
+  },
+  "1_Consensus": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.9999995231628418,
+    "instance": 0.0
+  },
+  "20_naive_consensus": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.1449965387582779,
+    "instance": 0.0
+  },
+  "21_client_server_ae": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "22_simple_election": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.9999727010726929,
+    "instance": 0.0
+  },
+  "23_toy_consensus_epr": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.9999988079071045,
+    "instance": 0.0
+  },
+  "24_toy_consensus": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "25_client_server_db_ae": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.9999998807907104,
+    "instance": 0.0
+  },
+  "27_firewall": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.999855637550354,
+    "instance": 0.0
+  },
+  "28_majorityset_leader_election": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.9021045565605164,
+    "instance": 0.0
+  },
+  "29_consensus_epr": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "2_TCommit": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 2.3797286363702597e-09,
+    "instance": 0.0
+  },
+  "30_MongoLoglessDynamicRaft": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.9998594522476196,
+    "instance": 0.0
+  },
+  "3_lockserver": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.9999979734420776,
+    "instance": 0.0
+  },
+  "4_quorum_leader_election": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.9999822378158569,
+    "instance": 0.0
+  },
+  "5_toy_consensus_forall": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.9999521970748901,
+    "instance": 0.0
+  },
+  "6_Simple": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.9994901418685913,
+    "instance": 0.0
+  },
+  "7_lockserv_automaton": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 2.3797286363702597e-09,
+    "instance": 0.0
+  },
+  "8_SimpleRegular": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "9_sharded_kv": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.9999951124191284,
+    "instance": 0.0
+  },
+  "aimeII_2001_p3": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 3.381069567116174e-13,
+    "instance": 0.0
+  },
+  "aime_1984_p7": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 5.084945133019671e-25,
+    "instance": 0.0
+  },
+  "aime_1987_p5": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.7542667762882047e-07,
+    "instance": 0.0
+  },
+  "aime_1991_p1": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.9999493360519409,
+    "instance": 0.0
+  },
+  "aime_1994_p3": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 3.084243758166849e-07,
+    "instance": 0.0
+  },
+  "algebra_xmysqpymzsqpzmxsqeqxyz_xpypzp6dvdx3y3z3": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.7289763284783652e-18,
+    "instance": 0.0
+  },
+  "amc12_2000_p1": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 3.6946875781040944e-08,
+    "instance": 0.0
+  },
+  "amc12_2000_p12": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.6258378624916077,
+    "instance": 0.0
+  },
+  "amc12_2000_p6": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 4.04301690037364e-16,
+    "instance": 0.0
+  },
+  "amc12_2001_p2": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.006136469077318907,
+    "instance": 0.0
+  },
+  "amc12_2001_p21": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 7.190204513599432e-14,
+    "instance": 0.0
+  },
+  "amc12a_2002_p6": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 7.322261547093589e-11,
+    "instance": 0.0
+  },
+  "amc12a_2003_p5": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 7.086851661064486e-10,
+    "instance": 0.0
+  },
+  "amc12a_2015_p10": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.46812525391578674,
+    "instance": 0.0
+  },
+  "amc12a_2021_p3": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.758275032043457,
+    "instance": 0.0
+  },
+  "amc12a_2021_p8": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 3.426506524420952e-29,
+    "instance": 0.0
+  },
+  "amc12b_2002_p11": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 9.997339463435964e-14,
+    "instance": 0.0
+  },
+  "amc12b_2002_p2": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 2.127942089202861e-08,
+    "instance": 0.0
+  },
+  "amc12b_2002_p7": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 6.767054989865156e-18,
+    "instance": 0.0
+  },
+  "imo_1977_p5": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 3.7688488441212087e-10,
+    "instance": 0.0
+  },
+  "imo_1977_p6": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 2.603892578986744e-13,
+    "instance": 0.0
+  },
+  "imo_1981_p6": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.9999797344207764,
+    "instance": 0.0
+  },
+  "imo_1982_p1": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.00014209056098479778,
+    "instance": 0.0
+  },
+  "imo_1987_p4": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 7.57897298522478e-14,
+    "instance": 0.0
+  },
+  "imo_1992_p1": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 4.160174432174391e-21,
+    "instance": 0.0
+  },
+  "imo_1993_p5": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.29274120926856995,
+    "instance": 0.0
+  },
+  "imo_2001_p6": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 2.1390329224092268e-21,
+    "instance": 0.0
+  },
+  "imo_2019_p1": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.8114469051361084,
+    "instance": 0.0
+  },
+  "induction_divisibility_3divnto3m2n": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 3.4337284887442365e-05,
+    "instance": 0.0
+  },
+  "induction_ineq_nsqlefactn": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "mathd_algebra_123": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.022681672679937e-08,
+    "instance": 0.0
+  },
+  "mathd_algebra_125": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.8077446637010384e-21,
+    "instance": 0.0
+  },
+  "mathd_algebra_144": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 6.440757782373179e-26,
+    "instance": 0.0
+  },
+  "mathd_algebra_296": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 6.044578382261208e-19,
+    "instance": 0.0
+  },
+  "mathd_algebra_392": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 4.493299209557032e-21,
+    "instance": 0.0
+  },
+  "mathd_algebra_69": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 8.706964393923045e-08,
+    "instance": 0.0
+  },
+  "mathd_algebra_76": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.9999998807907104,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_110": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 3.662768620160633e-27,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_1124": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 9.489278937277468e-14,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_136": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.4839079976081848,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_150": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.9999616146087646,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_185": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 9.133300045505166e-05,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_22": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.9638535380363464,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_234": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 2.649857763770136e-12,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_247": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.886612466250881e-07,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_284": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 3.51467549508655e-10,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_293": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.5393532521557063e-05,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_296": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.9781979322433472,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_301": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_314": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.169673396361759e-06,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_320": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 3.544784340192564e-05,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_326": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.8759682426465533e-20,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_33": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.036365751177072525,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_335": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 5.006928040529601e-05,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_34": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.9999964237213135,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_370": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.9752810597419739,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_405": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 7.946253247417823e-15,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_412": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 8.74306391174251e-11,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_430": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0617364909208267e-23,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_457": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_458": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 6.476596481341801e-10,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_48": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.0004660955455619842,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_483": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 9.407121757630602e-29,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_5": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 9.615096913107024e-11,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_521": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.55947303681625e-14,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_541": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 2.0602234672628218e-19,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_559": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 3.4932507997353923e-09,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_582": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 6.9925888965372e-05,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_64": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.4454640746116638,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_690": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 9.433745593782992e-15,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_765": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 3.742983878396444e-08,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_780": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 3.6132598649207814e-12,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_92": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.0015877359546720982,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_99": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 4.104165327589726e-07,
+    "instance": 0.0
+  },
+  "numbertheory_4x3m7y3neq2003": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 4.504491294937219e-27,
+    "instance": 0.0
+  },
+  "numbertheory_aoddbdiv4asqpbsqmod8eq1": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.0007926716352812946,
+    "instance": 0.0
+  },
+  "numbertheory_notequiv2i2jasqbsqdiv8": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.00930367223918438,
+    "instance": 0.0
+  },
+  "numbertheory_prmdvsneqnsqmodpeq0": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.9999998807907104,
+    "instance": 0.0
+  },
+  "numbertheory_sqmod3in01d": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 3.3925040554549923e-09,
+    "instance": 0.0
+  },
+  "numbertheory_sqmod4in01d": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 2.145815122811534e-11,
+    "instance": 0.0
+  },
+  "numbertheory_x5neqy2p4": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 2.1851166709385694e-12,
+    "instance": 0.0
+  },
+  "exercise_11_13_3": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 9.34792276374127e-28,
+    "instance": 0.0
+  },
+  "exercise_18_4": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 5.350759965949692e-05,
+    "instance": 0.0
+  },
+  "exercise_1_1_2a": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 2.2294694458718905e-26,
+    "instance": 0.0
+  },
+  "exercise_1_1_3": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 8.983385799024406e-16,
+    "instance": 0.0
+  },
+  "exercise_1_1_4": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 5.21707982216023e-18,
+    "instance": 0.0
+  },
+  "exercise_1_27": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.9999996423721313,
+    "instance": 0.0
+  },
+  "exercise_2000_a2": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 2.2333782908390276e-05,
+    "instance": 0.0
+  },
+  "exercise_3_10": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.9999972581863403,
+    "instance": 0.0
+  },
+  "exercise_3_4": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 6.456622894768013e-19,
+    "instance": 0.0
+  },
+  "exercise_3_5": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.3226357596853369e-27,
+    "instance": 0.0
+  },
+  "exercise_5_13": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 3.22793454188286e-07,
+    "instance": 0.0
+  },
+  "exercise_5_28": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.2905165931442752e-06,
+    "instance": 0.0
+  }
+}

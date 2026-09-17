@@ -1,0 +1,29 @@
+{
+  "certified": true,
+  "status": "pass",
+  "proved": 2,
+  "total": 2,
+  "output": "(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/mathd_numbertheory_34/1/proof-7puyktap/.tlacache/mathd_numbertheory_34.tlaps/mathd_numbertheory_34.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/mathd_numbertheory_34/1/proof-7puyktap/.tlacache/mathd_numbertheory_34.tlaps/fingerprints\" *)\nFile \"./mathd_numbertheory_34.tla\", line 1, character 1 to line 7, character 4:\n[INFO]: All 2 obligations proved.\n",
+  "seconds": 0.37282586097717285,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/mathd_numbertheory_34/1/proof-7puyktap",
+  "reason": "",
+  "sha256": "5f9006343782e657084eb208737e5ecaaa19f1bccdb5773bfc6dac042c93662a",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/mathd_numbertheory_34/1/proof-7puyktap/mathd_numbertheory_34.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/mathd_numbertheory_34/1/proof-7puyktap/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "mathd_numbertheory_34.tla"
+  ],
+  "returncode": 0,
+  "timed_out": false
+}

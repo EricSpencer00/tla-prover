@@ -1,0 +1,9 @@
+{
+  "gpu": "NVIDIA A100-SXM4-40GB",
+  "torch_version": "2.11.0+cu128",
+  "transformers_version": "5.6.2",
+  "parameter_updates": 16,
+  "cuda_peak_allocated_bytes": 16915760128,
+  "cuda_peak_reserved_bytes": 17309892608,
+  "elapsed_seconds": 0.786059636157006
+}

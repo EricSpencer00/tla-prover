@@ -1,0 +1,1 @@
+{"prefix": "----- MODULE numbertheory_x5neqy2p4 -----\nEXTENDS Integers, TLAPS\n\nTHEOREM numbertheory_x5neqy2p4 ==\n    \\A x, y \\in Int :\n        (x * x * x * x * x) # (y * y + 4)", "fragment": "BY SMT", "suffix": "\n=============================================================================================\n", "theorem_name": "numbertheory_x5neqy2p4"}

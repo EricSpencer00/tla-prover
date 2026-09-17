@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "packet_sha256": "c9784d4da893464f23bc27610c5f7aed64c44bf5406a7ec33f27637ad0d7394f",
+  "official_packet_sha256": "f40539a20e449ad63b8244e85eff33c8022402df11a84e8228b71ccbfeae11b5",
+  "labels_sha256": "bba10249105e1999656dd329a642c079f623f64fd9a4ee49f574c390d34a7854",
+  "manifest_sha256": "c186ddf0007c5b5adfdc345a06feb777a89746160cf9041b875a8655ed1eb344",
+  "slots": [
+    "smt",
+    "def",
+    "use",
+    "set_extensionality",
+    "inductive",
+    "instance"
+  ],
+  "training_denominator": 17,
+  "fit_denominator": 13,
+  "holdout_denominator": 4,
+  "official_denominator": 119,
+  "positive_label_count": 8,
+  "sany_checks": 25,
+  "sany_positive_checks": 8,
+  "sany_negative_checks": 17,
+  "renderer_controls": 17,
+  "reference_fragment_used": false,
+  "protected_verifier_feedback_used": false,
+  "protected_rows_in_training": false,
+  "generated_feedback": false,
+  "tlaps_training": false,
+  "parameter_updates": 0,
+  "quality_claim": false,
+  "gate_claim": false,
+  "method": "prompt-only multi-label semantic proof-action signature with deterministic proposal renderer",
+  "targets": {
+    "addtwo-init": [
+      1,
+      1,
+      0,
+      0,
+      0,
+      0
+    ],
+    "addtwo-step": [
+      1,
+      1,
+      0,
+      0,
+      0,
+      0
+    ],
+    "highest-type-step": [
+      1,
+      1,
+      0,
+      0,
+      0,
+      0
+    ],
+    "highest-inductive-step": [
+      1,
+      1,
+      0,
+      0,
+      1,
+      0
+    ],
+    "highest-done-step": [
+      1,
+      1,
+      0,
+      0,
+      1,
+      0
+    ],
+    "highest-correctness": [
+      1,
+      1,
+      0,
+      0,
+      1,
+      0
+    ],
+    "even-intro": null,
+    "even-case-tail": null,
+    "odd-case-tail": null,
+    "simple-full": null,
+    "simple-preservation": [
+      1,
+      1,
+      0,
+      0,
+      0,
+      0
+    ],
+    "simple-case-a": null,
+    "simple-case-b": null,
+    "simple-preservation-tail": null,
+    "simple-conclusion": null,
+    "simple-short-full": [
+      1,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    "simple-short-preservation": null
+  }
+}

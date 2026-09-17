@@ -1,0 +1,15 @@
+(* created new "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v1/cpu-admission-v2/sany/simple-preservation/0/proof-575gid8l/.tlacache/Simple.tlaps/Simple.thy" *)
+(* fingerprints written in "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v1/cpu-admission-v2/sany/simple-preservation/0/proof-575gid8l/.tlacache/Simple.tlaps/fingerprints" *)
+File "./Simple.tla", line 131, characters 3-4:
+[ERROR]: Could not prove or check:
+           ASSUME NEW CONSTANT N,
+                  NAssump == N \in Nat /\ N > 0,
+                  NEW VARIABLE x,
+                  NEW VARIABLE y,
+                  NEW VARIABLE pc,
+                  NAssump ,
+                  SMT 
+           PROVE  Inv /\ [Next]_vars => Inv'
+File "./Simple.tla", line 1, character 1 to line 137, character 77:
+[ERROR]: 1/10 obligations failed.
+There were backend errors processing module `"Simple"`.

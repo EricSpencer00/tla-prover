@@ -1,0 +1,29 @@
+{
+  "certified": false,
+  "status": "timeout",
+  "proved": 0,
+  "total": 0,
+  "output": "",
+  "seconds": 5.007713794708252,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/induction_ineq_nsqlefactn/4/proof-hvl9pnd9",
+  "reason": "",
+  "sha256": "2cd9aaeee00d2302361d1379f7e1bf28d36e36f4684caee5320e0ac27a5ecea1",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/induction_ineq_nsqlefactn/4/proof-hvl9pnd9/induction_ineq_nsqlefactn.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/induction_ineq_nsqlefactn/4/proof-hvl9pnd9/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "induction_ineq_nsqlefactn.tla"
+  ],
+  "returncode": -1,
+  "timed_out": true
+}

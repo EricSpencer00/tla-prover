@@ -1,0 +1,29 @@
+{
+  "certified": true,
+  "status": "pass",
+  "proved": 9,
+  "total": 9,
+  "output": "(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v1/cpu-admission-v2/sany/addtwo-step/1/proof-7ctqp6xi/.tlacache/AddTwo.tlaps/AddTwo.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v1/cpu-admission-v2/sany/addtwo-step/1/proof-7ctqp6xi/.tlacache/AddTwo.tlaps/fingerprints\" *)\nFile \"./AddTwo.tla\", line 1, character 1 to line 45, character 77:\n[INFO]: All 9 obligations proved.\n",
+  "seconds": 0.5288989543914795,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v1/cpu-admission-v2/sany/addtwo-step/1/proof-7ctqp6xi",
+  "reason": "",
+  "sha256": "e920328d90ad56e61fb23d7ee652bda36c63b263f7bf206f884ffaea812538ae",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v1/cpu-admission-v2/sany/addtwo-step/1/proof-7ctqp6xi/AddTwo.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v1/cpu-admission-v2/sany/addtwo-step/1/proof-7ctqp6xi/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "AddTwo.tla"
+  ],
+  "returncode": 0,
+  "timed_out": false
+}

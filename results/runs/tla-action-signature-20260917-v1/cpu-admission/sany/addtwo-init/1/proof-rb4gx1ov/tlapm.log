@@ -1,0 +1,6 @@
+/bin/sh: /bin/ps: Operation not permitted
+Fatal error: exception End_of_file
+Raised at Stdlib.input_line.scan in file "stdlib.ml", line 456, characters 14-31
+Called from Tlapm_lib__System.ps_cmd.test in file "src/system.ml", line 37, characters 12-28
+Called from Stdlib__List.find in file "list.ml", line 233, characters 17-20
+Called from Tlapm_lib__System.ps_cmd in file "src/system.ml", line 45, characters 2-24

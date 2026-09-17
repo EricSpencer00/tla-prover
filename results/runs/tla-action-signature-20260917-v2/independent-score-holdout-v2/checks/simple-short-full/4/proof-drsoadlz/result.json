@@ -1,0 +1,29 @@
+{
+  "certified": true,
+  "status": "pass",
+  "proved": 24,
+  "total": 24,
+  "output": "(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-holdout-v2/checks/simple-short-full/4/proof-drsoadlz/.tlacache/Simple.tlaps/Simple.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-holdout-v2/checks/simple-short-full/4/proof-drsoadlz/.tlacache/Simple.tlaps/fingerprints\" *)\nFile \"./Simple.tla\", line 1, character 1 to line 166, character 77:\n[INFO]: All 24 obligations proved.\n",
+  "seconds": 1.2673628330230713,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-holdout-v2/checks/simple-short-full/4/proof-drsoadlz",
+  "reason": "",
+  "sha256": "4e1f87b7f655ebc27f3ae58d9590a7fa79062ec2a2cf874b7a5e7e6bee0fc683",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-holdout-v2/checks/simple-short-full/4/proof-drsoadlz/Simple.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-holdout-v2/checks/simple-short-full/4/proof-drsoadlz/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "Simple.tla"
+  ],
+  "returncode": 0,
+  "timed_out": false
+}

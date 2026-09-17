@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "stage": "tla-action-signature-gpu-20260917-v2",
+  "train_packet_sha256": "c9784d4da893464f23bc27610c5f7aed64c44bf5406a7ec33f27637ad0d7394f",
+  "official_packet_sha256": "f40539a20e449ad63b8244e85eff33c8022402df11a84e8228b71ccbfeae11b5",
+  "train_labels_sha256": "bba10249105e1999656dd329a642c079f623f64fd9a4ee49f574c390d34a7854",
+  "parent_checkpoint_sha256": "87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511",
+  "manifest_sha256": "c186ddf0007c5b5adfdc345a06feb777a89746160cf9041b875a8655ed1eb344",
+  "worker": "tools/proof_action_signature_cuda_train.py",
+  "admission": "prompt-only multi-label semantic proof-action signature with deterministic proposal renderer",
+  "slots": ["smt", "def", "use", "set_extensionality", "inductive", "instance"],
+  "fit_tasks": 4,
+  "holdout_tasks": 4,
+  "training_denominator": 17,
+  "official_denominator": 119,
+  "max_updates": 16,
+  "reference_fragment_used": false,
+  "protected_verifier_feedback_used": false,
+  "candidate_response_hidden_state_used": false,
+  "quality_claim": false,
+  "gate_claim": false,
+  "resources": "one Polaris GPU, 64 CPUs, 00:15:00"
+}

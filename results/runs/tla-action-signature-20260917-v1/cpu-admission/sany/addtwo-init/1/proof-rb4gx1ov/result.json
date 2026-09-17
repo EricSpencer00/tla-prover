@@ -1,0 +1,29 @@
+{
+  "certified": false,
+  "status": "verifier_reject",
+  "proved": 0,
+  "total": 0,
+  "output": "/bin/sh: /bin/ps: Operation not permitted\nFatal error: exception End_of_file\nRaised at Stdlib.input_line.scan in file \"stdlib.ml\", line 456, characters 14-31\nCalled from Tlapm_lib__System.ps_cmd.test in file \"src/system.ml\", line 37, characters 12-28\nCalled from Stdlib__List.find in file \"list.ml\", line 233, characters 17-20\nCalled from Tlapm_lib__System.ps_cmd in file \"src/system.ml\", line 45, characters 2-24\n",
+  "seconds": 0.06530570983886719,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v1/cpu-admission/sany/addtwo-init/1/proof-rb4gx1ov",
+  "reason": "",
+  "sha256": "c375ab06fea292bb59311521832f94c8bbbc2ac5f0a27cebe18316c3d4d2047c",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v1/cpu-admission/sany/addtwo-init/1/proof-rb4gx1ov/AddTwo.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v1/cpu-admission/sany/addtwo-init/1/proof-rb4gx1ov/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "AddTwo.tla"
+  ],
+  "returncode": 2,
+  "timed_out": false
+}

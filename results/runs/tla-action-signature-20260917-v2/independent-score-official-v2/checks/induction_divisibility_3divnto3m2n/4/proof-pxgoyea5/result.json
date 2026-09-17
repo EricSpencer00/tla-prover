@@ -1,0 +1,29 @@
+{
+  "certified": false,
+  "status": "timeout",
+  "proved": 0,
+  "total": 0,
+  "output": "",
+  "seconds": 5.00412130355835,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/induction_divisibility_3divnto3m2n/4/proof-pxgoyea5",
+  "reason": "",
+  "sha256": "517e612efe3a1b729a770ed602771a7a0ea4917892ec7ec73d38888c9b1a3063",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/induction_divisibility_3divnto3m2n/4/proof-pxgoyea5/induction_divisibility_3divnto3m2n.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/induction_divisibility_3divnto3m2n/4/proof-pxgoyea5/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "induction_divisibility_3divnto3m2n.tla"
+  ],
+  "returncode": -1,
+  "timed_out": true
+}

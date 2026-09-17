@@ -1,0 +1,1 @@
+{"prefix": "---- MODULE mathd_numbertheory_780 ----\nEXTENDS Integers, TLAPS\n\nTHEOREM mathd_numbertheory_780 ==\n    \\A m, x \\in Int :\n        (0 <= x) /\\\n        (10 <= m) /\\ (m <= 99) /\\\n        (6 * x) % m = 1 /\\\n        (x - 36) % m = 0\n        => m = 43", "fragment": "BY SMT", "suffix": "\n====\n", "theorem_name": "mathd_numbertheory_780"}

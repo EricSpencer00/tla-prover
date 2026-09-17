@@ -1,0 +1,1 @@
+{"prefix": "---- MODULE mathd_numbertheory_326 ----\nEXTENDS TLAPS, Integers\n\nTHEOREM mathd_numbertheory_326 ==\n    \\A n \\in Int :\n        ((n - 1) * n * (n + 1) = 720) => (n + 1 = 10)", "fragment": "BY SMT", "suffix": "\n====\n", "theorem_name": "mathd_numbertheory_326"}

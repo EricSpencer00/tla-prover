@@ -1,0 +1,1 @@
+{"prefix": "----- MODULE amc12a_2021_p3 -----\nEXTENDS Naturals, TLAPS\n\nTHEOREM amc12a_2021_p3 ==\n    \\A x, y \\in Nat :\n        x + y = 17402 /\\ (x = 10 * y) => (x - y = 14238)", "fragment": "BY SMT", "suffix": "\n====\n", "theorem_name": "amc12a_2021_p3"}

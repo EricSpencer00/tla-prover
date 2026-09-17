@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "stage": "tla-action-signature-gpu-20260917-v2",
+  "files": {
+    "config.json": "fa45de55cfa2012e8aa73b05f9110dd0221b1b700d600450db6928507a90620f",
+    "preflight.json": "e7db648ddfa44c800f47e76f4beb41ec7f2267f8b9e60421049f025d96cdcbe5",
+    "train-packet.json": "c9784d4da893464f23bc27610c5f7aed64c44bf5406a7ec33f27637ad0d7394f",
+    "official-packet.json": "f40539a20e449ad63b8244e85eff33c8022402df11a84e8228b71ccbfeae11b5",
+    "train-labels.jsonl": "bba10249105e1999656dd329a642c079f623f64fd9a4ee49f574c390d34a7854",
+    "sany-checks.json": "076728f0b5f2a30711b17b120ed7740be27380718bc931ac8bfa4cfbf402e5d3",
+    "renderer-controls.json": "ae816295e12230ffa07ecefba78bdd1378679c0c7e4df904cb395092ce56e5ed",
+    "tools/proof_action_signature_admission.py": "1db3320afef9a756bead89974d3ef71e6b57cb22c0a7f1942c286377a5c10b61",
+    "tools/proof_action_signature_cuda_train.py": "bd24fa299c38e6ecff84e77d1e9843fdceda4512362990dd93e5450acdb40f0f",
+    "train.pbs": "f1c7f4d4d558f4c75669118cd5e43dae3cc46e3c6769d40c46e79be023bbd5d0"
+  },
+  "parent_checkpoint_sha256": "87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511",
+  "answer_free": true,
+  "protected_training": false,
+  "parameter_updates": 16
+}

@@ -1,0 +1,29 @@
+{
+  "certified": true,
+  "status": "pass",
+  "proved": 2,
+  "total": 2,
+  "output": "(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/mathd_numbertheory_458/1/proof-ih0t8n7u/.tlacache/mathd_numbertheory_458.tlaps/mathd_numbertheory_458.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/mathd_numbertheory_458/1/proof-ih0t8n7u/.tlacache/mathd_numbertheory_458.tlaps/fingerprints\" *)\nFile \"./mathd_numbertheory_458.tla\", line 1, character 1 to line 6, character 85:\n[INFO]: All 2 obligations proved.\n",
+  "seconds": 0.37677001953125,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/mathd_numbertheory_458/1/proof-ih0t8n7u",
+  "reason": "",
+  "sha256": "8eee2b0bfc2e8fbe7a65b6542b09c73708b8b3ea0f20d3efa2eb14a4828d7c52",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/mathd_numbertheory_458/1/proof-ih0t8n7u/mathd_numbertheory_458.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/mathd_numbertheory_458/1/proof-ih0t8n7u/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "mathd_numbertheory_458.tla"
+  ],
+  "returncode": 0,
+  "timed_out": false
+}

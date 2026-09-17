@@ -1,0 +1,1 @@
+{"prefix": "----- MODULE numbertheory_sqmod3in01d -----\nEXTENDS Integers, TLAPS\n\nTHEOREM numbertheory_sqmod3in01d ==\n    \\A a \\in Int : (a * a % 3 = 0) \\/ (a * a % 3 = 1)", "fragment": "BY SMT", "suffix": "\n=============================================================================================\n", "theorem_name": "numbertheory_sqmod3in01d"}

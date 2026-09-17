@@ -1,0 +1,20 @@
+Zenon error: exhausted search space without finding a proof
+(* created new "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/5_toy_consensus_forall/2/proof-jf6zwe5h/.tlacache/5_toy_consensus_forall.tlaps/5_toy_consensus_forall.thy" *)
+(* fingerprints written in "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/5_toy_consensus_forall/2/proof-jf6zwe5h/.tlacache/5_toy_consensus_forall.tlaps/fingerprints" *)
+File "./5_toy_consensus_forall.tla", line 99, characters 53-59:
+[ERROR]: Could not prove or check:
+           ASSUME NEW CONSTANT Node,
+                  NEW CONSTANT Value,
+                  NEW CONSTANT Nil,
+                  NEW VARIABLE vote,
+                  NEW VARIABLE voted,
+                  NEW VARIABLE decided,
+                  QuorumType == Quorums \subseteq SUBSET Node,
+                  NodeFinite == IsFiniteSet(Node),
+                  QuorumsAreNonEmpty == \A Q \in Quorums : Q # {},
+                  QuorumsIntersect == \A Q1, Q2 \in Quorums : Q1 \cap Q2 # {},
+                  NilType == Nil \notin Value
+           PROVE  IndAuto /\ Next => IndAuto'
+File "./5_toy_consensus_forall.tla", line 1, character 1 to line 100, character 4:
+[ERROR]: 1/1 obligation failed.
+There were backend errors processing module `"5_toy_consensus_forall"`.

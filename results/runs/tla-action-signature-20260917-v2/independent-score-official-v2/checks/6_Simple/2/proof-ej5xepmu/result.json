@@ -1,0 +1,29 @@
+{
+  "certified": false,
+  "status": "verifier_reject",
+  "proved": 0,
+  "total": 0,
+  "output": "Zenon error: exhausted search space without finding a proof\n(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/6_Simple/2/proof-ej5xepmu/.tlacache/6_Simple.tlaps/6_Simple.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/6_Simple/2/proof-ej5xepmu/.tlacache/6_Simple.tlaps/fingerprints\" *)\nFile \"./6_Simple.tla\", line 132, characters 53-59:\n[ERROR]: Could not prove or check:\n           ASSUME NEW CONSTANT N,\n                  NAssump == N \\in Nat /\\ N > 0,\n                  NEW VARIABLE x,\n                  NEW VARIABLE y,\n                  NEW VARIABLE pc,\n                  NType == N \\in Nat /\\ N > 0,\n                  ProcType == ProcSet \\in SUBSET Nat\n           PROVE  IndAuto /\\ Next => IndAuto'\nFile \"./6_Simple.tla\", line 1, character 1 to line 133, character 77:\n[ERROR]: 1/1 obligation failed.\nThere were backend errors processing module `\"6_Simple\"`.\n",
+  "seconds": 2.1305720806121826,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/6_Simple/2/proof-ej5xepmu",
+  "reason": "",
+  "sha256": "20ae69a4def4906d5d8db0a781250350c2b349575739a38e892ed89afc1b4fa7",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/6_Simple/2/proof-ej5xepmu/6_Simple.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/6_Simple/2/proof-ej5xepmu/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "6_Simple.tla"
+  ],
+  "returncode": 10,
+  "timed_out": false
+}

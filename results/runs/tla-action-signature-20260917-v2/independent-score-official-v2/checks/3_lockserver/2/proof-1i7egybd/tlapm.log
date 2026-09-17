@@ -1,0 +1,14 @@
+(* created new "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/3_lockserver/2/proof-1i7egybd/.tlacache/3_lockserver.tlaps/3_lockserver.thy" *)
+(* fingerprints written in "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/3_lockserver/2/proof-1i7egybd/.tlacache/3_lockserver.tlaps/fingerprints" *)
+File "./3_lockserver.tla", line 75, characters 53-54:
+[ERROR]: Could not prove or check:
+           ASSUME NEW CONSTANT Server,
+                  NEW CONSTANT Client,
+                  NEW CONSTANT Nil,
+                  NEW VARIABLE semaphore,
+                  NEW VARIABLE clientlocks,
+                  SMT 
+           PROVE  IndAuto /\ Next => IndAuto'
+File "./3_lockserver.tla", line 1, character 1 to line 76, character 4:
+[ERROR]: 1/2 obligations failed.
+There were backend errors processing module `"3_lockserver"`.

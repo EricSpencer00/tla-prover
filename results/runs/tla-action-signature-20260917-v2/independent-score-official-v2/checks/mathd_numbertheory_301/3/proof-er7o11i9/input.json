@@ -1,0 +1,1 @@
+{"prefix": "----- MODULE mathd_numbertheory_301 -----\nEXTENDS TLAPS, Integers\n\nTHEOREM mathd_numbertheory_301 ==\n    \\A j \\in Nat : (j > 0) => (3 * (7 * j + 3)) % 7 = 2", "fragment": "BY SMT, SetExtensionality, NoSetContainsEverything", "suffix": "\n============================================================\n", "theorem_name": "mathd_numbertheory_301"}

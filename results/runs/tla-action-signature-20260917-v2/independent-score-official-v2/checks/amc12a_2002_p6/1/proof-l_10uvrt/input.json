@@ -1,0 +1,1 @@
+{"prefix": "---- MODULE amc12a_2002_p6 ----\nEXTENDS TLAPS, Integers\n\nTHEOREM amc12a_2002_p6 ==\n    \\A n \\in Nat \\ {0} : \\E m \\in Nat :\n        (m > n) /\\ (\\E p \\in Nat : m * p <= m + p)", "fragment": "BY SMT", "suffix": "\n====\n", "theorem_name": "amc12a_2002_p6"}

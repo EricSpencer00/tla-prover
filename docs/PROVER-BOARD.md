@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 815
-- Verified UTC: 2026-09-17T05:35:32Z
+- Revision: 821
+- Verified UTC: 2026-09-17T06:19:00Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: local_work
 - Active job: none
-- Observation evidence: At 2026-09-17T05:35:32Z, job7629209 is terminal F/Exit0 on x3001c0s19b1n0/0*64 after00:04:38 with requested one GPU,64 CPUs and00:15:00 walltime. The receipt has48 updates, exact tensor/logit reload, finite child checkpoint86f2104f and no protected target/feedback training path. Independent audit ignores worker labels, passes pinned-SANY references2/2, and finds0/4 typed candidates valid and0/4 candidate SANY passes. No quality or gate claim exists.
+- Observation evidence: At 2026-09-17T06:19:00Z, v2 job7629257 is terminal F/Exit0 on x3005c0s37b0n0/0*64 after00:02:24 with requested one GPU,64 CPUs and00:15:00 walltime. It completed16 exact head updates and exact tensor/logit reload; runtime is NVIDIA A100-SXM4-40GB. Independent holdout scoring certifies4/4 tasks in top4 and1/4 at rank1. Independent official scoring preserves119/119 full rankings, makes324 strict-TLAPS attempts over114 measured tasks, and certifies42/119 rank1 and43/119 top4. No quality, proof-model or gate claim exists.
 - Latest completed result: Typed declaration/operator slot SFT completed with48 updates and exact reload, but the restored parent and trained child emitted ordinary raw TLA modules rather than the required typed-slot envelope:0/4 typed candidates valid and0/4 candidate SANY passes. Independent references pass2/2. This is a negative representation result, not a prover-model or gate result.
-- Local work: The semantic, span, broad-clean, schema-weighted, planner, parser-controlled, matched-prefix streaming, explicit-header body, canonical byte-frame and typed-slot framing-only objectives remain complete negatives and are not replayed. Candidate-order, factorized, pairwise, retrieval/prototype, transition-utility and frozen-parent pooled-hidden-state fixed-four action-head branches are pruned or baseline-only: neural mean-logp35/119, sum-logp35/119, visible-context35/119, structural43/119, factorized36/119, pairwise42/119, retrieval36/119, transition ranker2/4 holdout, action-head42/119 and frozen symbolic baseline57/119. Typed-slot job7629209 completed48 exact-reload updates from clean references only; independent scoring found0/4 typed candidates valid and0/4 candidate SANY passes while references passed2/2. No protected response bodies, generated feedback, repair or replay negatives entered training.
+- Local work: The semantic, span, broad-clean, schema-weighted, planner, parser-controlled, matched-prefix streaming, explicit-header body, canonical byte-frame and typed-slot framing-only objectives remain complete negatives and are not replayed. Candidate-order, factorized, pairwise, retrieval/prototype, transition-utility and frozen-parent pooled-hidden-state fixed-four action-head branches are pruned or baseline-only: neural mean-logp35/119, sum-logp35/119, visible-context35/119, structural43/119, factorized36/119, pairwise42/119, retrieval36/119, transition ranker2/4 holdout, action-head42/119 and frozen symbolic baseline57/119. The prompt-only six-slot semantic action-signature v2 completed16 exact head updates after a v1 autograd-boundary repair; independent scoring measured1/4 holdout rank1,4/4 holdout top4,42/119 official rank1 and43/119 official top4. It matches the established symbolic top4 baseline and is pruned as no learned improvement. No protected response bodies, generated feedback, repair or replay negatives entered training.
 - External blocker: none verified
-- Next action: Preserve and prune typed-slot framing-only SFT; do not replay it unchanged. Choose the next materially different learning signal or non-textual proof/action representation, with a fresh CPU holdout/SANY contract before any GPU.
+- Next action: Prune prompt-only semantic action signatures as baseline-matching, preserve all v1/v2 receipts, and select the next materially different representation or learning signal with a fresh CPU verifier contract; do not replay this branch unchanged.
 
 ## Objective and evidence rules
 
@@ -653,16 +653,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 815,
-  "verified_utc": "2026-09-17T05:35:32Z",
+  "revision": 821,
+  "verified_utc": "2026-09-17T06:19:00Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "local_work",
   "active_job": null,
-  "observation_evidence": "At 2026-09-17T05:35:32Z, job7629209 is terminal F/Exit0 on x3001c0s19b1n0/0*64 after00:04:38 with requested one GPU,64 CPUs and00:15:00 walltime. The receipt has48 updates, exact tensor/logit reload, finite child checkpoint86f2104f and no protected target/feedback training path. Independent audit ignores worker labels, passes pinned-SANY references2/2, and finds0/4 typed candidates valid and0/4 candidate SANY passes. No quality or gate claim exists.",
+  "observation_evidence": "At 2026-09-17T06:19:00Z, v2 job7629257 is terminal F/Exit0 on x3005c0s37b0n0/0*64 after00:02:24 with requested one GPU,64 CPUs and00:15:00 walltime. It completed16 exact head updates and exact tensor/logit reload; runtime is NVIDIA A100-SXM4-40GB. Independent holdout scoring certifies4/4 tasks in top4 and1/4 at rank1. Independent official scoring preserves119/119 full rankings, makes324 strict-TLAPS attempts over114 measured tasks, and certifies42/119 rank1 and43/119 top4. No quality, proof-model or gate claim exists.",
   "last_result": "Typed declaration/operator slot SFT completed with48 updates and exact reload, but the restored parent and trained child emitted ordinary raw TLA modules rather than the required typed-slot envelope:0/4 typed candidates valid and0/4 candidate SANY passes. Independent references pass2/2. This is a negative representation result, not a prover-model or gate result.",
-  "local_work": "The semantic, span, broad-clean, schema-weighted, planner, parser-controlled, matched-prefix streaming, explicit-header body, canonical byte-frame and typed-slot framing-only objectives remain complete negatives and are not replayed. Candidate-order, factorized, pairwise, retrieval/prototype, transition-utility and frozen-parent pooled-hidden-state fixed-four action-head branches are pruned or baseline-only: neural mean-logp35/119, sum-logp35/119, visible-context35/119, structural43/119, factorized36/119, pairwise42/119, retrieval36/119, transition ranker2/4 holdout, action-head42/119 and frozen symbolic baseline57/119. Typed-slot job7629209 completed48 exact-reload updates from clean references only; independent scoring found0/4 typed candidates valid and0/4 candidate SANY passes while references passed2/2. No protected response bodies, generated feedback, repair or replay negatives entered training.",
+  "local_work": "The semantic, span, broad-clean, schema-weighted, planner, parser-controlled, matched-prefix streaming, explicit-header body, canonical byte-frame and typed-slot framing-only objectives remain complete negatives and are not replayed. Candidate-order, factorized, pairwise, retrieval/prototype, transition-utility and frozen-parent pooled-hidden-state fixed-four action-head branches are pruned or baseline-only: neural mean-logp35/119, sum-logp35/119, visible-context35/119, structural43/119, factorized36/119, pairwise42/119, retrieval36/119, transition ranker2/4 holdout, action-head42/119 and frozen symbolic baseline57/119. The prompt-only six-slot semantic action-signature v2 completed16 exact head updates after a v1 autograd-boundary repair; independent scoring measured1/4 holdout rank1,4/4 holdout top4,42/119 official rank1 and43/119 official top4. It matches the established symbolic top4 baseline and is pruned as no learned improvement. No protected response bodies, generated feedback, repair or replay negatives entered training.",
   "external_blocker": "none verified",
-  "next_action": "Preserve and prune typed-slot framing-only SFT; do not replay it unchanged. Choose the next materially different learning signal or non-textual proof/action representation, with a fresh CPU holdout/SANY contract before any GPU.",
+  "next_action": "Prune prompt-only semantic action signatures as baseline-matching, preserve all v1/v2 receipts, and select the next materially different representation or learning signal with a fresh CPU verifier contract; do not replay this branch unchanged.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -2943,7 +2943,47 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "results/runs/tla-fullmodule-canonical-byte-sequence-20260917-v1/job-7629178/terminal.json",
     "tools/proof_fullmodule_canonical_sequence_sany_audit.py",
     "harness/test_proof_fullmodule_canonical_sequence_sany_audit.py",
-    "results/runs/tla-fullmodule-canonical-byte-sequence-20260917-v1/independent-sany-audit/summary.json"
+    "results/runs/tla-fullmodule-canonical-byte-sequence-20260917-v1/independent-sany-audit/summary.json",
+    "tools/proof_action_signature_admission.py",
+    "tools/proof_action_signature_cuda_train.py",
+    "tools/proof_action_signature_polaris.pbs",
+    "harness/test_proof_action_signature_admission.py",
+    "harness/test_proof_action_signature_cuda_train.py",
+    "results/runs/tla-action-signature-20260917-v1/cpu-admission-v2/admission.json",
+    "results/runs/tla-action-signature-20260917-v1/cpu-admission-v2/sany-checks.json",
+    "results/stages/tla-action-signature-gpu-20260917-v1/SHA256SUMS",
+    "results/stages/tla-action-signature-gpu-20260917-v1/manifest.json",
+    "results/stages/tla-action-signature-gpu-20260917-v1/config.json",
+    "results/stages/tla-action-signature-gpu-20260917-v1/preflight.json",
+    "results/stages/tla-action-signature-gpu-20260917-v1/train.pbs",
+    "results/stages/tla-action-signature-gpu-20260917-v1/tools/proof_action_signature_admission.py",
+    "results/stages/tla-action-signature-gpu-20260917-v1/tools/proof_action_signature_cuda_train.py",
+    "results/prover-submit-claims/be6476009ec6fbc971a4db3230296dad04516f462e249a01e5385ccedf63173b.json",
+    "results/runs/tla-action-signature-20260917-v1/job-7629246/submission.json",
+    "results/runs/tla-action-signature-20260917-v1/job-7629246/terminal.json",
+    "results/runs/tla-action-signature-20260917-v1/job-7629246/train.stdout",
+    "results/stages/tla-action-signature-gpu-20260917-v2/SHA256SUMS",
+    "results/stages/tla-action-signature-gpu-20260917-v2/manifest.json",
+    "results/stages/tla-action-signature-gpu-20260917-v2/config.json",
+    "results/stages/tla-action-signature-gpu-20260917-v2/preflight.json",
+    "results/stages/tla-action-signature-gpu-20260917-v2/train.pbs",
+    "results/stages/tla-action-signature-gpu-20260917-v2/tools/proof_action_signature_admission.py",
+    "results/stages/tla-action-signature-gpu-20260917-v2/tools/proof_action_signature_cuda_train.py",
+    "results/prover-submit-claims/5b691317ba7b5df7c09c4f0d73dd6f32cdcd7e1ee319de4dab29f108b48e51f9.json",
+    "results/runs/tla-action-signature-20260917-v2/job-7629257/submission.json",
+    "results/runs/tla-action-signature-20260917-v2/job-7629257/terminal.json",
+    "results/runs/tla-action-signature-20260917-v2/job-7629257/train.stdout",
+    "results/runs/tla-action-signature-20260917-v2/job-7629257/result.7629257/config.json",
+    "results/runs/tla-action-signature-20260917-v2/job-7629257/result.7629257/holdout-rankings.json",
+    "results/runs/tla-action-signature-20260917-v2/job-7629257/result.7629257/rankings.json",
+    "results/runs/tla-action-signature-20260917-v2/job-7629257/result.7629257/runtime.json",
+    "results/runs/tla-action-signature-20260917-v2/job-7629257/result.7629257/summary.json",
+    "results/runs/tla-action-signature-20260917-v2/independent-score-holdout-v2/summary.json",
+    "results/runs/tla-action-signature-20260917-v2/independent-score-holdout-v2/checks.jsonl",
+    "results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/summary.json",
+    "results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks.jsonl",
+    "tools/proof_action_signature_independent_score.py",
+    "harness/test_proof_action_signature_independent_score.py"
   ]
 }
 -->

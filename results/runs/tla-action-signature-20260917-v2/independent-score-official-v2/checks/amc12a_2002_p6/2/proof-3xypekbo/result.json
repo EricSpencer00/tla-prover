@@ -1,0 +1,29 @@
+{
+  "certified": true,
+  "status": "pass",
+  "proved": 3,
+  "total": 3,
+  "output": "(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/amc12a_2002_p6/2/proof-3xypekbo/.tlacache/amc12a_2002_p6.tlaps/amc12a_2002_p6.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/amc12a_2002_p6/2/proof-3xypekbo/.tlacache/amc12a_2002_p6.tlaps/fingerprints\" *)\nFile \"./amc12a_2002_p6.tla\", line 1, character 1 to line 7, character 4:\n[INFO]: All 3 obligations proved.\n",
+  "seconds": 2.1836040019989014,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/amc12a_2002_p6/2/proof-3xypekbo",
+  "reason": "",
+  "sha256": "61d59d95dd6adae714d7204649aef4d13cf728d8bf4654409a9809175ab4fed0",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/amc12a_2002_p6/2/proof-3xypekbo/amc12a_2002_p6.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/amc12a_2002_p6/2/proof-3xypekbo/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "amc12a_2002_p6.tla"
+  ],
+  "returncode": 0,
+  "timed_out": false
+}

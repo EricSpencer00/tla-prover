@@ -1,0 +1,29 @@
+{
+  "certified": true,
+  "status": "pass",
+  "proved": 2,
+  "total": 2,
+  "output": "(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/13_simple_decentralized_lock/1/proof-a4mvgdz5/.tlacache/13_simple_decentralized_lock.tlaps/13_simple_decentralized_lock.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/13_simple_decentralized_lock/1/proof-a4mvgdz5/.tlacache/13_simple_decentralized_lock.tlaps/fingerprints\" *)\nFile \"./13_simple_decentralized_lock.tla\", line 1, character 1 to line 71, character 4:\n[INFO]: All 2 obligations proved.\n",
+  "seconds": 2.1455166339874268,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/13_simple_decentralized_lock/1/proof-a4mvgdz5",
+  "reason": "",
+  "sha256": "16237c1c9634c1d2c045eb6509c5a2fbb0c6f254fd6d6109a282d72b0d539549",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/13_simple_decentralized_lock/1/proof-a4mvgdz5/13_simple_decentralized_lock.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/13_simple_decentralized_lock/1/proof-a4mvgdz5/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "13_simple_decentralized_lock.tla"
+  ],
+  "returncode": 0,
+  "timed_out": false
+}

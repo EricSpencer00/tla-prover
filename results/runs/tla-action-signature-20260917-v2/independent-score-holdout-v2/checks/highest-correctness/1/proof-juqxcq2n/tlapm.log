@@ -1,0 +1,14 @@
+(* created new "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-holdout-v2/checks/highest-correctness/1/proof-juqxcq2n/.tlacache/FindHighest.tlaps/FindHighest.thy" *)
+(* fingerprints written in "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-holdout-v2/checks/highest-correctness/1/proof-juqxcq2n/.tlacache/FindHighest.tlaps/fingerprints" *)
+File "./FindHighest.tla", line 145, characters 3-4:
+[ERROR]: Could not prove or check:
+           ASSUME NEW VARIABLE f,
+                  NEW VARIABLE h,
+                  NEW VARIABLE i,
+                  NEW VARIABLE pc,
+                  SMT 
+           PROVE  TypeOK /\ InductiveInvariant /\ DoneIndexValue
+                  => Correctness
+File "./FindHighest.tla", line 1, character 1 to line 149, character 77:
+[ERROR]: 1/46 obligations failed.
+There were backend errors processing module `"FindHighest"`.

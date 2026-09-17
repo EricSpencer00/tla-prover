@@ -1,0 +1,29 @@
+{
+  "certified": true,
+  "status": "pass",
+  "proved": 1,
+  "total": 1,
+  "output": "(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/10_lockserv/1/proof-vg6qk9dp/.tlacache/10_lockserv.tlaps/10_lockserv.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/10_lockserv/1/proof-vg6qk9dp/.tlacache/10_lockserv.tlaps/fingerprints\" *)\nFile \"./10_lockserv.tla\", line 1, character 1 to line 97, character 4:\n[INFO]: All 1 obligation proved.\n",
+  "seconds": 0.839838981628418,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/10_lockserv/1/proof-vg6qk9dp",
+  "reason": "",
+  "sha256": "423e9b00974bed6f3e8264599927b94804a9c5cda3d0222ac9af3d3463d4ff6e",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/10_lockserv/1/proof-vg6qk9dp/10_lockserv.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/10_lockserv/1/proof-vg6qk9dp/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "10_lockserv.tla"
+  ],
+  "returncode": 0,
+  "timed_out": false
+}

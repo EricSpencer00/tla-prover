@@ -1,0 +1,29 @@
+{
+  "certified": true,
+  "status": "pass",
+  "proved": 2,
+  "total": 2,
+  "output": "(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/mathd_algebra_123/1/proof-a0eh21sl/.tlacache/mathd_algebra_123.tlaps/mathd_algebra_123.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/mathd_algebra_123/1/proof-a0eh21sl/.tlacache/mathd_algebra_123.tlaps/fingerprints\" *)\nFile \"./mathd_algebra_123.tla\", line 1, character 1 to line 7, character 77:\n[INFO]: All 2 obligations proved.\n",
+  "seconds": 0.36731505393981934,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/mathd_algebra_123/1/proof-a0eh21sl",
+  "reason": "",
+  "sha256": "b9a0a58b5b6a995396066aa23a9926cb0e453a39a45afa7b0e0803bc383486b9",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/mathd_algebra_123/1/proof-a0eh21sl/mathd_algebra_123.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/mathd_algebra_123/1/proof-a0eh21sl/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "mathd_algebra_123.tla"
+  ],
+  "returncode": 0,
+  "timed_out": false
+}

@@ -1,0 +1,22 @@
+(* created new "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/9_sharded_kv/2/proof-yrva82x_/.tlacache/9_sharded_kv.tlaps/9_sharded_kv.thy" *)
+(* fingerprints written in "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/9_sharded_kv/2/proof-yrva82x_/.tlacache/9_sharded_kv.tlaps/fingerprints" *)
+File "./9_sharded_kv.tla", line 94, characters 53-54:
+[ERROR]: Could not prove or check:
+           ASSUME NEW CONSTANT Key,
+                  NEW CONSTANT Value,
+                  NEW CONSTANT Node,
+                  NEW CONSTANT Nil,
+                  NEW VARIABLE table,
+                  NEW VARIABLE owner,
+                  NEW VARIABLE transfer_msg,
+                  Fin ==
+                    IsFiniteSet(Node) /\ IsFiniteSet(Key)
+                    /\ IsFiniteSet(Value),
+                  NilType ==
+                    Nil \notin Node /\ Nil \notin Key /\ Nil \notin Value,
+                  NodeNonEmpty == Node # {},
+                  SMT 
+           PROVE  IndAuto /\ Next => IndAuto'
+File "./9_sharded_kv.tla", line 1, character 1 to line 95, character 4:
+[ERROR]: 1/2 obligations failed.
+There were backend errors processing module `"9_sharded_kv"`.

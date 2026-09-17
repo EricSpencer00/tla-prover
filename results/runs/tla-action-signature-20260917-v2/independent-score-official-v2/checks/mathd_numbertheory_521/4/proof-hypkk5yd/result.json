@@ -1,0 +1,29 @@
+{
+  "certified": false,
+  "status": "verifier_reject",
+  "proved": 0,
+  "total": 0,
+  "output": "File \"./mathd_numbertheory_521.tla\", line 9, character 24\nUnexpected ,\nFile \"<unknown>\":\nError: Could not parse \"./mathd_numbertheory_521.tla\" successfully.\n tlapm ending abnormally with Failure(\"Module.Parser.parse_file\")\nRaised at Stdlib.failwith in file \"stdlib.ml\", line 29, characters 17-33\nCalled from Tlapm_lib__M_save.clocking in file \"src/module/m_save.ml\", line 24, characters 18-22\nCalled from Tlapm_lib.read_new_modules.(fun) in file \"src/tlapm_lib.ml\", line 549, characters 8-57\nCalled from Stdlib__List.fold_left in file \"list.ml\", line 123, characters 24-34\nCalled from Tlapm_lib.main in file \"src/tlapm_lib.ml\", line 608, characters 20-43\nCalled from Tlapm_lib.init in file \"src/tlapm_lib.ml\", line 641, characters 8-59\n\n",
+  "seconds": 0.10322213172912598,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/mathd_numbertheory_521/4/proof-hypkk5yd",
+  "reason": "",
+  "sha256": "151d3ff469d5df5399bf9997c0557dae6adf5f01eaa9fc6fb408e7ab2e005e2f",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/mathd_numbertheory_521/4/proof-hypkk5yd/mathd_numbertheory_521.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/mathd_numbertheory_521/4/proof-hypkk5yd/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "mathd_numbertheory_521.tla"
+  ],
+  "returncode": 3,
+  "timed_out": false
+}

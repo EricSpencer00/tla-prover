@@ -1,0 +1,29 @@
+{
+  "certified": false,
+  "status": "verifier_reject",
+  "proved": 0,
+  "total": 0,
+  "output": "(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/30_MongoLoglessDynamicRaft/2/proof-t9pnipj2/.tlacache/30_MongoLoglessDynamicRaft.tlaps/30_MongoLoglessDynamicRaft.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/30_MongoLoglessDynamicRaft/2/proof-t9pnipj2/.tlacache/30_MongoLoglessDynamicRaft.tlaps/fingerprints\" *)\nFile \"./30_MongoLoglessDynamicRaft.tla\", line 248, characters 1-2:\n[ERROR]: Could not prove or check:\n           ASSUME NEW CONSTANT Server,\n                  NEW CONSTANT Secondary,\n                  NEW CONSTANT Primary,\n                  NEW CONSTANT Nil,\n                  NEW CONSTANT InitTerm,\n                  NEW VARIABLE currentTerm,\n                  NEW VARIABLE state,\n                  NEW VARIABLE configVersion,\n                  NEW VARIABLE configTerm,\n                  NEW VARIABLE config,\n                  NEW CONSTANT MaxTerm,\n                  NEW CONSTANT MaxLogLen,\n                  NEW CONSTANT MaxConfigVersion,\n                  PrimaryAndSecondaryAreDifferent == Primary # Secondary,\n                  ServerIsFinite == IsFiniteSet(Server),\n                  ServerIsNonempty == Server # {},\n                  SMT \n           PROVE  IndAuto /\\ Next => IndAuto'\nFile \"./30_MongoLoglessDynamicRaft.tla\", line 1, character 1 to line 249, character 77:\n[ERROR]: 1/2 obligations failed.\nThere were backend errors processing module `\"30_MongoLoglessDynamicRaft\"`.\n",
+  "seconds": 0.5156748294830322,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/30_MongoLoglessDynamicRaft/2/proof-t9pnipj2",
+  "reason": "",
+  "sha256": "a2617117f2b115a91166b87a37c7c6edce3d4163005d093bef2821b3fe112535",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/30_MongoLoglessDynamicRaft/2/proof-t9pnipj2/30_MongoLoglessDynamicRaft.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/30_MongoLoglessDynamicRaft/2/proof-t9pnipj2/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "30_MongoLoglessDynamicRaft.tla"
+  ],
+  "returncode": 10,
+  "timed_out": false
+}

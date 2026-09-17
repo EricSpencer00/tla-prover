@@ -1,0 +1,29 @@
+{
+  "certified": true,
+  "status": "pass",
+  "proved": 2,
+  "total": 2,
+  "output": "(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/aime_1991_p1/1/proof-3kbd_6uv/.tlacache/aime_1991_p1.tlaps/aime_1991_p1.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/aime_1991_p1/1/proof-3kbd_6uv/.tlacache/aime_1991_p1.tlaps/fingerprints\" *)\nFile \"./aime_1991_p1.tla\", line 1, character 1 to line 7, character 4:\n[INFO]: All 2 obligations proved.\n",
+  "seconds": 1.1121883392333984,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/aime_1991_p1/1/proof-3kbd_6uv",
+  "reason": "",
+  "sha256": "16699148391c0e963999634fe07b1771a05a2bddb180df2b69818b12e7dd44ed",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/aime_1991_p1/1/proof-3kbd_6uv/aime_1991_p1.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/aime_1991_p1/1/proof-3kbd_6uv/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "aime_1991_p1.tla"
+  ],
+  "returncode": 0,
+  "timed_out": false
+}

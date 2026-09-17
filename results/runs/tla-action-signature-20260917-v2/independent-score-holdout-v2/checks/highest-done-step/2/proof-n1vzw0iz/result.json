@@ -1,0 +1,29 @@
+{
+  "certified": true,
+  "status": "pass",
+  "proved": 39,
+  "total": 39,
+  "output": "(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-holdout-v2/checks/highest-done-step/2/proof-n1vzw0iz/.tlacache/FindHighest.tlaps/FindHighest.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-holdout-v2/checks/highest-done-step/2/proof-n1vzw0iz/.tlacache/FindHighest.tlaps/fingerprints\" *)\nFile \"./FindHighest.tla\", line 1, character 1 to line 136, character 77:\n[INFO]: All 39 obligations proved.\n",
+  "seconds": 0.5096848011016846,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-holdout-v2/checks/highest-done-step/2/proof-n1vzw0iz",
+  "reason": "",
+  "sha256": "8426ebb17115f4a4dbdbd9a7ec7f038b4082839540ed4638b73fe1b0814125d2",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-holdout-v2/checks/highest-done-step/2/proof-n1vzw0iz/FindHighest.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-holdout-v2/checks/highest-done-step/2/proof-n1vzw0iz/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "FindHighest.tla"
+  ],
+  "returncode": 0,
+  "timed_out": false
+}

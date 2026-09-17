@@ -1,0 +1,29 @@
+{
+  "certified": false,
+  "status": "verifier_reject",
+  "proved": 0,
+  "total": 0,
+  "output": "(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/27_firewall/2/proof-k96p1wv3/.tlacache/27_firewall.tlaps/27_firewall.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/27_firewall/2/proof-k96p1wv3/.tlacache/27_firewall.tlaps/fingerprints\" *)\nFile \"./27_firewall.tla\", line 69, characters 53-54:\n[ERROR]: Could not prove or check:\n           ASSUME NEW CONSTANT Node,\n                  NEW VARIABLE internal,\n                  NEW VARIABLE sent,\n                  NEW VARIABLE allowed_in,\n                  NodeNonEmpty == Node # {},\n                  NodeFinite == IsFiniteSet(Node),\n                  SMT \n           PROVE  IndAuto /\\ Next => IndAuto'\nFile \"./27_firewall.tla\", line 1, character 1 to line 70, character 4:\n[ERROR]: 1/2 obligations failed.\nThere were backend errors processing module `\"27_firewall\"`.\n",
+  "seconds": 0.4809379577636719,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/27_firewall/2/proof-k96p1wv3",
+  "reason": "",
+  "sha256": "13ba560cc210c9173b156c27a3e1baad0869006922559af381dcc5c1e3e7a7f7",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/27_firewall/2/proof-k96p1wv3/27_firewall.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/27_firewall/2/proof-k96p1wv3/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "27_firewall.tla"
+  ],
+  "returncode": 10,
+  "timed_out": false
+}

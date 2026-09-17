@@ -1,0 +1,23 @@
+(* created new "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/16_consensus_forall/2/proof-1llvh4gr/.tlacache/16_consensus_forall.tlaps/16_consensus_forall.thy" *)
+(* fingerprints written in "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/16_consensus_forall/2/proof-1llvh4gr/.tlacache/16_consensus_forall.tlaps/fingerprints" *)
+File "./16_consensus_forall.tla", line 135, characters 1-2:
+[ERROR]: Could not prove or check:
+           ASSUME NEW CONSTANT Node,
+                  NEW CONSTANT Value,
+                  NEW CONSTANT Quorum,
+                  NEW VARIABLE vote_request_msg,
+                  NEW VARIABLE voted,
+                  NEW VARIABLE vote_msg,
+                  NEW VARIABLE votes,
+                  NEW VARIABLE leader,
+                  NEW VARIABLE voting_quorum,
+                  NEW VARIABLE decided,
+                  QuorumsAreNodePowersets == Quorum \subseteq SUBSET Node,
+                  EmptyNotInQuorums == {} \notin Quorum,
+                  QuorumsOverlap == \A Q1, Q2 \in Quorum : Q1 \cap Q2 # {},
+                  Fin == IsFiniteSet(Node),
+                  SMT 
+           PROVE  IndAuto /\ Next => IndAuto'
+File "./16_consensus_forall.tla", line 1, character 1 to line 136, character 4:
+[ERROR]: 1/2 obligations failed.
+There were backend errors processing module `"16_consensus_forall"`.

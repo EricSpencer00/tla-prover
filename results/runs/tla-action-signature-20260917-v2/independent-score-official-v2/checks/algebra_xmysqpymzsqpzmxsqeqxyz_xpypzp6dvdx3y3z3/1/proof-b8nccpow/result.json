@@ -1,0 +1,29 @@
+{
+  "certified": false,
+  "status": "timeout",
+  "proved": 0,
+  "total": 0,
+  "output": "",
+  "seconds": 5.004611015319824,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/algebra_xmysqpymzsqpzmxsqeqxyz_xpypzp6dvdx3y3z3/1/proof-b8nccpow",
+  "reason": "",
+  "sha256": "3dffc269b81a75d631e44a23e2f9476df5bc5760e14701848c0cf6d30d465622",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/algebra_xmysqpymzsqpzmxsqeqxyz_xpypzp6dvdx3y3z3/1/proof-b8nccpow/algebra_xmysqpymzsqpzmxsqeqxyz_xpypzp6dvdx3y3z3.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/tla-action-signature-20260917-v2/independent-score-official-v2/checks/algebra_xmysqpymzsqpzmxsqeqxyz_xpypzp6dvdx3y3z3/1/proof-b8nccpow/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "algebra_xmysqpymzsqpzmxsqeqxyz_xpypzp6dvdx3y3z3.tla"
+  ],
+  "returncode": -1,
+  "timed_out": true
+}

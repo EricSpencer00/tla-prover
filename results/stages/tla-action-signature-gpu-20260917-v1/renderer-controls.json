@@ -1,0 +1,1005 @@
+[
+  {
+    "task": "addtwo-init",
+    "top_index": 1,
+    "distance": 0.0,
+    "ranking": [
+      {
+        "candidate_index": 1,
+        "candidate": "BY SMT DEF vars, Init, Next, Spec, TypeOK",
+        "signature": [
+          1,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 0.0
+      },
+      {
+        "candidate_index": 0,
+        "candidate": "BY SMT",
+        "signature": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 1.0
+      },
+      {
+        "candidate_index": 2,
+        "candidate": "BY DEF vars, Init, Next, Spec, TypeOK",
+        "signature": [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 1.0
+      },
+      {
+        "candidate_index": 3,
+        "candidate": "BY SMT, SetExtensionality",
+        "signature": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "signature_distance": 2.0
+      }
+    ]
+  },
+  {
+    "task": "addtwo-step",
+    "top_index": 1,
+    "distance": 0.0,
+    "ranking": [
+      {
+        "candidate_index": 1,
+        "candidate": "BY SMT DEF vars, Init, Next, Spec, TypeOK",
+        "signature": [
+          1,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 0.0
+      },
+      {
+        "candidate_index": 0,
+        "candidate": "BY SMT",
+        "signature": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 1.0
+      },
+      {
+        "candidate_index": 2,
+        "candidate": "BY DEF vars, Init, Next, Spec, TypeOK",
+        "signature": [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 1.0
+      },
+      {
+        "candidate_index": 3,
+        "candidate": "BY SMT, SetExtensionality",
+        "signature": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "signature_distance": 2.0
+      }
+    ]
+  },
+  {
+    "task": "even-case-tail",
+    "top_index": 0,
+    "distance": 1.0,
+    "ranking": [
+      {
+        "candidate_index": 0,
+        "candidate": "BY SMT",
+        "signature": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 1.0
+      },
+      {
+        "candidate_index": 2,
+        "candidate": "BY DEF Even, Odd",
+        "signature": [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 1.0
+      },
+      {
+        "candidate_index": 3,
+        "candidate": "BY SMT, NoSetContainsEverything",
+        "signature": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 1.0
+      },
+      {
+        "candidate_index": 1,
+        "candidate": "BY SMT DEF Even, Odd",
+        "signature": [
+          1,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 2.0
+      }
+    ]
+  },
+  {
+    "task": "even-intro",
+    "top_index": 0,
+    "distance": 1.0,
+    "ranking": [
+      {
+        "candidate_index": 0,
+        "candidate": "BY SMT",
+        "signature": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 1.0
+      },
+      {
+        "candidate_index": 2,
+        "candidate": "BY DEF Even, Odd",
+        "signature": [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 1.0
+      },
+      {
+        "candidate_index": 3,
+        "candidate": "BY SMT, NoSetContainsEverything",
+        "signature": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 1.0
+      },
+      {
+        "candidate_index": 1,
+        "candidate": "BY SMT DEF Even, Odd",
+        "signature": [
+          1,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 2.0
+      }
+    ]
+  },
+  {
+    "task": "highest-correctness",
+    "top_index": 1,
+    "distance": 0.0,
+    "ranking": [
+      {
+        "candidate_index": 1,
+        "candidate": "BY SMT DEF max, vars, Init, lb, Terminating, Next, Spec, Termination, TypeOK, InductiveInvariant, DoneIndexValue, Correctness",
+        "signature": [
+          1,
+          1,
+          0,
+          0,
+          1,
+          0
+        ],
+        "signature_distance": 0.0
+      },
+      {
+        "candidate_index": 2,
+        "candidate": "BY DEF max, vars, Init, lb, Terminating, Next, Spec, Termination, TypeOK, InductiveInvariant, DoneIndexValue, Correctness",
+        "signature": [
+          0,
+          1,
+          0,
+          0,
+          1,
+          0
+        ],
+        "signature_distance": 1.0
+      },
+      {
+        "candidate_index": 0,
+        "candidate": "BY SMT",
+        "signature": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 2.0
+      },
+      {
+        "candidate_index": 3,
+        "candidate": "BY SMT, TypeInvariantHolds, InductiveInvariantHolds, DoneIndexValueThm, SetExtensionality",
+        "signature": [
+          1,
+          0,
+          0,
+          1,
+          1,
+          0
+        ],
+        "signature_distance": 2.0
+      }
+    ]
+  },
+  {
+    "task": "highest-done-step",
+    "top_index": 1,
+    "distance": 0.0,
+    "ranking": [
+      {
+        "candidate_index": 1,
+        "candidate": "BY SMT DEF max, vars, Init, lb, Terminating, Next, Spec, Termination, TypeOK, InductiveInvariant, DoneIndexValue",
+        "signature": [
+          1,
+          1,
+          0,
+          0,
+          1,
+          0
+        ],
+        "signature_distance": 0.0
+      },
+      {
+        "candidate_index": 2,
+        "candidate": "BY DEF max, vars, Init, lb, Terminating, Next, Spec, Termination, TypeOK, InductiveInvariant, DoneIndexValue",
+        "signature": [
+          0,
+          1,
+          0,
+          0,
+          1,
+          0
+        ],
+        "signature_distance": 1.0
+      },
+      {
+        "candidate_index": 0,
+        "candidate": "BY SMT",
+        "signature": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 2.0
+      },
+      {
+        "candidate_index": 3,
+        "candidate": "BY SMT, TypeInvariantHolds, InductiveInvariantHolds, SetExtensionality",
+        "signature": [
+          1,
+          0,
+          0,
+          1,
+          1,
+          0
+        ],
+        "signature_distance": 2.0
+      }
+    ]
+  },
+  {
+    "task": "highest-inductive-step",
+    "top_index": 1,
+    "distance": 0.0,
+    "ranking": [
+      {
+        "candidate_index": 1,
+        "candidate": "BY SMT DEF max, vars, Init, lb, Terminating, Next, Spec, Termination, TypeOK, InductiveInvariant",
+        "signature": [
+          1,
+          1,
+          0,
+          0,
+          1,
+          0
+        ],
+        "signature_distance": 0.0
+      },
+      {
+        "candidate_index": 2,
+        "candidate": "BY DEF max, vars, Init, lb, Terminating, Next, Spec, Termination, TypeOK, InductiveInvariant",
+        "signature": [
+          0,
+          1,
+          0,
+          0,
+          1,
+          0
+        ],
+        "signature_distance": 1.0
+      },
+      {
+        "candidate_index": 0,
+        "candidate": "BY SMT",
+        "signature": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 2.0
+      },
+      {
+        "candidate_index": 3,
+        "candidate": "BY SMT, TypeInvariantHolds, SetExtensionality",
+        "signature": [
+          1,
+          0,
+          0,
+          1,
+          1,
+          0
+        ],
+        "signature_distance": 2.0
+      }
+    ]
+  },
+  {
+    "task": "highest-type-step",
+    "top_index": 1,
+    "distance": 0.0,
+    "ranking": [
+      {
+        "candidate_index": 1,
+        "candidate": "BY SMT DEF max, vars, Init, lb, Terminating, Next, Spec, Termination, TypeOK",
+        "signature": [
+          1,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 0.0
+      },
+      {
+        "candidate_index": 0,
+        "candidate": "BY SMT",
+        "signature": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 1.0
+      },
+      {
+        "candidate_index": 2,
+        "candidate": "BY DEF max, vars, Init, lb, Terminating, Next, Spec, Termination, TypeOK",
+        "signature": [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 1.0
+      },
+      {
+        "candidate_index": 3,
+        "candidate": "BY SMT, SetExtensionality",
+        "signature": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "signature_distance": 2.0
+      }
+    ]
+  },
+  {
+    "task": "odd-case-tail",
+    "top_index": 0,
+    "distance": 1.0,
+    "ranking": [
+      {
+        "candidate_index": 0,
+        "candidate": "BY SMT",
+        "signature": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 1.0
+      },
+      {
+        "candidate_index": 2,
+        "candidate": "BY DEF Even, Odd",
+        "signature": [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 1.0
+      },
+      {
+        "candidate_index": 3,
+        "candidate": "BY SMT, NoSetContainsEverything",
+        "signature": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 1.0
+      },
+      {
+        "candidate_index": 1,
+        "candidate": "BY SMT DEF Even, Odd",
+        "signature": [
+          1,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 2.0
+      }
+    ]
+  },
+  {
+    "task": "simple-case-a",
+    "top_index": 0,
+    "distance": 1.0,
+    "ranking": [
+      {
+        "candidate_index": 0,
+        "candidate": "BY SMT",
+        "signature": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 1.0
+      },
+      {
+        "candidate_index": 2,
+        "candidate": "BY DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+        "signature": [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 1.0
+      },
+      {
+        "candidate_index": 1,
+        "candidate": "BY SMT DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+        "signature": [
+          1,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 2.0
+      },
+      {
+        "candidate_index": 3,
+        "candidate": "BY SMT, SetExtensionality",
+        "signature": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "signature_distance": 2.0
+      }
+    ]
+  },
+  {
+    "task": "simple-case-b",
+    "top_index": 0,
+    "distance": 1.0,
+    "ranking": [
+      {
+        "candidate_index": 0,
+        "candidate": "BY SMT",
+        "signature": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 1.0
+      },
+      {
+        "candidate_index": 2,
+        "candidate": "BY DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+        "signature": [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 1.0
+      },
+      {
+        "candidate_index": 1,
+        "candidate": "BY SMT DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+        "signature": [
+          1,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 2.0
+      },
+      {
+        "candidate_index": 3,
+        "candidate": "BY SMT, SetExtensionality",
+        "signature": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "signature_distance": 2.0
+      }
+    ]
+  },
+  {
+    "task": "simple-conclusion",
+    "top_index": 0,
+    "distance": 1.0,
+    "ranking": [
+      {
+        "candidate_index": 0,
+        "candidate": "BY SMT",
+        "signature": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 1.0
+      },
+      {
+        "candidate_index": 2,
+        "candidate": "BY DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+        "signature": [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 1.0
+      },
+      {
+        "candidate_index": 1,
+        "candidate": "BY SMT DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+        "signature": [
+          1,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 2.0
+      },
+      {
+        "candidate_index": 3,
+        "candidate": "BY SMT, SetExtensionality",
+        "signature": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "signature_distance": 2.0
+      }
+    ]
+  },
+  {
+    "task": "simple-full",
+    "top_index": 0,
+    "distance": 1.0,
+    "ranking": [
+      {
+        "candidate_index": 0,
+        "candidate": "BY SMT",
+        "signature": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 1.0
+      },
+      {
+        "candidate_index": 2,
+        "candidate": "BY DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+        "signature": [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 1.0
+      },
+      {
+        "candidate_index": 1,
+        "candidate": "BY SMT DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+        "signature": [
+          1,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 2.0
+      },
+      {
+        "candidate_index": 3,
+        "candidate": "BY SMT, SetExtensionality",
+        "signature": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "signature_distance": 2.0
+      }
+    ]
+  },
+  {
+    "task": "simple-preservation",
+    "top_index": 1,
+    "distance": 0.0,
+    "ranking": [
+      {
+        "candidate_index": 1,
+        "candidate": "BY SMT DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+        "signature": [
+          1,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 0.0
+      },
+      {
+        "candidate_index": 0,
+        "candidate": "BY SMT",
+        "signature": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 1.0
+      },
+      {
+        "candidate_index": 2,
+        "candidate": "BY DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+        "signature": [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 1.0
+      },
+      {
+        "candidate_index": 3,
+        "candidate": "BY SMT, SetExtensionality",
+        "signature": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "signature_distance": 2.0
+      }
+    ]
+  },
+  {
+    "task": "simple-preservation-tail",
+    "top_index": 0,
+    "distance": 1.0,
+    "ranking": [
+      {
+        "candidate_index": 0,
+        "candidate": "BY SMT",
+        "signature": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 1.0
+      },
+      {
+        "candidate_index": 2,
+        "candidate": "BY DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+        "signature": [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 1.0
+      },
+      {
+        "candidate_index": 1,
+        "candidate": "BY SMT DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+        "signature": [
+          1,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 2.0
+      },
+      {
+        "candidate_index": 3,
+        "candidate": "BY SMT, SetExtensionality",
+        "signature": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "signature_distance": 2.0
+      }
+    ]
+  },
+  {
+    "task": "simple-short-full",
+    "top_index": 3,
+    "distance": 0.0,
+    "ranking": [
+      {
+        "candidate_index": 3,
+        "candidate": "BY SMT, Correctness, SetExtensionality",
+        "signature": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "signature_distance": 0.0
+      },
+      {
+        "candidate_index": 0,
+        "candidate": "BY SMT",
+        "signature": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 1.0
+      },
+      {
+        "candidate_index": 1,
+        "candidate": "BY SMT DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+        "signature": [
+          1,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 2.0
+      },
+      {
+        "candidate_index": 2,
+        "candidate": "BY DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+        "signature": [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 3.0
+      }
+    ]
+  },
+  {
+    "task": "simple-short-preservation",
+    "top_index": 0,
+    "distance": 1.0,
+    "ranking": [
+      {
+        "candidate_index": 0,
+        "candidate": "BY SMT",
+        "signature": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 1.0
+      },
+      {
+        "candidate_index": 2,
+        "candidate": "BY DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+        "signature": [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 1.0
+      },
+      {
+        "candidate_index": 1,
+        "candidate": "BY SMT DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+        "signature": [
+          1,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signature_distance": 2.0
+      },
+      {
+        "candidate_index": 3,
+        "candidate": "BY SMT, Correctness, SetExtensionality",
+        "signature": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "signature_distance": 2.0
+      }
+    ]
+  }
+]

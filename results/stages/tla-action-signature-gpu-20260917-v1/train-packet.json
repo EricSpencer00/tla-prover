@@ -1,0 +1,326 @@
+{
+  "schema_version": 1,
+  "packet_kind": "answer_free_multistep_symbolic_action_coverage",
+  "manifest_sha256": "c186ddf0007c5b5adfdc345a06feb777a89746160cf9041b875a8655ed1eb344",
+  "split": "train",
+  "denominator": 17,
+  "population": "frozen multistep train 17",
+  "rows": [
+    {
+      "id": "addtwo-init",
+      "split": "train",
+      "theorem_name": "TypeInvariant",
+      "prompt": "Select one valid TLAPS proof action for the fixed final theorem. Return only an action beginning with OBVIOUS or BY. Do not change definitions, add axioms, emit a module, or use a reference proof.\n\ntheorem=TypeInvariant\ngoal=THEOREM TypeInvariant == Spec => []TypeOK\nVisible statement-only context is fixed by the local scaffold.\n",
+      "prompt_sha256": "1a1342809b93e7d16d73af7ab8d1c7175344be6e9570544670f96a3e34c185d6",
+      "candidate_proposals": [
+        "BY SMT",
+        "BY SMT DEF vars, Init, Next, Spec, TypeOK",
+        "BY DEF vars, Init, Next, Spec, TypeOK",
+        "BY SMT, SetExtensionality"
+      ],
+      "candidate_proposals_sha256": "c2ef497badcda1623a8931d64ae6a5a735bf50201190eebb9aca06cfb7cdbb31",
+      "source_sha256": "b8f26df9d64dee325c05245956f170eaa7aa5b61dc54f1354a139c1f7578103a",
+      "library_sha256": {
+        "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla": "5cc604533e49792c1c3d050a38d845d08d9c209879ca20c86de04975bc4bc563"
+      }
+    },
+    {
+      "id": "addtwo-step",
+      "split": "train",
+      "theorem_name": "TypeInvariant",
+      "prompt": "Select one valid TLAPS proof action for the fixed final theorem. Return only an action beginning with OBVIOUS or BY. Do not change definitions, add axioms, emit a module, or use a reference proof.\n\ntheorem=TypeInvariant\ngoal=THEOREM TypeInvariant == Spec => []TypeOK\nVisible statement-only context is fixed by the local scaffold.\n",
+      "prompt_sha256": "1a1342809b93e7d16d73af7ab8d1c7175344be6e9570544670f96a3e34c185d6",
+      "candidate_proposals": [
+        "BY SMT",
+        "BY SMT DEF vars, Init, Next, Spec, TypeOK",
+        "BY DEF vars, Init, Next, Spec, TypeOK",
+        "BY SMT, SetExtensionality"
+      ],
+      "candidate_proposals_sha256": "c2ef497badcda1623a8931d64ae6a5a735bf50201190eebb9aca06cfb7cdbb31",
+      "source_sha256": "b8f26df9d64dee325c05245956f170eaa7aa5b61dc54f1354a139c1f7578103a",
+      "library_sha256": {
+        "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla": "5cc604533e49792c1c3d050a38d845d08d9c209879ca20c86de04975bc4bc563"
+      }
+    },
+    {
+      "id": "highest-type-step",
+      "split": "train",
+      "theorem_name": "TypeInvariantHolds",
+      "prompt": "Select one valid TLAPS proof action for the fixed final theorem. Return only an action beginning with OBVIOUS or BY. Do not change definitions, add axioms, emit a module, or use a reference proof.\n\ntheorem=TypeInvariantHolds\ngoal=THEOREM TypeInvariantHolds == Spec => []TypeOK\nVisible statement-only context is fixed by the local scaffold.\n",
+      "prompt_sha256": "31ba148b14d9ee38d7f4ddb856f0a1a3dc8f1b86572ca92ebe79bfdfba198a38",
+      "candidate_proposals": [
+        "BY SMT",
+        "BY SMT DEF max, vars, Init, lb, Terminating, Next, Spec, Termination, TypeOK",
+        "BY DEF max, vars, Init, lb, Terminating, Next, Spec, Termination, TypeOK",
+        "BY SMT, SetExtensionality"
+      ],
+      "candidate_proposals_sha256": "31b51cc74b3ed8c42e512f2ab0f1cb5912fd24108a59d5466ab63c9e9011937e",
+      "source_sha256": "2236ae6e1547246c7539c96368ed8b2707243e2c215cbc48b981bc6896eee1bc",
+      "library_sha256": {
+        "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla": "5cc604533e49792c1c3d050a38d845d08d9c209879ca20c86de04975bc4bc563"
+      }
+    },
+    {
+      "id": "highest-inductive-step",
+      "split": "train",
+      "theorem_name": "InductiveInvariantHolds",
+      "prompt": "Select one valid TLAPS proof action for the fixed final theorem. Return only an action beginning with OBVIOUS or BY. Do not change definitions, add axioms, emit a module, or use a reference proof.\n\ntheorem=InductiveInvariantHolds\ngoal=THEOREM InductiveInvariantHolds == Spec => []InductiveInvariant\nVisible statement-only context is fixed by the local scaffold.\n",
+      "prompt_sha256": "9c47569bed5197646381dcbf93a7c4ffa7f797b78973e0d712edcc1e80da5925",
+      "candidate_proposals": [
+        "BY SMT",
+        "BY SMT DEF max, vars, Init, lb, Terminating, Next, Spec, Termination, TypeOK, InductiveInvariant",
+        "BY DEF max, vars, Init, lb, Terminating, Next, Spec, Termination, TypeOK, InductiveInvariant",
+        "BY SMT, TypeInvariantHolds, SetExtensionality"
+      ],
+      "candidate_proposals_sha256": "589a70fd0df8a71e5decc06f457530f0cf1b04a9e1228eb5f328001e8d4a140f",
+      "source_sha256": "2236ae6e1547246c7539c96368ed8b2707243e2c215cbc48b981bc6896eee1bc",
+      "library_sha256": {
+        "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla": "5cc604533e49792c1c3d050a38d845d08d9c209879ca20c86de04975bc4bc563"
+      }
+    },
+    {
+      "id": "highest-done-step",
+      "split": "train",
+      "theorem_name": "DoneIndexValueThm",
+      "prompt": "Select one valid TLAPS proof action for the fixed final theorem. Return only an action beginning with OBVIOUS or BY. Do not change definitions, add axioms, emit a module, or use a reference proof.\n\ntheorem=DoneIndexValueThm\ngoal=THEOREM DoneIndexValueThm == Spec => []DoneIndexValue\nVisible statement-only context is fixed by the local scaffold.\n",
+      "prompt_sha256": "2f7d5c6b39c5eb377d6b59cb2d94486ec6bed9d80032c68ee53bf2dd38318a69",
+      "candidate_proposals": [
+        "BY SMT",
+        "BY SMT DEF max, vars, Init, lb, Terminating, Next, Spec, Termination, TypeOK, InductiveInvariant, DoneIndexValue",
+        "BY DEF max, vars, Init, lb, Terminating, Next, Spec, Termination, TypeOK, InductiveInvariant, DoneIndexValue",
+        "BY SMT, TypeInvariantHolds, InductiveInvariantHolds, SetExtensionality"
+      ],
+      "candidate_proposals_sha256": "34db2d96c7a5f801dc1c2711a32abb61582c6f0a368972702df0d25c56f1014d",
+      "source_sha256": "2236ae6e1547246c7539c96368ed8b2707243e2c215cbc48b981bc6896eee1bc",
+      "library_sha256": {
+        "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla": "5cc604533e49792c1c3d050a38d845d08d9c209879ca20c86de04975bc4bc563"
+      }
+    },
+    {
+      "id": "highest-correctness",
+      "split": "train",
+      "theorem_name": "IsCorrect",
+      "prompt": "Select one valid TLAPS proof action for the fixed final theorem. Return only an action beginning with OBVIOUS or BY. Do not change definitions, add axioms, emit a module, or use a reference proof.\n\ntheorem=IsCorrect\ngoal=THEOREM IsCorrect == Spec => []Correctness\nVisible statement-only context is fixed by the local scaffold.\n",
+      "prompt_sha256": "e6cd1146dd83f4c12f27c2f56fd16ad821960ef3236245e31c08fce040ce46c6",
+      "candidate_proposals": [
+        "BY SMT",
+        "BY SMT DEF max, vars, Init, lb, Terminating, Next, Spec, Termination, TypeOK, InductiveInvariant, DoneIndexValue, Correctness",
+        "BY DEF max, vars, Init, lb, Terminating, Next, Spec, Termination, TypeOK, InductiveInvariant, DoneIndexValue, Correctness",
+        "BY SMT, TypeInvariantHolds, InductiveInvariantHolds, DoneIndexValueThm, SetExtensionality"
+      ],
+      "candidate_proposals_sha256": "25c9a4284db8e5965a204500e5c5bd89af68a1720ff64c913a173f8409806b57",
+      "source_sha256": "2236ae6e1547246c7539c96368ed8b2707243e2c215cbc48b981bc6896eee1bc",
+      "library_sha256": {
+        "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla": "5cc604533e49792c1c3d050a38d845d08d9c209879ca20c86de04975bc4bc563"
+      }
+    },
+    {
+      "id": "even-intro",
+      "split": "train",
+      "theorem_name": "T1",
+      "prompt": "Select one valid TLAPS proof action for the fixed final theorem. Return only an action beginning with OBVIOUS or BY. Do not change definitions, add axioms, emit a module, or use a reference proof.\n\ntheorem=T1\ngoal=THEOREM T1 == \\A x \\in Nat: Even(x+x)\nVisible statement-only context is fixed by the local scaffold.\n",
+      "prompt_sha256": "bfc28a7cf10ae5bed88332eac689523c6c25bf900ea7d79be996c36d64d08683",
+      "candidate_proposals": [
+        "BY SMT",
+        "BY SMT DEF Even, Odd",
+        "BY DEF Even, Odd",
+        "BY SMT, NoSetContainsEverything"
+      ],
+      "candidate_proposals_sha256": "a106f81a57fee5fcdc10434316b7e74029e2e426cb434d6ffa04b3855ea91a8a",
+      "source_sha256": "44f0b85145ad3de36b12904a18c408de3134cea7c80343b2e1a52940b5f07e19",
+      "library_sha256": {
+        "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla": "5cc604533e49792c1c3d050a38d845d08d9c209879ca20c86de04975bc4bc563"
+      }
+    },
+    {
+      "id": "even-case-tail",
+      "split": "train",
+      "theorem_name": "T1",
+      "prompt": "Select one valid TLAPS proof action for the fixed final theorem. Return only an action beginning with OBVIOUS or BY. Do not change definitions, add axioms, emit a module, or use a reference proof.\n\ntheorem=T1\ngoal=THEOREM T1 == \\A x \\in Nat: Even(x+x)\nVisible statement-only context is fixed by the local scaffold.\n",
+      "prompt_sha256": "bfc28a7cf10ae5bed88332eac689523c6c25bf900ea7d79be996c36d64d08683",
+      "candidate_proposals": [
+        "BY SMT",
+        "BY SMT DEF Even, Odd",
+        "BY DEF Even, Odd",
+        "BY SMT, NoSetContainsEverything"
+      ],
+      "candidate_proposals_sha256": "a106f81a57fee5fcdc10434316b7e74029e2e426cb434d6ffa04b3855ea91a8a",
+      "source_sha256": "44f0b85145ad3de36b12904a18c408de3134cea7c80343b2e1a52940b5f07e19",
+      "library_sha256": {
+        "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla": "5cc604533e49792c1c3d050a38d845d08d9c209879ca20c86de04975bc4bc563"
+      }
+    },
+    {
+      "id": "odd-case-tail",
+      "split": "train",
+      "theorem_name": "T1",
+      "prompt": "Select one valid TLAPS proof action for the fixed final theorem. Return only an action beginning with OBVIOUS or BY. Do not change definitions, add axioms, emit a module, or use a reference proof.\n\ntheorem=T1\ngoal=THEOREM T1 == \\A x \\in Nat: Even(x+x)\nVisible statement-only context is fixed by the local scaffold.\n",
+      "prompt_sha256": "bfc28a7cf10ae5bed88332eac689523c6c25bf900ea7d79be996c36d64d08683",
+      "candidate_proposals": [
+        "BY SMT",
+        "BY SMT DEF Even, Odd",
+        "BY DEF Even, Odd",
+        "BY SMT, NoSetContainsEverything"
+      ],
+      "candidate_proposals_sha256": "a106f81a57fee5fcdc10434316b7e74029e2e426cb434d6ffa04b3855ea91a8a",
+      "source_sha256": "44f0b85145ad3de36b12904a18c408de3134cea7c80343b2e1a52940b5f07e19",
+      "library_sha256": {
+        "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla": "5cc604533e49792c1c3d050a38d845d08d9c209879ca20c86de04975bc4bc563"
+      }
+    },
+    {
+      "id": "simple-full",
+      "split": "train",
+      "theorem_name": "Correctness",
+      "prompt": "Select one valid TLAPS proof action for the fixed final theorem. Return only an action beginning with OBVIOUS or BY. Do not change definitions, add axioms, emit a module, or use a reference proof.\n\ntheorem=Correctness\ngoal=THEOREM Correctness == Spec => []PCorrect\nVisible statement-only context is fixed by the local scaffold.\n",
+      "prompt_sha256": "77f7cd0de31fb4e58b20f0bf9667bf42be32c785581e2618b618140c97e16d42",
+      "candidate_proposals": [
+        "BY SMT",
+        "BY SMT DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+        "BY DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+        "BY SMT, SetExtensionality"
+      ],
+      "candidate_proposals_sha256": "cf56c5dcdad9f93ae94c75782fdea2357cd659333f9ffaf11055694e0750ed8d",
+      "source_sha256": "dd859866e8be0ee36b0005b0393becd788fe51aae7ebcd7deaa14c259a3c0bab",
+      "library_sha256": {
+        "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla": "5cc604533e49792c1c3d050a38d845d08d9c209879ca20c86de04975bc4bc563"
+      }
+    },
+    {
+      "id": "simple-preservation",
+      "split": "train",
+      "theorem_name": "Correctness",
+      "prompt": "Select one valid TLAPS proof action for the fixed final theorem. Return only an action beginning with OBVIOUS or BY. Do not change definitions, add axioms, emit a module, or use a reference proof.\n\ntheorem=Correctness\ngoal=THEOREM Correctness == Spec => []PCorrect\nVisible statement-only context is fixed by the local scaffold.\n",
+      "prompt_sha256": "77f7cd0de31fb4e58b20f0bf9667bf42be32c785581e2618b618140c97e16d42",
+      "candidate_proposals": [
+        "BY SMT",
+        "BY SMT DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+        "BY DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+        "BY SMT, SetExtensionality"
+      ],
+      "candidate_proposals_sha256": "cf56c5dcdad9f93ae94c75782fdea2357cd659333f9ffaf11055694e0750ed8d",
+      "source_sha256": "dd859866e8be0ee36b0005b0393becd788fe51aae7ebcd7deaa14c259a3c0bab",
+      "library_sha256": {
+        "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla": "5cc604533e49792c1c3d050a38d845d08d9c209879ca20c86de04975bc4bc563"
+      }
+    },
+    {
+      "id": "simple-case-a",
+      "split": "train",
+      "theorem_name": "Correctness",
+      "prompt": "Select one valid TLAPS proof action for the fixed final theorem. Return only an action beginning with OBVIOUS or BY. Do not change definitions, add axioms, emit a module, or use a reference proof.\n\ntheorem=Correctness\ngoal=THEOREM Correctness == Spec => []PCorrect\nVisible statement-only context is fixed by the local scaffold.\n",
+      "prompt_sha256": "77f7cd0de31fb4e58b20f0bf9667bf42be32c785581e2618b618140c97e16d42",
+      "candidate_proposals": [
+        "BY SMT",
+        "BY SMT DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+        "BY DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+        "BY SMT, SetExtensionality"
+      ],
+      "candidate_proposals_sha256": "cf56c5dcdad9f93ae94c75782fdea2357cd659333f9ffaf11055694e0750ed8d",
+      "source_sha256": "dd859866e8be0ee36b0005b0393becd788fe51aae7ebcd7deaa14c259a3c0bab",
+      "library_sha256": {
+        "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla": "5cc604533e49792c1c3d050a38d845d08d9c209879ca20c86de04975bc4bc563"
+      }
+    },
+    {
+      "id": "simple-case-b",
+      "split": "train",
+      "theorem_name": "Correctness",
+      "prompt": "Select one valid TLAPS proof action for the fixed final theorem. Return only an action beginning with OBVIOUS or BY. Do not change definitions, add axioms, emit a module, or use a reference proof.\n\ntheorem=Correctness\ngoal=THEOREM Correctness == Spec => []PCorrect\nVisible statement-only context is fixed by the local scaffold.\n",
+      "prompt_sha256": "77f7cd0de31fb4e58b20f0bf9667bf42be32c785581e2618b618140c97e16d42",
+      "candidate_proposals": [
+        "BY SMT",
+        "BY SMT DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+        "BY DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+        "BY SMT, SetExtensionality"
+      ],
+      "candidate_proposals_sha256": "cf56c5dcdad9f93ae94c75782fdea2357cd659333f9ffaf11055694e0750ed8d",
+      "source_sha256": "dd859866e8be0ee36b0005b0393becd788fe51aae7ebcd7deaa14c259a3c0bab",
+      "library_sha256": {
+        "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla": "5cc604533e49792c1c3d050a38d845d08d9c209879ca20c86de04975bc4bc563"
+      }
+    },
+    {
+      "id": "simple-preservation-tail",
+      "split": "train",
+      "theorem_name": "Correctness",
+      "prompt": "Select one valid TLAPS proof action for the fixed final theorem. Return only an action beginning with OBVIOUS or BY. Do not change definitions, add axioms, emit a module, or use a reference proof.\n\ntheorem=Correctness\ngoal=THEOREM Correctness == Spec => []PCorrect\nVisible statement-only context is fixed by the local scaffold.\n",
+      "prompt_sha256": "77f7cd0de31fb4e58b20f0bf9667bf42be32c785581e2618b618140c97e16d42",
+      "candidate_proposals": [
+        "BY SMT",
+        "BY SMT DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+        "BY DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+        "BY SMT, SetExtensionality"
+      ],
+      "candidate_proposals_sha256": "cf56c5dcdad9f93ae94c75782fdea2357cd659333f9ffaf11055694e0750ed8d",
+      "source_sha256": "dd859866e8be0ee36b0005b0393becd788fe51aae7ebcd7deaa14c259a3c0bab",
+      "library_sha256": {
+        "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla": "5cc604533e49792c1c3d050a38d845d08d9c209879ca20c86de04975bc4bc563"
+      }
+    },
+    {
+      "id": "simple-conclusion",
+      "split": "train",
+      "theorem_name": "Correctness",
+      "prompt": "Select one valid TLAPS proof action for the fixed final theorem. Return only an action beginning with OBVIOUS or BY. Do not change definitions, add axioms, emit a module, or use a reference proof.\n\ntheorem=Correctness\ngoal=THEOREM Correctness == Spec => []PCorrect\nVisible statement-only context is fixed by the local scaffold.\n",
+      "prompt_sha256": "77f7cd0de31fb4e58b20f0bf9667bf42be32c785581e2618b618140c97e16d42",
+      "candidate_proposals": [
+        "BY SMT",
+        "BY SMT DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+        "BY DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+        "BY SMT, SetExtensionality"
+      ],
+      "candidate_proposals_sha256": "cf56c5dcdad9f93ae94c75782fdea2357cd659333f9ffaf11055694e0750ed8d",
+      "source_sha256": "dd859866e8be0ee36b0005b0393becd788fe51aae7ebcd7deaa14c259a3c0bab",
+      "library_sha256": {
+        "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla": "5cc604533e49792c1c3d050a38d845d08d9c209879ca20c86de04975bc4bc563"
+      }
+    },
+    {
+      "id": "simple-short-full",
+      "split": "train",
+      "theorem_name": "Correctness2",
+      "prompt": "Select one valid TLAPS proof action for the fixed final theorem. Return only an action beginning with OBVIOUS or BY. Do not change definitions, add axioms, emit a module, or use a reference proof.\n\ntheorem=Correctness2\ngoal=THEOREM Correctness2 == Spec => []PCorrect\nVisible statement-only context is fixed by the local scaffold.\n",
+      "prompt_sha256": "e190373ba785dd9a1cfa1a87644cb4ecc6474cf935ac2c7f383cdd4f80207bf2",
+      "candidate_proposals": [
+        "BY SMT",
+        "BY SMT DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+        "BY DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+        "BY SMT, Correctness, SetExtensionality"
+      ],
+      "candidate_proposals_sha256": "bfd1fca09b0af9316a8b425f1fefcd03aa1d434a736a38a2eee6b07c940758b3",
+      "source_sha256": "dd859866e8be0ee36b0005b0393becd788fe51aae7ebcd7deaa14c259a3c0bab",
+      "library_sha256": {
+        "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla": "5cc604533e49792c1c3d050a38d845d08d9c209879ca20c86de04975bc4bc563"
+      }
+    },
+    {
+      "id": "simple-short-preservation",
+      "split": "train",
+      "theorem_name": "Correctness2",
+      "prompt": "Select one valid TLAPS proof action for the fixed final theorem. Return only an action beginning with OBVIOUS or BY. Do not change definitions, add axioms, emit a module, or use a reference proof.\n\ntheorem=Correctness2\ngoal=THEOREM Correctness2 == Spec => []PCorrect\nVisible statement-only context is fixed by the local scaffold.\n",
+      "prompt_sha256": "e190373ba785dd9a1cfa1a87644cb4ecc6474cf935ac2c7f383cdd4f80207bf2",
+      "candidate_proposals": [
+        "BY SMT",
+        "BY SMT DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+        "BY DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+        "BY SMT, Correctness, SetExtensionality"
+      ],
+      "candidate_proposals_sha256": "bfd1fca09b0af9316a8b425f1fefcd03aa1d434a736a38a2eee6b07c940758b3",
+      "source_sha256": "dd859866e8be0ee36b0005b0393becd788fe51aae7ebcd7deaa14c259a3c0bab",
+      "library_sha256": {
+        "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla": "5cc604533e49792c1c3d050a38d845d08d9c209879ca20c86de04975bc4bc563"
+      }
+    }
+  ],
+  "reference_fragment_used": false,
+  "reference_fragment_exported": false,
+  "proof_bodies_exported": false,
+  "successful_candidates_exported": false,
+  "generated_feedback": false,
+  "training_executed": false,
+  "parameter_updates": 0,
+  "tlaps_executed": false,
+  "proof_or_quality_claim": false,
+  "method": "first-four deterministic answer-free symbolic action coverage"
+}

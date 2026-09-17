@@ -1,0 +1,1 @@
+{"prefix": "---- MODULE aime_1987_p5 ----\nEXTENDS TLAPS, Integers\n\nTHEOREM aime_1987_p5 ==\n    \\A x, y \\in Int : y * y + 3*(x * x)*(y * y) = 30*(x * x) + 517 => 3*(x * x)*(y * y) = 588", "fragment": "BY SMT, SetExtensionality", "suffix": "\n====\n", "theorem_name": "aime_1987_p5"}
