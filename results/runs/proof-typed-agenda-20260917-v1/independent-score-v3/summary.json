@@ -1,0 +1,35 @@
+{
+  "kind": "independent_typed_agenda_selection_score",
+  "packet_sha256": "c85da2971dc9152378373b041e7f6b7af9e718b53fb317037283c0d3f4fe2373",
+  "generations_sha256": {
+    "base": "ff2306981759743cb006c546a78d57a21da6abff0aeab7c4a061af08920062a6",
+    "parent": "4ddad764b6ba0b0ac753e214ab26f2989117f480befafd02762fe633e424670d",
+    "child": "c917ffc0152377ca51a5c5b71b2246e6cd92c62ff9baeb1d5e4ece6eb8d5ae6e"
+  },
+  "frozen_audit_sha256": "0007cdf350a78dba3dddff12b7a5cce3b40649803f4142039aa362412d32ff49",
+  "fixed_candidate_denominator": 116,
+  "fresh_selected_strict_checks": 12,
+  "arms": [
+    "base",
+    "parent",
+    "child"
+  ],
+  "certified_by_arm": {
+    "base": 0,
+    "parent": 3,
+    "child": 2
+  },
+  "frozen_audit_certified_by_arm": {
+    "base": 0,
+    "parent": 3,
+    "child": 2
+  },
+  "verifier_feedback_used": false,
+  "repair_used": false,
+  "reward_used": false,
+  "training_executed": false,
+  "quality_claim": false,
+  "proof_claim": false,
+  "gate_claim": false,
+  "checker": "fresh strict uncached TLAPS for selections"
+}
