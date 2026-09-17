@@ -4,6 +4,7 @@ from pathlib import Path
 import pytest
 
 from tools import proof_fragment_pir_cuda_train as worker
+from tools import proof_fragment_pir as pir
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -29,6 +30,7 @@ def test_decode_requires_exact_json_typed_stream():
 
 def test_packet_has_four_target_free_development_rows():
     packet = worker.load_packet(PACKET)
+    assert pir.load_packet(PACKET)["packet_kind"] == packet["packet_kind"]
     assert len(packet["train_rows"]) == 17
     assert len(packet["development_rows"]) == 4
     assert all("pir_target" not in row for row in packet["development_rows"])

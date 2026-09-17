@@ -30,6 +30,7 @@ TRAIN_IDS = {
     "simple-short-full", "simple-short-preservation",
 }
 DEV_IDS = {"crdt-type-step", "crdt-safety-step", "crdt-sum-type-proof", "crdt-sum-zero-proof"}
+PACKET_SHA256 = "095d2d0a070961150d76575e5768f3ce615ee01b283a844c69d24f8a4661f5f5"
 ANSWER_KEYS = {
     "reference_fragment", "response", "answer", "proof_body", "proof_module",
     "successful_candidate", "reward", "feedback", "repair", "target", "pir_target",
@@ -101,6 +102,26 @@ def decode_tokens(tokens: list[dict[str, str]]) -> str:
 
 def target_text(fragment: str) -> str:
     return json.dumps(typed_tokens(fragment), separators=(",", ":"), ensure_ascii=False)
+
+
+def load_packet(path: Path) -> dict:
+    """Load the exact admitted packet for independent downstream consumers."""
+    raw = path.read_bytes()
+    if sha(raw) != PACKET_SHA256:
+        raise ValueError("exact admitted PIR packet required")
+    packet = json.loads(raw)
+    if (packet.get("packet_kind") != "frozen17_typed_proof_fragment_pir" or
+            packet.get("manifest_sha256") != MANIFEST_SHA256 or
+            packet.get("development_targets_exported") is not False):
+        raise ValueError("unexpected or answer-bearing PIR packet")
+    train, dev = packet.get("train_rows", []), packet.get("development_rows", [])
+    if len(train) != 17 or {row.get("id") for row in train} != TRAIN_IDS:
+        raise ValueError("exact17 PIR TRAIN rows required")
+    if len(dev) != 4 or {row.get("id") for row in dev} != DEV_IDS:
+        raise ValueError("exact4 PIR DEVELOPMENT rows required")
+    for row in dev:
+        reject_answer_fields(row)
+    return packet
 
 
 def load_manifest(path: Path) -> tuple[bytes, list[dict], list[dict]]:
