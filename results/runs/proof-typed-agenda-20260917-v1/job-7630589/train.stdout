@@ -1,0 +1,79 @@
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/291 [00:00<?, ?it/s]Loading weights:   4%|▍         | 13/291 [00:00<00:03, 79.83it/s]Loading weights:   7%|▋         | 21/291 [00:00<00:03, 79.32it/s]Loading weights:  10%|▉         | 29/291 [00:00<00:03, 74.66it/s]Loading weights:  13%|█▎        | 37/291 [00:00<00:03, 65.84it/s]Loading weights:  15%|█▌        | 44/291 [00:00<00:04, 55.24it/s]Loading weights:  17%|█▋        | 50/291 [00:00<00:04, 54.96it/s]Loading weights:  20%|█▉        | 57/291 [00:00<00:03, 58.75it/s]Loading weights:  22%|██▏       | 64/291 [00:01<00:04, 52.72it/s]Loading weights:  24%|██▍       | 70/291 [00:01<00:04, 48.99it/s]Loading weights:  28%|██▊       | 82/291 [00:01<00:03, 61.77it/s]Loading weights:  31%|███       | 89/291 [00:01<00:03, 63.45it/s]Loading weights:  33%|███▎      | 96/291 [00:01<00:03, 55.85it/s]Loading weights:  35%|███▌      | 102/291 [00:01<00:03, 50.88it/s]Loading weights:  37%|███▋      | 108/291 [00:01<00:04, 42.03it/s]Loading weights:  39%|███▉      | 113/291 [00:02<00:05, 34.65it/s]Loading weights:  41%|████      | 119/291 [00:02<00:04, 35.85it/s]Loading weights:  43%|████▎     | 124/291 [00:02<00:04, 35.60it/s]Loading weights:  45%|████▌     | 131/291 [00:02<00:03, 41.79it/s]Loading weights:  47%|████▋     | 136/291 [00:02<00:03, 39.89it/s]Loading weights:  48%|████▊     | 141/291 [00:02<00:03, 39.56it/s]Loading weights:  57%|█████▋    | 166/291 [00:02<00:01, 88.23it/s]Loading weights:  61%|██████    | 177/291 [00:03<00:01, 74.59it/s]Loading weights:  64%|██████▍   | 187/291 [00:03<00:01, 73.59it/s]Loading weights:  67%|██████▋   | 196/291 [00:03<00:01, 77.05it/s]Loading weights:  70%|███████   | 205/291 [00:03<00:01, 68.55it/s]Loading weights:  74%|███████▎  | 214/291 [00:03<00:01, 58.94it/s]Loading weights:  78%|███████▊  | 226/291 [00:03<00:01, 63.83it/s]Loading weights:  81%|████████  | 235/291 [00:04<00:00, 58.16it/s]Loading weights:  83%|████████▎ | 242/291 [00:04<00:00, 49.97it/s]Loading weights:  86%|████████▋ | 251/291 [00:04<00:00, 54.26it/s]Loading weights:  88%|████████▊ | 257/291 [00:04<00:00, 51.30it/s]Loading weights:  91%|█████████ | 265/291 [00:04<00:00, 55.38it/s]Loading weights:  93%|█████████▎| 271/291 [00:04<00:00, 51.92it/s]Loading weights: 100%|██████████| 291/291 [00:04<00:00, 59.54it/s]
+{
+  "algorithm": "multi-label typed proof-agenda head with deterministic renderer",
+  "packet_sha256": "c85da2971dc9152378373b041e7f6b7af9e718b53fb317037283c0d3f4fe2373",
+  "parent_sha256": "87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511",
+  "manifest_sha256": "c186ddf0007c5b5adfdc345a06feb777a89746160cf9041b875a8655ed1eb344",
+  "slots": [
+    "entry:direct",
+    "entry:structured",
+    "entry:other",
+    "goal:membership",
+    "goal:equality",
+    "goal:temporal",
+    "goal:arithmetic",
+    "goal:function",
+    "goal:state",
+    "goal:other",
+    "lemma:definition",
+    "lemma:state",
+    "lemma:invariant",
+    "lemma:set-function",
+    "lemma:arithmetic",
+    "lemma:temporal",
+    "lemma:other",
+    "backend:smt",
+    "backend:definition",
+    "backend:other",
+    "close:by",
+    "close:qed"
+  ],
+  "train_rows": 17,
+  "development_rows": 4,
+  "candidate_denominator": 116,
+  "requested_updates": 32,
+  "updates": 32,
+  "hidden_size": 4096,
+  "head_sha256": "588969dcd98e29722e1653d3cb88b70475e0aa9d58f5000154f52db8d08b596a",
+  "base_generations": 4,
+  "parent_generations": 4,
+  "child_generations": 4,
+  "prompt_tokens": {
+    "addtwo-init": 374,
+    "addtwo-step": 375,
+    "highest-type-step": 930,
+    "highest-inductive-step": 1223,
+    "highest-done-step": 1451,
+    "highest-correctness": 1593,
+    "even-intro": 424,
+    "even-case-tail": 460,
+    "odd-case-tail": 438,
+    "simple-full": 1514,
+    "simple-preservation": 1611,
+    "simple-case-a": 1840,
+    "simple-case-b": 1741,
+    "simple-preservation-tail": 1825,
+    "simple-conclusion": 1833,
+    "simple-short-full": 1940,
+    "simple-short-preservation": 1970,
+    "crdt-type-step": 207,
+    "crdt-safety-step": 290,
+    "crdt-sum-type-proof": 609,
+    "crdt-sum-zero-proof": 740
+  },
+  "development_targets_exported": false,
+  "candidate_index_labels_used": false,
+  "verifier_feedback_used": false,
+  "repair_used": false,
+  "reward_used": false,
+  "strict_verifier_runs": 0,
+  "quality_claim": false,
+  "proof_claim": false,
+  "gate_claim": false,
+  "loss_first_last": [
+    0.7007555365562439,
+    0.005483032204210758
+  ],
+  "elapsed_seconds": 1.295
+}

@@ -1,0 +1,72 @@
+[
+  {
+    "id": "crdt-type-step",
+    "valid": true,
+    "candidate_index": 0,
+    "candidate": "BY SMT",
+    "agenda_slots": [
+      "entry:direct",
+      "goal:equality",
+      "goal:temporal",
+      "goal:state",
+      "lemma:other",
+      "backend:smt",
+      "close:by"
+    ],
+    "agenda_score": 0.0,
+    "scores": []
+  },
+  {
+    "id": "crdt-safety-step",
+    "valid": true,
+    "candidate_index": 0,
+    "candidate": "BY SMT",
+    "agenda_slots": [
+      "entry:direct",
+      "goal:equality",
+      "goal:temporal",
+      "goal:state",
+      "lemma:other",
+      "backend:smt",
+      "close:by"
+    ],
+    "agenda_score": 0.0,
+    "scores": []
+  },
+  {
+    "id": "crdt-sum-type-proof",
+    "valid": true,
+    "candidate_index": 0,
+    "candidate": "BY SMT",
+    "agenda_slots": [
+      "entry:direct",
+      "goal:membership",
+      "goal:equality",
+      "goal:temporal",
+      "goal:arithmetic",
+      "lemma:other",
+      "backend:smt",
+      "close:by"
+    ],
+    "agenda_score": 0.0,
+    "scores": []
+  },
+  {
+    "id": "crdt-sum-zero-proof",
+    "valid": true,
+    "candidate_index": 0,
+    "candidate": "BY SMT",
+    "agenda_slots": [
+      "entry:direct",
+      "goal:membership",
+      "goal:equality",
+      "goal:temporal",
+      "goal:arithmetic",
+      "lemma:other",
+      "backend:smt",
+      "close:by"
+    ],
+    "agenda_score": 0.0,
+    "scores": []
+  }
+]
