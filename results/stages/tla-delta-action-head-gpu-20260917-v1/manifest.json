@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "stage": "tla-delta-action-head-gpu-20260917-v1",
+  "files": {
+    "config.json": "5aa17cd8da1687f9b95857071efdf749891665f9f6e087869a17e7e32a9b3229",
+    "train-packet.json": "c9784d4da893464f23bc27610c5f7aed64c44bf5406a7ec33f27637ad0d7394f",
+    "official-packet.json": "f40539a20e449ad63b8244e85eff33c8022402df11a84e8228b71ccbfeae11b5",
+    "train-labels.jsonl": "bba10249105e1999656dd329a642c079f623f64fd9a4ee49f574c390d34a7854",
+    "tools/proof_delta_action_head_cuda_train.py": "c7b5e9202edb9b4d6558165531e6571ab5c0326c731766e69f4a47cc8735583b",
+    "train.pbs": "1773f123babd9441e786f89a8fdccb79ac717035f7a013afb4423603a7e63660",
+    "preflight.json": "8a33dc82657d6c68e1147346429f5951473742948112a45ba5f2ee271882962f"
+  },
+  "parent_checkpoint_sha256": "87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511",
+  "answer_free": true,
+  "protected_training": false,
+  "tlaps_executed": false,
+  "parameter_updates": 16
+}

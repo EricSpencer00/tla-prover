@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "stage": "tla-delta-action-head-gpu-20260917-v1",
+  "train_packet_sha256": "c9784d4da893464f23bc27610c5f7aed64c44bf5406a7ec33f27637ad0d7394f",
+  "official_packet_sha256": "f40539a20e449ad63b8244e85eff33c8022402df11a84e8228b71ccbfeae11b5",
+  "train_labels_sha256": "bba10249105e1999656dd329a642c079f623f64fd9a4ee49f574c390d34a7854",
+  "parent_checkpoint_sha256": "87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511",
+  "worker_sha256": "c7b5e9202edb9b4d6558165531e6571ab5c0326c731766e69f4a47cc8735583b",
+  "training_tasks": 13,
+  "holdout_tasks": 4,
+  "max_updates": 16,
+  "parameterization": "frozen-parent candidate-conditioned response-minus-prompt delta linear action head",
+  "representation": "mean response hidden state minus prompt terminal hidden state",
+  "reference_fragment_used": false,
+  "protected_verifier_feedback_used": false,
+  "tlaps_executed": false,
+  "resources": "one Polaris GPU, 64 CPUs, 00:15:00",
+  "quality_claim": false,
+  "gate_claim": false
+}

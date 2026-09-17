@@ -1,0 +1,16 @@
+{
+  "complete": true,
+  "train_rows": 17,
+  "official_rows": 119,
+  "training_tasks": 13,
+  "holdout_tasks": 4,
+  "label_records": 54,
+  "positive_labels": 8,
+  "reference_fragment_used": false,
+  "protected_verifier_feedback_used": false,
+  "tlaps_executed": false,
+  "parameter_updates": 0,
+  "quality_claim": false,
+  "gate_claim": false,
+  "worker_sha256": "c7b5e9202edb9b4d6558165531e6571ab5c0326c731766e69f4a47cc8735583b"
+}
