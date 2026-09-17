@@ -1,0 +1,35 @@
+#!/bin/bash
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-acthead-v1
+#PBS -l select=1:system=polaris:ncpus=64:ngpus=1
+#PBS -l walltime=00:15:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+#PBS -o /home/eric-spencer/tla-action-head-gpu-20260917-v1/train.stdout
+#PBS -e /home/eric-spencer/tla-action-head-gpu-20260917-v1/train.stderr
+set -euo pipefail
+ROOT=/home/eric-spencer/tla-action-head-gpu-20260917-v1
+BASE=/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1
+export PYTHONPATH="$ROOT:$ROOT/tools:$BASE:$BASE/tools"
+export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false
+export HF_HOME=/grand/EVITA/eric-spencer/hf-cache PYTHONUNBUFFERED=1
+export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1
+export PATH="/grand/EVITA/eric-spencer/tools/jre21/bin:$PATH"
+export JAVA_HOME=/grand/EVITA/eric-spencer/tools/jre21
+PYTHON=/home/eric-spencer/ChatTLA/.venv/bin/python
+MODEL=/grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659
+PARENT=/home/eric-spencer/tla-structured-span-train-20260914-v3/result.7618905/policy_optimizer.pt
+TRAIN="$ROOT/train-packet.json"
+OFFICIAL="$ROOT/official-packet.json"
+LABELS="$ROOT/train-labels.jsonl"
+OUT="$ROOT/result.${PBS_JOBID%%.*}"
+test -x "$PYTHON" -a -f "$MODEL/config.json" -a -f "$TRAIN" -a -f "$OFFICIAL" -a -f "$LABELS" -a -f "$PARENT"
+test ! -e "$OUT"
+test "$(sha256sum "$TRAIN" | awk '{print $1}')" = c9784d4da893464f23bc27610c5f7aed64c44bf5406a7ec33f27637ad0d7394f
+test "$(sha256sum "$OFFICIAL" | awk '{print $1}')" = f40539a20e449ad63b8244e85eff33c8022402df11a84e8228b71ccbfeae11b5
+test "$(sha256sum "$LABELS" | awk '{print $1}')" = bba10249105e1999656dd329a642c079f623f64fd9a4ee49f574c390d34a7854
+test "$(sha256sum "$PARENT" | awk '{print $1}')" = 87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511
+"$PYTHON" -u "$ROOT/tools/proof_action_head_cuda_train.py" \
+  --train-packet "$TRAIN" --official-packet "$OFFICIAL" --labels "$LABELS" \
+  --model "$MODEL" --parent "$PARENT" --output "$OUT" --updates 16 --lr 0.02
