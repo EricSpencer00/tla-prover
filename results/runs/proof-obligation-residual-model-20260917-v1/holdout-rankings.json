@@ -1,0 +1,706 @@
+{
+  "crdt-safety-step": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, TypeOK, Safety, Monotonic, Monotonicity, Convergence, Init, Increment, Gossip, Next, Spec, Fairness, FairSpec",
+      "residual_score": 0.7891247513705397,
+      "certified": true
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, TypeOK, Safety, Monotonic, Monotonicity, Convergence, Init, Increment, Gossip, Next, Spec, Fairness, FairSpec",
+      "residual_score": 0.7891247513705397,
+      "certified": true
+    },
+    {
+      "candidate_index": 11,
+      "candidate": "BY SMT, TypeCorrect, Fun_IsInj",
+      "residual_score": 0.4675025505194117,
+      "certified": false
+    },
+    {
+      "candidate_index": 13,
+      "candidate": "BY SMT, TypeCorrect, SetExtensionality",
+      "residual_score": 0.4675025505194117,
+      "certified": false
+    },
+    {
+      "candidate_index": 12,
+      "candidate": "BY TypeCorrect, Fun_IsInj",
+      "residual_score": 0.448728101210954,
+      "certified": false
+    },
+    {
+      "candidate_index": 14,
+      "candidate": "BY TypeCorrect, SetExtensionality",
+      "residual_score": 0.448728101210954,
+      "certified": false
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, TypeCorrect, Fun_InjectionProperties",
+      "residual_score": 0.44296840654742936,
+      "certified": false
+    },
+    {
+      "candidate_index": 4,
+      "candidate": "BY TypeCorrect, Fun_InjectionProperties",
+      "residual_score": 0.4241939572389717,
+      "certified": false
+    },
+    {
+      "candidate_index": 5,
+      "candidate": "BY SMT, TypeCorrect, Fun_InjectionProperties, Fun_IsInj",
+      "residual_score": 0.42380529023624686,
+      "certified": false
+    },
+    {
+      "candidate_index": 17,
+      "candidate": "BY SMT, TypeCorrect, DownwardNatInduction",
+      "residual_score": 0.4194535714200149,
+      "certified": false
+    },
+    {
+      "candidate_index": 27,
+      "candidate": "BY SMT, TypeCorrect, GeneralNatInduction",
+      "residual_score": 0.4194535714200149,
+      "certified": false
+    },
+    {
+      "candidate_index": 15,
+      "candidate": "BY SMT, TypeCorrect, Fun_InverseProperties",
+      "residual_score": 0.41143532422620405,
+      "certified": false
+    },
+    {
+      "candidate_index": 6,
+      "candidate": "BY TypeCorrect, Fun_InjectionProperties, Fun_IsInj",
+      "residual_score": 0.4050308409277892,
+      "certified": false
+    },
+    {
+      "candidate_index": 18,
+      "candidate": "BY TypeCorrect, DownwardNatInduction",
+      "residual_score": 0.40067912211155726,
+      "certified": false
+    },
+    {
+      "candidate_index": 28,
+      "candidate": "BY TypeCorrect, GeneralNatInduction",
+      "residual_score": 0.40067912211155726,
+      "certified": false
+    },
+    {
+      "candidate_index": 9,
+      "candidate": "BY SMT, TypeCorrect, Fun_InjectionProperties, Fun_IsInj, SetExtensionality, Fun_InverseProperties, DownwardNatInduction, Fun_BijectionProperties, Fun_InjInverse, Fun_IsBij",
+      "residual_score": 0.3972966351279872,
+      "certified": false
+    },
+    {
+      "candidate_index": 19,
+      "candidate": "BY SMT, TypeCorrect, Fun_BijectionProperties",
+      "residual_score": 0.39491942744803255,
+      "certified": false
+    },
+    {
+      "candidate_index": 23,
+      "candidate": "BY SMT, TypeCorrect, Fun_IsBij",
+      "residual_score": 0.39491942744803255,
+      "certified": false
+    },
+    {
+      "candidate_index": 25,
+      "candidate": "BY SMT, TypeCorrect, Fun_SmallestSurjectionIsBijection",
+      "residual_score": 0.39491942744803255,
+      "certified": false
+    },
+    {
+      "candidate_index": 16,
+      "candidate": "BY TypeCorrect, Fun_InverseProperties",
+      "residual_score": 0.39266087491774637,
+      "certified": false
+    },
+    {
+      "candidate_index": 10,
+      "candidate": "BY TypeCorrect, Fun_InjectionProperties, Fun_IsInj, SetExtensionality, Fun_InverseProperties, DownwardNatInduction, Fun_BijectionProperties, Fun_InjInverse, Fun_IsBij",
+      "residual_score": 0.3785221858195295,
+      "certified": false
+    },
+    {
+      "candidate_index": 20,
+      "candidate": "BY TypeCorrect, Fun_BijectionProperties",
+      "residual_score": 0.3761449781395749,
+      "certified": false
+    },
+    {
+      "candidate_index": 24,
+      "candidate": "BY TypeCorrect, Fun_IsBij",
+      "residual_score": 0.3761449781395749,
+      "certified": false
+    },
+    {
+      "candidate_index": 26,
+      "candidate": "BY TypeCorrect, Fun_SmallestSurjectionIsBijection",
+      "residual_score": 0.3761449781395749,
+      "certified": false
+    },
+    {
+      "candidate_index": 21,
+      "candidate": "BY SMT, TypeCorrect, Fun_InjInverse",
+      "residual_score": 0.3587585929067541,
+      "certified": false
+    },
+    {
+      "candidate_index": 7,
+      "candidate": "BY SMT, TypeCorrect, Fun_InjectionProperties, Fun_IsInj, SetExtensionality, Fun_InverseProperties",
+      "residual_score": 0.3413586380865787,
+      "certified": false
+    },
+    {
+      "candidate_index": 22,
+      "candidate": "BY TypeCorrect, Fun_InjInverse",
+      "residual_score": 0.33998414359829643,
+      "certified": false
+    },
+    {
+      "candidate_index": 8,
+      "candidate": "BY TypeCorrect, Fun_InjectionProperties, Fun_IsInj, SetExtensionality, Fun_InverseProperties",
+      "residual_score": 0.322584188778121,
+      "certified": false
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "residual_score": 0.20517783625711541,
+      "certified": false
+    }
+  ],
+  "crdt-sum-type-proof": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Sum, vars, TypeOK, Safety, Monotonic, Monotonicity, Convergence, Init, Increment, Gossip, Next, Spec, Fairness, FairSpec",
+      "residual_score": 0.7595485963671154,
+      "certified": false
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Sum, vars, TypeOK, Safety, Monotonic, Monotonicity, Convergence, Init, Increment, Gossip, Next, Spec, Fairness, FairSpec",
+      "residual_score": 0.7595485963671154,
+      "certified": false
+    },
+    {
+      "candidate_index": 15,
+      "candidate": "BY SMT, SumIsSumFunction, NodeAssumption, SumFunctionOnSetNat",
+      "residual_score": 0.4263322935247328,
+      "certified": false
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SumIsSumFunction, NodeAssumption, SumFunctionNat",
+      "residual_score": 0.4180590053844688,
+      "certified": true
+    },
+    {
+      "candidate_index": 25,
+      "candidate": "BY SMT, SumIsSumFunction, NodeAssumption, SmallestNatural",
+      "residual_score": 0.41112142603993884,
+      "certified": false
+    },
+    {
+      "candidate_index": 9,
+      "candidate": "BY SMT, SumIsSumFunction, NodeAssumption, SumFunctionNat, SumFunctionZero, SumFunctionNatOnSubset, SumFunctionOnSetNat, SumFunctionOnSetZero, FiniteNatInductiveUnique, Fun_NatBijSame, Fun_NatBijSubElem",
+      "residual_score": 0.3986368300857543,
+      "certified": true
+    },
+    {
+      "candidate_index": 10,
+      "candidate": "BY SumIsSumFunction, NodeAssumption, SumFunctionNat, SumFunctionZero, SumFunctionNatOnSubset, SumFunctionOnSetNat, SumFunctionOnSetZero, FiniteNatInductiveUnique, Fun_NatBijSame, Fun_NatBijSubElem",
+      "residual_score": 0.3798623807772966,
+      "certified": true
+    },
+    {
+      "candidate_index": 19,
+      "candidate": "BY SMT, SumIsSumFunction, NodeAssumption, FiniteNatInductiveUnique",
+      "residual_score": 0.3785309596720319,
+      "certified": false
+    },
+    {
+      "candidate_index": 21,
+      "candidate": "BY SMT, SumIsSumFunction, NodeAssumption, Fun_NatBijSame",
+      "residual_score": 0.3785309596720319,
+      "certified": false
+    },
+    {
+      "candidate_index": 23,
+      "candidate": "BY SMT, SumIsSumFunction, NodeAssumption, Fun_NatBijSubElem",
+      "residual_score": 0.3785309596720319,
+      "certified": false
+    },
+    {
+      "candidate_index": 11,
+      "candidate": "BY SMT, SumIsSumFunction, NodeAssumption, SumFunctionZero",
+      "residual_score": 0.35630569976477194,
+      "certified": false
+    },
+    {
+      "candidate_index": 16,
+      "candidate": "BY SumIsSumFunction, NodeAssumption, SumFunctionOnSetNat",
+      "residual_score": 0.35402978191166146,
+      "certified": false
+    },
+    {
+      "candidate_index": 4,
+      "candidate": "BY SumIsSumFunction, NodeAssumption, SumFunctionNat",
+      "residual_score": 0.34575649377139744,
+      "certified": true
+    },
+    {
+      "candidate_index": 26,
+      "candidate": "BY SumIsSumFunction, NodeAssumption, SmallestNatural",
+      "residual_score": 0.3388189144268675,
+      "certified": false
+    },
+    {
+      "candidate_index": 12,
+      "candidate": "BY SumIsSumFunction, NodeAssumption, SumFunctionZero",
+      "residual_score": 0.33753125045631427,
+      "certified": false
+    },
+    {
+      "candidate_index": 7,
+      "candidate": "BY SMT, SumIsSumFunction, NodeAssumption, SumFunctionNat, SumFunctionZero, SumFunctionNatOnSubset, SumFunctionOnSetNat",
+      "residual_score": 0.33157787385104953,
+      "certified": true
+    },
+    {
+      "candidate_index": 8,
+      "candidate": "BY SumIsSumFunction, NodeAssumption, SumFunctionNat, SumFunctionZero, SumFunctionNatOnSubset, SumFunctionOnSetNat",
+      "residual_score": 0.31280342454259186,
+      "certified": true
+    },
+    {
+      "candidate_index": 5,
+      "candidate": "BY SMT, SumIsSumFunction, NodeAssumption, SumFunctionNat, SumFunctionZero",
+      "residual_score": 0.30675800943025755,
+      "certified": true
+    },
+    {
+      "candidate_index": 20,
+      "candidate": "BY SumIsSumFunction, NodeAssumption, FiniteNatInductiveUnique",
+      "residual_score": 0.30622844805896055,
+      "certified": false
+    },
+    {
+      "candidate_index": 22,
+      "candidate": "BY SumIsSumFunction, NodeAssumption, Fun_NatBijSame",
+      "residual_score": 0.30622844805896055,
+      "certified": false
+    },
+    {
+      "candidate_index": 24,
+      "candidate": "BY SumIsSumFunction, NodeAssumption, Fun_NatBijSubElem",
+      "residual_score": 0.30622844805896055,
+      "certified": false
+    },
+    {
+      "candidate_index": 13,
+      "candidate": "BY SMT, SumIsSumFunction, NodeAssumption, SumFunctionNatOnSubset",
+      "residual_score": 0.2956107212515111,
+      "certified": false
+    },
+    {
+      "candidate_index": 17,
+      "candidate": "BY SMT, SumIsSumFunction, NodeAssumption, SumFunctionOnSetZero",
+      "residual_score": 0.2956107212515111,
+      "certified": false
+    },
+    {
+      "candidate_index": 27,
+      "candidate": "BY SMT, SumIsSumFunction, NodeAssumption, DownwardNatInduction",
+      "residual_score": 0.2956107212515111,
+      "certified": false
+    },
+    {
+      "candidate_index": 6,
+      "candidate": "BY SumIsSumFunction, NodeAssumption, SumFunctionNat, SumFunctionZero",
+      "residual_score": 0.2879835601217999,
+      "certified": true
+    },
+    {
+      "candidate_index": 14,
+      "candidate": "BY SumIsSumFunction, NodeAssumption, SumFunctionNatOnSubset",
+      "residual_score": 0.2768362719430535,
+      "certified": false
+    },
+    {
+      "candidate_index": 18,
+      "candidate": "BY SumIsSumFunction, NodeAssumption, SumFunctionOnSetZero",
+      "residual_score": 0.2768362719430535,
+      "certified": false
+    },
+    {
+      "candidate_index": 28,
+      "candidate": "BY SumIsSumFunction, NodeAssumption, DownwardNatInduction",
+      "residual_score": 0.2768362719430535,
+      "certified": false
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "residual_score": 0.24919693078008762,
+      "certified": false
+    }
+  ],
+  "crdt-sum-zero-proof": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Sum, vars, TypeOK, Safety, Monotonic, Monotonicity, Convergence, Init, Increment, Gossip, Next, Spec, Fairness, FairSpec",
+      "residual_score": 0.8566315497043826,
+      "certified": false
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Sum, vars, TypeOK, Safety, Monotonic, Monotonicity, Convergence, Init, Increment, Gossip, Next, Spec, Fairness, FairSpec",
+      "residual_score": 0.8566315497043826,
+      "certified": false
+    },
+    {
+      "candidate_index": 9,
+      "candidate": "BY SMT, SumIsSumFunction, SumType, NodeAssumption, SumFunctionZero, SumFunctionOnSetZero, SmallestNatural, DownwardNatInduction, Fun_NatBijEmpty, GeneralNatInduction, NatInduction, RecursiveFcnOfNatType",
+      "residual_score": 0.29240949314626496,
+      "certified": true
+    },
+    {
+      "candidate_index": 10,
+      "candidate": "BY SumIsSumFunction, SumType, NodeAssumption, SumFunctionZero, SumFunctionOnSetZero, SmallestNatural, DownwardNatInduction, Fun_NatBijEmpty, GeneralNatInduction, NatInduction, RecursiveFcnOfNatType",
+      "residual_score": 0.2736350438378073,
+      "certified": true
+    },
+    {
+      "candidate_index": 5,
+      "candidate": "BY SMT, SumIsSumFunction, SumType, NodeAssumption, SumFunctionZero, SumFunctionOnSetZero",
+      "residual_score": 0.26655451142220443,
+      "certified": true
+    },
+    {
+      "candidate_index": 17,
+      "candidate": "BY SMT, SumIsSumFunction, SumType, NodeAssumption, Fun_NatBijEmpty",
+      "residual_score": 0.25077975797300656,
+      "certified": false
+    },
+    {
+      "candidate_index": 25,
+      "candidate": "BY SMT, SumIsSumFunction, SumType, NodeAssumption, Fun_NatInjLeq",
+      "residual_score": 0.25077975797300656,
+      "certified": false
+    },
+    {
+      "candidate_index": 23,
+      "candidate": "BY SMT, SumIsSumFunction, SumType, NodeAssumption, RecursiveFcnOfNatType",
+      "residual_score": 0.24949899513961626,
+      "certified": false
+    },
+    {
+      "candidate_index": 6,
+      "candidate": "BY SumIsSumFunction, SumType, NodeAssumption, SumFunctionZero, SumFunctionOnSetZero",
+      "residual_score": 0.24778006211374673,
+      "certified": true
+    },
+    {
+      "candidate_index": 7,
+      "candidate": "BY SMT, SumIsSumFunction, SumType, NodeAssumption, SumFunctionZero, SumFunctionOnSetZero, SmallestNatural, DownwardNatInduction",
+      "residual_score": 0.24475263524224108,
+      "certified": true
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SumIsSumFunction, SumType, NodeAssumption, SumFunctionZero",
+      "residual_score": 0.2444669147934314,
+      "certified": true
+    },
+    {
+      "candidate_index": 13,
+      "candidate": "BY SMT, SumIsSumFunction, SumType, NodeAssumption, SmallestNatural",
+      "residual_score": 0.2342881276548223,
+      "certified": false
+    },
+    {
+      "candidate_index": 8,
+      "candidate": "BY SumIsSumFunction, SumType, NodeAssumption, SumFunctionZero, SumFunctionOnSetZero, SmallestNatural, DownwardNatInduction",
+      "residual_score": 0.2259781859337834,
+      "certified": true
+    },
+    {
+      "candidate_index": 4,
+      "candidate": "BY SumIsSumFunction, SumType, NodeAssumption, SumFunctionZero",
+      "residual_score": 0.22569246548497376,
+      "certified": true
+    },
+    {
+      "candidate_index": 11,
+      "candidate": "BY SMT, SumIsSumFunction, SumType, NodeAssumption, SumFunctionOnSetZero",
+      "residual_score": 0.1837719362801706,
+      "certified": false
+    },
+    {
+      "candidate_index": 15,
+      "candidate": "BY SMT, SumIsSumFunction, SumType, NodeAssumption, DownwardNatInduction",
+      "residual_score": 0.1837719362801706,
+      "certified": false
+    },
+    {
+      "candidate_index": 19,
+      "candidate": "BY SMT, SumIsSumFunction, SumType, NodeAssumption, GeneralNatInduction",
+      "residual_score": 0.1837719362801706,
+      "certified": false
+    },
+    {
+      "candidate_index": 21,
+      "candidate": "BY SMT, SumIsSumFunction, SumType, NodeAssumption, NatInduction",
+      "residual_score": 0.1837719362801706,
+      "certified": false
+    },
+    {
+      "candidate_index": 27,
+      "candidate": "BY SMT, SumIsSumFunction, SumType, NodeAssumption, Fun_NatSurjEquivNatBij",
+      "residual_score": 0.1837719362801706,
+      "certified": false
+    },
+    {
+      "candidate_index": 18,
+      "candidate": "BY SumIsSumFunction, SumType, NodeAssumption, Fun_NatBijEmpty",
+      "residual_score": 0.17847724635993525,
+      "certified": false
+    },
+    {
+      "candidate_index": 26,
+      "candidate": "BY SumIsSumFunction, SumType, NodeAssumption, Fun_NatInjLeq",
+      "residual_score": 0.17847724635993525,
+      "certified": false
+    },
+    {
+      "candidate_index": 24,
+      "candidate": "BY SumIsSumFunction, SumType, NodeAssumption, RecursiveFcnOfNatType",
+      "residual_score": 0.1771964835265449,
+      "certified": false
+    },
+    {
+      "candidate_index": 12,
+      "candidate": "BY SumIsSumFunction, SumType, NodeAssumption, SumFunctionOnSetZero",
+      "residual_score": 0.16499748697171293,
+      "certified": false
+    },
+    {
+      "candidate_index": 16,
+      "candidate": "BY SumIsSumFunction, SumType, NodeAssumption, DownwardNatInduction",
+      "residual_score": 0.16499748697171293,
+      "certified": false
+    },
+    {
+      "candidate_index": 20,
+      "candidate": "BY SumIsSumFunction, SumType, NodeAssumption, GeneralNatInduction",
+      "residual_score": 0.16499748697171293,
+      "certified": false
+    },
+    {
+      "candidate_index": 22,
+      "candidate": "BY SumIsSumFunction, SumType, NodeAssumption, NatInduction",
+      "residual_score": 0.16499748697171293,
+      "certified": false
+    },
+    {
+      "candidate_index": 28,
+      "candidate": "BY SumIsSumFunction, SumType, NodeAssumption, Fun_NatSurjEquivNatBij",
+      "residual_score": 0.16499748697171293,
+      "certified": false
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "residual_score": 0.16423113005191184,
+      "certified": false
+    },
+    {
+      "candidate_index": 14,
+      "candidate": "BY SumIsSumFunction, SumType, NodeAssumption, SmallestNatural",
+      "residual_score": 0.16198561604175093,
+      "certified": false
+    }
+  ],
+  "crdt-type-step": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, TypeOK, Safety, Monotonic, Monotonicity, Convergence, Init, Increment, Gossip, Next, Spec, Fairness, FairSpec",
+      "residual_score": 0.7891247513705397,
+      "certified": true
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, TypeOK, Safety, Monotonic, Monotonicity, Convergence, Init, Increment, Gossip, Next, Spec, Fairness, FairSpec",
+      "residual_score": 0.7891247513705397,
+      "certified": true
+    },
+    {
+      "candidate_index": 5,
+      "candidate": "BY SMT, Fun_InjectionProperties, Fun_IsInj",
+      "residual_score": 0.3739559571387755,
+      "certified": false
+    },
+    {
+      "candidate_index": 9,
+      "candidate": "BY SMT, Fun_InjectionProperties, Fun_IsInj, SetExtensionality, Fun_InverseProperties, DownwardNatInduction, Fun_BijectionProperties, Fun_InjInverse, Fun_IsBij",
+      "residual_score": 0.3410804725709845,
+      "certified": false
+    },
+    {
+      "candidate_index": 7,
+      "candidate": "BY SMT, Fun_InjectionProperties, Fun_IsInj, SetExtensionality, Fun_InverseProperties",
+      "residual_score": 0.32450321678809996,
+      "certified": false
+    },
+    {
+      "candidate_index": 6,
+      "candidate": "BY Fun_InjectionProperties, Fun_IsInj",
+      "residual_score": 0.30165344552570417,
+      "certified": false
+    },
+    {
+      "candidate_index": 10,
+      "candidate": "BY Fun_InjectionProperties, Fun_IsInj, SetExtensionality, Fun_InverseProperties, DownwardNatInduction, Fun_BijectionProperties, Fun_InjInverse, Fun_IsBij",
+      "residual_score": 0.2687779609579132,
+      "certified": false
+    },
+    {
+      "candidate_index": 8,
+      "candidate": "BY Fun_InjectionProperties, Fun_IsInj, SetExtensionality, Fun_InverseProperties",
+      "residual_score": 0.2522007051750286,
+      "certified": false
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "residual_score": 0.20517783625711541,
+      "certified": false
+    },
+    {
+      "candidate_index": 19,
+      "candidate": "BY SMT, Fun_BijectionProperties",
+      "residual_score": 0.12124594851563142,
+      "certified": false
+    },
+    {
+      "candidate_index": 23,
+      "candidate": "BY SMT, Fun_IsBij",
+      "residual_score": 0.12124594851563142,
+      "certified": false
+    },
+    {
+      "candidate_index": 25,
+      "candidate": "BY SMT, Fun_SmallestSurjectionIsBijection",
+      "residual_score": 0.12124594851563142,
+      "certified": false
+    },
+    {
+      "candidate_index": 21,
+      "candidate": "BY SMT, Fun_InjInverse",
+      "residual_score": 0.09671180454364908,
+      "certified": false
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, Fun_InjectionProperties",
+      "residual_score": 0.0704547998993848,
+      "certified": false
+    },
+    {
+      "candidate_index": 17,
+      "candidate": "BY SMT, DownwardNatInduction",
+      "residual_score": 0.06055097000237064,
+      "certified": false
+    },
+    {
+      "candidate_index": 27,
+      "candidate": "BY SMT, GeneralNatInduction",
+      "residual_score": 0.06055097000237064,
+      "certified": false
+    },
+    {
+      "candidate_index": 20,
+      "candidate": "BY Fun_BijectionProperties",
+      "residual_score": 0.04894343690256009,
+      "certified": false
+    },
+    {
+      "candidate_index": 24,
+      "candidate": "BY Fun_IsBij",
+      "residual_score": 0.04894343690256009,
+      "certified": false
+    },
+    {
+      "candidate_index": 26,
+      "candidate": "BY Fun_SmallestSurjectionIsBijection",
+      "residual_score": 0.04894343690256009,
+      "certified": false
+    },
+    {
+      "candidate_index": 22,
+      "candidate": "BY Fun_InjInverse",
+      "residual_score": 0.024409292930577753,
+      "certified": false
+    },
+    {
+      "candidate_index": 11,
+      "candidate": "BY SMT, Fun_IsInj",
+      "residual_score": 0.009759821386123968,
+      "certified": false
+    },
+    {
+      "candidate_index": 4,
+      "candidate": "BY Fun_InjectionProperties",
+      "residual_score": -0.001847711713686584,
+      "certified": false
+    },
+    {
+      "candidate_index": 18,
+      "candidate": "BY DownwardNatInduction",
+      "residual_score": -0.011751541610700744,
+      "certified": false
+    },
+    {
+      "candidate_index": 28,
+      "candidate": "BY GeneralNatInduction",
+      "residual_score": -0.011751541610700744,
+      "certified": false
+    },
+    {
+      "candidate_index": 15,
+      "candidate": "BY SMT, Fun_InverseProperties",
+      "residual_score": -0.030628903127023988,
+      "certified": false
+    },
+    {
+      "candidate_index": 16,
+      "candidate": "BY Fun_InverseProperties",
+      "residual_score": -0.04940335243548166,
+      "certified": false
+    },
+    {
+      "candidate_index": 12,
+      "candidate": "BY Fun_IsInj",
+      "residual_score": -0.06254269022694742,
+      "certified": false
+    },
+    {
+      "candidate_index": 13,
+      "candidate": "BY SMT, SetExtensionality",
+      "residual_score": -0.10000286034138528,
+      "certified": false
+    },
+    {
+      "candidate_index": 14,
+      "candidate": "BY SetExtensionality",
+      "residual_score": -0.11877730964984301,
+      "certified": false
+    }
+  ]
+}
