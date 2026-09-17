@@ -1,0 +1,580 @@
+{
+  "addtwo-init": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, Init, Next, Spec, TypeOK",
+      "structural_key": [
+        0,
+        1
+      ]
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, Init, Next, Spec, TypeOK",
+      "structural_key": [
+        1,
+        2
+      ]
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "structural_key": [
+        2,
+        3
+      ]
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "structural_key": [
+        3,
+        0
+      ]
+    }
+  ],
+  "addtwo-step": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, Init, Next, Spec, TypeOK",
+      "structural_key": [
+        0,
+        1
+      ]
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, Init, Next, Spec, TypeOK",
+      "structural_key": [
+        1,
+        2
+      ]
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "structural_key": [
+        2,
+        3
+      ]
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "structural_key": [
+        3,
+        0
+      ]
+    }
+  ],
+  "highest-type-step": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF max, vars, Init, lb, Terminating, Next, Spec, Termination, TypeOK",
+      "structural_key": [
+        0,
+        1
+      ]
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF max, vars, Init, lb, Terminating, Next, Spec, Termination, TypeOK",
+      "structural_key": [
+        1,
+        2
+      ]
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "structural_key": [
+        2,
+        3
+      ]
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "structural_key": [
+        3,
+        0
+      ]
+    }
+  ],
+  "highest-inductive-step": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF max, vars, Init, lb, Terminating, Next, Spec, Termination, TypeOK, InductiveInvariant",
+      "structural_key": [
+        0,
+        1
+      ]
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF max, vars, Init, lb, Terminating, Next, Spec, Termination, TypeOK, InductiveInvariant",
+      "structural_key": [
+        1,
+        2
+      ]
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, TypeInvariantHolds, SetExtensionality",
+      "structural_key": [
+        2,
+        3
+      ]
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "structural_key": [
+        3,
+        0
+      ]
+    }
+  ],
+  "highest-done-step": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF max, vars, Init, lb, Terminating, Next, Spec, Termination, TypeOK, InductiveInvariant, DoneIndexValue",
+      "structural_key": [
+        0,
+        1
+      ]
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF max, vars, Init, lb, Terminating, Next, Spec, Termination, TypeOK, InductiveInvariant, DoneIndexValue",
+      "structural_key": [
+        1,
+        2
+      ]
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, TypeInvariantHolds, InductiveInvariantHolds, SetExtensionality",
+      "structural_key": [
+        2,
+        3
+      ]
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "structural_key": [
+        3,
+        0
+      ]
+    }
+  ],
+  "highest-correctness": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF max, vars, Init, lb, Terminating, Next, Spec, Termination, TypeOK, InductiveInvariant, DoneIndexValue, Correctness",
+      "structural_key": [
+        0,
+        1
+      ]
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF max, vars, Init, lb, Terminating, Next, Spec, Termination, TypeOK, InductiveInvariant, DoneIndexValue, Correctness",
+      "structural_key": [
+        1,
+        2
+      ]
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, TypeInvariantHolds, InductiveInvariantHolds, DoneIndexValueThm, SetExtensionality",
+      "structural_key": [
+        2,
+        3
+      ]
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "structural_key": [
+        3,
+        0
+      ]
+    }
+  ],
+  "even-intro": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Even, Odd",
+      "structural_key": [
+        0,
+        1
+      ]
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Even, Odd",
+      "structural_key": [
+        1,
+        2
+      ]
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "structural_key": [
+        2,
+        3
+      ]
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "structural_key": [
+        3,
+        0
+      ]
+    }
+  ],
+  "even-case-tail": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Even, Odd",
+      "structural_key": [
+        0,
+        1
+      ]
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Even, Odd",
+      "structural_key": [
+        1,
+        2
+      ]
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "structural_key": [
+        2,
+        3
+      ]
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "structural_key": [
+        3,
+        0
+      ]
+    }
+  ],
+  "odd-case-tail": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Even, Odd",
+      "structural_key": [
+        0,
+        1
+      ]
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Even, Odd",
+      "structural_key": [
+        1,
+        2
+      ]
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "structural_key": [
+        2,
+        3
+      ]
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "structural_key": [
+        3,
+        0
+      ]
+    }
+  ],
+  "simple-full": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+      "structural_key": [
+        0,
+        1
+      ]
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+      "structural_key": [
+        1,
+        2
+      ]
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "structural_key": [
+        2,
+        3
+      ]
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "structural_key": [
+        3,
+        0
+      ]
+    }
+  ],
+  "simple-preservation": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+      "structural_key": [
+        0,
+        1
+      ]
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+      "structural_key": [
+        1,
+        2
+      ]
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "structural_key": [
+        2,
+        3
+      ]
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "structural_key": [
+        3,
+        0
+      ]
+    }
+  ],
+  "simple-case-a": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+      "structural_key": [
+        0,
+        1
+      ]
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+      "structural_key": [
+        1,
+        2
+      ]
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "structural_key": [
+        2,
+        3
+      ]
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "structural_key": [
+        3,
+        0
+      ]
+    }
+  ],
+  "simple-case-b": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+      "structural_key": [
+        0,
+        1
+      ]
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+      "structural_key": [
+        1,
+        2
+      ]
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "structural_key": [
+        2,
+        3
+      ]
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "structural_key": [
+        3,
+        0
+      ]
+    }
+  ],
+  "simple-preservation-tail": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+      "structural_key": [
+        0,
+        1
+      ]
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+      "structural_key": [
+        1,
+        2
+      ]
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "structural_key": [
+        2,
+        3
+      ]
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "structural_key": [
+        3,
+        0
+      ]
+    }
+  ],
+  "simple-conclusion": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+      "structural_key": [
+        0,
+        1
+      ]
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+      "structural_key": [
+        1,
+        2
+      ]
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "structural_key": [
+        2,
+        3
+      ]
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "structural_key": [
+        3,
+        0
+      ]
+    }
+  ],
+  "simple-short-full": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+      "structural_key": [
+        0,
+        1
+      ]
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+      "structural_key": [
+        1,
+        2
+      ]
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, Correctness, SetExtensionality",
+      "structural_key": [
+        2,
+        3
+      ]
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "structural_key": [
+        3,
+        0
+      ]
+    }
+  ],
+  "simple-short-preservation": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+      "structural_key": [
+        0,
+        1
+      ]
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+      "structural_key": [
+        1,
+        2
+      ]
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, Correctness, SetExtensionality",
+      "structural_key": [
+        2,
+        3
+      ]
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "structural_key": [
+        3,
+        0
+      ]
+    }
+  ]
+}

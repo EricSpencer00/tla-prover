@@ -1,0 +1,20 @@
+{
+  "requested_tasks": 119,
+  "measured_tasks": 115,
+  "certified_tasks": 43,
+  "top1_certified_tasks": 43,
+  "checker_attempts": 324,
+  "candidate_width": 4,
+  "ordering": "SMT+DEF, DEF, other SMT, bare SMT; candidate index tie-break",
+  "packet_sha256": "f40539a20e449ad63b8244e85eff33c8022402df11a84e8228b71ccbfeae11b5",
+  "manifest_sha256": "3380cf37c7311466ea7762662d55866839b3c3620ce73fb8d7ad209befe6de1d",
+  "reference_fragment_used": false,
+  "training_executed": false,
+  "parameter_updates": 0,
+  "model_executed": false,
+  "reward_or_feedback": false,
+  "proof_or_quality_claim": false,
+  "gate_claim": false,
+  "denominator_fixed": true,
+  "elapsed_seconds": 895.8986550830014
+}
