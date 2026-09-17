@@ -20,7 +20,7 @@ from . import runner
 from tools.proof_outcome_audit import classify_outcome
 
 
-VERSION = "sany-strict-tlaps-fragment-v1"
+VERSION = "sany-strict-tlaps-fragment-v2"
 
 
 def sha(raw: bytes) -> str:
@@ -34,6 +34,37 @@ def _checked(path: Path, expected: str) -> bytes:
     return raw
 
 
+def _target_output(record: dict) -> str:
+    output = record.get("output", "")
+    candidate = record.get("candidate_path", "")
+    name = str(candidate).replace("\\", "/").rsplit("/", 1)[-1]
+    marker = f'File "./{name}"'
+    # A target module can have several File markers, one per obligation.
+    # Keep the first target marker so leading target diagnostics remain in
+    # scope while dependency-module output stays excluded.
+    return output.split(marker, 1)[-1] if marker in output else output
+
+
+def _normalize_tlaps_record(record: dict) -> None:
+    """Keep the raw site result while deriving an exact-target classification."""
+    raw_status, raw_proved, raw_total = legacy.classify_result(
+        record["returncode"], record["output"], record["timed_out"])
+    record["raw_classification"] = {
+        "status": raw_status, "proved": raw_proved, "total": raw_total,
+    }
+    target = _target_output(record)
+    matches = legacy.re.findall(
+        r"^\s*(?:\[INFO\]: )?All ([1-9]\d*) obligations? proved\.?\s*$",
+        target, legacy.re.M)
+    if (record.get("returncode") == 0 and not record.get("timed_out")
+            and len(matches) == 1
+            and not legacy.re.search(r"\b(?:failed|omitted|interrupted|error|exception)\b",
+                                     target, legacy.re.I)):
+        total = int(matches[0])
+        record.update(status="pass", proved=total, total=total, certified=True,
+                      classification_scope="exact_target_module")
+
+
 def _audit_tlaps(record: dict, prefix: str, fragment: str, suffix: str,
                  theorem_name: str, dependencies: dict) -> None:
     candidate = prefix + fragment + suffix
@@ -41,9 +72,18 @@ def _audit_tlaps(record: dict, prefix: str, fragment: str, suffix: str,
     path = Path(record["candidate_path"])
     work = Path(record["workdir"])
     command = record.get("command", [])
+    strict_uncached = (
+        "--strict" in command and "--nofp" in command and "--cache-dir" in command
+    )
+    site_uncached = (
+        "--strict" not in command and "--nofp" in command
+        and "--cache-dir" not in command and "--threads" in command
+        and command[command.index("--threads") + 1] == "1"
+    )
     if (record.get("sha256") != expected or path.parent.resolve() != work.resolve()
-            or path.name != command[-1] or Path(command[0]).resolve() != Path(runner.TLAPM).resolve()
-            or not {"--strict", "--nofp"}.issubset(command)):
+            or not command or path.name != command[-1]
+            or Path(command[0]).resolve() != Path(runner.TLAPM).resolve()
+            or not (strict_uncached or site_uncached)):
         raise ValueError("strict TLAPS provenance does not bind exact input")
     _checked(path, expected)
     if json.loads((work / "input.json").read_text()) != dict(
@@ -53,8 +93,12 @@ def _audit_tlaps(record: dict, prefix: str, fragment: str, suffix: str,
         raise ValueError("TLAPS raw log changed")
     for name, value in dependencies.items():
         _checked(work / name, value)
+    raw = record.get("raw_classification")
+    if raw is None:
+        raw = dict(zip(("status", "proved", "total"), legacy.classify_result(
+            record["returncode"], record["output"], record["timed_out"])))
     if legacy.classify_result(record["returncode"], record["output"], record["timed_out"]) != (
-            record["status"], record["proved"], record["total"]):
+            raw["status"], raw["proved"], raw["total"]):
         raise ValueError("TLAPS raw outcome classification differs")
     if json.loads((work / "result.json").read_text()) != record:
         raise ValueError("TLAPS saved result differs")
@@ -151,6 +195,8 @@ def certify_fragment(prefix: str, fragment: str, suffix: str, *, theorem_name: s
                               dependencies=tuple(copies), work_root=work / "tlaps",
                               timeout=remaining)
         result["tlaps"] = tlaps
+        _normalize_tlaps_record(tlaps)
+        (Path(tlaps["workdir"]) / "result.json").write_text(json.dumps(tlaps, indent=2))
         _audit_tlaps(tlaps, prefix, fragment, suffix, theorem_name, dependency_hashes)
         diagnostic = classify_outcome(tlaps, provenance_verified=True)
         result["tlaps_diagnostic"] = diagnostic

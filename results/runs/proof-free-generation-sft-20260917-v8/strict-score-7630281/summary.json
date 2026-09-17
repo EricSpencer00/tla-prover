@@ -1,0 +1,31 @@
+{
+  "schema": 1,
+  "packet_sha256": "647e5b3502fabc6da2245fa5275f7e28d3140396d473d1771dc1014d63cc4000",
+  "generations_sha256": "5e00ae796c3f688d2baf74df3fde1a7d71c60a21c2965c7761185b2fec128e54",
+  "policies": [
+    "base",
+    "child",
+    "parent"
+  ],
+  "development_tasks": 4,
+  "attempts": 12,
+  "target_scoped_passes": 0,
+  "sany_passes": 4,
+  "tlaps_attempts": 4,
+  "proof_certified_passes": 0,
+  "passes_by_policy": {
+    "base": 0,
+    "child": 0,
+    "parent": 0
+  },
+  "development_reference_bytes_forwarded": false,
+  "optimizer_updates": 0,
+  "verifier_feedback_used": false,
+  "reward_used": false,
+  "quality_claim": false,
+  "proof_claim": false,
+  "gate_claim": false,
+  "elapsed_seconds": 63.091468641068786,
+  "sany_first": true,
+  "scope": "strict SANY-first uncached TLAPS score of exact free-generation outputs; no promotion claim"
+}

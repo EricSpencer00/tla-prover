@@ -1,0 +1,88 @@
+{
+  "schema": 1,
+  "kind": "fullmodule_canonical_byte_sequence_independent_sany_audit_v1",
+  "packet_sha256": "a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c",
+  "run_receipt_sha256": "1b082fdb7d8f6f2029733e4d708282d5f4d564045cc18273137542d248c4049f",
+  "jar_sha256": "936a262061c914694dfd669a543be24573c45d5aa0ff20a8b96b23d01e050e88",
+  "protected_rows": [
+    47,
+    107
+  ],
+  "references": [
+    {
+      "row": 47,
+      "status": "pass",
+      "passed": true
+    },
+    {
+      "row": 107,
+      "status": "pass",
+      "passed": true
+    }
+  ],
+  "candidates": [
+    {
+      "row": 47,
+      "phase": "restored_parent",
+      "raw_reply_sha256": "e40059692c87cce0f07694561e2150167a0930f8ae7a2117e56821ce2a3f6e7d",
+      "worker_label_ignored": false,
+      "worker_claims_ignored": true,
+      "status": "frame_reject",
+      "passed": false,
+      "diagnostic": "canonical sequence magic required",
+      "canonical_valid": false,
+      "sany": null
+    },
+    {
+      "row": 107,
+      "phase": "restored_parent",
+      "raw_reply_sha256": "a5e9a5d1c6c780eaed846b22b4804c687f8b458d68d0c9d22af03cde089fa336",
+      "worker_label_ignored": false,
+      "worker_claims_ignored": true,
+      "status": "frame_reject",
+      "passed": false,
+      "diagnostic": "canonical sequence magic required",
+      "canonical_valid": false,
+      "sany": null
+    },
+    {
+      "row": 47,
+      "phase": "trained_child",
+      "raw_reply_sha256": "e40059692c87cce0f07694561e2150167a0930f8ae7a2117e56821ce2a3f6e7d",
+      "worker_label_ignored": false,
+      "worker_claims_ignored": true,
+      "status": "frame_reject",
+      "passed": false,
+      "diagnostic": "canonical sequence magic required",
+      "canonical_valid": false,
+      "sany": null
+    },
+    {
+      "row": 107,
+      "phase": "trained_child",
+      "raw_reply_sha256": "2e02b47703c9bc1264bc4455f1e66e51d406b55f1b37302a55c5f830b4d64466",
+      "worker_label_ignored": false,
+      "worker_claims_ignored": true,
+      "status": "frame_reject",
+      "passed": false,
+      "diagnostic": "canonical sequence magic required",
+      "canonical_valid": false,
+      "sany": null
+    }
+  ],
+  "reference_sany_pass": 2,
+  "candidate_count": 4,
+  "canonical_candidate_count": 0,
+  "candidate_sany_pass": 0,
+  "worker_labels_ignored": true,
+  "protected_reference_conditioning_for_training": false,
+  "generated_feedback_loaded": false,
+  "target_repair": false,
+  "model_improvement_claim": false,
+  "quality_claim": false,
+  "gate_claim": false,
+  "proof_claim": false,
+  "generalization_claim": false,
+  "tlc_claim": false,
+  "nonvacuity_claim": false
+}

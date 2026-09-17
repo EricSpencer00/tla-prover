@@ -21,7 +21,8 @@ def runtime(tmp_path, monkeypatch):
     return tmp_path
 
 
-def fake_tlaps(prefix, fragment, suffix, *, theorem_name, dependencies, work_root, timeout):
+def fake_tlaps(prefix, fragment, suffix, *, theorem_name, dependencies, work_root, timeout,
+               legacy=False):
     work_root.mkdir(parents=True)
     path = work_root / "M.tla"
     path.write_text(prefix + fragment + suffix)
@@ -30,7 +31,9 @@ def fake_tlaps(prefix, fragment, suffix, *, theorem_name, dependencies, work_roo
                   timed_out=False, output=output, seconds=1.0,
                   workdir=str(work_root), candidate_path=str(path),
                   sha256=ladder.sha(path.read_bytes()), dependency_sha256={},
-                  command=[str(ladder.runner.TLAPM), "--strict", "--nofp", "M.tla"])
+                  command=([str(ladder.runner.TLAPM), "--nofp", "--threads", "1", "M.tla"]
+                           if legacy else [str(ladder.runner.TLAPM), "--strict", "--nofp",
+                                           "--cache-dir", str(work_root / ".tlacache"), "M.tla"]))
     (work_root / "input.json").write_text(json.dumps(dict(
         prefix=prefix, fragment=fragment, suffix=suffix, theorem_name=theorem_name)))
     (work_root / "tlapm.log").write_text(output)
@@ -72,6 +75,35 @@ def test_shared_sany_tlaps_deadline_and_exact_input(runtime):
     assert result["certified"] and result["status"] == "pass"
     assert calls == [("sany", 30), ("tlaps", 28)]
     assert json.loads((Path(result["workdir"]) / "result.json").read_text()) == result
+
+
+def test_site_legacy_tlaps_command_is_audited_after_sany(runtime):
+    def tlaps(*args, **kwargs):
+        return fake_tlaps(*args, legacy=True, **kwargs)
+
+    result = ladder.certify_fragment(
+        PREFIX, "BY SMT", SUFFIX, theorem_name="T", work_root=runtime / "run",
+        run_command=lambda *args: (0, "Semantic processing of module M\n", 1.0, False),
+        tlaps_checker=tlaps)
+    assert result["certified"] and result["tlaps"]["status"] == "pass"
+
+
+def test_target_module_normalization_ignores_dependency_zero_obligations():
+    record = {
+        "returncode": 0, "timed_out": False, "status": "unrecognized_output",
+        "proved": 0, "total": 0, "certified": False,
+        "candidate_path": "/tmp/M.tla",
+        "output": (
+            'File "./Dependency.tla", line 1:\n'
+            "[INFO]: All 0 obligation proved.\n"
+            'File "./M.tla", line 1:\n'
+            "[INFO]: All 7 obligations proved.\n"
+        ),
+    }
+    ladder._normalize_tlaps_record(record)
+    assert record["status"] == "pass"
+    assert record["proved"] == record["total"] == 7
+    assert record["raw_classification"]["status"] == "unrecognized_output"
 
 
 def test_current_development_scaffold_uses_fragment_contract():
