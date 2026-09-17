@@ -1,0 +1,18 @@
+{
+  "requested_tasks": 4,
+  "fully_ranked_tasks": 4,
+  "measured_tasks": 4,
+  "certified_tasks_top4": 4,
+  "top1_verified": 2,
+  "checker_attempts": 8,
+  "checker": "strict uncached TLAPS --strict --nofp",
+  "split": "train",
+  "reference_fragment_used": false,
+  "training_executed": false,
+  "repair_or_reward": false,
+  "quality_claim": false,
+  "gate_claim": false,
+  "denominator_fixed": true,
+  "method": "independent strict TLAPS over prompt-only semantic-signature ranked proposals",
+  "elapsed_seconds": 16.968970166999497
+}

@@ -1,0 +1,34 @@
+{
+  "highest-done-step": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "highest-correctness": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.0,
+    "instance": 0.0
+  },
+  "simple-preservation": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.0,
+    "instance": 0.0
+  },
+  "simple-short-full": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.0,
+    "instance": 0.0
+  }
+}

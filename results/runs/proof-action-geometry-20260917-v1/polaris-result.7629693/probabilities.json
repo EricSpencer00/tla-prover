@@ -1,0 +1,954 @@
+{
+  "10_lockserv": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.0,
+    "instance": 0.0
+  },
+  "11_TwoPhase": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.0,
+    "instance": 0.0
+  },
+  "13_simple_decentralized_lock": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 8.41211122956916e-31,
+    "instance": 0.0
+  },
+  "14_two_phase_commit": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.0,
+    "instance": 0.0
+  },
+  "15_consensus_wo_decide": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0630140736983968e-36,
+    "instance": 0.0
+  },
+  "16_consensus_forall": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 4.790156707646027e-29,
+    "instance": 0.0
+  },
+  "19_sharded_kv_no_lost_keys": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 4.981469560524841e-29,
+    "instance": 0.0
+  },
+  "1_Consensus": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 2.8082439520059647e-28,
+    "instance": 0.0
+  },
+  "20_naive_consensus": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.440952314101024e-35,
+    "instance": 0.0
+  },
+  "21_client_server_ae": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 9.154267965605607e-26,
+    "instance": 0.0
+  },
+  "22_simple_election": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.4407527384864703e-30,
+    "instance": 0.0
+  },
+  "23_toy_consensus_epr": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0662755858998165e-28,
+    "instance": 0.0
+  },
+  "24_toy_consensus": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 3.885870656034384e-27,
+    "instance": 0.0
+  },
+  "25_client_server_db_ae": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.5067162400663661e-27,
+    "instance": 0.0
+  },
+  "27_firewall": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.3086114688495182e-30,
+    "instance": 0.0
+  },
+  "28_majorityset_leader_election": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 3.4414176690856384e-34,
+    "instance": 0.0
+  },
+  "29_consensus_epr": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.02788487203446e-24,
+    "instance": 0.0
+  },
+  "2_TCommit": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.0,
+    "instance": 0.0
+  },
+  "30_MongoLoglessDynamicRaft": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.4835575659355054e-31,
+    "instance": 0.0
+  },
+  "3_lockserver": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.1769504742308658e-28,
+    "instance": 0.0
+  },
+  "4_quorum_leader_election": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 2.57055637620868e-30,
+    "instance": 0.0
+  },
+  "5_toy_consensus_forall": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 8.620275292376617e-31,
+    "instance": 0.0
+  },
+  "6_Simple": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 2.4535345029911004e-30,
+    "instance": 0.0
+  },
+  "7_lockserv_automaton": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.0,
+    "instance": 0.0
+  },
+  "8_SimpleRegular": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 8.20408793884339e-24,
+    "instance": 0.0
+  },
+  "9_sharded_kv": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 3.309816776317649e-28,
+    "instance": 0.0
+  },
+  "aimeII_2001_p3": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.0,
+    "instance": 0.0
+  },
+  "aime_1984_p7": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.0,
+    "instance": 0.0
+  },
+  "aime_1987_p5": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 4.451905490877566e-37,
+    "instance": 0.0
+  },
+  "aime_1991_p1": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.9999998807907104,
+    "instance": 0.0
+  },
+  "aime_1994_p3": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.0,
+    "instance": 0.0
+  },
+  "algebra_xmysqpymzsqpzmxsqeqxyz_xpypzp6dvdx3y3z3": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.1505261433926794e-25,
+    "instance": 0.0
+  },
+  "amc12_2000_p1": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 5.098551054815894e-29,
+    "instance": 0.0
+  },
+  "amc12_2000_p12": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "amc12_2000_p6": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 8.243939266954546e-22,
+    "instance": 0.0
+  },
+  "amc12_2001_p2": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "amc12_2001_p21": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "amc12a_2002_p6": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "amc12a_2003_p5": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "amc12a_2015_p10": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "amc12a_2021_p3": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "amc12a_2021_p8": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.0,
+    "instance": 0.0
+  },
+  "amc12b_2002_p11": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "amc12b_2002_p2": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "amc12b_2002_p7": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "imo_1977_p5": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "imo_1977_p6": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.0007347559439949691,
+    "instance": 0.0
+  },
+  "imo_1981_p6": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "imo_1982_p1": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 4.266372798156226e-06,
+    "instance": 0.0
+  },
+  "imo_1987_p4": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.0009641406359151006,
+    "instance": 0.0
+  },
+  "imo_1992_p1": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 4.5004622251099136e-09,
+    "instance": 0.0
+  },
+  "imo_1993_p5": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.9999964237213135,
+    "instance": 0.0
+  },
+  "imo_2001_p6": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.4888474652252626e-05,
+    "instance": 0.0
+  },
+  "imo_2019_p1": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.005275707691907883,
+    "instance": 0.0
+  },
+  "induction_divisibility_3divnto3m2n": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.9999415874481201,
+    "instance": 0.0
+  },
+  "induction_ineq_nsqlefactn": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "mathd_algebra_123": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "mathd_algebra_125": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "mathd_algebra_144": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.9999978542327881,
+    "instance": 0.0
+  },
+  "mathd_algebra_296": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.0,
+    "instance": 0.0
+  },
+  "mathd_algebra_392": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "mathd_algebra_69": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "mathd_algebra_76": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_110": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.9998900890350342,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_1124": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.1667078584432602,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_136": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.7646549344062805,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_150": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 8.748414493021279e-38,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_185": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.0,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_22": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_234": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_247": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 4.436547518249512e-10,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_284": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_293": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_296": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_301": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.3243388250696642e-32,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_314": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_320": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_326": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_33": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_335": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.008327603340148926,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_34": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_370": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_405": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_412": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_430": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.9992660880088806,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_457": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_458": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.00015652019646950066,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_48": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 4.066922354439839e-09,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_483": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.016314618289470673,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_5": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_521": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_541": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_559": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_582": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_64": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 2.9393186764203015e-16,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_690": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_765": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_780": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_92": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.2890753168903757e-05,
+    "instance": 0.0
+  },
+  "mathd_numbertheory_99": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0051287802070874e-07,
+    "instance": 0.0
+  },
+  "numbertheory_4x3m7y3neq2003": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.10803534090518951,
+    "instance": 0.0
+  },
+  "numbertheory_aoddbdiv4asqpbsqmod8eq1": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "numbertheory_notequiv2i2jasqbsqdiv8": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "numbertheory_prmdvsneqnsqmodpeq0": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "numbertheory_sqmod3in01d": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 4.711719521865605e-22,
+    "instance": 0.0
+  },
+  "numbertheory_sqmod4in01d": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.820275586651842e-22,
+    "instance": 0.0
+  },
+  "numbertheory_x5neqy2p4": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "exercise_11_13_3": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "exercise_18_4": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "exercise_1_1_2a": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.0,
+    "instance": 0.0
+  },
+  "exercise_1_1_3": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "exercise_1_1_4": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "exercise_1_27": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "exercise_2000_a2": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 0.9999986886978149,
+    "instance": 0.0
+  },
+  "exercise_3_10": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "exercise_3_4": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.5266234147260922e-21,
+    "instance": 0.0
+  },
+  "exercise_3_5": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 3.5035919788522626e-36,
+    "instance": 0.0
+  },
+  "exercise_5_13": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  },
+  "exercise_5_28": {
+    "smt": 1.0,
+    "def": 1.0,
+    "use": 0.0,
+    "set_extensionality": 0.0,
+    "inductive": 1.0,
+    "instance": 0.0
+  }
+}

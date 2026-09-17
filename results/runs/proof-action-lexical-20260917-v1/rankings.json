@@ -1,0 +1,6246 @@
+{
+  "10_lockserv": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY DEF vars, SendLock, RecvLock, RecvGrant, Unlock, RecvUnlock, Next, Init, TypeOK, NextUnchanged, Mutex, Inv151_1_0_def, Inv162_1_1_def, Inv146_1_2_def, Inv164_1_3_def, Inv149_1_4_def, Inv177_1_5_def, Inv96_2_6_def, Inv128_2_0_def, IndAuto",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8571305314217017
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "OBVIOUS",
+      "signature": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 2.512589518438464
+    }
+  ],
+  "11_TwoPhase": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY DEF vars, Message, TypeOK, Init, TMRcvPrepared, TMCommit, TMAbort, RMPrepare, RMChooseToAbort, RMRcvCommitMsg, RMRcvAbortMsg, Next, TPSpec, NextUnchanged, Symmetry, Test, TCConsistent, Inv276_1_0_def, Inv45_1_1_def, Inv79_1_2_def, Inv349_1_3_def, Inv318_1_4_def, Inv331_1_5_def, Inv334_1_6_def, Inv344_1_7_def, Inv1863_2_8_def, IndAuto",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8571305314217017
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "OBVIOUS",
+      "signature": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 2.512589518438464
+    }
+  ],
+  "13_simple_decentralized_lock": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, Send, Recv, Next, NextUnchanged, Init, TypeOK, Inv, IndHuman, IndHumanB, Inv531_1_0_def, Inv4437_2_1_def, Inv4494_2_2_def, IndAuto",
+      "signature": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.2016715444049397
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8571305314217017
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, Send, Recv, Next, NextUnchanged, Init, TypeOK, Inv, IndHuman, IndHumanB, Inv531_1_0_def, Inv4437_2_1_def, Inv4494_2_2_def, IndAuto",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8571305314217017
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.512589518438464
+    }
+  ],
+  "14_two_phase_commit": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY DEF vars, Vote1, Vote2, Fail, Go1, Go2, Commit, Abort, Next, Init, NextUnchanged, TypeOK, Safety, Symmetry, Inv703_1_0_def, Inv1049_1_1_def, Inv648_1_2_def, Inv699_1_3_def, Inv346_1_4_def, Inv313_1_5_def, Inv588_1_0_def, Inv591_1_1_def, Inv2455_2_2_def, Inv192_1_0_def, IndAuto",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8571305314217017
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "OBVIOUS",
+      "signature": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 2.512589518438464
+    }
+  ],
+  "15_consensus_wo_decide": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF SendRequestVote, SendVote, RecvVote, ChooseVotingQuorum, BecomeLeader, Init, Next, TypeOK, Safety, NoLeader, Symmetry, NextUnchanged, A1, A2, A3, A4, IndHuman, Ind, Inv434_1_0_def, Inv306_1_1_def, Inv426_1_2_def, Inv550_1_3_def, Inv6986_2_4_def, Inv538_1_0_def, Inv1559_2_1_def, IndAuto",
+      "signature": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.2016715444049397
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8571305314217017
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF SendRequestVote, SendVote, RecvVote, ChooseVotingQuorum, BecomeLeader, Init, Next, TypeOK, Safety, NoLeader, Symmetry, NextUnchanged, A1, A2, A3, A4, IndHuman, Ind, Inv434_1_0_def, Inv306_1_1_def, Inv426_1_2_def, Inv550_1_3_def, Inv6986_2_4_def, Inv538_1_0_def, Inv1559_2_1_def, IndAuto",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8571305314217017
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.512589518438464
+    }
+  ],
+  "16_consensus_forall": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, SendRequestVote, SendVote, RecvVote, ChooseVotingQuorum, BecomeLeader, Decide, Init, SendRequestVoteAction, SendVoteAction, RecvVoteAction, ChooseVotingQuorumAction, BecomeLeaderAction, DecideAction, Next, TypeOK, Safety, NoLeader, Symmetry, NextUnchanged, Inv358_1_0_def, Inv119_1_1_def, Inv759_1_2_def, Inv680_1_3_def, Inv7155_2_4_def, Inv7039_2_0_def, Inv2245_2_1_def, IndAuto",
+      "signature": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.2016715444049397
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8571305314217017
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, SendRequestVote, SendVote, RecvVote, ChooseVotingQuorum, BecomeLeader, Decide, Init, SendRequestVoteAction, SendVoteAction, RecvVoteAction, ChooseVotingQuorumAction, BecomeLeaderAction, DecideAction, Next, TypeOK, Safety, NoLeader, Symmetry, NextUnchanged, Inv358_1_0_def, Inv119_1_1_def, Inv759_1_2_def, Inv680_1_3_def, Inv7155_2_4_def, Inv7039_2_0_def, Inv2245_2_1_def, IndAuto",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8571305314217017
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.512589518438464
+    }
+  ],
+  "19_sharded_kv_no_lost_keys": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, Reshard, RecvTransferMsg, Put, Next, Init, TypeOK, Safety, Symmetry, NextUnchanged, Inv45_1_0_def, IndAuto",
+      "signature": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.2016715444049397
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8571305314217017
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, Reshard, RecvTransferMsg, Put, Next, Init, TypeOK, Safety, Symmetry, NextUnchanged, Inv45_1_0_def, IndAuto",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8571305314217017
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.512589518438464
+    }
+  ],
+  "1_Consensus": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY DEF TypeOK, Init, Next, Inv, IndAuto",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8571305314217017
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "OBVIOUS",
+      "signature": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 2.512589518438464
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY FS_Subset",
+      "signature": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 2.512589518438464
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY FS_Subset, FS_EmptySet",
+      "signature": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 2.512589518438464
+    }
+  ],
+  "20_naive_consensus": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, VotedFor, CastVote, CollectVotes, LearnValue, Init, Next, NextUnchanged, TypeOK, Safety, Symmetry, Inv255_1_0_def, Inv1230_2_1_def, Inv217_2_2_def, IndAuto",
+      "signature": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.2016715444049397
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8571305314217017
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, VotedFor, CastVote, CollectVotes, LearnValue, Init, Next, NextUnchanged, TypeOK, Safety, Symmetry, Inv255_1_0_def, Inv1230_2_1_def, Inv217_2_2_def, IndAuto",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8571305314217017
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.512589518438464
+    }
+  ],
+  "21_client_server_ae": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY DEF vars, ResponseMatched, NewRequest, Respond, ReceiveResponse, Next, Init, TypeOK, NextUnchanged, Safety, Symmetry, Inv93_1_0_def, IndAuto",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8571305314217017
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "OBVIOUS",
+      "signature": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 2.512589518438464
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY FS_Subset",
+      "signature": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 2.512589518438464
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY FS_Subset, FS_EmptySet",
+      "signature": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 2.512589518438464
+    }
+  ],
+  "22_simple_election": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, DidNotPromise, ChosenAt, Send1a, Send1b, Decide, Next, Init, NextUnchanged, TypeOK, Safety, Inv219_1_0_def, Inv136_1_1_def, Inv200_2_2_def, IndAuto",
+      "signature": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.2016715444049397
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8571305314217017
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, DidNotPromise, ChosenAt, Send1a, Send1b, Decide, Next, Init, NextUnchanged, TypeOK, Safety, Inv219_1_0_def, Inv136_1_1_def, Inv200_2_2_def, IndAuto",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8571305314217017
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.512589518438464
+    }
+  ],
+  "23_toy_consensus_epr": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY DEF vars, ChosenAt, CastVote, Decide, Init, Next, NextUnchanged, TypeOK, Safety, Symmetry, Inv220_1_0_def, Inv155_1_1_def, Inv201_2_2_def, IndAuto",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8571305314217017
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "OBVIOUS",
+      "signature": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 2.512589518438464
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY FS_Subset",
+      "signature": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 2.512589518438464
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY FS_Subset, FS_EmptySet",
+      "signature": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 2.512589518438464
+    }
+  ],
+  "24_toy_consensus": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY DEF vars, Quorums, ChosenAt, CastVote, Decide, Init, Next, TypeOK, NextUnchanged, Inv, Symmetry, Inv78_1_0_def, IndAuto",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8571305314217017
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "OBVIOUS",
+      "signature": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 2.512589518438464
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY FS_Subset",
+      "signature": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 2.512589518438464
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY FS_Subset, FS_EmptySet",
+      "signature": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 2.512589518438464
+    }
+  ],
+  "25_client_server_db_ae": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, NoneWithId, ResponseMatched, NewRequest, ServerProcessRequest, DbProcessRequest, ServerProcessDbResponse, ReceiveResponse, Next, Init, TypeOK, Safety, Symmetry, NextUnchanged, Test, Inv273_1_0_def, Inv209_1_1_def, Inv3082_2_2_def, Inv380_1_0_def, Inv388_1_1_def, Inv2868_2_2_def, Inv873_2_3_def, IndAuto",
+      "signature": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.2016715444049397
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8571305314217017
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, NoneWithId, ResponseMatched, NewRequest, ServerProcessRequest, DbProcessRequest, ServerProcessDbResponse, ReceiveResponse, Next, Init, TypeOK, Safety, Symmetry, NextUnchanged, Test, Inv273_1_0_def, Inv209_1_1_def, Inv3082_2_2_def, Inv380_1_0_def, Inv388_1_1_def, Inv2868_2_2_def, Inv873_2_3_def, IndAuto",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8571305314217017
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.512589518438464
+    }
+  ],
+  "27_firewall": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, SendFromInternal, SendToInternal, Init, Next, Inv, NextUnchanged, TypeOK, Symmetry, Inv285_1_0_def, Inv201_1_1_def, Inv370_1_2_def, Inv3144_2_3_def, IndAuto",
+      "signature": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.2016715444049397
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8571305314217017
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, SendFromInternal, SendToInternal, Init, Next, Inv, NextUnchanged, TypeOK, Symmetry, Inv285_1_0_def, Inv201_1_1_def, Inv370_1_2_def, Inv3144_2_3_def, IndAuto",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8571305314217017
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.512589518438464
+    }
+  ],
+  "28_majorityset_leader_election": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, Majority, DidNotVote, Voting, ReceiveVote, BecomeLeader, Next, EmptySet, Init, TypeOK, Safety, Symmetry, NextUnchanged, Inv172_1_0_def, Inv396_1_1_def, Inv1537_2_2_def, IndAuto",
+      "signature": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.2016715444049397
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8571305314217017
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, Majority, DidNotVote, Voting, ReceiveVote, BecomeLeader, Next, EmptySet, Init, TypeOK, Safety, Symmetry, NextUnchanged, Inv172_1_0_def, Inv396_1_1_def, Inv1537_2_2_def, IndAuto",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8571305314217017
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NatTimesTwoIneq, NatIneqTrans, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.512589518438464
+    }
+  ],
+  "29_consensus_epr": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, SendRequestVote, SendVote, RecvVote, BecomeLeader, Decide, Init, Next, Symmetry, TypeOK, Safety, SafetyWithTypeOK, NextUnchanged, Inv119_1_0_def, Inv152_1_1_def, Inv693_1_2_def, Inv164_1_3_def, Inv622_1_4_def, Inv4302_2_0_def, Inv5288_2_0_def, IndAuto",
+      "signature": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.2016715444049397
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8571305314217017
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, SendRequestVote, SendVote, RecvVote, BecomeLeader, Decide, Init, Next, Symmetry, TypeOK, Safety, SafetyWithTypeOK, NextUnchanged, Inv119_1_0_def, Inv152_1_1_def, Inv693_1_2_def, Inv164_1_3_def, Inv622_1_4_def, Inv4302_2_0_def, Inv5288_2_0_def, IndAuto",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8571305314217017
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.512589518438464
+    }
+  ],
+  "2_TCommit": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY DEF TCTypeOK, Init, canCommit, notCommitted, Prepare, Decide, Next, TCSpec, TCConsistent, Symmetry, IndAuto",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8571305314217017
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "OBVIOUS",
+      "signature": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 2.512589518438464
+    }
+  ],
+  "30_MongoLoglessDynamicRaft": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, Quorums, QuorumsAt, Empty, IsNewerConfig, IsNewerOrEqualConfig, NewerConfig, NewerOrEqualConfig, CanVoteForConfig, QuorumsOverlap, ConfigIsCommitted, UpdateTermsExpr, UpdateTerms, BecomeLeader, Reconfig, SendConfig, Init, ReconfigAction, SendConfigAction, BecomeLeaderAction, UpdateTermsAction, Next, Spec, CV, ConfigDisabled, OnePrimaryPerTerm, Safety, SeqOf, BoundedSeq, NatFinite, PositiveNat, NumRandSubsets, TypeOK, StateConstraint, NextUnchanged, Symmetry, Test, Inv2973_1_1_def, Inv1758_1_0_def, Inv3915_1_1_def, Inv3246_1_2_def, Inv866_1_0_def, IndAuto, ActiveConfigSet, Inv862_1_0_def, Inv846_1_0_def, Inv6243_1_1_def, Inv648_1_0_def, Inv1925_1_1_def, Inv716_1_1_def, Inv852_1_2_def",
+      "signature": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.2016715444049397
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8571305314217017
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, Quorums, QuorumsAt, Empty, IsNewerConfig, IsNewerOrEqualConfig, NewerConfig, NewerOrEqualConfig, CanVoteForConfig, QuorumsOverlap, ConfigIsCommitted, UpdateTermsExpr, UpdateTerms, BecomeLeader, Reconfig, SendConfig, Init, ReconfigAction, SendConfigAction, BecomeLeaderAction, UpdateTermsAction, Next, Spec, CV, ConfigDisabled, OnePrimaryPerTerm, Safety, SeqOf, BoundedSeq, NatFinite, PositiveNat, NumRandSubsets, TypeOK, StateConstraint, NextUnchanged, Symmetry, Test, Inv2973_1_1_def, Inv1758_1_0_def, Inv3915_1_1_def, Inv3246_1_2_def, Inv866_1_0_def, IndAuto, ActiveConfigSet, Inv862_1_0_def, Inv846_1_0_def, Inv6243_1_1_def, Inv648_1_0_def, Inv1925_1_1_def, Inv716_1_1_def, Inv852_1_2_def",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8571305314217017
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.512589518438464
+    }
+  ],
+  "3_lockserver": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, Connect, Disconnect, Init, Next, NextUnchanged, TypeOK, Inv, Inv10_1_0_def, IndAuto",
+      "signature": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.2016715444049397
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8571305314217017
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, Connect, Disconnect, Init, Next, NextUnchanged, TypeOK, Inv, Inv10_1_0_def, IndAuto",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8571305314217017
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.512589518438464
+    }
+  ],
+  "4_quorum_leader_election": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY DEF vars, Quorums, Vote, BecomeLeader, Init, Next, Inv, TypeOK, NextUnchanged, Inv55_1_0_def, IndAuto",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8571305314217017
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "OBVIOUS",
+      "signature": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 2.512589518438464
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY FS_Subset",
+      "signature": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 2.512589518438464
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY FS_Subset, FS_EmptySet",
+      "signature": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 2.512589518438464
+    }
+  ],
+  "5_toy_consensus_forall": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY DEF vars, Quorums, CastVote, Decide, Init, Next, NextUnchanged, Inv, TypeOK, Symmetry, Inv150_1_0_def, Inv65_1_1_def, IndAuto",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8571305314217017
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "OBVIOUS",
+      "signature": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 2.512589518438464
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY FS_Subset",
+      "signature": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 2.512589518438464
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY FS_Subset, FS_EmptySet",
+      "signature": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 2.512589518438464
+    }
+  ],
+  "6_Simple": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, NextUnchanged, PCorrect, TypeOK, Inv31_1_0_def, IndAuto",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8571305314217017
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "OBVIOUS",
+      "signature": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 2.512589518438464
+    }
+  ],
+  "7_lockserv_automaton": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY DEF vars, Lock, Unlock, RecvLock, RecvGrant, RecvUnlock, Next, Init, NextUnchanged, TypeOK, Mutex, Inv151_1_0_def, Inv60_1_1_def, Inv147_1_2_def, Inv169_1_3_def, Inv58_1_4_def, Inv64_1_5_def, Inv96_2_6_def, Inv134_2_7_def, IndAuto",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8571305314217017
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "OBVIOUS",
+      "signature": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 2.512589518438464
+    }
+  ],
+  "8_SimpleRegular": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY DEF vars, ProcSet, Init, a1, a2, b, proc, Next, Spec, Termination, NextUnchanged, PCorrect, TypeOK, Inv417_1_0_def, Inv921_1_1_def, Inv924_1_2_def, IndAuto",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8571305314217017
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "OBVIOUS",
+      "signature": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 2.512589518438464
+    }
+  ],
+  "9_sharded_kv": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, Reshard, RecvTransferMsg, Put, Next, Init, TypeOK, Safety, Symmetry, NextUnchanged, Inv238_1_0_def, Inv114_1_1_def, Inv1376_2_2_def, Inv1336_2_0_def, Inv1476_2_1_def, IndAuto",
+      "signature": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.2016715444049397
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8571305314217017
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, Reshard, RecvTransferMsg, Put, Next, Init, TypeOK, Safety, Symmetry, NextUnchanged, Inv238_1_0_def, Inv114_1_1_def, Inv1376_2_2_def, Inv1336_2_0_def, Inv1476_2_1_def, IndAuto",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8571305314217017
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.512589518438464
+    }
+  ],
+  "aimeII_2001_p3": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8591775503468513
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.512847453013051
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.512847453013051
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.1665173556792507
+    }
+  ],
+  "aime_1984_p7": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.812941989474806
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.812941989474806
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY NoSetContainsEverything",
+      "signature": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 2.492496636708556
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.492496636708556
+    }
+  ],
+  "aime_1987_p5": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.942449254035369
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5508584439497657
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5508584439497657
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.1592676338641628
+    }
+  ],
+  "aime_1991_p1": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8964460749094003
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.530304481087993
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.530304481087993
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.164162887266586
+    }
+  ],
+  "aime_1994_p3": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8594263766655337
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5136280257452372
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5136280257452372
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.16782967482494
+    }
+  ],
+  "algebra_xmysqpymzsqpzmxsqeqxyz_xpypzp6dvdx3y3z3": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Divides",
+      "signature": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.3824067124570396
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.9735267139485613
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Divides",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.9735267139485613
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.564646715440083
+    }
+  ],
+  "amc12_2000_p1": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.9387286831810102
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.54920265572303
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.54920265572303
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.1596766282650495
+    }
+  ],
+  "amc12_2000_p12": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8998029630583888
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5318104604436478
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5318104604436478
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.1638179578289076
+    }
+  ],
+  "amc12_2000_p6": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF IsPrime",
+      "signature": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.3493776781634736
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.9523094744469243
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF IsPrime",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.9523094744469243
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5552412707303747
+    }
+  ],
+  "amc12_2001_p2": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8998029630583888
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5318104604436478
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5318104604436478
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.1638179578289076
+    }
+  ],
+  "amc12_2001_p21": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.9087721787949354
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5358293925928312
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5358293925928312
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.1628866063907273
+    }
+  ],
+  "amc12a_2002_p6": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.9196978934249276
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.9196978934249276
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY NoSetContainsEverything",
+      "signature": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 2.5407155956549836
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5407155956549836
+    }
+  ],
+  "amc12a_2003_p5": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8998029630583888
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5318104604436478
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5318104604436478
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.1638179578289076
+    }
+  ],
+  "amc12a_2015_p10": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8879420801241757
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.526484869706648
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.526484869706648
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.16502765928912
+    }
+  ],
+  "amc12a_2021_p3": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8879420801241757
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.526484869706648
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.526484869706648
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.16502765928912
+    }
+  ],
+  "amc12a_2021_p8": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Even, Odd",
+      "signature": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.2763809625904186
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.9053356787645805
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Even, Odd",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.9053356787645805
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.9053356787645805
+    }
+  ],
+  "amc12b_2002_p11": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF IsPrime",
+      "signature": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.2556772405623793
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8919906878052848
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF IsPrime",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8919906878052848
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5283041350481903
+    }
+  ],
+  "amc12b_2002_p2": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8822416722250561
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5239208241224826
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5239208241224826
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.1655999760199087
+    }
+  ],
+  "amc12b_2002_p7": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.9049010106434079
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5340956604464133
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5340956604464133
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.1632903102494185
+    }
+  ],
+  "imo_1977_p5": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF ABS",
+      "signature": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.2817149649970394
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.9087721787949354
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF ABS",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.9087721787949354
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5358293925928312
+    }
+  ],
+  "imo_1977_p6": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8606843195399343
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.514196827624189
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.514196827624189
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.1677093357084436
+    }
+  ],
+  "imo_1981_p6": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8577873387824415
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5128866727734476
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5128866727734476
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.167986006764454
+    }
+  ],
+  "imo_1982_p1": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8606843195399343
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.514196827624189
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.514196827624189
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.1677093357084436
+    }
+  ],
+  "imo_1987_p4": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8606843195399343
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8606843195399343
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY NoSetContainsEverything",
+      "signature": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 2.514196827624189
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.514196827624189
+    }
+  ],
+  "imo_1992_p1": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Divides",
+      "signature": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.2627134778183222
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.896527177670103
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Divides",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.896527177670103
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5303408775218834
+    }
+  ],
+  "imo_1993_p5": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8606843195399343
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8606843195399343
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY NoSetContainsEverything",
+      "signature": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 2.514196827624189
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.514196827624189
+    }
+  ],
+  "imo_2001_p6": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF IsPrime",
+      "signature": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.283570628468257
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.9099675592363494
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF IsPrime",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.9099675592363494
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5363644900044418
+    }
+  ],
+  "imo_2019_p1": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8606843195399343
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.514196827624189
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.514196827624189
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.1677093357084436
+    }
+  ],
+  "induction_divisibility_3divnto3m2n": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Divides",
+      "signature": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.3195975640769797
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.9331599137926956
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Divides",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.9331599137926956
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.9331599137926956
+    }
+  ],
+  "induction_ineq_nsqlefactn": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8771661703009062
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, FactorialDefConclusion, FactorialDef, DownwardNatInduction",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8771661703009062
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, FactorialDefConclusion, FactorialDef, DownwardNatInduction, GeneralNatInduction",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8771661703009062
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY FactorialDefConclusion, FactorialDef, DownwardNatInduction",
+      "signature": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 2.5216353371225466
+    }
+  ],
+  "mathd_algebra_123": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8919906878052848
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5283041350481903
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5283041350481903
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.164617582291096
+    }
+  ],
+  "mathd_algebra_125": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8879420801241757
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.526484869706648
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.526484869706648
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.16502765928912
+    }
+  ],
+  "mathd_algebra_144": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8901582701512023
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.52394244448896
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.52394244448896
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.1577266188267177
+    }
+  ],
+  "mathd_algebra_296": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF ABS",
+      "signature": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.3348649912409736
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.9429797079858304
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF ABS",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.9429797079858304
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.9429797079858304
+    }
+  ],
+  "mathd_algebra_392": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Even",
+      "signature": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.2326970034792653
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8771661703009062
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Even",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8771661703009062
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5216353371225466
+    }
+  ],
+  "mathd_algebra_69": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8879420801241757
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.526484869706648
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.526484869706648
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.16502765928912
+    }
+  ],
+  "mathd_algebra_76": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Even, Odd",
+      "signature": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.2071718114556798
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8606843195399343
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Even, Odd",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8606843195399343
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.514196827624189
+    }
+  ],
+  "mathd_numbertheory_110": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8919906878052848
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5283041350481903
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5283041350481903
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.164617582291096
+    }
+  ],
+  "mathd_numbertheory_1124": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Divides",
+      "signature": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.2326970034792653
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8771661703009062
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Divides",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8771661703009062
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5216353371225466
+    }
+  ],
+  "mathd_numbertheory_136": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8790769835782808
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.522496053130937
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.522496053130937
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.1659151226835927
+    }
+  ],
+  "mathd_numbertheory_150": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Divides, IsPrime",
+      "signature": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.2658600265977724
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8985554758301237
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Divides, IsPrime",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8985554758301237
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.531250925062475
+    }
+  ],
+  "mathd_numbertheory_185": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8606495647041554
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.514181114661843
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.514181114661843
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.1677126646195304
+    }
+  ],
+  "mathd_numbertheory_22": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8822416722250561
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5239208241224826
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5239208241224826
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.1655999760199087
+    }
+  ],
+  "mathd_numbertheory_234": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8919906878052848
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5283041350481903
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5283041350481903
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.164617582291096
+    }
+  ],
+  "mathd_numbertheory_247": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8732917201265864
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5198890612894824
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5198890612894824
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.1664864024523784
+    }
+  ],
+  "mathd_numbertheory_284": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8919906878052848
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5283041350481903
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5283041350481903
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.164617582291096
+    }
+  ],
+  "mathd_numbertheory_293": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8771661703009062
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5216353371225466
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5216353371225466
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.1661045039441875
+    }
+  ],
+  "mathd_numbertheory_296": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8771661703009062
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5216353371225466
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5216353371225466
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.1661045039441875
+    }
+  ],
+  "mathd_numbertheory_301": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8992766139315733
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5315743939168125
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5315743939168125
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.163872173902052
+    }
+  ],
+  "mathd_numbertheory_314": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8919906878052848
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5283041350481903
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5283041350481903
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.164617582291096
+    }
+  ],
+  "mathd_numbertheory_320": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Divides",
+      "signature": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.2326970034792653
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8771661703009062
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Divides",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8771661703009062
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5216353371225466
+    }
+  ],
+  "mathd_numbertheory_326": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8771661703009062
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5216353371225466
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5216353371225466
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.1661045039441875
+    }
+  ],
+  "mathd_numbertheory_33": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8771661703009062
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5216353371225466
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5216353371225466
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.1661045039441875
+    }
+  ],
+  "mathd_numbertheory_335": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8670911849973033
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5170914278607994
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5170914278607994
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.1670916707242953
+    }
+  ],
+  "mathd_numbertheory_34": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8822416722250561
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5239208241224826
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5239208241224826
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.1655999760199087
+    }
+  ],
+  "mathd_numbertheory_370": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8732917201265864
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5198890612894824
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5198890612894824
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.1664864024523784
+    }
+  ],
+  "mathd_numbertheory_405": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.9092816498148806
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.536057466165649
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.536057466165649
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.162833282516418
+    }
+  ],
+  "mathd_numbertheory_412": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8879420801241757
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.526484869706648
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.526484869706648
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.16502765928912
+    }
+  ],
+  "mathd_numbertheory_430": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.955793209896212
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.556787951859565
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.556787951859565
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.157782693822918
+    }
+  ],
+  "mathd_numbertheory_457": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Divides",
+      "signature": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.2326970034792653
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8771661703009062
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Divides",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8771661703009062
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, FactorialDefConclusion, FactorialDef, DownwardNatInduction",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8771661703009062
+    }
+  ],
+  "mathd_numbertheory_458": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.855374068212752
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5117946467803143
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5117946467803143
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.1682152253478764
+    }
+  ],
+  "mathd_numbertheory_48": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8975359441711606
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5307935320192767
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5307935320192767
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.164051119867393
+    }
+  ],
+  "mathd_numbertheory_483": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8648949624214062
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5160996282772863
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5160996282772863
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.1673042941331664
+    }
+  ],
+  "mathd_numbertheory_5": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8771661703009062
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5216353371225466
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5216353371225466
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.1661045039441875
+    }
+  ],
+  "mathd_numbertheory_521": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Even",
+      "signature": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.2493992905417037
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8879420801241757
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Even",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8879420801241757
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.526484869706648
+    }
+  ],
+  "mathd_numbertheory_541": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8879420801241757
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.526484869706648
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.526484869706648
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.16502765928912
+    }
+  ],
+  "mathd_numbertheory_559": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8879420801241757
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.526484869706648
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.526484869706648
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.16502765928912
+    }
+  ],
+  "mathd_numbertheory_582": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Divides",
+      "signature": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.2499068106807671
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8882694120899743
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Divides",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8882694120899743
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5266320134991815
+    }
+  ],
+  "mathd_numbertheory_64": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8994089058656651
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5316337288921162
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5316337288921162
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.1638585519185676
+    }
+  ],
+  "mathd_numbertheory_690": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.895708253826977
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.529973342626124
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.529973342626124
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.164238431425271
+    }
+  ],
+  "mathd_numbertheory_765": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8822416722250561
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5239208241224826
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5239208241224826
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.1655999760199087
+    }
+  ],
+  "mathd_numbertheory_780": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8879420801241757
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.526484869706648
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.526484869706648
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.16502765928912
+    }
+  ],
+  "mathd_numbertheory_92": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8619110160335008
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.514751352458535
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.514751352458535
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.167591688883569
+    }
+  ],
+  "mathd_numbertheory_99": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.870208460725576
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.518498375675012
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.518498375675012
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 3.1667882906244476
+    }
+  ],
+  "numbertheory_4x3m7y3neq2003": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8879420801241757
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8879420801241757
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY NoSetContainsEverything",
+      "signature": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 2.526484869706648
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.526484869706648
+    }
+  ],
+  "numbertheory_aoddbdiv4asqpbsqmod8eq1": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Divides",
+      "signature": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.280279085331626
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.907847159791159
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Divides",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.907847159791159
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.535415234250692
+    }
+  ],
+  "numbertheory_notequiv2i2jasqbsqdiv8": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Divides",
+      "signature": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.2592983800644222
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8943255022532268
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Divides",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8943255022532268
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5293526244420317
+    }
+  ],
+  "numbertheory_prmdvsneqnsqmodpeq0": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Divides, IsPrime",
+      "signature": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.2418521862496859
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8830737276322418
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Divides, IsPrime",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8830737276322418
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.524295269014798
+    }
+  ],
+  "numbertheory_sqmod3in01d": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.902287870852579
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.902287870852579
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY NoSetContainsEverything",
+      "signature": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 2.532924606024106
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.532924606024106
+    }
+  ],
+  "numbertheory_sqmod4in01d": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.9138424111694927
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.9138424111694927
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY NoSetContainsEverything",
+      "signature": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 2.5380981735128008
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5380981735128008
+    }
+  ],
+  "numbertheory_x5neqy2p4": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8879420801241757
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8879420801241757
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY NoSetContainsEverything",
+      "signature": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 2.526484869706648
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.526484869706648
+    }
+  ],
+  "exercise_11_13_3": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Divides, IsPrime",
+      "signature": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.2930798545691962
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.916091966104074
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Divides, IsPrime",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.916091966104074
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.916091966104074
+    }
+  ],
+  "exercise_18_4": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Cube",
+      "signature": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.2326970034792653
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8771661703009062
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Cube",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8771661703009062
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5216353371225466
+    }
+  ],
+  "exercise_1_1_2a": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.922261742771345
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.922261742771345
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY NoSetContainsEverything",
+      "signature": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 2.5418607327601204
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.541860732760121
+    }
+  ],
+  "exercise_1_1_3": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.9087721787949354
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.9087721787949354
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY NoSetContainsEverything",
+      "signature": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 2.5358293925928312
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5358293925928312
+    }
+  ],
+  "exercise_1_1_4": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.9087721787949354
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.9087721787949354
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY NoSetContainsEverything",
+      "signature": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 2.5358293925928312
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5358293925928312
+    }
+  ],
+  "exercise_1_27": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Odd, Divides",
+      "signature": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.2326970034792653
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8771661703009062
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Odd, Divides",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8771661703009062
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5216353371225466
+    }
+  ],
+  "exercise_2000_a2": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8771661703009062
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8771661703009062
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY NoSetContainsEverything",
+      "signature": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 2.5216353371225466
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5216353371225466
+    }
+  ],
+  "exercise_3_10": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF IsPrime",
+      "signature": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.2326970034792653
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8771661703009062
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF IsPrime",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8771661703009062
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, FactorialDefConclusion, FactorialDef, DownwardNatInduction",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8771661703009062
+    }
+  ],
+  "exercise_3_4": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.9070167460654175
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.9070167460654175
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY NoSetContainsEverything",
+      "signature": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 2.5350433702273607
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5350433702273607
+    }
+  ],
+  "exercise_3_5": [
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.9225092101794568
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.9225092101794568
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY NoSetContainsEverything",
+      "signature": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 2.541971234255557
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.541971234255557
+    }
+  ],
+  "exercise_5_13": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF IsPrime, Divides",
+      "signature": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.2493992905417037
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8879420801241757
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF IsPrime, Divides",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8879420801241757
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.526484869706648
+    }
+  ],
+  "exercise_5_28": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF IsPrime",
+      "signature": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.2405625203276298
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8822416722250561
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF IsPrime",
+      "signature": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_distance": 1.8822416722250561
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "signature": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_distance": 2.5239208241224826
+    }
+  ]
+}

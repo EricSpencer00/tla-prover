@@ -1,0 +1,818 @@
+{
+  "addtwo-init": {
+    "theorem=": 76,
+    "goal=": 90,
+    "Visible statement-only context": 106,
+    "tail": 107
+  },
+  "addtwo-step": {
+    "theorem=": 76,
+    "goal=": 90,
+    "Visible statement-only context": 106,
+    "tail": 107
+  },
+  "highest-type-step": {
+    "theorem=": 78,
+    "goal=": 94,
+    "Visible statement-only context": 110,
+    "tail": 111
+  },
+  "highest-inductive-step": {
+    "theorem=": 79,
+    "goal=": 97,
+    "Visible statement-only context": 113,
+    "tail": 114
+  },
+  "highest-done-step": {
+    "theorem=": 79,
+    "goal=": 97,
+    "Visible statement-only context": 113,
+    "tail": 114
+  },
+  "highest-correctness": {
+    "theorem=": 76,
+    "goal=": 90,
+    "Visible statement-only context": 106,
+    "tail": 107
+  },
+  "even-intro": {
+    "theorem=": 75,
+    "goal=": 95,
+    "Visible statement-only context": 110,
+    "tail": 111
+  },
+  "even-case-tail": {
+    "theorem=": 75,
+    "goal=": 95,
+    "Visible statement-only context": 110,
+    "tail": 111
+  },
+  "odd-case-tail": {
+    "theorem=": 75,
+    "goal=": 95,
+    "Visible statement-only context": 110,
+    "tail": 111
+  },
+  "simple-full": {
+    "theorem=": 76,
+    "goal=": 90,
+    "Visible statement-only context": 106,
+    "tail": 107
+  },
+  "simple-preservation": {
+    "theorem=": 76,
+    "goal=": 90,
+    "Visible statement-only context": 106,
+    "tail": 107
+  },
+  "simple-case-a": {
+    "theorem=": 76,
+    "goal=": 90,
+    "Visible statement-only context": 106,
+    "tail": 107
+  },
+  "simple-case-b": {
+    "theorem=": 76,
+    "goal=": 90,
+    "Visible statement-only context": 106,
+    "tail": 107
+  },
+  "simple-preservation-tail": {
+    "theorem=": 76,
+    "goal=": 90,
+    "Visible statement-only context": 106,
+    "tail": 107
+  },
+  "simple-conclusion": {
+    "theorem=": 76,
+    "goal=": 90,
+    "Visible statement-only context": 106,
+    "tail": 107
+  },
+  "simple-short-full": {
+    "theorem=": 77,
+    "goal=": 92,
+    "Visible statement-only context": 108,
+    "tail": 109
+  },
+  "simple-short-preservation": {
+    "theorem=": 77,
+    "goal=": 92,
+    "Visible statement-only context": 108,
+    "tail": 109
+  },
+  "10_lockserv": {
+    "theorem=": 87,
+    "goal=": 98,
+    "Visible statement-only context": 107,
+    "tail": 115
+  },
+  "11_TwoPhase": {
+    "theorem=": 87,
+    "goal=": 98,
+    "Visible statement-only context": 107,
+    "tail": 115
+  },
+  "13_simple_decentralized_lock": {
+    "theorem=": 87,
+    "goal=": 98,
+    "Visible statement-only context": 107,
+    "tail": 516
+  },
+  "14_two_phase_commit": {
+    "theorem=": 87,
+    "goal=": 98,
+    "Visible statement-only context": 107,
+    "tail": 115
+  },
+  "15_consensus_wo_decide": {
+    "theorem=": 87,
+    "goal=": 98,
+    "Visible statement-only context": 107,
+    "tail": 565
+  },
+  "16_consensus_forall": {
+    "theorem=": 87,
+    "goal=": 98,
+    "Visible statement-only context": 107,
+    "tail": 569
+  },
+  "19_sharded_kv_no_lost_keys": {
+    "theorem=": 87,
+    "goal=": 98,
+    "Visible statement-only context": 107,
+    "tail": 541
+  },
+  "1_Consensus": {
+    "theorem=": 87,
+    "goal=": 98,
+    "Visible statement-only context": 107,
+    "tail": 523
+  },
+  "20_naive_consensus": {
+    "theorem=": 87,
+    "goal=": 98,
+    "Visible statement-only context": 107,
+    "tail": 564
+  },
+  "21_client_server_ae": {
+    "theorem=": 87,
+    "goal=": 98,
+    "Visible statement-only context": 107,
+    "tail": 545
+  },
+  "22_simple_election": {
+    "theorem=": 87,
+    "goal=": 98,
+    "Visible statement-only context": 107,
+    "tail": 581
+  },
+  "23_toy_consensus_epr": {
+    "theorem=": 87,
+    "goal=": 98,
+    "Visible statement-only context": 107,
+    "tail": 602
+  },
+  "24_toy_consensus": {
+    "theorem=": 87,
+    "goal=": 98,
+    "Visible statement-only context": 107,
+    "tail": 619
+  },
+  "25_client_server_db_ae": {
+    "theorem=": 87,
+    "goal=": 98,
+    "Visible statement-only context": 107,
+    "tail": 553
+  },
+  "27_firewall": {
+    "theorem=": 87,
+    "goal=": 98,
+    "Visible statement-only context": 107,
+    "tail": 523
+  },
+  "28_majorityset_leader_election": {
+    "theorem=": 87,
+    "goal=": 98,
+    "Visible statement-only context": 107,
+    "tail": 575
+  },
+  "29_consensus_epr": {
+    "theorem=": 87,
+    "goal=": 98,
+    "Visible statement-only context": 107,
+    "tail": 619
+  },
+  "2_TCommit": {
+    "theorem=": 87,
+    "goal=": 98,
+    "Visible statement-only context": 107,
+    "tail": 115
+  },
+  "30_MongoLoglessDynamicRaft": {
+    "theorem=": 87,
+    "goal=": 98,
+    "Visible statement-only context": 107,
+    "tail": 535
+  },
+  "3_lockserver": {
+    "theorem=": 87,
+    "goal=": 98,
+    "Visible statement-only context": 107,
+    "tail": 508
+  },
+  "4_quorum_leader_election": {
+    "theorem=": 87,
+    "goal=": 98,
+    "Visible statement-only context": 107,
+    "tail": 590
+  },
+  "5_toy_consensus_forall": {
+    "theorem=": 87,
+    "goal=": 98,
+    "Visible statement-only context": 107,
+    "tail": 590
+  },
+  "6_Simple": {
+    "theorem=": 87,
+    "goal=": 98,
+    "Visible statement-only context": 107,
+    "tail": 155
+  },
+  "7_lockserv_automaton": {
+    "theorem=": 87,
+    "goal=": 98,
+    "Visible statement-only context": 107,
+    "tail": 115
+  },
+  "8_SimpleRegular": {
+    "theorem=": 87,
+    "goal=": 98,
+    "Visible statement-only context": 107,
+    "tail": 129
+  },
+  "9_sharded_kv": {
+    "theorem=": 87,
+    "goal=": 98,
+    "Visible statement-only context": 107,
+    "tail": 552
+  },
+  "aimeII_2001_p3": {
+    "theorem=": 91,
+    "goal=": 207,
+    "Visible statement-only context": 216,
+    "tail": 266
+  },
+  "aime_1984_p7": {
+    "theorem=": 90,
+    "goal=": 99,
+    "Visible statement-only context": 109,
+    "tail": 159
+  },
+  "aime_1987_p5": {
+    "theorem=": 90,
+    "goal=": 142,
+    "Visible statement-only context": 152,
+    "tail": 202
+  },
+  "aime_1991_p1": {
+    "theorem=": 90,
+    "goal=": 105,
+    "Visible statement-only context": 157,
+    "tail": 207
+  },
+  "aime_1994_p3": {
+    "theorem=": 90,
+    "goal=": 150,
+    "Visible statement-only context": 159,
+    "tail": 209
+  },
+  "algebra_xmysqpymzsqpzmxsqeqxyz_xpypzp6dvdx3y3z3": {
+    "theorem=": 109,
+    "goal=": 193,
+    "Visible statement-only context": 202,
+    "tail": 252
+  },
+  "amc12_2000_p1": {
+    "theorem=": 92,
+    "goal=": 139,
+    "Visible statement-only context": 148,
+    "tail": 198
+  },
+  "amc12_2000_p12": {
+    "theorem=": 92,
+    "goal=": 105,
+    "Visible statement-only context": 149,
+    "tail": 199
+  },
+  "amc12_2000_p6": {
+    "theorem=": 92,
+    "goal=": 133,
+    "Visible statement-only context": 142,
+    "tail": 192
+  },
+  "amc12_2001_p2": {
+    "theorem=": 92,
+    "goal=": 105,
+    "Visible statement-only context": 170,
+    "tail": 220
+  },
+  "amc12_2001_p21": {
+    "theorem=": 92,
+    "goal=": 107,
+    "Visible statement-only context": 220,
+    "tail": 270
+  },
+  "amc12a_2002_p6": {
+    "theorem=": 93,
+    "goal=": 113,
+    "Visible statement-only context": 144,
+    "tail": 194
+  },
+  "amc12a_2003_p5": {
+    "theorem=": 93,
+    "goal=": 106,
+    "Visible statement-only context": 186,
+    "tail": 236
+  },
+  "amc12a_2015_p10": {
+    "theorem=": 93,
+    "goal=": 104,
+    "Visible statement-only context": 145,
+    "tail": 195
+  },
+  "amc12a_2021_p3": {
+    "theorem=": 93,
+    "goal=": 104,
+    "Visible statement-only context": 140,
+    "tail": 190
+  },
+  "amc12a_2021_p8": {
+    "theorem=": 93,
+    "goal=": 116,
+    "Visible statement-only context": 125,
+    "tail": 175
+  },
+  "amc12b_2002_p11": {
+    "theorem=": 93,
+    "goal=": 104,
+    "Visible statement-only context": 156,
+    "tail": 206
+  },
+  "amc12b_2002_p2": {
+    "theorem=": 93,
+    "goal=": 102,
+    "Visible statement-only context": 158,
+    "tail": 208
+  },
+  "amc12b_2002_p7": {
+    "theorem=": 93,
+    "goal=": 110,
+    "Visible statement-only context": 168,
+    "tail": 218
+  },
+  "imo_1977_p5": {
+    "theorem=": 90,
+    "goal=": 105,
+    "Visible statement-only context": 219,
+    "tail": 269
+  },
+  "imo_1977_p6": {
+    "theorem=": 90,
+    "goal=": 103,
+    "Visible statement-only context": 180,
+    "tail": 230
+  },
+  "imo_1981_p6": {
+    "theorem=": 90,
+    "goal=": 106,
+    "Visible statement-only context": 228,
+    "tail": 278
+  },
+  "imo_1982_p1": {
+    "theorem=": 90,
+    "goal=": 103,
+    "Visible statement-only context": 209,
+    "tail": 259
+  },
+  "imo_1987_p4": {
+    "theorem=": 90,
+    "goal=": 103,
+    "Visible statement-only context": 131,
+    "tail": 181
+  },
+  "imo_1992_p1": {
+    "theorem=": 90,
+    "goal=": 103,
+    "Visible statement-only context": 199,
+    "tail": 249
+  },
+  "imo_1993_p5": {
+    "theorem=": 90,
+    "goal=": 103,
+    "Visible statement-only context": 161,
+    "tail": 211
+  },
+  "imo_2001_p6": {
+    "theorem=": 90,
+    "goal=": 105,
+    "Visible statement-only context": 201,
+    "tail": 251
+  },
+  "imo_2019_p1": {
+    "theorem=": 90,
+    "goal=": 103,
+    "Visible statement-only context": 188,
+    "tail": 238
+  },
+  "induction_divisibility_3divnto3m2n": {
+    "theorem=": 98,
+    "goal=": 121,
+    "Visible statement-only context": 130,
+    "tail": 180
+  },
+  "induction_ineq_nsqlefactn": {
+    "theorem=": 94,
+    "goal=": 103,
+    "Visible statement-only context": 126,
+    "tail": 764
+  },
+  "mathd_algebra_123": {
+    "theorem=": 90,
+    "goal=": 101,
+    "Visible statement-only context": 151,
+    "tail": 201
+  },
+  "mathd_algebra_125": {
+    "theorem=": 90,
+    "goal=": 101,
+    "Visible statement-only context": 157,
+    "tail": 207
+  },
+  "mathd_algebra_144": {
+    "theorem=": 90,
+    "goal=": 105,
+    "Visible statement-only context": 183,
+    "tail": 233
+  },
+  "mathd_algebra_296": {
+    "theorem=": 90,
+    "goal=": 122,
+    "Visible statement-only context": 132,
+    "tail": 182
+  },
+  "mathd_algebra_392": {
+    "theorem=": 90,
+    "goal=": 99,
+    "Visible statement-only context": 175,
+    "tail": 225
+  },
+  "mathd_algebra_69": {
+    "theorem=": 90,
+    "goal=": 101,
+    "Visible statement-only context": 144,
+    "tail": 194
+  },
+  "mathd_algebra_76": {
+    "theorem=": 90,
+    "goal=": 103,
+    "Visible statement-only context": 173,
+    "tail": 223
+  },
+  "mathd_numbertheory_110": {
+    "theorem=": 90,
+    "goal=": 101,
+    "Visible statement-only context": 171,
+    "tail": 221
+  },
+  "mathd_numbertheory_1124": {
+    "theorem=": 91,
+    "goal=": 100,
+    "Visible statement-only context": 134,
+    "tail": 184
+  },
+  "mathd_numbertheory_136": {
+    "theorem=": 90,
+    "goal=": 118,
+    "Visible statement-only context": 127,
+    "tail": 177
+  },
+  "mathd_numbertheory_150": {
+    "theorem=": 90,
+    "goal=": 115,
+    "Visible statement-only context": 125,
+    "tail": 175
+  },
+  "mathd_numbertheory_185": {
+    "theorem=": 90,
+    "goal=": 120,
+    "Visible statement-only context": 130,
+    "tail": 180
+  },
+  "mathd_numbertheory_22": {
+    "theorem=": 90,
+    "goal=": 99,
+    "Visible statement-only context": 150,
+    "tail": 200
+  },
+  "mathd_numbertheory_234": {
+    "theorem=": 90,
+    "goal=": 101,
+    "Visible statement-only context": 172,
+    "tail": 222
+  },
+  "mathd_numbertheory_247": {
+    "theorem=": 90,
+    "goal=": 120,
+    "Visible statement-only context": 129,
+    "tail": 179
+  },
+  "mathd_numbertheory_284": {
+    "theorem=": 90,
+    "goal=": 101,
+    "Visible statement-only context": 165,
+    "tail": 215
+  },
+  "mathd_numbertheory_293": {
+    "theorem=": 90,
+    "goal=": 99,
+    "Visible statement-only context": 139,
+    "tail": 189
+  },
+  "mathd_numbertheory_296": {
+    "theorem=": 90,
+    "goal=": 99,
+    "Visible statement-only context": 161,
+    "tail": 211
+  },
+  "mathd_numbertheory_301": {
+    "theorem=": 90,
+    "goal=": 123,
+    "Visible statement-only context": 133,
+    "tail": 183
+  },
+  "mathd_numbertheory_314": {
+    "theorem=": 90,
+    "goal=": 101,
+    "Visible statement-only context": 161,
+    "tail": 211
+  },
+  "mathd_numbertheory_320": {
+    "theorem=": 90,
+    "goal=": 99,
+    "Visible statement-only context": 134,
+    "tail": 184
+  },
+  "mathd_numbertheory_326": {
+    "theorem=": 90,
+    "goal=": 99,
+    "Visible statement-only context": 138,
+    "tail": 188
+  },
+  "mathd_numbertheory_33": {
+    "theorem=": 90,
+    "goal=": 99,
+    "Visible statement-only context": 136,
+    "tail": 186
+  },
+  "mathd_numbertheory_335": {
+    "theorem=": 90,
+    "goal=": 121,
+    "Visible statement-only context": 130,
+    "tail": 180
+  },
+  "mathd_numbertheory_34": {
+    "theorem=": 90,
+    "goal=": 99,
+    "Visible statement-only context": 136,
+    "tail": 186
+  },
+  "mathd_numbertheory_370": {
+    "theorem=": 90,
+    "goal=": 124,
+    "Visible statement-only context": 133,
+    "tail": 183
+  },
+  "mathd_numbertheory_405": {
+    "theorem=": 90,
+    "goal=": 114,
+    "Visible statement-only context": 226,
+    "tail": 276
+  },
+  "mathd_numbertheory_412": {
+    "theorem=": 90,
+    "goal=": 101,
+    "Visible statement-only context": 173,
+    "tail": 223
+  },
+  "mathd_numbertheory_430": {
+    "theorem=": 90,
+    "goal=": 132,
+    "Visible statement-only context": 215,
+    "tail": 265
+  },
+  "mathd_numbertheory_457": {
+    "theorem=": 90,
+    "goal=": 99,
+    "Visible statement-only context": 131,
+    "tail": 769
+  },
+  "mathd_numbertheory_458": {
+    "theorem=": 90,
+    "goal=": 118,
+    "Visible statement-only context": 127,
+    "tail": 177
+  },
+  "mathd_numbertheory_48": {
+    "theorem=": 90,
+    "goal=": 131,
+    "Visible statement-only context": 140,
+    "tail": 190
+  },
+  "mathd_numbertheory_483": {
+    "theorem=": 90,
+    "goal=": 103,
+    "Visible statement-only context": 167,
+    "tail": 217
+  },
+  "mathd_numbertheory_5": {
+    "theorem=": 90,
+    "goal=": 99,
+    "Visible statement-only context": 154,
+    "tail": 204
+  },
+  "mathd_numbertheory_521": {
+    "theorem=": 90,
+    "goal=": 101,
+    "Visible statement-only context": 141,
+    "tail": 191
+  },
+  "mathd_numbertheory_541": {
+    "theorem=": 90,
+    "goal=": 101,
+    "Visible statement-only context": 138,
+    "tail": 188
+  },
+  "mathd_numbertheory_559": {
+    "theorem=": 90,
+    "goal=": 101,
+    "Visible statement-only context": 149,
+    "tail": 199
+  },
+  "mathd_numbertheory_582": {
+    "theorem=": 90,
+    "goal=": 103,
+    "Visible statement-only context": 148,
+    "tail": 198
+  },
+  "mathd_numbertheory_64": {
+    "theorem=": 90,
+    "goal=": 115,
+    "Visible statement-only context": 151,
+    "tail": 201
+  },
+  "mathd_numbertheory_690": {
+    "theorem=": 90,
+    "goal=": 103,
+    "Visible statement-only context": 153,
+    "tail": 203
+  },
+  "mathd_numbertheory_765": {
+    "theorem=": 90,
+    "goal=": 99,
+    "Visible statement-only context": 135,
+    "tail": 185
+  },
+  "mathd_numbertheory_780": {
+    "theorem=": 90,
+    "goal=": 101,
+    "Visible statement-only context": 166,
+    "tail": 216
+  },
+  "mathd_numbertheory_92": {
+    "theorem=": 90,
+    "goal=": 120,
+    "Visible statement-only context": 129,
+    "tail": 179
+  },
+  "mathd_numbertheory_99": {
+    "theorem=": 90,
+    "goal=": 120,
+    "Visible statement-only context": 129,
+    "tail": 179
+  },
+  "numbertheory_4x3m7y3neq2003": {
+    "theorem=": 98,
+    "goal=": 109,
+    "Visible statement-only context": 141,
+    "tail": 191
+  },
+  "numbertheory_aoddbdiv4asqpbsqmod8eq1": {
+    "theorem=": 99,
+    "goal=": 113,
+    "Visible statement-only context": 155,
+    "tail": 205
+  },
+  "numbertheory_notequiv2i2jasqbsqdiv8": {
+    "theorem=": 97,
+    "goal=": 109,
+    "Visible statement-only context": 167,
+    "tail": 217
+  },
+  "numbertheory_prmdvsneqnsqmodpeq0": {
+    "theorem=": 96,
+    "goal=": 107,
+    "Visible statement-only context": 141,
+    "tail": 191
+  },
+  "numbertheory_sqmod3in01d": {
+    "theorem=": 92,
+    "goal=": 124,
+    "Visible statement-only context": 133,
+    "tail": 183
+  },
+  "numbertheory_sqmod4in01d": {
+    "theorem=": 92,
+    "goal=": 126,
+    "Visible statement-only context": 135,
+    "tail": 185
+  },
+  "numbertheory_x5neqy2p4": {
+    "theorem=": 94,
+    "goal=": 105,
+    "Visible statement-only context": 135,
+    "tail": 185
+  },
+  "exercise_11_13_3": {
+    "theorem=": 91,
+    "goal=": 107,
+    "Visible statement-only context": 139,
+    "tail": 189
+  },
+  "exercise_18_4": {
+    "theorem=": 89,
+    "goal=": 98,
+    "Visible statement-only context": 170,
+    "tail": 220
+  },
+  "exercise_1_1_2a": {
+    "theorem=": 92,
+    "goal=": 110,
+    "Visible statement-only context": 120,
+    "tail": 170
+  },
+  "exercise_1_1_3": {
+    "theorem=": 91,
+    "goal=": 106,
+    "Visible statement-only context": 145,
+    "tail": 195
+  },
+  "exercise_1_1_4": {
+    "theorem=": 91,
+    "goal=": 106,
+    "Visible statement-only context": 144,
+    "tail": 194
+  },
+  "exercise_1_27": {
+    "theorem=": 89,
+    "goal=": 98,
+    "Visible statement-only context": 125,
+    "tail": 175
+  },
+  "exercise_2000_a2": {
+    "theorem=": 90,
+    "goal=": 99,
+    "Visible statement-only context": 244,
+    "tail": 294
+  },
+  "exercise_3_10": {
+    "theorem=": 89,
+    "goal=": 98,
+    "Visible statement-only context": 135,
+    "tail": 774
+  },
+  "exercise_3_4": {
+    "theorem=": 89,
+    "goal=": 114,
+    "Visible statement-only context": 123,
+    "tail": 173
+  },
+  "exercise_3_5": {
+    "theorem=": 89,
+    "goal=": 115,
+    "Visible statement-only context": 124,
+    "tail": 174
+  },
+  "exercise_5_13": {
+    "theorem=": 89,
+    "goal=": 100,
+    "Visible statement-only context": 141,
+    "tail": 191
+  },
+  "exercise_5_28": {
+    "theorem=": 89,
+    "goal=": 98,
+    "Visible statement-only context": 162,
+    "tail": 212
+  }
+}

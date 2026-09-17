@@ -1,0 +1,31 @@
+{
+  "fit_tasks": 4,
+  "holdout_tasks": 4,
+  "parameter_updates": 16,
+  "holdout_rank1_certified": 2,
+  "holdout_tasks_with_certified_candidate": 4,
+  "official_tasks_ranked": 119,
+  "official_candidates_ranked": 462,
+  "representation": "non-pooled theorem/goal/context/tail geometry with transition features",
+  "geometry_states": 6,
+  "slots": [
+    "smt",
+    "def",
+    "use",
+    "set_extensionality",
+    "inductive",
+    "instance"
+  ],
+  "reference_fragment_used": false,
+  "protected_verifier_feedback_used": false,
+  "candidate_response_hidden_state_used": false,
+  "tlaps_executed": false,
+  "proof_or_quality_claim": false,
+  "gate_claim": false,
+  "loss_first_last": [
+    1.0109424591064453,
+    0.0
+  ],
+  "head_sha256": "578baf68daa7f85e0d23729d62779246eb45c8e07d27a95f5d5fead767576223",
+  "elapsed_seconds": 1.0690233369823545
+}

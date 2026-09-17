@@ -1,0 +1,24 @@
+{
+  "job_id": "7629693.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "job_name": "tla-action-geometry-v1",
+  "queue": "debug",
+  "state": "F",
+  "exit_status": 0,
+  "exec_host": "x3208c0s7b1n0/0*64",
+  "requested": {
+    "ncpus": 64,
+    "ngpus": 1,
+    "walltime": "00:15:00"
+  },
+  "used": {
+    "ncpus": 64,
+    "ngpus": 0,
+    "walltime": "00:03:29",
+    "cput": "00:00:57",
+    "mem": "5750148kb"
+  },
+  "queued_utc": "2026-09-17T11:14:37Z",
+  "started_utc": "2026-09-17T11:14:39Z",
+  "finished_utc": "2026-09-17T11:18:12Z",
+  "comment": "Worker completed 16 updates and wrote finite rankings. PBS reports ngpus=0 despite the allocated GPU vnode; requested allocation and worker receipt are preserved separately."
+}
