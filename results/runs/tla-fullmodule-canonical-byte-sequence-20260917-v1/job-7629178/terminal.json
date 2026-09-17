@@ -1,0 +1,19 @@
+{
+  "job_id": "7629178.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "pbs_state": "F",
+  "exit_status": 0,
+  "host": "x3014c0s37b1n0/0*64",
+  "started": "2026-09-17T04:58:56Z",
+  "finished": "2026-09-17T05:03:05Z",
+  "walltime": "00:04:04",
+  "cput": "00:01:35",
+  "requested_gpus": 1,
+  "requested_cpus": 64,
+  "requested_walltime": "00:15:00",
+  "resources_used_ngpus": 0,
+  "checkpoint_sha256": "d9706d1ab300da5bd585a085c32e95837dee388ad8a29a40569c80c29499d69f",
+  "receipt_complete": true,
+  "updates": 48,
+  "quality_claim": false,
+  "gate_claim": false
+}
