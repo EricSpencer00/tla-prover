@@ -1,0 +1,28 @@
+{
+  "job_id": "7628987.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "host": "polaris-login-04",
+  "pbs_state": "F",
+  "exit_status": 0,
+  "exec_host": "x3203c0s7b1n0/0*64",
+  "resources_used": {
+    "walltime": "00:01:58",
+    "ncpus": 64,
+    "ngpus": 1
+  },
+  "resource_request": {
+    "ngpus": 1,
+    "ncpus": 64,
+    "walltime": "00:15:00"
+  },
+  "requested_tasks": 119,
+  "fully_scored_tasks": 119,
+  "scored_candidates": 1335,
+  "gpu": "NVIDIA A100-SXM4-40GB",
+  "parameter_updates": 0,
+  "training_executed": false,
+  "tlaps_executed": false,
+  "protected_feedback": false,
+  "quality_claim": false,
+  "gate_claim": false,
+  "worker_summary": "results/runs/tla-variable-action-rank-gpu-20260917-v2/job-7628987/result.7628987/summary.json"
+}

@@ -1,0 +1,15 @@
+{
+  "requested_tasks": 119,
+  "fully_scored_tasks": 119,
+  "scored_candidates": 1335,
+  "parameter_updates": 0,
+  "training_executed": false,
+  "reference_fragment_used": false,
+  "tlaps_executed": false,
+  "proof_or_quality_claim": false,
+  "method": "exact-parent conditional mean response logp over answer-free variable proposals",
+  "gpu": "NVIDIA A100-SXM4-40GB",
+  "cuda_peak_allocated_bytes": 16958281728,
+  "cuda_peak_reserved_bytes": 19218300928,
+  "elapsed_seconds": 63.29744779900648
+}
