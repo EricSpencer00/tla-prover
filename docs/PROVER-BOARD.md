@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 793
-- Verified UTC: 2026-09-17T02:16:54Z
+- Revision: 794
+- Verified UTC: 2026-09-17T02:21:34Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
-- Phase: local_work
-- Active job: none
-- Observation evidence: At 2026-09-17T02:16:54Z, the answer-free neural action-head stage passed local CPU admission: exact train packet c9784d4d, official packet f40539a2, sanitized label file bba10249, parent checkpoint87489e47, worker hash1d278778, 17/119 packet rows,54 labels with8 positives,13 training tasks,4 holdout tasks, and16-update cap. No GPU result, protected verifier outcome or gate claim exists yet.
-- Latest completed result: The retrieval/prototype branch is pruned at36/119 rank1 and43/119 top-four; factorized is36/119 and43/119, pairwise42/119 and43/119. A distinct frozen-parent pooled-hidden-state linear action head is now locally admitted with a disjoint non-protected holdout and no protected training path. Transfer and one bounded Polaris GPU run are next; independent official strict TLAPS remains mandatory.
+- Phase: running
+- Active job: `7628892.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov` (R, polaris, owner eric-spencer)
+- Observation evidence: At 2026-09-17T02:21:34Z, final live Polaris guards passed after exact stage upload: all8 SHA256SUMS entries, worker compile/CLI, no pycache, absent result namespace and empty owned queue. Unique claim916068b1 binds the frozen-parent pooled-hidden-state action head, train packet c9784d4d, official packet f40539a2, labels bba10249, parent87489e47, worker1d278778, one GPU and00:15:00. Exactly one qsub submitted job7628892; PBS reports R on Polaris with one GPU and64 CPUs. No result, quality or gate claim exists.
+- Latest completed result: The retrieval/prototype branch is pruned at36/119 rank1 and43/119 top-four; factorized is36/119 and43/119, pairwise42/119 and43/119. The distinct action-head stage passed local and remote admission and is now the sole running experiment. Independent official strict TLAPS remains mandatory after the complete ranking receipt is retrieved.
 - Local work: The semantic, span, broad-clean, schema-weighted, planner, parser-controlled, matched-prefix streaming and explicit-header body objectives remain complete negatives and are not replayed. Candidate-order, factorized, pairwise and retrieval/prototype branches are pruned or baseline-only: neural mean-logp35/119, sum-logp35/119, visible-context35/119, structural43/119, factorized36/119, pairwise42/119, retrieval36/119, and frozen symbolic baseline57/119. The action-head stage is answer-free and CPU-admitted; preserve denominators17/119/30, do not feed protected verifier results into training, and make no gate claim before independent scoring.
 - External blocker: none verified
-- Next action: Upload tla-action-head-gpu-20260917-v1 after fresh remote SHA/CLI/queue/output guards, acquire one unique claim, and submit exactly one one-GPU/00:15:00 training job. Retrieve the complete head/ranking receipt, then run independent host-level official strict TLAPS; no promotion or gate claim in the worker path.
+- Next action: Monitor only job7628892. After terminal, retrieve and hash the complete action-head/ranking receipt, verify the actual update cap and frozen-parent lineage, then run independent host-level official strict TLAPS over the exact119-task packet; no promotion or gate claim.
 
 ## Objective and evidence rules
 
@@ -62,6 +62,7 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 
 ## Decisions
 
+- 2026-09-17T02:21:34Z: Final Polaris guards pass for action-head stage; unique claim916068b1 binds exact stage/manifest/config/preflight/worker/PBS/packet/labels/parent hashes,13/4 split,16-update cap, one GPU and00:15:00. Exactly one qsub submitted as job7628892, PBS state R on Polaris with one GPU and64 CPUs. Monitor only; no result, quality or gate claim.
 - 2026-09-17T02:16:54Z: CPU-admitted the distinct frozen-parent pooled-hidden-state linear action-head stage. Exact packet/label/parent hashes, sanitized54-label contract, 13/4 split, worker compile and16-update/one-GPU/15-minute bounds pass. No upload, GPU result, protected verifier feedback or gate claim yet.
 - 2026-09-17T02:09:40Z: Host-level retrieval/prototype audit completed324 strict attempts,113/119 measured,36/119 rank1 and43/119 bounded top-four. It ties factorized at36/119 and remains below structural43/119 and symbolic57/119. Prune retrieval; CPU holdout gates are satisfied for considering a distinct neural action-head/energy parameterization, but no GPU or gate claim is made.
 - 2026-09-17T01:51:48Z: Prepared a distinct retrieval/prototype action representation using only visible-prompt token signatures and candidate families. CPU guards pass6/6; 13 non-protected training tasks yield4 certified prototypes, and a fixed4-task holdout scores3/4 rank1 with4/4 solvable. Run host-level official strict TLAPS before any promotion or GPU.
@@ -602,6 +603,7 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 
 These snapshots preserve old statements, including mistakes. They are not current instructions.
 
+- 2026-09-17T02:21:34Z: Retrieval negative recorded at36/119 rank1 and43/119 top-four. Action-head stage passed final remote guards and exactly one Polaris job7628892 is running under claim916068b1; independent TLAPS remains required after terminal receipt.
 - 2026-09-17T02:16:54Z: Retrieval negative recorded at36/119 rank1 and43/119 top-four. A new frozen-parent pooled-hidden-state action-head stage passes CPU admission with exact hashes and disjoint13/4 non-protected split. Upload and one bounded GPU run are next; independent TLAPS remains required.
 - 2026-09-17T02:09:40Z: Retrieval/prototype host-level audit completed324 strict attempts with113/119 measured,36/119 rank1 and43/119 bounded top-four. Prune it with factorized; pairwise is42/119 rank1. Next branch may be a distinct answer-free neural action head/energy parameterization after exact CPU guards.
 - 2026-09-17T01:51:48Z: Retrieval/prototype branch passes6 focused tests and the fixed non-protected holdout at3/4 rank1 and4/4 solvable. It uses no fitted likelihood, candidate index, reference or protected feedback. Host-level official audit is next.
@@ -627,16 +629,21 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 793,
-  "verified_utc": "2026-09-17T02:16:54Z",
+  "revision": 794,
+  "verified_utc": "2026-09-17T02:21:34Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
-  "phase": "local_work",
-  "active_job": null,
-  "observation_evidence": "At 2026-09-17T02:16:54Z, the answer-free neural action-head stage passed local CPU admission: exact train packet c9784d4d, official packet f40539a2, sanitized label file bba10249, parent checkpoint87489e47, worker hash1d278778, 17/119 packet rows,54 labels with8 positives,13 training tasks,4 holdout tasks, and16-update cap. No GPU result, protected verifier outcome or gate claim exists yet.",
-  "last_result": "The retrieval/prototype branch is pruned at36/119 rank1 and43/119 top-four; factorized is36/119 and43/119, pairwise42/119 and43/119. A distinct frozen-parent pooled-hidden-state linear action head is now locally admitted with a disjoint non-protected holdout and no protected training path. Transfer and one bounded Polaris GPU run are next; independent official strict TLAPS remains mandatory.",
+  "phase": "running",
+  "active_job": {
+    "id": "7628892.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+    "pbs_state": "R",
+    "owner": "eric-spencer",
+    "host": "polaris"
+  },
+  "observation_evidence": "At 2026-09-17T02:21:34Z, final live Polaris guards passed after exact stage upload: all8 SHA256SUMS entries, worker compile/CLI, no pycache, absent result namespace and empty owned queue. Unique claim916068b1 binds the frozen-parent pooled-hidden-state action head, train packet c9784d4d, official packet f40539a2, labels bba10249, parent87489e47, worker1d278778, one GPU and00:15:00. Exactly one qsub submitted job7628892; PBS reports R on Polaris with one GPU and64 CPUs. No result, quality or gate claim exists.",
+  "last_result": "The retrieval/prototype branch is pruned at36/119 rank1 and43/119 top-four; factorized is36/119 and43/119, pairwise42/119 and43/119. The distinct action-head stage passed local and remote admission and is now the sole running experiment. Independent official strict TLAPS remains mandatory after the complete ranking receipt is retrieved.",
   "local_work": "The semantic, span, broad-clean, schema-weighted, planner, parser-controlled, matched-prefix streaming and explicit-header body objectives remain complete negatives and are not replayed. Candidate-order, factorized, pairwise and retrieval/prototype branches are pruned or baseline-only: neural mean-logp35/119, sum-logp35/119, visible-context35/119, structural43/119, factorized36/119, pairwise42/119, retrieval36/119, and frozen symbolic baseline57/119. The action-head stage is answer-free and CPU-admitted; preserve denominators17/119/30, do not feed protected verifier results into training, and make no gate claim before independent scoring.",
   "external_blocker": "none verified",
-  "next_action": "Upload tla-action-head-gpu-20260917-v1 after fresh remote SHA/CLI/queue/output guards, acquire one unique claim, and submit exactly one one-GPU/00:15:00 training job. Retrieve the complete head/ranking receipt, then run independent host-level official strict TLAPS; no promotion or gate claim in the worker path.",
+  "next_action": "Monitor only job7628892. After terminal, retrieve and hash the complete action-head/ranking receipt, verify the actual update cap and frozen-parent lineage, then run independent host-level official strict TLAPS over the exact119-task packet; no promotion or gate claim.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -856,6 +863,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
     }
   ],
   "decisions": [
+    "2026-09-17T02:21:34Z: Final Polaris guards pass for action-head stage; unique claim916068b1 binds exact stage/manifest/config/preflight/worker/PBS/packet/labels/parent hashes,13/4 split,16-update cap, one GPU and00:15:00. Exactly one qsub submitted as job7628892, PBS state R on Polaris with one GPU and64 CPUs. Monitor only; no result, quality or gate claim.",
     "2026-09-17T02:16:54Z: CPU-admitted the distinct frozen-parent pooled-hidden-state linear action-head stage. Exact packet/label/parent hashes, sanitized54-label contract, 13/4 split, worker compile and16-update/one-GPU/15-minute bounds pass. No upload, GPU result, protected verifier feedback or gate claim yet.",
     "2026-09-17T02:09:40Z: Host-level retrieval/prototype audit completed324 strict attempts,113/119 measured,36/119 rank1 and43/119 bounded top-four. It ties factorized at36/119 and remains below structural43/119 and symbolic57/119. Prune retrieval; CPU holdout gates are satisfied for considering a distinct neural action-head/energy parameterization, but no GPU or gate claim is made.",
     "2026-09-17T01:51:48Z: Prepared a distinct retrieval/prototype action representation using only visible-prompt token signatures and candidate families. CPU guards pass6/6; 13 non-protected training tasks yield4 certified prototypes, and a fixed4-task holdout scores3/4 rank1 with4/4 solvable. Run host-level official strict TLAPS before any promotion or GPU.",
@@ -1385,6 +1393,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "2026-09-16T01:36:10Z: Job7626380 finished F/Exit1 after00:01:56 on x3102c0s13b0n0/0*64. Row47 emitted a partial512-token repair record, then the stricter precedence guard raised no finite layout-and-grammar-allowed token; row107 and complete receipt are absent. Preserve log/terminal/partial-row evidence as a decoder-liveness negative and do not replay v3 unchanged."
   ],
   "history": [
+    "2026-09-17T02:21:34Z: Retrieval negative recorded at36/119 rank1 and43/119 top-four. Action-head stage passed final remote guards and exactly one Polaris job7628892 is running under claim916068b1; independent TLAPS remains required after terminal receipt.",
     "2026-09-17T02:16:54Z: Retrieval negative recorded at36/119 rank1 and43/119 top-four. A new frozen-parent pooled-hidden-state action-head stage passes CPU admission with exact hashes and disjoint13/4 non-protected split. Upload and one bounded GPU run are next; independent TLAPS remains required.",
     "2026-09-17T02:09:40Z: Retrieval/prototype host-level audit completed324 strict attempts with113/119 measured,36/119 rank1 and43/119 bounded top-four. Prune it with factorized; pairwise is42/119 rank1. Next branch may be a distinct answer-free neural action head/energy parameterization after exact CPU guards.",
     "2026-09-17T01:51:48Z: Retrieval/prototype branch passes6 focused tests and the fixed non-protected holdout at3/4 rank1 and4/4 solvable. It uses no fitted likelihood, candidate index, reference or protected feedback. Host-level official audit is next.",
