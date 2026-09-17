@@ -1,0 +1,186 @@
+{
+  "addtwo-init": {
+    "nodes": 2,
+    "edges": 0,
+    "goal_nodes": 1,
+    "library_sha256": {
+      "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla": "5cc604533e49792c1c3d050a38d845d08d9c209879ca20c86de04975bc4bc563"
+    }
+  },
+  "addtwo-step": {
+    "nodes": 2,
+    "edges": 0,
+    "goal_nodes": 1,
+    "library_sha256": {
+      "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla": "5cc604533e49792c1c3d050a38d845d08d9c209879ca20c86de04975bc4bc563"
+    }
+  },
+  "crdt-safety-step": {
+    "nodes": 98,
+    "edges": 0,
+    "goal_nodes": 12,
+    "library_sha256": {
+      "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/Functions.tla": "b54ff63b7c76c327525c17c188d5f9f5e53d92f3fd701f5e2ba54f0f54391063",
+      "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/NaturalsInduction.tla": "08f52420cdaaf11292ed366782b5ce5b596bb7cbe789526a1cfd8806dbf98624",
+      "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/FunctionTheorems.tla": "f89871fb5b35d2fc54f583b12adb489dd6660be7aced67ab295fba0d4999c116",
+      "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla": "5cc604533e49792c1c3d050a38d845d08d9c209879ca20c86de04975bc4bc563",
+      "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/FiniteSets.tla": "eca905df95c16fb12f0f205a38b429c216a11b5c8429d270af044f05600a6380"
+    }
+  },
+  "crdt-sum-type-proof": {
+    "nodes": 100,
+    "edges": 0,
+    "goal_nodes": 25,
+    "library_sha256": {
+      "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/Functions.tla": "b54ff63b7c76c327525c17c188d5f9f5e53d92f3fd701f5e2ba54f0f54391063",
+      "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/NaturalsInduction.tla": "08f52420cdaaf11292ed366782b5ce5b596bb7cbe789526a1cfd8806dbf98624",
+      "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/FunctionTheorems.tla": "f89871fb5b35d2fc54f583b12adb489dd6660be7aced67ab295fba0d4999c116",
+      "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla": "5cc604533e49792c1c3d050a38d845d08d9c209879ca20c86de04975bc4bc563",
+      "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/FiniteSets.tla": "eca905df95c16fb12f0f205a38b429c216a11b5c8429d270af044f05600a6380"
+    }
+  },
+  "crdt-sum-zero-proof": {
+    "nodes": 101,
+    "edges": 0,
+    "goal_nodes": 35,
+    "library_sha256": {
+      "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/Functions.tla": "b54ff63b7c76c327525c17c188d5f9f5e53d92f3fd701f5e2ba54f0f54391063",
+      "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/NaturalsInduction.tla": "08f52420cdaaf11292ed366782b5ce5b596bb7cbe789526a1cfd8806dbf98624",
+      "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/FunctionTheorems.tla": "f89871fb5b35d2fc54f583b12adb489dd6660be7aced67ab295fba0d4999c116",
+      "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla": "5cc604533e49792c1c3d050a38d845d08d9c209879ca20c86de04975bc4bc563",
+      "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/FiniteSets.tla": "eca905df95c16fb12f0f205a38b429c216a11b5c8429d270af044f05600a6380"
+    }
+  },
+  "crdt-type-step": {
+    "nodes": 97,
+    "edges": 0,
+    "goal_nodes": 11,
+    "library_sha256": {
+      "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/Functions.tla": "b54ff63b7c76c327525c17c188d5f9f5e53d92f3fd701f5e2ba54f0f54391063",
+      "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/NaturalsInduction.tla": "08f52420cdaaf11292ed366782b5ce5b596bb7cbe789526a1cfd8806dbf98624",
+      "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/FunctionTheorems.tla": "f89871fb5b35d2fc54f583b12adb489dd6660be7aced67ab295fba0d4999c116",
+      "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla": "5cc604533e49792c1c3d050a38d845d08d9c209879ca20c86de04975bc4bc563",
+      "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/FiniteSets.tla": "eca905df95c16fb12f0f205a38b429c216a11b5c8429d270af044f05600a6380"
+    }
+  },
+  "even-case-tail": {
+    "nodes": 2,
+    "edges": 0,
+    "goal_nodes": 0,
+    "library_sha256": {
+      "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla": "5cc604533e49792c1c3d050a38d845d08d9c209879ca20c86de04975bc4bc563"
+    }
+  },
+  "even-intro": {
+    "nodes": 2,
+    "edges": 0,
+    "goal_nodes": 0,
+    "library_sha256": {
+      "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla": "5cc604533e49792c1c3d050a38d845d08d9c209879ca20c86de04975bc4bc563"
+    }
+  },
+  "highest-correctness": {
+    "nodes": 5,
+    "edges": 0,
+    "goal_nodes": 4,
+    "library_sha256": {
+      "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla": "5cc604533e49792c1c3d050a38d845d08d9c209879ca20c86de04975bc4bc563"
+    }
+  },
+  "highest-done-step": {
+    "nodes": 4,
+    "edges": 0,
+    "goal_nodes": 3,
+    "library_sha256": {
+      "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla": "5cc604533e49792c1c3d050a38d845d08d9c209879ca20c86de04975bc4bc563"
+    }
+  },
+  "highest-inductive-step": {
+    "nodes": 3,
+    "edges": 0,
+    "goal_nodes": 2,
+    "library_sha256": {
+      "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla": "5cc604533e49792c1c3d050a38d845d08d9c209879ca20c86de04975bc4bc563"
+    }
+  },
+  "highest-type-step": {
+    "nodes": 2,
+    "edges": 0,
+    "goal_nodes": 1,
+    "library_sha256": {
+      "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla": "5cc604533e49792c1c3d050a38d845d08d9c209879ca20c86de04975bc4bc563"
+    }
+  },
+  "odd-case-tail": {
+    "nodes": 2,
+    "edges": 0,
+    "goal_nodes": 0,
+    "library_sha256": {
+      "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla": "5cc604533e49792c1c3d050a38d845d08d9c209879ca20c86de04975bc4bc563"
+    }
+  },
+  "simple-case-a": {
+    "nodes": 3,
+    "edges": 0,
+    "goal_nodes": 1,
+    "library_sha256": {
+      "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla": "5cc604533e49792c1c3d050a38d845d08d9c209879ca20c86de04975bc4bc563"
+    }
+  },
+  "simple-case-b": {
+    "nodes": 3,
+    "edges": 0,
+    "goal_nodes": 1,
+    "library_sha256": {
+      "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla": "5cc604533e49792c1c3d050a38d845d08d9c209879ca20c86de04975bc4bc563"
+    }
+  },
+  "simple-conclusion": {
+    "nodes": 3,
+    "edges": 0,
+    "goal_nodes": 1,
+    "library_sha256": {
+      "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla": "5cc604533e49792c1c3d050a38d845d08d9c209879ca20c86de04975bc4bc563"
+    }
+  },
+  "simple-full": {
+    "nodes": 3,
+    "edges": 0,
+    "goal_nodes": 1,
+    "library_sha256": {
+      "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla": "5cc604533e49792c1c3d050a38d845d08d9c209879ca20c86de04975bc4bc563"
+    }
+  },
+  "simple-preservation": {
+    "nodes": 3,
+    "edges": 0,
+    "goal_nodes": 1,
+    "library_sha256": {
+      "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla": "5cc604533e49792c1c3d050a38d845d08d9c209879ca20c86de04975bc4bc563"
+    }
+  },
+  "simple-preservation-tail": {
+    "nodes": 3,
+    "edges": 0,
+    "goal_nodes": 1,
+    "library_sha256": {
+      "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla": "5cc604533e49792c1c3d050a38d845d08d9c209879ca20c86de04975bc4bc563"
+    }
+  },
+  "simple-short-full": {
+    "nodes": 4,
+    "edges": 0,
+    "goal_nodes": 2,
+    "library_sha256": {
+      "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla": "5cc604533e49792c1c3d050a38d845d08d9c209879ca20c86de04975bc4bc563"
+    }
+  },
+  "simple-short-preservation": {
+    "nodes": 4,
+    "edges": 0,
+    "goal_nodes": 2,
+    "library_sha256": {
+      "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib/TLAPS.tla": "5cc604533e49792c1c3d050a38d845d08d9c209879ca20c86de04975bc4bc563"
+    }
+  }
+}
