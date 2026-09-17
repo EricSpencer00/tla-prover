@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 917
-- Verified UTC: 2026-09-17T15:54:06Z
+- Revision: 918
+- Verified UTC: 2026-09-17T15:57:55Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: external_wait
 - Active job: none
-- Observation evidence: v4 SANY-first stage commit24cae53 uploaded to /home/eric-spencer/tla-free-generation-sft-20260917-v4. Remote SHA256SUMS passed for all 15 bundle files. CPU preflight7630172 ran on x3014c0s31b1n0/0*4 and failed F/Exit126 before worker import: /soft/applications/conda/2025-09-28/mconda3/bin/python3 returned Permission denied; resources_used.ngpus=0, cput=00:00:00 and walltime=00:00:00. The intended runtime remains inaccessible on Polaris; no GPU job was submitted.
-- Latest completed result: v4 remote checksum and static compile guards were attempted; checksum passed, but the intended Python interpreter is permission-denied on the allocated node. The scheduler preflight confirms model_loaded=false, cuda_touched=false and optimizer_updates=0. No training or proof/gate claim exists.
+- Observation evidence: v4 SANY-first stage commit24cae53 uploaded to /home/eric-spencer/tla-free-generation-sft-20260917-v4. Remote SHA256SUMS passed for all 15 bundle files. CPU preflight7630172 ran on x3014c0s31b1n0/0*4 and failed F/Exit126 before worker import: /soft/applications/conda/2025-09-28/mconda3/bin/python3 returned Permission denied; resources_used.ngpus=0, cput=00:00:00 and walltime=00:00:00. The intended runtime remains inaccessible on Polaris; no GPU job was submitted. Read-only fallback discovery found executable /usr/bin/python3.11 and Cray Python3.12.12, but both lack torch; no accessible supported torch/transformers runtime was found. Runtime mount remains the only viable verified stack and is permission-denied.
+- Latest completed result: v4 remote checksum and static compile guards were attempted; checksum passed, but the intended Python interpreter is permission-denied on the allocated node. The scheduler preflight confirms model_loaded=false, cuda_touched=false and optimizer_updates=0. No training or proof/gate claim exists. System and Cray Python alternatives were checked and are unusable because torch is absent.
 - Local work: SANY-first exact-byte fragment ladder is committed in24cae53 and requires SANY pass before strict uncached TLAPS. The scorer rejects TLAPS-looking records without SANY/provenance success and now checks answer-bearing fields only on DEVELOPMENT rows, preserving private TRAIN supervision. Local focused tests pass12/12; v4 CPU preflight passes manifest shape but cannot start on Polaris until the runtime mount permissions recover.
 - External blocker: Polaris /soft conda runtime mount is permission-denied on the allocated node: /soft/applications/conda/2025-09-28/mconda3/bin/python3 cannot execute. The verified torch runtime from probe7630097 and all project venv symlinks depend on this inaccessible tree; do not submit a GPU retry until site permissions/mount state recovers or a supported accessible Python runtime is provided.
-- Next action: Keep the goal active. Recheck the Polaris software-mount permission with a short CPU-only probe after external state changes; if the exact runtime becomes executable, rerun the v4 CPU preflight and only then submit one bounded GPU job. Until then continue evidence-gated local research and do not claim model quality, proof success, or gate progress.
+- Next action: Keep the goal active. Recheck the Polaris software mount after external state changes; if the verified torch/transformers runtime becomes executable, rerun v4 CPU preflight and only then submit one bounded GPU job. Do not substitute the system or Cray Python environments, and do not claim model quality, proof success, or gate progress.
 
 ## Objective and evidence rules
 
@@ -746,16 +746,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 917,
-  "verified_utc": "2026-09-17T15:54:06Z",
+  "revision": 918,
+  "verified_utc": "2026-09-17T15:57:55Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "external_wait",
   "active_job": null,
-  "observation_evidence": "v4 SANY-first stage commit24cae53 uploaded to /home/eric-spencer/tla-free-generation-sft-20260917-v4. Remote SHA256SUMS passed for all 15 bundle files. CPU preflight7630172 ran on x3014c0s31b1n0/0*4 and failed F/Exit126 before worker import: /soft/applications/conda/2025-09-28/mconda3/bin/python3 returned Permission denied; resources_used.ngpus=0, cput=00:00:00 and walltime=00:00:00. The intended runtime remains inaccessible on Polaris; no GPU job was submitted.",
-  "last_result": "v4 remote checksum and static compile guards were attempted; checksum passed, but the intended Python interpreter is permission-denied on the allocated node. The scheduler preflight confirms model_loaded=false, cuda_touched=false and optimizer_updates=0. No training or proof/gate claim exists.",
+  "observation_evidence": "v4 SANY-first stage commit24cae53 uploaded to /home/eric-spencer/tla-free-generation-sft-20260917-v4. Remote SHA256SUMS passed for all 15 bundle files. CPU preflight7630172 ran on x3014c0s31b1n0/0*4 and failed F/Exit126 before worker import: /soft/applications/conda/2025-09-28/mconda3/bin/python3 returned Permission denied; resources_used.ngpus=0, cput=00:00:00 and walltime=00:00:00. The intended runtime remains inaccessible on Polaris; no GPU job was submitted. Read-only fallback discovery found executable /usr/bin/python3.11 and Cray Python3.12.12, but both lack torch; no accessible supported torch/transformers runtime was found. Runtime mount remains the only viable verified stack and is permission-denied.",
+  "last_result": "v4 remote checksum and static compile guards were attempted; checksum passed, but the intended Python interpreter is permission-denied on the allocated node. The scheduler preflight confirms model_loaded=false, cuda_touched=false and optimizer_updates=0. No training or proof/gate claim exists. System and Cray Python alternatives were checked and are unusable because torch is absent.",
   "local_work": "SANY-first exact-byte fragment ladder is committed in24cae53 and requires SANY pass before strict uncached TLAPS. The scorer rejects TLAPS-looking records without SANY/provenance success and now checks answer-bearing fields only on DEVELOPMENT rows, preserving private TRAIN supervision. Local focused tests pass12/12; v4 CPU preflight passes manifest shape but cannot start on Polaris until the runtime mount permissions recover.",
   "external_blocker": "Polaris /soft conda runtime mount is permission-denied on the allocated node: /soft/applications/conda/2025-09-28/mconda3/bin/python3 cannot execute. The verified torch runtime from probe7630097 and all project venv symlinks depend on this inaccessible tree; do not submit a GPU retry until site permissions/mount state recovers or a supported accessible Python runtime is provided.",
-  "next_action": "Keep the goal active. Recheck the Polaris software-mount permission with a short CPU-only probe after external state changes; if the exact runtime becomes executable, rerun the v4 CPU preflight and only then submit one bounded GPU job. Until then continue evidence-gated local research and do not claim model quality, proof success, or gate progress.",
+  "next_action": "Keep the goal active. Recheck the Polaris software mount after external state changes; if the verified torch/transformers runtime becomes executable, rerun v4 CPU preflight and only then submit one bounded GPU job. Do not substitute the system or Cray Python environments, and do not claim model quality, proof success, or gate progress.",
   "tasks": [
     {
       "id": "TLA-01",
