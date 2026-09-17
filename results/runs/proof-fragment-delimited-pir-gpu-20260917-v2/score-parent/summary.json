@@ -1,0 +1,50 @@
+{
+  "packet_sha256": "30e594b4e82de3f8d455e2a87597e175d79bcb6cd31d67e55de84b384e53baaf",
+  "generations_sha256": "ce5e58fc4898d0d7d0005fa2815113213215f907bbc7481c53025be071a3ef6c",
+  "rows": [
+    {
+      "id": "crdt-type-step",
+      "certified": false,
+      "status": "malformed_delimited",
+      "proved": 0,
+      "total": 0,
+      "raw_reply": "<1>2. TypeOK /\\ [Next]_vars => TypeOK'\n  <1>2.1. Init => TypeOK\n    BY DEF Init, TypeOK\n  <1>2.2. Init => TypeOK'\n    <1>2.2.1. Init => vars\n      BY DEF Init, vars\n    <1>2.2.2. vars => TypeOK'\n      BY <1>2.2.1> DEF TypeOK, vars, TypeOK'\n  <1>. QED  BY <1>1, <1>2, <1>2.1, <1>2.2, Typing, vars"
+    },
+    {
+      "id": "crdt-safety-step",
+      "certified": false,
+      "status": "malformed_delimited",
+      "proved": 0,
+      "total": 0,
+      "raw_reply": "<1>2. TypeOK /\\ Safety /\\ [Next]_vars => Safety'\n  BY DEF TypeOK, Safety, Next, vars\n    <2>1. vars => vars'\n      BY <2>1 DEF vars, vars'\n    <2>2. vars' => vars'\n      <2>. QED  BY <2>1, <2>2 DEF vars, vars'\n    <2>. QED  BY <2>1, <2>. QED DEF vars, vars'\n  <3>1. vars => vars'\n    BY <3>1 DEF vars, vars'\n  <3>. QED  BY <3>1, <3>. QED DEF vars, vars'\n  <4>1. vars => vars'\n    BY <4>1 DEF vars, vars'\n  <4>. QED  BY <4>1, <4>. QED DEF vars, vars'\n  <5>1. vars => vars'\n    BY <5>1 DEF vars, vars'\n  <5>. QED  BY <5>1, <5>. QED DEF vars, vars'\n  <6>1. vars => vars'\n    BY <6>1 DEF"
+    },
+    {
+      "id": "crdt-sum-type-proof",
+      "certified": false,
+      "status": "malformed_delimited",
+      "proved": 0,
+      "total": 0,
+      "raw_reply": "BY DEF Sum, FoldFunction, SumFunction"
+    },
+    {
+      "id": "crdt-sum-zero-proof",
+      "certified": false,
+      "status": "malformed_delimited",
+      "proved": 0,
+      "total": 0,
+      "raw_reply": "BY DEF Sum, FoldFunction, SumFunction"
+    }
+  ],
+  "tasks": 4,
+  "certified_tasks": 0,
+  "verifier_runs": 4,
+  "verifier_mode": "legacy_tlaps_1.5.0_uncached_nofp_threads1",
+  "strict_flags_used": false,
+  "verifier_feedback_used": false,
+  "repair_used": false,
+  "reward_used": false,
+  "fixed_denominator": 4,
+  "quality_claim": false,
+  "proof_claim": false,
+  "gate_claim": false
+}

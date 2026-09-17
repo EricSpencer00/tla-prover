@@ -1,0 +1,23 @@
+{
+  "job_id": "7629533.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "job_name": "tla-dpir-v1",
+  "job_state": "F",
+  "exit_status": 1,
+  "exec_host": "x3001c0s19b1n0/0*64",
+  "resource_list": {
+    "ncpus": 64,
+    "ngpus": 1,
+    "walltime": "00:15:00"
+  },
+  "resources_used": {
+    "cpupercent": 66,
+    "cput": "00:01:42",
+    "mem": "5959460kb",
+    "ncpus": 64,
+    "ngpus": 0,
+    "walltime": "00:02:16"
+  },
+  "started": "Thu Sep 17 09:40:36 2026",
+  "finished": "Thu Sep 17 09:42:56 2026",
+  "note": "Worker completed; scheduler exit 1 reflects post-run scorer plumbing, not a worker failure."
+}

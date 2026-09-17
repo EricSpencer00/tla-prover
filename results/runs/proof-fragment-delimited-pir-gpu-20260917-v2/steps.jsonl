@@ -1,0 +1,16 @@
+{"step": 1, "id": "simple-case-b", "loss": 0.9550538063049316, "gradient_norm": 4.161994934082031, "response_tokens": 745, "elapsed_s": 9.643660803092644}
+{"step": 2, "id": "simple-case-a", "loss": 1.6149885654449463, "gradient_norm": 7.1628947257995605, "response_tokens": 361, "elapsed_s": 9.8823683031369}
+{"step": 3, "id": "simple-preservation", "loss": 0.6006995439529419, "gradient_norm": 2.7138264179229736, "response_tokens": 1776, "elapsed_s": 10.216836045030504}
+{"step": 4, "id": "addtwo-step", "loss": 2.498093605041504, "gradient_norm": 13.147489547729492, "response_tokens": 61, "elapsed_s": 10.294096851022914}
+{"step": 5, "id": "even-case-tail", "loss": 0.9388622045516968, "gradient_norm": 4.664206027984619, "response_tokens": 448, "elapsed_s": 10.415713862050325}
+{"step": 6, "id": "simple-conclusion", "loss": 0.9891265034675598, "gradient_norm": 4.931646347045898, "response_tokens": 394, "elapsed_s": 10.652225703001022}
+{"step": 7, "id": "even-intro", "loss": 0.7792531847953796, "gradient_norm": 2.9086098670959473, "response_tokens": 835, "elapsed_s": 10.80208280403167}
+{"step": 8, "id": "simple-short-full", "loss": 0.7260934114456177, "gradient_norm": 2.6118733882904053, "response_tokens": 915, "elapsed_s": 11.097187679028139}
+{"step": 9, "id": "simple-preservation-tail", "loss": 0.7986710071563721, "gradient_norm": 2.8775980472564697, "response_tokens": 452, "elapsed_s": 11.33762726909481}
+{"step": 10, "id": "highest-correctness", "loss": 1.5309258699417114, "gradient_norm": 9.823063850402832, "response_tokens": 133, "elapsed_s": 11.533669997006655}
+{"step": 11, "id": "highest-type-step", "loss": 1.6229650974273682, "gradient_norm": 11.670217514038086, "response_tokens": 78, "elapsed_s": 11.661781221162528}
+{"step": 12, "id": "addtwo-init", "loss": 1.4293171167373657, "gradient_norm": 9.87592601776123, "response_tokens": 59, "elapsed_s": 11.738384053111076}
+{"step": 13, "id": "highest-inductive-step", "loss": 1.3794904947280884, "gradient_norm": 8.064725875854492, "response_tokens": 113, "elapsed_s": 11.890313842101023}
+{"step": 14, "id": "odd-case-tail", "loss": 0.6342920660972595, "gradient_norm": 7.681739807128906, "response_tokens": 626, "elapsed_s": 12.019513599108905}
+{"step": 15, "id": "simple-short-preservation", "loss": 0.7177553176879883, "gradient_norm": 6.174740791320801, "response_tokens": 644, "elapsed_s": 12.294844707008451}
+{"step": 16, "id": "simple-full", "loss": 0.45300552248954773, "gradient_norm": 2.256028413772583, "response_tokens": 2582, "elapsed_s": 12.715822698082775}

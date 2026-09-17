@@ -1,0 +1,50 @@
+{
+  "packet_sha256": "30e594b4e82de3f8d455e2a87597e175d79bcb6cd31d67e55de84b384e53baaf",
+  "generations_sha256": "58c0234f3403e6a3293867e2ee0b09b8bf6831655da63234ef5a2aa8a3f735d6",
+  "rows": [
+    {
+      "id": "crdt-type-step",
+      "certified": false,
+      "status": "malformed_delimited",
+      "proved": 0,
+      "total": 0,
+      "raw_reply": "keyword\t1\tPA==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQ"
+    },
+    {
+      "id": "crdt-safety-step",
+      "certified": false,
+      "status": "malformed_delimited",
+      "proved": 0,
+      "total": 0,
+      "raw_reply": "keyword\t1\tPA==\nkeyword\t1\tQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ==\nkeyword\t1\tQQ"
+    },
+    {
+      "id": "crdt-sum-type-proof",
+      "certified": false,
+      "status": "malformed_delimited",
+      "proved": 0,
+      "total": 0,
+      "raw_reply": "keyword\t1\tTmQlk=\nwhitespace\t1\tIA==\nidentifier\t3\tSW5zdGV4dA==\nwhitespace\t1\tIA==\nidentifier\t3\tSW5kdWN0A==\nwhitespace\t1\tIA==\nidentifier\t3\tSW5kdWN0A==\nwhitespace\t1\tIA==\nidentifier\t3\tSW5kdWN0A==\nwhitespace\t1\tIA==\nidentifier\t3\tSW5kdWN0A==\nwhitespace\t1\tIA==\nidentifier\t3\tSW5kdWN0A==\nwhitespace\t1\tIA==\nidentifier\t3\tSW5kdWN0A==\nwhitespace\t1\tIA==\nidentifier\t3\tSW5kdWN0A==\nwhitespace\t1\tIA==\nidentifier\t3\tSW5kdWN0A==\nwhitespace\t1\tIA==\nidentifier\t3\tSW5kdWN0A==\nwhitespace\t1\tIA==\nidentifier\t3\tSW5kdWN0A==\nwhitespace\t1\tIA==\nidentifier\t3\tSW5kdWN0A==\nwhitespace\t1\tIA==\nidentifier\t3\tSW5kdWN0A==\nwhitespace\t1\tIA==\nidentifier\t3\tSW5"
+    },
+    {
+      "id": "crdt-sum-zero-proof",
+      "certified": false,
+      "status": "malformed_delimited",
+      "proved": 0,
+      "total": 0,
+      "raw_reply": "keyword\t1\tTmVycm9ycw==\nkeyword\t1\tSumIsZero==\nwhitespace\t1\tIA==\nwhitespace\t1\tLA==\nwhitespace\t1\tLA==\nwhitespace\t1\tLA==\nwhitespace\t1\tLA==\nwhitespace\t1\tLA==\nwhitespace\t1\tLA==\nwhitespace\t1\tLA==\nwhitespace\t1\tLA==\nwhitespace\t1\tLA==\nwhitespace\t1\tLA==\nwhitespace\t1\tLA==\nwhitespace\t1\tLA==\nwhitespace\t1\tLA==\nwhitespace\t1\tLA==\nwhitespace\t1\tLA==\nwhitespace\t1\tLA==\nwhitespace\t1\tLA==\nwhitespace\t1\tLA==\nwhitespace\t1\tLA==\nwhitespace\t1\tLA==\nwhitespace\t1\tLA==\nwhitespace\t1\tLA==\nwhitespace\t1\tLA==\nwhitespace\t1\tLA==\nwhitespace\t1\tLA==\nwhitespace\t1\tLA==\nwhitespace\t1\tLA==\nwhitespace\t1\tLA==\nwhitespace\t1\tLA==\nwhitespace\t1\tLA==\nwhitespace\t1\tLA==\nwhitespace\t1\tLA==\nwhitespace\t1\tL"
+    }
+  ],
+  "tasks": 4,
+  "certified_tasks": 0,
+  "verifier_runs": 4,
+  "verifier_mode": "legacy_tlaps_1.5.0_uncached_nofp_threads1",
+  "strict_flags_used": false,
+  "verifier_feedback_used": false,
+  "repair_used": false,
+  "reward_used": false,
+  "fixed_denominator": 4,
+  "quality_claim": false,
+  "proof_claim": false,
+  "gate_claim": false
+}
