@@ -1,0 +1,706 @@
+{
+  "crdt-safety-step": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, TypeOK, Safety, Monotonic, Monotonicity, Convergence, Init, Increment, Gossip, Next, Spec, Fairness, FairSpec",
+      "coverage_score": -1.7277137082360385,
+      "certified": true
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, TypeOK, Safety, Monotonic, Monotonicity, Convergence, Init, Increment, Gossip, Next, Spec, Fairness, FairSpec",
+      "coverage_score": -1.7277137082360385,
+      "certified": true
+    },
+    {
+      "candidate_index": 7,
+      "candidate": "BY SMT, TypeCorrect, Fun_InjectionProperties, Fun_IsInj, SetExtensionality, Fun_InverseProperties",
+      "coverage_score": -3.6344094226050694,
+      "certified": false
+    },
+    {
+      "candidate_index": 9,
+      "candidate": "BY SMT, TypeCorrect, Fun_InjectionProperties, Fun_IsInj, SetExtensionality, Fun_InverseProperties, DownwardNatInduction, Fun_BijectionProperties, Fun_InjInverse, Fun_IsBij",
+      "coverage_score": -3.660770821337499,
+      "certified": false
+    },
+    {
+      "candidate_index": 8,
+      "candidate": "BY TypeCorrect, Fun_InjectionProperties, Fun_IsInj, SetExtensionality, Fun_InverseProperties",
+      "coverage_score": -3.92426791899304,
+      "certified": false
+    },
+    {
+      "candidate_index": 10,
+      "candidate": "BY TypeCorrect, Fun_InjectionProperties, Fun_IsInj, SetExtensionality, Fun_InverseProperties, DownwardNatInduction, Fun_BijectionProperties, Fun_InjInverse, Fun_IsBij",
+      "coverage_score": -3.9565869652636327,
+      "certified": false
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, TypeCorrect, Fun_InjectionProperties",
+      "coverage_score": -4.527049356854287,
+      "certified": false
+    },
+    {
+      "candidate_index": 11,
+      "candidate": "BY SMT, TypeCorrect, Fun_IsInj",
+      "coverage_score": -4.527049356854287,
+      "certified": false
+    },
+    {
+      "candidate_index": 13,
+      "candidate": "BY SMT, TypeCorrect, SetExtensionality",
+      "coverage_score": -4.527049356854287,
+      "certified": false
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "coverage_score": -4.539347286200521,
+      "certified": false
+    },
+    {
+      "candidate_index": 5,
+      "candidate": "BY SMT, TypeCorrect, Fun_InjectionProperties, Fun_IsInj",
+      "coverage_score": -4.540457740477148,
+      "certified": false
+    },
+    {
+      "candidate_index": 4,
+      "candidate": "BY TypeCorrect, Fun_InjectionProperties",
+      "coverage_score": -4.723170425608246,
+      "certified": false
+    },
+    {
+      "candidate_index": 12,
+      "candidate": "BY TypeCorrect, Fun_IsInj",
+      "coverage_score": -4.723170425608246,
+      "certified": false
+    },
+    {
+      "candidate_index": 14,
+      "candidate": "BY TypeCorrect, SetExtensionality",
+      "coverage_score": -4.723170425608246,
+      "certified": false
+    },
+    {
+      "candidate_index": 15,
+      "candidate": "BY SMT, TypeCorrect, Fun_InverseProperties",
+      "coverage_score": -4.7631672549128465,
+      "certified": false
+    },
+    {
+      "candidate_index": 6,
+      "candidate": "BY TypeCorrect, Fun_InjectionProperties, Fun_IsInj",
+      "coverage_score": -4.766075678450761,
+      "certified": false
+    },
+    {
+      "candidate_index": 17,
+      "candidate": "BY SMT, TypeCorrect, DownwardNatInduction",
+      "coverage_score": -4.817209744341863,
+      "certified": false
+    },
+    {
+      "candidate_index": 19,
+      "candidate": "BY SMT, TypeCorrect, Fun_BijectionProperties",
+      "coverage_score": -4.817209744341863,
+      "certified": false
+    },
+    {
+      "candidate_index": 21,
+      "candidate": "BY SMT, TypeCorrect, Fun_InjInverse",
+      "coverage_score": -4.817209744341863,
+      "certified": false
+    },
+    {
+      "candidate_index": 23,
+      "candidate": "BY SMT, TypeCorrect, Fun_IsBij",
+      "coverage_score": -4.817209744341863,
+      "certified": false
+    },
+    {
+      "candidate_index": 25,
+      "candidate": "BY SMT, TypeCorrect, Fun_SmallestSurjectionIsBijection",
+      "coverage_score": -4.817209744341863,
+      "certified": false
+    },
+    {
+      "candidate_index": 27,
+      "candidate": "BY SMT, TypeCorrect, GeneralNatInduction",
+      "coverage_score": -4.817209744341863,
+      "certified": false
+    },
+    {
+      "candidate_index": 16,
+      "candidate": "BY TypeCorrect, Fun_InverseProperties",
+      "coverage_score": -4.959288323666804,
+      "certified": false
+    },
+    {
+      "candidate_index": 18,
+      "candidate": "BY TypeCorrect, DownwardNatInduction",
+      "coverage_score": -5.013330813095822,
+      "certified": false
+    },
+    {
+      "candidate_index": 20,
+      "candidate": "BY TypeCorrect, Fun_BijectionProperties",
+      "coverage_score": -5.013330813095822,
+      "certified": false
+    },
+    {
+      "candidate_index": 22,
+      "candidate": "BY TypeCorrect, Fun_InjInverse",
+      "coverage_score": -5.013330813095822,
+      "certified": false
+    },
+    {
+      "candidate_index": 24,
+      "candidate": "BY TypeCorrect, Fun_IsBij",
+      "coverage_score": -5.013330813095822,
+      "certified": false
+    },
+    {
+      "candidate_index": 26,
+      "candidate": "BY TypeCorrect, Fun_SmallestSurjectionIsBijection",
+      "coverage_score": -5.013330813095822,
+      "certified": false
+    },
+    {
+      "candidate_index": 28,
+      "candidate": "BY TypeCorrect, GeneralNatInduction",
+      "coverage_score": -5.013330813095822,
+      "certified": false
+    }
+  ],
+  "crdt-sum-type-proof": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Sum, vars, TypeOK, Safety, Monotonic, Monotonicity, Convergence, Init, Increment, Gossip, Next, Spec, Fairness, FairSpec",
+      "coverage_score": 0.5440923140040388,
+      "certified": false
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Sum, vars, TypeOK, Safety, Monotonic, Monotonicity, Convergence, Init, Increment, Gossip, Next, Spec, Fairness, FairSpec",
+      "coverage_score": 0.5440923140040388,
+      "certified": false
+    },
+    {
+      "candidate_index": 9,
+      "candidate": "BY SMT, SumIsSumFunction, NodeAssumption, SumFunctionNat, SumFunctionZero, SumFunctionNatOnSubset, SumFunctionOnSetNat, SumFunctionOnSetZero, FiniteNatInductiveUnique, Fun_NatBijSame, Fun_NatBijSubElem",
+      "coverage_score": -0.15631977520178125,
+      "certified": true
+    },
+    {
+      "candidate_index": 10,
+      "candidate": "BY SumIsSumFunction, NodeAssumption, SumFunctionNat, SumFunctionZero, SumFunctionNatOnSubset, SumFunctionOnSetNat, SumFunctionOnSetZero, FiniteNatInductiveUnique, Fun_NatBijSame, Fun_NatBijSubElem",
+      "coverage_score": -0.2703208612300517,
+      "certified": true
+    },
+    {
+      "candidate_index": 7,
+      "candidate": "BY SMT, SumIsSumFunction, NodeAssumption, SumFunctionNat, SumFunctionZero, SumFunctionNatOnSubset, SumFunctionOnSetNat",
+      "coverage_score": -0.7419093675855668,
+      "certified": true
+    },
+    {
+      "candidate_index": 8,
+      "candidate": "BY SumIsSumFunction, NodeAssumption, SumFunctionNat, SumFunctionZero, SumFunctionNatOnSubset, SumFunctionOnSetNat",
+      "coverage_score": -0.8559104536138373,
+      "certified": true
+    },
+    {
+      "candidate_index": 11,
+      "candidate": "BY SMT, SumIsSumFunction, NodeAssumption, SumFunctionZero",
+      "coverage_score": -1.0075100460147348,
+      "certified": false
+    },
+    {
+      "candidate_index": 12,
+      "candidate": "BY SumIsSumFunction, NodeAssumption, SumFunctionZero",
+      "coverage_score": -1.0513129260904857,
+      "certified": false
+    },
+    {
+      "candidate_index": 13,
+      "candidate": "BY SMT, SumIsSumFunction, NodeAssumption, SumFunctionNatOnSubset",
+      "coverage_score": -1.1289705102939434,
+      "certified": false
+    },
+    {
+      "candidate_index": 15,
+      "candidate": "BY SMT, SumIsSumFunction, NodeAssumption, SumFunctionOnSetNat",
+      "coverage_score": -1.1289705102939434,
+      "certified": false
+    },
+    {
+      "candidate_index": 17,
+      "candidate": "BY SMT, SumIsSumFunction, NodeAssumption, SumFunctionOnSetZero",
+      "coverage_score": -1.1289705102939434,
+      "certified": false
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SumIsSumFunction, NodeAssumption, SumFunctionNat",
+      "coverage_score": -1.1364986120536114,
+      "certified": true
+    },
+    {
+      "candidate_index": 14,
+      "candidate": "BY SumIsSumFunction, NodeAssumption, SumFunctionNatOnSubset",
+      "coverage_score": -1.1727733903696942,
+      "certified": false
+    },
+    {
+      "candidate_index": 16,
+      "candidate": "BY SumIsSumFunction, NodeAssumption, SumFunctionOnSetNat",
+      "coverage_score": -1.1727733903696942,
+      "certified": false
+    },
+    {
+      "candidate_index": 18,
+      "candidate": "BY SumIsSumFunction, NodeAssumption, SumFunctionOnSetZero",
+      "coverage_score": -1.1727733903696942,
+      "certified": false
+    },
+    {
+      "candidate_index": 4,
+      "candidate": "BY SumIsSumFunction, NodeAssumption, SumFunctionNat",
+      "coverage_score": -1.1803014921293622,
+      "certified": true
+    },
+    {
+      "candidate_index": 5,
+      "candidate": "BY SMT, SumIsSumFunction, NodeAssumption, SumFunctionNat, SumFunctionZero",
+      "coverage_score": -1.2227114887139123,
+      "certified": true
+    },
+    {
+      "candidate_index": 6,
+      "candidate": "BY SumIsSumFunction, NodeAssumption, SumFunctionNat, SumFunctionZero",
+      "coverage_score": -1.32640186162941,
+      "certified": true
+    },
+    {
+      "candidate_index": 27,
+      "candidate": "BY SMT, SumIsSumFunction, NodeAssumption, DownwardNatInduction",
+      "coverage_score": -1.3916435158005274,
+      "certified": false
+    },
+    {
+      "candidate_index": 28,
+      "candidate": "BY SumIsSumFunction, NodeAssumption, DownwardNatInduction",
+      "coverage_score": -1.4354463958762782,
+      "certified": false
+    },
+    {
+      "candidate_index": 19,
+      "candidate": "BY SMT, SumIsSumFunction, NodeAssumption, FiniteNatInductiveUnique",
+      "coverage_score": -1.4928747710323873,
+      "certified": false
+    },
+    {
+      "candidate_index": 21,
+      "candidate": "BY SMT, SumIsSumFunction, NodeAssumption, Fun_NatBijSame",
+      "coverage_score": -1.4928747710323873,
+      "certified": false
+    },
+    {
+      "candidate_index": 23,
+      "candidate": "BY SMT, SumIsSumFunction, NodeAssumption, Fun_NatBijSubElem",
+      "coverage_score": -1.4928747710323873,
+      "certified": false
+    },
+    {
+      "candidate_index": 25,
+      "candidate": "BY SMT, SumIsSumFunction, NodeAssumption, SmallestNatural",
+      "coverage_score": -1.4928747710323873,
+      "certified": false
+    },
+    {
+      "candidate_index": 20,
+      "candidate": "BY SumIsSumFunction, NodeAssumption, FiniteNatInductiveUnique",
+      "coverage_score": -1.5366776511081381,
+      "certified": false
+    },
+    {
+      "candidate_index": 22,
+      "candidate": "BY SumIsSumFunction, NodeAssumption, Fun_NatBijSame",
+      "coverage_score": -1.5366776511081381,
+      "certified": false
+    },
+    {
+      "candidate_index": 24,
+      "candidate": "BY SumIsSumFunction, NodeAssumption, Fun_NatBijSubElem",
+      "coverage_score": -1.5366776511081381,
+      "certified": false
+    },
+    {
+      "candidate_index": 26,
+      "candidate": "BY SumIsSumFunction, NodeAssumption, SmallestNatural",
+      "coverage_score": -1.5366776511081381,
+      "certified": false
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "coverage_score": -5.416610478504191,
+      "certified": false
+    }
+  ],
+  "crdt-sum-zero-proof": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Sum, vars, TypeOK, Safety, Monotonic, Monotonicity, Convergence, Init, Increment, Gossip, Next, Spec, Fairness, FairSpec",
+      "coverage_score": -0.9088434658956883,
+      "certified": false
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Sum, vars, TypeOK, Safety, Monotonic, Monotonicity, Convergence, Init, Increment, Gossip, Next, Spec, Fairness, FairSpec",
+      "coverage_score": -0.9088434658956883,
+      "certified": false
+    },
+    {
+      "candidate_index": 9,
+      "candidate": "BY SMT, SumIsSumFunction, SumType, NodeAssumption, SumFunctionZero, SumFunctionOnSetZero, SmallestNatural, DownwardNatInduction, Fun_NatBijEmpty, GeneralNatInduction, NatInduction, RecursiveFcnOfNatType",
+      "coverage_score": -0.9172171355792176,
+      "certified": true
+    },
+    {
+      "candidate_index": 5,
+      "candidate": "BY SMT, SumIsSumFunction, SumType, NodeAssumption, SumFunctionZero, SumFunctionOnSetZero",
+      "coverage_score": -1.0478908850010178,
+      "certified": true
+    },
+    {
+      "candidate_index": 10,
+      "candidate": "BY SumIsSumFunction, SumType, NodeAssumption, SumFunctionZero, SumFunctionOnSetZero, SmallestNatural, DownwardNatInduction, Fun_NatBijEmpty, GeneralNatInduction, NatInduction, RecursiveFcnOfNatType",
+      "coverage_score": -1.1608017457464845,
+      "certified": true
+    },
+    {
+      "candidate_index": 6,
+      "candidate": "BY SumIsSumFunction, SumType, NodeAssumption, SumFunctionZero, SumFunctionOnSetZero",
+      "coverage_score": -1.2855178476301217,
+      "certified": true
+    },
+    {
+      "candidate_index": 7,
+      "candidate": "BY SMT, SumIsSumFunction, SumType, NodeAssumption, SumFunctionZero, SumFunctionOnSetZero, SmallestNatural, DownwardNatInduction",
+      "coverage_score": -1.4565901413509288,
+      "certified": true
+    },
+    {
+      "candidate_index": 8,
+      "candidate": "BY SumIsSumFunction, SumType, NodeAssumption, SumFunctionZero, SumFunctionOnSetZero, SmallestNatural, DownwardNatInduction",
+      "coverage_score": -1.7001747515181955,
+      "certified": true
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SumIsSumFunction, SumType, NodeAssumption, SumFunctionZero",
+      "coverage_score": -2.1162487224041238,
+      "certified": true
+    },
+    {
+      "candidate_index": 11,
+      "candidate": "BY SMT, SumIsSumFunction, SumType, NodeAssumption, SumFunctionOnSetZero",
+      "coverage_score": -2.2073088844894766,
+      "certified": false
+    },
+    {
+      "candidate_index": 17,
+      "candidate": "BY SMT, SumIsSumFunction, SumType, NodeAssumption, Fun_NatBijEmpty",
+      "coverage_score": -2.2779352965426063,
+      "certified": false
+    },
+    {
+      "candidate_index": 4,
+      "candidate": "BY SumIsSumFunction, SumType, NodeAssumption, SumFunctionZero",
+      "coverage_score": -2.349522619458618,
+      "certified": true
+    },
+    {
+      "candidate_index": 12,
+      "candidate": "BY SumIsSumFunction, SumType, NodeAssumption, SumFunctionOnSetZero",
+      "coverage_score": -2.440582781543971,
+      "certified": false
+    },
+    {
+      "candidate_index": 18,
+      "candidate": "BY SumIsSumFunction, SumType, NodeAssumption, Fun_NatBijEmpty",
+      "coverage_score": -2.5112091935971006,
+      "certified": false
+    },
+    {
+      "candidate_index": 15,
+      "candidate": "BY SMT, SumIsSumFunction, SumType, NodeAssumption, DownwardNatInduction",
+      "coverage_score": -4.221401529761285,
+      "certified": false
+    },
+    {
+      "candidate_index": 19,
+      "candidate": "BY SMT, SumIsSumFunction, SumType, NodeAssumption, GeneralNatInduction",
+      "coverage_score": -4.221401529761285,
+      "certified": false
+    },
+    {
+      "candidate_index": 21,
+      "candidate": "BY SMT, SumIsSumFunction, SumType, NodeAssumption, NatInduction",
+      "coverage_score": -4.221401529761285,
+      "certified": false
+    },
+    {
+      "candidate_index": 23,
+      "candidate": "BY SMT, SumIsSumFunction, SumType, NodeAssumption, RecursiveFcnOfNatType",
+      "coverage_score": -4.221401529761285,
+      "certified": false
+    },
+    {
+      "candidate_index": 25,
+      "candidate": "BY SMT, SumIsSumFunction, SumType, NodeAssumption, Fun_NatInjLeq",
+      "coverage_score": -4.221401529761285,
+      "certified": false
+    },
+    {
+      "candidate_index": 27,
+      "candidate": "BY SMT, SumIsSumFunction, SumType, NodeAssumption, Fun_NatSurjEquivNatBij",
+      "coverage_score": -4.221401529761285,
+      "certified": false
+    },
+    {
+      "candidate_index": 13,
+      "candidate": "BY SMT, SumIsSumFunction, SumType, NodeAssumption, SmallestNatural",
+      "coverage_score": -4.322632784993145,
+      "certified": false
+    },
+    {
+      "candidate_index": 16,
+      "candidate": "BY SumIsSumFunction, SumType, NodeAssumption, DownwardNatInduction",
+      "coverage_score": -4.5455829557647105,
+      "certified": false
+    },
+    {
+      "candidate_index": 20,
+      "candidate": "BY SumIsSumFunction, SumType, NodeAssumption, GeneralNatInduction",
+      "coverage_score": -4.5455829557647105,
+      "certified": false
+    },
+    {
+      "candidate_index": 22,
+      "candidate": "BY SumIsSumFunction, SumType, NodeAssumption, NatInduction",
+      "coverage_score": -4.5455829557647105,
+      "certified": false
+    },
+    {
+      "candidate_index": 24,
+      "candidate": "BY SumIsSumFunction, SumType, NodeAssumption, RecursiveFcnOfNatType",
+      "coverage_score": -4.5455829557647105,
+      "certified": false
+    },
+    {
+      "candidate_index": 26,
+      "candidate": "BY SumIsSumFunction, SumType, NodeAssumption, Fun_NatInjLeq",
+      "coverage_score": -4.5455829557647105,
+      "certified": false
+    },
+    {
+      "candidate_index": 28,
+      "candidate": "BY SumIsSumFunction, SumType, NodeAssumption, Fun_NatSurjEquivNatBij",
+      "coverage_score": -4.5455829557647105,
+      "certified": false
+    },
+    {
+      "candidate_index": 14,
+      "candidate": "BY SumIsSumFunction, SumType, NodeAssumption, SmallestNatural",
+      "coverage_score": -4.64681421099657,
+      "certified": false
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "coverage_score": -5.870405169966802,
+      "certified": false
+    }
+  ],
+  "crdt-type-step": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, TypeOK, Safety, Monotonic, Monotonicity, Convergence, Init, Increment, Gossip, Next, Spec, Fairness, FairSpec",
+      "coverage_score": -1.7277137082360385,
+      "certified": true
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, TypeOK, Safety, Monotonic, Monotonicity, Convergence, Init, Increment, Gossip, Next, Spec, Fairness, FairSpec",
+      "coverage_score": -1.7277137082360385,
+      "certified": true
+    },
+    {
+      "candidate_index": 9,
+      "candidate": "BY SMT, Fun_InjectionProperties, Fun_IsInj, SetExtensionality, Fun_InverseProperties, DownwardNatInduction, Fun_BijectionProperties, Fun_InjInverse, Fun_IsBij",
+      "coverage_score": -4.170341567028726,
+      "certified": false
+    },
+    {
+      "candidate_index": 10,
+      "candidate": "BY Fun_InjectionProperties, Fun_IsInj, SetExtensionality, Fun_InverseProperties, DownwardNatInduction, Fun_BijectionProperties, Fun_InjInverse, Fun_IsBij",
+      "coverage_score": -4.533668054695037,
+      "certified": false
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "coverage_score": -4.539347286200521,
+      "certified": false
+    },
+    {
+      "candidate_index": 7,
+      "candidate": "BY SMT, Fun_InjectionProperties, Fun_IsInj, SetExtensionality, Fun_InverseProperties",
+      "coverage_score": -4.636134242812462,
+      "certified": false
+    },
+    {
+      "candidate_index": 8,
+      "candidate": "BY Fun_InjectionProperties, Fun_IsInj, SetExtensionality, Fun_InverseProperties",
+      "coverage_score": -4.989150017366001,
+      "certified": false
+    },
+    {
+      "candidate_index": 5,
+      "candidate": "BY SMT, Fun_InjectionProperties, Fun_IsInj",
+      "coverage_score": -5.687941281162968,
+      "certified": false
+    },
+    {
+      "candidate_index": 6,
+      "candidate": "BY Fun_InjectionProperties, Fun_IsInj",
+      "coverage_score": -5.951572693657104,
+      "certified": false
+    },
+    {
+      "candidate_index": 17,
+      "candidate": "BY SMT, DownwardNatInduction",
+      "coverage_score": -6.5226831015033095,
+      "certified": false
+    },
+    {
+      "candidate_index": 19,
+      "candidate": "BY SMT, Fun_BijectionProperties",
+      "coverage_score": -6.5226831015033095,
+      "certified": false
+    },
+    {
+      "candidate_index": 21,
+      "candidate": "BY SMT, Fun_InjInverse",
+      "coverage_score": -6.5226831015033095,
+      "certified": false
+    },
+    {
+      "candidate_index": 23,
+      "candidate": "BY SMT, Fun_IsBij",
+      "coverage_score": -6.5226831015033095,
+      "certified": false
+    },
+    {
+      "candidate_index": 25,
+      "candidate": "BY SMT, Fun_SmallestSurjectionIsBijection",
+      "coverage_score": -6.5226831015033095,
+      "certified": false
+    },
+    {
+      "candidate_index": 27,
+      "candidate": "BY SMT, GeneralNatInduction",
+      "coverage_score": -6.5226831015033095,
+      "certified": false
+    },
+    {
+      "candidate_index": 18,
+      "candidate": "BY DownwardNatInduction",
+      "coverage_score": -6.822645282933668,
+      "certified": false
+    },
+    {
+      "candidate_index": 20,
+      "candidate": "BY Fun_BijectionProperties",
+      "coverage_score": -6.822645282933668,
+      "certified": false
+    },
+    {
+      "candidate_index": 22,
+      "candidate": "BY Fun_InjInverse",
+      "coverage_score": -6.822645282933668,
+      "certified": false
+    },
+    {
+      "candidate_index": 24,
+      "candidate": "BY Fun_IsBij",
+      "coverage_score": -6.822645282933668,
+      "certified": false
+    },
+    {
+      "candidate_index": 26,
+      "candidate": "BY Fun_SmallestSurjectionIsBijection",
+      "coverage_score": -6.822645282933668,
+      "certified": false
+    },
+    {
+      "candidate_index": 28,
+      "candidate": "BY GeneralNatInduction",
+      "coverage_score": -6.822645282933668,
+      "certified": false
+    },
+    {
+      "candidate_index": 15,
+      "candidate": "BY SMT, Fun_InverseProperties",
+      "coverage_score": -6.963780626526512,
+      "certified": false
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, Fun_InjectionProperties",
+      "coverage_score": -7.201269724045139,
+      "certified": false
+    },
+    {
+      "candidate_index": 11,
+      "candidate": "BY SMT, Fun_IsInj",
+      "coverage_score": -7.201269724045139,
+      "certified": false
+    },
+    {
+      "candidate_index": 13,
+      "candidate": "BY SMT, SetExtensionality",
+      "coverage_score": -7.201269724045139,
+      "certified": false
+    },
+    {
+      "candidate_index": 16,
+      "candidate": "BY Fun_InverseProperties",
+      "coverage_score": -7.263742807956871,
+      "certified": false
+    },
+    {
+      "candidate_index": 4,
+      "candidate": "BY Fun_InjectionProperties",
+      "coverage_score": -7.501231905475498,
+      "certified": false
+    },
+    {
+      "candidate_index": 12,
+      "candidate": "BY Fun_IsInj",
+      "coverage_score": -7.501231905475498,
+      "certified": false
+    },
+    {
+      "candidate_index": 14,
+      "candidate": "BY SetExtensionality",
+      "coverage_score": -7.501231905475498,
+      "certified": false
+    }
+  ]
+}

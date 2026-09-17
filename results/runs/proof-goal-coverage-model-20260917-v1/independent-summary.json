@@ -1,0 +1,17 @@
+{
+  "kind": "proof_goal_coverage_independent_score_v1",
+  "tasks": 4,
+  "denominator_fixed": true,
+  "rankings_recomputed": true,
+  "checks": 16,
+  "rank1": 2,
+  "top4": 4,
+  "reference_fragment_used": false,
+  "protected_verifier_feedback_used": false,
+  "repair_or_reward_used": false,
+  "official_packet_used": false,
+  "quality_claim": false,
+  "gate_claim": false,
+  "manifest_sha256": "c186ddf0007c5b5adfdc345a06feb777a89746160cf9041b875a8655ed1eb344",
+  "model_sha256": "3d585c9f78121163ea8cb47114930a93eded3c10b00c12aa29c5c6796ad055fb"
+}
