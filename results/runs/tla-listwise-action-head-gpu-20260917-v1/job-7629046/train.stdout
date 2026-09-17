@@ -1,0 +1,7 @@
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/291 [00:00<?, ?it/s]Loading weights: 100%|██████████| 291/291 [00:00<00:00, 9225.50it/s]
+{
+  "updates": 16,
+  "holdout_rank1_certified": 3,
+  "official_tasks_ranked": 119
+}

@@ -1,0 +1,31 @@
+{
+  "job_id": "7629046.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "host": "polaris-login-04",
+  "pbs_state": "F",
+  "exit_status": 0,
+  "exec_host": "x3005c0s37b0n0/0*64",
+  "resources_used": {
+    "walltime": "00:01:39",
+    "ncpus": 64,
+    "ngpus": 1
+  },
+  "resource_request": {
+    "ngpus": 1,
+    "ncpus": 64,
+    "walltime": "00:15:00"
+  },
+  "training_tasks": 13,
+  "holdout_tasks": 4,
+  "parameter_updates": 16,
+  "holdout_rank1_certified": 3,
+  "holdout_tasks_with_certified_candidate": 4,
+  "official_tasks_ranked": 119,
+  "official_candidates_ranked": 462,
+  "gpu": "NVIDIA A100-SXM4-40GB",
+  "training_executed": true,
+  "tlaps_executed": false,
+  "protected_feedback": false,
+  "quality_claim": false,
+  "gate_claim": false,
+  "worker_summary": "results/runs/tla-listwise-action-head-gpu-20260917-v1/job-7629046/result.7629046/summary.json"
+}

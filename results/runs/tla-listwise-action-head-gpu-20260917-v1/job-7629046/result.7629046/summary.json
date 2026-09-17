@@ -1,0 +1,22 @@
+{
+  "training_tasks": 13,
+  "holdout_tasks": 4,
+  "parameter_updates": 16,
+  "holdout_rank1_certified": 3,
+  "holdout_tasks_with_certified_candidate": 4,
+  "official_tasks_ranked": 119,
+  "official_candidates_ranked": 462,
+  "representation": "frozen-parent pooled hidden-state linear listwise action head",
+  "learning_signal": "task-normalized listwise cross-entropy over complete candidate sets",
+  "reference_fragment_used": false,
+  "protected_verifier_feedback_used": false,
+  "tlaps_executed": false,
+  "proof_or_quality_claim": false,
+  "gate_claim": false,
+  "loss_first_last": [
+    1.6849989891052246,
+    0.0
+  ],
+  "head_sha256": "177083c3f23af486429b9f3259c91571107316058cf74dfbe53b6ba85ca5e85e",
+  "elapsed_seconds": 1.2695158820133656
+}

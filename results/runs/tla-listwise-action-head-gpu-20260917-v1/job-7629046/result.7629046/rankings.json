@@ -1,0 +1,3012 @@
+{
+  "10_lockserv": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY DEF vars, SendLock, RecvLock, RecvGrant, Unlock, RecvUnlock, Next, Init, TypeOK, NextUnchanged, Mutex, Inv151_1_0_def, Inv162_1_1_def, Inv146_1_2_def, Inv164_1_3_def, Inv149_1_4_def, Inv177_1_5_def, Inv96_2_6_def, Inv128_2_0_def, IndAuto",
+      "mean_logp": 25.21929359436035,
+      "action_head_score": 25.21929359436035
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "OBVIOUS",
+      "mean_logp": -129.7467498779297,
+      "action_head_score": -129.7467498779297
+    }
+  ],
+  "11_TwoPhase": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY DEF vars, Message, TypeOK, Init, TMRcvPrepared, TMCommit, TMAbort, RMPrepare, RMChooseToAbort, RMRcvCommitMsg, RMRcvAbortMsg, Next, TPSpec, NextUnchanged, Symmetry, Test, TCConsistent, Inv276_1_0_def, Inv45_1_1_def, Inv79_1_2_def, Inv349_1_3_def, Inv318_1_4_def, Inv331_1_5_def, Inv334_1_6_def, Inv344_1_7_def, Inv1863_2_8_def, IndAuto",
+      "mean_logp": 41.43333053588867,
+      "action_head_score": 41.43333053588867
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "OBVIOUS",
+      "mean_logp": -129.7467498779297,
+      "action_head_score": -129.7467498779297
+    }
+  ],
+  "13_simple_decentralized_lock": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, Send, Recv, Next, NextUnchanged, Init, TypeOK, Inv, IndHuman, IndHumanB, Inv531_1_0_def, Inv4437_2_1_def, Inv4494_2_2_def, IndAuto",
+      "mean_logp": 49.21046447753906,
+      "action_head_score": 49.21046447753906
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, Send, Recv, Next, NextUnchanged, Init, TypeOK, Inv, IndHuman, IndHumanB, Inv531_1_0_def, Inv4437_2_1_def, Inv4494_2_2_def, IndAuto",
+      "mean_logp": 22.456838607788086,
+      "action_head_score": 22.456838607788086
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -108.47466278076172,
+      "action_head_score": -108.47466278076172
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -147.6331329345703,
+      "action_head_score": -147.6331329345703
+    }
+  ],
+  "14_two_phase_commit": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY DEF vars, Vote1, Vote2, Fail, Go1, Go2, Commit, Abort, Next, Init, NextUnchanged, TypeOK, Safety, Symmetry, Inv703_1_0_def, Inv1049_1_1_def, Inv648_1_2_def, Inv699_1_3_def, Inv346_1_4_def, Inv313_1_5_def, Inv588_1_0_def, Inv591_1_1_def, Inv2455_2_2_def, Inv192_1_0_def, IndAuto",
+      "mean_logp": 31.380348205566406,
+      "action_head_score": 31.380348205566406
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "OBVIOUS",
+      "mean_logp": -129.7467498779297,
+      "action_head_score": -129.7467498779297
+    }
+  ],
+  "15_consensus_wo_decide": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF SendRequestVote, SendVote, RecvVote, ChooseVotingQuorum, BecomeLeader, Init, Next, TypeOK, Safety, NoLeader, Symmetry, NextUnchanged, A1, A2, A3, A4, IndHuman, Ind, Inv434_1_0_def, Inv306_1_1_def, Inv426_1_2_def, Inv550_1_3_def, Inv6986_2_4_def, Inv538_1_0_def, Inv1559_2_1_def, IndAuto",
+      "mean_logp": 38.351173400878906,
+      "action_head_score": 38.351173400878906
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF SendRequestVote, SendVote, RecvVote, ChooseVotingQuorum, BecomeLeader, Init, Next, TypeOK, Safety, NoLeader, Symmetry, NextUnchanged, A1, A2, A3, A4, IndHuman, Ind, Inv434_1_0_def, Inv306_1_1_def, Inv426_1_2_def, Inv550_1_3_def, Inv6986_2_4_def, Inv538_1_0_def, Inv1559_2_1_def, IndAuto",
+      "mean_logp": 26.841861724853516,
+      "action_head_score": 26.841861724853516
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -108.7003173828125,
+      "action_head_score": -108.7003173828125
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -146.7777862548828,
+      "action_head_score": -146.7777862548828
+    }
+  ],
+  "16_consensus_forall": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, SendRequestVote, SendVote, RecvVote, ChooseVotingQuorum, BecomeLeader, Decide, Init, SendRequestVoteAction, SendVoteAction, RecvVoteAction, ChooseVotingQuorumAction, BecomeLeaderAction, DecideAction, Next, TypeOK, Safety, NoLeader, Symmetry, NextUnchanged, Inv358_1_0_def, Inv119_1_1_def, Inv759_1_2_def, Inv680_1_3_def, Inv7155_2_4_def, Inv7039_2_0_def, Inv2245_2_1_def, IndAuto",
+      "mean_logp": 43.019813537597656,
+      "action_head_score": 43.019813537597656
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, SendRequestVote, SendVote, RecvVote, ChooseVotingQuorum, BecomeLeader, Decide, Init, SendRequestVoteAction, SendVoteAction, RecvVoteAction, ChooseVotingQuorumAction, BecomeLeaderAction, DecideAction, Next, TypeOK, Safety, NoLeader, Symmetry, NextUnchanged, Inv358_1_0_def, Inv119_1_1_def, Inv759_1_2_def, Inv680_1_3_def, Inv7155_2_4_def, Inv7039_2_0_def, Inv2245_2_1_def, IndAuto",
+      "mean_logp": 33.405242919921875,
+      "action_head_score": 33.405242919921875
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -105.62715911865234,
+      "action_head_score": -105.62715911865234
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -143.4593505859375,
+      "action_head_score": -143.4593505859375
+    }
+  ],
+  "19_sharded_kv_no_lost_keys": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, Reshard, RecvTransferMsg, Put, Next, Init, TypeOK, Safety, Symmetry, NextUnchanged, Inv45_1_0_def, IndAuto",
+      "mean_logp": 51.0422248840332,
+      "action_head_score": 51.0422248840332
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, Reshard, RecvTransferMsg, Put, Next, Init, TypeOK, Safety, Symmetry, NextUnchanged, Inv45_1_0_def, IndAuto",
+      "mean_logp": 33.90131759643555,
+      "action_head_score": 33.90131759643555
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -106.0452651977539,
+      "action_head_score": -106.0452651977539
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -146.13674926757812,
+      "action_head_score": -146.13674926757812
+    }
+  ],
+  "1_Consensus": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY DEF TypeOK, Init, Next, Inv, IndAuto",
+      "mean_logp": -37.94963073730469,
+      "action_head_score": -37.94963073730469
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY FS_Subset, FS_EmptySet",
+      "mean_logp": -99.95291900634766,
+      "action_head_score": -99.95291900634766
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "OBVIOUS",
+      "mean_logp": -129.62290954589844,
+      "action_head_score": -129.62290954589844
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY FS_Subset",
+      "mean_logp": -146.84608459472656,
+      "action_head_score": -146.84608459472656
+    }
+  ],
+  "20_naive_consensus": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, VotedFor, CastVote, CollectVotes, LearnValue, Init, Next, NextUnchanged, TypeOK, Safety, Symmetry, Inv255_1_0_def, Inv1230_2_1_def, Inv217_2_2_def, IndAuto",
+      "mean_logp": 45.74444580078125,
+      "action_head_score": 45.74444580078125
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, VotedFor, CastVote, CollectVotes, LearnValue, Init, Next, NextUnchanged, TypeOK, Safety, Symmetry, Inv255_1_0_def, Inv1230_2_1_def, Inv217_2_2_def, IndAuto",
+      "mean_logp": 28.418527603149414,
+      "action_head_score": 28.418527603149414
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -107.09001922607422,
+      "action_head_score": -107.09001922607422
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -146.3841094970703,
+      "action_head_score": -146.3841094970703
+    }
+  ],
+  "21_client_server_ae": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY DEF vars, ResponseMatched, NewRequest, Respond, ReceiveResponse, Next, Init, TypeOK, NextUnchanged, Safety, Symmetry, Inv93_1_0_def, IndAuto",
+      "mean_logp": 35.4665641784668,
+      "action_head_score": 35.4665641784668
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY FS_Subset, FS_EmptySet",
+      "mean_logp": -90.42948913574219,
+      "action_head_score": -90.42948913574219
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "OBVIOUS",
+      "mean_logp": -127.7641830444336,
+      "action_head_score": -127.7641830444336
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY FS_Subset",
+      "mean_logp": -138.89398193359375,
+      "action_head_score": -138.89398193359375
+    }
+  ],
+  "22_simple_election": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, DidNotPromise, ChosenAt, Send1a, Send1b, Decide, Next, Init, NextUnchanged, TypeOK, Safety, Inv219_1_0_def, Inv136_1_1_def, Inv200_2_2_def, IndAuto",
+      "mean_logp": 47.675933837890625,
+      "action_head_score": 47.675933837890625
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, DidNotPromise, ChosenAt, Send1a, Send1b, Decide, Next, Init, NextUnchanged, TypeOK, Safety, Inv219_1_0_def, Inv136_1_1_def, Inv200_2_2_def, IndAuto",
+      "mean_logp": 31.957117080688477,
+      "action_head_score": 31.957117080688477
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -105.24162292480469,
+      "action_head_score": -105.24162292480469
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -143.12191772460938,
+      "action_head_score": -143.12191772460938
+    }
+  ],
+  "23_toy_consensus_epr": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY DEF vars, ChosenAt, CastVote, Decide, Init, Next, NextUnchanged, TypeOK, Safety, Symmetry, Inv220_1_0_def, Inv155_1_1_def, Inv201_2_2_def, IndAuto",
+      "mean_logp": 22.770233154296875,
+      "action_head_score": 22.770233154296875
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY FS_Subset, FS_EmptySet",
+      "mean_logp": -82.59912109375,
+      "action_head_score": -82.59912109375
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "OBVIOUS",
+      "mean_logp": -129.82704162597656,
+      "action_head_score": -129.82704162597656
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY FS_Subset",
+      "mean_logp": -129.9440155029297,
+      "action_head_score": -129.9440155029297
+    }
+  ],
+  "24_toy_consensus": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY DEF vars, Quorums, ChosenAt, CastVote, Decide, Init, Next, TypeOK, NextUnchanged, Inv, Symmetry, Inv78_1_0_def, IndAuto",
+      "mean_logp": 26.799402236938477,
+      "action_head_score": 26.799402236938477
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY FS_Subset, FS_EmptySet",
+      "mean_logp": -75.62907409667969,
+      "action_head_score": -75.62907409667969
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY FS_Subset",
+      "mean_logp": -125.64925384521484,
+      "action_head_score": -125.64925384521484
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "OBVIOUS",
+      "mean_logp": -127.18082427978516,
+      "action_head_score": -127.18082427978516
+    }
+  ],
+  "25_client_server_db_ae": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, NoneWithId, ResponseMatched, NewRequest, ServerProcessRequest, DbProcessRequest, ServerProcessDbResponse, ReceiveResponse, Next, Init, TypeOK, Safety, Symmetry, NextUnchanged, Test, Inv273_1_0_def, Inv209_1_1_def, Inv3082_2_2_def, Inv380_1_0_def, Inv388_1_1_def, Inv2868_2_2_def, Inv873_2_3_def, IndAuto",
+      "mean_logp": 38.18670654296875,
+      "action_head_score": 38.18670654296875
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, NoneWithId, ResponseMatched, NewRequest, ServerProcessRequest, DbProcessRequest, ServerProcessDbResponse, ReceiveResponse, Next, Init, TypeOK, Safety, Symmetry, NextUnchanged, Test, Inv273_1_0_def, Inv209_1_1_def, Inv3082_2_2_def, Inv380_1_0_def, Inv388_1_1_def, Inv2868_2_2_def, Inv873_2_3_def, IndAuto",
+      "mean_logp": 25.403200149536133,
+      "action_head_score": 25.403200149536133
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -108.63217163085938,
+      "action_head_score": -108.63217163085938
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -148.35089111328125,
+      "action_head_score": -148.35089111328125
+    }
+  ],
+  "27_firewall": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, SendFromInternal, SendToInternal, Init, Next, Inv, NextUnchanged, TypeOK, Symmetry, Inv285_1_0_def, Inv201_1_1_def, Inv370_1_2_def, Inv3144_2_3_def, IndAuto",
+      "mean_logp": 36.11722946166992,
+      "action_head_score": 36.11722946166992
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, SendFromInternal, SendToInternal, Init, Next, Inv, NextUnchanged, TypeOK, Symmetry, Inv285_1_0_def, Inv201_1_1_def, Inv370_1_2_def, Inv3144_2_3_def, IndAuto",
+      "mean_logp": 1.7951511144638062,
+      "action_head_score": 1.7951511144638062
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -110.11888122558594,
+      "action_head_score": -110.11888122558594
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -148.95359802246094,
+      "action_head_score": -148.95359802246094
+    }
+  ],
+  "28_majorityset_leader_election": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, Majority, DidNotVote, Voting, ReceiveVote, BecomeLeader, Next, EmptySet, Init, TypeOK, Safety, Symmetry, NextUnchanged, Inv172_1_0_def, Inv396_1_1_def, Inv1537_2_2_def, IndAuto",
+      "mean_logp": 36.07530975341797,
+      "action_head_score": 36.07530975341797
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, Majority, DidNotVote, Voting, ReceiveVote, BecomeLeader, Next, EmptySet, Init, TypeOK, Safety, Symmetry, NextUnchanged, Inv172_1_0_def, Inv396_1_1_def, Inv1537_2_2_def, IndAuto",
+      "mean_logp": 25.17633628845215,
+      "action_head_score": 25.17633628845215
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NatTimesTwoIneq, NatIneqTrans, SetExtensionality",
+      "mean_logp": -61.384613037109375,
+      "action_head_score": -61.384613037109375
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -145.32623291015625,
+      "action_head_score": -145.32623291015625
+    }
+  ],
+  "29_consensus_epr": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, SendRequestVote, SendVote, RecvVote, BecomeLeader, Decide, Init, Next, Symmetry, TypeOK, Safety, SafetyWithTypeOK, NextUnchanged, Inv119_1_0_def, Inv152_1_1_def, Inv693_1_2_def, Inv164_1_3_def, Inv622_1_4_def, Inv4302_2_0_def, Inv5288_2_0_def, IndAuto",
+      "mean_logp": 41.29890441894531,
+      "action_head_score": 41.29890441894531
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, SendRequestVote, SendVote, RecvVote, BecomeLeader, Decide, Init, Next, Symmetry, TypeOK, Safety, SafetyWithTypeOK, NextUnchanged, Inv119_1_0_def, Inv152_1_1_def, Inv693_1_2_def, Inv164_1_3_def, Inv622_1_4_def, Inv4302_2_0_def, Inv5288_2_0_def, IndAuto",
+      "mean_logp": 28.08599090576172,
+      "action_head_score": 28.08599090576172
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -105.40191650390625,
+      "action_head_score": -105.40191650390625
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -143.6086883544922,
+      "action_head_score": -143.6086883544922
+    }
+  ],
+  "2_TCommit": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY DEF TCTypeOK, Init, canCommit, notCommitted, Prepare, Decide, Next, TCSpec, TCConsistent, Symmetry, IndAuto",
+      "mean_logp": 37.879638671875,
+      "action_head_score": 37.879638671875
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "OBVIOUS",
+      "mean_logp": -129.7467498779297,
+      "action_head_score": -129.7467498779297
+    }
+  ],
+  "30_MongoLoglessDynamicRaft": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, Quorums, QuorumsAt, Empty, IsNewerConfig, IsNewerOrEqualConfig, NewerConfig, NewerOrEqualConfig, CanVoteForConfig, QuorumsOverlap, ConfigIsCommitted, UpdateTermsExpr, UpdateTerms, BecomeLeader, Reconfig, SendConfig, Init, ReconfigAction, SendConfigAction, BecomeLeaderAction, UpdateTermsAction, Next, Spec, CV, ConfigDisabled, OnePrimaryPerTerm, Safety, SeqOf, BoundedSeq, NatFinite, PositiveNat, NumRandSubsets, TypeOK, StateConstraint, NextUnchanged, Symmetry, Test, Inv2973_1_1_def, Inv1758_1_0_def, Inv3915_1_1_def, Inv3246_1_2_def, Inv866_1_0_def, IndAuto, ActiveConfigSet, Inv862_1_0_def, Inv846_1_0_def, Inv6243_1_1_def, Inv648_1_0_def, Inv1925_1_1_def, Inv716_1_1_def, Inv852_1_2_def",
+      "mean_logp": 43.69337463378906,
+      "action_head_score": 43.69337463378906
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, Quorums, QuorumsAt, Empty, IsNewerConfig, IsNewerOrEqualConfig, NewerConfig, NewerOrEqualConfig, CanVoteForConfig, QuorumsOverlap, ConfigIsCommitted, UpdateTermsExpr, UpdateTerms, BecomeLeader, Reconfig, SendConfig, Init, ReconfigAction, SendConfigAction, BecomeLeaderAction, UpdateTermsAction, Next, Spec, CV, ConfigDisabled, OnePrimaryPerTerm, Safety, SeqOf, BoundedSeq, NatFinite, PositiveNat, NumRandSubsets, TypeOK, StateConstraint, NextUnchanged, Symmetry, Test, Inv2973_1_1_def, Inv1758_1_0_def, Inv3915_1_1_def, Inv3246_1_2_def, Inv866_1_0_def, IndAuto, ActiveConfigSet, Inv862_1_0_def, Inv846_1_0_def, Inv6243_1_1_def, Inv648_1_0_def, Inv1925_1_1_def, Inv716_1_1_def, Inv852_1_2_def",
+      "mean_logp": 32.09496307373047,
+      "action_head_score": 32.09496307373047
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -109.15480041503906,
+      "action_head_score": -109.15480041503906
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -149.05384826660156,
+      "action_head_score": -149.05384826660156
+    }
+  ],
+  "3_lockserver": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, Connect, Disconnect, Init, Next, NextUnchanged, TypeOK, Inv, Inv10_1_0_def, IndAuto",
+      "mean_logp": 25.101133346557617,
+      "action_head_score": 25.101133346557617
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, Connect, Disconnect, Init, Next, NextUnchanged, TypeOK, Inv, Inv10_1_0_def, IndAuto",
+      "mean_logp": -6.80139684677124,
+      "action_head_score": -6.80139684677124
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -112.92951202392578,
+      "action_head_score": -112.92951202392578
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -148.1967010498047,
+      "action_head_score": -148.1967010498047
+    }
+  ],
+  "4_quorum_leader_election": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY DEF vars, Quorums, Vote, BecomeLeader, Init, Next, Inv, TypeOK, NextUnchanged, Inv55_1_0_def, IndAuto",
+      "mean_logp": 35.384891510009766,
+      "action_head_score": 35.384891510009766
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY FS_Subset, FS_EmptySet",
+      "mean_logp": -79.96310424804688,
+      "action_head_score": -79.96310424804688
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY FS_Subset",
+      "mean_logp": -128.9125213623047,
+      "action_head_score": -128.9125213623047
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "OBVIOUS",
+      "mean_logp": -131.2643280029297,
+      "action_head_score": -131.2643280029297
+    }
+  ],
+  "5_toy_consensus_forall": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY DEF vars, Quorums, CastVote, Decide, Init, Next, NextUnchanged, Inv, TypeOK, Symmetry, Inv150_1_0_def, Inv65_1_1_def, IndAuto",
+      "mean_logp": 18.5887393951416,
+      "action_head_score": 18.5887393951416
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY FS_Subset, FS_EmptySet",
+      "mean_logp": -80.31346130371094,
+      "action_head_score": -80.31346130371094
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY FS_Subset",
+      "mean_logp": -128.46641540527344,
+      "action_head_score": -128.46641540527344
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "OBVIOUS",
+      "mean_logp": -130.45339965820312,
+      "action_head_score": -130.45339965820312
+    }
+  ],
+  "6_Simple": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, NextUnchanged, PCorrect, TypeOK, Inv31_1_0_def, IndAuto",
+      "mean_logp": 33.270538330078125,
+      "action_head_score": 33.270538330078125
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "OBVIOUS",
+      "mean_logp": -135.47366333007812,
+      "action_head_score": -135.47366333007812
+    }
+  ],
+  "7_lockserv_automaton": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY DEF vars, Lock, Unlock, RecvLock, RecvGrant, RecvUnlock, Next, Init, NextUnchanged, TypeOK, Mutex, Inv151_1_0_def, Inv60_1_1_def, Inv147_1_2_def, Inv169_1_3_def, Inv58_1_4_def, Inv64_1_5_def, Inv96_2_6_def, Inv134_2_7_def, IndAuto",
+      "mean_logp": 22.505205154418945,
+      "action_head_score": 22.505205154418945
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "OBVIOUS",
+      "mean_logp": -129.7467498779297,
+      "action_head_score": -129.7467498779297
+    }
+  ],
+  "8_SimpleRegular": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY DEF vars, ProcSet, Init, a1, a2, b, proc, Next, Spec, Termination, NextUnchanged, PCorrect, TypeOK, Inv417_1_0_def, Inv921_1_1_def, Inv924_1_2_def, IndAuto",
+      "mean_logp": 31.803247451782227,
+      "action_head_score": 31.803247451782227
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "OBVIOUS",
+      "mean_logp": -134.2277374267578,
+      "action_head_score": -134.2277374267578
+    }
+  ],
+  "9_sharded_kv": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, Reshard, RecvTransferMsg, Put, Next, Init, TypeOK, Safety, Symmetry, NextUnchanged, Inv238_1_0_def, Inv114_1_1_def, Inv1376_2_2_def, Inv1336_2_0_def, Inv1476_2_1_def, IndAuto",
+      "mean_logp": 43.912193298339844,
+      "action_head_score": 43.912193298339844
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, Reshard, RecvTransferMsg, Put, Next, Init, TypeOK, Safety, Symmetry, NextUnchanged, Inv238_1_0_def, Inv114_1_1_def, Inv1376_2_2_def, Inv1336_2_0_def, Inv1476_2_1_def, IndAuto",
+      "mean_logp": 28.95172882080078,
+      "action_head_score": 28.95172882080078
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -108.24800109863281,
+      "action_head_score": -108.24800109863281
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -147.91616821289062,
+      "action_head_score": -147.91616821289062
+    }
+  ],
+  "aimeII_2001_p3": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -87.2175064086914,
+      "action_head_score": -87.2175064086914
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -113.82904052734375,
+      "action_head_score": -113.82904052734375
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -152.7217559814453,
+      "action_head_score": -152.7217559814453
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -163.74200439453125,
+      "action_head_score": -163.74200439453125
+    }
+  ],
+  "aime_1984_p7": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything, SetExtensionality",
+      "mean_logp": -78.23982238769531,
+      "action_head_score": -78.23982238769531
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "mean_logp": -94.1168212890625,
+      "action_head_score": -94.1168212890625
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY NoSetContainsEverything",
+      "mean_logp": -130.76710510253906,
+      "action_head_score": -130.76710510253906
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -150.4458465576172,
+      "action_head_score": -150.4458465576172
+    }
+  ],
+  "aime_1987_p5": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -89.30865478515625,
+      "action_head_score": -89.30865478515625
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -115.04059600830078,
+      "action_head_score": -115.04059600830078
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -153.89700317382812,
+      "action_head_score": -153.89700317382812
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -166.0421600341797,
+      "action_head_score": -166.0421600341797
+    }
+  ],
+  "aime_1991_p1": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -83.41191101074219,
+      "action_head_score": -83.41191101074219
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -109.77410888671875,
+      "action_head_score": -109.77410888671875
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -152.7088165283203,
+      "action_head_score": -152.7088165283203
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -163.27606201171875,
+      "action_head_score": -163.27606201171875
+    }
+  ],
+  "aime_1994_p3": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -84.01075744628906,
+      "action_head_score": -84.01075744628906
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -109.47769165039062,
+      "action_head_score": -109.47769165039062
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -152.96371459960938,
+      "action_head_score": -152.96371459960938
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -163.57679748535156,
+      "action_head_score": -163.57679748535156
+    }
+  ],
+  "algebra_xmysqpymzsqpzmxsqeqxyz_xpypzp6dvdx3y3z3": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Divides",
+      "mean_logp": -77.72238159179688,
+      "action_head_score": -77.72238159179688
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -110.46078491210938,
+      "action_head_score": -110.46078491210938
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Divides",
+      "mean_logp": -123.90283203125,
+      "action_head_score": -123.90283203125
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -150.98548889160156,
+      "action_head_score": -150.98548889160156
+    }
+  ],
+  "amc12_2000_p1": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -78.12004089355469,
+      "action_head_score": -78.12004089355469
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -103.0183334350586,
+      "action_head_score": -103.0183334350586
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -145.2410125732422,
+      "action_head_score": -145.2410125732422
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -158.5109100341797,
+      "action_head_score": -158.5109100341797
+    }
+  ],
+  "amc12_2000_p12": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -82.73193359375,
+      "action_head_score": -82.73193359375
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -105.42525482177734,
+      "action_head_score": -105.42525482177734
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -146.78158569335938,
+      "action_head_score": -146.78158569335938
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -159.9869842529297,
+      "action_head_score": -159.9869842529297
+    }
+  ],
+  "amc12_2000_p6": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF IsPrime",
+      "mean_logp": -74.48931121826172,
+      "action_head_score": -74.48931121826172
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -108.88358306884766,
+      "action_head_score": -108.88358306884766
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF IsPrime",
+      "mean_logp": -114.7641830444336,
+      "action_head_score": -114.7641830444336
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -151.47271728515625,
+      "action_head_score": -151.47271728515625
+    }
+  ],
+  "amc12_2001_p2": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -90.1716079711914,
+      "action_head_score": -90.1716079711914
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -113.70916748046875,
+      "action_head_score": -113.70916748046875
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -150.1875762939453,
+      "action_head_score": -150.1875762939453
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -161.9927978515625,
+      "action_head_score": -161.9927978515625
+    }
+  ],
+  "amc12_2001_p21": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -87.04291534423828,
+      "action_head_score": -87.04291534423828
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -111.83506774902344,
+      "action_head_score": -111.83506774902344
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -148.12680053710938,
+      "action_head_score": -148.12680053710938
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -161.14930725097656,
+      "action_head_score": -161.14930725097656
+    }
+  ],
+  "amc12a_2002_p6": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything, SetExtensionality",
+      "mean_logp": -85.09748840332031,
+      "action_head_score": -85.09748840332031
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "mean_logp": -100.4933853149414,
+      "action_head_score": -100.4933853149414
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY NoSetContainsEverything",
+      "mean_logp": -130.4145050048828,
+      "action_head_score": -130.4145050048828
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -152.49911499023438,
+      "action_head_score": -152.49911499023438
+    }
+  ],
+  "amc12a_2003_p5": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -88.37193298339844,
+      "action_head_score": -88.37193298339844
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -112.82231140136719,
+      "action_head_score": -112.82231140136719
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -151.33206176757812,
+      "action_head_score": -151.33206176757812
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -163.68692016601562,
+      "action_head_score": -163.68692016601562
+    }
+  ],
+  "amc12a_2015_p10": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -84.58514404296875,
+      "action_head_score": -84.58514404296875
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -110.615478515625,
+      "action_head_score": -110.615478515625
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -149.7526092529297,
+      "action_head_score": -149.7526092529297
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -161.2430877685547,
+      "action_head_score": -161.2430877685547
+    }
+  ],
+  "amc12a_2021_p3": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -88.35175323486328,
+      "action_head_score": -88.35175323486328
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -114.60176086425781,
+      "action_head_score": -114.60176086425781
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -152.35659790039062,
+      "action_head_score": -152.35659790039062
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -165.2467803955078,
+      "action_head_score": -165.2467803955078
+    }
+  ],
+  "amc12a_2021_p8": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Even, Odd",
+      "mean_logp": -54.615989685058594,
+      "action_head_score": -54.615989685058594
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "mean_logp": -94.80403900146484,
+      "action_head_score": -94.80403900146484
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Even, Odd",
+      "mean_logp": -114.53601837158203,
+      "action_head_score": -114.53601837158203
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -144.9771270751953,
+      "action_head_score": -144.9771270751953
+    }
+  ],
+  "amc12b_2002_p11": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF IsPrime",
+      "mean_logp": -82.82414245605469,
+      "action_head_score": -82.82414245605469
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -114.63899993896484,
+      "action_head_score": -114.63899993896484
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF IsPrime",
+      "mean_logp": -128.3671417236328,
+      "action_head_score": -128.3671417236328
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -154.8218231201172,
+      "action_head_score": -154.8218231201172
+    }
+  ],
+  "amc12b_2002_p2": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -92.14627075195312,
+      "action_head_score": -92.14627075195312
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -116.87859344482422,
+      "action_head_score": -116.87859344482422
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -154.94781494140625,
+      "action_head_score": -154.94781494140625
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -168.1266632080078,
+      "action_head_score": -168.1266632080078
+    }
+  ],
+  "amc12b_2002_p7": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -83.42864990234375,
+      "action_head_score": -83.42864990234375
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -108.50638580322266,
+      "action_head_score": -108.50638580322266
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -148.63462829589844,
+      "action_head_score": -148.63462829589844
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -159.3418731689453,
+      "action_head_score": -159.3418731689453
+    }
+  ],
+  "imo_1977_p5": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF ABS",
+      "mean_logp": -80.36609649658203,
+      "action_head_score": -80.36609649658203
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -108.45272064208984,
+      "action_head_score": -108.45272064208984
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF ABS",
+      "mean_logp": -129.0695343017578,
+      "action_head_score": -129.0695343017578
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -150.2527618408203,
+      "action_head_score": -150.2527618408203
+    }
+  ],
+  "imo_1977_p6": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -94.33458709716797,
+      "action_head_score": -94.33458709716797
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -119.40013122558594,
+      "action_head_score": -119.40013122558594
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -157.4420623779297,
+      "action_head_score": -157.4420623779297
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -166.77345275878906,
+      "action_head_score": -166.77345275878906
+    }
+  ],
+  "imo_1981_p6": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -93.72027587890625,
+      "action_head_score": -93.72027587890625
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -119.2814712524414,
+      "action_head_score": -119.2814712524414
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -158.08656311035156,
+      "action_head_score": -158.08656311035156
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -168.93856811523438,
+      "action_head_score": -168.93856811523438
+    }
+  ],
+  "imo_1982_p1": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -91.05299377441406,
+      "action_head_score": -91.05299377441406
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -116.92121887207031,
+      "action_head_score": -116.92121887207031
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -154.9242401123047,
+      "action_head_score": -154.9242401123047
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -166.3594207763672,
+      "action_head_score": -166.3594207763672
+    }
+  ],
+  "imo_1987_p4": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything, SetExtensionality",
+      "mean_logp": -80.64607238769531,
+      "action_head_score": -80.64607238769531
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "mean_logp": -97.93953704833984,
+      "action_head_score": -97.93953704833984
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY NoSetContainsEverything",
+      "mean_logp": -129.32704162597656,
+      "action_head_score": -129.32704162597656
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -155.49853515625,
+      "action_head_score": -155.49853515625
+    }
+  ],
+  "imo_1992_p1": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Divides",
+      "mean_logp": -74.47908782958984,
+      "action_head_score": -74.47908782958984
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -114.29988098144531,
+      "action_head_score": -114.29988098144531
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Divides",
+      "mean_logp": -118.33025360107422,
+      "action_head_score": -118.33025360107422
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -152.78453063964844,
+      "action_head_score": -152.78453063964844
+    }
+  ],
+  "imo_1993_p5": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything, SetExtensionality",
+      "mean_logp": -81.89937591552734,
+      "action_head_score": -81.89937591552734
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "mean_logp": -99.59954833984375,
+      "action_head_score": -99.59954833984375
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY NoSetContainsEverything",
+      "mean_logp": -132.04722595214844,
+      "action_head_score": -132.04722595214844
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -151.3841552734375,
+      "action_head_score": -151.3841552734375
+    }
+  ],
+  "imo_2001_p6": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF IsPrime",
+      "mean_logp": -72.78730773925781,
+      "action_head_score": -72.78730773925781
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -114.96726989746094,
+      "action_head_score": -114.96726989746094
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF IsPrime",
+      "mean_logp": -118.23007202148438,
+      "action_head_score": -118.23007202148438
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -151.4684600830078,
+      "action_head_score": -151.4684600830078
+    }
+  ],
+  "imo_2019_p1": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -97.6906509399414,
+      "action_head_score": -97.6906509399414
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -123.34478759765625,
+      "action_head_score": -123.34478759765625
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -161.57086181640625,
+      "action_head_score": -161.57086181640625
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -170.0272979736328,
+      "action_head_score": -170.0272979736328
+    }
+  ],
+  "induction_divisibility_3divnto3m2n": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Divides",
+      "mean_logp": -86.33097839355469,
+      "action_head_score": -86.33097839355469
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "mean_logp": -102.96321105957031,
+      "action_head_score": -102.96321105957031
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Divides",
+      "mean_logp": -132.2337188720703,
+      "action_head_score": -132.2337188720703
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -154.7091827392578,
+      "action_head_score": -154.7091827392578
+    }
+  ],
+  "induction_ineq_nsqlefactn": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, FactorialDefConclusion, FactorialDef, DownwardNatInduction, GeneralNatInduction",
+      "mean_logp": -55.687137603759766,
+      "action_head_score": -55.687137603759766
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, FactorialDefConclusion, FactorialDef, DownwardNatInduction",
+      "mean_logp": -61.69108963012695,
+      "action_head_score": -61.69108963012695
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY FactorialDefConclusion, FactorialDef, DownwardNatInduction",
+      "mean_logp": -81.7701416015625,
+      "action_head_score": -81.7701416015625
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -139.65753173828125,
+      "action_head_score": -139.65753173828125
+    }
+  ],
+  "mathd_algebra_123": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -87.11117553710938,
+      "action_head_score": -87.11117553710938
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -113.83847045898438,
+      "action_head_score": -113.83847045898438
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -153.2493896484375,
+      "action_head_score": -153.2493896484375
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -165.0153045654297,
+      "action_head_score": -165.0153045654297
+    }
+  ],
+  "mathd_algebra_125": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -89.00883483886719,
+      "action_head_score": -89.00883483886719
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -115.5447006225586,
+      "action_head_score": -115.5447006225586
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -154.28414916992188,
+      "action_head_score": -154.28414916992188
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -168.1717071533203,
+      "action_head_score": -168.1717071533203
+    }
+  ],
+  "mathd_algebra_144": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -84.6296157836914,
+      "action_head_score": -84.6296157836914
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -111.5215072631836,
+      "action_head_score": -111.5215072631836
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -148.43011474609375,
+      "action_head_score": -148.43011474609375
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -159.2247314453125,
+      "action_head_score": -159.2247314453125
+    }
+  ],
+  "mathd_algebra_296": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF ABS",
+      "mean_logp": -87.70684814453125,
+      "action_head_score": -87.70684814453125
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "mean_logp": -93.84217834472656,
+      "action_head_score": -93.84217834472656
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -142.12644958496094,
+      "action_head_score": -142.12644958496094
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF ABS",
+      "mean_logp": -143.39039611816406,
+      "action_head_score": -143.39039611816406
+    }
+  ],
+  "mathd_algebra_392": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Even",
+      "mean_logp": -91.56173706054688,
+      "action_head_score": -91.56173706054688
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -111.78360748291016,
+      "action_head_score": -111.78360748291016
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Even",
+      "mean_logp": -145.37179565429688,
+      "action_head_score": -145.37179565429688
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -148.5380401611328,
+      "action_head_score": -148.5380401611328
+    }
+  ],
+  "mathd_algebra_69": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -87.3124771118164,
+      "action_head_score": -87.3124771118164
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -113.0250244140625,
+      "action_head_score": -113.0250244140625
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -151.5070343017578,
+      "action_head_score": -151.5070343017578
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -164.87271118164062,
+      "action_head_score": -164.87271118164062
+    }
+  ],
+  "mathd_algebra_76": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Even, Odd",
+      "mean_logp": -65.37625122070312,
+      "action_head_score": -65.37625122070312
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -114.76777648925781,
+      "action_head_score": -114.76777648925781
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Even, Odd",
+      "mean_logp": -121.51277160644531,
+      "action_head_score": -121.51277160644531
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -154.6460723876953,
+      "action_head_score": -154.6460723876953
+    }
+  ],
+  "mathd_numbertheory_110": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -83.87422180175781,
+      "action_head_score": -83.87422180175781
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -108.91755676269531,
+      "action_head_score": -108.91755676269531
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -146.6939697265625,
+      "action_head_score": -146.6939697265625
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -156.78233337402344,
+      "action_head_score": -156.78233337402344
+    }
+  ],
+  "mathd_numbertheory_1124": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Divides",
+      "mean_logp": -81.28572082519531,
+      "action_head_score": -81.28572082519531
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -115.16859436035156,
+      "action_head_score": -115.16859436035156
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Divides",
+      "mean_logp": -124.96851348876953,
+      "action_head_score": -124.96851348876953
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -152.3622589111328,
+      "action_head_score": -152.3622589111328
+    }
+  ],
+  "mathd_numbertheory_136": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -88.4656753540039,
+      "action_head_score": -88.4656753540039
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -113.58578491210938,
+      "action_head_score": -113.58578491210938
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -149.83895874023438,
+      "action_head_score": -149.83895874023438
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -161.9600372314453,
+      "action_head_score": -161.9600372314453
+    }
+  ],
+  "mathd_numbertheory_150": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Divides, IsPrime",
+      "mean_logp": -43.961769104003906,
+      "action_head_score": -43.961769104003906
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Divides, IsPrime",
+      "mean_logp": -85.05476379394531,
+      "action_head_score": -85.05476379394531
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -114.03837585449219,
+      "action_head_score": -114.03837585449219
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -153.07533264160156,
+      "action_head_score": -153.07533264160156
+    }
+  ],
+  "mathd_numbertheory_185": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -83.57380676269531,
+      "action_head_score": -83.57380676269531
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -109.53938293457031,
+      "action_head_score": -109.53938293457031
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -147.3950653076172,
+      "action_head_score": -147.3950653076172
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -158.6333465576172,
+      "action_head_score": -158.6333465576172
+    }
+  ],
+  "mathd_numbertheory_22": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -86.36421966552734,
+      "action_head_score": -86.36421966552734
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -112.30789184570312,
+      "action_head_score": -112.30789184570312
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -150.31236267089844,
+      "action_head_score": -150.31236267089844
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -160.3153839111328,
+      "action_head_score": -160.3153839111328
+    }
+  ],
+  "mathd_numbertheory_234": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -83.40620422363281,
+      "action_head_score": -83.40620422363281
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -109.21717071533203,
+      "action_head_score": -109.21717071533203
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -145.43011474609375,
+      "action_head_score": -145.43011474609375
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -159.55665588378906,
+      "action_head_score": -159.55665588378906
+    }
+  ],
+  "mathd_numbertheory_247": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -84.1280746459961,
+      "action_head_score": -84.1280746459961
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -110.67616271972656,
+      "action_head_score": -110.67616271972656
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -149.4736785888672,
+      "action_head_score": -149.4736785888672
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -158.77374267578125,
+      "action_head_score": -158.77374267578125
+    }
+  ],
+  "mathd_numbertheory_284": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -89.47727966308594,
+      "action_head_score": -89.47727966308594
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -115.65550231933594,
+      "action_head_score": -115.65550231933594
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -150.57101440429688,
+      "action_head_score": -150.57101440429688
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -162.58702087402344,
+      "action_head_score": -162.58702087402344
+    }
+  ],
+  "mathd_numbertheory_293": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -84.79143524169922,
+      "action_head_score": -84.79143524169922
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -110.64720153808594,
+      "action_head_score": -110.64720153808594
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -149.17503356933594,
+      "action_head_score": -149.17503356933594
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -158.51622009277344,
+      "action_head_score": -158.51622009277344
+    }
+  ],
+  "mathd_numbertheory_296": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -84.64323425292969,
+      "action_head_score": -84.64323425292969
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -109.61665344238281,
+      "action_head_score": -109.61665344238281
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -149.0417022705078,
+      "action_head_score": -149.0417022705078
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -157.7762451171875,
+      "action_head_score": -157.7762451171875
+    }
+  ],
+  "mathd_numbertheory_301": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -84.68904876708984,
+      "action_head_score": -84.68904876708984
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -111.39817810058594,
+      "action_head_score": -111.39817810058594
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -148.89535522460938,
+      "action_head_score": -148.89535522460938
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -160.46495056152344,
+      "action_head_score": -160.46495056152344
+    }
+  ],
+  "mathd_numbertheory_314": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -81.61309814453125,
+      "action_head_score": -81.61309814453125
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -107.15414428710938,
+      "action_head_score": -107.15414428710938
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -145.4624786376953,
+      "action_head_score": -145.4624786376953
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -157.35560607910156,
+      "action_head_score": -157.35560607910156
+    }
+  ],
+  "mathd_numbertheory_320": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Divides",
+      "mean_logp": -77.99748229980469,
+      "action_head_score": -77.99748229980469
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -112.83865356445312,
+      "action_head_score": -112.83865356445312
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Divides",
+      "mean_logp": -119.3866195678711,
+      "action_head_score": -119.3866195678711
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -151.12954711914062,
+      "action_head_score": -151.12954711914062
+    }
+  ],
+  "mathd_numbertheory_326": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -85.29090881347656,
+      "action_head_score": -85.29090881347656
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -110.67015838623047,
+      "action_head_score": -110.67015838623047
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -146.09027099609375,
+      "action_head_score": -146.09027099609375
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -161.56544494628906,
+      "action_head_score": -161.56544494628906
+    }
+  ],
+  "mathd_numbertheory_33": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -83.12298583984375,
+      "action_head_score": -83.12298583984375
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -110.07512664794922,
+      "action_head_score": -110.07512664794922
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -148.21337890625,
+      "action_head_score": -148.21337890625
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -160.3486785888672,
+      "action_head_score": -160.3486785888672
+    }
+  ],
+  "mathd_numbertheory_335": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -83.704345703125,
+      "action_head_score": -83.704345703125
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -110.03003692626953,
+      "action_head_score": -110.03003692626953
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -147.0290985107422,
+      "action_head_score": -147.0290985107422
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -157.66065979003906,
+      "action_head_score": -157.66065979003906
+    }
+  ],
+  "mathd_numbertheory_34": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -82.81143951416016,
+      "action_head_score": -82.81143951416016
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -109.54875183105469,
+      "action_head_score": -109.54875183105469
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -147.75650024414062,
+      "action_head_score": -147.75650024414062
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -159.5395050048828,
+      "action_head_score": -159.5395050048828
+    }
+  ],
+  "mathd_numbertheory_370": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -83.52908325195312,
+      "action_head_score": -83.52908325195312
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -110.13380432128906,
+      "action_head_score": -110.13380432128906
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -148.63917541503906,
+      "action_head_score": -148.63917541503906
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -158.493408203125,
+      "action_head_score": -158.493408203125
+    }
+  ],
+  "mathd_numbertheory_405": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -82.4169692993164,
+      "action_head_score": -82.4169692993164
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -109.64434051513672,
+      "action_head_score": -109.64434051513672
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -147.9823455810547,
+      "action_head_score": -147.9823455810547
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -158.45863342285156,
+      "action_head_score": -158.45863342285156
+    }
+  ],
+  "mathd_numbertheory_412": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -81.20100402832031,
+      "action_head_score": -81.20100402832031
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -105.96957397460938,
+      "action_head_score": -105.96957397460938
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -141.7700653076172,
+      "action_head_score": -141.7700653076172
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -155.99864196777344,
+      "action_head_score": -155.99864196777344
+    }
+  ],
+  "mathd_numbertheory_430": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -87.98609161376953,
+      "action_head_score": -87.98609161376953
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -115.43697357177734,
+      "action_head_score": -115.43697357177734
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -151.3093719482422,
+      "action_head_score": -151.3093719482422
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -162.51014709472656,
+      "action_head_score": -162.51014709472656
+    }
+  ],
+  "mathd_numbertheory_457": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, FactorialDefConclusion, FactorialDef, DownwardNatInduction",
+      "mean_logp": -57.56111145019531,
+      "action_head_score": -57.56111145019531
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Divides",
+      "mean_logp": -67.57228088378906,
+      "action_head_score": -67.57228088378906
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Divides",
+      "mean_logp": -112.17578125,
+      "action_head_score": -112.17578125
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -136.3097686767578,
+      "action_head_score": -136.3097686767578
+    }
+  ],
+  "mathd_numbertheory_458": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -84.82548522949219,
+      "action_head_score": -84.82548522949219
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -111.45756530761719,
+      "action_head_score": -111.45756530761719
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -149.43771362304688,
+      "action_head_score": -149.43771362304688
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -161.17724609375,
+      "action_head_score": -161.17724609375
+    }
+  ],
+  "mathd_numbertheory_48": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -84.97611236572266,
+      "action_head_score": -84.97611236572266
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -111.47036743164062,
+      "action_head_score": -111.47036743164062
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -149.58187866210938,
+      "action_head_score": -149.58187866210938
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -158.9165802001953,
+      "action_head_score": -158.9165802001953
+    }
+  ],
+  "mathd_numbertheory_483": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -80.82501220703125,
+      "action_head_score": -80.82501220703125
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -106.91665649414062,
+      "action_head_score": -106.91665649414062
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -147.67567443847656,
+      "action_head_score": -147.67567443847656
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -157.68606567382812,
+      "action_head_score": -157.68606567382812
+    }
+  ],
+  "mathd_numbertheory_5": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -85.88155364990234,
+      "action_head_score": -85.88155364990234
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -110.43311309814453,
+      "action_head_score": -110.43311309814453
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -150.07798767089844,
+      "action_head_score": -150.07798767089844
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -160.0723114013672,
+      "action_head_score": -160.0723114013672
+    }
+  ],
+  "mathd_numbertheory_521": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Even",
+      "mean_logp": -92.86761474609375,
+      "action_head_score": -92.86761474609375
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -113.3343505859375,
+      "action_head_score": -113.3343505859375
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Even",
+      "mean_logp": -145.31898498535156,
+      "action_head_score": -145.31898498535156
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -151.26321411132812,
+      "action_head_score": -151.26321411132812
+    }
+  ],
+  "mathd_numbertheory_541": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -84.54920959472656,
+      "action_head_score": -84.54920959472656
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -110.7740707397461,
+      "action_head_score": -110.7740707397461
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -149.4149932861328,
+      "action_head_score": -149.4149932861328
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -162.61705017089844,
+      "action_head_score": -162.61705017089844
+    }
+  ],
+  "mathd_numbertheory_559": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -85.05035400390625,
+      "action_head_score": -85.05035400390625
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -110.97077941894531,
+      "action_head_score": -110.97077941894531
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -149.88502502441406,
+      "action_head_score": -149.88502502441406
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -158.66473388671875,
+      "action_head_score": -158.66473388671875
+    }
+  ],
+  "mathd_numbertheory_582": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Divides",
+      "mean_logp": -76.74574279785156,
+      "action_head_score": -76.74574279785156
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -111.48973083496094,
+      "action_head_score": -111.48973083496094
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Divides",
+      "mean_logp": -119.41435241699219,
+      "action_head_score": -119.41435241699219
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -149.57855224609375,
+      "action_head_score": -149.57855224609375
+    }
+  ],
+  "mathd_numbertheory_64": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -85.10172271728516,
+      "action_head_score": -85.10172271728516
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -109.84539794921875,
+      "action_head_score": -109.84539794921875
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -147.3499755859375,
+      "action_head_score": -147.3499755859375
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -159.786865234375,
+      "action_head_score": -159.786865234375
+    }
+  ],
+  "mathd_numbertheory_690": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -80.68202209472656,
+      "action_head_score": -80.68202209472656
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -108.7169189453125,
+      "action_head_score": -108.7169189453125
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -146.93968200683594,
+      "action_head_score": -146.93968200683594
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -159.72787475585938,
+      "action_head_score": -159.72787475585938
+    }
+  ],
+  "mathd_numbertheory_765": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -84.74303436279297,
+      "action_head_score": -84.74303436279297
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -111.395751953125,
+      "action_head_score": -111.395751953125
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -148.57737731933594,
+      "action_head_score": -148.57737731933594
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -158.57875061035156,
+      "action_head_score": -158.57875061035156
+    }
+  ],
+  "mathd_numbertheory_780": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -84.17523193359375,
+      "action_head_score": -84.17523193359375
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -108.1175537109375,
+      "action_head_score": -108.1175537109375
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -144.83509826660156,
+      "action_head_score": -144.83509826660156
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -156.5168914794922,
+      "action_head_score": -156.5168914794922
+    }
+  ],
+  "mathd_numbertheory_92": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -83.97357940673828,
+      "action_head_score": -83.97357940673828
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -109.44169616699219,
+      "action_head_score": -109.44169616699219
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -147.97410583496094,
+      "action_head_score": -147.97410583496094
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -157.5803985595703,
+      "action_head_score": -157.5803985595703
+    }
+  ],
+  "mathd_numbertheory_99": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality, NoSetContainsEverything",
+      "mean_logp": -85.43484497070312,
+      "action_head_score": -85.43484497070312
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -111.02638244628906,
+      "action_head_score": -111.02638244628906
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -148.53382873535156,
+      "action_head_score": -148.53382873535156
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY SetExtensionality",
+      "mean_logp": -159.11375427246094,
+      "action_head_score": -159.11375427246094
+    }
+  ],
+  "numbertheory_4x3m7y3neq2003": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything, SetExtensionality",
+      "mean_logp": -77.47923278808594,
+      "action_head_score": -77.47923278808594
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "mean_logp": -93.97154998779297,
+      "action_head_score": -93.97154998779297
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY NoSetContainsEverything",
+      "mean_logp": -129.33633422851562,
+      "action_head_score": -129.33633422851562
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -147.3464813232422,
+      "action_head_score": -147.3464813232422
+    }
+  ],
+  "numbertheory_aoddbdiv4asqpbsqmod8eq1": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Divides",
+      "mean_logp": -77.16551971435547,
+      "action_head_score": -77.16551971435547
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -111.7376480102539,
+      "action_head_score": -111.7376480102539
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Divides",
+      "mean_logp": -118.69691467285156,
+      "action_head_score": -118.69691467285156
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -152.4413604736328,
+      "action_head_score": -152.4413604736328
+    }
+  ],
+  "numbertheory_notequiv2i2jasqbsqdiv8": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Divides",
+      "mean_logp": -90.97028350830078,
+      "action_head_score": -90.97028350830078
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -117.53849792480469,
+      "action_head_score": -117.53849792480469
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Divides",
+      "mean_logp": -142.94667053222656,
+      "action_head_score": -142.94667053222656
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -154.64878845214844,
+      "action_head_score": -154.64878845214844
+    }
+  ],
+  "numbertheory_prmdvsneqnsqmodpeq0": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Divides, IsPrime",
+      "mean_logp": -47.84468078613281,
+      "action_head_score": -47.84468078613281
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Divides, IsPrime",
+      "mean_logp": -88.96405029296875,
+      "action_head_score": -88.96405029296875
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -116.0869140625,
+      "action_head_score": -116.0869140625
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -155.3874053955078,
+      "action_head_score": -155.3874053955078
+    }
+  ],
+  "numbertheory_sqmod3in01d": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything, SetExtensionality",
+      "mean_logp": -81.58765411376953,
+      "action_head_score": -81.58765411376953
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "mean_logp": -98.10199737548828,
+      "action_head_score": -98.10199737548828
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY NoSetContainsEverything",
+      "mean_logp": -129.8096923828125,
+      "action_head_score": -129.8096923828125
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -148.8459014892578,
+      "action_head_score": -148.8459014892578
+    }
+  ],
+  "numbertheory_sqmod4in01d": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything, SetExtensionality",
+      "mean_logp": -80.59574890136719,
+      "action_head_score": -80.59574890136719
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "mean_logp": -97.54320526123047,
+      "action_head_score": -97.54320526123047
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY NoSetContainsEverything",
+      "mean_logp": -130.5441436767578,
+      "action_head_score": -130.5441436767578
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -149.04478454589844,
+      "action_head_score": -149.04478454589844
+    }
+  ],
+  "numbertheory_x5neqy2p4": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything, SetExtensionality",
+      "mean_logp": -83.59783935546875,
+      "action_head_score": -83.59783935546875
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "mean_logp": -98.29983520507812,
+      "action_head_score": -98.29983520507812
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY NoSetContainsEverything",
+      "mean_logp": -129.3384552001953,
+      "action_head_score": -129.3384552001953
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -148.06922912597656,
+      "action_head_score": -148.06922912597656
+    }
+  ],
+  "exercise_11_13_3": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Divides, IsPrime",
+      "mean_logp": -42.2444953918457,
+      "action_head_score": -42.2444953918457
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Divides, IsPrime",
+      "mean_logp": -84.0704116821289,
+      "action_head_score": -84.0704116821289
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "mean_logp": -95.97857666015625,
+      "action_head_score": -95.97857666015625
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -149.1856689453125,
+      "action_head_score": -149.1856689453125
+    }
+  ],
+  "exercise_18_4": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Cube",
+      "mean_logp": -75.46728515625,
+      "action_head_score": -75.46728515625
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -104.24137878417969,
+      "action_head_score": -104.24137878417969
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Cube",
+      "mean_logp": -120.142578125,
+      "action_head_score": -120.142578125
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -145.0869598388672,
+      "action_head_score": -145.0869598388672
+    }
+  ],
+  "exercise_1_1_2a": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything, SetExtensionality",
+      "mean_logp": -86.94032287597656,
+      "action_head_score": -86.94032287597656
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "mean_logp": -101.56834411621094,
+      "action_head_score": -101.56834411621094
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY NoSetContainsEverything",
+      "mean_logp": -138.10691833496094,
+      "action_head_score": -138.10691833496094
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -153.82752990722656,
+      "action_head_score": -153.82752990722656
+    }
+  ],
+  "exercise_1_1_3": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything, SetExtensionality",
+      "mean_logp": -84.34718322753906,
+      "action_head_score": -84.34718322753906
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "mean_logp": -99.61947631835938,
+      "action_head_score": -99.61947631835938
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY NoSetContainsEverything",
+      "mean_logp": -143.48216247558594,
+      "action_head_score": -143.48216247558594
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -153.73277282714844,
+      "action_head_score": -153.73277282714844
+    }
+  ],
+  "exercise_1_1_4": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything, SetExtensionality",
+      "mean_logp": -84.16142272949219,
+      "action_head_score": -84.16142272949219
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "mean_logp": -99.66514587402344,
+      "action_head_score": -99.66514587402344
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY NoSetContainsEverything",
+      "mean_logp": -141.263916015625,
+      "action_head_score": -141.263916015625
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -153.3911590576172,
+      "action_head_score": -153.3911590576172
+    }
+  ],
+  "exercise_1_27": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Odd, Divides",
+      "mean_logp": -51.757041931152344,
+      "action_head_score": -51.757041931152344
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Odd, Divides",
+      "mean_logp": -104.99710845947266,
+      "action_head_score": -104.99710845947266
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -116.29447937011719,
+      "action_head_score": -116.29447937011719
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -154.51734924316406,
+      "action_head_score": -154.51734924316406
+    }
+  ],
+  "exercise_2000_a2": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything, SetExtensionality",
+      "mean_logp": -79.41275787353516,
+      "action_head_score": -79.41275787353516
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "mean_logp": -98.76918029785156,
+      "action_head_score": -98.76918029785156
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY NoSetContainsEverything",
+      "mean_logp": -128.72268676757812,
+      "action_head_score": -128.72268676757812
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -147.1927947998047,
+      "action_head_score": -147.1927947998047
+    }
+  ],
+  "exercise_3_10": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, FactorialDefConclusion, FactorialDef, DownwardNatInduction",
+      "mean_logp": -64.03147888183594,
+      "action_head_score": -64.03147888183594
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF IsPrime",
+      "mean_logp": -74.3588638305664,
+      "action_head_score": -74.3588638305664
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF IsPrime",
+      "mean_logp": -116.85435485839844,
+      "action_head_score": -116.85435485839844
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -138.97567749023438,
+      "action_head_score": -138.97567749023438
+    }
+  ],
+  "exercise_3_4": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything, SetExtensionality",
+      "mean_logp": -85.02375793457031,
+      "action_head_score": -85.02375793457031
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "mean_logp": -102.43978881835938,
+      "action_head_score": -102.43978881835938
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY NoSetContainsEverything",
+      "mean_logp": -136.74688720703125,
+      "action_head_score": -136.74688720703125
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -155.079833984375,
+      "action_head_score": -155.079833984375
+    }
+  ],
+  "exercise_3_5": [
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, NoSetContainsEverything, SetExtensionality",
+      "mean_logp": -82.68952178955078,
+      "action_head_score": -82.68952178955078
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT, NoSetContainsEverything",
+      "mean_logp": -99.60905456542969,
+      "action_head_score": -99.60905456542969
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY NoSetContainsEverything",
+      "mean_logp": -134.78941345214844,
+      "action_head_score": -134.78941345214844
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -152.4484100341797,
+      "action_head_score": -152.4484100341797
+    }
+  ],
+  "exercise_5_13": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF IsPrime, Divides",
+      "mean_logp": -46.07362365722656,
+      "action_head_score": -46.07362365722656
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF IsPrime, Divides",
+      "mean_logp": -88.54876708984375,
+      "action_head_score": -88.54876708984375
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -112.63836669921875,
+      "action_head_score": -112.63836669921875
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -153.32859802246094,
+      "action_head_score": -153.32859802246094
+    }
+  ],
+  "exercise_5_28": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF IsPrime",
+      "mean_logp": -84.5029296875,
+      "action_head_score": -84.5029296875
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -116.35580444335938,
+      "action_head_score": -116.35580444335938
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF IsPrime",
+      "mean_logp": -123.48534393310547,
+      "action_head_score": -123.48534393310547
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -156.07566833496094,
+      "action_head_score": -156.07566833496094
+    }
+  ]
+}

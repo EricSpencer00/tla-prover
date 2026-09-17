@@ -1,0 +1,106 @@
+{
+  "highest-done-step": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF max, vars, Init, lb, Terminating, Next, Spec, Termination, TypeOK, InductiveInvariant, DoneIndexValue",
+      "mean_logp": 88.73323822021484,
+      "action_head_score": 88.73323822021484
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF max, vars, Init, lb, Terminating, Next, Spec, Termination, TypeOK, InductiveInvariant, DoneIndexValue",
+      "mean_logp": 49.34822082519531,
+      "action_head_score": 49.34822082519531
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, TypeInvariantHolds, InductiveInvariantHolds, SetExtensionality",
+      "mean_logp": -59.82977294921875,
+      "action_head_score": -59.82977294921875
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -154.39846801757812,
+      "action_head_score": -154.39846801757812
+    }
+  ],
+  "highest-correctness": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF max, vars, Init, lb, Terminating, Next, Spec, Termination, TypeOK, InductiveInvariant, DoneIndexValue, Correctness",
+      "mean_logp": 91.652099609375,
+      "action_head_score": 91.652099609375
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF max, vars, Init, lb, Terminating, Next, Spec, Termination, TypeOK, InductiveInvariant, DoneIndexValue, Correctness",
+      "mean_logp": 44.658302307128906,
+      "action_head_score": 44.658302307128906
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, TypeInvariantHolds, InductiveInvariantHolds, DoneIndexValueThm, SetExtensionality",
+      "mean_logp": -50.98740005493164,
+      "action_head_score": -50.98740005493164
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -162.92234802246094,
+      "action_head_score": -162.92234802246094
+    }
+  ],
+  "simple-preservation": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+      "mean_logp": 80.23119354248047,
+      "action_head_score": 80.23119354248047
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+      "mean_logp": 48.826011657714844,
+      "action_head_score": 48.826011657714844
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SetExtensionality",
+      "mean_logp": -126.11947631835938,
+      "action_head_score": -126.11947631835938
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -161.06297302246094,
+      "action_head_score": -161.06297302246094
+    }
+  ],
+  "simple-short-full": [
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+      "mean_logp": 76.08392333984375,
+      "action_head_score": 76.08392333984375
+    },
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+      "mean_logp": 40.77827835083008,
+      "action_head_score": 40.77827835083008
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, Correctness, SetExtensionality",
+      "mean_logp": -95.25236511230469,
+      "action_head_score": -95.25236511230469
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "mean_logp": -159.88731384277344,
+      "action_head_score": -159.88731384277344
+    }
+  ]
+}
