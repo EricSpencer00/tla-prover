@@ -1,0 +1,23 @@
+{
+  "complete": true,
+  "official_rows": 119,
+  "candidate_width_min": 3,
+  "candidate_width_max": 29,
+  "candidate_width_total": 1335,
+  "source_manifest_sha256": "3380cf37c7311466ea7762662d55866839b3c3620ce73fb8d7ad209befe6de1d",
+  "official_packet_sha256": "6080e64031126dbaa9271baa2cf72dfcddd7c8f5d01eb5e9b7991e798b68dc75",
+  "train_manifest_sha256": "c186ddf0007c5b5adfdc345a06feb777a89746160cf9041b875a8655ed1eb344",
+  "cpu_holdout_tasks": 4,
+  "cpu_holdout_tasks_with_certified_candidate": 4,
+  "cpu_transition_rank1_certified": 2,
+  "cpu_transition_strict_label_records": 269,
+  "parent_checkpoint_sha256": "87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511",
+  "reference_fragment_used": false,
+  "protected_verifier_feedback_used": false,
+  "official_verifier_feedback_used": false,
+  "training_executed": false,
+  "parameter_updates": 0,
+  "tlaps_executed": false,
+  "quality_claim": false,
+  "gate_claim": false
+}

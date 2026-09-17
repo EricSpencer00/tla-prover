@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from tools.proof_variable_action_cuda_eval import digest, validate_packet
+from tools.proof_variable_action_cuda_eval import cuda_bf16_supported, digest, validate_packet
 
 
 def packet(rows):
@@ -37,3 +37,27 @@ def test_variable_width_packet_rejects_overbound_width():
     rows[0] = row(0, 33)
     with pytest.raises(ValueError, match="width"):
         validate_packet(packet(rows))
+
+
+def test_bf16_check_uses_cuda_namespace_when_available():
+    class Cuda:
+        @staticmethod
+        def is_bf16_supported():
+            return True
+
+    class Torch:
+        cuda = Cuda()
+
+    assert cuda_bf16_supported(Torch)
+
+
+def test_bf16_check_falls_back_to_device_capability():
+    class Cuda:
+        @staticmethod
+        def get_device_capability():
+            return (8, 0)
+
+    class Torch:
+        cuda = Cuda()
+
+    assert cuda_bf16_supported(Torch)

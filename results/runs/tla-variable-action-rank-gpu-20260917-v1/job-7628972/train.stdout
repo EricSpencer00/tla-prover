@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/home/eric-spencer/tla-variable-action-rank-gpu-20260917-v1/tools/proof_variable_action_cuda_eval.py", line 212, in <module>
+    main()
+  File "/home/eric-spencer/tla-variable-action-rank-gpu-20260917-v1/tools/proof_variable_action_cuda_eval.py", line 207, in main
+    print(json.dumps(worker(args.packet, args.model, args.checkpoint, args.output,
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/tla-variable-action-rank-gpu-20260917-v1/tools/proof_variable_action_cuda_eval.py", line 127, in worker
+    if not torch.cuda.is_available() or not torch.is_bf16_supported():
+                                            ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eric-spencer/ChatTLA/.venv/lib/python3.12/site-packages/torch/__init__.py", line 2881, in __getattr__
+    raise AttributeError(f"module '{__name__}' has no attribute '{name}'")
+AttributeError: module 'torch' has no attribute 'is_bf16_supported'
