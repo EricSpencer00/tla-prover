@@ -1,0 +1,35 @@
+{
+  "kind": "independent_goal_fact_transition_selection_score",
+  "packet_sha256": "0c2aa10e6a87d4450811a476af5dd17e31af4059fbbb59a6e50e2845785fe597",
+  "generations_sha256": {
+    "base": "60d674c33ee6c92951ed6481a8b0edc028ae6d0bb8582023dbbeeb873bf0d2bc",
+    "parent": "617b4e5f952ddf7884c98bfb26fdb4b08e5a651167c0aaf39b7a18444e9c3bf9",
+    "child": "7a5039b72fe74c298fac76a68938d6ee9e8afe5b55ccdf54f4e3890c66bc8bd3"
+  },
+  "frozen_audit_sha256": "0007cdf350a78dba3dddff12b7a5cce3b40649803f4142039aa362412d32ff49",
+  "fixed_candidate_denominator": 116,
+  "fresh_selected_strict_checks": 12,
+  "arms": [
+    "base",
+    "parent",
+    "child"
+  ],
+  "certified_by_arm": {
+    "base": 0,
+    "parent": 0,
+    "child": 0
+  },
+  "frozen_audit_certified_by_arm": {
+    "base": 0,
+    "parent": 0,
+    "child": 0
+  },
+  "verifier_feedback_used": false,
+  "repair_used": false,
+  "reward_used": false,
+  "training_executed": false,
+  "quality_claim": false,
+  "proof_claim": false,
+  "gate_claim": false,
+  "checker": "fresh strict uncached TLAPS for selections"
+}
