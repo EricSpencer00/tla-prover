@@ -1,0 +1,13 @@
+{
+  "destination": "/home/eric-spencer/tla-fullproof-line-20260917-v1",
+  "worker_sha256": "29a2c5ee2d93d859feea30c1a8d7710ca5829b1d956de1c12368fd71c8cdd28c",
+  "packet_sha256": "7ec5b64bebe1df1e9fa9c93ec33e66e819a33fbeb0b5aede7fecfeca27b91d79",
+  "parent_sha256": "87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511",
+  "manifest_sha256": "c186ddf0007c5b5adfdc345a06feb777a89746160cf9041b875a8655ed1eb344",
+  "compile_guard": true,
+  "clean_result_namespace": true,
+  "model_loaded": false,
+  "cuda_touched": false,
+  "optimizer_updates": 0,
+  "final_remote_admission": true
+}

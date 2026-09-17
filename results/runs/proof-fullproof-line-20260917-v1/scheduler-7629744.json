@@ -1,0 +1,40 @@
+{
+  "job_id": "7629744.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "job_name": "tla-fullproof-line-v1",
+  "project": "EVITA",
+  "queue": "debug",
+  "job_state": "F",
+  "exit_status": 0,
+  "owner": "eric-spencer",
+  "qtime": "Thu Sep 17 12:01:54 2026",
+  "stime": "Thu Sep 17 12:01:56 2026",
+  "obittime": "Thu Sep 17 12:04:30 2026",
+  "exec_host": "x3006c0s13b0n0/0*64",
+  "requested": {
+    "select": "1:system=polaris:ncpus=64:ngpus=1",
+    "ncpus": 64,
+    "ngpus": 1,
+    "walltime": "00:15:00",
+    "filesystems": "home:grand"
+  },
+  "used": {
+    "ncpus": 64,
+    "ngpus_reported_by_pbs": 0,
+    "cput": "00:02:24",
+    "walltime": "00:02:30",
+    "mem": "5963460kb",
+    "vmem": "44060192kb",
+    "cpupercent": 80
+  },
+  "pbs_comment": "Job run at Thu Sep 17 at 12:01 on (x3006c0s13b0n0:ncpus=64:ngpus=...)",
+  "result_dir": "/home/eric-spencer/tla-fullproof-line-20260917-v1/result.7629744",
+  "result_summary_sha256": "f91b7a98e3820a8d1e78acc0d2d6b95d8260037f02454672b7e1bb1db98dfd6a",
+  "base_generations_sha256": "90b2767f372de16d778922b46a17d3eb29e483f1bbd689694de3c89747d1b2b3",
+  "parent_generations_sha256": "32a9047902b4d0341a0a5c72c40fd1e4faff1c8c56b9da4a6c87c6ef1809e531",
+  "child_generations_sha256": "c180c49bfc45a8b4a8e87719d4237fc4d3809876a75eb252ce76786e69963e69",
+  "checkpoint_sha256": "71791a8ac69616ad2aa27611248dcd3ef8b654e7ec1fb7ed7430bf1b2b18ffe8",
+  "pbs_ngpus_discrepancy": "Resource_List.ngpus=1 and select ngpus=1; resources_used.ngpus=0 in qstat receipt. Record discrepancy without inferring GPU absence because model CUDA execution completed.",
+  "quality_claim": false,
+  "proof_claim": false,
+  "gate_claim": false
+}

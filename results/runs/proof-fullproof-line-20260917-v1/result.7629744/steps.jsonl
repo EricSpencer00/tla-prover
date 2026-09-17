@@ -1,0 +1,16 @@
+{"step": 1, "id": "simple-case-b", "loss": 0.5855332016944885, "gradient_norm": 4.2527852058410645, "response_tokens": 631, "elapsed_s": 0.4391939870547503}
+{"step": 2, "id": "simple-case-a", "loss": 0.6497625708580017, "gradient_norm": 3.7752673625946045, "response_tokens": 479, "elapsed_s": 0.6525345230475068}
+{"step": 3, "id": "simple-preservation", "loss": 0.2609484791755676, "gradient_norm": 1.2253289222717285, "response_tokens": 1955, "elapsed_s": 1.0173426000401378}
+{"step": 4, "id": "addtwo-step", "loss": 1.0934410095214844, "gradient_norm": 8.090335845947266, "response_tokens": 89, "elapsed_s": 1.092330940067768}
+{"step": 5, "id": "even-case-tail", "loss": 0.40428686141967773, "gradient_norm": 3.2083346843719482, "response_tokens": 621, "elapsed_s": 1.2039743959903717}
+{"step": 6, "id": "simple-conclusion", "loss": 0.36796921491622925, "gradient_norm": 2.4653444290161133, "response_tokens": 551, "elapsed_s": 1.4457022529095411}
+{"step": 7, "id": "even-intro", "loss": 0.2962096929550171, "gradient_norm": 1.6428545713424683, "response_tokens": 1137, "elapsed_s": 1.5959844388999045}
+{"step": 8, "id": "simple-short-full", "loss": 0.178028866648674, "gradient_norm": 1.5646188259124756, "response_tokens": 1235, "elapsed_s": 1.910875580040738}
+{"step": 9, "id": "simple-preservation-tail", "loss": 0.2679905593395233, "gradient_norm": 1.5716373920440674, "response_tokens": 611, "elapsed_s": 2.153104316908866}
+{"step": 10, "id": "highest-correctness", "loss": 0.38377583026885986, "gradient_norm": 4.216252326965332, "response_tokens": 144, "elapsed_s": 2.3257202070672065}
+{"step": 11, "id": "highest-type-step", "loss": 0.48210880160331726, "gradient_norm": 5.331711292266846, "response_tokens": 115, "elapsed_s": 2.4470776829402894}
+{"step": 12, "id": "addtwo-init", "loss": 0.4544318616390228, "gradient_norm": 5.661293029785156, "response_tokens": 89, "elapsed_s": 2.5086313979700208}
+{"step": 13, "id": "highest-inductive-step", "loss": 0.22622503340244293, "gradient_norm": 3.2481017112731934, "response_tokens": 142, "elapsed_s": 2.6501868579071015}
+{"step": 14, "id": "odd-case-tail", "loss": 0.17927387356758118, "gradient_norm": 2.1876466274261475, "response_tokens": 877, "elapsed_s": 2.7921637629624456}
+{"step": 15, "id": "simple-short-preservation", "loss": 0.17776663601398468, "gradient_norm": 1.550143837928772, "response_tokens": 872, "elapsed_s": 3.082592217018828}
+{"step": 16, "id": "simple-full", "loss": 0.19498568773269653, "gradient_norm": 1.2985594272613525, "response_tokens": 3042, "elapsed_s": 3.5418080328963697}

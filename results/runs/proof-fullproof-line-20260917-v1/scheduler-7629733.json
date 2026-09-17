@@ -1,0 +1,18 @@
+{
+  "job_id": "7629733.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "job_name": "tla-fullproof-line-v1",
+  "state": "F",
+  "exit_status": 1,
+  "exec_host": "x3006c0s13b0n0/0*64",
+  "requested": {"ncpus": 64, "ngpus": 1, "walltime": "00:15:00"},
+  "used": {"ncpus": 64, "ngpus": 0, "walltime": "00:00:06", "cput": "00:00:04", "mem": "872980kb"},
+  "queued_utc": "2026-09-17T11:53:26Z",
+  "started_utc": "2026-09-17T11:53:29Z",
+  "finished_utc": "2026-09-17T11:53:39Z",
+  "model_loaded": false,
+  "cuda_touched": false,
+  "optimizer_updates": 0,
+  "failure_class": "infrastructure_cli_namespace_shadow",
+  "failure": "TypeError: 'ArgumentParser' object is not callable",
+  "comment": "Preflight passed; the worker failed before model load because main() assigned the argparse subparser to the name train, shadowing the train() function."
+}
