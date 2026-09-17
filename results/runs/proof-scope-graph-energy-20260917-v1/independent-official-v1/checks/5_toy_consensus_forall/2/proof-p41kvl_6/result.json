@@ -1,0 +1,29 @@
+{
+  "certified": false,
+  "status": "timeout",
+  "proved": 0,
+  "total": 0,
+  "output": "",
+  "seconds": 5.005364894866943,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/5_toy_consensus_forall/2/proof-p41kvl_6",
+  "reason": "",
+  "sha256": "9b44b2eb184210cc2a3d33386f3712e4e4991362e5c895ed4de21f84e490c195",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/5_toy_consensus_forall/2/proof-p41kvl_6/5_toy_consensus_forall.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/5_toy_consensus_forall/2/proof-p41kvl_6/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "5_toy_consensus_forall.tla"
+  ],
+  "returncode": -1,
+  "timed_out": true
+}

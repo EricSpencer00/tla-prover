@@ -1,0 +1,18 @@
+Zenon error: exhausted search space without finding a proof
+(* created new "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/14_two_phase_commit/1/proof-2k7735mg/.tlacache/14_two_phase_commit.tlaps/14_two_phase_commit.thy" *)
+(* fingerprints written in "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/14_two_phase_commit/1/proof-2k7735mg/.tlacache/14_two_phase_commit.tlaps/fingerprints" *)
+File "./14_two_phase_commit.tla", line 137, characters 53-59:
+[ERROR]: Could not prove or check:
+           ASSUME NEW CONSTANT Node,
+                  NEW VARIABLE vote_yes,
+                  NEW VARIABLE vote_no,
+                  NEW VARIABLE alive,
+                  NEW VARIABLE go_commit,
+                  NEW VARIABLE go_abort,
+                  NEW VARIABLE decide_commit,
+                  NEW VARIABLE decide_abort,
+                  NEW VARIABLE abort_flag
+           PROVE  IndAuto /\ Next => IndAuto'
+File "./14_two_phase_commit.tla", line 1, character 1 to line 138, character 4:
+[ERROR]: 1/1 obligation failed.
+There were backend errors processing module `"14_two_phase_commit"`.

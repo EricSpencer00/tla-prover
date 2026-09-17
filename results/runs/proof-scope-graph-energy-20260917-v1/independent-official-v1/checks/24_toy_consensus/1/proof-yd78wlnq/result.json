@@ -1,0 +1,29 @@
+{
+  "certified": false,
+  "status": "verifier_reject",
+  "proved": 0,
+  "total": 0,
+  "output": "Zenon error: exhausted search space without finding a proof\n(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/24_toy_consensus/1/proof-yd78wlnq/.tlacache/24_toy_consensus.tlaps/24_toy_consensus.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/24_toy_consensus/1/proof-yd78wlnq/.tlacache/24_toy_consensus.tlaps/fingerprints\" *)\nFile \"./24_toy_consensus.tla\", line 68, characters 53-59:\n[ERROR]: Could not prove or check:\n           ASSUME NEW CONSTANT Node,\n                  NEW CONSTANT Value,\n                  NEW CONSTANT Nil,\n                  NEW VARIABLE vote,\n                  NEW VARIABLE decision,\n                  QuorumType == Quorums \\subseteq SUBSET Node,\n                  NodeFinite == IsFiniteSet(Node),\n                  QuorumsAreNonEmpty == \\A Q \\in Quorums : Q # {},\n                  QuorumsExist == Quorums # {},\n                  ValueNonEmpty == Value # {},\n                  NodeNonEmpty == Node # {},\n                  QuorumsIntersect == \\A Q1, Q2 \\in Quorums : Q1 \\cap Q2 # {},\n                  NilType == Nil \\notin Node /\\ Nil \\notin Value\n           PROVE  IndAuto /\\ Next => IndAuto'\nFile \"./24_toy_consensus.tla\", line 1, character 1 to line 69, character 4:\n[ERROR]: 1/1 obligation failed.\nThere were backend errors processing module `\"24_toy_consensus\"`.\n",
+  "seconds": 2.294459104537964,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/24_toy_consensus/1/proof-yd78wlnq",
+  "reason": "",
+  "sha256": "801a650401b0ebe96fa2bb8a7c4af6742e4d583df3ac9f18ac1d7ed19c557619",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/24_toy_consensus/1/proof-yd78wlnq/24_toy_consensus.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/24_toy_consensus/1/proof-yd78wlnq/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "24_toy_consensus.tla"
+  ],
+  "returncode": 10,
+  "timed_out": false
+}

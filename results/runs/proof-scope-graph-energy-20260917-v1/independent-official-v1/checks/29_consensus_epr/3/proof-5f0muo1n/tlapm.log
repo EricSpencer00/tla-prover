@@ -1,0 +1,27 @@
+(* created new "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/29_consensus_epr/3/proof-5f0muo1n/.tlacache/29_consensus_epr.tlaps/29_consensus_epr.thy" *)
+(* fingerprints written in "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/29_consensus_epr/3/proof-5f0muo1n/.tlacache/29_consensus_epr.tlaps/fingerprints" *)
+File "./29_consensus_epr.tla", line 153, characters 53-54:
+[ERROR]: Could not prove or check:
+           ASSUME NEW CONSTANT Node,
+                  NEW CONSTANT Quorum,
+                  NEW CONSTANT Value,
+                  NEW VARIABLE vote_request_msg,
+                  NEW VARIABLE voted,
+                  NEW VARIABLE vote_msg,
+                  NEW VARIABLE votes,
+                  NEW VARIABLE leader,
+                  NEW VARIABLE decided,
+                  QuorumsAreNodePowersets == Quorum \subseteq SUBSET Node,
+                  EmptyNotInQuorums == {} \notin Quorum,
+                  QuorumsOverlap == \A Q1, Q2 \in Quorum : Q1 \cap Q2 # {},
+                  Fin == IsFiniteSet(Node),
+                  NodeNonEmpty == Node # {},
+                  QuorumsNonEmpty == Quorum # {},
+                  NodeQuorumType ==
+                    Fin /\ NodeNonEmpty /\ QuorumsAreNodePowersets
+                    /\ EmptyNotInQuorums /\ QuorumsNonEmpty,
+                  SMT 
+           PROVE  IndAuto /\ Next => IndAuto'
+File "./29_consensus_epr.tla", line 1, character 1 to line 154, character 4:
+[ERROR]: 1/2 obligations failed.
+There were backend errors processing module `"29_consensus_epr"`.

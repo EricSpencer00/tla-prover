@@ -1,0 +1,1 @@
+{"prefix": "---- MODULE exercise_1_1_4 ----\nEXTENDS TLAPS, Integers\n\nTHEOREM exercise_1_1_4 ==\n  \\A a, b, c, n \\in Nat :\n    \\E k \\in Nat :\n       (a * b) * c - a * (b * c) = k * n", "fragment": "BY NoSetContainsEverything", "suffix": "\n====\n", "theorem_name": "exercise_1_1_4"}

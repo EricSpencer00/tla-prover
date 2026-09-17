@@ -1,0 +1,29 @@
+{
+  "certified": false,
+  "status": "verifier_reject",
+  "proved": 0,
+  "total": 0,
+  "output": "Zenon error: exhausted search space without finding a proof\n(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/21_client_server_ae/1/proof-z79w3tey/.tlacache/21_client_server_ae.tlaps/21_client_server_ae.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/21_client_server_ae/1/proof-z79w3tey/.tlacache/21_client_server_ae.tlaps/fingerprints\" *)\nFile \"./21_client_server_ae.tla\", line 71, characters 53-59:\n[ERROR]: Could not prove or check:\n           ASSUME NEW CONSTANT Node,\n                  NEW CONSTANT Request,\n                  NEW CONSTANT Response,\n                  NEW VARIABLE match,\n                  NEW VARIABLE request_sent,\n                  NEW VARIABLE response_sent,\n                  NEW VARIABLE response_received,\n                  Fin ==\n                    IsFiniteSet(Node) /\\ IsFiniteSet(Request)\n                    /\\ IsFiniteSet(Response),\n                  Nonempty == Request # {} /\\ Response # {}\n           PROVE  IndAuto /\\ Next => IndAuto'\nFile \"./21_client_server_ae.tla\", line 1, character 1 to line 72, character 4:\n[ERROR]: 1/1 obligation failed.\nThere were backend errors processing module `\"21_client_server_ae\"`.\n",
+  "seconds": 2.269282102584839,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/21_client_server_ae/1/proof-z79w3tey",
+  "reason": "",
+  "sha256": "e8cd5f22e27a70e459e264402f2c0a6f1dea6e45af62f426afb7348ddc244781",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/21_client_server_ae/1/proof-z79w3tey/21_client_server_ae.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/21_client_server_ae/1/proof-z79w3tey/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "21_client_server_ae.tla"
+  ],
+  "returncode": 10,
+  "timed_out": false
+}

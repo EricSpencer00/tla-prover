@@ -1,0 +1,29 @@
+{
+  "certified": false,
+  "status": "verifier_reject",
+  "proved": 0,
+  "total": 0,
+  "output": "(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/9_sharded_kv/3/proof-4f0t7w1a/.tlacache/9_sharded_kv.tlaps/9_sharded_kv.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/9_sharded_kv/3/proof-4f0t7w1a/.tlacache/9_sharded_kv.tlaps/fingerprints\" *)\nFile \"./9_sharded_kv.tla\", line 94, characters 53-54:\n[ERROR]: Could not prove or check:\n           ASSUME NEW CONSTANT Key,\n                  NEW CONSTANT Value,\n                  NEW CONSTANT Node,\n                  NEW CONSTANT Nil,\n                  NEW VARIABLE table,\n                  NEW VARIABLE owner,\n                  NEW VARIABLE transfer_msg,\n                  Fin ==\n                    IsFiniteSet(Node) /\\ IsFiniteSet(Key)\n                    /\\ IsFiniteSet(Value),\n                  NilType ==\n                    Nil \\notin Node /\\ Nil \\notin Key /\\ Nil \\notin Value,\n                  NodeNonEmpty == Node # {},\n                  SMT \n           PROVE  IndAuto /\\ Next => IndAuto'\nFile \"./9_sharded_kv.tla\", line 1, character 1 to line 95, character 4:\n[ERROR]: 1/2 obligations failed.\nThere were backend errors processing module `\"9_sharded_kv\"`.\n",
+  "seconds": 0.4835469722747803,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/9_sharded_kv/3/proof-4f0t7w1a",
+  "reason": "",
+  "sha256": "c65aa422ea5ef4a355172f6a9e7501b2db792112c9246835eca7418ae5653f0e",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/9_sharded_kv/3/proof-4f0t7w1a/9_sharded_kv.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/9_sharded_kv/3/proof-4f0t7w1a/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "9_sharded_kv.tla"
+  ],
+  "returncode": 10,
+  "timed_out": false
+}

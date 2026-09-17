@@ -1,0 +1,29 @@
+{
+  "certified": false,
+  "status": "verifier_reject",
+  "proved": 0,
+  "total": 0,
+  "output": "(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/strict-score-v1/checks/highest-done-step/3/proof-f8sm1xzy/.tlacache/FindHighest.tlaps/FindHighest.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/strict-score-v1/checks/highest-done-step/3/proof-f8sm1xzy/.tlacache/FindHighest.tlaps/fingerprints\" *)\nFile \"./FindHighest.tla\", line 132, characters 7-8:\n[ERROR]: Could not prove or check:\n           ASSUME NEW VARIABLE f,\n                  NEW VARIABLE h,\n                  NEW VARIABLE i,\n                  NEW VARIABLE pc,\n                  SMT ,\n                  TypeInvariantHolds ,\n                  InductiveInvariantHolds ,\n                  SetExtensionality \n           PROVE  DoneIndexValue /\\ TypeOK /\\ lb => DoneIndexValue'\nFile \"./FindHighest.tla\", line 1, character 1 to line 136, character 77:\n[ERROR]: 1/42 obligations failed.\nThere were backend errors processing module `\"FindHighest\"`.\n",
+  "seconds": 0.5391721725463867,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/strict-score-v1/checks/highest-done-step/3/proof-f8sm1xzy",
+  "reason": "",
+  "sha256": "17e603983e360125afb206c10a9d5cc8f4dc6123234b46e8fb844295e1426ded",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/strict-score-v1/checks/highest-done-step/3/proof-f8sm1xzy/FindHighest.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/strict-score-v1/checks/highest-done-step/3/proof-f8sm1xzy/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "FindHighest.tla"
+  ],
+  "returncode": 10,
+  "timed_out": false
+}

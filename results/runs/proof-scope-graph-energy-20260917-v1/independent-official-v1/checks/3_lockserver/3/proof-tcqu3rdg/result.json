@@ -1,0 +1,29 @@
+{
+  "certified": false,
+  "status": "verifier_reject",
+  "proved": 0,
+  "total": 0,
+  "output": "(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/3_lockserver/3/proof-tcqu3rdg/.tlacache/3_lockserver.tlaps/3_lockserver.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/3_lockserver/3/proof-tcqu3rdg/.tlacache/3_lockserver.tlaps/fingerprints\" *)\nFile \"./3_lockserver.tla\", line 75, characters 53-54:\n[ERROR]: Could not prove or check:\n           ASSUME NEW CONSTANT Server,\n                  NEW CONSTANT Client,\n                  NEW CONSTANT Nil,\n                  NEW VARIABLE semaphore,\n                  NEW VARIABLE clientlocks,\n                  SMT \n           PROVE  IndAuto /\\ Next => IndAuto'\nFile \"./3_lockserver.tla\", line 1, character 1 to line 76, character 4:\n[ERROR]: 1/2 obligations failed.\nThere were backend errors processing module `\"3_lockserver\"`.\n",
+  "seconds": 0.49253296852111816,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/3_lockserver/3/proof-tcqu3rdg",
+  "reason": "",
+  "sha256": "ba5d049d89125b8d69baba9602d14bc19bc6acc0e240d3553bd1d3bfdcff84a0",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/3_lockserver/3/proof-tcqu3rdg/3_lockserver.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/3_lockserver/3/proof-tcqu3rdg/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "3_lockserver.tla"
+  ],
+  "returncode": 10,
+  "timed_out": false
+}

@@ -1,0 +1,29 @@
+{
+  "certified": true,
+  "status": "pass",
+  "proved": 1,
+  "total": 1,
+  "output": "(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/25_client_server_db_ae/1/proof-5tkmehle/.tlacache/25_client_server_db_ae.tlaps/25_client_server_db_ae.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/25_client_server_db_ae/1/proof-5tkmehle/.tlacache/25_client_server_db_ae.tlaps/fingerprints\" *)\nFile \"./25_client_server_db_ae.tla\", line 1, character 1 to line 124, character 4:\n[INFO]: All 1 obligation proved.\n",
+  "seconds": 0.7218518257141113,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/25_client_server_db_ae/1/proof-5tkmehle",
+  "reason": "",
+  "sha256": "cedcb22009a7918664bbcb0c5f2f68b5e94c235688c18a909940667453595d81",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/25_client_server_db_ae/1/proof-5tkmehle/25_client_server_db_ae.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/25_client_server_db_ae/1/proof-5tkmehle/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "25_client_server_db_ae.tla"
+  ],
+  "returncode": 0,
+  "timed_out": false
+}

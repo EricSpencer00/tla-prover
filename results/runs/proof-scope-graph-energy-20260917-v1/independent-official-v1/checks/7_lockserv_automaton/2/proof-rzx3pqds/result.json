@@ -1,0 +1,29 @@
+{
+  "certified": true,
+  "status": "pass",
+  "proved": 1,
+  "total": 1,
+  "output": "(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/7_lockserv_automaton/2/proof-rzx3pqds/.tlacache/7_lockserv_automaton.tlaps/7_lockserv_automaton.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/7_lockserv_automaton/2/proof-rzx3pqds/.tlacache/7_lockserv_automaton.tlaps/fingerprints\" *)\nFile \"./7_lockserv_automaton.tla\", line 1, character 1 to line 100, character 4:\n[INFO]: All 1 obligation proved.\n",
+  "seconds": 0.8519890308380127,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/7_lockserv_automaton/2/proof-rzx3pqds",
+  "reason": "",
+  "sha256": "274d8a7ff80b80ac4f558de7f30b5b1af1d82989f64b45eb3375580b45c0e75b",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/7_lockserv_automaton/2/proof-rzx3pqds/7_lockserv_automaton.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/7_lockserv_automaton/2/proof-rzx3pqds/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "7_lockserv_automaton.tla"
+  ],
+  "returncode": 0,
+  "timed_out": false
+}

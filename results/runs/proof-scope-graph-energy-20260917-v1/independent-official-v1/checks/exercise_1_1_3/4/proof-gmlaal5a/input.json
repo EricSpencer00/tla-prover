@@ -1,0 +1,1 @@
+{"prefix": "----- MODULE exercise_1_1_3 -----\nEXTENDS Integers, TLAPS\n\nTHEOREM exercise_1_1_3 ==\n    \\A a, b, c, n \\in Int :\n        \\E k \\in Int :\n            (a + b) + c - (a + (b + c)) = k * n", "fragment": "BY SMT, NoSetContainsEverything", "suffix": "\n============================================\n", "theorem_name": "exercise_1_1_3"}

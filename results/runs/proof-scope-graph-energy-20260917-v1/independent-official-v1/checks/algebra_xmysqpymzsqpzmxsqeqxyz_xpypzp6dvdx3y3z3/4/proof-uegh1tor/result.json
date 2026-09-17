@@ -1,0 +1,29 @@
+{
+  "certified": false,
+  "status": "timeout",
+  "proved": 0,
+  "total": 0,
+  "output": "",
+  "seconds": 5.006250858306885,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/algebra_xmysqpymzsqpzmxsqeqxyz_xpypzp6dvdx3y3z3/4/proof-uegh1tor",
+  "reason": "",
+  "sha256": "c751fe03ef2b31172dec87aa610d9bcdabd2a3583ec17330d3d77712eb31daf2",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/algebra_xmysqpymzsqpzmxsqeqxyz_xpypzp6dvdx3y3z3/4/proof-uegh1tor/algebra_xmysqpymzsqpzmxsqeqxyz_xpypzp6dvdx3y3z3.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/algebra_xmysqpymzsqpzmxsqeqxyz_xpypzp6dvdx3y3z3/4/proof-uegh1tor/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "algebra_xmysqpymzsqpzmxsqeqxyz_xpypzp6dvdx3y3z3.tla"
+  ],
+  "returncode": -1,
+  "timed_out": true
+}

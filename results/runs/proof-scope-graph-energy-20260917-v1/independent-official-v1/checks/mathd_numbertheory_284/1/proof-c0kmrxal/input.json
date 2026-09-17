@@ -1,0 +1,1 @@
+{"prefix": "---- MODULE mathd_numbertheory_284 ----\nEXTENDS TLAPS, Integers\n\nTHEOREM mathd_numbertheory_284 ==\n    \\A a, b \\in Nat :\n        (a >= 1) /\\\n        (a <= 9) /\\\n        (b <= 9) /\\\n        (10 * a + b = 2 * (a + b)) =>\n        (10 * a + b = 18)", "fragment": "BY SetExtensionality", "suffix": "\n====\n", "theorem_name": "mathd_numbertheory_284"}

@@ -1,0 +1,29 @@
+{
+  "certified": false,
+  "status": "verifier_reject",
+  "proved": 0,
+  "total": 0,
+  "output": "(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/strict-score-v1/checks/addtwo-step/0/proof-txrzid5j/.tlacache/AddTwo.tlaps/AddTwo.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/strict-score-v1/checks/addtwo-step/0/proof-txrzid5j/.tlacache/AddTwo.tlaps/fingerprints\" *)\nFile \"./AddTwo.tla\", line 42, characters 5-6:\n[ERROR]: Could not prove or check:\n           ASSUME NEW VARIABLE x,\n                  SMT \n           PROVE  TypeOK /\\ Next => TypeOK'\nFile \"./AddTwo.tla\", line 1, character 1 to line 45, character 77:\n[ERROR]: 1/9 obligations failed.\nThere were backend errors processing module `\"AddTwo\"`.\n",
+  "seconds": 0.44629502296447754,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/strict-score-v1/checks/addtwo-step/0/proof-txrzid5j",
+  "reason": "",
+  "sha256": "dc039c236fec51f450f603a68c5c63031ab2ad76adbe8156822b45d529de342a",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/strict-score-v1/checks/addtwo-step/0/proof-txrzid5j/AddTwo.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/strict-score-v1/checks/addtwo-step/0/proof-txrzid5j/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "AddTwo.tla"
+  ],
+  "returncode": 10,
+  "timed_out": false
+}

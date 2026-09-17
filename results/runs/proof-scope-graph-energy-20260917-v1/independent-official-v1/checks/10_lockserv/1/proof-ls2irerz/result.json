@@ -1,0 +1,29 @@
+{
+  "certified": false,
+  "status": "verifier_reject",
+  "proved": 0,
+  "total": 0,
+  "output": "Zenon error: exhausted search space without finding a proof\n(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/10_lockserv/1/proof-ls2irerz/.tlacache/10_lockserv.tlaps/10_lockserv.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/10_lockserv/1/proof-ls2irerz/.tlacache/10_lockserv.tlaps/fingerprints\" *)\nFile \"./10_lockserv.tla\", line 96, characters 53-59:\n[ERROR]: Could not prove or check:\n           ASSUME NEW CONSTANT Node,\n                  NEW VARIABLE lock_msg,\n                  NEW VARIABLE grant_msg,\n                  NEW VARIABLE unlock_msg,\n                  NEW VARIABLE holds_lock,\n                  NEW VARIABLE server_holds_lock\n           PROVE  IndAuto /\\ Next => IndAuto'\nFile \"./10_lockserv.tla\", line 1, character 1 to line 97, character 4:\n[ERROR]: 1/1 obligation failed.\nThere were backend errors processing module `\"10_lockserv\"`.\n",
+  "seconds": 2.5439670085906982,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/10_lockserv/1/proof-ls2irerz",
+  "reason": "",
+  "sha256": "98cfeee63b821e2d4ae37cc9103a56c6d8acd1c2a723f22b3642905286a8acd5",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/10_lockserv/1/proof-ls2irerz/10_lockserv.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/10_lockserv/1/proof-ls2irerz/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "10_lockserv.tla"
+  ],
+  "returncode": 10,
+  "timed_out": false
+}

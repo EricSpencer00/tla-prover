@@ -1,0 +1,25 @@
+(* created new "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/30_MongoLoglessDynamicRaft/1/proof-d_vs9s1s/.tlacache/30_MongoLoglessDynamicRaft.tlaps/30_MongoLoglessDynamicRaft.thy" *)
+(* fingerprints written in "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/30_MongoLoglessDynamicRaft/1/proof-d_vs9s1s/.tlacache/30_MongoLoglessDynamicRaft.tlaps/fingerprints" *)
+File "./30_MongoLoglessDynamicRaft.tla", line 248, characters 1-2:
+[ERROR]: Could not prove or check:
+           ASSUME NEW CONSTANT Server,
+                  NEW CONSTANT Secondary,
+                  NEW CONSTANT Primary,
+                  NEW CONSTANT Nil,
+                  NEW CONSTANT InitTerm,
+                  NEW VARIABLE currentTerm,
+                  NEW VARIABLE state,
+                  NEW VARIABLE configVersion,
+                  NEW VARIABLE configTerm,
+                  NEW VARIABLE config,
+                  NEW CONSTANT MaxTerm,
+                  NEW CONSTANT MaxLogLen,
+                  NEW CONSTANT MaxConfigVersion,
+                  PrimaryAndSecondaryAreDifferent == Primary # Secondary,
+                  ServerIsFinite == IsFiniteSet(Server),
+                  ServerIsNonempty == Server # {},
+                  SMT 
+           PROVE  IndAuto /\ Next => IndAuto'
+File "./30_MongoLoglessDynamicRaft.tla", line 1, character 1 to line 249, character 77:
+[ERROR]: 1/2 obligations failed.
+There were backend errors processing module `"30_MongoLoglessDynamicRaft"`.

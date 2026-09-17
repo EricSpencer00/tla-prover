@@ -1,0 +1,1 @@
+{"prefix": "----- MODULE amc12_2000_p1 -----\nEXTENDS Naturals, TLAPS\n\n\nTHEOREM amc12_2000_p1 ==\n    \\A I, M, O \\in Nat : (I # M /\\ M # O /\\ O # I /\\ I * M * O = 2001) => (I + M + O <= 671)", "fragment": "BY SetExtensionality", "suffix": "\n====\n", "theorem_name": "amc12_2000_p1"}

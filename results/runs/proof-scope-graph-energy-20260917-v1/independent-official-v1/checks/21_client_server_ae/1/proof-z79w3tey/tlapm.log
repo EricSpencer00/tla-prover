@@ -1,0 +1,20 @@
+Zenon error: exhausted search space without finding a proof
+(* created new "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/21_client_server_ae/1/proof-z79w3tey/.tlacache/21_client_server_ae.tlaps/21_client_server_ae.thy" *)
+(* fingerprints written in "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/21_client_server_ae/1/proof-z79w3tey/.tlacache/21_client_server_ae.tlaps/fingerprints" *)
+File "./21_client_server_ae.tla", line 71, characters 53-59:
+[ERROR]: Could not prove or check:
+           ASSUME NEW CONSTANT Node,
+                  NEW CONSTANT Request,
+                  NEW CONSTANT Response,
+                  NEW VARIABLE match,
+                  NEW VARIABLE request_sent,
+                  NEW VARIABLE response_sent,
+                  NEW VARIABLE response_received,
+                  Fin ==
+                    IsFiniteSet(Node) /\ IsFiniteSet(Request)
+                    /\ IsFiniteSet(Response),
+                  Nonempty == Request # {} /\ Response # {}
+           PROVE  IndAuto /\ Next => IndAuto'
+File "./21_client_server_ae.tla", line 1, character 1 to line 72, character 4:
+[ERROR]: 1/1 obligation failed.
+There were backend errors processing module `"21_client_server_ae"`.

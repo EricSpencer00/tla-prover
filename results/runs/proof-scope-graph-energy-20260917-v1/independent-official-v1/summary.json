@@ -1,0 +1,18 @@
+{
+  "requested_tasks": 119,
+  "fully_ranked_tasks": 119,
+  "measured_tasks": 113,
+  "certified_tasks_top4": 43,
+  "top1_verified": 37,
+  "checker_attempts": 326,
+  "checker": "strict uncached TLAPS --strict --nofp",
+  "split": "official_test",
+  "reference_fragment_used": false,
+  "training_executed": false,
+  "repair_or_reward": false,
+  "quality_claim": false,
+  "gate_claim": false,
+  "denominator_fixed": true,
+  "method": "independent strict TLAPS over proof-state scope-graph action rankings",
+  "elapsed_seconds": 898.8396484580007
+}

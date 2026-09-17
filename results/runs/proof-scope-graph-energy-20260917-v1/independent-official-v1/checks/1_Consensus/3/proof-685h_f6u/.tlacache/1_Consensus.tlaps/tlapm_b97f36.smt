@@ -1,0 +1,410 @@
+;; Proof obligation:
+;;	ASSUME NEW CONSTANT CONSTANT_Value_,
+;;	       NEW VARIABLE VARIABLE_chosen_
+;;	PROVE  (/\ /\ VARIABLE_chosen_ \in SUBSET CONSTANT_Value_
+;;	        /\ /\ /\ VARIABLE_chosen_ \in SUBSET CONSTANT_Value_
+;;	           /\ CONSTANT_Cardinality_(VARIABLE_chosen_) =< 1)
+;;	       /\ (/\ VARIABLE_chosen_ = {}
+;;	           /\ \E CONSTANT_v_ \in CONSTANT_Value_ :
+;;	                 ?VARIABLE_chosen_#prime = {CONSTANT_v_})
+;;	       => (/\ /\ ?VARIABLE_chosen_#prime \in SUBSET CONSTANT_Value_
+;;	           /\ /\ /\ ?VARIABLE_chosen_#prime \in SUBSET CONSTANT_Value_
+;;	              /\ CONSTANT_Cardinality_(?VARIABLE_chosen_#prime) =< 1)
+;; TLA+ Proof Manager 80172c6
+;; Proof obligation #1
+;; Generated from file "./1_Consensus.tla", line 39, characters 52-53
+
+(set-logic UFNIA)
+
+;; Sorts
+
+(declare-sort Idv 0)
+
+;; Hypotheses
+
+(declare-fun smt__TLA____Cast__Int (Int) Idv)
+
+(declare-fun smt__TLA____IntLteq (Idv Idv) Bool)
+
+(declare-fun smt__TLA____IntSet () Idv)
+
+(declare-fun smt__TLA____Mem (Idv Idv) Bool)
+
+(declare-fun smt__TLA____Proj__Int (Idv) Int)
+
+(declare-fun smt__TLA____SetEnum__0 () Idv)
+
+(declare-fun smt__TLA____SetEnum__1 (Idv) Idv)
+
+(declare-fun smt__TLA____SetExtTrigger (Idv Idv) Bool)
+
+(declare-fun smt__TLA____Subset (Idv) Idv)
+
+(declare-fun smt__TLA____SubsetEq (Idv Idv) Bool)
+
+;; Axiom: SetExt
+(assert
+  (!
+    (forall ((smt__x Idv) (smt__y Idv))
+      (!
+        (=>
+          (forall ((smt__z Idv))
+            (= (smt__TLA____Mem smt__z smt__x)
+              (smt__TLA____Mem smt__z smt__y))) (= smt__x smt__y))
+        :pattern ((smt__TLA____SetExtTrigger smt__x smt__y))))
+    :named |SetExt|))
+
+;; Axiom: SubsetEqIntro
+(assert
+  (!
+    (forall ((smt__x Idv) (smt__y Idv))
+      (!
+        (=>
+          (forall ((smt__z Idv))
+            (=> (smt__TLA____Mem smt__z smt__x)
+              (smt__TLA____Mem smt__z smt__y)))
+          (smt__TLA____SubsetEq smt__x smt__y))
+        :pattern ((smt__TLA____SubsetEq smt__x smt__y))))
+    :named |SubsetEqIntro|))
+
+;; Axiom: SubsetEqElim
+(assert
+  (!
+    (forall ((smt__x Idv) (smt__y Idv) (smt__z Idv))
+      (!
+        (=>
+          (and (smt__TLA____SubsetEq smt__x smt__y)
+            (smt__TLA____Mem smt__z smt__x)) (smt__TLA____Mem smt__z smt__y))
+        :pattern ((smt__TLA____SubsetEq smt__x smt__y)
+                   (smt__TLA____Mem smt__z smt__x)))) :named |SubsetEqElim|))
+
+;; Axiom: SubsetDefAlt
+(assert
+  (!
+    (forall ((smt__a Idv) (smt__x Idv))
+      (!
+        (= (smt__TLA____Mem smt__x (smt__TLA____Subset smt__a))
+          (smt__TLA____SubsetEq smt__x smt__a))
+        :pattern ((smt__TLA____Mem smt__x (smt__TLA____Subset smt__a)))
+        :pattern ((smt__TLA____SubsetEq smt__x smt__a)
+                   (smt__TLA____Subset smt__a)))) :named |SubsetDefAlt|))
+
+;; Axiom: EnumDefIntro 1
+(assert
+  (!
+    (forall ((smt__a1 Idv))
+      (! (smt__TLA____Mem smt__a1 (smt__TLA____SetEnum__1 smt__a1))
+        :pattern ((smt__TLA____SetEnum__1 smt__a1)))) :named |EnumDefIntro 1|))
+
+;; Axiom: EnumDefElim 0
+(assert
+  (!
+    (forall ((smt__x Idv))
+      (! (not (smt__TLA____Mem smt__x smt__TLA____SetEnum__0))
+        :pattern ((smt__TLA____Mem smt__x smt__TLA____SetEnum__0))))
+    :named |EnumDefElim 0|))
+
+;; Axiom: EnumDefElim 1
+(assert
+  (!
+    (forall ((smt__a1 Idv) (smt__x Idv))
+      (!
+        (=> (smt__TLA____Mem smt__x (smt__TLA____SetEnum__1 smt__a1))
+          (= smt__x smt__a1))
+        :pattern ((smt__TLA____Mem smt__x (smt__TLA____SetEnum__1 smt__a1)))))
+    :named |EnumDefElim 1|))
+
+;; Axiom: CastInjAlt Int
+(assert
+  (!
+    (forall ((smt__x Int))
+      (! (= smt__x (smt__TLA____Proj__Int (smt__TLA____Cast__Int smt__x)))
+        :pattern ((smt__TLA____Cast__Int smt__x)))) :named |CastInjAlt Int|))
+
+;; Axiom: TypeGuardIntro Int
+(assert
+  (!
+    (forall ((smt__z Int))
+      (! (smt__TLA____Mem (smt__TLA____Cast__Int smt__z) smt__TLA____IntSet)
+        :pattern ((smt__TLA____Cast__Int smt__z))))
+    :named |TypeGuardIntro Int|))
+
+;; Axiom: TypeGuardElim Int
+(assert
+  (!
+    (forall ((smt__x Idv))
+      (!
+        (=> (smt__TLA____Mem smt__x smt__TLA____IntSet)
+          (= smt__x (smt__TLA____Cast__Int (smt__TLA____Proj__Int smt__x))))
+        :pattern ((smt__TLA____Mem smt__x smt__TLA____IntSet))))
+    :named |TypeGuardElim Int|))
+
+;; Axiom: Typing TIntLteq
+(assert
+  (!
+    (forall ((smt__x1 Int) (smt__x2 Int))
+      (!
+        (=
+          (smt__TLA____IntLteq (smt__TLA____Cast__Int smt__x1)
+            (smt__TLA____Cast__Int smt__x2)) (<= smt__x1 smt__x2))
+        :pattern ((smt__TLA____IntLteq (smt__TLA____Cast__Int smt__x1)
+                    (smt__TLA____Cast__Int smt__x2)))))
+    :named |Typing TIntLteq|))
+
+(declare-fun smt__CONSTANT__IsFiniteSet__ (Idv) Idv)
+
+(declare-fun smt__CONSTANT__Cardinality__ (Idv) Idv)
+
+; omitted declaration of 'CONSTANT_MapThenFoldSet_' (second-order)
+
+(declare-fun smt__CONSTANT__Restrict__ (Idv Idv) Idv)
+
+; omitted declaration of 'CONSTANT_RestrictDomain_' (second-order)
+
+; omitted declaration of 'CONSTANT_RestrictValues_' (second-order)
+
+(declare-fun smt__CONSTANT__IsRestriction__ (Idv Idv) Idv)
+
+(declare-fun smt__CONSTANT__Range__ (Idv) Idv)
+
+; omitted declaration of 'CONSTANT_Pointwise_' (second-order)
+
+(declare-fun smt__CONSTANT__Inverse__ (Idv Idv Idv) Idv)
+
+(declare-fun smt__CONSTANT__AntiFunction__ (Idv) Idv)
+
+(declare-fun smt__CONSTANT__IsInjective__ (Idv) Idv)
+
+(declare-fun smt__CONSTANT__Injection__ (Idv Idv) Idv)
+
+(declare-fun smt__CONSTANT__Surjection__ (Idv Idv) Idv)
+
+(declare-fun smt__CONSTANT__Bijection__ (Idv Idv) Idv)
+
+(declare-fun smt__CONSTANT__ExistsInjection__ (Idv Idv) Idv)
+
+(declare-fun smt__CONSTANT__ExistsSurjection__ (Idv Idv) Idv)
+
+(declare-fun smt__CONSTANT__ExistsBijection__ (Idv Idv) Idv)
+
+; omitted declaration of 'CONSTANT_FoldFunctionOnSet_' (second-order)
+
+; omitted declaration of 'CONSTANT_FoldFunction_' (second-order)
+
+(declare-fun smt__CONSTANT__SumFunctionOnSet__ (Idv Idv) Idv)
+
+(declare-fun smt__CONSTANT__SumFunction__ (Idv) Idv)
+
+; hidden fact
+
+; hidden fact
+
+; hidden fact
+
+; hidden fact
+
+; hidden fact
+
+; omitted declaration of 'CONSTANT_NatInductiveDefHypothesis_' (second-order)
+
+; omitted declaration of 'CONSTANT_NatInductiveDefConclusion_' (second-order)
+
+; hidden fact
+
+; hidden fact
+
+; hidden fact
+
+; hidden fact
+
+; hidden fact
+
+; omitted declaration of 'CONSTANT_FiniteNatInductiveDefHypothesis_' (second-order)
+
+; omitted declaration of 'CONSTANT_FiniteNatInductiveDefConclusion_' (second-order)
+
+; hidden fact
+
+; hidden fact
+
+; hidden fact
+
+(declare-fun smt__CONSTANT__IsTransitivelyClosedOn__ (Idv Idv) Idv)
+
+(declare-fun smt__CONSTANT__IsWellFoundedOn__ (Idv Idv) Idv)
+
+; hidden fact
+
+; hidden fact
+
+; hidden fact
+
+(declare-fun smt__CONSTANT__SetLessThan__ (Idv Idv Idv) Idv)
+
+; hidden fact
+
+; hidden fact
+
+; hidden fact
+
+; hidden fact
+
+; hidden fact
+
+; hidden fact
+
+; hidden fact
+
+; omitted declaration of 'CONSTANT_WFDefOn_' (second-order)
+
+; omitted declaration of 'CONSTANT_OpDefinesFcn_' (second-order)
+
+; omitted declaration of 'CONSTANT_WFInductiveDefines_' (second-order)
+
+; omitted declaration of 'CONSTANT_WFInductiveUnique_' (second-order)
+
+; hidden fact
+
+; hidden fact
+
+(declare-fun smt__CONSTANT__TransitiveClosureOn__ (Idv Idv) Idv)
+
+; hidden fact
+
+; hidden fact
+
+; hidden fact
+
+; hidden fact
+
+; hidden fact
+
+; hidden fact
+
+; hidden fact
+
+; hidden fact
+
+; hidden fact
+
+; omitted declaration of 'CONSTANT_OpToRel_' (second-order)
+
+; hidden fact
+
+; omitted declaration of 'CONSTANT_PreImage_' (second-order)
+
+; hidden fact
+
+(declare-fun smt__CONSTANT__LexPairOrdering__ (Idv Idv Idv Idv) Idv)
+
+; hidden fact
+
+(declare-fun smt__CONSTANT__LexProductOrdering__ (Idv Idv Idv) Idv)
+
+; hidden fact
+
+; hidden fact
+
+; hidden fact
+
+; hidden fact
+
+; hidden fact
+
+; hidden fact
+
+; hidden fact
+
+; hidden fact
+
+; hidden fact
+
+; hidden fact
+
+; hidden fact
+
+; hidden fact
+
+; hidden fact
+
+; hidden fact
+
+; hidden fact
+
+; hidden fact
+
+; hidden fact
+
+; hidden fact
+
+; hidden fact
+
+; hidden fact
+
+; hidden fact
+
+(declare-fun smt__CONSTANT__FiniteSubsetsOf__ (Idv) Idv)
+
+(declare-fun smt__CONSTANT__StrictSubsetOrdering__ (Idv) Idv)
+
+; hidden fact
+
+; hidden fact
+
+; hidden fact
+
+; hidden fact
+
+; hidden fact
+
+; hidden fact
+
+; hidden fact
+
+; hidden fact
+
+; hidden fact
+
+; hidden fact
+
+(declare-fun smt__CONSTANT__Value__ () Idv)
+
+(declare-fun smt__VARIABLE__chosen__ () Idv)
+
+(declare-fun smt__VARIABLE__chosen____prime () Idv)
+
+; hidden fact
+
+;; Goal
+(assert
+  (!
+    (not
+      (=>
+        (and
+          (and
+            (smt__TLA____Mem smt__VARIABLE__chosen__
+              (smt__TLA____Subset smt__CONSTANT__Value__))
+            (and
+              (smt__TLA____Mem smt__VARIABLE__chosen__
+                (smt__TLA____Subset smt__CONSTANT__Value__))
+              (smt__TLA____IntLteq
+                (smt__CONSTANT__Cardinality__ smt__VARIABLE__chosen__)
+                (smt__TLA____Cast__Int 1))))
+          (and (= smt__VARIABLE__chosen__ smt__TLA____SetEnum__0)
+            (exists ((smt__CONSTANT__v__ Idv))
+              (and
+                (smt__TLA____Mem smt__CONSTANT__v__ smt__CONSTANT__Value__)
+                (= smt__VARIABLE__chosen____prime
+                  (smt__TLA____SetEnum__1 smt__CONSTANT__v__))))))
+        (and
+          (smt__TLA____Mem smt__VARIABLE__chosen____prime
+            (smt__TLA____Subset smt__CONSTANT__Value__))
+          (and
+            (smt__TLA____Mem smt__VARIABLE__chosen____prime
+              (smt__TLA____Subset smt__CONSTANT__Value__))
+            (smt__TLA____IntLteq
+              (smt__CONSTANT__Cardinality__ smt__VARIABLE__chosen____prime)
+              (smt__TLA____Cast__Int 1)))))) :named |Goal|))
+
+(check-sat)
+(exit)

@@ -1,0 +1,1 @@
+{"prefix": "---- MODULE mathd_algebra_296 ----\nEXTENDS Integers, TLAPS\n\n\nABS(x) == IF x < 0 THEN -x ELSE x\n\nTHEOREM mathd_algebra_296 ==\n    ABS((3491 - 60) * (3491 + 60) - 3491 * 3491) = 3600", "fragment": "BY DEF ABS", "suffix": "\n====\n", "theorem_name": "mathd_algebra_296"}

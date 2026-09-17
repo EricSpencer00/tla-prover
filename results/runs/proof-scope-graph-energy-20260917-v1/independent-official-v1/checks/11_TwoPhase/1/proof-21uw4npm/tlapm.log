@@ -1,0 +1,14 @@
+Zenon error: exhausted search space without finding a proof
+(* created new "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/11_TwoPhase/1/proof-21uw4npm/.tlacache/11_TwoPhase.tlaps/11_TwoPhase.thy" *)
+(* fingerprints written in "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/11_TwoPhase/1/proof-21uw4npm/.tlacache/11_TwoPhase.tlaps/fingerprints" *)
+File "./11_TwoPhase.tla", line 200, characters 53-59:
+[ERROR]: Could not prove or check:
+           ASSUME NEW CONSTANT RM,
+                  NEW VARIABLE rmState,
+                  NEW VARIABLE tmState,
+                  NEW VARIABLE tmPrepared,
+                  NEW VARIABLE msgs
+           PROVE  IndAuto /\ Next => IndAuto'
+File "./11_TwoPhase.tla", line 1, character 1 to line 201, character 77:
+[ERROR]: 1/1 obligation failed.
+There were backend errors processing module `"11_TwoPhase"`.

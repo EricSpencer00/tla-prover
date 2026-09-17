@@ -1,0 +1,29 @@
+{
+  "certified": false,
+  "status": "verifier_reject",
+  "proved": 0,
+  "total": 0,
+  "output": "(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/strict-score-v1/checks/highest-correctness/0/proof-2vgtluje/.tlacache/FindHighest.tlaps/FindHighest.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/strict-score-v1/checks/highest-correctness/0/proof-2vgtluje/.tlacache/FindHighest.tlaps/fingerprints\" *)\nFile \"./FindHighest.tla\", line 145, characters 3-4:\n[ERROR]: Could not prove or check:\n           ASSUME NEW VARIABLE f,\n                  NEW VARIABLE h,\n                  NEW VARIABLE i,\n                  NEW VARIABLE pc,\n                  SMT \n           PROVE  TypeOK /\\ InductiveInvariant /\\ DoneIndexValue\n                  => Correctness\nFile \"./FindHighest.tla\", line 1, character 1 to line 149, character 77:\n[ERROR]: 1/46 obligations failed.\nThere were backend errors processing module `\"FindHighest\"`.\n",
+  "seconds": 0.5443599224090576,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/strict-score-v1/checks/highest-correctness/0/proof-2vgtluje",
+  "reason": "",
+  "sha256": "e23e178d8b3630f057b094ec5f3e0549fce5871ef88c20ffb1967b7b78f81e0d",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/strict-score-v1/checks/highest-correctness/0/proof-2vgtluje/FindHighest.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/strict-score-v1/checks/highest-correctness/0/proof-2vgtluje/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "FindHighest.tla"
+  ],
+  "returncode": 10,
+  "timed_out": false
+}

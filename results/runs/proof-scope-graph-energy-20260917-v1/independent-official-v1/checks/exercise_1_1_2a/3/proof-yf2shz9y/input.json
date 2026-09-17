@@ -1,0 +1,1 @@
+{"prefix": "---- MODULE exercise_1_1_2a ----\nEXTENDS Integers, TLAPS\n\nTHEOREM exercise_1_1_2a ==\n  \\E a, b \\in Int: a - b # b - a", "fragment": "BY SMT", "suffix": "\n================================\n", "theorem_name": "exercise_1_1_2a"}

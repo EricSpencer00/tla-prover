@@ -1,0 +1,1 @@
+{"prefix": "---- MODULE imo_1987_p4 ----\nEXTENDS TLAPS, Integers\n\nTHEOREM imo_1987_p4 ==\n    \\A f \\in [Nat -> Nat] :\n        \\E n \\in Nat : f[f[n]] # n + 1987", "fragment": "BY SMT", "suffix": "\n====\n", "theorem_name": "imo_1987_p4"}

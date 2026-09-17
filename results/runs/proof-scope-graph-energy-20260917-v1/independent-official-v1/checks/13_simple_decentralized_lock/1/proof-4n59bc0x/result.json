@@ -1,0 +1,29 @@
+{
+  "certified": true,
+  "status": "pass",
+  "proved": 1,
+  "total": 1,
+  "output": "(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/13_simple_decentralized_lock/1/proof-4n59bc0x/.tlacache/13_simple_decentralized_lock.tlaps/13_simple_decentralized_lock.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/13_simple_decentralized_lock/1/proof-4n59bc0x/.tlacache/13_simple_decentralized_lock.tlaps/fingerprints\" *)\nFile \"./13_simple_decentralized_lock.tla\", line 1, character 1 to line 71, character 4:\n[INFO]: All 1 obligation proved.\n",
+  "seconds": 2.4066410064697266,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/13_simple_decentralized_lock/1/proof-4n59bc0x",
+  "reason": "",
+  "sha256": "46335b77be7107788e0b482245e0728f3a3b145effd7f9bb3439392f3ed12694",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/13_simple_decentralized_lock/1/proof-4n59bc0x/13_simple_decentralized_lock.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/13_simple_decentralized_lock/1/proof-4n59bc0x/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "13_simple_decentralized_lock.tla"
+  ],
+  "returncode": 0,
+  "timed_out": false
+}

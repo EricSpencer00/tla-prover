@@ -1,0 +1,29 @@
+{
+  "certified": false,
+  "status": "verifier_reject",
+  "proved": 0,
+  "total": 0,
+  "output": "Zenon error: exhausted search space without finding a proof\n(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/4_quorum_leader_election/1/proof-1uvhwrbm/.tlacache/4_quorum_leader_election.tlaps/4_quorum_leader_election.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/4_quorum_leader_election/1/proof-1uvhwrbm/.tlacache/4_quorum_leader_election.tlaps/fingerprints\" *)\nFile \"./4_quorum_leader_election.tla\", line 63, characters 53-59:\n[ERROR]: Could not prove or check:\n           ASSUME NEW CONSTANT Node,\n                  NEW CONSTANT Nil,\n                  NEW VARIABLE isleader,\n                  NEW VARIABLE voted,\n                  QuorumType == Quorums \\subseteq SUBSET Node,\n                  NodeFinite == IsFiniteSet(Node),\n                  QuorumsAreNonEmpty == \\A Q \\in Quorums : Q # {},\n                  QuorumsIntersect == \\A Q1, Q2 \\in Quorums : Q1 \\cap Q2 # {},\n                  NilType == Nil \\notin Node\n           PROVE  IndAuto /\\ Next => IndAuto'\nFile \"./4_quorum_leader_election.tla\", line 1, character 1 to line 64, character 4:\n[ERROR]: 1/1 obligation failed.\nThere were backend errors processing module `\"4_quorum_leader_election\"`.\n",
+  "seconds": 2.3780508041381836,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/4_quorum_leader_election/1/proof-1uvhwrbm",
+  "reason": "",
+  "sha256": "6f604c79889a85a85725d7e2d590a8eee66310228e19dabd1232ffde7d44ff66",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/4_quorum_leader_election/1/proof-1uvhwrbm/4_quorum_leader_election.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/4_quorum_leader_election/1/proof-1uvhwrbm/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "4_quorum_leader_election.tla"
+  ],
+  "returncode": 10,
+  "timed_out": false
+}

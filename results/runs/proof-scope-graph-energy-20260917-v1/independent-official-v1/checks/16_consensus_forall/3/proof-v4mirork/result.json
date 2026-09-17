@@ -1,0 +1,29 @@
+{
+  "certified": false,
+  "status": "verifier_reject",
+  "proved": 0,
+  "total": 0,
+  "output": "(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/16_consensus_forall/3/proof-v4mirork/.tlacache/16_consensus_forall.tlaps/16_consensus_forall.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/16_consensus_forall/3/proof-v4mirork/.tlacache/16_consensus_forall.tlaps/fingerprints\" *)\nFile \"./16_consensus_forall.tla\", line 135, characters 1-2:\n[ERROR]: Could not prove or check:\n           ASSUME NEW CONSTANT Node,\n                  NEW CONSTANT Value,\n                  NEW CONSTANT Quorum,\n                  NEW VARIABLE vote_request_msg,\n                  NEW VARIABLE voted,\n                  NEW VARIABLE vote_msg,\n                  NEW VARIABLE votes,\n                  NEW VARIABLE leader,\n                  NEW VARIABLE voting_quorum,\n                  NEW VARIABLE decided,\n                  QuorumsAreNodePowersets == Quorum \\subseteq SUBSET Node,\n                  EmptyNotInQuorums == {} \\notin Quorum,\n                  QuorumsOverlap == \\A Q1, Q2 \\in Quorum : Q1 \\cap Q2 # {},\n                  Fin == IsFiniteSet(Node),\n                  SMT \n           PROVE  IndAuto /\\ Next => IndAuto'\nFile \"./16_consensus_forall.tla\", line 1, character 1 to line 136, character 4:\n[ERROR]: 1/2 obligations failed.\nThere were backend errors processing module `\"16_consensus_forall\"`.\n",
+  "seconds": 0.545727014541626,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/16_consensus_forall/3/proof-v4mirork",
+  "reason": "",
+  "sha256": "911d063a0702d48e85b1b0f4736152404a77b05c60261f60208813b37839b7c0",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/16_consensus_forall/3/proof-v4mirork/16_consensus_forall.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/16_consensus_forall/3/proof-v4mirork/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "16_consensus_forall.tla"
+  ],
+  "returncode": 10,
+  "timed_out": false
+}

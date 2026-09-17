@@ -1,0 +1,14 @@
+(* created new "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/strict-score-v1/checks/simple-full/0/proof-ctswl2zy/.tlacache/Simple.tlaps/Simple.thy" *)
+(* fingerprints written in "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/strict-score-v1/checks/simple-full/0/proof-ctswl2zy/.tlacache/Simple.tlaps/fingerprints" *)
+File "./Simple.tla", line 127, characters 1-2:
+[ERROR]: Could not prove or check:
+           ASSUME NEW CONSTANT N,
+                  NAssump == N \in Nat /\ N > 0,
+                  NEW VARIABLE x,
+                  NEW VARIABLE y,
+                  NEW VARIABLE pc,
+                  SMT 
+           PROVE  Spec => []PCorrect
+File "./Simple.tla", line 1, character 1 to line 129, character 77:
+[ERROR]: 1/2 obligations failed.
+There were backend errors processing module `"Simple"`.

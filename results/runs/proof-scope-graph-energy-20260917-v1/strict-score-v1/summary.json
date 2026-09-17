@@ -1,0 +1,15 @@
+{
+  "kind": "proof_scope_graph_energy_v1",
+  "strict_label_records": 68,
+  "fit_tasks": 13,
+  "holdout_tasks": 4,
+  "holdout_rank1": 3,
+  "holdout_top4": 4,
+  "denominator_fixed": true,
+  "checker": "strict uncached TLAPS",
+  "training_executed": false,
+  "reference_fragment_used": false,
+  "quality_claim": false,
+  "gate_claim": false,
+  "elapsed_seconds": 75.186
+}

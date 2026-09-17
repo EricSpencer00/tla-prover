@@ -1,0 +1,14 @@
+Zenon error: exhausted search space without finding a proof
+(* created new "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/8_SimpleRegular/1/proof-xg6pcswz/.tlacache/8_SimpleRegular.tlaps/8_SimpleRegular.thy" *)
+(* fingerprints written in "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/8_SimpleRegular/1/proof-xg6pcswz/.tlacache/8_SimpleRegular.tlaps/fingerprints" *)
+File "./8_SimpleRegular.tla", line 145, characters 53-59:
+[ERROR]: Could not prove or check:
+           ASSUME NEW CONSTANT N,
+                  NAssump == N \in Nat /\ N > 0,
+                  NEW VARIABLE x,
+                  NEW VARIABLE y,
+                  NEW VARIABLE pc
+           PROVE  IndAuto /\ Next => IndAuto'
+File "./8_SimpleRegular.tla", line 1, character 1 to line 146, character 38:
+[ERROR]: 1/1 obligation failed.
+There were backend errors processing module `"8_SimpleRegular"`.

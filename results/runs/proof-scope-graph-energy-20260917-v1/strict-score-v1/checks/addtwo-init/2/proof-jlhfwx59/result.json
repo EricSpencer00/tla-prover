@@ -1,0 +1,29 @@
+{
+  "certified": true,
+  "status": "pass",
+  "proved": 8,
+  "total": 8,
+  "output": "(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/strict-score-v1/checks/addtwo-init/2/proof-jlhfwx59/.tlacache/AddTwo.tlaps/AddTwo.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/strict-score-v1/checks/addtwo-init/2/proof-jlhfwx59/.tlacache/AddTwo.tlaps/fingerprints\" *)\nFile \"./AddTwo.tla\", line 1, character 1 to line 45, character 77:\n[INFO]: All 8 obligations proved.\n",
+  "seconds": 0.4341111183166504,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/strict-score-v1/checks/addtwo-init/2/proof-jlhfwx59",
+  "reason": "",
+  "sha256": "5a6d09a0f6603f4987733c6bd91c4c20fe37bbc68b7795699a88571fee1445e6",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/strict-score-v1/checks/addtwo-init/2/proof-jlhfwx59/AddTwo.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/strict-score-v1/checks/addtwo-init/2/proof-jlhfwx59/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "AddTwo.tla"
+  ],
+  "returncode": 0,
+  "timed_out": false
+}

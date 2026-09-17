@@ -1,0 +1,29 @@
+{
+  "certified": true,
+  "status": "pass",
+  "proved": 2,
+  "total": 2,
+  "output": "(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/mathd_numbertheory_320/1/proof-fs5r85jr/.tlacache/mathd_numbertheory_320.tlaps/mathd_numbertheory_320.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/mathd_numbertheory_320/1/proof-fs5r85jr/.tlacache/mathd_numbertheory_320.tlaps/fingerprints\" *)\nFile \"./mathd_numbertheory_320.tla\", line 1, character 1 to line 9, character 53:\n[INFO]: All 2 obligations proved.\n",
+  "seconds": 0.41471195220947266,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/mathd_numbertheory_320/1/proof-fs5r85jr",
+  "reason": "",
+  "sha256": "76db85a6a4645b948fad6c8153768004e9b6a908efa0b69b4df73f30b9f22d5c",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/mathd_numbertheory_320/1/proof-fs5r85jr/mathd_numbertheory_320.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/mathd_numbertheory_320/1/proof-fs5r85jr/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "mathd_numbertheory_320.tla"
+  ],
+  "returncode": 0,
+  "timed_out": false
+}

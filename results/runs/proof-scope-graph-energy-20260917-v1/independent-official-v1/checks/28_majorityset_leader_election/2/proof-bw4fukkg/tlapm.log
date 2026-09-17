@@ -1,0 +1,22 @@
+(* created new "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/28_majorityset_leader_election/2/proof-bw4fukkg/.tlacache/28_majorityset_leader_election.tlaps/28_majorityset_leader_election.thy" *)
+(* fingerprints written in "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/28_majorityset_leader_election/2/proof-bw4fukkg/.tlacache/28_majorityset_leader_election.tlaps/fingerprints" *)
+File "./28_majorityset_leader_election.tla", line 85, characters 53-54:
+[ERROR]: Could not prove or check:
+           ASSUME NEW CONSTANT Node,
+                  NEW VARIABLE vote,
+                  NEW VARIABLE leader,
+                  NEW VARIABLE voters,
+                  MajorityIntersect ==
+                    \A m1, m2 \in Majority : m1 \cap m2 # {},
+                  MajorityNonEmpty ==
+                    Majority # {} /\ (\A s \in Majority : s # {}),
+                  NodeFinite == IsFiniteSet(Node) /\ Node # {},
+                  NatTimesTwoIneq ==
+                    \A a, b \in Nat : a >= b => a * 2 >= b * 2,
+                  NatIneqTrans ==
+                    \A a, b, c \in Nat : a >= b /\ b > c => a > c,
+                  SMT 
+           PROVE  IndAuto /\ Next => IndAuto'
+File "./28_majorityset_leader_election.tla", line 1, character 1 to line 86, character 4:
+[ERROR]: 1/2 obligations failed.
+There were backend errors processing module `"28_majorityset_leader_election"`.

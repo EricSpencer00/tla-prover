@@ -1,0 +1,29 @@
+{
+  "certified": false,
+  "status": "verifier_reject",
+  "proved": 0,
+  "total": 0,
+  "output": "Zenon error: exhausted search space without finding a proof\n(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/14_two_phase_commit/1/proof-2k7735mg/.tlacache/14_two_phase_commit.tlaps/14_two_phase_commit.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/14_two_phase_commit/1/proof-2k7735mg/.tlacache/14_two_phase_commit.tlaps/fingerprints\" *)\nFile \"./14_two_phase_commit.tla\", line 137, characters 53-59:\n[ERROR]: Could not prove or check:\n           ASSUME NEW CONSTANT Node,\n                  NEW VARIABLE vote_yes,\n                  NEW VARIABLE vote_no,\n                  NEW VARIABLE alive,\n                  NEW VARIABLE go_commit,\n                  NEW VARIABLE go_abort,\n                  NEW VARIABLE decide_commit,\n                  NEW VARIABLE decide_abort,\n                  NEW VARIABLE abort_flag\n           PROVE  IndAuto /\\ Next => IndAuto'\nFile \"./14_two_phase_commit.tla\", line 1, character 1 to line 138, character 4:\n[ERROR]: 1/1 obligation failed.\nThere were backend errors processing module `\"14_two_phase_commit\"`.\n",
+  "seconds": 2.1938061714172363,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/14_two_phase_commit/1/proof-2k7735mg",
+  "reason": "",
+  "sha256": "e0cbe26e563b55b74d834f8798fb66313cd5db8d4866f48a097140aa9ea65b23",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/14_two_phase_commit/1/proof-2k7735mg/14_two_phase_commit.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/14_two_phase_commit/1/proof-2k7735mg/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "14_two_phase_commit.tla"
+  ],
+  "returncode": 10,
+  "timed_out": false
+}

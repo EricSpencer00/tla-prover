@@ -1,0 +1,29 @@
+{
+  "certified": false,
+  "status": "verifier_reject",
+  "proved": 0,
+  "total": 0,
+  "output": "(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/strict-score-v1/checks/simple-full/0/proof-ctswl2zy/.tlacache/Simple.tlaps/Simple.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/strict-score-v1/checks/simple-full/0/proof-ctswl2zy/.tlacache/Simple.tlaps/fingerprints\" *)\nFile \"./Simple.tla\", line 127, characters 1-2:\n[ERROR]: Could not prove or check:\n           ASSUME NEW CONSTANT N,\n                  NAssump == N \\in Nat /\\ N > 0,\n                  NEW VARIABLE x,\n                  NEW VARIABLE y,\n                  NEW VARIABLE pc,\n                  SMT \n           PROVE  Spec => []PCorrect\nFile \"./Simple.tla\", line 1, character 1 to line 129, character 77:\n[ERROR]: 1/2 obligations failed.\nThere were backend errors processing module `\"Simple\"`.\n",
+  "seconds": 0.4097762107849121,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/strict-score-v1/checks/simple-full/0/proof-ctswl2zy",
+  "reason": "",
+  "sha256": "7af1734b46c750afec54cea455331fd4146cea6ff40cdbb5d00e511126dc1c84",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/strict-score-v1/checks/simple-full/0/proof-ctswl2zy/Simple.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/strict-score-v1/checks/simple-full/0/proof-ctswl2zy/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "Simple.tla"
+  ],
+  "returncode": 10,
+  "timed_out": false
+}

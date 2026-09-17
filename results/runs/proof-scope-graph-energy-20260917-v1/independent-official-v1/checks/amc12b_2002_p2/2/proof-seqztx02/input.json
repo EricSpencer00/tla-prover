@@ -1,0 +1,1 @@
+{"prefix": "---- MODULE amc12b_2002_p2 ----\nEXTENDS Integers, TLAPS\n\nTHEOREM amc12b_2002_p2 ==\n    \\A x \\in Int :\n        (x = 4) => (3 * x - 2) * (4 * x + 1) - (3 * x - 2) * (4 * x) + 1 = 11", "fragment": "BY SMT, SetExtensionality, NoSetContainsEverything", "suffix": "\n====\n", "theorem_name": "amc12b_2002_p2"}

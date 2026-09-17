@@ -1,0 +1,29 @@
+{
+  "certified": true,
+  "status": "pass",
+  "proved": 1,
+  "total": 1,
+  "output": "(* created new \"/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/10_lockserv/2/proof-34yid_fz/.tlacache/10_lockserv.tlaps/10_lockserv.thy\" *)\n(* fingerprints written in \"/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/10_lockserv/2/proof-34yid_fz/.tlacache/10_lockserv.tlaps/fingerprints\" *)\nFile \"./10_lockserv.tla\", line 1, character 1 to line 97, character 4:\n[INFO]: All 1 obligation proved.\n",
+  "seconds": 0.8351650238037109,
+  "workdir": "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/10_lockserv/2/proof-34yid_fz",
+  "reason": "",
+  "sha256": "423e9b00974bed6f3e8264599927b94804a9c5cda3d0222ac9af3d3463d4ff6e",
+  "candidate_path": "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/10_lockserv/2/proof-34yid_fz/10_lockserv.tla",
+  "dependency_sha256": {},
+  "command": [
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+    "--strict",
+    "--nofp",
+    "--cache-dir",
+    "/Users/eric/GitHub/prove-TLA/results/runs/proof-scope-graph-energy-20260917-v1/independent-official-v1/checks/10_lockserv/2/proof-34yid_fz/.tlacache",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm/stdlib",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/community-modules",
+    "-I",
+    "/Users/eric/GitHub/prove-TLA/tools/extra-modules",
+    "10_lockserv.tla"
+  ],
+  "returncode": 0,
+  "timed_out": false
+}
