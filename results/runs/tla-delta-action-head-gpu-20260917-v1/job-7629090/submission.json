@@ -1,0 +1,23 @@
+{
+  "job_id": "7629090.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "submitted_utc": "2026-09-17T04:17:01Z",
+  "host": "polaris-login-04",
+  "pbs_state_at_submission": "Q",
+  "queue": "debug",
+  "job_name": "tla-delta-v1",
+  "resources": {
+    "ncpus": 64,
+    "ngpus": 1,
+    "nodect": 1,
+    "walltime": "00:15:00"
+  },
+  "stage": "tla-delta-action-head-gpu-20260917-v1",
+  "representation": "mean response hidden state minus prompt terminal hidden state",
+  "parameter_updates": 16,
+  "training_executed": true,
+  "protected_feedback": false,
+  "tlaps_in_worker": false,
+  "quality_claim": false,
+  "gate_claim": false,
+  "unique_claim": "results/prover-submit-claims/7d53b1cb6650a5b66a353bc79441e8ded4dcf32aa478c8b653e9aef25f50892c.json"
+}
