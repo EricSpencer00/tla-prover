@@ -1,0 +1,2254 @@
+{
+  "schema_version": 1,
+  "packet_kind": "answer_free_autoregressive_proof_state_transition",
+  "manifest_sha256": "c186ddf0007c5b5adfdc345a06feb777a89746160cf9041b875a8655ed1eb344",
+  "parent_sha256": "87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511",
+  "events": [
+    "entry:direct",
+    "entry:structured",
+    "entry:other",
+    "assume",
+    "case",
+    "use",
+    "suffices",
+    "obvious",
+    "solver:smt",
+    "solver:def",
+    "solver:defs",
+    "solver:ptl",
+    "solver:z3",
+    "solver:other",
+    "facts:zero",
+    "facts:one",
+    "facts:few",
+    "facts:many",
+    "close:by",
+    "close:qed",
+    "eos"
+  ],
+  "train_rows": [
+    {
+      "id": "addtwo-init",
+      "split": "train",
+      "theorem_name": "TypeInvariant",
+      "prompt": "Predict an abstract proof-state transition trace for the fixed theorem. Return no proof, candidate, module, verifier result, or reference answer.\n\ntheorem=TypeInvariant\ngoal=\nImmutable statement-only scaffold:\n------------------------------ MODULE AddTwo --------------------------------\n(***************************************************************************)\n(* Defines a very simple algorithm that continually increments a variable  *)\n(* by 2. We try to prove that this variable is always divisible by 2.      *)\n(* This was created as an exercise in learning the absolute basics of the  *)\n(* proof language.                                                         *)\n(***************************************************************************)\n\nEXTENDS Naturals, TLAPS\n\n(****************************************************************************\n--algorithm Increase {\n  variable x = 0; {\n    while (TRUE) {\n      x := x + 2\n    }\n  }\n}\n****************************************************************************)\n\\* BEGIN TRANSLATION (chksum(pcal) = \"b4b07666\" /\\ chksum(tla) = \"8adfa002\")\nVARIABLE x\n\nvars == << x >>\n\nInit == (* Global variables *)\n        /\\ x = 0\n\nNext == x' = x + 2\n\nSpec == Init /\\ [][Next]_vars\n\n\\* END TRANSLATION \n\nTypeOK == x \\in Nat\n\nTHEOREM TypeInvariant == Spec => []TypeOK\n  <1>a. Init => TypeOK\n    \n  <1>b. TypeOK /\\ UNCHANGED vars => TypeOK'\n    BY DEF TypeOK, vars\n  <1>c. TypeOK /\\ Next => TypeOK'\n    BY DEF TypeOK, Next\n  <1> QED BY PTL, <1>a, <1>b, <1>c DEF Spec\n\n=============================================================================\n",
+      "prompt_sha256": "26fd29e2a2ec97fe46fad73e03acabef61c1f140b2d8cc4353449ff099d4ce59",
+      "transition_events": [
+        "entry:direct",
+        "solver:def",
+        "facts:few",
+        "close:by",
+        "eos"
+      ],
+      "transition_ids": [
+        0,
+        9,
+        16,
+        18,
+        20
+      ]
+    },
+    {
+      "id": "addtwo-step",
+      "split": "train",
+      "theorem_name": "TypeInvariant",
+      "prompt": "Predict an abstract proof-state transition trace for the fixed theorem. Return no proof, candidate, module, verifier result, or reference answer.\n\ntheorem=TypeInvariant\ngoal=\nImmutable statement-only scaffold:\n------------------------------ MODULE AddTwo --------------------------------\n(***************************************************************************)\n(* Defines a very simple algorithm that continually increments a variable  *)\n(* by 2. We try to prove that this variable is always divisible by 2.      *)\n(* This was created as an exercise in learning the absolute basics of the  *)\n(* proof language.                                                         *)\n(***************************************************************************)\n\nEXTENDS Naturals, TLAPS\n\n(****************************************************************************\n--algorithm Increase {\n  variable x = 0; {\n    while (TRUE) {\n      x := x + 2\n    }\n  }\n}\n****************************************************************************)\n\\* BEGIN TRANSLATION (chksum(pcal) = \"b4b07666\" /\\ chksum(tla) = \"8adfa002\")\nVARIABLE x\n\nvars == << x >>\n\nInit == (* Global variables *)\n        /\\ x = 0\n\nNext == x' = x + 2\n\nSpec == Init /\\ [][Next]_vars\n\n\\* END TRANSLATION \n\nTypeOK == x \\in Nat\n\nTHEOREM TypeInvariant == Spec => []TypeOK\n  <1>a. Init => TypeOK\n    BY DEF Init, TypeOK\n  <1>b. TypeOK /\\ UNCHANGED vars => TypeOK'\n    BY DEF TypeOK, vars\n  <1>c. TypeOK /\\ Next => TypeOK'\n    \n  <1> QED BY PTL, <1>a, <1>b, <1>c DEF Spec\n\n=============================================================================\n",
+      "prompt_sha256": "311a8db7291a865b1c8d6e8cf34063e78c0f8a3bb27552836139d002f873ea2f",
+      "transition_events": [
+        "entry:direct",
+        "solver:def",
+        "facts:few",
+        "close:by",
+        "eos"
+      ],
+      "transition_ids": [
+        0,
+        9,
+        16,
+        18,
+        20
+      ]
+    },
+    {
+      "id": "highest-type-step",
+      "split": "train",
+      "theorem_name": "TypeInvariantHolds",
+      "prompt": "Predict an abstract proof-state transition trace for the fixed theorem. Return no proof, candidate, module, verifier result, or reference answer.\n\ntheorem=TypeInvariantHolds\ngoal=\nImmutable statement-only scaffold:\n---------------------------- MODULE FindHighest -----------------------------\n(***************************************************************************)\n(* Defines a very simple algorithm that finds the largest value in a       *)\n(* sequence of Natural numbers. This was created as an exercise in finding *)\n(* & proving type invariants, inductive invariants, and correctness.       *)\n(***************************************************************************)\n\nEXTENDS Sequences, Naturals, Integers, TLAPS\n\n(****************************************************************************\n--algorithm Highest {\n  variables\n    f \\in Seq(Nat);\n    h = -1;\n    i = 1;\n  define {\n    max(a, b) == IF a >= b THEN a ELSE b\n  } {\nlb: while (i <= Len(f)) {\n      h := max(h, f[i]);\n      i := i + 1;\n    }\n  }\n}\n****************************************************************************)\n\\* BEGIN TRANSLATION (chksum(pcal) = \"31f24270\" /\\ chksum(tla) = \"819802c6\")\nVARIABLES f, h, i, pc\n\n(* define statement *)\nmax(a, b) == IF a >= b THEN a ELSE b\n\n\nvars == << f, h, i, pc >>\n\nInit == (* Global variables *)\n        /\\ f \\in Seq(Nat)\n        /\\ h = -1\n        /\\ i = 1\n        /\\ pc = \"lb\"\n\nlb == /\\ pc = \"lb\"\n      /\\ IF i <= Len(f)\n            THEN /\\ h' = max(h, f[i])\n                 /\\ i' = i + 1\n                 /\\ pc' = \"lb\"\n            ELSE /\\ pc' = \"Done\"\n                 /\\ UNCHANGED << h, i >>\n      /\\ f' = f\n\n(* Allow infinite stuttering to prevent deadlock on termination. *)\nTerminating == pc = \"Done\" /\\ UNCHANGED vars\n\nNext == lb\n           \\/ Terminating\n\nSpec == Init /\\ [][Next]_vars\n\nTermination == <>(pc = \"Done\")\n\n\\* END TRANSLATION \n\n\\* The type invariant; the proof system likes knowing variables are in Nat.\n\\* It's a good idea to check these invariants with the model checker before\n\\* trying to prove them. To quote Leslie Lamport, it's very difficult to\n\\* prove something that isn't true!\nTypeOK ==\n  /\\ f \\in Seq(Nat)\n  /\\ i \\in 1..(Len(f) + 1)\n  /\\ i \\in Nat\n  /\\ h \\in Nat \\cup {-1}\n\n\\* It's useful to prove the type invariant first, so it can be used as an\n\\* assumption in further proofs to restrict variable values.\nTHEOREM TypeInvariantHolds == Spec => []TypeOK\n\\* To prove theorems like Spec => []Invariant, you have to:\n\\*  1. Prove Invariant holds in the initial state (usually trivial)\n\\*  2. Prove Invariant holds when variables are unchanged (usually trivial)\n\\*  3. Prove that assuming Invariant is true, a Next step implies Invariant'\n\\* The last one (inductive case) is usually quite difficult. It helps to\n\\* never forget you have an extremely powerful assumption: that Invariant is\n\\* true!\nPROOF\n  \\* The base case\n  <1>a. Init => TypeOK\n    BY DEFS Init, TypeOK\n  \\* The stuttering case\n  <1>b. TypeOK /\\ UNCHANGED vars => TypeOK'\n    BY DEFS TypeOK, vars\n  \\* The inductive case; usually requires breaking down Next into disjuncts\n  <1>c. TypeOK /\\ Next => TypeOK'\n    <2>a. TypeOK /\\ lb => TypeOK'\n      \n    <2>b. TypeOK /\\ Terminating => TypeOK'\n      BY DEFS TypeOK, Terminating, vars\n    <2> QED BY <2>a, <2>b DEF Next\n  <1> QED BY PTL, <1>a, <1>b, <1>c DEF Spec\n\n=============================================================================\n",
+      "prompt_sha256": "eb0a664e426509ebe0a9ee69deeaf5fba545b6a193fa64b18d76c6fa3b24f96f",
+      "transition_events": [
+        "entry:direct",
+        "solver:defs",
+        "facts:few",
+        "close:by",
+        "eos"
+      ],
+      "transition_ids": [
+        0,
+        10,
+        16,
+        18,
+        20
+      ]
+    },
+    {
+      "id": "highest-inductive-step",
+      "split": "train",
+      "theorem_name": "InductiveInvariantHolds",
+      "prompt": "Predict an abstract proof-state transition trace for the fixed theorem. Return no proof, candidate, module, verifier result, or reference answer.\n\ntheorem=InductiveInvariantHolds\ngoal=\nImmutable statement-only scaffold:\n---------------------------- MODULE FindHighest -----------------------------\n(***************************************************************************)\n(* Defines a very simple algorithm that finds the largest value in a       *)\n(* sequence of Natural numbers. This was created as an exercise in finding *)\n(* & proving type invariants, inductive invariants, and correctness.       *)\n(***************************************************************************)\n\nEXTENDS Sequences, Naturals, Integers, TLAPS\n\n(****************************************************************************\n--algorithm Highest {\n  variables\n    f \\in Seq(Nat);\n    h = -1;\n    i = 1;\n  define {\n    max(a, b) == IF a >= b THEN a ELSE b\n  } {\nlb: while (i <= Len(f)) {\n      h := max(h, f[i]);\n      i := i + 1;\n    }\n  }\n}\n****************************************************************************)\n\\* BEGIN TRANSLATION (chksum(pcal) = \"31f24270\" /\\ chksum(tla) = \"819802c6\")\nVARIABLES f, h, i, pc\n\n(* define statement *)\nmax(a, b) == IF a >= b THEN a ELSE b\n\n\nvars == << f, h, i, pc >>\n\nInit == (* Global variables *)\n        /\\ f \\in Seq(Nat)\n        /\\ h = -1\n        /\\ i = 1\n        /\\ pc = \"lb\"\n\nlb == /\\ pc = \"lb\"\n      /\\ IF i <= Len(f)\n            THEN /\\ h' = max(h, f[i])\n                 /\\ i' = i + 1\n                 /\\ pc' = \"lb\"\n            ELSE /\\ pc' = \"Done\"\n                 /\\ UNCHANGED << h, i >>\n      /\\ f' = f\n\n(* Allow infinite stuttering to prevent deadlock on termination. *)\nTerminating == pc = \"Done\" /\\ UNCHANGED vars\n\nNext == lb\n           \\/ Terminating\n\nSpec == Init /\\ [][Next]_vars\n\nTermination == <>(pc = \"Done\")\n\n\\* END TRANSLATION \n\n\\* The type invariant; the proof system likes knowing variables are in Nat.\n\\* It's a good idea to check these invariants with the model checker before\n\\* trying to prove them. To quote Leslie Lamport, it's very difficult to\n\\* prove something that isn't true!\nTypeOK ==\n  /\\ f \\in Seq(Nat)\n  /\\ i \\in 1..(Len(f) + 1)\n  /\\ i \\in Nat\n  /\\ h \\in Nat \\cup {-1}\n\n\\* It's useful to prove the type invariant first, so it can be used as an\n\\* assumption in further proofs to restrict variable values.\nTHEOREM TypeInvariantHolds == Spec => []TypeOK\n\\* To prove theorems like Spec => []Invariant, you have to:\n\\*  1. Prove Invariant holds in the initial state (usually trivial)\n\\*  2. Prove Invariant holds when variables are unchanged (usually trivial)\n\\*  3. Prove that assuming Invariant is true, a Next step implies Invariant'\n\\* The last one (inductive case) is usually quite difficult. It helps to\n\\* never forget you have an extremely powerful assumption: that Invariant is\n\\* true!\nPROOF\n  \\* The base case\n  <1>a. Init => TypeOK\n    BY DEFS Init, TypeOK\n  \\* The stuttering case\n  <1>b. TypeOK /\\ UNCHANGED vars => TypeOK'\n    BY DEFS TypeOK, vars\n  \\* The inductive case; usually requires breaking down Next into disjuncts\n  <1>c. TypeOK /\\ Next => TypeOK'\n    <2>a. TypeOK /\\ lb => TypeOK'\n      BY DEFS TypeOK, lb, max\n    <2>b. TypeOK /\\ Terminating => TypeOK'\n      BY DEFS TypeOK, Terminating, vars\n    <2> QED BY <2>a, <2>b DEF Next\n  <1> QED BY PTL, <1>a, <1>b, <1>c DEF Spec\n\n\\* The inductive invariant; writing these is an art. You want an invariant\n\\* that can be shown to be true in every state, and if it's true in all\n\\* states, it can be shown to imply algorithm correctness as a whole.\nInductiveInvariant ==\n  \\A idx \\in 1..(i - 1) : f[idx] <= h\n\nTHEOREM InductiveInvariantHolds == Spec => []InductiveInvariant\nPROOF\n  <1>a. Init => InductiveInvariant\n    BY DEFS Init, InductiveInvariant\n  <1>b. InductiveInvariant /\\ UNCHANGED vars => InductiveInvariant'\n    BY DEFS InductiveInvariant, vars\n  <1>c. InductiveInvariant /\\ TypeOK /\\ TypeOK' /\\ Next => InductiveInvariant'\n    <2>a. InductiveInvariant /\\ Terminating => InductiveInvariant'\n      BY DEFS InductiveInvariant, Terminating, vars\n    <2>b. InductiveInvariant /\\ TypeOK /\\ lb => InductiveInvariant'\n      \n    <2> QED BY <2>a, <2>b DEF Next\n  \\* We need to note we made use of the type invariant theorem here\n  <1> QED BY PTL, <1>a, <1>b, <1>c, TypeInvariantHolds DEF Spec\n\n=============================================================================\n",
+      "prompt_sha256": "de23ce9661971a588f557e78ce70ad828ace5d7865382cfde6cc79a562e1f7d8",
+      "transition_events": [
+        "entry:direct",
+        "solver:defs",
+        "facts:few",
+        "close:by",
+        "eos"
+      ],
+      "transition_ids": [
+        0,
+        10,
+        16,
+        18,
+        20
+      ]
+    },
+    {
+      "id": "highest-done-step",
+      "split": "train",
+      "theorem_name": "DoneIndexValueThm",
+      "prompt": "Predict an abstract proof-state transition trace for the fixed theorem. Return no proof, candidate, module, verifier result, or reference answer.\n\ntheorem=DoneIndexValueThm\ngoal=\nImmutable statement-only scaffold:\n---------------------------- MODULE FindHighest -----------------------------\n(***************************************************************************)\n(* Defines a very simple algorithm that finds the largest value in a       *)\n(* sequence of Natural numbers. This was created as an exercise in finding *)\n(* & proving type invariants, inductive invariants, and correctness.       *)\n(***************************************************************************)\n\nEXTENDS Sequences, Naturals, Integers, TLAPS\n\n(****************************************************************************\n--algorithm Highest {\n  variables\n    f \\in Seq(Nat);\n    h = -1;\n    i = 1;\n  define {\n    max(a, b) == IF a >= b THEN a ELSE b\n  } {\nlb: while (i <= Len(f)) {\n      h := max(h, f[i]);\n      i := i + 1;\n    }\n  }\n}\n****************************************************************************)\n\\* BEGIN TRANSLATION (chksum(pcal) = \"31f24270\" /\\ chksum(tla) = \"819802c6\")\nVARIABLES f, h, i, pc\n\n(* define statement *)\nmax(a, b) == IF a >= b THEN a ELSE b\n\n\nvars == << f, h, i, pc >>\n\nInit == (* Global variables *)\n        /\\ f \\in Seq(Nat)\n        /\\ h = -1\n        /\\ i = 1\n        /\\ pc = \"lb\"\n\nlb == /\\ pc = \"lb\"\n      /\\ IF i <= Len(f)\n            THEN /\\ h' = max(h, f[i])\n                 /\\ i' = i + 1\n                 /\\ pc' = \"lb\"\n            ELSE /\\ pc' = \"Done\"\n                 /\\ UNCHANGED << h, i >>\n      /\\ f' = f\n\n(* Allow infinite stuttering to prevent deadlock on termination. *)\nTerminating == pc = \"Done\" /\\ UNCHANGED vars\n\nNext == lb\n           \\/ Terminating\n\nSpec == Init /\\ [][Next]_vars\n\nTermination == <>(pc = \"Done\")\n\n\\* END TRANSLATION \n\n\\* The type invariant; the proof system likes knowing variables are in Nat.\n\\* It's a good idea to check these invariants with the model checker before\n\\* trying to prove them. To quote Leslie Lamport, it's very difficult to\n\\* prove something that isn't true!\nTypeOK ==\n  /\\ f \\in Seq(Nat)\n  /\\ i \\in 1..(Len(f) + 1)\n  /\\ i \\in Nat\n  /\\ h \\in Nat \\cup {-1}\n\n\\* It's useful to prove the type invariant first, so it can be used as an\n\\* assumption in further proofs to restrict variable values.\nTHEOREM TypeInvariantHolds == Spec => []TypeOK\n\\* To prove theorems like Spec => []Invariant, you have to:\n\\*  1. Prove Invariant holds in the initial state (usually trivial)\n\\*  2. Prove Invariant holds when variables are unchanged (usually trivial)\n\\*  3. Prove that assuming Invariant is true, a Next step implies Invariant'\n\\* The last one (inductive case) is usually quite difficult. It helps to\n\\* never forget you have an extremely powerful assumption: that Invariant is\n\\* true!\nPROOF\n  \\* The base case\n  <1>a. Init => TypeOK\n    BY DEFS Init, TypeOK\n  \\* The stuttering case\n  <1>b. TypeOK /\\ UNCHANGED vars => TypeOK'\n    BY DEFS TypeOK, vars\n  \\* The inductive case; usually requires breaking down Next into disjuncts\n  <1>c. TypeOK /\\ Next => TypeOK'\n    <2>a. TypeOK /\\ lb => TypeOK'\n      BY DEFS TypeOK, lb, max\n    <2>b. TypeOK /\\ Terminating => TypeOK'\n      BY DEFS TypeOK, Terminating, vars\n    <2> QED BY <2>a, <2>b DEF Next\n  <1> QED BY PTL, <1>a, <1>b, <1>c DEF Spec\n\n\\* The inductive invariant; writing these is an art. You want an invariant\n\\* that can be shown to be true in every state, and if it's true in all\n\\* states, it can be shown to imply algorithm correctness as a whole.\nInductiveInvariant ==\n  \\A idx \\in 1..(i - 1) : f[idx] <= h\n\nTHEOREM InductiveInvariantHolds == Spec => []InductiveInvariant\nPROOF\n  <1>a. Init => InductiveInvariant\n    BY DEFS Init, InductiveInvariant\n  <1>b. InductiveInvariant /\\ UNCHANGED vars => InductiveInvariant'\n    BY DEFS InductiveInvariant, vars\n  <1>c. InductiveInvariant /\\ TypeOK /\\ TypeOK' /\\ Next => InductiveInvariant'\n    <2>a. InductiveInvariant /\\ Terminating => InductiveInvariant'\n      BY DEFS InductiveInvariant, Terminating, vars\n    <2>b. InductiveInvariant /\\ TypeOK /\\ lb => InductiveInvariant'\n      BY DEFS InductiveInvariant, TypeOK, lb, max\n    <2> QED BY <2>a, <2>b DEF Next\n  \\* We need to note we made use of the type invariant theorem here\n  <1> QED BY PTL, <1>a, <1>b, <1>c, TypeInvariantHolds DEF Spec\n\n\\* A small sub-theorem that relates our inductive invariant to correctness\nDoneIndexValue == pc = \"Done\" => i = Len(f) + 1\n\nTHEOREM DoneIndexValueThm == Spec => []DoneIndexValue\nPROOF\n  <1>a. Init => DoneIndexValue\n    BY DEF Init, DoneIndexValue\n  <1>b. DoneIndexValue /\\ UNCHANGED vars => DoneIndexValue'\n    BY DEFS DoneIndexValue, vars\n  <1>c. DoneIndexValue /\\ TypeOK /\\ Next => DoneIndexValue'\n    <2>a. DoneIndexValue /\\ Terminating => DoneIndexValue'\n      BY DEFS DoneIndexValue, Terminating, vars\n    <2>b. DoneIndexValue /\\ TypeOK /\\ lb => DoneIndexValue'\n      \n    <2> QED BY <2>a, <2>b DEF Next\n  <1> QED BY PTL, <1>a, <1>b, <1>c, TypeInvariantHolds DEF Spec\n\n=============================================================================\n",
+      "prompt_sha256": "c371d623b776e229bba0c601388b20e66ee0e688f1bbe85a2ebca13dc7dcee16",
+      "transition_events": [
+        "entry:direct",
+        "solver:defs",
+        "facts:few",
+        "close:by",
+        "eos"
+      ],
+      "transition_ids": [
+        0,
+        10,
+        16,
+        18,
+        20
+      ]
+    },
+    {
+      "id": "highest-correctness",
+      "split": "train",
+      "theorem_name": "IsCorrect",
+      "prompt": "Predict an abstract proof-state transition trace for the fixed theorem. Return no proof, candidate, module, verifier result, or reference answer.\n\ntheorem=IsCorrect\ngoal=\nImmutable statement-only scaffold:\n---------------------------- MODULE FindHighest -----------------------------\n(***************************************************************************)\n(* Defines a very simple algorithm that finds the largest value in a       *)\n(* sequence of Natural numbers. This was created as an exercise in finding *)\n(* & proving type invariants, inductive invariants, and correctness.       *)\n(***************************************************************************)\n\nEXTENDS Sequences, Naturals, Integers, TLAPS\n\n(****************************************************************************\n--algorithm Highest {\n  variables\n    f \\in Seq(Nat);\n    h = -1;\n    i = 1;\n  define {\n    max(a, b) == IF a >= b THEN a ELSE b\n  } {\nlb: while (i <= Len(f)) {\n      h := max(h, f[i]);\n      i := i + 1;\n    }\n  }\n}\n****************************************************************************)\n\\* BEGIN TRANSLATION (chksum(pcal) = \"31f24270\" /\\ chksum(tla) = \"819802c6\")\nVARIABLES f, h, i, pc\n\n(* define statement *)\nmax(a, b) == IF a >= b THEN a ELSE b\n\n\nvars == << f, h, i, pc >>\n\nInit == (* Global variables *)\n        /\\ f \\in Seq(Nat)\n        /\\ h = -1\n        /\\ i = 1\n        /\\ pc = \"lb\"\n\nlb == /\\ pc = \"lb\"\n      /\\ IF i <= Len(f)\n            THEN /\\ h' = max(h, f[i])\n                 /\\ i' = i + 1\n                 /\\ pc' = \"lb\"\n            ELSE /\\ pc' = \"Done\"\n                 /\\ UNCHANGED << h, i >>\n      /\\ f' = f\n\n(* Allow infinite stuttering to prevent deadlock on termination. *)\nTerminating == pc = \"Done\" /\\ UNCHANGED vars\n\nNext == lb\n           \\/ Terminating\n\nSpec == Init /\\ [][Next]_vars\n\nTermination == <>(pc = \"Done\")\n\n\\* END TRANSLATION \n\n\\* The type invariant; the proof system likes knowing variables are in Nat.\n\\* It's a good idea to check these invariants with the model checker before\n\\* trying to prove them. To quote Leslie Lamport, it's very difficult to\n\\* prove something that isn't true!\nTypeOK ==\n  /\\ f \\in Seq(Nat)\n  /\\ i \\in 1..(Len(f) + 1)\n  /\\ i \\in Nat\n  /\\ h \\in Nat \\cup {-1}\n\n\\* It's useful to prove the type invariant first, so it can be used as an\n\\* assumption in further proofs to restrict variable values.\nTHEOREM TypeInvariantHolds == Spec => []TypeOK\n\\* To prove theorems like Spec => []Invariant, you have to:\n\\*  1. Prove Invariant holds in the initial state (usually trivial)\n\\*  2. Prove Invariant holds when variables are unchanged (usually trivial)\n\\*  3. Prove that assuming Invariant is true, a Next step implies Invariant'\n\\* The last one (inductive case) is usually quite difficult. It helps to\n\\* never forget you have an extremely powerful assumption: that Invariant is\n\\* true!\nPROOF\n  \\* The base case\n  <1>a. Init => TypeOK\n    BY DEFS Init, TypeOK\n  \\* The stuttering case\n  <1>b. TypeOK /\\ UNCHANGED vars => TypeOK'\n    BY DEFS TypeOK, vars\n  \\* The inductive case; usually requires breaking down Next into disjuncts\n  <1>c. TypeOK /\\ Next => TypeOK'\n    <2>a. TypeOK /\\ lb => TypeOK'\n      BY DEFS TypeOK, lb, max\n    <2>b. TypeOK /\\ Terminating => TypeOK'\n      BY DEFS TypeOK, Terminating, vars\n    <2> QED BY <2>a, <2>b DEF Next\n  <1> QED BY PTL, <1>a, <1>b, <1>c DEF Spec\n\n\\* The inductive invariant; writing these is an art. You want an invariant\n\\* that can be shown to be true in every state, and if it's true in all\n\\* states, it can be shown to imply algorithm correctness as a whole.\nInductiveInvariant ==\n  \\A idx \\in 1..(i - 1) : f[idx] <= h\n\nTHEOREM InductiveInvariantHolds == Spec => []InductiveInvariant\nPROOF\n  <1>a. Init => InductiveInvariant\n    BY DEFS Init, InductiveInvariant\n  <1>b. InductiveInvariant /\\ UNCHANGED vars => InductiveInvariant'\n    BY DEFS InductiveInvariant, vars\n  <1>c. InductiveInvariant /\\ TypeOK /\\ TypeOK' /\\ Next => InductiveInvariant'\n    <2>a. InductiveInvariant /\\ Terminating => InductiveInvariant'\n      BY DEFS InductiveInvariant, Terminating, vars\n    <2>b. InductiveInvariant /\\ TypeOK /\\ lb => InductiveInvariant'\n      BY DEFS InductiveInvariant, TypeOK, lb, max\n    <2> QED BY <2>a, <2>b DEF Next\n  \\* We need to note we made use of the type invariant theorem here\n  <1> QED BY PTL, <1>a, <1>b, <1>c, TypeInvariantHolds DEF Spec\n\n\\* A small sub-theorem that relates our inductive invariant to correctness\nDoneIndexValue == pc = \"Done\" => i = Len(f) + 1\n\nTHEOREM DoneIndexValueThm == Spec => []DoneIndexValue\nPROOF\n  <1>a. Init => DoneIndexValue\n    BY DEF Init, DoneIndexValue\n  <1>b. DoneIndexValue /\\ UNCHANGED vars => DoneIndexValue'\n    BY DEFS DoneIndexValue, vars\n  <1>c. DoneIndexValue /\\ TypeOK /\\ Next => DoneIndexValue'\n    <2>a. DoneIndexValue /\\ Terminating => DoneIndexValue'\n      BY DEFS DoneIndexValue, Terminating, vars\n    <2>b. DoneIndexValue /\\ TypeOK /\\ lb => DoneIndexValue'\n      BY DEFS DoneIndexValue, TypeOK, lb\n    <2> QED BY <2>a, <2>b DEF Next\n  <1> QED BY PTL, <1>a, <1>b, <1>c, TypeInvariantHolds DEF Spec\n\n\\* The main event! After the algorithm has terminated, the variable h must\n\\* have value greater than or equal to any element of the sequence.\nCorrectness ==\n  pc = \"Done\" =>\n    \\A idx \\in DOMAIN f : f[idx] <= h\n\n\\* Correctness is implied by the preceding invariants.\nTHEOREM IsCorrect == Spec => []Correctness\n<1>1. TypeOK /\\ InductiveInvariant /\\ DoneIndexValue => Correctness\n  \n<1>. QED\n  BY <1>1, TypeInvariantHolds, InductiveInvariantHolds, DoneIndexValueThm, PTL\n\n=============================================================================\n",
+      "prompt_sha256": "641fc2ba5e5a21d1e18567f992f1b037cae7112fa2d35ce292774701894c5fd9",
+      "transition_events": [
+        "entry:direct",
+        "solver:def",
+        "facts:few",
+        "close:by",
+        "eos"
+      ],
+      "transition_ids": [
+        0,
+        9,
+        16,
+        18,
+        20
+      ]
+    },
+    {
+      "id": "even-intro",
+      "split": "train",
+      "theorem_name": "T1",
+      "prompt": "Predict an abstract proof-state transition trace for the fixed theorem. Return no proof, candidate, module, verifier result, or reference answer.\n\ntheorem=T1\ngoal=THEOREM T1 == \\A x \\in Nat: Even(x+x)\nImmutable statement-only scaffold:\n------------------------- MODULE sums_even -------------------------\n\\* A proof that the sum x+x of the natural number x is always even.  \n\nEXTENDS Naturals, TLAPS\n\nEven(x) == x % 2 = 0\nOdd(x) == x % 2 = 1\n\n\\* Z3 can solve it in a single step\nTHEOREM \\A x \\in Nat : Even(x+x)\nBY Z3 DEF Even\n\n\\* alternatively we prove this step-wise by making a case distinction on x being even or odd\nTHEOREM T1 == \\A x \\in Nat: Even(x+x)\n\n  <2> DEFINE A == x%2\n  <2> HIDE DEF A\n  <2> A = 0 => (A + A) % 2 = (0+0) %2 BY SMT DEF Even\n  <2> QED BY DEF Even, A\n<1>3 CASE Odd(x)\n  <2> USE <1>3\n  <2> ((x % 2) + (x % 2)) % 2 = (x+x)%2 BY <1>1 DEF Even, Odd\n  <2> DEFINE A == x%2\n  <2> HIDE DEF A\n  <2> A = 1 => (A + A) % 2 = (1+1) %2 BY SMT DEF Even\n  <2> QED BY DEF Even, Odd, A\n<1> QED BY <1>1, <1>2, <1>3\n\n=============================================================================\n",
+      "prompt_sha256": "1a93e16f721d143cfa86fff65880ee859a87d9f25ef9baa6642897269b0cfab8",
+      "transition_events": [
+        "entry:structured",
+        "assume",
+        "case",
+        "use",
+        "solver:def",
+        "facts:many",
+        "close:by",
+        "eos"
+      ],
+      "transition_ids": [
+        1,
+        3,
+        4,
+        5,
+        9,
+        17,
+        18,
+        20
+      ]
+    },
+    {
+      "id": "even-case-tail",
+      "split": "train",
+      "theorem_name": "T1",
+      "prompt": "Predict an abstract proof-state transition trace for the fixed theorem. Return no proof, candidate, module, verifier result, or reference answer.\n\ntheorem=T1\ngoal=THEOREM T1 == \\A x \\in Nat: Even(x+x)\nImmutable statement-only scaffold:\n------------------------- MODULE sums_even -------------------------\n\\* A proof that the sum x+x of the natural number x is always even.  \n\nEXTENDS Naturals, TLAPS\n\nEven(x) == x % 2 = 0\nOdd(x) == x % 2 = 1\n\n\\* Z3 can solve it in a single step\nTHEOREM \\A x \\in Nat : Even(x+x)\nBY Z3 DEF Even\n\n\\* alternatively we prove this step-wise by making a case distinction on x being even or odd\nTHEOREM T1 == \\A x \\in Nat: Even(x+x)\n<1>a TAKE x \\in Nat\n<1>1 \\A z \\in Nat : Even(z) \\/ Odd(z) BY DEF Even, Odd\n<1>2 CASE Even(x)\n  <2> USE <1>2\n  <2> ((x % 2) + (x % 2)) % 2 = (x+x)%2  BY <1>1 DEF Even, Odd\n  <2> DEFINE A == x%2\n  \n<1>3 CASE Odd(x)\n  <2> USE <1>3\n  <2> ((x % 2) + (x % 2)) % 2 = (x+x)%2 BY <1>1 DEF Even, Odd\n  <2> DEFINE A == x%2\n  <2> HIDE DEF A\n  <2> A = 1 => (A + A) % 2 = (1+1) %2 BY SMT DEF Even\n  <2> QED BY DEF Even, Odd, A\n<1> QED BY <1>1, <1>2, <1>3\n\n=============================================================================\n",
+      "prompt_sha256": "ed6e1f84104d544fdce2615ec6fb297aeae125e96c0527eafb8785613d97977f",
+      "transition_events": [
+        "entry:structured",
+        "solver:smt",
+        "facts:few",
+        "close:qed",
+        "eos"
+      ],
+      "transition_ids": [
+        1,
+        8,
+        16,
+        19,
+        20
+      ]
+    },
+    {
+      "id": "odd-case-tail",
+      "split": "train",
+      "theorem_name": "T1",
+      "prompt": "Predict an abstract proof-state transition trace for the fixed theorem. Return no proof, candidate, module, verifier result, or reference answer.\n\ntheorem=T1\ngoal=THEOREM T1 == \\A x \\in Nat: Even(x+x)\nImmutable statement-only scaffold:\n------------------------- MODULE sums_even -------------------------\n\\* A proof that the sum x+x of the natural number x is always even.  \n\nEXTENDS Naturals, TLAPS\n\nEven(x) == x % 2 = 0\nOdd(x) == x % 2 = 1\n\n\\* Z3 can solve it in a single step\nTHEOREM \\A x \\in Nat : Even(x+x)\nBY Z3 DEF Even\n\n\\* alternatively we prove this step-wise by making a case distinction on x being even or odd\nTHEOREM T1 == \\A x \\in Nat: Even(x+x)\n<1>a TAKE x \\in Nat\n<1>1 \\A z \\in Nat : Even(z) \\/ Odd(z) BY DEF Even, Odd\n<1>2 CASE Even(x)\n  <2> USE <1>2\n  <2> ((x % 2) + (x % 2)) % 2 = (x+x)%2  BY <1>1 DEF Even, Odd\n  <2> DEFINE A == x%2\n  <2> HIDE DEF A\n  <2> A = 0 => (A + A) % 2 = (0+0) %2 BY SMT DEF Even\n  <2> QED BY DEF Even, A\n<1>3 CASE Odd(x)\n  <2> USE <1>3\n  <2> ((x % 2) + (x % 2)) % 2 = (x+x)%2 BY <1>1 DEF Even, Odd\n  <2> DEFINE A == x%2\n  \n\n=============================================================================\n",
+      "prompt_sha256": "b32006358efc7cfd32f2933564ec7e177208fd6f44562e2f880b64fd67ee7fd3",
+      "transition_events": [
+        "entry:structured",
+        "solver:smt",
+        "facts:many",
+        "close:qed",
+        "eos"
+      ],
+      "transition_ids": [
+        1,
+        8,
+        17,
+        19,
+        20
+      ]
+    },
+    {
+      "id": "simple-full",
+      "split": "train",
+      "theorem_name": "Correctness",
+      "prompt": "Predict an abstract proof-state transition trace for the fixed theorem. Return no proof, candidate, module, verifier result, or reference answer.\n\ntheorem=Correctness\ngoal=THEOREM Correctness == Spec => []PCorrect\nImmutable statement-only scaffold:\n------------------------------ MODULE Simple ------------------------------\n(***************************************************************************)\n(* This is a trivial example from the document \"Teaching Conccurrency\"     *)\n(* that appeared in                                                        *)\n(*                                                                         *)\n(*     ACM SIGACT News Volume 40, Issue 1 (March 2009), 58-62              *)\n(*                                                                         *)\n(* A copy of that article is at                                            *)\n(*                                                                         *)\n(*    http://lamport.azurewebsites.net/pubs/teaching-concurrency.pdf       *)\n(*                                                                         *)\n(* It is also the example in Section 7.2 of \"Proving Safety Properties\",   *)\n(* which is at                                                             *)\n(*                                                                         *)\n(*    http://lamport.azurewebsites.net/tla/proving-safety.pdf              *)\n(***************************************************************************)\nEXTENDS Integers, TLAPS\n\nCONSTANT N\nASSUME NAssump ==  (N \\in Nat) /\\ (N > 0)\n\n(****************************************************************************\nHere is the algorithm in PlusCal.  It's easy to understand if you think\nof the N processes, numbered from 0 through N-1, as arranged in a\ncircle, with processes (i-1) % N and (i+1) % N being the processes on\neither side of process i.\n\n--algorithm Simple {\n    variables x = [i \\in 0..(N-1) |-> 0], y = [i \\in 0..(N-1) |-> 0] ;\n    process (proc \\in 0..N-1) {\n      a: x[self] := 1 ;\n      b: y[self] := x[(self-1) % N]\n    }\n}\n****************************************************************************)\n\\* BEGIN TRANSLATION  This is the TLA+ translation of the PlusCal code.\nVARIABLES x, y, pc\n\nvars == << x, y, pc >>\n\nProcSet == (0..N-1)\n\nInit == (* Global variables *)\n        /\\ x = [i \\in 0..(N-1) |-> 0]\n        /\\ y = [i \\in 0..(N-1) |-> 0]\n        /\\ pc = [self \\in ProcSet |-> \"a\"]\n\na(self) == /\\ pc[self] = \"a\"\n           /\\ x' = [x EXCEPT ![self] = 1]\n           /\\ pc' = [pc EXCEPT ![self] = \"b\"]\n           /\\ y' = y\n\nb(self) == /\\ pc[self] = \"b\"\n           /\\ y' = [y EXCEPT ![self] = x[(self-1) % N]]\n           /\\ pc' = [pc EXCEPT ![self] = \"Done\"]\n           /\\ x' = x\n\nproc(self) == a(self) \\/ b(self)\n\n(* Allow infinite stuttering to prevent deadlock on termination. *)\nTerminating == /\\ \\A self \\in ProcSet: pc[self] = \"Done\"\n               /\\ UNCHANGED vars\n\nNext == (\\E self \\in 0..N-1: proc(self))\n           \\/ Terminating\n\nSpec == Init /\\ [][Next]_vars\n\nTermination == <>(\\A self \\in ProcSet: pc[self] = \"Done\")\n\n\\* END TRANSLATION\n----------------------------------------------------------------------------\n(***************************************************************************)\n(* The property of this algorithm we want to prove is that, when all the   *)\n(* processes have terminated, y[i] equals 1 for at least one process i.   *)\n(* This property is express by the invariance of the following formula     *)\n(* PCorrect.  In other words, we have to prove the theorem                 *)\n(*                                                                         *)\n(*    Spec => []PCorrect                                                   *)\n(***************************************************************************)\nPCorrect == (\\A i \\in 0..(N-1) : pc[i] = \"Done\") => \n                (\\E i \\in 0..(N-1) : y[i] = 1)\n\n(***************************************************************************)\n(* Proving the invariance of PCorrect requires finding an inductive        *)\n(* invariant Inv that implies it.  As usual, the inductive invariant       *)\n(* includes a type-correctness invariant, which is the following formula   *)\n(* TypeOK.                                                                 *)\n(***************************************************************************)\nTypeOK == /\\ x \\in [0..(N-1) -> {0,1}]\n          /\\ y \\in [0..(N-1) -> {0,1}]\n          /\\ pc \\in [0..(N-1) -> {\"a\", \"b\", \"Done\"}]\n \n(***************************************************************************)\n(* It's easy to use TLC to check that the following formula Inv is an      *)\n(* inductive invariant of the algorithm.  You should also be able check    *)\n(* that the propositional logic tautology                                  *)\n(*                                                                         *)\n(*    (A => B) = ((~A) \\/ B)                                               *)\n(*                                                                         *)\n(* and the predicate logic tautology                                       *)\n(*                                                                         *)\n(*    (~ \\A i \\in S : P(i))  =  \\E i \\in S : ~P(i)                         *)\n(*                                                                         *)\n(* imply that the last conjunct of Inv is equivalet to PCorrect.  When I   *)\n(* wrote the definition, I knew that this conjunct of Inv implied          *)\n(* PCorrect, but I didn't realize that the two were equivalent until I saw *)\n(* the invariant written in terms of PCorrect in a paper by Yuri Abraham.  *)\n(* That's why I originally didn't define Inv in terms of PCorrect.  I'm    *)\n(* not sure why, but I find the implication to be a more natural way to    *)\n(* write the postcondition PCorrect and the disjunction to be a more       *)\n(* natural way to think about the inductive invariant.                     *)\n(***************************************************************************)                   \nInv ==  /\\ TypeOK\n        /\\ \\A i \\in 0..(N-1) : (pc[i] \\in {\"b\", \"Done\"}) => (x[i] = 1)\n        /\\ \\/ \\E i \\in 0..(N-1) : pc[i] /= \"Done\"\n           \\/ \\E i \\in 0..(N-1) : y[i] = 1\n\n(***************************************************************************)\n(* Here is the proof of correctness.  The top-level steps <1>1 - <1>4 are  *)\n(* the standard ones for an invariance proof, and the decomposition of the *)\n(* proof of <1>2 was done with the Toolbox's Decompose Proof command.  It  *)\n(* was trivial to get TLAPS to check the proof, except for the proof of    *)\n(* <2>2.  A comment explains the problem I had with that step.             *)\n(***************************************************************************)\nTHEOREM Correctness == Spec => []PCorrect\n\n\n=============================================================================\n",
+      "prompt_sha256": "29a5067e2bec835c02f17aa234ca5ba14d8c5633d59105ef55b78dc892e1106f",
+      "transition_events": [
+        "entry:structured",
+        "use",
+        "assume",
+        "suffices",
+        "obvious",
+        "assume",
+        "assume",
+        "case",
+        "solver:def",
+        "facts:many",
+        "close:qed",
+        "eos"
+      ],
+      "transition_ids": [
+        1,
+        5,
+        3,
+        6,
+        7,
+        3,
+        3,
+        4,
+        9,
+        17,
+        19,
+        20
+      ]
+    },
+    {
+      "id": "simple-preservation",
+      "split": "train",
+      "theorem_name": "Correctness",
+      "prompt": "Predict an abstract proof-state transition trace for the fixed theorem. Return no proof, candidate, module, verifier result, or reference answer.\n\ntheorem=Correctness\ngoal=THEOREM Correctness == Spec => []PCorrect\nImmutable statement-only scaffold:\n------------------------------ MODULE Simple ------------------------------\n(***************************************************************************)\n(* This is a trivial example from the document \"Teaching Conccurrency\"     *)\n(* that appeared in                                                        *)\n(*                                                                         *)\n(*     ACM SIGACT News Volume 40, Issue 1 (March 2009), 58-62              *)\n(*                                                                         *)\n(* A copy of that article is at                                            *)\n(*                                                                         *)\n(*    http://lamport.azurewebsites.net/pubs/teaching-concurrency.pdf       *)\n(*                                                                         *)\n(* It is also the example in Section 7.2 of \"Proving Safety Properties\",   *)\n(* which is at                                                             *)\n(*                                                                         *)\n(*    http://lamport.azurewebsites.net/tla/proving-safety.pdf              *)\n(***************************************************************************)\nEXTENDS Integers, TLAPS\n\nCONSTANT N\nASSUME NAssump ==  (N \\in Nat) /\\ (N > 0)\n\n(****************************************************************************\nHere is the algorithm in PlusCal.  It's easy to understand if you think\nof the N processes, numbered from 0 through N-1, as arranged in a\ncircle, with processes (i-1) % N and (i+1) % N being the processes on\neither side of process i.\n\n--algorithm Simple {\n    variables x = [i \\in 0..(N-1) |-> 0], y = [i \\in 0..(N-1) |-> 0] ;\n    process (proc \\in 0..N-1) {\n      a: x[self] := 1 ;\n      b: y[self] := x[(self-1) % N]\n    }\n}\n****************************************************************************)\n\\* BEGIN TRANSLATION  This is the TLA+ translation of the PlusCal code.\nVARIABLES x, y, pc\n\nvars == << x, y, pc >>\n\nProcSet == (0..N-1)\n\nInit == (* Global variables *)\n        /\\ x = [i \\in 0..(N-1) |-> 0]\n        /\\ y = [i \\in 0..(N-1) |-> 0]\n        /\\ pc = [self \\in ProcSet |-> \"a\"]\n\na(self) == /\\ pc[self] = \"a\"\n           /\\ x' = [x EXCEPT ![self] = 1]\n           /\\ pc' = [pc EXCEPT ![self] = \"b\"]\n           /\\ y' = y\n\nb(self) == /\\ pc[self] = \"b\"\n           /\\ y' = [y EXCEPT ![self] = x[(self-1) % N]]\n           /\\ pc' = [pc EXCEPT ![self] = \"Done\"]\n           /\\ x' = x\n\nproc(self) == a(self) \\/ b(self)\n\n(* Allow infinite stuttering to prevent deadlock on termination. *)\nTerminating == /\\ \\A self \\in ProcSet: pc[self] = \"Done\"\n               /\\ UNCHANGED vars\n\nNext == (\\E self \\in 0..N-1: proc(self))\n           \\/ Terminating\n\nSpec == Init /\\ [][Next]_vars\n\nTermination == <>(\\A self \\in ProcSet: pc[self] = \"Done\")\n\n\\* END TRANSLATION\n----------------------------------------------------------------------------\n(***************************************************************************)\n(* The property of this algorithm we want to prove is that, when all the   *)\n(* processes have terminated, y[i] equals 1 for at least one process i.   *)\n(* This property is express by the invariance of the following formula     *)\n(* PCorrect.  In other words, we have to prove the theorem                 *)\n(*                                                                         *)\n(*    Spec => []PCorrect                                                   *)\n(***************************************************************************)\nPCorrect == (\\A i \\in 0..(N-1) : pc[i] = \"Done\") => \n                (\\E i \\in 0..(N-1) : y[i] = 1)\n\n(***************************************************************************)\n(* Proving the invariance of PCorrect requires finding an inductive        *)\n(* invariant Inv that implies it.  As usual, the inductive invariant       *)\n(* includes a type-correctness invariant, which is the following formula   *)\n(* TypeOK.                                                                 *)\n(***************************************************************************)\nTypeOK == /\\ x \\in [0..(N-1) -> {0,1}]\n          /\\ y \\in [0..(N-1) -> {0,1}]\n          /\\ pc \\in [0..(N-1) -> {\"a\", \"b\", \"Done\"}]\n \n(***************************************************************************)\n(* It's easy to use TLC to check that the following formula Inv is an      *)\n(* inductive invariant of the algorithm.  You should also be able check    *)\n(* that the propositional logic tautology                                  *)\n(*                                                                         *)\n(*    (A => B) = ((~A) \\/ B)                                               *)\n(*                                                                         *)\n(* and the predicate logic tautology                                       *)\n(*                                                                         *)\n(*    (~ \\A i \\in S : P(i))  =  \\E i \\in S : ~P(i)                         *)\n(*                                                                         *)\n(* imply that the last conjunct of Inv is equivalet to PCorrect.  When I   *)\n(* wrote the definition, I knew that this conjunct of Inv implied          *)\n(* PCorrect, but I didn't realize that the two were equivalent until I saw *)\n(* the invariant written in terms of PCorrect in a paper by Yuri Abraham.  *)\n(* That's why I originally didn't define Inv in terms of PCorrect.  I'm    *)\n(* not sure why, but I find the implication to be a more natural way to    *)\n(* write the postcondition PCorrect and the disjunction to be a more       *)\n(* natural way to think about the inductive invariant.                     *)\n(***************************************************************************)                   \nInv ==  /\\ TypeOK\n        /\\ \\A i \\in 0..(N-1) : (pc[i] \\in {\"b\", \"Done\"}) => (x[i] = 1)\n        /\\ \\/ \\E i \\in 0..(N-1) : pc[i] /= \"Done\"\n           \\/ \\E i \\in 0..(N-1) : y[i] = 1\n\n(***************************************************************************)\n(* Here is the proof of correctness.  The top-level steps <1>1 - <1>4 are  *)\n(* the standard ones for an invariance proof, and the decomposition of the *)\n(* proof of <1>2 was done with the Toolbox's Decompose Proof command.  It  *)\n(* was trivial to get TLAPS to check the proof, except for the proof of    *)\n(* <2>2.  A comment explains the problem I had with that step.             *)\n(***************************************************************************)\nTHEOREM Correctness == Spec => []PCorrect\n<1> USE NAssump\n<1>1. Init => Inv\n  BY DEF Init, Inv, TypeOK, ProcSet \n<1>2. Inv /\\ [Next]_vars => Inv'\n  \n<1>3. Inv => PCorrect\n  BY DEF Inv, TypeOK, PCorrect\n<1>4. QED\n  BY <1>1, <1>2, <1>3, PTL DEF Spec\n\n=============================================================================\n",
+      "prompt_sha256": "f97059dbbb4dc1b435acf320d54b50364758d441f1ac091d631ceb812fbd6852",
+      "transition_events": [
+        "entry:structured",
+        "assume",
+        "suffices",
+        "obvious",
+        "assume",
+        "assume",
+        "case",
+        "solver:def",
+        "facts:many",
+        "close:qed",
+        "eos"
+      ],
+      "transition_ids": [
+        1,
+        3,
+        6,
+        7,
+        3,
+        3,
+        4,
+        9,
+        17,
+        19,
+        20
+      ]
+    },
+    {
+      "id": "simple-case-a",
+      "split": "train",
+      "theorem_name": "Correctness",
+      "prompt": "Predict an abstract proof-state transition trace for the fixed theorem. Return no proof, candidate, module, verifier result, or reference answer.\n\ntheorem=Correctness\ngoal=THEOREM Correctness == Spec => []PCorrect\nImmutable statement-only scaffold:\n------------------------------ MODULE Simple ------------------------------\n(***************************************************************************)\n(* This is a trivial example from the document \"Teaching Conccurrency\"     *)\n(* that appeared in                                                        *)\n(*                                                                         *)\n(*     ACM SIGACT News Volume 40, Issue 1 (March 2009), 58-62              *)\n(*                                                                         *)\n(* A copy of that article is at                                            *)\n(*                                                                         *)\n(*    http://lamport.azurewebsites.net/pubs/teaching-concurrency.pdf       *)\n(*                                                                         *)\n(* It is also the example in Section 7.2 of \"Proving Safety Properties\",   *)\n(* which is at                                                             *)\n(*                                                                         *)\n(*    http://lamport.azurewebsites.net/tla/proving-safety.pdf              *)\n(***************************************************************************)\nEXTENDS Integers, TLAPS\n\nCONSTANT N\nASSUME NAssump ==  (N \\in Nat) /\\ (N > 0)\n\n(****************************************************************************\nHere is the algorithm in PlusCal.  It's easy to understand if you think\nof the N processes, numbered from 0 through N-1, as arranged in a\ncircle, with processes (i-1) % N and (i+1) % N being the processes on\neither side of process i.\n\n--algorithm Simple {\n    variables x = [i \\in 0..(N-1) |-> 0], y = [i \\in 0..(N-1) |-> 0] ;\n    process (proc \\in 0..N-1) {\n      a: x[self] := 1 ;\n      b: y[self] := x[(self-1) % N]\n    }\n}\n****************************************************************************)\n\\* BEGIN TRANSLATION  This is the TLA+ translation of the PlusCal code.\nVARIABLES x, y, pc\n\nvars == << x, y, pc >>\n\nProcSet == (0..N-1)\n\nInit == (* Global variables *)\n        /\\ x = [i \\in 0..(N-1) |-> 0]\n        /\\ y = [i \\in 0..(N-1) |-> 0]\n        /\\ pc = [self \\in ProcSet |-> \"a\"]\n\na(self) == /\\ pc[self] = \"a\"\n           /\\ x' = [x EXCEPT ![self] = 1]\n           /\\ pc' = [pc EXCEPT ![self] = \"b\"]\n           /\\ y' = y\n\nb(self) == /\\ pc[self] = \"b\"\n           /\\ y' = [y EXCEPT ![self] = x[(self-1) % N]]\n           /\\ pc' = [pc EXCEPT ![self] = \"Done\"]\n           /\\ x' = x\n\nproc(self) == a(self) \\/ b(self)\n\n(* Allow infinite stuttering to prevent deadlock on termination. *)\nTerminating == /\\ \\A self \\in ProcSet: pc[self] = \"Done\"\n               /\\ UNCHANGED vars\n\nNext == (\\E self \\in 0..N-1: proc(self))\n           \\/ Terminating\n\nSpec == Init /\\ [][Next]_vars\n\nTermination == <>(\\A self \\in ProcSet: pc[self] = \"Done\")\n\n\\* END TRANSLATION\n----------------------------------------------------------------------------\n(***************************************************************************)\n(* The property of this algorithm we want to prove is that, when all the   *)\n(* processes have terminated, y[i] equals 1 for at least one process i.   *)\n(* This property is express by the invariance of the following formula     *)\n(* PCorrect.  In other words, we have to prove the theorem                 *)\n(*                                                                         *)\n(*    Spec => []PCorrect                                                   *)\n(***************************************************************************)\nPCorrect == (\\A i \\in 0..(N-1) : pc[i] = \"Done\") => \n                (\\E i \\in 0..(N-1) : y[i] = 1)\n\n(***************************************************************************)\n(* Proving the invariance of PCorrect requires finding an inductive        *)\n(* invariant Inv that implies it.  As usual, the inductive invariant       *)\n(* includes a type-correctness invariant, which is the following formula   *)\n(* TypeOK.                                                                 *)\n(***************************************************************************)\nTypeOK == /\\ x \\in [0..(N-1) -> {0,1}]\n          /\\ y \\in [0..(N-1) -> {0,1}]\n          /\\ pc \\in [0..(N-1) -> {\"a\", \"b\", \"Done\"}]\n \n(***************************************************************************)\n(* It's easy to use TLC to check that the following formula Inv is an      *)\n(* inductive invariant of the algorithm.  You should also be able check    *)\n(* that the propositional logic tautology                                  *)\n(*                                                                         *)\n(*    (A => B) = ((~A) \\/ B)                                               *)\n(*                                                                         *)\n(* and the predicate logic tautology                                       *)\n(*                                                                         *)\n(*    (~ \\A i \\in S : P(i))  =  \\E i \\in S : ~P(i)                         *)\n(*                                                                         *)\n(* imply that the last conjunct of Inv is equivalet to PCorrect.  When I   *)\n(* wrote the definition, I knew that this conjunct of Inv implied          *)\n(* PCorrect, but I didn't realize that the two were equivalent until I saw *)\n(* the invariant written in terms of PCorrect in a paper by Yuri Abraham.  *)\n(* That's why I originally didn't define Inv in terms of PCorrect.  I'm    *)\n(* not sure why, but I find the implication to be a more natural way to    *)\n(* write the postcondition PCorrect and the disjunction to be a more       *)\n(* natural way to think about the inductive invariant.                     *)\n(***************************************************************************)                   \nInv ==  /\\ TypeOK\n        /\\ \\A i \\in 0..(N-1) : (pc[i] \\in {\"b\", \"Done\"}) => (x[i] = 1)\n        /\\ \\/ \\E i \\in 0..(N-1) : pc[i] /= \"Done\"\n           \\/ \\E i \\in 0..(N-1) : y[i] = 1\n\n(***************************************************************************)\n(* Here is the proof of correctness.  The top-level steps <1>1 - <1>4 are  *)\n(* the standard ones for an invariance proof, and the decomposition of the *)\n(* proof of <1>2 was done with the Toolbox's Decompose Proof command.  It  *)\n(* was trivial to get TLAPS to check the proof, except for the proof of    *)\n(* <2>2.  A comment explains the problem I had with that step.             *)\n(***************************************************************************)\nTHEOREM Correctness == Spec => []PCorrect\n<1> USE NAssump\n<1>1. Init => Inv\n  BY DEF Init, Inv, TypeOK, ProcSet \n<1>2. Inv /\\ [Next]_vars => Inv'\n  <2> SUFFICES ASSUME Inv,\n                      [Next]_vars\n               PROVE  Inv'\n    OBVIOUS\n  \n  <2>2. ASSUME NEW self \\in 0..(N-1),\n               b(self)\n        PROVE  Inv'\n    (***********************************************************************)\n    (* I spent a lot of time decomposing this step down to about level <5> *)\n    (* until I realized that the problem was that the default SMT solver   *)\n    (* in the version of TLAPS I was using was CVC3, which seems to know   *)\n    (* nothing about the % operator.  When I used Z3, no further           *)\n    (* decomposition was needed.                                           *)\n    (***********************************************************************)\n    BY <2>2, Z3 DEF b, Inv, TypeOK\n  <2>3. CASE UNCHANGED vars\n    BY <2>3 DEF TypeOK, Inv, vars\n  <2>4. QED\n    BY <2>1, <2>2, <2>3 DEF Next, Terminating, proc\n<1>3. Inv => PCorrect\n  BY DEF Inv, TypeOK, PCorrect\n<1>4. QED\n  BY <1>1, <1>2, <1>3, PTL DEF Spec\n\n=============================================================================\n",
+      "prompt_sha256": "f42c43e1f9a9ad29092ba80f410a4dbb98e23ef353f5acb2334400062f86ce0b",
+      "transition_events": [
+        "entry:structured",
+        "assume",
+        "solver:def",
+        "facts:few",
+        "close:by",
+        "eos"
+      ],
+      "transition_ids": [
+        1,
+        3,
+        9,
+        16,
+        18,
+        20
+      ]
+    },
+    {
+      "id": "simple-case-b",
+      "split": "train",
+      "theorem_name": "Correctness",
+      "prompt": "Predict an abstract proof-state transition trace for the fixed theorem. Return no proof, candidate, module, verifier result, or reference answer.\n\ntheorem=Correctness\ngoal=THEOREM Correctness == Spec => []PCorrect\nImmutable statement-only scaffold:\n------------------------------ MODULE Simple ------------------------------\n(***************************************************************************)\n(* This is a trivial example from the document \"Teaching Conccurrency\"     *)\n(* that appeared in                                                        *)\n(*                                                                         *)\n(*     ACM SIGACT News Volume 40, Issue 1 (March 2009), 58-62              *)\n(*                                                                         *)\n(* A copy of that article is at                                            *)\n(*                                                                         *)\n(*    http://lamport.azurewebsites.net/pubs/teaching-concurrency.pdf       *)\n(*                                                                         *)\n(* It is also the example in Section 7.2 of \"Proving Safety Properties\",   *)\n(* which is at                                                             *)\n(*                                                                         *)\n(*    http://lamport.azurewebsites.net/tla/proving-safety.pdf              *)\n(***************************************************************************)\nEXTENDS Integers, TLAPS\n\nCONSTANT N\nASSUME NAssump ==  (N \\in Nat) /\\ (N > 0)\n\n(****************************************************************************\nHere is the algorithm in PlusCal.  It's easy to understand if you think\nof the N processes, numbered from 0 through N-1, as arranged in a\ncircle, with processes (i-1) % N and (i+1) % N being the processes on\neither side of process i.\n\n--algorithm Simple {\n    variables x = [i \\in 0..(N-1) |-> 0], y = [i \\in 0..(N-1) |-> 0] ;\n    process (proc \\in 0..N-1) {\n      a: x[self] := 1 ;\n      b: y[self] := x[(self-1) % N]\n    }\n}\n****************************************************************************)\n\\* BEGIN TRANSLATION  This is the TLA+ translation of the PlusCal code.\nVARIABLES x, y, pc\n\nvars == << x, y, pc >>\n\nProcSet == (0..N-1)\n\nInit == (* Global variables *)\n        /\\ x = [i \\in 0..(N-1) |-> 0]\n        /\\ y = [i \\in 0..(N-1) |-> 0]\n        /\\ pc = [self \\in ProcSet |-> \"a\"]\n\na(self) == /\\ pc[self] = \"a\"\n           /\\ x' = [x EXCEPT ![self] = 1]\n           /\\ pc' = [pc EXCEPT ![self] = \"b\"]\n           /\\ y' = y\n\nb(self) == /\\ pc[self] = \"b\"\n           /\\ y' = [y EXCEPT ![self] = x[(self-1) % N]]\n           /\\ pc' = [pc EXCEPT ![self] = \"Done\"]\n           /\\ x' = x\n\nproc(self) == a(self) \\/ b(self)\n\n(* Allow infinite stuttering to prevent deadlock on termination. *)\nTerminating == /\\ \\A self \\in ProcSet: pc[self] = \"Done\"\n               /\\ UNCHANGED vars\n\nNext == (\\E self \\in 0..N-1: proc(self))\n           \\/ Terminating\n\nSpec == Init /\\ [][Next]_vars\n\nTermination == <>(\\A self \\in ProcSet: pc[self] = \"Done\")\n\n\\* END TRANSLATION\n----------------------------------------------------------------------------\n(***************************************************************************)\n(* The property of this algorithm we want to prove is that, when all the   *)\n(* processes have terminated, y[i] equals 1 for at least one process i.   *)\n(* This property is express by the invariance of the following formula     *)\n(* PCorrect.  In other words, we have to prove the theorem                 *)\n(*                                                                         *)\n(*    Spec => []PCorrect                                                   *)\n(***************************************************************************)\nPCorrect == (\\A i \\in 0..(N-1) : pc[i] = \"Done\") => \n                (\\E i \\in 0..(N-1) : y[i] = 1)\n\n(***************************************************************************)\n(* Proving the invariance of PCorrect requires finding an inductive        *)\n(* invariant Inv that implies it.  As usual, the inductive invariant       *)\n(* includes a type-correctness invariant, which is the following formula   *)\n(* TypeOK.                                                                 *)\n(***************************************************************************)\nTypeOK == /\\ x \\in [0..(N-1) -> {0,1}]\n          /\\ y \\in [0..(N-1) -> {0,1}]\n          /\\ pc \\in [0..(N-1) -> {\"a\", \"b\", \"Done\"}]\n \n(***************************************************************************)\n(* It's easy to use TLC to check that the following formula Inv is an      *)\n(* inductive invariant of the algorithm.  You should also be able check    *)\n(* that the propositional logic tautology                                  *)\n(*                                                                         *)\n(*    (A => B) = ((~A) \\/ B)                                               *)\n(*                                                                         *)\n(* and the predicate logic tautology                                       *)\n(*                                                                         *)\n(*    (~ \\A i \\in S : P(i))  =  \\E i \\in S : ~P(i)                         *)\n(*                                                                         *)\n(* imply that the last conjunct of Inv is equivalet to PCorrect.  When I   *)\n(* wrote the definition, I knew that this conjunct of Inv implied          *)\n(* PCorrect, but I didn't realize that the two were equivalent until I saw *)\n(* the invariant written in terms of PCorrect in a paper by Yuri Abraham.  *)\n(* That's why I originally didn't define Inv in terms of PCorrect.  I'm    *)\n(* not sure why, but I find the implication to be a more natural way to    *)\n(* write the postcondition PCorrect and the disjunction to be a more       *)\n(* natural way to think about the inductive invariant.                     *)\n(***************************************************************************)                   \nInv ==  /\\ TypeOK\n        /\\ \\A i \\in 0..(N-1) : (pc[i] \\in {\"b\", \"Done\"}) => (x[i] = 1)\n        /\\ \\/ \\E i \\in 0..(N-1) : pc[i] /= \"Done\"\n           \\/ \\E i \\in 0..(N-1) : y[i] = 1\n\n(***************************************************************************)\n(* Here is the proof of correctness.  The top-level steps <1>1 - <1>4 are  *)\n(* the standard ones for an invariance proof, and the decomposition of the *)\n(* proof of <1>2 was done with the Toolbox's Decompose Proof command.  It  *)\n(* was trivial to get TLAPS to check the proof, except for the proof of    *)\n(* <2>2.  A comment explains the problem I had with that step.             *)\n(***************************************************************************)\nTHEOREM Correctness == Spec => []PCorrect\n<1> USE NAssump\n<1>1. Init => Inv\n  BY DEF Init, Inv, TypeOK, ProcSet \n<1>2. Inv /\\ [Next]_vars => Inv'\n  <2> SUFFICES ASSUME Inv,\n                      [Next]_vars\n               PROVE  Inv'\n    OBVIOUS\n  <2>1. ASSUME NEW self \\in 0..(N-1),\n               a(self)\n        PROVE  Inv'\n    BY <2>1 DEF a, Inv, TypeOK\n  \n  <2>3. CASE UNCHANGED vars\n    BY <2>3 DEF TypeOK, Inv, vars\n  <2>4. QED\n    BY <2>1, <2>2, <2>3 DEF Next, Terminating, proc\n<1>3. Inv => PCorrect\n  BY DEF Inv, TypeOK, PCorrect\n<1>4. QED\n  BY <1>1, <1>2, <1>3, PTL DEF Spec\n\n=============================================================================\n",
+      "prompt_sha256": "a669bbf0acb192792ea7d0958efbbbe70b77cd8c3204bdd3a305893abd2388c0",
+      "transition_events": [
+        "entry:structured",
+        "assume",
+        "solver:def",
+        "facts:many",
+        "close:by",
+        "eos"
+      ],
+      "transition_ids": [
+        1,
+        3,
+        9,
+        17,
+        18,
+        20
+      ]
+    },
+    {
+      "id": "simple-preservation-tail",
+      "split": "train",
+      "theorem_name": "Correctness",
+      "prompt": "Predict an abstract proof-state transition trace for the fixed theorem. Return no proof, candidate, module, verifier result, or reference answer.\n\ntheorem=Correctness\ngoal=THEOREM Correctness == Spec => []PCorrect\nImmutable statement-only scaffold:\n------------------------------ MODULE Simple ------------------------------\n(***************************************************************************)\n(* This is a trivial example from the document \"Teaching Conccurrency\"     *)\n(* that appeared in                                                        *)\n(*                                                                         *)\n(*     ACM SIGACT News Volume 40, Issue 1 (March 2009), 58-62              *)\n(*                                                                         *)\n(* A copy of that article is at                                            *)\n(*                                                                         *)\n(*    http://lamport.azurewebsites.net/pubs/teaching-concurrency.pdf       *)\n(*                                                                         *)\n(* It is also the example in Section 7.2 of \"Proving Safety Properties\",   *)\n(* which is at                                                             *)\n(*                                                                         *)\n(*    http://lamport.azurewebsites.net/tla/proving-safety.pdf              *)\n(***************************************************************************)\nEXTENDS Integers, TLAPS\n\nCONSTANT N\nASSUME NAssump ==  (N \\in Nat) /\\ (N > 0)\n\n(****************************************************************************\nHere is the algorithm in PlusCal.  It's easy to understand if you think\nof the N processes, numbered from 0 through N-1, as arranged in a\ncircle, with processes (i-1) % N and (i+1) % N being the processes on\neither side of process i.\n\n--algorithm Simple {\n    variables x = [i \\in 0..(N-1) |-> 0], y = [i \\in 0..(N-1) |-> 0] ;\n    process (proc \\in 0..N-1) {\n      a: x[self] := 1 ;\n      b: y[self] := x[(self-1) % N]\n    }\n}\n****************************************************************************)\n\\* BEGIN TRANSLATION  This is the TLA+ translation of the PlusCal code.\nVARIABLES x, y, pc\n\nvars == << x, y, pc >>\n\nProcSet == (0..N-1)\n\nInit == (* Global variables *)\n        /\\ x = [i \\in 0..(N-1) |-> 0]\n        /\\ y = [i \\in 0..(N-1) |-> 0]\n        /\\ pc = [self \\in ProcSet |-> \"a\"]\n\na(self) == /\\ pc[self] = \"a\"\n           /\\ x' = [x EXCEPT ![self] = 1]\n           /\\ pc' = [pc EXCEPT ![self] = \"b\"]\n           /\\ y' = y\n\nb(self) == /\\ pc[self] = \"b\"\n           /\\ y' = [y EXCEPT ![self] = x[(self-1) % N]]\n           /\\ pc' = [pc EXCEPT ![self] = \"Done\"]\n           /\\ x' = x\n\nproc(self) == a(self) \\/ b(self)\n\n(* Allow infinite stuttering to prevent deadlock on termination. *)\nTerminating == /\\ \\A self \\in ProcSet: pc[self] = \"Done\"\n               /\\ UNCHANGED vars\n\nNext == (\\E self \\in 0..N-1: proc(self))\n           \\/ Terminating\n\nSpec == Init /\\ [][Next]_vars\n\nTermination == <>(\\A self \\in ProcSet: pc[self] = \"Done\")\n\n\\* END TRANSLATION\n----------------------------------------------------------------------------\n(***************************************************************************)\n(* The property of this algorithm we want to prove is that, when all the   *)\n(* processes have terminated, y[i] equals 1 for at least one process i.   *)\n(* This property is express by the invariance of the following formula     *)\n(* PCorrect.  In other words, we have to prove the theorem                 *)\n(*                                                                         *)\n(*    Spec => []PCorrect                                                   *)\n(***************************************************************************)\nPCorrect == (\\A i \\in 0..(N-1) : pc[i] = \"Done\") => \n                (\\E i \\in 0..(N-1) : y[i] = 1)\n\n(***************************************************************************)\n(* Proving the invariance of PCorrect requires finding an inductive        *)\n(* invariant Inv that implies it.  As usual, the inductive invariant       *)\n(* includes a type-correctness invariant, which is the following formula   *)\n(* TypeOK.                                                                 *)\n(***************************************************************************)\nTypeOK == /\\ x \\in [0..(N-1) -> {0,1}]\n          /\\ y \\in [0..(N-1) -> {0,1}]\n          /\\ pc \\in [0..(N-1) -> {\"a\", \"b\", \"Done\"}]\n \n(***************************************************************************)\n(* It's easy to use TLC to check that the following formula Inv is an      *)\n(* inductive invariant of the algorithm.  You should also be able check    *)\n(* that the propositional logic tautology                                  *)\n(*                                                                         *)\n(*    (A => B) = ((~A) \\/ B)                                               *)\n(*                                                                         *)\n(* and the predicate logic tautology                                       *)\n(*                                                                         *)\n(*    (~ \\A i \\in S : P(i))  =  \\E i \\in S : ~P(i)                         *)\n(*                                                                         *)\n(* imply that the last conjunct of Inv is equivalet to PCorrect.  When I   *)\n(* wrote the definition, I knew that this conjunct of Inv implied          *)\n(* PCorrect, but I didn't realize that the two were equivalent until I saw *)\n(* the invariant written in terms of PCorrect in a paper by Yuri Abraham.  *)\n(* That's why I originally didn't define Inv in terms of PCorrect.  I'm    *)\n(* not sure why, but I find the implication to be a more natural way to    *)\n(* write the postcondition PCorrect and the disjunction to be a more       *)\n(* natural way to think about the inductive invariant.                     *)\n(***************************************************************************)                   \nInv ==  /\\ TypeOK\n        /\\ \\A i \\in 0..(N-1) : (pc[i] \\in {\"b\", \"Done\"}) => (x[i] = 1)\n        /\\ \\/ \\E i \\in 0..(N-1) : pc[i] /= \"Done\"\n           \\/ \\E i \\in 0..(N-1) : y[i] = 1\n\n(***************************************************************************)\n(* Here is the proof of correctness.  The top-level steps <1>1 - <1>4 are  *)\n(* the standard ones for an invariance proof, and the decomposition of the *)\n(* proof of <1>2 was done with the Toolbox's Decompose Proof command.  It  *)\n(* was trivial to get TLAPS to check the proof, except for the proof of    *)\n(* <2>2.  A comment explains the problem I had with that step.             *)\n(***************************************************************************)\nTHEOREM Correctness == Spec => []PCorrect\n<1> USE NAssump\n<1>1. Init => Inv\n  BY DEF Init, Inv, TypeOK, ProcSet \n<1>2. Inv /\\ [Next]_vars => Inv'\n  <2> SUFFICES ASSUME Inv,\n                      [Next]_vars\n               PROVE  Inv'\n    OBVIOUS\n  <2>1. ASSUME NEW self \\in 0..(N-1),\n               a(self)\n        PROVE  Inv'\n    BY <2>1 DEF a, Inv, TypeOK\n  <2>2. ASSUME NEW self \\in 0..(N-1),\n               b(self)\n        PROVE  Inv'\n    (***********************************************************************)\n    (* I spent a lot of time decomposing this step down to about level <5> *)\n    (* until I realized that the problem was that the default SMT solver   *)\n    (* in the version of TLAPS I was using was CVC3, which seems to know   *)\n    (* nothing about the % operator.  When I used Z3, no further           *)\n    (* decomposition was needed.                                           *)\n    (***********************************************************************)\n    BY <2>2, Z3 DEF b, Inv, TypeOK\n  \n<1>3. Inv => PCorrect\n  BY DEF Inv, TypeOK, PCorrect\n<1>4. QED\n  BY <1>1, <1>2, <1>3, PTL DEF Spec\n\n=============================================================================\n",
+      "prompt_sha256": "132ce001d246fabab554e548c90b2ceccb285334840885497a0f75588f47e752",
+      "transition_events": [
+        "entry:structured",
+        "case",
+        "solver:def",
+        "facts:many",
+        "close:qed",
+        "eos"
+      ],
+      "transition_ids": [
+        1,
+        4,
+        9,
+        17,
+        19,
+        20
+      ]
+    },
+    {
+      "id": "simple-conclusion",
+      "split": "train",
+      "theorem_name": "Correctness",
+      "prompt": "Predict an abstract proof-state transition trace for the fixed theorem. Return no proof, candidate, module, verifier result, or reference answer.\n\ntheorem=Correctness\ngoal=THEOREM Correctness == Spec => []PCorrect\nImmutable statement-only scaffold:\n------------------------------ MODULE Simple ------------------------------\n(***************************************************************************)\n(* This is a trivial example from the document \"Teaching Conccurrency\"     *)\n(* that appeared in                                                        *)\n(*                                                                         *)\n(*     ACM SIGACT News Volume 40, Issue 1 (March 2009), 58-62              *)\n(*                                                                         *)\n(* A copy of that article is at                                            *)\n(*                                                                         *)\n(*    http://lamport.azurewebsites.net/pubs/teaching-concurrency.pdf       *)\n(*                                                                         *)\n(* It is also the example in Section 7.2 of \"Proving Safety Properties\",   *)\n(* which is at                                                             *)\n(*                                                                         *)\n(*    http://lamport.azurewebsites.net/tla/proving-safety.pdf              *)\n(***************************************************************************)\nEXTENDS Integers, TLAPS\n\nCONSTANT N\nASSUME NAssump ==  (N \\in Nat) /\\ (N > 0)\n\n(****************************************************************************\nHere is the algorithm in PlusCal.  It's easy to understand if you think\nof the N processes, numbered from 0 through N-1, as arranged in a\ncircle, with processes (i-1) % N and (i+1) % N being the processes on\neither side of process i.\n\n--algorithm Simple {\n    variables x = [i \\in 0..(N-1) |-> 0], y = [i \\in 0..(N-1) |-> 0] ;\n    process (proc \\in 0..N-1) {\n      a: x[self] := 1 ;\n      b: y[self] := x[(self-1) % N]\n    }\n}\n****************************************************************************)\n\\* BEGIN TRANSLATION  This is the TLA+ translation of the PlusCal code.\nVARIABLES x, y, pc\n\nvars == << x, y, pc >>\n\nProcSet == (0..N-1)\n\nInit == (* Global variables *)\n        /\\ x = [i \\in 0..(N-1) |-> 0]\n        /\\ y = [i \\in 0..(N-1) |-> 0]\n        /\\ pc = [self \\in ProcSet |-> \"a\"]\n\na(self) == /\\ pc[self] = \"a\"\n           /\\ x' = [x EXCEPT ![self] = 1]\n           /\\ pc' = [pc EXCEPT ![self] = \"b\"]\n           /\\ y' = y\n\nb(self) == /\\ pc[self] = \"b\"\n           /\\ y' = [y EXCEPT ![self] = x[(self-1) % N]]\n           /\\ pc' = [pc EXCEPT ![self] = \"Done\"]\n           /\\ x' = x\n\nproc(self) == a(self) \\/ b(self)\n\n(* Allow infinite stuttering to prevent deadlock on termination. *)\nTerminating == /\\ \\A self \\in ProcSet: pc[self] = \"Done\"\n               /\\ UNCHANGED vars\n\nNext == (\\E self \\in 0..N-1: proc(self))\n           \\/ Terminating\n\nSpec == Init /\\ [][Next]_vars\n\nTermination == <>(\\A self \\in ProcSet: pc[self] = \"Done\")\n\n\\* END TRANSLATION\n----------------------------------------------------------------------------\n(***************************************************************************)\n(* The property of this algorithm we want to prove is that, when all the   *)\n(* processes have terminated, y[i] equals 1 for at least one process i.   *)\n(* This property is express by the invariance of the following formula     *)\n(* PCorrect.  In other words, we have to prove the theorem                 *)\n(*                                                                         *)\n(*    Spec => []PCorrect                                                   *)\n(***************************************************************************)\nPCorrect == (\\A i \\in 0..(N-1) : pc[i] = \"Done\") => \n                (\\E i \\in 0..(N-1) : y[i] = 1)\n\n(***************************************************************************)\n(* Proving the invariance of PCorrect requires finding an inductive        *)\n(* invariant Inv that implies it.  As usual, the inductive invariant       *)\n(* includes a type-correctness invariant, which is the following formula   *)\n(* TypeOK.                                                                 *)\n(***************************************************************************)\nTypeOK == /\\ x \\in [0..(N-1) -> {0,1}]\n          /\\ y \\in [0..(N-1) -> {0,1}]\n          /\\ pc \\in [0..(N-1) -> {\"a\", \"b\", \"Done\"}]\n \n(***************************************************************************)\n(* It's easy to use TLC to check that the following formula Inv is an      *)\n(* inductive invariant of the algorithm.  You should also be able check    *)\n(* that the propositional logic tautology                                  *)\n(*                                                                         *)\n(*    (A => B) = ((~A) \\/ B)                                               *)\n(*                                                                         *)\n(* and the predicate logic tautology                                       *)\n(*                                                                         *)\n(*    (~ \\A i \\in S : P(i))  =  \\E i \\in S : ~P(i)                         *)\n(*                                                                         *)\n(* imply that the last conjunct of Inv is equivalet to PCorrect.  When I   *)\n(* wrote the definition, I knew that this conjunct of Inv implied          *)\n(* PCorrect, but I didn't realize that the two were equivalent until I saw *)\n(* the invariant written in terms of PCorrect in a paper by Yuri Abraham.  *)\n(* That's why I originally didn't define Inv in terms of PCorrect.  I'm    *)\n(* not sure why, but I find the implication to be a more natural way to    *)\n(* write the postcondition PCorrect and the disjunction to be a more       *)\n(* natural way to think about the inductive invariant.                     *)\n(***************************************************************************)                   \nInv ==  /\\ TypeOK\n        /\\ \\A i \\in 0..(N-1) : (pc[i] \\in {\"b\", \"Done\"}) => (x[i] = 1)\n        /\\ \\/ \\E i \\in 0..(N-1) : pc[i] /= \"Done\"\n           \\/ \\E i \\in 0..(N-1) : y[i] = 1\n\n(***************************************************************************)\n(* Here is the proof of correctness.  The top-level steps <1>1 - <1>4 are  *)\n(* the standard ones for an invariance proof, and the decomposition of the *)\n(* proof of <1>2 was done with the Toolbox's Decompose Proof command.  It  *)\n(* was trivial to get TLAPS to check the proof, except for the proof of    *)\n(* <2>2.  A comment explains the problem I had with that step.             *)\n(***************************************************************************)\nTHEOREM Correctness == Spec => []PCorrect\n<1> USE NAssump\n<1>1. Init => Inv\n  BY DEF Init, Inv, TypeOK, ProcSet \n<1>2. Inv /\\ [Next]_vars => Inv'\n  <2> SUFFICES ASSUME Inv,\n                      [Next]_vars\n               PROVE  Inv'\n    OBVIOUS\n  <2>1. ASSUME NEW self \\in 0..(N-1),\n               a(self)\n        PROVE  Inv'\n    BY <2>1 DEF a, Inv, TypeOK\n  <2>2. ASSUME NEW self \\in 0..(N-1),\n               b(self)\n        PROVE  Inv'\n    (***********************************************************************)\n    (* I spent a lot of time decomposing this step down to about level <5> *)\n    (* until I realized that the problem was that the default SMT solver   *)\n    (* in the version of TLAPS I was using was CVC3, which seems to know   *)\n    (* nothing about the % operator.  When I used Z3, no further           *)\n    (* decomposition was needed.                                           *)\n    (***********************************************************************)\n    BY <2>2, Z3 DEF b, Inv, TypeOK\n  <2>3. CASE UNCHANGED vars\n    BY <2>3 DEF TypeOK, Inv, vars\n  <2>4. QED\n    BY <2>1, <2>2, <2>3 DEF Next, Terminating, proc\n\n\n=============================================================================\n",
+      "prompt_sha256": "2f57f6369415975888c3d54a76941d5a1db2f004f2e1d028c7c15085e6b0e2f4",
+      "transition_events": [
+        "entry:structured",
+        "solver:def",
+        "facts:many",
+        "close:qed",
+        "eos"
+      ],
+      "transition_ids": [
+        1,
+        9,
+        17,
+        19,
+        20
+      ]
+    },
+    {
+      "id": "simple-short-full",
+      "split": "train",
+      "theorem_name": "Correctness2",
+      "prompt": "Predict an abstract proof-state transition trace for the fixed theorem. Return no proof, candidate, module, verifier result, or reference answer.\n\ntheorem=Correctness2\ngoal=THEOREM Correctness2 == Spec => []PCorrect\nImmutable statement-only scaffold:\n------------------------------ MODULE Simple ------------------------------\n(***************************************************************************)\n(* This is a trivial example from the document \"Teaching Conccurrency\"     *)\n(* that appeared in                                                        *)\n(*                                                                         *)\n(*     ACM SIGACT News Volume 40, Issue 1 (March 2009), 58-62              *)\n(*                                                                         *)\n(* A copy of that article is at                                            *)\n(*                                                                         *)\n(*    http://lamport.azurewebsites.net/pubs/teaching-concurrency.pdf       *)\n(*                                                                         *)\n(* It is also the example in Section 7.2 of \"Proving Safety Properties\",   *)\n(* which is at                                                             *)\n(*                                                                         *)\n(*    http://lamport.azurewebsites.net/tla/proving-safety.pdf              *)\n(***************************************************************************)\nEXTENDS Integers, TLAPS\n\nCONSTANT N\nASSUME NAssump ==  (N \\in Nat) /\\ (N > 0)\n\n(****************************************************************************\nHere is the algorithm in PlusCal.  It's easy to understand if you think\nof the N processes, numbered from 0 through N-1, as arranged in a\ncircle, with processes (i-1) % N and (i+1) % N being the processes on\neither side of process i.\n\n--algorithm Simple {\n    variables x = [i \\in 0..(N-1) |-> 0], y = [i \\in 0..(N-1) |-> 0] ;\n    process (proc \\in 0..N-1) {\n      a: x[self] := 1 ;\n      b: y[self] := x[(self-1) % N]\n    }\n}\n****************************************************************************)\n\\* BEGIN TRANSLATION  This is the TLA+ translation of the PlusCal code.\nVARIABLES x, y, pc\n\nvars == << x, y, pc >>\n\nProcSet == (0..N-1)\n\nInit == (* Global variables *)\n        /\\ x = [i \\in 0..(N-1) |-> 0]\n        /\\ y = [i \\in 0..(N-1) |-> 0]\n        /\\ pc = [self \\in ProcSet |-> \"a\"]\n\na(self) == /\\ pc[self] = \"a\"\n           /\\ x' = [x EXCEPT ![self] = 1]\n           /\\ pc' = [pc EXCEPT ![self] = \"b\"]\n           /\\ y' = y\n\nb(self) == /\\ pc[self] = \"b\"\n           /\\ y' = [y EXCEPT ![self] = x[(self-1) % N]]\n           /\\ pc' = [pc EXCEPT ![self] = \"Done\"]\n           /\\ x' = x\n\nproc(self) == a(self) \\/ b(self)\n\n(* Allow infinite stuttering to prevent deadlock on termination. *)\nTerminating == /\\ \\A self \\in ProcSet: pc[self] = \"Done\"\n               /\\ UNCHANGED vars\n\nNext == (\\E self \\in 0..N-1: proc(self))\n           \\/ Terminating\n\nSpec == Init /\\ [][Next]_vars\n\nTermination == <>(\\A self \\in ProcSet: pc[self] = \"Done\")\n\n\\* END TRANSLATION\n----------------------------------------------------------------------------\n(***************************************************************************)\n(* The property of this algorithm we want to prove is that, when all the   *)\n(* processes have terminated, y[i] equals 1 for at least one process i.   *)\n(* This property is express by the invariance of the following formula     *)\n(* PCorrect.  In other words, we have to prove the theorem                 *)\n(*                                                                         *)\n(*    Spec => []PCorrect                                                   *)\n(***************************************************************************)\nPCorrect == (\\A i \\in 0..(N-1) : pc[i] = \"Done\") => \n                (\\E i \\in 0..(N-1) : y[i] = 1)\n\n(***************************************************************************)\n(* Proving the invariance of PCorrect requires finding an inductive        *)\n(* invariant Inv that implies it.  As usual, the inductive invariant       *)\n(* includes a type-correctness invariant, which is the following formula   *)\n(* TypeOK.                                                                 *)\n(***************************************************************************)\nTypeOK == /\\ x \\in [0..(N-1) -> {0,1}]\n          /\\ y \\in [0..(N-1) -> {0,1}]\n          /\\ pc \\in [0..(N-1) -> {\"a\", \"b\", \"Done\"}]\n \n(***************************************************************************)\n(* It's easy to use TLC to check that the following formula Inv is an      *)\n(* inductive invariant of the algorithm.  You should also be able check    *)\n(* that the propositional logic tautology                                  *)\n(*                                                                         *)\n(*    (A => B) = ((~A) \\/ B)                                               *)\n(*                                                                         *)\n(* and the predicate logic tautology                                       *)\n(*                                                                         *)\n(*    (~ \\A i \\in S : P(i))  =  \\E i \\in S : ~P(i)                         *)\n(*                                                                         *)\n(* imply that the last conjunct of Inv is equivalet to PCorrect.  When I   *)\n(* wrote the definition, I knew that this conjunct of Inv implied          *)\n(* PCorrect, but I didn't realize that the two were equivalent until I saw *)\n(* the invariant written in terms of PCorrect in a paper by Yuri Abraham.  *)\n(* That's why I originally didn't define Inv in terms of PCorrect.  I'm    *)\n(* not sure why, but I find the implication to be a more natural way to    *)\n(* write the postcondition PCorrect and the disjunction to be a more       *)\n(* natural way to think about the inductive invariant.                     *)\n(***************************************************************************)                   \nInv ==  /\\ TypeOK\n        /\\ \\A i \\in 0..(N-1) : (pc[i] \\in {\"b\", \"Done\"}) => (x[i] = 1)\n        /\\ \\/ \\E i \\in 0..(N-1) : pc[i] /= \"Done\"\n           \\/ \\E i \\in 0..(N-1) : y[i] = 1\n\n(***************************************************************************)\n(* Here is the proof of correctness.  The top-level steps <1>1 - <1>4 are  *)\n(* the standard ones for an invariance proof, and the decomposition of the *)\n(* proof of <1>2 was done with the Toolbox's Decompose Proof command.  It  *)\n(* was trivial to get TLAPS to check the proof, except for the proof of    *)\n(* <2>2.  A comment explains the problem I had with that step.             *)\n(***************************************************************************)\nTHEOREM Correctness == Spec => []PCorrect\n<1> USE NAssump\n<1>1. Init => Inv\n  BY DEF Init, Inv, TypeOK, ProcSet \n<1>2. Inv /\\ [Next]_vars => Inv'\n  <2> SUFFICES ASSUME Inv,\n                      [Next]_vars\n               PROVE  Inv'\n    OBVIOUS\n  <2>1. ASSUME NEW self \\in 0..(N-1),\n               a(self)\n        PROVE  Inv'\n    BY <2>1 DEF a, Inv, TypeOK\n  <2>2. ASSUME NEW self \\in 0..(N-1),\n               b(self)\n        PROVE  Inv'\n    (***********************************************************************)\n    (* I spent a lot of time decomposing this step down to about level <5> *)\n    (* until I realized that the problem was that the default SMT solver   *)\n    (* in the version of TLAPS I was using was CVC3, which seems to know   *)\n    (* nothing about the % operator.  When I used Z3, no further           *)\n    (* decomposition was needed.                                           *)\n    (***********************************************************************)\n    BY <2>2, Z3 DEF b, Inv, TypeOK\n  <2>3. CASE UNCHANGED vars\n    BY <2>3 DEF TypeOK, Inv, vars\n  <2>4. QED\n    BY <2>1, <2>2, <2>3 DEF Next, Terminating, proc\n<1>3. Inv => PCorrect\n  BY DEF Inv, TypeOK, PCorrect\n<1>4. QED\n  BY <1>1, <1>2, <1>3, PTL DEF Spec\n\n(***************************************************************************)\n(* It turns out that decomposing step <1>2 is not really necessary: the    *)\n(* following shorter proof is also accepted by TLAPS.                      *)\n(***************************************************************************)\nTHEOREM Correctness2 == Spec => []PCorrect\n\n\n=============================================================================\n",
+      "prompt_sha256": "b8b40d0861029c1a40f15376115253bdeb2669f49d0796180cd7acbc6cd65bfb",
+      "transition_events": [
+        "entry:structured",
+        "use",
+        "solver:def",
+        "facts:many",
+        "close:qed",
+        "eos"
+      ],
+      "transition_ids": [
+        1,
+        5,
+        9,
+        17,
+        19,
+        20
+      ]
+    },
+    {
+      "id": "simple-short-preservation",
+      "split": "train",
+      "theorem_name": "Correctness2",
+      "prompt": "Predict an abstract proof-state transition trace for the fixed theorem. Return no proof, candidate, module, verifier result, or reference answer.\n\ntheorem=Correctness2\ngoal=THEOREM Correctness2 == Spec => []PCorrect\nImmutable statement-only scaffold:\n------------------------------ MODULE Simple ------------------------------\n(***************************************************************************)\n(* This is a trivial example from the document \"Teaching Conccurrency\"     *)\n(* that appeared in                                                        *)\n(*                                                                         *)\n(*     ACM SIGACT News Volume 40, Issue 1 (March 2009), 58-62              *)\n(*                                                                         *)\n(* A copy of that article is at                                            *)\n(*                                                                         *)\n(*    http://lamport.azurewebsites.net/pubs/teaching-concurrency.pdf       *)\n(*                                                                         *)\n(* It is also the example in Section 7.2 of \"Proving Safety Properties\",   *)\n(* which is at                                                             *)\n(*                                                                         *)\n(*    http://lamport.azurewebsites.net/tla/proving-safety.pdf              *)\n(***************************************************************************)\nEXTENDS Integers, TLAPS\n\nCONSTANT N\nASSUME NAssump ==  (N \\in Nat) /\\ (N > 0)\n\n(****************************************************************************\nHere is the algorithm in PlusCal.  It's easy to understand if you think\nof the N processes, numbered from 0 through N-1, as arranged in a\ncircle, with processes (i-1) % N and (i+1) % N being the processes on\neither side of process i.\n\n--algorithm Simple {\n    variables x = [i \\in 0..(N-1) |-> 0], y = [i \\in 0..(N-1) |-> 0] ;\n    process (proc \\in 0..N-1) {\n      a: x[self] := 1 ;\n      b: y[self] := x[(self-1) % N]\n    }\n}\n****************************************************************************)\n\\* BEGIN TRANSLATION  This is the TLA+ translation of the PlusCal code.\nVARIABLES x, y, pc\n\nvars == << x, y, pc >>\n\nProcSet == (0..N-1)\n\nInit == (* Global variables *)\n        /\\ x = [i \\in 0..(N-1) |-> 0]\n        /\\ y = [i \\in 0..(N-1) |-> 0]\n        /\\ pc = [self \\in ProcSet |-> \"a\"]\n\na(self) == /\\ pc[self] = \"a\"\n           /\\ x' = [x EXCEPT ![self] = 1]\n           /\\ pc' = [pc EXCEPT ![self] = \"b\"]\n           /\\ y' = y\n\nb(self) == /\\ pc[self] = \"b\"\n           /\\ y' = [y EXCEPT ![self] = x[(self-1) % N]]\n           /\\ pc' = [pc EXCEPT ![self] = \"Done\"]\n           /\\ x' = x\n\nproc(self) == a(self) \\/ b(self)\n\n(* Allow infinite stuttering to prevent deadlock on termination. *)\nTerminating == /\\ \\A self \\in ProcSet: pc[self] = \"Done\"\n               /\\ UNCHANGED vars\n\nNext == (\\E self \\in 0..N-1: proc(self))\n           \\/ Terminating\n\nSpec == Init /\\ [][Next]_vars\n\nTermination == <>(\\A self \\in ProcSet: pc[self] = \"Done\")\n\n\\* END TRANSLATION\n----------------------------------------------------------------------------\n(***************************************************************************)\n(* The property of this algorithm we want to prove is that, when all the   *)\n(* processes have terminated, y[i] equals 1 for at least one process i.   *)\n(* This property is express by the invariance of the following formula     *)\n(* PCorrect.  In other words, we have to prove the theorem                 *)\n(*                                                                         *)\n(*    Spec => []PCorrect                                                   *)\n(***************************************************************************)\nPCorrect == (\\A i \\in 0..(N-1) : pc[i] = \"Done\") => \n                (\\E i \\in 0..(N-1) : y[i] = 1)\n\n(***************************************************************************)\n(* Proving the invariance of PCorrect requires finding an inductive        *)\n(* invariant Inv that implies it.  As usual, the inductive invariant       *)\n(* includes a type-correctness invariant, which is the following formula   *)\n(* TypeOK.                                                                 *)\n(***************************************************************************)\nTypeOK == /\\ x \\in [0..(N-1) -> {0,1}]\n          /\\ y \\in [0..(N-1) -> {0,1}]\n          /\\ pc \\in [0..(N-1) -> {\"a\", \"b\", \"Done\"}]\n \n(***************************************************************************)\n(* It's easy to use TLC to check that the following formula Inv is an      *)\n(* inductive invariant of the algorithm.  You should also be able check    *)\n(* that the propositional logic tautology                                  *)\n(*                                                                         *)\n(*    (A => B) = ((~A) \\/ B)                                               *)\n(*                                                                         *)\n(* and the predicate logic tautology                                       *)\n(*                                                                         *)\n(*    (~ \\A i \\in S : P(i))  =  \\E i \\in S : ~P(i)                         *)\n(*                                                                         *)\n(* imply that the last conjunct of Inv is equivalet to PCorrect.  When I   *)\n(* wrote the definition, I knew that this conjunct of Inv implied          *)\n(* PCorrect, but I didn't realize that the two were equivalent until I saw *)\n(* the invariant written in terms of PCorrect in a paper by Yuri Abraham.  *)\n(* That's why I originally didn't define Inv in terms of PCorrect.  I'm    *)\n(* not sure why, but I find the implication to be a more natural way to    *)\n(* write the postcondition PCorrect and the disjunction to be a more       *)\n(* natural way to think about the inductive invariant.                     *)\n(***************************************************************************)                   \nInv ==  /\\ TypeOK\n        /\\ \\A i \\in 0..(N-1) : (pc[i] \\in {\"b\", \"Done\"}) => (x[i] = 1)\n        /\\ \\/ \\E i \\in 0..(N-1) : pc[i] /= \"Done\"\n           \\/ \\E i \\in 0..(N-1) : y[i] = 1\n\n(***************************************************************************)\n(* Here is the proof of correctness.  The top-level steps <1>1 - <1>4 are  *)\n(* the standard ones for an invariance proof, and the decomposition of the *)\n(* proof of <1>2 was done with the Toolbox's Decompose Proof command.  It  *)\n(* was trivial to get TLAPS to check the proof, except for the proof of    *)\n(* <2>2.  A comment explains the problem I had with that step.             *)\n(***************************************************************************)\nTHEOREM Correctness == Spec => []PCorrect\n<1> USE NAssump\n<1>1. Init => Inv\n  BY DEF Init, Inv, TypeOK, ProcSet \n<1>2. Inv /\\ [Next]_vars => Inv'\n  <2> SUFFICES ASSUME Inv,\n                      [Next]_vars\n               PROVE  Inv'\n    OBVIOUS\n  <2>1. ASSUME NEW self \\in 0..(N-1),\n               a(self)\n        PROVE  Inv'\n    BY <2>1 DEF a, Inv, TypeOK\n  <2>2. ASSUME NEW self \\in 0..(N-1),\n               b(self)\n        PROVE  Inv'\n    (***********************************************************************)\n    (* I spent a lot of time decomposing this step down to about level <5> *)\n    (* until I realized that the problem was that the default SMT solver   *)\n    (* in the version of TLAPS I was using was CVC3, which seems to know   *)\n    (* nothing about the % operator.  When I used Z3, no further           *)\n    (* decomposition was needed.                                           *)\n    (***********************************************************************)\n    BY <2>2, Z3 DEF b, Inv, TypeOK\n  <2>3. CASE UNCHANGED vars\n    BY <2>3 DEF TypeOK, Inv, vars\n  <2>4. QED\n    BY <2>1, <2>2, <2>3 DEF Next, Terminating, proc\n<1>3. Inv => PCorrect\n  BY DEF Inv, TypeOK, PCorrect\n<1>4. QED\n  BY <1>1, <1>2, <1>3, PTL DEF Spec\n\n(***************************************************************************)\n(* It turns out that decomposing step <1>2 is not really necessary: the    *)\n(* following shorter proof is also accepted by TLAPS.                      *)\n(***************************************************************************)\nTHEOREM Correctness2 == Spec => []PCorrect\n<1>. USE NAssump DEF Inv, TypeOK, ProcSet\n<1>1. Init => Inv \n  BY DEF Init\n\n\n=============================================================================\n",
+      "prompt_sha256": "fa670a867588c8ddca8e82dd3509cdfba35d1152da429246e94335e72e44daf9",
+      "transition_events": [
+        "entry:structured",
+        "solver:def",
+        "facts:many",
+        "close:qed",
+        "eos"
+      ],
+      "transition_ids": [
+        1,
+        9,
+        17,
+        19,
+        20
+      ]
+    }
+  ],
+  "development_rows": [
+    {
+      "id": "crdt-type-step",
+      "theorem_name": "TypeCorrect",
+      "target_goal": "THEOREM TypeCorrect == Spec => []TypeOK",
+      "prefix": "------------------------------- MODULE CRDT_proof ---------------------------------\nEXTENDS CRDT, Functions, NaturalsInduction, FunctionTheorems, TLAPS\n\n(***************************************************************************)\n(* Proofs of safety properties.                                            *)\n(***************************************************************************)\n\nTHEOREM TypeCorrect == Spec => []TypeOK\n<1>1. Init => TypeOK\n  BY DEF Init, TypeOK\n<1>2. TypeOK /\\ [Next]_vars => TypeOK'\n  ",
+      "suffix": "\n<1>. QED  BY <1>1, <1>2, PTL DEF Spec, vars\n\n=============================================================================\n",
+      "dependencies": [
+        "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/FiniteMonotonic/CRDT.tla"
+      ],
+      "split": "development",
+      "prompt": "Predict an abstract proof-state transition trace for the fixed theorem. Return no proof, candidate, module, verifier result, or reference answer.\n\ntheorem=TypeCorrect\ngoal=THEOREM TypeCorrect == Spec => []TypeOK\nImmutable statement-only scaffold:\n------------------------------- MODULE CRDT_proof ---------------------------------\nEXTENDS CRDT, Functions, NaturalsInduction, FunctionTheorems, TLAPS\n\n(***************************************************************************)\n(* Proofs of safety properties.                                            *)\n(***************************************************************************)\n\nTHEOREM TypeCorrect == Spec => []TypeOK\n<1>1. Init => TypeOK\n  BY DEF Init, TypeOK\n<1>2. TypeOK /\\ [Next]_vars => TypeOK'\n  \n<1>. QED  BY <1>1, <1>2, PTL DEF Spec, vars\n\n=============================================================================\n",
+      "prompt_sha256": "6bba40cb507a4770915f4956faf98dac9fd1aaafa92ac024bab5fc86fd6a71a0",
+      "candidate_proposals": [
+        "BY SMT",
+        "BY SMT DEF vars, TypeOK, Safety, Monotonic, Monotonicity, Convergence, Init, Increment, Gossip, Next, Spec, Fairness, FairSpec",
+        "BY DEF vars, TypeOK, Safety, Monotonic, Monotonicity, Convergence, Init, Increment, Gossip, Next, Spec, Fairness, FairSpec",
+        "BY SMT, Fun_InjectionProperties",
+        "BY Fun_InjectionProperties",
+        "BY SMT, Fun_InjectionProperties, Fun_IsInj",
+        "BY Fun_InjectionProperties, Fun_IsInj",
+        "BY SMT, Fun_InjectionProperties, Fun_IsInj, SetExtensionality, Fun_InverseProperties",
+        "BY Fun_InjectionProperties, Fun_IsInj, SetExtensionality, Fun_InverseProperties",
+        "BY SMT, Fun_InjectionProperties, Fun_IsInj, SetExtensionality, Fun_InverseProperties, DownwardNatInduction, Fun_BijectionProperties, Fun_InjInverse, Fun_IsBij",
+        "BY Fun_InjectionProperties, Fun_IsInj, SetExtensionality, Fun_InverseProperties, DownwardNatInduction, Fun_BijectionProperties, Fun_InjInverse, Fun_IsBij",
+        "BY SMT, Fun_IsInj",
+        "BY Fun_IsInj",
+        "BY SMT, SetExtensionality",
+        "BY SetExtensionality",
+        "BY SMT, Fun_InverseProperties",
+        "BY Fun_InverseProperties",
+        "BY SMT, DownwardNatInduction",
+        "BY DownwardNatInduction",
+        "BY SMT, Fun_BijectionProperties",
+        "BY Fun_BijectionProperties",
+        "BY SMT, Fun_InjInverse",
+        "BY Fun_InjInverse",
+        "BY SMT, Fun_IsBij",
+        "BY Fun_IsBij",
+        "BY SMT, Fun_SmallestSurjectionIsBijection",
+        "BY Fun_SmallestSurjectionIsBijection",
+        "BY SMT, GeneralNatInduction",
+        "BY GeneralNatInduction"
+      ],
+      "candidate_transition_events": [
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:zero",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:many",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:def",
+          "facts:many",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:one",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:zero",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:one",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:many",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:many",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:one",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:zero",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:one",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:zero",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:one",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:zero",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:one",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:zero",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:one",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:zero",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:one",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:zero",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:one",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:zero",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:one",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:zero",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:one",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:zero",
+          "close:by",
+          "eos"
+        ]
+      ],
+      "candidate_transition_ids": [
+        [
+          0,
+          8,
+          14,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          17,
+          18,
+          20
+        ],
+        [
+          0,
+          9,
+          17,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          15,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          14,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          15,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          17,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          17,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          15,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          14,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          15,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          14,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          15,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          14,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          15,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          14,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          15,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          14,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          15,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          14,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          15,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          14,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          15,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          14,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          15,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          14,
+          18,
+          20
+        ]
+      ]
+    },
+    {
+      "id": "crdt-safety-step",
+      "theorem_name": "Safe",
+      "target_goal": "THEOREM Safe == Spec => []Safety",
+      "prefix": "------------------------------- MODULE CRDT_proof ---------------------------------\nEXTENDS CRDT, Functions, NaturalsInduction, FunctionTheorems, TLAPS\n\n(***************************************************************************)\n(* Proofs of safety properties.                                            *)\n(***************************************************************************)\n\nTHEOREM TypeCorrect == Spec => []TypeOK\n<1>1. Init => TypeOK\n  BY DEF Init, TypeOK\n<1>2. TypeOK /\\ [Next]_vars => TypeOK'\n  BY DEF TypeOK, Next, Increment, Gossip, vars\n<1>. QED  BY <1>1, <1>2, PTL DEF Spec, vars\n\n\nTHEOREM Safe == Spec => []Safety\n<1>1. Init => Safety\n  BY DEF Init, Safety\n<1>2. TypeOK /\\ Safety /\\ [Next]_vars => Safety'\n  ",
+      "suffix": "\n<1>. QED  BY <1>1, <1>2, TypeCorrect, PTL DEF Spec, vars\n\n=============================================================================\n",
+      "dependencies": [
+        "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/FiniteMonotonic/CRDT.tla"
+      ],
+      "split": "development",
+      "prompt": "Predict an abstract proof-state transition trace for the fixed theorem. Return no proof, candidate, module, verifier result, or reference answer.\n\ntheorem=Safe\ngoal=THEOREM Safe == Spec => []Safety\nImmutable statement-only scaffold:\n------------------------------- MODULE CRDT_proof ---------------------------------\nEXTENDS CRDT, Functions, NaturalsInduction, FunctionTheorems, TLAPS\n\n(***************************************************************************)\n(* Proofs of safety properties.                                            *)\n(***************************************************************************)\n\nTHEOREM TypeCorrect == Spec => []TypeOK\n<1>1. Init => TypeOK\n  BY DEF Init, TypeOK\n<1>2. TypeOK /\\ [Next]_vars => TypeOK'\n  BY DEF TypeOK, Next, Increment, Gossip, vars\n<1>. QED  BY <1>1, <1>2, PTL DEF Spec, vars\n\n\nTHEOREM Safe == Spec => []Safety\n<1>1. Init => Safety\n  BY DEF Init, Safety\n<1>2. TypeOK /\\ Safety /\\ [Next]_vars => Safety'\n  \n<1>. QED  BY <1>1, <1>2, TypeCorrect, PTL DEF Spec, vars\n\n=============================================================================\n",
+      "prompt_sha256": "b8e4b547ce02654e0594a8484f30e2714c01511cbf075363b52c477316bab4ca",
+      "candidate_proposals": [
+        "BY SMT",
+        "BY SMT DEF vars, TypeOK, Safety, Monotonic, Monotonicity, Convergence, Init, Increment, Gossip, Next, Spec, Fairness, FairSpec",
+        "BY DEF vars, TypeOK, Safety, Monotonic, Monotonicity, Convergence, Init, Increment, Gossip, Next, Spec, Fairness, FairSpec",
+        "BY SMT, TypeCorrect, Fun_InjectionProperties",
+        "BY TypeCorrect, Fun_InjectionProperties",
+        "BY SMT, TypeCorrect, Fun_InjectionProperties, Fun_IsInj",
+        "BY TypeCorrect, Fun_InjectionProperties, Fun_IsInj",
+        "BY SMT, TypeCorrect, Fun_InjectionProperties, Fun_IsInj, SetExtensionality, Fun_InverseProperties",
+        "BY TypeCorrect, Fun_InjectionProperties, Fun_IsInj, SetExtensionality, Fun_InverseProperties",
+        "BY SMT, TypeCorrect, Fun_InjectionProperties, Fun_IsInj, SetExtensionality, Fun_InverseProperties, DownwardNatInduction, Fun_BijectionProperties, Fun_InjInverse, Fun_IsBij",
+        "BY TypeCorrect, Fun_InjectionProperties, Fun_IsInj, SetExtensionality, Fun_InverseProperties, DownwardNatInduction, Fun_BijectionProperties, Fun_InjInverse, Fun_IsBij",
+        "BY SMT, TypeCorrect, Fun_IsInj",
+        "BY TypeCorrect, Fun_IsInj",
+        "BY SMT, TypeCorrect, SetExtensionality",
+        "BY TypeCorrect, SetExtensionality",
+        "BY SMT, TypeCorrect, Fun_InverseProperties",
+        "BY TypeCorrect, Fun_InverseProperties",
+        "BY SMT, TypeCorrect, DownwardNatInduction",
+        "BY TypeCorrect, DownwardNatInduction",
+        "BY SMT, TypeCorrect, Fun_BijectionProperties",
+        "BY TypeCorrect, Fun_BijectionProperties",
+        "BY SMT, TypeCorrect, Fun_InjInverse",
+        "BY TypeCorrect, Fun_InjInverse",
+        "BY SMT, TypeCorrect, Fun_IsBij",
+        "BY TypeCorrect, Fun_IsBij",
+        "BY SMT, TypeCorrect, Fun_SmallestSurjectionIsBijection",
+        "BY TypeCorrect, Fun_SmallestSurjectionIsBijection",
+        "BY SMT, TypeCorrect, GeneralNatInduction",
+        "BY TypeCorrect, GeneralNatInduction"
+      ],
+      "candidate_transition_events": [
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:zero",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:many",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:def",
+          "facts:many",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:one",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:many",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:many",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:many",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:one",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:one",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:one",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:one",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:one",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:one",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:one",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:one",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:one",
+          "close:by",
+          "eos"
+        ]
+      ],
+      "candidate_transition_ids": [
+        [
+          0,
+          8,
+          14,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          17,
+          18,
+          20
+        ],
+        [
+          0,
+          9,
+          17,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          15,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          17,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          17,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          17,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          15,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          15,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          15,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          15,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          15,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          15,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          15,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          15,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          15,
+          18,
+          20
+        ]
+      ]
+    },
+    {
+      "id": "crdt-sum-type-proof",
+      "theorem_name": "SumType",
+      "target_goal": "LEMMA SumType ==\n  ASSUME NEW f \\in [Node -> Nat]\n  PROVE  Sum(f) \\in Nat",
+      "prefix": "------------------------------- MODULE CRDT_proof ---------------------------------\nEXTENDS CRDT, Functions, NaturalsInduction, FunctionTheorems, TLAPS\n\n(***************************************************************************)\n(* Proofs of safety properties.                                            *)\n(***************************************************************************)\n\nTHEOREM TypeCorrect == Spec => []TypeOK\n<1>1. Init => TypeOK\n  BY DEF Init, TypeOK\n<1>2. TypeOK /\\ [Next]_vars => TypeOK'\n  BY DEF TypeOK, Next, Increment, Gossip, vars\n<1>. QED  BY <1>1, <1>2, PTL DEF Spec, vars\n\n\nTHEOREM Safe == Spec => []Safety\n<1>1. Init => Safety\n  BY DEF Init, Safety\n<1>2. TypeOK /\\ Safety /\\ [Next]_vars => Safety'\n  BY DEF TypeOK, Safety, Next, Increment, Gossip, vars\n<1>. QED  BY <1>1, <1>2, TypeCorrect, PTL DEF Spec, vars\n\nTHEOREM Spec => Monotonicity\n<1>1. TypeOK /\\ [Next]_vars => [Monotonic]_vars\n  BY DEF TypeOK, Safety, Next, Increment, Gossip, vars, Monotonic\n<1>. QED  BY <1>1, TypeCorrect, PTL DEF Spec, Monotonicity, vars\n-----------------------------------------------------------------------------\n(***************************************************************************)\n(* Sum the values of a vector of natural numbers. We discharge the four    *)\n(* Sum lemmas by reducing them to the corresponding `SumFunction` theorems *)\n(* in the community-modules `FunctionTheorems`, via the trivial unfolding  *)\n(*   Sum(f) = FoldFunction(+, 0, f)                                        *)\n(*          = FoldFunctionOnSet(+, 0, f, DOMAIN f)                         *)\n(*          = SumFunctionOnSet(f, DOMAIN f)                                *)\n(*          = SumFunction(f).                                              *)\n(***************************************************************************)\nSum(f) == FoldFunction(+, 0, f)\n\nLEMMA SumIsSumFunction ==\n  ASSUME NEW f\n  PROVE  Sum(f) = SumFunction(f)\n  BY DEF Sum, FoldFunction, SumFunction, SumFunctionOnSet\n\nLEMMA SumType ==\n  ASSUME NEW f \\in [Node -> Nat]\n  PROVE  Sum(f) \\in Nat\n  ",
+      "suffix": "\n\n=============================================================================\n",
+      "dependencies": [
+        "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/FiniteMonotonic/CRDT.tla"
+      ],
+      "split": "development",
+      "prompt": "Predict an abstract proof-state transition trace for the fixed theorem. Return no proof, candidate, module, verifier result, or reference answer.\n\ntheorem=SumType\ngoal=LEMMA SumType ==\n  ASSUME NEW f \\in [Node -> Nat]\n  PROVE  Sum(f) \\in Nat\nImmutable statement-only scaffold:\n------------------------------- MODULE CRDT_proof ---------------------------------\nEXTENDS CRDT, Functions, NaturalsInduction, FunctionTheorems, TLAPS\n\n(***************************************************************************)\n(* Proofs of safety properties.                                            *)\n(***************************************************************************)\n\nTHEOREM TypeCorrect == Spec => []TypeOK\n<1>1. Init => TypeOK\n  BY DEF Init, TypeOK\n<1>2. TypeOK /\\ [Next]_vars => TypeOK'\n  BY DEF TypeOK, Next, Increment, Gossip, vars\n<1>. QED  BY <1>1, <1>2, PTL DEF Spec, vars\n\n\nTHEOREM Safe == Spec => []Safety\n<1>1. Init => Safety\n  BY DEF Init, Safety\n<1>2. TypeOK /\\ Safety /\\ [Next]_vars => Safety'\n  BY DEF TypeOK, Safety, Next, Increment, Gossip, vars\n<1>. QED  BY <1>1, <1>2, TypeCorrect, PTL DEF Spec, vars\n\nTHEOREM Spec => Monotonicity\n<1>1. TypeOK /\\ [Next]_vars => [Monotonic]_vars\n  BY DEF TypeOK, Safety, Next, Increment, Gossip, vars, Monotonic\n<1>. QED  BY <1>1, TypeCorrect, PTL DEF Spec, Monotonicity, vars\n-----------------------------------------------------------------------------\n(***************************************************************************)\n(* Sum the values of a vector of natural numbers. We discharge the four    *)\n(* Sum lemmas by reducing them to the corresponding `SumFunction` theorems *)\n(* in the community-modules `FunctionTheorems`, via the trivial unfolding  *)\n(*   Sum(f) = FoldFunction(+, 0, f)                                        *)\n(*          = FoldFunctionOnSet(+, 0, f, DOMAIN f)                         *)\n(*          = SumFunctionOnSet(f, DOMAIN f)                                *)\n(*          = SumFunction(f).                                              *)\n(***************************************************************************)\nSum(f) == FoldFunction(+, 0, f)\n\nLEMMA SumIsSumFunction ==\n  ASSUME NEW f\n  PROVE  Sum(f) = SumFunction(f)\n  BY DEF Sum, FoldFunction, SumFunction, SumFunctionOnSet\n\nLEMMA SumType ==\n  ASSUME NEW f \\in [Node -> Nat]\n  PROVE  Sum(f) \\in Nat\n  \n\n=============================================================================\n",
+      "prompt_sha256": "f1114c6f7765902f6facbbb1aa0aca46e3bdd0a94dd9f6fe91054539eee748b0",
+      "candidate_proposals": [
+        "BY SMT",
+        "BY SMT DEF Sum, vars, TypeOK, Safety, Monotonic, Monotonicity, Convergence, Init, Increment, Gossip, Next, Spec, Fairness, FairSpec",
+        "BY DEF Sum, vars, TypeOK, Safety, Monotonic, Monotonicity, Convergence, Init, Increment, Gossip, Next, Spec, Fairness, FairSpec",
+        "BY SMT, SumIsSumFunction, NodeAssumption, SumFunctionNat",
+        "BY SumIsSumFunction, NodeAssumption, SumFunctionNat",
+        "BY SMT, SumIsSumFunction, NodeAssumption, SumFunctionNat, SumFunctionZero",
+        "BY SumIsSumFunction, NodeAssumption, SumFunctionNat, SumFunctionZero",
+        "BY SMT, SumIsSumFunction, NodeAssumption, SumFunctionNat, SumFunctionZero, SumFunctionNatOnSubset, SumFunctionOnSetNat",
+        "BY SumIsSumFunction, NodeAssumption, SumFunctionNat, SumFunctionZero, SumFunctionNatOnSubset, SumFunctionOnSetNat",
+        "BY SMT, SumIsSumFunction, NodeAssumption, SumFunctionNat, SumFunctionZero, SumFunctionNatOnSubset, SumFunctionOnSetNat, SumFunctionOnSetZero, FiniteNatInductiveUnique, Fun_NatBijSame, Fun_NatBijSubElem",
+        "BY SumIsSumFunction, NodeAssumption, SumFunctionNat, SumFunctionZero, SumFunctionNatOnSubset, SumFunctionOnSetNat, SumFunctionOnSetZero, FiniteNatInductiveUnique, Fun_NatBijSame, Fun_NatBijSubElem",
+        "BY SMT, SumIsSumFunction, NodeAssumption, SumFunctionZero",
+        "BY SumIsSumFunction, NodeAssumption, SumFunctionZero",
+        "BY SMT, SumIsSumFunction, NodeAssumption, SumFunctionNatOnSubset",
+        "BY SumIsSumFunction, NodeAssumption, SumFunctionNatOnSubset",
+        "BY SMT, SumIsSumFunction, NodeAssumption, SumFunctionOnSetNat",
+        "BY SumIsSumFunction, NodeAssumption, SumFunctionOnSetNat",
+        "BY SMT, SumIsSumFunction, NodeAssumption, SumFunctionOnSetZero",
+        "BY SumIsSumFunction, NodeAssumption, SumFunctionOnSetZero",
+        "BY SMT, SumIsSumFunction, NodeAssumption, FiniteNatInductiveUnique",
+        "BY SumIsSumFunction, NodeAssumption, FiniteNatInductiveUnique",
+        "BY SMT, SumIsSumFunction, NodeAssumption, Fun_NatBijSame",
+        "BY SumIsSumFunction, NodeAssumption, Fun_NatBijSame",
+        "BY SMT, SumIsSumFunction, NodeAssumption, Fun_NatBijSubElem",
+        "BY SumIsSumFunction, NodeAssumption, Fun_NatBijSubElem",
+        "BY SMT, SumIsSumFunction, NodeAssumption, SmallestNatural",
+        "BY SumIsSumFunction, NodeAssumption, SmallestNatural",
+        "BY SMT, SumIsSumFunction, NodeAssumption, DownwardNatInduction",
+        "BY SumIsSumFunction, NodeAssumption, DownwardNatInduction"
+      ],
+      "candidate_transition_events": [
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:zero",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:many",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:def",
+          "facts:many",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:many",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:many",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:many",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:many",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:few",
+          "close:by",
+          "eos"
+        ]
+      ],
+      "candidate_transition_ids": [
+        [
+          0,
+          8,
+          14,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          17,
+          18,
+          20
+        ],
+        [
+          0,
+          9,
+          17,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          17,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          17,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          17,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          17,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          16,
+          18,
+          20
+        ]
+      ]
+    },
+    {
+      "id": "crdt-sum-zero-proof",
+      "theorem_name": "SumIsZero",
+      "target_goal": "LEMMA SumIsZero ==\n  ASSUME NEW f \\in [Node -> Nat]\n  PROVE  Sum(f) = 0 <=> \\A x \\in Node : f[x] = 0",
+      "prefix": "------------------------------- MODULE CRDT_proof ---------------------------------\nEXTENDS CRDT, Functions, NaturalsInduction, FunctionTheorems, TLAPS\n\n(***************************************************************************)\n(* Proofs of safety properties.                                            *)\n(***************************************************************************)\n\nTHEOREM TypeCorrect == Spec => []TypeOK\n<1>1. Init => TypeOK\n  BY DEF Init, TypeOK\n<1>2. TypeOK /\\ [Next]_vars => TypeOK'\n  BY DEF TypeOK, Next, Increment, Gossip, vars\n<1>. QED  BY <1>1, <1>2, PTL DEF Spec, vars\n\n\nTHEOREM Safe == Spec => []Safety\n<1>1. Init => Safety\n  BY DEF Init, Safety\n<1>2. TypeOK /\\ Safety /\\ [Next]_vars => Safety'\n  BY DEF TypeOK, Safety, Next, Increment, Gossip, vars\n<1>. QED  BY <1>1, <1>2, TypeCorrect, PTL DEF Spec, vars\n\nTHEOREM Spec => Monotonicity\n<1>1. TypeOK /\\ [Next]_vars => [Monotonic]_vars\n  BY DEF TypeOK, Safety, Next, Increment, Gossip, vars, Monotonic\n<1>. QED  BY <1>1, TypeCorrect, PTL DEF Spec, Monotonicity, vars\n-----------------------------------------------------------------------------\n(***************************************************************************)\n(* Sum the values of a vector of natural numbers. We discharge the four    *)\n(* Sum lemmas by reducing them to the corresponding `SumFunction` theorems *)\n(* in the community-modules `FunctionTheorems`, via the trivial unfolding  *)\n(*   Sum(f) = FoldFunction(+, 0, f)                                        *)\n(*          = FoldFunctionOnSet(+, 0, f, DOMAIN f)                         *)\n(*          = SumFunctionOnSet(f, DOMAIN f)                                *)\n(*          = SumFunction(f).                                              *)\n(***************************************************************************)\nSum(f) == FoldFunction(+, 0, f)\n\nLEMMA SumIsSumFunction ==\n  ASSUME NEW f\n  PROVE  Sum(f) = SumFunction(f)\n  BY DEF Sum, FoldFunction, SumFunction, SumFunctionOnSet\n\nLEMMA SumType ==\n  ASSUME NEW f \\in [Node -> Nat]\n  PROVE  Sum(f) \\in Nat\n  <1>1. IsFiniteSet(DOMAIN f)\n    BY NodeAssumption\n  <1>2. \\A x \\in DOMAIN f : f[x] \\in Nat\n    OBVIOUS\n  <1>. QED  BY <1>1, <1>2, SumFunctionNat, SumIsSumFunction\n\nLEMMA SumIsZero ==\n  ASSUME NEW f \\in [Node -> Nat]\n  PROVE  Sum(f) = 0 <=> \\A x \\in Node : f[x] = 0\n  ",
+      "suffix": "\n\n=============================================================================\n",
+      "dependencies": [
+        "/Users/eric/GitHub/prove-TLA/tools/tlaplus-examples/specifications/FiniteMonotonic/CRDT.tla"
+      ],
+      "split": "development",
+      "prompt": "Predict an abstract proof-state transition trace for the fixed theorem. Return no proof, candidate, module, verifier result, or reference answer.\n\ntheorem=SumIsZero\ngoal=LEMMA SumIsZero ==\n  ASSUME NEW f \\in [Node -> Nat]\n  PROVE  Sum(f) = 0 <=> \\A x \\in Node : f[x] = 0\nImmutable statement-only scaffold:\n------------------------------- MODULE CRDT_proof ---------------------------------\nEXTENDS CRDT, Functions, NaturalsInduction, FunctionTheorems, TLAPS\n\n(***************************************************************************)\n(* Proofs of safety properties.                                            *)\n(***************************************************************************)\n\nTHEOREM TypeCorrect == Spec => []TypeOK\n<1>1. Init => TypeOK\n  BY DEF Init, TypeOK\n<1>2. TypeOK /\\ [Next]_vars => TypeOK'\n  BY DEF TypeOK, Next, Increment, Gossip, vars\n<1>. QED  BY <1>1, <1>2, PTL DEF Spec, vars\n\n\nTHEOREM Safe == Spec => []Safety\n<1>1. Init => Safety\n  BY DEF Init, Safety\n<1>2. TypeOK /\\ Safety /\\ [Next]_vars => Safety'\n  BY DEF TypeOK, Safety, Next, Increment, Gossip, vars\n<1>. QED  BY <1>1, <1>2, TypeCorrect, PTL DEF Spec, vars\n\nTHEOREM Spec => Monotonicity\n<1>1. TypeOK /\\ [Next]_vars => [Monotonic]_vars\n  BY DEF TypeOK, Safety, Next, Increment, Gossip, vars, Monotonic\n<1>. QED  BY <1>1, TypeCorrect, PTL DEF Spec, Monotonicity, vars\n-----------------------------------------------------------------------------\n(***************************************************************************)\n(* Sum the values of a vector of natural numbers. We discharge the four    *)\n(* Sum lemmas by reducing them to the corresponding `SumFunction` theorems *)\n(* in the community-modules `FunctionTheorems`, via the trivial unfolding  *)\n(*   Sum(f) = FoldFunction(+, 0, f)                                        *)\n(*          = FoldFunctionOnSet(+, 0, f, DOMAIN f)                         *)\n(*          = SumFunctionOnSet(f, DOMAIN f)                                *)\n(*          = SumFunction(f).                                              *)\n(***************************************************************************)\nSum(f) == FoldFunction(+, 0, f)\n\nLEMMA SumIsSumFunction ==\n  ASSUME NEW f\n  PROVE  Sum(f) = SumFunction(f)\n  BY DEF Sum, FoldFunction, SumFunction, SumFunctionOnSet\n\nLEMMA SumType ==\n  ASSUME NEW f \\in [Node -> Nat]\n  PROVE  Sum(f) \\in Nat\n  <1>1. IsFiniteSet(DOMAIN f)\n    BY NodeAssumption\n  <1>2. \\A x \\in DOMAIN f : f[x] \\in Nat\n    OBVIOUS\n  <1>. QED  BY <1>1, <1>2, SumFunctionNat, SumIsSumFunction\n\nLEMMA SumIsZero ==\n  ASSUME NEW f \\in [Node -> Nat]\n  PROVE  Sum(f) = 0 <=> \\A x \\in Node : f[x] = 0\n  \n\n=============================================================================\n",
+      "prompt_sha256": "efd6fc024e65ac211fd498e564a613ae3d250ae26669393dd81c7d15a9f97d89",
+      "candidate_proposals": [
+        "BY SMT",
+        "BY SMT DEF Sum, vars, TypeOK, Safety, Monotonic, Monotonicity, Convergence, Init, Increment, Gossip, Next, Spec, Fairness, FairSpec",
+        "BY DEF Sum, vars, TypeOK, Safety, Monotonic, Monotonicity, Convergence, Init, Increment, Gossip, Next, Spec, Fairness, FairSpec",
+        "BY SMT, SumIsSumFunction, SumType, NodeAssumption, SumFunctionZero",
+        "BY SumIsSumFunction, SumType, NodeAssumption, SumFunctionZero",
+        "BY SMT, SumIsSumFunction, SumType, NodeAssumption, SumFunctionZero, SumFunctionOnSetZero",
+        "BY SumIsSumFunction, SumType, NodeAssumption, SumFunctionZero, SumFunctionOnSetZero",
+        "BY SMT, SumIsSumFunction, SumType, NodeAssumption, SumFunctionZero, SumFunctionOnSetZero, SmallestNatural, DownwardNatInduction",
+        "BY SumIsSumFunction, SumType, NodeAssumption, SumFunctionZero, SumFunctionOnSetZero, SmallestNatural, DownwardNatInduction",
+        "BY SMT, SumIsSumFunction, SumType, NodeAssumption, SumFunctionZero, SumFunctionOnSetZero, SmallestNatural, DownwardNatInduction, Fun_NatBijEmpty, GeneralNatInduction, NatInduction, RecursiveFcnOfNatType",
+        "BY SumIsSumFunction, SumType, NodeAssumption, SumFunctionZero, SumFunctionOnSetZero, SmallestNatural, DownwardNatInduction, Fun_NatBijEmpty, GeneralNatInduction, NatInduction, RecursiveFcnOfNatType",
+        "BY SMT, SumIsSumFunction, SumType, NodeAssumption, SumFunctionOnSetZero",
+        "BY SumIsSumFunction, SumType, NodeAssumption, SumFunctionOnSetZero",
+        "BY SMT, SumIsSumFunction, SumType, NodeAssumption, SmallestNatural",
+        "BY SumIsSumFunction, SumType, NodeAssumption, SmallestNatural",
+        "BY SMT, SumIsSumFunction, SumType, NodeAssumption, DownwardNatInduction",
+        "BY SumIsSumFunction, SumType, NodeAssumption, DownwardNatInduction",
+        "BY SMT, SumIsSumFunction, SumType, NodeAssumption, Fun_NatBijEmpty",
+        "BY SumIsSumFunction, SumType, NodeAssumption, Fun_NatBijEmpty",
+        "BY SMT, SumIsSumFunction, SumType, NodeAssumption, GeneralNatInduction",
+        "BY SumIsSumFunction, SumType, NodeAssumption, GeneralNatInduction",
+        "BY SMT, SumIsSumFunction, SumType, NodeAssumption, NatInduction",
+        "BY SumIsSumFunction, SumType, NodeAssumption, NatInduction",
+        "BY SMT, SumIsSumFunction, SumType, NodeAssumption, RecursiveFcnOfNatType",
+        "BY SumIsSumFunction, SumType, NodeAssumption, RecursiveFcnOfNatType",
+        "BY SMT, SumIsSumFunction, SumType, NodeAssumption, Fun_NatInjLeq",
+        "BY SumIsSumFunction, SumType, NodeAssumption, Fun_NatInjLeq",
+        "BY SMT, SumIsSumFunction, SumType, NodeAssumption, Fun_NatSurjEquivNatBij",
+        "BY SumIsSumFunction, SumType, NodeAssumption, Fun_NatSurjEquivNatBij"
+      ],
+      "candidate_transition_events": [
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:zero",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:many",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:def",
+          "facts:many",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:many",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:many",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:many",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:many",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:many",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:smt",
+          "facts:few",
+          "close:by",
+          "eos"
+        ],
+        [
+          "entry:direct",
+          "solver:other",
+          "facts:few",
+          "close:by",
+          "eos"
+        ]
+      ],
+      "candidate_transition_ids": [
+        [
+          0,
+          8,
+          14,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          17,
+          18,
+          20
+        ],
+        [
+          0,
+          9,
+          17,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          17,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          17,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          17,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          17,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          17,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          8,
+          16,
+          18,
+          20
+        ],
+        [
+          0,
+          13,
+          16,
+          18,
+          20
+        ]
+      ]
+    }
+  ],
+  "development_targets_exported": false,
+  "reference_fragments_exported": false,
+  "verifier_feedback_used": false,
+  "repair_used": false,
+  "reward_used": false,
+  "training_executed": false,
+  "parameter_updates": 0,
+  "gate_claim": false
+}

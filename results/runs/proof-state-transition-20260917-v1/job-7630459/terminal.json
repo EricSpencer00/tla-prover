@@ -1,0 +1,17 @@
+{
+  "job_id": "7630459.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "pbs_state": "F",
+  "exec_host": "x3204c0s37b1n0/0*64",
+  "requested_ngpus": 1,
+  "requested_walltime": "00:15:00",
+  "resources_used_walltime": "00:00:06",
+  "failure_class": "infrastructure_only",
+  "failure": "staged tools package was shadowed by the base tools package because the stage lacked tools/__init__.py; proof_state_transition_cuda_train.py could not import proof_state_transition",
+  "model_loaded": false,
+  "cuda_touched": false,
+  "optimizer_updates": 0,
+  "quality_claim": false,
+  "proof_claim": false,
+  "gate_claim": false,
+  "retry_policy": "append-only v2 stage with exact dependency bundle; do not reuse v1 output namespace"
+}
