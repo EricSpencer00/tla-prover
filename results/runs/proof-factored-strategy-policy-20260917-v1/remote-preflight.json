@@ -1,0 +1,16 @@
+{
+  "stage": "/home/eric-spencer/tla-factored-strategy-policy-20260917-v1",
+  "packet_sha256": "99e13cfb413f1d8d4e2766360be41d29bc7aaf5027e9dba1f3c10a696b952bae",
+  "manifest_sha256": "c186ddf0007c5b5adfdc345a06feb777a89746160cf9041b875a8655ed1eb344",
+  "train_rows": 17,
+  "development_rows": 4,
+  "python_compile": true,
+  "worker_import": true,
+  "factored_renderer_controls": true,
+  "development_targets_exported": false,
+  "model_loaded": false,
+  "cuda_touched": false,
+  "optimizer_updates": 0,
+  "result_namespace_clean": true,
+  "passed": true
+}

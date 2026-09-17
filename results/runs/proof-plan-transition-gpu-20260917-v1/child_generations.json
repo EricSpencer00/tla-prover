@@ -1,0 +1,142 @@
+[
+  {
+    "candidate_index": 0,
+    "candidate": "BY DEF TypeOK, Next, Increment, Gossip, vars",
+    "plan": {
+      "entry": "direct",
+      "local": "definitions",
+      "close": "by"
+    },
+    "candidate_plan": {
+      "entry": "direct",
+      "local": "definitions",
+      "close": "by"
+    },
+    "plan_distance": 0,
+    "id": "crdt-type-step",
+    "valid": true,
+    "plan_probabilities": {
+      "entry": [
+        0.6750319600105286,
+        0.32496801018714905,
+        0.0
+      ],
+      "local": [
+        1.0,
+        2.0170290095491417e-41,
+        0.0,
+        0.0
+      ],
+      "close": [
+        2.1008831936342176e-06,
+        0.9999978542327881,
+        0.0
+      ]
+    }
+  },
+  {
+    "candidate_index": 0,
+    "candidate": "BY DEF TypeOK, Safety, Next, Increment, Gossip, vars",
+    "plan": {
+      "entry": "structured",
+      "local": "definitions",
+      "close": "by"
+    },
+    "candidate_plan": {
+      "entry": "direct",
+      "local": "definitions",
+      "close": "by"
+    },
+    "plan_distance": 1,
+    "id": "crdt-safety-step",
+    "valid": true,
+    "plan_probabilities": {
+      "entry": [
+        4.593922540152562e-07,
+        0.9999995231628418,
+        0.0
+      ],
+      "local": [
+        1.0,
+        8.96831017167883e-44,
+        0.0,
+        0.0
+      ],
+      "close": [
+        0.030874239280819893,
+        0.9691257476806641,
+        0.0
+      ]
+    }
+  },
+  {
+    "candidate_index": 1,
+    "candidate": "BY DEF Init, TypeOK",
+    "plan": {
+      "entry": "direct",
+      "local": "definitions",
+      "close": "by"
+    },
+    "candidate_plan": {
+      "entry": "direct",
+      "local": "definitions",
+      "close": "by"
+    },
+    "plan_distance": 0,
+    "id": "crdt-sum-type-proof",
+    "valid": true,
+    "plan_probabilities": {
+      "entry": [
+        0.9355593919754028,
+        0.06444066017866135,
+        0.0
+      ],
+      "local": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "close": [
+        0.0001089201687136665,
+        0.9998910427093506,
+        0.0
+      ]
+    }
+  },
+  {
+    "candidate_index": 0,
+    "candidate": "<1>1. IsFiniteSet(DOMAIN f)\n    BY NodeAssumption\n  <1>2. \\A x \\in DOMAIN f : f[x] \\in Nat\n    OBVIOUS\n  <1>. QED  BY <1>1, <1>2, SumFunctionNat, SumIsSumFunction",
+    "plan": {
+      "entry": "structured",
+      "local": "definitions",
+      "close": "qed"
+    },
+    "candidate_plan": {
+      "entry": "structured",
+      "local": "obligations",
+      "close": "qed"
+    },
+    "plan_distance": 1,
+    "id": "crdt-sum-zero-proof",
+    "valid": true,
+    "plan_probabilities": {
+      "entry": [
+        3.0352912290254608e-06,
+        0.9999970197677612,
+        0.0
+      ],
+      "local": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "close": [
+        0.999921441078186,
+        7.85217052907683e-05,
+        0.0
+      ]
+    }
+  }
+]

@@ -1,0 +1,142 @@
+[
+  {
+    "candidate_index": 0,
+    "candidate": "BY DEF TypeOK, Next, Increment, Gossip, vars",
+    "plan": {
+      "entry": "structured",
+      "local": "obligations",
+      "close": "none"
+    },
+    "candidate_plan": {
+      "entry": "direct",
+      "local": "definitions",
+      "close": "by"
+    },
+    "plan_distance": 3,
+    "id": "crdt-type-step",
+    "valid": true,
+    "plan_probabilities": {
+      "entry": [
+        0.2706466019153595,
+        0.626829206943512,
+        0.10252425074577332
+      ],
+      "local": [
+        0.03669869899749756,
+        0.7028266191482544,
+        0.15112145245075226,
+        0.10935325920581818
+      ],
+      "close": [
+        0.10168114304542542,
+        0.26351967453956604,
+        0.6347991824150085
+      ]
+    }
+  },
+  {
+    "candidate_index": 0,
+    "candidate": "BY DEF TypeOK, Safety, Next, Increment, Gossip, vars",
+    "plan": {
+      "entry": "structured",
+      "local": "obligations",
+      "close": "none"
+    },
+    "candidate_plan": {
+      "entry": "direct",
+      "local": "definitions",
+      "close": "by"
+    },
+    "plan_distance": 3,
+    "id": "crdt-safety-step",
+    "valid": true,
+    "plan_probabilities": {
+      "entry": [
+        0.18022248148918152,
+        0.6916040182113647,
+        0.12817354500293732
+      ],
+      "local": [
+        0.036007050424814224,
+        0.7058511972427368,
+        0.13749371469020844,
+        0.12064801156520844
+      ],
+      "close": [
+        0.10311442613601685,
+        0.3421177864074707,
+        0.5547677874565125
+      ]
+    }
+  },
+  {
+    "candidate_index": 0,
+    "candidate": "<1>1. IsFiniteSet(DOMAIN f)\n    BY NodeAssumption\n  <1>2. \\A x \\in DOMAIN f : f[x] \\in Nat\n    OBVIOUS\n  <1>. QED  BY <1>1, <1>2, SumFunctionNat, SumIsSumFunction",
+    "plan": {
+      "entry": "structured",
+      "local": "obligations",
+      "close": "none"
+    },
+    "candidate_plan": {
+      "entry": "structured",
+      "local": "obligations",
+      "close": "qed"
+    },
+    "plan_distance": 1,
+    "id": "crdt-sum-type-proof",
+    "valid": true,
+    "plan_probabilities": {
+      "entry": [
+        0.1336091011762619,
+        0.77692711353302,
+        0.08946382999420166
+      ],
+      "local": [
+        0.04567037150263786,
+        0.7177029848098755,
+        0.13609713315963745,
+        0.10052948445081711
+      ],
+      "close": [
+        0.06938067078590393,
+        0.16317260265350342,
+        0.767446756362915
+      ]
+    }
+  },
+  {
+    "candidate_index": 0,
+    "candidate": "<1>1. IsFiniteSet(DOMAIN f)\n    BY NodeAssumption\n  <1>2. \\A x \\in DOMAIN f : f[x] \\in Nat\n    OBVIOUS\n  <1>. QED  BY <1>1, <1>2, SumFunctionNat, SumIsSumFunction",
+    "plan": {
+      "entry": "structured",
+      "local": "obligations",
+      "close": "none"
+    },
+    "candidate_plan": {
+      "entry": "structured",
+      "local": "obligations",
+      "close": "qed"
+    },
+    "plan_distance": 1,
+    "id": "crdt-sum-zero-proof",
+    "valid": true,
+    "plan_probabilities": {
+      "entry": [
+        0.20795384049415588,
+        0.6483968496322632,
+        0.1436493843793869
+      ],
+      "local": [
+        0.05505651235580444,
+        0.7399994134902954,
+        0.1298656463623047,
+        0.07507850974798203
+      ],
+      "close": [
+        0.08222194015979767,
+        0.23870810866355896,
+        0.6790699362754822
+      ]
+    }
+  }
+]

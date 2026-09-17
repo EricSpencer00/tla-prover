@@ -1,0 +1,24 @@
+{
+  "job_id": "7629655.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov",
+  "job_name": "tla-factored-v1",
+  "job_state": "F",
+  "exit_status": 0,
+  "queue": "debug",
+  "host": "x3001c0s1b1n0/0*64",
+  "requested": {
+    "ncpus": 64,
+    "ngpus": 1,
+    "walltime": "00:15:00"
+  },
+  "used": {
+    "ncpus": 64,
+    "ngpus": 0,
+    "walltime": "00:00:52",
+    "cput": "00:00:45",
+    "mem": "5749660kb"
+  },
+  "started_utc": "2026-09-17T10:40:30Z",
+  "finished_utc": "2026-09-17T10:41:27Z",
+  "stageout_status": 1,
+  "comment": "Job ran on one allocated GPU vnode and completed with Exit_status 0; worker summary records 16 optimizer updates."
+}

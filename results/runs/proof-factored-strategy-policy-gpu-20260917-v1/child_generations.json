@@ -1,0 +1,58 @@
+[
+  {
+    "candidate_index": 0,
+    "candidate": "BY DEF TypeOK, Next, Increment, Gossip, vars",
+    "strategy": "direct_def",
+    "renderer_variant": "default",
+    "id": "crdt-type-step",
+    "valid": true,
+    "strategy_id": 0,
+    "strategy_probabilities": [
+      1.0,
+      6.499998894424465e-25,
+      0.0
+    ]
+  },
+  {
+    "candidate_index": 0,
+    "candidate": "BY DEF TypeOK, Safety, Next, Increment, Gossip, vars",
+    "strategy": "direct_def",
+    "renderer_variant": "default",
+    "id": "crdt-safety-step",
+    "valid": true,
+    "strategy_id": 0,
+    "strategy_probabilities": [
+      1.0,
+      7.365855584785662e-18,
+      0.0
+    ]
+  },
+  {
+    "candidate_index": 1,
+    "candidate": "BY DEF Init, TypeOK",
+    "strategy": "direct_def",
+    "renderer_variant": "default",
+    "id": "crdt-sum-type-proof",
+    "valid": true,
+    "strategy_id": 0,
+    "strategy_probabilities": [
+      1.0,
+      7.991284999777268e-27,
+      0.0
+    ]
+  },
+  {
+    "candidate_index": 2,
+    "candidate": "BY DEF Init, TypeOK",
+    "strategy": "direct_def",
+    "renderer_variant": "default",
+    "id": "crdt-sum-zero-proof",
+    "valid": true,
+    "strategy_id": 0,
+    "strategy_probabilities": [
+      1.0,
+      2.8087713860577637e-19,
+      0.0
+    ]
+  }
+]
