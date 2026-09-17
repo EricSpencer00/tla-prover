@@ -1,0 +1,9 @@
+{
+  "stage": "tla-fragment-pir-20260917-v3",
+  "jobs": [
+    {"id": "7629511", "exit_status": 1, "walltime": "00:00:04", "requested_gpus": 1, "worker_gpus_used": 0, "reason": "bundle package marker omitted; failed before model import"},
+    {"id": "7629516", "exit_status": 1, "walltime": "00:01:24", "requested_gpus": 1, "worker_gpus_used": 0, "reason": "mixed-dtype generation reached model load but failed before optimizer"},
+    {"id": "7629519", "exit_status": 1, "walltime": "00:01:15", "requested_gpus": 1, "worker_gpus_used": 0, "reason": "training completed; post-run scorer initially lacked shared packet loader"}
+  ],
+  "note": "PBS resources_used.ngpus reports zero for all three records even though job 7629519 passed CUDA availability, loaded the Llama runtime, generated paired outputs, and completed 16 optimizer updates. Requested allocation was one GPU per job."
+}

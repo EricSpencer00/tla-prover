@@ -1,0 +1,50 @@
+{
+  "packet_sha256": "095d2d0a070961150d76575e5768f3ce615ee01b283a844c69d24f8a4661f5f5",
+  "generations_sha256": "f1e196fe2f30261e6f44519a73103f458f5ef3eb38f22eedf72eed1b8dacbb3e",
+  "rows": [
+    {
+      "id": "crdt-type-step",
+      "certified": false,
+      "status": "malformed_json",
+      "proved": 0,
+      "total": 0,
+      "raw_reply": "```tla\n<1>2. TypeOK /\\ [Next]_vars => TypeOK'\n  BY\n    LET NextTypeOK == [TypeOK]_vars\n    IN\n    TypeOK /\\ [Next]_vars => NextTypeOK\n    BY\n      LET TypeOKNext == [TypeOK]_vars\n      IN\n      TypeOK => TypeOKNext\n      BY DEF TypeOK\n    AND\n      [Next]_vars => TypeOKNext\n      BY DEF TypeOK\n    AND\n      TypeOK /\\ TypeOKNext => NextTypeOK\n      BY DEF TypeOK\n  AND\n    NextTypeOK => TypeOK'\n    BY DEF TypeOK'\n```\n\nThis proof fragment completes the missing step in the given theorem. It uses the definition of `TypeOK'` and the properties of the `Next` operator to establish the desired implication."
+    },
+    {
+      "id": "crdt-safety-step",
+      "certified": false,
+      "status": "malformed_json",
+      "proved": 0,
+      "total": 0,
+      "raw_reply": "```tla\n<1>2. TypeOK /\\ Safety /\\ [Next]_vars => Safety'\n  BY\n    LET vars' == vars \\o Next IN\n    LET vars_ok == vars' \\in vars' => TypeOK' IN\n    LET gossip_ok == vars' \\in vars' => Safety' IN\n    LET increment_ok == vars' \\in vars' => Safety' IN\n    LET next_ok == vars' \\in vars' => Safety' IN\n    LET vars_ok' == vars_ok /\\ gossip_ok /\\ increment_ok /\\ next_ok IN\n    Safety' == Safety /\\ vars_ok' /\\ vars_ok' => vars' => Safety'\n  BY\n    DEF TypeOK, Next, Increment, Gossip, vars, Safety\n    PTL DEF vars, vars', vars_ok, vars_ok', gossip_ok, increment_ok, next_ok\n```\n\nThis proof fragment completes the missing step in the `Safe` theorem proof. It uses the `LET` statement to define intermediate variables and then uses the `BY` statement to prove the desired implication. The proof relies on the definitions of `TypeOK`, `Next`, `Increment`, `Gossip`, `vars`, and `Safety`, as well as the `"
+    },
+    {
+      "id": "crdt-sum-type-proof",
+      "certified": false,
+      "status": "malformed_json",
+      "proved": 0,
+      "total": 0,
+      "raw_reply": "```tla\nLEMMA SumType ==\n  ASSUME NEW f \\in [Node -> Nat]\n  PROVE  Sum(f) \\in Nat\n  BY DEF Sum, FoldFunction, Nat, NatPlus, NatZero\n```"
+    },
+    {
+      "id": "crdt-sum-zero-proof",
+      "certified": false,
+      "status": "malformed_json",
+      "proved": 0,
+      "total": 0,
+      "raw_reply": "```tla\nLEMMA SumIsZero ==\n  ASSUME NEW f \\in [Node -> Nat]\n  PROVE  Sum(f) = 0 <=> \\A x \\in Node : f[x] = 0\n  <1>1. Sum(f) = 0\n    BY DEF Sum, FoldFunction\n  <1>2. \\A x \\in Node : f[x] = 0\n    BY DEF Sum, FoldFunction\n  <1>3. \\A x \\in Node : f[x] = 0\n    BY <1>1, <1>2, DEF FoldFunction\n  <1>4. \\A x \\in Node : f[x] = 0\n    BY <1>3, DEF FoldFunction\n  <1>5. \\A x \\in Node : f[x] = 0\n    BY <1>4, DEF FoldFunction\n  <1>6. \\A x \\in Node : f[x] = 0\n    BY <1>5, DEF FoldFunction\n  <1>7. \\A x \\in Node : f[x] = 0\n    BY <1>6, DEF FoldFunction\n"
+    }
+  ],
+  "tasks": 4,
+  "certified_tasks": 0,
+  "verifier_runs": 4,
+  "verifier_mode": "legacy_tlaps_1.5.0_uncached_nofp_threads1",
+  "strict_flags_used": false,
+  "verifier_feedback_used": false,
+  "repair_used": false,
+  "reward_used": false,
+  "fixed_denominator": 4,
+  "quality_claim": false,
+  "proof_claim": false,
+  "gate_claim": false
+}

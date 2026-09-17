@@ -1,0 +1,50 @@
+{
+  "packet_sha256": "095d2d0a070961150d76575e5768f3ce615ee01b283a844c69d24f8a4661f5f5",
+  "generations_sha256": "72643243bcc5b0461c0c1c6fe11b8176e140a6936f44211429e4ef9696d92718",
+  "rows": [
+    {
+      "id": "crdt-type-step",
+      "certified": false,
+      "status": "malformed_json",
+      "proved": 0,
+      "total": 0,
+      "raw_reply": "BY DEF TypeOK, TypeOK', Next"
+    },
+    {
+      "id": "crdt-safety-step",
+      "certified": false,
+      "status": "malformed_json",
+      "proved": 0,
+      "total": 0,
+      "raw_reply": "BY DEF Safety, Next, vars"
+    },
+    {
+      "id": "crdt-sum-type-proof",
+      "certified": false,
+      "status": "malformed_json",
+      "proved": 0,
+      "total": 0,
+      "raw_reply": "BY DEF Sum, FoldFunction, SumFunction"
+    },
+    {
+      "id": "crdt-sum-zero-proof",
+      "certified": false,
+      "status": "malformed_json",
+      "proved": 0,
+      "total": 0,
+      "raw_reply": "<1>1. \\A x \\in Node : f[x] = 0 => Sum(f) = 0\n  BY <1>2\n<1>. QED  BY <1>1, SumIsZero"
+    }
+  ],
+  "tasks": 4,
+  "certified_tasks": 0,
+  "verifier_runs": 4,
+  "verifier_mode": "legacy_tlaps_1.5.0_uncached_nofp_threads1",
+  "strict_flags_used": false,
+  "verifier_feedback_used": false,
+  "repair_used": false,
+  "reward_used": false,
+  "fixed_denominator": 4,
+  "quality_claim": false,
+  "proof_claim": false,
+  "gate_claim": false
+}

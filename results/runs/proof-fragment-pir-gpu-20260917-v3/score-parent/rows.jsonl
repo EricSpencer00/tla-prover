@@ -1,0 +1,4 @@
+{"id": "crdt-type-step", "certified": false, "status": "malformed_json", "proved": 0, "total": 0, "raw_reply": "BY DEF TypeOK, TypeOK', Next"}
+{"id": "crdt-safety-step", "certified": false, "status": "malformed_json", "proved": 0, "total": 0, "raw_reply": "BY DEF Safety, Next, vars"}
+{"id": "crdt-sum-type-proof", "certified": false, "status": "malformed_json", "proved": 0, "total": 0, "raw_reply": "BY DEF Sum, FoldFunction, SumFunction"}
+{"id": "crdt-sum-zero-proof", "certified": false, "status": "malformed_json", "proved": 0, "total": 0, "raw_reply": "<1>1. \\A x \\in Node : f[x] = 0 => Sum(f) = 0\n  BY <1>2\n<1>. QED  BY <1>1, SumIsZero"}
