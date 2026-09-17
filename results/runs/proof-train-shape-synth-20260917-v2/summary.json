@@ -1,0 +1,43 @@
+{
+  "manifest_sha256": "c186ddf0007c5b5adfdc345a06feb777a89746160cf9041b875a8655ed1eb344",
+  "train_tasks": 17,
+  "development_tasks": 4,
+  "shape_counts": {
+    "direct-def": 6,
+    "other": 6,
+    "hierarchical": 5
+  },
+  "per_task": {
+    "crdt-type-step": {
+      "candidates": 4,
+      "certified": 1,
+      "first_certified_index": 0,
+      "all_candidates_scored": true
+    },
+    "crdt-safety-step": {
+      "candidates": 4,
+      "certified": 1,
+      "first_certified_index": 0,
+      "all_candidates_scored": true
+    },
+    "crdt-sum-type-proof": {
+      "candidates": 4,
+      "certified": 1,
+      "first_certified_index": 0,
+      "all_candidates_scored": true
+    },
+    "crdt-sum-zero-proof": {
+      "candidates": 5,
+      "certified": 1,
+      "first_certified_index": 1,
+      "all_candidates_scored": true
+    }
+  },
+  "tasks_with_any_certificate": 4,
+  "candidate_rows": 17,
+  "reference_fragment_used_for_development": false,
+  "verifier_feedback_used": false,
+  "training_executed": false,
+  "proof_or_quality_claim": false,
+  "gate_claim": false
+}
