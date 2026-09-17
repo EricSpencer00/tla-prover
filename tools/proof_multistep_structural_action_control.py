@@ -11,6 +11,7 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
+import re
 import sys
 import time
 
@@ -64,9 +65,23 @@ def structural_key(candidate: str, candidate_index: int) -> tuple[int, int]:
     return tier, candidate_index
 
 
+def visible_statement_names(prompt: str) -> set[str]:
+    context = prompt.split("Visible statement-only context", 1)[-1]
+    return set(re.findall(r"(?m)^([A-Za-z_][A-Za-z0-9_]*)\s*==", context))
+
+
+def visible_structural_key(candidate: str, candidate_index: int,
+                           visible_names: set[str]) -> tuple[int, int, int]:
+    identifiers = set(re.findall(r"\b[A-Za-z_][A-Za-z0-9_]*\b", candidate))
+    overlap = len(identifiers & visible_names)
+    tier, index = structural_key(candidate, candidate_index)
+    return -overlap, tier, index
+
+
 def evaluate(packet_path: Path, manifest_path: Path, output: Path,
              expected_packet_sha256: str, expected_manifest_sha256: str,
-             timeout: int = 5, seconds: int = 900) -> dict:
+             timeout: int = 5, seconds: int = 900,
+             mode: str = "structural") -> dict:
     packet_bytes = packet_path.read_bytes()
     manifest_bytes = manifest_path.read_bytes()
     if sha(packet_bytes) != expected_packet_sha256:
@@ -97,11 +112,18 @@ def evaluate(packet_path: Path, manifest_path: Path, output: Path,
     ranked = {}
     for row in packet["rows"]:
         proposals = row["candidate_proposals"]
+        visible_names = visible_statement_names(row["prompt"])
+        key = (structural_key if mode == "structural" else
+               lambda candidate, index: visible_structural_key(
+                   candidate, index, visible_names))
         ranked[row["id"]] = [
             {"candidate_index": index, "candidate": proposals[index],
-             "structural_key": list(structural_key(proposals[index], index))}
+             "structural_key": list(key(proposals[index], index)),
+             "visible_overlap": len(
+                 set(re.findall(r"\b[A-Za-z_][A-Za-z0-9_]*\b", proposals[index])) &
+                 visible_names)}
             for index in sorted(range(len(proposals)),
-                                key=lambda i: structural_key(proposals[i], i))
+                                key=lambda i: key(proposals[i], i))
         ]
 
     output.mkdir(parents=True, exist_ok=False)
@@ -147,7 +169,9 @@ def evaluate(packet_path: Path, manifest_path: Path, output: Path,
                                      for row in checks),
         "checker_attempts": len(checks),
         "candidate_width": max(len(row["candidate_proposals"]) for row in packet["rows"]),
-        "ordering": "SMT+DEF, DEF, other SMT, bare SMT; candidate index tie-break",
+        "ordering": ("SMT+DEF, DEF, other SMT, bare SMT; candidate index tie-break"
+                     if mode == "structural" else
+                     "visible statement-name overlap, then structural order; candidate index tie-break"),
         "packet_sha256": expected_packet_sha256,
         "manifest_sha256": expected_manifest_sha256,
         "reference_fragment_used": False,
@@ -173,13 +197,14 @@ def main():
     parser.add_argument("--expected-manifest-sha256", required=True)
     parser.add_argument("--timeout", type=int, default=5)
     parser.add_argument("--seconds", type=int, default=900)
+    parser.add_argument("--mode", choices=("structural", "visible"), default="structural")
     args = parser.parse_args()
     if not 1 <= args.timeout <= 10 or not 30 <= args.seconds <= 900:
         parser.error("bounded timeout/seconds required")
     print(json.dumps(evaluate(args.packet, args.manifest, args.output,
                               args.expected_packet_sha256,
                               args.expected_manifest_sha256,
-                              args.timeout, args.seconds), indent=2))
+                              args.timeout, args.seconds, args.mode), indent=2))
 
 
 if __name__ == "__main__":

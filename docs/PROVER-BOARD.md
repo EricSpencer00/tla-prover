@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 783
-- Verified UTC: 2026-09-17T00:28:33Z
+- Revision: 785
+- Verified UTC: 2026-09-17T01:02:42Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: local_work
 - Active job: none
-- Observation evidence: At 2026-09-17T00:28:33Z, the pre-registered answer-free structural-action control completed its bounded official119 audit. It reordered only the frozen four symbolic candidates by candidate text: SMT+DEF, DEF, other SMT, then bare SMT. Strict uncached TLAPS made324 attempts within900 seconds, measured115/119 tasks, and certified43/119 selected rank1 actions. No model, reference fragment, verifier feedback, repair, reward, training update or protected-gate claim was used.
-- Latest completed result: The structural action prior is a reproducible 43/119 official rank1 baseline, above the current neural mean-logp order35/119 but below the existing 57/119 symbolic baseline. Six tasks were not reached by the fixed checker budget. This is answer-free system-control evidence only; it does not establish learned ranking, generalization, model quality, or a protected-gate result.
-- Local work: The semantic, span, broad-clean, schema-weighted, planner, parser-controlled, matched-prefix streaming and explicit-header body objectives remain complete negatives and are not replayed. The answer-free scaffold diagnostic, unconstrained development ranker, scalar likelihood controls and official symbolic-tail lattice expansion are closed negatives. The deterministic structural control is now measured on both17 non-protected rows (8/17 total,7/17 rank1) and official119 (43/119 rank1), with no reference fragments, proof bodies, verifier feedback, repair, reward, training or optimizer path. It is a baseline, not a learned model; do not promote or train a pointer head from it unchanged. Preserve denominators17/119/30 and make no model or gate claim.
+- Observation evidence: At 2026-09-17T01:02:42Z, the source-aware answer-free action representation completed its bounded official119 strict-TLAPS audit. It prioritized candidate-name overlap with visible statement-only context, then used the fixed structural order. The audit made324 attempts, measured112/119 tasks, and certified35/119 selected rank1 actions and43/119 total tasks. No verifier result, proof answer, reward, feedback, training signal or gate claim entered the rule.
+- Latest completed result: The visible-context representation is a complete negative:35/119 rank1 and43/119 total, matching the neural mean-logp and sum-logp controls while changing the candidate order. It does not improve the43/119 structural baseline or the existing57/119 symbolic baseline, so this representation is pruned without a model or acceptance-gate claim.
+- Local work: The semantic, span, broad-clean, schema-weighted, planner, parser-controlled, matched-prefix streaming and explicit-header body objectives remain complete negatives and are not replayed. The answer-free scaffold diagnostic, unconstrained development ranker, scalar likelihood controls, visible-context representation and official symbolic-tail lattice expansion are closed negatives. The deterministic structural control remains a baseline at43/119 official rank1; all these action controls use no reference fragments, proof bodies, verifier feedback, repair, reward, training or optimizer path. Preserve denominators17/119/30 and make no model or gate claim.
 - External blocker: none verified
-- Next action: Compare the structural43/119 baseline against the frozen57/119 symbolic baseline, then design one genuinely different source-aware action representation and CPU-audit it before any new GPU or pointer-head training. Keep all evidence answer-free and require independent strict TLAPS before any quality or gate claim.
+- Next action: Choose a genuinely different representation or learning signal, not another candidate-order heuristic. Require a CPU-only answer-separation audit and held-out non-protected result before any GPU or pointer-head training.
 
 ## Objective and evidence rules
 
@@ -47,7 +47,8 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 | TLA-06U | Done | Constrain neural action selection with a symbolic proof prior | The exact-parent rankings from job7628491 were filtered to the pre-registered first-four deterministic symbolic proposals, without changing prompts or reading references. Independent strict uncached TLAPS certified4/4 top1 actions: crdt-type-step candidate2 with6/6 obligations, crdt-safety-step candidate2 with13/13, crdt-sum-type-proof candidate3 with24/24, and crdt-sum-zero-proof candidate3 with33/33. The worker has no verifier feedback, repair, reward or training path; this is a bounded development system-control result, not model or gate credit. |
 | TLA-06V | Done | Scale constrained action selection to a held-out non-protected population | A fresh answer-free packet covers exactly17 non-protected multistep train rows with the same fixed first-four symbolic action contract. The pre-registered structural order SMT+DEF, DEF, other SMT, bare SMT was independently strict-TLAPS-audited on all17 rows:8/17 certified,7/17 certified at rank1,46 attempts, packet SHA c9784d4da893464f23bc27610c5f7aed64c44bf5406a7ec33f27637ad0d7394f and manifest SHA c186ddf0007c5b5adfdc345a06feb777a89746160cf9041b875a8655ed1eb344. This is answer-free shortlist/interface control evidence only, not learned ranking or generalization. No reference proofs, verifier feedback, repair, reward or training were used. |
 | TLA-06Z | Done | Scale the structural action prior over official 119 | The deterministic structural-action control orders frozen candidates as SMT+DEF, DEF, other SMT, bare SMT. It is strict-TLAPS-audited on all17 non-protected rows with8/17 total and7/17 rank1 certificates, then on the official119 packet with324 attempts,115/119 tasks reached and43/119 rank1 certificates. Packet SHA f40539a20e449ad63b8244e85eff33c8022402df11a84e8228b71ccbfeae11b5 and manifest SHA3380cf37c7311466ea7762662d55866839b3c3620ce73fb8d7ad209befe6de1d are fixed. No model, reference, feedback, repair, reward, training or gate claim. |
-| TLA-06AA | In progress | Design a source-aware action representation beyond scalar ranking | The answer-free structural baseline reaches43/119 rank1, below the frozen57/119 symbolic baseline; scalar mean and sum likelihood rerankings are pruned. A distinct representation must be CPU-audited before any training or GPU run. |
+| TLA-06AA | Done | Design a source-aware action representation beyond scalar ranking | The answer-free structural baseline reaches43/119 rank1, below the frozen57/119 symbolic baseline; scalar mean and sum likelihood rerankings are pruned. The source-aware representation counts candidate identifiers present in visible statement-only context, prioritizes overlap, then uses the fixed structural order. Its official strict-TLAPS audit made324 attempts, measured112/119 tasks, and certified35/119 rank1 and43/119 total, matching scalar neural controls. No model, feedback, reward, training or gate claim. |
+| TLA-06AB | In progress | Select a genuinely different prover representation or learning signal | Candidate-order heuristics are now pruned: neural mean-logp35/119, sum-logp35/119, visible-context35/119, structural43/119, and frozen symbolic baseline57/119. The next branch must change representation or learning signal and pass answer-separation controls before any GPU run. |
 | TLA-06W | Done | Rank the fixed symbolic action lattice over official 119 | Stage tla-official-candidate-rank-gpu-20260916-v1 passed fresh remote SHA256, parent, compile, PBS, CLI, destination and queue guards. Polaris job7628679 completed Exit0 with one NVIDIA A100,119/119 task rankings,462 candidates, zero updates and no reference/TLAPS/repair/reward path. Independent strict uncached TLAPS ran328 attempts at the fixed900-second bound for both mean-logp and the pre-registered sum-logp rerank: each verified35/119 rank1 and43/119 bounded top4, measured_tasks113/119. The sum order changed112 task orders but changed neither measured count. Receipts and checker outputs are preserved under results/runs/tla-official-candidate-rank-gpu-20260916-v1/. This is a complete diagnostic negative for scalar neural ordering; no model, quality or gate claim exists. |
 | TLA-06X | Done | Complete answer-free symbolic tail search | Local host-level strict-TLAPS tail diagnostics over the frozen119 population tested candidate indices4,5,6 on60 baseline failures each and index7 on34 available failures; every arm certified0 new tasks and the union remained57/119. The wider eight-proposal run was budget-limited to42/119 tasks and also found0 new certifications. No reference fragments, model, feedback, repair, reward or gate claim was used. Prune this symbolic-tail hypothesis and retain the exact results. |
 | TLA-07 | Not ready | Verify complete frozen SANY gate | Full frozen denominator has not passed 100%; no diagnostic promotion. |
@@ -61,6 +62,8 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 
 ## Decisions
 
+- 2026-09-17T01:02:42Z: The visible statement-name overlap control completed324 strict attempts over official119, reaching112/119 and certifying35/119 rank1 and43/119 total. It matches neural mean/sum controls and does not improve the structural43/119 or symbolic57/119 baselines. Prune visible-context ordering; the next branch must change representation or learning signal. No model, quality or gate claim.
+- 2026-09-17T00:46:58Z: Prepared a source-aware answer-free action representation that uses only visible statement-name overlap followed by the fixed structural tie-break. Focused tests pass3/3. Keep it CPU-only and independently strict-TLAPS-audited before any training or GPU; no model or gate claim.
 - 2026-09-17T00:28:33Z: The pre-registered structural action order completed its official CPU audit with324 strict attempts,115/119 tasks reached and43/119 rank1 certifications. It is above the current neural mean-logp35/119 baseline but below the existing symbolic57/119 baseline, so it is retained as a control and not promoted. The next branch must change representation; no model, quality or gate claim.
 - 2026-09-17T00:11:34Z: Pre-registered structural action ordering on the frozen non-protected17-row packet completed all17 rows with46 strict uncached TLAPS attempts,8/17 certified and7/17 rank1. It improves rank1 over the original proposal order0/17 without reading references, verifier feedback, rewards or training signals. Treat it as an interface control only and scale to official119 before any pointer-head design.
 - 2026-09-16T23:52:26Z: The pre-registered answer-free sum-logp rerank changed112/119 task orders relative to mean-logp but its independent strict uncached TLAPS audit exactly matched the mean order at35/119 rank1 and43/119 bounded top4, with328 attempts and113/119 tasks reached. Prune scalar likelihood reranking; the next branch must change representation or training signal. No model, quality or gate claim.
@@ -610,16 +613,16 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 783,
-  "verified_utc": "2026-09-17T00:28:33Z",
+  "revision": 785,
+  "verified_utc": "2026-09-17T01:02:42Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "local_work",
   "active_job": null,
-  "observation_evidence": "At 2026-09-17T00:28:33Z, the pre-registered answer-free structural-action control completed its bounded official119 audit. It reordered only the frozen four symbolic candidates by candidate text: SMT+DEF, DEF, other SMT, then bare SMT. Strict uncached TLAPS made324 attempts within900 seconds, measured115/119 tasks, and certified43/119 selected rank1 actions. No model, reference fragment, verifier feedback, repair, reward, training update or protected-gate claim was used.",
-  "last_result": "The structural action prior is a reproducible 43/119 official rank1 baseline, above the current neural mean-logp order35/119 but below the existing 57/119 symbolic baseline. Six tasks were not reached by the fixed checker budget. This is answer-free system-control evidence only; it does not establish learned ranking, generalization, model quality, or a protected-gate result.",
-  "local_work": "The semantic, span, broad-clean, schema-weighted, planner, parser-controlled, matched-prefix streaming and explicit-header body objectives remain complete negatives and are not replayed. The answer-free scaffold diagnostic, unconstrained development ranker, scalar likelihood controls and official symbolic-tail lattice expansion are closed negatives. The deterministic structural control is now measured on both17 non-protected rows (8/17 total,7/17 rank1) and official119 (43/119 rank1), with no reference fragments, proof bodies, verifier feedback, repair, reward, training or optimizer path. It is a baseline, not a learned model; do not promote or train a pointer head from it unchanged. Preserve denominators17/119/30 and make no model or gate claim.",
+  "observation_evidence": "At 2026-09-17T01:02:42Z, the source-aware answer-free action representation completed its bounded official119 strict-TLAPS audit. It prioritized candidate-name overlap with visible statement-only context, then used the fixed structural order. The audit made324 attempts, measured112/119 tasks, and certified35/119 selected rank1 actions and43/119 total tasks. No verifier result, proof answer, reward, feedback, training signal or gate claim entered the rule.",
+  "last_result": "The visible-context representation is a complete negative:35/119 rank1 and43/119 total, matching the neural mean-logp and sum-logp controls while changing the candidate order. It does not improve the43/119 structural baseline or the existing57/119 symbolic baseline, so this representation is pruned without a model or acceptance-gate claim.",
+  "local_work": "The semantic, span, broad-clean, schema-weighted, planner, parser-controlled, matched-prefix streaming and explicit-header body objectives remain complete negatives and are not replayed. The answer-free scaffold diagnostic, unconstrained development ranker, scalar likelihood controls, visible-context representation and official symbolic-tail lattice expansion are closed negatives. The deterministic structural control remains a baseline at43/119 official rank1; all these action controls use no reference fragments, proof bodies, verifier feedback, repair, reward, training or optimizer path. Preserve denominators17/119/30 and make no model or gate claim.",
   "external_blocker": "none verified",
-  "next_action": "Compare the structural43/119 baseline against the frozen57/119 symbolic baseline, then design one genuinely different source-aware action representation and CPU-audit it before any new GPU or pointer-head training. Keep all evidence answer-free and require independent strict TLAPS before any quality or gate claim.",
+  "next_action": "Choose a genuinely different representation or learning signal, not another candidate-order heuristic. Require a CPU-only answer-separation audit and held-out non-protected result before any GPU or pointer-head training.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -767,9 +770,15 @@ These snapshots preserve old statements, including mistakes. They are not curren
     },
     {
       "id": "TLA-06AA",
-      "state": "In progress",
+      "state": "Done",
       "task": "Design a source-aware action representation beyond scalar ranking",
-      "evidence": "The answer-free structural baseline reaches43/119 rank1, below the frozen57/119 symbolic baseline; scalar mean and sum likelihood rerankings are pruned. A distinct representation must be CPU-audited before any training or GPU run."
+      "evidence": "The answer-free structural baseline reaches43/119 rank1, below the frozen57/119 symbolic baseline; scalar mean and sum likelihood rerankings are pruned. The source-aware representation counts candidate identifiers present in visible statement-only context, prioritizes overlap, then uses the fixed structural order. Its official strict-TLAPS audit made324 attempts, measured112/119 tasks, and certified35/119 rank1 and43/119 total, matching scalar neural controls. No model, feedback, reward, training or gate claim."
+    },
+    {
+      "id": "TLA-06AB",
+      "state": "In progress",
+      "task": "Select a genuinely different prover representation or learning signal",
+      "evidence": "Candidate-order heuristics are now pruned: neural mean-logp35/119, sum-logp35/119, visible-context35/119, structural43/119, and frozen symbolic baseline57/119. The next branch must change representation or learning signal and pass answer-separation controls before any GPU run."
     },
     {
       "id": "TLA-06W",
@@ -833,6 +842,8 @@ These snapshots preserve old statements, including mistakes. They are not curren
     }
   ],
   "decisions": [
+    "2026-09-17T01:02:42Z: The visible statement-name overlap control completed324 strict attempts over official119, reaching112/119 and certifying35/119 rank1 and43/119 total. It matches neural mean/sum controls and does not improve the structural43/119 or symbolic57/119 baselines. Prune visible-context ordering; the next branch must change representation or learning signal. No model, quality or gate claim.",
+    "2026-09-17T00:46:58Z: Prepared a source-aware answer-free action representation that uses only visible statement-name overlap followed by the fixed structural tie-break. Focused tests pass3/3. Keep it CPU-only and independently strict-TLAPS-audited before any training or GPU; no model or gate claim.",
     "2026-09-17T00:28:33Z: The pre-registered structural action order completed its official CPU audit with324 strict attempts,115/119 tasks reached and43/119 rank1 certifications. It is above the current neural mean-logp35/119 baseline but below the existing symbolic57/119 baseline, so it is retained as a control and not promoted. The next branch must change representation; no model, quality or gate claim.",
     "2026-09-17T00:11:34Z: Pre-registered structural action ordering on the frozen non-protected17-row packet completed all17 rows with46 strict uncached TLAPS attempts,8/17 certified and7/17 rank1. It improves rank1 over the original proposal order0/17 without reading references, verifier feedback, rewards or training signals. Treat it as an interface control only and scale to official119 before any pointer-head design.",
     "2026-09-16T23:52:26Z: The pre-registered answer-free sum-logp rerank changed112/119 task orders relative to mean-logp but its independent strict uncached TLAPS audit exactly matched the mean order at35/119 rank1 and43/119 bounded top4, with328 attempts and113/119 tasks reached. Prune scalar likelihood reranking; the next branch must change representation or training signal. No model, quality or gate claim.",
@@ -1370,6 +1381,9 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "[Pre-reconciliation board; contains superseded claims](../results/board-history/board-686630068adb988bfde97c9bf5c8b18644721f0cd14ef92d438e03a76aa03886.md)"
   ],
   "evidence_files": [
+    "results/runs/proof-official-visible-action-control-20260917-v1/summary.json",
+    "results/runs/proof-official-visible-action-control-20260917-v1/rankings.json",
+    "results/runs/proof-official-visible-action-control-20260917-v1/checks.jsonl",
     "tools/proof_multistep_structural_action_control.py",
     "harness/test_proof_multistep_structural_action_control.py",
     "results/runs/proof-multistep-structural-action-control-20260917-v1/summary.json",
