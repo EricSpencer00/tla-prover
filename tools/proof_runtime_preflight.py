@@ -41,7 +41,7 @@ def control_passed(rc, output, expected):
         # control. Preserve fail-closed behavior for every other error.
         benign = re.sub(r'Zenon error: exhausted search space', '', output)
         return rc == 0 and len(matches) == 1 and not re.search(r'failed|omitted|error', benign, re.I)
-    return bool(rc in (0, 1) and
+    return bool(rc in (0, 1, 3) and
                 re.search(r'\[ERROR\]: [1-9]\d*/[1-9]\d* obligations? failed\.', output) and
                 '[ERROR]: Could not prove or check:' in output)
 

@@ -24,6 +24,7 @@ def test_real_summary_contracts():
     assert p.control_passed(0, '[INFO]: All 1 obligations proved.', True)
     assert p.control_passed(0, 'Zenon error: exhausted search space\n[INFO]: All 1 obligations proved.', True)
     assert p.control_passed(1, '[ERROR]: 1/1 obligation failed.\n[ERROR]: Could not prove or check:', False)
+    assert p.control_passed(3, '[ERROR]: 1/2 obligations failed.\n[ERROR]: Could not prove or check:', False)
 
 
 def test_failure_handoff_retains_context(tmp_path, monkeypatch):
