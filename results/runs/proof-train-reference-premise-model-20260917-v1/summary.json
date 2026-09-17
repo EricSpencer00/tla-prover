@@ -1,0 +1,16 @@
+{
+  "kind": "proof_train_reference_premise_model_v1",
+  "train_reference_rows_used": 17,
+  "development_references_used": false,
+  "training_fact_examples": 162,
+  "holdout_tasks": 4,
+  "candidate_rows": 116,
+  "denominator_fixed": true,
+  "strict_tlaps_checks_in_worker": false,
+  "verifier_feedback_used": false,
+  "repair_or_reward_used": false,
+  "official_packet_used": false,
+  "quality_claim": false,
+  "gate_claim": false,
+  "manifest_sha256": "c186ddf0007c5b5adfdc345a06feb777a89746160cf9041b875a8655ed1eb344"
+}

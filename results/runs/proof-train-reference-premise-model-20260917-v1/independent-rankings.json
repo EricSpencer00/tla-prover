@@ -1,0 +1,706 @@
+{
+  "crdt-safety-step": [
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, TypeOK, Safety, Monotonic, Monotonicity, Convergence, Init, Increment, Gossip, Next, Spec, Fairness, FairSpec",
+      "role_score": -0.6931471805599453,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, TypeOK, Safety, Monotonic, Monotonicity, Convergence, Init, Increment, Gossip, Next, Spec, Fairness, FairSpec",
+      "role_score": -1.9924301646902063,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, TypeCorrect, Fun_InjectionProperties",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 4,
+      "candidate": "BY TypeCorrect, Fun_InjectionProperties",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 5,
+      "candidate": "BY SMT, TypeCorrect, Fun_InjectionProperties, Fun_IsInj",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 6,
+      "candidate": "BY TypeCorrect, Fun_InjectionProperties, Fun_IsInj",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 7,
+      "candidate": "BY SMT, TypeCorrect, Fun_InjectionProperties, Fun_IsInj, SetExtensionality, Fun_InverseProperties",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 8,
+      "candidate": "BY TypeCorrect, Fun_InjectionProperties, Fun_IsInj, SetExtensionality, Fun_InverseProperties",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 9,
+      "candidate": "BY SMT, TypeCorrect, Fun_InjectionProperties, Fun_IsInj, SetExtensionality, Fun_InverseProperties, DownwardNatInduction, Fun_BijectionProperties, Fun_InjInverse, Fun_IsBij",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 10,
+      "candidate": "BY TypeCorrect, Fun_InjectionProperties, Fun_IsInj, SetExtensionality, Fun_InverseProperties, DownwardNatInduction, Fun_BijectionProperties, Fun_InjInverse, Fun_IsBij",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 11,
+      "candidate": "BY SMT, TypeCorrect, Fun_IsInj",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 12,
+      "candidate": "BY TypeCorrect, Fun_IsInj",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 13,
+      "candidate": "BY SMT, TypeCorrect, SetExtensionality",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 14,
+      "candidate": "BY TypeCorrect, SetExtensionality",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 15,
+      "candidate": "BY SMT, TypeCorrect, Fun_InverseProperties",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 16,
+      "candidate": "BY TypeCorrect, Fun_InverseProperties",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 17,
+      "candidate": "BY SMT, TypeCorrect, DownwardNatInduction",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 18,
+      "candidate": "BY TypeCorrect, DownwardNatInduction",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 19,
+      "candidate": "BY SMT, TypeCorrect, Fun_BijectionProperties",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 20,
+      "candidate": "BY TypeCorrect, Fun_BijectionProperties",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 21,
+      "candidate": "BY SMT, TypeCorrect, Fun_InjInverse",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 22,
+      "candidate": "BY TypeCorrect, Fun_InjInverse",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 23,
+      "candidate": "BY SMT, TypeCorrect, Fun_IsBij",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 24,
+      "candidate": "BY TypeCorrect, Fun_IsBij",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 25,
+      "candidate": "BY SMT, TypeCorrect, Fun_SmallestSurjectionIsBijection",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 26,
+      "candidate": "BY TypeCorrect, Fun_SmallestSurjectionIsBijection",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 27,
+      "candidate": "BY SMT, TypeCorrect, GeneralNatInduction",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 28,
+      "candidate": "BY TypeCorrect, GeneralNatInduction",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    }
+  ],
+  "crdt-sum-type-proof": [
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Sum, vars, TypeOK, Safety, Monotonic, Monotonicity, Convergence, Init, Increment, Gossip, Next, Spec, Fairness, FairSpec",
+      "role_score": -0.06256570208066892,
+      "resolved_facts": 1
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Sum, vars, TypeOK, Safety, Monotonic, Monotonicity, Convergence, Init, Increment, Gossip, Next, Spec, Fairness, FairSpec",
+      "role_score": -1.36184868621093,
+      "resolved_facts": 1
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SumIsSumFunction, NodeAssumption, SumFunctionNat",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 4,
+      "candidate": "BY SumIsSumFunction, NodeAssumption, SumFunctionNat",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 5,
+      "candidate": "BY SMT, SumIsSumFunction, NodeAssumption, SumFunctionNat, SumFunctionZero",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 6,
+      "candidate": "BY SumIsSumFunction, NodeAssumption, SumFunctionNat, SumFunctionZero",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 7,
+      "candidate": "BY SMT, SumIsSumFunction, NodeAssumption, SumFunctionNat, SumFunctionZero, SumFunctionNatOnSubset, SumFunctionOnSetNat",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 8,
+      "candidate": "BY SumIsSumFunction, NodeAssumption, SumFunctionNat, SumFunctionZero, SumFunctionNatOnSubset, SumFunctionOnSetNat",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 9,
+      "candidate": "BY SMT, SumIsSumFunction, NodeAssumption, SumFunctionNat, SumFunctionZero, SumFunctionNatOnSubset, SumFunctionOnSetNat, SumFunctionOnSetZero, FiniteNatInductiveUnique, Fun_NatBijSame, Fun_NatBijSubElem",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 10,
+      "candidate": "BY SumIsSumFunction, NodeAssumption, SumFunctionNat, SumFunctionZero, SumFunctionNatOnSubset, SumFunctionOnSetNat, SumFunctionOnSetZero, FiniteNatInductiveUnique, Fun_NatBijSame, Fun_NatBijSubElem",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 11,
+      "candidate": "BY SMT, SumIsSumFunction, NodeAssumption, SumFunctionZero",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 12,
+      "candidate": "BY SumIsSumFunction, NodeAssumption, SumFunctionZero",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 13,
+      "candidate": "BY SMT, SumIsSumFunction, NodeAssumption, SumFunctionNatOnSubset",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 14,
+      "candidate": "BY SumIsSumFunction, NodeAssumption, SumFunctionNatOnSubset",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 15,
+      "candidate": "BY SMT, SumIsSumFunction, NodeAssumption, SumFunctionOnSetNat",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 16,
+      "candidate": "BY SumIsSumFunction, NodeAssumption, SumFunctionOnSetNat",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 17,
+      "candidate": "BY SMT, SumIsSumFunction, NodeAssumption, SumFunctionOnSetZero",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 18,
+      "candidate": "BY SumIsSumFunction, NodeAssumption, SumFunctionOnSetZero",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 19,
+      "candidate": "BY SMT, SumIsSumFunction, NodeAssumption, FiniteNatInductiveUnique",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 20,
+      "candidate": "BY SumIsSumFunction, NodeAssumption, FiniteNatInductiveUnique",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 21,
+      "candidate": "BY SMT, SumIsSumFunction, NodeAssumption, Fun_NatBijSame",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 22,
+      "candidate": "BY SumIsSumFunction, NodeAssumption, Fun_NatBijSame",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 23,
+      "candidate": "BY SMT, SumIsSumFunction, NodeAssumption, Fun_NatBijSubElem",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 24,
+      "candidate": "BY SumIsSumFunction, NodeAssumption, Fun_NatBijSubElem",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 25,
+      "candidate": "BY SMT, SumIsSumFunction, NodeAssumption, SmallestNatural",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 26,
+      "candidate": "BY SumIsSumFunction, NodeAssumption, SmallestNatural",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 27,
+      "candidate": "BY SMT, SumIsSumFunction, NodeAssumption, DownwardNatInduction",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 28,
+      "candidate": "BY SumIsSumFunction, NodeAssumption, DownwardNatInduction",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    }
+  ],
+  "crdt-sum-zero-proof": [
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF Sum, vars, TypeOK, Safety, Monotonic, Monotonicity, Convergence, Init, Increment, Gossip, Next, Spec, Fairness, FairSpec",
+      "role_score": -1.3324853358507043,
+      "resolved_facts": 1
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF Sum, vars, TypeOK, Safety, Monotonic, Monotonicity, Convergence, Init, Increment, Gossip, Next, Spec, Fairness, FairSpec",
+      "role_score": -2.6317683199809654,
+      "resolved_facts": 1
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, SumIsSumFunction, SumType, NodeAssumption, SumFunctionZero",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 4,
+      "candidate": "BY SumIsSumFunction, SumType, NodeAssumption, SumFunctionZero",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 5,
+      "candidate": "BY SMT, SumIsSumFunction, SumType, NodeAssumption, SumFunctionZero, SumFunctionOnSetZero",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 6,
+      "candidate": "BY SumIsSumFunction, SumType, NodeAssumption, SumFunctionZero, SumFunctionOnSetZero",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 7,
+      "candidate": "BY SMT, SumIsSumFunction, SumType, NodeAssumption, SumFunctionZero, SumFunctionOnSetZero, SmallestNatural, DownwardNatInduction",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 8,
+      "candidate": "BY SumIsSumFunction, SumType, NodeAssumption, SumFunctionZero, SumFunctionOnSetZero, SmallestNatural, DownwardNatInduction",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 9,
+      "candidate": "BY SMT, SumIsSumFunction, SumType, NodeAssumption, SumFunctionZero, SumFunctionOnSetZero, SmallestNatural, DownwardNatInduction, Fun_NatBijEmpty, GeneralNatInduction, NatInduction, RecursiveFcnOfNatType",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 10,
+      "candidate": "BY SumIsSumFunction, SumType, NodeAssumption, SumFunctionZero, SumFunctionOnSetZero, SmallestNatural, DownwardNatInduction, Fun_NatBijEmpty, GeneralNatInduction, NatInduction, RecursiveFcnOfNatType",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 11,
+      "candidate": "BY SMT, SumIsSumFunction, SumType, NodeAssumption, SumFunctionOnSetZero",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 12,
+      "candidate": "BY SumIsSumFunction, SumType, NodeAssumption, SumFunctionOnSetZero",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 13,
+      "candidate": "BY SMT, SumIsSumFunction, SumType, NodeAssumption, SmallestNatural",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 14,
+      "candidate": "BY SumIsSumFunction, SumType, NodeAssumption, SmallestNatural",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 15,
+      "candidate": "BY SMT, SumIsSumFunction, SumType, NodeAssumption, DownwardNatInduction",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 16,
+      "candidate": "BY SumIsSumFunction, SumType, NodeAssumption, DownwardNatInduction",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 17,
+      "candidate": "BY SMT, SumIsSumFunction, SumType, NodeAssumption, Fun_NatBijEmpty",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 18,
+      "candidate": "BY SumIsSumFunction, SumType, NodeAssumption, Fun_NatBijEmpty",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 19,
+      "candidate": "BY SMT, SumIsSumFunction, SumType, NodeAssumption, GeneralNatInduction",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 20,
+      "candidate": "BY SumIsSumFunction, SumType, NodeAssumption, GeneralNatInduction",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 21,
+      "candidate": "BY SMT, SumIsSumFunction, SumType, NodeAssumption, NatInduction",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 22,
+      "candidate": "BY SumIsSumFunction, SumType, NodeAssumption, NatInduction",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 23,
+      "candidate": "BY SMT, SumIsSumFunction, SumType, NodeAssumption, RecursiveFcnOfNatType",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 24,
+      "candidate": "BY SumIsSumFunction, SumType, NodeAssumption, RecursiveFcnOfNatType",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 25,
+      "candidate": "BY SMT, SumIsSumFunction, SumType, NodeAssumption, Fun_NatInjLeq",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 26,
+      "candidate": "BY SumIsSumFunction, SumType, NodeAssumption, Fun_NatInjLeq",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 27,
+      "candidate": "BY SMT, SumIsSumFunction, SumType, NodeAssumption, Fun_NatSurjEquivNatBij",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 28,
+      "candidate": "BY SumIsSumFunction, SumType, NodeAssumption, Fun_NatSurjEquivNatBij",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    }
+  ],
+  "crdt-type-step": [
+    {
+      "candidate_index": 2,
+      "candidate": "BY DEF vars, TypeOK, Safety, Monotonic, Monotonicity, Convergence, Init, Increment, Gossip, Next, Spec, Fairness, FairSpec",
+      "role_score": -0.6931471805599453,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 1,
+      "candidate": "BY SMT DEF vars, TypeOK, Safety, Monotonic, Monotonicity, Convergence, Init, Increment, Gossip, Next, Spec, Fairness, FairSpec",
+      "role_score": -1.9924301646902063,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 0,
+      "candidate": "BY SMT",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 3,
+      "candidate": "BY SMT, Fun_InjectionProperties",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 4,
+      "candidate": "BY Fun_InjectionProperties",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 5,
+      "candidate": "BY SMT, Fun_InjectionProperties, Fun_IsInj",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 6,
+      "candidate": "BY Fun_InjectionProperties, Fun_IsInj",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 7,
+      "candidate": "BY SMT, Fun_InjectionProperties, Fun_IsInj, SetExtensionality, Fun_InverseProperties",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 8,
+      "candidate": "BY Fun_InjectionProperties, Fun_IsInj, SetExtensionality, Fun_InverseProperties",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 9,
+      "candidate": "BY SMT, Fun_InjectionProperties, Fun_IsInj, SetExtensionality, Fun_InverseProperties, DownwardNatInduction, Fun_BijectionProperties, Fun_InjInverse, Fun_IsBij",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 10,
+      "candidate": "BY Fun_InjectionProperties, Fun_IsInj, SetExtensionality, Fun_InverseProperties, DownwardNatInduction, Fun_BijectionProperties, Fun_InjInverse, Fun_IsBij",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 11,
+      "candidate": "BY SMT, Fun_IsInj",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 12,
+      "candidate": "BY Fun_IsInj",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 13,
+      "candidate": "BY SMT, SetExtensionality",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 14,
+      "candidate": "BY SetExtensionality",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 15,
+      "candidate": "BY SMT, Fun_InverseProperties",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 16,
+      "candidate": "BY Fun_InverseProperties",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 17,
+      "candidate": "BY SMT, DownwardNatInduction",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 18,
+      "candidate": "BY DownwardNatInduction",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 19,
+      "candidate": "BY SMT, Fun_BijectionProperties",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 20,
+      "candidate": "BY Fun_BijectionProperties",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 21,
+      "candidate": "BY SMT, Fun_InjInverse",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 22,
+      "candidate": "BY Fun_InjInverse",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 23,
+      "candidate": "BY SMT, Fun_IsBij",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 24,
+      "candidate": "BY Fun_IsBij",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 25,
+      "candidate": "BY SMT, Fun_SmallestSurjectionIsBijection",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 26,
+      "candidate": "BY Fun_SmallestSurjectionIsBijection",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 27,
+      "candidate": "BY SMT, GeneralNatInduction",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    },
+    {
+      "candidate_index": 28,
+      "candidate": "BY GeneralNatInduction",
+      "role_score": -3.0910424533583156,
+      "resolved_facts": 0
+    }
+  ]
+}
