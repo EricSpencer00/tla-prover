@@ -1,0 +1,106 @@
+{
+  "highest-correctness": [
+    {
+      "candidate": "BY SMT DEF max, vars, Init, lb, Terminating, Next, Spec, Termination, TypeOK, InductiveInvariant, DoneIndexValue, Correctness",
+      "candidate_index": 1,
+      "certified": true,
+      "energy": 4.066759660339821
+    },
+    {
+      "candidate": "BY DEF max, vars, Init, lb, Terminating, Next, Spec, Termination, TypeOK, InductiveInvariant, DoneIndexValue, Correctness",
+      "candidate_index": 2,
+      "certified": true,
+      "energy": 4.038104883591214
+    },
+    {
+      "candidate": "BY SMT",
+      "candidate_index": 0,
+      "certified": false,
+      "energy": -6.552032222652261
+    },
+    {
+      "candidate": "BY SMT, TypeInvariantHolds, InductiveInvariantHolds, DoneIndexValueThm, SetExtensionality",
+      "candidate_index": 3,
+      "certified": false,
+      "energy": -7.522377059265997
+    }
+  ],
+  "highest-done-step": [
+    {
+      "candidate": "BY SMT DEF max, vars, Init, lb, Terminating, Next, Spec, Termination, TypeOK, InductiveInvariant, DoneIndexValue",
+      "candidate_index": 1,
+      "certified": true,
+      "energy": 3.1134876703518435
+    },
+    {
+      "candidate": "BY DEF max, vars, Init, lb, Terminating, Next, Spec, Termination, TypeOK, InductiveInvariant, DoneIndexValue",
+      "candidate_index": 2,
+      "certified": true,
+      "energy": 3.084871181804469
+    },
+    {
+      "candidate": "BY SMT",
+      "candidate_index": 0,
+      "certified": false,
+      "energy": -6.830525926024856
+    },
+    {
+      "candidate": "BY SMT, TypeInvariantHolds, InductiveInvariantHolds, SetExtensionality",
+      "candidate_index": 3,
+      "certified": false,
+      "energy": -8.009327352370056
+    }
+  ],
+  "simple-preservation": [
+    {
+      "candidate": "BY SMT DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+      "candidate_index": 1,
+      "certified": true,
+      "energy": -6.850425547520389
+    },
+    {
+      "candidate": "BY DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+      "candidate_index": 2,
+      "certified": true,
+      "energy": -6.856251794161836
+    },
+    {
+      "candidate": "BY SMT",
+      "candidate_index": 0,
+      "certified": false,
+      "energy": -7.818980601670072
+    },
+    {
+      "candidate": "BY SMT, SetExtensionality",
+      "candidate_index": 3,
+      "certified": false,
+      "energy": -10.849551708677213
+    }
+  ],
+  "simple-short-full": [
+    {
+      "candidate": "BY SMT DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+      "candidate_index": 1,
+      "certified": false,
+      "energy": -6.268024566126764
+    },
+    {
+      "candidate": "BY DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv",
+      "candidate_index": 2,
+      "certified": false,
+      "energy": -6.275661269557882
+    },
+    {
+      "candidate": "BY SMT",
+      "candidate_index": 0,
+      "certified": false,
+      "energy": -7.660081373154956
+    },
+    {
+      "candidate": "BY SMT, Correctness, SetExtensionality",
+      "candidate_index": 3,
+      "certified": true,
+      "energy": -10.630722438483222
+    }
+  ]
+}

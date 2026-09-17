@@ -1,0 +1,19 @@
+{
+  "checker": "fresh strict uncached TLAPS",
+  "denominator_fixed": true,
+  "elapsed_seconds": 80.682,
+  "fit_tasks": 13,
+  "gate_claim": false,
+  "holdout_rank1": 3,
+  "holdout_solvable": 4,
+  "holdout_tasks": 4,
+  "kind": "proof_retrieval_action_energy_v1",
+  "protected_verifier_feedback_used": false,
+  "quality_claim": false,
+  "reference_fragment_used": false,
+  "repair_or_reward_used": false,
+  "safe_index_entries": 3970,
+  "strict_label_records": 68,
+  "train_positive_labels": 15,
+  "training_executed": false
+}
