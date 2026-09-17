@@ -1,0 +1,77 @@
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/291 [00:00<?, ?it/s]Loading weights:   3%|▎         | 10/291 [00:00<00:04, 59.02it/s]Loading weights:   5%|▌         | 16/291 [00:00<00:05, 46.25it/s]Loading weights:   9%|▊         | 25/291 [00:00<00:04, 54.31it/s]Loading weights:  11%|█         | 31/291 [00:00<00:04, 53.64it/s]Loading weights:  13%|█▎        | 37/291 [00:00<00:05, 46.38it/s]Loading weights:  17%|█▋        | 50/291 [00:00<00:03, 64.03it/s]Loading weights:  20%|█▉        | 57/291 [00:01<00:04, 52.56it/s]Loading weights:  22%|██▏       | 63/291 [00:01<00:04, 49.39it/s]Loading weights:  24%|██▎       | 69/291 [00:01<00:04, 50.17it/s]Loading weights:  26%|██▌       | 75/291 [00:01<00:04, 45.05it/s]Loading weights:  30%|███       | 88/291 [00:01<00:03, 60.87it/s]Loading weights:  33%|███▎      | 96/291 [00:01<00:03, 60.50it/s]Loading weights:  37%|███▋      | 109/291 [00:01<00:02, 64.99it/s]Loading weights:  40%|███▉      | 116/291 [00:02<00:02, 64.89it/s]Loading weights:  43%|████▎     | 125/291 [00:02<00:02, 60.30it/s]Loading weights:  45%|████▌     | 132/291 [00:02<00:03, 46.47it/s]Loading weights:  47%|████▋     | 138/291 [00:02<00:03, 43.83it/s]Loading weights:  51%|█████     | 149/291 [00:02<00:02, 52.11it/s]Loading weights:  55%|█████▌    | 161/291 [00:03<00:02, 52.27it/s]Loading weights:  57%|█████▋    | 167/291 [00:03<00:03, 41.30it/s]Loading weights:  59%|█████▉    | 172/291 [00:03<00:03, 39.50it/s]Loading weights:  61%|██████    | 178/291 [00:03<00:02, 42.31it/s]Loading weights:  64%|██████▎   | 185/291 [00:03<00:02, 47.17it/s]Loading weights:  66%|██████▌   | 191/291 [00:03<00:03, 32.20it/s]Loading weights:  70%|███████   | 204/291 [00:04<00:01, 46.05it/s]Loading weights:  73%|███████▎  | 213/291 [00:04<00:01, 48.37it/s]Loading weights:  75%|███████▌  | 219/291 [00:04<00:01, 42.56it/s]Loading weights:  77%|███████▋  | 224/291 [00:04<00:01, 42.71it/s]Loading weights:  80%|████████  | 233/291 [00:04<00:01, 46.69it/s]Loading weights:  82%|████████▏ | 240/291 [00:04<00:01, 46.29it/s]Loading weights: 100%|██████████| 291/291 [00:04<00:00, 58.36it/s]
+{
+  "algorithm": "autoregressive abstract proof-state transition decoder with frozen renderer",
+  "packet_sha256": "7fdb1f73c5f1d7a385ffef5e0cde1ab6cff416858777aa2d3d9b43039448f418",
+  "parent_sha256": "87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511",
+  "manifest_sha256": "c186ddf0007c5b5adfdc345a06feb777a89746160cf9041b875a8655ed1eb344",
+  "events": [
+    "entry:direct",
+    "entry:structured",
+    "entry:other",
+    "assume",
+    "case",
+    "use",
+    "suffices",
+    "obvious",
+    "solver:smt",
+    "solver:def",
+    "solver:defs",
+    "solver:ptl",
+    "solver:z3",
+    "solver:other",
+    "facts:zero",
+    "facts:one",
+    "facts:few",
+    "facts:many",
+    "close:by",
+    "close:qed",
+    "eos"
+  ],
+  "train_rows": 17,
+  "development_rows": 4,
+  "candidate_denominator": 116,
+  "requested_updates": 32,
+  "updates": 32,
+  "hidden_size": 4096,
+  "decoder_sha256": "e804408f3b9c5ae4f27622743ad6a3e6a4fd0cf0cd3cb71111e910b6b5d17d13",
+  "base_generations": 4,
+  "parent_generations": 4,
+  "child_generations": 4,
+  "prompt_tokens": {
+    "addtwo-init": 373,
+    "addtwo-step": 374,
+    "highest-type-step": 929,
+    "highest-inductive-step": 1222,
+    "highest-done-step": 1450,
+    "highest-correctness": 1592,
+    "even-intro": 423,
+    "even-case-tail": 459,
+    "odd-case-tail": 437,
+    "simple-full": 1513,
+    "simple-preservation": 1610,
+    "simple-case-a": 1839,
+    "simple-case-b": 1740,
+    "simple-preservation-tail": 1824,
+    "simple-conclusion": 1832,
+    "simple-short-full": 1939,
+    "simple-short-preservation": 1969,
+    "crdt-type-step": 206,
+    "crdt-safety-step": 289,
+    "crdt-sum-type-proof": 608,
+    "crdt-sum-zero-proof": 739
+  },
+  "development_targets_exported": false,
+  "verifier_feedback_used": false,
+  "repair_used": false,
+  "reward_used": false,
+  "strict_verifier_runs": 0,
+  "quality_claim": false,
+  "proof_claim": false,
+  "gate_claim": false,
+  "loss_first_last": [
+    3.017693042755127,
+    0.3971253037452698
+  ],
+  "elapsed_seconds": 1.827
+}

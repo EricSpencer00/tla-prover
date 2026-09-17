@@ -1,0 +1,58 @@
+[
+  {
+    "id": "crdt-type-step",
+    "valid": true,
+    "candidate_index": 0,
+    "candidate": "BY SMT",
+    "scores": [],
+    "transition_events": [
+      "entry:direct",
+      "solver:smt",
+      "facts:zero",
+      "close:by",
+      "eos"
+    ]
+  },
+  {
+    "id": "crdt-safety-step",
+    "valid": true,
+    "candidate_index": 0,
+    "candidate": "BY SMT",
+    "scores": [],
+    "transition_events": [
+      "entry:direct",
+      "solver:smt",
+      "facts:zero",
+      "close:by",
+      "eos"
+    ]
+  },
+  {
+    "id": "crdt-sum-type-proof",
+    "valid": true,
+    "candidate_index": 0,
+    "candidate": "BY SMT",
+    "scores": [],
+    "transition_events": [
+      "entry:direct",
+      "solver:smt",
+      "facts:zero",
+      "close:by",
+      "eos"
+    ]
+  },
+  {
+    "id": "crdt-sum-zero-proof",
+    "valid": true,
+    "candidate_index": 0,
+    "candidate": "BY SMT",
+    "scores": [],
+    "transition_events": [
+      "entry:direct",
+      "solver:smt",
+      "facts:zero",
+      "close:by",
+      "eos"
+    ]
+  }
+]
