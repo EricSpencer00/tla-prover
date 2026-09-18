@@ -6,10 +6,10 @@
 #PBS -l walltime=00:15:00
 #PBS -l filesystems=home:grand
 #PBS -j oe
-#PBS -o /home/eric-spencer/tla-typed-candidate-rank-official-20260917-v1/eval.stdout
-#PBS -e /home/eric-spencer/tla-typed-candidate-rank-official-20260917-v1/eval.stderr
+#PBS -o /home/eric-spencer/tla-typed-candidate-rank-official-20260918-v2/eval.stdout
+#PBS -e /home/eric-spencer/tla-typed-candidate-rank-official-20260918-v2/eval.stderr
 set -euo pipefail
-ROOT=/home/eric-spencer/tla-typed-candidate-rank-official-20260917-v1
+ROOT=/home/eric-spencer/tla-typed-candidate-rank-official-20260918-v2
 BASE=/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1
 export PYTHONPATH="$ROOT:$ROOT/tools:$BASE:$BASE/tools"
 export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false
@@ -31,7 +31,13 @@ test "$(sha256sum "$PARENT" | cut -d " " -f1)" = 87489e4778193c15e12d1714eb26dd8
 "$PYTHON" -m py_compile "$ROOT/tools/proof_typed_candidate_rank_official.py" \
   "$ROOT/tools/proof_typed_candidate_rank_official_cuda_eval.py" \
   "$ROOT/tools/proof_typed_candidate_rank_cuda_train.py" "$ROOT/tools/proof_typed_candidate_rank.py" \
-  "$ROOT/tools/proof_typed_agenda.py" "$ROOT/tools/proof_cuda_train.py"
+  "$ROOT/tools/proof_typed_agenda.py" "$ROOT/tools/proof_goal_fact_transition.py" \
+  "$ROOT/tools/proof_fact_search.py" "$ROOT/tools/proof_premise_search.py" \
+  "$ROOT/tools/proof_source_scope.py" "$ROOT/tools/proof_cuda_train.py" \
+  "$ROOT/tools/proof_sequence_train.py" "$ROOT/tools/proof_candidate_rank.py" \
+  "$ROOT/tools/proof_repair_pilot.py" \
+  "$ROOT/tools/__init__.py" "$ROOT/harness/proof_fragment_check.py" \
+  "$ROOT/harness/runner.py" "$ROOT/harness/__init__.py"
 "$PYTHON" "$ROOT/tools/proof_typed_candidate_rank_official_cuda_eval.py" \
   --packet "$PACKET" --head "$HEAD" --parent "$PARENT" --model "$MODEL" --output "$OUT" \
   --parent-sha256 87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511 \

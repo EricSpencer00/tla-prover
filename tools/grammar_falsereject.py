@@ -117,7 +117,7 @@ def make_checker(ebnf):
                 return False
         except Exception:
             return False
-        return m.is_terminated() or True
+        return m.is_completed()
 
     def first_reject(text):
         """Character index the grammar first refuses (None if it accepts all).

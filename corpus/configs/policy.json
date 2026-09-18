@@ -65,6 +65,13 @@
       "corpus_spec": "132"
     }
   },
+  "129": {
+    "reason": "SumSequence: draft config left Seq unbounded; use the theorem-preserving bounded-sequence wrapper for TLC only.",
+    "wrapper": {
+      "file": "corpus/configs/wrappers/MC_SumSequence.tla",
+      "module": "MC_SumSequence"
+    }
+  },
   "135": {
     "reason": "Confirmed a --jobs contention false-timeout (TIMEOUT_CONTENTION.md) -- passes cleanly at --jobs 1, no override needed beyond serial retest, but flagged here so a future sweep at high --jobs doesnt silently miscount it."
   },

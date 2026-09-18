@@ -31,16 +31,21 @@ def _clear_workdir(workdir):
 
 # Pinned current release (SANY 2.2/2020 in tla_benchmark's jar mis-parses TLAPS proofs)
 TLA2TOOLS = REPO / "tools" / "tla2tools.jar"
-TLAPM = REPO / "tools" / "tlapm" / "bin" / "tlapm"
+TLAPM = Path(os.environ.get("PROVE_TLA_TLAPM", str(REPO / "tools" / "tlapm" / "bin" / "tlapm")))
 APALACHE = REPO / "tools" / "apalache-0.58.2" / "bin" / "apalache-mc"
 # CM modules as plain .tla on the library path — the CM fat jar bundles classes
 # compiled against a newer tla2tools (KSubsetValue) and breaks TLC if on the classpath.
 CLASSPATH = str(TLA2TOOLS)
-TLA_LIBRARY = ":".join(str(p) for p in [
+TLA_LIBRARY = os.environ.get("PROVE_TLA_LIBRARY", ":".join(str(p) for p in [
     REPO / "tools" / "tlapm" / "lib" / "tlapm" / "stdlib",
     REPO / "tools" / "community-modules",
     REPO / "tools" / "extra-modules",
-])
+]))
+def _tlc_workers() -> int:
+    try:
+        return max(1, int(os.environ.get("PROVE_TLA_TLC_WORKERS", "2")))
+    except ValueError:
+        return 2
 
 # Modules shipped inside tla2tools.jar; anything else EXTENDed must be a
 # corpus sibling or it is a missing-module failure.
@@ -253,10 +258,11 @@ def vacuity_flags(cfg_text: str, out: str, mod_text: str = ""):
 
 
 def check_tlc(mod: str, cfg_text: str, workdir: Path, timeout: int, extra_flags=(), jvm_flags=()):
+    workers = _tlc_workers()
     rc, out, dt, timed_out = run_cmd(
         ["java", "-XX:+UseParallelGC", f"-Djava.io.tmpdir={_jtmpdir(workdir)}",
          f"-DTLA-Library={TLA_LIBRARY}", *jvm_flags, "-cp", CLASSPATH, "tlc2.TLC",
-         "-workers", "2", "-cleanup", "-metadir", str(workdir / "states"),
+         "-workers", str(workers), "-cleanup", "-metadir", str(workdir / "states"),
          *extra_flags, "-config", f"{mod}.cfg", f"{mod}.tla"], workdir, timeout)
     status = classify_tlc(rc, out, timed_out)
     if status == "pass":

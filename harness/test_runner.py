@@ -93,6 +93,26 @@ def test_eval_spec_existing_corpus_reading_behavior_unchanged(tmp_path, patched_
     assert text_used == STATE_MACHINE_MOD
 
 
+def test_check_tlc_respects_worker_override(tmp_path, monkeypatch):
+    workdir = tmp_path / "work"
+    workdir.mkdir()
+    (workdir / "Foo.tla").write_text(STATE_MACHINE_MOD)
+    captured = {}
+
+    def fake_run_cmd(cmd, cwd, timeout):
+        captured["cmd"] = cmd
+        return 0, "Model checking completed. No error has been found", 0.1, False
+
+    monkeypatch.setattr(runner, "run_cmd", fake_run_cmd)
+
+    runner.check_tlc("Foo", STATE_MACHINE_CFG, workdir, 10)
+    assert captured["cmd"][captured["cmd"].index("-workers") + 1] == "2"
+
+    monkeypatch.setenv("PROVE_TLA_TLC_WORKERS", "1")
+    runner.check_tlc("Foo", STATE_MACHINE_CFG, workdir, 10)
+    assert captured["cmd"][captured["cmd"].index("-workers") + 1] == "1"
+
+
 def test_eval_spec_missing_tla_file_reports_no_tla_file(tmp_path, patched_checkers):
     corpus = _make_corpus(tmp_path, {})
     num2mod, mod2path = runner.build_module_index(corpus)

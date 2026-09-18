@@ -21,6 +21,7 @@ import os
 import sys
 import urllib.error
 import urllib.request
+from concurrent.futures import ThreadPoolExecutor
 
 
 def _post(url, body, timeout=900):
@@ -37,11 +38,15 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--base-url", default=os.environ.get("OPENAI_BASE_URL"))
     ap.add_argument("--model", required=True)
+    ap.add_argument("--concurrency", type=int, default=1,
+                    help="parallel long probes; match evaluation concurrency")
     ap.add_argument("--max-tokens", type=int, default=16384,
                     help="must match the harness budget (gen_eval MAX_TOKENS)")
     ap.add_argument("--prompt-tokens", type=int, default=18000,
                     help="approx worst-case prompt size (framing-B 17k + margin)")
     a = ap.parse_args()
+    if not 1 <= a.concurrency <= 8:
+        ap.error("concurrency must be between 1 and the safe ceiling of 8")
     if not a.base_url:
         sys.exit("set OPENAI_BASE_URL or --base-url")
     base = a.base_url.rstrip("/")
@@ -68,17 +73,25 @@ def main():
     long_prompt = ("VARIABLE x " * (a.prompt_tokens // 2))[: a.prompt_tokens * 4]
     print(f"[3/3] long probe: ~{a.prompt_tokens} prompt tokens + max_tokens={a.max_tokens}")
     try:
-        _post(base + "/chat/completions",
+        def long_probe(index):
+            response = _post(base + "/chat/completions",
               {"model": a.model, "max_tokens": a.max_tokens, "temperature": 0.0,
                "messages": [{"role": "user", "content":
-                             long_prompt + "\nReply with the single word OK."}]})
+                             f"Probe {index}.\n" + long_prompt + "\nReply with the single word OK."}]})
+            message = (response.get('choices') or [{}])[0].get('message') or {}
+            if not any(message.get(k) for k in ('content', 'reasoning_content', 'reasoning')):
+                raise ValueError('long probe returned no completion')
+            return response.get('usage', {})
+        with ThreadPoolExecutor(max_workers=a.concurrency) as pool:
+            usages = list(pool.map(long_probe, range(a.concurrency)))
+        print(f"      {len(usages)} concurrent probes passed; reported usage: {usages}")
     except urllib.error.HTTPError as e:
         body = e.read().decode(errors="replace")[:400]
         sys.exit(f"PREFLIGHT FAIL: long request -> HTTP {e.code}. The serve "
                  f"context window cannot fit this eval's worst-case request; "
                  f"fix --max-model-len before launching.\n{body}")
     print("      ok")
-    print("PREFLIGHT OK: safe to launch gen-eval")
+    print("PREFLIGHT OK: startup checks passed (not a guarantee against runtime failures)")
 
 
 if __name__ == "__main__":

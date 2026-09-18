@@ -28,7 +28,7 @@ cd "$(dirname "$0")/.."
 JOB=${JOB:?set JOB to the qsub id, e.g. JOB=177470}
 PORT=${PORT:-8321}
 MODEL=chattla-w4dgm-120b
-SERVE_PBS='~/serve_vllm_w4dgm_sn.pbs'
+SERVE_PBS='~/serve_vllm_w4dgm_safe.pbs'
 HOSTFILE='~/vllm_serve_host_w4dgm_sn.txt'
 LOG=results/runs/autorun_tuned_seeds.log
 RESUBMITS=0
@@ -172,14 +172,14 @@ ensure_serve() {
 LAST_HOST=none
 export OPENAI_BASE_URL="http://localhost:$PORT/v1"
 export OPENAI_API_KEY=dummy
-export GEN_EVAL_CONCURRENCY=16
+export GEN_EVAL_CONCURRENCY=8
 
 echo "$(ts) waiting for job $JOB"
 wait_for_job || exit 1
 ensure_serve || { echo "$(ts) no serve -- aborting"; exit 1; }
 
 echo "$(ts) serve_preflight"
-python3 tools/smoke/serve_preflight.py --model "$MODEL" || {
+python3 tools/smoke/serve_preflight.py --model "$MODEL" --concurrency "$GEN_EVAL_CONCURRENCY" || {
   echo "$(ts) PREFLIGHT FAILED -- not launching"; exit 1; }
 
 # Two-request enforcement check. A server that ignores the parameter returns
@@ -206,19 +206,44 @@ echo "$(ts) structured outputs enforced: $GRAMMAR_OK"
 
 # run <label> <run-id> <cmd...>: health-check, run, gate-check; on any failure
 # reconnect and re-run ONCE (resume redoes only missing/api_error pairs).
+# Stop a live arm after three consecutive health failures. Requests otherwise
+# spend hours retrying a dead server before the between-arm check can run.
+run_with_health() {
+  "$@" &
+  local child=$! watcher rc=0
+  (
+    failures=0
+    while kill -0 "$child" 2>/dev/null; do
+      sleep 30
+      kill -0 "$child" 2>/dev/null || exit 0
+      if serve_ok; then failures=0; else failures=$((failures + 1)); fi
+      if [ "$failures" -ge 3 ]; then
+        echo "$(ts) serve unhealthy for three checks; stopping evaluator $child"
+        kill -TERM "$child" 2>/dev/null || true
+        exit 0
+      fi
+    done
+  ) &
+  watcher=$!
+  wait "$child" || rc=$?
+  kill "$watcher" 2>/dev/null || true
+  wait "$watcher" 2>/dev/null || true
+  return "$rc"
+}
+
 run() {
   local label=$1 rid=$2; shift 2
   local attempt
   for attempt in 1 2; do
-    ensure_serve || { echo "$(ts) $label: no serve, skipping"; return 1; }
+    ensure_serve || { echo "$(ts) $label: no serve, stopping"; exit 1; }
     echo "$(ts) ==== $label : $rid (attempt $attempt) ===="
-    if "$@" && python3 -m harness gate-check "results/runs/$rid"; then
+    if run_with_health "$@" && python3 -m harness gate-check "results/runs/$rid"; then
       return 0
     fi
     echo "$(ts) $label attempt $attempt FAILED"
   done
-  echo "$(ts) $label FAILED twice (continuing to next arm)"
-  return 1
+  echo "$(ts) $label FAILED twice; stopping for diagnosis"
+  exit 1
 }
 
 run "A1 loop seed2" loop-w4dgm-120b-seed2 \

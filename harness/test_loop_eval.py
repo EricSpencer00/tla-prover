@@ -125,7 +125,7 @@ class ScriptedModel:
         return MODULE
 
 
-def _run(monkeypatch, tmp_path, model, verdicts, chains=2, rounds=3):
+def _run(monkeypatch, tmp_path, model, verdicts, chains=2, rounds=3, **kwargs):
     """Drive loop_eval_spec with a scripted scorer. verdicts is consumed in order."""
     seq = list(verdicts)
 
@@ -135,13 +135,118 @@ def _run(monkeypatch, tmp_path, model, verdicts, chains=2, rounds=3):
                "tlc": "pass" if v == "pass" else "error", "tlaps": None,
                "tlc_vacuity": "clean" if v == "pass" else None,
                "budget_used": {}, "log_path": str(tmp_path / "x.log")}
+        (tmp_path / "x.log").write_text("Error: scripted")
         return row, v, "Error: scripted"
 
     monkeypatch.setattr(loop_eval, "_score", fake_score)
     return list(loop_eval.loop_eval_spec(
         "2", DESC, CFG, "Counter", model, "run", tmp_path, {}, {},
         [("draft", tmp_path)], tmp_path, tmp_path, set(), tmp_path / "cand",
-        chains=chains, rounds=rounds))
+        chains=chains, rounds=rounds, **kwargs))
+
+
+def test_solved_retry_preserves_original_round_prompts_and_only_error_keys(monkeypatch, tmp_path):
+    # c0r1 repairs c0r0; c0r2 originally regenerated after that API error.
+    model = ScriptedModel([MODULE, '[api_error: offline]', '[api_error: offline]'])
+    original = _run(monkeypatch, tmp_path, model, ['fail:tlc=error'], chains=1)
+    history = original + [{'spec': '2', 'sample': 'c1r0', 'verdict': 'pass'}]
+    path = tmp_path / 'rows.jsonl'
+    path.write_text(''.join(json.dumps(r) + '\n' for r in history))
+    before = path.read_bytes()
+    history, errors = loop_eval.ledger_api_retries(path)
+    retry = ScriptedModel([MODULE, MODULE])
+    rows = _run(monkeypatch, tmp_path, retry, ['pass', 'fail:tlc=error'],
+                chains=2, rounds=4,
+                retry_rows={sample: r for (_, sample), r in errors.items()},
+                history=history)
+    assert [r['sample'] for r in rows] == ['c0r1', 'c0r2']
+    assert retry.prompts == model.prompts[1:]
+    for old, new in zip(original[1:], rows):
+        for key in ('sample', 'chain', 'round', 'rung_in', 'prompt_sha256',
+                    'parent_candidate_sha256', 'temperature', 'decode_seed'):
+            assert new[key] == old[key]
+    assert path.read_bytes() == before
+    with path.open('a') as fh:
+        for r in rows:
+            fh.write(json.dumps(r) + '\n')
+    assert loop_eval.ledger_api_retries(path)[1] == {}
+    from harness.gate_check import gate_check
+    assert gate_check(tmp_path)['api_error_rows'] == 0
+
+
+@pytest.mark.parametrize('damage', ['candidate', 'log', 'prompt', 'seed', 'bounds'])
+def test_retry_refuses_unreconstructable_history_before_calls(monkeypatch, tmp_path, damage):
+    original = _run(monkeypatch, tmp_path,
+                    ScriptedModel([MODULE, '[api_error: offline]']),
+                    ['fail:tlc=error'], chains=1, rounds=2)
+    target = original[1].copy()
+    if damage == 'candidate':
+        (tmp_path / original[0]['candidate_path']).write_text('changed')
+    elif damage == 'log':
+        (tmp_path / 'x.log').unlink()
+    elif damage == 'prompt':
+        target['prompt_sha256'] = 'wrong'
+    elif damage == 'seed':
+        target['decode_seed'] = -1
+    else:
+        target['round'] = 8
+    model = ScriptedModel([])
+    with pytest.raises((ValueError, FileNotFoundError)):
+        _run(monkeypatch, tmp_path, model, [], chains=1, rounds=2,
+             retry_rows={target['sample']: target}, history=original)
+    assert model.prompts == []
+
+
+def test_repeated_api_failure_remains_retryable(monkeypatch, tmp_path):
+    original = _run(monkeypatch, tmp_path, ScriptedModel(['[api_error: offline]']),
+                    [], chains=1, rounds=1)
+    retry = _run(monkeypatch, tmp_path, ScriptedModel(['[api_error: still offline]']),
+                 [], chains=1, rounds=3, retry_rows={'c0r0': original[0]}, history=original)
+    path = tmp_path / 'rows.jsonl'
+    path.write_text(''.join(json.dumps(r) + '\n' for r in original + retry))
+    assert len(retry) == 1
+    assert loop_eval.ledger_api_retries(path)[1] == {('2', 'c0r0'): original[0]}
+
+
+@pytest.mark.parametrize('has_error', [False, True])
+def test_resume_entry_point_only_retries_errors_on_solved_spec(monkeypatch, tmp_path, has_error):
+    model = ScriptedModel(['[api_error: offline]'])
+    original = _run(monkeypatch, tmp_path, model, [], chains=1, rounds=1)
+    rundir = tmp_path / 'results' / 'runs' / 'run'
+    rundir.mkdir(parents=True)
+    history = [{'spec': '2', 'sample': 'c1r0', 'verdict': 'pass'}]
+    if has_error:
+        history += original
+    path = rundir / 'rows.jsonl'
+    path.write_text(''.join(json.dumps(r) + '\n' for r in history))
+    before = path.read_text()
+    (tmp_path / 'descriptions').mkdir()
+    (tmp_path / 'descriptions' / '2.json').write_text(json.dumps(DESC))
+    monkeypatch.setattr(loop_eval, 'REPO', tmp_path)
+    monkeypatch.setattr(loop_eval, 'holdout_specs_and_hash', lambda: (['2'], 'hash'))
+    monkeypatch.setattr(loop_eval, 'build_module_index', lambda _: ({'2': 'Counter'}, {}))
+    monkeypatch.setattr(loop_eval, '_resolve_cfg', lambda *a: (CFG, 'draft'))
+    retry = ScriptedModel([MODULE])
+    monkeypatch.setattr(loop_eval, 'make_model', lambda _: retry)
+    loop_eval.run_loop_eval(tmp_path, 'run', 'scripted', chains=2, rounds=3)
+    assert len(retry.prompts) == int(has_error)
+    assert path.read_text().startswith(before)
+    appended = path.read_text()[len(before):].splitlines()
+    assert [json.loads(r)['sample'] for r in appended] == (['c0r0'] if has_error else [])
+
+
+def test_extraction_feedback_is_opt_in(monkeypatch, tmp_path):
+    monkeypatch.setenv('TLA_LOOP_EXTRACTION_FEEDBACK', '1')
+    model = ScriptedModel(['incomplete module', MODULE])
+    rows = _run(monkeypatch, tmp_path, model, ['pass'], chains=1, rounds=2)
+    assert rows[0]['verdict'] == 'no_module_extracted'
+    assert rows[1]['rung_in'] == 'extraction'
+    assert 'EXTRACTION FEEDBACK' in model.prompts[1]
+    assert 'incomplete module' in model.prompts[1]
+    monkeypatch.delenv('TLA_LOOP_EXTRACTION_FEEDBACK')
+    model = ScriptedModel(['incomplete module', MODULE])
+    _run(monkeypatch, tmp_path, model, ['pass'], chains=1, rounds=2)
+    assert model.prompts[0] == model.prompts[1]
 
 
 def test_budget_is_exactly_chains_times_rounds_when_never_passing(monkeypatch, tmp_path):

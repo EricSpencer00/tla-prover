@@ -183,6 +183,61 @@ def ledger_solved_specs(rows_path):
     return solved
 
 
+def ledger_api_retries(rows_path):
+    """Keep-first unresolved API errors, matching the gate's dedup policy."""
+    rows = [json.loads(line) for line in rows_path.read_text().splitlines()
+            if line] if rows_path.exists() else []
+    done = {(str(r['spec']), r['sample']) for r in rows
+            if r.get('verdict') != 'api_error'}
+    retries = {}
+    for r in rows:
+        key = (str(r['spec']), r['sample'])
+        if r.get('verdict') == 'api_error' and key not in done:
+            retries.setdefault(key, r)
+    return rows, retries
+
+
+def _retry_state(target, history, rundir, gen_prompt, description_block,
+                 signature_block, cfg_text, mod, wrapper_text, model, run_id):
+    """Rebuild the recorded call, refusing drift before any model call.
+
+    Use the original parent's artifacts, never the result of another retry:
+    subsequent historical rounds may have regenerated after an API failure.
+    """
+    parent = target.get('parent_candidate_sha256')
+    prompt, rung = gen_prompt, 'generate'
+    if parent:
+        parents = [r for r in history
+                   if str(r['spec']) == str(target['spec'])
+                   and r.get('chain') == target['chain']
+                   and r.get('round') == target['round'] - 1
+                   and r.get('candidate_sha256') == parent]
+        if not parents:
+            raise ValueError(f"cannot reconstruct retry {target['sample']}: missing parent")
+        previous = parents[0]
+        text = (rundir / previous['candidate_path']).read_text()
+        if hashlib.sha256(text.encode()).hexdigest() != parent:
+            raise ValueError(f"cannot reconstruct retry {target['sample']}: parent hash mismatch")
+        log_text = (rundir / previous['log_path']).read_text(errors='replace')
+        rung, evidence = diagnose(previous, text, cfg_text, mod, log_text, wrapper_text)
+        fragment, _ = localize(
+            text, mod, 'sany' if previous.get('sany') != 'pass' else 'tlc',
+            evidence or '', cfg_text, FRAGMENT_MAX_CHARS)
+        prompt = build_loop_repair_prompt(
+            description_block, signature_block, mod, text,
+            rung or 'unknown', evidence or '', fragment)
+        rung = rung or 'unknown'
+    temperature = 0.0 if target['sample'] == 'c0r0' else TEMPERATURE
+    if (hashlib.sha256(prompt.encode()).hexdigest() != target.get('prompt_sha256')
+            or rung != target.get('rung_in')
+            or temperature != target.get('temperature')
+            or model.id != target.get('model')
+            or derive_seed(run_id, target['spec'], 'L', target['sample'])
+            != target.get('decode_seed')):
+        raise ValueError(f"cannot reconstruct retry {target['sample']}: provenance mismatch")
+    return {'prompt': prompt, 'rung': rung, 'parent': parent}
+
+
 # ------------------------------------------------------------------ diagnosis
 
 def diagnose(row, module_text, cfg_text, mod, log_text, wrapper_text=None):
@@ -309,7 +364,8 @@ def _one_call(model, prompt, temperature, run_id, num, sample_id):
 
 def loop_eval_spec(num, description_json, cfg_text, mod, model, run_id, corpus,
                    num2mod, mod2path, cfg_dirs, workroot, logdir, done,
-                   candidates_dir, chains=CHAINS, rounds=ROUNDS):
+                   candidates_dir, chains=CHAINS, rounds=ROUNDS,
+                   retry_rows=None, history=()):
     """One spec, framing L. Yields row dicts; stops the spec on the first pass.
 
     The `chains` chains advance in LOCK STEP: each round issues one model call per
@@ -331,6 +387,22 @@ def loop_eval_spec(num, description_json, cfg_text, mod, model, run_id, corpus,
     description_block = _format_description(description_json)
     signature_block = _format_signature(required_signature(cfg_text))
 
+    # A solved spec may only retry existing error keys. Preflight every target
+    # before spending anything; do not manufacture a new chain or repair child.
+    retry_states = {}
+    if retry_rows is not None:
+        for sample, target in retry_rows.items():
+            chain, rnd = target['chain'], target['round']
+            if (sample != f'c{chain}r{rnd}' or not 0 <= chain < chains
+                    or not 0 <= rnd < rounds or target.get('framing') != 'L'
+                    or str(target['spec']) != str(num)
+                    or target.get('verdict') != 'api_error'):
+                raise ValueError(f'invalid retry target: {sample}')
+            retry_states[sample] = _retry_state(
+                target, history, candidates_dir.parent, gen_prompt,
+                description_block, signature_block, cfg_text, mod,
+                wrapper_text, model, run_id)
+
     # per-chain carry: the candidate to repair next, its sha, and the prompt built
     # from its diagnosis. None means "regenerate".
     pending = [{"prompt": None, "rung": "generate", "parent": None}
@@ -340,6 +412,10 @@ def loop_eval_spec(num, description_json, cfg_text, mod, model, run_id, corpus,
         batch = []
         for chain in range(chains):
             sample_id = f"c{chain}r{rnd}"
+            if retry_rows is not None:
+                if sample_id not in retry_states:
+                    continue
+                pending[chain] = retry_states[sample_id]
             if (num, sample_id) in done:
                 continue
             st = pending[chain]
@@ -380,6 +456,16 @@ def loop_eval_spec(num, description_json, cfg_text, mod, model, run_id, corpus,
             if new_text is None:
                 err = isinstance(reply, str) and reply.startswith("[api_error")
                 pending[chain] = {"prompt": None, "rung": "generate", "parent": None}
+                if (not err and retry_rows is None
+                        and os.environ.get('TLA_LOOP_EXTRACTION_FEEDBACK') == '1'):
+                    pending[chain] = {
+                        'prompt': gen_prompt + '\n\n=== EXTRACTION FEEDBACK ===\n'
+                        'Your previous response was not a complete extractable TLA+ module. '
+                        f'Return a complete module starting with ---- MODULE {mod} ---- '
+                        'and ending with ==== on its own line. Use TLA+ syntax, not YAML '
+                        'or configuration-file syntax. Preserve the required behavior.\n'
+                        'Previous response excerpt:\n' + str(reply)[:4000],
+                        'rung': 'extraction', 'parent': None}
                 yield {**base, "candidate_path": cand_path,
                        "verdict": "api_error" if err else "no_module_extracted",
                        "budget_used": {"model_s": model_s}}
@@ -395,6 +481,8 @@ def loop_eval_spec(num, description_json, cfg_text, mod, model, run_id, corpus,
                 wrapper_text)
             yield {**base, "verdict": verdict, "rung_out": rung_out,
                    **{k: v for k, v in row.items() if k != "spec"}}
+            if retry_rows is not None:
+                continue
             if verdict == "pass":
                 return
             fragment, _names = localize(
@@ -452,6 +540,7 @@ def run_loop_eval(corpus: Path, run_id: str, model_name: str, chains=CHAINS,
     rows_path = rundir / "rows.jsonl"
     done = load_existing_rows(rows_path) if resume else set()
     already_solved = ledger_solved_specs(rows_path) if resume else set()
+    history, api_retries = ledger_api_retries(rows_path) if resume else ([], {})
     budget = chains * rounds
     (rundir / "config.json").write_text(json.dumps({
         "run_id": run_id, "framing": "L", "model": model.id, "corpus": str(corpus),
@@ -477,7 +566,9 @@ def run_loop_eval(corpus: Path, run_id: str, model_name: str, chains=CHAINS,
             if mod is None or cfg_text is None or not desc_path.exists():
                 print(f"[{i}/{len(todo)}] spec {num}: skipped (no module/cfg/desc)")
                 continue
-            if num in already_solved:
+            retry_rows = ({sample: row for (spec, sample), row in api_retries.items()
+                           if spec == num} if num in already_solved else None)
+            if num in already_solved and not retry_rows:
                 # Stop-on-first-pass only fires on passes THIS process sees; a
                 # resumed run would otherwise spend up to chains*rounds-1 calls
                 # re-sampling a spec its own ledger already solved.
@@ -488,7 +579,8 @@ def run_loop_eval(corpus: Path, run_id: str, model_name: str, chains=CHAINS,
             for row in loop_eval_spec(
                     num, json.loads(desc_path.read_text()), cfg_text, mod, model,
                     run_id, corpus, num2mod, mod2path, cfg_dirs, workroot, logdir,
-                    done, candidates_dir, chains=chains, rounds=rounds):
+                    done, candidates_dir, chains=chains, rounds=rounds,
+                    retry_rows=retry_rows, history=history):
                 fh.write(json.dumps(row) + "\n")
                 fh.flush()
                 n_written += 1
