@@ -1,0 +1,51 @@
+#!/bin/bash
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-typed-broader-rank-v1
+#PBS -l select=1:system=polaris:ncpus=64:ngpus=1
+#PBS -l walltime=00:15:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+#PBS -o /home/eric-spencer/tla-typed-broader-candidate-rank-20260918-v1/train.stdout
+#PBS -e /home/eric-spencer/tla-typed-broader-candidate-rank-20260918-v1/train.stderr
+set -euo pipefail
+ROOT=/home/eric-spencer/tla-typed-broader-candidate-rank-20260918-v1
+BASE=/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1
+export PYTHONPATH="$ROOT:$ROOT/tools:$BASE:$BASE/tools"
+export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false
+export HF_HOME=/grand/EVITA/eric-spencer/hf-cache PYTHONUNBUFFERED=1
+export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1
+export PATH="/grand/EVITA/eric-spencer/tools/jre21/bin:$PATH"
+export JAVA_HOME=/grand/EVITA/eric-spencer/tools/jre21
+PYTHON=/home/eric-spencer/ChatTLA/.venv/bin/python
+MODEL=/grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659
+PARENT=/home/eric-spencer/tla-structured-span-train-20260914-v3/result.7618905/policy_optimizer.pt
+PACKET="$ROOT/packet.json"
+OUT="$ROOT/result.${PBS_JOBID%%.*}"
+PACKET_SHA=c919646ee4f3ac418474f91f8f771e0a1c436e9b583aed7ba42f9415e9efc37d
+PARENT_SHA=87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511
+test -x "$PYTHON" -a -f "$MODEL/config.json" -a -f "$PACKET"
+test -f "$ROOT/tools/__init__.py" \
+  -a -f "$ROOT/tools/proof_typed_broader_candidate_rank.py" \
+  -a -f "$ROOT/tools/proof_typed_broader_candidate_rank_cuda_train.py" \
+  -a -f "$ROOT/tools/proof_typed_candidate_rank_cuda_train.py" \
+  -a -f "$ROOT/tools/proof_typed_candidate_rank.py" \
+  -a -f "$ROOT/tools/proof_typed_agenda.py" \
+  -a -f "$ROOT/tools/proof_goal_fact_transition.py" \
+  -a -f "$ROOT/tools/proof_broader_packet.py"
+test ! -e "$OUT"
+test "$(sha256sum "$PACKET" | awk '{print $1}')" = "$PACKET_SHA"
+test "$(sha256sum "$PARENT" | awk '{print $1}')" = "$PARENT_SHA"
+"$PYTHON" -m py_compile \
+  "$ROOT/tools/proof_typed_broader_candidate_rank.py" \
+  "$ROOT/tools/proof_typed_broader_candidate_rank_cuda_train.py" \
+  "$ROOT/tools/proof_typed_candidate_rank.py" \
+  "$ROOT/tools/proof_typed_candidate_rank_cuda_train.py" \
+  "$ROOT/tools/proof_typed_agenda.py" \
+  "$ROOT/tools/proof_goal_fact_transition.py" \
+  "$ROOT/tools/proof_broader_packet.py"
+"$PYTHON" "$ROOT/tools/proof_typed_broader_candidate_rank.py" \
+  --packet "$PACKET" --expected-packet-sha256 "$PACKET_SHA" >/dev/null
+"$PYTHON" -u "$ROOT/tools/proof_typed_broader_candidate_rank_cuda_train.py" \
+  --packet "$PACKET" --expected-packet-sha256 "$PACKET_SHA" \
+  --model "$MODEL" --parent "$PARENT" --output "$OUT" --updates 32 --lr 0.01

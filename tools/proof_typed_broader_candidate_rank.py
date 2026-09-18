@@ -152,13 +152,15 @@ def load_packet(path: Path, expected_sha256: str | None = None) -> dict:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--output", type=Path)
     parser.add_argument("--dev-packet", type=Path, default=DEV_PACKET)
     parser.add_argument("--build", action="store_true")
     parser.add_argument("--packet", type=Path)
     parser.add_argument("--expected-packet-sha256")
     args = parser.parse_args()
     if args.build:
+        if args.output is None:
+            parser.error("--build requires --output")
         print(json.dumps(build(args.output, args.dev_packet), indent=2))
     elif args.packet:
         packet = load_packet(args.packet, args.expected_packet_sha256)
