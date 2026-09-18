@@ -1,0 +1,41 @@
+{
+  "kind": "independent_typed_agenda_beam_score",
+  "packet_sha256": "42da18eaeca6710cf68eb35c4af8d0d9dffb4e7295c4edca613e0fdf38dfb219",
+  "generations_sha256": {
+    "base": "ff2306981759743cb006c546a78d57a21da6abff0aeab7c4a061af08920062a6",
+    "parent": "238c918af13306419b71da697b6e5a4891c57d3104f3110de56041f947f65fed",
+    "child": "c946fbe5bb5507e690bc38c59f4c01d807ac125ee6beb9df52058bab0283db05"
+  },
+  "frozen_audit_sha256": "0007cdf350a78dba3dddff12b7a5cce3b40649803f4142039aa362412d32ff49",
+  "fixed_candidate_denominator": 116,
+  "beam_width": 4,
+  "fresh_candidate_checks": 48,
+  "arms": [
+    "base",
+    "parent",
+    "child"
+  ],
+  "certified_candidates_by_arm": {
+    "base": 6,
+    "parent": 4,
+    "child": 8
+  },
+  "tasks_with_any_certified_by_arm": {
+    "base": 4,
+    "parent": 2,
+    "child": 4
+  },
+  "frozen_certified_candidates_by_arm": {
+    "base": 6,
+    "parent": 4,
+    "child": 8
+  },
+  "verifier_feedback_used": false,
+  "repair_used": false,
+  "reward_used": false,
+  "training_executed": false,
+  "quality_claim": false,
+  "proof_claim": false,
+  "gate_claim": false,
+  "checker": "fresh strict uncached TLAPS for exact worker top-k beams"
+}

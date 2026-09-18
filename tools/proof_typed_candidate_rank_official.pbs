@@ -1,0 +1,38 @@
+#!/bin/bash
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-typed-candidate-official-v1
+#PBS -l select=1:system=polaris:ncpus=64:ngpus=1
+#PBS -l walltime=00:15:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+#PBS -o /home/eric-spencer/tla-typed-candidate-rank-official-20260917-v1/eval.stdout
+#PBS -e /home/eric-spencer/tla-typed-candidate-rank-official-20260917-v1/eval.stderr
+set -euo pipefail
+ROOT=/home/eric-spencer/tla-typed-candidate-rank-official-20260917-v1
+BASE=/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1
+export PYTHONPATH="$ROOT:$ROOT/tools:$BASE:$BASE/tools"
+export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false
+export HF_HOME=/grand/EVITA/eric-spencer/hf-cache PYTHONUNBUFFERED=1
+export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1
+export PATH="/grand/EVITA/eric-spencer/tools/jre21/bin:$PATH"
+export JAVA_HOME=/grand/EVITA/eric-spencer/tools/jre21
+PYTHON=/home/eric-spencer/ChatTLA/.venv/bin/python
+MODEL=/grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659
+PARENT=/home/eric-spencer/tla-structured-span-train-20260914-v3/result.7618905/policy_optimizer.pt
+PACKET="$ROOT/packet.json"
+HEAD="$ROOT/candidate_head.pt"
+OUT="$ROOT/result.${PBS_JOBID%%.*}"
+test -x "$PYTHON" -a -f "$MODEL/config.json" -a -f "$PACKET" -a -f "$HEAD"
+test ! -e "$OUT"
+test "$(sha256sum "$PACKET" | cut -d " " -f1)" = 170cf30920e35494e4ed7302a04ab0e41d3f18543f3f0ddcb4eb975a1ca27431
+test "$(sha256sum "$HEAD" | cut -d " " -f1)" = 0ab607639a6d83b0898e347cb911102d8fb1bb0dbb84f7d251cee1c21312a6c0
+test "$(sha256sum "$PARENT" | cut -d " " -f1)" = 87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511
+"$PYTHON" -m py_compile "$ROOT/tools/proof_typed_candidate_rank_official.py" \
+  "$ROOT/tools/proof_typed_candidate_rank_official_cuda_eval.py" \
+  "$ROOT/tools/proof_typed_candidate_rank_cuda_train.py" "$ROOT/tools/proof_typed_candidate_rank.py" \
+  "$ROOT/tools/proof_typed_agenda.py" "$ROOT/tools/proof_cuda_train.py"
+"$PYTHON" "$ROOT/tools/proof_typed_candidate_rank_official_cuda_eval.py" \
+  --packet "$PACKET" --head "$HEAD" --parent "$PARENT" --model "$MODEL" --output "$OUT" \
+  --parent-sha256 87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511 \
+  --head-sha256 0ab607639a6d83b0898e347cb911102d8fb1bb0dbb84f7d251cee1c21312a6c0
