@@ -9,7 +9,10 @@ Exists so the cloud routine never has to inline the audit or read a ledger into
 context: it prints a fixed-size summary and nothing else. Spec text is never
 echoed -- only seed_keys.
 
-Exit code 0 = keep going, 10 = every stop floor met (write W4_FLOOR_REACHED.md).
+Exit code 0 = keep going, 10 = every stop floor met. On 10 the audit writes
+results/analysis/W4_FLOOR_REACHED.md with its own output, so a downstream step
+can test for the file instead of parsing stdout. An existing marker is left
+alone -- the committed one carries hand-written notes.
 """
 from __future__ import annotations
 
@@ -46,6 +49,23 @@ FAMILY_MAX_SHARE = 0.30  # advisory only
 
 EXCLUSIONS = Path("results/analysis/w4_exclusions.json")
 RUNS = Path("results/runs")
+MARKER = Path("results/analysis/W4_FLOOR_REACHED.md")
+
+
+def write_marker(report: list[str], path: Path = MARKER) -> bool:
+    """Write the floors-met marker. Returns False if it is already there."""
+    if path.exists():
+        return False
+    body = "\n".join(report)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
+        "# W4 floor reached\n\n"
+        "`tools/w4_audit.py` reported `STOP=YES`. Verbatim output:\n\n"
+        f"```\n{body}\n```\n\n"
+        "Both the total and liveness-arm floors are met. The family-share line is\n"
+        "advisory and does not gate stopping, per `docs/W4_CELL_RULES.md`.\n"
+    )
+    return True
 
 
 def max_shard() -> int:
@@ -95,6 +115,12 @@ def near_dups(rows: list[dict], since_shard: int | None) -> list[tuple]:
 
 
 def main() -> int:
+    report: list[str] = []
+
+    def say(line: str) -> None:
+        report.append(line)
+        print(line)
+
     ap = argparse.ArgumentParser()
     ap.add_argument("--full", action="store_true",
                     help="full O(n^2) near-dup sweep instead of the incremental one")
@@ -122,39 +148,42 @@ def main() -> int:
     ok_live = live >= FLOOR_LIVENESS
     done = ok_total and ok_live
 
-    print(f"shards 0-{top}; effective corpus {n} "
+    say(f"shards 0-{top}; effective corpus {n} "
           f"(liveness arm {live}, safety-only {safety})")
-    print(f"  total    {n}/{FLOOR_TOTAL} {'MET' if ok_total else f'-- {FLOOR_TOTAL - n} to go'}")
-    print(f"  liveness {live}/{FLOOR_LIVENESS} {'MET' if ok_live else f'-- {FLOOR_LIVENESS - live} to go'} "
+    say(f"  total    {n}/{FLOOR_TOTAL} {'MET' if ok_total else f'-- {FLOOR_TOTAL - n} to go'}")
+    say(f"  liveness {live}/{FLOOR_LIVENESS} {'MET' if ok_live else f'-- {FLOOR_LIVENESS - live} to go'} "
           f"({100 * live / max(1, n):.1f}% of corpus)")
-    print(f"  family   top={top_fam} {top_ct} ({100 * top_share:.1f}%) "
+    say(f"  family   top={top_fam} {top_ct} ({100 * top_share:.1f}%) "
           f"{'OK' if top_share <= FAMILY_MAX_SHARE else f'OVER {100 * FAMILY_MAX_SHARE:.0f}% (advisory)'}")
-    print("  families: " + "  ".join(f"{k}={v}" for k, v in fams.most_common()))
+    say("  families: " + "  ".join(f"{k}={v}" for k, v in fams.most_common()))
 
     # Quality tiers. TLA-Prover Table 4 and Wonda both found a *graded* filter
     # beats a bigger binary-filtered pile, so track the trainable tiers, not
     # just the raw count.
     w4_corpus.grade_corpus(rows)
     tt = w4_corpus.tier_table(rows)
-    print("  tiers:    " + "  ".join(
+    say("  tiers:    " + "  ".join(
         f"{k}={v['total']}({v['liveness']}L)" for k, v in tt.items() if k != "TOTAL"))
 
     # Surfaced because FIX 1 accepts no_kill/no_site as passes: if real
     # safety_catch stays near zero the mutation gate is not discriminating.
     eviq = Counter(r.get("mutation_evidence") for r in rows)
     catch = eviq.get("safety_catch", 0)
-    print(f"  mutation: " + "  ".join(f"{k}={v}" for k, v in eviq.most_common())
+    say(f"  mutation: " + "  ".join(f"{k}={v}" for k, v in eviq.most_common())
           + f"  (real-catch {100 * catch / max(1, n):.1f}%)")
 
     cfgs = [r.get("cfg_text") or "" for r in rows]
     thin = sum(1 for c in cfgs if len([ln for ln in c.splitlines() if ln.strip()]) <= 3)
-    print(f"  cfg: thin(<=3 lines) {thin} ({100 * thin / max(1, n):.1f}%)  "
+    say(f"  cfg: thin(<=3 lines) {thin} ({100 * thin / max(1, n):.1f}%)  "
           f"SPECIFICATION {sum(1 for c in cfgs if 'SPECIFICATION' in c)}  "
           f"CONSTANT {sum(1 for c in cfgs if 'CONSTANT' in c)}  "
           f"PROPERTY {sum(1 for c in cfgs if 'PROPERTY' in c)}")
     scope = "full" if since is None else f"shards>={since}"
-    print(f"  near-dups ({scope}): {dups if dups else 'NONE'}")
-    print(f"STOP={'YES' if done else 'NO'}")
+    say(f"  near-dups ({scope}): {dups if dups else 'NONE'}")
+    say(f"STOP={'YES' if done else 'NO'}")
+    if done:
+        fresh = write_marker(report)
+        print(f"marker: {MARKER} {'written' if fresh else 'already present'}")
     return 10 if done else 0
 
 
