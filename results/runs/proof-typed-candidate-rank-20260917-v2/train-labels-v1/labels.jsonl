@@ -1,0 +1,153 @@
+{"candidate": "BY SMT", "candidate_index": 0, "certified": false, "task": "addtwo-init"}
+{"candidate": "BY SMT DEF vars, Init, Next, Spec, TypeOK", "candidate_index": 1, "certified": false, "task": "addtwo-init"}
+{"candidate": "BY DEF vars, Init, Next, Spec, TypeOK", "candidate_index": 2, "certified": false, "task": "addtwo-init"}
+{"candidate": "BY SMT, NoSetContainsEverything", "candidate_index": 3, "certified": false, "task": "addtwo-init"}
+{"candidate": "BY NoSetContainsEverything", "candidate_index": 4, "certified": false, "task": "addtwo-init"}
+{"candidate": "BY SMT, NoSetContainsEverything, SetExtensionality", "candidate_index": 5, "certified": false, "task": "addtwo-init"}
+{"candidate": "BY NoSetContainsEverything, SetExtensionality", "candidate_index": 6, "certified": false, "task": "addtwo-init"}
+{"candidate": "BY SMT, SetExtensionality", "candidate_index": 7, "certified": false, "task": "addtwo-init"}
+{"candidate": "BY SetExtensionality", "candidate_index": 8, "certified": false, "task": "addtwo-init"}
+{"candidate": "BY SMT", "candidate_index": 0, "certified": false, "task": "addtwo-step"}
+{"candidate": "BY SMT DEF vars, Init, Next, Spec, TypeOK", "candidate_index": 1, "certified": false, "task": "addtwo-step"}
+{"candidate": "BY DEF vars, Init, Next, Spec, TypeOK", "candidate_index": 2, "certified": false, "task": "addtwo-step"}
+{"candidate": "BY SMT, NoSetContainsEverything", "candidate_index": 3, "certified": false, "task": "addtwo-step"}
+{"candidate": "BY NoSetContainsEverything", "candidate_index": 4, "certified": false, "task": "addtwo-step"}
+{"candidate": "BY SMT, NoSetContainsEverything, SetExtensionality", "candidate_index": 5, "certified": false, "task": "addtwo-step"}
+{"candidate": "BY NoSetContainsEverything, SetExtensionality", "candidate_index": 6, "certified": false, "task": "addtwo-step"}
+{"candidate": "BY SMT, SetExtensionality", "candidate_index": 7, "certified": false, "task": "addtwo-step"}
+{"candidate": "BY SetExtensionality", "candidate_index": 8, "certified": false, "task": "addtwo-step"}
+{"candidate": "BY SMT", "candidate_index": 0, "certified": false, "task": "highest-type-step"}
+{"candidate": "BY SMT DEF max, vars, Init, lb, Terminating, Next, Spec, Termination, TypeOK", "candidate_index": 1, "certified": false, "task": "highest-type-step"}
+{"candidate": "BY DEF max, vars, Init, lb, Terminating, Next, Spec, Termination, TypeOK", "candidate_index": 2, "certified": false, "task": "highest-type-step"}
+{"candidate": "BY SMT, NoSetContainsEverything", "candidate_index": 3, "certified": false, "task": "highest-type-step"}
+{"candidate": "BY NoSetContainsEverything", "candidate_index": 4, "certified": false, "task": "highest-type-step"}
+{"candidate": "BY SMT, NoSetContainsEverything, SetExtensionality", "candidate_index": 5, "certified": false, "task": "highest-type-step"}
+{"candidate": "BY NoSetContainsEverything, SetExtensionality", "candidate_index": 6, "certified": false, "task": "highest-type-step"}
+{"candidate": "BY SMT, SetExtensionality", "candidate_index": 7, "certified": false, "task": "highest-type-step"}
+{"candidate": "BY SetExtensionality", "candidate_index": 8, "certified": false, "task": "highest-type-step"}
+{"candidate": "BY SMT", "candidate_index": 0, "certified": false, "task": "highest-inductive-step"}
+{"candidate": "BY SMT DEF max, vars, Init, lb, Terminating, Next, Spec, Termination, TypeOK, InductiveInvariant", "candidate_index": 1, "certified": false, "task": "highest-inductive-step"}
+{"candidate": "BY DEF max, vars, Init, lb, Terminating, Next, Spec, Termination, TypeOK, InductiveInvariant", "candidate_index": 2, "certified": false, "task": "highest-inductive-step"}
+{"candidate": "BY SMT, NoSetContainsEverything", "candidate_index": 3, "certified": false, "task": "highest-inductive-step"}
+{"candidate": "BY NoSetContainsEverything", "candidate_index": 4, "certified": false, "task": "highest-inductive-step"}
+{"candidate": "BY SMT, NoSetContainsEverything, SetExtensionality", "candidate_index": 5, "certified": false, "task": "highest-inductive-step"}
+{"candidate": "BY NoSetContainsEverything, SetExtensionality", "candidate_index": 6, "certified": false, "task": "highest-inductive-step"}
+{"candidate": "BY SMT, SetExtensionality", "candidate_index": 7, "certified": false, "task": "highest-inductive-step"}
+{"candidate": "BY SetExtensionality", "candidate_index": 8, "certified": false, "task": "highest-inductive-step"}
+{"candidate": "BY SMT", "candidate_index": 0, "certified": false, "task": "highest-done-step"}
+{"candidate": "BY SMT DEF max, vars, Init, lb, Terminating, Next, Spec, Termination, TypeOK, InductiveInvariant, DoneIndexValue", "candidate_index": 1, "certified": false, "task": "highest-done-step"}
+{"candidate": "BY DEF max, vars, Init, lb, Terminating, Next, Spec, Termination, TypeOK, InductiveInvariant, DoneIndexValue", "candidate_index": 2, "certified": false, "task": "highest-done-step"}
+{"candidate": "BY SMT, NoSetContainsEverything", "candidate_index": 3, "certified": false, "task": "highest-done-step"}
+{"candidate": "BY NoSetContainsEverything", "candidate_index": 4, "certified": false, "task": "highest-done-step"}
+{"candidate": "BY SMT, NoSetContainsEverything, SetExtensionality", "candidate_index": 5, "certified": false, "task": "highest-done-step"}
+{"candidate": "BY NoSetContainsEverything, SetExtensionality", "candidate_index": 6, "certified": false, "task": "highest-done-step"}
+{"candidate": "BY SMT, SetExtensionality", "candidate_index": 7, "certified": false, "task": "highest-done-step"}
+{"candidate": "BY SetExtensionality", "candidate_index": 8, "certified": false, "task": "highest-done-step"}
+{"candidate": "BY SMT", "candidate_index": 0, "certified": false, "task": "highest-correctness"}
+{"candidate": "BY SMT DEF max, vars, Init, lb, Terminating, Next, Spec, Termination, TypeOK, InductiveInvariant, DoneIndexValue, Correctness", "candidate_index": 1, "certified": false, "task": "highest-correctness"}
+{"candidate": "BY DEF max, vars, Init, lb, Terminating, Next, Spec, Termination, TypeOK, InductiveInvariant, DoneIndexValue, Correctness", "candidate_index": 2, "certified": false, "task": "highest-correctness"}
+{"candidate": "BY SMT, NoSetContainsEverything", "candidate_index": 3, "certified": false, "task": "highest-correctness"}
+{"candidate": "BY NoSetContainsEverything", "candidate_index": 4, "certified": false, "task": "highest-correctness"}
+{"candidate": "BY SMT, NoSetContainsEverything, SetExtensionality", "candidate_index": 5, "certified": false, "task": "highest-correctness"}
+{"candidate": "BY NoSetContainsEverything, SetExtensionality", "candidate_index": 6, "certified": false, "task": "highest-correctness"}
+{"candidate": "BY SMT, SetExtensionality", "candidate_index": 7, "certified": false, "task": "highest-correctness"}
+{"candidate": "BY SetExtensionality", "candidate_index": 8, "certified": false, "task": "highest-correctness"}
+{"candidate": "BY SMT", "candidate_index": 0, "certified": false, "task": "even-intro"}
+{"candidate": "BY SMT DEF Even, Odd", "candidate_index": 1, "certified": false, "task": "even-intro"}
+{"candidate": "BY DEF Even, Odd", "candidate_index": 2, "certified": false, "task": "even-intro"}
+{"candidate": "BY SMT, NoSetContainsEverything", "candidate_index": 3, "certified": false, "task": "even-intro"}
+{"candidate": "BY NoSetContainsEverything", "candidate_index": 4, "certified": false, "task": "even-intro"}
+{"candidate": "BY SMT, NoSetContainsEverything, SetExtensionality", "candidate_index": 5, "certified": false, "task": "even-intro"}
+{"candidate": "BY NoSetContainsEverything, SetExtensionality", "candidate_index": 6, "certified": false, "task": "even-intro"}
+{"candidate": "BY SMT, SetExtensionality", "candidate_index": 7, "certified": false, "task": "even-intro"}
+{"candidate": "BY SetExtensionality", "candidate_index": 8, "certified": false, "task": "even-intro"}
+{"candidate": "BY SMT", "candidate_index": 0, "certified": false, "task": "even-case-tail"}
+{"candidate": "BY SMT DEF Even, Odd", "candidate_index": 1, "certified": false, "task": "even-case-tail"}
+{"candidate": "BY DEF Even, Odd", "candidate_index": 2, "certified": false, "task": "even-case-tail"}
+{"candidate": "BY SMT, NoSetContainsEverything", "candidate_index": 3, "certified": false, "task": "even-case-tail"}
+{"candidate": "BY NoSetContainsEverything", "candidate_index": 4, "certified": false, "task": "even-case-tail"}
+{"candidate": "BY SMT, NoSetContainsEverything, SetExtensionality", "candidate_index": 5, "certified": false, "task": "even-case-tail"}
+{"candidate": "BY NoSetContainsEverything, SetExtensionality", "candidate_index": 6, "certified": false, "task": "even-case-tail"}
+{"candidate": "BY SMT, SetExtensionality", "candidate_index": 7, "certified": false, "task": "even-case-tail"}
+{"candidate": "BY SetExtensionality", "candidate_index": 8, "certified": false, "task": "even-case-tail"}
+{"candidate": "BY SMT", "candidate_index": 0, "certified": false, "task": "odd-case-tail"}
+{"candidate": "BY SMT DEF Even, Odd", "candidate_index": 1, "certified": false, "task": "odd-case-tail"}
+{"candidate": "BY DEF Even, Odd", "candidate_index": 2, "certified": false, "task": "odd-case-tail"}
+{"candidate": "BY SMT, NoSetContainsEverything", "candidate_index": 3, "certified": false, "task": "odd-case-tail"}
+{"candidate": "BY NoSetContainsEverything", "candidate_index": 4, "certified": false, "task": "odd-case-tail"}
+{"candidate": "BY SMT, NoSetContainsEverything, SetExtensionality", "candidate_index": 5, "certified": false, "task": "odd-case-tail"}
+{"candidate": "BY NoSetContainsEverything, SetExtensionality", "candidate_index": 6, "certified": false, "task": "odd-case-tail"}
+{"candidate": "BY SMT, SetExtensionality", "candidate_index": 7, "certified": false, "task": "odd-case-tail"}
+{"candidate": "BY SetExtensionality", "candidate_index": 8, "certified": false, "task": "odd-case-tail"}
+{"candidate": "BY SMT", "candidate_index": 0, "certified": false, "task": "simple-full"}
+{"candidate": "BY SMT DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv", "candidate_index": 1, "certified": false, "task": "simple-full"}
+{"candidate": "BY DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv", "candidate_index": 2, "certified": false, "task": "simple-full"}
+{"candidate": "BY SMT, SetExtensionality", "candidate_index": 3, "certified": false, "task": "simple-full"}
+{"candidate": "BY SetExtensionality", "candidate_index": 4, "certified": false, "task": "simple-full"}
+{"candidate": "BY SMT, SetExtensionality, NoSetContainsEverything", "candidate_index": 5, "certified": false, "task": "simple-full"}
+{"candidate": "BY SetExtensionality, NoSetContainsEverything", "candidate_index": 6, "certified": false, "task": "simple-full"}
+{"candidate": "BY SMT, NoSetContainsEverything", "candidate_index": 7, "certified": false, "task": "simple-full"}
+{"candidate": "BY NoSetContainsEverything", "candidate_index": 8, "certified": false, "task": "simple-full"}
+{"candidate": "BY SMT", "candidate_index": 0, "certified": false, "task": "simple-preservation"}
+{"candidate": "BY SMT DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv", "candidate_index": 1, "certified": false, "task": "simple-preservation"}
+{"candidate": "BY DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv", "candidate_index": 2, "certified": false, "task": "simple-preservation"}
+{"candidate": "BY SMT, SetExtensionality", "candidate_index": 3, "certified": false, "task": "simple-preservation"}
+{"candidate": "BY SetExtensionality", "candidate_index": 4, "certified": false, "task": "simple-preservation"}
+{"candidate": "BY SMT, SetExtensionality, NoSetContainsEverything", "candidate_index": 5, "certified": false, "task": "simple-preservation"}
+{"candidate": "BY SetExtensionality, NoSetContainsEverything", "candidate_index": 6, "certified": false, "task": "simple-preservation"}
+{"candidate": "BY SMT, NoSetContainsEverything", "candidate_index": 7, "certified": false, "task": "simple-preservation"}
+{"candidate": "BY NoSetContainsEverything", "candidate_index": 8, "certified": false, "task": "simple-preservation"}
+{"candidate": "BY SMT", "candidate_index": 0, "certified": false, "task": "simple-case-a"}
+{"candidate": "BY SMT DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv", "candidate_index": 1, "certified": false, "task": "simple-case-a"}
+{"candidate": "BY DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv", "candidate_index": 2, "certified": false, "task": "simple-case-a"}
+{"candidate": "BY SMT, SetExtensionality", "candidate_index": 3, "certified": false, "task": "simple-case-a"}
+{"candidate": "BY SetExtensionality", "candidate_index": 4, "certified": false, "task": "simple-case-a"}
+{"candidate": "BY SMT, SetExtensionality, NoSetContainsEverything", "candidate_index": 5, "certified": false, "task": "simple-case-a"}
+{"candidate": "BY SetExtensionality, NoSetContainsEverything", "candidate_index": 6, "certified": false, "task": "simple-case-a"}
+{"candidate": "BY SMT, NoSetContainsEverything", "candidate_index": 7, "certified": false, "task": "simple-case-a"}
+{"candidate": "BY NoSetContainsEverything", "candidate_index": 8, "certified": false, "task": "simple-case-a"}
+{"candidate": "BY SMT", "candidate_index": 0, "certified": false, "task": "simple-case-b"}
+{"candidate": "BY SMT DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv", "candidate_index": 1, "certified": false, "task": "simple-case-b"}
+{"candidate": "BY DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv", "candidate_index": 2, "certified": false, "task": "simple-case-b"}
+{"candidate": "BY SMT, SetExtensionality", "candidate_index": 3, "certified": false, "task": "simple-case-b"}
+{"candidate": "BY SetExtensionality", "candidate_index": 4, "certified": false, "task": "simple-case-b"}
+{"candidate": "BY SMT, SetExtensionality, NoSetContainsEverything", "candidate_index": 5, "certified": false, "task": "simple-case-b"}
+{"candidate": "BY SetExtensionality, NoSetContainsEverything", "candidate_index": 6, "certified": false, "task": "simple-case-b"}
+{"candidate": "BY SMT, NoSetContainsEverything", "candidate_index": 7, "certified": false, "task": "simple-case-b"}
+{"candidate": "BY NoSetContainsEverything", "candidate_index": 8, "certified": false, "task": "simple-case-b"}
+{"candidate": "BY SMT", "candidate_index": 0, "certified": false, "task": "simple-preservation-tail"}
+{"candidate": "BY SMT DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv", "candidate_index": 1, "certified": false, "task": "simple-preservation-tail"}
+{"candidate": "BY DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv", "candidate_index": 2, "certified": false, "task": "simple-preservation-tail"}
+{"candidate": "BY SMT, SetExtensionality", "candidate_index": 3, "certified": false, "task": "simple-preservation-tail"}
+{"candidate": "BY SetExtensionality", "candidate_index": 4, "certified": false, "task": "simple-preservation-tail"}
+{"candidate": "BY SMT, SetExtensionality, NoSetContainsEverything", "candidate_index": 5, "certified": false, "task": "simple-preservation-tail"}
+{"candidate": "BY SetExtensionality, NoSetContainsEverything", "candidate_index": 6, "certified": false, "task": "simple-preservation-tail"}
+{"candidate": "BY SMT, NoSetContainsEverything", "candidate_index": 7, "certified": false, "task": "simple-preservation-tail"}
+{"candidate": "BY NoSetContainsEverything", "candidate_index": 8, "certified": false, "task": "simple-preservation-tail"}
+{"candidate": "BY SMT", "candidate_index": 0, "certified": false, "task": "simple-conclusion"}
+{"candidate": "BY SMT DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv", "candidate_index": 1, "certified": false, "task": "simple-conclusion"}
+{"candidate": "BY DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv", "candidate_index": 2, "certified": false, "task": "simple-conclusion"}
+{"candidate": "BY SMT, SetExtensionality", "candidate_index": 3, "certified": false, "task": "simple-conclusion"}
+{"candidate": "BY SetExtensionality", "candidate_index": 4, "certified": false, "task": "simple-conclusion"}
+{"candidate": "BY SMT, SetExtensionality, NoSetContainsEverything", "candidate_index": 5, "certified": false, "task": "simple-conclusion"}
+{"candidate": "BY SetExtensionality, NoSetContainsEverything", "candidate_index": 6, "certified": false, "task": "simple-conclusion"}
+{"candidate": "BY SMT, NoSetContainsEverything", "candidate_index": 7, "certified": false, "task": "simple-conclusion"}
+{"candidate": "BY NoSetContainsEverything", "candidate_index": 8, "certified": false, "task": "simple-conclusion"}
+{"candidate": "BY SMT", "candidate_index": 0, "certified": false, "task": "simple-short-full"}
+{"candidate": "BY SMT DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv", "candidate_index": 1, "certified": false, "task": "simple-short-full"}
+{"candidate": "BY DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv", "candidate_index": 2, "certified": false, "task": "simple-short-full"}
+{"candidate": "BY SMT, Correctness, SetExtensionality", "candidate_index": 3, "certified": false, "task": "simple-short-full"}
+{"candidate": "BY Correctness, SetExtensionality", "candidate_index": 4, "certified": false, "task": "simple-short-full"}
+{"candidate": "BY SMT, Correctness, SetExtensionality, NoSetContainsEverything", "candidate_index": 5, "certified": false, "task": "simple-short-full"}
+{"candidate": "BY Correctness, SetExtensionality, NoSetContainsEverything", "candidate_index": 6, "certified": false, "task": "simple-short-full"}
+{"candidate": "BY SMT, Correctness, NoSetContainsEverything", "candidate_index": 7, "certified": false, "task": "simple-short-full"}
+{"candidate": "BY Correctness, NoSetContainsEverything", "candidate_index": 8, "certified": false, "task": "simple-short-full"}
+{"candidate": "BY SMT", "candidate_index": 0, "certified": false, "task": "simple-short-preservation"}
+{"candidate": "BY SMT DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv", "candidate_index": 1, "certified": false, "task": "simple-short-preservation"}
+{"candidate": "BY DEF vars, ProcSet, Init, a, b, proc, Terminating, Next, Spec, Termination, PCorrect, TypeOK, Inv", "candidate_index": 2, "certified": false, "task": "simple-short-preservation"}
+{"candidate": "BY SMT, Correctness, SetExtensionality", "candidate_index": 3, "certified": false, "task": "simple-short-preservation"}
+{"candidate": "BY Correctness, SetExtensionality", "candidate_index": 4, "certified": false, "task": "simple-short-preservation"}
+{"candidate": "BY SMT, Correctness, SetExtensionality, NoSetContainsEverything", "candidate_index": 5, "certified": false, "task": "simple-short-preservation"}
+{"candidate": "BY Correctness, SetExtensionality, NoSetContainsEverything", "candidate_index": 6, "certified": false, "task": "simple-short-preservation"}
+{"candidate": "BY SMT, Correctness, NoSetContainsEverything", "candidate_index": 7, "certified": false, "task": "simple-short-preservation"}
+{"candidate": "BY Correctness, NoSetContainsEverything", "candidate_index": 8, "certified": false, "task": "simple-short-preservation"}

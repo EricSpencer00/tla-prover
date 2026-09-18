@@ -1,0 +1,23 @@
+{
+  "kind": "typed_candidate_rank_strict_train_labels",
+  "packet_sha256": "42da18eaeca6710cf68eb35c4af8d0d9dffb4e7295c4edca613e0fdf38dfb219",
+  "label_sha256": "991be9791d9a65f01fec6de3d5e87153beede9d764ccdcf66f10b9a3df5b8ca9",
+  "train_tasks": 17,
+  "candidate_checks": 153,
+  "certified_candidates": 0,
+  "tasks_with_certified_candidate": 0,
+  "training_eligible": false,
+  "development_rows_inspected": 0,
+  "official_rows_inspected": 0,
+  "reference_fragments_used": false,
+  "protected_verifier_feedback_used": false,
+  "repair_used": false,
+  "reward_used": false,
+  "training_executed": false,
+  "parameter_updates": 0,
+  "proof_or_quality_claim": false,
+  "gate_claim": false,
+  "checker": "fresh uncached strict TLAPS per TRAIN candidate",
+  "timeout_seconds": 10,
+  "elapsed_seconds": 7.666
+}
