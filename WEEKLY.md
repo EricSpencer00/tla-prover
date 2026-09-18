@@ -128,12 +128,6 @@ budget *before* measuring so the number can't drift to fit the result.
 
 ## Not done yet
 
-**Superseded 2026-07-08 (noted 2026-08-30, Amendment 26).** The baseline was measured
-and frozen two days after this entry: `corpus/e2c_baseline.json`, SHA-256 `f9dc83ec…`,
-gpt-oss-120b at A pass@1 2/30, A pass@32 12/30, B pass@1 12/23, B pass@32 20/23. The
-current table, with every arm that has challenged it, is `results/e2c_ledger.md`.
-The paragraph below is left as written.
-
 No Stage-2 baseline number exists. The harness is smoke-tested, not swept. Next is the frozen
 baseline: both models × 30-spec holdout × framings A and B × pass@1 and pass@32, semantic-audited,
 written to `corpus/e2c_baseline.json` and a PLAN amendment before any training run. That's the
