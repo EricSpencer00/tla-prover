@@ -1,0 +1,37 @@
+{
+  "kind": "answer_free_typed_candidate_rank_official_handoff_audit",
+  "verified_utc": "2026-09-18T05:20:39Z",
+  "typed_packet_sha256": "170cf30920e35494e4ed7302a04ab0e41d3f18543f3f0ddcb4eb975a1ca27431",
+  "immutable_official_packet_sha256": "f40539a20e449ad63b8244e85eff33c8022402df11a84e8228b71ccbfeae11b5",
+  "source_manifest_sha256": "3380cf37c7311466ea7762662d55866839b3c3620ce73fb8d7ad209befe6de1d",
+  "parent_checkpoint_sha256": "87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511",
+  "candidate_head_sha256": "0ab607639a6d83b0898e347cb911102d8fb1bb0dbb84f7d251cee1c21312a6c0",
+  "pbs_sha256": "9424e718a361ed5168e507345357fae25002ee8397234a73db57ef7f411f868d",
+  "implementation_sha256": {
+    "tools/proof_typed_candidate_rank_official.py": "34359d3d7153d804b14de2f6479c498e8279bcdcf43e7ce237d17725c941c68c",
+    "tools/proof_typed_candidate_rank_official_cuda_eval.py": "abfcf40df0680fcc9b90cf5c290496b7084e44f9f13a8dd777f7516dcc810f1b",
+    "tools/proof_typed_candidate_rank_cuda_train.py": "0b2d626ad45851344e668c298d76f037b9f81121cea4daae3d182b9e3aca31f9",
+    "tools/proof_typed_candidate_rank.py": "f049f4996782d7b568e2948f15569823fa6377c5db63962bc2863fd3219a4e4b",
+    "tools/proof_typed_agenda.py": "b37d9a635a8c4ea2a375dbc739c4171d9bcb52c5e46e1b98dda3d92502519afa",
+    "tools/proof_cuda_train.py": "f7b83ba2c0dbcd3fa508fc57e8c54c7595f414da2829c00e854dd85f859ce812"
+  },
+  "local_guards": {
+    "focused_tests": "9 passed",
+    "python_compile": true,
+    "pbs_syntax": true,
+    "official_cli_help": true
+  },
+  "remote_state": {
+    "relay_tcp_reachable": true,
+    "noninteractive_ssh_authenticated": false,
+    "authentication_error": "Permission denied (keyboard-interactive,hostbased)",
+    "upload_performed": false,
+    "gpu_run_performed": false
+  },
+  "claims": {
+    "model_claim": false,
+    "proof_claim": false,
+    "quality_claim": false,
+    "gate_claim": false
+  }
+}
