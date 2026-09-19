@@ -15,14 +15,26 @@
   <a class="skip-link" href="#main">Skip to evidence</a>
   <header class="masthead">
     <a class="wordmark" href="#top" aria-label="TLA-Prover home">TLA<span>+</span>PROVER</a>
-    <nav aria-label="Primary navigation">
+    <nav class="desktop-nav" aria-label="Primary navigation">
       <a href="#mission">Mission</a>
       <a href="#runs">Run board</a>
       <a href="#methods">Methods</a>
       <a href="#lab">Live lab</a>
       <a href="#reproduce">Reproduce</a>
     </nav>
-    <a class="repo-link" href="https://github.com/LUC-AI4FM/tla-prover">GitHub ↗</a>
+    <div class="masthead-actions">
+      <details class="mobile-nav">
+        <summary>Menu</summary>
+        <nav aria-label="Mobile navigation">
+          <a href="#mission">Mission</a>
+          <a href="#runs">Run board</a>
+          <a href="#methods">Methods</a>
+          <a href="#lab">Live lab</a>
+          <a href="#reproduce">Reproduce</a>
+        </nav>
+      </details>
+      <a class="repo-link" href="https://github.com/LUC-AI4FM/tla-prover">GitHub ↗</a>
+    </div>
   </header>
 
   <main id="main">
@@ -140,7 +152,8 @@
         </div>
         <p class="section-note">LoRA moves adapters. Full fine-tuning moves base weights. Prompt-only moves no parameters. The matrix keeps those claims apart.</p>
       </header>
-      <div class="method-table-wrap">
+      <div class="method-table-wrap" tabindex="0" role="region" aria-label="Model and method comparison">
+        <div class="method-table-hint" aria-hidden="true"><span>Swipe to see all columns</span><span aria-hidden="true">→</span></div>
         <table class="method-table">
           <thead>
             <tr><th>Base model</th><th>Method</th><th>What could move</th><th>Run / outcome</th><th>Honest status</th></tr>
