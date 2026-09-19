@@ -19,6 +19,7 @@
       <a href="#mission">Mission</a>
       <a href="#runs">Run board</a>
       <a href="#methods">Methods</a>
+      <a href="#run-matrix">Run matrix</a>
       <a href="#lab">Live lab</a>
       <a href="#reproduce">Reproduce</a>
     </nav>
@@ -29,6 +30,7 @@
           <a href="#mission">Mission</a>
           <a href="#runs">Run board</a>
           <a href="#methods">Methods</a>
+          <a href="#run-matrix">Run matrix</a>
           <a href="#lab">Live lab</a>
           <a href="#reproduce">Reproduce</a>
         </nav>
@@ -170,9 +172,32 @@
       </div>
     </section>
 
-    <section class="section ledger" id="runs" aria-labelledby="ledger-title">
+    <section class="section historical-runs" id="run-matrix" aria-labelledby="run-matrix-title">
       <header class="section-heading compact">
         <p class="section-number">04</p>
+        <div>
+          <p class="eyebrow">Historical run matrix</p>
+          <h2 id="run-matrix-title">Every measured arm. Every caveat.</h2>
+        </div>
+        <p class="section-note">A curated register of material model, corpus, and evaluation runs. Shards, retries, and verifier checks stay in the repository evidence ledger.</p>
+      </header>
+      <div class="run-matrix-wrap" tabindex="0" role="region" aria-label="Historical model run matrix">
+        <div class="run-matrix-hint" aria-hidden="true"><span>Swipe to see all columns</span><span aria-hidden="true">→</span></div>
+        <table class="run-matrix">
+          <thead>
+            <tr><th>Date</th><th>Run</th><th>Model / arm</th><th>Budget or set</th><th>Result</th><th>What it means</th><th>Status</th></tr>
+          </thead>
+          <tbody id="historical-run-matrix">
+            <tr><td colspan="7">Loading the historical run matrix…</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="matrix-footnote">Read each number with its evidence link. A completed job is not automatically a capability result, and a negative or retracted run remains part of the research record.</p>
+    </section>
+
+    <section class="section ledger" id="runs" aria-labelledby="ledger-title">
+      <header class="section-heading compact">
+        <p class="section-number">05</p>
         <div>
           <p class="eyebrow">Published run board</p>
           <h2 id="ledger-title">What ran, what failed, what is next.</h2>
@@ -192,7 +217,7 @@
 
     <section class="section lab" id="lab" aria-labelledby="lab-title">
       <header class="section-heading lab-heading">
-        <p class="section-number">05</p>
+        <p class="section-number">06</p>
         <div>
           <p class="eyebrow">Runnable in the browser</p>
           <h2 id="lab-title">Ask SANY, not the page.</h2>
@@ -227,7 +252,7 @@ THEOREM TwoIsEven == \E n \in Nat : 2 = 2 * n
 
     <section class="section reproduce" id="reproduce" aria-labelledby="reproduce-title">
       <header class="section-heading">
-        <p class="section-number">06</p>
+        <p class="section-number">07</p>
         <div>
           <p class="eyebrow">Take the instrument with you</p>
           <h2 id="reproduce-title">Notebook, harness, data, commands.</h2>

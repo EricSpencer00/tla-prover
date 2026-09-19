@@ -20,7 +20,7 @@ G1 without G2 is a lookup table. G2 without G1 means the harness itself is broke
 | **Gate 0** — harness + oracle | ✅ signed off. `corpus/gate0_closed.json` freezes **170/206** closed (hash-pinned). |
 | **Gate 1** — Stage-1 repair sweep | ✅ signed off. oracle 171 / model-only **166/206** (audited) / oracle∪model **176/206**. See [GATE1_STATUS.md](GATE1_STATUS.md). |
 | **Stage 2 entry (E2.a–c)** | ✅ complete. Oracle reconciled, 30-spec holdout frozen (`corpus/holdout_30.json`), baseline frozen (`corpus/e2c_baseline.json`). |
-| **Gate 2** — beat the frozen baseline | ❌ **measured and failed** on v2_sft2/120b (PLAN Amendment 16): A 11/30 vs 12/30, B 18/23 vs 21/23. Box stays unchecked. |
+| **Gate 2** — beat the frozen baseline | ❌ **measured and failed** on v2_sft2/120b (PLAN Amendment 16): A 11/30 vs 12/30, B 18/23 vs 20/23. Box stays unchecked. |
 | **Fine-tuning** | shelved for the v2 corpus (Amendment 17); the W2.6 20b directional reproduced diversity collapse with the task-shape confound removed. Corpus *source* — not method — was the binding constraint. |
 | **Structural levers** | measured null (Amendments 18–19): prompt scaffolding 4/70 vs 4/70 control; proof generation 0/20 unguided **and** 0/20 grammar-guided. |
 | **W4 cross-family corpus** | ✅ **floors met** (2026-07-27). **5,010 effective rows**, liveness arm **567** — both above the 5,000 / 500 stop floors. `python3 tools/w4_audit.py` is the sole authority. |
