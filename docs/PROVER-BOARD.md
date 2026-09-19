@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 983
-- Verified UTC: 2026-09-19T17:44:16Z
+- Revision: 984
+- Verified UTC: 2026-09-19T20:44:21Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
-- Phase: external_wait
-- Active job: none
-- Observation evidence: At 2026-09-19T17:44:16Z, fresh BatchMode SSH reached polaris-login-01 and qstat showed no jobs for eric. Polaris exposed none of OPENAI_BASE_URL, OPENAI_API_KEY, or OPENAI_API_KEY_CMD. Sophia SSH failed with Permission denied (keyboard-interactive,hostbased). The pilot packet, runner, focused tests, and SANY-first/TLAPS canary remain committed in dfbeca87; no pilot job was submitted.
-- Latest completed result: Job 7634951 completed the answer-free official v2 evaluation: 119/119 ranked tasks, 462 candidates, zero training/repair/feedback/TLAPS execution in the worker, and no quality/proof/gate claim. The independent strict uncached TLAPS audit fully ranked all 119, measured 107 before the hard wall-clock bound, and certified 43 measured tasks in bounded top-4 search, including 42 rank-1 certifications; 12 tasks were unmeasured because the bound expired. This is generation/ranking evidence only, not a prover or promotion result.
-- Local work: Checkout /Users/eric/GitHub/prove-TLA is on board/193 at commit dfbeca87 (Stage protected repair pilot). The frozen 20-case answer-free packet is results/runs/proof-protected-repair-pilot-20260919-v2/packet.json with SHA a7902debb566503af613da6c28b0415953147e3fd1e14102853825d5dd9e5416. The canary receipt is results/runs/proof-protected-repair-pilot-20260919-v2/preflight-controls.json; unrelated generated work remains untouched.
-- External blocker: Board ticket #407 is needs_eric: the current Polaris session has no authenticated OpenAI-compatible route for frozen gpt-oss-120b and chattla-w4dg-120b, and no admitted direct 8-GPU serving route is available from this session.
-- Next action: When ticket #407 is resolved, verify the endpoint/model pair, then submit exactly one bounded four-arm pilot from the frozen packet; do not change the packet, budgets, or verifier contract.
+- Phase: queued
+- Active job: `7637798` (Q, polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov, owner eric-spencer)
+- Observation evidence: qstat -xf 7637798 confirms Q in capacity; Sophia base auth/model preflight HTTP 200; measurement canary receipt is clean.
+- Latest completed result: Protected pilot remains unrun; W4 serving job 7637798 is queued.
+- Local work: Pilot packet, canary controls, per-model endpoint routing, and four-GPU W4 serve recipe are committed; no training executed.
+- External blocker: PBS capacity queue is currently full; the W4 serving job is queued and no pilot calls have been submitted.
+- Next action: When 7637798 enters R, verify the served chattla-w4dgm-120b endpoint, then run exactly one four-arm pilot from the frozen packet; do not change packet, budgets, or verifier.
 
 ## Objective and evidence rules
 
@@ -76,7 +76,7 @@ Reach the frozen gates in order: 100% SANY, applicable TLC, non-vacuous intended
 | TLA-06AQ | Done | Transfer typed agenda ranker to the answer-free official 119-case population | Local official packet builder produces 119 answer-free rows from immutable official packet f40539a2 and source manifest3380cf37, with derived typed-packet SHA170cf309, 462 candidate proposals, no reference fragments or target labels, and local load/tests2/2. The inference-only evaluator and PBS bundle bind parent87489e47, candidate head0ab60763 and the exact Llama snapshot; the evaluator was corrected so config packet_sha256 remains the immutable official f40539a2 while typed_packet_sha256 is recorded separately. The single bounded Polaris job7634951 completed F/Exit0 with 119/119 ranked tasks. Its independent strict uncached TLAPS audit fully ranked all119, measured107 within900 seconds, and certified43 measured tasks in bounded top-4 search, including42 rank1; 12 tasks were unmeasured at the hard time bound. This is answer-free generation/ranking evidence only, with no training, repair, feedback, reward, quality, proof or gate claim. |
 | TLA-06AR | Done | Test strict TRAIN supervision for typed candidate ranking | The fresh local diagnostic checked all153 typed candidates from17 TRAIN rows with independent uncached strict TLAPS, using exact prefix/suffix/dependency bindings and fresh work directories. It certified0/153 candidates across0/17 tasks, so the typed agenda lattice is not a valid verifier-label training population: no positive labels exist. Sanitized labels are recorded at results/runs/proof-typed-candidate-rank-20260917-v2/train-labels-v1/labels.jsonl with SHA991be979; no DEVELOPMENT or official rows, reference fragments, protected feedback, repair or reward were used. Prune this branch without a GPU run; no model, proof, quality or gate claim. |
 | TLA-06AS | Done | Broaden typed-agenda training data across admitted source families | Local packet results/runs/proof-typed-broader-candidate-rank-20260918-v1/packet.json has SHA c919646e and combines the repository's admitted original6+broader26 strict-control populations:32 TRAIN rows across7 source families and848 TRAIN candidate rows. The exact four CRDT DEVELOPMENT rows and116 frozen candidates are retained from packet42da18ea without targets, reference fragments, candidate-index labels, verifier feedback, repair or reward. Fresh independent uncached strict TLAPS checked all848 TRAIN candidates and certified0 across0/32 tasks; sanitized labels are recorded at results/runs/proof-typed-broader-candidate-rank-20260918-v1/train-labels-v1/labels.jsonl with SHA6c64bb06. Prune this verifier-label branch without a GPU run; no model, proof, quality or gate claim exists. |
-| TLA-06AT | Waiting | Run protected repair-and-extend pilot | Frozen 20-case packet and runner are complete; waiting only on authenticated access to both 120B inference arms. Submission remains prohibited until endpoint/model admission is verified. Promotion requires >=3 certified cases across >=2 failure families. |
+| TLA-06AT | In progress | Run protected repair-and-extend pilot | Frozen packet/canary complete; W4 serve job 7637798 queued; promotion gate remains >=3 certified cases across >=2 failure families. |
 
 ## Decisions
 
@@ -802,16 +802,21 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 983,
-  "verified_utc": "2026-09-19T17:44:16Z",
+  "revision": 984,
+  "verified_utc": "2026-09-19T20:44:21Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
-  "phase": "external_wait",
-  "active_job": null,
-  "observation_evidence": "At 2026-09-19T17:44:16Z, fresh BatchMode SSH reached polaris-login-01 and qstat showed no jobs for eric. Polaris exposed none of OPENAI_BASE_URL, OPENAI_API_KEY, or OPENAI_API_KEY_CMD. Sophia SSH failed with Permission denied (keyboard-interactive,hostbased). The pilot packet, runner, focused tests, and SANY-first/TLAPS canary remain committed in dfbeca87; no pilot job was submitted.",
-  "last_result": "Job 7634951 completed the answer-free official v2 evaluation: 119/119 ranked tasks, 462 candidates, zero training/repair/feedback/TLAPS execution in the worker, and no quality/proof/gate claim. The independent strict uncached TLAPS audit fully ranked all 119, measured 107 before the hard wall-clock bound, and certified 43 measured tasks in bounded top-4 search, including 42 rank-1 certifications; 12 tasks were unmeasured because the bound expired. This is generation/ranking evidence only, not a prover or promotion result.",
-  "local_work": "Checkout /Users/eric/GitHub/prove-TLA is on board/193 at commit dfbeca87 (Stage protected repair pilot). The frozen 20-case answer-free packet is results/runs/proof-protected-repair-pilot-20260919-v2/packet.json with SHA a7902debb566503af613da6c28b0415953147e3fd1e14102853825d5dd9e5416. The canary receipt is results/runs/proof-protected-repair-pilot-20260919-v2/preflight-controls.json; unrelated generated work remains untouched.",
-  "external_blocker": "Board ticket #407 is needs_eric: the current Polaris session has no authenticated OpenAI-compatible route for frozen gpt-oss-120b and chattla-w4dg-120b, and no admitted direct 8-GPU serving route is available from this session.",
-  "next_action": "When ticket #407 is resolved, verify the endpoint/model pair, then submit exactly one bounded four-arm pilot from the frozen packet; do not change the packet, budgets, or verifier contract.",
+  "phase": "queued",
+  "active_job": {
+    "id": "7637798",
+    "pbs_state": "Q",
+    "owner": "eric-spencer",
+    "host": "polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov"
+  },
+  "observation_evidence": "qstat -xf 7637798 confirms Q in capacity; Sophia base auth/model preflight HTTP 200; measurement canary receipt is clean.",
+  "last_result": "Protected pilot remains unrun; W4 serving job 7637798 is queued.",
+  "local_work": "Pilot packet, canary controls, per-model endpoint routing, and four-GPU W4 serve recipe are committed; no training executed.",
+  "external_blocker": "PBS capacity queue is currently full; the W4 serving job is queued and no pilot calls have been submitted.",
+  "next_action": "When 7637798 enters R, verify the served chattla-w4dgm-120b endpoint, then run exactly one four-arm pilot from the frozen packet; do not change packet, budgets, or verifier.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -1133,9 +1138,9 @@ These snapshots preserve old statements, including mistakes. They are not curren
     },
     {
       "id": "TLA-06AT",
-      "state": "Waiting",
+      "state": "In progress",
       "task": "Run protected repair-and-extend pilot",
-      "evidence": "Frozen 20-case packet and runner are complete; waiting only on authenticated access to both 120B inference arms. Submission remains prohibited until endpoint/model admission is verified. Promotion requires >=3 certified cases across >=2 failure families."
+      "evidence": "Frozen packet/canary complete; W4 serve job 7637798 queued; promotion gate remains >=3 certified cases across >=2 failure families."
     }
   ],
   "decisions": [
