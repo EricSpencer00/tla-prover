@@ -197,9 +197,18 @@ class OpenAICompatModel(Model):
 
     def __init__(self, model_id: str):
         self.id = model_id
-        base = os.environ.get("OPENAI_BASE_URL")
-        self.key = os.environ.get("OPENAI_API_KEY")
-        self.key_cmd = os.environ.get("OPENAI_API_KEY_CMD")
+        # A protected pilot can compare a shared base endpoint with a locally
+        # served checkpoint in one run.  Prefer model-specific variables when
+        # present, then fall back to the historical process-wide variables.
+        # The suffix is deterministic and shell-safe, e.g. model id
+        # ``chattla-w4dgm-120b`` maps to ``CHATTLA_W4DGM_120B``.
+        route = re.sub(r"[^A-Za-z0-9]", "_", model_id).upper()
+        base = os.environ.get(f"OPENAI_BASE_URL_{route}",
+                              os.environ.get("OPENAI_BASE_URL"))
+        self.key = os.environ.get(f"OPENAI_API_KEY_{route}",
+                                  os.environ.get("OPENAI_API_KEY"))
+        self.key_cmd = os.environ.get(f"OPENAI_API_KEY_CMD_{route}",
+                                      os.environ.get("OPENAI_API_KEY_CMD"))
         if not base or not (self.key or self.key_cmd):
             raise SystemExit("OPENAI_BASE_URL and OPENAI_API_KEY (or "
                              "OPENAI_API_KEY_CMD) must be set "

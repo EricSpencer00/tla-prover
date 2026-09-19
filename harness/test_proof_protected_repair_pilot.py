@@ -9,6 +9,7 @@ from tools.proof_protected_repair_pilot import (
     build_packet,
     prompt_for,
 )
+from harness.repair import OpenAICompatModel
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -48,3 +49,17 @@ def test_budget_contract_is_fixed():
     assert INITIAL_ATTEMPTS == 8
     assert MAX_REPAIRS == 2
     assert MAX_TOKENS == 2048
+
+
+def test_model_specific_endpoint_overrides_global_route(monkeypatch):
+    monkeypatch.setenv("OPENAI_BASE_URL", "https://shared.example/v1")
+    monkeypatch.setenv("OPENAI_API_KEY", "shared")
+    monkeypatch.setenv(
+        "OPENAI_BASE_URL_CHATTLA_W4DGM_120B", "http://127.0.0.1:8321/v1"
+    )
+    monkeypatch.setenv("OPENAI_API_KEY_CHATTLA_W4DGM_120B", "local")
+
+    model = OpenAICompatModel("chattla-w4dgm-120b")
+
+    assert model.url == "http://127.0.0.1:8321/v1/chat/completions"
+    assert model.key == "local"
