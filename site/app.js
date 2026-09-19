@@ -8,6 +8,7 @@ const healthLabel = document.querySelector("#health-label");
 const runTime = document.querySelector("#run-time");
 const runLedger = document.querySelector("#run-ledger");
 const methodMatrix = document.querySelector("#method-matrix");
+const historicalRunMatrix = document.querySelector("#historical-run-matrix");
 const initialSource = source.value;
 
 function escapeHTML(value) {
@@ -86,6 +87,28 @@ function renderMethodMatrix(rows) {
   </tr>`).join("");
 }
 
+function renderHistoricalRunMatrix(rows) {
+  if (!historicalRunMatrix) return;
+  if (!Array.isArray(rows) || !rows.length) {
+    historicalRunMatrix.innerHTML = "<tr><td colspan=\"7\">No historical run snapshot is available.</td></tr>";
+    return;
+  }
+  historicalRunMatrix.innerHTML = rows.map((row) => {
+    const evidence = row.evidence
+      ? `<a href="https://github.com/LUC-AI4FM/tla-prover/blob/main/${encodeURI(row.evidence)}">Read ↗</a>`
+      : "";
+    return `<tr>
+      <td class="run-date">${escapeHTML(row.date || "—")}</td>
+      <td><strong>${escapeHTML(row.label || row.id || "Unnamed run")}</strong><small>${escapeHTML(row.id || "")}</small></td>
+      <td>${escapeHTML(row.arm || "—")}</td>
+      <td>${escapeHTML(row.budget || "—")}</td>
+      <td><strong>${escapeHTML(row.result || "No result recorded.")}</strong></td>
+      <td>${escapeHTML(row.meaning || "")}</td>
+      <td><span class="state ${statusClass(row.status)}">${escapeHTML((row.status || "unknown").replaceAll("_", " "))}</span>${evidence}</td>
+    </tr>`;
+  }).join("");
+}
+
 async function loadPublishedStatus() {
   try {
     const response = await fetch("status.json", { headers: { accept: "application/json" }, cache: "no-store" });
@@ -102,11 +125,13 @@ async function loadPublishedStatus() {
     if (note) note.textContent = data.freshness_note || "Published snapshot; use the notebook for a fresh probe.";
     renderRunLedger(data.training_runs);
     renderMethodMatrix(data.model_matrix);
+    renderHistoricalRunMatrix(data.historical_runs);
   } catch (error) {
     const note = document.querySelector("#snapshot-note");
     if (note) note.textContent = "Published snapshot unavailable; repository evidence remains the source of truth.";
     renderRunLedger([]);
     renderMethodMatrix([]);
+    renderHistoricalRunMatrix([]);
   }
 }
 
