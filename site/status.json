@@ -1,0 +1,367 @@
+{
+  "schema_version": 1,
+  "snapshot_kind": "published-research-status",
+  "published_at": "2026-09-18",
+  "source_commit": "a48447e5",
+  "freshness_note": "This is a published snapshot. Open the password-protected notebook for a fresh read-only backend and process probe.",
+  "program": {
+    "phase": "Stage 3 TLAPS prover research",
+    "headline": "The lab is open for inspection; the protected prover gate is still unmet.",
+    "gate": "0/119",
+    "gate_label": "protected TLAPS cases",
+    "gate_status": "not_passed"
+  },
+  "surfaces": [
+    {
+      "name": "Research hub",
+      "status": "published",
+      "detail": "This page: evidence, explanations, and the latest published snapshot."
+    },
+    {
+      "name": "Notebook",
+      "status": "password_required",
+      "detail": "Live TLAKit smoke check plus read-only Polaris/Sophia/process probes."
+    },
+    {
+      "name": "Public SANY runner",
+      "status": "available",
+      "detail": "Self-contained parse checks only; no files, shell, or scheduler access."
+    }
+  ],
+  "run_lifecycle": [
+    {"id": "freeze", "label": "Freeze", "detail": "Pin data, model, budget, and acceptance rule."},
+    {"id": "preflight", "label": "Preflight", "detail": "Validate dependencies, hashes, and trainability."},
+    {"id": "train", "label": "Train", "detail": "Produce a bounded checkpoint with an append-only log."},
+    {"id": "evaluate", "label": "Evaluate", "detail": "Run the registered generation budget and verifiers."},
+    {"id": "audit", "label": "Audit", "detail": "Reject vacuous or semantically weakened candidates."},
+    {"id": "promote", "label": "Promote", "detail": "Require strict protected improvement with proof evidence."}
+  ],
+  "training_runs": [
+    {
+      "id": "w4-diamond-gold",
+      "label": "W4-diamond-gold",
+      "status": "measured",
+      "result": "16/30 pass@32 after a prompt-harness fix",
+      "meaning": "Directional generation improvement; not a protected TLAPS claim.",
+      "evidence": "results/analysis/rowlevel_reanalysis_2026-07-30.md"
+    },
+    {
+      "id": "v2-sft2-120b",
+      "label": "v2 SFT / 120B",
+      "status": "quarantined",
+      "result": "11/30 framing A; 18/23 framing B",
+      "meaning": "Did not beat the frozen Gate-2 baseline; retained as negative evidence.",
+      "evidence": "README.md"
+    },
+    {
+      "id": "stage3-tlaps",
+      "label": "Stage 3 TLAPS prover",
+      "status": "open",
+      "result": "0/119 protected cases",
+      "meaning": "This is the active target. No training proxy is allowed to replace it.",
+      "evidence": "GATE1_STATUS.md"
+    }
+  ],
+  "historical_runs": [
+    {
+      "date": "2026-07-05",
+      "id": "gate0-oracle-closure",
+      "label": "Gate 0 oracle closure",
+      "arm": "Frozen corpus / oracle",
+      "budget": "206 specs · local + HPC verification",
+      "result": "170/206 closed; hash-pinned",
+      "meaning": "The protected corpus floor; this is a verified target set, not a model result.",
+      "status": "measured",
+      "evidence": "GATE0_STATUS.md"
+    },
+    {
+      "date": "2026-07-05",
+      "id": "g1-sweep2r-gptoss120b",
+      "label": "Gate 1 repair sweep",
+      "arm": "gpt-oss-120b · prompt-only",
+      "budget": "206 specs · best-of-8 · ≤24 candidates",
+      "result": "166/206 audited model-only (170 naive)",
+      "meaning": "Signed-off repair arm; four semantic false passes were rejected.",
+      "status": "measured",
+      "evidence": "GATE1_STATUS.md"
+    },
+    {
+      "date": "2026-07-05",
+      "id": "g1-sweep-gptoss20b",
+      "label": "Gate 1 repair sweep",
+      "arm": "gpt-oss-20b · prompt-only",
+      "budget": "206 specs · best-of-8 · ≤24 candidates",
+      "result": "≈154 naive; ≈91 semantic-audit rejects",
+      "meaning": "A contention-inflated comparison arm; its rejects remain negative evidence.",
+      "status": "measured",
+      "evidence": "GATE1_STATUS.md"
+    },
+    {
+      "date": "2026-07-08",
+      "id": "e2c-baseline-20b",
+      "label": "E2.c frozen baseline",
+      "arm": "gpt-oss-20b · prompt-only",
+      "budget": "30 holdout specs · framings A/B · k=32",
+      "result": "A 4/30; B 19/23 pass@32",
+      "meaning": "Measured comparison arm; the 120B arm was stronger in all four gate cells.",
+      "status": "baseline",
+      "evidence": "corpus/e2c_baseline.json"
+    },
+    {
+      "date": "2026-07-08",
+      "id": "e2c-baseline-120b",
+      "label": "E2.c frozen baseline",
+      "arm": "gpt-oss-120b · prompt-only",
+      "budget": "30 holdout specs · framings A/B · k=32",
+      "result": "A 12/30; B 20/23 pass@32",
+      "meaning": "Best arm in all four cells; became the frozen Gate-2 comparator.",
+      "status": "baseline",
+      "evidence": "corpus/e2c_baseline.json"
+    },
+    {
+      "date": "2026-07-12",
+      "id": "w21-w22-v2-funnel",
+      "label": "v2 corpus funnel",
+      "arm": "gpt-oss generation + verification",
+      "budget": "800 attempts · decontamination + quality gates",
+      "result": "260 survivors (32.5%)",
+      "meaning": "Produced the harmony-formatted v2 corpus used by the SFT rounds; corpus quality gates passed.",
+      "status": "measured",
+      "evidence": "PLAN.md"
+    },
+    {
+      "date": "2026-07-12",
+      "id": "v2-sft1-20b",
+      "label": "v2 SFT round 1",
+      "arm": "gpt-oss-20b · LoRA / PEFT",
+      "budget": "39 plain-text pairs · framing A · 10 specs · k=3",
+      "result": "0/10; 82% of samples unextractable",
+      "meaning": "Harmony/channel formatting failure, not a Gate-2 capability result.",
+      "status": "failed",
+      "evidence": "PLAN.md"
+    },
+    {
+      "date": "2026-07-15",
+      "id": "v2-sft2-120b",
+      "label": "v2 SFT round 2",
+      "arm": "gpt-oss-120b · LoRA / PEFT",
+      "budget": "260 harmony pairs · frozen Gate-2 budget",
+      "result": "A 11/30; B 18/23 pass@32",
+      "meaning": "Failed the frozen comparator (12/30; 20/23); retained as negative evidence.",
+      "status": "failed",
+      "evidence": "README.md"
+    },
+    {
+      "date": "2026-07-16",
+      "id": "directional-repair-v1-b",
+      "label": "W2.6 repair-v1",
+      "arm": "gpt-oss-20b · repair-shaped LoRA",
+      "budget": "508 harmony pairs · framing B · k=4",
+      "result": "pass@1 9/23; pass@4 9/23 (baseline 17/23)",
+      "meaning": "The +1 greedy gain came with diversity collapse; fine-tuning was shelved.",
+      "status": "shelved",
+      "evidence": "PLAN.md"
+    },
+    {
+      "date": "2026-07-17",
+      "id": "w27-structural-scaffolding",
+      "label": "W2.7 structural scaffolding",
+      "arm": "gpt-oss-120b · prompt-only",
+      "budget": "70 model-hard seeds · control vs scaffold",
+      "result": "4/70 control; 4/70 scaffold",
+      "meaning": "Null result: prompt-level structure changed the pass set, not the yield.",
+      "status": "measured",
+      "evidence": "PLAN.md"
+    },
+    {
+      "date": "2026-07-17",
+      "id": "w32-probe-120b",
+      "label": "W3.2 proof generation probe",
+      "arm": "gpt-oss-120b · prompt-only",
+      "budget": "20 TLAPS probes · lmgpa bench",
+      "result": "0/20 certified",
+      "meaning": "Proof generation stayed at the 0/119 protected floor; repair-and-extend remains the live path.",
+      "status": "failed",
+      "evidence": "PLAN.md"
+    },
+    {
+      "date": "2026-07-18",
+      "id": "w32-guided-120b",
+      "label": "W3.2 guided proof probe",
+      "arm": "gpt-oss-120b · grammar-guided decoding",
+      "budget": "20 TLAPS probes · proof grammar v0.3",
+      "result": "0/20 certified; 80/80 parser errors",
+      "meaning": "Guidance moved the failure deeper into proof syntax without improving certification.",
+      "status": "failed",
+      "evidence": "PLAN.md"
+    },
+    {
+      "date": "2026-07-19",
+      "id": "w4-cross-family",
+      "label": "W4 cross-family funnel",
+      "arm": "Claude Opus teachers vs gpt-oss-120b",
+      "budget": "400-cell lattice · same verification gates",
+      "result": "Opus 400/400; gpt-oss 50/400 survivors",
+      "meaning": "Cross-family generation widened the corpus; the self-family arm remained the comparison.",
+      "status": "measured",
+      "evidence": "PLAN.md"
+    },
+    {
+      "date": "2026-07-25",
+      "id": "w4-diamond-20b",
+      "label": "W4 diamond mechanics run",
+      "arm": "gpt-oss-20b · expert-reaching LoRA",
+      "budget": "508 rows · 2 epochs · 2×A100",
+      "result": "Training completed; no pass@k claim",
+      "meaning": "Cheap validation run; entropy exposed the diversity-collapse risk before 120B spend.",
+      "status": "measured",
+      "evidence": "results/analysis/w4_diamond_20b_run.md"
+    },
+    {
+      "date": "2026-07-26",
+      "id": "qwen36-retracted",
+      "label": "Base-model comparison",
+      "arm": "Qwen3.6-27B · intended LoRA / PEFT",
+      "budget": "Training dynamics only · no holdout eval",
+      "result": "Retracted; only 0.0195% was trainable",
+      "meaning": "The dense-model resolver matched nothing; no capability comparison survives.",
+      "status": "retracted",
+      "evidence": "results/analysis/base_model_comparison_2026-07-26.md"
+    },
+    {
+      "date": "2026-07-27",
+      "id": "w4-corpus-floor",
+      "label": "W4 corpus audit",
+      "arm": "Cross-family training corpus",
+      "budget": "5,010 effective rows · 567 liveness",
+      "result": "Corpus floors met",
+      "meaning": "The W4 training data cleared its pre-registered size floors; this is not a capability evaluation.",
+      "status": "measured",
+      "evidence": "results/analysis/W4_FLOOR_REACHED.md"
+    },
+    {
+      "date": "2026-07-29",
+      "id": "gate2-w4dg-120b-a",
+      "label": "W4-diamond-gold evaluation",
+      "arm": "gpt-oss-120b · merged LoRA",
+      "budget": "Framing A · 30 specs · k=32",
+      "result": "15/30 pass@32; prompt-harness defect found",
+      "meaning": "The run exposed a measurement bug; the pre-fix number is not the final baseline.",
+      "status": "measured",
+      "evidence": "docs/W4DG_GATE2_SESSION_2026-07-29.md"
+    },
+    {
+      "date": "2026-07-30",
+      "id": "gate2-w4dg-120b-a3",
+      "label": "W4-diamond-gold re-run",
+      "arm": "gpt-oss-120b · merged LoRA",
+      "budget": "Framing A · 30 specs · k=32",
+      "result": "16/30 pass@32 after the prompt fix",
+      "meaning": "A new post-fix baseline; not evidence that the protected Gate-2 bar was met.",
+      "status": "measured",
+      "evidence": "results/analysis/rowlevel_reanalysis_2026-07-30.md"
+    },
+    {
+      "date": "2026-07-30",
+      "id": "gate2-w4dg-120b-b",
+      "label": "W4-diamond-gold repair evaluation",
+      "arm": "gpt-oss-120b · merged LoRA",
+      "budget": "Framing B · 30 specs · k=32",
+      "result": "110/990 rows; partial run",
+      "meaning": "The repair framing was not complete, so no overall B claim is published.",
+      "status": "open",
+      "evidence": "docs/W4DG_GATE2_SESSION_2026-07-29.md"
+    }
+  ],
+  "model_matrix": [
+    {
+      "base_model": "gpt-oss-20b",
+      "method": "Prompt-only",
+      "update_scope": "No parameters updated",
+      "run": "Gate-2 frozen baseline",
+      "outcome": "Measured comparison arm",
+      "status": "baseline",
+      "claim": "No training claim"
+    },
+    {
+      "base_model": "gpt-oss-120b",
+      "method": "Prompt-only",
+      "update_scope": "No parameters updated",
+      "run": "Gate-2 frozen baseline",
+      "outcome": "A 12/30; B 20/23 pass@32",
+      "status": "baseline",
+      "claim": "Best frozen comparison arm; no training claim"
+    },
+    {
+      "base_model": "gpt-oss-20b",
+      "method": "LoRA / PEFT SFT",
+      "update_scope": "Expert-reaching adapter recipe",
+      "run": "v2_sft1 · 39 plain-text pairs",
+      "outcome": "0/10 directional; 82% unextractable",
+      "status": "failed",
+      "claim": "Pipeline/channel failure, not a capability result"
+    },
+    {
+      "base_model": "gpt-oss-120b",
+      "method": "LoRA / PEFT SFT",
+      "update_scope": "Harmony-formatted adapter targets",
+      "run": "v2_sft2 · 260 pairs",
+      "outcome": "A 11/30; B 18/23",
+      "status": "failed",
+      "claim": "Did not beat the frozen baseline"
+    },
+    {
+      "base_model": "gpt-oss-20b",
+      "method": "LoRA / PEFT SFT",
+      "update_scope": "Expert-LoRA",
+      "run": "W2.6 repair-v1 · 508 pairs",
+      "outcome": "+1 pass@1; −8 pass@4",
+      "status": "shelved",
+      "claim": "Diversity collapse reproduced; fine-tuning shelved"
+    },
+    {
+      "base_model": "Qwen3.6-27B",
+      "method": "Intended LoRA / PEFT SFT",
+      "update_scope": "Resolver matched nothing; 0.0195% trainable",
+      "run": "Retracted base-model comparison",
+      "outcome": "Invalid comparison",
+      "status": "retracted",
+      "claim": "Fix architecture-aware resolution before rerunning"
+    },
+    {
+      "base_model": "Any",
+      "method": "Full fine-tuning",
+      "update_scope": "All selected base weights",
+      "run": "No registered run",
+      "outcome": "Not done",
+      "status": "not_run",
+      "claim": "No full-fine-tuning claim"
+    },
+    {
+      "base_model": "Any",
+      "method": "Stage-3 RL / GRPO",
+      "update_scope": "Policy update from verified reward",
+      "run": "No protected result",
+      "outcome": "Not done",
+      "status": "not_run",
+      "claim": "Protected TLAPS target remains 0/119"
+    }
+  ],
+  "compute": {
+    "aisec": {
+      "status": "lab_running",
+      "visible": "notebook_only",
+      "detail": "Password-protected Jupyter lab, isolated TLAKit runner, and tunnel; no public shell or job control."
+    },
+    "polaris": {
+      "status": "probe_on_demand",
+      "visible": "notebook_only",
+      "detail": "Fresh read-only reachability and user-owned process metadata are shown in the notebook when configured."
+    },
+    "sophia": {
+      "status": "probe_on_demand",
+      "visible": "notebook_only",
+      "detail": "Fresh read-only reachability and user-owned process metadata are shown in the notebook when configured."
+    }
+  }
+}

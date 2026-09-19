@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A shared research hub for understanding TLA-Prover training runs, evidence, live lab status, and the protected proof gate.">
+  <title>TLA-Prover · Evidence, runs, and a live TLA+ lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Atkinson+Hyperlegible:wght@400;700&family=Recursive:MONO,wght@1,400;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to evidence</a>
+  <header class="masthead">
+    <a class="wordmark" href="#top" aria-label="TLA-Prover home">TLA<span>+</span>PROVER</a>
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      <a href="#mission">Mission</a>
+      <a href="#runs">Run board</a>
+      <a href="#methods">Methods</a>
+      <a href="#run-matrix">Run matrix</a>
+      <a href="#lab">Live lab</a>
+      <a href="#reproduce">Reproduce</a>
+    </nav>
+    <div class="masthead-actions">
+      <details class="mobile-nav">
+        <summary>Menu</summary>
+        <nav aria-label="Mobile navigation">
+          <a href="#mission">Mission</a>
+          <a href="#runs">Run board</a>
+          <a href="#methods">Methods</a>
+          <a href="#run-matrix">Run matrix</a>
+          <a href="#lab">Live lab</a>
+          <a href="#reproduce">Reproduce</a>
+        </nav>
+      </details>
+      <a class="repo-link" href="https://github.com/LUC-AI4FM/tla-prover">GitHub ↗</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">LUC AI4FM · Formal proof research</p>
+        <h1 id="hero-title">Teach a model to prove it.<br><span>Then make it prove it.</span></h1>
+        <p class="lede">A shared research room for training TLA+ provers without self-certification. Teammates can see what is live, understand what a run means, and follow every claim back to an executable checker and append-only evidence trail.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#runs">See what is live</a>
+          <a class="button text" href="https://github.com/LUC-AI4FM/tla-prover/blob/main/notebooks/tla_prover_lab.ipynb">Open the notebook ↗</a>
+        </div>
+      </div>
+      <aside class="gate-stamp" aria-label="Current protected gate status">
+        <span class="stamp-index">G2 / PROTECTED</span>
+        <strong>0<span>/119</span></strong>
+        <p>Passing proofs</p>
+        <span class="state failed">NOT PASSED</span>
+        <small>Frozen denominator. No proxy substitutions.</small>
+      </aside>
+      <div class="claim-boundary">
+        <span>Current claim boundary</span>
+        <p>Learning signals exist. A general prover has not yet passed the protected acceptance gate.</p>
+      </div>
+    </section>
+
+    <section class="section mission" id="mission" aria-labelledby="mission-title">
+      <header class="section-heading compact">
+        <p class="section-number">01</p>
+        <div>
+          <p class="eyebrow">For the whole team</p>
+          <h2 id="mission-title">Know what ran before you trust what it says.</h2>
+        </div>
+        <p class="section-note">The hub is the map. The notebook is the live read-only instrument. The repository ledger is the source of truth.</p>
+      </header>
+      <div class="mission-grid">
+        <article>
+          <span class="mission-mark">A</span>
+          <h3>Orient</h3>
+          <p>Start with the current claim boundary, training stage, and protected denominator. A healthy machine is not a better prover.</p>
+        </article>
+        <article>
+          <span class="mission-mark">B</span>
+          <h3>Inspect</h3>
+          <p>Open the notebook for a fresh TLAKit smoke check and read-only Polaris/Sophia process view. It cannot submit or cancel jobs.</p>
+        </article>
+        <article>
+          <span class="mission-mark">C</span>
+          <h3>Challenge</h3>
+          <p>Read the config, rows, summary, and audit together. Keep rejected candidates: they are how we avoid cycling and reward hacking.</p>
+        </article>
+      </div>
+      <div class="mission-callout">
+        <div><span>Current program</span><strong id="program-phase">Loading…</strong></div>
+        <div><span>Protected gate</span><strong id="program-gate">Loading…</strong></div>
+        <div><span>Published snapshot</span><strong id="snapshot-date">Loading…</strong></div>
+      </div>
+    </section>
+
+    <section class="section results" id="results" aria-labelledby="results-title">
+      <header class="section-heading">
+        <p class="section-number">02</p>
+        <div>
+          <p class="eyebrow">Measured, not marketed</p>
+          <h2 id="results-title">The complete result, including the losses.</h2>
+        </div>
+      </header>
+
+      <div class="result-table" role="table" aria-label="Verified project results">
+        <div class="result-row table-head" role="row">
+          <span role="columnheader">Gate / experiment</span>
+          <span role="columnheader">Measurement</span>
+          <span role="columnheader">Interpretation</span>
+          <span role="columnheader">Evidence</span>
+        </div>
+        <div class="result-row" role="row">
+          <span role="cell"><b>Gate 0</b><small>Harness + oracle</small></span>
+          <span role="cell" class="measure pass">170 / 206</span>
+          <span role="cell">Hash-pinned oracle closure. Signed off.</span>
+          <span role="cell"><a href="https://github.com/LUC-AI4FM/tla-prover/blob/main/GATE0_STATUS.md">Gate 0 status ↗</a></span>
+        </div>
+        <div class="result-row" role="row">
+          <span role="cell"><b>Gate 1</b><small>Audited model repairs</small></span>
+          <span role="cell" class="measure pass">166 / 206</span>
+          <span role="cell">Four naive passes rejected by semantic audit.</span>
+          <span role="cell"><a href="https://github.com/LUC-AI4FM/tla-prover/blob/main/GATE1_STATUS.md">Gate 1 status ↗</a></span>
+        </div>
+        <div class="result-row" role="row">
+          <span role="cell"><b>W4 corpus</b><small>Cross-family training data</small></span>
+          <span role="cell" class="measure pass">5,010 rows</span>
+          <span role="cell">Corpus floor met, including 567 liveness rows.</span>
+          <span role="cell"><a href="https://github.com/LUC-AI4FM/tla-prover/blob/main/docs/W4_CELL_RULES.md">Cell rules ↗</a></span>
+        </div>
+        <div class="result-row" role="row">
+          <span role="cell"><b>W4 vs v2</b><small>Byte-identical prompts</small></span>
+          <span role="cell" class="measure pass">+6.04 pp</span>
+          <span role="cell">Row-level yield improvement, p = 0.0019.</span>
+          <span role="cell"><a href="https://github.com/LUC-AI4FM/tla-prover/blob/main/results/analysis/rowlevel_reanalysis_2026-07-30.md">Analysis ↗</a></span>
+        </div>
+        <div class="result-row critical" role="row">
+          <span role="cell"><b>Stage 3</b><small>TLAPS prover</small></span>
+          <span role="cell" class="measure fail">0 / 119</span>
+          <span role="cell">Protected floor remains zero. This is the active research target.</span>
+          <span role="cell"><a href="https://github.com/LUC-AI4FM/tla-prover/blob/main/PLAN.md">Binding plan ↗</a></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section methods" id="methods" aria-labelledby="methods-title">
+      <header class="section-heading compact">
+        <p class="section-number">03</p>
+        <div>
+          <p class="eyebrow">Model × method</p>
+          <h2 id="methods-title">“Trained” is not a method.</h2>
+        </div>
+        <p class="section-note">LoRA moves adapters. Full fine-tuning moves base weights. Prompt-only moves no parameters. The matrix keeps those claims apart.</p>
+      </header>
+      <div class="method-table-wrap" tabindex="0" role="region" aria-label="Model and method comparison">
+        <div class="method-table-hint" aria-hidden="true"><span>Swipe to see all columns</span><span aria-hidden="true">→</span></div>
+        <table class="method-table">
+          <thead>
+            <tr><th>Base model</th><th>Method</th><th>What could move</th><th>Run / outcome</th><th>Honest status</th></tr>
+          </thead>
+          <tbody id="method-matrix">
+            <tr><td colspan="5">Loading the method matrix…</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="not-done">
+        <strong>Not done</strong>
+        <p>There is no registered full-fine-tuning run, no corrected Qwen adapter run, and no protected Stage-3 RL/GRPO result. The current protected target remains 0/119.</p>
+        <a href="https://github.com/LUC-AI4FM/tla-prover/blob/main/docs/MODEL_METHOD_MATRIX.md">Read the definitions and evidence ↗</a>
+      </div>
+    </section>
+
+    <section class="section historical-runs" id="run-matrix" aria-labelledby="run-matrix-title">
+      <header class="section-heading compact">
+        <p class="section-number">04</p>
+        <div>
+          <p class="eyebrow">Historical run matrix</p>
+          <h2 id="run-matrix-title">Every measured arm. Every caveat.</h2>
+        </div>
+        <p class="section-note">A curated register of material model, corpus, and evaluation runs. Shards, retries, and verifier checks stay in the repository evidence ledger.</p>
+      </header>
+      <div class="run-matrix-wrap" tabindex="0" role="region" aria-label="Historical model run matrix">
+        <div class="run-matrix-hint" aria-hidden="true"><span>Swipe to see all columns</span><span aria-hidden="true">→</span></div>
+        <table class="run-matrix">
+          <thead>
+            <tr><th>Date</th><th>Run</th><th>Model / arm</th><th>Budget or set</th><th>Result</th><th>What it means</th><th>Status</th></tr>
+          </thead>
+          <tbody id="historical-run-matrix">
+            <tr><td colspan="7">Loading the historical run matrix…</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="matrix-footnote">Read each number with its evidence link. A completed job is not automatically a capability result, and a negative or retracted run remains part of the research record.</p>
+    </section>
+
+    <section class="section ledger" id="runs" aria-labelledby="ledger-title">
+      <header class="section-heading compact">
+        <p class="section-number">05</p>
+        <div>
+          <p class="eyebrow">Published run board</p>
+          <h2 id="ledger-title">What ran, what failed, what is next.</h2>
+        </div>
+        <p class="section-note" id="snapshot-note">Loading the latest safe snapshot. Infrastructure state stays separate from model evidence.</p>
+      </header>
+      <div class="ledger-track" id="run-ledger" aria-live="polite"></div>
+      <div class="compute-watch">
+        <div>
+          <span class="eyebrow">Compute watch</span>
+          <h3>Fresh process details stay in the notebook.</h3>
+        </div>
+        <p id="compute-summary">The public board reports the last published state. The password-protected notebook can make a fresh, read-only probe of user-owned processes on configured backends without exposing command arguments or controls.</p>
+        <a class="button text" href="https://github.com/LUC-AI4FM/tla-prover/blob/main/notebooks/tla_prover_lab.ipynb">Open live inspection notebook ↗</a>
+      </div>
+    </section>
+
+    <section class="section lab" id="lab" aria-labelledby="lab-title">
+      <header class="section-heading lab-heading">
+        <p class="section-number">06</p>
+        <div>
+          <p class="eyebrow">Runnable in the browser</p>
+          <h2 id="lab-title">Ask SANY, not the page.</h2>
+          <p>Edit the module and run a real syntax and level check through TLAKit’s isolated public runner. The result comes from the toolchain.</p>
+        </div>
+        <div class="runner-health" aria-live="polite"><span class="health-dot"></span><span id="health-label">Checking runner…</span></div>
+      </header>
+      <div class="workbench">
+        <div class="editor-pane">
+          <label for="tla-source">TLA+ module</label>
+          <textarea id="tla-source" spellcheck="false" aria-describedby="editor-help">---- MODULE WebLab ----
+EXTENDS Naturals
+
+THEOREM TwoIsEven == \E n \in Nat : 2 = 2 * n
+====</textarea>
+          <p id="editor-help">The runner accepts one self-contained module. No files or shell access.</p>
+          <div class="editor-actions">
+            <button class="button primary" id="run-parse" type="button">Run SANY check</button>
+            <button class="button text" id="reset-source" type="button">Reset example</button>
+          </div>
+        </div>
+        <div class="output-pane" aria-live="polite" aria-atomic="true">
+          <div class="output-head"><span>Mechanical result</span><span id="run-time">Not run</span></div>
+          <div id="run-output" class="empty-output">
+            <strong>Ready.</strong>
+            <p>Run the module to see the parser outcome and diagnostics.</p>
+          </div>
+        </div>
+      </div>
+      <p class="lab-disclaimer"><b>Claim boundary:</b> a successful browser check demonstrates that this module parses. It does not score a model, pass the 119-case gate, or validate a generated proof corpus.</p>
+    </section>
+
+    <section class="section reproduce" id="reproduce" aria-labelledby="reproduce-title">
+      <header class="section-heading">
+        <p class="section-number">07</p>
+        <div>
+          <p class="eyebrow">Take the instrument with you</p>
+          <h2 id="reproduce-title">Notebook, harness, data, commands.</h2>
+        </div>
+      </header>
+      <div class="source-list">
+        <a href="https://github.com/LUC-AI4FM/tla-prover/blob/main/notebooks/tla_prover_lab.ipynb"><span>01</span><strong>Research notebook</strong><small>TLAKit, cluster probes, experiment policy</small><b>↗</b></a>
+        <a href="https://github.com/LUC-AI4FM/tla-prover/blob/main/PLAN.md"><span>02</span><strong>Binding plan</strong><small>Goals, immutable gates, amendment log</small><b>↗</b></a>
+        <a href="https://github.com/LUC-AI4FM/tla-prover/tree/main/results"><span>03</span><strong>Evidence ledger</strong><small>Append-only rows, summaries, independent analyses</small><b>↗</b></a>
+        <a href="https://github.com/LUC-AI4FM/tla-prover/tree/main/harness"><span>04</span><strong>Verification harness</strong><small>SANY, TLC, TLAPS, vacuity and semantic audit</small><b>↗</b></a>
+        <a href="https://github.com/LUC-AI4FM/tla-prover/blob/main/docs/BRANCH_CONSOLIDATION_2026-09-18.md"><span>05</span><strong>Branch quality audit</strong><small>Promoted, rejected, and deferred histories with reasons</small><b>↗</b></a>
+        <a href="https://github.com/LUC-AI4FM/tla-prover/blob/main/docs/TEAM_GUIDE.md"><span>06</span><strong>Team guide</strong><small>Run lifecycle, status vocabulary, and claim boundaries</small><b>↗</b></a>
+      </div>
+      <div class="command-strip">
+        <div><span>Clone and enter</span><code>git clone https://github.com/LUC-AI4FM/tla-prover.git</code></div>
+        <div><span>Open the lab</span><code>python3 -m venv .venv-tlakit &amp;&amp; .venv-tlakit/bin/pip install -r notebooks/requirements.txt</code></div>
+        <div><span>Verify the harness</span><code>python3 -m pytest harness/ -q</code></div>
+      </div>
+    </section>
+
+    <section class="principles" aria-labelledby="principles-title">
+      <p class="eyebrow">The rules behind the numbers</p>
+      <h2 id="principles-title">No self-certification.<br>No moving denominator.<br>No reward hacking.</h2>
+      <ol>
+        <li><span>01</span><p><b>Freeze before training.</b> Protected cases, hashes, and acceptance predicates are fixed before a candidate sees feedback.</p></li>
+        <li><span>02</span><p><b>Verify meaning.</b> Syntax is necessary. Non-vacuity, intended properties, and real proof evidence decide acceptance.</p></li>
+        <li><span>03</span><p><b>Keep the negatives.</b> Failed branches and rejected edits remain evidence. They prevent cycling and expose local minima.</p></li>
+        <li><span>04</span><p><b>Separate status from capability.</b> A healthy endpoint, lower loss, or completed GPU job is never a theorem-proving result.</p></li>
+      </ol>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wordmark">TLA<span>+</span>PROVER</div>
+    <p>Built by LUC AI4FM as an inspectable research instrument.</p>
+    <div><a href="https://github.com/LUC-AI4FM/tla-prover/issues">Issues</a><a href="https://github.com/LUC-AI4FM/tlakit">TLAKit</a><a href="https://github.com/LUC-AI4FM/tla-prover/blob/main/LICENSE">MIT</a></div>
+  </footer>
+</body>
+</html>
