@@ -4,14 +4,14 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 979
-- Verified UTC: 2026-09-19T17:21:54Z
+- Revision: 978
+- Verified UTC: 2026-09-19T07:44:50Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: complete
 - Active job: none
-- Observation evidence: At 2026-09-19T17:21:54Z, a fresh BatchMode SSH check reached polaris-login-01 and found /opt/pbs/bin/qstat with no jobs for eric. The local process check found no prover, TLAPS, qsub or scheduler process; only the persistent polaris SSH control session remains. No active job is verified.
+- Observation evidence: At 2026-09-19T07:23:09Z, PBS recorded job 7634951 F/Exit0 after 00:03:34 on x3013c0s13b0n0/0*64 with exec_vnode ngpus=1; stageout_status=1 is preserved. The remote result receipt and matching local hashes are present. Independent strict scoring then ran to the frozen 900-second bound.
 - Latest completed result: Job 7634951 completed the answer-free official v2 evaluation: 119/119 ranked tasks, 462 candidates, zero training/repair/feedback/TLAPS execution in the worker, and no quality/proof/gate claim. The independent strict uncached TLAPS audit fully ranked all 119, measured 107 before the hard wall-clock bound, and certified 43 measured tasks in bounded top-4 search, including 42 rank-1 certifications; 12 tasks were unmeasured because the bound expired. This is generation/ranking evidence only, not a prover or promotion result.
-- Local work: The active /Users/eric/GitHub/prove-TLA checkout is on board/193 at commit 1f382a42 (Audit official typed candidate ranking) with only untracked experiment artifacts in the worktree; no tracked edits were staged. The branch contains roughly 25,000 changed files and 17 million inserted lines relative to its older main base, mostly generated experiment artifacts, so it remains outside the public release line. The public consolidation boundary is documented in EricSpencer00/tla-prover's docs/BRANCH_CONSOLIDATION_2026-09-18.md; only independently verified deliverables belong on public main.
+- Local work: Commits 245662e0, 96d5747f, 70bebeab, be28d453, 64fa3ad6, 5c9b01b2, 9d2e40e7 and 17e80ba0 preserve the typed-agenda receipts, beam audit, official transfer evaluator, both strict-label negatives, broader packet/PBS, handoff audit and board closure. The local canary fix and receipt are preserved in commit a1b953ae. This turnaround adds the retrieved 7634951 receipt, independent strict-score receipt, typed-packet validation in the official scorer, and its focused regression test; no pre-existing work was staged. The scorer binds both immutable parent packet f40539a2 and typed packet170cf309, source manifest3380cf37 and parent checkpoint87489e47. No reference fragments, protected feedback, repair or reward entered the worker or scorer.
 - External blocker: none verified
 - Next action: Use this positive answer-free ranking signal to select a stratified 20–30-case protected repair-and-extend pilot. Require independent SANY, TLC/non-vacuity and strict TLAPS scoring, four arms where affordable, fixed 8-candidate plus 2-repair budgets, and promotion only after at least three certified cases spanning two failure modes. Do not treat the 43/107 bounded certifications as a prover or gate result.
 
@@ -801,14 +801,14 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 979,
-  "verified_utc": "2026-09-19T17:21:54Z",
+  "revision": 978,
+  "verified_utc": "2026-09-19T07:44:50Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "complete",
   "active_job": null,
-  "observation_evidence": "At 2026-09-19T17:21:54Z, a fresh BatchMode SSH check reached polaris-login-01 and found /opt/pbs/bin/qstat with no jobs for eric. The local process check found no prover, TLAPS, qsub or scheduler process; only the persistent polaris SSH control session remains. No active job is verified.",
+  "observation_evidence": "At 2026-09-19T07:23:09Z, PBS recorded job 7634951 F/Exit0 after 00:03:34 on x3013c0s13b0n0/0*64 with exec_vnode ngpus=1; stageout_status=1 is preserved. The remote result receipt and matching local hashes are present. Independent strict scoring then ran to the frozen 900-second bound.",
   "last_result": "Job 7634951 completed the answer-free official v2 evaluation: 119/119 ranked tasks, 462 candidates, zero training/repair/feedback/TLAPS execution in the worker, and no quality/proof/gate claim. The independent strict uncached TLAPS audit fully ranked all 119, measured 107 before the hard wall-clock bound, and certified 43 measured tasks in bounded top-4 search, including 42 rank-1 certifications; 12 tasks were unmeasured because the bound expired. This is generation/ranking evidence only, not a prover or promotion result.",
-  "local_work": "The active /Users/eric/GitHub/prove-TLA checkout is on board/193 at commit 1f382a42 (Audit official typed candidate ranking) with only untracked experiment artifacts in the worktree; no tracked edits were staged. The branch contains roughly 25,000 changed files and 17 million inserted lines relative to its older main base, mostly generated experiment artifacts, so it remains outside the public release line. The public consolidation boundary is documented in EricSpencer00/tla-prover's docs/BRANCH_CONSOLIDATION_2026-09-18.md; only independently verified deliverables belong on public main.",
+  "local_work": "Commits 245662e0, 96d5747f, 70bebeab, be28d453, 64fa3ad6, 5c9b01b2, 9d2e40e7 and 17e80ba0 preserve the typed-agenda receipts, beam audit, official transfer evaluator, both strict-label negatives, broader packet/PBS, handoff audit and board closure. The local canary fix and receipt are preserved in commit a1b953ae. This turnaround adds the retrieved 7634951 receipt, independent strict-score receipt, typed-packet validation in the official scorer, and its focused regression test; no pre-existing work was staged. The scorer binds both immutable parent packet f40539a2 and typed packet170cf309, source manifest3380cf37 and parent checkpoint87489e47. No reference fragments, protected feedback, repair or reward entered the worker or scorer.",
   "external_blocker": "",
   "next_action": "Use this positive answer-free ranking signal to select a stratified 20\u201330-case protected repair-and-extend pilot. Require independent SANY, TLC/non-vacuity and strict TLAPS scoring, four arms where affordable, fixed 8-candidate plus 2-repair budgets, and promotion only after at least three certified cases spanning two failure modes. Do not treat the 43/107 bounded certifications as a prover or gate result.",
   "tasks": [
