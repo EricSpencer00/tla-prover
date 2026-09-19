@@ -4,16 +4,16 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 971
-- Verified UTC: 2026-09-18T06:02:34Z
+- Revision: 972
+- Verified UTC: 2026-09-19T06:38:24Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
-- Phase: local_work
+- Phase: external_wait
 - Active job: none
-- Observation evidence: At 2026-09-18T05:10:32Z, candidate-specific typed-agenda v2 remains fully reconciled: job7630620 Exit_status=0 with exact receipts, and the fresh strict top-4 beam audit completed48 uncached checks. The broader32 packet passed local admission, then its complete TRAIN lattice received a fresh independent strict-TLAPS audit without inspecting DEVELOPMENT or official rows.
-- Latest completed result: The existing candidate-rank result remains base0/4, parent2/4 and child2/4 at strict top-1 over fixed116; top-4 coverage is base6 across4/4 tasks, parent4 across2/4 and child8 across4/4. The 17-row strict TRAIN-label branch certified0/153 and the broader32 branch certified0/848 candidates across0/32 tasks. The official-119 handoff passed the corrected remote CPU guards, then job7631579 terminated before model import because proof_sequence_train, proof_candidate_rank and proof_repair_pilot were missing from the staged closure; PBS Exit1 recorded resources_used.ngpus=0 and no result directory. No model, proof, quality or gate claim.
-- Local work: Commits 245662e0, 96d5747f, 70bebeab, be28d453, 64fa3ad6, 5c9b01b2, 9d2e40e7 and 17e80ba0 preserve the typed-agenda receipts, beam audit, official transfer evaluator, both strict-label negatives, broader packet/PBS, handoff audit and board closure. The broader strict-label receipt has packet SHA c919646e, label SHA6c64bb06, 848 fresh uncached checks and0/32 positive tasks; the official handoff receipt records exact packet/head/PBS/implementation hashes and9 passing local guards. The v1 remote packaging receipt preserves job7631579's pre-model failure with zero GPU usage; v2 adds the complete transitive import closure. No DEVELOPMENT/official answers, reference fragments, protected feedback, repair or reward entered these checks. No model, proof, quality, gate or promotion claim exists.
-- External blocker: none verified
-- Next action: Preserve v1 job7631579 as infrastructure evidence, transfer the append-only v2 bundle with proof_sequence_train, proof_candidate_rank and proof_repair_pilot, rerun fresh remote CPU/import/empty-output guards, then submit at most one corrected one-GPU/00:15:00 official-119 evaluation. Require independent strict scoring; no GPU or gate claim may be made before those checks pass.
+- Observation evidence: At 2026-09-19T06:38:24Z, the local measurement canary passed candidate/proof extraction, positive and negative SANY, positive TLC with empty vacuity flags, trivial-invariant detection, semantic-audit CLEAN/REVIEW classification, timeout classification, and the known-good/known-false TLAPS controls. The remote read-only Polaris SSH check still returns permission denied before transfer or submission.
+- Latest completed result: Local canary is green after commit a1b953ae: 121 focused harness tests pass and the real bundled TLAPS preflight receipt records both controls passing. No protected model run, proof certification, quality result, or promotion claim exists.
+- Local work: Commits 245662e0, 96d5747f, 70bebeab, be28d453, 64fa3ad6, 5c9b01b2, 9d2e40e7 and 17e80ba0 preserve the typed-agenda receipts, beam audit, official transfer evaluator, both strict-label negatives, broader packet/PBS, handoff audit and board closure. The broader strict-label receipt has packet SHA c919646e, label SHA6c64bb06, 848 fresh uncached checks and0/32 positive tasks; the official handoff receipt records exact packet/head/PBS/implementation hashes and9 passing local guards. The v1 remote packaging receipt preserves job7631579's pre-model failure with zero GPU usage; v2 adds the complete transitive import closure. No DEVELOPMENT/official answers, reference fragments, protected feedback, repair or reward entered these checks. No model, proof, quality, gate or promotion claim exists. Local canary fix and receipt are preserved in commit a1b953ae; no pre-existing work was staged.
+- External blocker: Polaris SSH authentication is unavailable for the required append-only v2 transfer and bounded remote official-119 diagnostic; BatchMode read-only hostname check returned permission denied.
+- Next action: Restore authenticated non-interactive Polaris SSH, then transfer the append-only v2 bundle with the complete import closure, rerun remote CPU/import/empty-output guards, and submit at most one corrected one-GPU/00:15:00 official-119 diagnostic. Require independent strict scoring; make no GPU or gate claim before those guards pass.
 
 ## Objective and evidence rules
 
@@ -792,19 +792,20 @@ These snapshots preserve old statements, including mistakes. They are not curren
 - 2026-09-16T20:59:45Z: The exact staged answer-free packet plus all four frozen source/dependency identities validate locally, and scorer 40e46eca is covered by the 46/46 host-level strict-TLAPS regression. Polaris remains unauthenticated after the controlled recheck; private needs_eric ticket #382 is open with a confirmed Discord notification. No upload, qstat inference, or GPU submission occurred.
 - 2026-09-16T20:55:38Z: User reported Polaris back, but fresh direct non-interactive SSH still failed authentication via keyboard-interactive/hostbased before qstat; no upload or queue inference was made. Local committed scorer 40e46eca now independently binds the four answer-free outputs to frozen boundaries and strict uncached TLAPS, with 46/46 adjacent tests passing under host-level execution. Keep TLA-06S locally staged and do not replay closed objectives.
 - [Pre-reconciliation board; contains superseded claims](../results/board-history/board-686630068adb988bfde97c9bf5c8b18644721f0cd14ef92d438e03a76aa03886.md)
+- 2026-09-19T06:38:24Z: Local protected measurement canary passed extraction, SANY, TLC/non-vacuity, semantic audit, timeout and TLAPS controls in commit a1b953ae; Polaris BatchMode SSH remains denied, so remote transfer/submission is external_wait.
 
 <!-- prover-board-state
 {
-  "revision": 971,
-  "verified_utc": "2026-09-18T06:02:34Z",
+  "revision": 972,
+  "verified_utc": "2026-09-19T06:38:24Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
-  "phase": "local_work",
+  "phase": "external_wait",
   "active_job": null,
-  "observation_evidence": "At 2026-09-18T05:10:32Z, candidate-specific typed-agenda v2 remains fully reconciled: job7630620 Exit_status=0 with exact receipts, and the fresh strict top-4 beam audit completed48 uncached checks. The broader32 packet passed local admission, then its complete TRAIN lattice received a fresh independent strict-TLAPS audit without inspecting DEVELOPMENT or official rows.",
-  "last_result": "The existing candidate-rank result remains base0/4, parent2/4 and child2/4 at strict top-1 over fixed116; top-4 coverage is base6 across4/4 tasks, parent4 across2/4 and child8 across4/4. The 17-row strict TRAIN-label branch certified0/153 and the broader32 branch certified0/848 candidates across0/32 tasks. The official-119 handoff passed the corrected remote CPU guards, then job7631579 terminated before model import because proof_sequence_train, proof_candidate_rank and proof_repair_pilot were missing from the staged closure; PBS Exit1 recorded resources_used.ngpus=0 and no result directory. No model, proof, quality or gate claim.",
-  "local_work": "Commits 245662e0, 96d5747f, 70bebeab, be28d453, 64fa3ad6, 5c9b01b2, 9d2e40e7 and 17e80ba0 preserve the typed-agenda receipts, beam audit, official transfer evaluator, both strict-label negatives, broader packet/PBS, handoff audit and board closure. The broader strict-label receipt has packet SHA c919646e, label SHA6c64bb06, 848 fresh uncached checks and0/32 positive tasks; the official handoff receipt records exact packet/head/PBS/implementation hashes and9 passing local guards. The v1 remote packaging receipt preserves job7631579's pre-model failure with zero GPU usage; v2 adds the complete transitive import closure. No DEVELOPMENT/official answers, reference fragments, protected feedback, repair or reward entered these checks. No model, proof, quality, gate or promotion claim exists.",
-  "external_blocker": "",
-  "next_action": "Preserve v1 job7631579 as infrastructure evidence, transfer the append-only v2 bundle with proof_sequence_train, proof_candidate_rank and proof_repair_pilot, rerun fresh remote CPU/import/empty-output guards, then submit at most one corrected one-GPU/00:15:00 official-119 evaluation. Require independent strict scoring; no GPU or gate claim may be made before those checks pass.",
+  "observation_evidence": "At 2026-09-19T06:38:24Z, the local measurement canary passed candidate/proof extraction, positive and negative SANY, positive TLC with empty vacuity flags, trivial-invariant detection, semantic-audit CLEAN/REVIEW classification, timeout classification, and the known-good/known-false TLAPS controls. The remote read-only Polaris SSH check still returns permission denied before transfer or submission.",
+  "last_result": "Local canary is green after commit a1b953ae: 121 focused harness tests pass and the real bundled TLAPS preflight receipt records both controls passing. No protected model run, proof certification, quality result, or promotion claim exists.",
+  "local_work": "Commits 245662e0, 96d5747f, 70bebeab, be28d453, 64fa3ad6, 5c9b01b2, 9d2e40e7 and 17e80ba0 preserve the typed-agenda receipts, beam audit, official transfer evaluator, both strict-label negatives, broader packet/PBS, handoff audit and board closure. The broader strict-label receipt has packet SHA c919646e, label SHA6c64bb06, 848 fresh uncached checks and0/32 positive tasks; the official handoff receipt records exact packet/head/PBS/implementation hashes and9 passing local guards. The v1 remote packaging receipt preserves job7631579's pre-model failure with zero GPU usage; v2 adds the complete transitive import closure. No DEVELOPMENT/official answers, reference fragments, protected feedback, repair or reward entered these checks. No model, proof, quality, gate or promotion claim exists. Local canary fix and receipt are preserved in commit a1b953ae; no pre-existing work was staged.",
+  "external_blocker": "Polaris SSH authentication is unavailable for the required append-only v2 transfer and bounded remote official-119 diagnostic; BatchMode read-only hostname check returned permission denied.",
+  "next_action": "Restore authenticated non-interactive Polaris SSH, then transfer the append-only v2 bundle with the complete import closure, rerun remote CPU/import/empty-output guards, and submit at most one corrected one-GPU/00:15:00 official-119 diagnostic. Require independent strict scoring; make no GPU or gate claim before those guards pass.",
   "tasks": [
     {
       "id": "TLA-01",
@@ -1827,7 +1828,8 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "2026-09-16T21:06:22Z: The normal configured Polaris ControlMaster authenticated as polaris-login-04 even though fresh-auth key-only probes still fail. Exact stage tla-verifier-scaffold-gpu-diagnostic-20260916-v1 passed remote SHA256, packet, PBS, worker compile/CLI, destination, queue and parent-checkpoint guards. Exactly one bounded one-GPU job7628446 is running on x3010c0s31b0n0/0*64; monitor only and independently strict-TLAPS-score retrieved outputs before any claim.",
     "2026-09-16T20:59:45Z: The exact staged answer-free packet plus all four frozen source/dependency identities validate locally, and scorer 40e46eca is covered by the 46/46 host-level strict-TLAPS regression. Polaris remains unauthenticated after the controlled recheck; private needs_eric ticket #382 is open with a confirmed Discord notification. No upload, qstat inference, or GPU submission occurred.",
     "2026-09-16T20:55:38Z: User reported Polaris back, but fresh direct non-interactive SSH still failed authentication via keyboard-interactive/hostbased before qstat; no upload or queue inference was made. Local committed scorer 40e46eca now independently binds the four answer-free outputs to frozen boundaries and strict uncached TLAPS, with 46/46 adjacent tests passing under host-level execution. Keep TLA-06S locally staged and do not replay closed objectives.",
-    "[Pre-reconciliation board; contains superseded claims](../results/board-history/board-686630068adb988bfde97c9bf5c8b18644721f0cd14ef92d438e03a76aa03886.md)"
+    "[Pre-reconciliation board; contains superseded claims](../results/board-history/board-686630068adb988bfde97c9bf5c8b18644721f0cd14ef92d438e03a76aa03886.md)",
+    "2026-09-19T06:38:24Z: Local protected measurement canary passed extraction, SANY, TLC/non-vacuity, semantic audit, timeout and TLAPS controls in commit a1b953ae; Polaris BatchMode SSH remains denied, so remote transfer/submission is external_wait."
   ],
   "evidence_files": [
     "tools/proof_fullproof_line_packet.py",
@@ -3775,7 +3777,8 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "tools/proof_typed_broader_candidate_rank_train_labels.py",
     "harness/test_proof_typed_broader_candidate_rank_train_labels.py",
     "results/runs/proof-typed-broader-candidate-rank-20260918-v1/train-labels-v1/labels.jsonl",
-    "results/runs/proof-typed-broader-candidate-rank-20260918-v1/train-labels-v1/summary.json"
+    "results/runs/proof-typed-broader-candidate-rank-20260918-v1/train-labels-v1/summary.json",
+    "results/runs/protected-measurement-canary-20260919-v1/tlaps-preflight.json"
   ]
 }
 -->
