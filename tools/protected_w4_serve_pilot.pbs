@@ -1,0 +1,47 @@
+#!/bin/bash
+# Serve the frozen W4 checkpoint for the protected proof pilot.
+# This is deliberately a serve-only job; the verifier and pilot runner stay on
+# the checkout host and reach this process through an SSH tunnel.
+#PBS -N tla-protected-w4
+#PBS -A EVITA
+#PBS -q capacity
+#PBS -l select=1:ngpus=4:ncpus=128:mem=480gb
+#PBS -l place=pack:shared
+#PBS -l walltime=12:00:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+set -euxo pipefail
+JOB=${PBS_JOBID%%.*}
+exec > "/home/eric-spencer/protected_w4_serve.${JOB}.log" 2>&1
+printf '%s\n' "$(hostname)" > "/home/eric-spencer/protected_w4_serve_host.${JOB}.txt"
+
+ulimit -n 65536 || true
+export TIKTOKEN_RS_CACHE_DIR=/grand/EVITA/eric-spencer/tiktoken-rs-cache
+module load conda/2026-06-08 >/dev/null 2>&1
+export PYTHONPATH=$HOME/.local/lib/python3.13/site-packages
+conda activate base >/dev/null 2>&1
+export HF_HUB_OFFLINE=1
+export HF_HOME=/grand/EVITA/eric-spencer/hf-cache
+export VLLM_LOGGING_LEVEL=INFO
+export OMP_NUM_THREADS=8
+export OPENBLAS_NUM_THREADS=1
+export MKL_NUM_THREADS=1
+export NUMEXPR_NUM_THREADS=1
+export VECLIB_MAXIMUM_THREADS=1
+cd "$PBS_O_WORKDIR" || cd /home/eric-spencer
+
+# Import once to warm shared-library page cache before vLLM starts workers.
+python -c 'import vllm, torch, transformers' >/dev/null 2>&1 || true
+python -c 'import cv2' >/dev/null 2>&1 || true
+
+exec vllm serve /grand/EVITA/eric-spencer/chattla_artifacts/merged_w4dg_mech_120b \
+  --tokenizer /grand/EVITA/eric-spencer/chattla_artifacts/merged_w4dg_mech_120b \
+  --served-model-name chattla-w4dgm-120b \
+  --tensor-parallel-size 4 \
+  --max-model-len 32768 \
+  --gpu-memory-utilization 0.90 \
+  --max-num-seqs 8 \
+  --enforce-eager \
+  --port 8321 \
+  --host 0.0.0.0 \
+  --trust-remote-code
