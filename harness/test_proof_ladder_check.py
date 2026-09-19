@@ -29,7 +29,9 @@ def fake_tlaps(prefix,fragment,suffix,*,theorem_name,dependencies,work_root,time
     output='[INFO]: All 1 obligations proved.\n'
     result=dict(contract_version=ladder.full.CONTRACT_VERSION,certified=True,status='pass',proved=1,total=1,
         returncode=0,timed_out=False,output=output,seconds=1.,workdir=str(work_root),candidate_path=str(path),
-        sha256=ladder.sha(path.read_bytes()),dependency_sha256=hashes,command=[str(ladder.runner.TLAPM),'--strict','--nofp','M.tla'])
+        sha256=ladder.sha(path.read_bytes()),dependency_sha256=hashes,
+        command=[str(ladder.runner.TLAPM),'--strict','--nofp','--cache-dir',
+                 str(work_root/'cache'),'M.tla'])
     (work_root/'input.json').write_text(json.dumps(dict(prefix=prefix,fragment=fragment,suffix=suffix,
         theorem_name=theorem_name,contract_version=ladder.full.CONTRACT_VERSION)))
     (work_root/'tlapm.log').write_text(output);(work_root/'result.json').write_text(json.dumps(result))

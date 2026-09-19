@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "hostname": "Eric-MB64.local",
+  "library": "/Users/eric/GitHub/prove-TLA/tools/tlapm/lib/tlapm",
+  "tlapm": "/Users/eric/GitHub/prove-TLA/tools/tlapm/bin/tlapm",
+  "tlapm_sha256": "b88f7614f7aa382ba0a6e864999222904afa5a86a2f723ed4ba75f5a4ee6df48",
+  "controls": [
+    {
+      "control": "known_good",
+      "returncode": 0,
+      "passed": true,
+      "output": "(* created new \".tlacache/RuntimeGood.tlaps/RuntimeGood.thy\" *)\n(* fingerprints written in \".tlacache/RuntimeGood.tlaps/fingerprints\" *)\nFile \"./RuntimeGood.tla\", line 1, character 1 to line 5, character 4:\n[INFO]: All 1 obligation proved.\n",
+      "source": "---- MODULE RuntimeGood ----\nEXTENDS Naturals, TLAPS\nTHEOREM Good == 1 + 1 = 2\nOBVIOUS\n====\n",
+      "output_sha256": "0e8ba8bfcb0c6996c8c4edd82d085a35bf963f4ab627e07eed121fb0be977954"
+    },
+    {
+      "control": "known_false",
+      "returncode": 3,
+      "passed": true,
+      "output": "(* created new \".tlacache/RuntimeFalse.tlaps/RuntimeFalse.thy\" *)\n(* fingerprints written in \".tlacache/RuntimeFalse.tlaps/fingerprints\" *)\nFile \"./RuntimeFalse.tla\", line 4, characters 1-2:\n[ERROR]: Could not prove or check:\n           ASSUME SMT \n           PROVE  1 = 2\nFile \"./RuntimeFalse.tla\", line 1, character 1 to line 5, character 4:\n[ERROR]: 1/2 obligations failed.\nThere were backend errors processing module `\"RuntimeFalse\"`.\n tlapm ending abnormally with Failure(\"backend errors: there are unproved obligations\")\nRaised at Stdlib.failwith in file \"stdlib.ml\", line 29, characters 17-33\nCalled from Tlapm_lib.process_module in file \"src/tlapm_lib.ml\", line 492, characters 12-77\nCalled from Tlapm_lib.main.f in file \"src/tlapm_lib.ml\", line 621, characters 23-43\nCalled from Stdlib__List.fold_left in file \"list.ml\", line 123, characters 24-34\nCalled from Tlapm_lib.main in file \"src/tlapm_lib.ml\", line 624, characters 13-40\nCalled from Tlapm_lib.init in file \"src/tlapm_lib.ml\", line 641, characters 8-59\n\n",
+      "source": "---- MODULE RuntimeFalse ----\nEXTENDS Naturals, TLAPS\nTHEOREM FalseClaim == 1 = 2\nBY SMT\n====\n",
+      "output_sha256": "42d78934a806bd946b1f6ba568120e3755870ba6c9e7d5417a5a6a6ae8f93081"
+    }
+  ],
+  "passed": true
+}
