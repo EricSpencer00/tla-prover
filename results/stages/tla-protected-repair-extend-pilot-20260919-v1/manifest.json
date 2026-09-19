@@ -1,0 +1,820 @@
+{
+  "answer_bearing_content_included": false,
+  "case_count": 30,
+  "case_order": [
+    "2",
+    "5",
+    "13",
+    "14",
+    "15",
+    "30",
+    "32",
+    "37",
+    "41",
+    "55",
+    "86",
+    "95",
+    "105",
+    "106",
+    "121",
+    "128",
+    "131",
+    "132",
+    "133",
+    "135",
+    "141",
+    "142",
+    "143",
+    "148",
+    "158",
+    "168",
+    "174",
+    "181",
+    "183",
+    "191"
+  ],
+  "cases": [
+    {
+      "case_id": "holdout-002",
+      "cfg": {
+        "applicable": true,
+        "relpath": "corpus/configs/drafts/2.cfg",
+        "sha256": "45ec4519dc30732beff77a7f878ca4b54392a55cb715ef5ad543897d181ba71f",
+        "source_kind": "draft"
+      },
+      "dependency_closure": [
+        {
+          "module": "ACP_SB",
+          "relpath": "tla_files/5.tla",
+          "sha256": "a62fedef4725c150efd03f5a864bb607f2f3960686b518792144e1d781c6de89"
+        }
+      ],
+      "family": "mutex_locks",
+      "module_name": "ACP_NB",
+      "policy_sha256": "eafbc5a39159179438e91d5057d4ed7c37d20819c6022482e5da511bb3eb2dc8",
+      "population": "state_machine",
+      "source": {
+        "relpath": "tla_files/2.tla",
+        "sha256": "0ef793affa1b0356021e7d512a37e0e0ef4f1e2de24b0dbfc3154b41dfbf3b22"
+      },
+      "spec": "2"
+    },
+    {
+      "case_id": "holdout-005",
+      "cfg": {
+        "applicable": true,
+        "relpath": "corpus/configs/drafts/5.cfg",
+        "sha256": "51ac6512aaa132175fde804cd5e5f87d66661af37f27d6bfc0edcd5ae1ae7381",
+        "source_kind": "draft"
+      },
+      "dependency_closure": [],
+      "family": "mutex_locks",
+      "module_name": "ACP_SB",
+      "policy_sha256": "a953a98b81cf41de39867a08d12579d3863987e5140cecd8c83b31f1463870f0",
+      "population": "state_machine",
+      "source": {
+        "relpath": "tla_files/5.tla",
+        "sha256": "a62fedef4725c150efd03f5a864bb607f2f3960686b518792144e1d781c6de89"
+      },
+      "spec": "5"
+    },
+    {
+      "case_id": "holdout-013",
+      "cfg": {
+        "applicable": true,
+        "relpath": "cfg/13.cfg",
+        "sha256": "27204f5e0a0a6dc62748f1148d7aa65ed0a8d7e1cb0bf9daf59beee57246c8f5",
+        "source_kind": "original"
+      },
+      "dependency_closure": [
+        {
+          "module": "Bakery",
+          "relpath": "tla_files/11.tla",
+          "sha256": "3854111ccb4c40cc13a92a2950076077ba2a0ee876e76eff1b3fd8215d7f7cf2"
+        },
+        {
+          "module": "TLAPS",
+          "relpath": "tla_files/86.tla",
+          "sha256": "720a31f61573f1d925f66c75982b3b539b7bd5b25753b7e233cbf48456b4ada7"
+        }
+      ],
+      "family": "mutex_locks",
+      "module_name": "MCBakery",
+      "policy_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "population": "state_machine",
+      "source": {
+        "relpath": "tla_files/13.tla",
+        "sha256": "e30e4fc5558357406b890b3249eda6ec0ec7d5e191b1469adc3774990c1fbe25"
+      },
+      "spec": "13"
+    },
+    {
+      "case_id": "holdout-014",
+      "cfg": {
+        "applicable": true,
+        "relpath": "cfg/14.cfg",
+        "sha256": "7e0e8f28fc849e16ca20b909e3816d8b80fbfd96bf7d94f45dadb7a62735a8c9",
+        "source_kind": "original"
+      },
+      "dependency_closure": [
+        {
+          "module": "Boulanger",
+          "relpath": "tla_files/12.tla",
+          "sha256": "2ef07410dc435dc812dbcb9e59327082368561c27c2cd5755f95cfcc911c51ec"
+        },
+        {
+          "module": "TLAPS",
+          "relpath": "tla_files/86.tla",
+          "sha256": "720a31f61573f1d925f66c75982b3b539b7bd5b25753b7e233cbf48456b4ada7"
+        }
+      ],
+      "family": "other",
+      "module_name": "MCBoulanger",
+      "policy_sha256": "83f15a5514b3b0e873fbc1a842dacf90f5680319b7dbc21ddc53c3b806b9d9a2",
+      "population": "state_machine",
+      "source": {
+        "relpath": "tla_files/14.tla",
+        "sha256": "e1a52928940ae952cd25a3888cecb962f615237d5e81e4c164c9bfd64f82f3fa"
+      },
+      "spec": "14"
+    },
+    {
+      "case_id": "holdout-015",
+      "cfg": {
+        "applicable": true,
+        "relpath": "cfg/15.cfg",
+        "sha256": "90ac6bd18e6915719b2cc425544ed3fb8a01ef91887f8901d2709eaaa75e0fea",
+        "source_kind": "original"
+      },
+      "dependency_closure": [],
+      "family": "network_channels",
+      "module_name": "bcastByz",
+      "policy_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "population": "state_machine",
+      "source": {
+        "relpath": "tla_files/15.tla",
+        "sha256": "130307c0148f5c273a0ff2cb0d9edad7a512391284827ec1b1562ee168eab116"
+      },
+      "spec": "15"
+    },
+    {
+      "case_id": "holdout-030",
+      "cfg": {
+        "applicable": true,
+        "relpath": "corpus/configs/drafts/30.cfg",
+        "sha256": "a21d684d1548e583d069c4742aa2ad00eaa209e2c3be8ce23ea592fffb28af87",
+        "source_kind": "draft"
+      },
+      "dependency_closure": [],
+      "family": "network_channels",
+      "module_name": "cbc_max",
+      "policy_sha256": "e76d3f0542507fcaf0e49d642467d4382869a9d45ad6d1ffd4ce47ef3e9a1fc6",
+      "population": "state_machine",
+      "source": {
+        "relpath": "corpus/configs/patches/30.tla",
+        "sha256": "bfdbeb0a3da80b65ff0cfd318695512762cbe13fd8096def22810f11a1d1f11c"
+      },
+      "spec": "30"
+    },
+    {
+      "case_id": "holdout-032",
+      "cfg": {
+        "applicable": true,
+        "relpath": "cfg/32.cfg",
+        "sha256": "fbfb1dc9697f4161719cd924c6049fe48cded01cca00d58f8b6fe928c466118c",
+        "source_kind": "original"
+      },
+      "dependency_closure": [],
+      "family": "other",
+      "module_name": "Chameneos",
+      "policy_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "population": "state_machine",
+      "source": {
+        "relpath": "tla_files/32.tla",
+        "sha256": "0e709f85c9fd764e8410fd57201b5c0900eb5bcb881168709c2376e921b29b32"
+      },
+      "spec": "32"
+    },
+    {
+      "case_id": "holdout-037",
+      "cfg": {
+        "applicable": true,
+        "relpath": "cfg/37.cfg",
+        "sha256": "1d3b7af9618a5ed95a4a27562827259196706c3ec5e2976f3a171938757ac3f8",
+        "source_kind": "original"
+      },
+      "dependency_closure": [],
+      "family": "other",
+      "module_name": "CigaretteSmokers",
+      "policy_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "population": "state_machine",
+      "source": {
+        "relpath": "tla_files/37.tla",
+        "sha256": "4b8b476f37462e721a1b3db2f92bbbfaaf5aba794506220de6224b1691fbea62"
+      },
+      "spec": "37"
+    },
+    {
+      "case_id": "holdout-041",
+      "cfg": {
+        "applicable": false,
+        "relpath": "corpus/configs/drafts/41.cfg",
+        "sha256": "f27b394a363684a5df8c1f6942d05b1eb01f757f810634b902700cb0179335ef",
+        "source_kind": "draft"
+      },
+      "dependency_closure": [],
+      "family": "mutex_locks",
+      "module_name": "EPFailureDetector",
+      "policy_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "population": "library",
+      "source": {
+        "relpath": "tla_files/41.tla",
+        "sha256": "34407972eef86a8353374086558ede7a1ae611794ff399ca528112b431414b25"
+      },
+      "spec": "41"
+    },
+    {
+      "case_id": "holdout-055",
+      "cfg": {
+        "applicable": true,
+        "relpath": "cfg/55.cfg",
+        "sha256": "72a84107ba0b85a38578590f2e9d4456cbed88a3cfcd8b4276ca2036843556ef",
+        "source_kind": "original"
+      },
+      "dependency_closure": [
+        {
+          "module": "Echo",
+          "relpath": "tla_files/54.tla",
+          "sha256": "1b2079afdb6b79e801411de95c846399d97589bc84cb651855b93989ca3a3b83"
+        }
+      ],
+      "family": "other",
+      "module_name": "MCEcho",
+      "policy_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "population": "state_machine",
+      "source": {
+        "relpath": "tla_files/55.tla",
+        "sha256": "505c7e02bec386dd24cd1b0f33e16cbc1b7fe02edda7dd63689ad4172d01c2ac"
+      },
+      "spec": "55"
+    },
+    {
+      "case_id": "holdout-086",
+      "cfg": {
+        "applicable": false,
+        "relpath": "corpus/configs/drafts/86.cfg",
+        "sha256": "ae2253efa62573a4b9d8057332644a31862843522347ee5a358d942a84cb6b3a",
+        "source_kind": "draft"
+      },
+      "dependency_closure": [],
+      "family": "counters_registers",
+      "module_name": "TLAPS",
+      "policy_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "population": "library",
+      "source": {
+        "relpath": "tla_files/86.tla",
+        "sha256": "720a31f61573f1d925f66c75982b3b539b7bd5b25753b7e233cbf48456b4ada7"
+      },
+      "spec": "86"
+    },
+    {
+      "case_id": "holdout-095",
+      "cfg": {
+        "applicable": true,
+        "relpath": "cfg/95.cfg",
+        "sha256": "89b3dd94f35fb6cee4b093fa2b9a2e0f44e6cf0d3e43707b82c801690eeb9bf3",
+        "source_kind": "original"
+      },
+      "dependency_closure": [],
+      "family": "other",
+      "module_name": "GameOfLife",
+      "policy_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "population": "state_machine",
+      "source": {
+        "relpath": "tla_files/95.tla",
+        "sha256": "dcd6d626946faab35ac22ad38a031b0d9bd9bc274d8750340506acc407dccbc6"
+      },
+      "spec": "95"
+    },
+    {
+      "case_id": "holdout-105",
+      "cfg": {
+        "applicable": false,
+        "relpath": "corpus/configs/drafts/105.cfg",
+        "sha256": "8ebb51f5833bb7cae4e9f8bb63d08e5b11e428d998e44c3681b2dee50d7c4e71",
+        "source_kind": "draft"
+      },
+      "dependency_closure": [],
+      "family": "other",
+      "module_name": "DyadicRationals",
+      "policy_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "population": "library",
+      "source": {
+        "relpath": "tla_files/105.tla",
+        "sha256": "d56b4099a07a48485c7754e4082a8c4ea53fbfa064b438ad8cdb43e0c7efa320"
+      },
+      "spec": "105"
+    },
+    {
+      "case_id": "holdout-106",
+      "cfg": {
+        "applicable": true,
+        "relpath": "corpus/configs/drafts/106.cfg",
+        "sha256": "dbe178fa58c6a4920647ac86d93242a260eafcc0e10a2bc506ea2555d0fe5433",
+        "source_kind": "draft"
+      },
+      "dependency_closure": [],
+      "family": "other",
+      "module_name": "Util",
+      "policy_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "population": "state_machine",
+      "source": {
+        "relpath": "tla_files/106.tla",
+        "sha256": "7ffa38a940992bec344fe7d033e9ac7acc85e0180aeacee59512a26807e14254"
+      },
+      "spec": "106"
+    },
+    {
+      "case_id": "holdout-121",
+      "cfg": {
+        "applicable": true,
+        "relpath": "corpus/configs/drafts/121.cfg",
+        "sha256": "e414f377ea450d86749f5a3ee00a183d688393bd5f38bd95c84dcbd2941c376c",
+        "source_kind": "draft"
+      },
+      "dependency_closure": [
+        {
+          "module": "ZSequences",
+          "relpath": "tla_files/123.tla",
+          "sha256": "e5178ca6bb66485b3f234c1758c810b106e9bc19f0aa86decc29e082e019ea20"
+        }
+      ],
+      "family": "mutex_locks",
+      "module_name": "LeastCircularSubstring",
+      "policy_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "population": "state_machine",
+      "source": {
+        "relpath": "tla_files/121.tla",
+        "sha256": "a1f60ca5457e8a4ab51d8fc89c20b0cd5877f7cd286bf595ff234a2b35089567"
+      },
+      "spec": "121"
+    },
+    {
+      "case_id": "holdout-128",
+      "cfg": {
+        "applicable": true,
+        "relpath": "corpus/configs/overrides/128.cfg",
+        "sha256": "6d67c7f71645514928c26e204edfc3d56a7ccd529dd6f5e8b66254008c269dd7",
+        "source_kind": "override"
+      },
+      "dependency_closure": [
+        {
+          "module": "NaturalsInduction",
+          "relpath": "tla_files/114.tla",
+          "sha256": "5ec38f3d0348e11259380f56564984040d9cc7d66c2402e71406454d0ceae9d8"
+        },
+        {
+          "module": "SequenceTheorems",
+          "relpath": "tla_files/115.tla",
+          "sha256": "2d92711fe7d369b7c5f06c83e0d2e61087867fde74da6653b888b7121aad9972"
+        },
+        {
+          "module": "WellFoundedInduction",
+          "relpath": "tla_files/117.tla",
+          "sha256": "d9496a2eccf3c80120f2518ee507f82b97f56bd783d3740fc9c60e34d98748a5"
+        },
+        {
+          "module": "TLAPS",
+          "relpath": "tla_files/86.tla",
+          "sha256": "720a31f61573f1d925f66c75982b3b539b7bd5b25753b7e233cbf48456b4ada7"
+        }
+      ],
+      "family": "mutex_locks",
+      "module_name": "Quicksort",
+      "policy_sha256": "1ed6f90d815d92311c1bdc3ce88df3511a2e68a221aa4d2664279e8873e2b13e",
+      "population": "state_machine",
+      "source": {
+        "relpath": "tla_files/128.tla",
+        "sha256": "f789005d07077380c428c0ce1243f9c8b5a73cc522d3165d724e9b28b48fad6a"
+      },
+      "spec": "128"
+    },
+    {
+      "case_id": "holdout-131",
+      "cfg": {
+        "applicable": false,
+        "relpath": "corpus/configs/drafts/131.cfg",
+        "sha256": "0d686b036a47b8ed597b29c31c904f5b65e873e304ac5882f7927ffb30340095",
+        "source_kind": "draft"
+      },
+      "dependency_closure": [
+        {
+          "module": "Majority",
+          "relpath": "tla_files/130.tla",
+          "sha256": "09651709752cc32e4b9d9546a90170cff6f186da9d6b8d39e63dd991e2c86033"
+        },
+        {
+          "module": "TLAPS",
+          "relpath": "tla_files/86.tla",
+          "sha256": "720a31f61573f1d925f66c75982b3b539b7bd5b25753b7e233cbf48456b4ada7"
+        }
+      ],
+      "family": "other",
+      "module_name": "MajorityProof",
+      "policy_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "population": "proof_module",
+      "source": {
+        "relpath": "tla_files/131.tla",
+        "sha256": "e41aa348899514843da234124bb584ed56b41ec5b1e126b35bf09859878c609d"
+      },
+      "spec": "131"
+    },
+    {
+      "case_id": "holdout-132",
+      "cfg": {
+        "applicable": true,
+        "relpath": "cfg/132.cfg",
+        "sha256": "e23df42d2bedb1c098aba2db2eaab6ea2579f6a465dc106209dca7ecd19c5760",
+        "source_kind": "original"
+      },
+      "dependency_closure": [
+        {
+          "module": "Majority",
+          "relpath": "tla_files/130.tla",
+          "sha256": "09651709752cc32e4b9d9546a90170cff6f186da9d6b8d39e63dd991e2c86033"
+        }
+      ],
+      "family": "other",
+      "module_name": "MCMajority",
+      "policy_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "population": "state_machine",
+      "source": {
+        "relpath": "tla_files/132.tla",
+        "sha256": "26c9d3dfcc49022b59ce761677b8d75501c91e64bcf5c1c128ce3184aa7b811e"
+      },
+      "spec": "132"
+    },
+    {
+      "case_id": "holdout-133",
+      "cfg": {
+        "applicable": true,
+        "relpath": "cfg/133.cfg",
+        "sha256": "31cff92508be2d2b8bb092759108e276cbc459a6d7e4a9a73a10dbc3d3b7767f",
+        "source_kind": "original"
+      },
+      "dependency_closure": [
+        {
+          "module": "ParReach",
+          "relpath": "tla_files/136.tla",
+          "sha256": "9d830d1f015a7ec320c4a93ea2af4287ee886caa09acbf1ca6434fa2d7ef9d3c"
+        },
+        {
+          "module": "Reachability",
+          "relpath": "tla_files/138.tla",
+          "sha256": "00d8f9751c26e8eb5fd542fa569b123ff6fb961e71325f4765887dc3b4d1dfae"
+        },
+        {
+          "module": "Reachable",
+          "relpath": "tla_files/141.tla",
+          "sha256": "4ebb3f079b1bb76361b0473b26b8c833dedf6b0437f422b7b02c4514dcf32a12"
+        }
+      ],
+      "family": "other",
+      "module_name": "MCParReach",
+      "policy_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "population": "state_machine",
+      "source": {
+        "relpath": "tla_files/133.tla",
+        "sha256": "8669e2c4bd80d5be177e8331a0c5415c605ef3bb5d7f7ec0651a7194b7f67f81"
+      },
+      "spec": "133"
+    },
+    {
+      "case_id": "holdout-135",
+      "cfg": {
+        "applicable": true,
+        "relpath": "cfg/135.cfg",
+        "sha256": "0801b570810e2902b41e8ebcf564d713dc075d6d158805d2e8f09fef0d8fb9ae",
+        "source_kind": "original"
+      },
+      "dependency_closure": [
+        {
+          "module": "Reachability",
+          "relpath": "tla_files/138.tla",
+          "sha256": "00d8f9751c26e8eb5fd542fa569b123ff6fb961e71325f4765887dc3b4d1dfae"
+        },
+        {
+          "module": "Reachable",
+          "relpath": "tla_files/141.tla",
+          "sha256": "4ebb3f079b1bb76361b0473b26b8c833dedf6b0437f422b7b02c4514dcf32a12"
+        }
+      ],
+      "family": "other",
+      "module_name": "MCReachable",
+      "policy_sha256": "3fe84117baa9c5b665efba787be7fb34e29a185afa609c5f6346d3c6664d0c16",
+      "population": "state_machine",
+      "source": {
+        "relpath": "tla_files/135.tla",
+        "sha256": "51b25788a688f63bf28788530e0b7884d635ae1feb69b4def405b126af80a7b1"
+      },
+      "spec": "135"
+    },
+    {
+      "case_id": "holdout-141",
+      "cfg": {
+        "applicable": true,
+        "relpath": "cfg/141.cfg",
+        "sha256": "0801b570810e2902b41e8ebcf564d713dc075d6d158805d2e8f09fef0d8fb9ae",
+        "source_kind": "original"
+      },
+      "dependency_closure": [
+        {
+          "module": "Reachability",
+          "relpath": "tla_files/138.tla",
+          "sha256": "00d8f9751c26e8eb5fd542fa569b123ff6fb961e71325f4765887dc3b4d1dfae"
+        }
+      ],
+      "family": "mutex_locks",
+      "module_name": "Reachable",
+      "policy_sha256": "81f3dd5ea883076130f5fb4205bdebebb40bedbe74ac5b2af2d6fb758f9b5086",
+      "population": "state_machine",
+      "source": {
+        "relpath": "tla_files/141.tla",
+        "sha256": "4ebb3f079b1bb76361b0473b26b8c833dedf6b0437f422b7b02c4514dcf32a12"
+      },
+      "spec": "141"
+    },
+    {
+      "case_id": "holdout-142",
+      "cfg": {
+        "applicable": false,
+        "relpath": "corpus/configs/drafts/142.cfg",
+        "sha256": "b22548cf9ac998621e5cc1dd6b946b2449a2155093beb19dce55fbec8456abf7",
+        "source_kind": "draft"
+      },
+      "dependency_closure": [
+        {
+          "module": "NaturalsInduction",
+          "relpath": "tla_files/114.tla",
+          "sha256": "5ec38f3d0348e11259380f56564984040d9cc7d66c2402e71406454d0ceae9d8"
+        },
+        {
+          "module": "Reachability",
+          "relpath": "tla_files/138.tla",
+          "sha256": "00d8f9751c26e8eb5fd542fa569b123ff6fb961e71325f4765887dc3b4d1dfae"
+        },
+        {
+          "module": "ReachabilityProofs",
+          "relpath": "tla_files/139.tla",
+          "sha256": "8ad9ec510cf803558642db963cde859cba234f1dfbdcdb4ace59e394a119e2f9"
+        },
+        {
+          "module": "Reachable",
+          "relpath": "tla_files/141.tla",
+          "sha256": "4ebb3f079b1bb76361b0473b26b8c833dedf6b0437f422b7b02c4514dcf32a12"
+        },
+        {
+          "module": "TLAPS",
+          "relpath": "tla_files/86.tla",
+          "sha256": "720a31f61573f1d925f66c75982b3b539b7bd5b25753b7e233cbf48456b4ada7"
+        }
+      ],
+      "family": "clocks_time",
+      "module_name": "ReachableProofs",
+      "policy_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "population": "proof_module",
+      "source": {
+        "relpath": "tla_files/142.tla",
+        "sha256": "be290ee350eb4e885702e538d8ddc43bb1ab9f16784b3d8763b6c86230a47197"
+      },
+      "spec": "142"
+    },
+    {
+      "case_id": "holdout-143",
+      "cfg": {
+        "applicable": true,
+        "relpath": "cfg/143.cfg",
+        "sha256": "8c0b9134393385ec605f5c6cd31e1215aef6f8c7b8b20ffe1e5261c614bcd5b8",
+        "source_kind": "original"
+      },
+      "dependency_closure": [],
+      "family": "clocks_time",
+      "module_name": "MissionariesAndCannibals",
+      "policy_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "population": "expected_violation",
+      "source": {
+        "relpath": "tla_files/143.tla",
+        "sha256": "afb87e6ebc4af897ab9b27f90729c0170f061f8d95444a54035df1afaf21c65a"
+      },
+      "spec": "143"
+    },
+    {
+      "case_id": "holdout-148",
+      "cfg": {
+        "applicable": true,
+        "relpath": "corpus/configs/overrides/148.cfg",
+        "sha256": "3bfb5be16052731b104573399e5679dce9b22ab57c323d702dbd64dcfcf1a844",
+        "source_kind": "override"
+      },
+      "dependency_closure": [],
+      "family": "mutex_locks",
+      "module_name": "Nano",
+      "policy_sha256": "631d4ace25a5f0aae7f8dc9da288bee2664913ab76b99b17bd4e0bd3ece6d73e",
+      "population": "state_machine",
+      "source": {
+        "relpath": "tla_files/148.tla",
+        "sha256": "8a4b2d8958a36f9bbeef83b6232e835a72e9b1ccf8e4561c12ab0b66ebb26b82"
+      },
+      "spec": "148"
+    },
+    {
+      "case_id": "holdout-158",
+      "cfg": {
+        "applicable": true,
+        "relpath": "cfg/158.cfg",
+        "sha256": "1b750ba2066b7711194c82da5b9e2788b77812bd39b35015b0f96c3eadffd3b9",
+        "source_kind": "original"
+      },
+      "dependency_closure": [
+        {
+          "module": "Consensus",
+          "relpath": "tla_files/25.tla",
+          "sha256": "c3a4a7327be91c35bda8788c75a3a4c453a36c03f6c5bce1de8f659aa29bcf4a"
+        },
+        {
+          "module": "TLAPS",
+          "relpath": "tla_files/86.tla",
+          "sha256": "720a31f61573f1d925f66c75982b3b539b7bd5b25753b7e233cbf48456b4ada7"
+        }
+      ],
+      "family": "consensus",
+      "module_name": "Voting",
+      "policy_sha256": "47850933c605936b3fe56ce89d677ba203c7e1f59844b3814102df64c535ae0e",
+      "population": "state_machine",
+      "source": {
+        "relpath": "tla_files/158.tla",
+        "sha256": "86364a0a958cd14787a4b72f76de6fa84dcbd0f66a1a7b7c56f0f71f8b992f88"
+      },
+      "spec": "158"
+    },
+    {
+      "case_id": "holdout-168",
+      "cfg": {
+        "applicable": true,
+        "relpath": "corpus/configs/overrides/168.cfg",
+        "sha256": "71c402125bae63c3ac0cf685d990282ab50f8b360f1cfdc8749ad9c1a33f636f",
+        "source_kind": "override"
+      },
+      "dependency_closure": [],
+      "family": "queues_buffers",
+      "module_name": "ReadersWriters",
+      "policy_sha256": "7c4e362133e824e6d91d8c6c92c837285a549ee3fed45b6220b82f727c2cf9b4",
+      "population": "state_machine",
+      "source": {
+        "relpath": "tla_files/168.tla",
+        "sha256": "3b51a02efbb409271f00133e32096459e4d0db2deb196dcbbee25638d0d07c8d"
+      },
+      "spec": "168"
+    },
+    {
+      "case_id": "holdout-174",
+      "cfg": {
+        "applicable": true,
+        "relpath": "corpus/configs/drafts/174.cfg",
+        "sha256": "4ef5b281d22920cca96b5621958108eef27f7c932044ca15687a70e18a2e7d34",
+        "source_kind": "draft"
+      },
+      "dependency_closure": [],
+      "family": "mutex_locks",
+      "module_name": "Slush",
+      "policy_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "population": "state_machine",
+      "source": {
+        "relpath": "tla_files/174.tla",
+        "sha256": "95303e105352d257abfd17feb6363948f728364a0aa47b043e43fd4118e3b16f"
+      },
+      "spec": "174"
+    },
+    {
+      "case_id": "holdout-181",
+      "cfg": {
+        "applicable": true,
+        "relpath": "cfg/181.cfg",
+        "sha256": "54556c1c0ee9732b0602292ed53e61d545519096dff8c4dfe8fbdcf56e93eb1f",
+        "source_kind": "original"
+      },
+      "dependency_closure": [
+        {
+          "module": "sums_even",
+          "relpath": "tla_files/182.tla",
+          "sha256": "44f0b85145ad3de36b12904a18c408de3134cea7c80343b2e1a52940b5f07e19"
+        },
+        {
+          "module": "TLAPS",
+          "relpath": "tla_files/86.tla",
+          "sha256": "720a31f61573f1d925f66c75982b3b539b7bd5b25753b7e233cbf48456b4ada7"
+        }
+      ],
+      "family": "other",
+      "module_name": "MC_sums_even",
+      "policy_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "population": "state_machine",
+      "source": {
+        "relpath": "tla_files/181.tla",
+        "sha256": "82c5c8f9390d51c7f3e397badd51fdbf7d36c46a02a45249f5b76213ebac7251"
+      },
+      "spec": "181"
+    },
+    {
+      "case_id": "holdout-183",
+      "cfg": {
+        "applicable": false,
+        "relpath": "corpus/configs/drafts/183.cfg",
+        "sha256": "8bb53b089848d5fc4fc6d84f5f8ee76cc14067fd005725133de054bc4ec71483",
+        "source_kind": "draft"
+      },
+      "dependency_closure": [],
+      "family": "counters_registers",
+      "module_name": "TLAPS",
+      "policy_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "population": "library",
+      "source": {
+        "relpath": "tla_files/183.tla",
+        "sha256": "720a31f61573f1d925f66c75982b3b539b7bd5b25753b7e233cbf48456b4ada7"
+      },
+      "spec": "183"
+    },
+    {
+      "case_id": "holdout-191",
+      "cfg": {
+        "applicable": true,
+        "relpath": "corpus/configs/drafts/191.cfg",
+        "sha256": "5e905f953992ace6305160f908df44fe5f780b9b6eec259a255ea9a01627e98c",
+        "source_kind": "draft"
+      },
+      "dependency_closure": [
+        {
+          "module": "Bits",
+          "relpath": "tla_files/190.tla",
+          "sha256": "26d661e7c8b38df31eeedfeca84ad4db6d74dc36ec013b676affd0243221e34f"
+        }
+      ],
+      "family": "counters_registers",
+      "module_name": "Hanoi",
+      "policy_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "population": "state_machine",
+      "source": {
+        "relpath": "tla_files/191.tla",
+        "sha256": "29a54ca2eb07e863c4d9f3f59ae27d2442861acdb5e1aab3f2c7674d2057f948"
+      },
+      "spec": "191"
+    }
+  ],
+  "holdout_policy": "frozen_30_append_never",
+  "holdout_sha256": "ecfc20533b9dc9a6e727ab989732310659d469eefbcc3705df72e3094ef54f78",
+  "kind": "protected_repair_extend_pilot_manifest_v1",
+  "schema": 1,
+  "scoring": {
+    "independent_scorer_required": true,
+    "not_applicable": {
+      "expected_violation": [
+        "tlaps_strict"
+      ],
+      "library": [
+        "tlc_nonvacuity",
+        "tlaps_strict"
+      ],
+      "proof_module": [
+        "tlc_nonvacuity"
+      ],
+      "state_machine": [
+        "tlaps_strict"
+      ]
+    },
+    "stages": [
+      "sany",
+      "tlc_nonvacuity",
+      "tlaps_strict"
+    ],
+    "worker_labels_are_not_scores": true
+  },
+  "stratification": {
+    "family_counts": {
+      "clocks_time": 2,
+      "consensus": 1,
+      "counters_registers": 3,
+      "mutex_locks": 9,
+      "network_channels": 2,
+      "other": 12,
+      "queues_buffers": 1
+    },
+    "family_tag_source": "results/analysis/holdout_family_tags.jsonl",
+    "population_counts": {
+      "expected_violation": 1,
+      "library": 4,
+      "proof_module": 2,
+      "state_machine": 23
+    },
+    "population_source": "corpus/holdout_30.json"
+  }
+}
