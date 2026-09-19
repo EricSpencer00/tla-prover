@@ -4,12 +4,12 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 982
-- Verified UTC: 2026-09-19T17:33:02Z
+- Revision: 983
+- Verified UTC: 2026-09-19T17:44:16Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: external_wait
 - Active job: none
-- Observation evidence: At 2026-09-19T17:33:02Z, fresh BatchMode SSH reached polaris-login-01 and qstat showed no jobs for eric. The pilot packet, runner, focused tests, and SANY-first/TLAPS canary are committed in dfbeca87. Polaris still exposes no OPENAI_BASE_URL, OPENAI_API_KEY, or OPENAI_API_KEY_CMD; Sophia SSH remains unavailable; no pilot job was submitted.
+- Observation evidence: At 2026-09-19T17:44:16Z, fresh BatchMode SSH reached polaris-login-01 and qstat showed no jobs for eric. Polaris exposed none of OPENAI_BASE_URL, OPENAI_API_KEY, or OPENAI_API_KEY_CMD. Sophia SSH failed with Permission denied (keyboard-interactive,hostbased). The pilot packet, runner, focused tests, and SANY-first/TLAPS canary remain committed in dfbeca87; no pilot job was submitted.
 - Latest completed result: Job 7634951 completed the answer-free official v2 evaluation: 119/119 ranked tasks, 462 candidates, zero training/repair/feedback/TLAPS execution in the worker, and no quality/proof/gate claim. The independent strict uncached TLAPS audit fully ranked all 119, measured 107 before the hard wall-clock bound, and certified 43 measured tasks in bounded top-4 search, including 42 rank-1 certifications; 12 tasks were unmeasured because the bound expired. This is generation/ranking evidence only, not a prover or promotion result.
 - Local work: Checkout /Users/eric/GitHub/prove-TLA is on board/193 at commit dfbeca87 (Stage protected repair pilot). The frozen 20-case answer-free packet is results/runs/proof-protected-repair-pilot-20260919-v2/packet.json with SHA a7902debb566503af613da6c28b0415953147e3fd1e14102853825d5dd9e5416. The canary receipt is results/runs/proof-protected-repair-pilot-20260919-v2/preflight-controls.json; unrelated generated work remains untouched.
 - External blocker: Board ticket #407 is needs_eric: the current Polaris session has no authenticated OpenAI-compatible route for frozen gpt-oss-120b and chattla-w4dg-120b, and no admitted direct 8-GPU serving route is available from this session.
@@ -802,12 +802,12 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 982,
-  "verified_utc": "2026-09-19T17:33:02Z",
+  "revision": 983,
+  "verified_utc": "2026-09-19T17:44:16Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "external_wait",
   "active_job": null,
-  "observation_evidence": "At 2026-09-19T17:33:02Z, fresh BatchMode SSH reached polaris-login-01 and qstat showed no jobs for eric. The pilot packet, runner, focused tests, and SANY-first/TLAPS canary are committed in dfbeca87. Polaris still exposes no OPENAI_BASE_URL, OPENAI_API_KEY, or OPENAI_API_KEY_CMD; Sophia SSH remains unavailable; no pilot job was submitted.",
+  "observation_evidence": "At 2026-09-19T17:44:16Z, fresh BatchMode SSH reached polaris-login-01 and qstat showed no jobs for eric. Polaris exposed none of OPENAI_BASE_URL, OPENAI_API_KEY, or OPENAI_API_KEY_CMD. Sophia SSH failed with Permission denied (keyboard-interactive,hostbased). The pilot packet, runner, focused tests, and SANY-first/TLAPS canary remain committed in dfbeca87; no pilot job was submitted.",
   "last_result": "Job 7634951 completed the answer-free official v2 evaluation: 119/119 ranked tasks, 462 candidates, zero training/repair/feedback/TLAPS execution in the worker, and no quality/proof/gate claim. The independent strict uncached TLAPS audit fully ranked all 119, measured 107 before the hard wall-clock bound, and certified 43 measured tasks in bounded top-4 search, including 42 rank-1 certifications; 12 tasks were unmeasured because the bound expired. This is generation/ranking evidence only, not a prover or promotion result.",
   "local_work": "Checkout /Users/eric/GitHub/prove-TLA is on board/193 at commit dfbeca87 (Stage protected repair pilot). The frozen 20-case answer-free packet is results/runs/proof-protected-repair-pilot-20260919-v2/packet.json with SHA a7902debb566503af613da6c28b0415953147e3fd1e14102853825d5dd9e5416. The canary receipt is results/runs/proof-protected-repair-pilot-20260919-v2/preflight-controls.json; unrelated generated work remains untouched.",
   "external_blocker": "Board ticket #407 is needs_eric: the current Polaris session has no authenticated OpenAI-compatible route for frozen gpt-oss-120b and chattla-w4dg-120b, and no admitted direct 8-GPU serving route is available from this session.",
