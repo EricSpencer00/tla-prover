@@ -2,7 +2,7 @@
   "schema_version": 1,
   "snapshot_kind": "published-research-status",
   "published_at": "2026-09-18",
-  "source_commit": "a48447e5",
+  "source_commit": "259d3a10",
   "freshness_note": "This is a published snapshot. Open the password-protected notebook for a fresh read-only backend and process probe.",
   "program": {
     "phase": "Stage 3 TLAPS prover research",
