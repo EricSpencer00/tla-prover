@@ -4,7 +4,10 @@ import json
 import pytest
 
 from tools.build_official_candidate_rank_packet import build
-from tools.proof_official_candidate_rank_score import normalize_rankings
+from tools.proof_official_candidate_rank_score import (
+    normalize_rankings,
+    validate_answer_free_packet,
+)
 
 
 def test_official_packet_is_fixed_and_answer_free(tmp_path):
@@ -41,3 +44,21 @@ def test_rankings_are_sorted_by_score_then_index():
         {"candidate_index": 0, "candidate": "OBVIOUS", "mean_logp": -1.0},
     ]}, packet)
     assert [row["candidate_index"] for row in result["x"]] == [0, 1]
+
+
+def test_typed_official_packet_is_answer_free_and_supported():
+    packet = {
+        "packet_kind": "answer_free_typed_candidate_rank_official",
+        "split": "official_test", "denominator": 119,
+        "reference_fragment_used": False,
+        "reference_fragment_exported": False, "proof_bodies_exported": False,
+        "successful_candidates_exported": False, "generated_feedback": False,
+        "training_executed": False, "parameter_updates": 0,
+        "tlaps_executed": False, "proof_or_quality_claim": False,
+        "gate_claim": False, "development_targets_exported": False,
+        "official_packet_sha256":
+            "f40539a20e449ad63b8244e85eff33c8022402df11a84e8228b71ccbfeae11b5",
+        "source_manifest_sha256":
+            "3380cf37c7311466ea7762662d55866839b3c3620ce73fb8d7ad209befe6de1d",
+    }
+    validate_answer_free_packet(packet)

@@ -1,0 +1,143 @@
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/291 [00:00<?, ?it/s]Loading weights:   3%|▎         | 10/291 [00:00<00:06, 40.57it/s]Loading weights:   7%|▋         | 20/291 [00:00<00:04, 61.70it/s]Loading weights:  11%|█         | 32/291 [00:00<00:03, 77.93it/s]Loading weights:  14%|█▍        | 41/291 [00:00<00:04, 53.90it/s]Loading weights:  16%|█▋        | 48/291 [00:00<00:04, 50.66it/s]Loading weights:  19%|█▊        | 54/291 [00:01<00:04, 50.70it/s]Loading weights:  21%|██        | 60/291 [00:01<00:06, 35.20it/s]Loading weights:  25%|██▌       | 74/291 [00:01<00:04, 50.58it/s]Loading weights:  29%|██▊       | 83/291 [00:01<00:03, 52.76it/s]Loading weights:  31%|███       | 90/291 [00:01<00:03, 51.92it/s]Loading weights:  33%|███▎      | 96/291 [00:01<00:04, 45.68it/s]Loading weights:  38%|███▊      | 110/291 [00:02<00:03, 57.10it/s]Loading weights:  40%|████      | 117/291 [00:02<00:02, 58.59it/s]Loading weights:  44%|████▎     | 127/291 [00:02<00:02, 62.45it/s]Loading weights:  47%|████▋     | 138/291 [00:02<00:02, 65.14it/s]Loading weights:  51%|█████     | 149/291 [00:02<00:02, 59.45it/s]Loading weights:  57%|█████▋    | 165/291 [00:02<00:01, 76.55it/s]Loading weights:  60%|█████▉    | 174/291 [00:02<00:01, 73.49it/s]Loading weights:  63%|██████▎   | 182/291 [00:03<00:01, 73.09it/s]Loading weights:  66%|██████▌   | 191/291 [00:03<00:01, 63.39it/s]Loading weights:  68%|██████▊   | 198/291 [00:03<00:01, 56.13it/s]Loading weights:  70%|███████   | 204/291 [00:03<00:01, 51.91it/s]Loading weights:  72%|███████▏  | 210/291 [00:03<00:01, 50.95it/s]Loading weights:  75%|███████▍  | 218/291 [00:03<00:01, 54.34it/s]Loading weights:  77%|███████▋  | 224/291 [00:04<00:01, 49.16it/s]Loading weights:  82%|████████▏ | 238/291 [00:04<00:00, 65.41it/s]Loading weights:  86%|████████▌ | 250/291 [00:04<00:00, 67.97it/s]Loading weights:  89%|████████▊ | 258/291 [00:04<00:00, 64.43it/s]Loading weights:  92%|█████████▏| 268/291 [00:04<00:00, 69.80it/s]Loading weights:  95%|█████████▍| 276/291 [00:04<00:00, 60.46it/s]Loading weights: 100%|██████████| 291/291 [00:04<00:00, 60.37it/s]
+{
+  "kind": "answer_free_typed_candidate_rank_official_eval",
+  "packet_sha256": "f40539a20e449ad63b8244e85eff33c8022402df11a84e8228b71ccbfeae11b5",
+  "typed_packet_sha256": "170cf30920e35494e4ed7302a04ab0e41d3f18543f3f0ddcb4eb975a1ca27431",
+  "denominator": 119,
+  "ranked_tasks": 119,
+  "candidate_count": 462,
+  "hidden_size": 4096,
+  "prompt_tokens": {
+    "10_lockserv": 1127,
+    "11_TwoPhase": 2334,
+    "13_simple_decentralized_lock": 748,
+    "14_two_phase_commit": 1410,
+    "15_consensus_wo_decide": 1852,
+    "16_consensus_forall": 1663,
+    "19_sharded_kv_no_lost_keys": 1004,
+    "1_Consensus": 312,
+    "20_naive_consensus": 868,
+    "21_client_server_ae": 681,
+    "22_simple_election": 792,
+    "23_toy_consensus_epr": 777,
+    "24_toy_consensus": 672,
+    "25_client_server_db_ae": 1660,
+    "27_firewall": 728,
+    "28_majorityset_leader_election": 930,
+    "29_consensus_epr": 2278,
+    "2_TCommit": 729,
+    "30_MongoLoglessDynamicRaft": 2639,
+    "3_lockserver": 722,
+    "4_quorum_leader_election": 665,
+    "5_toy_consensus_forall": 1068,
+    "6_Simple": 1578,
+    "7_lockserv_automaton": 1082,
+    "8_SimpleRegular": 1908,
+    "9_sharded_kv": 1263,
+    "aimeII_2001_p3": 343,
+    "aime_1984_p7": 151,
+    "aime_1987_p5": 211,
+    "aime_1991_p1": 221,
+    "aime_1994_p3": 225,
+    "algebra_xmysqpymzsqpzmxsqeqxyz_xpypzp6dvdx3y3z3": 348,
+    "amc12_2000_p1": 204,
+    "amc12_2000_p12": 207,
+    "amc12_2000_p6": 239,
+    "amc12_2001_p2": 248,
+    "amc12_2001_p21": 349,
+    "amc12a_2002_p6": 198,
+    "amc12a_2003_p5": 282,
+    "amc12a_2015_p10": 199,
+    "amc12a_2021_p3": 189,
+    "amc12a_2021_p8": 235,
+    "amc12b_2002_p11": 269,
+    "amc12b_2002_p2": 226,
+    "amc12b_2002_p7": 246,
+    "imo_1977_p5": 361,
+    "imo_1977_p6": 268,
+    "imo_1981_p6": 365,
+    "imo_1982_p1": 327,
+    "imo_1987_p4": 171,
+    "imo_1992_p1": 326,
+    "imo_1993_p5": 231,
+    "imo_2001_p6": 360,
+    "imo_2019_p1": 284,
+    "induction_divisibility_3divnto3m2n": 192,
+    "induction_ineq_nsqlefactn": 325,
+    "mathd_algebra_123": 211,
+    "mathd_algebra_125": 220,
+    "mathd_algebra_144": 272,
+    "mathd_algebra_296": 185,
+    "mathd_algebra_392": 271,
+    "mathd_algebra_69": 195,
+    "mathd_algebra_76": 276,
+    "mathd_numbertheory_110": 248,
+    "mathd_numbertheory_1124": 195,
+    "mathd_numbertheory_136": 161,
+    "mathd_numbertheory_150": 218,
+    "mathd_numbertheory_185": 167,
+    "mathd_numbertheory_22": 207,
+    "mathd_numbertheory_234": 251,
+    "mathd_numbertheory_247": 165,
+    "mathd_numbertheory_284": 237,
+    "mathd_numbertheory_293": 185,
+    "mathd_numbertheory_296": 229,
+    "mathd_numbertheory_301": 173,
+    "mathd_numbertheory_314": 228,
+    "mathd_numbertheory_320": 196,
+    "mathd_numbertheory_326": 183,
+    "mathd_numbertheory_33": 178,
+    "mathd_numbertheory_335": 167,
+    "mathd_numbertheory_34": 178,
+    "mathd_numbertheory_370": 173,
+    "mathd_numbertheory_405": 359,
+    "mathd_numbertheory_412": 254,
+    "mathd_numbertheory_430": 337,
+    "mathd_numbertheory_457": 352,
+    "mathd_numbertheory_458": 161,
+    "mathd_numbertheory_48": 187,
+    "mathd_numbertheory_483": 242,
+    "mathd_numbertheory_5": 215,
+    "mathd_numbertheory_521": 201,
+    "mathd_numbertheory_541": 183,
+    "mathd_numbertheory_559": 204,
+    "mathd_numbertheory_582": 223,
+    "mathd_numbertheory_64": 209,
+    "mathd_numbertheory_690": 214,
+    "mathd_numbertheory_765": 177,
+    "mathd_numbertheory_780": 239,
+    "mathd_numbertheory_92": 164,
+    "mathd_numbertheory_99": 165,
+    "numbertheory_4x3m7y3neq2003": 200,
+    "numbertheory_aoddbdiv4asqpbsqmod8eq1": 246,
+    "numbertheory_notequiv2i2jasqbsqdiv8": 268,
+    "numbertheory_prmdvsneqnsqmodpeq0": 264,
+    "numbertheory_sqmod3in01d": 175,
+    "numbertheory_sqmod4in01d": 179,
+    "numbertheory_x5neqy2p4": 181,
+    "exercise_11_13_3": 256,
+    "exercise_18_4": 256,
+    "exercise_1_1_2a": 149,
+    "exercise_1_1_3": 198,
+    "exercise_1_1_4": 196,
+    "exercise_1_27": 188,
+    "exercise_2000_a2": 393,
+    "exercise_3_10": 388,
+    "exercise_3_4": 152,
+    "exercise_3_5": 153,
+    "exercise_5_13": 257,
+    "exercise_5_28": 279
+  },
+  "reference_fragment_used": false,
+  "verifier_feedback_used": false,
+  "repair_used": false,
+  "reward_used": false,
+  "training_executed": false,
+  "parameter_updates": 0,
+  "tlaps_executed": false,
+  "quality_claim": false,
+  "proof_claim": false,
+  "gate_claim": false,
+  "elapsed_seconds": 16.518
+}

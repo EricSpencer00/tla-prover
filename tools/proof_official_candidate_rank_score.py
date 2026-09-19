@@ -93,6 +93,48 @@ def normalize_rankings(rankings: dict, packet: dict) -> dict:
     return normalized
 
 
+def validate_answer_free_packet(packet: dict) -> None:
+    """Validate either official symbolic packet representation.
+
+    The typed candidate-rank packet deliberately preserves the same frozen
+    task/candidate boundary as the original packet, but adds typed agenda
+    metadata and records the hash of its answer-free parent packet.
+    """
+    packet_kind = packet.get("packet_kind")
+    if packet_kind not in {
+        "answer_free_official_symbolic_candidate_ranking",
+        "answer_free_typed_candidate_rank_official",
+    }:
+        raise ValueError("unsupported or answer-bearing packet")
+    if packet_kind == "answer_free_official_symbolic_candidate_ranking":
+        expected_flags = {
+            "packet_kind": packet_kind,
+            "split": "official_test", "denominator": 119,
+            "protected_evaluation": True, "reference_fragment_used": False,
+            "reference_fragment_exported": False, "proof_bodies_exported": False,
+            "successful_candidates_exported": False, "generated_feedback": False,
+            "training_executed": False, "parameter_updates": 0,
+            "tlaps_executed": False, "proof_or_quality_claim": False,
+        }
+    else:
+        expected_flags = {
+            "packet_kind": packet_kind,
+            "split": "official_test", "denominator": 119,
+            "reference_fragment_used": False,
+            "reference_fragment_exported": False, "proof_bodies_exported": False,
+            "successful_candidates_exported": False, "generated_feedback": False,
+            "training_executed": False, "parameter_updates": 0,
+            "tlaps_executed": False, "proof_or_quality_claim": False,
+            "gate_claim": False, "development_targets_exported": False,
+            "official_packet_sha256":
+                "f40539a20e449ad63b8244e85eff33c8022402df11a84e8228b71ccbfeae11b5",
+            "source_manifest_sha256":
+                "3380cf37c7311466ea7762662d55866839b3c3620ce73fb8d7ad209befe6de1d",
+        }
+    if any(packet.get(key) != value for key, value in expected_flags.items()):
+        raise ValueError("unsupported or answer-bearing packet")
+
+
 def score(packet_path: Path, manifest_path: Path, rankings_path: Path, output: Path,
           expected_packet_sha256: str, expected_manifest_sha256: str,
           expected_checkpoint_sha256: str | None = None,
@@ -102,24 +144,18 @@ def score(packet_path: Path, manifest_path: Path, rankings_path: Path, output: P
         raise ValueError("packet hash mismatch")
     packet = json.loads(packet_bytes)
     reject_keys(packet)
-    expected_flags = {
-        "packet_kind": "answer_free_official_symbolic_candidate_ranking",
-        "split": "official_test", "denominator": 119,
-        "protected_evaluation": True, "reference_fragment_used": False,
-        "reference_fragment_exported": False, "proof_bodies_exported": False,
-        "successful_candidates_exported": False, "generated_feedback": False,
-        "training_executed": False, "parameter_updates": 0,
-        "tlaps_executed": False, "proof_or_quality_claim": False,
-    }
-    if any(packet.get(key) != value for key, value in expected_flags.items()):
-        raise ValueError("unsupported or answer-bearing packet")
+    validate_answer_free_packet(packet)
     if len(packet.get("rows", [])) != 119:
         raise ValueError("fixed official denominator required")
     tasks = load_tasks(manifest_path, packet, expected_manifest_sha256)
     rankings_path = Path(rankings_path)
     ranking_data = json.loads(rankings_path.read_bytes())
     worker_config = json.loads((rankings_path.parent / "config.json").read_bytes())
-    if worker_config.get("packet_sha256") != sha(packet_bytes):
+    if packet.get("packet_kind") == "answer_free_typed_candidate_rank_official":
+        if (worker_config.get("packet_sha256") != packet["official_packet_sha256"] or
+                worker_config.get("typed_packet_sha256") != sha(packet_bytes)):
+            raise ValueError("ranking receipt is not bound to the typed packet and parent")
+    elif worker_config.get("packet_sha256") != sha(packet_bytes):
         raise ValueError("ranking receipt is not bound to this packet")
     if expected_checkpoint_sha256 and worker_config.get("checkpoint_sha256") != expected_checkpoint_sha256:
         raise ValueError("worker did not bind exact parent checkpoint")

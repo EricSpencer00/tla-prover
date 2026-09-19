@@ -1,0 +1,50 @@
+Job Id: 7634951.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov
+    Job_Name = tla-typed-candidate-official-v1
+    Job_Owner = eric-spencer@polaris-login-02.hsn.cm.polaris.alcf.anl.gov
+    resources_used.cpupercent = 50
+    resources_used.cput = 00:01:06
+    resources_used.mem = 5750724kb
+    resources_used.ncpus = 64
+    resources_used.ngpus = 0
+    resources_used.vmem = 43227448kb
+    resources_used.walltime = 00:03:34
+    job_state = F
+    queue = debug
+    server = polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov
+    Account_Name = EVITA
+    Checkpoint = u
+    ctime = Sat Sep 19 07:16:06 2026
+    exec_host = x3013c0s13b0n0/0*64
+    exec_vnode = (x3013c0s13b0n0:ncpus=64:ngpus=1)
+    Hold_Types = n
+    Join_Path = oe
+    Keep_Files = doe
+    Mail_Points = a
+    Priority = 0
+    qtime = Sat Sep 19 07:16:06 2026
+    Rerunable = False
+    Resource_List.filesystems = home:grand
+    Resource_List.ncpus = 64
+    Resource_List.ngpus = 1
+    Resource_List.ni_resource = polaris
+    Resource_List.nodect = 1
+    Resource_List.select = 1:system=polaris:ncpus=64:ngpus=1
+    Resource_List.walltime = 00:15:00
+    stime = Sat Sep 19 07:19:30 2026
+    obittime = Sat Sep 19 07:23:09 2026
+    session_id = 3371155
+    jobdir = /home/eric-spencer
+    substate = 92
+    euser = eric-spencer
+    egroup = users
+    comment = Job run at Sat Sep 19 at 07:19 on (x3013c0s13b0n0:ncpus=64:ngpus=1) and finished
+    etime = Sat Sep 19 07:16:06 2026
+    umask = 22
+    run_count = 1
+    eligible_time = 00:03:27
+    Stageout_status = 1
+    Exit_status = 0
+    Submit_arguments = tools/proof_typed_candidate_rank_official.pbs
+    estimated.exec_vnode = (x3013c0s13b0n0:ncpus=64:ngpus=1)
+    project = EVITA
+    Submit_Host = polaris-login-02.hsn.cm.polaris.alcf.anl.gov
