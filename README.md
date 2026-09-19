@@ -138,12 +138,19 @@ it; the write-up is in
 ## Layout
 
 - `PLAN.md` — the normative plan: goal, rules, staged gates, amendment log.
+- `docs/TEAM_GUIDE.md` — the teammate-facing explanation of the run lifecycle,
+  status vocabulary, and claim boundaries.
+- `docs/MODEL_METHOD_MATRIX.md` — the explicit matrix of base model × update
+  method, including failed, retracted, shelved, and not-run entries.
 - `harness/` — verification + eval CLI (`run`, `repair`, `semaudit`, `gate1-report`, `gen-eval`).
 - `corpus/` — frozen artifacts (`gate0_closed.json`, `holdout_30.json`), patches, wrappers.
 - `results/runs/` — append-only per-run evidence (config, logs, summary, rows).
 - `results/analysis/` — re-scores and post-hoc analyses over those ledgers.
 - `docs/` — design docs, cell rules for the W4 corpus, session write-ups.
 - `AUDIT.md`, `ROADMAP.md`, `GATE0_STATUS.md`, `GATE1_STATUS.md` — informational status/history.
+- `site/` — the public research hub. `site/status.json` is a labelled published
+  snapshot; the password-protected notebook provides fresh read-only backend
+  and user-owned process probes.
 
 ## Quickstart
 

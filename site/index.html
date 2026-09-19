@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="TLA-Prover is an evidence-first program for training language models to produce genuine, mechanically verified TLA+ proofs.">
+  <meta name="description" content="A shared research hub for understanding TLA-Prover training runs, evidence, live lab status, and the protected proof gate.">
   <title>TLA-Prover · Evidence, runs, and a live TLA+ lab</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,8 +16,9 @@
   <header class="masthead">
     <a class="wordmark" href="#top" aria-label="TLA-Prover home">TLA<span>+</span>PROVER</a>
     <nav aria-label="Primary navigation">
-      <a href="#results">Results</a>
-      <a href="#ledger">Run ledger</a>
+      <a href="#mission">Mission</a>
+      <a href="#runs">Run board</a>
+      <a href="#methods">Methods</a>
       <a href="#lab">Live lab</a>
       <a href="#reproduce">Reproduce</a>
     </nav>
@@ -29,9 +30,9 @@
       <div class="hero-copy">
         <p class="eyebrow">LUC AI4FM · Formal proof research</p>
         <h1 id="hero-title">Teach a model to prove it.<br><span>Then make it prove it.</span></h1>
-        <p class="lede">A public laboratory for training TLA+ provers without self-certification. Every claim is tied to a frozen denominator, an executable checker, and an append-only evidence trail.</p>
+        <p class="lede">A shared research room for training TLA+ provers without self-certification. Teammates can see what is live, understand what a run means, and follow every claim back to an executable checker and append-only evidence trail.</p>
         <div class="hero-actions">
-          <a class="button primary" href="#lab">Run a TLA+ check</a>
+          <a class="button primary" href="#runs">See what is live</a>
           <a class="button text" href="https://github.com/LUC-AI4FM/tla-prover/blob/main/notebooks/tla_prover_lab.ipynb">Open the notebook ↗</a>
         </div>
       </div>
@@ -48,9 +49,42 @@
       </div>
     </section>
 
+    <section class="section mission" id="mission" aria-labelledby="mission-title">
+      <header class="section-heading compact">
+        <p class="section-number">01</p>
+        <div>
+          <p class="eyebrow">For the whole team</p>
+          <h2 id="mission-title">Know what ran before you trust what it says.</h2>
+        </div>
+        <p class="section-note">The hub is the map. The notebook is the live read-only instrument. The repository ledger is the source of truth.</p>
+      </header>
+      <div class="mission-grid">
+        <article>
+          <span class="mission-mark">A</span>
+          <h3>Orient</h3>
+          <p>Start with the current claim boundary, training stage, and protected denominator. A healthy machine is not a better prover.</p>
+        </article>
+        <article>
+          <span class="mission-mark">B</span>
+          <h3>Inspect</h3>
+          <p>Open the notebook for a fresh TLAKit smoke check and read-only Polaris/Sophia process view. It cannot submit or cancel jobs.</p>
+        </article>
+        <article>
+          <span class="mission-mark">C</span>
+          <h3>Challenge</h3>
+          <p>Read the config, rows, summary, and audit together. Keep rejected candidates: they are how we avoid cycling and reward hacking.</p>
+        </article>
+      </div>
+      <div class="mission-callout">
+        <div><span>Current program</span><strong id="program-phase">Loading…</strong></div>
+        <div><span>Protected gate</span><strong id="program-gate">Loading…</strong></div>
+        <div><span>Published snapshot</span><strong id="snapshot-date">Loading…</strong></div>
+      </div>
+    </section>
+
     <section class="section results" id="results" aria-labelledby="results-title">
       <header class="section-heading">
-        <p class="section-number">01</p>
+        <p class="section-number">02</p>
         <div>
           <p class="eyebrow">Measured, not marketed</p>
           <h2 id="results-title">The complete result, including the losses.</h2>
@@ -97,38 +131,55 @@
       </div>
     </section>
 
-    <section class="section ledger" id="ledger" aria-labelledby="ledger-title">
+    <section class="section methods" id="methods" aria-labelledby="methods-title">
       <header class="section-heading compact">
-        <p class="section-number">02</p>
+        <p class="section-number">03</p>
         <div>
-          <p class="eyebrow">Live research ledger</p>
+          <p class="eyebrow">Model × method</p>
+          <h2 id="methods-title">“Trained” is not a method.</h2>
+        </div>
+        <p class="section-note">LoRA moves adapters. Full fine-tuning moves base weights. Prompt-only moves no parameters. The matrix keeps those claims apart.</p>
+      </header>
+      <div class="method-table-wrap">
+        <table class="method-table">
+          <thead>
+            <tr><th>Base model</th><th>Method</th><th>What could move</th><th>Run / outcome</th><th>Honest status</th></tr>
+          </thead>
+          <tbody id="method-matrix">
+            <tr><td colspan="5">Loading the method matrix…</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="not-done">
+        <strong>Not done</strong>
+        <p>There is no registered full-fine-tuning run, no corrected Qwen adapter run, and no protected Stage-3 RL/GRPO result. The current protected target remains 0/119.</p>
+        <a href="https://github.com/LUC-AI4FM/tla-prover/blob/main/docs/MODEL_METHOD_MATRIX.md">Read the definitions and evidence ↗</a>
+      </div>
+    </section>
+
+    <section class="section ledger" id="runs" aria-labelledby="ledger-title">
+      <header class="section-heading compact">
+        <p class="section-number">04</p>
+        <div>
+          <p class="eyebrow">Published run board</p>
           <h2 id="ledger-title">What ran, what failed, what is next.</h2>
         </div>
-        <p class="section-note">Infrastructure state is reported separately from model evidence.</p>
+        <p class="section-note" id="snapshot-note">Loading the latest safe snapshot. Infrastructure state stays separate from model evidence.</p>
       </header>
-      <div class="ledger-track">
-        <article>
-          <time datetime="2026-09-18">18 Sep</time>
-          <div><span class="state failed">INFRA FAILURE</span><h3>Official typed-ranker v1</h3><p>Polaris job 7631579 exited before model import because the staged dependency closure was incomplete. Zero GPU seconds. No model claim.</p></div>
-        </article>
-        <article>
-          <time datetime="2026-09-18">18 Sep</time>
-          <div><span class="state ready">PREFLIGHT PASSED</span><h3>Append-only v2 stage</h3><p>Complete dependency closure staged. Packet and parent hashes verified. Corrected GPU job remains unsubmitted while interactive authentication is inactive.</p></div>
-        </article>
-        <article>
-          <time datetime="2026-09-18">18 Sep</time>
-          <div><span class="state ready">TOOLCHAIN PASS</span><h3>TLAKit notebook</h3><p>TLAKit 0.1.1 reached the live runner; SANY returned <code>ok</code> with zero diagnostics. This verifies the lab, not the prover.</p></div>
-        </article>
-        <article>
-          <time datetime="2026-09-18">NOW</time>
-          <div><span class="state active">ACTIVE QUESTION</span><h3>Can bounded proof-policy updates transfer?</h3><p>Use non-protected trajectories, retain rejected edits, limit each child update, and promote only on strict protected-gate improvement with genuine proof evidence.</p></div>
-        </article>
+      <div class="ledger-track" id="run-ledger" aria-live="polite"></div>
+      <div class="compute-watch">
+        <div>
+          <span class="eyebrow">Compute watch</span>
+          <h3>Fresh process details stay in the notebook.</h3>
+        </div>
+        <p id="compute-summary">The public board reports the last published state. The password-protected notebook can make a fresh, read-only probe of user-owned processes on configured backends without exposing command arguments or controls.</p>
+        <a class="button text" href="https://github.com/LUC-AI4FM/tla-prover/blob/main/notebooks/tla_prover_lab.ipynb">Open live inspection notebook ↗</a>
       </div>
     </section>
 
     <section class="section lab" id="lab" aria-labelledby="lab-title">
       <header class="section-heading lab-heading">
-        <p class="section-number">03</p>
+        <p class="section-number">05</p>
         <div>
           <p class="eyebrow">Runnable in the browser</p>
           <h2 id="lab-title">Ask SANY, not the page.</h2>
@@ -163,7 +214,7 @@ THEOREM TwoIsEven == \E n \in Nat : 2 = 2 * n
 
     <section class="section reproduce" id="reproduce" aria-labelledby="reproduce-title">
       <header class="section-heading">
-        <p class="section-number">04</p>
+        <p class="section-number">06</p>
         <div>
           <p class="eyebrow">Take the instrument with you</p>
           <h2 id="reproduce-title">Notebook, harness, data, commands.</h2>
@@ -175,6 +226,7 @@ THEOREM TwoIsEven == \E n \in Nat : 2 = 2 * n
         <a href="https://github.com/LUC-AI4FM/tla-prover/tree/main/results"><span>03</span><strong>Evidence ledger</strong><small>Append-only rows, summaries, independent analyses</small><b>↗</b></a>
         <a href="https://github.com/LUC-AI4FM/tla-prover/tree/main/harness"><span>04</span><strong>Verification harness</strong><small>SANY, TLC, TLAPS, vacuity and semantic audit</small><b>↗</b></a>
         <a href="https://github.com/LUC-AI4FM/tla-prover/blob/main/docs/BRANCH_CONSOLIDATION_2026-09-18.md"><span>05</span><strong>Branch quality audit</strong><small>Promoted, rejected, and deferred histories with reasons</small><b>↗</b></a>
+        <a href="https://github.com/LUC-AI4FM/tla-prover/blob/main/docs/TEAM_GUIDE.md"><span>06</span><strong>Team guide</strong><small>Run lifecycle, status vocabulary, and claim boundaries</small><b>↗</b></a>
       </div>
       <div class="command-strip">
         <div><span>Clone and enter</span><code>git clone https://github.com/LUC-AI4FM/tla-prover.git</code></div>

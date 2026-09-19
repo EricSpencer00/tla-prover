@@ -27,6 +27,19 @@ class ClusterStatus:
 
 
 @dataclass(frozen=True)
+class ClusterProcess:
+    """A deliberately small, non-sensitive view of one user-owned process."""
+
+    pid: int
+    state: str
+    cpu_percent: float
+    memory_percent: float
+    elapsed_seconds: int
+    command: str
+    purpose: str
+
+
+@dataclass(frozen=True)
 class ClusterBackend:
     name: str
     ssh_alias: str
@@ -103,6 +116,76 @@ class ClusterBackend:
         except Exception:  # A probe reports failure; it does not hide the run.
             return False
         return True
+
+    def processes(self, timeout: float = 8.0) -> list[ClusterProcess]:
+        """Return safe process metadata for this user's research services.
+
+        The remote command is fixed, batch-only, and scoped to the SSH user's
+        processes. It returns command names and resource counters, never full
+        argv strings, environment variables, scheduler arguments, or logs.
+        This is a status view: it cannot submit, stop, or modify a job.
+        """
+        command = [
+            "ssh",
+            "-o",
+            "BatchMode=yes",
+            "-o",
+            f"ConnectTimeout={max(1, int(timeout))}",
+            self.ssh_alias,
+            (
+                "ps -u \"$(id -u)\" -o pid=,state=,pcpu=,pmem=,etimes=,comm= "
+                "| awk '$6 ~ /^(python|python3|jupyter|cloudflared|tlakit|srun|sbatch|qsub|torchrun|accelerate)$/ {print}'"
+            ),
+        ]
+        try:
+            completed = subprocess.run(
+                command,
+                check=False,
+                capture_output=True,
+                text=True,
+                timeout=timeout,
+            )
+        except (OSError, subprocess.TimeoutExpired):
+            return []
+        if completed.returncode != 0:
+            return []
+
+        processes: list[ClusterProcess] = []
+        for line in completed.stdout.splitlines():
+            fields = line.split()
+            if len(fields) != 6:
+                continue
+            try:
+                pid, state = int(fields[0]), fields[1]
+                cpu, memory = float(fields[2]), float(fields[3])
+                elapsed = int(fields[4])
+            except ValueError:
+                continue
+            command_name = fields[5]
+            processes.append(
+                ClusterProcess(
+                    pid=pid,
+                    state=state,
+                    cpu_percent=cpu,
+                    memory_percent=memory,
+                    elapsed_seconds=elapsed,
+                    command=command_name,
+                    purpose=self._process_purpose(command_name),
+                )
+            )
+        return processes
+
+    @staticmethod
+    def _process_purpose(command: str) -> str:
+        if command in {"jupyter", "python", "python3", "tlakit"}:
+            return "Python or TLAKit service"
+        if command == "cloudflared":
+            return "Encrypted web tunnel"
+        if command in {"srun", "sbatch", "qsub"}:
+            return "Scheduler process"
+        if command in {"torchrun", "accelerate"}:
+            return "Training launcher"
+        return "Research process"
 
     @staticmethod
     def _brief_error(stderr: str) -> str:

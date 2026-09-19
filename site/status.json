@@ -1,0 +1,156 @@
+{
+  "schema_version": 1,
+  "snapshot_kind": "published-research-status",
+  "published_at": "2026-09-18",
+  "source_commit": "a48447e5",
+  "freshness_note": "This is a published snapshot. Open the password-protected notebook for a fresh read-only backend and process probe.",
+  "program": {
+    "phase": "Stage 3 TLAPS prover research",
+    "headline": "The lab is open for inspection; the protected prover gate is still unmet.",
+    "gate": "0/119",
+    "gate_label": "protected TLAPS cases",
+    "gate_status": "not_passed"
+  },
+  "surfaces": [
+    {
+      "name": "Research hub",
+      "status": "published",
+      "detail": "This page: evidence, explanations, and the latest published snapshot."
+    },
+    {
+      "name": "Notebook",
+      "status": "password_required",
+      "detail": "Live TLAKit smoke check plus read-only Polaris/Sophia/process probes."
+    },
+    {
+      "name": "Public SANY runner",
+      "status": "available",
+      "detail": "Self-contained parse checks only; no files, shell, or scheduler access."
+    }
+  ],
+  "run_lifecycle": [
+    {"id": "freeze", "label": "Freeze", "detail": "Pin data, model, budget, and acceptance rule."},
+    {"id": "preflight", "label": "Preflight", "detail": "Validate dependencies, hashes, and trainability."},
+    {"id": "train", "label": "Train", "detail": "Produce a bounded checkpoint with an append-only log."},
+    {"id": "evaluate", "label": "Evaluate", "detail": "Run the registered generation budget and verifiers."},
+    {"id": "audit", "label": "Audit", "detail": "Reject vacuous or semantically weakened candidates."},
+    {"id": "promote", "label": "Promote", "detail": "Require strict protected improvement with proof evidence."}
+  ],
+  "training_runs": [
+    {
+      "id": "w4-diamond-gold",
+      "label": "W4-diamond-gold",
+      "status": "measured",
+      "result": "16/30 pass@32 after a prompt-harness fix",
+      "meaning": "Directional generation improvement; not a protected TLAPS claim.",
+      "evidence": "results/analysis/rowlevel_reanalysis_2026-07-30.md"
+    },
+    {
+      "id": "v2-sft2-120b",
+      "label": "v2 SFT / 120B",
+      "status": "quarantined",
+      "result": "11/30 framing A; 18/23 framing B",
+      "meaning": "Did not beat the frozen Gate-2 baseline; retained as negative evidence.",
+      "evidence": "README.md"
+    },
+    {
+      "id": "stage3-tlaps",
+      "label": "Stage 3 TLAPS prover",
+      "status": "open",
+      "result": "0/119 protected cases",
+      "meaning": "This is the active target. No training proxy is allowed to replace it.",
+      "evidence": "GATE1_STATUS.md"
+    }
+  ],
+  "model_matrix": [
+    {
+      "base_model": "gpt-oss-20b",
+      "method": "Prompt-only",
+      "update_scope": "No parameters updated",
+      "run": "Gate-2 frozen baseline",
+      "outcome": "Measured comparison arm",
+      "status": "baseline",
+      "claim": "No training claim"
+    },
+    {
+      "base_model": "gpt-oss-120b",
+      "method": "Prompt-only",
+      "update_scope": "No parameters updated",
+      "run": "Gate-2 frozen baseline",
+      "outcome": "A 12/30; B 21/23 pass@32",
+      "status": "baseline",
+      "claim": "Best frozen comparison arm; no training claim"
+    },
+    {
+      "base_model": "gpt-oss-20b",
+      "method": "LoRA / PEFT SFT",
+      "update_scope": "Expert-reaching adapter recipe",
+      "run": "v2_sft1 · 39 plain-text pairs",
+      "outcome": "0/10 directional; 82% unextractable",
+      "status": "failed",
+      "claim": "Pipeline/channel failure, not a capability result"
+    },
+    {
+      "base_model": "gpt-oss-120b",
+      "method": "LoRA / PEFT SFT",
+      "update_scope": "Harmony-formatted adapter targets",
+      "run": "v2_sft2 · 260 pairs",
+      "outcome": "A 11/30; B 18/23",
+      "status": "failed",
+      "claim": "Did not beat the frozen baseline"
+    },
+    {
+      "base_model": "gpt-oss-20b",
+      "method": "LoRA / PEFT SFT",
+      "update_scope": "Expert-LoRA",
+      "run": "W2.6 repair-v1 · 508 pairs",
+      "outcome": "+1 pass@1; −8 pass@4",
+      "status": "shelved",
+      "claim": "Diversity collapse reproduced; fine-tuning shelved"
+    },
+    {
+      "base_model": "Qwen3.6-27B",
+      "method": "Intended LoRA / PEFT SFT",
+      "update_scope": "Resolver matched nothing; 0.0195% trainable",
+      "run": "Retracted base-model comparison",
+      "outcome": "Invalid comparison",
+      "status": "retracted",
+      "claim": "Fix architecture-aware resolution before rerunning"
+    },
+    {
+      "base_model": "Any",
+      "method": "Full fine-tuning",
+      "update_scope": "All selected base weights",
+      "run": "No registered run",
+      "outcome": "Not done",
+      "status": "not_run",
+      "claim": "No full-fine-tuning claim"
+    },
+    {
+      "base_model": "Any",
+      "method": "Stage-3 RL / GRPO",
+      "update_scope": "Policy update from verified reward",
+      "run": "No protected result",
+      "outcome": "Not done",
+      "status": "not_run",
+      "claim": "Protected TLAPS target remains 0/119"
+    }
+  ],
+  "compute": {
+    "aisec": {
+      "status": "lab_running",
+      "visible": "notebook_only",
+      "detail": "Password-protected Jupyter lab, isolated TLAKit runner, and tunnel; no public shell or job control."
+    },
+    "polaris": {
+      "status": "probe_on_demand",
+      "visible": "notebook_only",
+      "detail": "Fresh read-only reachability and user-owned process metadata are shown in the notebook when configured."
+    },
+    "sophia": {
+      "status": "probe_on_demand",
+      "visible": "notebook_only",
+      "detail": "Fresh read-only reachability and user-owned process metadata are shown in the notebook when configured."
+    }
+  }
+}

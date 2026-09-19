@@ -41,3 +41,19 @@ def test_probe_turns_expired_auth_into_status(monkeypatch):
     assert status.ssh_reachable is False
     assert status.hostname is None
     assert "timed out" in status.detail
+
+
+def test_processes_return_safe_metadata_only(monkeypatch):
+    def fake_run(*args, **kwargs):
+        return CompletedProcess(
+            args[0],
+            0,
+            "123 S 1.5 0.2 42 python\n456 S 0.0 0.1 99 cloudflared\n",
+            "",
+        )
+
+    monkeypatch.setattr("tools.tlakit_cluster_backend.subprocess.run", fake_run)
+    processes = ClusterBackend("Polaris", "polaris").processes()
+    assert [item.pid for item in processes] == [123, 456]
+    assert processes[0].purpose == "Python or TLAKit service"
+    assert processes[1].purpose == "Encrypted web tunnel"
