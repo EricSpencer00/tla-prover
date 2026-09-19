@@ -1,0 +1,34 @@
+{
+  "kind": "protected_repair_pilot_measurement_canary_controls",
+  "task": "10_lockserv",
+  "ladder": "sany-strict-tlaps-ladder-v3",
+  "reference_fragment_used_for_control_only": true,
+  "controls": [
+    {
+      "label": "positive",
+      "certified": true,
+      "status": "pass",
+      "reason": "",
+      "sany_status": "pass",
+      "tlaps_status": "pass"
+    },
+    {
+      "label": "negative",
+      "certified": false,
+      "status": "contract_reject",
+      "reason": "fragment must begin a proof",
+      "sany_status": "not_run",
+      "tlaps_status": null
+    },
+    {
+      "label": "negative_sany",
+      "fragment": "BY SMT",
+      "expected": "sany_reject",
+      "observed": {
+        "status": "model_sany_reject",
+        "certified": false,
+        "sany_status": "model_sany_reject"
+      }
+    }
+  ]
+}

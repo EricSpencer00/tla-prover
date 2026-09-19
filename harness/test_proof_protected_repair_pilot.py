@@ -1,0 +1,50 @@
+import json
+from pathlib import Path
+
+from tools.proof_protected_repair_pilot import (
+    ARM_NAMES,
+    INITIAL_ATTEMPTS,
+    MAX_REPAIRS,
+    MAX_TOKENS,
+    build_packet,
+    prompt_for,
+)
+
+
+ROOT = Path(__file__).resolve().parents[1]
+
+
+def test_registered_packet_is_twenty_case_answer_free(tmp_path):
+    path = tmp_path / "packet.json"
+    packet = build_packet(path)
+    assert len(packet["rows"]) == 20
+    assert len({row["id"] for row in packet["rows"]}) == 20
+    assert packet["selection"]["answer_free"] is True
+    assert packet["selection"]["reference_fragments_used"] is False
+    assert packet["selection"]["candidate_proposals_used"] is False
+    assert all("candidate_proposals" not in row for row in packet["rows"])
+    assert all("reference_fragment" not in row for row in packet["rows"])
+
+
+def test_prompt_contains_only_fixed_scaffold_and_feedback_is_bounded():
+    task = {
+        "id": "toy",
+        "theorem_name": "Inductiveness",
+        "target_goal": "P => P'",
+        "prefix": "---- MODULE Toy ----\nTHEOREM Inductiveness == P\n",
+        "suffix": "\n====",
+    }
+    prompt = prompt_for(task)
+    assert "<PROOF_HOLE>" in prompt
+    assert "candidate list" in prompt
+    assert "reference_fragment" not in prompt
+    feedback = "x" * 9000
+    repaired = prompt_for(task, feedback)
+    assert repaired.endswith("x" * 4000 + "\n===END VERIFIER FEEDBACK===")
+
+
+def test_budget_contract_is_fixed():
+    assert ARM_NAMES == ("base_one_shot", "base_feedback", "w4_one_shot", "w4_feedback")
+    assert INITIAL_ATTEMPTS == 8
+    assert MAX_REPAIRS == 2
+    assert MAX_TOKENS == 2048
