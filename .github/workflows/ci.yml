@@ -2,8 +2,8 @@ name: CI
 
 # The harness is the instrument every number in this repo is measured with, so
 # the harness being correct is the project's actual load-bearing claim. These
-# checks are cheap (no model, no network, no GPU, no secrets) and run on every
-# push and PR.
+# checks are cheap (no model, no network, no GPU, no secrets) and run on main
+# pushes or an explicitly requested manual dispatch.
 #
 # Deliberately NOT here: anything that calls a model endpoint or runs a real
 # 8-12h experiment. Those need ALCF/Polaris and a budget; they stay manual and
@@ -11,8 +11,9 @@ name: CI
 # gate for that path and needs a GPU-ish box + a model download, so it is not a
 # CI job either.
 #
-# No secrets are referenced by design, so these checks work unchanged on forks
-# and after the repo goes public.
+# This workflow uses the persistent aisec-102 self-hosted runner. Automatic PR
+# execution is intentionally disabled: review a PR first, then use manual
+# dispatch if it needs to run on the shared machine.
 
 # push is limited to main: with `branches: ["**"]` every PR-branch push triggered
 # both the push and the pull_request event, running all three jobs twice (the
@@ -21,7 +22,6 @@ name: CI
 on:
   push:
     branches: [main]
-  pull_request:
   workflow_dispatch:
 
 permissions:
@@ -34,7 +34,7 @@ concurrency:
 jobs:
   tests:
     name: harness test suite
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, x64, aisec-102, tla-prover]
     steps:
       - uses: actions/checkout@v4
 
@@ -56,7 +56,7 @@ jobs:
 
   corpus-integrity:
     name: corpus export/audit agreement
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, x64, aisec-102, tla-prover]
     steps:
       - uses: actions/checkout@v4
 
@@ -88,7 +88,7 @@ jobs:
 
   frozen-artifacts:
     name: frozen artifacts still parse
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, x64, aisec-102, tla-prover]
     steps:
       - uses: actions/checkout@v4
 

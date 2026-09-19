@@ -22,7 +22,8 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
+    # Publish from the dedicated aisec-102 runner; GitHub only schedules the job.
+    runs-on: [self-hosted, linux, x64, aisec-102, tla-prover]
     steps:
       - uses: actions/checkout@v4
       - name: Verify static site
