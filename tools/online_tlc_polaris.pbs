@@ -1,0 +1,23 @@
+#!/bin/bash
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-tlc-rl
+#PBS -l select=1:system=polaris
+#PBS -l walltime=00:20:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+set -euo pipefail
+: "${RL_PILOT_ROOT:?set the isolated staged checkout}"
+: "${RL_RESUME:?set the immutable parent checkpoint}"
+cd "$RL_PILOT_ROOT"
+export PATH="/grand/EVITA/eric-spencer/tools/jre21/bin:$PATH"
+export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false
+export CUDA_VISIBLE_DEVICES=0 PYTHONUNBUFFERED=1
+nvidia-smi --query-gpu=name,memory.total --format=csv
+java -version
+timeout --signal=TERM --kill-after=20s 1080s \
+  /home/eric-spencer/ChatTLA/.venv/bin/python tools/online_tlc_rl.py \
+  --model-path /grand/EVITA/eric-spencer/hf-cache/hub/models--Qwen--Qwen2.5-0.5B-Instruct/snapshots/7ae557604adf67be50417f59c2c2f167def9a775 \
+  --device cuda --holdout-corpus /grand/EVITA/eric-spencer/prove-TLA-smoke/corpus-data/tla_files \
+  --resume "$RL_RESUME" --steps "${RL_STEPS:-6}" --group-size 16 --temperature 1.0 \
+  --task-indices "${RL_TASK_INDICES:-4,5,2,3,0,1}" --seconds 960

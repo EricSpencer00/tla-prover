@@ -1,0 +1,19 @@
+#!/bin/bash
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-rl-policy-eval
+#PBS -l select=1:system=polaris
+#PBS -l walltime=00:30:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+set -euo pipefail
+: "${PROOF_POLICY_EVAL_ROOT:?isolated evaluation root required}"
+cd "$PROOF_POLICY_EVAL_ROOT"
+export PYTHONUNBUFFERED=1
+export OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 MKL_NUM_THREADS=4 NUMEXPR_NUM_THREADS=4
+timeout --signal=TERM --kill-after=20s 1500s \
+ /home/eric-spencer/ChatTLA/.venv/bin/python tools/proof_token_rl_policy_eval.py generate \
+ --requests requests.json --broader-prompts broader-prompts.json \
+ --model-path /grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659 \
+ --checkpoint /grand/EVITA/eric-spencer/prove-tla-token-rl-20260906-v3/results/cycle/training/policy_optimizer.pt \
+ --admission admission.json --output results/evaluation

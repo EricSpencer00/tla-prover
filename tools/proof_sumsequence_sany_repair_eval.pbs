@@ -1,0 +1,21 @@
+#!/bin/bash
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-sany-repair
+#PBS -l select=1:system=polaris
+#PBS -l walltime=01:00:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+set -euo pipefail
+: "${SANY_REPAIR_ROOT:?isolated admitted diagnostic stage required}"
+cd "$SANY_REPAIR_ROOT"
+export OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 MKL_NUM_THREADS=4 NUMEXPR_NUM_THREADS=4
+export PYTHONUNBUFFERED=1
+timeout --signal=TERM --kill-after=20s 1250s /home/eric-spencer/ChatTLA/.venv/bin/python \
+ tools/proof_sumsequence_sany_repair_eval.py generate \
+ --packet repair-packet.json \
+ --model-path /lus/grand/projects/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659 \
+ --checkpoint /lus/grand/projects/EVITA/eric-spencer/prove-tla-sumsequence-proof-rl-20260906-v1/results/training/policy_optimizer.pt \
+ --training-inputs training-inputs.json \
+ --training-output /lus/grand/projects/EVITA/eric-spencer/prove-tla-sumsequence-proof-rl-20260906-v1/results/training \
+ --admission repair-admission.json --output results/repairs

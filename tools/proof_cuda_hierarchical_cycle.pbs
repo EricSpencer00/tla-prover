@@ -1,0 +1,17 @@
+#!/bin/bash
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-hier-sft8b
+#PBS -l select=1:system=polaris
+#PBS -l walltime=00:40:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+set -euo pipefail
+: "${PROOF_CUDA_HIERARCHICAL_ROOT:?isolated new run root required}"
+: "${PROOF_CUDA_LEAF_CHECKPOINT:?immutable leaf checkpoint required}"
+cd "$PROOF_CUDA_HIERARCHICAL_ROOT"
+export PYTHONUNBUFFERED=1
+timeout --signal=TERM --kill-after=20s 2100s \
+ /home/eric-spencer/ChatTLA/.venv/bin/python tools/proof_cuda_hierarchical_cycle.py \
+ --train-input train.json --prompts prompts.json \
+ --leaf-checkpoint "$PROOF_CUDA_LEAF_CHECKPOINT" --output results/cycle

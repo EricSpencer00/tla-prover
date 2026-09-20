@@ -1,0 +1,23 @@
+#!/bin/bash
+#PBS -A EVITA
+#PBS -N tla-structured-span
+#PBS -q by-gpu
+#PBS -l select=1
+#PBS -l place=pack:shared
+#PBS -l walltime=00:30:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+set -euo pipefail
+: "${TLA_STRUCTURED_STAGE:?absolute staging directory required}"
+cd "$TLA_STRUCTURED_STAGE"
+exec > "job.${PBS_JOBID%%.*}.log" 2>&1
+module load conda/2026-06-08
+conda activate base
+export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false HF_HOME=/grand/EVITA/eric-spencer/hf-cache
+export OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 MKL_NUM_THREADS=4 NUMEXPR_NUM_THREADS=4 PYTHONUNBUFFERED=1
+BASE=/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-learning-20260906-v1
+MODEL=/grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659
+JAVA=/grand/EVITA/eric-spencer/tools/jre21/bin/java
+JAR=/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1/tools/tla2tools.jar
+sha256sum -c SHA256SUMS
+/soft/applications/conda/2026-06-08/mconda3/bin/python -u proof_syntax_structured_train.py train --packet "$BASE/train.json" --checkpoint "$BASE/results/training/policy_optimizer.pt" --manifest manifest.json --manifest-sha256 "$(awk '$2=="manifest.json"{print $1}' SHA256SUMS)" --model "$MODEL" --java "$JAVA" --jar "$JAR" --output "result.${PBS_JOBID%%.*}"

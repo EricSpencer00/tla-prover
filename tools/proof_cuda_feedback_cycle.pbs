@@ -1,0 +1,18 @@
+#!/bin/bash
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-feedback8b
+#PBS -l select=1:system=polaris
+#PBS -l walltime=00:20:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+set -euo pipefail
+: "${PROOF_FEEDBACK_ROOT:?new isolated feedback root required}"
+: "${PROOF_FEEDBACK_PARENT:?immutable repair checkpoint required}"
+: "${PROOF_FEEDBACK_CHILD:?immutable whole-proof checkpoint required}"
+cd "$PROOF_FEEDBACK_ROOT"
+export PYTHONUNBUFFERED=1
+timeout --signal=TERM --kill-after=20s 900s \
+ /home/eric-spencer/ChatTLA/.venv/bin/python tools/proof_cuda_feedback_cycle.py \
+ --inputs inputs --model-path /grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659 \
+ --parent-checkpoint "$PROOF_FEEDBACK_PARENT" --child-checkpoint "$PROOF_FEEDBACK_CHILD" --output results/cycle

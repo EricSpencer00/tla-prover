@@ -1,0 +1,17 @@
+#!/bin/bash
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-proof-8b
+#PBS -l select=1:system=polaris
+#PBS -l walltime=00:15:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+set -euo pipefail
+: "${PROOF_BASELINE_ROOT:?isolated run root required}"
+cd "$PROOF_BASELINE_ROOT"
+export CUDA_VISIBLE_DEVICES=0 PYTHONUNBUFFERED=1
+timeout --signal=TERM --kill-after=20s 780s \
+ /home/eric-spencer/ChatTLA/.venv/bin/python tools/proof_offline_eval.py generate \
+ --prompts prompts.json \
+ --model-path /grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659 \
+ --output results/runs/proof-llama8b-20260905 --seconds 600

@@ -1,0 +1,52 @@
+#!/bin/bash
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-teacher-contrastive-cpu-v7
+#PBS -l select=1:system=polaris:ncpus=4:ngpus=0
+#PBS -l walltime=00:15:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+#PBS -o /home/eric-spencer/tla-teacher-anchor-contrastive-20260917-v7/preflight.stdout
+set -euo pipefail
+
+ROOT=/home/eric-spencer/tla-teacher-anchor-contrastive-20260917-v7
+PY=/home/eric-spencer/ChatTLA/.venv/bin/python
+MODEL=/grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659
+PARENT=/home/eric-spencer/tla-structured-span-train-20260914-v3/result.7618905/policy_optimizer.pt
+TLAPS_ROOT=/lus/grand/projects/EVITA/eric-spencer/tools/tlaps-1.5.0
+OUT=$ROOT/preflight.${PBS_JOBID%%.*}
+
+export PYTHONPATH="$ROOT:$ROOT/tools:$ROOT/harness"
+export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false
+export HF_HOME=/grand/EVITA/eric-spencer/hf-cache PYTHONUNBUFFERED=1
+export PROVE_TLA_TLAPM="$TLAPS_ROOT/bin/tlapm"
+export PATH="/grand/EVITA/eric-spencer/tools/jre21/bin:$PATH"
+export JAVA_HOME=/grand/EVITA/eric-spencer/tools/jre21
+cd "$ROOT"
+
+test "$(pwd)" = "$ROOT"
+test -x "$PY" && test -f packet.json && test -f manifest.json
+test -f tools/proof_teacher_anchor_contrastive.py
+test -f "$MODEL/config.json" && test -f "$PARENT"
+test ! -e "$OUT"
+test "$(sha256sum packet.json | awk '{print $1}')" = d6437a577cdee66efdeacb9b818463853a8d4aacfaf987561532693bccc147a0
+test "$(sha256sum manifest.json | awk '{print $1}')" = c186ddf0007c5b5adfdc345a06feb777a89746160cf9041b875a8655ed1eb344
+test "$(sha256sum "$PARENT" | awk '{print $1}')" = 87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511
+
+"$PY" -m py_compile tools/proof_teacher_anchor_contrastive.py \
+  tools/proof_candidate_rank.py tools/proof_candidate_rl.py
+"$PY" -u tools/proof_teacher_anchor_contrastive.py \
+  --packet "$ROOT/packet.json" --output "$OUT" --preflight \
+  --expected-packet-sha256 d6437a577cdee66efdeacb9b818463853a8d4aacfaf987561532693bccc147a0
+"$PY" - <<'PY'
+import json
+from pathlib import Path
+v = json.loads(next(Path('.').glob('preflight.*/summary.json')).read_text())
+assert v['train_tasks'] == 17 and v['candidates_per_task'] == [8]
+assert v['teacher_anchor_count'] == 17 and v['negative_candidate_count'] == 119
+assert v['development_targets_exported'] is False
+assert v['development_reference_bytes_exported'] is False
+assert v['reward_signal_used'] is False and v['optimizer_updates'] == 0
+assert v['model_loaded'] is False and v['cuda_touched'] is False
+print('teacher_contrastive_cpu_preflight=PASS train=17 candidates=136 updates=0')
+PY

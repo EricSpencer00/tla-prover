@@ -1,0 +1,48 @@
+#!/bin/bash
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-candidate-rl-v5
+#PBS -l select=1:system=polaris:ncpus=64:ngpus=1
+#PBS -l walltime=00:15:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+#PBS -o /home/eric-spencer/tla-candidate-rl-20260917-v5/train.stdout
+#PBS -e /home/eric-spencer/tla-candidate-rl-20260917-v5/train.stderr
+set -euo pipefail
+
+ROOT=/home/eric-spencer/tla-candidate-rl-20260917-v5
+MODEL=/grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659
+PARENT=/home/eric-spencer/tla-structured-span-train-20260914-v3/result.7618905/policy_optimizer.pt
+MANIFEST=$ROOT/manifest.json
+FROZEN=$ROOT/frozen.json
+OUT=$ROOT/result.${PBS_JOBID%%.*}
+PYTHON=/home/eric-spencer/ChatTLA/.venv/bin/python
+TLAPS_ROOT=/lus/grand/projects/EVITA/eric-spencer/tools/tlaps-1.5.0
+
+export PYTHONPATH="$ROOT:$ROOT/tools:$ROOT/harness"
+export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false
+export HF_HOME=/grand/EVITA/eric-spencer/hf-cache PYTHONUNBUFFERED=1
+export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1
+export PROVE_TLA_TLAPM="$TLAPS_ROOT/bin/tlapm"
+export PROVE_TLA_LIBRARY="$TLAPS_ROOT/lib/tlaps:$ROOT/tools/community-modules:$ROOT/tools/extra-modules"
+export PROVE_TLA_TLAPM_LEGACY=1
+export PATH="/grand/EVITA/eric-spencer/tools/jre21/bin:$PATH"
+export JAVA_HOME=/grand/EVITA/eric-spencer/tools/jre21
+cd "$ROOT"
+
+test -x "$PYTHON" -a -f "$MODEL/config.json" -a -f "$MANIFEST" -a -f "$FROZEN" -a -f "$PARENT"
+test ! -e "$OUT"
+test "$(sha256sum "$MANIFEST" | awk '{print $1}')" = c186ddf0007c5b5adfdc345a06feb777a89746160cf9041b875a8655ed1eb344
+test "$(sha256sum "$FROZEN" | awk '{print $1}')" = 058631963f8305d432741098514b8230252a129d232e5e1d4e4549fb8bb137b6
+test "$(sha256sum "$PARENT" | awk '{print $1}')" = 87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511
+test -x "$PROVE_TLA_TLAPM"
+
+"$PYTHON" -m py_compile "$ROOT/tools/proof_candidate_rl.py" "$ROOT/tools/proof_candidate_rl_admission.py"
+"$PYTHON" -u "$ROOT/tools/proof_candidate_rl.py" \
+  --manifest "$MANIFEST" --model-path "$MODEL" --resume "$PARENT" \
+  --frozen-input "$FROZEN" --expected-frozen-sha256 058631963f8305d432741098514b8230252a129d232e5e1d4e4549fb8bb137b6 \
+  --expected-manifest-sha256 c186ddf0007c5b5adfdc345a06feb777a89746160cf9041b875a8655ed1eb344 \
+  --expected-parent-sha256 87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511 \
+  --output "$OUT" --device cuda --steps 16 --candidates 8 --group-size 4 \
+  --temperature 1.0 --lr 1e-5 --seconds 480 --timeout 10 \
+  --max-tokens 8192 --seed 20260917

@@ -1,0 +1,61 @@
+#!/bin/bash
+#PBS -N vllm-w4dgm-sn
+#PBS -A EVITA
+#PBS -q by-gpu
+#PBS -l select=1:ngpus=8:ncpus=128:mem=480gb
+#PBS -l place=pack:shared
+#PBS -l walltime=12:00:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+#PBS -o /home/eric-spencer/vllm_serve_w4dgm_sn.log
+
+# Per-job log. PBS does NOT expand $PBS_JOBID in a '#PBS -o' path (it makes
+# a file named literally that), so redirect here where the shell expands it.
+# A shared log path let a dead job's traceback read as a live result (it62).
+exec > "/home/eric-spencer/vllm_serve_w4dgm_sn.${PBS_JOBID%%.*}.log" 2>&1
+set -x
+ulimit -n 65536 || true
+export TIKTOKEN_RS_CACHE_DIR=/grand/EVITA/eric-spencer/tiktoken-rs-cache
+hostname > /home/eric-spencer/vllm_serve_host_w4dgm_sn.txt
+
+module load conda/2026-06-08 >/dev/null 2>&1
+export PYTHONPATH=$HOME/.local/lib/python3.13/site-packages
+conda activate base >/dev/null 2>&1
+
+export HF_HUB_OFFLINE=1
+export HF_HOME=/grand/EVITA/eric-spencer/hf-cache
+export VLLM_LOGGING_LEVEL=INFO
+
+# Cap the BLAS/OMP thread pools. OpenBLAS defaults to one thread per core (64
+# here) PER WORKER; with tp=4 plus other jobs on a shared node, pthread_create
+# fails with "Resource temporarily unavailable" and the worker dies mid-import,
+# which surfaces as WorkerProc initialization failed (2026-08-31 it64). vLLM
+# does its maths on the GPU, so these pools buy nothing.
+export OMP_NUM_THREADS=8
+export OPENBLAS_NUM_THREADS=1
+export MKL_NUM_THREADS=1
+export NUMEXPR_NUM_THREADS=1
+export VECLIB_MAXIMUM_THREADS=1
+
+cd $PBS_O_WORKDIR || cd /home/eric-spencer
+
+# Warm this node page cache before starting vLLM. vLLM forces SPAWN whenever
+# CUDA is already initialised, so every worker re-imports the whole stack from
+# the shared conda; on a contended node those imports blow the worker startup
+# deadline and the engine dies with KeyboardInterrupt inside import cv2
+# (2026-08-31 it59). Importing once here pulls the .so files into page cache so
+# the workers hit cache instead of the shared filesystem.
+python -c "import vllm, torch, transformers" >/dev/null 2>&1 || true
+python -c "import cv2" >/dev/null 2>&1 || true
+
+vllm serve /grand/EVITA/eric-spencer/chattla_artifacts/merged_w4dg_mech_120b \
+  --tokenizer /grand/EVITA/eric-spencer/chattla_artifacts/merged_w4dg_mech_120b \
+  --served-model-name chattla-w4dgm-120b \
+  --tensor-parallel-size 8 \
+  --max-model-len 32768 \
+  --gpu-memory-utilization 0.90 \
+  --max-num-seqs 8 \
+  --enforce-eager \
+  --port 8321 \
+  --host 0.0.0.0 \
+  --trust-remote-code

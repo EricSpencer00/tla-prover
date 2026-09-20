@@ -1,0 +1,40 @@
+#!/bin/bash
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-teacher-anchor-cpu-v6
+#PBS -l select=1:system=polaris:ncpus=4:ngpus=0
+#PBS -l walltime=00:15:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+#PBS -o /home/eric-spencer/tla-teacher-anchor-contrastive-20260917-v6/verify.stdout
+set -euo pipefail
+
+ROOT=/home/eric-spencer/tla-teacher-anchor-contrastive-20260917-v6
+PY=/home/eric-spencer/ChatTLA/.venv/bin/python
+TLAPS_ROOT=/lus/grand/projects/EVITA/eric-spencer/tools/tlaps-1.5.0
+export PYTHONPATH="$ROOT:$ROOT/tools:$ROOT/harness"
+export PROVE_TLA_TLAPM="$TLAPS_ROOT/bin/tlapm"
+export PROVE_TLA_LIBRARY="$TLAPS_ROOT/lib/tlaps:$ROOT/tools/community-modules:$ROOT/tools/extra-modules"
+export PROVE_TLA_TLAPM_LEGACY=1
+export PATH="/grand/EVITA/eric-spencer/tools/jre21/bin:$PATH"
+export JAVA_HOME=/grand/EVITA/eric-spencer/tools/jre21
+cd "$ROOT"
+
+test "$(pwd)" = "$ROOT"
+
+test -x "$PY" && test -x "$PROVE_TLA_TLAPM" && test -f packet.json && test -f manifest.json
+test ! -e verification
+"$PY" -m py_compile tools/proof_teacher_anchor_admission.py
+"$PY" tools/proof_teacher_anchor_admission.py --verify --packet packet.json --output verification --timeout 10
+"$PY" - <<'PY'
+import json
+from pathlib import Path
+v=json.loads(Path("verification/checks.json").read_text())
+assert v["teacher_strict_verified"] is True and v["strict_passes"] == 17
+assert v["development_targets_exported"] is False
+assert v["development_reference_bytes_exported"] is False
+assert v["model_loaded"] is False and v["cuda_touched"] is False
+assert v["optimizer_updates"] == 0
+assert all(c["target_scoped_pass"] for c in v["checks"])
+print("teacher_anchor_cpu_admission=PASS strict_train=17/17")
+PY

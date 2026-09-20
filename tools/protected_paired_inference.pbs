@@ -1,0 +1,43 @@
+#!/bin/bash
+# Frozen 2x2x2 paired generation for protected rows 47 and 107.
+#PBS -N tla-protected-paired
+#PBS -A EVITA
+#PBS -q by-gpu
+#PBS -l select=1
+#PBS -l place=pack:shared
+#PBS -l walltime=00:30:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+set -euxo pipefail
+exec > "/home/eric-spencer/tla-protected-paired.${PBS_JOBID%%.*}.log" 2>&1
+module load conda/2026-06-08 >/dev/null 2>&1
+conda activate base >/dev/null 2>&1
+export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 HF_HOME=/grand/EVITA/eric-spencer/hf-cache
+export CUDA_VISIBLE_DEVICES=0 VLLM_WORKER_MULTIPROC_METHOD=spawn
+export PYTHONUNBUFFERED=1 TOKENIZERS_PARALLELISM=false
+unset http_proxy https_proxy HTTP_PROXY HTTPS_PROXY ALL_PROXY all_proxy
+export NO_PROXY=127.0.0.1,localhost no_proxy=127.0.0.1,localhost
+BASE=${TLA_ASSET_DIR:?qsub must provide TLA_ASSET_DIR pointing at the verified frozen asset stage}
+MODEL=/grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659
+PORT=8322
+RUN=/home/eric-spencer/tla-protected-paired.${PBS_JOBID%%.*}
+mkdir -p "$RUN"
+python -c 'import prometheus_fastapi_instrumentator.routing as r,runpy; old=r._get_route_name; RouteProxy=type("RouteProxy",(),{"__init__":lambda self,route:(setattr(self,"_route",route),setattr(self,"path",getattr(route,"path",getattr(route,"prefix",route.__class__.__name__))))[-1],"__getattr__":lambda self,name:getattr(self._route,name)}); r._get_route_name=lambda scope,routes: old(scope,[RouteProxy(x) for x in routes]); runpy.run_module("vllm.entrypoints.openai.api_server",run_name="__main__")' --model "$MODEL" --served-model-name protected-control --host 127.0.0.1 --port "$PORT" --max-model-len 2048 --dtype auto > "$RUN/vllm.log" 2>&1 &
+SERVER_PID=$!
+trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+export SERVER_PID
+for _ in $(seq 1 600); do
+  if ! kill -0 "$SERVER_PID" 2>/dev/null; then exit 1; fi
+  if grep -q 'Application startup complete.' "$RUN/vllm.log"; then break; fi
+  sleep 1
+done
+grep -q 'Application startup complete.' "$RUN/vllm.log"
+cd "$BASE"
+INTERVENTION_ARGS=()
+PROMPT_INTERVENTION=${TLA_PROMPT_INTERVENTION:-let_definition_operator}
+if [[ "$PROMPT_INTERVENTION" != "none" ]]; then
+  INTERVENTION_ARGS+=(--prompt-intervention "$PROMPT_INTERVENTION")
+fi
+python -u protected_paired_inference.py --input-receipt input-receipt.json --packet train.json --grammar tla_module_v0.ebnf --base-url "http://127.0.0.1:${PORT}/v1" --model protected-control --output "$RUN/result" "${INTERVENTION_ARGS[@]}" > "$RUN/runner.log" 2>&1
+cp "$RUN/result/receipt.json" "$RUN/receipt.json"
+python -c 'import json, pathlib; p=pathlib.Path("'$RUN'/receipt.json"); r=json.loads(p.read_text()); assert r["complete"] and len(r["records"]) == 8; print(json.dumps({"status":"pass","records":8,"output":str(p)}, sort_keys=True))'

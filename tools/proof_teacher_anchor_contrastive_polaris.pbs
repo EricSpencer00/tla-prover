@@ -1,0 +1,45 @@
+#!/bin/bash
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-teacher-contrastive-gpu-v7
+#PBS -l select=1:system=polaris:ncpus=64:ngpus=1
+#PBS -l walltime=00:15:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+#PBS -o /home/eric-spencer/tla-teacher-anchor-contrastive-20260917-v7/train.stdout
+#PBS -e /home/eric-spencer/tla-teacher-anchor-contrastive-20260917-v7/train.stderr
+set -euo pipefail
+
+ROOT=/home/eric-spencer/tla-teacher-anchor-contrastive-20260917-v7
+MODEL=/grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659
+PARENT=/home/eric-spencer/tla-structured-span-train-20260914-v3/result.7618905/policy_optimizer.pt
+MANIFEST=$ROOT/manifest.json
+PACKET=$ROOT/packet.json
+OUT=$ROOT/result.${PBS_JOBID%%.*}
+PYTHON=/home/eric-spencer/ChatTLA/.venv/bin/python
+
+export PYTHONPATH="$ROOT:$ROOT/tools:$ROOT/harness"
+export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false
+export HF_HOME=/grand/EVITA/eric-spencer/hf-cache PYTHONUNBUFFERED=1
+export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1
+export PATH="/grand/EVITA/eric-spencer/tools/jre21/bin:$PATH"
+export JAVA_HOME=/grand/EVITA/eric-spencer/tools/jre21
+cd "$ROOT"
+
+test "$(pwd)" = "$ROOT"
+test -x "$PYTHON" && test -f "$MODEL/config.json" && test -f "$MANIFEST" \
+  && test -f "$PACKET" && test -f "$PARENT"
+test ! -e "$OUT"
+test "$(sha256sum "$MANIFEST" | awk '{print $1}')" = c186ddf0007c5b5adfdc345a06feb777a89746160cf9041b875a8655ed1eb344
+test "$(sha256sum "$PACKET" | awk '{print $1}')" = d6437a577cdee66efdeacb9b818463853a8d4aacfaf987561532693bccc147a0
+test "$(sha256sum "$PARENT" | awk '{print $1}')" = 87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511
+
+"$PYTHON" -m py_compile tools/proof_teacher_anchor_contrastive.py \
+  tools/proof_candidate_rank.py tools/proof_candidate_rl.py
+"$PYTHON" -u tools/proof_teacher_anchor_contrastive.py \
+  --packet "$PACKET" --manifest "$MANIFEST" --model-path "$MODEL" \
+  --resume "$PARENT" --output "$OUT" --device cuda --steps 17 \
+  --temperature 1.0 --lr 1e-5 --seconds 840 --max-tokens 8192 --seed 20260917 \
+  --expected-packet-sha256 d6437a577cdee66efdeacb9b818463853a8d4aacfaf987561532693bccc147a0 \
+  --expected-manifest-sha256 c186ddf0007c5b5adfdc345a06feb777a89746160cf9041b875a8655ed1eb344 \
+  --expected-parent-sha256 87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511

@@ -1,0 +1,27 @@
+#!/bin/bash
+# Optional launcher; submission remains intentionally separate from this probe.
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-budget-probe
+#PBS -l select=1:system=polaris
+#PBS -l walltime=01:00:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+set -euo pipefail
+: "${BUDGET_ROOT:?}"
+: "${BUDGET_RECEIPT:?}"
+: "${BUDGET_CHECKPOINT:?}"
+: "${BUDGET_OUTPUT:?}"
+: "${BUDGET_MAX_NEW_TOKENS:?}"
+cd "$BUDGET_ROOT"
+export PATH="/grand/EVITA/eric-spencer/tools/jre21/bin:$PATH"
+export JAVA_HOME=/grand/EVITA/eric-spencer/tools/jre21
+java -version
+export PYTHONUNBUFFERED=1 OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 MKL_NUM_THREADS=4 NUMEXPR_NUM_THREADS=4
+timeout --signal=TERM --kill-after=20s 3500s /home/eric-spencer/ChatTLA/.venv/bin/python \
+ tools/proof_fullmodule_decode_budget_probe.py worker \
+ --input /lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-learning-20260906-v1/train.json \
+ --model-path /grand/projects/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659 \
+ --checkpoint "$BUDGET_CHECKPOINT" \
+ --multiexample-receipt "$BUDGET_RECEIPT" --output "$BUDGET_OUTPUT" \
+ --max-new-tokens "$BUDGET_MAX_NEW_TOKENS"

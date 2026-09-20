@@ -1,0 +1,20 @@
+#!/bin/bash
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-seq-sample
+#PBS -l select=1:system=polaris
+#PBS -l walltime=01:00:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+set -euo pipefail
+: "${SEQUENCE_SAMPLE_ROOT:?isolated staging root required}"
+: "${SEQUENCE_SAMPLE_PARENT:?immutable parent required}"
+: "${SEQUENCE_SAMPLE_CHILD:?immutable child required}"
+cd "$SEQUENCE_SAMPLE_ROOT"
+export PYTHONUNBUFFERED=1
+export OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 MKL_NUM_THREADS=4 NUMEXPR_NUM_THREADS=4
+timeout --signal=TERM --kill-after=20s 3500s /home/eric-spencer/ChatTLA/.venv/bin/python \
+ tools/proof_sumsequence_stochastic_cycle.py run --broader-prompts prompts.json \
+ --model-path /grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659 \
+ --parent-checkpoint "$SEQUENCE_SAMPLE_PARENT" --child-checkpoint "$SEQUENCE_SAMPLE_CHILD" \
+ --freeze freeze.json --output results/cycle

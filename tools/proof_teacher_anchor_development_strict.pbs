@@ -1,0 +1,42 @@
+#!/bin/bash
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-teacher-development-strict-v8
+#PBS -l select=1:system=polaris:ncpus=4:ngpus=0
+#PBS -l walltime=00:15:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+#PBS -o /home/eric-spencer/tla-teacher-anchor-contrastive-20260917-v8/development-strict.stdout
+#PBS -e /home/eric-spencer/tla-teacher-anchor-contrastive-20260917-v8/development-strict.stderr
+set -euo pipefail
+
+ROOT=/home/eric-spencer/tla-teacher-anchor-contrastive-20260917-v8
+PACKET=$ROOT/development_strict_packet.json
+ROWS=$ROOT/development-score.7630000/rows.jsonl
+OUT=$ROOT/development-strict-full.${PBS_JOBID%%.*}
+PYTHON=/home/eric-spencer/ChatTLA/.venv/bin/python
+TLAPS_ROOT=/lus/grand/projects/EVITA/eric-spencer/tools/tlaps-1.5.0
+
+export PYTHONPATH="$ROOT:$ROOT/tools:$ROOT/harness"
+export PROVE_TLA_TLAPM="$TLAPS_ROOT/bin/tlapm"
+export PROVE_TLA_LIBRARY="$TLAPS_ROOT/lib/tlaps:$ROOT/runtime/libraries"
+export PROVE_TLA_TLAPM_LEGACY=1
+export PATH="/grand/EVITA/eric-spencer/tools/jre21/bin:$PATH"
+export JAVA_HOME=/grand/EVITA/eric-spencer/tools/jre21
+export PYTHONUNBUFFERED=1
+cd "$ROOT"
+
+test "$(pwd)" = "$ROOT"
+test -x "$PYTHON" && test -x "$PROVE_TLA_TLAPM" && test -f "$PACKET" && test -f "$ROWS"
+test -f tools/proof_teacher_anchor_development_strict.py
+test -f harness/proof_fragment_check.py && test -f harness/runner.py
+test ! -e "$OUT"
+test "$(sha256sum "$PACKET" | awk '{print $1}')" = ab311319022b03f09c3a4e039d37f2958ff55ff914c09865f98672d4145a2611
+test "$(sha256sum "$ROWS" | awk '{print $1}')" = c483731cd7970f6d209dff9bc1ed98d6d2bfdc5ce74b078b7af35e2eecebe2ba
+
+"$PYTHON" -m py_compile tools/proof_teacher_anchor_development_strict.py \
+  harness/proof_fragment_check.py harness/runner.py
+"$PYTHON" -u tools/proof_teacher_anchor_development_strict.py \
+  --packet "$PACKET" --ranking-rows "$ROWS" --output "$OUT" --timeout 10 --topk 29 \
+  --expected-packet-sha256 ab311319022b03f09c3a4e039d37f2958ff55ff914c09865f98672d4145a2611 \
+  --expected-ranking-rows-sha256 c483731cd7970f6d209dff9bc1ed98d6d2bfdc5ce74b078b7af35e2eecebe2ba

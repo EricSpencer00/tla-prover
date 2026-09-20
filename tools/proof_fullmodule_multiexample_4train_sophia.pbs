@@ -1,0 +1,38 @@
+#!/bin/bash
+#PBS -A EVITA
+#PBS -q by-gpu
+#PBS -N tla-multi4-sophia
+#PBS -l select=1:system=sophia:ncpus=32:ngpus=1:mem=120gb
+#PBS -l walltime=01:00:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+set -euo pipefail
+: "${MULTI4_ROOT:?}"
+cd "$MULTI4_ROOT"
+module load conda/2026-06-08 >/dev/null 2>&1
+conda activate base >/dev/null 2>&1
+export PATH="/grand/EVITA/eric-spencer/tools/jre21/bin:$PATH"
+export JAVA_HOME=/grand/EVITA/eric-spencer/tools/jre21
+java -version
+export PYTHONUNBUFFERED=1 OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 MKL_NUM_THREADS=4 NUMEXPR_NUM_THREADS=4
+MODEL_PATH=/grand/projects/EVITA/eric-spencer/hf-cache/hub/models--meta--llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659
+if [[ ! -f "$MODEL_PATH/config.json" ]]; then
+  MODEL_PATH=/lus/grand/projects/EVITA/eric-spencer/hf-cache/hub/models--meta--llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659
+fi
+if [[ ! -f "$MODEL_PATH/config.json" ]]; then
+  MODEL_PATH=/grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659
+fi
+test -f "$MODEL_PATH/config.json"
+timeout --signal=TERM --kill-after=20s 3500s python \
+ tools/proof_fullmodule_multiexample_4train_probe.py worker \
+ --input /lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-learning-20260906-v1/train.json \
+ --model-path "$MODEL_PATH" \
+ --checkpoint /lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-learning-20260906-v1/results/training/policy_optimizer.pt \
+ --lineage-checkpoint /lus/grand/projects/EVITA/eric-spencer/prove-tla-sany-repair-learning-20260906-v1/results/training/policy_optimizer.pt \
+ --parent-training-input /lus/grand/projects/EVITA/eric-spencer/prove-tla-sany-repair-learning-20260906-v1/train.json \
+ --parent-training-admission /lus/grand/projects/EVITA/eric-spencer/prove-tla-sany-repair-learning-20260906-v1/training-admission.json \
+ --parent-training-output /lus/grand/projects/EVITA/eric-spencer/prove-tla-sany-repair-learning-20260906-v1/results/training \
+ --parent-parent-checkpoint /lus/grand/projects/EVITA/eric-spencer/prove-tla-sumsequence-proof-rl-20260906-v1/results/training/policy_optimizer.pt \
+ --base-admission /lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1/multiexample-admission.json \
+ --expected-input-sha256 a125a0d5bf66dedfb664c692c69dcd612181a8b7ac316c264075ca434061ce6c \
+ --admission multi4-admission-v7.json --output results/multi4-runtime-sophia-v1

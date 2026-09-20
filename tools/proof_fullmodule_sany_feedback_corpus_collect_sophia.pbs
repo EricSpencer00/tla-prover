@@ -1,0 +1,30 @@
+#!/bin/bash
+#PBS -A EVITA
+#PBS -q by-gpu
+#PBS -N tla-sany-corpus
+#PBS -l select=1:system=sophia:ncpus=32:ngpus=1:mem=120gb
+#PBS -l walltime=01:00:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+#PBS -o /lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1/tla-sany-corpus.stdout
+#PBS -e /lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1/tla-sany-corpus.stderr
+set -euo pipefail
+: "${SFB_ROOT:?}"
+cd "$SFB_ROOT"
+module load conda/2026-06-08 >/dev/null 2>&1
+conda activate base >/dev/null 2>&1
+export PATH="/grand/EVITA/eric-spencer/tools/jre21/bin:$PATH"
+export JAVA_HOME=/grand/EVITA/eric-spencer/tools/jre21
+export PYTHONUNBUFFERED=1 OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 MKL_NUM_THREADS=4 NUMEXPR_NUM_THREADS=4
+MODEL_PATH=/grand/projects/EVITA/eric-spencer/hf-cache/hub/models--meta--llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659
+if [[ ! -f "$MODEL_PATH/config.json" ]]; then MODEL_PATH=/lus/grand/projects/EVITA/eric-spencer/hf-cache/hub/models--meta--llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659; fi
+if [[ ! -f "$MODEL_PATH/config.json" ]]; then MODEL_PATH=/grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659; fi
+test -f "$MODEL_PATH/config.json"
+BASE=/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1
+INPUT=/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-learning-20260906-v1/train.json
+BASE_ADMISSION=$BASE/multi4-admission-v7.json
+CHECKPOINT=$BASE/results/multi4-runtime-sophia-v2/policy_optimizer.pt
+if [[ ! -f sany-feedback-corpus-scaffold.json ]]; then
+  python proof_fullmodule_sany_feedback_corpus_probe.py admit --input "$INPUT" --base-admission "$BASE_ADMISSION" --output sany-feedback-corpus-scaffold.json
+fi
+python proof_fullmodule_sany_feedback_corpus_collect.py collect --input "$INPUT" --model-path "$MODEL_PATH" --checkpoint "$CHECKPOINT" --base-admission "$BASE_ADMISSION" --admission sany-feedback-corpus-scaffold.json --output results/sany-feedback-corpus-runtime-$(date +%Y%m%d-%H%M%S)

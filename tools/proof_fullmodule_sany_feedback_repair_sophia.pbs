@@ -1,0 +1,42 @@
+#!/bin/bash
+#PBS -A EVITA
+#PBS -q by-gpu
+#PBS -N tla-sany-feedback
+#PBS -l select=1:system=sophia:ncpus=32:ngpus=1:mem=120gb
+#PBS -l walltime=01:00:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+set -euo pipefail
+: "${SFB_ROOT:?}"
+cd "$SFB_ROOT"
+module load conda/2026-06-08 >/dev/null 2>&1
+conda activate base >/dev/null 2>&1
+export PATH="/grand/EVITA/eric-spencer/tools/jre21/bin:$PATH"
+export JAVA_HOME=/grand/EVITA/eric-spencer/tools/jre21
+export PYTHONUNBUFFERED=1 OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 MKL_NUM_THREADS=4 NUMEXPR_NUM_THREADS=4
+
+MODEL_PATH=/grand/projects/EVITA/eric-spencer/hf-cache/hub/models--meta--llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659
+if [[ ! -f "$MODEL_PATH/config.json" ]]; then
+  MODEL_PATH=/lus/grand/projects/EVITA/eric-spencer/hf-cache/hub/models--meta--llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659
+fi
+if [[ ! -f "$MODEL_PATH/config.json" ]]; then
+  MODEL_PATH=/grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659
+fi
+test -f "$MODEL_PATH/config.json"
+
+# The checkpoint is the frozen four-row policy artifact.  No optimizer update
+# is performed by this worker; it only creates dev SANY feedback records.
+BASE_ADMISSION=/lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1/multi4-admission-v7.json
+if [[ ! -f sany-feedback-scaffold.json ]]; then
+  python tools/proof_fullmodule_sany_feedback_repair_probe.py admit \
+    --input /lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-learning-20260906-v1/train.json \
+    --base-admission "$BASE_ADMISSION" \
+    --output sany-feedback-scaffold.json
+fi
+python tools/proof_fullmodule_sany_feedback_repair_probe.py collect \
+  --input /lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-learning-20260906-v1/train.json \
+  --model-path "$MODEL_PATH" \
+  --checkpoint /lus/grand/projects/EVITA/eric-spencer/prove-tla-fullmodule-train-probe-eval-20260906-v1/results/multi4-runtime-sophia-v2/policy_optimizer.pt \
+  --base-admission "$BASE_ADMISSION" \
+  --admission sany-feedback-scaffold.json \
+  --output results/sany-feedback-runtime-$(date +%Y%m%d-%H%M%S)

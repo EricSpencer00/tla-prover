@@ -1,0 +1,44 @@
+#!/bin/bash
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-teacher-contrastive-score-v8
+#PBS -l select=1:system=polaris:ncpus=64:ngpus=1
+#PBS -l walltime=00:15:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+#PBS -o /home/eric-spencer/tla-teacher-anchor-contrastive-20260917-v8/score.stdout
+#PBS -e /home/eric-spencer/tla-teacher-anchor-contrastive-20260917-v8/score.stderr
+set -euo pipefail
+
+ROOT=/home/eric-spencer/tla-teacher-anchor-contrastive-20260917-v8
+MODEL=/grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659
+PARENT=/home/eric-spencer/tla-structured-span-train-20260914-v3/result.7618905/policy_optimizer.pt
+CHILD=$ROOT/result.7629936/policy_optimizer.pt
+PACKET=$ROOT/packet.json
+OUT=$ROOT/score.${PBS_JOBID%%.*}
+PYTHON=/home/eric-spencer/ChatTLA/.venv/bin/python
+
+export PYTHONPATH="$ROOT:$ROOT/tools:$ROOT/harness"
+export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false
+export HF_HOME=/grand/EVITA/eric-spencer/hf-cache PYTHONUNBUFFERED=1
+export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1
+export PATH="/grand/EVITA/eric-spencer/tools/jre21/bin:$PATH"
+export JAVA_HOME=/grand/EVITA/eric-spencer/tools/jre21
+cd "$ROOT"
+
+test "$(pwd)" = "$ROOT"
+test -x "$PYTHON" && test -f "$MODEL/config.json" && test -f "$PACKET" \
+  && test -f "$PARENT" && test -f "$CHILD"
+test ! -e "$OUT"
+test "$(sha256sum "$PACKET" | awk '{print $1}')" = d6437a577cdee66efdeacb9b818463853a8d4aacfaf987561532693bccc147a0
+test "$(sha256sum "$PARENT" | awk '{print $1}')" = 87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511
+test "$(sha256sum "$CHILD" | awk '{print $1}')" = 672ada258500f3b5aba704ef7150cc3662155ef272b0a3e87e63312ff323e4ca
+
+"$PYTHON" -m py_compile tools/proof_teacher_anchor_contrastive_score.py \
+  tools/proof_teacher_anchor_contrastive.py tools/proof_candidate_rank.py
+"$PYTHON" -u tools/proof_teacher_anchor_contrastive_score.py \
+  --packet "$PACKET" --model-path "$MODEL" --parent "$PARENT" --child "$CHILD" \
+  --output "$OUT" --device cuda --max-tokens 8192 \
+  --expected-packet-sha256 d6437a577cdee66efdeacb9b818463853a8d4aacfaf987561532693bccc147a0 \
+  --expected-parent-sha256 87489e4778193c15e12d1714eb26dd8da03c0bacb3712e26f96f24454dcf8511 \
+  --expected-child-sha256 672ada258500f3b5aba704ef7150cc3662155ef272b0a3e87e63312ff323e4ca

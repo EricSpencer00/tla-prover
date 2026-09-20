@@ -1,0 +1,19 @@
+#!/bin/bash
+#PBS -A EVITA
+#PBS -q debug
+#PBS -N tla-fresh14
+#PBS -l select=1:system=polaris
+#PBS -l walltime=01:00:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+set -euo pipefail
+: "${PROOF_FRESH_ROOT:?new isolated staging root required}"
+: "${PROOF_FRESH_CHECKPOINT:?immutable exposure512 checkpoint required}"
+: "${PROOF_FRESH_PROMPTS_SHA:?frozen evaluation packet hash required}"
+cd "$PROOF_FRESH_ROOT"
+export PYTHONUNBUFFERED=1
+timeout --signal=TERM --kill-after=20s 3420s \
+ /home/eric-spencer/ChatTLA/.venv/bin/python tools/proof_cuda_fresh_cycle.py \
+ --prompts prompts.json --prompts-sha256 "$PROOF_FRESH_PROMPTS_SHA" \
+ --model-path /grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659 \
+ --checkpoint "$PROOF_FRESH_CHECKPOINT" --output results/cycle

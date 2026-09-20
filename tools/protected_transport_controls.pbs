@@ -1,0 +1,102 @@
+#!/bin/bash
+# Bounded exact-interface grammar transport controls.
+# The tiny grammar makes enforcement observable: the constrained response must
+# be OK, while the unconstrained control is required to differ from OK.
+#PBS -N tla-protected-grammar-controls
+#PBS -A EVITA
+#PBS -q by-gpu
+#PBS -l select=1
+#PBS -l place=pack:shared
+#PBS -l walltime=00:30:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+set -euxo pipefail
+exec > "/home/eric-spencer/tla-protected-grammar-controls.${PBS_JOBID%%.*}.log" 2>&1
+module load conda/2026-06-08 >/dev/null 2>&1
+conda activate base >/dev/null 2>&1
+export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 HF_HOME=/grand/EVITA/eric-spencer/hf-cache
+export CUDA_VISIBLE_DEVICES=0 VLLM_WORKER_MULTIPROC_METHOD=spawn
+export PYTHONUNBUFFERED=1 TOKENIZERS_PARALLELISM=false
+# Keep the exact-interface controls on the node-local loopback.  The login
+# environment may export an HTTP proxy; urllib otherwise sends 127.0.0.1
+# requests through Squid and turns a healthy local server into HTTP 503.
+unset http_proxy https_proxy HTTP_PROXY HTTPS_PROXY ALL_PROXY all_proxy
+export NO_PROXY=127.0.0.1,localhost no_proxy=127.0.0.1,localhost
+MODEL=/grand/EVITA/eric-spencer/hf-cache/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659
+PORT=8322
+export VLLM_LOG=/home/eric-spencer/tla-protected-vllm.${PBS_JOBID%%.*}.log
+# The site's vLLM 0.22.2 `serve` wrapper builds the new generic server app but
+# omits the OpenAI routers in this installation.  The installed legacy OpenAI
+# entrypoint registers the exact /v1 chat route required by the controls.
+# The pinned FastAPI/vLLM build exposes an internal `_IncludedRouter` in
+# `app.routes`, while the installed prometheus instrumentator assumes every
+# route has `.path`.  Patch only the instrumentator's route-name lookup so
+# metrics labeling tolerates that internal router; OpenAI handlers remain
+# untouched.
+python -c 'import prometheus_fastapi_instrumentator.routing as r,runpy; old=r._get_route_name; RouteProxy=type("RouteProxy",(),{"__init__":lambda self,route:(setattr(self,"_route",route),setattr(self,"path",getattr(route,"path",getattr(route,"prefix",route.__class__.__name__))))[-1],"__getattr__":lambda self,name:getattr(self._route,name)}); r._get_route_name=lambda scope,routes: old(scope,[RouteProxy(x) for x in routes]); runpy.run_module("vllm.entrypoints.openai.api_server",run_name="__main__")' --model "$MODEL" --served-model-name protected-control --host 127.0.0.1 --port "$PORT" --max-model-len 2048 --dtype auto > /home/eric-spencer/tla-protected-vllm.${PBS_JOBID%%.*}.log 2>&1 &
+SERVER_PID=$!
+export SERVER_PID
+trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+python -u - "$PORT" <<'PY'
+import json, os, sys, time, urllib.error, urllib.request
+port=sys.argv[1]; root=f'http://127.0.0.1:{port}'; base=f'{root}/v1'
+vllm_log=os.environ['VLLM_LOG']
+# Model load plus first-run CUDA-graph capture is ~3–4 minutes on the
+# verified A100 runtime; keep the job bounded but do not classify cold-start
+# compilation as a transport failure.
+for _ in range(600):
+    # Do not let a dead vLLM child leave PBS in a misleading running state.
+    try:
+        import os
+        server_pid = int(os.environ['SERVER_PID'])
+        os.kill(server_pid, 0)
+        # A dead vLLM child can remain as a zombie while PBS keeps the shell
+        # alive; kill(pid, 0) alone incorrectly treats that state as healthy.
+        stat = open(f'/proc/{server_pid}/stat', encoding='ascii').read().split()
+        if len(stat) < 3 or stat[2] == 'Z':
+            raise ProcessLookupError('server process is zombie')
+    except (KeyError, ProcessLookupError, PermissionError, ValueError) as exc:
+        raise SystemExit(f'server process exited before readiness: {exc}')
+    try:
+        # This pinned vLLM build returns HTTP 500 from /health and /v1/models
+        # because its router wrapper lacks .path.  /openapi.json is a stable
+        # 200-response endpoint after application startup in this environment.
+        with urllib.request.urlopen(root+'/openapi.json',timeout=2) as r:
+            if r.status == 200: break
+    except Exception: time.sleep(1)
+    # This pinned build can report a transient HTTP failure from the route
+    # wrapper even after the server has completed application startup.  The
+    # server log's startup marker is the authoritative local readiness signal;
+    # transport failures are still exercised by the POST controls below.
+    try:
+        with open(vllm_log, encoding='utf-8', errors='replace') as log:
+            if 'Application startup complete.' in log.read(): break
+    except OSError: pass
+else: raise SystemExit('server did not become ready')
+def post(body):
+    req=urllib.request.Request(base+'/chat/completions',data=json.dumps(body).encode(),headers={'content-type':'application/json'})
+    # The pinned build can briefly return 503 while the API route finishes
+    # settling after application startup. Retry only transient 5xx responses;
+    # preserve 4xx/schema failures as terminal control failures.
+    for attempt in range(48):
+        try:
+            with urllib.request.urlopen(req,timeout=120) as r: return json.loads(r.read())
+        except urllib.error.HTTPError as exc:
+            if exc.code < 500 or exc.code >= 600 or attempt == 47: raise
+            detail = exc.read().decode('utf-8', errors='replace')[:500]
+            print(json.dumps({'transport_retry': attempt + 1, 'status': exc.code,
+                              'detail': detail}, sort_keys=True), flush=True)
+            time.sleep(5)
+common={'model':'protected-control','messages':[{'role':'user','content':'Reply with exactly OK.'}],'max_tokens':8,'temperature':0.0}
+free=post(common)
+free_text=free['choices'][0]['message'].get('content','')
+# The installed vLLM/llguidance adapter parses this field as GBNF.  Keep the
+# control grammar to the exact terminal; a literal escaped newline is invalid
+# GBNF in this runtime (and would fail before constrained decoding starts).
+grammar='root ::= "OK"'
+constrained=post({**common,'structured_outputs':{'grammar':grammar}})
+constrained_text=constrained['choices'][0]['message'].get('content','')
+assert constrained_text == 'OK', repr(constrained_text)
+assert free_text != 'OK', 'unconstrained control unexpectedly identical; control is non-discriminating'
+print(json.dumps({'status':'pass','free_text':free_text,'constrained_text':constrained_text,'transport':'structured_outputs.grammar'},sort_keys=True))
+PY

@@ -1,0 +1,44 @@
+#!/bin/bash
+# Direct-engine admission. The installed vLLM server's Prometheus middleware
+# crashes on inference routes, so this intentionally bypasses HTTP while still
+# exercising the same model, tensor parallelism, and optional LoRA.
+#PBS -N chattla20b-fullspec
+#PBS -A EVITA
+#PBS -q by-gpu
+#PBS -l select=1:ngpus=4:ncpus=64:mem=256gb
+#PBS -l place=pack:shared
+#PBS -l walltime=00:25:00
+#PBS -l filesystems=home:grand
+#PBS -j oe
+exec > "/home/eric-spencer/chattla20b_direct.${PBS_JOBID%%.*}.log" 2>&1
+set -euxo pipefail
+module load conda/2026-06-08 >/dev/null 2>&1
+conda activate base >/dev/null 2>&1
+export HF_HUB_OFFLINE=1 HF_HOME=/grand/EVITA/eric-spencer/hf-cache
+export OMP_NUM_THREADS=8 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1
+export VLLM_LOGGING_LEVEL=INFO PYTHONUNBUFFERED=1
+BASE=/grand/EVITA/eric-spencer/hf-cache/hub/models--EricSpencer00--chattla-20b/snapshots/c1a3e8b5c6916ce4a0ed830e996662ca28e0a262
+ADAPTER=${ADAPTER_PATH:-/grand/EVITA/eric-spencer/chattla_artifacts/tla_repair_proof_primary/178602/checkpoints/final}
+STAGE="/home/eric-spencer/chattla20b-direct-stage-${PBS_JOBID%%.*}"
+mkdir -p "$STAGE"
+for f in config.json generation_config.json tokenizer.json tokenizer_config.json chat_template.jinja model.safetensors; do
+  ln -sfn "$BASE/$f" "$STAGE/$f"
+done
+test -f "$ADAPTER/adapter_config.json"; test -f "$ADAPTER/adapter_model.safetensors"
+python -u - "$STAGE" "$ADAPTER" <<'PY'
+import json, sys
+from vllm import LLM, SamplingParams
+from vllm.lora.request import LoRARequest
+
+base, adapter = sys.argv[1:]
+sampling = SamplingParams(temperature=0.0, max_tokens=4)
+llm = LLM(model=base, tokenizer=base, tensor_parallel_size=4,
+          max_model_len=2048, gpu_memory_utilization=0.88,
+          enforce_eager=True, trust_remote_code=True, enable_lora=True)
+out = llm.generate(["Return exactly OK."], sampling, use_tqdm=False,
+                   lora_request=LoRARequest("repair", 1, adapter))
+text = out[0].outputs[0].text
+print(json.dumps({"adapter": True, "text": text}, sort_keys=True), flush=True)
+assert text.strip(), "empty direct-engine output"
+print("DIRECT_ADMISSION_PASS", flush=True)
+PY
