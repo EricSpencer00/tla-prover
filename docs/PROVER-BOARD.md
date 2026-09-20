@@ -4,12 +4,12 @@ This is the only execution board. It records verified observations, not continuo
 
 ## Current execution
 
-- Revision: 984
-- Verified UTC: 2026-09-19T20:44:21Z
+- Revision: 985
+- Verified UTC: 2026-09-20T00:08:42Z
 - Owner: 01a08e7c-daff-7753-8e4f-41c47d0e3001
 - Phase: queued
 - Active job: `7637798` (Q, polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov, owner eric-spencer)
-- Observation evidence: qstat -xf 7637798 confirms Q in capacity; Sophia base auth/model preflight HTTP 200; measurement canary receipt is clean.
+- Observation evidence: At 2026-09-20T00:08:42Z, fresh BatchMode SSH reached polaris-login-01 and qstat -f 7637798 confirmed the protected W4 serving job remains Q in the capacity queue on polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov; no pilot calls were submitted. The job requests one node with 4 GPUs, 128 CPUs, 480 GB memory, and a 12-hour walltime. The existing Sophia base-model HTTP 200 and clean measurement-canary receipts remain preserved as preflight evidence.
 - Latest completed result: Protected pilot remains unrun; W4 serving job 7637798 is queued.
 - Local work: Pilot packet, canary controls, per-model endpoint routing, and four-GPU W4 serve recipe are committed; no training executed.
 - External blocker: PBS capacity queue is currently full; the W4 serving job is queued and no pilot calls have been submitted.
@@ -802,8 +802,8 @@ These snapshots preserve old statements, including mistakes. They are not curren
 
 <!-- prover-board-state
 {
-  "revision": 984,
-  "verified_utc": "2026-09-19T20:44:21Z",
+  "revision": 985,
+  "verified_utc": "2026-09-20T00:08:42Z",
   "owner": "01a08e7c-daff-7753-8e4f-41c47d0e3001",
   "phase": "queued",
   "active_job": {
@@ -812,7 +812,7 @@ These snapshots preserve old statements, including mistakes. They are not curren
     "owner": "eric-spencer",
     "host": "polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov"
   },
-  "observation_evidence": "qstat -xf 7637798 confirms Q in capacity; Sophia base auth/model preflight HTTP 200; measurement canary receipt is clean.",
+  "observation_evidence": "At 2026-09-20T00:08:42Z, fresh BatchMode SSH reached polaris-login-01 and qstat -f 7637798 confirmed the protected W4 serving job remains Q in the capacity queue on polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov; no pilot calls were submitted. The job requests one node with 4 GPUs, 128 CPUs, 480 GB memory, and a 12-hour walltime. The existing Sophia base-model HTTP 200 and clean measurement-canary receipts remain preserved as preflight evidence.",
   "last_result": "Protected pilot remains unrun; W4 serving job 7637798 is queued.",
   "local_work": "Pilot packet, canary controls, per-model endpoint routing, and four-GPU W4 serve recipe are committed; no training executed.",
   "external_blocker": "PBS capacity queue is currently full; the W4 serving job is queued and no pilot calls have been submitted.",
