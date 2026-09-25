@@ -23,6 +23,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from harness.w4_scenarios import (  # noqa: E402
     DOMAINS,
+    LATTICE_SEED,
     MECHANISMS,
     PROPERTIES,
     TWISTS,
@@ -30,7 +31,6 @@ from harness.w4_scenarios import (  # noqa: E402
     lattice,
 )
 
-LATTICE_SEED = 20260718
 CELLS_PER_SHARD = 25
 RUNS = Path("results/runs")
 

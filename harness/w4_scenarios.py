@@ -30,6 +30,8 @@ from pathlib import Path
 
 from .w2_loop import NLMissingProperty, parse_nl, run_loop_for_seed
 
+LATTICE_SEED = 20260718
+
 DOMAINS = [
     "a hospital operating-room scheduler", "an air-traffic runway allocator",
     "a warehouse robot fleet", "a bank's interbank settlement batch",
@@ -96,7 +98,7 @@ def module_name_for(c) -> str:
     return f"W4C{c[0]}x{c[1]}x{c[2]}x{c[3]}"
 
 
-def run_w4(model, out_dir: Path, n_cells: int, lattice_seed: int = 20260717,
+def run_w4(model, out_dir: Path, n_cells: int, lattice_seed: int = LATTICE_SEED,
            timeout: int = 60, max_iters: int = 4, canon=None):
     from .w21_funnel import load_canonical
     out_dir = Path(out_dir).resolve()   # ABSOLUTE (java.io.tmpdir trap, 2026-07-16)
@@ -178,7 +180,7 @@ def main(argv=None):
     ap.add_argument("--out", required=True)
     ap.add_argument("--model", required=True)
     ap.add_argument("--n-cells", type=int, default=400)
-    ap.add_argument("--lattice-seed", type=int, default=20260717)
+    ap.add_argument("--lattice-seed", type=int, default=LATTICE_SEED)
     ap.add_argument("--timeout", type=int, default=60)
     ap.add_argument("--max-iters", type=int, default=4)
     a = ap.parse_args(argv)
