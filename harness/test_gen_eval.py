@@ -223,8 +223,11 @@ def test_in_to_notin_mutation_does_not_touch_definition_delimiter():
 # ------------------------------------------------------ seed derivation
 
 def test_holdout_specs_and_hash_matches_frozen_ledger_digest():
-    # PLAN ledger entry 11 / E2C_HANDOFF.md record this exact digest for
-    # corpus/holdout_30.json; it must never drift silently.
+    # PLAN ledger entry 11 / E2C_HANDOFF.md record this exact digest for the
+    # holdout manifest; it must never drift silently. The manifest is stripped
+    # from the public mirror (ticket #11), so this needs a private root.
+    if not gen_eval.HOLDOUT_FILE.exists():
+        pytest.skip(f"holdout manifest not mounted at {gen_eval.HOLDOUT_FILE}")
     specs, digest = gen_eval.holdout_specs_and_hash()
     assert digest == "ecfc20533b9dc9a6e727ab989732310659d469eefbcc3705df72e3094ef54f78"
     assert len(specs) == 30

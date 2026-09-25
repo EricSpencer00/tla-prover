@@ -14,6 +14,8 @@ import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
+from . import private_data
+
 REPO = Path(__file__).resolve().parent.parent
 def _clear_workdir(workdir):
     """rmtree that survives the TLC states-dir race: a timed-out TLC's JVM can
@@ -329,7 +331,7 @@ def _write_local_deps(text: str, mod: str, mod2path: dict, workdir: Path, seen: 
             continue
         seen.add(d)
         dep_num = mod2path[d].stem
-        dep_patch = REPO / "corpus" / "configs" / "patches" / f"{dep_num}.tla"
+        dep_patch = private_data.resolve("corpus/configs/patches") / f"{dep_num}.tla"
         dtext = dep_patch.read_text(errors="replace") if dep_patch.exists() \
             else mod2path[d].read_text(errors="replace")
         (workdir / f"{d}.tla").write_text(dtext)
@@ -387,7 +389,7 @@ def _dispatch_criterion(num: str, mod: str, workdir: Path, cfg_dirs, timeout: in
                     w_num = w["corpus_spec"]
                     w_mod = num2mod[w_num]
                     w_path = mod2path[w_mod]
-                    w_patch = REPO / "corpus" / "configs" / "patches" / f"{w_num}.tla"
+                    w_patch = private_data.resolve("corpus/configs/patches") / f"{w_num}.tla"
                     w_text = w_patch.read_text(errors="replace") if w_patch.exists() \
                         else w_path.read_text(errors="replace")
                     (workdir / f"{w_mod}.tla").write_text(w_text)
@@ -397,7 +399,7 @@ def _dispatch_criterion(num: str, mod: str, workdir: Path, cfg_dirs, timeout: in
                         (workdir / f"{d}.tla").write_text(dtext)
                     tlc_mod = w_mod
                 else:
-                    w_text = (REPO / w["file"]).read_text()
+                    w_text = private_data.resolve(w["file"]).read_text()
                     (workdir / f"{w['module']}.tla").write_text(w_text)
                     # the vendored wrapper can itself need a corpus-local module the
                     # top-level spec doesn't transitively EXTEND (e.g. spec 47's own
@@ -463,7 +465,7 @@ def eval_spec(num: str, corpus: Path, num2mod, mod2path, cfg_dirs, workroot: Pat
     # documented corpus-defect repair (Amendment 1: "repaired from upstream sources";
     # for specs where the defect is upstream too, corpus/configs/PATCHES.md records
     # the minimal hand-authored fix): full-module override, same module name.
-    patch_file = REPO / "corpus" / "configs" / "patches" / f"{num}.tla"
+    patch_file = private_data.resolve("corpus/configs/patches") / f"{num}.tla"
     text = patch_file.read_text(errors="replace") if patch_file.exists() else tla_src.read_text(errors="replace")
     if patch_file.exists():
         row["source_origin"] = "patched"
@@ -547,7 +549,7 @@ def run_sweep(corpus: Path, run_id: str, stages, specs=None, timeout=120, jobs=6
     workroot = Path("/tmp/prove-tla-work") / run_id
     num2mod, mod2path = build_module_index(corpus)
     # precedence: explicit override (replaces broken original text) > original > draft
-    cfg_dirs = [("override", REPO / "corpus" / "configs" / "overrides"),
+    cfg_dirs = [("override", private_data.resolve("corpus/configs/overrides")),
                 ("original", corpus / "cfg")]
     if extra_cfg_dir:
         cfg_dirs.append(("draft", Path(extra_cfg_dir)))

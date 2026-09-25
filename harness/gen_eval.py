@@ -20,13 +20,14 @@ import time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
+from . import private_data
 from .decoding import derive_seed, extraction_divergence, generate_traced_compat
 from .mutation import MUTATIONS
 from .repair import make_model, verdict_of
 from .runner import REPO, build_module_index, eval_module_text
 
 DEFAULT_CORPUS = Path("/Users/eric/GitHub/tla_benchmark/data")
-HOLDOUT_FILE = REPO / "corpus" / "holdout_30.json"
+HOLDOUT_FILE = private_data.HOLDOUT_FILE
 # Amendment 12 frozen budget (PLAN ledger entry 12): never inline these elsewhere.
 TEMPERATURE = 0.8
 MAX_TOKENS = 16384
@@ -600,12 +601,12 @@ def summarize_passk(results, k):
 # --------------------------------------------------------- orchestration
 
 def holdout_specs_and_hash():
-    """The frozen 30-spec holdout (corpus/holdout_30.json, DO NOT MODIFY) and the
+    """The frozen 30-spec holdout (private, ticket #11: DO NOT MODIFY) and the
     sha256 of that file's bytes at read time -- this IS the "frozen holdout hash"
     the E2.c handoff refers to (PLAN ledger entry 11 records the same digest,
     ecfc2053...54f78, computed the identical way -- sha256 of the whole file).
     Framing-B corruption seeds are derived from this hash + spec number so they
-    are reproducible from the repo alone, with zero extra state to keep in sync."""
+    are reproducible from the manifest alone, with zero extra state to keep in sync."""
     raw = HOLDOUT_FILE.read_bytes()
     digest = hashlib.sha256(raw).hexdigest()
     specs = [str(n) for n in json.loads(raw)["holdout_specs"]]
@@ -616,7 +617,7 @@ def corruption_seed(holdout_hash: str, num: str):
     """Deterministic per-spec Framing-B corruption seed: int(sha256(f"{holdout_hash}:
     {num}").hexdigest()[:8], 16). Documented derivation (E2.c handoff): a function
     of the frozen holdout hash and the spec number only, so it is reproducible from
-    the repo alone and cannot be influenced by anything downstream of freezing."""
+    the manifest alone and cannot be influenced by anything downstream of freezing."""
     h = hashlib.sha256(f"{holdout_hash}:{num}".encode()).hexdigest()
     return int(h[:8], 16)
 

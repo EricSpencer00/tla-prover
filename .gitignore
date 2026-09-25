@@ -17,3 +17,8 @@ results/runs/smoke-e2e/merged_toy/
 scratch_w4/
 scratchpad_w4/
 .DS_Store
+
+# Gate-2 answer key: the holdout manifest and the hand-authored corpus configs.
+# Stripped from the public mirror (ticket #11); harness/private_data.py resolves
+# them from here, or from $TLA_PROVER_PRIVATE.
+private/

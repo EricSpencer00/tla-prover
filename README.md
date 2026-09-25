@@ -19,7 +19,7 @@ G1 without G2 is a lookup table. G2 without G1 means the harness itself is broke
 |---|---|
 | **Gate 0** — harness + oracle | ✅ signed off. `corpus/gate0_closed.json` freezes **170/206** closed (hash-pinned). |
 | **Gate 1** — Stage-1 repair sweep | ✅ signed off. oracle 171 / model-only **166/206** (audited) / oracle∪model **176/206**. See [GATE1_STATUS.md](GATE1_STATUS.md). |
-| **Stage 2 entry (E2.a–c)** | ✅ complete. Oracle reconciled, 30-spec holdout frozen (`corpus/holdout_30.json`), baseline frozen (`corpus/e2c_baseline.json`). |
+| **Stage 2 entry (E2.a–c)** | ✅ complete. Oracle reconciled, 30-spec holdout frozen (private, see [docs/PRIVATE_DATA.md](docs/PRIVATE_DATA.md)), baseline frozen (`corpus/e2c_baseline.json`). |
 | **Gate 2** — beat the frozen baseline | ❌ **measured and failed** on v2_sft2/120b (PLAN Amendment 16): A 11/30 vs 12/30, B 18/23 vs 20/23. Box stays unchecked. |
 | **Fine-tuning** | shelved for the v2 corpus (Amendment 17); the W2.6 20b directional reproduced diversity collapse with the task-shape confound removed. Corpus *source* — not method — was the binding constraint. |
 | **Structural levers** | measured null (Amendments 18–19): prompt scaffolding 4/70 vs 4/70 control; proof generation 0/20 unguided **and** 0/20 grammar-guided. |
@@ -94,7 +94,8 @@ That's the gap this repo exists to close. Every number above is:
    budget, and a command that reproduces it (Rule 3/8);
 2. **decontamination-aware** — the 206-corpus can score G1 only, never G2, because
    it's known to be in training data; G2 claims require a provably unseen holdout
-   (`corpus/holdout_30.json`, frozen before any training run);
+   (30 specs, frozen before any training run; the manifest is private —
+   [docs/PRIVATE_DATA.md](docs/PRIVATE_DATA.md));
 3. **audited for meaning, not just syntax** — Rule 9's semantic audit is the reason
    the model-only number *drops* from a naive 170 to an honest 166. A pass/fail
    count that skips this step overstates capability by design, not by accident —
@@ -143,7 +144,8 @@ it; the write-up is in
 - `docs/MODEL_METHOD_MATRIX.md` — the explicit matrix of base model × update
   method, including failed, retracted, shelved, and not-run entries.
 - `harness/` — verification + eval CLI (`run`, `repair`, `semaudit`, `gate1-report`, `gen-eval`).
-- `corpus/` — frozen artifacts (`gate0_closed.json`, `holdout_30.json`), patches, wrappers.
+- `corpus/` — frozen artifacts (`gate0_closed.json`, `e2c_baseline.json`) and per-spec policy.
+- `private/` — the Gate-2 answer key, not in this repo. See [docs/PRIVATE_DATA.md](docs/PRIVATE_DATA.md).
 - `results/runs/` — append-only per-run evidence (config, logs, summary, rows).
 - `results/analysis/` — re-scores and post-hoc analyses over those ledgers.
 - `docs/` — design docs, cell rules for the W4 corpus, session write-ups.

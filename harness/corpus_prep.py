@@ -25,6 +25,7 @@ import statistics
 from pathlib import Path
 from typing import Iterable
 
+from harness import private_data
 from harness.adequacy import structural_features, complexity_score
 
 from harness import w4_corpus
@@ -463,7 +464,7 @@ def build_sft_file(survivor_dirs: list, out_path, min_tier: int | None = None,
 # CLI
 # ---------------------------------------------------------------------------
 
-DEFAULT_HOLDOUT = Path("corpus/holdout_30.json")
+DEFAULT_HOLDOUT = private_data.HOLDOUT_FILE
 
 
 def _fmt_stats(stats: dict) -> str:
