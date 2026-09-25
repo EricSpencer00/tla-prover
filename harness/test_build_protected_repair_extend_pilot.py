@@ -1,5 +1,8 @@
 import json
+import os
 from pathlib import Path
+
+import pytest
 
 from tools.build_protected_repair_extend_pilot import (
     HOLDOUT_SHA256,
@@ -8,12 +11,17 @@ from tools.build_protected_repair_extend_pilot import (
 )
 
 
-ROOT = Path(__file__).resolve().parents[1]
-CORPUS = Path("/Users/eric/GitHub/tla_benchmark/data")
+CORPUS = Path(os.environ["TLA_BENCHMARK_DATA"]) if os.environ.get("TLA_BENCHMARK_DATA") else None
+
+
+def _build_packet():
+    if CORPUS is None or not CORPUS.is_dir():
+        pytest.skip("set TLA_BENCHMARK_DATA to run against the private benchmark corpus")
+    return build_packet(CORPUS)
 
 
 def test_packet_is_frozen_metadata_only():
-    manifest, packet = build_packet(CORPUS)
+    manifest, packet = _build_packet()
     assert manifest["case_count"] == 30
     assert manifest["holdout_sha256"] == HOLDOUT_SHA256
     assert len(manifest["cases"]) == 30
@@ -32,7 +40,7 @@ def test_packet_is_frozen_metadata_only():
 
 
 def test_stratification_and_dependency_hashes_are_complete():
-    manifest, _ = build_packet(CORPUS)
+    manifest, _ = _build_packet()
     assert manifest["stratification"]["family_counts"] == {
         "clocks_time": 2,
         "consensus": 1,
@@ -63,7 +71,7 @@ def test_stratification_and_dependency_hashes_are_complete():
 
 
 def test_manifest_has_no_embedded_tla_or_output_text():
-    manifest, packet = build_packet(CORPUS)
+    manifest, packet = _build_packet()
     encoded = json.dumps({"manifest": manifest, "packet": packet})
     assert "---- MODULE" not in encoded
     assert "model_output" not in packet
