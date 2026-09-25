@@ -1,0 +1,42 @@
+{
+  "answer_bearing_content_found": false,
+  "case_count": 30,
+  "cfg_counts": {
+    "applicable": 24,
+    "present": 30
+  },
+  "cuda_or_gpu_executed": false,
+  "dependency_count": 30,
+  "family_counts": {
+    "clocks_time": 2,
+    "consensus": 1,
+    "counters_registers": 3,
+    "mutex_locks": 9,
+    "network_channels": 2,
+    "other": 12,
+    "queues_buffers": 1
+  },
+  "guards": [
+    "frozen holdout hash",
+    "Gate-0 closure membership",
+    "exact family and population coverage",
+    "canonical source/config/dependency hashes",
+    "metadata-only answer leakage scan",
+    "four-arm binding and GPU submission hold"
+  ],
+  "holdout_sha256": "ecfc20533b9dc9a6e727ab989732310659d469eefbcc3705df72e3094ef54f78",
+  "independent_sany_tlc_tlaps_executed": false,
+  "kind": "protected_repair_extend_pilot_preflight_v1",
+  "manifest_sha256": "34e983420f6441fb3ee11bf81d00fd1c5de595a33c3ba4bad5e8b753cdc2edf0",
+  "packet_sha256": "37f4d2383e775671b9eec75afed022368037e4ad637b89a009dbe810a29df892",
+  "population_counts": {
+    "expected_violation": 1,
+    "library": 4,
+    "proof_module": 2,
+    "state_machine": 23
+  },
+  "qsub_submitted": false,
+  "schema": 1,
+  "source_count": 30,
+  "unique_source_hashes": 29
+}

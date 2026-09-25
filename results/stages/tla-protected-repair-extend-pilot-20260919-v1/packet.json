@@ -1,0 +1,72 @@
+{
+  "candidate_budget": {
+    "candidates_per_arm": 8,
+    "max_outputs_per_case_per_arm": 10,
+    "repair_attempts": 2,
+    "repair_scope": "two highest-ranked candidates that fail the applicable verifier stage",
+    "selection": "fixed per-arm seed schedule; verifier results cannot train or rank candidates"
+  },
+  "claims": {
+    "gate_claim": false,
+    "generalization_claim": false,
+    "model_improvement_claim": false,
+    "nonvacuity_claim": false,
+    "proof_claim": false,
+    "quality_claim": false,
+    "tlc_claim": false,
+    "training_executed": false
+  },
+  "design": {
+    "arm_artifact_binding_complete": false,
+    "arm_artifact_hashes": {
+      "base": null,
+      "child": null,
+      "child_repair": null,
+      "parent": null
+    },
+    "arm_artifacts_must_be_bound_before_submission": true,
+    "arms": [
+      "base",
+      "parent",
+      "child",
+      "child_repair"
+    ],
+    "four_arms_if_affordable": true,
+    "gpu_submission_blocked_until_arm_binding": true,
+    "minimum_arms": 2
+  },
+  "execution": {
+    "gpu_submitted": false,
+    "local_preflight_only": true,
+    "qsub_submitted": false
+  },
+  "failure_mode_taxonomy": [
+    "sany_contract",
+    "tlc_nonvacuity",
+    "tlaps_strict",
+    "repair_budget_exhausted"
+  ],
+  "kind": "protected_repair_extend_pilot_packet_v1",
+  "manifest_sha256": "b573a9bae61a704ce27717592910aac9e095ab7077e5db86e02aa8d1198aade1",
+  "promotion_gate": {
+    "case_level_deduplication": true,
+    "certified_case": "independent strict pass of every applicable stage",
+    "minimum_certified_cases": 3,
+    "minimum_failure_modes": 2,
+    "must_be_newly_certified_by_promoted_arm": true,
+    "no_denominator_changes": true,
+    "no_generated_feedback_or_reward": true
+  },
+  "schema": 1,
+  "scorer_assets": {
+    "harness/gen_eval.py": "f8579d8aeec3c310bedb5012321e8778a510f6a5ea89fe59adb21276bf8c2e91",
+    "harness/proof_ladder_check.py": "c9a8c1496fc75c7aa051a2e6d0f0eb79550c56ac713a51d098f4164891c78efd",
+    "harness/runner.py": "c95fc87cb159693f0d37b46aed9ce797ef31b5eea459d0f3e12df65a88153917",
+    "tools/tla2tools.jar": "936a262061c914694dfd669a543be24573c45d5aa0ff20a8b96b23d01e050e88"
+  },
+  "training_input_policy": {
+    "holdout_answers_in_training": false,
+    "holdout_reference_fragments_in_training": false,
+    "holdout_repairs_in_training": false
+  }
+}
