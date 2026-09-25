@@ -1,0 +1,107 @@
+#!/bin/bash
+# Run the frozen protected repair-and-extend pilot on the same Polaris node as
+# the four-GPU W4 serve. The base model uses the existing authenticated ALCF
+# route; credentials are supplied by the short-lived token helper at runtime.
+# Override OPENAI_BASE_URL or OPENAI_API_KEY_CMD at submission time when the
+# facility route changes. No credential belongs in this file or the ledger.
+#PBS -N tla-protected-pilot
+#PBS -A EVITA
+#PBS -q capacity
+#PBS -l select=1:ngpus=4:ncpus=128:mem=480gb
+#PBS -l place=pack:shared
+#PBS -l walltime=12:00:00
+#PBS -l filesystems=home:grand
+#PBS -V
+#PBS -j oe
+set -euxo pipefail
+
+JOB=${PBS_JOBID%%.*}
+exec > "/home/eric-spencer/protected_pilot.${JOB}.log" 2>&1
+ROOT=${PBS_O_WORKDIR:-$PWD}
+cd "$ROOT"
+
+PACKET=${PILOT_PACKET:-$ROOT/results/runs/proof-protected-repair-pilot-20260919-v2/packet.json}
+OUTPUT=${PILOT_OUTPUT:-$ROOT/results/runs/proof-protected-repair-pilot-20260919-v2/polaris-${JOB}}
+EXPECTED_PACKET_SHA=a7902debb566503af613da6c28b0415953147e3fd1e14102853825d5dd9e5416
+
+test "$(sha256sum "$PACKET" | awk '{print $1}')" = "$EXPECTED_PACKET_SHA"
+# Prefer the short-lived helper even when qsub propagated a stale static key.
+unset OPENAI_API_KEY OPENAI_API_KEY_OPENAI_GPT_OSS_120B OPENAI_API_KEY_CHATTLA_W4DGM_120B
+export OPENAI_BASE_URL="${OPENAI_BASE_URL:-https://inference-api.alcf.anl.gov/resource_server/sophia/vllm/v1}"
+export OPENAI_API_KEY_CMD="${OPENAI_API_KEY_CMD:-$HOME/.venvs/alcf-inference/get_token.sh}"
+export OPENAI_BASE_URL_OPENAI_GPT_OSS_120B="${OPENAI_BASE_URL_OPENAI_GPT_OSS_120B:-$OPENAI_BASE_URL}"
+export OPENAI_API_KEY_CMD_OPENAI_GPT_OSS_120B="${OPENAI_API_KEY_CMD_OPENAI_GPT_OSS_120B:-$OPENAI_API_KEY_CMD}"
+export OPENAI_BASE_URL_CHATTLA_W4DGM_120B="${OPENAI_BASE_URL_CHATTLA_W4DGM_120B:-http://127.0.0.1:8321/v1}"
+export OPENAI_API_KEY_CHATTLA_W4DGM_120B="${OPENAI_API_KEY_CHATTLA_W4DGM_120B:-dummy}"
+
+# Exercise the authenticated route without putting the bearer token in a
+# process argument, log, or result artifact. Fail before starting vLLM when
+# the restored helper or the frozen base model is unavailable.
+OPENAI_BASE_URL="$OPENAI_BASE_URL" OPENAI_API_KEY_CMD="$OPENAI_API_KEY_CMD" \
+python - <<'PY'
+import json
+import os
+import subprocess
+import urllib.request
+
+base = os.environ["OPENAI_BASE_URL"].rstrip("/")
+command = os.environ["OPENAI_API_KEY_CMD"]
+token = subprocess.check_output(command, shell=True, text=True, timeout=120).strip()
+if not token:
+    raise SystemExit("token helper returned an empty token")
+request = urllib.request.Request(
+    base + "/models", headers={"Authorization": "Bearer " + token}
+)
+with urllib.request.urlopen(request, timeout=60) as response:
+    models = json.load(response).get("data", [])
+ids = {item.get("id") for item in models}
+if "openai/gpt-oss-120b" not in ids:
+    raise SystemExit("authenticated route does not expose openai/gpt-oss-120b")
+print("authenticated base route exposes frozen model")
+PY
+
+ulimit -n 65536 || true
+export TIKTOKEN_RS_CACHE_DIR=/grand/EVITA/eric-spencer/tiktoken-rs-cache
+module load conda/2026-06-08 >/dev/null 2>&1
+export PYTHONPATH=$HOME/.local/lib/python3.13/site-packages
+conda activate base >/dev/null 2>&1
+export HF_HUB_OFFLINE=1
+export HF_HOME=/grand/EVITA/eric-spencer/hf-cache
+export VLLM_LOGGING_LEVEL=INFO
+export OMP_NUM_THREADS=8
+export OPENBLAS_NUM_THREADS=1
+export MKL_NUM_THREADS=1
+export NUMEXPR_NUM_THREADS=1
+export VECLIB_MAXIMUM_THREADS=1
+
+python -c 'import vllm, torch, transformers' >/dev/null 2>&1 || true
+python -c 'import cv2' >/dev/null 2>&1 || true
+
+vllm serve /grand/EVITA/eric-spencer/chattla_artifacts/merged_w4dg_mech_120b \
+  --tokenizer /grand/EVITA/eric-spencer/chattla_artifacts/merged_w4dg_mech_120b \
+  --served-model-name chattla-w4dgm-120b \
+  --tensor-parallel-size 4 \
+  --max-model-len 32768 \
+  --gpu-memory-utilization 0.90 \
+  --max-num-seqs 8 \
+  --enforce-eager \
+  --port 8321 \
+  --host 127.0.0.1 \
+  --trust-remote-code >"/home/eric-spencer/protected_pilot_vllm.${JOB}.log" 2>&1 &
+SERVER_PID=$!
+trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+
+for _ in $(seq 1 180); do
+  if curl --fail --silent http://127.0.0.1:8321/health >/dev/null; then
+    break
+  fi
+  sleep 2
+done
+curl --fail --silent http://127.0.0.1:8321/v1/models | \
+  python -c 'import json,sys; ids={x.get("id") for x in json.load(sys.stdin).get("data", [])}; assert "chattla-w4dgm-120b" in ids, ids'
+
+python -u tools/proof_protected_repair_pilot.py run \
+  --packet "$PACKET" \
+  --output "$OUTPUT" \
+  --base-model openai/gpt-oss-120b \
+  --w4-model chattla-w4dgm-120b

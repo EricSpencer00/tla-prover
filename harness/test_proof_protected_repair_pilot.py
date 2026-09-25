@@ -63,3 +63,20 @@ def test_model_specific_endpoint_overrides_global_route(monkeypatch):
 
     assert model.url == "http://127.0.0.1:8321/v1/chat/completions"
     assert model.key == "local"
+
+
+def test_polaris_launcher_restores_credential_free_route_contract():
+    launcher = (ROOT / "tools/protected_repair_pilot_polaris.pbs").read_text()
+    assert "#PBS -V" in launcher
+    assert (
+        'export OPENAI_BASE_URL="${OPENAI_BASE_URL:-'
+        "https://inference-api.alcf.anl.gov/resource_server/sophia/vllm/v1}"
+    ) in launcher
+    assert (
+        'export OPENAI_API_KEY_CMD="${OPENAI_API_KEY_CMD:-'
+        "$HOME/.venvs/alcf-inference/get_token.sh}"
+    ) in launcher
+    assert 'OPENAI_BASE_URL_OPENAI_GPT_OSS_120B' in launcher
+    assert 'OPENAI_API_KEY_CMD_OPENAI_GPT_OSS_120B' in launcher
+    assert 'OPENAI_BASE_URL_CHATTLA_W4DGM_120B' in launcher
+    assert "EXPECTED_PACKET_SHA=a7902debb566503af613da6c28b0415953147e3fd1e14102853825d5dd9e5416" in launcher
